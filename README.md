@@ -109,8 +109,7 @@ eval = SensorEvaluation(
                 write_to_file=True)
 ```
 
-The following will be printed to the console indicating sensor data are loaded,
-AirNowTech reference data for the sensor testing timeframe are loaded in monthly intervals for parameter types present in the recorded sensor data (`PM` for parameters headers labeled `PM1`, `PM25`, and `PM10`; `Gases` for parameters headers labeled `O3`, `NO2`, `NO`, `NOx`, `SO2`, `SOx`, `CO`, and `CO2`; `Met` for parameters headers labeled `Temp`, `RH`, `Press`, `DP`, `WS`, and `WD`), and sensor concentrations are normalized against reference measurements. The test dataset includes `PM25`, `PM10`, `NO2`, `O3`, `Temp`, and `RH`, so reference data sets for `PM`, `Gases`, and `Met` The mean across sensor measurements is also calculated.
+When creating an evaluation class instance with the code snippet above, the following will be printed to the console:
 ```
 Loading processed sensor data
 ..Example_Make_Model_SN01_daily.csv
@@ -136,3 +135,8 @@ Computing normalized PM25 values (by T-API T640X at 16.67 LPM)
 Computing mean parameter values across concurrent sensor datasets
 Computing mean parameter values across concurrent sensor datasets
 ```
+Below is a step-by-step description of the console output:
+* Processed sensor data are loaded
+* AirNowTech reference data for the sensor testing timeframe are loaded in monthly intervals for parameter types present in the recorded sensor data (`PM` for parameters headers labeled `PM1`, `PM25`, and `PM10`; `Gases` for parameters headers labeled `O3`, `NO2`, `NO`, `NOx`, `SO2`, `SOx`, `CO`, and `CO2`; `Met` for parameters headers labeled `Temp`, `RH`, `Press`, `DP`, `WS`, and `WD`). The test dataset includes `PM25`, `PM10`, `NO2`, `O3`, `Temp`, and `RH`, so reference data sets for `PM`, `Gases`, and `Met`.
+* Sensor `PM25` concentrations are normalized against reference measurements.
+* The mean across sensor measurements is also calculated.
