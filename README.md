@@ -37,3 +37,6 @@ test = SensorEvaluation(
                 load_raw_data=False,
                 write_to_file=True)
 ```
+
+
+![Performance Evaluation Results](/Data and Figures/figures/Example_Make_Model/PM25/Example_Make_Model_regresson_boxplot_PM25_210517.png)
