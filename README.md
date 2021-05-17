@@ -146,29 +146,30 @@ Below is a step-by-step description of the console output:
 ## Data Dictionary
 
 #### Sensor data
-| Parameter Classification | Description                                              | Parameter Label              | Units                       |
-| ------------------------ | -------------------------------------------------------- | ---------------------------- | --------------------------- |
-| Pollutant; PM            | Particulate matter < 1 micrometer in aerosol diameter    | `PM1`                        | Micrograms/cubic meter      |
-| Pollutant; Criteria; PM  | Particulate matter < 2.5 micrometers in aerosol diameter | `PM25`                       | Micrograms/cubic meter      |
-| Pollutant; Criteria; PM  | Particulate matter < 10 micrometers in aerosol diameter  | `PM10`                       | Micrograms/cubic meter      |
-| Pollutant; Criteria; Gas | Ozone                                                    | `O3`                         | Parts per billion by volume |
-| Pollutant; Gas           | Nitrogen Monoxide                                        | `NO`                         |                             |
-| Pollutant; Criteria; Gas | Nitrogen Dioxide                                         | `NO2`                        | Parts per billion by volume |
-| Pollutant; Gas           | Nitrogen Oxides                                          | `NOx`                        |                             |
-| Pollutant; Criteria; Gas | Sulfur Dioxide                                           | `SO2`                        | Parts per billion by volume |
-| Pollutant; Gas           | Sulfur Dioxides                                          | `SOx`                        |                             |
-| Pollutant; Criteria; Gas | Carbon Monoxide                                          | `CO`                         | Parts per million by volume |
-| Pollutant; Gas           | Carbon Dioxide                                           | `CO2`                        |                             |
-| Meteorological           | Relative Humidity                                        | `RH`                         | Percent                     |
-| Meteorological           | Temperature                                              | `Temp`                       | Degrees Celsius             |
-| Meteorological           | Dewpoint                                                 | `DP`\*                       | Degrees Celsius             |
-| Meteorological           | Wind Speed                                               | `WS`                         | Meters/second               |
-| Meteorological           | Wind Direction                                           | `WD`                         | Radians                     |
-| Meteorological           | Pressure                                                 | `Press`                      |                             |
-| Metadata                 | Parameter QC Code                                        | `[parameter name]_QC`        | N/a                         |
-| Metadata; Sensor Siting  | Latitude of sensor                                       | `Sensor_Lat`                 | Decimal degrees             |
-| Metadata; Sensor Siting  | Longitude of sensor                                      | `Sensor_Lon`                 | Decimal degrees             |
-| Performance evaluation   | Parameter data normalized by corresponding reference     | `[parameter name]_Normalized`| N/a                         |
+| Parameter Classification | Parameter Label             | Description                                              | Units                       |
+| ------------------------ | -------------------------- | -------------------------------------------------------- | --------------------------- |
+| Pollutant; PM            | `PM1`                        | Particulate matter < 1 micrometer in aerosol diameter    | Micrograms/cubic meter      |
+| Pollutant; Criteria; PM  | `PM25`                       | Particulate matter < 2.5 micrometers in aerosol diameter | Micrograms/cubic meter      |
+| Pollutant; Criteria; PM  | `PM10`                       | Particulate matter < 10 micrometers in aerosol diameter  | Micrograms/cubic meter      |
+| Pollutant; Criteria; Gas | `O3`                         | Ozone                                                    | Parts per billion by volume |
+| Pollutant; Gas           | `NO`                         | Nitrogen Monoxide                                        |                             |
+| Pollutant; Criteria; Gas | `NO2`                        | Nitrogen Dioxide                                         | Parts per billion by volume |
+| Pollutant; Gas           | `NOx`                        | Nitrogen Oxides                                          |                             |
+| Pollutant; Criteria; Gas | `SO2`                        | Sulfur Dioxide                                           | Parts per billion by volume |
+| Pollutant; Gas           | `SOx`                        | Sulfur Dioxides                                          |                             |
+| Pollutant; Criteria; Gas | `CO`                         | Carbon Monoxide                                          | Parts per million by volume |
+| Pollutant; Gas           | `CO2`                        | Carbon Dioxide                                           |                             |
+| Meteorological           | `RH`                         | Relative Humidity                                        | Percent                     |
+| Meteorological           | `Temp`                       | Temperature                                              | Degrees Celsius             |
+| Meteorological           | `DP`*                       | Dewpoint                                                 | Degrees Celsius             |
+| Meteorological           | `WS`                         | Wind Speed                                               | Meters/second               |
+| Meteorological           | `WD`                         | Wind Direction                                           | Radians                     |
+| Meteorological           | `Press`                      | Pressure                                                 |                             |
+| Metadata                 | `[param name]_QC`         | Parameter QC Code                                        | N/a                         |
+| Metadata; Sensor Siting  | `Sensor_Lat`                | Latitude of sensor                                       | Decimal degrees             |
+| Metadata; Sensor Siting  | `Sensor_Lon`                | Longitude of sensor                                      | Decimal degrees             |
+| Performance evaluation   | `[param name]_Normalized` | Parameter data normalized by corresponding reference     | N/a                         |
+
 
 *If internal Temp and RH are measured, but not DP, DP is calculated via the `Dewpoint()` module and is labeled `DP_calculated`
 #### Reference data
