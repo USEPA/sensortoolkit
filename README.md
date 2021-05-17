@@ -50,7 +50,7 @@ AIRS_bbox = {"minLat": "35.88",
              "maxLong": "-78.87"}
 
 # Mock evaluation using AIRS reference data obtained from the AirNow API
-test = SensorEvaluation(sensor_name='Example_Make_Model',
+eval = SensorEvaluation(sensor_name='Example_Make_Model',
                         eval_param='PM25',
                         reference_data='AirNow',
                         bbox=AIRS_bbox,
@@ -73,7 +73,7 @@ triple_oaks_ID = {"state": "37",
                   "site": "0021"}
 
 # Mock evaluation using Triple Oaks reference data obtained from the AQS API
-test = SensorEvaluation(sensor_name='Example_Make_Model',
+eval = SensorEvaluation(sensor_name='Example_Make_Model',
                         eval_param='PM25',
                         reference_data='AQS',
                         aqs_id=triple_oaks_ID,
@@ -97,7 +97,7 @@ airnowtech_path = (ref_path + '/airnowtech/downloaded_datasets/' +
 se.Import_AirNowTech(airnowtech_path)
 
 # Mock evaluation using AIRS reference data downloaded from AirNowTech
-test = SensorEvaluation(
+eval = SensorEvaluation(
                 sensor_name='Example_Make_Model',
                 eval_param='PM25',
                 reference_data=ref_path.as_posix() + '/airnowtech/processed',
@@ -107,4 +107,32 @@ test = SensorEvaluation(
                 tzone_shift=5,
                 load_raw_data=False,
                 write_to_file=True)
+```
+
+The following will be printed to the console indicating sensor data are loaded,
+AirNowTech reference data for the sensor testing timeframe are loaded in monthly intervals for parameter types present in the recorded sensor data (`PM` for parameters headers labeled `PM1`, `PM25`, and `PM10`; `Gases` for parameters headers labeled `O3`, `NO2`, `NO`, `NOx`, `SO2`, `SOx`, `CO`, and `CO2`; `Met` for parameters headers labeled `Temp`, `RH`, `Press`, `DP`, `WS`, and `WD`), and sensor concentrations are normalized against reference measurements. The test dataset includes `PM25`, `PM10`, `NO2`, `O3`, `Temp`, and `RH`, so reference data sets for `PM`, `Gases`, and `Met` The mean across sensor measurements is also calculated.
+```
+Loading processed sensor data
+..Example_Make_Model_SN01_daily.csv
+..Example_Make_Model_SN01_full.csv
+..Example_Make_Model_SN01_hourly.csv
+..Example_Make_Model_SN02_daily.csv
+..Example_Make_Model_SN02_full.csv
+..Example_Make_Model_SN02_hourly.csv
+..Example_Make_Model_SN03_daily.csv
+..Example_Make_Model_SN03_full.csv
+..Example_Make_Model_SN03_hourly.csv
+Loading reference dataframes
+..2019-08
+....H_201908_PM.csv
+....H_201908_Met.csv
+....H_201908_Gases.csv
+..2019-09
+....H_201909_PM.csv
+....H_201909_Met.csv
+....H_201909_Gases.csv
+Computing normalized PM25 values (by T-API T640X at 16.67 LPM)
+Computing normalized PM25 values (by T-API T640X at 16.67 LPM)
+Computing mean parameter values across concurrent sensor datasets
+Computing mean parameter values across concurrent sensor datasets
 ```
