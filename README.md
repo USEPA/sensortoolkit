@@ -165,10 +165,29 @@ Below is a step-by-step description of the console output:
 | Meteorological           | Wind Speed                                               | `WS`                         | Meters/second               |
 | Meteorological           | Wind Direction                                           | `WD`                         | Radians                     |
 | Meteorological           | Pressure                                                 | `Press`                      |                             |
-| Metadata                 | Parameter QC Code                                        | `[param name]_QC`         | N/a                         |
-| Metadata; Sensor Siting  | Latitude of sensor                                       | `Sensor_Lat`                | Decimal degrees             |
-| Metadata; Sensor Siting  | Longitude of sensor                                      | `Sensor_Lon`                | Decimal degrees             |
-| Performance evaluation   | Parameter data normalized by corresponding reference     | `[param name]_Normalized` | N/a                         |
+| Metadata                 | Parameter QC Code                                        | `[parameter name]_QC`        | N/a                         |
+| Metadata; Sensor Siting  | Latitude of sensor                                       | `Sensor_Lat`                 | Decimal degrees             |
+| Metadata; Sensor Siting  | Longitude of sensor                                      | `Sensor_Lon`                 | Decimal degrees             |
+| Performance evaluation   | Parameter data normalized by corresponding reference     | `[parameter name]_Normalized`| N/a                         |
 
 *If internal Temp and RH are measured, but not DP, DP is calculated via the `Dewpoint()` module and is labeled `DP_calculated`
 #### Reference data
+Using `PM25` as an example case. The column naming scheme is consistent for other parameter columns.
+
+| Column Header                 | Description                                          |
+| ----------------------------- | ---------------------------------------------------- |
+| `DateTime_UTC`                 | Timestamp                                            |
+| `PM25_Value`                   | Parameter value                                      |
+| `PM25_Unit`                    | Parameter units                                      |
+| `PM25_QAQC_Code`              | Parameter QC code                                    |
+| `PM25_Param_Code`             | Parameter AQS code                                   |
+| `PM25_Method`                  | Parameter Method (Instrument)                        |
+| `PM25_Method_Code`            | Parameter Method AQS Code                            |
+| `PM25_Method_POC`             | Parameter Occurance Code                             |
+| `Agency`                        | Reporting Agency overseeing site                     |
+| `Site_Name`                    | Name of monitoring site                              |
+| `Site_AQS`                     | Site AQS ID (combine state, county, site FIPS codes) |
+| `Site_Lat`                     | Site Latitude                                        |
+| `Site_Lon`                     | Site Longitude                                       |
+| `Data_Source`                  | Name of API data source                              |
+| `Data_Acquisition_Date_Time` | Date and Time of data query, acquisition             |
