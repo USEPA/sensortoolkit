@@ -37,5 +37,3 @@ test = SensorEvaluation(
                 load_raw_data=False,
                 write_to_file=True)
 ```
-
-![Performance Evaluation Results](https://bitbucket.epa.gov/users/sfrede01/repos/sensor-evaluation/browse/Data%20and%20Figures/figures/Example_Make_Model/PM25/Example_Make_Model_regression_boxplot_PM25_210517.png)
