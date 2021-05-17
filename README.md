@@ -19,7 +19,7 @@ measuring PM<sub>2.5</sub> and O<sub>3</sub> against FRM/FEM reference
 measurements including calculation of performance metrics and comparison against
 target ranges recommended by EPA.
 
-Below is a summary of key features contained in this library:
+##### Below is a summary of key features contained in this library:
 * Under construction
 
 Users must provide an ingestion module for importing recorded sensor data into a data formatting standard developed for this project.
