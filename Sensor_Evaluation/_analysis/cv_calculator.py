@@ -44,9 +44,9 @@ def CV_Calculator(cv_df, sensor_numbers, param):
     after_drop_n = len(cv_df)
     n_excluded = before_drop_n - after_drop_n
 
-    print("...N excluded:", n_excluded, "out of", before_drop_n, "total.")
-    print("...N concurrent:", after_drop_n)
-    print("...Concurrent Measurement Timeframe:", cv_df.index[0], '-',
+    print("..N excluded:", n_excluded, "out of", before_drop_n, "total.")
+    print("..N concurrent:", after_drop_n)
+    print("..Concurrent Measurement Timeframe:", cv_df.index[0], '-',
           cv_df.index[-1])
 
     n_sensors = 0
