@@ -140,3 +140,33 @@ Below is a step-by-step description of the console output:
 * AirNowTech reference data for the sensor testing timeframe are loaded in monthly intervals for parameter types present in the recorded sensor data (`PM` for parameters headers labeled `PM1`, `PM25`, and `PM10`; `Gases` for parameters headers labeled `O3`, `NO2`, `NO`, `NOx`, `SO2`, `SOx`, `CO`, and `CO2`; `Met` for parameters headers labeled `Temp`, `RH`, `Press`, `DP`, `WS`, and `WD`). The test dataset includes `PM25`, `PM10`, `NO2`, `O3`, `Temp`, and `RH`, so reference data sets for `PM`, `Gases`, and `Met`.
 * Sensor `PM25` concentrations are normalized against reference measurements.
 * The mean across sensor measurements is also calculated.
+
+
+
+## Data Dictionary
+
+#### Sensor data
+| Parameter Classification | Description                                              | Label                      | Units                       |
+| ------------------------ | -------------------------------------------------------- | -------------------------- | --------------------------- |
+| Pollutant; PM            | Particulate matter < 1 micrometer in aerosol diameter    | PM1                        | Micrograms/cubic meter      |
+| Pollutant; Criteria; PM  | Particulate matter < 2.5 micrometers in aerosol diameter | PM25                       | Micrograms/cubic meter      |
+| Pollutant; Criteria; PM  | Particulate matter < 10 micrometers in aerosol diameter  | PM10                       | Micrograms/cubic meter      |
+| Pollutant; Criteria; Gas | Ozone                                                    | O3                         | Parts per billion by volume |
+| Pollutant; Gas           | Nitrogen Monoxide                                        | NO                         |                             |
+| Pollutant; Criteria; Gas | Nitrogen Dioxide                                         | NO2                        | Parts per billion by volume |
+| Pollutant; Gas           | Nitrogen Oxides                                          | NOx                        |                             |
+| Pollutant; Criteria; Gas | Sulfur Dioxide                                           | SO2                        | Parts per billion by volume |
+| Pollutant; Gas           | Sulfur Dioxides                                          | SOx                        |                             |
+| Pollutant; Criteria; Gas | Carbon Monoxide                                          | CO                         | Parts per million by volume |
+| Pollutant; Gas           | Carbon Dioxide                                           | CO2                        |                             |
+| Meteorological           | Relative Humidity                                        | RH                         | Percent                     |
+| Meteorological           | Temperature                                              | Temp                       | Degrees Celsius             |
+| Meteorological           | Dewpoint                                                 | DP\*                       | Degrees Celsius             |
+| Meteorological           | Wind Speed                                               | WS                         | Meters/second               |
+| Meteorological           | Wind Direction                                           | WD                         | Radians                     |
+| Meteorological           | Pressure                                                 | Press                      |                             |
+| Metadata                 | Parameter QC Code                                        | \[param name\]\_QC         | N/a                         |
+| Metadata; Sensor Siting  | Latitude of sensor                                       | Sensor\_Lat                | Decimal degrees             |
+| Metadata; Sensor Siting  | Longitude of sensor                                      | Sensor\_Lon                | Decimal degrees             |
+| Performance evaluation   | Parameter data normalized by corresponding reference     | \[param name\]\_Normalized | N/a                         |
+#### Reference data
