@@ -14,9 +14,9 @@ monitoring applications.
 In February 2021, EPA released [two reports](https://www.epa.gov/air-sensor-toolbox/air-sensor-performance-targets-and-testing-protocols#reports) detailing recommended performance testing protocols, metrics, and target values for the evaluation of sensors measuring either fine particulate matter (PM<sub>2.5</sub>) or ozone (O<sub>3</sub>). This library provides modules for testing air sensors measuring PM<sub>2.5</sub> and O<sub>3</sub> against FRM/FEM reference measurements collected at an ambient air monitoring site. Included modules calculation of performance metrics and comparison against target ranges recommended by EPA.
 
 ##### Below is a summary of key features contained in this library:
-* *Under construction*
 * Time averaging of timeseries data to 1-hour and 24-hour intervals with configurable data completeness threshold for computing averages (default 75%).
 * Reference data retrieval from AirNow and AQS APIs (user API accounts and keys must be specified). Ingestion of reference data into a consistent data formatting standard. Import and ingestion of reference data from AirNowTech including multiple parameters and pollutant types. Reference data are sorted by parameter type (particulate matter, gaseous pollutants, and meteorological parameters) and files are saved in monthly increments to .csv files.
+* *Under construction*
 
 Users must provide an ingestion module for importing recorded sensor data into a data formatting standard developed for this project.
 
@@ -41,6 +41,8 @@ Reference data can be retrieved by either API query or import of local data file
 
 #### Example using AirNow for retrieving reference data
 ```python
+from Sensor_Evaluation.sensor_eval_class import SensorEvaluation
+
 # bounding box for AIRS [set narrow margins (+/- 0.01 deg) around known coordinates]
 AIRS_bbox = {"minLat": "35.88",
              "maxLat": "35.89",
@@ -62,6 +64,8 @@ test = SensorEvaluation(sensor_name='Example_Make_Model',
 
 #### Example using AQS for retrieving reference data
 ```python
+from Sensor_Evaluation.sensor_eval_class import SensorEvaluation
+
 # Mock evaluation using Triple Oak AQS site (nearby AIRS) reference data
 # obtained from the AQS API
 triple_oaks_ID = {"state": "37",
@@ -83,6 +87,15 @@ test = SensorEvaluation(sensor_name='Example_Make_Model',
 
 #### Example using downloaded AirNowTech datasets
 ```python
+from Sensor_Evaluation.sensor_eval_class import SensorEvaluation
+
+ref_path = 'path/to/project/.../Sensor Evaluation/Data and Figures/reference_data'
+
+# Pre-process downloaded AirNowTech file, create separate, monthly files for PM, gas, and met
+airnowtech_path = (ref_path + '/airnowtech/downloaded_datasets/' +
+                   'AirNowTech_BurdensCreek_20190801_20190902_PMGasMet.csv')
+se.Import_AirNowTech(airnowtech_path)
+
 # Mock evaluation using AIRS reference data downloaded from AirNowTech
 test = SensorEvaluation(
                 sensor_name='Example_Make_Model',
