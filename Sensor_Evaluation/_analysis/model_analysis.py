@@ -19,9 +19,9 @@ from Sensor_Evaluation._format.format_date import Get_Date
 from Sensor_Evaluation._analysis.synoptic_idx import Synoptic_Index
 
 
-def Regression_Stats(hourly_df_obj=None, daily_df_obj=None,
-                     hourly_ref_df=None, daily_ref_df=None, deploy_dict=None,
-                     param=None, sensor_name=None, ref_name=None, serials=None,
+def Regression_Stats(hourly_df_obj=None, daily_df_obj=None, hourly_ref_df=None,
+                     daily_ref_df=None, deploy_dict=None, param=None,
+                     sensor_name=None, ref_name=None, serials=None,
                      path=None, write_to_file=False):
     """
     """
@@ -60,12 +60,16 @@ def Regression_Stats(hourly_df_obj=None, daily_df_obj=None,
             else:
                 xdata = ref_df[param + '_Value']
 
+            if i == 0:
+                print('Computing regression statistics for ' + sensor_name
+                      + ' vs ' + ref_name)
+
             # Locate the union of non-nan sensor (y) and reference (x) data
             # False if either is nan and true if both are finite
             idx = np.isfinite(xdata) & np.isfinite(ydata)
 
-            s1 = pd.Series(xdata)
-            s2 = pd.Series(ydata)
+            X = pd.Series(xdata)
+            Y = pd.Series(ydata)
 
             combine_df = pd.DataFrame()
             combine_df['ref_data'] = xdata
@@ -79,7 +83,7 @@ def Regression_Stats(hourly_df_obj=None, daily_df_obj=None,
                 avg_int = 'Hourly'
 
             if combine_df.empty:
-                print('Warning: Linear regression not possible for sensor '
+                print('..Warning: Linear regression not possible for sensor '
                       + str(sensor_num) + '. Sensor or reference data are '
                       'null.')
                 r_square = np.nan
@@ -95,9 +99,9 @@ def Regression_Stats(hourly_df_obj=None, daily_df_obj=None,
                 N = int(len(combine_df))
 
                 if N <= 2:
-                    print('Warning: Linear regression not possible for sensor '
-                          + str(sensor_num) + '. Insufficient number of data '
-                          'points')
+                    print('..Warning: Linear regression not possible for' +
+                          ' sensor ' + str(sensor_num) +
+                          '. Insufficient number of data points')
                     r_square = np.nan
                     slope = np.nan
                     intercept = np.nan
@@ -110,10 +114,10 @@ def Regression_Stats(hourly_df_obj=None, daily_df_obj=None,
                 else:
                     # Compute linear regress. for the union of finite
                     # x and y data
-                    s1_fit = np.polyfit(xdata[idx], ydata[idx], 1)
-                    slope = s1_fit[0]
-                    intercept = s1_fit[1]
-                    pearson_coeff = s1.corr(s2, method='pearson')
+                    fit = np.polyfit(xdata[idx], ydata[idx], 1)
+                    slope = fit[0]
+                    intercept = fit[1]
+                    pearson_coeff = X.corr(Y, method='pearson')
                     r_square = pearson_coeff*pearson_coeff
 
                     sensor_val = combine_df.sensor_data
@@ -153,23 +157,8 @@ def Regression_Stats(hourly_df_obj=None, daily_df_obj=None,
         avg_data = stats_df.where(stats_df['Averaging Interval'] == avg_int
                                   ).dropna(how='all', axis=0)
 
-        avg_df = pd.DataFrame([np.nan,
-                               np.nan,
-                               np.nan,
-                               np.nan,
-                               np.nan,
-                               'Metric Average -->',
-                               np.nan,
-                               np.nan,
-                               np.nan,
-                               np.nan,
-                               np.nan,
-                               np.nan,
-                               np.nan,
-                               np.nan])
-
-        avg_df.index = stats_df.columns
-        avg_df = avg_df.T
+        avg_df = pd.DataFrame(np.nan, columns=stats_cols, index=[0])
+        avg_df['Reference'] = 'Metric Average:'
 
         for col_i, metric in enumerate(metric_list, 6):
             metric_data = avg_data.iloc[:, col_i]
@@ -183,8 +172,10 @@ def Regression_Stats(hourly_df_obj=None, daily_df_obj=None,
 
     if write_to_file is True:
         today = Get_Date()
+        ref_name = ref_name.replace(' ', '_')
         filename = (sensor_name + '_' + param + '_vs_' + ref_name +
                     '_stats_df_' + today + '.csv')
+        print('../Data and Figures/eval_stats/' + sensor_name + '/' + filename)
         stats_df.to_csv(path + filename, index=False)
 
     return stats_df
