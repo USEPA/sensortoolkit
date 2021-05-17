@@ -1,11 +1,7 @@
 # Air Sensor Evaluation Library
 
-Samuel Frederick, NSSC Contractor (ORAU)\
-U.S. EPA, Office of Research and Development\
-Center for Environmental Measurement and Modeling\
-Air Methods and Characterization Division, Source and Fine Scale Branch\
-109 T.W Alexander Drive, Research Triangle Park, NC 27711\
-Office: 919-541-4086 | Email: frederick.samuel@epa.gov\
+_Samuel Frederick, NSSC Contractor (ORAU)_\
+_Office: 919-541-4086 | Email: frederick.samuel@epa.gov_
 
 A Python library for evaluating the performance of air sensors for use in
 ambient, outdoor, fixed site, non-regulatory supplemental and informational
@@ -27,4 +23,4 @@ U.S. EPA, Office of Research and Development\
 Center for Environmental Measurement and Modeling\
 Air Methods & Characterization Division, Source and Fine Scale Branch\
 109 T.W. Alexander Drive, Research Triangle Park, NC  27711\
-Office: 919-541-1363 | Email: clements.andrea@epa.gov\
+Office: 919-541-1363 | Email: clements.andrea@epa.gov
