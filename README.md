@@ -39,4 +39,4 @@ test = SensorEvaluation(
 ```
 
 
-![Performance Evaluation Results](/Data and Figures/figures/Example_Make_Model/PM25/Example_Make_Model_regression_boxplot_PM25_210517.png)
+![Performance Evaluation Results](./Data and Figures/figures/Example_Make_Model/PM25/Example_Make_Model_regression_boxplot_PM25_210517.png)
