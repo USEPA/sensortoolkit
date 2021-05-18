@@ -173,7 +173,7 @@ Below is a step-by-step description of the console output:
 
 *If internal Temp and RH are measured, but not DP, DP is calculated via the `Dewpoint()` module and is labeled `DP_calculated`
 #### Reference data
-Using `PM25` as an example case. The column naming scheme is consistent for other parameter columns.
+Using `PM25` data queried from the AQS API for the Triple Oak monitoring site as an example case. The column naming scheme for parameter data is consistent across queried parameters (columns with the prefix '`PM25`' are replaced by the parameter of interest) and columns formatting is consistent across data sources. Note that the AirNow API does not return QC codes, parameter AQS codes, method names, method AQS codes, or parameter occurrence codes. These columns are set null (i.e., all values set to `np.nan`). In addition, AirNowTech does not return method names, site latitude, or site longitude, and these columns are set null if reference data from AirNowTech are selected. 
 
 | Column Header                 | Description                                          | Example                                         | Data type        |
 | ----------------------------- | ---------------------------------------------------- | ----------------------------------------------- | ---------------- |
