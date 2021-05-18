@@ -31,8 +31,11 @@ Users must provide an ingestion module for importing recorded sensor data into a
 
 Additional information about EPA's research involving air sensors including the reports for fine particulate matter sensors and ozone sensors, past evaluation results, and additional documentation are located at EPA's [Air Sensor Toolbox](https://www.epa.gov/air-sensor-toolbox).
 
+****
 ## Installation
 Under construction
+
+****
 ## Using SensorEvaluation
 Analysis is built around the `SensorEvaluation` class. To begin analysis, users create an instance of the class where various attributes are declared upon instantiation (e.g., the name of the sensor `sensor_name`, the evaluation parameter `eval_param`, the location of reference data or name of API service to query `reference_data`, a dictionary containing serial identifiers for each sensor unit tested `serials`, shifting of sensor data by hourly intervals to time align sensor data timestamps with reference data `tzone_shift`, etc.).
 
@@ -153,7 +156,7 @@ Below is a step-by-step description of the console output:
 * The mean across sensor measurements is also calculated.
 
 
-
+****
 ## Data Dictionary
 
 #### Sensor data
