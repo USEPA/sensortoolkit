@@ -377,8 +377,8 @@ def AQS_Query(param, data_period, aqs_id):
     ref_data_json = json.loads(ref_data.text)
     ref_data = pd.DataFrame(ref_data_json['Data'])
 
-    ref_data['Site_AQS'] = (ref_data.state_code.astype(str) +
-                            ref_data.county_code.astype(str) +
+    ref_data['Site_AQS'] = (ref_data.state_code.astype(str) + '-' +
+                            ref_data.county_code.astype(str) + '-' +
                             ref_data.site_number.astype(str))
 
     status = ref_data_json['Header'][0]['status']
@@ -455,6 +455,15 @@ def AirNow_Query(param, data_period, bbox):
         status = 'Failed'
     else:
         status = 'Success'
+
+        data['Site_AQS'] = data['Site_AQS'].astype(str)
+
+        state_id = data['Site_AQS'].str.slice(0, 2)
+        county_id = data['Site_AQS'].str.slice(2, 5)
+        site_id = data['Site_AQS'].str.slice(5, 9)
+
+        data['Site_AQS'] = (state_id + '-' + county_id + '-' + site_id)
+
         site_name = list(i for i in data.Site_Name.unique())
         site_aqs = list(i for i in data.Site_AQS.astype(str).unique())
         site_lat = list(i for i in data.Site_Lat.astype(str).unique())

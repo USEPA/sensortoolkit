@@ -88,6 +88,12 @@ def Sort_AirNowTech(df):
                                       'Site AQS': 'Site_AQS'})
     site_df['Site_AQS'] = site_df['Site_AQS'].astype(str)
 
+    state_id = site_df['Site_AQS'].str.slice(0, 2)
+    county_id = site_df['Site_AQS'].str.slice(2, 5)
+    site_id = site_df['Site_AQS'].str.slice(5, 9)
+
+    site_df['Site_AQS'] = (state_id + '-' + county_id + '-' + site_id)
+
     for param in df.Param.dropna().unique():
         param_df = df.where(df.Param == param).dropna(axis=0, how='all')
 
