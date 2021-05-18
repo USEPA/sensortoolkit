@@ -175,20 +175,20 @@ Below is a step-by-step description of the console output:
 #### Reference data
 Using `PM25` as an example case. The column naming scheme is consistent for other parameter columns.
 
-| Column Header                 | Description                                          |
-| ----------------------------- | ---------------------------------------------------- |
-| `DateTime_UTC`                 | Timestamp                                            |
-| `PM25_Value`                   | Parameter value                                      |
-| `PM25_Unit`                    | Parameter units                                      |
-| `PM25_QAQC_Code`              | Parameter QC code                                    |
-| `PM25_Param_Code`             | Parameter AQS code                                   |
-| `PM25_Method`                  | Parameter Method (Instrument)                        |
-| `PM25_Method_Code`            | Parameter Method AQS Code                            |
-| `PM25_Method_POC`             | Parameter Occurance Code                             |
-| `Agency`                        | Reporting Agency overseeing site                     |
-| `Site_Name`                    | Name of monitoring site                              |
-| `Site_AQS`                     | Site AQS ID (combine state, county, site FIPS codes) |
-| `Site_Lat`                     | Site Latitude                                        |
-| `Site_Lon`                     | Site Longitude                                       |
-| `Data_Source`                  | Name of API data source                              |
-| `Data_Acquisition_Date_Time` | Date and Time of data query, acquisition             |
+| Column Header                 | Description                                          | Example                                         | Data type        |
+| ----------------------------- | ---------------------------------------------------- | ----------------------------------------------- | ---------------- |
+| `DateTime_UTC`                 | Timestamp, set as index                                            | `8/1/2019 13:00`                                  | `datetime64[ns]` |
+| `PM25_Value`                   | Parameter value                                      | `9`                                               | `float64`          |
+| `PM25_Unit`                    | Parameter units                                      | `Micrograms/cubic meter (LC)`                     | `object`           |
+| `PM25_QAQC_Code`              | Parameter QC code                                    | `V - Validated Value.`                            | `float64`          |
+| `PM25_Param_Code`             | Parameter AQS code                                   | `88101`                                           | `float64`          |
+| `PM25_Method`                  | Parameter Method (Instrument)                        | `Met One BAM-1022 PM2.5 w/ VSCC or TE-PM2.5C FEM` | `object`           |
+| `PM25_Method_Code`            | Parameter Method AQS Code                            | `209`                                             | `float64`          |
+| `PM25_Method_POC`             | Parameter Occurance Code                             | `3`                                               | `float64`          |
+| `Agency`                        | Reporting Agency overseeing site                     | `North Carolina Dept Of Environmental Quality`    | `object`           |
+| `Site_Name`                    | Name of monitoring site                              | `Triple Oak`                                      | `object`           |
+| `Site_AQS`                     | Site AQS ID (state, county, site FIPS codes separated by '-') | `37-183-0021`                                     | `object`           |
+| `Site_Lat`                     | Site Latitude                                        | `35.8652`                                         | `float64`          |
+| `Site_Lon`                     | Site Longitude                                       | `-78.8197`                                       | `float64`          |
+| `Data_Source`                  | Name of API data source                              | `AQS API`                                         | `object`           |
+| `Data_Acquisition_Date_Time` | Date and Time of data query, acquisition             | `5/18/2021 8:44`                                  | `datetime64[ns]`           |
