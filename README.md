@@ -34,12 +34,17 @@ Additional information about EPA's research involving air sensors including the 
 ## Installation
 Under construction
 ## Using SensorEvaluation
-Analysis is built around the `SensorEvaluation` class is supported by modules within the `Sensor_Evaluation` library. Below is an example evaluation for a test sensor dataset. Various attributes are passed to the class upon instantiation, including the name of the sensor `sensor_name`, the evaluation parameter `eval_param`, the location of reference data or name of API service to query `reference_data`, a dictionary containing serial identifiers for each sensor unit tested `serials`, shifting of sensor data by hourly intervals to time align sensor data timestamps with reference data `tzone_shift`, etc.
+Analysis is built around the `SensorEvaluation` class. To begin analysis, users create an instance of the class where various attributes are declared upon instantiation (e.g., the name of the sensor `sensor_name`, the evaluation parameter `eval_param`, the location of reference data or name of API service to query `reference_data`, a dictionary containing serial identifiers for each sensor unit tested `serials`, shifting of sensor data by hourly intervals to time align sensor data timestamps with reference data `tzone_shift`, etc.).
 
-Reference data can be retrieved by either API query or import of local data files, and numerous examples are given below for selecting each reference data option.
+Upon creation of a class instance, the user must indicate what reference data to use. Users can either specify that reference data should be retrieved by API query (AirNow or AQS) or imported from a local destination.
+
+Below, numerous examples are given for creating a class instance `eval`. If the user specifies that either the AirNow or AQS API should be queried for retrieving reference data, the user must specify API dependent parameters. More detail about each scenario is provided for the following examples.
 
 
 #### Example using AirNow for retrieving reference data
+In order to specify the location of reference data to query, AirNow requires that users pass a bounding box indicating a range of latitude and longitude to the API.
+
+Users are encouraged to configure a bounding box with narrow margins as shown below. This reduces the likelihood that data from multiple nearby air monitoring sites will be returned by the API.
 ```python
 from Sensor_Evaluation.sensor_eval_class import SensorEvaluation
 
@@ -63,6 +68,9 @@ eval = SensorEvaluation(sensor_name='Example_Make_Model',
 ```
 
 #### Example using AQS for retrieving reference data
+In order to specify the location of reference data to query, AQS requires that users provide the AQS site ID for the monitoring site of interest. The AQS site ID is composed of three components: state and county FIPS codes, and a site specific identifier.
+
+To explore nearby sites, users may use EPA's [AirData Map](https://epa.maps.arcgis.com/apps/webappviewer/index.html?id=5f239fd3e72f424f98ef3d5def547eb5&extent=-146.2334,13.1913,-46.3896,56.5319), which allows users to view active (and inactive) monitors for crtieria pollutants at monitoring sites across the U.S. Clicking on map icons for monitors brings up a brief description of the site (including the site AQS ID), as well as details about the monitor and historical data.  
 ```python
 from Sensor_Evaluation.sensor_eval_class import SensorEvaluation
 
@@ -86,6 +94,9 @@ eval = SensorEvaluation(sensor_name='Example_Make_Model',
 ```
 
 #### Example using downloaded AirNowTech datasets
+If users have an existing account with AirNowTech, datasets downloaded directly from the AirNowTech data portal can be imported via the `Import_AirNowTech()` module.
+
+[Specifics about data downloaded from AirNowTech]
 ```python
 from Sensor_Evaluation.sensor_eval_class import SensorEvaluation
 
@@ -173,7 +184,7 @@ Below is a step-by-step description of the console output:
 
 *If internal Temp and RH are measured, but not DP, DP is calculated via the `Dewpoint()` module and is labeled `DP_calculated`
 #### Reference data
-Using `PM25` data queried from the AQS API for the Triple Oak monitoring site as an example case. The column naming scheme for parameter data is consistent across queried parameters (columns with the prefix '`PM25`' are replaced by the parameter of interest) and columns formatting is consistent across data sources. Note that the AirNow API does not return QC codes, parameter AQS codes, method names, method AQS codes, or parameter occurrence codes. These columns are set null (i.e., all values set to `np.nan`). In addition, AirNowTech does not return method names, site latitude, or site longitude, and these columns are set null if reference data from AirNowTech are selected. 
+Using `PM25` data queried from the AQS API for the Triple Oak monitoring site as an example case. The column naming scheme for parameter data is consistent across queried parameters (columns with the prefix '`PM25`' are replaced by the parameter of interest) and columns formatting is consistent across data sources. Note that the AirNow API does not return QC codes, parameter AQS codes, method names, method AQS codes, or parameter occurrence codes. These columns are set null (i.e., all values set to `np.nan`). In addition, AirNowTech does not return method names, site latitude, or site longitude, and these columns are set null if reference data from AirNowTech are selected.
 
 | Column Header                 | Description                                          | Example                                         | Data type        |
 | ----------------------------- | ---------------------------------------------------- | ----------------------------------------------- | ---------------- |
