@@ -28,7 +28,7 @@ from Sensor_Evaluation._reference.import_airnowtech import Flatten
 
 
 def Ref_API_Query(query_type=None, param=None, bdate='', edate='',
-                  aqs_id=None, airnow_bbox=None):
+                  aqs_id=None, airnow_bbox=None, username=None, key=None):
     """
     Send an API data query to the specified service (query_type: 'AQS' or
     'AirNow') for a selected time period (e.g., bdate: '2020-01-01' and
@@ -85,7 +85,8 @@ def Ref_API_Query(query_type=None, param=None, bdate='', edate='',
         #                   | AQS Specific query data tasks |
         #  --------------------------------------------------------------------
         if query_type == 'AQS':
-            data = AQS_Query(api_param, data_period, aqs_id)
+            data = AQS_Query(api_param, data_period, aqs_id, username=username,
+                             key=key)
             raw_copy = data.copy()
             if data.empty is False:
                 idx = pd.to_datetime(data.date_gmt + ' ' + data.time_gmt)
@@ -136,7 +137,7 @@ def Ref_API_Query(query_type=None, param=None, bdate='', edate='',
         #                 | AirNow Specific query data tasks |
         #  --------------------------------------------------------------------
         if query_type == 'AirNow':
-            data = AirNow_Query(api_param, data_period, airnow_bbox)
+            data = AirNow_Query(api_param, data_period, airnow_bbox, key=key)
             raw_copy = data.copy()
             if data.empty is False:
                 idx = pd.to_datetime(data.DateTime_UTC)
@@ -332,7 +333,7 @@ def Query_Periods(query_type=None, month_starts=[], month_ends=[]):
     return monthly_periods
 
 
-def AQS_Query(param, data_period, aqs_id):
+def AQS_Query(param, data_period, aqs_id, username=None, key=None):
     """Construct an AQS API query request and parse response.
     """
     if aqs_id is None:
@@ -347,13 +348,10 @@ def AQS_Query(param, data_period, aqs_id):
     print('..Query end:', end)
 
     # API Items
-    #TODO: Remove user/key before sharing
     urlbase = 'https://aqs.epa.gov/data/api/sampleData/bySite?'
-    email = 'frederick.samuel@epa.gov'
-    key = 'silverbird29'
 
     # Construct query URL
-    url = urlbase + 'email=' + str(email)
+    url = urlbase + 'email=' + str(username)
     url += '&key=' + str(key)
     url += '&param=' + str(param)
     url += '&bdate=' + str(data_period[0])
@@ -407,7 +405,7 @@ def AQS_Query(param, data_period, aqs_id):
     return ref_data
 
 
-def AirNow_Query(param, data_period, bbox):
+def AirNow_Query(param, data_period, bbox, key=None):
     """Construct an AirNow API query request and parse response.
     """
     print('Querying AirNow API')
@@ -418,9 +416,7 @@ def AirNow_Query(param, data_period, bbox):
     print('..Query end:', end)
 
     # API Items
-    #TODO: Remove user/key before sharing
     urlbase = "http://www.airnowapi.org/aq/data/?"
-    key = "0121DF3A-BE3D-4B10-B86B-37913970B672"
     dataType = "C"
     dataformat = "text/csv"
     verbose = "1"                    # bool

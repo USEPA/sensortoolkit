@@ -28,7 +28,7 @@ class SensorEvaluation:
     ambient, outdoor, fixed site, non-regulatory supplemental and informational
     monitoring applications.
 
-    As of Februrary 2021, U.S. EPA has released two reports detailing
+    As of February 2021, U.S. EPA has released two reports detailing
     recommended performance testing protocols, metrics, and target values for
     the evaluation of sensors measuring either fine particulate matter (PM2.5)
     or ozone (O3). More detail about EPA's sensor evaluation research as well
@@ -88,6 +88,11 @@ class SensorEvaluation:
 
     # Absolute path for Sensor_Evaluation library and related work
     lib_path = os.path.abspath(os.path.join(__file__, '../..'))
+
+    # API Credentials
+    aqs_username = None
+    aqs_key = None
+    airnow_key = None
 
     def __init__(self, sensor_name, eval_param, load_raw_data=False,
                  reference_data=None, ref_name=None, write_to_file=False,
@@ -177,7 +182,8 @@ class SensorEvaluation:
                                             param=self.eval_param,
                                             bdate=self.deploy_bdate,
                                             edate=self.deploy_edate,
-                                            airnow_bbox=self.bbox))
+                                            airnow_bbox=self.bbox,
+                                            key=self.airnow_key))
 
                 self.ref_dict[self.eval_param_class] = airnow_df
 
@@ -190,7 +196,9 @@ class SensorEvaluation:
                                              param=self.eval_param,
                                              bdate=self.deploy_bdate,
                                              edate=self.deploy_edate,
-                                             aqs_id=self.aqs_id))
+                                             aqs_id=self.aqs_id,
+                                             username=self.aqs_username,
+                                             key=self.aqs_key))
 
                 self.ref_dict[self.eval_param_class] = aqs_df
 
