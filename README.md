@@ -83,10 +83,6 @@ Data, figures, and statistical results for sensors must be located in the `Data 
 │       └───raw_data
 │           └───Example_Make_Model
 ├───Documentation
-├───Reports
-│   └───templates
-│       ├───O_3
-│       └───PM_25
 └───Sensor_Evaluation
     ├───_analysis
     ├───_format
@@ -98,7 +94,7 @@ Data, figures, and statistical results for sensors must be located in the `Data 
 
 Analysis is built around the `SensorEvaluation` class. To begin analysis, users create an instance of the class where various attributes are declared upon instantiation (e.g., the name of the sensor `sensor_name`, the evaluation parameter `eval_param`, the location of reference data or name of API service to query `reference_data`, a dictionary containing serial identifiers for each sensor unit tested `serials`, shifting of sensor data by hourly intervals to time align sensor data timestamps with reference data `tzone_shift`, etc.).
 
-Upon creation of a class instance, the user must indicate what reference data to use. Users can either specify that reference data should be retrieved by API query (AirNow or AQS) or imported from a local destination (e.g., .csv files downloaded from AirNowTech). Note that both the AirNow and AQS APIs require users have an account to and key verify queries. AirNowTech also requires a user account to access its online data portal. Accounts for these services are free and can created via the following links ([AirNowTech account request](https://www.airnowtech.org/requestAccnt.cfm), [AirNow API account request](https://docs.airnowapi.org/account/request/), [AQS API sign up](https://aqs.epa.gov/aqsweb/documents/data_api.html#signup)).
+Upon creation of a class instance, the user must indicate what reference data to use. Users can either specify that reference data should be retrieved by API query (AirNow or AQS) or imported from a local destination (e.g., .csv files downloaded from AirNowTech). Note that both the AirNow and AQS APIs require users have an account and key to complete successful queries. AirNowTech also requires a user account to access its online data portal. Accounts for these services are free and can created via the following links ([AirNowTech account request](https://www.airnowtech.org/requestAccnt.cfm), [AirNow API account request](https://docs.airnowapi.org/account/request/), [AQS API sign up](https://aqs.epa.gov/aqsweb/documents/data_api.html#signup)).
 
 Below, numerous examples are given for creating a class instance `eval`. If the user specifies that either the AirNow or AQS API should be queried for retrieving reference data, the user must specify API dependent parameters. More detail about each scenario is provided for the following examples.
 
@@ -324,6 +320,8 @@ Below is a description of reference data formatting expected by the `SensorEvalu
 
 Note that AirNow, AirNowTech, and AQS report QC or instrument status codes in different ways. AirNow reports `-999` if instrument failures or other issues occur, AirNowTech reports integer values ranging from '0' (normal operation) to `9` (instrument failure)
 
+****
+
 ## Modules
 #### `SensorEvaluation.print_eval_metrics()`
 
@@ -357,6 +355,9 @@ Eval.print_eval_metrics(avg_interval='Daily')
  7.1  |          0.87          |         -2.38          |          0.59          | 3.6  
       |     (0.84 to 0.92)     |    (-2.56 to -2.11)    |     (0.54 to 0.63)     |   
 ```
+
+****
+
 #### `SensorEvaluation.print_eval_conditions()`
 ```python
 Eval.print_eval_conditions(avg_interval='Hourly')
@@ -386,18 +387,27 @@ Eval.print_eval_conditions(avg_interval='Daily')
   08-01-19-   |   32 days    |     4.4      |     7.7      |      26      |      71      
    09-02-19   |              | (1.2 to 8.1) |(4.9 to 11.0) |  (21 to 29)  |  (60 to 88)  
 ```
+
+****
+
 #### `SensorEvaluation.plot_timeseries()`
 ```python
-# Timeseries plots for both 1-hour and 24-hour averaged data
-Eval.plot_timeseries(format_xaxis_weeks=False,
-                     yscale='linear',  # set y-axis format to linear scaling
-                     date_interval=5)  # place 5 days between xticks
+# Timeseries plots for 1-hour averaged data
+test.plot_timeseries(averaging_interval='1-hour')
 ```
 ![Example_Make_Model Performance Evaluation Results](Data%20and%20Figures/figures/Example_Make_Model/PM25/Example_Make_Model_timeseries_PM25_1-hour_210519.png)
 
+```python
+# Timeseries plots for 24-hour averaged data
+test.plot_timeseries(averaging_interval='24-hour')
+```
+![Example_Make_Model Performance Evaluation Results](Data%20and%20Figures/figures/Example_Make_Model/PM25/Example_Make_Model_timeseries_PM25_24-hour_210519.png)
+
+****
+
 #### `SensorEvaluation.plot_sensor_scatter()`
 ```Python
-test.plot_sensor_scatter('1-hour',
+test.plot_sensor_scatter(averaging_interval='1-hour',
                          plot_limits=(-1, 20),
                          axes_spacing=5,
                          text_pos='upper_left')
@@ -410,10 +420,18 @@ Computing regression statistics for Example_Make_Model vs T-API T640X at 16.67 L
 ```
 ![Example_Make_Model Performance Evaluation Results](Data%20and%20Figures/figures/Example_Make_Model/PM25/Example_Make_Model_vs_T-API%20T640X%20at%2016.67%20LPM_1-hour_3_sensors_210519.png)
 
+****
+
 #### `SensorEvaluation.plot_metrics()`
 ![Example_Make_Model Performance Evaluation Results](Data%20and%20Figures/figures/Example_Make_Model/PM25/Example_Make_Model_regression_boxplot_PM25_210517.png)
 
+****
+
 #### `SensorEvaluation.plot_met_influence()`
+
+****
 
 #### `SensorEvaluation.plot_met_dist()`
 ![Example_Make_Model Performance Evaluation Results](Data%20and%20Figures/figures/Example_Make_Model/Met/Example_Make_Model_met_distplot_pt_formatting_210519.png)
+
+<img src="Data%20and%20Figures/figures/Example_Make_Model/Met/Example_Make_Model_met_distplot_pt_formatting_210519.png" width="500">
