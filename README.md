@@ -62,6 +62,7 @@ Data, figures, and statistical results for sensors must be located in the `Data 
 │   ├───figures
 │   │   ├───Example_Make_Model
 │   │   │   ├───deployment
+│   │   │   ├───Met
 │   │   │   ├───O3
 │   │   │   └───PM25
 │   │   └───_readme_
@@ -415,3 +416,4 @@ Computing regression statistics for Example_Make_Model vs T-API T640X at 16.67 L
 #### `SensorEvaluation.plot_met_influence()`
 
 #### `SensorEvaluation.plot_met_dist()`
+![Example_Make_Model Performance Evaluation Results](Data%20and%20Figures/figures/Example_Make_Model/Met/Example_Make_Model_met_distplot_pt_formatting_210519.png)
