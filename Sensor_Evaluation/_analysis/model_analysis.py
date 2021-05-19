@@ -59,7 +59,8 @@ def Regression_Stats(hourly_df_obj=None, daily_df_obj=None, hourly_ref_df=None,
                 ref_name = 'Intersensor_mean_' + param
             else:
                 xdata = ref_df[param + '_Value']
-
+                ref_name = ''.join(
+                            list(ref_df[param + '_Method'].dropna().unique()))
             if i == 0:
                 print('Computing regression statistics for ' + sensor_name
                       + ' vs ' + ref_name)
