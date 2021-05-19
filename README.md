@@ -20,6 +20,17 @@ In February 2021, EPA released [two reports](https://www.epa.gov/air-sensor-tool
 
 Users must provide an ingestion module for importing recorded sensor data into a data formatting standard developed for this project.
 
+#### Built with:
+* Python 3.7.4
+* pandas 0.25.1
+* numpy 1.16.5
+* matplotlib 3.1.1
+* seaborn 0.9.0
+* statsmodels 0.10.1
+* pathlib2 2.3.5
+* requests 2.25.1
+* ~~python-pptx 0.6.18~~ *not in current build*
+
 ### Contact and Resources
 *Please direct all inquiries to*\
 &nbsp;&nbsp;&nbsp;&nbsp;Andrea Clements Ph.D., Research Physical Scientist\
@@ -35,8 +46,12 @@ Additional information about EPA's research involving air sensors including the 
 ## Installation
 Under construction
 
+![This is an image](Example_Make_Model_regression_boxplot_PM25_210517.png)
+
 ****
 ## Using SensorEvaluation
+[Need to discuss file structure and the need for users to place sensor data files in the correct folder path.]
+
 Analysis is built around the `SensorEvaluation` class. To begin analysis, users create an instance of the class where various attributes are declared upon instantiation (e.g., the name of the sensor `sensor_name`, the evaluation parameter `eval_param`, the location of reference data or name of API service to query `reference_data`, a dictionary containing serial identifiers for each sensor unit tested `serials`, shifting of sensor data by hourly intervals to time align sensor data timestamps with reference data `tzone_shift`, etc.).
 
 Upon creation of a class instance, the user must indicate what reference data to use. Users can either specify that reference data should be retrieved by API query (AirNow or AQS) or imported from a local destination (e.g., .csv files downloaded from AirNowTech). Note that both the AirNow and AQS APIs require users have an account to and key verify queries. AirNowTech also requires a user account to access its online data portal. Accounts for these services are free and can created via the following links ([AirNowTech account request](https://www.airnowtech.org/requestAccnt.cfm), [AirNow API account request](https://docs.airnowapi.org/account/request/), [AQS API sign up](https://aqs.epa.gov/aqsweb/documents/data_api.html#signup)).
@@ -250,7 +265,7 @@ Below is a description of reference data formatting expected by the `SensorEvalu
 | `DateTime_UTC`                 | Timestamp, set as index                                            | `8/1/2019 13:00`                                  | `datetime64[ns]` |
 | `PM25_Value`                   | Parameter value                                      | `9`                                               | `float64`          |
 | `PM25_Unit`                    | Parameter units                                      | `Micrograms/cubic meter (LC)`                     | `object`           |
-| `PM25_QAQC_Code`              | Parameter QC code                                    | `V - Validated Value.`                            | `float64`          |
+| `PM25_QAQC_Code`              | Parameter QC code or AQS qualifier                                   | `V - Validated Value.`                            | `float64`          |
 | `PM25_Param_Code`             | Parameter AQS code                                   | `88101`                                           | `float64`          |
 | `PM25_Method`                  | Parameter method (Instrument)                        | `Met One BAM-1022 PM2.5 w/ VSCC or TE-PM2.5C FEM` | `object`           |
 | `PM25_Method_Code`            | Parameter method AQS code                            | `209`                                             | `float64`          |
@@ -262,3 +277,5 @@ Below is a description of reference data formatting expected by the `SensorEvalu
 | `Site_Lon`                     | Site longitude                                       | `-78.8197`                                       | `float64`          |
 | `Data_Source`                  | Name of API data source                              | `AQS API`                                         | `object`           |
 | `Data_Acquisition_Date_Time` | Date and time of data query, acquisition             | `5/18/2021 8:44`                                  | `datetime64[ns]`           |
+
+Note that AirNow, AirNowTech, and AQS report QC or instrument status codes in different ways. AirNow reports `-999` if instrument failures or other issues occur, AirNowTech reports integer values ranging from '0' (normal operation) to `9` (instrument failure)
