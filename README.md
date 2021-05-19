@@ -48,6 +48,8 @@ Below, numerous examples are given for creating a class instance `eval`. If the 
 In order to specify the location of reference data to query, AirNow requires that users pass a bounding box indicating a range of latitude and longitude to the API.
 
 Users are encouraged to configure a bounding box with narrow margins as shown below. This reduces the likelihood that data from multiple nearby air monitoring sites will be returned by the API.
+
+In addition, users must specify an AirNow account key to query the API. More information about obtaining an AirNow account can be found [here](https://docs.airnowapi.org/account/request/).
 ```python
 from Sensor_Evaluation.sensor_eval_class import SensorEvaluation
 
@@ -56,6 +58,9 @@ AIRS_bbox = {"minLat": "35.88",
              "maxLat": "35.89",
              "minLong": "-78.88",
              "maxLong": "-78.87"}
+
+# AirNow credentials
+SensorEvaluation.airnow_key = 'Your-AirNow-Key-Here'
 
 # Mock evaluation using AIRS reference data obtained from the AirNow API
 eval = SensorEvaluation(sensor_name='Example_Make_Model',
@@ -69,11 +74,56 @@ eval = SensorEvaluation(sensor_name='Example_Make_Model',
                         load_raw_data=False,
                         write_to_file=False)
 ```
+When creating an evaluation class instance with the code snippet above, the following will be printed to the console:
+```
+Loading processed sensor data
+..Example_Make_Model_SN01_daily.csv
+..Example_Make_Model_SN01_full.csv
+..Example_Make_Model_SN01_hourly.csv
+..Example_Make_Model_SN02_daily.csv
+..Example_Make_Model_SN02_full.csv
+..Example_Make_Model_SN02_hourly.csv
+..Example_Make_Model_SN03_daily.csv
+..Example_Make_Model_SN03_full.csv
+..Example_Make_Model_SN03_hourly.csv
+Querying AirNow API
+..Query start: 2019-08-01
+..Query end: 2019-08-31
+..Query site(s):
+....Site name: Burdens Creek
+......AQS ID: 37-063-0099
+......Latitude: 35.8894
+......Longitude: -78.8747
+..Query Status: Success
+Querying AirNow API
+..Query start: 2019-09-01
+..Query end: 2019-09-30
+..Query site(s):
+....Site name: Burdens Creek
+......AQS ID: 37-063-0099
+......Latitude: 35.8894
+......Longitude: -78.8747
+..Query Status: Success
+Writing AirNow query dataframes to csv files
+../reference_data/airnow/processed/AirNow_37-063-0099_PM25_B190801_E190902.csv
+../reference_data/airnow/raw_api_datasets/AirNow_raw_37-063-0099_PM25_B190801_E190902.csv
+Computing normalized PM25 values (by Unknown Reference)
+Computing normalized PM25 values (by Unknown Reference)
+Computing mean parameter values across concurrent sensor datasets
+Computing mean parameter values across concurrent sensor datasets
+```
+Below is a step-by-step description of the console output:
+* Processed sensor data are loaded
+* The AirNow API is queried in monthly intervals for `PM25` reference data recorded at monitoring sites within the specified bounding box. AirNow returns a successful query, and the console indicates data were retrieved from the Burdens Creek monitoring site. AirNow data are then parsed into the reference data format described in the reference data dictionary below. Both raw (datasets as returned by the API) and processed datasets are written to .csv files at the folder path indicated.
+* Sensor `PM25` concentrations are normalized against reference measurements (AirNow does not indicate the name of the reference instrument for the evaluation parameter, so the reference is referred to as `Unknown Reference`).
+* The mean across sensor measurements is also calculated.
 
 #### Example using AQS for retrieving reference data
 In order to specify the location of reference data to query, AQS requires that users provide the AQS site ID for the monitoring site of interest. The AQS site ID is composed of three components: state and county FIPS codes, and a site specific identifier.
 
-To explore nearby sites, users may use EPA's [AirData Map](https://epa.maps.arcgis.com/apps/webappviewer/index.html?id=5f239fd3e72f424f98ef3d5def547eb5&extent=-146.2334,13.1913,-46.3896,56.5319), which allows users to view active (and inactive) monitors for crtieria pollutants at monitoring sites across the U.S. Clicking on map icons for monitors brings up a brief description of the site (including the site AQS ID), as well as details about the monitor and historical data.  
+To explore nearby sites, users may use EPA's [AirData Map](https://epa.maps.arcgis.com/apps/webappviewer/index.html?id=5f239fd3e72f424f98ef3d5def547eb5&extent=-146.2334,13.1913,-46.3896,56.5319), which allows users to view active (and inactive) monitors for crtieria pollutants at monitoring sites across the U.S. Clicking on map icons for monitors brings up a brief description of the site (including the site AQS ID), as well as details about the monitor and historical data.
+
+In addition, users must specify an AQS account username (registered email) and a key to query the API. More information about obtaining an AQS account can be found [here](https://aqs.epa.gov/aqsweb/documents/data_api.html#signup).
 ```python
 from Sensor_Evaluation.sensor_eval_class import SensorEvaluation
 
@@ -82,6 +132,10 @@ from Sensor_Evaluation.sensor_eval_class import SensorEvaluation
 triple_oaks_ID = {"state": "37",
                   "county": "183",
                   "site": "0021"}
+
+# AQS credentials
+SensorEvaluation.aqs_username = 'username_address@email.com'
+SensorEvaluation.aqs_key = 'Your-AQS-Key-Here'
 
 # Mock evaluation using Triple Oaks reference data obtained from the AQS API
 eval = SensorEvaluation(sensor_name='Example_Make_Model',
