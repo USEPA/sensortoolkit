@@ -3,6 +3,8 @@
 *Samuel Frederick, NSSC Contractor (ORAU)*\
 *Office: 919-541-4086 | Email: frederick.samuel@epa.gov*
 
+![Sensors at the Air Innovation Research Site](Data%20and%20Figures/figures/_readme_/sensors_at_airs.jpg)
+
 **Warning: This code is currently under development and is intended for internal EPA use only. Please do not distribute or share components of this repository with individuals external to EPA.**
 ****
 
@@ -46,7 +48,7 @@ Additional information about EPA's research involving air sensors including the 
 ## Installation
 Under construction
 
-![This is an image](Example_Make_Model_regression_boxplot_PM25_210517.png)
+![This is an image](Data%20and%20Figures/figures/Example_Make_Model/PM25/Example_Make_Model_regression_boxplot_PM25_210517.png)
 
 ****
 ## Using SensorEvaluation
