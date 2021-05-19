@@ -395,13 +395,13 @@ Eval.print_eval_conditions(avg_interval='Daily')
 # Timeseries plots for 1-hour averaged data
 test.plot_timeseries(averaging_interval='1-hour')
 ```
-![Example_Make_Model Performance Evaluation Results](Data%20and%20Figures/figures/Example_Make_Model/PM25/Example_Make_Model_timeseries_PM25_1-hour_210519.png)
+![Example_Make_Model Performance Evaluation Results](Data%20and%20Figures/figures/Example_Make_Model/PM25/Example_Make_Model_timeseries_PM25_1-hour_210519.png){width=1200}
 
 ```python
 # Timeseries plots for 24-hour averaged data
 test.plot_timeseries(averaging_interval='24-hour')
 ```
-![Example_Make_Model Performance Evaluation Results](Data%20and%20Figures/figures/Example_Make_Model/PM25/Example_Make_Model_timeseries_PM25_24-hour_210519.png)
+![Example_Make_Model Performance Evaluation Results](Data%20and%20Figures/figures/Example_Make_Model/PM25/Example_Make_Model_timeseries_PM25_24-hour_210519.png){width=1200}
 
 ****
 
@@ -418,12 +418,12 @@ Computing regression statistics for Example_Make_Model vs T-API T640X at 16.67 L
 Computing regression statistics for Example_Make_Model vs T-API T640X at 16.67 LPM
 Computing regression statistics for Example_Make_Model vs T-API T640X at 16.67 LPM
 ```
-![Example_Make_Model Performance Evaluation Results](Data%20and%20Figures/figures/Example_Make_Model/PM25/Example_Make_Model_vs_T-API%20T640X%20at%2016.67%20LPM_1-hour_3_sensors_210519.png)
+![Example_Make_Model Performance Evaluation Results](Data%20and%20Figures/figures/Example_Make_Model/PM25/Example_Make_Model_vs_T-API%20T640X%20at%2016.67%20LPM_1-hour_3_sensors_210519.png){width=1000}
 
 ****
 
 #### `SensorEvaluation.plot_metrics()`
-![Example_Make_Model Performance Evaluation Results](Data%20and%20Figures/figures/Example_Make_Model/PM25/Example_Make_Model_regression_boxplot_PM25_210517.png)
+![Example_Make_Model Performance Evaluation Results](Data%20and%20Figures/figures/Example_Make_Model/PM25/Example_Make_Model_regression_boxplot_PM25_210517.png){width=1200}
 
 ****
 
