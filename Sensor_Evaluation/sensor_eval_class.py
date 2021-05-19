@@ -404,7 +404,7 @@ class SensorEvaluation:
                                        write_to_file=self.write_to_file)
 
     def plot_timeseries(self, averaging_interval='1-hour',
-                        format_xaxis_weeks=True, date_interval=4,
+                        format_xaxis_weeks=False, date_interval=5,
                         cmap_name='Set1', cmap_norm_range=(0, 1),
                         yscale='linear', report_fmt=False, ylims=None):
         """
@@ -480,8 +480,8 @@ class SensorEvaluation:
                                figure_path=self.figure_path,
                                sensor_name=self.sensor_name,
                                ref_name=self.ref_name,
-                               start_time=self.t_start,
-                               end_time=self.t_end,
+                               start_time=t_start,
+                               end_time=t_end,
                                time_interval=averaging_interval,
                                cmap_name=cmap_name,
                                cmap_norm_range=cmap_norm_range,
