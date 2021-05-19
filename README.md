@@ -432,4 +432,4 @@ Computing regression statistics for Example_Make_Model vs T-API T640X at 16.67 L
 ****
 
 #### `SensorEvaluation.plot_met_dist()`
-![Example_Make_Model Performance Evaluation Results](Data%20and%20Figures/figures/Example_Make_Model/Met/Example_Make_Model_met_distplot_pt_formatting_210519.png){width=1000}
+![Example_Make_Model Performance Evaluation Results](Data%20and%20Figures/figures/Example_Make_Model/Met/Example_Make_Model_met_distplot_pt_formatting_210519.png){width=800}
