@@ -63,8 +63,7 @@ def Sensor_Averaging(full_df_list, sensor_serials=None, name='',
                                        freq='H',
                                        interval_count=hr_count,
                                        thres=hr_thres,
-                                       return_counts=False,
-                                       time_it=False)
+                                       return_counts=False)
 
         hourly_df_list.append(hourly_df)
 
@@ -75,8 +74,7 @@ def Sensor_Averaging(full_df_list, sensor_serials=None, name='',
                                       freq='D',
                                       interval_count=day_count,
                                       thres=day_thres,
-                                      return_counts=False,
-                                      time_it=False)
+                                      return_counts=False)
 
         daily_df_list.append(daily_df)
 
