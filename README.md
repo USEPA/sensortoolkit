@@ -11,24 +11,24 @@
 * [Overview](#overview)
   * [Key Features](#key-features)
   * [Dependencies](#dependencies)
-  * [Contact and Resources](#contact-and-resources)
-* [Installation](#installation)
+  * [Contact and Resources](#contact)
+* [Installation](#install)
 
-## Overview
+## Overview <a name="overview"></a>
 A Python library for evaluating the performance of air sensors for use in
 ambient, outdoor, fixed site, non-regulatory supplemental and informational
 monitoring applications.
 
 In February 2021, EPA released [two reports](https://www.epa.gov/air-sensor-toolbox/air-sensor-performance-targets-and-testing-protocols#reports) detailing recommended performance testing protocols, metrics, and target values for the evaluation of sensors measuring either fine particulate matter (PM<sub>2.5</sub>) or ozone (O<sub>3</sub>). This library provides modules for testing air sensors measuring PM<sub>2.5</sub> and O<sub>3</sub> against FRM/FEM reference measurements collected at an ambient air monitoring site. Included modules calculation of performance metrics and comparison against target ranges recommended by EPA.
 
-##### Key features:
+##### Key features: <a name="key-features"></a>
 * Time averaging of timeseries data to 1-hour and 24-hour intervals with configurable data completeness threshold for computing averages (default 75%).
 * Reference data retrieval from AirNow and AQS APIs (user API accounts and keys must be specified). Ingestion of reference data into a consistent data formatting standard. Import and ingestion of reference data from AirNowTech including multiple parameters and pollutant types. Reference data are sorted by parameter type (particulate matter, gaseous pollutants, and meteorological parameters) and files are saved in monthly increments to .csv files.
 * *Under construction*
 
 Users must provide an ingestion module for importing recorded sensor data into a data formatting standard developed for this project.
 
-#### Dependencies:
+#### Dependencies: <a name="dependencies"></a>
 * [Python](https://www.python.org/) 3.7.4
 * [pandas](https://pypi.org/project/pandas/) 0.25.1
 * [numpy](https://pypi.org/project/numpy/) 1.16.5
@@ -39,7 +39,7 @@ Users must provide an ingestion module for importing recorded sensor data into a
 * [requests](https://pypi.org/project/requests/) 2.25.1
 * ~~python-pptx 0.6.18~~ *not in current build*
 
-### Contact and Resources
+### Contact and Resources <a name="contact"></a>
 *Please direct all inquiries to*\
 &nbsp;&nbsp;&nbsp;&nbsp;Andrea Clements Ph.D., Research Physical Scientist\
 &nbsp;&nbsp;&nbsp;&nbsp;U.S. EPA, Office of Research and Development\
@@ -51,7 +51,7 @@ Users must provide an ingestion module for importing recorded sensor data into a
 Additional information about EPA's research involving air sensors including the reports for fine particulate matter sensors and ozone sensors, past evaluation results, and additional documentation are located at EPA's [Air Sensor Toolbox](https://www.epa.gov/air-sensor-toolbox).
 
 ****
-## Installation
+## Installation <a name="install"></a>
 __Under construction.__
 
 Recommended Software:
