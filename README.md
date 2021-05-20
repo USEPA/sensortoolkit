@@ -524,4 +524,4 @@ Formatting stuff
 Regular text\
 *Italic*\
 __Bold__\
-~strikethrough~
+~~strikethrough~~
