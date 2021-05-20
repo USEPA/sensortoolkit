@@ -13,6 +13,16 @@
   * [Dependencies](#dependencies)
   * [Contact and Resources](#contact)
 * [Installation](#install)
+* [Using SensorEvaluation](#use)
+  * [Adding a Sensor to the Library](#add-sensor)
+  * [Running SensorEvaluation](#run)
+    * [Example using AirNow reference data](#example-airnow)
+    * [Example using AQS reference data](#example-aqs)
+    * [Example using AirNowTech reference data](#example-airnowtech)
+* [Data Dictionary](#dict)
+  * [Sensor Data](#dict-sensor)
+  * [Reference Data](#dict-reference)
+* [Modules](#modules)
 
 ## Overview <a name="overview"></a>
 A Python library for evaluating the performance of air sensors for use in
@@ -67,9 +77,9 @@ Steps to get started using SensorEvaluation:
 
 
 ****
-## Using SensorEvaluation
+## Using SensorEvaluation <a name="use"></a>
 
-### Adding a Sensor to the Library
+### Adding a Sensor to the Library <a name="add-sensor"></a>
 The SensorEvaluation library comes with an example sensor dataset. The example sensor is given the name `Example_Make_Model` and users are encouraged to adopt a similar naming scheme for conducting analysis with the sensor name comprised of the manufacturer make and sensor model separated by an underscore '_'. The example sensor dataset is provided to help users familiarize themselves with the structure of the library's supporting files and the functionality of modules within the library.
 
 Data, figures, and statistical results for sensors must be located in the `Data and Figures` folder. Below is a diagram showing the file structure for the Sensor Evaluation library with the `Data and Figures` folder on the first branch. Within this folder, subfolders contain evaluation statistics, figures, reference data, and sensor data (including both recorded or 'raw' and processed datasets). The `eval_stats`, `figures`, and `sensor_data` subfolders are further organized by sensor name.
@@ -140,7 +150,7 @@ Creating directories for New_Sensor_Make_Model and evaluation parameters: PM25, 
 ....Creating sub-directory:
 ......\Data and Figures\sensor_data\New_Sensor_Make_Model\raw_data
 ```
-### Running SensorEvaluation
+### Running SensorEvaluation <a name="run"></a>
 Analysis is built around the `SensorEvaluation` class. To begin analysis, users create an instance of the class where various attributes are declared upon instantiation (e.g., the name of the sensor `sensor_name`, the evaluation parameter `eval_param`, the location of reference data or name of API service to query `reference_data`, a dictionary containing serial identifiers for each sensor unit tested `serials`, shifting of sensor data by hourly intervals to time align sensor data timestamps with reference data `tzone_shift`, etc.).
 
 Upon creation of a class instance, the user must indicate what reference data to use. Users can either specify that reference data should be retrieved by API query (AirNow or AQS) or imported from a local destination (e.g., .csv files downloaded from AirNowTech). Note that both the AirNow and AQS APIs require users have an account and key to complete successful queries. AirNowTech also requires a user account to access its online data portal. Accounts for these services are free and can created via the following links ([AirNowTech account request](https://www.airnowtech.org/requestAccnt.cfm), [AirNow API account request](https://docs.airnowapi.org/account/request/), [AQS API sign up](https://aqs.epa.gov/aqsweb/documents/data_api.html#signup)).
@@ -148,7 +158,7 @@ Upon creation of a class instance, the user must indicate what reference data to
 Below, numerous examples are given for creating a class instance `eval`. If the user specifies that either the AirNow or AQS API should be queried for retrieving reference data, the user must specify API dependent parameters. More detail about each scenario is provided for the following examples.
 
 
-#### Example using AirNow for retrieving reference data
+#### Example using AirNow for retrieving reference data <a name="example-airnow"></a>
 In order to specify the location of reference data to query, AirNow requires that users pass a bounding box indicating a range of latitude and longitude to the API.
 
 Users are encouraged to configure a bounding box with narrow margins as shown below. This reduces the likelihood that data from multiple nearby air monitoring sites will be returned by the API.
@@ -222,7 +232,7 @@ Below is a step-by-step description of the console output:
 * Sensor `PM25` concentrations are normalized against reference measurements (AirNow does not indicate the name of the reference instrument for the evaluation parameter, so the reference is referred to as `Unknown Reference`).
 * The mean across sensor measurements is also calculated.
 
-#### Example using AQS for retrieving reference data
+#### Example using AQS for retrieving reference data <a name="example-aqs"></a>
 In order to specify the location of reference data to query, AQS requires that users provide the AQS site ID for the monitoring site of interest. The AQS site ID is composed of three components: state and county FIPS codes, and a site specific identifier.
 
 To explore nearby sites, users may use EPA's [AirData Map](https://epa.maps.arcgis.com/apps/webappviewer/index.html?id=5f239fd3e72f424f98ef3d5def547eb5&extent=-146.2334,13.1913,-46.3896,56.5319), which allows users to view active (and inactive) monitors for crtieria pollutants at monitoring sites across the U.S. Clicking on map icons for monitors brings up a brief description of the site (including the site AQS ID), as well as details about the monitor and historical data.
@@ -296,7 +306,7 @@ Below is a step-by-step description of the console output:
 * Sensor `PM25` concentrations are normalized against reference measurements (AQS indicates that the reference monitor is a Met One BAM-1022).
 * The mean across sensor measurements is also calculated.
 
-#### Example using downloaded AirNowTech datasets
+#### Example using downloaded AirNowTech datasets <a name="example-airnowtech"></a>
 If users have an existing account with AirNowTech, datasets downloaded directly from the AirNowTech data portal can be imported via the `Import_AirNowTech()` module.
 
 [Specifics about data downloaded from AirNowTech]
@@ -357,9 +367,9 @@ Below is a step-by-step description of the console output:
 
 
 ****
-## Data Dictionary
+## Data Dictionary <a name="dict"></a>
 
-#### Sensor data
+#### Sensor data <a name="dict-sensor"></a>
 Below is a list of sensor parameters supported by the `SensorEvaluation` class. **Please note that currently, only `PM25` and `O3` are fully supported for all performance evaluation modules in accordance with EPA's [reports](https://www.epa.gov/air-sensor-toolbox/air-sensor-performance-targets-and-testing-protocols#reports) for these pollutants.** Limited functionality is available for all other pollutants.
 
 | Parameter Classification | Parameter Label             | Description                                              | Units                       |
@@ -388,7 +398,7 @@ Below is a list of sensor parameters supported by the `SensorEvaluation` class. 
 
 
 *If internal Temp and RH are measured, but not DP, DP is calculated via the `Dewpoint()` module and is labeled `DP_calculated`
-#### Reference data
+#### Reference data <a name="dict-reference"></a>
 Below is a description of reference data formatting expected by the `SensorEvaluation` class. Example values result from `PM25` data queried from the AQS API for the Triple Oak monitoring site. The column naming scheme for parameter data is consistent across queried parameters (columns with the prefix '`PM25`' are replaced by the parameter of interest) and columns formatting is consistent across data sources. Note that the AirNow API does not return QC codes, parameter AQS codes, method names, method AQS codes, or parameter occurrence codes. These columns are set null (i.e., all values set to `np.nan`). In addition, AirNowTech does not return method names, site latitude, or site longitude, and these columns are set null if reference data from AirNowTech are selected.
 
 | Column Header                 | Description                                          | Example                                         | Data type        |
@@ -413,7 +423,7 @@ Note that AirNow, AirNowTech, and AQS report QC or instrument status codes in di
 
 ****
 
-## Modules
+## Modules <a name="modules"></a>
 #### `SensorEvaluation.print_eval_metrics()`
 Results are printed to the console at the specified averaging interval for performance evaluation metrics including the coefficient of variation (CV), OLS regression slope and intercept, coefficient of determination (R<sup>2</sup>) and Root Mean Square Error (RMSE).
 
