@@ -7,6 +7,12 @@
 
 **Warning: This code is currently under development and is intended for internal EPA use only. Please do not distribute or share components of this repository with individuals external to EPA.**
 ****
+#### Readme Guide
+* [Overview](#overview)
+  * [Key Features](#key-features)
+  * [Dependencies](#dependencies)
+  * [Contact and Resources](#contact-and-resources)
+* [Installation](#installation)
 
 ## Overview
 A Python library for evaluating the performance of air sensors for use in
@@ -15,22 +21,22 @@ monitoring applications.
 
 In February 2021, EPA released [two reports](https://www.epa.gov/air-sensor-toolbox/air-sensor-performance-targets-and-testing-protocols#reports) detailing recommended performance testing protocols, metrics, and target values for the evaluation of sensors measuring either fine particulate matter (PM<sub>2.5</sub>) or ozone (O<sub>3</sub>). This library provides modules for testing air sensors measuring PM<sub>2.5</sub> and O<sub>3</sub> against FRM/FEM reference measurements collected at an ambient air monitoring site. Included modules calculation of performance metrics and comparison against target ranges recommended by EPA.
 
-##### Below is a summary of key features contained in this library:
+##### Key features:
 * Time averaging of timeseries data to 1-hour and 24-hour intervals with configurable data completeness threshold for computing averages (default 75%).
 * Reference data retrieval from AirNow and AQS APIs (user API accounts and keys must be specified). Ingestion of reference data into a consistent data formatting standard. Import and ingestion of reference data from AirNowTech including multiple parameters and pollutant types. Reference data are sorted by parameter type (particulate matter, gaseous pollutants, and meteorological parameters) and files are saved in monthly increments to .csv files.
 * *Under construction*
 
 Users must provide an ingestion module for importing recorded sensor data into a data formatting standard developed for this project.
 
-#### Built with:
-* Python 3.7.4
-* pandas 0.25.1
-* numpy 1.16.5
-* matplotlib 3.1.1
-* seaborn 0.9.0
-* statsmodels 0.10.1
-* pathlib2 2.3.5
-* requests 2.25.1
+#### Dependencies:
+* [Python](https://www.python.org/) 3.7.4
+* [pandas](https://pypi.org/project/pandas/) 0.25.1
+* [numpy](https://pypi.org/project/numpy/) 1.16.5
+* [matplotlib](https://pypi.org/project/matplotlib/) 3.1.1
+* [seaborn](https://pypi.org/project/seaborn/) 0.9.0
+* [statsmodels](https://pypi.org/project/statsmodels/) 0.10.1
+* [pathlib2](https://pypi.org/project/pathlib2/) 2.3.5
+* [requests](https://pypi.org/project/requests/) 2.25.1
 * ~~python-pptx 0.6.18~~ *not in current build*
 
 ### Contact and Resources
@@ -46,7 +52,19 @@ Additional information about EPA's research involving air sensors including the 
 
 ****
 ## Installation
-Under construction
+__Under construction.__
+
+Recommended Software:
+* [Anaconda](https://www.anaconda.com/) distribution of Python
+  * Package management including version control and dependency installation with `conda`
+  * Spyder IDE for running scripts and visualizing datasets
+
+Steps to get started using SensorEvaluation:
+* Clone repository
+* Optionally create a conda virtual environment for library dependencies
+* Install dependencies with `pip install -r requirements.txt`
+* Other stuff?
+
 
 ****
 ## Using SensorEvaluation
