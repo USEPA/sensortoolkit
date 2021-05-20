@@ -109,15 +109,15 @@ class SensorEvaluation:
 
         # path to raw sensor data
         self.data_path = '\\'.join((self.lib_path, 'Data and Figures',
-                                    'sensor_data', 'raw_data',
-                                    self.sensor_name, ''))
+                                    'sensor_data', self.sensor_name,
+                                    'raw_data', ''))
         # path to sensor figures
         self.figure_path = '\\'.join((self.lib_path, 'Data and Figures',
                                       'figures', self.sensor_name, ''))
         # path to processed sensor data
         self.processed_path = '\\'.join((self.lib_path, 'Data and Figures',
-                                         'sensor_data', 'processed_data',
-                                         self.sensor_name, ''))
+                                         'sensor_data', self.sensor_name,
+                                         'processed_data', ''))
         # path to evaluation statistics
         self.stats_path = '\\'.join((self.lib_path, 'Data and Figures',
                                      'eval_stats', self.sensor_name, ''))
