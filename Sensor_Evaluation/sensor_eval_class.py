@@ -773,7 +773,7 @@ class SensorEvaluation:
                            RH_colormap=RH_colormap,
                            sensor_serials=self.serials)
 
-    def print_eval_metrics(self, avg_interval):
+    def print_eval_metrics(self, avg_interval='Daily'):
         try:
             self.deploy_dict
         except AttributeError:
@@ -839,7 +839,7 @@ class SensorEvaluation:
                                                           linearity_max),
               5*' ')
 
-    def print_eval_conditions(self, avg_interval):
+    def print_eval_conditions(self, avg_interval='Daily'):
         try:
             self.deploy_dict
         except AttributeError:
