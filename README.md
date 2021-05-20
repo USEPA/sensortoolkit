@@ -309,7 +309,7 @@ Below is a step-by-step description of the console output:
 #### Example using downloaded AirNowTech datasets <a name="example-airnowtech"></a>
 If users have an existing account with AirNowTech, datasets downloaded directly from the AirNowTech data portal can be imported via the `Import_AirNowTech()` module.
 
-[Specifics about data downloaded from AirNowTech]
+__[Specifics about data downloaded from AirNowTech]__
 ```python
 from Sensor_Evaluation.sensor_eval_class import SensorEvaluation
 
@@ -471,6 +471,7 @@ Eval.print_eval_conditions(avg_interval='Daily')
 ****
 
 #### `SensorEvaluation.plot_timeseries()`
+__Description under construction.__
 ##### Parameters
 &nbsp;&nbsp; __averaging_interval : *{'Hourly', 'Daily'}, default 'Daily'*__
 *  The time averaging interval for sensor and reference data.
@@ -478,19 +479,20 @@ Eval.print_eval_conditions(avg_interval='Daily')
 ##### Example
 ```python
 # Timeseries plots for 1-hour averaged data
-test.plot_timeseries(averaging_interval='1-hour')
+Eval.plot_timeseries(averaging_interval='1-hour')
 ```
 ![Example_Make_Model Performance Evaluation Results](Data%20and%20Figures/figures/Example_Make_Model/PM25/Example_Make_Model_timeseries_PM25_1-hour_210519.png){width=1200}
 
 ```python
 # Timeseries plots for 24-hour averaged data
-test.plot_timeseries(averaging_interval='24-hour')
+Eval.plot_timeseries(averaging_interval='24-hour')
 ```
 ![Example_Make_Model Performance Evaluation Results](Data%20and%20Figures/figures/Example_Make_Model/PM25/Example_Make_Model_timeseries_PM25_24-hour_210519.png){width=1200}
 
 ****
 
 #### `SensorEvaluation.plot_sensor_scatter()`
+__Description under construction.__
 ##### Parameters
 &nbsp;&nbsp; __averaging_interval : *{'Hourly', 'Daily'}, default 'Daily'*__
 *  The time averaging interval for sensor and reference data.
@@ -512,7 +514,7 @@ test.plot_timeseries(averaging_interval='24-hour')
 
 ##### Example
 ```Python
-test.plot_sensor_scatter(averaging_interval='1-hour',
+Eval.plot_sensor_scatter(averaging_interval='1-hour',
                          plot_limits=(-1, 20),
                          axes_spacing=5,
                          text_pos='upper_left')
@@ -528,15 +530,32 @@ Computing regression statistics for Example_Make_Model vs T-API T640X at 16.67 L
 ****
 
 #### `SensorEvaluation.plot_metrics()`
+__Description under construction.__
+
+##### Example
+```python
+Eval.plot_metrics()
+```
 ![Example_Make_Model Performance Evaluation Results](Data%20and%20Figures/figures/Example_Make_Model/PM25/Example_Make_Model_regression_boxplot_PM25_210517.png){width=1200}
 
 ****
 
 #### `SensorEvaluation.plot_met_influence()`
+__Description under construction.__
 
+##### Example
+```python
+Eval.plot_met_influence()
+```
 ****
 
 #### `SensorEvaluation.plot_met_dist()`
+__Description under construction.__
+
+##### Example
+```python
+Eval.plot_met_dist()
+```
 ![Example_Make_Model Performance Evaluation Results](Data%20and%20Figures/figures/Example_Make_Model/Met/Example_Make_Model_met_distplot_pt_formatting_210519.png){width=600}
 
 ****
