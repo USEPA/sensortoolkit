@@ -25,6 +25,7 @@ from ._analysis.duplicate_removal import Remove_Duplicates
 from ._analysis.normalize_calculator import Normalize
 from ._format.format_date import Get_Date
 from ._format.format_names import (Format_Param_Name, Format_Metric_Name)
+from ._format.sensor_subfolders import Create_Sensor_Directories
 from ._ingest.processed_data_loader import Processed_Data_Search
 from ._models.apply_correction import Individual_Correction
 from ._reference.import_airnowtech import Import_AirNowTech, Flatten
