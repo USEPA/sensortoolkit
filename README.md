@@ -78,10 +78,9 @@ Data, figures, and statistical results for sensors must be located in the `Data 
 │   │   │   └───raw_api_datasets
 │   │   └───method_codes
 │   └───sensor_data
-│       ├───processed_data
-│       │   └───Example_Make_Model
-│       └───raw_data
-│           └───Example_Make_Model
+│       └───Example_Make_Model
+│           ├───processed_data
+│           └───raw_data
 ├───Documentation
 └───Sensor_Evaluation
     ├───_analysis
