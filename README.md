@@ -397,7 +397,7 @@ Note that AirNow, AirNowTech, and AQS report QC or instrument status codes in di
 
 ## Modules
 #### `SensorEvaluation.print_eval_metrics()`
-Results for performance evaluation metrics including the coefficient of variation (CV), OLS regression slope and intercept, coefficient of determination (R<sup>2</sup>) and Root Mean Square Error (RMSE) are printed to the console at the specified averaging interval.
+Results are printed to the console at the specified averaging interval for performance evaluation metrics including the coefficient of variation (CV), OLS regression slope and intercept, coefficient of determination (R<sup>2</sup>) and Root Mean Square Error (RMSE).
 
 ##### Parameters
 &nbsp;&nbsp; __averaging_interval : *{'Hourly', 'Daily'}, default 'Daily'*__
@@ -510,3 +510,18 @@ Computing regression statistics for Example_Make_Model vs T-API T640X at 16.67 L
 
 #### `SensorEvaluation.plot_met_dist()`
 ![Example_Make_Model Performance Evaluation Results](Data%20and%20Figures/figures/Example_Make_Model/Met/Example_Make_Model_met_distplot_pt_formatting_210519.png){width=600}
+
+****
+Formatting stuff
+
+# Level 1 *Level 1* __Level 1__
+## Level 2 *Level 2* __Level 2__
+### Level 3 *Level 3* __Level 3__
+#### Level 4 *Level 4* __Level 4__
+##### Level 5 *Level 5* __Level 5__
+###### Level 6 *Level 6* __Level 6__
+
+Regular text\
+*Italic*\
+__Bold__\
+~strikethrough~
