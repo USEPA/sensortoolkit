@@ -400,7 +400,7 @@ Note that AirNow, AirNowTech, and AQS report QC or instrument status codes in di
 Results for performance evaluation metrics including the coefficient of variation (CV), OLS regression slope and intercept, coefficient of determination (R<sup>2</sup>) and Root Mean Square Error (RMSE) are printed to the console at the specified averaging interval.
 
 ##### Parameters
-&nbsp;&nbsp;&nbsp;&nbsp; __averaging_interval : *{'Hourly', 'Daily'}, default 'Daily'*__
+&nbsp;&nbsp; __averaging_interval : *{'Hourly', 'Daily'}, default 'Daily'*__
 *  The time averaging interval for sensor and reference data.
 
 ##### Example
@@ -423,7 +423,7 @@ Eval.print_eval_metrics(avg_interval='Daily')
 #### `SensorEvaluation.print_eval_conditions()`
 Deployment site conditions are printed to the console for the specified averaging interval. The timeframe and duration of testing are included alongside pollutant concentrations and environmental parameters recorded during the testing period. The mean of sensor and reference pollutant concentrations, temperature, and relative humidity are all presented alongside the range of conditions (in parenthesis below mean values).
 ##### Parameters
-&nbsp;&nbsp;&nbsp;&nbsp; __averaging_interval : *{'Hourly', 'Daily'}, default 'Daily'*__
+&nbsp;&nbsp; __averaging_interval : *{'Hourly', 'Daily'}, default 'Daily'*__
 *  The time averaging interval for sensor and reference data.
 
 ##### Example
@@ -444,7 +444,7 @@ Eval.print_eval_conditions(avg_interval='Daily')
 
 #### `SensorEvaluation.plot_timeseries()`
 ##### Parameters
-&nbsp;&nbsp;&nbsp;&nbsp; __averaging_interval : *{'Hourly', 'Daily'}, default 'Daily'*__
+&nbsp;&nbsp; __averaging_interval : *{'Hourly', 'Daily'}, default 'Daily'*__
 *  The time averaging interval for sensor and reference data.
 
 ##### Example
@@ -464,22 +464,22 @@ test.plot_timeseries(averaging_interval='24-hour')
 
 #### `SensorEvaluation.plot_sensor_scatter()`
 ##### Parameters
-&nbsp;&nbsp;&nbsp;&nbsp; __averaging_interval : *{'Hourly', 'Daily'}, default 'Daily'*__
+&nbsp;&nbsp; __averaging_interval : *{'Hourly', 'Daily'}, default 'Daily'*__
 *  The time averaging interval for sensor and reference data.
 
-&nbsp;&nbsp;&nbsp;&nbsp; __plot_limits : *tuple, default (-1, 25)*__
+&nbsp;&nbsp; __plot_limits : *tuple, default (-1, 25)*__
 * The x-axis and y-axis plot limits. By default both axes are set to have the same limits to preserve square dimensions of plots. If users require more customization, separate axes limits can be passed to the `sensor_evaluation.Scatter_Plotter()` plotting module.
 
-&nbsp;&nbsp;&nbsp;&nbsp; __point_size : *int, default 20*__
+&nbsp;&nbsp; __point_size : *int, default 20*__
 *  The size of scatter plot points.
 
-&nbsp;&nbsp;&nbsp;&nbsp; __axes_spacing : *int, default 5*__
+&nbsp;&nbsp; __axes_spacing : *int, default 5*__
 *  The spacing between axes ticks and corresponding grid marks. Values are expressed in pollutant concentrations (micrograms per cubic meter for particulate matter, parts per billion by volume for ozone).
 
-&nbsp;&nbsp;&nbsp;&nbsp; __RH_colormap : *bool, default True*__
+&nbsp;&nbsp; __RH_colormap : *bool, default True*__
 *  Description.
 
-&nbsp;&nbsp;&nbsp;&nbsp; __report_fmt : *bool, default False*__
+&nbsp;&nbsp; __report_fmt : *bool, default False*__
 *  Description.
 
 ##### Example
