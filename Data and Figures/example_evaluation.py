@@ -19,9 +19,8 @@ os.chdir('..')
 import Sensor_Evaluation as se
 from Sensor_Evaluation.sensor_eval_class import SensorEvaluation
 
-ref_path = os.path.abspath(
-                    os.path.join(
-                        os.path.join(__file__, '..'), 'reference_data'))
+ref_path = os.path.abspath(__file__ + '../../reference_data')
+
 # Caution, Windows only
 ref_path = pathlib.PureWindowsPath(ref_path)
 
