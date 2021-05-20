@@ -51,7 +51,7 @@ Under construction
 ****
 ## Using SensorEvaluation
 
-#### Adding a Sensor to the Library
+### Adding a Sensor to the Library
 The SensorEvaluation library comes with an example sensor dataset. The example sensor is given the name `Example_Make_Model` and users are encouraged to adopt a similar naming scheme for conducting analysis with the sensor name comprised of the manufacturer make and sensor model separated by an underscore '_'. The example sensor dataset is provided to help users familiarize themselves with the structure of the library's supporting files and the functionality of modules within the library.
 
 Data, figures, and statistical results for sensors must be located in the `Data and Figures` folder. Below is a diagram showing the file structure for the Sensor Evaluation library with the `Data and Figures` folder on the first branch. Within this folder, subfolders contain evaluation statistics, figures, reference data, and sensor data (including both recorded or 'raw' and processed datasets). The `eval_stats`, `figures`, and `sensor_data` subfolders are further organized by sensor name.
@@ -122,7 +122,7 @@ Creating directories for New_Sensor_Make_Model and evaluation parameters: PM25, 
 ....Creating sub-directory:
 ......\Data and Figures\sensor_data\New_Sensor_Make_Model\raw_data
 ```
-#### Running SensorEvaluation
+### Running SensorEvaluation
 Analysis is built around the `SensorEvaluation` class. To begin analysis, users create an instance of the class where various attributes are declared upon instantiation (e.g., the name of the sensor `sensor_name`, the evaluation parameter `eval_param`, the location of reference data or name of API service to query `reference_data`, a dictionary containing serial identifiers for each sensor unit tested `serials`, shifting of sensor data by hourly intervals to time align sensor data timestamps with reference data `tzone_shift`, etc.).
 
 Upon creation of a class instance, the user must indicate what reference data to use. Users can either specify that reference data should be retrieved by API query (AirNow or AQS) or imported from a local destination (e.g., .csv files downloaded from AirNowTech). Note that both the AirNow and AQS APIs require users have an account and key to complete successful queries. AirNowTech also requires a user account to access its online data portal. Accounts for these services are free and can created via the following links ([AirNowTech account request](https://www.airnowtech.org/requestAccnt.cfm), [AirNow API account request](https://docs.airnowapi.org/account/request/), [AQS API sign up](https://aqs.epa.gov/aqsweb/documents/data_api.html#signup)).
@@ -213,8 +213,7 @@ In addition, users must specify an AQS account username (registered email) and a
 ```python
 from Sensor_Evaluation.sensor_eval_class import SensorEvaluation
 
-# Mock evaluation using Triple Oak AQS site (nearby AIRS) reference data
-# obtained from the AQS API
+# Triple Oak air monitoring site AQS ID (nearby sensor deployment site)
 triple_oaks_ID = {"state": "37",
                   "county": "183",
                   "site": "0021"}
@@ -235,6 +234,49 @@ eval = SensorEvaluation(sensor_name='Example_Make_Model',
                         load_raw_data=False,
                         write_to_file=False)
 ```
+When creating an evaluation class instance with the code snippet above, the following will be printed to the console:
+```
+Loading processed sensor data
+..Example_Make_Model_SN01_daily.csv
+..Example_Make_Model_SN01_full.csv
+..Example_Make_Model_SN01_hourly.csv
+..Example_Make_Model_SN02_daily.csv
+..Example_Make_Model_SN02_full.csv
+..Example_Make_Model_SN02_hourly.csv
+..Example_Make_Model_SN03_daily.csv
+..Example_Make_Model_SN03_full.csv
+..Example_Make_Model_SN03_hourly.csv
+Querying AQS API
+..Query start: 2019-08-01
+..Query end: 2019-08-31
+..Query site(s):
+....Site name: Triple Oak
+......AQS ID: 37-183-0021
+......Latitude: 35.8652
+......Longitude: -78.8197
+..Query Status: Success
+Querying AQS API
+..Query start: 2019-09-01
+..Query end: 2019-09-30
+..Query site(s):
+....Site name: Triple Oak
+......AQS ID: 37-183-0021
+......Latitude: 35.8652
+......Longitude: -78.8197
+..Query Status: Success
+Writing AQS query dataframes to csv files
+../reference_data/aqs/processed/AQS_37-183-0021_PM25_B190801_E190902.csv
+../reference_data/aqs/raw_api_datasets/AQS_raw_37-183-0021_PM25_B190801_E190902.csv
+Computing normalized PM25 values (by Met One BAM-1022 PM2.5 w/ VSCC or TE-PM2.5C FEM)
+Computing normalized PM25 values (by Met One BAM-1022 PM2.5 w/ VSCC or TE-PM2.5C FEM)
+Computing mean parameter values across concurrent sensor datasets
+Computing mean parameter values across concurrent sensor datasets
+```
+Below is a step-by-step description of the console output:
+* Processed sensor data are loaded
+* The AQS API is queried in monthly intervals for `PM25` reference data recorded at the Triple Oaks air monitoring site, which was selected based on its proximity to the site where the air sensor was deployed. AQS returns a successful query, and the console indicates data were retrieved from the Triple Oaks monitoring site for the months of August and September 2019. AQS data are then parsed into the reference data format described in the reference data dictionary below. Both raw (datasets as returned by the API) and processed datasets are written to .csv files at the folder path indicated.
+* Sensor `PM25` concentrations are normalized against reference measurements (AQS indicates that the reference monitor is a Met One BAM-1022).
+* The mean across sensor measurements is also calculated.
 
 #### Example using downloaded AirNowTech datasets
 If users have an existing account with AirNowTech, datasets downloaded directly from the AirNowTech data portal can be imported via the `Import_AirNowTech()` module.
@@ -355,24 +397,13 @@ Note that AirNow, AirNowTech, and AQS report QC or instrument status codes in di
 
 ## Modules
 #### `SensorEvaluation.print_eval_metrics()`
+Results for performance evaluation metrics including the coefficient of variation (CV), OLS regression slope and intercept, coefficient of determination (R<sup>2</sup>) and Root Mean Square Error (RMSE) are printed to the console at the specified averaging interval.
 
-```python
-Eval.print_eval_metrics(avg_interval='Hourly')
-```
+##### Parameters
+&nbsp;&nbsp;&nbsp;&nbsp; __averaging_interval : *{'Hourly', 'Daily'}, default 'Daily'*__
+*  The time averaging interval for sensor and reference data.
 
-```
-----------------------------------------------------------------------------------------
-                Example_Make_Model Hourly Performance Evaluation Results                
-                       Reference Method: T-API T640X at 16.67 LPM                       
-----------------------------------------------------------------------------------------
-  CV  |         Slope          |       Intercept        |          R^2           | RMSE
-----------------------------------------------------------------------------------------
- 13.1 |          0.77          |         -1.56          |          0.52          | 3.7  
-      |     (0.72 to 0.80)     |    (-1.59 to -1.52)    |     (0.50 to 0.53)     |      
-----------------------------------------------------------------------------------------
-```
-
-
+##### Example
 ```python
 Eval.print_eval_metrics(avg_interval='Daily')
 ```
@@ -390,22 +421,12 @@ Eval.print_eval_metrics(avg_interval='Daily')
 ****
 
 #### `SensorEvaluation.print_eval_conditions()`
-```python
-Eval.print_eval_conditions(avg_interval='Hourly')
-```
+Deployment site conditions are printed to the console for the specified averaging interval. The timeframe and duration of testing are included alongside pollutant concentrations and environmental parameters recorded during the testing period. The mean of sensor and reference pollutant concentrations, temperature, and relative humidity are all presented alongside the range of conditions (in parenthesis below mean values).
+##### Parameters
+&nbsp;&nbsp;&nbsp;&nbsp; __averaging_interval : *{'Hourly', 'Daily'}, default 'Daily'*__
+*  The time averaging interval for sensor and reference data.
 
-```
-----------------------------------------------------------------------------------------
-                  Example_Make_Model (3) Hourly Evaluation Conditions                   
-----------------------------------------------------------------------------------------
- Eval period  |   Duration   | Sensor PM25  |   Ref PM25   |     Temp     |      RH      
-----------------------------------------------------------------------------------------
-  08-01-19-   |   32 days    |     4.4      |     7.7      |      26      |      71      
-   09-02-19   |              |(0.9 to 13.8) |(3.3 to 15.3) |  (14 to 38)  |  (24 to 97)  
-----------------------------------------------------------------------------------------
-```
-
-
+##### Example
 ```python
 Eval.print_eval_conditions(avg_interval='Daily')
 ```
@@ -422,6 +443,11 @@ Eval.print_eval_conditions(avg_interval='Daily')
 ****
 
 #### `SensorEvaluation.plot_timeseries()`
+##### Parameters
+&nbsp;&nbsp;&nbsp;&nbsp; __averaging_interval : *{'Hourly', 'Daily'}, default 'Daily'*__
+*  The time averaging interval for sensor and reference data.
+
+##### Example
 ```python
 # Timeseries plots for 1-hour averaged data
 test.plot_timeseries(averaging_interval='1-hour')
@@ -437,6 +463,26 @@ test.plot_timeseries(averaging_interval='24-hour')
 ****
 
 #### `SensorEvaluation.plot_sensor_scatter()`
+##### Parameters
+&nbsp;&nbsp;&nbsp;&nbsp; __averaging_interval : *{'Hourly', 'Daily'}, default 'Daily'*__
+*  The time averaging interval for sensor and reference data.
+
+&nbsp;&nbsp;&nbsp;&nbsp; __plot_limits : *tuple, default (-1, 25)*__
+* The x-axis and y-axis plot limits. By default both axes are set to have the same limits to preserve square dimensions of plots. If users require more customization, separate axes limits can be passed to the `sensor_evaluation.Scatter_Plotter()` plotting module.
+
+&nbsp;&nbsp;&nbsp;&nbsp; __point_size : *int, default 20*__
+*  The size of scatter plot points.
+
+&nbsp;&nbsp;&nbsp;&nbsp; __axes_spacing : *int, default 5*__
+*  The spacing between axes ticks and corresponding grid marks. Values are expressed in pollutant concentrations (micrograms per cubic meter for particulate matter, parts per billion by volume for ozone).
+
+&nbsp;&nbsp;&nbsp;&nbsp; __RH_colormap : *bool, default True*__
+*  Description.
+
+&nbsp;&nbsp;&nbsp;&nbsp; __report_fmt : *bool, default False*__
+*  Description.
+
+##### Example
 ```Python
 test.plot_sensor_scatter(averaging_interval='1-hour',
                          plot_limits=(-1, 20),
