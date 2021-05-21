@@ -44,3 +44,50 @@ test_report = PerformanceReport(
 # Compile the report and save the file to the reports subfolder
 test_report.CreateReport()
 ```
+
+Console Output:
+```
+Loading processed sensor data
+..Example_Make_Model_SN01_daily.csv
+..Example_Make_Model_SN01_full.csv
+..Example_Make_Model_SN01_hourly.csv
+..Example_Make_Model_SN02_daily.csv
+..Example_Make_Model_SN02_full.csv
+..Example_Make_Model_SN02_hourly.csv
+..Example_Make_Model_SN03_daily.csv
+..Example_Make_Model_SN03_full.csv
+..Example_Make_Model_SN03_hourly.csv
+Loading reference dataframes
+..2019-08
+....H_201908_PM.csv
+....H_201908_Met.csv
+....H_201908_Gases.csv
+..2019-09
+....H_201909_PM.csv
+....H_201909_Met.csv
+....H_201909_Gases.csv
+Computing normalized O3 values (by Teledyne API Model 265E And T265)
+Computing normalized O3 values (by Teledyne API Model 265E And T265)
+Computing mean parameter values across concurrent sensor datasets
+Computing mean parameter values across concurrent sensor datasets
+Populating deployment dataframe with evaluation statistics
+Computing CV for 1-Hour averaged O3
+..N excluded: 20 out of 756 total.
+..N concurrent: 736
+..Concurrent Measurement Timeframe: 2019-08-01 13:00:00 - 2019-09-02 00:00:00
+Computing CV for 24-Hour averaged O3
+..N excluded: 2 out of 32 total.
+..N concurrent: 30
+..Concurrent Measurement Timeframe: 2019-08-02 00:00:00 - 2019-09-01 00:00:00
+Computing regression statistics for Example_Make_Model vs Teledyne API Model 265E And T265
+Computing regression statistics for Example_Make_Model vs Teledyne API Model 265E And T265
+../Data and Figures/eval_stats/Example_Make_Model/Example_Make_Model_O3_vs_Teledyne_API_Model_265E_And_T265_stats_df_210521.csv
+Computing regression statistics for Example_Make_Model vs Intersensor_mean_O3
+Computing regression statistics for Example_Make_Model vs Intersensor_mean_O3
+../Data and Figures/eval_stats/Example_Make_Model/Example_Make_Model_O3_vs_Intersensor_mean_O3_stats_df_210521.csv
+Creating Testing Report for Example_Make_Model
+..Adding figures to report
+..Adding tabular data
+..Saving report
+....\Reports\Example_Make_Model\O3\Base_Testing_Report_O3_Example_Make_Model_210521.pptx
+```
