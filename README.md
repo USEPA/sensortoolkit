@@ -32,9 +32,10 @@ monitoring applications.
 In February 2021, EPA released [two reports](https://www.epa.gov/air-sensor-toolbox/air-sensor-performance-targets-and-testing-protocols#reports) detailing recommended performance testing protocols, metrics, and target values for the evaluation of sensors measuring either fine particulate matter (PM<sub>2.5</sub>) or ozone (O<sub>3</sub>). This library provides modules for testing air sensors measuring PM<sub>2.5</sub> and O<sub>3</sub> against FRM/FEM reference measurements collected at an ambient air monitoring site. Included modules calculation of performance metrics and comparison against target ranges recommended by EPA.
 
 ##### Key features: <a name="key-features"></a>
+* Class-based approach for analyzing sensor data in a consistent, reproduceable manner. Evaluation of sensor performance for fine particulate matter and ozone against EPA's recommended performance metrics and target values.
 * Time averaging of timeseries data to 1-hour and 24-hour intervals with configurable data completeness threshold for computing averages (default 75%).
 * Reference data retrieval from AirNow and AQS APIs (user API accounts and keys must be specified). Ingestion of reference data into a consistent data formatting standard. Import and ingestion of reference data from AirNowTech including multiple parameters and pollutant types. Reference data are sorted by parameter type (particulate matter, gaseous pollutants, and meteorological parameters) and files are saved in monthly increments to .csv files.
-* *Under construction*
+* Modules for visualizing sensor performance: timeseries plots, scatter plots for sensor vs. referencem ,
 
 Users must provide an ingestion module for importing recorded sensor data into a data formatting standard developed for this project.
 
@@ -399,7 +400,7 @@ Below is a list of sensor parameters supported by the `SensorEvaluation` class. 
 
 *If internal Temp and RH are measured, but not DP, DP is calculated via the `Dewpoint()` module and is labeled `DP_calculated`
 #### Reference data <a name="dict-reference"></a>
-Below is a description of reference data formatting expected by the `SensorEvaluation` class. Example values result from `PM25` data queried from the AQS API for the Triple Oak monitoring site. The column naming scheme for parameter data is consistent across queried parameters (columns with the prefix '`PM25`' are replaced by the parameter of interest) and columns formatting is consistent across data sources. Note that the AirNow API does not return QC codes, parameter AQS codes, method names, method AQS codes, or parameter occurrence codes. These columns are set null (i.e., all values set to `np.nan`). In addition, AirNowTech does not return method names, site latitude, or site longitude, and these columns are set null if reference data from AirNowTech are selected.
+Below is a description of reference data formatting expected by the `SensorEvaluation` class. Example values result from `PM25` data queried from the AQS API for the Triple Oak monitoring site. The column naming scheme for parameter data is consistent across queried parameters (columns with the prefix '`PM25`' are replaced by the parameter of interest) and columns formatting is consistent across data sources. Note that the AirNow API does not return QC codes, parameter AQS codes, method names, method AQS codes, or parameter occurrence codes. These columns are set null (i.e., all values set to `numpy.nan`). In addition, AirNowTech does not return method names, site latitude, or site longitude, and these columns are set null if reference data from AirNowTech are selected.
 
 | Column Header                 | Description                                          | Example                                         | Data type        |
 | ----------------------------- | ---------------------------------------------------- | ----------------------------------------------- | ---------------- |
@@ -419,7 +420,7 @@ Below is a description of reference data formatting expected by the `SensorEvalu
 | `Data_Source`                  | Name of API data source                              | `AQS API`                                         | `object`           |
 | `Data_Acquisition_Date_Time` | Date and time of data query, acquisition             | `5/18/2021 8:44`                                  | `datetime64[ns]`           |
 
-Note that AirNow, AirNowTech, and AQS report QC or instrument status codes in different ways. AirNow reports `-999` if instrument failures or other issues occur, AirNowTech reports integer values ranging from '0' (normal operation) to `9` (instrument failure)
+Note that AirNow, AirNowTech, and AQS report QC or instrument status codes in different ways. AirNow reports `-999` if instrument failures or other issues occur, AirNowTech reports integer values ranging from 0 (normal operation) to `9` (instrument failure)
 
 ****
 
