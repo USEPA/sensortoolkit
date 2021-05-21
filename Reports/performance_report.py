@@ -11,15 +11,17 @@
 Created:
   Tue Dec 15 08:53:19 2020
 Last Updated:
-  Tue Dec 30 3:14:00 2020
+  Fri May 21 13:58:00 2021
 """
 import pptx as ppt
 import datetime as dt
 import numpy as np
 import math
 import os
-os.chdir('..')
-import Sensor_Evaluation as se
+import sys
+lib_path = os.path.abspath(__file__ + '../../..')
+if lib_path not in sys.path:
+    sys.path.append(lib_path)
 from Sensor_Evaluation.sensor_eval_class import SensorEvaluation
 
 
@@ -34,7 +36,8 @@ class PerformanceReport(SensorEvaluation):
     def __init__(self, sensor_name, eval_param, load_raw_data=False,
                  reference_data=None, ref_name=None,
                  serials=None, tzone_shift=0, bbox=None, aqs_id=None,
-                 write_to_file=False, fmt_sensor_name=None,):
+                 write_to_file=False, fmt_sensor_name=None, testing_org=None,
+                 testing_loc=None):
 
         # Inherit the SensorEvaluation class instance attributes
         super().__init__(sensor_name, eval_param, load_raw_data,
@@ -45,7 +48,7 @@ class PerformanceReport(SensorEvaluation):
         # Placeholder method for formatted sensor name, replace '_' with spaces
         if self.fmt_sensor_name is None:
             self.fmt_sensor_name = self.sensor_name.replace('_', ' ')
-        self.today = se.Get_Date()
+        self.today = dt.datetime.now().strftime('%y%m%d')
 
         self.template_name = ('Reporting_Template_Base_' + self.eval_param
                               + '.pptx')
@@ -53,35 +56,11 @@ class PerformanceReport(SensorEvaluation):
         self.template_path = '\\'.join((self.lib_path, 'Reports', 'templates',
                                         self.eval_param, self.template_name))
 
-        # Initialize report
-        self.rpt = ppt.Presentation(self.template_path)
-        self.shapes = self.rpt.slides[0].shapes
+        # Details about testing and deployment site
+        self.testing_org = testing_org
+        self.testing_loc = testing_loc
 
-        # Shape at backgroud around which to orient other figures
-        self.cursor_sp = self.shapes[0]._element
-
-        # ----------- Details about testing and deployment site ---------------
-        # Testing organization information
-        self.testing_org = {
-                        'Deployment number': 'Deployment #1',
-                        'Org name': ['U.S. Environmental Protection Agency',
-                                     'Office of Research and Development'],
-                        'Link': 'https://www.epa.gov/air-sensor-toolbox/'
-                                'evaluation-emerging-air-sensor-performance',
-                        'Contact email': 'PI: Clements.Andrea@epa.gov',
-                        'Contact phone': '919-541-1364'
-                        }
-
-        # Testing location
-        self.testing_loc = {
-                        'Site name': '(AIRS) Ambient Monitoring Innovative '
-                                     'Research Station ',
-                        'Site address': '111 TW Alexander Dr. RTP, NC 27713',
-                        'Site lat': '35.889510N',
-                        'Site long': '-78.874572W',
-                        'Site AQS ID': '37 – 063 – 0099'
-                        }
-
+        # Populate deployment dictionary with performance metric results
         self.calculate_metrics()
 
         # Sampling timeframe
@@ -93,15 +72,25 @@ class PerformanceReport(SensorEvaluation):
                                self.deploy_dict['Deployment Groups'].keys())
                        }
 
-        self.FigPositions()
-
-        self.serial_dict = {}
+        # Keys are sensor serial IDs, values are deployment group number
+        # Useful if multiple evaluation groups deployed
+        self.serial_grp_dict = {}
         for grp in self.deploy_dict['Deployment Groups']:
             grp_dict = self.deploy_dict['Deployment Groups'][grp]
             grp_sensors = grp_dict['sensors']
             for sensor in grp_sensors:
                 serial = grp_sensors[sensor]['serial_id']
-                self.serial_dict[serial] = grp
+                self.serial_grp_dict[serial] = grp
+
+        # Initialize report object
+        self.rpt = ppt.Presentation(self.template_path)
+        self.shapes = self.rpt.slides[0].shapes
+
+        # Shape at backgroud around which to orient other figures
+        self.cursor_sp = self.shapes[0]._element
+
+        # Initialize figure positions in report
+        self.FigPositions()
 
     def FigPositions(self):
         """
@@ -150,22 +139,19 @@ class PerformanceReport(SensorEvaluation):
         Add sensor vs. reference scatter plots (1-hr, 24-hr [PM2.5 only])
         to report
         """
-        fig_name = self.sensor_name + '_vs_' + self.ref_name + '_pt_formatted'
+        fig_name = self.sensor_name + '_vs_' + self.ref_name + '_report_fmt'
 
         # Search for figure created today
         try:
             fig_name += '_' + self.today + '.png'
-            fig_path = self.figure_path + '\\'.join((self.eval_param, fig_name))
+            fig_path = self.figure_path + '\\'.join((self.eval_param,
+                                                     fig_name))
             figure = open(fig_path, 'r')
             figure.close()
 
         # If figure not found, load sensor data and create figure
-        except FileNotFoundError as e:
-            print(e)
+        except FileNotFoundError:
 
-            if len(kwargs) == 0:
-                print('Warning: No plotting arguments passed to function,'
-                      ' using default configuration')
             self.plot_sensor_scatter(
                         plot_subset=kwargs.get('plot_subset', ['1']),
                         plot_limits=kwargs.get('plot_limits', (-1, 30)),
@@ -196,7 +182,7 @@ class PerformanceReport(SensorEvaluation):
 #        Page 2: Triplicate scatter
 #        """
 #        fig_name = (self.sensor_name + '_vs_' + self.ref_name +
-#                    '_triplicate_scatter' + '_pt_formatted')
+#                    '_triplicate_scatter' + '_report_fmt)
 #
 #        # Search for figure created today
 #        try:
@@ -241,22 +227,18 @@ class PerformanceReport(SensorEvaluation):
         Add timeseries plots (1-hr, 24-hr [PM2.5 only]) to report
         """
         fig_name = self.sensor_name + '_timeseries_' + self.eval_param \
-            + '_pt_formatted'
+            + '_report_fmt'
 
         # Search for figure created today
         try:
             fig_name += '_' + self.today + '.png'
-            fig_path = self.figure_path + '\\'.join((self.eval_param, fig_name))
+            fig_path = self.figure_path + '\\'.join((self.eval_param,
+                                                     fig_name))
 
             figure = open(fig_path, 'r')
             figure.close()
 
-        except FileNotFoundError as e:
-            print(e)
-
-            if len(kwargs) == 0:
-                print('Warning: No plotting arguments passed to function,'
-                      ' using default configuration')
+        except FileNotFoundError:
 
             self.plot_timeseries(
                     format_xaxis_weeks=kwargs.get('format_xaxis_weeks', False),
@@ -291,14 +273,14 @@ class PerformanceReport(SensorEvaluation):
 
         # Search for figure created today
         try:
-            fig_name += '_' + self.today + '.png'me
-            fig_path = self.figure_path + '\\'.join((self.eval_param, fig_name))
+            fig_name += '_' + self.today + '.png'
+            fig_path = self.figure_path + '\\'.join((self.eval_param,
+                                                     fig_name))
 
             figure = open(fig_path, 'r')
             figure.close()
 
-        except FileNotFoundError as e:
-            print(e)
+        except FileNotFoundError:
 
             self.plot_metrics()
 
@@ -326,8 +308,7 @@ class PerformanceReport(SensorEvaluation):
             figure = open(fig_path, 'r')
             figure.close()
 
-        except FileNotFoundError as e:
-            print(e)
+        except FileNotFoundError:
 
             self.plot_met_dist()
 
@@ -346,7 +327,7 @@ class PerformanceReport(SensorEvaluation):
         relative humidity) scatter plots to report
         """
         fig_name = self.sensor_name + '_normalized_' + self.eval_param \
-            + '_met_pt_formatted'
+            + '_met_report_fmt'
 
         # Search for figure created today
         try:
@@ -356,12 +337,7 @@ class PerformanceReport(SensorEvaluation):
             figure = open(fig_path, 'r')
             figure.close()
 
-        except FileNotFoundError as e:
-            print(e)
-
-            if len(kwargs) == 0:
-                print('Warning: No plotting arguments passed to function,'
-                      ' using default configuration')
+        except FileNotFoundError:
 
             self.plot_met_influence(report_fmt=True,
                                     plot_error_bars=False)
@@ -635,14 +611,14 @@ class PerformanceReport(SensorEvaluation):
                 # Only fill in ID info for number of sensors in evaluation.
                 # If number of sensors is, say, 8, then the last cell for the
                 # 3x3 grid for serial numbers is left empty.
-                if len(self.serial_dict) < cell_n:
+                if len(self.serial_grp_dict) < cell_n:
                     pass
                 else:
                     cell = shape.table.cell(iloc, jloc)
 
                     serial_idx = cell_n - 1
-                    sensor_serial = list(self.serial_dict.keys())[serial_idx]
-                    sensor_grp = list(self.serial_dict.values())[serial_idx]
+                    sensor_serial = list(self.serial_grp_dict.keys())[serial_idx]
+                    sensor_grp = list(self.serial_grp_dict.values())[serial_idx]
 
                     # Add group number
                     grp_obj = cell.text_frame.paragraphs[0]
@@ -1579,8 +1555,8 @@ class PerformanceReport(SensorEvaluation):
     def EditTabularStats(self):
         """
         """
-        self.n_grps = len(set(self.serial_dict.values()))
-        self.n_sensors = len(set(self.serial_dict))
+        self.n_grps = len(set(self.serial_grp_dict.values()))
+        self.n_sensors = len(set(self.serial_grp_dict))
 
         # Use slide layout for generating additional slides
         tabular_layout_idx = 1
@@ -1606,11 +1582,11 @@ class PerformanceReport(SensorEvaluation):
 #                         'falls within the target range'
 #                }
 
-        grps = sorted(list(set(self.serial_dict.values())))
+        grps = sorted(list(set(self.serial_grp_dict.values())))
 
         for grp_n, grp_name in enumerate(grps, 1):
             self.grp_n_sensors = list(
-                        self.serial_dict.values()).count(grp_name)
+                        self.serial_grp_dict.values()).count(grp_name)
             self.grp_name = grp_name
 
             # Create new tabular stats page
@@ -2011,9 +1987,12 @@ class PerformanceReport(SensorEvaluation):
         Note that Edit Header should be the last routine, loops over slides to
         add header information.
         """
+        print('Creating Testing Report for', self.sensor_name)
+
         # Set figure positions
         self.FigPositions()
 
+        print('..Adding figures to report')
         # Add figures to report
         self.AddSingleScatterPlot()
         self.AddTimeseriesPlot()
@@ -2021,6 +2000,7 @@ class PerformanceReport(SensorEvaluation):
         self.AddMetDistPlot()
         self.AddMetInflPlot()
 
+        print('..Adding tabular data')
         # Modify report tables
         self.EditSiteTable()
         self.EditSensorTable()
@@ -2033,31 +2013,20 @@ class PerformanceReport(SensorEvaluation):
 
         self.SaveReport()
 
-        print('Performance evaluation report created for ' + self.sensor_name
-              + ' ' + self.eval_param)
-
     def SaveReport(self):
-        self.rpt_name = 'Performance_Targets_Report_Base_' + self.eval_param\
+        print('..Saving report')
+        self.rpt_name = 'Base_Tesing_Report_' + self.eval_param\
                         + '_' + self.sensor_name + '_' + self.today + '.pptx'
 
-        save_path = '\\'.join((self.lib_path, 'Reports', self.sensor_name,
-                               self.rpt_name))
+
+        save_dir = '\\'.join((self.lib_path, 'Reports',
+                              self.sensor_name, self.eval_param))
+        save_path = '\\'.join((save_dir, self.rpt_name))
+
+        if not os.path.exists(save_dir):
+            os.makedirs(save_dir)
+            print('..Creating directory:')
+            print('....' + save_dir)
+
+        print('....' + save_path.replace(self.lib_path, ''))
         self.rpt.save(save_path)
-
-
-import pathlib
-ref_path = os.path.abspath(__file__ + '../../../Data and Figures/reference_data')
-ref_path = pathlib.PureWindowsPath(ref_path)
-
-test_report = PerformanceReport(
-                sensor_name='Example_Make_Model',
-                eval_param='PM25',
-                reference_data=ref_path.as_posix() + '/airnowtech/processed',
-                serials={'1': 'SN01',
-                         '2': 'SN02',
-                         '3': 'SN03'},
-                tzone_shift=5,
-                load_raw_data=False,
-                write_to_file=True)
-
-test_report.CreateReport()
