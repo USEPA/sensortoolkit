@@ -2015,7 +2015,7 @@ class PerformanceReport(SensorEvaluation):
 
     def SaveReport(self):
         print('..Saving report')
-        self.rpt_name = 'Base_Tesing_Report_' + self.eval_param\
+        self.rpt_name = 'Base_Testing_Report_' + self.eval_param\
                         + '_' + self.sensor_name + '_' + self.today + '.pptx'
 
 
