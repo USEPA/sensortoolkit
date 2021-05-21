@@ -519,7 +519,7 @@ class SensorEvaluation:
 
     def plot_sensor_scatter(self, averaging_interval='1-hour',
                             text_pos='upper_left', plot_limits=(-1, 25),
-                            point_size=20, axes_spacing=5, RH_colormap=True,
+                            point_size=20, tick_spacing=5, RH_colormap=True,
                             plot_title=True, plot_subset=None,
                             report_fmt=False):
         """
@@ -592,7 +592,7 @@ class SensorEvaluation:
                                    RH_colormap=RH_colormap,
                                    plot_title=plot_title,
                                    plot_subset=plot_subset,
-                                   axes_spacing=axes_spacing,
+                                   tick_spacing=tick_spacing,
                                    write_to_file=write_to_file,
                                    report_fmt=True,
                                    ax=axs[i],
@@ -624,7 +624,7 @@ class SensorEvaluation:
                                RH_colormap=RH_colormap,
                                plot_title=plot_title,
                                plot_subset=plot_subset,
-                               axes_spacing=axes_spacing,
+                               tick_spacing=tick_spacing,
                                report_fmt=report_fmt,
                                write_to_file=self.write_to_file)
 
@@ -719,7 +719,7 @@ class SensorEvaluation:
     def plot_sensor_met_scatter(self, averaging_interval, met_param,
                                 text_pos='upper_left', fontsize=14,
                                 mono_color='#0048AD', alpha=0.5,
-                                axes_spacing=10, RH_colormap=False):
+                                tick_spacing=10, RH_colormap=False):
         """
         Creates one of the following scatter plots:
             Internal sensor RH vs. Reference monitor RH
@@ -769,7 +769,7 @@ class SensorEvaluation:
                            font_size=fontsize,
                            mono_color=mono_color,
                            alpha=alpha,
-                           axes_spacing=axes_spacing,
+                           tick_spacing=tick_spacing,
                            RH_colormap=RH_colormap,
                            sensor_serials=self.serials)
 

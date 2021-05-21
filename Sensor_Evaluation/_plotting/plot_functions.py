@@ -569,7 +569,7 @@ def Scatter_Plotter(df_list, ref_df, stats_df=None, plot_subset=None,
                     plot_trendline=True, plot_rmse=True,
                     plot_spearman=False, plot_n=True, title_text=None,
                     mono_color=None, alpha=.5, sensor_serials=None,
-                    axes_spacing=5, ref_name=None, deploy_dict=None,
+                    tick_spacing=5, ref_name=None, deploy_dict=None,
                     ax=None, fig=None, report_fmt=False, return_axs=False,
                     empty_plot=False):
     """
@@ -861,8 +861,8 @@ def Scatter_Plotter(df_list, ref_df, stats_df=None, plot_subset=None,
                                     alpha=alpha,
                                     empty_plot=empty_plot)
 
-            ax.xaxis.set_major_locator(plt.MultipleLocator(axes_spacing))
-            ax.yaxis.set_major_locator(plt.MultipleLocator(axes_spacing))
+            ax.xaxis.set_major_locator(plt.MultipleLocator(tick_spacing))
+            ax.yaxis.set_major_locator(plt.MultipleLocator(tick_spacing))
 
     # Plot colorbar
     if RH_colormap is True:
