@@ -1,8 +1,13 @@
 # -*- coding: utf-8 -*-
 """
 @Author:
-  Samuel Frederick, NSSC Contractor to U.S EPA, Office of Research and
-  Development (ORD), Center for Environmental Measurement and Modeling (CEMM)
+  Samuel Frederick, NSSC Contractor (ORAU)
+  U.S. EPA, Office of Research and Development
+  Center for Environmental Measurement and Modeling
+  Air Methods and Characterization Division, Source and Fine Scale Branch
+  109 T.W Alexander Drive, Research Triangle Park, NC 27711
+  Office: 919-541-4086 | Email: frederick.samuel@epa.gov
+
 Created:
   Thu Dec 10 15:13:44 2020
 Last Updated:
