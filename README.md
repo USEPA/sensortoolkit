@@ -48,7 +48,7 @@ Users must provide an ingestion module for importing recorded sensor data into a
 * [statsmodels](https://pypi.org/project/statsmodels/) 0.10.1
 * [pathlib2](https://pypi.org/project/pathlib2/) 2.3.5
 * [requests](https://pypi.org/project/requests/) 2.25.1
-* ~~python-pptx 0.6.18~~ *not in current build*
+* [python-pptx](https://pypi.org/project/python-pptx/) 0.6.18
 
 ### Contact and Resources <a name="contact"></a>
 *Please direct all inquiries to*\
@@ -113,13 +113,28 @@ Data, figures, and statistical results for sensors must be located in the `Data 
 │           ├───processed_data
 │           └───raw_data
 ├───Documentation
+├───Reports
+│   ├───Example_Make_Model
+│   │   ├───O3
+│   │   └───PM25
+│   ├───templates
+│   │   ├───O3
+│   │   └───PM25
+│   └───__pycache__
 └───Sensor_Evaluation
     ├───_analysis
+    │   └───__pycache__
     ├───_format
+    │   └───__pycache__
     ├───_ingest
+    │   └───__pycache__
     ├───_models
+    │   └───__pycache__
     ├───_plotting
-    └───_reference
+    │   └───__pycache__
+    ├───_reference
+    │   └───__pycache__
+    └───__pycache__
 ```
 
 Users can call the `Create_Sensor_Directories()` function to add subdirectories for sensor data, figures, and statistics. **It is important that users follow the sensor-specific folder structure shown above for the `Example_Make_Model` with their own sensors by using the `Create_Sensor_Directories()` function or by manually creating subdirectories. Otherwise, the SensorEvaluation library will not be able to read or write data and figures to the expected folder location.** Below is an example illustrating use of the `Create_Sensor_Directories()` function. The parameter `name` is sensor name (users are encouraged to follow the sensor naming scheme discussed above) and the parameter `eval_params` is a list of the pollutants measured by the sensor which the user intends to evaluate.
