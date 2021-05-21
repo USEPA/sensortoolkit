@@ -276,7 +276,7 @@ def Sensor_Subplot_Formatting(number_of_sensors, param, font_size,
             bottom = 0.30
             cbar_padding = .0
             cbar_aspect = 20
-        filename_suffix = 'pt_formatted'
+        filename_suffix = 'report_fmt'
 
     return (Nr, Nc, fig_size, suptitle_xpos, suptitle_ypos, title_text_wrap,
             detail_fontsize, wspace, hspace, left, right, top, bottom,
@@ -1186,7 +1186,7 @@ def Sensor_Timeplot(df_list, ref_df, param=None,
         # Indicate performance targets template formatted, remove time interval
         # info if multiple subplots for 1-hr, 24-hr data used
         if report_fmt is True or unique_ax_obj is False:
-            figure_path = figure_path + '_' + 'pt_formatted'
+            figure_path = figure_path + '_' + 'report_fmt'
             figure_path = figure_path.replace('_' + time_interval, '')
 
         # Filename suffix for harmonized sensor datasets
@@ -1884,7 +1884,7 @@ def Met_Distrib(met_ref_data, figure_path, sensor_name=None,
     if write_to_file is True:
         todays_date = Get_Date()
         file_path = figure_path + 'Met' + '\\' + sensor_name + '_'\
-            'met_distplot_pt_formatting' + '_' + todays_date
+            'met_distplot_report_fmt' + '_' + todays_date
         plt.savefig(file_path + '.png', dpi=300)
         plt.close()
 
@@ -2098,7 +2098,7 @@ def Normalized_Met_Scatter(df_list, ref_df, avg_df, met_ref_df=None,
         if report_fmt is True:
             if unique_ax_obj is False:
                 figure_path = figure_path.replace('_vs_' + met_param, '_met')
-            figure_path = figure_path + '_' + 'pt_formatted'
+            figure_path = figure_path + '_' + 'report_fmt'
 
         # Filename suffix for harmonized sensor datasets
         if param.startswith('corrected'):
