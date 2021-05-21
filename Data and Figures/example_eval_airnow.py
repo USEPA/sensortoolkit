@@ -9,15 +9,22 @@
   Office: 919-541-4086 | Email: frederick.samuel@epa.gov
 
 Created:
-  Thu Dec 10 15:13:44 2020
+  Fri May 21 15:12:05 2021
 Last Updated:
-  Tue May 11 16:18:00 2021
+  Fri May 21 15:12:05 2021
 """
 import os
 import pathlib
-os.chdir('..')
+import sys
+lib_path = os.path.abspath(__file__ + '../../..')
+if lib_path not in sys.path:
+    sys.path.append(lib_path)
 import Sensor_Evaluation as se
 from Sensor_Evaluation.sensor_eval_class import SensorEvaluation
+
+# Run the next line of code to create sub-dirs for sensor data, figures, etc.
+#se.Create_Sensor_Directories(name='New_Sensor_Make_Model',
+#                             eval_params=['PM25', 'O3'])
 
 ref_path = os.path.abspath(__file__ + '../../reference_data')
 
@@ -25,28 +32,7 @@ ref_path = os.path.abspath(__file__ + '../../reference_data')
 ref_path = pathlib.PureWindowsPath(ref_path)
 
 #  ----------------------------------------------------------------------------
-# Uncomment the following block of code to run pre-processing on downloaded
-# AirNowTech data.
-
-# Pre-process downloaded AirNowTech file, create separate, monthly files for
-# PM, gas, and met
-airnowtech_path = (ref_path.as_posix() + '/airnowtech/downloaded_datasets/' +
-                   'AirNowTech_BurdensCreek_20190801_20190902_PMGasMet.csv')
-se.Import_AirNowTech(airnowtech_path)
-
-
-# Mock evaluation using AIRS reference data downloaded from AirNowTech
-Eval = SensorEvaluation(
-                sensor_name='Example_Make_Model',
-                eval_param='PM25',
-                reference_data=ref_path.as_posix() + '/airnowtech/processed',
-                serials={'1': 'SN01',
-                         '2': 'SN02',
-                         '3': 'SN03'},
-                tzone_shift=5,
-                load_raw_data=False,
-                write_to_file=True)
-
+#   Instantiate the SensorEvaluation class
 #  ----------------------------------------------------------------------------
 # bbox for AIRS [set narrow margins (+/- 0.01 deg) around known coordinates]
 AIRS_bbox = {"minLat": "35.88",
@@ -70,28 +56,8 @@ Eval = SensorEvaluation(sensor_name='Example_Make_Model',
 
 
 #  ----------------------------------------------------------------------------
-# Mock evaluation using Triple Oak AQS site (nearby AIRS) reference data
-# obtained from the AQS API
-triple_oaks_ID = {"state": "37",
-                  "county": "183",
-                  "site": "0021"}
-
-SensorEvaluation.aqs_username = 'username_address@email.com'
-SensorEvaluation.aqs_key = 'Your-AQS-Key-Here'
-
-Eval = SensorEvaluation(sensor_name='Example_Make_Model',
-                        eval_param='PM25',
-                        reference_data='AQS',
-                        aqs_id=triple_oaks_ID,
-                        serials={'1': 'SN01',
-                                 '2': 'SN02',
-                                 '3': 'SN03'},
-                        tzone_shift=5,
-                        load_raw_data=False,
-                        write_to_file=False)
-
+#   Testing statisitics and plots for the example evaluation
 #  ----------------------------------------------------------------------------
-
 # Print performance target evaluation results to console
 Eval.print_eval_metrics(avg_interval='Hourly')
 Eval.print_eval_metrics(avg_interval='Daily')
