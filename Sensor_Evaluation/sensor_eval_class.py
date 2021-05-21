@@ -95,8 +95,8 @@ class SensorEvaluation:
     airnow_key = None
 
     def __init__(self, sensor_name, eval_param, load_raw_data=False,
-                 reference_data=None, ref_name=None, write_to_file=False,
-                 serials=None, tzone_shift=0, bbox=None, aqs_id=None):
+                 reference_data=None, ref_name=None, serials=None,
+                 tzone_shift=0, bbox=None, aqs_id=None, write_to_file=False):
 
         self.sensor_name = sensor_name
         self.eval_param = eval_param
