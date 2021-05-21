@@ -82,15 +82,6 @@ class PerformanceReport(SensorEvaluation):
                         'Site AQS ID': '37 – 063 – 0099'
                         }
 
-        # # Load deployment dictionary information
-        # self.LoadDeploymentDict()
-        #
-        # # Locate sensor data
-        # try:
-        #     self.sensor_data
-        # except AttributeError:
-        #     self.LoadSensorData()
-
         self.calculate_metrics()
 
         # Sampling timeframe
@@ -112,60 +103,6 @@ class PerformanceReport(SensorEvaluation):
                 serial = grp_sensors[sensor]['serial_id']
                 self.serial_dict[serial] = grp
 
-    # def LoadSensorData(self):
-    #     """
-    #     Generate instance of sensor evaluation class for specified device
-    #     evaluation.
-    #     """
-    #     self.sensor_data = SensorEvaluation(sensor_name=self.sensor_name,
-    #                                         eval_param=self.eval_param,
-    #                                         write_to_file=True)
-    #     self.LoadDeploymentDict()
-    #     self.CalculateMetrics()
-    #
-    #     for row in self.stats_df.itertuples():
-    #         if row.Sensor_Serial in self.serial_dict:
-    #             self.stats_df.loc[row.Index, 'Group'] = \
-    #                 self.serial_dict[row.Sensor_Serial]
-
-    # def LoadDeploymentDict(self):
-    #     """
-    #     Attempt to locate current deployment dictionary (created on date of
-    #     report generation). If no file located, call LoadSensorData to generate
-    #     deployment dictionary object.
-    #     """
-    #     dict_name = self.sensor_name + '_' + self.eval_param + '_Evaluation'
-    #
-    #     # Search for figure created today
-    #     try:
-    #         dict_name += '_' + self.today + '.json'
-    #         dict_name = self.stats_path + '\\' + self.eval_param + '\\' \
-    #             + dict_name
-    #
-    #         with open(dict_name, 'r') as file:
-    #             self.deploy_dict = json.load(file)
-    #
-    #     except FileNotFoundError as e:
-    #         print(e)
-    #         try:
-    #             self.sensor_data
-    #         except AttributeError:
-    #             self.LoadSensorData()
-    #             self.DeployDict()
-    #
-    #         self.deploy_dict = self.deploy_dict
-    #
-    #     try:
-    #         self.serial_dict
-    #     except AttributeError:
-    #         self.serial_dict = {}
-    #         for grp in self.deploy_dict['Deployment Groups']:
-    #             grp_dict = self.deploy_dict['Deployment Groups'][grp]
-    #             grp_sensors = grp_dict['sensors']
-    #             for sensor in grp_sensors:
-    #                 serial = grp_sensors[sensor]['serial_id']
-    #                 self.serial_dict[serial] = grp
-    #
     def FigPositions(self):
         """
         Figure positions for reports. Values are in inches, specifying the
@@ -218,10 +155,7 @@ class PerformanceReport(SensorEvaluation):
         # Search for figure created today
         try:
             fig_name += '_' + self.today + '.png'
-#            fig_path = self.figure_path + '\\' + self.eval_param + '\\' \
-#                + fig_name
-            fig_path = self.figure_path + '\\'.join(
-                                                (self.eval_param, fig_name))
+            fig_path = self.figure_path + '\\'.join((self.eval_param, fig_name))
             figure = open(fig_path, 'r')
             figure.close()
 
@@ -312,10 +246,7 @@ class PerformanceReport(SensorEvaluation):
         # Search for figure created today
         try:
             fig_name += '_' + self.today + '.png'
-#            fig_path = self.figure_path + '\\' + self.eval_param + '\\' \
-#                + fig_name
-            fig_path = self.figure_path + '\\'.join(
-                                                (self.eval_param, fig_name))
+            fig_path = self.figure_path + '\\'.join((self.eval_param, fig_name))
 
             figure = open(fig_path, 'r')
             figure.close()
@@ -360,11 +291,8 @@ class PerformanceReport(SensorEvaluation):
 
         # Search for figure created today
         try:
-            fig_name += '_' + self.today + '.png'
-#            fig_path = self.figure_path + '\\' + self.eval_param + '\\' \
-#                + fig_name
-            fig_path = self.figure_path + '\\'.join(
-                                                (self.eval_param, fig_name))
+            fig_name += '_' + self.today + '.png'me
+            fig_path = self.figure_path + '\\'.join((self.eval_param, fig_name))
 
             figure = open(fig_path, 'r')
             figure.close()
@@ -393,8 +321,6 @@ class PerformanceReport(SensorEvaluation):
         # Search for figure created today
         try:
             fig_name += '_' + self.today + '.png'
-#            fig_path = self.figure_path + '\\' + self.eval_param + '\\' \
-#                + fig_name
             fig_path = self.figure_path + '\\'.join(('Met', fig_name))
 
             figure = open(fig_path, 'r')
@@ -425,10 +351,7 @@ class PerformanceReport(SensorEvaluation):
         # Search for figure created today
         try:
             fig_name += '_' + self.today + '.png'
-#            fig_path = self.figure_path + '\\' + self.eval_param + '\\' \
-#                + fig_name
-            fig_path = self.figure_path + '\\'.join(
-                                                (self.eval_param, fig_name))
+            fig_path = self.figure_path + '\\'.join((self.eval_param, fig_name))
 
             figure = open(fig_path, 'r')
             figure.close()
@@ -770,8 +693,6 @@ class PerformanceReport(SensorEvaluation):
         # Get pptx table shape for modifying cells
         shape = self.GetShape(slide_idx=0, shape_id=51)
 
-        #fmt_tuple = se.Format_Param_Name(self.eval_param)
-
         # ------------- Cell 1: Sensor manufacturer and model -----------------
         cell = shape.table.cell(1, 1)
 
@@ -977,11 +898,8 @@ class PerformanceReport(SensorEvaluation):
                                 font_name='Calibri', font_size=10)
 
     def EditSensorRefTable(self, table):
-#        try:
-#            self.sensor_data
-#        except AttributeError:
-#            self.LoadSensorData()
-
+        """
+        """
         if self.eval_param == 'PM25':
             span_dict = {'Bias and Linearity': [1, 6],
                          'Data Quality': [7, 10],
@@ -1043,9 +961,6 @@ class PerformanceReport(SensorEvaluation):
                               '22': '75%*',
                               '23': '-'}
 
-#        self.grp_stats = self.stats_df.where(
-#                 self.stats_df['Group'] == self.grp_name
-#                ).dropna()
         self.grp_stats = self.stats_df.dropna()
 
         cells = self.SetSpanningCells(table, span_dict)
