@@ -92,4 +92,8 @@ Creating Testing Report for Example_Make_Model
 ....\Reports\Example_Make_Model\O3\Base_Testing_Report_O3_Example_Make_Model_210521.pptx
 ```
 
+### Example Report
+Below is an example report (first page only) for the Aeroqual AQY. The first page of the testing report allows testers to insert information about their organization including contact information, and testers are also encouraged to provide details about the sensor and FRM/FEM instrumentation used for testing.
+
+Various plots generated via the `PerformanceReport` class are displayed below information about the deployment. These figures provide indication of the sensor's performance during the testing period, site conditions including temperature and relative humidity, and meteorological influences that may be present in sensor data.
 ![Example Report](report_example.png)
