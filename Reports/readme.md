@@ -91,3 +91,5 @@ Creating Testing Report for Example_Make_Model
 ..Saving report
 ....\Reports\Example_Make_Model\O3\Base_Testing_Report_O3_Example_Make_Model_210521.pptx
 ```
+
+![Example Report](Reports/report_example.png)
