@@ -29,13 +29,13 @@ A Python library for evaluating the performance of air sensors for use in
 ambient, outdoor, fixed site, non-regulatory supplemental and informational
 monitoring applications.
 
-In February 2021, EPA released [two reports](https://www.epa.gov/air-sensor-toolbox/air-sensor-performance-targets-and-testing-protocols#reports) detailing recommended performance testing protocols, metrics, and target values for the evaluation of sensors measuring either fine particulate matter (PM<sub>2.5</sub>) or ozone (O<sub>3</sub>). This library provides modules for testing air sensors measuring PM<sub>2.5</sub> and O<sub>3</sub> against FRM/FEM reference measurements collected at an ambient air monitoring site. Included modules calculation of performance metrics and comparison against target ranges recommended by EPA.
+In February 2021, EPA released [two reports](https://www.epa.gov/air-sensor-toolbox/air-sensor-performance-targets-and-testing-protocols#reports) detailing recommended performance testing protocols, metrics, and target values for the evaluation of sensors measuring either fine particulate matter (PM<sub>2.5</sub>) or ozone (O<sub>3</sub>). This library provides modules for testing air sensors measuring PM<sub>2.5</sub> and O<sub>3</sub> against FRM/FEM reference measurements collected at an ambient air monitoring site. Included modules utilize the performance metrics and target ranges recommended by EPA.
 
 ##### Key features: <a name="key-features"></a>
 * Class-based approach for analyzing sensor data in a consistent, reproduceable manner. Evaluation of sensor performance for fine particulate matter and ozone against EPA's recommended performance metrics and target values.
 * Time averaging of timeseries data to 1-hour and 24-hour intervals with configurable data completeness threshold for computing averages (default 75%).
 * Reference data retrieval from AirNow and AQS APIs (user API accounts and keys must be specified). Ingestion of reference data into a consistent data formatting standard. Import and ingestion of reference data from AirNowTech including multiple parameters and pollutant types. Reference data are sorted by parameter type (particulate matter, gaseous pollutants, and meteorological parameters) and files are saved in monthly increments to .csv files.
-* Modules for visualizing sensor performance: timeseries plots, scatter plots for sensor vs. referencem ,
+* Modules for visualizing sensor performance at 1-hour and 24-hour intervals: timeseries plots for examining how sensor and reference measurements track with changes in ambient concentrations during the testing period, scatter plots for displaying the accuracy and bias between sensor and reference measurement pairs, etc.
 
 Users must provide an ingestion module for importing recorded sensor data into a data formatting standard developed for this project.
 
@@ -71,10 +71,9 @@ Recommended Software:
   * Spyder IDE for running scripts and visualizing datasets
 
 Steps to get started using SensorEvaluation:
-* Clone repository
-* Optionally create a conda virtual environment for library dependencies
+* Clone the Sensor Evaluation repository. There are a couple ways this can be done, either via a program with a UI like SourceTree or via terminal command. For users just getting starting with how to use Git, Bitbucket has a tutorial [webpage](https://www.atlassian.com/git/tutorials/setting-up-a-repository/git-clone?utm_campaign=learn-git-clone&utm_medium=in-app-help&utm_source=stash) on how to clone repositories that may be helpful.
+* There are a number of python library dependencies that the Sensor Evaluation library will need to work properly. If users have an environment management system like Conda installed (included in Anaconda distriubtions of Python), users may wish to create a virtual environment for installing the dependencies required by the Sensor Evaluation Library. The benefit of a virtual environment is that software package versions required by the Sensor Evaluation Library won't override package versions in the default base environment; a virtual environment creates a walled garden where users can install the packages and the package versions they require without changing the state or version of packages installed in the base environment.    
 * Install dependencies with `pip install -r requirements.txt`
-* Other stuff?
 
 
 ****
