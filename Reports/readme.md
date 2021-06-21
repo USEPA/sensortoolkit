@@ -95,5 +95,7 @@ Creating Testing Report for Example_Make_Model
 ### Example Report
 Below is an example report (first page only) for the Aeroqual AQY. The first page of the testing report allows testers to insert information about their organization including contact information, and testers are also encouraged to provide details about the sensor and FRM/FEM instrumentation used for testing.
 
+Please note that at present, `PerformanceReport` does not populate the FRM/FEM Instrumentation table with calibration dates, flowrate verification checks, and any description of maintenance activities conducted on the reference instrumentation. Users must either insert these details manually by placing information in the provided table, or by appending documentation to the end of the report and noting on the supplemental information page that addition documentation has been attached. 
+
 Various plots generated via the `PerformanceReport` class are displayed below information about the deployment. These figures provide indication of the sensor's performance during the testing period, site conditions including temperature and relative humidity, and meteorological influences that may be present in sensor data.
 ![Example Report](report_example.png)
