@@ -465,6 +465,7 @@ Eval.print_eval_metrics(avg_interval='Daily')
 
 #### `SensorEvaluation.print_eval_conditions()`
 Deployment site conditions are printed to the console for the specified averaging interval. The timeframe and duration of testing are included alongside pollutant concentrations and environmental parameters recorded during the testing period. The mean of sensor and reference pollutant concentrations, temperature, and relative humidity are all presented alongside the range of conditions (in parenthesis below mean values).
+
 ##### Parameters
 &nbsp;&nbsp; __averaging_interval : *{'Hourly', 'Daily'}, default 'Daily'*__
 *  The time averaging interval for sensor and reference data.
@@ -486,7 +487,8 @@ Eval.print_eval_conditions(avg_interval='Daily')
 ****
 
 #### `SensorEvaluation.plot_timeseries()`
-__Description under construction.__
+Time series plots for 1-hour averaged and 24-hour averaged sensor and reference data. Sensor concentrations for each unit tested are depicted by discrete colors (e.g., red, green, blue, etc.) and reference concentrations are depicted in black.
+
 ##### Parameters
 &nbsp;&nbsp; __averaging_interval : *{'Hourly', 'Daily'}, default 'Daily'*__
 *  The time averaging interval for sensor and reference data.
@@ -507,9 +509,10 @@ Eval.plot_timeseries(averaging_interval='24-hour')
 ****
 
 #### `SensorEvaluation.plot_sensor_scatter()`
-__Description under construction.__
+Sensor (y-axis) vs. reference (x-axis) scatter plot. Separate plots are generated for each sensor unit tested
+
 ##### Parameters
-&nbsp;&nbsp; __averaging_interval : *{'Hourly', 'Daily'}, default 'Daily'*__
+&nbsp;&nbsp; __averaging_interval : *{'1-hour', '24-hour'}, default '24-hour'*__
 *  The time averaging interval for sensor and reference data.
 
 &nbsp;&nbsp; __plot_limits : *tuple, default (-1, 25)*__
@@ -518,13 +521,22 @@ __Description under construction.__
 &nbsp;&nbsp; __point_size : *int, default 20*__
 *  The size of scatter plot points.
 
-&nbsp;&nbsp; __axes_spacing : *int, default 5*__
+&nbsp;&nbsp; __tick_spacing : *int, default 5*__
 *  The spacing between axes ticks and corresponding grid marks. Values are expressed in pollutant concentrations (micrograms per cubic meter for particulate matter, parts per billion by volume for ozone).
 
 &nbsp;&nbsp; __RH_colormap : *bool, default True*__
 *  Description.
 
 &nbsp;&nbsp; __report_fmt : *bool, default False*__
+*  Description.
+
+&nbsp;&nbsp; __text_pos : *{'upper_left', 'bottom_right'}, default 'upper_left'*__
+*  Description.
+
+&nbsp;&nbsp; __plot_title : *bool, default True*__
+*  Description.
+
+&nbsp;&nbsp; __plot_title : *list, default None*__
 *  Description.
 
 ##### Example
