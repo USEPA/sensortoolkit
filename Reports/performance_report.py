@@ -98,8 +98,10 @@ class PerformanceReport(SensorEvaluation):
         left and top center location of each figure.
         """
         self.fig_locs = {
-                        'Scatter': {'left': '',
-                                    'top': ''},
+                        'SingleScatter': {'left': '',
+                                          'top': ''},
+                        'TripleScatter': {'left': '',
+                                          'top': ''},
                         'Timeseries': {'left': '',
                                        'top': ''},
                         'MetricPlot': {'left': '',
@@ -111,8 +113,10 @@ class PerformanceReport(SensorEvaluation):
                        }
 
         if self.eval_param == 'PM25':
-            self.fig_locs['Scatter']['left'] = 11.11
-            self.fig_locs['Scatter']['top'] = 8.16
+            self.fig_locs['SingleScatter']['left'] = 11.11
+            self.fig_locs['SingleScatter']['top'] = 8.16
+            self.fig_locs['TripleScatter']['left'] = 2.35
+            self.fig_locs['TripleScatter']['top'] = 3.82
             self.fig_locs['Timeseries']['left'] = 0.63
             self.fig_locs['Timeseries']['top'] = 8.15
             self.fig_locs['MetricPlot']['left'] = 0.65
@@ -123,8 +127,10 @@ class PerformanceReport(SensorEvaluation):
             self.fig_locs['MetInfl']['top'] = 17.54
 
         if self.eval_param == 'O3':
-            self.fig_locs['Scatter']['left'] = 11.57
-            self.fig_locs['Scatter']['top'] = 8.14
+            self.fig_locs['SingleScatter']['left'] = 11.57
+            self.fig_locs['SingleScatter']['top'] = 8.14
+            self.fig_locs['TripleScatter']['left'] = 2.35
+            self.fig_locs['TripleScatter']['top'] = 3.82
             self.fig_locs['Timeseries']['left'] = 0.63
             self.fig_locs['Timeseries']['top'] = 8.19
             self.fig_locs['MetricPlot']['left'] = 0.7
@@ -167,7 +173,7 @@ class PerformanceReport(SensorEvaluation):
                     text_pos=kwargs.get('text_pos', 'upper_left'),
                     report_fmt=True)
 
-        scatter_loc = self.fig_locs['Scatter']
+        scatter_loc = self.fig_locs['SingleScatter']
         self.scatterplt = self.shapes.add_picture(
                                     fig_path,
                                     left=ppt.util.Inches(scatter_loc['left']),
@@ -176,51 +182,92 @@ class PerformanceReport(SensorEvaluation):
         # Move image to 0 z-order (background)
         self.cursor_sp.addprevious(self.scatterplt._element)
 
-#    def PlotAllScatter(self, **kwargs):
-#        """
-#        Add sensor vs. reference scatter plots 24-hr
-#        Page 2: Triplicate scatter
-#        """
-#        fig_name = (self.sensor_name + '_vs_' + self.ref_name +
-#                    '_triplicate_scatter' + '_report_fmt)
-#
-#        # Search for figure created today
-#        try:
-#            fig_name += '_' + self.today + '.png'
-#            fig_path = self.figure_path + '\\' + self.eval_param + '\\' \
-#                + fig_name
-#
-#            figure = open(fig_path, 'r')
-#            figure.close()
-#
-#        # If figure not found, load sensor data and create figure
-#        except FileNotFoundError as e:
-#            print(e)
-#
-#            if len(kwargs) == 0:
-#                print('Warning: No plotting arguments passed to function,'
-#                      ' using default configuration')
-#            self.plot_sensor_scatter(
-#                        '24-hour',
-#                        plot_limits=kwargs.get('plot_limits', (-1, 30)),
-#                        tick_spacing=kwargs.get('tick_spacing', 5),
-#                        text_pos=kwargs.get('text_pos', 'upper_left'))
-#
-#        if len(kwargs) != 0:
-#            self.plot_sensor_scatter(
-#            '24-hour',
-#            plot_limits=kwargs.get('plot_limits', (-1, 30)),
-#            tick_spacing=kwargs.get('tick_spacing', 5),
-#            text_pos=kwargs.get('text_pos', 'upper_left'))
-#
-#        scatter_loc = self.fig_locs['Scatter']
-#        self.scatterplt = self.shapes.add_picture(
-#                                    fig_path,
-#                                    left=ppt.util.Inches(scatter_loc['left']),
-#                                    top=ppt.util.Inches(scatter_loc['top']))
-#
-#        # Move image to 0 z-order (background)
-#        self.cursor_sp.addprevious(self.scatterplt._element)
+    def AddMultiScatter(self, **kwargs):
+        """
+        Add sensor vs. reference scatter plots 24-hr for all sensors in testing
+        group.
+        """
+        # Use slide layout for generating additional slides
+        slide_layout_idx = 0
+        slide_layout = self.rpt.slide_layouts[slide_layout_idx]
+        # Create new page
+        slide = self.rpt.slides.add_slide(slide_layout)
+
+        # Add Sensor-Sensor section header text label
+        section_header = slide.shapes.add_textbox(
+                                ppt.util.Inches(0.82),  # left
+                                ppt.util.Inches(2.81),  # top
+                                ppt.util.Inches(3.16),  # width
+                                ppt.util.Inches(0.47))  # height
+        section_header_obj = section_header.text_frame.paragraphs[0]
+        section_header_obj.text = 'Sensor-Reference Scatter Plots'
+        self.FormatText(section_header_obj, alignment='left',
+                        font_name='Calibri Light', font_size=22)
+
+        # A horizontal line separating the header text from the section body
+        hline = slide.shapes.add_connector(
+                            ppt.enum.shapes.MSO_CONNECTOR.STRAIGHT,
+                            ppt.util.Inches(0.85),  # start_x
+                            ppt.util.Inches(3.30),  # start_y
+                            ppt.util.Inches(16.24),  # end_x
+                            ppt.util.Inches(3.30))  # end_y
+
+        hline.line.fill.solid()
+        hline.line.fill.fore_color.rgb = ppt.dml.color.RGBColor(171, 171, 171)
+
+        for avg_interval in ['24-hour', '1-hour']:
+            fig_name = (self.sensor_name + '_vs_' + self.ref_name +
+                        '_' + avg_interval + '_3_sensors')
+
+            # Search for figure created today
+            try:
+                fig_name += '_' + self.today + '.png'
+                fig_path = self.figure_path + '\\' + self.eval_param + '\\' \
+                    + fig_name
+
+                figure = open(fig_path, 'r')
+                figure.close()
+
+            # If figure not found, load sensor data and create figure
+            except FileNotFoundError as e:
+                print(e)
+
+                if len(kwargs) == 0:
+                    print('Warning: No plotting arguments passed to function,'
+                          ' using default configuration')
+                self.plot_sensor_scatter(
+                            avg_interval,
+                            plot_limits=kwargs.get('plot_limits', (-1, 30)),
+                            tick_spacing=kwargs.get('tick_spacing', 5),
+                            text_pos=kwargs.get('text_pos', 'upper_left'))
+
+            print(fig_path)
+
+            if len(kwargs) != 0:
+                self.plot_sensor_scatter(
+                        avg_interval,
+                        plot_limits=kwargs.get('plot_limits', (-1, 30)),
+                        tick_spacing=kwargs.get('tick_spacing', 5),
+                        text_pos=kwargs.get('text_pos', 'upper_left'))
+
+            if self.n_sensors <= 3:
+                scatter_loc = self.fig_locs['TripleScatter']
+                fig_height = 5.62  # height of triple scatter figure in inches
+            else:
+                # Add a page, place figure on new page
+                scatter_loc = self.fig_locs['MultiScatter']
+
+                # TODO: set correct figure height
+                fig_height = 5.62  # height of triple scatter figure in inches
+
+            if avg_interval == '24-hour':
+                left = ppt.util.Inches(scatter_loc['left'])
+                top = ppt.util.Inches(scatter_loc['top'])
+            if avg_interval == '1-hour':
+                left = ppt.util.Inches(scatter_loc['left'])
+                top = ppt.util.Inches(scatter_loc['top'] + fig_height)
+            print(left, top)
+            slide.shapes.add_picture(fig_path, left, top)
 
     def AddTimeseriesPlot(self, **kwargs):
         """
@@ -332,7 +379,8 @@ class PerformanceReport(SensorEvaluation):
         # Search for figure created today
         try:
             fig_name += '_' + self.today + '.png'
-            fig_path = self.figure_path + '\\'.join((self.eval_param, fig_name))
+            fig_path = self.figure_path + '\\'.join(
+                                                (self.eval_param, fig_name))
 
             figure = open(fig_path, 'r')
             figure.close()
@@ -617,8 +665,10 @@ class PerformanceReport(SensorEvaluation):
                     cell = shape.table.cell(iloc, jloc)
 
                     serial_idx = cell_n - 1
-                    sensor_serial = list(self.serial_grp_dict.keys())[serial_idx]
-                    sensor_grp = list(self.serial_grp_dict.values())[serial_idx]
+                    sensor_serial = list(self.serial_grp_dict.keys()
+                                         )[serial_idx]
+                    sensor_grp = list(self.serial_grp_dict.values()
+                                      )[serial_idx]
 
                     # Add group number
                     grp_obj = cell.text_frame.paragraphs[0]
@@ -1582,6 +1632,7 @@ class PerformanceReport(SensorEvaluation):
 #                         'falls within the target range'
 #                }
 
+        # List of unique testing groups
         grps = sorted(list(set(self.serial_grp_dict.values())))
 
         for grp_n, grp_name in enumerate(grps, 1):
@@ -1633,7 +1684,11 @@ class PerformanceReport(SensorEvaluation):
                                 ppt.util.Inches(3.16),  # width
                                 ppt.util.Inches(0.47))  # height
             tabular_header_obj = tabular_header.text_frame.paragraphs[0]
-            tabular_header_obj.text = 'Tabular Statistics - ' + self.grp_name
+
+            tabular_header_obj.text = 'Tabular Statistics'
+            if self.n_grps > 1:
+                tabular_header_obj.text += ' - ' + self.grp_name
+
             self.FormatText(tabular_header_obj, alignment='left',
                             font_name='Calibri Light', font_size=22)
 
@@ -2009,6 +2064,8 @@ class PerformanceReport(SensorEvaluation):
         self.EditMetCondTable()
         self.EditMetInfTable()
         self.EditTabularStats()
+
+        self.AddMultiScatter()
         self.EditHeader()
 
         self.SaveReport()
@@ -2017,7 +2074,6 @@ class PerformanceReport(SensorEvaluation):
         print('..Saving report')
         self.rpt_name = 'Base_Testing_Report_' + self.eval_param\
                         + '_' + self.sensor_name + '_' + self.today + '.pptx'
-
 
         save_dir = '\\'.join((self.lib_path, 'Reports',
                               self.sensor_name, self.eval_param))
