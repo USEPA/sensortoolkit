@@ -922,8 +922,8 @@ def Scatter_Plotter(df_list, ref_df, stats_df=None, plot_subset=None,
             file_path = file_path + '_' + auto_filename_suffix
 
         # remove time interval if multiple subplots for 1-hr, 24-hr data used
-        if report_fmt is True or unique_ax_obj is False:
-            file_path = file_path.replace('_' + time_interval, '')
+        #if report_fmt is True or unique_ax_obj is False:
+        #    file_path = file_path.replace('_' + time_interval, '')
 
         todays_date = Get_Date()
         file_path = file_path + '_' + todays_date + '.png'
@@ -1658,30 +1658,29 @@ def Plot_Performance_Metrics(stats_df, deploy_dict, param=None,
 
                     data_df = hrly_df.append(daily_df)
 
-                    sns.catplot(x='Averaging Interval', y=metric_name,
-                                data=data_df,
-                                order=['Hourly', 'Daily'],
-                                ax=axs[j],
-                                palette=['#73B1B4', '#4690AC'],
-                                s=7,
-                                marker='o',
-                                linewidth=1,
-                                jitter=False)
+                    sns.stripplot(x='Averaging Interval', y=metric_name,
+                                  data=data_df,
+                                  order=['Hourly', 'Daily'],
+                                  ax=axs[j],
+                                  palette=['#73B1B4', '#4690AC'],
+                                  s=7,
+                                  marker='o',
+                                  linewidth=1,
+                                  jitter=False)
 
                 if param == 'O3':
                     data_df = pd.DataFrame({metric_name:
                                             metric_data['hourly']})
                     data_df['Averaging Interval'] = 'Hourly'
-                    sns.catplot(x='Averaging Interval',
-                                y=metric_name,
-                                data=data_df,
-                                ax=axs[j],
-                                palette=['#73B1B4'],
-                                s=7,
-                                marker='o',
-                                linewidth=1,
-                                jitter=False)
-                plt.close()
+                    sns.stripplot(x='Averaging Interval',
+                                  y=metric_name,
+                                  data=data_df,
+                                  ax=axs[j],
+                                  palette=['#73B1B4'],
+                                  s=7,
+                                  marker='o',
+                                  linewidth=1,
+                                  jitter=False)
 
             boxes = []
 
