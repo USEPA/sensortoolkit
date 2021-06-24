@@ -167,6 +167,22 @@ class SensorEvaluation:
         self.deploy_edate = max([pd.to_datetime(deploy_grps[grp]['eval_end'])
                                  for grp in deploy_grps.keys()])
 
+        # Averaging intervals for parameters (some parameters like ozone have
+        # diurnal trends, making 24-hour averages less useful)
+        # This attribute is useful for the performance_report subclass
+        self.param_averaging_dict = {'PM25': ['1-hour', '24-hour'],
+                                     'O3': ['1-hour']
+                                     }
+        try:
+            self.eval_param_averaging = self.param_averaging_dict[
+                                                            self.eval_param]
+        except KeyError as e:
+            # if the eval param is not in the param averaging dict, assume
+            # both 1-hour and 24-hour averages are of interest
+            print(e, 'not specified in parameter averaging dictionary')
+            print('Falling back with 1-hour and 24-hour averages')
+            self.eval_param_averaging = ['1-hour', '24-hour']
+
         # Retrieve reference data
         if reference_data is not None:
             self.ref_dict = {'PM': pd.DataFrame(),
@@ -410,7 +426,6 @@ class SensorEvaluation:
         """
         Plot parameter concentrations over time alongside reference
         """
-        avg_intervals = ['1-hour', '24-hour']
 
         timestamp_fmt = '%Y-%m-%d %H:%M:%S'
         t_start = (self.avg_hrly_df.dropna().index[0] - pd.Timedelta('1D')
@@ -422,10 +437,10 @@ class SensorEvaluation:
             cmap_name = 'Set1'
             cmap_norm_range = (0, 0.4)
 
-        if report_fmt is True and self.eval_param == 'PM25':
+        if len(self.eval_param_averaging) == 2 and report_fmt is True:
             fig, axs = plt.subplots(2, 1, figsize=(10.15, 4.1))
             fig.subplots_adjust(hspace=0.7)
-            for i, avg_interval in enumerate(avg_intervals):
+            for i, avg_interval in enumerate(self.eval_param_averaging):
 
                 if avg_interval == '1-hour':
                     sensor_data = self.hourly_df_list
@@ -438,7 +453,7 @@ class SensorEvaluation:
                 # iteration of loop
                 if i == 0:
                     write_to_file = False
-                if i == len(avg_intervals) - 1:
+                if i == len(self.eval_param_averaging) - 1:
                     write_to_file = self.write_to_file
 
                 axs[i] = se.Sensor_Timeplot(
@@ -517,15 +532,13 @@ class SensorEvaluation:
                                     sensor_name=self.sensor_name,
                                     write_to_file=self.write_to_file)
 
-    def plot_sensor_scatter(self, averaging_interval='1-hour',
+    def plot_sensor_scatter(self, averaging_interval='24-hour',
                             text_pos='upper_left', plot_limits=(-1, 25),
                             point_size=20, tick_spacing=5, RH_colormap=True,
                             plot_title=True, plot_subset=None,
                             report_fmt=False):
         """
         """
-        avg_intervals = ['1-hour', '24-hour']
-
         self.plot_title = plot_title
 
         try:
@@ -549,12 +562,14 @@ class SensorEvaluation:
                               if str(i) in plot_subset}
             fontsize = se.Set_Fontsize(subset_serials)
 
-        if (report_fmt is True and self.eval_param == 'PM25'
-           and plot_subset is not None):
+        avg_list = self.eval_param_averaging
+
+        if (report_fmt is True and len(avg_list) == 2 and plot_subset
+           is not None):
             fig, axs = plt.subplots(1, 2, figsize=(5.29, 3.17))
             fig.subplots_adjust(hspace=0.7)
             fontsize = 9
-            for i, avg_interval in enumerate(avg_intervals):
+            for i, avg_interval in enumerate(self.eval_param_averaging):
 
                 if avg_interval == '1-hour':
                     sensor_data = self.hourly_df_list
@@ -569,7 +584,7 @@ class SensorEvaluation:
                 # iteration of loop
                 if i == 0:
                     write_to_file = False
-                if i == len(avg_intervals) - 1:
+                if i == len(self.eval_param_averaging) - 1:
                     write_to_file = self.write_to_file
 
                 axs[i] = se.Scatter_Plotter(
@@ -598,10 +613,11 @@ class SensorEvaluation:
                                    ax=axs[i],
                                    fig=fig)
         else:
-            if averaging_interval == '1-hour':
+            # Assuming avg_list contains either only 1-hour or 24-hour
+            if '1-hour' in avg_list:
                 sensor_data = self.hourly_df_list
                 ref_data = self.hourly_ref_df
-            if averaging_interval == '24-hour':
+            if '24-hour' in avg_list:
                 sensor_data = self.daily_df_list
                 ref_data = self.daily_ref_df
 
