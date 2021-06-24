@@ -284,9 +284,7 @@ class PerformanceReport(SensorEvaluation):
 
             figure = open(fig_path, 'r')
             figure.close()
-
         except FileNotFoundError:
-
             self.plot_timeseries(
                     format_xaxis_weeks=kwargs.get('format_xaxis_weeks', False),
                     yscale=kwargs.get('yscale', 'linear'),
@@ -386,7 +384,6 @@ class PerformanceReport(SensorEvaluation):
             figure.close()
 
         except FileNotFoundError:
-
             self.plot_met_influence(report_fmt=True,
                                     plot_error_bars=False)
 
@@ -523,7 +520,11 @@ class PerformanceReport(SensorEvaluation):
             pic = self.GetShape(slide_idx, shape_loc=(pic_left, pic_top))
             pic_path = self.figure_path + '\\deployment\\' + \
                 self.sensor_name + '.png'
-            pic.insert_picture(pic_path)
+
+            if not os.path.exists(pic_path):
+                sys.exit('No deployment picture found at', pic_path)
+            else:
+                pic.insert_picture(pic_path)
 
     def EditSiteTable(self):
         """
