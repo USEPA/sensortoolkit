@@ -163,7 +163,9 @@ def Write_To_File(df, inpath, outpath):
                 'NO2': 'NO2',
                 'SO2': 'SO2',
                 'RHUM': 'RH',
-                'TEMP': 'Temp'}
+                'TEMP': 'Temp',
+                'WS': 'WS',
+                'WD': 'WD'}
 
     # Column names associated with each parameter
     aqs_attribs = ['_Value', '_Unit', '_QAQC_Code', '_Param_Code',
