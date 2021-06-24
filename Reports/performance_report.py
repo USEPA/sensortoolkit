@@ -216,7 +216,8 @@ class PerformanceReport(SensorEvaluation):
         hline.line.fill.solid()
         hline.line.fill.fore_color.rgb = ppt.dml.color.RGBColor(171, 171, 171)
 
-        for avg_interval in ['24-hour', '1-hour']:
+        # Loop over averaging intervals specified for the parameter
+        for i, avg_interval in enumerate(self.eval_param_averaging):
             fig_name = (self.sensor_name + '_vs_' + self.ref_name +
                         '_' + avg_interval + '_3_sensors')
 
@@ -261,13 +262,9 @@ class PerformanceReport(SensorEvaluation):
                 # TODO: set correct figure height for figures with mult. rows
                 fig_height = 5.62  # height of triple scatter figure in inches
 
-            if avg_interval == '24-hour':
-                left = ppt.util.Inches(scatter_loc['left'])
-                top = ppt.util.Inches(scatter_loc['top'])
-            if avg_interval == '1-hour':
-                left = ppt.util.Inches(scatter_loc['left'])
-                top = ppt.util.Inches(scatter_loc['top'] + fig_height)
-            print(left, top)
+            left = ppt.util.Inches(scatter_loc['left'])
+            top = ppt.util.Inches(scatter_loc['top']+ i*fig_height)
+
             slide.shapes.add_picture(fig_path, left, top)
 
     def AddTimeseriesPlot(self, **kwargs):
