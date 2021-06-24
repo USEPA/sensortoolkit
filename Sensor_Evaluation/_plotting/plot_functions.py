@@ -915,15 +915,18 @@ def Scatter_Plotter(df_list, ref_df, stats_df=None, plot_subset=None,
     # Save image to folder at figure_path
     if write_to_file is True:
         file_path = figure_path + param + '\\' + sensor_name + '_vs_' +\
-            ref_name + '_' + time_interval
+            ref_name
+
+        # if matplotlib axes object not passed to Scatter_Plotter, the figure
+        # created will be for data at the averaging interval specified by
+        # the time_interval variable. In this case, indicate the avg interval
+        # in the filename
+        if unique_ax_obj is True and report_fmt is False:
+            file_path +=  '_' + time_interval
         if filename_suffix != '':
             file_path = file_path + '_' + filename_suffix
         else:
             file_path = file_path + '_' + auto_filename_suffix
-
-        # remove time interval if multiple subplots for 1-hr, 24-hr data used
-        #if report_fmt is True or unique_ax_obj is False:
-        #    file_path = file_path.replace('_' + time_interval, '')
 
         todays_date = Get_Date()
         file_path = file_path + '_' + todays_date + '.png'
@@ -1021,17 +1024,17 @@ def Sensor_Timeplot(df_list, ref_df, param=None,
 
             # Scaling values for axes box
             x_scale = 0.45  # Translate x-axis position of plots
-            y_scale = 1.0   # Translate y-axis position of plots
+            y_scale = 1.0  # Translate y-axis position of plots
             w_scale = 1.0   # Transform plot width
-            h_scale = 1.16  # Transform plot height
+            h_scale = 1.12  # Transform plot height (stretch)
 
             title_xpos = 0.5
-            legend_pos = (1.11, 1.23)  # x, y loc of legend (w.r.t axes obj)
+            legend_pos = (1.11, 1.29)  # x, y loc of legend (w.r.t axes obj)
             columnspacing = 0.9  # Legend column spacing
 
         # O3: Figure consists of one timeseries plot (1-hr)
         # [plot arranged as 1 row, 1 column])
-        if 'O3' in param:
+        elif 'O3' in param:
             fontsize = 11
             figsize = (10.16, 3.8)
             title = False
