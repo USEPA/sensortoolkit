@@ -11,8 +11,9 @@
 Created:
   Tue Dec 15 08:53:19 2020
 Last Updated:
-  Fri May 21 13:58:00 2021
+  Thu Jun 24 11:24:00 2021
 """
+
 import pptx as ppt
 import datetime as dt
 import numpy as np
@@ -257,7 +258,7 @@ class PerformanceReport(SensorEvaluation):
                 # Add a page, place figure on new page
                 scatter_loc = self.fig_locs['MultiScatter']
 
-                # TODO: set correct figure height
+                # TODO: set correct figure height for figures with mult. rows
                 fig_height = 5.62  # height of triple scatter figure in inches
 
             if avg_interval == '24-hour':
@@ -284,6 +285,7 @@ class PerformanceReport(SensorEvaluation):
 
             figure = open(fig_path, 'r')
             figure.close()
+
         except FileNotFoundError:
             self.plot_timeseries(
                     format_xaxis_weeks=kwargs.get('format_xaxis_weeks', False),
@@ -520,7 +522,6 @@ class PerformanceReport(SensorEvaluation):
             pic = self.GetShape(slide_idx, shape_loc=(pic_left, pic_top))
             pic_path = self.figure_path + '\\deployment\\' + \
                 self.sensor_name + '.png'
-
             if not os.path.exists(pic_path):
                 sys.exit('No deployment picture found at', pic_path)
             else:
@@ -1613,25 +1614,25 @@ class PerformanceReport(SensorEvaluation):
         tabular_layout_idx = 1
         tabular_layout = self.rpt.slide_layouts[tabular_layout_idx]
 
-#        legend_txt = {
-#                'line1': 'Single-valued metrics '
-#                         '(computed via entire evaluation dataset)',
-#                'line2': '○  Indicates that the metric value is not '
-#                         'within the target range',
-#                'line3': '●  Indicates that the metric value is within '
-#                         'the target range',
-#                'line4': '',
-#                'line5': 'Device-specific metrics (computed for each '
-#                         'sensor in evaluation)',
-#                'line6': '○○○	Metric value for none of devices tested '
-#                         'falls within the target range',
-#                'line7': '●○○	Metric value for one of devices tested '
-#                         'falls within the target range',
-#                'line8': '●●○   Metric value for two of devices tested '
-#                         'falls within the target range',
-#                'line9': '●●●   Metric value for three of devices tested '
-#                         'falls within the target range'
-#                }
+        legend_txt = {
+                'line1': 'Single-valued metrics '
+                         '(computed via entire evaluation dataset)',
+                'line2': '○  Indicates that the metric value is not '
+                         'within the target range',
+                'line3': '●  Indicates that the metric value is within '
+                         'the target range',
+                'line4': '',
+                'line5': 'Device-specific metrics (computed for each '
+                         'sensor in evaluation)',
+                'line6': '○○○	Metric value for none of devices tested '
+                         'falls within the target range',
+                'line7': '●○○	Metric value for one of devices tested '
+                         'falls within the target range',
+                'line8': '●●○   Metric value for two of devices tested '
+                         'falls within the target range',
+                'line9': '●●●   Metric value for three of devices tested '
+                         'falls within the target range'
+                }
 
         # List of unique testing groups
         grps = sorted(list(set(self.serial_grp_dict.values())))
@@ -1739,34 +1740,34 @@ class PerformanceReport(SensorEvaluation):
                                                                          171,
                                                                          171)
 
-#            # Add Sensor-Sensor text label
-#            legend_h = 2.29
-#            legend = tabular_slide.shapes.add_textbox(
-#                                ppt.util.Inches(8.83),  # left
-#                                ppt.util.Inches(e_t + 0.5*(e_h + - legend_h)),
-#                                ppt.util.Inches(6.69),  # width
-#                                ppt.util.Inches(legend_h))  # height
-#
-#            legend_obj = legend.text_frame.paragraphs[0]
-#            legend_obj.text = legend_txt['line1']
-#            self.FormatText(legend_obj, alignment='left',
-#                            font_name='Calibri', font_size=16)
-#
-#            for line in legend_txt:
-#                if line == 'line1':
-#                    pass
-#                else:
-#                    legend_obj = legend.text_frame.add_paragraph()
-#                    legend_obj.text = legend_txt[line]
-#                    font = legend_obj.font
-#                    font.name = 'Calibri'
-#                    if line == 'line4':
-#                        font.size = ppt.util.Pt(8)
-#                    if line == 'line5':
-#                        font.size = ppt.util.Pt(16)
-#                    else:
-#                        font.size = ppt.util.Pt(15)
-#                    font.Bold = False
+            # Add Sensor-Sensor text label
+            legend_h = 2.29
+            legend = tabular_slide.shapes.add_textbox(
+                                ppt.util.Inches(8.83),  # left
+                                ppt.util.Inches(e_t + 0.5*(e_h + - legend_h)),
+                                ppt.util.Inches(6.69),  # width
+                                ppt.util.Inches(legend_h))  # height
+
+            legend_obj = legend.text_frame.paragraphs[0]
+            legend_obj.text = legend_txt['line1']
+            self.FormatText(legend_obj, alignment='left',
+                            font_name='Calibri', font_size=16)
+
+            for line in legend_txt:
+                if line == 'line1':
+                    pass
+                else:
+                    legend_obj = legend.text_frame.add_paragraph()
+                    legend_obj.text = legend_txt[line]
+                    font = legend_obj.font
+                    font.name = 'Calibri'
+                    if line == 'line4':
+                        font.size = ppt.util.Pt(8)
+                    if line == 'line5':
+                        font.size = ppt.util.Pt(16)
+                    else:
+                        font.size = ppt.util.Pt(15)
+                    font.Bold = False
 
     def CreateStatsTable(self, slide, table_type='sensor_reference'):
 
@@ -2011,23 +2012,25 @@ class PerformanceReport(SensorEvaluation):
         n_passed = sum(metric_min <= val <= metric_max for val
                        in metric_vals)
 
+        open_dot = '○'
+        closed_dot = '●'
+
         if n_sensors != 0:
             pcnt_passed = 100*(n_passed / n_sensors)
 
         if metric in ['R$^2$', 'Slope', 'Intercept', 'Uptime']:
-            text = (str(n_passed) + ' out of ' + str(n_sensors)
-                    + ' meet target')
+            text = n_passed*closed_dot + (n_sensors - n_passed)*open_dot
             if n_sensors == 1 and metric == 'Uptime':
                 if pcnt_passed == 100:
-                    text = 'Metric target\nmet'
+                    text = closed_dot
                 else:
-                    text = 'Metric target\nnot met'
+                    text = open_dot
 
         if metric in ['CV', 'SD', 'RMSE', 'nRMSE']:
             if pcnt_passed == 100:
-                text = 'Metric target\nmet'
+                text = closed_dot
             elif n_sensors > 0:
-                text = 'Metric target\nnot met'
+                text = open_dot
             else:
                 # Metric values empty?
                 text = ''
