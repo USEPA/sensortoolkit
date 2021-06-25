@@ -1052,7 +1052,30 @@ class PerformanceReport(SensorEvaluation):
                 font_obj = text_obj.font
                 font_obj.color.rgb = ppt.dml.color.RGBColor(0, 0, 0)
             if str(i) in metrics:
-                text_obj.text = metrics[str(i)]
+                metric = metrics[str(i)]
+
+                # Format the superscript for R^2
+                if metric == 'R^2':
+                    baseline = text_obj.add_run()
+                    baseline.text = 'R'
+                    superscript = text_obj.add_run()
+                    superscript.text = '2'
+                    font = superscript.font
+                    font._element.set('baseline', '30000')
+                # Format superscript for intercept if units in ug/m^3
+                elif metric == 'Intercept\n(μg/m^3)':
+                    lineone = text_obj.add_run()
+                    lineone.text = 'Intercept\n'
+                    linetwo_baseline_one = text_obj.add_run()
+                    linetwo_baseline_one.text = '(μg/m'
+                    superscript = text_obj.add_run()
+                    superscript.text = '3'
+                    font = superscript.font
+                    font._element.set('baseline', '30000')
+                    linetwo_baseline_two = text_obj.add_run()
+                    linetwo_baseline_two.text = ')'
+                else:
+                    text_obj.text = metrics[str(i)]
             if str(i) in metric_targets:
                 text_obj.text = metric_targets[str(i)]
             if str(i) in avg_intervals:
@@ -1336,7 +1359,7 @@ class PerformanceReport(SensorEvaluation):
                          'RMSE (μg/m^3)': [6, 7],
                          'nRMSE (%)': [8, 9]}
             table_categories = {'1': 'Error'}
-            metrics = {'6': 'RMSE (μg/m^3)',
+            metrics = {'6': 'RMSE\n(μg/m^3)',
                        '8': 'nRMSE (%)'}
             avg_intervals = {'11': '1-Hour',
                              '12': '24-Hour',
@@ -1386,7 +1409,20 @@ class PerformanceReport(SensorEvaluation):
                 font_obj = text_obj.font
                 font_obj.color.rgb = ppt.dml.color.RGBColor(0, 0, 0)
             if str(i) in metrics:
-                text_obj.text = metrics[str(i)]
+                metric = metrics[str(i)]
+                if metric == 'RMSE\n(μg/m^3)':
+                    lineone = text_obj.add_run()
+                    lineone.text = 'RMSE\n'
+                    linetwo_baseline_one = text_obj.add_run()
+                    linetwo_baseline_one.text = '(μg/m'
+                    superscript = text_obj.add_run()
+                    superscript.text = '3'
+                    font = superscript.font
+                    font._element.set('baseline', '30000')
+                    linetwo_baseline_two = text_obj.add_run()
+                    linetwo_baseline_two.text = ')'
+                else:
+                    text_obj.text = metrics[str(i)]
             if str(i) in metric_targets:
                 text_obj.text = metric_targets[str(i)]
             if str(i) in avg_intervals:
@@ -1531,7 +1567,20 @@ class PerformanceReport(SensorEvaluation):
                 font_obj = text_obj.font
                 font_obj.color.rgb = ppt.dml.color.RGBColor(0, 0, 0)
             if str(i) in metrics:
-                text_obj.text = metrics[str(i)]
+                metric = metrics[str(i)]
+                if metric == 'Standard Deviation\n(μg/m^3)':
+                    lineone = text_obj.add_run()
+                    lineone.text = 'Standard Deviation\n'
+                    linetwo_baseline_one = text_obj.add_run()
+                    linetwo_baseline_one.text = '(μg/m'
+                    superscript = text_obj.add_run()
+                    superscript.text = '3'
+                    font = superscript.font
+                    font._element.set('baseline', '30000')
+                    linetwo_baseline_two = text_obj.add_run()
+                    linetwo_baseline_two.text = ')'
+                else:
+                    text_obj.text = metrics[str(i)]
             if str(i) in metric_targets:
                 text_obj.text = metric_targets[str(i)]
             if str(i) in avg_intervals:
@@ -1629,23 +1678,24 @@ class PerformanceReport(SensorEvaluation):
         tabular_layout = self.rpt.slide_layouts[tabular_layout_idx]
 
         legend_txt = {
-                'line1': 'Single-valued metrics '
-                         '(computed via entire evaluation dataset)',
-                'line2': '○  Indicates that the metric value is not '
-                         'within the target range',
-                'line3': '●  Indicates that the metric value is within '
-                         'the target range',
-                'line4': '',
-                'line5': 'Device-specific metrics (computed for each '
+                'line1': 'Device-specific metrics (computed for each '
                          'sensor in evaluation)',
-                'line6': '○○○	Metric value for none of devices tested '
+                'line2': '○○○	Metric value for none of devices tested '
                          'falls within the target range',
-                'line7': '●○○	Metric value for one of devices tested '
+                'line3': '●○○	Metric value for one of devices tested '
                          'falls within the target range',
-                'line8': '●●○   Metric value for two of devices tested '
+                'line4': '●●○   Metric value for two of devices tested '
                          'falls within the target range',
-                'line9': '●●●   Metric value for three of devices tested '
-                         'falls within the target range'
+                'line5': '●●●   Metric value for three of devices tested '
+                         'falls within the target range',
+                'line6': '',
+                'line7': 'Single-valued metrics '
+                         '(computed via entire evaluation dataset)',
+                'line8': '○  Indicates that the metric value is not '
+                         'within the target range',
+                'line9': '●  Indicates that the metric value is within '
+                         'the target range',
+
                 }
 
         # List of unique testing groups
@@ -1715,7 +1765,7 @@ class PerformanceReport(SensorEvaluation):
                                 ppt.util.Inches(12.81),  # width
                                 ppt.util.Inches(0.44))  # height
             sr_header_obj = sr_header.text_frame.paragraphs[0]
-            sr_header_obj.text = 'Sensor-Reference Correlation'
+            sr_header_obj.text = 'Sensor-FRM/FEM Correlation'
             self.FormatText(sr_header_obj, alignment='left',
                             font_name='Calibri Light', font_size=20)
 
@@ -1789,7 +1839,7 @@ class PerformanceReport(SensorEvaluation):
                 font.Bold = False
                 font.color.rgb = ppt.dml.color.RGBColor(0, 0, 0)
 
-                if line == 'line4':
+                if line == 'line6':
                     font.size = ppt.util.Pt(8)
                 else:
                     font.size = ppt.util.Pt(15)
@@ -1996,16 +2046,6 @@ class PerformanceReport(SensorEvaluation):
             -python-pptx
         """
         font._element.set('baseline', '30000')
-
-    def MoveSlide(slides, slide, new_idx):
-        """
-        Move a slide from one index to another.
-
-        Code via GitHub user Amazinzay (Feb 17 2021):
-            https://github.com/scanny/python-pptx/issues/68
-        """
-        slides._sldIdLst.insert(new_idx, slides._sldIdLst[slides.index(slide)])
-
 
     def FormatText(self, text_obj, alignment='center', font_name='Calibri',
                    font_size=24, bold=False, italic=False):
