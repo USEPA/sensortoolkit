@@ -20,12 +20,6 @@ def Format_Param_Name(param):
     Return formatted version of parameter column for plot, axis titles
     """
     try:
-#        if param.startswith('Nowcast_'):
-#            param = param.replace('Nowcast_', '')
-#
-#        if param.startswith('corrected_'):
-#            param = param.replace('corrected_', '')
-
         if param.startswith('PM25'):
             fmt_param = 'PM$_{2.5}$'
             fmt_param_units = r'($\mu g/m^3$)'
@@ -40,15 +34,15 @@ def Format_Param_Name(param):
 
         elif param == 'O3':
             fmt_param = '$O_3$'
-            fmt_param_units = '(ppb)'
+            fmt_param_units = '(ppbv)'
 
         elif param == 'CO':
             fmt_param = '$CO$'
-            fmt_param_units = '(ppb)'
+            fmt_param_units = '(ppbv)'
 
         elif param == 'NO2':
             fmt_param = '$NO_2$'
-            fmt_param_units = '(ppb)'
+            fmt_param_units = '(ppbv)'
 
         elif param == 'Temp':
             fmt_param = 'Temperature'
@@ -124,57 +118,6 @@ def Format_Param_Name(param):
 #              'Sensit_RAMP; APT_Maxima; Aeroqual_AQY; AirVisual_Pro; '
 #              'ARISense; PurpleAir_PAII; '
 #              'Empty (Performance Targets reporting template)')
-
-#
-#def Ref_Name_Search(param, GRIMM=False):
-#    """
-#    Return reference column name based on passed parameter column name. The
-#    optional variable GRIMM is set true to indicate that GRIMM EDM180 data
-#    should be used instead of T640x measurements.
-#    """
-#    try:
-#        if param.startswith('Nowcast_'):
-#            param = param.replace('Nowcast_', '')
-#
-#        if param.startswith('corrected_'):
-#            param = param.replace('corrected_', '')
-#
-#        if param.startswith('PM25'):
-#            if GRIMM is True:
-#                ref_name = 'GRIMM_PM25'
-#
-#            else:
-#                ref_name = 'T640_2_PM25'
-#
-#        if param.startswith('PM10'):
-#            ref_name = 'T640_2_PM10'
-#
-#        if param.startswith('PM1'):
-#            ref_name = 'GRIMM_PM1'
-#
-#        if param == 'O3':
-#            ref_name = 'O3-API T265'
-#
-#        if param == 'CO':
-#            ref_name = 'CO'
-#
-#        if param == 'NO2':
-#            ref_name = 'CAPS NO2'
-#
-#        if param == 'Temp':
-#            ref_name = 'Temperature'
-#
-#        if param == 'RH':
-#            ref_name = 'Relative_Humid'
-#
-#        if param == 'T640_2_PM25':
-#            ref_name = 'GRIMM_PM25'
-#
-#        return ref_name
-#
-#    except NameError:
-#        print('Error: Pollutant name not found. Please locate the proper '
-#              'pollutant header name in the sensor hourly dataframe.')
 
 
 def Format_Metric_Name(metric):
