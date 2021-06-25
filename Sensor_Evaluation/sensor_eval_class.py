@@ -86,6 +86,37 @@ class SensorEvaluation:
                             'SO2', 'SOx', 'CO', 'CO2'],
                   'Met': ['Temp', 'RH', 'Press', 'DP', 'WS', 'WD']}
 
+    param_formatting_dict = {'PM1': {'baseline': 'PM',
+                                     'subscript': '1'},
+                             'PM25': {'baseline': 'PM',
+                                      'subscript': '2.5'},
+                             'PM10': {'baseline': 'PM',
+                                      'subscript': '10'},
+                             'O3': {'baseline': 'O',
+                                    'subscript': '3'},
+                             'NO2': {'baseline': 'NO',
+                                     'subscript': '2'},
+                             'NO': {'baseline': 'NO',
+                                    'subscript': None},
+                             'NOx': {'baseline': 'NO',
+                                     'subscript': 'x'},
+                             'SO2': {'baseline': 'SO',
+                                     'subscript': '2'},
+                             'SOx': {'baseline': 'SO',
+                                     'subscript': 'x'},
+                             'CO': {'baseline': 'CO',
+                                    'subscript': None},
+                             'Temp': {'baseline': 'Temperature',
+                                      'subscript': None},
+                             'RH': {'baseline': 'Relative Humidity',
+                                    'subscript': None},
+                             'DP': {'baseline': 'Dew Point',
+                                    'subscript': None},
+                             'WS': {'baseline': 'Wind Speed',
+                                    'subscript': None},
+                             'WD': {'baseline': 'Wind Direction',
+                                    'subscript': None}}
+
     # Absolute path for Sensor_Evaluation library and related work
     lib_path = os.path.abspath(os.path.join(__file__, '../..'))
 
@@ -614,10 +645,10 @@ class SensorEvaluation:
                                    fig=fig)
         else:
             # Assuming avg_list contains either only 1-hour or 24-hour
-            if '1-hour' in avg_list:
+            if '1-hour' in avg_list and averaging_interval == '1-hour':
                 sensor_data = self.hourly_df_list
                 ref_data = self.hourly_ref_df
-            if '24-hour' in avg_list:
+            if '24-hour' in avg_list and averaging_interval == '24-hour':
                 sensor_data = self.daily_df_list
                 ref_data = self.daily_ref_df
 
