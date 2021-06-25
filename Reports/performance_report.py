@@ -608,14 +608,19 @@ class PerformanceReport(SensorEvaluation):
         cell = shape.table.cell(4, 1)
 
         # Add sampling timeframe for each group in deployment
+        self.eval_grps = list(self.tframe.keys())
         for i, grp in enumerate(self.tframe):
             if i == 0:
                 text_obj = cell.text_frame.paragraphs[0]
             else:
                 text_obj = cell.text_frame.add_paragraph()
-            grp_name = list(self.tframe.keys())[i]
+            grp_name = self.eval_grps[i]
             grp_tframe = self.tframe[grp_name]
-            text_obj.text = grp_name + ': ' + grp_tframe
+
+            if len(self.eval_grps) == 1:
+                text_obj.text = grp_tframe
+            else:
+                text_obj.text = grp_name + ': ' + grp_tframe
             self.FormatText(text_obj, alignment='center', font_name='Calibri',
                             font_size=11)
 
@@ -684,14 +689,18 @@ class PerformanceReport(SensorEvaluation):
                     sensor_grp = list(self.serial_grp_dict.values()
                                       )[serial_idx]
 
-                    # Add group number
-                    grp_obj = cell.text_frame.paragraphs[0]
-                    grp_obj.text = sensor_grp
-                    self.FormatText(grp_obj, alignment='center',
-                                    font_name='Calibri', font_size=10.5)
+                    # Add group number if multiple groups
+                    if len(self.eval_grps) > 1:
+                        grp_obj = cell.text_frame.paragraphs[0]
+                        grp_obj.text = sensor_grp
+                        self.FormatText(grp_obj, alignment='center',
+                                        font_name='Calibri', font_size=10.5)
 
-                    # Add sensor serial ID
-                    serial_obj = cell.text_frame.add_paragraph()
+                        # Add sensor serial ID
+                        serial_obj = cell.text_frame.add_paragraph()
+                    else:
+                        serial_obj = cell.text_frame.paragraphs[0]
+
                     serial_obj.text = sensor_serial
                     self.FormatText(serial_obj, alignment='center',
                                     font_name='Calibri', font_size=10.5)
@@ -710,7 +719,11 @@ class PerformanceReport(SensorEvaluation):
                     textobj = cell.text_frame.paragraphs[0]
                 else:
                     textobj = cell.text_frame.add_paragraph()
-                textobj.text = grp + ': No Issues'
+
+                if len(self.eval_grps) == 1:
+                    textobj.text = 'No Issues'
+                else:
+                    textobj.text = grp + ': No Issues'
                 self.FormatText(textobj, alignment='center',
                                 font_name='Calibri', font_size=12)
             else:
@@ -718,7 +731,11 @@ class PerformanceReport(SensorEvaluation):
                     textobj = cell.text_frame.paragraphs[0]
                 else:
                     textobj = cell.text_frame.add_paragraph()
-                textobj.text = grp + ': Issues with deployment'
+
+                if len(self.eval_grps) == 1:
+                    textobj.text = 'Issues with deployment'
+                else:
+                    textobj.text = grp + ': Issues with deployment'
                 self.FormatText(textobj, alignment='center',
                                 font_name='Calibri', font_size=12)
 
@@ -809,7 +826,11 @@ class PerformanceReport(SensorEvaluation):
                 text_obj = cell.text_frame.add_paragraph()
             grp_name = list(self.refconc.keys())[i]
             grp_refconc = self.refconc[grp_name]
-            text_obj.text = grp_name + ': ' + grp_refconc
+
+            if len(self.eval_grps) == 1:
+                text_obj.text = grp_refconc
+            else:
+                text_obj.text = grp_name + ': ' + grp_refconc
             self.FormatText(text_obj, alignment='center',
                             font_name='Calibri', font_size=9)
 
@@ -822,7 +843,10 @@ class PerformanceReport(SensorEvaluation):
                 text_obj = cell.text_frame.add_paragraph()
             grp_name = list(self.refexceed.keys())[i]
             grp_refexceed = self.refexceed[grp_name]
-            text_obj.text = grp_name + ': ' + grp_refexceed
+            if len(self.eval_grps) == 1:
+                text_obj.text = grp_refexceed
+            else:
+                text_obj.text = grp_name + ': ' + grp_refexceed
             self.FormatText(text_obj, alignment='center',
                             font_name='Calibri', font_size=9)
 
@@ -882,7 +906,11 @@ class PerformanceReport(SensorEvaluation):
                 text_obj = cell.text_frame.add_paragraph()
             grp_name = list(self.tempexceed.keys())[i]
             grp_tempexceed = self.tempexceed[grp_name]
-            text_obj.text = grp_name + ': ' + grp_tempexceed
+
+            if len(self.eval_grps) == 1:
+                text_obj.text = grp_tempexceed
+            else:
+                text_obj.text = grp_name + ': ' + grp_tempexceed
             self.FormatText(text_obj, alignment='center',
                             font_name='Calibri', font_size=10)
 
@@ -895,7 +923,11 @@ class PerformanceReport(SensorEvaluation):
                 text_obj = cell.text_frame.add_paragraph()
             grp_name = list(self.rhexceed.keys())[i]
             grp_rhexceed = self.rhexceed[grp_name]
-            text_obj.text = grp_name + ': ' + grp_rhexceed
+
+            if len(self.eval_grps) == 1:
+                text_obj.text = grp_rhexceed
+            else:
+                text_obj.text = grp_name + ': ' + grp_rhexceed
             self.FormatText(text_obj, alignment='center',
                             font_name='Calibri', font_size=10)
 
@@ -933,7 +965,11 @@ class PerformanceReport(SensorEvaluation):
                 else:
                     text_obj = cell.text_frame.add_paragraph()
                 grp_val = dic[param][grp]
-                text_obj.text = grp + ': ' + str(round(grp_val))
+
+                if len(self.eval_grps) == 1:
+                    text_obj.text = str(round(grp_val))
+                else:
+                    text_obj.text = grp + ': ' + str(round(grp_val))
                 self.FormatText(text_obj, alignment='center',
                                 font_name='Calibri', font_size=10)
 
