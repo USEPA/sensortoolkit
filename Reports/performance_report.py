@@ -263,7 +263,7 @@ class PerformanceReport(SensorEvaluation):
                 fig_height = 5.62  # height of triple scatter figure in inches
 
             left = ppt.util.Inches(scatter_loc['left'])
-            top = ppt.util.Inches(scatter_loc['top']+ i*fig_height)
+            top = ppt.util.Inches(scatter_loc['top'] + i*fig_height)
 
             slide.shapes.add_picture(fig_path, left, top)
 
@@ -444,19 +444,17 @@ class PerformanceReport(SensorEvaluation):
             title_line_1 = title.text_frame.paragraphs[0]
             run1 = title_line_1.add_run()
             run1.text = 'Testing Report - '
-            run2 = title_line_1.add_run()
-            run2.text = self.param_formatting_dict[
+            param_baseline = title_line_1.add_run()
+            param_baseline.text = self.param_formatting_dict[
                                         self.eval_param]['baseline']
-            run3 = title_line_1.add_run()
-            run3.text = self.param_formatting_dict[
+            param_subscript = title_line_1.add_run()
+            param_subscript.text = self.param_formatting_dict[
                                         self.eval_param]['subscript']
-            font = run3.font
-            font._element.set('baseline', '-25000')
+            font = param_subscript.font
+            self.SetSubscript(font)
             run4 = title_line_1.add_run()
             run4.text = ' Base Testing'
 
-#            title_line_1.text = 'Testing Report - ' \
-#                + self.eval_param + ' Base Testing'
             self.FormatText(title_line_1, alignment='left',
                             font_name='Calibri', font_size=30)
             title_line_1_font = title_line_1.font
@@ -841,7 +839,7 @@ class PerformanceReport(SensorEvaluation):
         if self.eval_param == 'PM25':
             shape = self.GetShape(slide_idx=0, shape_id=74)
         if self.eval_param == 'O3':
-            shape = self.GetShape(slide_idx=0, shape_id=45)
+            shape = self.GetShape(slide_idx=0, shape_id=32)
 
         grp_info = self.deploy_dict['Deployment Groups']
 
@@ -913,7 +911,7 @@ class PerformanceReport(SensorEvaluation):
         if self.eval_param == 'PM25':
             shape = self.GetShape(slide_idx=0, shape_id=76)
         if self.eval_param == 'O3':
-            shape = self.GetShape(slide_idx=0, shape_id=48)
+            shape = self.GetShape(slide_idx=0, shape_id=33)
 
         grp_info = self.deploy_dict['Deployment Groups']
 
@@ -1061,7 +1059,7 @@ class PerformanceReport(SensorEvaluation):
                     superscript = text_obj.add_run()
                     superscript.text = '2'
                     font = superscript.font
-                    font._element.set('baseline', '30000')
+                    self.SetSuperscript(font)
                 # Format superscript for intercept if units in ug/m^3
                 elif metric == 'Intercept\n(μg/m^3)':
                     lineone = text_obj.add_run()
@@ -1071,7 +1069,7 @@ class PerformanceReport(SensorEvaluation):
                     superscript = text_obj.add_run()
                     superscript.text = '3'
                     font = superscript.font
-                    font._element.set('baseline', '30000')
+                    self.SetSuperscript(font)
                     linetwo_baseline_two = text_obj.add_run()
                     linetwo_baseline_two.text = ')'
                 else:
@@ -1418,7 +1416,7 @@ class PerformanceReport(SensorEvaluation):
                     superscript = text_obj.add_run()
                     superscript.text = '3'
                     font = superscript.font
-                    font._element.set('baseline', '30000')
+                    self.SetSuperscript(font)
                     linetwo_baseline_two = text_obj.add_run()
                     linetwo_baseline_two.text = ')'
                 else:
@@ -1576,7 +1574,7 @@ class PerformanceReport(SensorEvaluation):
                     superscript = text_obj.add_run()
                     superscript.text = '3'
                     font = superscript.font
-                    font._element.set('baseline', '30000')
+                    self.SetSuperscript(font)
                     linetwo_baseline_two = text_obj.add_run()
                     linetwo_baseline_two.text = ')'
                 else:
@@ -2023,7 +2021,7 @@ class PerformanceReport(SensorEvaluation):
             tailEnd = self.SubElement(ln, 'a:tailEnd',
                                       type='none', w='med', len='med')
 
-    def SetSubscript(font):
+    def SetSubscript(self, font):
         """
         Workaround for making font object text subscript (not included in
         python-pptx as of v0.6.19)
@@ -2035,7 +2033,7 @@ class PerformanceReport(SensorEvaluation):
         """
         font._element.set('baseline', '-25000')
 
-    def SetSuperscript(font):
+    def SetSuperscript(self, font):
         """
         Workaround for making font object text superscript (not included in
         python-pptx as of v0.6.19)
@@ -2046,6 +2044,14 @@ class PerformanceReport(SensorEvaluation):
             -python-pptx
         """
         font._element.set('baseline', '30000')
+
+    def MoveSlide(self, slides, slide, new_idx):
+        """
+        Move the supplemnental info table to the last slide position
+        Code via github user Amazinzay (Feb 17 2021):
+            https://github.com/scanny/python-pptx/issues/68
+        """
+        slides._sldIdLst.insert(new_idx, slides._sldIdLst[slides.index(slide)])
 
     def FormatText(self, text_obj, alignment='center', font_name='Calibri',
                    font_size=24, bold=False, italic=False):
@@ -2171,13 +2177,12 @@ class PerformanceReport(SensorEvaluation):
         self.AddMultiScatter()
         self.EditHeader()
 
-        # Move the supplemnental info table to the last slide position
-        # Code via github user Amazinzay (Feb 17 2021):
-        # https://github.com/scanny/python-pptx/issues/68
+        #
         slides = self.rpt.slides
         slide = slides[1]
         new_idx = len(slides)
-        slides._sldIdLst.insert(new_idx, slides._sldIdLst[slides.index(slide)])
+
+        self.MoveSlide(slides, slide, new_idx)
 
         self.SaveReport()
 
