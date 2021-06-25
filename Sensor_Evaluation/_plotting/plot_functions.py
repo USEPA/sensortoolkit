@@ -699,23 +699,31 @@ def Scatter_Plotter(df_list, ref_df, stats_df=None, plot_subset=None,
     if plot_title is True:
         if title_text is not None:
             title_text = '\n'.join(wrap(title_text, title_text_wrap))
+            n_lines = len(title_text.split('\n'))
+            if n_lines > 2:  # shift the figure down a tad if 3 or more lines
+                font_size *= 0.9
+                fig.subplots_adjust(top=0.95*top)
             axs.set_title(title_text,
                           fontsize=font_size,
                           y=suptitle_ypos,
                           x=suptitle_xpos,
                           fontweight=fontweight)
         else:
-            title = fmt_sensor_name + ' vs. ' + ref_name + ' ' + \
+            title_text = fmt_sensor_name + ' vs. ' + ref_name + ' ' + \
                 time_interval + ' ' + fmt_param
-            title = '\n'.join(wrap(title, title_text_wrap))
+            title_text = '\n'.join(wrap(title_text, title_text_wrap))
+            n_lines = len(title_text.split('\n'))
+            if n_lines > 2:  # shift the figure down a tad if 3 or more lines
+                font_size *= 0.9
+                fig.subplots_adjust(top=0.95*top)
             if unique_ax_obj is True:
-                fig.suptitle(title,
+                fig.suptitle(title_text,
                              fontsize=font_size,
                              y=suptitle_ypos,
                              x=suptitle_xpos,
                              fontweight=fontweight)
             else:
-                axs.set_title(title,
+                axs.set_title(title_text,
                               fontsize=font_size,
                               y=suptitle_ypos,
                               x=suptitle_xpos,
