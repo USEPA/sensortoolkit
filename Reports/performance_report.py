@@ -432,8 +432,8 @@ class PerformanceReport(SensorEvaluation):
         Photo placeholder                3          14 (PM2.5),  3 (O3)
         """
         # Title location for header
-        title_left = 0.65
-        title_top = 0.85
+        title_left = 0.98
+        title_top = 0.51
         text_vspace = 0
         # Get pptx text shape for modifying cells
         for slide_n in np.arange(1, len(self.rpt.slides) + 1):
@@ -442,8 +442,21 @@ class PerformanceReport(SensorEvaluation):
 
             # Set evaluation report title line 1: Parameter and test type
             title_line_1 = title.text_frame.paragraphs[0]
-            title_line_1.text = 'Testing Report - ' \
-                + self.eval_param + ' Base Testing'
+            run1 = title_line_1.add_run()
+            run1.text = 'Testing Report - '
+            run2 = title_line_1.add_run()
+            run2.text = self.param_formatting_dict[
+                                        self.eval_param]['baseline']
+            run3 = title_line_1.add_run()
+            run3.text = self.param_formatting_dict[
+                                        self.eval_param]['subscript']
+            font = run3.font
+            font._element.set('baseline', '-25000')
+            run4 = title_line_1.add_run()
+            run4.text = ' Base Testing'
+
+#            title_line_1.text = 'Testing Report - ' \
+#                + self.eval_param + ' Base Testing'
             self.FormatText(title_line_1, alignment='left',
                             font_name='Calibri', font_size=30)
             title_line_1_font = title_line_1.font
@@ -547,9 +560,13 @@ class PerformanceReport(SensorEvaluation):
 
         # Add contact link
         text_obj = cell.text_frame.add_paragraph()
-        text_obj.text = self.testing_org['Link']
+        run = text_obj.add_run()
+        run.text = self.testing_org['Website']['website name']
+        link = self.testing_org['Website']['website link']
+        hlink = run.hyperlink
+        hlink.address = link
         self.FormatText(text_obj, alignment='left', font_name='Calibri',
-                        font_size=11, italic=True)
+                        font_size=11)
 
         # Add contact email, phone number
         text_obj = cell.text_frame.add_paragraph()
@@ -1738,33 +1755,44 @@ class PerformanceReport(SensorEvaluation):
                                                                          171)
 
             # Add Sensor-Sensor text label
-            legend_h = 2.29
-            legend = tabular_slide.shapes.add_textbox(
+            legend_h = 2.7
+            legend = tabular_slide.shapes.add_shape(
+                                ppt.enum.shapes.MSO_SHAPE.ROUNDED_RECTANGLE,
                                 ppt.util.Inches(8.83),  # left
                                 ppt.util.Inches(e_t + 0.5*(e_h + - legend_h)),
                                 ppt.util.Inches(6.69),  # width
-                                ppt.util.Inches(legend_h))  # height
+                                ppt.util.Inches(legend_h))
+
+            legend.fill.solid()
+            legend.fill.fore_color.rgb = ppt.dml.color.RGBColor(236,
+                                                                236,
+                                                                240)
+
+            legend.line.fill.solid()
+            legend.line.fill.fore_color.rgb = ppt.dml.color.RGBColor(214,
+                                                                     216,
+                                                                     226)
+            legend.line.width = ppt.util.Pt(2.5)
 
             legend_obj = legend.text_frame.paragraphs[0]
             legend_obj.text = legend_txt['line1']
             self.FormatText(legend_obj, alignment='left',
-                            font_name='Calibri', font_size=16)
+                            font_name='Calibri', font_size=16, bold=False)
 
-            for line in legend_txt:
-                if line == 'line1':
-                    pass
-                else:
+            for i, line in enumerate(legend_txt):
+                if i > 0:
                     legend_obj = legend.text_frame.add_paragraph()
                     legend_obj.text = legend_txt[line]
-                    font = legend_obj.font
-                    font.name = 'Calibri'
-                    if line == 'line4':
-                        font.size = ppt.util.Pt(8)
-                    if line == 'line5':
-                        font.size = ppt.util.Pt(16)
-                    else:
-                        font.size = ppt.util.Pt(15)
-                    font.Bold = False
+
+                font = legend_obj.font
+                font.name = 'Calibri'
+                font.Bold = False
+                font.color.rgb = ppt.dml.color.RGBColor(0, 0, 0)
+
+                if line == 'line4':
+                    font.size = ppt.util.Pt(8)
+                else:
+                    font.size = ppt.util.Pt(15)
 
     def CreateStatsTable(self, slide, table_type='sensor_reference'):
 
@@ -1945,6 +1973,40 @@ class PerformanceReport(SensorEvaluation):
             tailEnd = self.SubElement(ln, 'a:tailEnd',
                                       type='none', w='med', len='med')
 
+    def SetSubscript(font):
+        """
+        Workaround for making font object text subscript (not included in
+        python-pptx as of v0.6.19)
+
+        Code via Martin Packer:
+            https://stackoverflow.com/questions/61329224/
+            how-do-i-add-superscript-subscript-text-to-powerpoint-using
+            -python-pptx
+        """
+        font._element.set('baseline', '-25000')
+
+    def SetSuperscript(font):
+        """
+        Workaround for making font object text superscript (not included in
+        python-pptx as of v0.6.19)
+
+        Code via Martin Packer:
+            https://stackoverflow.com/questions/61329224/
+            how-do-i-add-superscript-subscript-text-to-powerpoint-using
+            -python-pptx
+        """
+        font._element.set('baseline', '30000')
+
+    def MoveSlide(slides, slide, new_idx):
+        """
+        Move a slide from one index to another.
+
+        Code via GitHub user Amazinzay (Feb 17 2021):
+            https://github.com/scanny/python-pptx/issues/68
+        """
+        slides._sldIdLst.insert(new_idx, slides._sldIdLst[slides.index(slide)])
+
+
     def FormatText(self, text_obj, alignment='center', font_name='Calibri',
                    font_size=24, bold=False, italic=False):
 
@@ -2068,6 +2130,14 @@ class PerformanceReport(SensorEvaluation):
 
         self.AddMultiScatter()
         self.EditHeader()
+
+        # Move the supplemnental info table to the last slide position
+        # Code via github user Amazinzay (Feb 17 2021):
+        # https://github.com/scanny/python-pptx/issues/68
+        slides = self.rpt.slides
+        slide = slides[1]
+        new_idx = len(slides)
+        slides._sldIdLst.insert(new_idx, slides._sldIdLst[slides.index(slide)])
 
         self.SaveReport()
 
