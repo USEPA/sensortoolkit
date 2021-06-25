@@ -11,8 +11,9 @@
 Created:
   Fri May 21 15:19:53 2021
 Last Updated:
-  Fri May 21 15:19:53 2021
+  Thu Jun 24 11:24:00 2021
 """
+
 import os
 import pathlib
 import sys
@@ -34,15 +35,16 @@ ref_path = pathlib.PureWindowsPath(ref_path)
 testing_org = {'Deployment number': 'Deployment #1',
                'Org name': ['U.S. Environmental Protection Agency',
                             'Office of Research and Development'],
-               'Link': 'https://www.epa.gov/air-sensor-toolbox/'
-                       'evaluation-emerging-air-sensor-performance',
+               'Website': {'website name': 'Air Sensor Toolbox | U.S. EPA Website',
+                           'website link': 'https://www.epa.gov/air-sensor-toolbox/'
+                                           'evaluation-emerging-air-sensor-performance'},
                'Contact email': 'PI: Clements.Andrea@epa.gov',
                'Contact phone': '919-541-1364'}
 
 # Testing location information
-testing_loc = {'Site name': '(AIRS) Ambient Monitoring Innovative '
-                            'Research Station ',
-               'Site address': '111 TW Alexander Dr. RTP, NC 27713',
+testing_loc = {'Site name': 'Ambient Monitoring Innovative '
+                            'Research Station (AIRS) ',
+               'Site address': 'Research Triangle Park, NC',
                'Site lat': '35.889510N',
                'Site long': '-78.874572W',
                'Site AQS ID': '37 – 063 – 0099'}
@@ -50,7 +52,7 @@ testing_loc = {'Site name': '(AIRS) Ambient Monitoring Innovative '
 # Instantiate the PerformanceReport class for the example sensor dataset
 test_report = PerformanceReport(
                 sensor_name='Example_Make_Model',
-                eval_param='O3',
+                eval_param='PM25',
                 reference_data=ref_path.as_posix() + '/airnowtech/processed',
                 serials={'1': 'SN01',
                          '2': 'SN02',
