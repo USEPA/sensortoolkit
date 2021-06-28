@@ -13,7 +13,6 @@ Created:
 Last Updated:
   Thu Jun 24 11:24:00 2021
 """
-
 import pptx as ppt
 import datetime as dt
 import numpy as np
@@ -27,12 +26,42 @@ from Sensor_Evaluation.sensor_eval_class import SensorEvaluation
 
 
 class PerformanceReport(SensorEvaluation):
-    """
-    Generate air sensor performance reporting document for evaluations
-    conducted under fixed site, ambient, outdoor settings.
+    """Generates air sensor performance evaluation reports.
 
-    Configured currently to create reports for PM2.5 and O3.
+    Reports are intended for evaluations following U.S. EPA's
+    recommendations for base testing of air sensors at outdoor ambient air
+    monitoring sites and collocated alongside FRM/FEM monitors for use in NSIM
+    applications.
+
+    In February 2021, U.S. EPA released two reports detailing recommended
+    performance testing protocols, metrics, and target values for the
+    evaluation of sensors measuring either fine particulate matter (PM2.5)
+    or ozone (O3). More detail about EPA's sensor evaluation research as well
+    as both reports can be found online at EPA's Air Sensor Toolbox:
+        https://www.epa.gov/air-sensor-toolbox
+
+    NOTE -
+    PerformanceReport is an inherited class of SensorEvaluation. As a result,
+    it inherits all the class and instance attributes of SensorEvaluation,
+    including its numerous variables and data structures. Programmatically,
+    PerformanceReport is intended as a direct extension of SensorEvaluation;
+    users can easily interact with all the attributes and data stuctures for
+    sensor evaluations. However, whereas SensorEvaluation allows analysis of a
+    wide number of pollutants and parameters, PerformanceReport is intended for
+    constructing reports pertaining to sensors measuring either fine
+    particulate matter (PM2.5) or ozone (O3) following U.S. EPA's
+    recommended protocols and testing metrics for evaluating these sensors.
+    Module will exit execution if parameters other than 'PM25' or 'O3' are
+    specified.
+
+    Args:
+
+    Attributes:
+
     """
+    # Evaluation parameters for which the PerformanceReport class can
+    # constuct reports
+    report_params = ['PM25', 'O3']
 
     def __init__(self, sensor_name, eval_param, load_raw_data=False,
                  reference_data=None, ref_name=None,
@@ -40,16 +69,12 @@ class PerformanceReport(SensorEvaluation):
                  write_to_file=False, fmt_sensor_name=None, testing_org=None,
                  testing_loc=None):
 
-        # Evaluation parameters for which the PerformanceReport class can
-        # constuct reports
-        report_params = ['PM25', 'O3']
-
         # Inherit the SensorEvaluation class instance attributes
         super().__init__(sensor_name, eval_param, load_raw_data,
                          reference_data, ref_name, serials, tzone_shift,
                          bbox, aqs_id, write_to_file)
 
-        if self.eval_param not in report_params:
+        if self.eval_param not in self.report_params:
             sys.exit('Reporting template not configured for '
                      + self.eval_param)
 
@@ -101,25 +126,31 @@ class PerformanceReport(SensorEvaluation):
         # Initialize figure positions in report
         self.FigPositions()
 
+        # Plotting: determine the max concentration for average of concurrent
+        # sensor measurements and also the ref max concentration. Select the
+        # upper limit for plots as 1.25x the larger of these values.
+        sensor_avg_cmax = self.avg_hrly_df['mean_' + self.eval_param].max()
+        ref_cmax = self.hourly_ref_df[self.eval_param + '_Value'].max()
+        self.plot_cmax = 1.25*max(sensor_avg_cmax, ref_cmax)
+
     def FigPositions(self):
         """
         Figure positions for reports. Values are in inches, specifying the
         left and top center location of each figure.
         """
-        self.fig_locs = {
-                        'SingleScatter': {'left': '',
-                                          'top': ''},
-                        'TripleScatter': {'left': '',
-                                          'top': ''},
-                        'Timeseries': {'left': '',
-                                       'top': ''},
-                        'MetricPlot': {'left': '',
-                                       'top': ''},
-                        'MetDist': {'left': '',
-                                    'top': ''},
-                        'MetInfl': {'left': '',
-                                    'top': ''}
-                       }
+        self.fig_locs = {'SingleScatter': {'left': '',
+                                           'top': ''},
+                         'TripleScatter': {'left': '',
+                                           'top': ''},
+                         'Timeseries': {'left': '',
+                                        'top': ''},
+                         'MetricPlot': {'left': '',
+                                        'top': ''},
+                         'MetDist': {'left': '',
+                                     'top': ''},
+                         'MetInfl': {'left': '',
+                                     'top': ''}
+                         }
 
         if self.eval_param == 'PM25':
             self.fig_locs['SingleScatter']['left'] = 11.11
@@ -168,19 +199,19 @@ class PerformanceReport(SensorEvaluation):
         except FileNotFoundError:
 
             self.plot_sensor_scatter(
-                        plot_subset=kwargs.get('plot_subset', ['1']),
-                        plot_limits=kwargs.get('plot_limits', (-1, 30)),
-                        tick_spacing=kwargs.get('tick_spacing', 5),
-                        text_pos=kwargs.get('text_pos', 'upper_left'),
-                        report_fmt=True)
+                plot_subset=kwargs.get('plot_subset', ['1']),
+                plot_limits=kwargs.get('plot_limits', (-1, self.plot_cmax)),
+                tick_spacing=kwargs.get('tick_spacing', 5),
+                text_pos=kwargs.get('text_pos', 'upper_left'),
+                report_fmt=True)
 
-        if len(kwargs) != 0:
-            self.plot_sensor_scatter(
-                    plot_subset=kwargs.get('plot_subset', ['1']),
-                    plot_limits=kwargs.get('plot_limits', (-1, 30)),
-                    tick_spacing=kwargs.get('tick_spacing', 5),
-                    text_pos=kwargs.get('text_pos', 'upper_left'),
-                    report_fmt=True)
+#        if len(kwargs) != 0:
+#            self.plot_sensor_scatter(
+#                    plot_subset=kwargs.get('plot_subset', ['1']),
+#                    plot_limits=kwargs.get('plot_limits', (-1, self.plot_cmax)),
+#                    tick_spacing=kwargs.get('tick_spacing', 5),
+#                    text_pos=kwargs.get('text_pos', 'upper_left'),
+#                    report_fmt=True)
 
         scatter_loc = self.fig_locs['SingleScatter']
         self.scatterplt = self.shapes.add_picture(
@@ -246,19 +277,19 @@ class PerformanceReport(SensorEvaluation):
                     print('Warning: No plotting arguments passed to function,'
                           ' using default configuration')
                 self.plot_sensor_scatter(
-                            avg_interval,
-                            plot_limits=kwargs.get('plot_limits', (-1, 30)),
-                            tick_spacing=kwargs.get('tick_spacing', 5),
-                            text_pos=kwargs.get('text_pos', 'upper_left'))
-
-            print(fig_path)
+                    avg_interval,
+                    plot_limits=kwargs.get('plot_limits',
+                                           (-1, self.plot_cmax)),
+                    tick_spacing=kwargs.get('tick_spacing', 5),
+                    text_pos=kwargs.get('text_pos', 'upper_left'))
 
             if len(kwargs) != 0:
                 self.plot_sensor_scatter(
-                        avg_interval,
-                        plot_limits=kwargs.get('plot_limits', (-1, 30)),
-                        tick_spacing=kwargs.get('tick_spacing', 5),
-                        text_pos=kwargs.get('text_pos', 'upper_left'))
+                    avg_interval,
+                    plot_limits=kwargs.get('plot_limits',
+                                           (-1, self.plot_cmax)),
+                    tick_spacing=kwargs.get('tick_spacing', 5),
+                    text_pos=kwargs.get('text_pos', 'upper_left'))
 
             if self.n_sensors <= 3:
                 scatter_loc = self.fig_locs['TripleScatter']
@@ -292,20 +323,21 @@ class PerformanceReport(SensorEvaluation):
             figure.close()
 
         except FileNotFoundError:
+
             self.plot_timeseries(
                     format_xaxis_weeks=kwargs.get('format_xaxis_weeks', False),
                     yscale=kwargs.get('yscale', 'linear'),
                     date_interval=kwargs.get('date_interval', 7),
                     report_fmt=True,
-                    ylims=kwargs.get('ylims', (0, 25)))
+                    ylims=(0, self.plot_cmax))
 
-        if len(kwargs) != 0:
-            self.plot_timeseries(
-                format_xaxis_weeks=kwargs.get('format_xaxis_weeks', False),
-                yscale=kwargs.get('yscale', 'linear'),
-                date_interval=kwargs.get('date_interval', 7),
-                report_fmt=True,
-                ylims=kwargs.get('ylims', (0, 25)))
+#        if len(kwargs) != 0:
+#            self.plot_timeseries(
+#                format_xaxis_weeks=kwargs.get('format_xaxis_weeks', False),
+#                yscale=kwargs.get('yscale', 'linear'),
+#                date_interval=kwargs.get('date_interval', 7),
+#                report_fmt=True,
+#                ylims=kwargs.get('ylims', (0, 25)))
 
         timeseries_loc = self.fig_locs['Timeseries']
         self.timeseries = self.shapes.add_picture(
@@ -796,13 +828,19 @@ class PerformanceReport(SensorEvaluation):
         for grp in list(grp_info.keys()):
             ref = 'Reference'
             try:
+                ref_hmin = grp_info[grp][self.eval_param][ref][
+                                                            'conc_min_hourly']
+                ref_hmax = grp_info[grp][self.eval_param][ref][
+                                                            'conc_max_hourly']
+                ref_dmin = grp_info[grp][self.eval_param][ref][
+                                                            'conc_min_daily']
+                ref_dmax = grp_info[grp][self.eval_param][ref][
+                                                            'conc_max_daily']
+
                 self.refconc[grp] = \
                     '{0:3.1f}-{1:3.1f} (1-hr), '\
-                    '{2:3.1f}-{3:3.1f} (24-hr)'.format(
-                    grp_info[grp][self.eval_param][ref]['conc_min_hourly'],
-                    grp_info[grp][self.eval_param][ref]['conc_max_hourly'],
-                    grp_info[grp][self.eval_param][ref]['conc_min_daily'],
-                    grp_info[grp][self.eval_param][ref]['conc_max_daily'])
+                    '{2:3.1f}-{3:3.1f} (24-hr)'.format(ref_hmin, ref_hmax,
+                                                       ref_dmin, ref_dmax)
 
             # Raise when attributes are 'none' likely due to no data
             except TypeError:
@@ -2139,6 +2177,37 @@ class PerformanceReport(SensorEvaluation):
         """
         slides._sldIdLst.insert(new_idx, slides._sldIdLst[slides.index(slide)])
 
+    def AddSlideNumbers(self):
+        """Add slide numbers to slides generated during report construction.
+
+        For some reason, the python pptx module can't assign the footer page
+        number to slides that are created by the library. While slides that
+        are imported via the template (the first and last page of the report)
+        have page number placeholders already assigned, the pptx library doesnt
+        do this without explicity copying and pasting the page number
+        placeholder from the layout to the slides that are created by the
+        module.
+
+        Reference:
+            This code follows the basic outline Steve Canny (scanny) suggests
+            in response to this GitHub post:
+            https://github.com/scanny/python-pptx/issues/64
+
+        """
+        layout = self.rpt.slide_layouts[1]
+        placeholders = layout.placeholders
+        for i, placeholder in enumerate(placeholders):
+            if layout.placeholders[i].name == 'Slide Number Placeholder':
+                break
+
+        # add slide numbers to the 2nd through the 2nd to last slide
+        # (slides that are generated by PerformanceReport)
+        for idx in np.arange(1, len(self.rpt.slides)-1, 1):
+            slide = self.rpt.slides[idx]
+            slide.shapes.clone_placeholder(placeholder)
+            slide_placeholder = slide.shapes[-1]
+            slide_placeholder.text = str(idx + 1)
+
     def FormatText(self, text_obj, alignment='center', font_name='Calibri',
                    font_size=24, bold=False, italic=False):
 
@@ -2267,6 +2336,7 @@ class PerformanceReport(SensorEvaluation):
         slide = slides[1]
         new_idx = len(slides)
         self.MoveSlide(slides, slide, new_idx)
+        self.AddSlideNumbers()
 
         self.SaveReport()
 
