@@ -702,7 +702,8 @@ def Scatter_Plotter(df_list, ref_df, stats_df=None, plot_subset=None,
             n_lines = len(title_text.split('\n'))
             if n_lines > 2:  # shift the figure down a tad if 3 or more lines
                 font_size *= 0.9
-                fig.subplots_adjust(top=0.95*top)
+                suptitle_ypos *= 1.03
+
             axs.set_title(title_text,
                           fontsize=font_size,
                           y=suptitle_ypos,
@@ -715,7 +716,8 @@ def Scatter_Plotter(df_list, ref_df, stats_df=None, plot_subset=None,
             n_lines = len(title_text.split('\n'))
             if n_lines > 2:  # shift the figure down a tad if 3 or more lines
                 font_size *= 0.9
-                fig.subplots_adjust(top=0.95*top)
+                suptitle_ypos *= 1.03
+
             if unique_ax_obj is True:
                 fig.suptitle(title_text,
                              fontsize=font_size,
