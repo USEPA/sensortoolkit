@@ -450,14 +450,11 @@ class SensorEvaluation:
                                        path=self.stats_path,
                                        write_to_file=self.write_to_file)
 
-    def plot_timeseries(self, averaging_interval='1-hour',
-                        format_xaxis_weeks=False, date_interval=5,
-                        cmap_name='Set1', cmap_norm_range=(0, 1),
-                        yscale='linear', report_fmt=False, ylims=None):
+    def plot_timeseries(self, **kwargs):
         """
         Plot parameter concentrations over time alongside reference
-        """
 
+        """
         timestamp_fmt = '%Y-%m-%d %H:%M:%S'
         t_start = (self.avg_hrly_df.dropna().index[0] - pd.Timedelta('1D')
                    ).strftime(timestamp_fmt)
@@ -468,10 +465,13 @@ class SensorEvaluation:
             cmap_name = 'Set1'
             cmap_norm_range = (0, 0.4)
 
-        if len(self.eval_param_averaging) == 2 and report_fmt is True:
+        avg_list = self.eval_param_averaging
+        report_fmt = kwargs.get('report_fmt', False)
+
+        if len(avg_list) == 2 and report_fmt is True:
             fig, axs = plt.subplots(2, 1, figsize=(10.15, 4.1))
             fig.subplots_adjust(hspace=0.7)
-            for i, avg_interval in enumerate(self.eval_param_averaging):
+            for i, avg_interval in enumerate(avg_list):
 
                 if avg_interval == '1-hour':
                     sensor_data = self.hourly_df_list
@@ -484,59 +484,69 @@ class SensorEvaluation:
                 # iteration of loop
                 if i == 0:
                     write_to_file = False
-                if i == len(self.eval_param_averaging) - 1:
+                if i == len(avg_list) - 1:
                     write_to_file = self.write_to_file
 
                 axs[i] = se.Sensor_Timeplot(
-                                    sensor_data,
-                                    ref_data,
-                                    sensor_serials=self.serials,
-                                    param=self.eval_param,
-                                    figure_path=self.figure_path,
-                                    sensor_name=self.sensor_name,
-                                    ref_name=self.ref_name,
-                                    start_time=t_start,
-                                    end_time=t_end,
-                                    time_interval=avg_interval,
-                                    cmap_name=cmap_name,
-                                    cmap_norm_range=cmap_norm_range,
-                                    date_interval=date_interval,
-                                    title=True,
-                                    yscale=yscale,
-                                    ylim=ylims,
-                                    report_fmt=report_fmt,
-                                    format_xaxis_weeks=format_xaxis_weeks,
-                                    write_to_file=write_to_file,
-                                    ax=axs[i],
-                                    fig=fig)
+                            sensor_data,
+                            ref_data,
+                            sensor_serials=self.serials,
+                            param=self.eval_param,
+                            figure_path=self.figure_path,
+                            sensor_name=self.sensor_name,
+                            ref_name=self.ref_name,
+                            start_time=t_start,
+                            end_time=t_end,
+                            time_interval=avg_interval,
+                            cmap_name=cmap_name,
+                            cmap_norm_range=cmap_norm_range,
+                            date_interval=kwargs.get('date_interval', 5),
+                            title=True,
+                            yscale=kwargs.get('yscale', 'linear'),
+                            ylim=kwargs.get('ylims', (0, 30)),
+                            report_fmt=report_fmt,
+                            format_xaxis_weeks=kwargs.get('format_xaxis_weeks',
+                                                          False),
+                            write_to_file=write_to_file,
+                            ax=axs[i],
+                            fig=fig)
                 if i == 0:
                     axs[i].get_legend().remove()
         else:
-            if averaging_interval == '1-hour':
+
+            averaging_interval = kwargs.get('averaging_interval', '1-hour')
+
+            if '1-hour' in avg_list and averaging_interval == '1-hour':
                 sensor_data = self.hourly_df_list
                 ref_data = self.hourly_ref_df
-            if averaging_interval == '24-hour':
+            if '24-hour' in avg_list and averaging_interval == '24-hour':
                 sensor_data = self.daily_df_list
                 ref_data = self.daily_ref_df
 
-            se.Sensor_Timeplot(sensor_data,
-                               ref_data,
-                               sensor_serials=self.serials,
-                               param=self.eval_param,
-                               figure_path=self.figure_path,
-                               sensor_name=self.sensor_name,
-                               ref_name=self.ref_name,
-                               start_time=t_start,
-                               end_time=t_end,
-                               time_interval=averaging_interval,
-                               cmap_name=cmap_name,
-                               cmap_norm_range=cmap_norm_range,
-                               date_interval=date_interval,
-                               title=True,
-                               yscale=yscale,
-                               report_fmt=report_fmt,
-                               format_xaxis_weeks=format_xaxis_weeks,
-                               write_to_file=self.write_to_file)
+            try:
+                sensor_data
+            except NameError as e:
+                sys.exit(e)
+
+            se.Sensor_Timeplot(
+                    sensor_data,
+                    ref_data,
+                    sensor_serials=self.serials,
+                    param=self.eval_param,
+                    figure_path=self.figure_path,
+                    sensor_name=self.sensor_name,
+                    ref_name=self.ref_name,
+                    start_time=t_start,
+                    end_time=t_end,
+                    time_interval=averaging_interval,
+                    cmap_name=cmap_name,
+                    cmap_norm_range=cmap_norm_range,
+                    date_interval=kwargs.get('date_interval', 5),
+                    title=True,
+                    yscale=kwargs.get('yscale', 'linear'),
+                    report_fmt=report_fmt,
+                    format_xaxis_weeks=kwargs.get('format_xaxis_weeks', False),
+                    write_to_file=self.write_to_file)
 
     def plot_metrics(self):
         """
@@ -595,9 +605,23 @@ class SensorEvaluation:
 
         avg_list = self.eval_param_averaging
 
-        if (report_fmt is True and len(avg_list) == 2 and plot_subset
-           is not None):
-            fig, axs = plt.subplots(1, 2, figsize=(5.29, 3.17))
+
+        if (report_fmt is True and plot_subset is not None):
+
+            if self.eval_param == 'PM25':
+                # Create a 1x2 subplot, 1-hr scatter on left and 24-hr scatter
+                # on right for a single sensor unit (performance report page
+                # 1 plot)
+                figsize = (5.29, 3.17)
+            elif self.eval_param == 'O3':
+                # Create a 1x1 subplot, 1-hr scatter with vertical colorbar
+                figsize = (4.3, 3.91)
+            else:
+                sys.exit('Reporting template formatted figure not specified'
+                         ' for ' + self.eval_param)
+
+            fig, axs = plt.subplots(1, len(avg_list), figsize=figsize)
+
             fig.subplots_adjust(hspace=0.7)
             fontsize = 9
             for i, avg_interval in enumerate(self.eval_param_averaging):
@@ -618,7 +642,14 @@ class SensorEvaluation:
                 if i == len(self.eval_param_averaging) - 1:
                     write_to_file = self.write_to_file
 
-                axs[i] = se.Scatter_Plotter(
+                if isinstance(axs, np.ndarray):
+                    ax = axs[i]
+                    multiplot = True
+                else:
+                    ax = axs
+                    multiplot = False
+
+                ax = se.Scatter_Plotter(
                                    sensor_data,
                                    ref_data,
                                    self.stats_df,
@@ -641,8 +672,15 @@ class SensorEvaluation:
                                    tick_spacing=tick_spacing,
                                    write_to_file=write_to_file,
                                    report_fmt=True,
-                                   ax=axs[i],
+                                   ax=ax,
                                    fig=fig)
+                if multiplot:
+                    axs[i] = ax
+                else:
+                    axs = ax
+
+        # Create scatter for all sensors in an evaluation at a specified
+        # averaging interval
         else:
             # Assuming avg_list contains either only 1-hour or 24-hour
             if '1-hour' in avg_list and averaging_interval == '1-hour':
@@ -651,6 +689,11 @@ class SensorEvaluation:
             if '24-hour' in avg_list and averaging_interval == '24-hour':
                 sensor_data = self.daily_df_list
                 ref_data = self.daily_ref_df
+
+            try:
+                sensor_data
+            except NameError as e:
+                sys.exit(e)
 
             se.Scatter_Plotter(sensor_data,
                                ref_data,
