@@ -40,10 +40,18 @@ class PerformanceReport(SensorEvaluation):
                  write_to_file=False, fmt_sensor_name=None, testing_org=None,
                  testing_loc=None):
 
+        # Evaluation parameters for which the PerformanceReport class can
+        # constuct reports
+        report_params = ['PM25', 'O3']
+
         # Inherit the SensorEvaluation class instance attributes
         super().__init__(sensor_name, eval_param, load_raw_data,
                          reference_data, ref_name, serials, tzone_shift,
                          bbox, aqs_id, write_to_file)
+
+        if self.eval_param not in report_params:
+            sys.exit('Reporting template not configured for '
+                     + self.eval_param)
 
         self.fmt_sensor_name = fmt_sensor_name
         # Placeholder method for formatted sensor name, replace '_' with spaces
@@ -1745,19 +1753,19 @@ class PerformanceReport(SensorEvaluation):
                                                 tabular_layout)
 
             # Sensor Reference Table
-            sr_frame, sr_table = self.CreateStatsTable(
+            sr_frame, sr_table = self.ConstructTable(
                                         tabular_slide,
                                         table_type='sensor_reference')
             self.EditSensorRefTable(sr_table)
 
             # Error Table
-            e_frame, e_table = self.CreateStatsTable(
+            e_frame, e_table = self.ConstructTable(
                                         tabular_slide,
                                         table_type='error')
             self.EditErrorTable(e_table)
 
             # Intersensor (sensor-sensor) table
-            ss_frame, ss_table = self.CreateStatsTable(
+            ss_frame, ss_table = self.ConstructTable(
                                         tabular_slide,
                                         table_type='sensor_sensor')
             self.EditSensorSensorTable(ss_table)
@@ -1878,7 +1886,27 @@ class PerformanceReport(SensorEvaluation):
                 else:
                     font.size = ppt.util.Pt(15)
 
-    def CreateStatsTable(self, slide, table_type='sensor_reference'):
+    def ConstructTable(self, slide, table_type='sensor_reference'):
+        """Function for selecting and constructing statistics tables on report
+        page 2.
+
+        Presets are set for constructing each table type (number of rows and
+        columns, dimensions of tables, shading of cells and fill color, etc.)
+
+        Args:
+            slide (pptx slide object):
+                The report slide on which the tabular statistics will be
+                placed. This will likely be slide #2 (i.e., self.rpt.slides[1])
+            table_type (str): {'sensor_reference', 'error', 'sensor_sensor'}
+                Name of the type of table to construct.
+
+        Returns:
+            frame:
+                pptx GraphicFrame object that the table is contained within
+            table:
+                pptx table shape formatted for the selected table type
+
+        """
 
         cell_margin = 0.001
         table_spacing = 0.4
@@ -1949,11 +1977,13 @@ class PerformanceReport(SensorEvaluation):
                 top = ppt.util.Inches(3.69 + 7.83 + 2*table_spacing + 3.23)
                 greyed_cells = [19]
 
+        # Construct the table based on selected presets
         frame = shapes.add_table(nrows, ncols, left, top,
                                  width, height)
         table = frame.table
         table.horz_banding = False
 
+        # Loop over the cells in the table, configure fill color, cell margins
         for cell_idx, cell in enumerate(table.iter_cells()):
             # Set cell border width
             self.SetCellBorder(cell)
@@ -2001,10 +2031,23 @@ class PerformanceReport(SensorEvaluation):
 
         return frame, table
 
-    def PrintPpptxShapes(self, slide_number=1, shape_type='all'):
-        """
-        Diagnostic tool for indicating shape ids and locations on reporting
-        template slides
+    def PrintpptxShapes(self, slide_number=1, shape_type='all'):
+        """Diagnostic tool for indicating shape ids and locations on reporting
+        template slides.
+
+        Args:
+            slide number (int):
+                The number of the slide (starting at 1) for which shape ids and
+                locations will be printed.
+            shape_type (str) {'all', ...?}: # TODO: get type names
+                The types of shapes on the slide to print out. 'all' will
+                return all shapes regardless of type, however, selecting a
+                particular type (e.g., 'table') will only return shapes on the
+                page corresponding to the specified type.
+
+        Returns:
+            None
+
         """
         print("{:^6s}{:^18s}{:^12s}{:^10s}".format('ID', 'Type',
                                                    'Left loc', 'Top loc'))
@@ -2023,10 +2066,12 @@ class PerformanceReport(SensorEvaluation):
                            shape.left.inches, shape.top.inches))
 
     def SubElement(self, parent, tagname, **kwargs):
-        """
-        Code for editing tabular cell border width. Based on Steve Canny's code
-        at the following link:
+        """Code for editing tabular cell border width.
+
+        Reference:
+            Based on Steve Canny's code at the following link:
             https://groups.google.com/g/python-pptx/c/UTkdemIZICw
+
         """
         element = ppt.oxml.xmlchemy.OxmlElement(tagname)
         element.attrib.update(kwargs)
@@ -2034,12 +2079,15 @@ class PerformanceReport(SensorEvaluation):
         return element
 
     def SetCellBorder(self, cell, border_color="ffffff", border_width='20000'):
-        """
-        Code for editing tabular cell border width. Based on Steve Canny's code
-        at the following links:
+        """Code for editing tabular cell border width.
+
+        Reference:
+            Based on Steve Canny's code at the following links:
             https://groups.google.com/g/python-pptx/c/UTkdemIZICw
+
             https://stackoverflow.com/questions/42610829/
             python-pptx-changing-table-style-or-adding-borders-to-cells
+
         """
         tc = cell._tc
         tcPr = tc.get_or_add_tcPr()
@@ -2058,34 +2106,36 @@ class PerformanceReport(SensorEvaluation):
                                       type='none', w='med', len='med')
 
     def SetSubscript(self, font):
-        """
-        Workaround for making font object text subscript (not included in
+        """Workaround for making font object text subscript (not included in
         python-pptx as of v0.6.19)
 
-        Code via Martin Packer:
-            https://stackoverflow.com/questions/61329224/
-            how-do-i-add-superscript-subscript-text-to-powerpoint-using
-            -python-pptx
+        Reference:
+            Code via Martin Packer:
+            https://stackoverflow.com/questions/61329224/how-do-i-add-
+            superscript-subscript-text-to-powerpoint-using-python-pptx
+
         """
         font._element.set('baseline', '-25000')
 
     def SetSuperscript(self, font):
-        """
-        Workaround for making font object text superscript (not included in
+        """Workaround for making font object text superscript (not included in
         python-pptx as of v0.6.19)
 
-        Code via Martin Packer:
-            https://stackoverflow.com/questions/61329224/
-            how-do-i-add-superscript-subscript-text-to-powerpoint-using
-            -python-pptx
+        Reference:
+            Code via Martin Packer:
+            https://stackoverflow.com/questions/61329224/how-do-i-add-
+            superscript-subscript-text-to-powerpoint-using-python-pptx
+
         """
         font._element.set('baseline', '30000')
 
     def MoveSlide(self, slides, slide, new_idx):
-        """
-        Move the supplemnental info table to the last slide position
-        Code via github user Amazinzay (Feb 17 2021):
+        """Move the supplemnental info table to the last slide position.
+
+        Reference:
+            Code via github user Amazinzay (Feb 17 2021):
             https://github.com/scanny/python-pptx/issues/68
+
         """
         slides._sldIdLst.insert(new_idx, slides._sldIdLst[slides.index(slide)])
 
@@ -2179,13 +2229,12 @@ class PerformanceReport(SensorEvaluation):
         return text
 
     def CreateReport(self):
-        """
+        """Wrapper for running the various methods that construct reports.
+
         Existing figures are assumed to have been created on the same day of
         class instantiation. If a figure filename is not found, sensor data
         are loaded via the SensorEvaluation class and the figure is generated.
 
-        Note that Edit Header should be the last routine, loops over slides to
-        add header information.
         """
         print('Creating Testing Report for', self.sensor_name)
 
@@ -2213,11 +2262,10 @@ class PerformanceReport(SensorEvaluation):
         self.AddMultiScatter()
         self.EditHeader()
 
-        #
+        # Move the supplemental info slide to the last slide position
         slides = self.rpt.slides
         slide = slides[1]
         new_idx = len(slides)
-
         self.MoveSlide(slides, slide, new_idx)
 
         self.SaveReport()
