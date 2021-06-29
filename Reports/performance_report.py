@@ -240,7 +240,7 @@ class PerformanceReport(SensorEvaluation):
                                 ppt.util.Inches(3.16),  # width
                                 ppt.util.Inches(0.47))  # height
         section_header_obj = section_header.text_frame.paragraphs[0]
-        section_header_obj.text = 'Sensor-Reference Scatter Plots'
+        section_header_obj.text = 'Sensor-FRM/FEM Scatter Plots'
         self.FormatText(section_header_obj, alignment='left',
                         font_name='Calibri Light', font_size=22)
 
@@ -257,8 +257,13 @@ class PerformanceReport(SensorEvaluation):
 
         # Loop over averaging intervals specified for the parameter
         for i, avg_interval in enumerate(self.eval_param_averaging):
+            if self.n_sensors > 1:
+                plural = 's'
+            else:
+                plural = ''
             fig_name = (self.sensor_name + '_vs_' + self.ref_name +
-                        '_' + avg_interval + '_3_sensors')
+                        '_' + avg_interval + '_' + str(self.n_sensors) +
+                        '_' + 'sensor' + plural)
 
             # Search for figure created today
             try:
