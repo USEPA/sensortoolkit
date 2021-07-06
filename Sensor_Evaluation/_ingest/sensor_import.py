@@ -28,22 +28,33 @@ def Import(sensor_name=None, sensor_serials=None, tzone_shift=0,
     """
     if load_raw_data is True:
         full_df_list = []
-        print('Importing Recorded Example Sensor Data:')
+        print('Importing Recorded Sensor Data:')
 
-        # Could place sensor-specific pre-processing modules here for combining
-        # data into format expected below (one csv file per sensor for data
-        # collected during testing period)
+        # Could place sensor-specific pre-processing modules here, batch
+        # combine sensor files into one csv per sensor unit
 
-        for item in os.listdir(data_path):
-            if (any(serial in item for serial in list(sensor_serials.values()))
-               and (item.startswith(sensor_name))):
+        for serial in sensor_serials.values():
+            sensor_df = pd.DataFrame()
+            print('..' + serial)
+            for path, folders, files in os.walk(data_path):
+                for filename in files:
+                    if serial in filename and (filename.endswith('.csv')
+                       or filename.lower().endswith('.txt')):
+                        # Load sensor data and append file datasets
+                        cwd = '//'.join([path, filename])
+                        print('....' + filename)
+                        df = Ingest_Wrapper(cwd, sensor_name)
+                        sensor_df = sensor_df.append(df)
 
-                # Data import and cleanup
-                cwd = data_path + item
-                df = Ingest_Wrapper(cwd, sensor_name)
+            if sensor_df.empty:
+                console_out = ('No sensor data files found with the expected'
+                               ' naming scheme. Files for each sensor must be '
+                               'ordered chronologically and contain the sensor'
+                               ' serial ID. Files must be either .csv or .txt')
+                sys.exit(console_out)
 
-                df = df.shift(tzone_shift, freq='H')
-                full_df_list.append(df)
+            sensor_df = sensor_df.shift(tzone_shift, freq='H')
+            full_df_list.append(sensor_df)
 
         hourly_df_list, daily_df_list = Sensor_Averaging(full_df_list,
                                                          sensor_serials,
@@ -69,6 +80,9 @@ def Ingest_Wrapper(cwd, sensor_name):
 
     if sensor_name == 'Example_Make_Model':
         return Ingest_Example_Make_Model(cwd)
+
+    if sensor_name == 'Sensit_RAMP':
+        return Ingest_Sensit_RAMP(cwd)
 
 #    if sensor_name == 'Your_Sensor_Model_Here':
 #        return Custom_Ingest_Module_For_Your_Sensor(cwd)
@@ -104,6 +118,43 @@ def Ingest_Example_Make_Model(cwd):
                             'RH (%)': 'RH',
                             'DP (°C)': 'DP'})
     return df
+
+
+def Ingest_Sensit_RAMP(cwd):
+
+    # List of column names
+    col_list = ['Serial_ID', 'DateTime', 'CO_Header', 'CO',
+                'NO_Header', 'NO', 'NO2_Header', 'NO2',
+                'O3_Header', 'O3', 'CO2_Header', 'CO2',
+                'Temp_Header', 'Temp', 'RH_Header', 'RH',
+                'PM1_Header', 'PM1', 'PM25_Header', 'PM25',
+                'PM10_Header', 'PM10', 'WD_Header', 'WD',
+                'WS_Header', 'WS', 'BATT_Header', 'BATT',
+                'CHRG_Header', 'CHRG', 'RUN_Header', 'RUN',
+                'SD_Header', 'SD', 'RAW_Header', 'RAW_1',
+                'RAW_2', 'RAW_3', 'RAW_4', 'RAW_5', 'RAW_6',
+                'RAW_7', 'RAW_8', 'STAT_Header', 'STAT_1',
+                'STAT_2', 'STAT_3']
+
+    # Load sensor datasets, column names not specified in files (header==None)
+    df = pd.read_csv(cwd, header=None, names=col_list)
+
+    # drop the header columns for RAMP datasets
+    drop_headers = [col for col in df.columns if col.endswith('_Header')]
+    df = df.drop(columns=drop_headers)
+
+    df.Serial_ID = df.Serial_ID.str.replace('XDATE', '')
+
+    # Set the DateTime columns as the timelike index
+    df = df.set_index(pd.to_datetime(df['DateTime']))
+    df.index.name = 'DateTime_UTC'
+
+    # Limit dataset to parameter data (exclude columns not used in analysis)
+    df = df[['Serial_ID', 'CO', 'NO', 'NO2', 'O3', 'CO2',
+             'PM1', 'PM25', 'PM10', 'Temp', 'RH', 'WD', 'WS']]
+
+    return df
+
 
 #def Custom_Ingest_Module_For_Your_Sensor(cwd):
 #    """Ingestion module for converting your sensor data to standard format.
