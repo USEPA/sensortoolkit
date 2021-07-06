@@ -60,7 +60,8 @@ def Regression_Stats(hourly_df_obj=None, daily_df_obj=None, hourly_ref_df=None,
             else:
                 xdata = ref_df[param + '_Value']
                 ref_name = ''.join(
-                            list(ref_df[param + '_Method'].dropna().unique()))
+                            list(ref_df[param + '_Method'].dropna().apply(
+                                            lambda x: str(x)).unique()[0]))
             if i == 0:
                 print('Computing regression statistics for ' + sensor_name
                       + ' vs ' + ref_name)
