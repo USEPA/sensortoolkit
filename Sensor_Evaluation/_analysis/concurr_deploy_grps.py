@@ -187,7 +187,9 @@ def Meteorological_Stats(deploy_dict, df_list, met_ref_df,
         fmt_param, fmt_param_units = Format_Param_Name(param)
 
         try:
-            ref_name = met_ref_df[param + '_Method'].dropna().unique()[0]
+            ref_name = met_ref_df[
+                    param + '_Method'].dropna().apply(
+                                            lambda x: str(x)).unique()[0]
         except IndexError:
             ref_name = 'Unknown Reference'
 
