@@ -26,11 +26,6 @@ from Sensor_Evaluation.sensor_eval_class import SensorEvaluation
 #se.Create_Sensor_Directories(name='New_Sensor_Make_Model',
 #                             eval_params=['PM25', 'O3'])
 
-ref_path = os.path.abspath(__file__ + '../../reference_data')
-
-# Caution, Windows only
-ref_path = pathlib.PureWindowsPath(ref_path)
-
 #  ----------------------------------------------------------------------------
 #   Instantiate the SensorEvaluation class
 #  ----------------------------------------------------------------------------  ----------------------------------------------------------------------------
