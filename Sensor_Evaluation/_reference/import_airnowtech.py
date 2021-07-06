@@ -160,6 +160,7 @@ def Write_To_File(df, inpath, outpath):
     renaming = {'PM10-85101': 'PM10',
                 'PM2.5-88101': 'PM25',
                 'O3': 'O3',
+                'CO': 'CO',
                 'NO2': 'NO2',
                 'SO2': 'SO2',
                 'RHUM': 'RH',
