@@ -35,10 +35,10 @@ ref_path = pathlib.PureWindowsPath(ref_path)
 #   Prepare the reference datasets and instantiate the SensorEvaluation class
 #  ----------------------------------------------------------------------------
 # Pre-process AirNowTech files, create separate, monthly files for PM, gas, met
-filename = 'AirNowTech_BurdensCreek_20190801_20190902_PMGasMet.csv'
-airnowtech_path = (ref_path.as_posix()
-                   + '/airnowtech/downloaded_datasets/' + filename)
-se.Import_AirNowTech(airnowtech_path)
+#filename = 'AirNowTech_BurdensCreek_20190801_20190902_PMGasMet.csv'
+#airnowtech_path = (ref_path.as_posix()
+#                   + '/airnowtech/downloaded_datasets/' + filename)
+#se.Import_AirNowTech(airnowtech_path)
 
 # Mock evaluation using AIRS reference data downloaded from AirNowTech
 Eval = SensorEvaluation(
@@ -51,7 +51,6 @@ Eval = SensorEvaluation(
                 tzone_shift=5,
                 load_raw_data=False,
                 write_to_file=True)
-
 
 #  ----------------------------------------------------------------------------
 #   Testing statisitics and plots for the example evaluation
@@ -73,7 +72,7 @@ Eval.plot_timeseries(format_xaxis_weeks=False,
 # Scatter plots for all sensors (sensor vs. ref), scatter are colored by RH
 Eval.plot_sensor_scatter('1-hour',
                          plot_limits=(-1, 20),
-                         axes_spacing=5,
+                         tick_spacing=5,
                          text_pos='upper_left')
 
 # Plot sensor base testing results for performance metrics and target ranges
