@@ -456,9 +456,11 @@ class SensorEvaluation:
 
         """
         timestamp_fmt = '%Y-%m-%d %H:%M:%S'
-        t_start = (self.avg_hrly_df.dropna().index[0] - pd.Timedelta('1D')
+        t_start = (self.avg_hrly_df.dropna(how='all',
+                                        axis=0).index[0] - pd.Timedelta('1D')
                    ).strftime(timestamp_fmt)
-        t_end = (self.avg_hrly_df.dropna().index[-1] + pd.Timedelta('1D')
+        t_end = (self.avg_hrly_df.dropna(how='all',
+                                        axis=0).index[-1] + pd.Timedelta('1D')
                  ).strftime(timestamp_fmt)
 
         if len(self.serials) <= 3:
