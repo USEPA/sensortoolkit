@@ -15,6 +15,7 @@ Last Updated:
 """
 import pandas as pd
 import numpy as np
+import statsmodels.api as sm
 import math
 import json
 import sys
@@ -174,7 +175,8 @@ class SensorEvaluation:
 
         # Exit if passed evaluation parameter not in sensor dataframes
         if self.eval_param not in self.sensor_params:
-            sys.exit(self.eval_param + ' not measured by ' + self.sensor_name)
+            sys.exit(self.eval_param + ' not measured by '
+                     + self.sensor_name)
 
         # Compute sensor deployment period and concurrent deployment groups
         self.deploy_period_df = se.Deployment_Period(self.full_df_list,
@@ -222,7 +224,10 @@ class SensorEvaluation:
             if reference_data == 'AirNow':
                 # Call AirNow API
                 if self.bbox is None:
-                    sys.exit('Bounding Box required for AirNow API query')
+                    console_out = (
+                                   'Bounding Box required for AirNow '
+                                   'API query')
+                    sys.exit(console_out)
 
                 airnow_df = se.Save_Query(se.Ref_API_Query(
                                             query_type=reference_data,
@@ -237,7 +242,8 @@ class SensorEvaluation:
             elif reference_data == 'AQS':
                 # Call AQS API
                 if self.aqs_id is None:
-                    sys.exit('AQS Site ID required for AQS API query')
+                    sys.exit(
+                                   'AQS Site ID required for AQS API query')
                 aqs_df = se.Save_Query(se.Ref_API_Query(
                                              query_type=reference_data,
                                              param=self.eval_param,
@@ -262,11 +268,12 @@ class SensorEvaluation:
                     # Place custom written import module for ref data here
 
             else:
-                sys.exit(reference_data + ' is not a valid API name'
-                         + ' or reference data file path')
+                sys.exit(reference_data
+                         + ' is not a valid API name or reference'
+                         ' data file path')
         else:
-            sys.exit('Please specify an API or reference data file path via' +
-                     'the "reference_data" variable')
+            sys.exit('Please specify an API or reference '
+                     'data file path via the "reference_data" variable')
             # Do not load or download any reference data
 
         # Set reference dataframe based on evaluation parameter classification
@@ -607,9 +614,7 @@ class SensorEvaluation:
 
         avg_list = self.eval_param_averaging
 
-
         if (report_fmt is True and plot_subset is not None):
-
             if self.eval_param == 'PM25':
                 # Create a 1x2 subplot, 1-hr scatter on left and 24-hr scatter
                 # on right for a single sensor unit (performance report page
@@ -619,8 +624,8 @@ class SensorEvaluation:
                 # Create a 1x1 subplot, 1-hr scatter with vertical colorbar
                 figsize = (4.3, 3.91)
             else:
-                sys.exit('Reporting template formatted figure not specified'
-                         ' for ' + self.eval_param)
+                sys.exit('Reporting template formatted '
+                         'figure not specified for ' + self.eval_param)
 
             fig, axs = plt.subplots(1, len(avg_list), figsize=figsize)
 
@@ -959,6 +964,7 @@ class SensorEvaluation:
         print(88*'-')
         print('{:^88s}'.format(self.sensor_name + ' (' + str(n_sensors) + ') '
                                + avg_interval + ' Evaluation Conditions'))
+
         print(88*'-')
         print('{:^14s}|{:^14s}|{:^14s}|{:^14s}|{:^14s}|{:^14s}'.format(
                 'Eval period', 'Duration', 'Sensor ' + self.eval_param,
@@ -1011,3 +1017,59 @@ class SensorEvaluation:
                         '(' + ref_min + ' to ' + ref_max + ')',
                         '(' + temp_min + ' to ' + temp_max + ')',
                         '(' + rh_min + ' to ' + rh_max + ')'))
+
+    def Cooks_Outlier_QC(self, invalidate=False):
+        """Estimate outliers via cooks distance for 1-hr averaged dfs
+        """
+
+        for serial, sensor_df in zip(self.serials.values(),
+                                     self.hourly_df_list):
+            print('Flagged timestamps for', serial)
+            xdata = self.hourly_ref_df[self.eval_param + '_Value']
+            ydata = sensor_df[self.eval_param]
+            df = pd.DataFrame({'x': xdata, 'y': ydata}).dropna()
+
+            n_obs = df.shape[0]
+            thres = (4 / n_obs)
+
+            x = df['x']
+            y = df['y']
+            x = sm.add_constant(x)
+            model = sm.OLS(y, x).fit()
+
+            # Compute cooks distance for ref vs. average sensor conc.
+            infl = model.get_influence()
+            cooks = infl.cooks_distance
+            cooks_df = pd.DataFrame({'distance': cooks[0],
+                                     'p_val': cooks[1]})
+            outliers = cooks_df[cooks_df.distance > thres]
+
+            # Outlier timestamps
+            outlier_times = df.index[outliers.index]
+
+            # Thresholds for flagging data points
+            abs_diff = abs(sensor_df[self.eval_param] -
+                           self.hourly_ref_df[self.eval_param + '_Value'])
+            abs_diff_thres = abs_diff.median() + 2*abs_diff.std()
+
+            p_diff = 2*abs_diff / (sensor_df[self.eval_param] +
+                           self.hourly_ref_df[self.eval_param + '_Value'])
+            p_diff_thres = p_diff.median() + 2*p_diff.std()
+
+            # Create a column for flagging data points
+            sensor_df.loc[:, self.eval_param + '_QAQC_Code'] = np.nan
+            # Ensure that outlier times exceeding cooks thres. justify flagging
+            # by exceeding thresholds for abs diff and percent diff
+            flag_count = 0
+            for time in outlier_times:
+                if (abs_diff[time] > abs_diff_thres and
+                   p_diff[time] > p_diff_thres):
+                    # TODO: Temporary flag assignment. Need to consult QC flag
+                    # template
+                    sensor_df.loc[time, self.eval_param + '_QAQC_Code'] = 1
+                    if invalidate:
+                        sensor_df.loc[time, self.eval_param] = np.nan
+                    print('..' + str(time))
+                    flag_count += 1
+            if flag_count == 0:
+                print('..No data points flagged')
