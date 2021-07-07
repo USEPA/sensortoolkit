@@ -38,9 +38,28 @@ def Deployment_Groups(deploy_df, full_df_list, hourly_df_list, daily_df_list,
     end timestamp in group), deployment duration, and sensor serial IDs for
     devices within each deployment group.
     """
+
+    # Testing organization information
+    testing_org = {'Deployment number': None,
+                   'Org name': None,
+                   'Website': {'website name': None,
+                               'website link': None},
+                   'Contact email': None,
+                   'Contact phone': None}
+
+    # Testing location information
+    testing_loc = {'Site name': None,
+                   'Site address': None,
+                   'Site lat': None,
+                   'Site long': None,
+                   'Site AQS ID': None}
+
     deploy_dict = {'Sensor Name': sensor_name,
-                   'Deployment Groups': {}
-                   }
+               'Deployment Groups': {},
+               'Testing Organization': testing_org,
+               'Testing Location': testing_loc
+               }
+
     deploy_grp_n = 1
 
     while deploy_df.empty is False:
