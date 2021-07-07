@@ -23,6 +23,8 @@ from ._analysis.uptime_calculator import Uptime_Calculator
 from ._analysis.deployment_period import Deployment_Period
 from ._analysis.duplicate_removal import Remove_Duplicates
 from ._analysis.normalize_calculator import Normalize
+from ._analysis.purpleair_modules import (Compute_AB_Averages,
+                                          USCorrection)
 from ._format.format_date import Get_Date
 from ._format.format_names import (Format_Param_Name, Format_Metric_Name)
 from ._format.sensor_subfolders import Create_Sensor_Directories
