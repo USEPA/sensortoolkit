@@ -20,6 +20,10 @@ from Sensor_Evaluation._analysis.time_averaging import Sensor_Averaging
 from Sensor_Evaluation._ingest.processed_data_loader import Processed_Data_Search
 from Sensor_Evaluation._analysis.dewpoint import Dewpoint
 
+# Sensor-specific modules
+from Sensor_Evaluation._analysis.purpleair_modules import (Compute_AB_Averages,
+                                                           USCorrection)
+
 
 def Import(sensor_name=None, sensor_serials=None, tzone_shift=0,
            load_raw_data=False, data_path=None, processed_path=None,
@@ -29,9 +33,6 @@ def Import(sensor_name=None, sensor_serials=None, tzone_shift=0,
     if load_raw_data is True:
         full_df_list = []
         print('Importing Recorded Sensor Data:')
-
-        # Could place sensor-specific pre-processing modules here, batch
-        # combine sensor files into one csv per sensor unit
 
         for serial in sensor_serials.values():
             sensor_df = pd.DataFrame()
@@ -43,7 +44,7 @@ def Import(sensor_name=None, sensor_serials=None, tzone_shift=0,
                         # Load sensor data and append file datasets
                         cwd = '//'.join([path, filename])
                         print('....' + filename)
-                        df = Ingest_Wrapper(cwd, sensor_name)
+                        df = Ingest_Wrapper(cwd, sensor_name, serial)
                         sensor_df = sensor_df.append(df)
 
             if sensor_df.empty:
@@ -73,7 +74,7 @@ def Import(sensor_name=None, sensor_serials=None, tzone_shift=0,
     return full_df_list, hourly_df_list, daily_df_list
 
 
-def Ingest_Wrapper(cwd, sensor_name):
+def Ingest_Wrapper(cwd, sensor_name, serial):
     """Wrapper for ingestion modules. Selects the ingestion module to convert
     sensor-specific data formatting to standardized format for analysis.
     """
@@ -83,6 +84,10 @@ def Ingest_Wrapper(cwd, sensor_name):
 
     if sensor_name == 'Sensit_RAMP':
         return Ingest_Sensit_RAMP(cwd)
+
+    if sensor_name == 'PurpleAir_PAII':
+        # assuming Thingspeak API dataset
+        return Ingest_PurpleAir_PAII(cwd, serial)
 
 #    if sensor_name == 'Your_Sensor_Model_Here':
 #        return Custom_Ingest_Module_For_Your_Sensor(cwd)
@@ -96,13 +101,25 @@ def Ingest_Wrapper(cwd, sensor_name):
 
 
 def Ingest_Example_Make_Model(cwd):
-    """Ingestion function for translating recorded sensor data into standard
-    format for analysis.
+    """Ingestion module for an example sensor dataset.
+
+    Args:
+        cwd (str): The full path to the sensor data file
+
+    Returns:
+        df (Pandas DataFrame object): A dataframe containing sensor data that
+            has been converted into standardized syntax
+
+    Recorded sensor data are imported and headers are converted into a
+    standard format for analysis.
     """
     idx_name = 'Time'
 
-    df = pd.read_csv(cwd, header=5, index_col=idx_name,
-                     parse_dates=[idx_name])
+    try:
+        df = pd.read_csv(cwd, header=5, index_col=idx_name,
+                         parse_dates=[idx_name])
+    except FileNotFoundError as e:
+        sys.exit(e)
 
     df.index.name = 'DateTime_UTC'
 
@@ -121,6 +138,15 @@ def Ingest_Example_Make_Model(cwd):
 
 
 def Ingest_Sensit_RAMP(cwd):
+    """Ingestion module for the Sensit RAMP.
+
+    Args:
+        cwd (str): The full path to the sensor data file
+
+    Returns:
+        df (Pandas DataFrame object): A dataframe containing sensor data that
+            has been converted into standardized syntax
+    """
 
     # List of column names
     col_list = ['Serial_ID', 'DateTime', 'CO_Header', 'CO',
@@ -137,7 +163,11 @@ def Ingest_Sensit_RAMP(cwd):
                 'STAT_2', 'STAT_3']
 
     # Load sensor datasets, column names not specified in files (header==None)
-    df = pd.read_csv(cwd, header=None, names=col_list)
+    try:
+        df = pd.read_csv(cwd, header=None, names=col_list)
+    except FileNotFoundError as e:
+        sys.exit(e)
+
 
     # drop the header columns for RAMP datasets
     drop_headers = [col for col in df.columns if col.endswith('_Header')]
@@ -154,6 +184,111 @@ def Ingest_Sensit_RAMP(cwd):
              'PM1', 'PM25', 'PM10', 'Temp', 'RH', 'WD', 'WS']]
 
     return df
+
+
+def Ingest_PurpleAir_PAII(cwd, serial):
+    """Ingestion module for the PurpleAir PA-II (and PA-II-SD).
+
+    Args:
+        cwd (str): The full path to the sensor data file
+        serial (str): The serial identifier unique to each sensor unit
+
+    Returns:
+        df (Pandas DataFrame object): A dataframe containing sensor data that
+            has been converted into standardized syntax
+
+    NOTE:
+        PurpleAir data formatting vary depending on the source of acquisition
+    and this module is intended *ONLY* for data downloaded from the Thingspeak
+    API.
+
+    The Import() module expects a single data frame for each sensor (sensor_df)
+    for use in analysis. Because the PurpleAir PAII contains two internal PM
+    sensors corresponding to data channels 'A' and 'B', this ingestion module
+    expects data for these seperate channels to be in two unique files.
+
+    Data files for each sensor channel MUST contain the sensor serial ID
+    followed immediately by an upper-case 'A' or 'B' depending on the channel
+    (e.g., PurpleAir sensor with serial ID de90 must have two associated .csv
+    files that contain the phrases 'de90A' for channel A data or 'de90B' for
+    channel B data).
+
+    Data for channels A and B are loaded in tandem based on the naming scheme
+    for the channel A file (note file names can differ only by the distinction
+    of 'A' or 'B' channel data). These data sets are then merged and the
+    QC criteria of Barkjohn et al. 2021 are used to computing AB averages.
+    Finally, the US-wide correction equation developed by Barkjohn et al. 2021
+    is computed for the AB averages and added as an additional column to the
+    merged dataset.
+    """
+    if serial+'A' in cwd:
+        # Load data for both channels A and B
+        for channel in ['A', 'B']:
+            if channel == 'B':
+                cwd = cwd.replace(serial+'A', serial+'B')
+
+            try:
+                df = pd.read_csv(cwd, encoding='utf-16')
+            except FileNotFoundError as e:
+                sys.exit(e)
+
+            df = df.rename(columns={'monitor-id': 'Sensor_id',
+                                    ' channel-id': 'Channel',
+                                    ' created-at': 'DateTime_UTC',
+                                    ' entry-id': 'Entry',
+                                    ' PM1.0 (ATM)': 'PM1_ATM',
+                                    ' PM2.5 (ATM)': 'PM25_ATM',
+                                    ' PM10.0 (ATM)': 'PM10_ATM',
+                                    ' Uptime': 'Uptime',
+                                    ' RSSI': 'RSSI',
+                                    ' Temperature': 'Temp',
+                                    ' Humidity': 'RH',
+                                    ' PM2.5 (CF=1)': 'PM25_CF1',
+                                    ' Mem': 'Mem',
+                                    ' Adc': 'Adc',
+                                    ' Pressure': 'Press',
+                                    ' Unused': 'Unused'})
+
+            df.DateTime_UTC = df.DateTime_UTC.str.replace(
+                                'T', ' ').str.replace('Z', '').str.lstrip(' ')
+
+            timestamp_fmt = '%Y-%m-%d %H:%M:%S'
+            df = df.set_index(pd.to_datetime(df['DateTime_UTC'],
+                                             format=timestamp_fmt)
+                              ).sort_index()
+
+            df = df.drop(['Sensor_id',
+                          'Channel',
+                          'DateTime_UTC',
+                          'Entry'], axis=1)
+
+            if channel == 'A':
+                df_A = df.drop(['RSSI', 'Uptime'], axis=1)
+            if channel == 'B':
+                df_B = df.drop(['Mem', 'Adc', 'Unused'], axis=1)
+
+        # Merge the channel dataframes
+        df = pd.merge_asof(df_A, df_B, on='DateTime_UTC',
+                           suffixes=['_a', '_b'], #left_index=True,
+                           tolerance=pd.Timedelta('5s'),
+                           direction='nearest')
+        df = df.set_index('DateTime_UTC', drop=True)
+
+        # Convert Temp from F to C
+        df['Temp'] = (df['Temp'] - 32) / 1.8
+
+        # Merge concentrations for A and B channels
+        df = Compute_AB_Averages(df, cleaning=True,
+                                 a_col_name='PM25_ATM_a',
+                                 b_col_name='PM25_ATM_b')
+
+        # US Correction
+        df = USCorrection(df, param='PM25')
+
+        return df
+
+    elif serial + 'B' in cwd:
+        return None
 
 
 #def Custom_Ingest_Module_For_Your_Sensor(cwd):
