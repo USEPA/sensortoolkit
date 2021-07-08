@@ -189,9 +189,10 @@ class SensorEvaluation:
                                                 self.daily_df_list,
                                                 self.sensor_name)
 
-        self.eval_param_class = ','.join([key for key in self.param_dict.keys()
-                                          if self.eval_param in
-                                          self.param_dict[key]])
+        self.eval_param_classification = ','.join([key for key in
+                                                   self.param_dict.keys()
+                                                  if self.eval_param in
+                                                  self.param_dict[key]])
 
         deploy_grps = self.deploy_dict['Deployment Groups']
 
@@ -237,7 +238,7 @@ class SensorEvaluation:
                                             airnow_bbox=self.bbox,
                                             key=self.airnow_key))
 
-                self.ref_dict[self.eval_param_class] = airnow_df
+                self.ref_dict[self.eval_param_classification] = airnow_df
 
             elif reference_data == 'AQS':
                 # Call AQS API
@@ -253,7 +254,7 @@ class SensorEvaluation:
                                              username=self.aqs_username,
                                              key=self.aqs_key))
 
-                self.ref_dict[self.eval_param_class] = aqs_df
+                self.ref_dict[self.eval_param_classification] = aqs_df
 
             elif os.path.exists(reference_data):
                 if reference_data.endswith('airnowtech/processed'):
@@ -277,7 +278,7 @@ class SensorEvaluation:
             # Do not load or download any reference data
 
         # Set reference dataframe based on evaluation parameter classification
-        self.hourly_ref_df = self.ref_dict[self.eval_param_class]
+        self.hourly_ref_df = self.ref_dict[self.eval_param_classification]
         hourly_ref_idx = self.hourly_ref_df.index
 
         ref_param_cols = ['_Value', '_Unit', '_QAQC_Code', '_Param_Code',
@@ -828,11 +829,12 @@ class SensorEvaluation:
         if averaging_interval == '24-hour':
             sensor_data = self.daily_df_list
             ref_data = self.met_daily_ref_df
+        ref_name = ref_data[met_param + '_Method'].unique()[0]
 
-        ymin = math.floor(self.avg_hrly_df['mean_Normalized_'
-                                           + self.eval_param].min())
-        ymax = round(self.avg_hrly_df['mean_Normalized_'
-                                      + self.eval_param].max(), -1)
+        ymin = math.floor(self.avg_hrly_df[
+                                'mean_' + met_param].min())
+        ymax = round(self.avg_hrly_df[
+                                'mean_' + met_param].max(), -1)
 
         xmin, xmax = ymin, ymax
 
@@ -840,7 +842,7 @@ class SensorEvaluation:
             self.deploy_dict['Deployment Groups']['Group 1'][self.eval_param]
         except KeyError:
             print('Populating deployment dataframe with evaluation statistics')
-            self.create_deploy_dict()
+            self.add_deploy_dict_stats()
 
         try:
             self.stats_df
@@ -857,6 +859,7 @@ class SensorEvaluation:
                            deploy_dict=self.deploy_dict,
                            param=met_param,
                            sensor_name=self.sensor_name,
+                           ref_name=ref_name,
                            time_interval=averaging_interval,
                            figure_path=self.figure_path,
                            write_to_file=self.write_to_file,
@@ -868,7 +871,8 @@ class SensorEvaluation:
                            alpha=alpha,
                            tick_spacing=tick_spacing,
                            RH_colormap=RH_colormap,
-                           sensor_serials=self.serials)
+                           sensor_serials=self.serials,
+                           param_class='Met')
 
     def print_eval_metrics(self, avg_interval='Daily'):
         try:
@@ -1019,7 +1023,23 @@ class SensorEvaluation:
                         '(' + rh_min + ' to ' + rh_max + ')'))
 
     def Cooks_Outlier_QC(self, invalidate=False):
-        """Estimate outliers via cooks distance for 1-hr averaged dfs
+        """Estimate outliers via Cook’s distance for datapoints in each 1-hour
+        averaged sensor dataset via sensor vs. FRM/FEM reference OLS regression
+
+        Values for timestamps exceeding a threshold of 4/L (L is the total
+        number of sensor-FRM/FEM  data pairs) are indicated by Cooks distance
+        to be potential outliers. To ensure that data points identified by
+        Cooks distance are likely outliers, the absolute difference (AD) and
+        percent difference (PD) (and their respective standard deviations (SD))
+        are computed between sensor and reference data. The median plus twice
+        the SD of both the AD and PD are computed, and each data point
+        identified by Cook’s distance is compared against these thresholds.
+        If the AD and PD for the potential outlier data point exceed these
+        thresholds, a QA/QC code is assigned to the corresponding time stamp.
+
+        If ‘invalidate’ is true, sensor evaluation parameter data points that
+        are identified by Cook’s distance as potential outliers and exceed the
+        AD and PD thresholds are set to null.
         """
 
         for serial, sensor_df in zip(self.serials.values(),
