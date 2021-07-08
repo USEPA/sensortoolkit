@@ -571,7 +571,7 @@ def Scatter_Plotter(df_list, ref_df, stats_df=None, plot_subset=None,
                     mono_color=None, alpha=.5, sensor_serials=None,
                     tick_spacing=5, ref_name=None, deploy_dict=None,
                     ax=None, fig=None, report_fmt=False, return_axs=False,
-                    empty_plot=False):
+                    empty_plot=False, param_class=None):
     """
     Front-end function for creating scatter plots. Calls Comparison_Plotter for
     lower-end tasks and sets formatting for plots based off passed parameters.
@@ -647,6 +647,10 @@ def Scatter_Plotter(df_list, ref_df, stats_df=None, plot_subset=None,
     monocolor: string
         A single color (specified in hex) for scatter plots.
         Recommend #2251D0 (nice blue hue)
+    param_class: string
+        The parameter classification for the passed parameter to plot. E.g, if
+        param is PM25, param_class = PM; if param is 03, param_class = Gases;
+        if param is Temp, param_class = Met.
     """
 
     # Option to supply df_list indicies in list for subset of sensors to plot
@@ -924,8 +928,16 @@ def Scatter_Plotter(df_list, ref_df, stats_df=None, plot_subset=None,
 
     # Save image to folder at figure_path
     if write_to_file is True:
-        file_path = figure_path + param + '\\' + sensor_name + '_vs_' +\
-            ref_name
+
+        # Sensor vs ref Temp or RH should be saved to the 'Met' subfolder,
+        # modify param for correct file path
+        if param_class == 'Met':
+            param = param_class
+
+        file_name = (sensor_name + '_vs_'
+                     + ref_name).replace(r'/', '').replace('\\', '')
+
+        file_path = figure_path + param + '\\' + file_name
 
         # if matplotlib axes object not passed to Scatter_Plotter, the figure
         # created will be for data at the averaging interval specified by
