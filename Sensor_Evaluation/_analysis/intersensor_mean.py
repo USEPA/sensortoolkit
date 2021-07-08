@@ -63,6 +63,8 @@ def Intersensor_Mean(df_list, deploy_dict):
 
             deploy_n = deploy_avg.count(axis=1)
 
+            # Compute intersensor averages for times where all sensors are
+            # measuring concurrently
             deploy_avg = deploy_avg.dropna(axis=0, how='any')
             deploy_avg = deploy_avg.mean(axis=1, skipna=False)
 
