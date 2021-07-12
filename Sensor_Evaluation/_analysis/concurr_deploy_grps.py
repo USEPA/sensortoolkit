@@ -11,7 +11,7 @@
 Created:
   Mon Nov  9 10:47:56 2020
 Last Updated:
-  Tue May 11 16:22:00 2021
+  Tue Jul 12 13:38:00 2021
 """
 import pandas as pd
 import numpy as np
@@ -21,44 +21,64 @@ from Sensor_Evaluation._analysis.uptime_calculator import Uptime_Calculator
 
 
 def Deployment_Groups(deploy_df, full_df_list, hourly_df_list, daily_df_list,
-                      sensor_name):
-    """
-    Determine which sensors were deployed concurrently. Identify beginning,
+                      sensor_name, **kwargs):
+    """Determine which sensors were deployed concurrently. Identify beginning,
     end, and duration of concurrent deployment group.
 
-    Method: Step through deployment dataframe and determine which sensors match
+    Step through deployment dataframe and determine which sensors match
     the beginning and end dates for deployment (provided a timedelta padding
     window of 1 day around the begin and end timestamps). As groups are
     identified, the group is subtracted from the deployment dataframe to
     reduce redudant iteration over sensors for which the deployment group has
     been identified.
 
-    Return: Dictionary deploy_dict containing separate deployment group start
-    and end times (based on the latest (max) start timestamp and earliest (min)
-    end timestamp in group), deployment duration, and sensor serial IDs for
-    devices within each deployment group.
+    Args:
+        deploy_df (pandas dataframe):
+            A data frame containing the start time (‘Begin’), end time (‘End’),
+            and total duration of evaluation period for each sensor in a
+            deployment group.
+        full_df_list (list):
+            List of sensor data frames of length N (where N is the number of
+            sensor units in a testing group). Data frames indexed by
+            at recorded sampling frequency.
+        hourly_df_list (list):
+            List of sensor data frames of length N (where N is the number of
+            sensor units in a testing group). Data frames indexed by
+            DateTime_UTC at 1-hour averaged sampling frequency.
+        daily_df_list (list):
+            List of sensor data frames of length N (where N is the number of
+            sensor units in a testing group). Data frames indexed by
+            DateTime_UTC at 24-hour averaged sampling frequency.
+        sensor_name (str):
+            The make and model of the sensor being evaluated.
+
+    Returns:
+        deploy_dict
+            Dictionary containing separate deployment group start and end times
+            (based on the latest (max) start timestamp and earliest (min)
+            end timestamp in group), deployment duration, and sensor serial IDs
+            for devices within each deployment group.
     """
 
     # Testing organization information
-    testing_org = {'Deployment number': None,
-                   'Org name': None,
-                   'Website': {'website name': None,
-                               'website link': None},
-                   'Contact email': None,
-                   'Contact phone': None}
+    testing_org = kwargs.get('testing_org', {'Deployment number': None,
+                                             'Org name': None,
+                                             'Website': {'website name': None,
+                                                         'website link': None},
+                                             'Contact email': None,
+                                             'Contact phone': None})
 
     # Testing location information
-    testing_loc = {'Site name': None,
-                   'Site address': None,
-                   'Site lat': None,
-                   'Site long': None,
-                   'Site AQS ID': None}
+    testing_loc = kwargs.get('testing_loc',  {'Site name': None,
+                                              'Site address': None,
+                                              'Site lat': None,
+                                              'Site long': None,
+                                              'Site AQS ID': None})
 
     deploy_dict = {'Sensor Name': sensor_name,
-               'Deployment Groups': {},
-               'Testing Organization': testing_org,
-               'Testing Location': testing_loc
-               }
+                   'Deployment Groups': {},
+                   'Testing Organization': testing_org,
+                   'Testing Location': testing_loc}
 
     deploy_grp_n = 1
 
@@ -146,7 +166,43 @@ def Deployment_Groups(deploy_df, full_df_list, hourly_df_list, daily_df_list,
 
 def Reference_Stats(deploy_dict, ref_df, cal_check_dict=None, param='PM25',
                     ref_name=None):
+    """Add reference monitor statistics to the parameter statistics subfield in
+    the deployment dictionary.
 
+    Details added include:
+        1) The FRM/FEM monitor name
+        2) The minimum concentration recorded at the specified interval
+        averaging.
+        3) The maximum concentration recorded at the specified interval
+        averaging.
+        4) The number of intervals during which the FRM/FEM exceeds the goal
+        concentration recommended by the performance targets testing report for
+        elevated concentrations (goal >= three days).
+
+    Args:
+        deploy_dict (dict):
+            Dictionary containing separate deployment group start and end times
+            (based on the latest (max) start timestamp and earliest (min)
+            end timestamp in group), deployment duration, and sensor serial IDs
+            for devices within each deployment group.
+    	ref_df (pandas dataframe):
+            Dataframe for reference concentrations at either 1-hour or 24-hour
+            averaging depending on the performance targets recommeneded
+            averaging interval.
+    	cal_check_dict (dict):
+            Description
+        param (str):
+            The name of the evaluation parameter.
+        ref_name (str):
+            The name of the FRM/FEM monitor (make and model).
+
+    Returns:
+        deploy_dict
+            Dictionary containing separate deployment group start and end times
+            (based on the latest (max) start timestamp and earliest (min)
+            end timestamp in group), deployment duration, and sensor serial IDs
+            for devices within each deployment group.
+    """
     fmt_param, fmt_param_units = Format_Param_Name(param)
 
     date_index, avg_suffix = Synoptic_Index(ref_df, averaging_suffix=True)
@@ -196,6 +252,44 @@ def Reference_Stats(deploy_dict, ref_df, cal_check_dict=None, param='PM25',
 
 def Meteorological_Stats(deploy_dict, df_list, met_ref_df,
                          cal_check_dict=None):
+    """Add meteorological instrument statistics to the parameter statistics
+    subfield in the deployment dictionary.
+
+    Details added include:
+        1) The name of the instrument collocated nearby sensor deployment
+        location.
+        2) The minimum value recorded at the specified interval
+        averaging.
+        3) The maximum value recorded at the specified interval
+        averaging.
+        4) The number of intervals during which the instrument exceeds the
+        manufacturer's recommended target range for instrument performance.
+        This is provisionally set for RH (exceedence when <=10% or >= 90%) and
+        Temp (exceedence when <=-20 C or >= 40 C).
+
+    Args:
+    	deploy_dict (dict):
+            Dictionary containing separate deployment group start and end times
+            (based on the latest (max) start timestamp and earliest (min)
+            end timestamp in group), deployment duration, and sensor serial IDs
+            for devices within each deployment group.
+    	df_list (list):
+            List of pandas dataframes for sensor measurements at either 1-hr or
+            24-hr averaging intervals.
+        met_ref_df (pandas dataframe):
+            A dataframe containing meteorological parameters recorded at the
+            testing site during the evaluation period (either 1-hr or 24-hr
+            averaging intervals).
+    	cal_check_dict (dict):
+            Description
+
+    Returns:
+        deploy_dict
+            Dictionary containing separate deployment group start and end times
+            (based on the latest (max) start timestamp and earliest (min)
+            end timestamp in group), deployment duration, and sensor serial IDs
+            for devices within each deployment group.
+    """
 
     met_str = 'Meteorological Conditions'
     date_index, avg_suffix = Synoptic_Index(met_ref_df, averaging_suffix=True)
@@ -260,16 +354,25 @@ def Meteorological_Stats(deploy_dict, df_list, met_ref_df,
 
 
 def Measure_Recording_Interval(df):
-    """
-    Compute recording interval for dataframe. Compute time delta between
-    successive timestamps and take the mode of recorded time deltas to be the
-    device recording interval.
+    """Compute recording interval for dataframe.
+
+    Compute time delta between successive timestamps and take the mode of
+    recorded time deltas to be the device recording interval.
+
+    Args:
+        df (pandas dataframe):
+            A dataframe with time-like index.
+
+    Returns:
+        interval_str (str):
+            A string describing the most common (mode) recording interval
+            in the dataframe.
     """
     delta = (df.index[1:] - df.index[0:-1]).to_frame()
     idx_name = delta.index.name
     t_delta = delta[idx_name].mode()[0]
 
-    #delta_std = delta.std()[0].seconds
+    delta_std = delta.std()[0].seconds
 
     t_delta_comps = ['days', 'hours', 'minutes', 'seconds',
                      'milliseconds', 'microseconds', 'nanoseconds']
@@ -288,7 +391,8 @@ def Measure_Recording_Interval(df):
         if i < delta_df.size:
             interval_str += ', '
 
-#    if delta_std > 0:
-#        interval_str += ' +/- ' + str(delta_std) + ' seconds'
+    if delta_std > 0:
+        print('Warning, variation in sampling frequency for passed dataframe')
+        #interval_str += ' +/- ' + str(delta_std) + ' seconds'
 
     return interval_str
