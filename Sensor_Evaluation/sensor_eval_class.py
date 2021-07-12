@@ -45,41 +45,150 @@ class SensorEvaluation:
         Office: 919-541-1363 | Email: clements.andrea@epa.gov
 
     Args:
-        sensor_name              Name of sensor (format: manufacturer_device)
-        eval_param               Parameter name to evaluate (e.g. PM25 or O3)
-        load_raw_data            Import recorded (non-processed) sensor data
-        write_to_file            Boolean variable for writing stats to file
+        sensor_name (str): The make and model of the sensor being evaluated.
+        eval_param (str): Parameter name to evaluate (e.g. PM25 or O3)
+        reference_data (str): The service or folder directory from which
+            reference data are acquired.
+        serials (dict): A dictionary of sensor serial identifiers for each unit
+            in a testing group
+        tzone_shift (int): ) An integer value by which to shift the sensor data
+            to UTC. Specifying 0 will not shift the data.
+        load_raw_data (bool): If true, raw data in the appropriate subdirectory
+            will be loaded and 1-hr and 24-hr averages will be computed and
+            saved to a processed data subdirectory for the specified sensor.
+            If false, processed data will be loaded.
+        write_to_file (bool): If true and load_raw_data true, processed files
+            will be written to folder location. In addition, subsequent
+            evaluation statistics will be written to the Data and Figures and
+            eval_stats sensor subdirectory. Figures will also be written to the
+            appropriate figures subdirectory.
+        **kwargs: Keyword arguments that may be passed to the function for
+            particulate use cases. Includes 'testing_org' (a dictionary of
+             organization information that is included in deploy_dict),
+            'testing_loc' (a dictionary of testing location information also
+            included in deploy_dict), bbox (bounding box of latitude and
+            longitude values for AirNow API queries), and aqs_id (AQS site ID
+            for AQS API queries).
 
-    Attributes:
-        avg_daily_df             Inter-sensor averaged dataframe at 24-hr res.
-        avg_hourly_df            Inter-sensor averaged dataframe at 1-hr res.
-        avg_stats_df             Inter-sensor averaged sensor-sensor reg. stats
-        daily_df_list            List of 24-hr averaged sensor dataframes
-        daily_ref_df             24-hr averaged reference dataframe
-        data_path
-        deploy_dict
-        deployment_df
-        figure_path              Directory path for figures
-        full_df_list             List of recorded time res. sensor dataframes
-        gas_hourly_ref_df        Hourly reference data for gas pollutants
-        gas_list                 Common gas params in sensor dataframes
-        gas_ref_columns          List of names for gas reference data
-        hourly_ref_df            Reference dataframe for selected eval_param
-        met_daily_ref_df         Daily avg. reference data for met pollutants
-        met_hourly_ref_df        Hourly avg. reference data for met pollutants
-        met_list                 Common met params in sensor dataframes
-        met_ref_columns          List of names for met reference data
-        pm_hourly_ref_df         Hourly reference data for pm pollutants
-        pm_list                  Common pm params in sensor dataframes
-        pm_ref_columns           List of names for pm reference data
-        processed_path           Directory path for averaged sensor dataframes
-        ref_dict                 Dictionary with uptime info for pm, gas, met
-        ref_tup                  Tuple for unpacking reference data
-        sensor_df_tuple          Tuple for unpacking sensor dataframes
-        serials                  Sensor serial IDs for evaluated devices
-        stats_df                 Statistics dataframe for sensor-ref regression
-        stats_path               Path to directory where stats_df saved to csv
-        tzone_shift              Integer variable for shifting ref data to UTC
+    Instance attributes:
+        data_path (str): The full directory path to raw sensor data for a given
+            sensor make and model.
+        figure_path (str): The full directory path to figures for a given
+            sensor make and model.
+        processed_path (str): The full directory path to processed sensor data
+            for a given sensor make and model.
+        stats_path: The full directory path to evaluation statistics for a
+            given sensor make and model.
+        full_df_list (list of pandas dataframes): List of sensor data frames
+            of length N (where N is the number of sensor units in a testing
+            group). frames indexed by DateTime_UTC at recorded sampling
+            frequency.
+        hourly_df_list (list of pandas dataframes): List of sensor data frames
+            of length N (where N is the number of sensor units in a testing
+            group). frames indexed by DateTime_UTC at 1-hour averaged sampling
+            frequency.
+        daily_df_list (list of pandas dataframes): List of sensor data frames
+            of length N (where N is the number of sensor units in a testing
+            group). frames indexed by DateTime_UTC at 24-hour averaged sampling
+            frequency.
+        sensor_params (set): A unique listing of parameters measured by the
+            sensor make and model being evaluated.
+        deploy_period_df (pandas dataframe): A data frame containing the start
+            time (‘Begin’), end time (‘End’), and total duration of evaluation
+            period for each sensor in a deployment group.
+        deploy_dict (dict): A dictionary containing descriptive statistics and
+            textual information about the deployment (testing agency, site,
+            time period, etc.), sensors tested, and site conditions during the
+            evaluation.
+        eval_param_classification (str): The parameter classification for the
+            selected eval_param. Either ‘PM’ for particulate matter pollutants,
+            ‘Gases’ for gaseous pollutants, or ‘Met’ for meteorological
+            parameters.
+        deploy_bdate (pandas timestamp object): Overall start date of
+            deployment. Determined by selecting the earliest recorded timestamp
+            in sensor data frames.
+        deploy_edate (pandas timestamp object): Overall end date of deployment.
+            Determined by selecting the latest recorded timestamp in sensor
+            data frames.
+        param_averaging_dict (dict): A dictionary containing the sampling
+            frequency averaging intervals for which sensor data are to be
+            evaluated. Keys correspond to evaluation parameters measured by the
+            sensor, and values are lists of averaging intervals specified for
+            analysis. For ‘PM25’ and ‘O3’, averaging intervals adhere to EPA’s
+            recommendations for evaluating data from sensors measuring either
+            fine particulate matter (PM2.5) or ozone. For other evaluation
+            parameters, both 1-hour and 24-hour averages will be assigned.
+        eval_param_averaging (list): A subset of param_averaging_dict, the list
+            of averaging intervals corresponding to the evaluation parameter.
+        ref_dict (dict):
+            Description.
+        hourly_ref_df (pandas dataframe):
+            Description.
+        pm_hourly_ref_df (pandas dataframe):
+            Description.
+        gas_hourly_ref_df (pandas dataframe):
+            Description.
+        met_hourly_ref_df (pandas dataframe):
+        ref_name (str): The make and model of the FRM/FEM instrument used as
+            reference for the selected evaluation parameter. Both AirNowTech
+            and AQS return the AQS method code, and the AQS Sampling Methods
+            Reference table is used to determine the instrument name associated
+            with this code. AirNow does not return method codes or instrument
+            names. When the name and type of the FRM/FEM instrument are
+            unknown, ref_name takes the value ‘unknown_reference’.
+        daily_ref_df (pandas dataframe):
+            Description.
+        met_daily_ref_df (pandas dataframe):
+            Description.
+        avg_hrly_df (pandas dataframe): Data frame containing the inter-sensor
+            average for concurrent sensor measurements at 1-hour averaging
+            intervals.
+        avg_daily_df (pandas dataframe): Data frame containing the inter-sensor
+            average for concurrent sensor measurements at 24-hour averaging
+            intervals.
+        stats_df (pandas dataframe): Data frame with OLS regression (sensor vs.
+            FRM/FEM) statistics, including R2, slope, intercept, RMSE, N
+            (Number of sensor-FRM/FEM data point pairs), as well as the
+            minimum, maximum, and the mean sensor concentration.
+        avg_stats_df (pandas dataframe): Data frame with OLS regression (sensor
+            vs. intersensor average) statistics, including R2, slope,
+            intercept, RMSE, N (Number of concurrent sensor measurements during
+            which all sensors in the testing group reported values), as well as
+            the minimum, maximum, and the mean sensor concentration.
+
+    Class attributes:
+        param_dict (dict)
+        param_formatting_dict (dict)
+        lib_path (str)
+        aqs_username (str)
+        aqs_key (str)
+        airnow_key (str)
+
+    Methods:
+        add_deploy_dict_stats
+        calculate_metrics
+        plot_timeseries
+        plot_metrics
+        plot_sensor_scatter
+        plot_met_dist
+        plot_met_influence
+        plot_sensor_met_scatter
+        print_eval_metrics: Summary of performance evaluation results using
+            EPA’s recommended performance metrics (‘PM25’ and ‘O3’). The
+            coefficient of variation, sensor vs. FRM/FEM OLS regression slope,
+            intercept, and R2, and RMSE are displayed. Regression statistics
+            are computed for each sensor, and the mean metric value is
+            presented alongside the range (min to max).
+        print_eval_conditions: Testing conditions for the evaluation parameter
+            and meteorological conditions during the testing period. Values for
+            the evaluation parameter recorded by the sensor, FRM/FEM
+            instrument, and temperature and relative humidity values are
+            displayed by the mean of 1-hour or 24-hour averages during the
+            testing period. The range (min to max) of each parameter is listed
+            below the mean in parentheses.
+        Cooks_Outlier_QC: Estimate outliers via Cook’s distance for datapoints
+            in each 1-hour averaged sensor dataset via sensor vs. FRM/FEM
+            reference OLS regression.
     """
     # Dictionary of parameter names, organized by parameter type.
     param_dict = {'PM': ['PM1', 'PM25', 'PM10'],
@@ -127,8 +236,8 @@ class SensorEvaluation:
     airnow_key = None
 
     def __init__(self, sensor_name, eval_param, load_raw_data=False,
-                 reference_data=None, ref_name=None, serials=None,
-                 tzone_shift=0, bbox=None, aqs_id=None, write_to_file=False):
+                 reference_data=None, serials=None, tzone_shift=0,
+                 write_to_file=False, **kwargs):
 
         self.sensor_name = sensor_name
         self.eval_param = eval_param
@@ -136,8 +245,10 @@ class SensorEvaluation:
         self.write_to_file = write_to_file
         self.serials = serials
         self.tzone_shift = tzone_shift
-        self.bbox = bbox
-        self.aqs_id = aqs_id
+
+        # Add keyword arguments (testing_loc, testing_org, etc.)
+        self.__dict__.update(**kwargs)
+        self.kwargs = kwargs
 
         # path to raw sensor data
         self.data_path = '\\'.join((self.lib_path, 'Data and Figures',
@@ -187,7 +298,8 @@ class SensorEvaluation:
                                                 self.full_df_list,
                                                 self.hourly_df_list,
                                                 self.daily_df_list,
-                                                self.sensor_name)
+                                                self.sensor_name,
+                                                **self.kwargs)
 
         self.eval_param_classification = ','.join([key for key in
                                                    self.param_dict.keys()
@@ -224,10 +336,10 @@ class SensorEvaluation:
                              'Met': pd.DataFrame()}
             if reference_data == 'AirNow':
                 # Call AirNow API
-                if self.bbox is None:
-                    console_out = (
-                                   'Bounding Box required for AirNow '
-                                   'API query')
+                bbox = self.kwargs.get('bbox', None)
+                if bbox is None:
+                    console_out = ('Bounding Box required '
+                                   'for AirNow API query')
                     sys.exit(console_out)
 
                 airnow_df = se.Save_Query(se.Ref_API_Query(
@@ -235,22 +347,22 @@ class SensorEvaluation:
                                             param=self.eval_param,
                                             bdate=self.deploy_bdate,
                                             edate=self.deploy_edate,
-                                            airnow_bbox=self.bbox,
+                                            airnow_bbox=bbox,
                                             key=self.airnow_key))
 
                 self.ref_dict[self.eval_param_classification] = airnow_df
 
             elif reference_data == 'AQS':
                 # Call AQS API
-                if self.aqs_id is None:
-                    sys.exit(
-                                   'AQS Site ID required for AQS API query')
+                aqs_id = self.kwargs.get('aqs_id', None)
+                if aqs_id is None:
+                    sys.exit('AQS Site ID required for AQS API query')
                 aqs_df = se.Save_Query(se.Ref_API_Query(
                                              query_type=reference_data,
                                              param=self.eval_param,
                                              bdate=self.deploy_bdate,
                                              edate=self.deploy_edate,
-                                             aqs_id=self.aqs_id,
+                                             aqs_id=aqs_id,
                                              username=self.aqs_username,
                                              key=self.aqs_key))
 
@@ -464,12 +576,10 @@ class SensorEvaluation:
 
         """
         timestamp_fmt = '%Y-%m-%d %H:%M:%S'
-        t_start = (self.avg_hrly_df.dropna(how='all',
-                                        axis=0).index[0] - pd.Timedelta('1D')
-                   ).strftime(timestamp_fmt)
-        t_end = (self.avg_hrly_df.dropna(how='all',
-                                        axis=0).index[-1] + pd.Timedelta('1D')
-                 ).strftime(timestamp_fmt)
+        t_start = (self.avg_hrly_df.dropna(how='all', axis=0).index[0] -
+                   pd.Timedelta('1D')).strftime(timestamp_fmt)
+        t_end = (self.avg_hrly_df.dropna(how='all', axis=0).index[-1] +
+                 pd.Timedelta('1D')).strftime(timestamp_fmt)
 
         if len(self.serials) <= 3:
             cmap_name = 'Set1'
