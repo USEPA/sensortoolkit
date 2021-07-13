@@ -11,96 +11,96 @@
 Created:
   Mon Jan 27 13:11:40 2020
 Last Updated:
-  Mon May 18 10:49:00 2020
+  Tue Jul 13 08:43:27 2021
 """
 import pandas as pd
-import numpy as np
 
 
-def AQI_Calculator(concentration_value):
-    """
-    5/18/20
-    The breakpoints defined by EPA at the following link assume that
-    concentration values are provided in 0.1 ug/m^3 increments:
-    https://aqs.epa.gov/aqsweb/documents/codetables/aqi_breakpoints.html
+def AQI_Calculator(data):
+    """Calculate the air quality index for PM2.5 as defined by U.S. EPA.
 
-    This introduces an issue with datasets where the concentration resolution
-    is higher than 0.1 ug/m^3, such that values between the high breakpoint for
-    one category and the low breakpoint for the subsequent AQI category result
-    in undefined AQI values.
+    Information about EPA's AQI scale here:
+        https://aqs.epa.gov/aqsweb/documents/codetables/aqi_breakpoints.html
 
-    Here, I've set the breakpoints so that the concentration values adhere to
+    EPA defines breakpoints for concentrations with a precision of 0.1 ug/m^3.
+    Since most PM2.5 concentration datasets tend to have higher reporting
+    precision than 0.1 ug/m^3, this introduces some ambiguity regarding how AQI
+    is calculated for concentration values in between breakpoints set at 0.1
+    ug/m^3 precision.
+
+    Here, the breakpoints are set so that the concentration values adhere to
     the AQI catagory at the breakpoints by following rounding conventions
     (values within the range of category high breakpoint + 0.05 (e.g.,
     'Good' C_h = 12.05) are assigned to the lower category, if
     high breakpoint + 0.05 < concentration value < high breakpoint + 0.10 then
     set as upper category AQI value).
+
+    Args:
+        data (float, int, numpy array, or pandas dataframe):
+            PM2.5 concentration value(s), if dataframe, column must be labeled
+            'PM25'.
+
+    Returns:
+        data (pandas dataframe): Dataframe with PM25 concentrations, AQI
+        values, and corresponding AQI category names.
+
+    Raises:
+        KeyError: If passed data object is type pandas dataframe and the column
+        header 'PM25' is not found.
     """
-    AQI_dict = {'Good': {
-                    'I_h': 50,
-                    'I_l': 0,
-                    'C_l': 0.0,
-                    'C_h': 12.05,
-                        },
-                'Moderate': {
-                    'I_h': 100,
-                    'I_l': 51,
-                    'C_l': 12.05,
-                    'C_h': 35.45,
-                        },
-                'Unhealthly_sensitive': {
-                    'I_h': 150,
-                    'I_l': 101,
-                    'C_l': 35.45,
-                    'C_h': 55.45,
-                        },
-                'Unhealthly': {
-                    'I_h': 200,
-                    'I_l': 151,
-                    'C_l': 55.45,
-                    'C_h': 150.45,
-                        },
-                'Very_Unhealthly': {
-                    'I_h': 300,
-                    'I_l': 201,
-                    'C_l': 150.45,
-                    'C_h': 250.45,
-                        },
-                'Hazardous_1': {
-                    'I_h': 400,
-                    'I_l': 301,
-                    'C_l': 250.45,
-                    'C_h': 350.45,
-                        },
-                'Hazardous_2': {
-                   'I_h': 500,
-                   'I_l': 401,
-                   'C_l': 350.45,
-                   'C_h': 500.0,
-                       }
-                }
+    AQI_dict = {'Good': {'I_h': 50,
+                         'I_l': 0,
+                         'C_l': 0.0,
+                         'C_h': 12.05},
+                'Moderate': {'I_h': 100,
+                             'I_l': 51,
+                             'C_l': 12.05,
+                             'C_h': 35.45},
+                'Unhealthly for Sensitive Groups': {'I_h': 150,
+                                                    'I_l': 101,
+                                                    'C_l': 35.45,
+                                                    'C_h': 55.45},
+                'Unhealthly': {'I_h': 200,
+                               'I_l': 151,
+                               'C_l': 55.45,
+                               'C_h': 150.45},
+                'Very Unhealthly': {'I_h': 300,
+                                    'I_l': 201,
+                                    'C_l': 150.45,
+                                    'C_h': 250.45},
+                'Hazardous 1': {'I_h': 400,
+                                'I_l': 301,
+                                'C_l': 250.45,
+                                'C_h': 350.45},
+                'Hazardous 2': {'I_h': 500,
+                                'I_l': 401,
+                                'C_l': 350.45,
+                                'C_h': 500.45},
+                'Hazardous 3': {'I_h': 999,
+                                'I_l': 501,
+                                'C_l': 500.45,
+                                'C_h': 99999.9}}
 
-    for i, catagory in enumerate(AQI_dict, 1):
-        cat = AQI_dict[catagory]
-        C_high = cat['C_h']
-        C_low = cat['C_l']
-        I_high = cat['I_h']
-        I_low = cat['I_l']
+    data_type = type(data)
+    if data_type is not pd.core.frame.DataFrame:
+        data = pd.Series(data).to_frame(name='PM25')
 
-        # Handle instances where the pm conc exceeds the upper limit of
-        # AQI catagories by calculating AQI using same slope as hazardous cat
-        if catagory == 'Hazardous_2' and concentration_value > C_high:
-            const = (I_high - I_low)/(C_high - C_low)
-            AQI = round(const*(concentration_value - C_low) + I_low)
-            return pd.Series((AQI, i))
+    if 'PM25' not in data:
+        raise KeyError('Column header "PM25" not in passed dataframe.')
 
-        # Compute AQI if conc value falls within the range of each AQI cat
-        if (concentration_value >= C_low and concentration_value < C_high):
-            const = (I_high - I_low)/(C_high - C_low)
-            AQI = round(const*(concentration_value - C_low) + I_low)
-            return pd.Series((AQI, i))
+    for cat in AQI_dict:
+        conc_max = AQI_dict[cat]['C_h']
+        conc_min = AQI_dict[cat]['C_l']
+        index_max = AQI_dict[cat]['I_h']
+        index_min = AQI_dict[cat]['I_l']
 
-        if pd.isnull(concentration_value) or concentration_value < 0:
-            AQI = np.nan
-            i = np.nan
-            return pd.Series((AQI, i))
+        cat_conc = data[(data.PM25 >= conc_min) & (data.PM25 < conc_max)].PM25
+        cat_idx = cat_conc.index
+
+        slope = (index_max - index_min)/(conc_max - conc_min)
+        aqi = round(slope*(cat_conc - conc_min) + index_min)
+
+        data.loc[cat_idx, 'AQI'] = aqi
+        data.loc[cat_idx, 'AQI_Category'] = cat
+
+    return data
