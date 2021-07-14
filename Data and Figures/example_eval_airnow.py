@@ -14,7 +14,6 @@ Last Updated:
   Fri May 21 15:12:05 2021
 """
 import os
-import pathlib
 import sys
 lib_path = os.path.abspath(__file__ + '../../..')
 if lib_path not in sys.path:
