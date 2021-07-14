@@ -483,7 +483,6 @@ def AQS_Query(param, data_period, aqs_id, username=None, key=None):
            + '-' + data_period[1][6:])
     print('..Query start:', begin)
     print('..Query end:', end)
-    print(data_period)
 
     # API Items
     urlbase = 'https://aqs.epa.gov/data/api/sampleData/bySite?'

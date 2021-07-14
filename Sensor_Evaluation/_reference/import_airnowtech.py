@@ -175,9 +175,17 @@ def Write_To_File(df, inpath, outpath):
     csv files where the index is the date and time in UTC.
 
     Args:
-
+        df (pandas dataframe):
+            Processed airnowtech data for one of the following parameter
+            classifications (PM, Gases, or Met)
+        inpath (str):
+            The full directory path to the downloded airnowtech dataset.
+            Used to determine the date and time that the data were downloaded
+            and added to the dataframe as the 'Data_Acquisition_Date_Time'.
+        outpath (str):
+            The full directory path where the processed dataframe will be saved
     Returns:
-
+        None
 
     """
     print('Writing AirNowTech dataframes to csv files')
