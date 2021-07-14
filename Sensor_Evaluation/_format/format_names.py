@@ -16,8 +16,17 @@ Last Updated:
 
 
 def Format_Param_Name(param):
-    """
-    Return formatted version of parameter column for plot, axis titles
+    """Return formatted version of parameter column for plot, axis titles.
+
+    Args:
+        param (str):
+            The evaluation parameter.
+
+    Returns:
+        fmt_param (str):
+            A formatted expression for the evaluation parameter.
+        fmt_param_units (str):
+            A formatted expression for the evaluation parameter's units.
     """
     try:
         if param.startswith('PM25'):
@@ -121,8 +130,26 @@ def Format_Param_Name(param):
 
 
 def Format_Metric_Name(metric):
-    """
-    Return formatted version of performance target metric with units
+    """Return formatted version of performance target metric with units.
+
+    Performance metrics are adopted from U.S. EPA's reports in Februrary 2021
+    detailing performance testing protocols, metrics, and target values for
+    sensors measuring either fine particulate matter or ozone.
+
+    Args:
+        metric (str):
+            An abbreviated expression for the performance evaluation metric
+            (e.g., RMSE, CV, std)
+
+    Returns:
+        fmt_metric (str):
+            A formatted expression for the performance metric.
+        fmt_metric_units (str):
+            A formatted expression for the performance metric's units.
+
+    Raises:
+        NameError: If the passed metric is not recognized by the naming scheme
+        give to the performance metrics
     """
     try:
         if metric.startswith('RMSE'):

@@ -11,14 +11,19 @@
 Created:
   Fri May  8 09:18:52 2020
 Last Updated:
-  Fri May  8 09:20:52 2020
+  Wed Jul 14 08:36:29 2021
 """
 import pandas as pd
 
 
 def Get_Date():
-    """
-    Returns a string for today's date in YYMMDD format
+    """Returns a string for today's date in YYMMDD format.
+
+    Args:
+        None
+    Returns:
+        formatted_date (str):
+            String for the date in YYMMDD format.
     """
     datetime = pd.Timestamp.now()
     formatted_date = datetime.strftime('%y%m%d')

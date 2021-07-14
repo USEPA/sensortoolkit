@@ -11,12 +11,32 @@
 Created:
   Wed May 19 16:08:15 2021
 Last Updated:
-  Thu May 20 08:23:00 2021
+  Wed Jul 14 08:49:37 2021
 """
 import os
 
 
 def Create_Sensor_Directories(name=None, eval_params=[]):
+    """Construct the sensor directory file structure required for conducting
+    analysis with the SensorEvaluation library.
+
+    Args:
+        name (str):
+            The name assigned to the sensor. Recommend using the sensor's make
+            and model, separated by underscores ('_').
+        eval_params (list of strings):
+            The  parameters measured by the sensor that the user
+            wishes to evaluate. For instance, if a sensor measures both fine
+            particulate matter (PM25) and ozone (O3) and the user intends to
+            evalute the performance device with respecet to both of these
+            pollutants, the user may specify 'eval_params=['PM25', 'O3']' to
+            create necessary subfolders for figures and data structures created
+            by the SensorEvaluation library for each of these evaluation
+            parameters.
+
+    Returns:
+        None
+    """
 
     library_path = os.path.abspath(__file__ + '../../../..')
     data_fig_path = os.path.join(library_path, 'Data and Figures')
