@@ -11,8 +11,15 @@
 Created:
   Fri Jul 17 08:15:17 2020
 Last Updated:
-  Mon Sep 01 10:06:00 2020
+  Wed Jul 14 11:02:35 2021
+"""
+import pandas as pd
+import numpy as np
+import os
+import pathlib
+import datetime
 
+"""
 Module for importing raw AirNowTech data (table, unpivoted format) queried at
 month-long intervals at 1-hr recording frequency for PM2.5, PM10, O3, NO2, CO,
 relative humidity, temperature, wind speed, wind direction.
@@ -24,16 +31,19 @@ streams with the instrument used to make the measurement.
 Processed dataframes for PM, Gas, and met are then written to separate monthly
 csv files where the index is the date and time in UTC.
 """
-import pandas as pd
-import numpy as np
-import os
-import pathlib
-import datetime
 
 
 def Ingest_AirNowTech(path, Clean_QC_Code=False):
     """Ingest raw AirNowTech data (table, unpivoted format, 1-hr recording
-    freq) and set index column to Date & Time (UTC)
+    freq) and set index column to Date & Time (UTC).
+
+    Args:
+        path (str):
+            Full directory path to downloaded dataset.
+    Returns:
+        Clean_QC_Code (bool):
+            If true, only keep data where the QC code is zero (indicates no
+            issues reported).
     """
 
     # Import csv dataframe, set hourly UTC date and time as index
@@ -59,6 +69,16 @@ def Sort_AirNowTech(df):
     """Data are sorted into PM, gas, and met dataframes and a table containing
     all AQS method codes is used to associate the recorded method code for data
     streams with the instrument used to make the measurement.
+
+    Args:
+        df (pandas dataframe):
+            Imported airnowtech dataset, may contain data for multilple
+            parameter classifications (PM, gases, met) if selected when the
+            data were downloaded.
+    Returns:
+        None, writes processed datasets to airnowtech processed data folder
+        path.
+
     """
     # Caution, Windows only
     method_path = pathlib.PureWindowsPath(
@@ -153,6 +173,12 @@ def Sort_AirNowTech(df):
 def Write_To_File(df, inpath, outpath):
     """Processed dataframes for PM, Gas, and met written to separate monthly
     csv files where the index is the date and time in UTC.
+
+    Args:
+
+    Returns:
+
+
     """
     print('Writing AirNowTech dataframes to csv files')
 
@@ -285,10 +311,15 @@ def Import_AirNowTech(inpath):
     """Wrapper module for pre-processing datasets downloaded as .csv files
     from airnowtech.org. When downloading data, the table box under "Display
     Settings" should be checked and configured to 'unpivoted' format.
+
+    Args:
+        inpath (str):
+            Full path to downloaded AirNowTech dataset.
+    Returns:
+        None
     """
     ant_df = Ingest_AirNowTech(inpath)
 
-    # Caution, Windows only
     outpath = pathlib.PureWindowsPath(
                         os.path.abspath(os.path.join(__file__, '../../..')))
     outpath = (outpath.as_posix() + '/Data and Figures/reference_data' +
@@ -300,6 +331,13 @@ def Import_AirNowTech(inpath):
 
 def Flatten(list_of_lists):
     """Function for flattening a nested list of values.
+
+    Args:
+        list_of_lists (list):
+            A nested list, example: ['a', ['b', 'c']]
+    Returns:
+        flat_list (list):
+            A flattened list, example: ['a', 'b', 'c']
     """
     flat_list = []
     for i in list_of_lists:

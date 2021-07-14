@@ -11,15 +11,34 @@
 Created:
   Fri Oct 30 08:53:18 2020
 Last Updated:
-  Fri Oct 30 08:53:18 2020
+  Wed Jul 14 10:29:53 2021
 """
 
 
 def Individual_Correction(param=None, df_list=None, stats_df=None):
-    hourly_corr_list = []
+    """Apply an individual correction to each sensor dataset based on the
+    OLS regression slope and intercept values in the passed statistics
+    dataframe.
 
-    for df, m, b in zip(df_list, stats_df.Slope, stats_df.Intercept):
+    Args:
+        param (str):
+            The evaluation parameter.
+        df_list (list):
+            List of sensor dataframes.
+        stats_df (pandas dataframe):
+            Statistics dataframe containing OLS regression statisitcs including
+            slope and intercept for either sensor vs. FRM/FEM regression or
+            sensor vs. intersensor regression.
+    Return:
+        df_list (list):
+            List of modified dataframes with column added for corrected
+            parameter values.
+    """
+    for i, (df, m, b) in enumerate(zip(df_list, stats_df.Slope,
+                                       stats_df.Intercept)):
         corr = (df[param] - b) / m
-        hourly_corr_list.append(corr.to_frame())
 
-    return hourly_corr_list
+        df[param + '_indiv_corr'] = corr
+        df_list[i] = df
+
+    return df_list

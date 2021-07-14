@@ -11,7 +11,7 @@
 Created:
   Mon May  3 12:56:38 2021
 Last Updated:
-  Wed May 12  9:34:00 2021
+  Wed Jul 14 14:27:21 2021
 """
 import requests
 import json
@@ -29,24 +29,73 @@ from Sensor_Evaluation._reference.import_airnowtech import Flatten
 
 def Ref_API_Query(query_type=None, param=None, bdate='', edate='',
                   aqs_id=None, airnow_bbox=None, username=None, key=None):
-    """
-    Send an API data query to the specified service (query_type: 'AQS' or
-    'AirNow') for a selected time period (e.g., bdate: '2020-01-01' and
-    edate: '2021-12-31' to query data for all of 2020). The label for the
-    data parameter queried 'param' will be different for AQS and AirNow. Please
-    consult the linked documentation for each of these APIs for additional
-    resources.
+    """Wrapper function for sending an API data query to either the AQS or
+    AirNow API for a specified parameter ('param'). Data returned by queries
+    are parsed into pandas dataframes and processed to convert header labels
+    and column data types into a consistent standard for reference data sets.
 
-    AQS Documentation:
-        https://aqs.epa.gov/aqsweb/documents/data_api.html
-    AirNow Documentation:
-        https://docs.airnowapi.org/Data/docs
+    A note on limitations of this method:
+        This method is configured to return datasets containing data for a
+        single parameter query, and is currently utilized in the
+        SensorEvaluation class to return data for the evaluation parameter
+        'eval_param'.
 
-    More information about AQS Qualifier codes:
-        https://aqs.epa.gov/aqsweb/documents/codetables/qualifiers.html
+        Separate API calls would need to be made to query either service for
+        related data, such as meteorological (temperature, RH) datasets.
+        Future versions of SensorEvaluation may resolve this limitation.
+
+        Also, please note that AQS and AirNow use different naming conventions
+        for parameters (e.g., AQS uses the parameter code 88101 for PM2.5 and
+        AirNow uses 'pm25'). These naming conventions are each different than
+        the parameter naming convention used for this library. The
+        'param_to_api_naming' dictionary provides a lookup dictionary for
+        translating from the parameter naming convention of the
+        SensorEvaluation library to each of the API services, however, the
+        list of associated parameter API names is not comprehensive. Users
+        wishing to query parameters outside those listed below will need to
+        modify this method accordingly.
+
+        Please consult the linked documentation for each of these APIs for
+        additional resources.
+
+        AQS Documentation:
+            https://aqs.epa.gov/aqsweb/documents/data_api.html
+        AirNow Documentation:
+            https://docs.airnowapi.org/Data/docs
+        More information about AQS Qualifier codes:
+            https://aqs.epa.gov/aqsweb/documents/codetables/qualifiers.html
+
+    Args:
+        query_type (str):
+            The API service to query (either 'AQS' or 'AirNow').
+        param (str):
+            The evaluation parameter for which to return API query data.
+        bdate (str):
+            The overall starting date for the API query.
+        edate (str):
+            The overall ending date for the API query.
+        aqs_id (dict):
+            AQS only: AQS site ID separated into state, county, and
+            site ID components.
+        airnow_bbox (dict):
+            AirNow only: Bounding box of latitude and longitude values.
+        username (str):
+            AQS only: email associated with API account
+        key (str):
+            Both AQS and AirNow: API authentication key code.
+    Returns:
+        query_data:
+            Data returned by the API for the specified parameter and time
+            frame. Data have been processed with column headers converted into
+            standard naming scheme and column data types converted into a
+            consistent formatting scheme for reference datasets.
+        raw_data (pandas dataframe):
+            An unmodified version of the dataset returned by the API query.
     """
     # Dictionary for translating between parameter terminology used in code and
-    # terminology used by AQS/AirNow.
+    # terminology used by AQS/AirNow. Note that this list is not comprehensive,
+    # and users wishing to query parameters outside those listed below will
+    # need to modify this method accordingly.
     param_to_api_naming = {'AQS': {'PM25': '88101',
                                    'PM10': '88102',
                                    'O3': '44201',
@@ -191,6 +240,17 @@ def Ref_API_Query(query_type=None, param=None, bdate='', edate='',
 
 def Modify_Ref_Cols(df, param):
     """Modify the data type of columns in reference data and reorder columns.
+
+    Args
+        df (pandas dataframe):
+            Dataframe resulting from API query.
+        param (str):
+            The evaluation parameter.
+
+    Returns:
+        df (pandas dataframe):
+            Modified dataframe column data types correected and column ordering
+            reorganized.
     """
 
     # Column header suffixes for parameter data
@@ -239,7 +299,10 @@ def Modify_Ref_Cols(df, param):
 
 
 def Modify_Ref_Method_Str(df, param):
-    """Instrument Method names retrieved from the method code lookup table are
+    """Subroutine for Ref_API_Query tha replaces various characters in data
+    columns containing text, including the method name and the parameter units.
+
+    Instrument Method names retrieved from the method code lookup table are
     specified in all upper case characters. These are converted to title cased
     characters (e.g., This Is Title Cased Text). While this imrpoves legibility
     some phrases (particularly acronyms, conjunctions, prepositions, ect.)
@@ -249,6 +312,17 @@ def Modify_Ref_Method_Str(df, param):
     In addition, abbreviated unit names (used by AirNow) are converted to
     long format text to ensure consistency for reference data retreived from
     AQS, AirNow, and AirNowTech, and also to improve legibility.
+
+    Args
+        df (pandas dataframe):
+            Dataframe resulting from API query.
+        param (str):
+            The evaluation parameter.
+
+    Returns:
+        df (pandas dataframe):
+            Modified dataframe with method and unit strings corrected.
+
     """
     # Lookup dictionary of phrases that shouldn't be title cased
     replace = {'Method': {'Api': 'API',
@@ -279,6 +353,31 @@ def Modify_Ref_Method_Str(df, param):
 def Date_Range_Selector(start_date, end_date):
     """Generate two arrays (month_starts and month_ends) for which queries will
     be constructed in consecutive monthly segments.
+
+    Args:
+        start_date (str):
+            Query period will begin on this date. Should be specified in a
+            format accepted by pandas to_datetime module.
+        end_date (str)
+            Query period will end on this date. Should be specified in a
+            format accepted by pandas to_datetime module.
+
+    Returns:
+        month_starts (pandas datetimeindex):
+            An array of monthly start dates.
+            Example:
+            DatetimeIndex(['2021-01-01', '2021-02-01',
+                           '2021-03-01', '2021-04-01',
+                           '2021-05-01', '2021-06-01'],
+                            dtype='datetime64[ns]', freq='MS')
+
+        month_ends (pandas datetimeindex):
+            An array of monthly end dates.
+            Example:
+            DatetimeIndex(['2021-01-31', '2021-02-28',
+                           '2021-03-31', '2021-04-30',
+                           '2021-05-31', '2021-06-30'],
+                            dtype='datetime64[ns]', freq='M')
     """
 
     start_date = pd.to_datetime(start_date)
@@ -304,6 +403,24 @@ def Date_Range_Selector(start_date, end_date):
 def Query_Periods(query_type=None, month_starts=[], month_ends=[]):
     """Generate a dictionary with consecutive monthly intervals to query where
     dates are formatted a little differently depending on the API to query.
+
+    API date formatting:
+        AirNow API: Expects dates in format 'YYYY-MM-DDTHH'
+            Example: '2019-08-01T00'
+        AQS API: Expects dates in format 'YYYYMMDD'
+            Example: '20190801'
+
+    Args:
+        query_type (str):
+            The name of the API to query (either 'AirNow' or 'AQS').
+        month_starts (pandas datetimeindex):
+            An array of monthly start dates generated by Date_Range_Selector
+        month_ends (pandas datetimeindex):
+            An array of monthly end dates generated by Date_Range_Selector
+    Returns:
+        monthly_periods (dict):
+            Dictionary with monthly beginning and end dates formatted to the
+            scheme expected by the API to be queried.
     """
     monthly_periods = {}
     for start, end in zip(month_starts, month_ends):
@@ -335,6 +452,26 @@ def Query_Periods(query_type=None, month_starts=[], month_ends=[]):
 
 def AQS_Query(param, data_period, aqs_id, username=None, key=None):
     """Construct an AQS API query request and parse response.
+
+    Args:
+        param (str):
+            The evaluation parameter for which to query data.
+        data_period (list):
+            List with two elements, the first is the start date and time for
+            the query and the second is the end date and time for the query.
+            The API is sequentially queried in monthly intervals, so the start
+            date will usually be something like '20210101' and the end
+            date will follow as '20210131'.
+        aqs_id (str):
+            The AQS site ID for the air monitoring site from which reference
+            measurements will be returned by the API.
+        key (str):
+            User key for API authentication.
+
+    Returns:
+        data (pandas dataframe):
+            Data returned by the API for the specified query parameter and
+            time period.
     """
     if aqs_id is None:
         sys.exit('AQS Site ID missing from API Query')
@@ -346,6 +483,7 @@ def AQS_Query(param, data_period, aqs_id, username=None, key=None):
            + '-' + data_period[1][6:])
     print('..Query start:', begin)
     print('..Query end:', end)
+    print(data_period)
 
     # API Items
     urlbase = 'https://aqs.epa.gov/data/api/sampleData/bySite?'
@@ -364,7 +502,7 @@ def AQS_Query(param, data_period, aqs_id, username=None, key=None):
     # site metadata)
 
     # Query reference concentration data
-    ref_data = requests.get(url)
+    data = requests.get(url)
 
     # Query site information (site name, operating agency, etc.)
     site_data = requests.get(url.replace('sampleData', 'monitors'))
@@ -372,19 +510,19 @@ def AQS_Query(param, data_period, aqs_id, username=None, key=None):
     site_data = pd.DataFrame(site_json['Data'])
 
     # Load data to json module, pandas dataframe
-    ref_data_json = json.loads(ref_data.text)
-    ref_data = pd.DataFrame(ref_data_json['Data'])
+    ref_data_json = json.loads(data.text)
+    data = pd.DataFrame(ref_data_json['Data'])
 
-    ref_data['Site_AQS'] = (ref_data.state_code.astype(str) + '-' +
-                            ref_data.county_code.astype(str) + '-' +
-                            ref_data.site_number.astype(str))
+    data['Site_AQS'] = (data.state_code.astype(str) + '-' +
+                        data.county_code.astype(str) + '-' +
+                        data.site_number.astype(str))
 
     status = ref_data_json['Header'][0]['status']
 
     if status == 'Success':
         site_name = list(i for i in site_data.local_site_name.unique())
         agency = list(i for i in site_data.monitoring_agency.unique())
-        site_aqs = list(i for i in ref_data.Site_AQS.astype(str).unique())
+        site_aqs = list(i for i in data.Site_AQS.astype(str).unique())
         site_lat = list(i for i in site_data.latitude.astype(str).unique())
         site_lon = list(i for i in site_data.longitude.astype(str).unique())
 
@@ -399,14 +537,34 @@ def AQS_Query(param, data_period, aqs_id, username=None, key=None):
 
     print('..Query Status:', status)
 
-    ref_data['Agency'] = ','.join(agency)
-    ref_data['Site_Name'] = ','.join(site_name)
+    data['Agency'] = ','.join(agency)
+    data['Site_Name'] = ','.join(site_name)
 
-    return ref_data
+    return data
 
 
 def AirNow_Query(param, data_period, bbox, key=None):
     """Construct an AirNow API query request and parse response.
+
+    Args:
+        param (str):
+            The evaluation parameter for which to query data.
+        data_period (list):
+            List with two elements, the first is the start date and time for
+            the query and the second is the end date and time for the query.
+            The API is sequentially queried in monthly intervals, so the start
+            date will usually be something like '2021-01-01T00' and the end
+            date will follow as '2021-01-31T23'.
+        bbox (dict):
+            Bounding box of latitude andlongitude values for AirNow API
+            queries.
+        key (str):
+            User key for API authentication.
+
+    Returns:
+        data (pandas dataframe):
+            Data returned by the API for the specified query parameter and
+            time period.
     """
     print('Querying AirNow API')
 
@@ -486,7 +644,24 @@ def AirNow_Query(param, data_period, bbox, key=None):
 
 
 def Save_Query(query_tuple):
-    """Save API query datasets to file
+    """Save both processed and unmodified API query datasets to .csv files.
+
+    Processed data saved to:
+    ..//Data and Figures//reference_data//(name of API)//processed//
+    Unmodified data saved to:
+    ..//Data and Figures//reference_data//(name of API)//raw_api_datasets//
+
+    Args:
+        query_tuple (tuple):
+            A tuple of two pandas datasets returned by Ref_API_Query. The first
+            element is the processed dataset and the second is the unprocessed
+            version.
+    Returns:
+        processed_df (pandas dataframe):
+            Data returned by the API for the specified parameter and time
+            frame. Data have been processed with column headers converted into
+            standard naming scheme and column data types converted into a
+            consistent formatting scheme for reference datasets.
     """
     processed_df, raw_df = query_tuple
     api_src = processed_df['Data_Source'].unique()[0].replace(' API', '')
@@ -504,7 +679,6 @@ def Save_Query(query_tuple):
     raw_filename = '_'.join([api_src, 'raw', site_id,
                              param_str, begin, end]) + '.csv'
 
-    # Caution, Windows only
     outpath = pathlib.PureWindowsPath(
                         os.path.abspath(os.path.join(__file__, '../../..')))
     outpath = (outpath.as_posix() + '/Data and Figures/reference_data/' +

@@ -11,21 +11,29 @@
 Created:
   Tue Jan 28 14:23:44 2020
 Last Updated:
-  Mon Sep 4 10:52:00 2020
+  Wed Jul 14 12:44:57 2021
 """
 import pandas as pd
 
 
-def Load_Ref_DataFrames(sensor_df_list, path=None, namespace=None):
-    """
-    Definition
-    ----------
-    Locates reference data via 'path' variable for PM and meteorological
-    parameters. Data are combined into reference dataframes (..._ref_df) and
-    timestamp is set to index. Strings in data files, such as "NoData" are
-    forced to NaN. Subsequently, dataframes (...ref_df with minute resolution
-    data) are averaged to hourly data (..._hourly_ref_df), and these dataframes
-    are time-shifted by 5 hours to set timestamps to UTC.
+def Load_Ref_DataFrames(sensor_df_list, path=None, sensor_params=None):
+    """Load reference data for the parameters measured by the sensors in the
+    passed sensor dataframe list and for the timeframe indicated by sensor
+    dataset timestamps.
+
+    Args:
+        sensor_df_list (list):
+            List of sensor dataframes.
+        path (str):
+            Full directory path to reference data.
+        sensor_params (set):
+            A unique listing of parameters measured by the
+            sensor make and model being evaluated.
+
+    Returns:
+        ref_dict (dict):
+            Dictionary containing reference datasets organized by parameter
+            classification (keys).
     """
 
     print("Loading reference dataframes")
@@ -38,11 +46,11 @@ def Load_Ref_DataFrames(sensor_df_list, path=None, namespace=None):
 
     pm_ref_data, gas_ref_data, met_ref_data = False, False, False
 
-    if any(i in namespace for i in pm_list):
+    if any(i in sensor_params for i in pm_list):
         pm_ref_data = True
-    if any(i in namespace for i in gas_list):
+    if any(i in sensor_params for i in gas_list):
         gas_ref_data = True
-    if any(i in namespace for i in met_list):
+    if any(i in sensor_params for i in met_list):
         met_ref_data = True
 
     if pm_ref_data is True:
@@ -87,7 +95,30 @@ def Load_Ref_DataFrames(sensor_df_list, path=None, namespace=None):
 
 
 def Import_Ref_DataFrame(df, path, year, month, suffix=None):
+    """Import reference data for the specified monthly period and parameter
+    classification.
 
+    Args:
+        df (pandas dataframe):
+            Constructor dataframe containing reference data (FRM/FEM) at 1-hour
+            averaged intervals. Data loaded by this module are appended to the
+            constructor dataframe and returned.
+        path (str):
+            Full path to reference data directory where files are located.
+        year (str):
+            The year (YYYY) for which data will be loaded.
+        month (str):
+            The month (MM) for which data will be loaded.
+        suffix (str):
+            The parameter classification ('PM', 'Gases', or 'Met') indicating
+            the type of reference data to be imported.
+
+    Returns:
+        df (pandas dataframe):
+            Modified dataframe with imported data appended to the passed
+            dataset. Contains reference data (FRM/FEM) at 1-hour averaged
+            intervals.
+    """
     try:
         filename = 'H_' + year + month + suffix + '.csv'
         load_df = pd.read_csv(path + filename, parse_dates=['DateTime_UTC'],
@@ -105,12 +136,21 @@ def Import_Ref_DataFrame(df, path, year, month, suffix=None):
 
 
 def Timeframe_Search(sensor_df_list):
-    """
-    Definition
-    ----------
-    Determines the timeframe for which reference data should be loaded by
-    locating the beginning and end time of each hourly averaged dataframe and
-    subsequently determining the extrema of begin/end times.
+    """Determines the timeframe for which reference data should be loaded.
+
+    Locates the beginning and end date of each hourly averaged sensor dataframe
+    and subsequently determines the eariest and latest date within all recorded
+    sensor datasets
+
+    Args:
+        sensor_df_list (list):
+            List of sensor dataframes
+
+    Returns:
+        overall_begin (datetime.date):
+            Earliest recorded date in the passed sensor dataframe list.
+        overall_end (datetime.date):
+            Latest recorded date in the passed sensor dataframe list.
     """
     # Determine reference data to load via begin and end timestamp for sensor
     # datasets. Choose earliest begin and latest end timestamp.
@@ -119,8 +159,8 @@ def Timeframe_Search(sensor_df_list):
 
     for df in sensor_df_list:
 
-        begin_time = df.index[0].date()
-        end_time = df.index[-1].date()
+        begin_time = df.index.min().date()
+        end_time = df.index.max().date()
 
         begin_times.append(begin_time)
         end_times.append(end_time)

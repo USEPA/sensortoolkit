@@ -11,7 +11,7 @@
 Created:
   Wed Dec  4 08:57:18 2019
 Last Updated:
-  Wed Nov 13 16:35:00 2020
+  Wed Jul 14 10:22:15 2021
 """
 import pandas as pd
 import os
@@ -28,7 +28,133 @@ from Sensor_Evaluation._analysis.purpleair_modules import (Compute_AB_Averages,
 def Import(sensor_name=None, sensor_serials=None, tzone_shift=0,
            load_raw_data=False, data_path=None, processed_path=None,
            write_to_file=False):
-    """Data import module
+    """Import recorded or processed sensor data.
+
+    If loading recorded datasets (i.e., load_raw_data is True), the method will
+    walk through the directory path where recorded sensor datasets should be
+    located (..//Data and Figures//sensor_data//Sensor_Name//raw_data). Users
+    must follow the expected naming scheme for files in this location,
+    specifying the sensor name and sensor serial identifier for each dataset.
+    If multiple files were recorded for each sensor unit, files must be
+    chronologically ordered, and the naming scheme specifying sensor serial id
+    and sensor make and model must also be adopted. Files must be type '.csv'
+    or '.txt'.
+
+    Here are two example cases that follow the expected naming scheme:
+
+        Example 1)
+        Import recorded data from one file per sensor
+        ---------------------------------------------
+        Say the sensor name is 'Example_Make_Model' and three sensor units were
+        tested with the following serial identifiers:
+
+            sensor_serials = {'1': 'SN01', '2': 'SN02', '3': 'SN03'}
+
+        Let's also assume that the three units each record separate '.csv'
+        files. The recorded sensor datasets should be placed at the following
+        folder location:
+
+            '..//Data and Figures//sensor_data//Example_Make_Model//raw_data'
+
+        The folder structure should look something like:
+
+            path//to//raw_data//
+                Example_Make_Model_SN01.csv
+                Example_Make_Model_SN02.csv
+                Example_Make_Model_SN03.csv
+
+        These files adhere to the expected file naming scheme and data file
+        formatting and will be loaded without issue by the Import method.
+
+
+        Example 2)
+        Import data from multiple files per sensor within nested subdirectories
+        -----------------------------------------------------------------
+        For simplicity, let's use the same serial identifiers as before. The
+        data will also be located at the same folder path. However, now let's
+        say that instead of one file per sensor, datasets are recorded at daily
+        intervals over the evaluation period and were collected at weekly
+        intervals and organized by unit ID into sub-directories. Let's also say
+        that the data files are recorded as .txt files instead of .csv files.
+        The data sets can be placed into the ..//raw_data folder path, and
+        might look something like:
+
+            path//to//raw_data//
+                //2021_01_08_data_collection
+                    //SN01//
+                        Example_Make_Model_SN01_20210101.txt
+                        Example_Make_Model_SN01_20210102.txt
+                        ...
+                        Example_Make_Model_SN01_20210108.txt
+                    //SN02//
+                        Example_Make_Model_SN02_20210101.txt
+                        Example_Make_Model_SN02_20210102.txt
+                        ...
+                        Example_Make_Model_SN02_20210108.txt
+                    //SN03//
+                        Example_Make_Model_SN03_20210101.txt
+                        Example_Make_Model_SN03_20210102.txt
+                        ...
+                        Example_Make_Model_SN03_20210108.txt
+                //2021_01_15_data_collection
+                    //SN01//
+                        Example_Make_Model_SN01_20210109.txt
+                        Example_Make_Model_SN01_20210110.txt
+                        ...
+                        Example_Make_Model_SN01_20210115.txt
+                    //SN02//
+                        Example_Make_Model_SN02_20210109.txt
+                        Example_Make_Model_SN02_20210110.txt
+                        ...
+                        Example_Make_Model_SN02_20210115.txt
+                    //SN03//
+                        Example_Make_Model_SN03_20210109.txt
+                        Example_Make_Model_SN03_20210110.txt
+                        ...
+                        Example_Make_Model_SN03_20210115.txt
+                ...
+
+        (Note: if all the files have unique names, one could place all of
+        the .txt files in the //raw_data// directory. This example is simply
+        meant to illustrate that the import method can handle these types of
+        nested folder structures if the appropriate naming scheme is followed).
+
+    Args:
+        sensor_name (str): The make and model of the sensor being evaluated.
+        serials (dict): A dictionary of sensor serial identifiers for each unit
+            in a testing group
+        tzone_shift (int): ) An integer value by which to shift the sensor data
+            to UTC. Specifying 0 will not shift the data.
+        load_raw_data (bool): If true, raw data in the appropriate subdirectory
+            will be loaded and 1-hr and 24-hr averages will be computed and
+            saved to a processed data subdirectory for the specified sensor.
+            If false, processed data will be loaded.
+        data_path (str): The full directory path to raw sensor data for a given
+            sensor make and model.
+        processed_path (str): The full directory path to processed sensor data
+            for a given sensor make and model.
+        write_to_file (bool): If true and load_raw_data true, processed files
+            will be written to folder location. In addition, subsequent
+            evaluation statistics will be written to the Data and Figures and
+            eval_stats sensor subdirectory. Figures will also be written to the
+            appropriate figures subdirectory.
+
+    Returns:
+        full_df_list (list):
+          List of pandas dataframe objects, one for each sensor dataset
+          containing processed full time-resolution data.
+        hourly_df_list (list):
+          List of pandas dataframe objects, one for each sensor dataset
+          containing processed hourly averaged time-resolution data.
+        daily_df_list (list):
+          List of pandas dataframe objects, one for each sensor dataset
+          containing processed daily (24-hr) averaged time-resolution data.
+    Raises:
+        System exit: If searching for recorded sensor datasets and no files
+        found with the expected naming scheme or file formatting (files must
+        be ordered chronologically, contain the unique serial identifier
+        corresponding to the sensor unit that recorded the sensor data file,
+        and must be in either .csv or .txt format).
     """
     if load_raw_data is True:
         full_df_list = []
@@ -77,6 +203,19 @@ def Import(sensor_name=None, sensor_serials=None, tzone_shift=0,
 def Ingest_Wrapper(cwd, sensor_name, serial):
     """Wrapper for ingestion modules. Selects the ingestion module to convert
     sensor-specific data formatting to standardized format for analysis.
+
+    Args:
+        cwd (str):
+            full path to recorded sensor dataset including the file name.
+        sensor_name (str):
+            The make and model of the sensor.
+        serial (dict):
+            The serial identifier unique to each sensor unit
+
+    Returns:
+        pandas dataframe object:
+            Sensor dataframe imported and processed via the appropriate
+            ingestion module.
     """
 
     if sensor_name == 'Example_Make_Model':
@@ -103,15 +242,15 @@ def Ingest_Wrapper(cwd, sensor_name, serial):
 def Ingest_Example_Make_Model(cwd):
     """Ingestion module for an example sensor dataset.
 
+    Recorded sensor data are imported and headers are converted into a
+    standard format for analysis.
+
     Args:
         cwd (str): The full path to the sensor data file
 
     Returns:
         df (Pandas DataFrame object): A dataframe containing sensor data that
             has been converted into standardized syntax
-
-    Recorded sensor data are imported and headers are converted into a
-    standard format for analysis.
     """
     idx_name = 'Time'
 
@@ -190,12 +329,15 @@ def Ingest_PurpleAir_PAII(cwd, serial):
     """Ingestion module for the PurpleAir PA-II (and PA-II-SD).
 
     Args:
-        cwd (str): The full path to the sensor data file
-        serial (str): The serial identifier unique to each sensor unit
+        cwd (str):
+            The full path to the sensor data file.
+        serial (str):
+            The serial identifier unique to each sensor unit.
 
     Returns:
-        df (Pandas DataFrame object): A dataframe containing sensor data that
-            has been converted into standardized syntax
+        df (Pandas DataFrame object):
+            A dataframe containing sensor data that has been converted into
+            standardized syntax.
 
     NOTE:
         PurpleAir data formatting vary depending on the source of acquisition
