@@ -11,7 +11,7 @@
 Created:
   Tue Mar 3 13:47:32 2020
 Last Updated:
-  Mon Nov 12 08:50:00 2020
+  Tue Jul 13 11:09:13 2021
 """
 import numpy as np
 import pandas as pd
@@ -23,9 +23,72 @@ def Regression_Stats(hourly_df_obj=None, daily_df_obj=None, hourly_ref_df=None,
                      daily_ref_df=None, deploy_dict=None, param=None,
                      sensor_name=None, ref_name=None, serials=None,
                      path=None, write_to_file=False):
+    """Compute OLS regression statistics.
+
+    Module is used to compute the following regressions:
+        Sensor vs. FRM/FEM
+        Sensor vs. Inter-sensor average
+
+    For each instance, the dependent and independent variables are assigned as
+    {hourly/daily_df_obj vs. hourly/daily_ref_df}; please note that the
+    '..ref_df' object can be either a dataframe containg FRM/FEM concentratons,
+    or a dataframe containing intersensor averages depending on the use case.
+    The 'ref' label refers moreso to the fact that the dataset is used as the
+    independent variable for regressions.
+
+    If sensor and reference dataframes are passed at both hourly and daily
+    averaging intervals (i.e., hourly_df_obj, daily_df_obj, hourly_ref_df,
+    daily_ref_df), regression statistics will be computed for both averaging
+    intervals (looping over hourly and then daily regressions) and are returned
+    in the same statistics dataframe.
+
+    Args:
+        hourly_df_obj (pandas dataframe object):
+            Sensor dataframe at 1-hour averaged intervals. Data corresponding
+            to passed parameter name are used as the dependent variable.
+        daily_df_obj (pandas dataframe object):
+            Sensor dataframe at 24-hour averaged intervals. Data corresponding
+            to passed parameter name are used as the dependent variable.
+        hourly_ref_df (pandas dataframe object):
+            Reference dataframe (either FRM/FEM OR Inter-sensor averages) at
+            1-hour averaged intervals. Data corresponding to passed parameter
+            name are used as the independent variable.
+        daily_ref_df (pandas dataframe object):
+            Reference dataframe (either FRM/FEM OR Inter-sensor averages) at
+            24-hour averaged intervals. Data corresponding to passed parameter
+            name are used as the independent variable.
+        deploy_dict (dict):
+            A dictionary containing descriptive statistics and
+            textual information about the deployment (testing agency, site,
+            time period, etc.), sensors tested, and site conditions during the
+            evaluation.
+        param (str):
+            Parameter name for which to compute regression statistics.
+        sensor_name (str):
+            The make and model of the sensor being evaluated.
+        ref_name (str):
+            The name of the dataset assigned as the independent variable. This
+            may either be FRM/FEM concentrations in the case of sensor vs.
+            FRM/FEM regression, or it may be the inter-sensor average in the
+            case of sensor vs. inter-sensor average regression statistics.
+        serials (dict):
+            A dictionary of sensor serial identifiers for each unit
+            in a testing group.
+        path (str):
+            The full directory path to evaluation statistics for a
+            given sensor make and model.
+        write_to_file (str):
+            If true, the statistics dataframe will be saved to the path
+            location.
+
+    Returns:
+        stats_df: (pandas dataframe)
+            Statistics dataframe for either sensor vs. FRM/FEM or sensor vs.
+            intersensor mean OLS regression. Results are organized by averaging
+            interval if both 1-hour and 24-hour averaged datasets passed to
+            module.
     """
-    """
-    if hourly_df_obj is None and daily_df_obj is None:
+    if not hourly_df_obj and not daily_df_obj:
         print('No sensor data passed to function.')
         return
     elif hourly_df_obj is None:  # Compute only daily regression statistics
@@ -88,15 +151,8 @@ def Regression_Stats(hourly_df_obj=None, daily_df_obj=None, hourly_ref_df=None,
                 print('..Warning: Linear regression not possible for sensor '
                       + str(sensor_num) + '. Sensor or reference data are '
                       'null.')
-                r_square = np.nan
-                slope = np.nan
-                intercept = np.nan
-                RMSE = np.nan
-                N = np.nan
-                param_min = np.nan
-                param_max = np.nan
-                param_mean = np.nan
-
+                r_square = slope = intercept = RMSE = N = np.nan
+                param_min = param_max = param_mean = np.nan
             else:
                 N = int(len(combine_df))
 
@@ -104,14 +160,8 @@ def Regression_Stats(hourly_df_obj=None, daily_df_obj=None, hourly_ref_df=None,
                     print('..Warning: Linear regression not possible for' +
                           ' sensor ' + str(sensor_num) +
                           '. Insufficient number of data points')
-                    r_square = np.nan
-                    slope = np.nan
-                    intercept = np.nan
-                    RMSE = np.nan
-                    N = np.nan
-                    param_min = np.nan
-                    param_max = np.nan
-                    param_mean = np.nan
+                    r_square = slope = intercept = RMSE = N = np.nan
+                    param_min = param_max = param_mean = np.nan
 
                 else:
                     # Compute linear regress. for the union of finite
@@ -185,7 +235,36 @@ def Regression_Stats(hourly_df_obj=None, daily_df_obj=None, hourly_ref_df=None,
 
 def Compute_RMSE(df_list, ref_df, deploy_dict, stats_df=None,
                  param='PM25', return_deploy_dict=True):
-    """
+    """Compute the root mean square error for concurrent sensor measurements in
+    each testing deployment groups.
+
+    Loops over the unique deployment groups and computes RMSE for each
+    group of concurrently collocated and recording sensors.
+
+    Args:
+        df_list (list):
+            List of sensor dataframes (either 1-hour or 24-hour averages)
+        ref_df (pandas dataframe):
+            dataframe with FRM/FEM values (either 1-hour or 24-hour averages)
+        deploy_dict (dict):
+            A dictionary containing descriptive statistics and
+            textual information about the deployment (testing agency, site,
+            time period, etc.), sensors tested, and site conditions during the
+            evaluation.
+        stats_df (pandas dataframe):
+            Dataframe containing OLS regression statisitcs.
+        param (str):
+            Parameter name to evaluate
+        return_deploy_dict (bool):
+            If true, return modified deployment dictionary with precision
+            statisitcs (CV, standard deviation, N concurrent datapoints across
+            all sensors).
+
+    Returns:
+        If return_deploy_dict:
+            Returns deploy_dict with updated error statistics
+        else:
+            Return RMSE (float)
     """
     date_index, avg_suffix = Synoptic_Index(df_list, averaging_suffix=True)
 

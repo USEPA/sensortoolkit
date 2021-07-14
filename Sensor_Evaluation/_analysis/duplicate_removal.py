@@ -11,12 +11,24 @@
 Created:
   Thu Feb 18 13:19:54 2021
 Last Updated:
-  Thu Feb 18 13:19:54 2021
+  Tue Jul 13 09:39:18 2021
 """
 
 
 def Remove_Duplicates(full_df):
-    """
+    """Locate and remove duplicate timestamp entries if present in passed
+    dataframe.
+
+    Note that this module does not remove duplicate concentration values, only
+    searches for duplicated index (assume time-like) values.
+
+    Args:
+        full_df (pandas dataframe):
+            Sensor dataframe at recorded sampling frequency.
+    Returns:
+        full_df (pandas dataframe):
+            Modified sensor dataframe at recorded sampling frequency with
+            duplicated timestamps removed.
     """
     # Average duplicate entries, remove duplicated timestamps
     dup_data = full_df[full_df.index.duplicated() == True]

@@ -11,7 +11,7 @@
 Created:
   Tue Mar 10 08:38:24 2020
 Last Updated:
-  Mon Nov 10 10:01:56 2020
+  Tue Jul 13 09:45:24 2021
 """
 import pandas as pd
 import numpy as np
@@ -19,6 +19,23 @@ from Sensor_Evaluation._analysis.synoptic_idx import Synoptic_Index
 
 
 def Intersensor_Mean(df_list, deploy_dict):
+    """Compute the average of each parameter across concurrently recorded
+    sensor datasets.
+
+    Args:
+        df_list (list):
+            List of sensor dataframes at either 1-hour or 24-hour averaging
+            interval.
+        deploy_dict (dict):
+            A dictionary containing descriptive statistics and
+            textual information about the deployment (testing agency, site,
+            time period, etc.), sensors tested, and site conditions during the
+            evaluation.
+    Returns:
+        avg_df (pandas dataframe):
+            Dataframe to contain intersensor average for each parameter at
+            either 1-hour or 24-hour averaging interval.
+    """
     print('Computing mean parameter values across concurrent sensor datasets')
     # List of unique column headers
     param_list = []

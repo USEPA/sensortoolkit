@@ -11,7 +11,7 @@
 Created:
   Wed Oct 21 14:46:27 2020
 Last Updated:
-  Wed Oct 21 14:46:27 2020
+  Tue Jul 13 16:32:44 2021
 """
 import pandas as pd
 import numpy as np
@@ -20,9 +20,32 @@ import os
 
 def Sensor_Averaging(full_df_list, sensor_serials=None, name='',
                      write_to_file=True, path=None,):
-    """
-    Wrapper function for computing hourly and daily averaged dataframes,
+    """Wrapper function for computing hourly and daily averaged dataframes,
     writes full (recorded), hourly, and daily averaged datasets to .csv files.
+
+    Args:
+        full_df_list (list):
+            List of sensor dataframes at original recorded sampling frequency.
+        sensor_serials (dict):
+        name (str):
+            The make and model of the sensor being evaluated.
+        write_to_file (bool):
+            If true, datasets will be written to the path for data at original
+            recorded sampling frequency (files ending in '_full.csv'), 1-hour
+            averaged datasets (files ending in '_hourly.csv'), and 24-hour
+            averaged datasets (files ending in '_daily.csv').
+        path (str):
+            The full directory path to processed sensor data for a given sensor
+            make and model.
+    Returns:
+        hourly_df_list (list of pandas dataframes): List of sensor data frames
+            of length N (where N is the number of sensor units in a testing
+            group). frames indexed by DateTime_UTC at 1-hour averaged sampling
+            frequency.
+        daily_df_list (list of pandas dataframes): List of sensor data frames
+            of length N (where N is the number of sensor units in a testing
+            group). frames indexed by DateTime_UTC at 24-hour averaged sampling
+            frequency.
     """
     hourly_df_list, daily_df_list = [], []
 
@@ -94,6 +117,40 @@ def Sensor_Averaging(full_df_list, sensor_serials=None, name='',
 
 def Interval_Averaging(df, freq='H', interval_count=60, thres=0.75,
                        return_counts=False):
+    """Average dataframe to the specified sampling frequency ('freq').
+
+    Numeric columns are averaged for for each interval and a completeness
+    threshold (default 75%) must be met, otherwise averages are null. Columns
+    of type 'object' (i.e. text) are aggregated within each interval by the
+    mode of unique object values.
+
+    Args:
+        df (pandas dataframe):
+            Dataframe with datetimeindex
+        freq (str):
+            The frequency (averaging interval) to which the dataframe will
+            be averaged. Pandas refers to these as 'offset aliases', and a list
+            is found at the following link:
+                https://pandas.pydata.org/pandas-docs/stable/user_guide/
+                timeseries.html#offset-aliases
+        interval_count (int):
+            The number of datapoints expected within the passed dataframe for
+            the specified averaging interval ('freq'). E.g., if computing
+            1-hour averages (freq='H') and the passed dataframe is for a sensor
+            that recorded measurements at 1-minute sampling frequency,
+            interval_count will equal 60 (expect 60 non-null data points per
+            averaging interval).
+        thres (float):
+            Threshold (ranging from 0 to 1) for ratio of the number of
+            data points recorded within a given averaging interval vs. the
+            number of expected data points. For example, if a sensor has a
+            sampling frequency of 1-minute per data point and
+        return_counts (bool):
+
+    Return:
+        averaged_df (pandas dataframe):
+            Dataframe averaged to datetimeindex interval specified by 'freq'.
+    """
 
     # Split dataframe in to object-like columns and numeric-like columns
     obj_df = df.select_dtypes(include=['object', 'datetime'])
@@ -111,16 +168,16 @@ def Interval_Averaging(df, freq='H', interval_count=60, thres=0.75,
 
     # Sample object-like data at specified interval by the mode
     try:
-        avg_obj_df = obj_df.groupby(
+        averaged_obj_df = obj_df.groupby(
                         [pd.Grouper(freq=freq)]).agg(pd.Series.mode)
     except Exception:
         # Dataframe is full of NaNs
-        avg_obj_df = pd.DataFrame(np.nan, index=nan_df_idx,
-                                  columns=obj_df_cols)
+        averaged_obj_df = pd.DataFrame(np.nan, index=nan_df_idx,
+                                       columns=obj_df_cols)
 
     if num_df.empty:
-        avg_num_df = pd.DataFrame(np.nan, index=nan_df_idx,
-                                  columns=num_df_cols)
+        averaged_num_df = pd.DataFrame(np.nan, index=nan_df_idx,
+                                       columns=num_df_cols)
     else:
 
         # Mean param values for each averaging interval
@@ -129,14 +186,15 @@ def Interval_Averaging(df, freq='H', interval_count=60, thres=0.75,
 
         # Counts for each param and each averaging interval
         counts_df = num_df[:].groupby(
-                            [pd.Grouper(freq=freq)]).count().add_suffix(
+                        [pd.Grouper(freq=freq)]).count().add_suffix(
                                                             '_count' + freq)
 
-        avg_num_df = mean_df.join(counts_df).sort_index(axis=1)
+        averaged_num_df = mean_df.join(counts_df).sort_index(axis=1)
 
         # List of columns containing count for each averaging interval
-        count_list = list(avg_num_df.columns[[col.endswith('count' + freq)
-                                              for col in avg_num_df.columns]])
+        count_list = list(averaged_num_df.columns[
+                        [col.endswith('count' + freq) for col in
+                         averaged_num_df.columns]])
 
         n_thres = interval_count*thres
 
@@ -144,13 +202,13 @@ def Interval_Averaging(df, freq='H', interval_count=60, thres=0.75,
         for col in count_list:
             mean_col = col.replace('_count' + freq, '')
 
-            avg_num_df[mean_col] = avg_num_df[mean_col].where(
-                                        avg_num_df[col] > n_thres, np.nan)
+            averaged_num_df[mean_col] = averaged_num_df[mean_col].where(
+                                        averaged_num_df[col] > n_thres, np.nan)
 
         if return_counts is False:
-            avg_num_df = avg_num_df.drop(columns=count_list)
+            averaged_num_df = averaged_num_df.drop(columns=count_list)
 
     # Rejoin non-numeric columns on averaging interval
-    avg_df = avg_num_df.join(avg_obj_df)
+    averaged_df = averaged_num_df.join(averaged_obj_df)
 
-    return avg_df
+    return averaged_df

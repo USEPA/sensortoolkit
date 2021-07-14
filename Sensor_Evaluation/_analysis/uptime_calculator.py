@@ -17,9 +17,18 @@ import pandas as pd
 
 
 def Uptime_Calculator(dataframe_object, key=None):
-    """
-    dataframe_object:
-        single Pandas dataframe or a list of dataframes
+    """Compute uptime for either sensor or reference data.
+
+    Uptime calculated as the number of non-null data points recorded within the
+    deployment period divided by the total number of data points (null + non-
+    null).
+
+    Args:
+        dataframe_object (pandas dataframe or a list of dataframes):
+            Sensor dataframe or list of sensor dataframes
+        key ():
+            A unique identifier corresponding to the dataframe passed (either
+            a serial ID, number, or other string).
     """
 
     # Check whether dataframe object is single dataframe or list of dataframes
@@ -28,13 +37,8 @@ def Uptime_Calculator(dataframe_object, key=None):
     else:
         df_list = dataframe_object
 
-    # List of column names to check data source (reference or sensor)
-    ref_names = ['BC_AE33_880nm', 'T640_2_PM10', 'T640_2_PM25',
-                 'UV_633_370nm', 'Relative_Humid', 'Temperature',
-                 'CAPS NO2', 'O3-API T265']
-
     # Check if any of the above ref column names are in the passed dataframe(s)
-    if df_list[0].columns.isin(ref_names).any() == True:
+    if any(header.endswith('_Value') for header in df_list[0]):
         ref_data = True
     else:
         ref_data = False

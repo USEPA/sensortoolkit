@@ -11,7 +11,7 @@
 Created:
   Wed Jan 29 10:03:27 2020
 Last Updated:
-  Tue Nov 10 13:43:00 2020
+  Tue Jul 13 09:21:40 2021
 """
 import numpy as np
 import pandas as pd
@@ -19,6 +19,34 @@ from Sensor_Evaluation._analysis.synoptic_idx import Synoptic_Index
 
 
 def CV_Calculator(cv_df, sensor_numbers, param):
+    """Compute CV for a deployment group of collocated, concurrently recording
+    sensors.
+
+    Args:
+        cv_df (pandas dataframe):
+            Dataframe with parameter concentration values, used to
+            calculate CV. Only rows (unique timestamps) are kept where all
+            deployment group sensors are concurrently recording for calculating
+            CV.
+        sensor_numbers
+            serial identifiers for sensors in the deployment group.
+        param (str):
+            Parameter name to evaluate
+
+    Returns:
+        cv_df (pandas dataframe):
+            Modified cv_df, dropped rows were not all sensors measuring
+            concurrently, add columns for computing CV.
+        CV (float):
+            The coefficient of variation of concurrent sensor measurements.
+            Calculated as the 100*(standard deviation / mean of all concurrent
+            sensor measurements).
+        st_dev (float):
+            The standard deviation of concurrent sensor measurements.
+        n (int):
+            Number of concurrent hours with all sensors reporting pollutant
+            values.
+    """
 
     if cv_df.index[1] - cv_df.index[0] == pd.Timedelta('0 days 01:00:00'):
         time_interval = "1-Hour"
@@ -70,9 +98,32 @@ def CV_Calculator(cv_df, sensor_numbers, param):
 
 
 def Compute_CV(df_list, deploy_dict, param='PM25', return_deploy_dict=True):
-    """
-    Wrapper function for computing CV for generalized set of dataframes and
+    """Wrapper function for computing CV for generalized set of dataframes and
     parameter.
+
+    Loops over the unique deployment groups and computes CV for each
+    group of concurrently collocated and recording sensors.
+
+    Args:
+        df_list (list):
+            List of sensor dataframes
+        deploy_dict (dict):
+            A dictionary containing descriptive statistics and
+            textual information about the deployment (testing agency, site,
+            time period, etc.), sensors tested, and site conditions during the
+            evaluation.
+        param (str):
+            Parameter name to evaluate
+        return_deploy_dict (bool):
+            If true, return modified deployment dictionary with precision
+            statisitcs (CV, standard deviation, N concurrent datapoints across
+            all sensors).
+
+    Returns:
+        If return_deploy_dict:
+            Returns deploy_dict with updated precision statistics
+        else:
+            Return CV (float)
     """
 
     date_index, avg_suffix = Synoptic_Index(df_list, averaging_suffix=True)

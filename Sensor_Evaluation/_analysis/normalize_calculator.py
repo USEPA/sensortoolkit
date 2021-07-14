@@ -11,12 +11,34 @@
 Created:
   Tue Mar 17 14:41:13 2020
 Last Updated:
-  Thu Oct 1 13:11:00 2020
+  Wed Jul 14 08:20:29 2021
 """
 import numpy as np
 
 
 def Normalize(df_list, ref_df, param=None, ref_name=None):
+    """Normalize sensor measurements at 1-hour or 24-hour intervals by
+    concurrent measurements from a collocated FRM/FEM monitor.
+
+    Args:
+        df_list (list):
+            List of sensor dataframes with datetimeindex at either 1-hour or
+            24-hour averaging intervals.
+
+        ref_df (pandas dataframe):
+            Dataframe with FRM/FEM measurements from a reference monitor
+            collocated alongside sensors at a monitoring site. Dataframe at
+            either 1-hour or 24-hour averaging intervals, matches interval of
+            df_list.
+        param (str):
+            The evaluation parameter.
+        ref_name (str):
+            The make and model of the FRM/FEM monitor.
+    Returns
+        df_list (list):
+            Modified list of sensor dataframes with a column added for
+            normalized parameter values.
+    """
     print('Computing normalized', param, 'values (by', ref_name + ')')
 
     for i, df in enumerate(df_list):

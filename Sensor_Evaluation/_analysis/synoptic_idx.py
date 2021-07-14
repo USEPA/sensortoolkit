@@ -11,16 +11,34 @@
 Created:
   Tue Nov 10 14:31:42 2020
 Last Updated:
-  Tue Nov 10 14:31:42 2020
+  Tue Jul 13 11:42:22 2021
 """
 import pandas as pd
 from Sensor_Evaluation._reference.load_ref_data import Timeframe_Search
 
 
 def Synoptic_Index(df_obj, averaging_suffix=True):
-    """
-    Create a timestamp index that spans the total duration of time during which
-    devices in an evaluation set were deployed.
+    """Create a timestamp index that spans the total duration of time during
+    which sensors in an evaluation group were deployed.
+
+    Searches for the eariest and latest timestamp in sensor datasets and
+    creates a datetime index at the indicated averaging interval spanning the
+    time period of testing.
+
+    Args:
+        df_obj (either pandas dataframe or list of dataframes):
+            Sensor dataframe(s)
+        averaging_suffix (bool):
+            If true, a string suffix will be returned indicating the averaging
+            interval of the passed dataframe object.
+
+    Returns:
+        timestamp_idx (pandas datetimeindex):
+            Index at either 1-hour or 24-hour averaging intervals spanning
+            the entire evaluation period.
+        avg_suffix (str):
+            If averaging_suffix is true, return suffix indicating the averaging
+            interval of the timestamp index.
     """
     if type(df_obj) is list:
         df = df_obj[0]  # Use the first dataframe in the list as model

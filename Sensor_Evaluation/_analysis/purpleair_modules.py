@@ -11,7 +11,7 @@
 Created:
   Wed Jul  7 13:32:49 2021
 Last Updated:
-  Wed Jul  7 13:32:49 2021
+  Tue Jul 13 11:34:00 2021
 """
 import pandas as pd
 import numpy as np
@@ -19,8 +19,27 @@ import numpy as np
 
 def Compute_AB_Averages(df, cleaning=True, a_col_name=None,
                         b_col_name=None):
-    """Clean PurpleAir datasets using Barkjohn et al. 2021 QC criteria for
-    computing AB averages.
+    """Average A and B channel data for  PurpleAir sensors.
+
+    QC criteria via Barkjohn et al. 2021, publication link:
+        https://amt.copernicus.org/articles/14/4617/2021/
+
+    Args:
+        df (pandas dataframe):
+            PurpleAir dataframe containing columns with A and B channel PM2.5
+            data.
+        cleaning (bool):
+            If true, datapoints outside the QC criteria of Barkjohn et al. 2021
+            will be invalidated (set null). Else, QC criteria will not be
+            applied.
+        a_col_name (str):
+            The column header name for PM2.5 data from channel A.
+        b_col_name (str):
+            The column header name for PM2.5 data from channel B.
+
+    Returns:
+        df (pandas dataframe):
+            Modified PurpleAir dataframe with computed AB averages
     """
     if cleaning is True:
         # Compute (A-B) difference
@@ -74,6 +93,30 @@ def Compute_AB_Averages(df, cleaning=True, a_col_name=None,
 
 
 def USCorrection(df, param):
+    """US-Wide Correction equation of Barkjohn et al. 2021 for PurpleAir PA-II
+    sensors.
+
+    Publication Link:
+        https://amt.copernicus.org/articles/14/4617/2021/
+
+    Args:
+        df (pandas dataframe):
+            Dataframe with PurpleAir PA-II concentration values for PM2.5
+    Returns:
+        df (pandas dataframe):
+            Modified dataframe with US-Correction applied to param values (
+            under column header param + '_corrected')
+
+    Raises:
+        KeyError: If passed param name not in dataframe
+        KeyError: If 'RH' not in passed dataframe
+    """
+    if param not in df:
+        raise KeyError('Column header "' + param + '" not found in dataframe')
+    if 'RH' not in df:
+        raise KeyError('Column header "RH" not found in dataframe')
+
     # US Correction for PA data
     df[param + '_corrected'] = 0.524*df[param] - 0.0852*df['RH'] + 5.72
+
     return df

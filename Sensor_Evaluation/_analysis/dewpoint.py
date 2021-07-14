@@ -11,15 +11,24 @@
 Created:
   Mon Jan 27 11:42:49 2020
 Last Updated:
-  Thu Nov 19 11:12:00 2020
+  Tue Jul 13 09:35:33 2021
 """
 import numpy as np
 
 
 def Dewpoint(df_list):
-    """
-    Magnus Formula for dewpoint. Constants via U.S EPA Performance Targets
-    documents for particulate matter and ozone air sensors.
+    """Calculate dewpoint using the Magnus Formula.
+
+    Constants via U.S EPA Performance Targets reports for evaluating sensors
+    measuring fine particulate matter and ozone.
+
+    Args:
+        df_list:
+            List of sensor dataframes.
+    Returns:
+        df_list:
+            List of modified sensor dataframes with calulcated dewpoint
+            ('DP_Calculated').
     """
     for i, df in enumerate(df_list):
 
@@ -32,7 +41,6 @@ def Dewpoint(df_list):
         else:
             print('Warning, Temperature and RH labels not recognized, DP not '
                   'computed')
-            print(df.columns)
             return df_list
 
         numerator = lbda*(np.log(RH/100) + (beta*T)/(lbda+T))
