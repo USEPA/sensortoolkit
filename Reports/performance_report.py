@@ -64,24 +64,27 @@ class PerformanceReport(SensorEvaluation):
     report_params = ['PM25', 'O3']
 
     def __init__(self, sensor_name, eval_param, load_raw_data=False,
-                 reference_data=None, ref_name=None,
-                 serials=None, tzone_shift=0, bbox=None, aqs_id=None,
-                 write_to_file=False, fmt_sensor_name=None, testing_org=None,
-                 testing_loc=None):
+                 reference_data=None, serials=None, tzone_shift=0,
+                 write_to_file=False, **kwargs):
+
+        # Add keyword arguments (testing_loc, testing_org, etc.)
+        self.__dict__.update(**kwargs)
+        self.kwargs = kwargs
 
         # Inherit the SensorEvaluation class instance attributes
         super().__init__(sensor_name, eval_param, load_raw_data,
-                         reference_data, ref_name, serials, tzone_shift,
-                         bbox, aqs_id, write_to_file)
+                         reference_data, serials, tzone_shift,
+                         write_to_file, **kwargs)
 
         if self.eval_param not in self.report_params:
             sys.exit('Reporting template not configured for '
                      + self.eval_param)
 
-        self.fmt_sensor_name = fmt_sensor_name
         # Placeholder method for formatted sensor name, replace '_' with spaces
-        if self.fmt_sensor_name is None:
-            self.fmt_sensor_name = self.sensor_name.replace('_', ' ')
+        self.fmt_sensor_name = self.kwargs.get('fmt_sensor_name',
+                                               self.sensor_name.replace('_',
+                                                                        ' '))
+
         self.today = dt.datetime.now().strftime('%y%m%d')
 
         self.template_name = ('Reporting_Template_Base_' + self.eval_param
@@ -91,8 +94,12 @@ class PerformanceReport(SensorEvaluation):
                                         self.eval_param, self.template_name))
 
         # Details about testing and deployment site
-        self.testing_org = testing_org
-        self.testing_loc = testing_loc
+        self.testing_org = self.kwargs.get('testing_org',
+                                           self.deploy_dict[
+                                                   'Testing Organization'])
+        self.testing_loc = self.kwargs.get('testing_loc',
+                                           self.deploy_dict[
+                                                   'Testing Location'])
 
         # Populate deployment dictionary with performance metric results
         self.calculate_metrics()
