@@ -27,8 +27,6 @@ from Reports.performance_report import PerformanceReport
 #                             eval_params=['PM25', 'O3'])
 
 ref_path = os.path.abspath(__file__ + '../../reference_data')
-
-# Caution, Windows only
 ref_path = pathlib.PureWindowsPath(ref_path)
 
 # Testing organization information
