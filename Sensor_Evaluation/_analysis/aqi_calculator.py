@@ -35,6 +35,9 @@ def AQI_Calculator(data):
     high breakpoint + 0.05 < concentration value < high breakpoint + 0.10 then
     set as upper category AQI value).
 
+    **Concentration values < 0 and > 99,999 are ignored by this module (both
+    the AQI value and category return null)**
+
     Args:
         data (float, int, numpy array, or pandas dataframe):
             PM2.5 concentration value(s), if dataframe, column must be labeled
