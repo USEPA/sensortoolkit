@@ -217,11 +217,12 @@ def Write_To_File(df, inpath, outpath):
                'Bam': 'BAM',
                'Pm': 'PM',
                'Vscc': 'VSCC',
-               'Te': 'TE',
+               ' Te ': ' TE ',
                ' Or ': ' or ',
                'W/': 'w/',
                ' And ': ' and '}
 
+    # Require non-empty dataframe
     if not df.empty:
 
         start_month = df.index[0].strftime('%Y-%m')
@@ -271,8 +272,13 @@ def Write_To_File(df, inpath, outpath):
                                 renaming[param] + '_Unit'].replace('PPM',
                                                          'Parts per Million')
 
-                    month_df[renaming[param] + '_Method'] = month_df[
-                            renaming[param] + '_Method'].str.title()
+                    ref_method = month_df[renaming[param] + '_Method']
+                    if ref_method.dropna().empty:
+                        ref_name = 'Unspecified Reference'
+                    else:
+                        ref_name = month_df[
+                                    renaming[param] + '_Method'].str.title()
+                    month_df[renaming[param] + '_Method'] = ref_name
 
                     # Phrases that shouldn't be lower cased (FRM, FEM, etc.)
                     for oldstr, newstr in zip(replace, replace.values()):
@@ -311,8 +317,12 @@ def Write_To_File(df, inpath, outpath):
             filename = (interval + '_' + year + month + '_'
                         + param_type + '.csv')
 
-            print('../reference_data/airnowtech/processed/' + filename)
-            month_df.to_csv(outpath + filename, index_label='DateTime_UTC')
+            # Require at least 12 hours present within dataframe to write to
+            # file (fixes issue with UTC shifted datasets with ~5 hours shifted
+            # into the next month)
+            if month_df.shape[0] > 11:
+                print('../reference_data/airnowtech/processed/' + filename)
+                month_df.to_csv(outpath + filename, index_label='DateTime_UTC')
 
 
 def Import_AirNowTech(inpath):
