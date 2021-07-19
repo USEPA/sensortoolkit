@@ -69,34 +69,10 @@ Eval = SensorEvaluation(
                          '3': 'SN03'},
                 tzone_shift=5,
                 load_raw_data=False,
-                write_to_file=True,
+                write_to_file=False,
                 testing_org=testing_org,  # keyword arguments
                 testing_loc=testing_loc)
 
-"""
-Eval = SensorEvaluation(
-                sensor_name='Sensit_RAMP',
-                eval_param='PM25',
-                reference_data=ref_path.as_posix() + '/airnowtech/processed',
-                serials={'1': 'RAM_07',
-                         '2': 'RAM_08',
-                         '3': 'RAM_09'},
-                tzone_shift=4,
-                load_raw_data=False,
-                write_to_file=False)
-
-Eval = SensorEvaluation(
-                sensor_name='PurpleAir_PAII',
-                eval_param='PM25',
-                reference_data=ref_path.as_posix() + '/airnowtech/processed',
-                serials={'1': 'de90',
-                         '2': 'e9ba',
-                         '3': 'ec8'},
-                tzone_shift=0,
-                load_raw_data=True,
-                write_to_file=True)
-
-Eval.Cooks_Outlier_QC(invalidate=False)
 
 #  ----------------------------------------------------------------------------
 #   Testing statisitics and plots for the example evaluation
@@ -130,4 +106,3 @@ Eval.plot_met_influence(report_fmt=True,
 
 # Plot the distribution of temp and RH observed durng the testing period
 Eval.plot_met_dist()
-"""
