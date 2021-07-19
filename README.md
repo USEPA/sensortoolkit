@@ -63,18 +63,20 @@ Additional information about EPA's research involving air sensors including the 
 
 ****
 ## Installation <a name="install"></a>
-__Under construction.__
 
 Recommended Software:
 * [Anaconda](https://www.anaconda.com/) distribution of Python
   * Package management including version control and dependency installation with `conda`
   * Spyder IDE for running scripts and visualizing datasets
+* [git](https://git-scm.com/) or a git client that allows for interfacing with git, downloading online repositories, and pushing suggested changes to the repository codebase.
+
 
 Steps to get started using SensorEvaluation:
-* Clone the Sensor Evaluation repository. There are a couple ways this can be done, either via a program with a UI like SourceTree or via terminal command. For users just getting starting with how to use Git, Bitbucket has a tutorial [webpage](https://www.atlassian.com/git/tutorials/setting-up-a-repository/git-clone?utm_campaign=learn-git-clone&utm_medium=in-app-help&utm_source=stash) on how to clone repositories that may be helpful.
-* There are a number of python library dependencies that the Sensor Evaluation library will need to work properly. If users have an environment management system like Conda installed (included in Anaconda distriubtions of Python), users may wish to create a virtual environment for installing the dependencies required by the Sensor Evaluation Library. The benefit of a virtual environment is that software package versions required by the Sensor Evaluation Library won't override package versions in the default base environment; a virtual environment creates a walled garden where users can install the packages and the package versions they require without changing the state or version of packages installed in the base environment.    
-* Install dependencies with `pip install -r requirements.txt`
-
+1. Clone the Sensor Evaluation repository. There are a couple ways this can be done, either via a program with a UI like SourceTree or via terminal command. For users just getting starting with how to use Git, Bitbucket has a tutorial [webpage](https://www.atlassian.com/git/tutorials/setting-up-a-repository/git-clone?utm_campaign=learn-git-clone&utm_medium=in-app-help&utm_source=stash) on how to clone repositories that may be helpful.
+2. There are a number of python library dependencies that the Sensor Evaluation library will need to work properly. If users have an environment management system like Conda installed (included in Anaconda distributions of Python), users may wish to create a virtual environment for installing the dependencies required by the Sensor Evaluation Library. The benefit of a virtual environment is that software package versions required by the Sensor Evaluation Library won't override package versions in the default base environment; a virtual environment creates a walled garden where users can install the packages and the package versions they require without changing the state or version of packages installed in the base environment.    
+3. Once the library has been downloaded and users have an installation of Python, navigate to the location of the SensorEvaluation library and copy the folder path. If users have Anaconda installed, search for ‘Anaconda Prompt’ from the task bar search and open an instance.
+  * Type `cd path/to/sensorevaluation` where `path/to/sensorevaluation` is replaced by the full path previous copied to the clipboard. Press enter and the prompt will change directories to the `sensorevaluation` folder.
+  * Type `pip install –r requirements.txt --user` to install the various libraries required by SensorEvaluation.
 
 ****
 ## Using SensorEvaluation <a name="use"></a>
