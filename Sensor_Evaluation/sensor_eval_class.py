@@ -668,7 +668,7 @@ class SensorEvaluation:
                     format_xaxis_weeks=kwargs.get('format_xaxis_weeks', False),
                     write_to_file=self.write_to_file)
 
-    def plot_metrics(self):
+    def plot_metrics(self, **kwargs):
         """
         Regression dot/boxplots for U.S EPA performance metrics and targets
         developed for PM2.5 and O3 sensor evaluations.
@@ -691,7 +691,8 @@ class SensorEvaluation:
                                     param=self.eval_param,
                                     path=self.figure_path,
                                     sensor_name=self.sensor_name,
-                                    write_to_file=self.write_to_file)
+                                    write_to_file=self.write_to_file,
+                                    **kwargs)
 
     def plot_sensor_scatter(self, averaging_interval='24-hour',
                             text_pos='upper_left', plot_limits=(-1, 25),
