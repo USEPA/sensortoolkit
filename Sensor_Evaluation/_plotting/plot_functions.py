@@ -42,28 +42,27 @@ sns.set_style('darkgrid')
 
 
 """----------------------------------------------------------------------------
-
-Figure formatting functions
-
+Figure formatting functions:
     Set_Fontsize
-    ------------
-        Selects fontsize for figures based on the number of sensors present in
-        the sensor serial ID dictionary.
     Wrap_Text
-    ----------------
-        Formats plotting text with line breaks based on specified text length.
+    Subplot_Dims
     Sensor_Subpot_Formatting
-    ------------------------
-        Configure subplot parameters that control the spacing of subplots,
-        number of subplots and dimensions of the Matplotliub axes object array,
-        color bar formatting, etc.
 ----------------------------------------------------------------------------"""
 
 
-def Set_Fontsize(sensor_serials):
+def Set_Fontsize(serials):
+    """Selects fontsize for figures based on the number of sensors present in
+    the sensor serial ID dictionary.
+
+    Args:
+        serials (dict):
+            A dictionary of serial identifiers unique to each sensor in the
+            deployment testing group.
+    Returns:
+        fontsize (float):
+            The fontsize for figures.
     """
-    """
-    n_sensors = len(sensor_serials)
+    n_sensors = len(serials)
 
     if (n_sensors == 1):
         fontsize = 14
@@ -76,11 +75,24 @@ def Set_Fontsize(sensor_serials):
 
 
 def Wrap_Text(labels, max_label_len=10):
-    """
+    """Formats plotting text with line breaks based on specified text length.
+
     Code modified via Stack Overflow user DavidG code:
     https://stackoverflow.com/questions/47057789/matplotlib-wrap-text-in-legend
 
-    labels: list of strings
+    Args:
+        labels (list):
+            list plotting labels (strings) such as header/title text
+        max_label_len (int):
+            The maximum number of characters on a single line. Labels longer
+            than this will have a newline '\n' inserted at every max_label_len
+            number of characters.
+
+    Returns:
+        labels (list):
+            Modified list of labels with the newline character '\n' inserted
+            for labels exceeding the max_label_len.
+
     """
     labels = ['\n'.join(wrap(l, max_label_len)) for l in labels]
 
@@ -88,9 +100,17 @@ def Wrap_Text(labels, max_label_len=10):
 
 
 def Subplot_Dims(n_sensors):
-    """
-    Recommends subplot dimensions based on the nearest perfect square for
+    """Recommends subplot dimensions based on the nearest perfect square for
     number of sensors (except when n%10, n_cols in multiples of 5)
+
+    Args:
+        n_sensors (int):
+            The number of sensors in the deployment group.
+    Returns:
+        n_rows (int):
+            The number of subplot rows.
+        n_cols (int):
+            The number of subplot columns.
     """
     sqr = np.sqrt(n_sensors)
     n_rows = math.floor(sqr)
@@ -103,7 +123,14 @@ def Subplot_Dims(n_sensors):
 
 def Sensor_Subplot_Formatting(number_of_sensors, param, font_size,
                               RH_colormap, report_fmt=False):
-    """
+    """Configure subplot parameters that control the spacing of subplots,
+    number of subplots and dimensions of the Matplotliub axes object array,
+    color bar formatting, etc.
+
+    Args:
+
+    Returns:
+
     """
     Nr, Nc = Subplot_Dims(number_of_sensors)
 
@@ -293,6 +320,18 @@ Plotting subroutines
 def Plot_Error_Bars(xdata, ydata, ax, n_xbins=8, plot_yerror=True,
                     errorbar_c='k'):
     """
+
+    Args:
+        xdata
+        ydata
+        ax
+        b_xbins
+        plot_yerror
+        errorbar_c
+
+    Returns:
+        None
+
     """
     combine = xdata.to_frame().join(ydata)
 
@@ -351,59 +390,58 @@ def Comparison_Plotter(ax, xdata, ydata, param_dict, stats_df=None,
                        monocolor=None, colormap_vals=None, colormap_name=None,
                        fontsize=10, pointsize=2, xlim=(0, 40), ylim=(0, 40),
                        alpha=0.5, empty_plot=False):
-    """
-    A helper function to create comparison scatterplots with linear regressions
+    """A helper function to create comparison scatterplots with linear
+    regressions.
 
-    Parameters
-    ----------
-    ax: Axes instance
-        The axes attributes which are drawn
-    xdata: array
-        The x data
-    ydata: array
-        The y data
-    param_dict: dict
-        Dictionary of kwargs to pass to ax.plot
-    text_pos:
-        2x2 Tuple of float values ((a,b),(c,d)) specifying position
-        of Linear regression equation (a,b) and R^2 value (c,d)
-    plot_one_to_one: boolean
-        True plots the one-to-one dashed line, setting false will not plot the
-        line
-    plot_regression: bool
-        True plots linear regression, regression equation, R^2, and RMSE
-    monocolor: string or none
-        If monocolor is not None, scatterplots will be plotted in the specified
-        color. Else, if colormap is selected, the color of the plots will
-        conform to the colormap, otherwise, the default color scheme is
-        selected.
-    colormap_vals: Dataframe column or none
-        Data that are used to set the colormap value.
-    colormap_name: string or none
-        The name of the colormap which the scatter plot will be assigned
-    plot_text: boolean
-        Defaults to true, text is drawn. Option to turn off text (false)
-    spearman: boolean
-        Conditional statement for plotting spearman correlation coefficient
-        (rho)
-    fontsize: int
-        Selects the fontsize of regression statistics
-    pointsize: float/int
-        Determines the size of the points for the scatter plot, default is 2.
-    xlim: tuple
-      The domain of the graph. Default set to (0,40).
-    ylim: tuple
-      The range of the graph. Default set to (0,40).
+    Args:
+        ax: Axes instance
+            The axes attributes which are drawn
+        xdata: array
+            The x data
+        ydata: array
+            The y data
+        param_dict: dict
+            Dictionary of kwargs to pass to ax.plot
+        text_pos:
+            2x2 Tuple of float values ((a,b),(c,d)) specifying position
+            of Linear regression equation (a,b) and R^2 value (c,d)
+        plot_one_to_one: boolean
+            True plots the one-to-one dashed line, setting false will not plot
+            the line
+        plot_regression: bool
+            True plots linear regression, regression equation, R^2, and RMSE
+        monocolor: string or none
+            If monocolor is not None, scatterplots will be plotted in the
+            specified color. Else, if colormap is selected, the color of the
+            plots will conform to the colormap, otherwise, the default color
+            scheme is selected.
+        colormap_vals: Dataframe column or none
+            Data that are used to set the colormap value.
+        colormap_name: string or none
+            The name of the colormap which the scatter plot will be assigned
+        plot_text: boolean
+            Defaults to true, text is drawn. Option to turn off text (false)
+        spearman: boolean
+            Conditional statement for plotting spearman correlation coefficient
+            (rho)
+        fontsize: int
+            Selects the fontsize of regression statistics
+        pointsize: float/int
+            Determines the size of the points for the scatter plot, default
+            is 2.
+        xlim: tuple
+          The domain of the graph. Default set to (0,40).
+        ylim: tuple
+          The range of the graph. Default set to (0,40).
 
-    Returns
-    -------
-    out:
-        The scatterplot
-    lregression_plt:
-        Linear regression line
-    if plot_one_to_one==True: one_to_one_plot
-        Dashed line with slope equal to unity to illustrate one-to-one
-        correlation
+    Returns:
+        out:
+            The scatterplot
+        lregression_plt:
+            Linear regression line
+        if plot_one_to_one==True: one_to_one_plot
+            Dashed line with slope equal to unity to illustrate one-to-one
+            correlation
 
     """
     detail_fontsize = .85*fontsize
@@ -572,87 +610,92 @@ def Scatter_Plotter(df_list, ref_df, stats_df=None, plot_subset=None,
                     tick_spacing=5, ref_name=None, deploy_dict=None,
                     ax=None, fig=None, report_fmt=False, return_axs=False,
                     empty_plot=False, param_class=None):
-    """
-    Front-end function for creating scatter plots. Calls Comparison_Plotter for
-    lower-end tasks and sets formatting for plots based off passed parameters.
+    """Front-end function for creating scatter plots.
 
-    Parameters
-    ----------
-    df_list: list
-        A list containing the sensor dataframes from which data is plotted
-    ref_df: Pandas Dataframe
-        Reference dataframe
-    stats_df: Pandas Dataframe
-        Regression statistics dataframe for the sensor evaluation set
-    plot_subset: Nonetype or list of strings
-        To plot a subset of evaluated sensors, pass a list of the sensor
-        numbers ('1', '2', '3', etc.) as assigned in the sensor serial
-        dictionary. For example, plotting a subset for sensors '1', '3', and
-        '5' in an evaluation is achieved by passing plot_subset=['1', '3', '5']
-    param: string
-        Column header name for the pollutant values to be plotted
-    sensor_name: string
-        Unformatted sensor name, passed to Formatted_Sensor_Name() for
-        including formatted version on plot
-    figure_path: string
-        Path to directory where the figure will be saved
-    palette: string
-        Color palette assigned to relative-humidity colormapped scatter plot
-        points
-    write_to_file: Boolean
-        If true, writes to file and figure is closed. False skips file writing
-        and does not close the figure
-    xlim: tuple
-        The x-limits of the scatter plot
-    ylim: tuple
-        The y-limits of the scatter plot
-    time_interval: string
-        Either '1-hour' or '24-hour', included in title of plot
-    text_pos: string
-        Determines position of text. Can either pass 'upper_left' or '
-        bottom_right'
-    font_size: int or float
-        The font size for the xlabel, ylabel, and plot text. Passed on to
-        Comparison_Plotter() which uses 0.85*font_size for tick labels.
-        -- Recommend 15 for one sensor, 14 for three sensors, 14 for eight
-        sensors, 13 for nine sensors
-    point_size: int or float
-        The size of the scatterpoint plots
-        -- Recommend ~ 20
-    met_ref_df: Nonetype or Pandas dataframe
-        Reference dataframe for met data. Used as an alternative to sensor met
-        data for plotting colormap of relative humidity on scatterplot points.
-        If passed, the reference met data takes precedence over any existing
-        sensor met data.
-    RH_colormap: Boolean
-        If true, relative humidity values will be used as a colormap on the
-        scatterplot points.
-    tight_layout: Boolean
-        Optional plot with matplotlib's "fig.tight_layout()"
-    plot_title: Boolean
-        True generates a title at the top of the plot
-    fontweight: string
-        Passed on to matplotlib fontweight (accepts 'normal', 'bold', etc.)
-    detection_limited: Boolean
-        Passing true plots data with values below the lower detection limit
-        masked
-    filename_suffix: string
-        Optional string added to end of filename. Defaults to empty string.
-    plot_text: boolean
-        Pass on to underlying Comparison_Plotter function. Defaults to True. If
-        false, text on plots will not be generated.
-    plot_regression: boolean
-        Pass on to underlying Comparison_Plotter function. Defaults to True. If
-        false, regression lines on plots will not be generated.
-    monocolor: string
-        A single color (specified in hex) for scatter plots.
-        Recommend #2251D0 (nice blue hue)
-    param_class: string
-        The parameter classification for the passed parameter to plot. E.g, if
-        param is PM25, param_class = PM; if param is 03, param_class = Gases;
-        if param is Temp, param_class = Met.
-    """
+    Calls Comparison_Plotter for lower-end tasks and sets formatting for plots
+    based off passed parameters.
 
+    Args:
+        df_list: list
+            A list containing the sensor dataframes from which data is plotted
+        ref_df: Pandas Dataframe
+            Reference dataframe
+        stats_df: Pandas Dataframe
+            Regression statistics dataframe for the sensor evaluation set
+        plot_subset: Nonetype or list of strings
+            To plot a subset of evaluated sensors, pass a list of the sensor
+            numbers ('1', '2', '3', etc.) as assigned in the sensor serial
+            dictionary. For example, plotting a subset for sensors '1', '3',
+            and '5' in an evaluation is achieved by passing
+            plot_subset=['1', '3', '5'].
+        param: string
+            Column header name for the pollutant values to be plotted
+        sensor_name: string
+            Unformatted sensor name, passed to Formatted_Sensor_Name() for
+            including formatted version on plot
+        figure_path: string
+            Path to directory where the figure will be saved
+        palette: string
+            Color palette assigned to relative-humidity colormapped scatter
+            plot points
+        write_to_file: Boolean
+            If true, writes to file and figure is closed. False skips file
+            writing and does not close the figure
+        xlim: tuple
+            The x-limits of the scatter plot
+        ylim: tuple
+            The y-limits of the scatter plot
+        time_interval: string
+            Either '1-hour' or '24-hour', included in title of plot
+        text_pos: string
+            Determines position of text. Can either pass 'upper_left' or '
+            bottom_right'
+        font_size: int or float
+            The font size for the xlabel, ylabel, and plot text. Passed on to
+            Comparison_Plotter() which uses 0.85*font_size for tick labels.
+            -- Recommend 15 for one sensor, 14 for three sensors, 14 for eight
+            sensors, 13 for nine sensors
+        point_size: int or float
+            The size of the scatterpoint plots
+            -- Recommend ~ 20
+        met_ref_df: Nonetype or Pandas dataframe
+            Reference dataframe for met data. Used as an alternative to sensor
+            met data for plotting colormap of relative humidity on scatterplot
+            points. If passed, the reference met data takes precedence over
+            any existing sensor met data.
+        RH_colormap: Boolean
+            If true, relative humidity values will be used as a colormap on the
+            scatterplot points.
+        tight_layout: Boolean
+            Optional plot with matplotlib's "fig.tight_layout()"
+        plot_title: Boolean
+            True generates a title at the top of the plot
+        fontweight: string
+            Passed on to matplotlib fontweight (accepts 'normal', 'bold', etc.)
+        detection_limited: Boolean
+            Passing true plots data with values below the lower detection limit
+            masked
+        filename_suffix: string
+            Optional string added to end of filename. Defaults to empty string.
+        plot_text: boolean
+            Pass on to underlying Comparison_Plotter function. Defaults to
+            True. If false, text on plots will not be generated.
+        plot_regression: boolean
+            Pass on to underlying Comparison_Plotter function. Defaults to
+            True. If false, regression lines on plots will not be generated.
+        monocolor: string
+            A single color (specified in hex) for scatter plots.
+            Recommend #2251D0 (nice blue hue)
+        param_class: string
+            The parameter classification for the passed parameter to plot.
+            E.g, if param is PM25, param_class = PM; if param is 03,
+            param_class = Gases;if param is Temp, param_class = Met.
+
+    Returns:
+        If an axis is passed to Scatter_Plotter(), the modified axis with
+        plotting detail filled in will be returned. Otherwise, none will be
+        returned.
+    """
     # Option to supply df_list indicies in list for subset of sensors to plot
     if plot_subset is not None:
         # limit dataframe list and sensor serials to selected sensors
@@ -944,7 +987,7 @@ def Scatter_Plotter(df_list, ref_df, stats_df=None, plot_subset=None,
         # the time_interval variable. In this case, indicate the avg interval
         # in the filename
         if unique_ax_obj is True and report_fmt is False:
-            file_path +=  '_' + time_interval
+            file_path += '_' + time_interval
         if filename_suffix != '':
             file_path = file_path + '_' + filename_suffix
         else:
@@ -974,63 +1017,65 @@ def Sensor_Timeplot(df_list, ref_df, param=None,
                     format_xaxis_weeks=False, figsize=(16, 3.5), ref_name=None,
                     time_interval='1-Hour', return_mpl_obj=True,
                     report_fmt=False, ax=None, fig=None):
-    """
-    Generate a timeplot for a specified pollutant alongside regulatory monitor
+    """Generate a timeplot for a specified pollutant alongside FRM/FEM
     concentration values.
 
-    Parameters
-    ----------
-    df_list: list of dataframes
-        list of Pandas dataframes for evaluated sensors containing 1-hour
-        averaged data.
-    ref_df: Pandas dataframe
-        Reference (regulatory) data, plotted as black line on timeplots
-    param: string
-        Column header name for the pollutant values to be plotted
-    sensor_name: string
-        Unformatted sensor name, passed to Formatted_Sensor_Name() for
-        including formatted version on plot
-    figure_path: string
-        Path to directory where the figure will be saved
-    color_palette: string
-        Color palette assigned to relative-humidity colormapped scatter plot
-        points
-    fontsize: int or float
-        The font size for the xlabel, ylabel, and plot text. Passed on to
-        Comparison_Plotter() which uses 0.85*font_size for tick labels.
-    start_time: string
-        date ('yyyy-mm-dd' format) for beginning of timeseries plot
-    end_time: string
-        date ('yyyy-mm-dd' format) for end of timeseries plot
-    ylim: tuple of floats/ints
-        The y-limits of the plot
-    yscale: string
-        The scaling for the y-axis. Accepted values include 'linear', 'log',
-        'symlog', 'logit', etc.
-    write_to_file: bool
-        If true, figure is written to file and interactive plot is closed
-    date_interval: int
-        Number of days between x-axis tick marks with mm-dd-yy timestamps
-    title: bool
-        To plot or not to plot (the title), that is the question.
-    sensor_serials: Nonetype or dictionary
-        Optional pass sensor serials dictionary to plot sensor serial IDs in
-        the legend instead of numbered sensors.
-    filename_suffix: string
-        Optional string added to end of filename. Defaults to empty string.
-    alpha:
-        Set transparency of sensor and reference timeseries
-    cmap_norm_range:
-        Normalized range (0,1) for colormap hue selection. Limiting this
-        range to something like (0.1, 0.9) is useful when using colormaps with
-        high contrast extrema and a gradual change in hue is desired for plots.
-    legend_fontscale:
-        Relative scale of fontsize for text in the legend relative to label
-        text.
-    format_xaxis_weeks:
-        Plot the timeseries x-axis (time) in increments of 1 week.
-    figsize:
-        Tuple for setting the figure size.
+    Args:
+        df_list: list of dataframes
+            list of Pandas dataframes for evaluated sensors containing 1-hour
+            averaged data.
+        ref_df: Pandas dataframe
+            Reference (regulatory) data, plotted as black line on timeplots
+        param: string
+            Column header name for the pollutant values to be plotted
+        sensor_name: string
+            Unformatted sensor name, passed to Formatted_Sensor_Name() for
+            including formatted version on plot
+        figure_path: string
+            Path to directory where the figure will be saved
+        color_palette: string
+            Color palette assigned to relative-humidity colormapped scatter
+            plot points
+        fontsize: int or float
+            The font size for the xlabel, ylabel, and plot text. Passed on to
+            Comparison_Plotter() which uses 0.85*font_size for tick labels.
+        start_time: string
+            date ('yyyy-mm-dd' format) for beginning of timeseries plot
+        end_time: string
+            date ('yyyy-mm-dd' format) for end of timeseries plot
+        ylim: tuple of floats/ints
+            The y-limits of the plot
+        yscale: string
+            The scaling for the y-axis. Accepted values include 'linear',
+            'log', 'symlog', 'logit', etc.
+        write_to_file: bool
+            If true, figure is written to file and interactive plot is closed
+        date_interval: int
+            Number of days between x-axis tick marks with mm-dd-yy timestamps
+        title: bool
+            To plot or not to plot (the title), that is the question.
+        sensor_serials: Nonetype or dictionary
+            Optional pass sensor serials dictionary to plot sensor serial IDs
+            in the legend instead of numbered sensors.
+        filename_suffix: string
+            Optional string added to end of filename. Defaults to empty string.
+        alpha:
+            Set transparency of sensor and reference timeseries
+        cmap_norm_range:
+            Normalized range (0,1) for colormap hue selection. Limiting this
+            range to something like (0.1, 0.9) is useful when using colormaps
+            with high contrast extrema and a gradual change in hue is desired
+            for plots.
+        legend_fontscale:
+            Relative scale of fontsize for text in the legend relative to label
+            text.
+        format_xaxis_weeks:
+            Plot the timeseries x-axis (time) in increments of 1 week.
+        figsize:
+            Tuple for setting the figure size.
+
+    Returns:
+
     """
 
     # Performance target reporting template formatting for timeseries plots
@@ -1228,8 +1273,12 @@ def Sensor_Timeplot(df_list, ref_df, param=None,
 
 def Ref_Dist_Plot(ref_df, param_name=None, rec_interval='1-hour', fontsize=18,
                   write_to_file=True, figure_path=None, filename_suffix=''):
-    """
-    Plot the distribution of reference values for the passed parameter
+    """Plot the distribution of reference values for the passed parameter.
+
+    Args:
+
+    Returns:
+
     """
     try:
         # Determine name of reference monitor from passed parameter name
@@ -1277,11 +1326,17 @@ def Deployment_Timeline_Plot(deployment_df, cmap_name='Dark2',
                              write_to_file=True, figure_path=None,
                              tight_layout=False):
     """
+
     More details about line 70-82 code on barh rounding at MatPlotLib
     documentation on Fancybox https://matplotlib.org/3.1.1/gallery/
     shapes_and_collections/fancybox_demo.html
 
     Other discrete colormaps: tab10_r, Dark2, Set2_r, tab20b
+
+    Args:
+
+    Returns:
+
     """
     unique_types = sorted(deployment_df['Sensor Name'].unique().tolist())
 
@@ -1383,9 +1438,13 @@ def Stats_Comparison_Plot(stats_df, metric, fontsize=15, cmap_name='Set1',
                           cmap_norm_range=(0, 1), param='PM25', path=None,
                           figsize=(12, 4), write_to_file=True,
                           QC_Cleaning='None', avg_int='Hourly'):
-    """
-    Plot all sensor values for passed metric on same figure to compare
+    """Plot all sensor values for passed metric on same figure to compare
     across device types.
+
+    Args:
+
+    Returns:
+
     """
     # Overall number of devices in stats dataframe
     device_list = sorted(stats_df['Sensor Name'].unique().tolist())
@@ -1566,7 +1625,14 @@ def Stats_Comparison_Plot(stats_df, metric, fontsize=15, cmap_name='Set1',
 
 def Plot_Performance_Metrics(stats_df, deploy_dict, param=None,
                              font_size=12, path=None, sensor_name=None,
-                             write_to_file=True):
+                             write_to_file=True, **kwargs):
+    """
+
+    Args:
+
+    Returns:
+
+    """
     eval_params = ['PM25', 'O3']
     if param not in eval_params:
         sys.exit('Performance metrics and target values not set for ' + param)
@@ -1593,15 +1659,24 @@ def Plot_Performance_Metrics(stats_df, deploy_dict, param=None,
                                 param_stats['Error']['nrmse_' + interval])
 
     # Boxplot fill colors
-    fill_color = ['#80c5c9', '#4ea1c0', '#74bed3', '#88bedc', '#3b748a']
+    default_fill = ['#80c5c9', '#4ea1c0', '#74bed3', '#88bedc', '#3b748a']
+    fill_color = kwargs.get('fill_color', default_fill)
 
-    fig, axs = plt.subplots(1, 7, figsize=(15.7, 3.9))
+    # Marker properties
+    marker = kwargs.get('marker', 'o')
+    marker_size = kwargs.get('marker_size', 7)
+    marker_line_width = kwargs.get('marker_line_width', 1)
+    mean_marker = kwargs.get('mean_marker', 'd')
+
+    fig_width = kwargs.get('figure_width', 15.7)
+    fig_height = kwargs.get('figure_height', 3.9)
+    fig, axs = plt.subplots(1, 7, figsize=(fig_width, fig_height))
 
     n_sensors = stats_df.where((stats_df['Sensor Name'].notna()) &
                                (stats_df['R$^2$'].notna())
                                ).Sensor_Number.nunique()
 
-    for j, i in enumerate(np.linspace(0, 6, 7, dtype=int)):
+    for ax_idx in np.linspace(0, 6, 7, dtype=int):
 
         stats_df = stats_df[['R$^2$',
                              'Slope',
@@ -1612,31 +1687,32 @@ def Plot_Performance_Metrics(stats_df, deploy_dict, param=None,
 
             metric_names = ['R$^2$', 'Slope', 'Intercept', 'RMSE', 'nRMSE',
                             'CV (%)', 'Standard Deviation']
-            metric_name = metric_names[i]
+            metric_name = metric_names[ax_idx]
 
-            if i < 3:
-                axs[j].set_title(stats_df.columns[i], fontsize=font_size)
+            if ax_idx < 3:
+                axs[ax_idx].set_title(stats_df.columns[ax_idx],
+                                      fontsize=font_size)
 
                 if param.startswith('PM'):
                     if n_sensors > 3:
                         sns.boxplot(x='Averaging Interval', y=metric_name,
                                     data=stats_df,
                                     order=['Hourly', 'Daily'],
-                                    ax=axs[j],
+                                    ax=axs[ax_idx],
                                     palette=fill_color,
                                     showmeans=True,
-                                    meanprops={"marker": "d",
+                                    meanprops={"marker": mean_marker,
                                                "markerfacecolor": "#8b8b8b",
                                                'markeredgecolor': '#6f6f6f'})
                     else:
                         sns.swarmplot(x='Averaging Interval', y=metric_name,
                                       data=stats_df,
                                       order=['Hourly', 'Daily'],
-                                      ax=axs[j],
+                                      ax=axs[ax_idx],
                                       palette=fill_color,
-                                      marker='o',
-                                      linewidth=1,
-                                      size=7)
+                                      marker=marker,
+                                      linewidth=marker_line_width,
+                                      size=marker_size)
 
                 if param == 'O3':
                     stats_df = stats_df.where(
@@ -1645,22 +1721,22 @@ def Plot_Performance_Metrics(stats_df, deploy_dict, param=None,
                     if n_sensors > 3:
                         sns.boxplot(x='Averaging Interval', y=metric_name,
                                     data=stats_df,
-                                    ax=axs[j],
+                                    ax=axs[ax_idx],
                                     palette=fill_color,
                                     showmeans=True,
-                                    meanprops={"marker": "d",
+                                    meanprops={"marker": mean_marker,
                                                "markerfacecolor": "#8b8b8b",
                                                'markeredgecolor': '#6f6f6f'})
                     else:
                         sns.swarmplot(x='Averaging Interval', y=metric_name,
                                       data=stats_df,
-                                      ax=axs[j],
+                                      ax=axs[ax_idx],
                                       palette=fill_color,
-                                      marker='o',
-                                      linewidth=1,
-                                      size=7)
+                                      marker=marker,
+                                      linewidth=marker_line_width,
+                                      size=marker_size)
 
-            elif i >= 3:
+            elif ax_idx >= 3:
 
                 if metric_name == 'CV (%)':
                     metric_data = cv_vals
@@ -1686,11 +1762,11 @@ def Plot_Performance_Metrics(stats_df, deploy_dict, param=None,
                     sns.stripplot(x='Averaging Interval', y=metric_name,
                                   data=data_df,
                                   order=['Hourly', 'Daily'],
-                                  ax=axs[j],
-                                  palette=['#73B1B4', '#4690AC'],
-                                  s=7,
-                                  marker='o',
-                                  linewidth=1,
+                                  ax=axs[ax_idx],
+                                  palette=fill_color,
+                                  s=marker_size,
+                                  marker=marker,
+                                  linewidth=marker_line_width,
                                   jitter=False)
 
                 if param == 'O3':
@@ -1700,11 +1776,11 @@ def Plot_Performance_Metrics(stats_df, deploy_dict, param=None,
                     sns.stripplot(x='Averaging Interval',
                                   y=metric_name,
                                   data=data_df,
-                                  ax=axs[j],
-                                  palette=['#73B1B4'],
-                                  s=7,
-                                  marker='o',
-                                  linewidth=1,
+                                  ax=axs[ax_idx],
+                                  palette=fill_color,
+                                  s=marker_size,
+                                  marker=marker,
+                                  linewidth=marker_line_width,
                                   jitter=False)
 
             boxes = []
@@ -1712,13 +1788,32 @@ def Plot_Performance_Metrics(stats_df, deploy_dict, param=None,
             if metric_name == 'R$^2$':
 
                 if param == 'PM25':
-                    ymin, ymax = -0.02, 1.02
-                    hline_y, hline_xmin, hline_xmax = 1.0, -0.50, 1.50
-                    rec_x0, rec_y0, rec_xspan, rec_yspan = -0.5, 0.7, 2.0, 0.3
+                    # Get formatting values
+                    ylims = kwargs.get('rsqr_ylims',
+                                       (-0.02, 1.02))
+                    hline_dims = kwargs.get('rsqr_hline_dims',
+                                            (1.0, -0.50, 1.50))
+                    box_dims = kwargs.get('rsqr_box_dims',
+                                          (-0.5, 0.7, 2.0, 0.3))
+
+                    # Assign to local variables
+                    ymin, ymax = ylims
+                    hline_y, hline_xmin, hline_xmax = hline_dims
+                    rec_x0, rec_y0, rec_xspan, rec_yspan = box_dims
+
                 if param == 'O3':
-                    ymin, ymax = -0.02, 1.02
-                    hline_y, hline_xmin, hline_xmax = 1, -1, 1
-                    rec_x0, rec_y0, rec_xspan, rec_yspan = -1, 0.8, 2.0, 0.2
+                    # Get formatting values
+                    ylims = kwargs.get('rsqr_ylims',
+                                       (-0.02, 1.02))
+                    hline_dims = kwargs.get('rsqr_hline_dims',
+                                            (1, -1, 1))
+                    box_dims = kwargs.get('rsqr_box_dims',
+                                          (-1, 0.8, 2.0, 0.2))
+
+                    # Assign to local variables
+                    ymin, ymax = ylims
+                    hline_y, hline_xmin, hline_xmax = hline_dims
+                    rec_x0, rec_y0, rec_xspan, rec_yspan = box_dims
 
             if metric_name == 'Slope':
                 upper_lim = abs(1.5*stats_df[metric_name]).max()
@@ -1735,13 +1830,32 @@ def Plot_Performance_Metrics(stats_df, deploy_dict, param=None,
                     lower_lim = 1.5*lower_lim
 
                 if param == 'PM25':
-                    ymin, ymax = lower_lim, upper_lim
-                    hline_y, hline_xmin, hline_xmax = 1.0, -0.50, 1.50
-                    rec_x0, rec_y0, rec_xspan, rec_yspan = -0.5, 0.65, 2.0, 0.7
+                    # Get formatting values
+                    ylims = kwargs.get('slope_ylims',
+                                       (lower_lim, upper_lim))
+                    hline_dims = kwargs.get('slope_hline_dims',
+                                            (1.0, -0.50, 1.50))
+                    box_dims = kwargs.get('slope_box_dims',
+                                          (-0.5, 0.65, 2.0, 0.7))
+
+                    # Assign to local variables
+                    ymin, ymax = ylims
+                    hline_y, hline_xmin, hline_xmax = hline_dims
+                    rec_x0, rec_y0, rec_xspan, rec_yspan = box_dims
+
                 if param == 'O3':
-                    ymin, ymax = lower_lim, upper_lim
-                    hline_y, hline_xmin, hline_xmax = 1, -1, 1
-                    rec_x0, rec_y0, rec_xspan, rec_yspan = -1, 0.8, 2.0, 0.4
+                    # Get formatting values
+                    ylims = kwargs.get('slope_ylims',
+                                       (lower_lim, upper_lim))
+                    hline_dims = kwargs.get('slope_hline_dims',
+                                            (1, -1, 1))
+                    box_dims = kwargs.get('slope_box_dims',
+                                          (-1, 0.8, 2.0, 0.4))
+
+                    # Assign to local variables
+                    ymin, ymax = ylims
+                    hline_y, hline_xmin, hline_xmax = hline_dims
+                    rec_x0, rec_y0, rec_xspan, rec_yspan = box_dims
 
             if metric_name == 'Intercept':
                 upper_lim = abs(1.5*stats_df[metric_name]).max()
@@ -1751,14 +1865,33 @@ def Plot_Performance_Metrics(stats_df, deploy_dict, param=None,
 
                 if param == 'PM25':
                     metric_name = r'Intercept ($\mu g/m^3$)'
-                    ymin, ymax = lower_lim, upper_lim
-                    hline_y, hline_xmin, hline_xmax = 0.0, -0.50, 1.50
-                    rec_x0, rec_y0, rec_xspan, rec_yspan = -0.5, -5.0, 2.0, 10
+                    # Get formatting values
+                    ylims = kwargs.get('intercept_ylims',
+                                       (lower_lim, upper_lim))
+                    hline_dims = kwargs.get('intercept_hline_dims',
+                                            (0.0, -0.50, 1.50))
+                    box_dims = kwargs.get('intercept_box_dims',
+                                          (-0.5, -5.0, 2.0, 10))
+
+                    # Assign to local variables
+                    ymin, ymax = ylims
+                    hline_y, hline_xmin, hline_xmax = hline_dims
+                    rec_x0, rec_y0, rec_xspan, rec_yspan = box_dims
+
                 if param == 'O3':
                     metric_name = 'Intercept (ppbv)'
-                    ymin, ymax = lower_lim, upper_lim
-                    hline_y, hline_xmin, hline_xmax = 0, -1, 1
-                    rec_x0, rec_y0, rec_xspan, rec_yspan = -1, -5.0, 2.0, 10
+                    # Get formatting values
+                    ylims = kwargs.get('intercepts_ylims',
+                                       (lower_lim, upper_lim))
+                    hline_dims = kwargs.get('intercept_hline_dims',
+                                            (0, -1, 1))
+                    box_dims = kwargs.get('intercept_box_dims',
+                                          (-1, -5.0, 2.0, 10))
+
+                    # Assign to local variables
+                    ymin, ymax = ylims
+                    hline_y, hline_xmin, hline_xmax = hline_dims
+                    rec_x0, rec_y0, rec_xspan, rec_yspan = box_dims
 
             if metric_name == 'CV (%)':
 
@@ -1768,13 +1901,32 @@ def Plot_Performance_Metrics(stats_df, deploy_dict, param=None,
                     upper_lim = 50
 
                 if param == 'PM25':
-                    ymin, ymax = 0, upper_lim
-                    hline_y, hline_xmin, hline_xmax = 0.35, -0.50, 1.50
-                    rec_x0, rec_y0, rec_xspan, rec_yspan = -0.5, 0.0, 2.0, 30.0
+                    # Get formatting values
+                    ylims = kwargs.get('cv_ylims',
+                                       (0, upper_lim))
+                    hline_dims = kwargs.get('cv_hline_dims',
+                                            (0.35, -0.50, 1.50))
+                    box_dims = kwargs.get('cv_box_dims',
+                                          (-0.5, 0.0, 2.0, 30.0))
+
+                    # Assign to local variables
+                    ymin, ymax = ylims
+                    hline_y, hline_xmin, hline_xmax = hline_dims
+                    rec_x0, rec_y0, rec_xspan, rec_yspan = box_dims
+
                 if param == 'O3':
-                    ymin, ymax = 0, upper_lim
-                    hline_y, hline_xmin, hline_xmax = 0.35, -1, 1
-                    rec_x0, rec_y0, rec_xspan, rec_yspan = -1, 0.0, 2.0, 30.0
+                    # Get formatting values
+                    ylims = kwargs.get('cv_ylims',
+                                       (0, upper_lim))
+                    hline_dims = kwargs.get('cv_hline_dims',
+                                            (0.35, -1, 1))
+                    box_dims = kwargs.get('cv_box_dims',
+                                          (-1, 0.0, 2.0, 30.0))
+
+                    # Assign to local variables
+                    ymin, ymax = ylims
+                    hline_y, hline_xmin, hline_xmax = hline_dims
+                    rec_x0, rec_y0, rec_xspan, rec_yspan = box_dims
 
             if metric_name.endswith('RMSE'):
 
@@ -1785,24 +1937,55 @@ def Plot_Performance_Metrics(stats_df, deploy_dict, param=None,
                         if upper_lim < 50:
                             upper_lim = 50
                         metric_name = r'nRMSE ($\%$)'
-                        ymin, ymax = 0, upper_lim
-                        hline_y, hline_xmin, hline_xmax = 0.35, -0.50, 1.50
-                        rec_x0, rec_y0, rec_xspan, rec_yspan = -0.5, 0, 2, 30
+
+                        # Get formatting values
+                        ylims = kwargs.get('nrmse_ylims',
+                                           (0, upper_lim))
+                        hline_dims = kwargs.get('nrmse_hline_dims',
+                                                ( 0.35, -0.50, 1.50))
+                        box_dims = kwargs.get('nrmse_box_dims',
+                                              (-0.5, 0, 2, 30))
+
+                        # Assign to local variables
+                        ymin, ymax = ylims
+                        hline_y, hline_xmin, hline_xmax = hline_dims
+                        rec_x0, rec_y0, rec_xspan, rec_yspan = box_dims
+
                     if metric_name == 'RMSE':
                         if upper_lim < 10:
                             upper_lim = 10
 
                         metric_name = r'RMSE ($\mu g/m^3$)'
-                        ymin, ymax = 0, upper_lim
-                        hline_y, hline_xmin, hline_xmax = 0.10, -0.50, 1.50
-                        rec_x0, rec_y0, rec_xspan, rec_yspan = -0.5, 0, 2, 7
+
+                        # Get formatting values
+                        ylims = kwargs.get('rmse_ylims',
+                                           (0, upper_lim))
+                        hline_dims = kwargs.get('rmse_hline_dims',
+                                                (0.10, -0.50, 1.50))
+                        box_dims = kwargs.get('rmse_box_dims',
+                                              (-0.5, 0, 2, 7))
+
+                        # Assign to local variables
+                        ymin, ymax = ylims
+                        hline_y, hline_xmin, hline_xmax = hline_dims
+                        rec_x0, rec_y0, rec_xspan, rec_yspan = box_dims
 
                 if param == 'O3':
                     if upper_lim < 10:
                         upper_lim = 10
-                    ymin, ymax = 0, upper_lim
-                    hline_y, hline_xmin, hline_xmax = 0.10, -1, 1
-                    rec_x0, rec_y0, rec_xspan, rec_yspan = -1, 0.0, 2.0, 5.0
+
+                    # Get formatting values
+                    ylims = kwargs.get('rmse_ylims',
+                                       (0, upper_lim))
+                    hline_dims = kwargs.get('rmse_hline_dims',
+                                            (0.10, -1, 1))
+                    box_dims = kwargs.get('rmse_box_dims',
+                                          (-1, 0.0, 2.0, 5.0))
+
+                    # Assign to local variables
+                    ymin, ymax = ylims
+                    hline_y, hline_xmin, hline_xmax = hline_dims
+                    rec_x0, rec_y0, rec_xspan, rec_yspan = box_dims
 
             if metric_name.startswith('Standard Deviation'):
 
@@ -1813,41 +1996,63 @@ def Plot_Performance_Metrics(stats_df, deploy_dict, param=None,
                     upper_lim = 10
 
                 if param == 'PM25':
-                    ymin, ymax = 0, upper_lim
-                    hline_y, hline_xmin, hline_xmax = 0.05, -0.50, 1.50
-                    rec_x0, rec_y0, rec_xspan, rec_yspan = -0.5, 0.0, 2.0, 5.0
+                    # Get formatting values
+                    ylims = kwargs.get('sd_ylims',
+                                       (0, upper_lim))
+                    hline_dims = kwargs.get('sd_hline_dims',
+                                            (0.05, -0.50, 1.50))
+                    box_dims = kwargs.get('sd_box_dims',
+                                          (-0.5, 0.0, 2.0, 5.0))
+
+                    # Assign to local variables
+                    ymin, ymax = ylims
+                    hline_y, hline_xmin, hline_xmax = hline_dims
+                    rec_x0, rec_y0, rec_xspan, rec_yspan = box_dims
+
                 if param == 'O3':
-                    ymin, ymax = 0, upper_lim
-                    hline_y, hline_xmin, hline_xmax = 0.05, -1, 1
-                    rec_x0, rec_y0, rec_xspan, rec_yspan = -1, 0.0, 2.0, 5.0
+                    # Get formatting values
+                    ylims = kwargs.get('sd_ylims',
+                                       (0, upper_lim))
+                    hline_dims = kwargs.get('sd_hline_dims',
+                                            (0.05, -1, 1))
+                    box_dims = kwargs.get('sd_box_dims',
+                                          (-1, 0.0, 2.0, 5.0))
 
-            axs[j].set_title(metric_name, fontsize=font_size)
-            axs[j].set_ylim(ymin, ymax)
+                    # Assign to local variables
+                    ymin, ymax = ylims
+                    hline_y, hline_xmin, hline_xmax = hline_dims
+                    rec_x0, rec_y0, rec_xspan, rec_yspan = box_dims
+
+            axs[ax_idx].set_title(metric_name, fontsize=font_size)
+            axs[ax_idx].set_ylim(ymin, ymax)
             if param == 'PM25':
-                axs[j].set_xlim(-.5, 1.5)
+                axs[ax_idx].set_xlim(-.5, 1.5)
             if param == 'O3':
-                axs[j].set_xlim(-1, 1)
+                axs[ax_idx].set_xlim(-1, 1)
 
-            axs[j].hlines(y=hline_y, xmin=hline_xmin, xmax=hline_xmax,
-                          linewidth=1.5, color='#8b8b8b')
+            axs[ax_idx].hlines(y=hline_y, xmin=hline_xmin,
+                               xmax=hline_xmax, linewidth=1.5,
+                               color=kwargs.get('hline_color', '#8b8b8b'))
             target_rec = Rectangle((rec_x0, rec_y0),
                                    rec_xspan, rec_yspan, color='r')
             boxes.append(target_rec)
 
-            pc = PatchCollection(boxes, facecolor='#8b8b8b', alpha=.3)
-            axs[j].add_collection(pc)
+            pc = PatchCollection(boxes, alpha=.3,
+                                 facecolor=kwargs.get('box_facecolor',
+                                                      '#8b8b8b'))
+            axs[ax_idx].add_collection(pc)
 
-            axs[j].yaxis.set_label_text('')
+            axs[ax_idx].yaxis.set_label_text('')
 
         plt.tight_layout()
-        sns.set(font_scale=1)
+        sns.set(font_scale=kwargs.get('font_scale', 1))
 
-    fig.subplots_adjust(wspace=0.35,
-                        hspace=0.1,
-                        left=0.03,
-                        right=0.97,
-                        top=0.93,
-                        bottom=0.13)
+    fig.subplots_adjust(wspace=kwargs.get('fig_wspace', 0.35),
+                        hspace=kwargs.get('fig_hspace', 0.1),
+                        left=kwargs.get('fig_left', 0.03),
+                        right=kwargs.get('fig_right', 0.97),
+                        top=kwargs.get('fig_top', 0.93),
+                        bottom=kwargs.get('fig_bottom', 0.13))
 
     if write_to_file is True:
         todays_date = Get_Date()
@@ -1859,9 +2064,14 @@ def Plot_Performance_Metrics(stats_df, deploy_dict, param=None,
 
 def Met_Distrib(met_ref_data, figure_path, sensor_name=None,
                 write_to_file=True):
-    """
-    Create distribution plots for meteorological parameters provided in the
+    """Create distribution plots for meteorological parameters provided in the
     passed met_ref_data dataframe.
+
+
+    Args:
+
+    Returns:
+
     """
     fontsize = 10
     detail_fontsize = 0.8*fontsize
@@ -1869,7 +2079,7 @@ def Met_Distrib(met_ref_data, figure_path, sensor_name=None,
     fig, axs = plt.subplots(1, n_var, figsize=(5.15, 2.54))
     fill_color = [['#77529A'], ['#b06c8b'], ['#588ded']]
     plt.suptitle('Evaluation Site Meteorological Conditions\n',
-                 fontsize=fontsize) #'R.M. Young 41382VC'
+                 fontsize=fontsize)  #'R.M. Young 41382VC'
 
     fig.subplots_adjust(wspace=.6,
                         hspace=.3,
@@ -1925,9 +2135,13 @@ def Normalized_Met_Scatter(df_list, ref_df, avg_df, met_ref_df=None,
                            report_fmt=False, fig=None, ax=None,
                            empty_plot=False, custom_adjust=None,
                            return_mpl_obj=False, colors=None):
-    """
-    Plot parameter values normalized by reference values against either
+    """Plot parameter values normalized by reference values against either
     temperature or relative humidity.
+
+    Args:
+
+    Returns:
+
     """
     if met_ref_df[met_param + '_Value'].dropna().empty:
         sys.exit('Reference ' + met_param + ' not found in dataframe')
@@ -2138,6 +2352,13 @@ def Normalized_Met_Scatter(df_list, ref_df, avg_df, met_ref_df=None,
 
 def Met_Scatter_Lims(met_data, met_param, xlims, ylims, serials, eval_param,
                      avg_df):
+    """
+
+    Args:
+
+    Returns:
+
+    """
     # Automatically generate x-axis limits if none specified
     if xlims is None:
         xmax = met_data[met_param + '_Value'].max()
@@ -2177,9 +2398,14 @@ def Met_Scatter_Lims(met_data, met_param, xlims, ylims, serials, eval_param,
 
 def Recording_Interval_Histogram(full_df_list, xmin=-10, xmax=120,
                                  bar_width=2, bar_alpha=.4):
-    """
-    Plot indicating the uneven time delta in sensor data
+    """Plot indicating the uneven time delta in sensor data.
+
     Graphs bar plot of Log(counts) vs. time delta b/w conseq points
+
+    Args:
+
+    Returns:
+
     """
     if len(full_df_list) == 3:
         color_list = ['#1f77b4', '#d62728', '#9467bd']  # blue, red, purple
