@@ -37,14 +37,15 @@ class Setup:
     def __init__(self):
         self.name = None
         self.dtype = None
-        self.param_col_headers = []
+        self.all_col_headers = []
         self.timestamp_col_headers = []
         self.configSensor()
 
     def configSensor(self):
         self.setSensorName()
-        self.setColumnHeaders(col_type='Parameter')
-        self.setParamColumnRenaming()
+        self.setHeaderIndex()
+        self.setColumnHeaders(col_type='')  # Specify all header column names
+        self.setColumnRenaming()
         self.setColumnHeaders(col_type='Timestamp', column_headers=[])
         self.setDateTimeFormat()
         self.setDataType()
@@ -93,14 +94,55 @@ class Setup:
             confirm = self.validateEntry()
         print('')
 
+    def setHeaderIndex(self, print_banner=True):
+        if print_banner:
+            self.printSelectionBanner('Column Header Index',
+                                      options=['..type "None" if no header '
+                                               'columns in recorded sensor '
+                                               'dataset'])
+        valid = False
+        while valid is False:
+            self.header_iloc = input('Enter the row index number for column '
+                                     'headers: ')
+            try:
+                self.header_iloc = int(self.header_iloc)
+            except ValueError:
+                self.header_iloc = self.header_iloc
+
+            if (self.header_iloc != 'None' and
+               type(self.header_iloc) is not int):
+                print('..invalid entry, enter either an integer or "None"')
+            elif self.header_iloc == 'None':
+                self.header_iloc = None
+                valid = True
+            elif type(self.header_iloc) is int:
+                if self.header_iloc < 0:
+                    print('..invalid entry, enter either an integer or "None"')
+                else:
+                    valid = True
+
+        print('Header row index:', str(self.header_iloc))
+        confirm = self.validateEntry()
+        if confirm == 'n':
+            self.setHeaderIndex(print_banner=False)
+        print('')
+
     def setColumnHeaders(self, col_type=None, print_banner=True, i=1,
                          column_headers=[], reset=False):
+        """If col_type is '', specify all column headers. If col_type is
+        'Timestamp', the specified column header names must be in the
+        previously entered list of all column header names.
+        """
         if print_banner:
-
-            self.printSelectionBanner('Set ' + col_type + ' Column Headers',
+            if col_type != '':
+                fmt_col_type = " {:s} ".format(col_type)
+            else:
+                fmt_col_type = ' '
+            self.printSelectionBanner('Set' + fmt_col_type + 'Column Headers',
                                       options=[self.end_str, self.del_str])
 
         col_type = col_type.lower()
+
         i = int(i)
         esc = False
         while esc is False:
@@ -125,19 +167,23 @@ class Setup:
             elif val == '':
                 print('..invalid entry')
             else:
-                if reset is True:
-                    column_headers[i-1] = val
-                    reset = False
+                if col_type == 'timestamp' and val not in self.all_col_headers:
+                    print('..invalid entry, name not in passed list of '
+                          'column headers')
                 else:
-                    column_headers.append(val)
-                i += 1
+                    if reset is True:
+                        column_headers[i-1] = val
+                        reset = False
+                    else:
+                        column_headers.append(val)
+                    i += 1
 
             if esc is True and len(column_headers) == 0:
                 print('..warning, ' + col_type + ' column headers list',
                       ' is empty')
 
-        if col_type == 'parameter':
-            self.param_col_headers = column_headers
+        if col_type == '':
+            self.all_col_headers = column_headers
         else:
             self.timestamp_col_headers = column_headers
 
@@ -154,22 +200,26 @@ class Setup:
                                   reset=True)
         print('')
 
-    def setParamColumnRenaming(self, print_banner=True):
+    def setColumnRenaming(self, print_banner=True):
         if print_banner:
-            self.printSelectionBanner('Configure Parameter Column Renaming',
-                                      options=[self.skip_str,
+            note = ('Note, timestamp columns should be skipped by pressing '
+                    'enter. These columns are assigned as the index during '
+                    'ingestion, and as a result, timestamp columns are '
+                    'redundant and should be dropped.')
+            self.printSelectionBanner('Configure Column Renaming Scheme',
+                                      options=[self.skip_str, note,
                                                'Choose from the followng list',
                                                self.params])
-        self.param_rename_dict = {}
+        self.col_rename_dict = {}
         self.drop_cols = []
-        for col in self.param_col_headers:
+        for col in self.all_col_headers:
             invalid = True
             while invalid is True:
                 val = input('Enter parameter associated with "' + col + '": ')
                 if val == '':
                     self.drop_cols.append(col)
                     print('.."' + col + '" will be dropped')
-                    if self.drop_cols == self.param_col_headers:
+                    if self.drop_cols == self.all_col_headers:
                         print('..warning, all columns will be dropped')
                     invalid = False
                     continue
@@ -179,17 +229,21 @@ class Setup:
                           'above list')
                 else:
                     invalid = False
-                    self.param_rename_dict[col] = val
+                    self.col_rename_dict[col] = val
 
-        print('Configured renaming scheme:', self.param_rename_dict)
+        print('Configured renaming scheme:', self.col_rename_dict)
         confirm = self.validateEntry()
         if confirm == 'n':
-            self.setParamColumnRenaming(print_banner=False)
+            self.setColumnRenaming(print_banner=False)
         print('')
 
     def setDateTimeFormat(self):
+        cite = ('..format code list: https://docs.python.org/3/library/'
+                'datetime.html#strftime-and-strptime-format-codes')
+        epoch = ('..If a timestamp column is formatted as the number of '
+                 'seconds since the Unix epoch (1 Jan. 1970), enter "epoch"')
         self.printSelectionBanner('Configure Timestamp Column Formatting',
-                                  options=[self.skip_str])
+                                  options=[cite, epoch, self.skip_str])
 
         self.time_format_dict = {}
         for col in self.timestamp_col_headers:
@@ -237,8 +291,9 @@ class Setup:
         # check if sensor-specific subfolder exists
         #if not os.path.exists(self.stats_path):
         #    os.makedirs(self.stats_path)
-
-        with open('test_setup.json', 'w') as outfile:
+        self.name
+        print('..writing setup configuration to ' + self.name + '_setup.json')
+        with open(self.name + '_setup.json', 'w') as outfile:
             self.config_dict = json.dumps(self.config_dict, indent=4)
             outfile.write(self.config_dict)
 
