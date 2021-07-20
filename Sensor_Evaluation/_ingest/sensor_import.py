@@ -17,6 +17,7 @@ import pandas as pd
 import os
 import sys
 from Sensor_Evaluation._analysis.time_averaging import Sensor_Averaging
+from Sensor_Evaluation._ingest.standardized_ingest import Ingest
 from Sensor_Evaluation._ingest.processed_data_loader import Processed_Data_Search
 from Sensor_Evaluation._analysis.dewpoint import Dewpoint
 
@@ -217,14 +218,21 @@ def Ingest_Wrapper(cwd, sensor_name, serial):
             Sensor dataframe imported and processed via the appropriate
             ingestion module.
     """
+    # If setup json exists for particular sensor, use standard ingest module
+    setup_path = os.path.abspath(cwd + '../../../' + sensor_name
+                                 + '_setup.json')
 
-    if sensor_name == 'Example_Make_Model':
-        return Ingest_Example_Make_Model(cwd)
+    if os.path.exists(setup_path):
+        return Ingest(cwd, name=sensor_name, setup_file_path=setup_path)
 
-    if sensor_name == 'Sensit_RAMP':
+    # Otherwise, use sensor-specific ingestion modules
+#    elif sensor_name == 'Example_Make_Model':
+#        return Ingest_Example_Make_Model(cwd)
+
+    elif sensor_name == 'Sensit_RAMP':
         return Ingest_Sensit_RAMP(cwd)
 
-    if sensor_name == 'PurpleAir_PAII':
+    elif sensor_name == 'PurpleAir_PAII':
         # assuming Thingspeak API dataset
         return Ingest_PurpleAir_PAII(cwd, serial)
 
