@@ -16,6 +16,7 @@ Last Updated:
 import json
 import pandas as pd
 import sys
+from datetime import datetime
 
 
 def Ingest(path, name=None, setup_file_path=None):
@@ -37,7 +38,6 @@ def Ingest(path, name=None, setup_file_path=None):
             Dataframe containing sensor data in standardized formatting for
             datetime index and header naming scheme.
     """
-    # Will need to decide on where the json should go, modify path accordingly
     with open(setup_file_path) as file:
         setup = json.load(file)
         file.close()
@@ -62,7 +62,7 @@ def Ingest(path, name=None, setup_file_path=None):
     if df.columns.all() != setup['all_col_headers']:
         df.columns = setup['all_col_headers']
 
-        # Set Datetime Index
+    # Set Datetime Index
     df['DateTime_UTC'] = df[idx_list].astype(str).apply(''.join, axis=1)
     time_format = ''.join(idx_format_dict.values())
 
@@ -73,11 +73,21 @@ def Ingest(path, name=None, setup_file_path=None):
     else:
         unit = None
 
+    # Since non-zero padded timestamp formatting depends on the platform, use
+    # the strptime module to parse timestamps into standard formatting
+    if '%-' or '%#' in time_format:
+        print('..Non-zero padded formatting encountered in timeseries, '
+              'attempting to conform')
+        time_format = time_format.replace('%-', '%').replace('%#', '%')
+        df['DateTime_UTC'] = df['DateTime_UTC'].apply(
+                                lambda x: datetime.strptime(x, time_format))
+        time_format = '%Y-%m-%d %H:%M:%S'
+
     # Convert the DateTime_UTC column to time-like data format and set as index
+    # If errors encountered (timestamps cant be parsed), 'coerce' will set NaT
     df['DateTime_UTC'] = pd.to_datetime(df['DateTime_UTC'],
                                         format=time_format,
                                         unit=unit,
-                                        # sets NaT if timestamps cant be parsed
                                         errors='coerce')
     df = df.set_index(df['DateTime_UTC'])
     df = df.sort_index(ascending=True)
@@ -98,40 +108,15 @@ def Ingest(path, name=None, setup_file_path=None):
 
     return df
 
+
 """
-data_path = ('C:/Users/SFREDE01/OneDrive - Environmental Protection Agency'
-             ' (EPA)/Profile/Documents/Public_Sensor_Evaluation/'
-             'Data and Figures/sensor_data/Example_Make_Model/raw_data/'
-             'Example_Make_Model_SN01_raw.csv')
-
-df = Ingest(path=data_path, name='Example_Make_Model')
-
-
-from setup import Setup
-ramp_setup = Setup()
-
-data_path = "C:/Users/SFREDE01/OneDrive - Environmental Protection Agency (EPA)\Profile/Documents/Public_Sensor_Evaluation/Data and Figures/sensor_data/Sensit_RAMP/raw_data/20190610_Data Collection/SN0182/NC_RAM_08_190530.TXT"
-df = Ingest(path=data_path, name='Sensit_RAMP')
-
-
-path = ("C:/Users/SFREDE01/OneDrive - Environmental Protection Agency (EPA)/Profile/Documents/AIRS Project/AIRS Evaluation/Sensor_Raw_Data/APT_Maxima/20190322_Data Collection/SN03/NC_MAX_02_190322_raw.CSV")
-df = pd.read_csv(path, header=1)
-
-df = Ingest(path=path, name='APT_Maxima')
-maxima_setup = Setup()
-
-path = "C:/Users/SFREDE01/OneDrive - Environmental Protection Agency (EPA)/Profile/Documents/AIRS Project/AIRS Evaluation/Sensor_Raw_Data/IQAir_AirVisual_Pro/20200108 Data Collection/AirVis_99x_01082020_AIRS_raw.csv"
-df = pd.read_csv(path, header=0)
-avp_setup = Setup()
-df = Ingest(path=path, name='IQAir_AirVisual_Pro')
-"""
-
-data_path = 'C:/Users/SFREDE01/OneDrive - Environmental Protection Agency (EPA)/Profile/Documents/AIRS Project/AIRS Evaluation/Sensor_Raw_Data/Vaisala_AQT420/'
-setup_path = "C:/Users/SFREDE01/OneDrive - Environmental Protection Agency (EPA)/Profile/Documents/Public_Sensor_Evaluation/User_Scripts/sensor setup files/Vaisala_AQT420_setup.json"
+import os
+data_path = 'C:/Users/SFREDE01/OneDrive - Environmental Protection Agency (EPA)/Profile/Documents/AIRS Project/AIRS Evaluation/Sensor_Raw_Data/Myriad_PocketLab/20210419 Data Collection/Data/E0/'
+setup_path = "C:/Users/SFREDE01/OneDrive - Environmental Protection Agency (EPA)/Profile/Documents/Public_Sensor_Evaluation/User_Scripts/sensor setup files/Myriad_PocketLab_setup.json"
 df_list = []
 for filename in os.listdir(data_path):
     print(filename)
     df = Ingest(path=data_path + '/' + filename,
-                name='Vaisala_AQT420', setup_file_path=setup_path)
+                name='Myriad_PocketLab', setup_file_path=setup_path)
     df_list.append(df)
-
+"""
