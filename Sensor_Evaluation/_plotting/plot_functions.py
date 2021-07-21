@@ -1624,6 +1624,7 @@ def Stats_Comparison_Plot(stats_df, metric, fontsize=15, cmap_name='Set1',
 
 
 def Plot_Performance_Metrics(stats_df, deploy_dict, param=None,
+                             param_averaging=None,
                              font_size=12, path=None, sensor_name=None,
                              write_to_file=True, **kwargs):
     """
@@ -1633,33 +1634,39 @@ def Plot_Performance_Metrics(stats_df, deploy_dict, param=None,
     Returns:
 
     """
+    sns.set_style('darkgrid')
+
     eval_params = ['PM25', 'O3']
     if param not in eval_params:
         sys.exit('Performance metrics and target values not set for ' + param)
 
-    sns.set_style('darkgrid')
+    cv_vals =  {interval: [] for interval in param_averaging}
+    std_vals = {interval: [] for interval in param_averaging}
+    rmse_vals = {interval: [] for interval in param_averaging}
+    nrmse_vals = {interval: [] for interval in param_averaging}
 
-    cv_vals = {'hourly': [], 'daily': []}
-    std_vals = {'hourly': [], 'daily': []}
-    rmse_vals = {'hourly': [], 'daily': []}
-    nrmse_vals = {'hourly': [], 'daily': []}
+    interval_to_freq = {'1-hour': 'Hourly',
+                         '24-hour': 'Daily'}
 
-    # Extract hourly and daily metric values into metric dictionaries
+    # List of frequencies ('Hourly, Daily') for specified parameter
+    param_freq = [interval_to_freq[interval] for interval in param_averaging]
+
+    # Extract metric values into metric dictionaries
     for group in deploy_dict['Deployment Groups']:
         param_stats = deploy_dict['Deployment Groups'][group][param]
-
-        for interval in ['hourly', 'daily']:
+        for interval in param_averaging:
+            freq = interval_to_freq[interval].lower()
             cv_vals[interval].append(
-                                param_stats['Precision']['cv_' + interval])
+                                param_stats['Precision']['cv_' + freq])
             std_vals[interval].append(
-                                param_stats['Precision']['std_' + interval])
+                                param_stats['Precision']['std_' + freq])
             rmse_vals[interval].append(
-                                param_stats['Error']['rmse_' + interval])
+                                param_stats['Error']['rmse_' + freq])
             nrmse_vals[interval].append(
-                                param_stats['Error']['nrmse_' + interval])
+                                param_stats['Error']['nrmse_' + freq])
 
     # Boxplot fill colors
-    default_fill = ['#80c5c9', '#4ea1c0', '#74bed3', '#88bedc', '#3b748a']
+    default_fill = ['#80c5c9', '#4ea1c0']
     fill_color = kwargs.get('fill_color', default_fill)
 
     # Marker properties
@@ -1678,10 +1685,10 @@ def Plot_Performance_Metrics(stats_df, deploy_dict, param=None,
 
     for ax_idx in np.linspace(0, 6, 7, dtype=int):
 
-        stats_df = stats_df[['R$^2$',
-                             'Slope',
-                             'Intercept',
+        stats_df = stats_df[['R$^2$','Slope','Intercept',
                              'Averaging Interval']]
+        stats_df = stats_df.where(
+                            stats_df['Averaging Interval'].isin(param_freq))
 
         with sns.plotting_context(context="notebook", font_scale=1):
 
@@ -1693,48 +1700,25 @@ def Plot_Performance_Metrics(stats_df, deploy_dict, param=None,
                 axs[ax_idx].set_title(stats_df.columns[ax_idx],
                                       fontsize=font_size)
 
-                if param.startswith('PM'):
-                    if n_sensors > 3:
-                        sns.boxplot(x='Averaging Interval', y=metric_name,
-                                    data=stats_df,
-                                    order=['Hourly', 'Daily'],
-                                    ax=axs[ax_idx],
-                                    palette=fill_color,
-                                    showmeans=True,
-                                    meanprops={"marker": mean_marker,
-                                               "markerfacecolor": "#8b8b8b",
-                                               'markeredgecolor': '#6f6f6f'})
-                    else:
-                        sns.swarmplot(x='Averaging Interval', y=metric_name,
-                                      data=stats_df,
-                                      order=['Hourly', 'Daily'],
-                                      ax=axs[ax_idx],
-                                      palette=fill_color,
-                                      marker=marker,
-                                      linewidth=marker_line_width,
-                                      size=marker_size)
-
-                if param == 'O3':
-                    stats_df = stats_df.where(
-                                    stats_df['Averaging Interval'] == 'Hourly')
-
-                    if n_sensors > 3:
-                        sns.boxplot(x='Averaging Interval', y=metric_name,
-                                    data=stats_df,
-                                    ax=axs[ax_idx],
-                                    palette=fill_color,
-                                    showmeans=True,
-                                    meanprops={"marker": mean_marker,
-                                               "markerfacecolor": "#8b8b8b",
-                                               'markeredgecolor': '#6f6f6f'})
-                    else:
-                        sns.swarmplot(x='Averaging Interval', y=metric_name,
-                                      data=stats_df,
-                                      ax=axs[ax_idx],
-                                      palette=fill_color,
-                                      marker=marker,
-                                      linewidth=marker_line_width,
-                                      size=marker_size)
+                if n_sensors > 3:
+                    sns.boxplot(x='Averaging Interval', y=metric_name,
+                                data=stats_df,
+                                order=param_freq,
+                                ax=axs[ax_idx],
+                                palette=fill_color,
+                                showmeans=True,
+                                meanprops={"marker": mean_marker,
+                                           "markerfacecolor": "#8b8b8b",
+                                           'markeredgecolor': '#6f6f6f'})
+                else:
+                    sns.swarmplot(x='Averaging Interval', y=metric_name,
+                                  data=stats_df,
+                                  order=param_freq,
+                                  ax=axs[ax_idx],
+                                  palette=fill_color,
+                                  marker=marker,
+                                  linewidth=marker_line_width,
+                                  size=marker_size)
 
             elif ax_idx >= 3:
 
@@ -1747,41 +1731,18 @@ def Plot_Performance_Metrics(stats_df, deploy_dict, param=None,
                 if metric_name == 'nRMSE':
                     metric_data = nrmse_vals
 
-                if param.startswith('PM'):
+                data_df = pd.DataFrame(metric_data).T.reset_index()
+                data_df.columns = ['Averaging Interval', metric_name]
 
-                    hrly_df = pd.DataFrame({metric_name:
-                                            metric_data['hourly']})
-                    hrly_df['Averaging Interval'] = 'Hourly'
-
-                    daily_df = pd.DataFrame({metric_name:
-                                             metric_data['daily']})
-                    daily_df['Averaging Interval'] = 'Daily'
-
-                    data_df = hrly_df.append(daily_df)
-
-                    sns.stripplot(x='Averaging Interval', y=metric_name,
-                                  data=data_df,
-                                  order=['Hourly', 'Daily'],
-                                  ax=axs[ax_idx],
-                                  palette=fill_color,
-                                  s=marker_size,
-                                  marker=marker,
-                                  linewidth=marker_line_width,
-                                  jitter=False)
-
-                if param == 'O3':
-                    data_df = pd.DataFrame({metric_name:
-                                            metric_data['hourly']})
-                    data_df['Averaging Interval'] = 'Hourly'
-                    sns.stripplot(x='Averaging Interval',
-                                  y=metric_name,
-                                  data=data_df,
-                                  ax=axs[ax_idx],
-                                  palette=fill_color,
-                                  s=marker_size,
-                                  marker=marker,
-                                  linewidth=marker_line_width,
-                                  jitter=False)
+                sns.stripplot(x='Averaging Interval', y=metric_name,
+                              data=data_df,
+                              order=param_averaging,
+                              ax=axs[ax_idx],
+                              palette=fill_color,
+                              s=marker_size,
+                              marker=marker,
+                              linewidth=marker_line_width,
+                              jitter=False)
 
             boxes = []
 
@@ -1796,11 +1757,6 @@ def Plot_Performance_Metrics(stats_df, deploy_dict, param=None,
                     box_dims = kwargs.get('rsqr_box_dims',
                                           (-0.5, 0.7, 2.0, 0.3))
 
-                    # Assign to local variables
-                    ymin, ymax = ylims
-                    hline_y, hline_xmin, hline_xmax = hline_dims
-                    rec_x0, rec_y0, rec_xspan, rec_yspan = box_dims
-
                 if param == 'O3':
                     # Get formatting values
                     ylims = kwargs.get('rsqr_ylims',
@@ -1810,10 +1766,10 @@ def Plot_Performance_Metrics(stats_df, deploy_dict, param=None,
                     box_dims = kwargs.get('rsqr_box_dims',
                                           (-1, 0.8, 2.0, 0.2))
 
-                    # Assign to local variables
-                    ymin, ymax = ylims
-                    hline_y, hline_xmin, hline_xmax = hline_dims
-                    rec_x0, rec_y0, rec_xspan, rec_yspan = box_dims
+                # Assign to local variables
+                ymin, ymax = ylims
+                hline_y, hline_xmin, hline_xmax = hline_dims
+                rec_x0, rec_y0, rec_xspan, rec_yspan = box_dims
 
             if metric_name == 'Slope':
                 upper_lim = abs(1.5*stats_df[metric_name]).max()
@@ -1838,11 +1794,6 @@ def Plot_Performance_Metrics(stats_df, deploy_dict, param=None,
                     box_dims = kwargs.get('slope_box_dims',
                                           (-0.5, 0.65, 2.0, 0.7))
 
-                    # Assign to local variables
-                    ymin, ymax = ylims
-                    hline_y, hline_xmin, hline_xmax = hline_dims
-                    rec_x0, rec_y0, rec_xspan, rec_yspan = box_dims
-
                 if param == 'O3':
                     # Get formatting values
                     ylims = kwargs.get('slope_ylims',
@@ -1852,10 +1803,10 @@ def Plot_Performance_Metrics(stats_df, deploy_dict, param=None,
                     box_dims = kwargs.get('slope_box_dims',
                                           (-1, 0.8, 2.0, 0.4))
 
-                    # Assign to local variables
-                    ymin, ymax = ylims
-                    hline_y, hline_xmin, hline_xmax = hline_dims
-                    rec_x0, rec_y0, rec_xspan, rec_yspan = box_dims
+                # Assign to local variables
+                ymin, ymax = ylims
+                hline_y, hline_xmin, hline_xmax = hline_dims
+                rec_x0, rec_y0, rec_xspan, rec_yspan = box_dims
 
             if metric_name == 'Intercept':
                 upper_lim = abs(1.5*stats_df[metric_name]).max()
@@ -1873,11 +1824,6 @@ def Plot_Performance_Metrics(stats_df, deploy_dict, param=None,
                     box_dims = kwargs.get('intercept_box_dims',
                                           (-0.5, -5.0, 2.0, 10))
 
-                    # Assign to local variables
-                    ymin, ymax = ylims
-                    hline_y, hline_xmin, hline_xmax = hline_dims
-                    rec_x0, rec_y0, rec_xspan, rec_yspan = box_dims
-
                 if param == 'O3':
                     metric_name = 'Intercept (ppbv)'
                     # Get formatting values
@@ -1888,10 +1834,10 @@ def Plot_Performance_Metrics(stats_df, deploy_dict, param=None,
                     box_dims = kwargs.get('intercept_box_dims',
                                           (-1, -5.0, 2.0, 10))
 
-                    # Assign to local variables
-                    ymin, ymax = ylims
-                    hline_y, hline_xmin, hline_xmax = hline_dims
-                    rec_x0, rec_y0, rec_xspan, rec_yspan = box_dims
+                # Assign to local variables
+                ymin, ymax = ylims
+                hline_y, hline_xmin, hline_xmax = hline_dims
+                rec_x0, rec_y0, rec_xspan, rec_yspan = box_dims
 
             if metric_name == 'CV (%)':
 
@@ -1909,11 +1855,6 @@ def Plot_Performance_Metrics(stats_df, deploy_dict, param=None,
                     box_dims = kwargs.get('cv_box_dims',
                                           (-0.5, 0.0, 2.0, 30.0))
 
-                    # Assign to local variables
-                    ymin, ymax = ylims
-                    hline_y, hline_xmin, hline_xmax = hline_dims
-                    rec_x0, rec_y0, rec_xspan, rec_yspan = box_dims
-
                 if param == 'O3':
                     # Get formatting values
                     ylims = kwargs.get('cv_ylims',
@@ -1923,10 +1864,10 @@ def Plot_Performance_Metrics(stats_df, deploy_dict, param=None,
                     box_dims = kwargs.get('cv_box_dims',
                                           (-1, 0.0, 2.0, 30.0))
 
-                    # Assign to local variables
-                    ymin, ymax = ylims
-                    hline_y, hline_xmin, hline_xmax = hline_dims
-                    rec_x0, rec_y0, rec_xspan, rec_yspan = box_dims
+                # Assign to local variables
+                ymin, ymax = ylims
+                hline_y, hline_xmin, hline_xmax = hline_dims
+                rec_x0, rec_y0, rec_xspan, rec_yspan = box_dims
 
             if metric_name.endswith('RMSE'):
 
@@ -1946,11 +1887,6 @@ def Plot_Performance_Metrics(stats_df, deploy_dict, param=None,
                         box_dims = kwargs.get('nrmse_box_dims',
                                               (-0.5, 0, 2, 30))
 
-                        # Assign to local variables
-                        ymin, ymax = ylims
-                        hline_y, hline_xmin, hline_xmax = hline_dims
-                        rec_x0, rec_y0, rec_xspan, rec_yspan = box_dims
-
                     if metric_name == 'RMSE':
                         if upper_lim < 10:
                             upper_lim = 10
@@ -1965,11 +1901,6 @@ def Plot_Performance_Metrics(stats_df, deploy_dict, param=None,
                         box_dims = kwargs.get('rmse_box_dims',
                                               (-0.5, 0, 2, 7))
 
-                        # Assign to local variables
-                        ymin, ymax = ylims
-                        hline_y, hline_xmin, hline_xmax = hline_dims
-                        rec_x0, rec_y0, rec_xspan, rec_yspan = box_dims
-
                 if param == 'O3':
                     if upper_lim < 10:
                         upper_lim = 10
@@ -1982,10 +1913,10 @@ def Plot_Performance_Metrics(stats_df, deploy_dict, param=None,
                     box_dims = kwargs.get('rmse_box_dims',
                                           (-1, 0.0, 2.0, 5.0))
 
-                    # Assign to local variables
-                    ymin, ymax = ylims
-                    hline_y, hline_xmin, hline_xmax = hline_dims
-                    rec_x0, rec_y0, rec_xspan, rec_yspan = box_dims
+                # Assign to local variables
+                ymin, ymax = ylims
+                hline_y, hline_xmin, hline_xmax = hline_dims
+                rec_x0, rec_y0, rec_xspan, rec_yspan = box_dims
 
             if metric_name.startswith('Standard Deviation'):
 
@@ -2004,11 +1935,6 @@ def Plot_Performance_Metrics(stats_df, deploy_dict, param=None,
                     box_dims = kwargs.get('sd_box_dims',
                                           (-0.5, 0.0, 2.0, 5.0))
 
-                    # Assign to local variables
-                    ymin, ymax = ylims
-                    hline_y, hline_xmin, hline_xmax = hline_dims
-                    rec_x0, rec_y0, rec_xspan, rec_yspan = box_dims
-
                 if param == 'O3':
                     # Get formatting values
                     ylims = kwargs.get('sd_ylims',
@@ -2018,10 +1944,10 @@ def Plot_Performance_Metrics(stats_df, deploy_dict, param=None,
                     box_dims = kwargs.get('sd_box_dims',
                                           (-1, 0.0, 2.0, 5.0))
 
-                    # Assign to local variables
-                    ymin, ymax = ylims
-                    hline_y, hline_xmin, hline_xmax = hline_dims
-                    rec_x0, rec_y0, rec_xspan, rec_yspan = box_dims
+                # Assign to local variables
+                ymin, ymax = ylims
+                hline_y, hline_xmin, hline_xmax = hline_dims
+                rec_x0, rec_y0, rec_xspan, rec_yspan = box_dims
 
             axs[ax_idx].set_title(metric_name, fontsize=font_size)
             axs[ax_idx].set_ylim(ymin, ymax)
