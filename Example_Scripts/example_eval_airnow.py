@@ -21,9 +21,17 @@ if lib_path not in sys.path:
 import Sensor_Evaluation as se
 from Sensor_Evaluation.sensor_eval_class import SensorEvaluation
 
+
+#  ----------------------------------------------------------------------------
+#   Construct file structure for sensor, specify ingestion formatting scheme
+#  ----------------------------------------------------------------------------
 # Run the next line of code to create sub-dirs for sensor data, figures, etc.
-#se.Create_Sensor_Directories(name='New_Sensor_Make_Model',
-#                             eval_params=['PM25', 'O3'])
+se.Create_Sensor_Directories(name='New_Sensor_Make_Model',
+                             eval_params=['PM25', 'O3'])
+
+# Run the next line of code to configure the formatting scheme for converting
+# recorded sensor data to a standardized format utilized by SensorEvaluation
+IngestionConfig = se.Setup()
 
 #  ----------------------------------------------------------------------------
 #   Instantiate the SensorEvaluation class
@@ -52,6 +60,7 @@ Eval = SensorEvaluation(sensor_name='Example_Make_Model',
 #  ----------------------------------------------------------------------------
 #   Testing statisitics and plots for the example evaluation
 #  ----------------------------------------------------------------------------
+
 # Print performance target evaluation results to console
 Eval.print_eval_metrics(avg_interval='Hourly')
 Eval.print_eval_metrics(avg_interval='Daily')

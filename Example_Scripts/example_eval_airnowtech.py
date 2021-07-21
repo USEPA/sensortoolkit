@@ -22,44 +22,34 @@ if lib_path not in sys.path:
 import Sensor_Evaluation as se
 from Sensor_Evaluation.sensor_eval_class import SensorEvaluation
 
-# Run the next line of code to create sub-dirs for sensor data, figures, etc.
-#se.Create_Sensor_Directories(name='New_Sensor_Make_Model',
-#                             eval_params=['PM25', 'O3'])
 
-ref_path = os.path.abspath(lib_path + '/Data and Figures/reference_data')
-ref_path = pathlib.PureWindowsPath(ref_path)
+#  ----------------------------------------------------------------------------
+#   Construct file structure for sensor, specify ingestion formatting scheme
+#  ----------------------------------------------------------------------------
+# Run the next line of code to create sub-dirs for sensor data, figures, etc.
+se.Create_Sensor_Directories(name='New_Sensor_Make_Model',
+                             eval_params=['PM25', 'O3'])
+
+# Run the next line of code to configure the formatting scheme for converting
+# recorded sensor data to a standardized format utilized by SensorEvaluation
+IngestionConfig = se.Setup()
 
 #  ----------------------------------------------------------------------------
 #   Prepare the reference datasets and instantiate the SensorEvaluation class
 #  ----------------------------------------------------------------------------
 # Pre-process AirNowTech files, create separate, monthly files for PM, gas, met
-#filename = 'AirNowTech_BurdensCreek_20190801_20190902_PMGasMet.csv'
-#airnowtech_path = (ref_path.as_posix()
-#                   + '/airnowtech/downloaded_datasets/' + filename)
-#se.Import_AirNowTech(airnowtech_path)
+ref_path = os.path.abspath(lib_path + '/Data and Figures/reference_data')
+ref_path = pathlib.PureWindowsPath(ref_path)
+filename = 'AirNowTech_BurdensCreek_20190801_20190902_PMGasMet.csv'
+airnowtech_path = (ref_path.as_posix()
+                   + '/airnowtech/downloaded_datasets/' + filename)
+se.Import_AirNowTech(airnowtech_path)
 
+
+#  ----------------------------------------------------------------------------
+#   Instantiate the SensorEvaluation class
+#  ----------------------------------------------------------------------------
 # Mock evaluation using AIRS reference data downloaded from AirNowTech
-
-
-# Testing organization information
-testing_org = {'Deployment number': 'Deployment #1',
-               'Org name': ['U.S. Environmental Protection Agency',
-                            'Office of Research and Development'],
-               'Website': {'website name': 'Air Sensor Toolbox | U.S. EPA Website',
-                           'website link': 'https://www.epa.gov/air-sensor-toolbox/'
-                                           'evaluation-emerging-air-sensor-performance'},
-               'Contact email': 'PI: Clements.Andrea@epa.gov',
-               'Contact phone': '919-541-1364'}
-
-# Testing location information
-testing_loc = {'Site name': 'Ambient Monitoring Innovative '
-                            'Research Station (AIRS) ',
-               'Site address': 'Research Triangle Park, NC',
-               'Site lat': '35.889510N',
-               'Site long': '-78.874572W',
-               'Site AQS ID': '37 – 063 – 0099'}
-
-
 Eval = SensorEvaluation(
                 sensor_name='Example_Make_Model',
                 eval_param='PM25',
@@ -69,14 +59,13 @@ Eval = SensorEvaluation(
                          '3': 'SN03'},
                 tzone_shift=5,
                 load_raw_data=False,
-                write_to_file=False,
-                testing_org=testing_org,  # keyword arguments
-                testing_loc=testing_loc)
+                write_to_file=False)
 
 
 #  ----------------------------------------------------------------------------
 #   Testing statisitics and plots for the example evaluation
 #  ----------------------------------------------------------------------------
+
 # Print performance target evaluation results to console
 Eval.print_eval_metrics(avg_interval='Hourly')
 Eval.print_eval_metrics(avg_interval='Daily')

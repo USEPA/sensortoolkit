@@ -13,19 +13,30 @@ Created:
 Last Updated:
   Thu Jun 24 11:24:00 2021
 """
-
 import os
 import pathlib
 import sys
 lib_path = os.path.abspath(__file__ + '../../..')
 if lib_path not in sys.path:
     sys.path.append(lib_path)
+import SensorEvaluation as se
 from Reports.performance_report import PerformanceReport
 
-# Run the next line of code to create sub-dirs for sensor data, figures, etc.
-#se.Create_Sensor_Directories(name='New_Sensor_Make_Model',
-#                             eval_params=['PM25', 'O3'])
 
+#  ----------------------------------------------------------------------------
+#   Construct file structure for sensor, specify ingestion formatting scheme
+#  ----------------------------------------------------------------------------
+# Run the next line of code to create sub-dirs for sensor data, figures, etc.
+se.Create_Sensor_Directories(name='New_Sensor_Make_Model',
+                             eval_params=['PM25', 'O3'])
+
+# Run the next line of code to configure the formatting scheme for converting
+# recorded sensor data to a standardized format utilized by SensorEvaluation
+IngestionConfig = se.Setup()
+
+#  ----------------------------------------------------------------------------
+#   Specify path to reference data, testing organization/location details
+#  ----------------------------------------------------------------------------
 ref_path = os.path.abspath(lib_path + '/Data and Figures/reference_data')
 ref_path = pathlib.PureWindowsPath(ref_path)
 
@@ -47,7 +58,9 @@ testing_loc = {'Site name': 'Ambient Monitoring Innovative '
                'Site long': '-78.874572W',
                'Site AQS ID': '37 – 063 – 0099'}
 
-# Instantiate the PerformanceReport class for the example sensor dataset
+#  ----------------------------------------------------------------------------
+#   Instantiate the PerformanceReport class for the example sensor dataset
+#  ----------------------------------------------------------------------------
 test_report = PerformanceReport(
                 sensor_name='Example_Make_Model',
                 eval_param='PM25',
