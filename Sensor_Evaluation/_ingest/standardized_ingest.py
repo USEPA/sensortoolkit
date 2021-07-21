@@ -57,7 +57,12 @@ def Ingest(path, name=None, setup_file_path=None):
         # Put other pandas read functions here
         sys.exit()
 
-    # Set Datetime Index
+    # If the header row loads on a row of data (may be intentional if
+    # formatting for first row is unusual and doesnt follow delimited format).
+    if df.columns.all() != setup['all_col_headers']:
+        df.columns = setup['all_col_headers']
+
+        # Set Datetime Index
     df['DateTime_UTC'] = df[idx_list].astype(str).apply(''.join, axis=1)
     time_format = ''.join(idx_format_dict.values())
 
@@ -71,16 +76,22 @@ def Ingest(path, name=None, setup_file_path=None):
     # Convert the DateTime_UTC column to time-like data format and set as index
     df['DateTime_UTC'] = pd.to_datetime(df['DateTime_UTC'],
                                         format=time_format,
-                                        unit=unit)
+                                        unit=unit,
+                                        # sets NaT if timestamps cant be parsed
+                                        errors='coerce')
     df = df.set_index(df['DateTime_UTC'])
+    df = df.sort_index(ascending=True)
     df = df.drop(columns='DateTime_UTC')
 
     # Rename parameter header columns
-    df = df.rename(columns=setup['param_rename_dict'])
+    df = df.rename(columns=setup['col_rename_dict'])
 
     # Drop unused columns
     if len(setup['drop_cols']) > 0:
-        df = df.drop(columns=setup['drop_cols'])
+        # ignore errors if column not in df (may happen if DateTime_UTC in list
+        # of all header columns, already dropped)
+        df = df.drop(columns=setup['drop_cols'],
+                     errors='ignore')
 
         # Force non numeric values to Nans
         #df = df.apply(lambda x: pd.to_numeric(x, errors='coerce'))
@@ -114,3 +125,13 @@ df = pd.read_csv(path, header=0)
 avp_setup = Setup()
 df = Ingest(path=path, name='IQAir_AirVisual_Pro')
 """
+
+data_path = 'C:/Users/SFREDE01/OneDrive - Environmental Protection Agency (EPA)/Profile/Documents/AIRS Project/AIRS Evaluation/Sensor_Raw_Data/Vaisala_AQT420/'
+setup_path = "C:/Users/SFREDE01/OneDrive - Environmental Protection Agency (EPA)/Profile/Documents/Public_Sensor_Evaluation/User_Scripts/sensor setup files/Vaisala_AQT420_setup.json"
+df_list = []
+for filename in os.listdir(data_path):
+    print(filename)
+    df = Ingest(path=data_path + '/' + filename,
+                name='Vaisala_AQT420', setup_file_path=setup_path)
+    df_list.append(df)
+
