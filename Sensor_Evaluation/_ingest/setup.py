@@ -76,13 +76,14 @@ class Setup:
         if select_len % 2 != 0:
             n_right -= 1
 
-        print(n_left*'=' + ' ' + select_type + ' ' + n_right*'=')
+        flier = (n_left*'=' + ' ' + select_type + ' ' + n_right*'=')
+        print(flier)
         print('Options\n-------')
         options = ['\n'.join(wrap(str(l),
                              width=self.__banner_w__)) for l in options]
         for line in options:
             print(line)
-        print(self.__banner_w__*'=')
+        print(len(flier)*'=')
 
     def setSensorName(self):
         self.printSelectionBanner('Set Sensor Name', options=[''])
