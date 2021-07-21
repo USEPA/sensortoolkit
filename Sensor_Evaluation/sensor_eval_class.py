@@ -689,6 +689,7 @@ class SensorEvaluation:
         se.Plot_Performance_Metrics(self.stats_df,
                                     self.deploy_dict,
                                     param=self.eval_param,
+                                    param_averaging=self.eval_param_averaging,
                                     path=self.figure_path,
                                     sensor_name=self.sensor_name,
                                     write_to_file=self.write_to_file,
