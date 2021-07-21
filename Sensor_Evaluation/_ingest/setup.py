@@ -149,6 +149,15 @@ class Setup:
             val = input('Enter ' + col_type + ' column ' + str(i) +
                         ' header name: ')
 
+            # Shortcut method: specify first entry as list of parameter names
+            # rather than entering in one by one
+            if val.startswith('[') and val.endswith(']'):
+                # Since input sets val to string, have to work backwards a bit
+                # to recover the list as type list
+                column_headers = val[1:-1].replace("'", '').replace(" ",
+                                    '').replace('\n', '').split(',')
+                val = 'X'
+
             if val == 'X':
                 print(column_headers)
                 confirm = self.validateEntry()
