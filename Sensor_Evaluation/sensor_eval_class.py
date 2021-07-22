@@ -581,10 +581,6 @@ class SensorEvaluation:
         t_end = (self.avg_hrly_df.dropna(how='all', axis=0).index[-1] +
                  pd.Timedelta('1D')).strftime(timestamp_fmt)
 
-        if len(self.serials) <= 3:
-            cmap_name = 'Set1'
-            cmap_norm_range = (0, 0.4)
-
         avg_list = self.eval_param_averaging
         report_fmt = kwargs.get('report_fmt', False)
 
@@ -618,18 +614,12 @@ class SensorEvaluation:
                             start_time=t_start,
                             end_time=t_end,
                             time_interval=avg_interval,
-                            cmap_name=cmap_name,
-                            cmap_norm_range=cmap_norm_range,
-                            date_interval=kwargs.get('date_interval', 5),
                             title=True,
-                            yscale=kwargs.get('yscale', 'linear'),
-                            ylim=kwargs.get('ylims', (0, 30)),
                             report_fmt=report_fmt,
-                            format_xaxis_weeks=kwargs.get('format_xaxis_weeks',
-                                                          False),
                             write_to_file=write_to_file,
                             ax=axs[i],
-                            fig=fig)
+                            fig=fig,
+                            **kwargs)
                 if i == 0:
                     axs[i].get_legend().remove()
         else:
@@ -659,14 +649,10 @@ class SensorEvaluation:
                     start_time=t_start,
                     end_time=t_end,
                     time_interval=averaging_interval,
-                    cmap_name=cmap_name,
-                    cmap_norm_range=cmap_norm_range,
-                    date_interval=kwargs.get('date_interval', 5),
                     title=True,
-                    yscale=kwargs.get('yscale', 'linear'),
                     report_fmt=report_fmt,
-                    format_xaxis_weeks=kwargs.get('format_xaxis_weeks', False),
-                    write_to_file=self.write_to_file)
+                    write_to_file=self.write_to_file,
+                    **kwargs)
 
     def plot_metrics(self, **kwargs):
         """

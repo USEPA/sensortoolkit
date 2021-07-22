@@ -1009,14 +1009,13 @@ def Scatter_Plotter(df_list, ref_df, stats_df=None, plot_subset=None,
 
 
 def Sensor_Timeplot(df_list, ref_df, param=None,
-                    sensor_name=None, figure_path=None, cmap_name='Set1',
-                    fontsize=15, start_time=None, end_time=None, ylim=None,
-                    yscale='linear', write_to_file=True, date_interval=4,
-                    title=True, sensor_serials=None, filename_suffix='',
-                    alpha=0.7, cmap_norm_range=(0, 1), legend_fontscale=.65,
-                    format_xaxis_weeks=False, figsize=(16, 3.5), ref_name=None,
+                    sensor_name=None, figure_path=None,
+                    start_time=None, end_time=None,
+                    write_to_file=True,
+                    sensor_serials=None, filename_suffix='',
+                    ref_name=None,
                     time_interval='1-Hour', return_mpl_obj=True,
-                    report_fmt=False, ax=None, fig=None):
+                    report_fmt=False, ax=None, fig=None, **kwargs):
     """Generate a timeplot for a specified pollutant alongside FRM/FEM
     concentration values.
 
@@ -1077,6 +1076,17 @@ def Sensor_Timeplot(df_list, ref_df, param=None,
     Returns:
 
     """
+    sns.set_style(kwargs.get('seaborn_style', 'darkgrid'))
+    date_interval = kwargs.get('date_interval', 5)
+    yscale = kwargs.get('yscale', 'linear')
+    ylims = kwargs.get('ylims', (0, 30))
+    format_xaxis_weeks = kwargs.get('format_xaxis_weeks', False)
+    figsize = kwargs.get('figsize', (16, 3.5))
+    fontsize = kwargs.get('fontsize', 15)
+    legend_fontscale = kwargs.get('legend_fontscale', 0.65)
+    cmap_name = kwargs.get('cmap_name', 'Set1')
+    cmap_norm_range = kwargs.get('cmap_normrange', (0, 0.4))
+    show_title = kwargs.get('show_title', True)
 
     # Performance target reporting template formatting for timeseries plots
     # Templates for PM2.5 and O3 evaluations
@@ -1087,7 +1097,7 @@ def Sensor_Timeplot(df_list, ref_df, param=None,
         if 'PM25' in param:
             fontsize = 10.5
             figsize = (10.15, 4.1)
-            title = True
+            show_title = True
 
             # Scaling values for axes box
             x_scale = 0.45  # Translate x-axis position of plots
@@ -1104,7 +1114,7 @@ def Sensor_Timeplot(df_list, ref_df, param=None,
         elif 'O3' in param:
             fontsize = 11
             figsize = (10.16, 3.8)
-            title = False
+            show_title = False
 
             # Scaling values for axes box
             x_scale = 1.1
@@ -1123,13 +1133,13 @@ def Sensor_Timeplot(df_list, ref_df, param=None,
 
     # Generic figure formatting
     if report_fmt is False:
-        x_scale = 1.0
-        y_scale = 1.2
-        w_scale = 0.94
-        h_scale = 0.94
+        x_scale = kwargs.get('figure_xscale', 1.0)
+        y_scale = kwargs.get('figure_yscale', 1.2)
+        w_scale = kwargs.get('figure_wscale', 0.94)
+        h_scale = kwargs.get('figure_hscale', 0.94)
 
-        title_xpos = 0.5
-        legend_pos = (1.06, 0.5)
+        title_xpos = kwargs.get('title_xloc', 0.5)
+        legend_pos = kwargs.get('legend_loc', (1.06, 0.5))
         columnspacing = 1
 
     # Format the legend, determine how many columns to split legend into
@@ -1158,7 +1168,7 @@ def Sensor_Timeplot(df_list, ref_df, param=None,
     fmt_param, fmt_param_unit = param_name_tup
     fmt_sensor_name = sensor_name.replace('_', ' ')
 
-    if title is True:
+    if show_title is True:
         title_str = (time_interval + " Averaged " + fmt_sensor_name + ' '
                      + fmt_param)
         ax.set_title(title_str, fontsize=fontsize*1.1, x=title_xpos)
@@ -1190,19 +1200,25 @@ def Sensor_Timeplot(df_list, ref_df, param=None,
             lbl = 'Sensor ' + str(i + 1)
 
         # Plot each sensor data time series
-        ax.plot(df.index, param_data, label=lbl, alpha=alpha)
+        ax.plot(df.index, param_data, label=lbl,
+                alpha=kwargs.get('sensor_linealpha', .70),
+                linewidth=kwargs.get('sensor_linewidth', 1.5))
 
     # Plot timeseries for regulatory monitor corresponding to the pollutant
-    ax.plot(ref_df.index, ref_df[param + '_Value'],
-            label=ref_name, color='k', alpha=.97)
+    ax.plot(ref_df.index,
+            ref_df[param + '_Value'],
+            label=ref_name,
+            color=kwargs.get('ref_linecolor', 'k'),
+            alpha=kwargs.get('ref_linealpha', .97),
+            linewidth=kwargs.get('ref_linewidth', 1.5))
 
     # Configure x- and y-axis attributes (scale, labeling, limits, ticks)
     ax.set_yscale(yscale)
     ax.set_ylabel(fmt_param + ' ' + fmt_param_unit, fontsize=fontsize)
     ax.set_xlabel('Date', fontsize=fontsize)
     ax.set_xlim(start_time, end_time)
-    if ylim:
-        ax.set_ylim(ylim[0], ylim[1])
+    if ylims:
+        ax.set_ylim(ylims[0], ylims[1])
     ax.tick_params(labelsize=.75*fontsize)
 
     # Format x-axis by weeks (mark 'Week 1', 'Week 2', etc..)
@@ -1233,8 +1249,9 @@ def Sensor_Timeplot(df_list, ref_df, param=None,
     # Set legend position, wrap legend text to fit
     handles, labels = ax.get_legend_handles_labels()
     updated_labels = Wrap_Text(labels)
-    ax.legend(handles, updated_labels, bbox_to_anchor=legend_pos,
-              loc='center', fontsize=fontsize*legend_fontscale,
+    ax.legend(handles, updated_labels, bbox_to_anchor=legend_pos, loc='center',
+              fontsize=kwargs.get('legend_fontsize',
+                                  fontsize*legend_fontscale),
               ncol=leg_ncol, columnspacing=columnspacing,
               handlelength=1.25)
 
@@ -1864,8 +1881,7 @@ def Plot_Performance_Metrics(stats_df, deploy_dict, param=None,
             hline_y, hline_xmin, hline_xmax = hline_dims
             rec_x0, rec_y0, rec_xspan, rec_yspan = box_dims
 
-            axs[ax_idx].set_title(metric_name, fontsize=font_size)
-            axs[ax_idx].set_ylim(ymin, ymax)
+
             if param == 'PM25':
                 axs[ax_idx].set_xlim(-.5, 1.5)
             if param == 'O3':
@@ -1874,15 +1890,16 @@ def Plot_Performance_Metrics(stats_df, deploy_dict, param=None,
             axs[ax_idx].hlines(y=hline_y, xmin=hline_xmin,
                                xmax=hline_xmax, linewidth=1.5,
                                color=kwargs.get('hline_color', '#8b8b8b'))
+
             target_rec = Rectangle((rec_x0, rec_y0),
                                    rec_xspan, rec_yspan, color='r')
             boxes.append(target_rec)
-
             pc = PatchCollection(boxes, alpha=.3,
                                  facecolor=kwargs.get('box_facecolor',
                                                       '#8b8b8b'))
             axs[ax_idx].add_collection(pc)
-
+            axs[ax_idx].set_title(metric_name, fontsize=font_size)
+            axs[ax_idx].set_ylim(ymin, ymax)
             axs[ax_idx].yaxis.set_label_text('')
 
         plt.tight_layout()
