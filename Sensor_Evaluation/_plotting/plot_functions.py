@@ -1640,13 +1640,53 @@ def Plot_Performance_Metrics(stats_df, deploy_dict, param=None,
     if param not in eval_params:
         sys.exit('Performance metrics and target values not set for ' + param)
 
-    cv_vals =  {interval: [] for interval in param_averaging}
+    plotting_dims = {'PM25':
+                     {'ylims': {'rsqr': (-0.02, 1.02),
+                                },
+                      'hline_dims': {'rsqr': (1.0, -0.50, 1.50),
+                                     'slope': (1.0, -0.50, 1.50),
+                                     'intercept': (0.0, -0.50, 1.50),
+                                     'cv': (0.35, -0.50, 1.50),
+                                     'rmse': (0.10, -0.50, 1.50),
+                                     'nrmse': (0.35, -0.50, 1.50),
+                                     'sd': (0.05, -0.50, 1.50)},
+                      'box_dims': {'rsqr': (-0.5, 0.7, 2.0, 0.3),
+                                   'slope': (-0.5, 0.65, 2.0, 0.7),
+                                   'intercept': (-0.5, -5.0, 2.0, 10),
+                                   'cv': (-0.5, 0.0, 2.0, 30.0),
+                                   'rmse': (-0.5, 0, 2, 7),
+                                   'nrmse': (-0.5, 0, 2, 30),
+                                   'sd': (-0.5, 0.0, 2.0, 5.0)}
+                      },
+                     'O3':
+                     {'ylims': {'rsqr': (-0.02, 1.02),
+                                },
+                      'hline_dims': {'rsqr': (1, -1, 1),
+                                     'slope': (1, -1, 1),
+                                     'intercept': (0, -1, 1),
+                                     'cv': (0.35, -1, 1),
+                                     'rmse': (0.10, -1, 1),
+                                     'nrmse': (0.35, -1, 1),
+                                     'sd': (0.05, -1, 1)},
+                      'box_dims': {'rsqr': (-1, 0.8, 2.0, 0.2),
+                                   'slope': (-1, 0.8, 2.0, 0.4),
+                                   'intercept': (-1, -5.0, 2.0, 10),
+                                   'cv': (-1, 0.0, 2.0, 30.0),
+                                   'rmse': (-1, 0.0, 2.0, 5.0),
+                                   'nrmse': (-1, 0, 2, 30),
+                                   'sd': (-1, 0.0, 2.0, 5.0)}
+                      }
+                     }
+
+    param_dims = plotting_dims.get(param)
+
+    cv_vals = {interval: [] for interval in param_averaging}
     std_vals = {interval: [] for interval in param_averaging}
     rmse_vals = {interval: [] for interval in param_averaging}
     nrmse_vals = {interval: [] for interval in param_averaging}
 
     interval_to_freq = {'1-hour': 'Hourly',
-                         '24-hour': 'Daily'}
+                        '24-hour': 'Daily'}
 
     # List of frequencies ('Hourly, Daily') for specified parameter
     param_freq = [interval_to_freq[interval] for interval in param_averaging]
@@ -1683,27 +1723,26 @@ def Plot_Performance_Metrics(stats_df, deploy_dict, param=None,
                                (stats_df['R$^2$'].notna())
                                ).Sensor_Number.nunique()
 
-    for ax_idx in np.linspace(0, 6, 7, dtype=int):
+    metric_names = ['R$^2$', 'Slope', 'Intercept', 'RMSE',
+                    'nRMSE', 'CV (%)', 'Standard Deviation']
 
-        stats_df = stats_df[['R$^2$','Slope','Intercept',
-                             'Averaging Interval']]
-        stats_df = stats_df.where(
-                            stats_df['Averaging Interval'].isin(param_freq))
+    stats_df = stats_df[['R$^2$', 'Slope', 'Intercept', 'Averaging Interval']]
+    stats_df = stats_df.where(stats_df['Averaging Interval'].isin(param_freq))
 
+    for interval, freq in zip(param_averaging, param_freq):
+        header = 'Averaging Interval'
+        stats_df[header] = stats_df[header].str.replace(freq, interval)
+
+    for ax_idx, metric_name in enumerate(metric_names):
         with sns.plotting_context(context="notebook", font_scale=1):
-
-            metric_names = ['R$^2$', 'Slope', 'Intercept', 'RMSE', 'nRMSE',
-                            'CV (%)', 'Standard Deviation']
-            metric_name = metric_names[ax_idx]
-
-            if ax_idx < 3:
+            if metric_name in ['R$^2$', 'Slope', 'Intercept']:
                 axs[ax_idx].set_title(stats_df.columns[ax_idx],
                                       fontsize=font_size)
 
                 if n_sensors > 3:
                     sns.boxplot(x='Averaging Interval', y=metric_name,
                                 data=stats_df,
-                                order=param_freq,
+                                order=param_averaging,
                                 ax=axs[ax_idx],
                                 palette=fill_color,
                                 showmeans=True,
@@ -1713,14 +1752,14 @@ def Plot_Performance_Metrics(stats_df, deploy_dict, param=None,
                 else:
                     sns.swarmplot(x='Averaging Interval', y=metric_name,
                                   data=stats_df,
-                                  order=param_freq,
+                                  order=param_averaging,
                                   ax=axs[ax_idx],
                                   palette=fill_color,
                                   marker=marker,
                                   linewidth=marker_line_width,
                                   size=marker_size)
 
-            elif ax_idx >= 3:
+            else:
 
                 if metric_name == 'CV (%)':
                     metric_data = cv_vals
@@ -1734,7 +1773,8 @@ def Plot_Performance_Metrics(stats_df, deploy_dict, param=None,
                 data_df = pd.DataFrame(metric_data).T.reset_index()
                 data_df.columns = ['Averaging Interval', metric_name]
 
-                sns.stripplot(x='Averaging Interval', y=metric_name,
+                sns.stripplot(x='Averaging Interval',
+                              y=metric_name,
                               data=data_df,
                               order=param_averaging,
                               ax=axs[ax_idx],
@@ -1747,31 +1787,12 @@ def Plot_Performance_Metrics(stats_df, deploy_dict, param=None,
             boxes = []
 
             if metric_name == 'R$^2$':
-
-                if param == 'PM25':
-                    # Get formatting values
-                    ylims = kwargs.get('rsqr_ylims',
-                                       (-0.02, 1.02))
-                    hline_dims = kwargs.get('rsqr_hline_dims',
-                                            (1.0, -0.50, 1.50))
-                    box_dims = kwargs.get('rsqr_box_dims',
-                                          (-0.5, 0.7, 2.0, 0.3))
-
-                if param == 'O3':
-                    # Get formatting values
-                    ylims = kwargs.get('rsqr_ylims',
-                                       (-0.02, 1.02))
-                    hline_dims = kwargs.get('rsqr_hline_dims',
-                                            (1, -1, 1))
-                    box_dims = kwargs.get('rsqr_box_dims',
-                                          (-1, 0.8, 2.0, 0.2))
-
-                # Assign to local variables
-                ymin, ymax = ylims
-                hline_y, hline_xmin, hline_xmax = hline_dims
-                rec_x0, rec_y0, rec_xspan, rec_yspan = box_dims
+                dim_key = 'rsqr'
+                lower_lim = None
+                upper_lim = None
 
             if metric_name == 'Slope':
+                dim_key = 'slope'
                 upper_lim = abs(1.5*stats_df[metric_name]).max()
                 lower_lim = 1.5*stats_df[metric_name].min()
 
@@ -1785,30 +1806,8 @@ def Plot_Performance_Metrics(stats_df, deploy_dict, param=None,
                 else:
                     lower_lim = 1.5*lower_lim
 
-                if param == 'PM25':
-                    # Get formatting values
-                    ylims = kwargs.get('slope_ylims',
-                                       (lower_lim, upper_lim))
-                    hline_dims = kwargs.get('slope_hline_dims',
-                                            (1.0, -0.50, 1.50))
-                    box_dims = kwargs.get('slope_box_dims',
-                                          (-0.5, 0.65, 2.0, 0.7))
-
-                if param == 'O3':
-                    # Get formatting values
-                    ylims = kwargs.get('slope_ylims',
-                                       (lower_lim, upper_lim))
-                    hline_dims = kwargs.get('slope_hline_dims',
-                                            (1, -1, 1))
-                    box_dims = kwargs.get('slope_box_dims',
-                                          (-1, 0.8, 2.0, 0.4))
-
-                # Assign to local variables
-                ymin, ymax = ylims
-                hline_y, hline_xmin, hline_xmax = hline_dims
-                rec_x0, rec_y0, rec_xspan, rec_yspan = box_dims
-
             if metric_name == 'Intercept':
+                dim_key = 'intercept'
                 upper_lim = abs(1.5*stats_df[metric_name]).max()
                 if upper_lim < 10:
                     upper_lim = 10
@@ -1816,138 +1815,54 @@ def Plot_Performance_Metrics(stats_df, deploy_dict, param=None,
 
                 if param == 'PM25':
                     metric_name = r'Intercept ($\mu g/m^3$)'
-                    # Get formatting values
-                    ylims = kwargs.get('intercept_ylims',
-                                       (lower_lim, upper_lim))
-                    hline_dims = kwargs.get('intercept_hline_dims',
-                                            (0.0, -0.50, 1.50))
-                    box_dims = kwargs.get('intercept_box_dims',
-                                          (-0.5, -5.0, 2.0, 10))
-
                 if param == 'O3':
                     metric_name = 'Intercept (ppbv)'
-                    # Get formatting values
-                    ylims = kwargs.get('intercepts_ylims',
-                                       (lower_lim, upper_lim))
-                    hline_dims = kwargs.get('intercept_hline_dims',
-                                            (0, -1, 1))
-                    box_dims = kwargs.get('intercept_box_dims',
-                                          (-1, -5.0, 2.0, 10))
-
-                # Assign to local variables
-                ymin, ymax = ylims
-                hline_y, hline_xmin, hline_xmax = hline_dims
-                rec_x0, rec_y0, rec_xspan, rec_yspan = box_dims
 
             if metric_name == 'CV (%)':
-
+                dim_key = 'cv'
+                lower_lim = 0
                 upper_lim = 1.5*data_df[metric_name].max()
-
                 if upper_lim < 50:
                     upper_lim = 50
 
-                if param == 'PM25':
-                    # Get formatting values
-                    ylims = kwargs.get('cv_ylims',
-                                       (0, upper_lim))
-                    hline_dims = kwargs.get('cv_hline_dims',
-                                            (0.35, -0.50, 1.50))
-                    box_dims = kwargs.get('cv_box_dims',
-                                          (-0.5, 0.0, 2.0, 30.0))
-
-                if param == 'O3':
-                    # Get formatting values
-                    ylims = kwargs.get('cv_ylims',
-                                       (0, upper_lim))
-                    hline_dims = kwargs.get('cv_hline_dims',
-                                            (0.35, -1, 1))
-                    box_dims = kwargs.get('cv_box_dims',
-                                          (-1, 0.0, 2.0, 30.0))
-
-                # Assign to local variables
-                ymin, ymax = ylims
-                hline_y, hline_xmin, hline_xmax = hline_dims
-                rec_x0, rec_y0, rec_xspan, rec_yspan = box_dims
-
-            if metric_name.endswith('RMSE'):
-
+            if metric_name == 'RMSE':
+                dim_key = 'rmse'
                 upper_lim = 1.5*data_df[metric_name].max()
+                lower_lim = 0
+                if upper_lim < 10:
+                    upper_lim = 10
 
-                if param == 'PM25':
-                    if metric_name == 'nRMSE':
-                        if upper_lim < 50:
-                            upper_lim = 50
-                        metric_name = r'nRMSE ($\%$)'
+                metric_name = r'RMSE ($\mu g/m^3$)'
 
-                        # Get formatting values
-                        ylims = kwargs.get('nrmse_ylims',
-                                           (0, upper_lim))
-                        hline_dims = kwargs.get('nrmse_hline_dims',
-                                                ( 0.35, -0.50, 1.50))
-                        box_dims = kwargs.get('nrmse_box_dims',
-                                              (-0.5, 0, 2, 30))
-
-                    if metric_name == 'RMSE':
-                        if upper_lim < 10:
-                            upper_lim = 10
-
-                        metric_name = r'RMSE ($\mu g/m^3$)'
-
-                        # Get formatting values
-                        ylims = kwargs.get('rmse_ylims',
-                                           (0, upper_lim))
-                        hline_dims = kwargs.get('rmse_hline_dims',
-                                                (0.10, -0.50, 1.50))
-                        box_dims = kwargs.get('rmse_box_dims',
-                                              (-0.5, 0, 2, 7))
-
-                if param == 'O3':
-                    if upper_lim < 10:
-                        upper_lim = 10
-
-                    # Get formatting values
-                    ylims = kwargs.get('rmse_ylims',
-                                       (0, upper_lim))
-                    hline_dims = kwargs.get('rmse_hline_dims',
-                                            (0.10, -1, 1))
-                    box_dims = kwargs.get('rmse_box_dims',
-                                          (-1, 0.0, 2.0, 5.0))
-
-                # Assign to local variables
-                ymin, ymax = ylims
-                hline_y, hline_xmin, hline_xmax = hline_dims
-                rec_x0, rec_y0, rec_xspan, rec_yspan = box_dims
+            if metric_name == 'nRMSE':
+                dim_key = 'nrmse'
+                lower_lim = 0
+                if upper_lim < 50:
+                    upper_lim = 50
+                metric_name = r'nRMSE ($\%$)'
 
             if metric_name.startswith('Standard Deviation'):
-
+                dim_key = 'sd'
+                lower_lim = 0
                 upper_lim = 1.5*data_df[metric_name].max()
                 metric_name = r'Standard Dev. ($\mu g/m^3$)'
 
                 if upper_lim < 10:
                     upper_lim = 10
 
-                if param == 'PM25':
-                    # Get formatting values
-                    ylims = kwargs.get('sd_ylims',
-                                       (0, upper_lim))
-                    hline_dims = kwargs.get('sd_hline_dims',
-                                            (0.05, -0.50, 1.50))
-                    box_dims = kwargs.get('sd_box_dims',
-                                          (-0.5, 0.0, 2.0, 5.0))
+            # Get formatting values
+            ylims = kwargs.get(dim_key + '_ylims',
+                               param_dims['ylims'].get(dim_key,
+                                                       (lower_lim, upper_lim)))
+            hline_dims = kwargs.get(dim_key + '_hline_dims',
+                                    param_dims.get('hline_dims').get(dim_key))
+            box_dims = kwargs.get(dim_key + '_box_dims',
+                                  param_dims.get('box_dims').get(dim_key))
 
-                if param == 'O3':
-                    # Get formatting values
-                    ylims = kwargs.get('sd_ylims',
-                                       (0, upper_lim))
-                    hline_dims = kwargs.get('sd_hline_dims',
-                                            (0.05, -1, 1))
-                    box_dims = kwargs.get('sd_box_dims',
-                                          (-1, 0.0, 2.0, 5.0))
-
-                # Assign to local variables
-                ymin, ymax = ylims
-                hline_y, hline_xmin, hline_xmax = hline_dims
-                rec_x0, rec_y0, rec_xspan, rec_yspan = box_dims
+            # Assign to local variables
+            ymin, ymax = ylims
+            hline_y, hline_xmin, hline_xmax = hline_dims
+            rec_x0, rec_y0, rec_xspan, rec_yspan = box_dims
 
             axs[ax_idx].set_title(metric_name, fontsize=font_size)
             axs[ax_idx].set_ylim(ymin, ymax)
