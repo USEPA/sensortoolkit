@@ -107,16 +107,3 @@ def Ingest(path, name=None, setup_file_path=None):
         #df = df.apply(lambda x: pd.to_numeric(x, errors='coerce'))
 
     return df
-
-
-"""
-import os
-data_path = 'C:/Users/SFREDE01/OneDrive - Environmental Protection Agency (EPA)/Profile/Documents/AIRS Project/AIRS Evaluation/Sensor_Raw_Data/Myriad_PocketLab/20210419 Data Collection/Data/E0/'
-setup_path = "C:/Users/SFREDE01/OneDrive - Environmental Protection Agency (EPA)/Profile/Documents/Public_Sensor_Evaluation/User_Scripts/sensor setup files/Myriad_PocketLab_setup.json"
-df_list = []
-for filename in os.listdir(data_path):
-    print(filename)
-    df = Ingest(path=data_path + '/' + filename,
-                name='Myriad_PocketLab', setup_file_path=setup_path)
-    df_list.append(df)
-"""
