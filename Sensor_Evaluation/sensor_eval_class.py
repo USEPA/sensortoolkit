@@ -570,7 +570,7 @@ class SensorEvaluation:
                                        path=self.stats_path,
                                        write_to_file=self.write_to_file)
 
-    def plot_timeseries(self, **kwargs):
+    def plot_timeseries(self, report_fmt=True, **kwargs):
         """
         Plot parameter concentrations over time alongside reference
 
@@ -582,7 +582,6 @@ class SensorEvaluation:
                  pd.Timedelta('1D')).strftime(timestamp_fmt)
 
         avg_list = self.eval_param_averaging
-        report_fmt = kwargs.get('report_fmt', False)
 
         if len(avg_list) == 2 and report_fmt is True:
             fig, axs = plt.subplots(2, 1, figsize=(10.15, 4.1))
@@ -611,10 +610,9 @@ class SensorEvaluation:
                             figure_path=self.figure_path,
                             sensor_name=self.sensor_name,
                             ref_name=self.ref_name,
-                            start_time=t_start,
-                            end_time=t_end,
+                            start=t_start,
+                            end=t_end,
                             time_interval=avg_interval,
-                            title=True,
                             report_fmt=report_fmt,
                             write_to_file=write_to_file,
                             ax=axs[i],
@@ -646,10 +644,9 @@ class SensorEvaluation:
                     figure_path=self.figure_path,
                     sensor_name=self.sensor_name,
                     ref_name=self.ref_name,
-                    start_time=t_start,
-                    end_time=t_end,
+                    start=t_start,
+                    end=t_end,
                     time_interval=averaging_interval,
-                    title=True,
                     report_fmt=report_fmt,
                     write_to_file=self.write_to_file,
                     **kwargs)
@@ -685,7 +682,7 @@ class SensorEvaluation:
                             text_pos='upper_left', plot_limits=(-1, 25),
                             point_size=20, tick_spacing=5, RH_colormap=True,
                             plot_title=True, plot_subset=None,
-                            report_fmt=False):
+                            report_fmt=False, **kwargs):
         """
         """
         self.plot_title = plot_title
@@ -779,7 +776,8 @@ class SensorEvaluation:
                                    write_to_file=write_to_file,
                                    report_fmt=True,
                                    ax=ax,
-                                   fig=fig)
+                                   fig=fig,
+                                   **kwargs)
                 if multiplot:
                     axs[i] = ax
                 else:
@@ -822,7 +820,8 @@ class SensorEvaluation:
                                plot_subset=plot_subset,
                                tick_spacing=tick_spacing,
                                report_fmt=report_fmt,
-                               write_to_file=self.write_to_file)
+                               write_to_file=self.write_to_file,
+                               **kwargs)
 
     def plot_met_dist(self):
         """
