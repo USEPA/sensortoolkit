@@ -384,12 +384,13 @@ def Plot_Error_Bars(xdata, ydata, ax, n_xbins=8, plot_yerror=True,
 
 def Comparison_Plotter(ax, xdata, ydata, param_dict, stats_df=None,
                        sensor_index=None, text_position='upper_left',
+                       xlim=(0, 40), ylim=(0, 40), fontsize=None,
+                       detail_fontsize=None,
                        param=None, sensor_name=None, plot_one_to_one=True,
                        plot_regression=True, plot_trendline=True,
                        plot_rmse=True, plot_spearman=False, plot_n=True,
                        monocolor=None, colormap_vals=None, colormap_name=None,
-                       fontsize=10, pointsize=2, xlim=(0, 40), ylim=(0, 40),
-                       alpha=0.5, empty_plot=False):
+                       empty_plot=False, **kwargs):
     """A helper function to create comparison scatterplots with linear
     regressions.
 
@@ -444,7 +445,10 @@ def Comparison_Plotter(ax, xdata, ydata, param_dict, stats_df=None,
             correlation
 
     """
-    detail_fontsize = .85*fontsize
+    pointsize = kwargs.get('point_size', 20)
+    alpha = kwargs.get('point_alpha', 0.5)
+
+
     axScatter = ax  # Redefine within internal scope of Comparison_Plotter fun.
 
     if text_position == 'upper_left':
@@ -463,11 +467,18 @@ def Comparison_Plotter(ax, xdata, ydata, param_dict, stats_df=None,
     else:
         sys.exit('Invalid text position. Options: upper_left, bottom_right')
 
+    text_x = kwargs.get('plottext_xloc', (text_x))
+    text_y = kwargs.get('plottext_yloc', (text_y))
+    text_xdisplacement = kwargs.get('plottext_xdisplacement',
+                                    (text_xdisplacement))
+    text_ydisplacement = kwargs.get('plottext_ydisplacement',
+                                    (text_ydisplacement))
+
     # Plot scatterplot with colormap or with monochrome
     # Colormap is based on the input parameter the user gives
     if isinstance(colormap_vals, pd.core.series.Series):
         norm = mpl.colors.Normalize(vmin=0, vmax=100)
-        out = axScatter.scatter(xdata, ydata, s=pointsize, alpha=1,
+        out = axScatter.scatter(xdata, ydata, s=pointsize, alpha=alpha,
                                 c=colormap_vals, cmap=colormap_name,
                                 norm=norm)
 
@@ -475,7 +486,9 @@ def Comparison_Plotter(ax, xdata, ydata, param_dict, stats_df=None,
         # If a particular color is specified, use that color, otherwise use
         # default color scheme
         if monocolor is not None:
-            out = axScatter.scatter(xdata, ydata, color=monocolor, s=pointsize,
+            out = axScatter.scatter(xdata, ydata,
+                                    color=monocolor,
+                                    s=pointsize,
                                     alpha=alpha)
         else:
             out = axScatter.scatter(xdata, ydata, s=pointsize, alpha=alpha)
@@ -506,9 +519,12 @@ def Comparison_Plotter(ax, xdata, ydata, param_dict, stats_df=None,
 
         if plot_trendline:
             try:
+                trendline_color = kwargs.get('trendline_color', 'k')
+                trendline_alpha = kwargs.get('trendline_alpha', 0.65)
                 lregression_plt = axScatter.plot(trend_data,
                                                  slope*trend_data + intercept,
-                                                 color='k', alpha=0.65)
+                                                 color=trendline_color,
+                                                 alpha=trendline_alpha)
             except TypeError as e:
                 print(e)
 
@@ -521,19 +537,23 @@ def Comparison_Plotter(ax, xdata, ydata, param_dict, stats_df=None,
 
         linear_reg_str = '$y={:.2f}x$' + intercept_sign + '{:.2f}'
 
+        text_alpha = kwargs.get('plottext_alpha', 0.8)
+        text_size = kwargs.get('plottext_size', 0.9*fontsize)
+        text_color = kwargs.get('plottext_color', 'k')
+
         # Plot linear regression equation
         axScatter.text(text_x, text_y,
                        linear_reg_str.format(slope, intercept),
-                       transform=axScatter.transAxes, color='k',
-                       alpha=0.8, size=0.9*fontsize)
+                       transform=axScatter.transAxes, color=text_color,
+                       alpha=text_alpha, size=text_size)
 
         # Pearson Correlation Coefficient
         r_square = stats_df.loc[0, 'R$^2$']
         axScatter.text(text_x - text_xdisplacement,
                        text_y - text_ydisplacement,
                        '$R^2={:.2f}$'.format(r_square),
-                       transform=axScatter.transAxes, color='k',
-                       alpha=0.8, size=0.9*fontsize)
+                       transform=axScatter.transAxes, color=text_color,
+                       alpha=text_alpha, size=text_size)
 
         # Spearman Correlation
         if plot_spearman is True:
@@ -541,8 +561,8 @@ def Comparison_Plotter(ax, xdata, ydata, param_dict, stats_df=None,
             axScatter.text(text_x - 2*text_xdisplacement,
                            text_y - 2*text_ydisplacement,
                            '$\rho={:.2f}$'.format(spearman_corr),
-                           transform=axScatter.transAxes, color='k',
-                           alpha=0.8, size=0.9*fontsize)
+                           transform=axScatter.transAxes, color=text_color,
+                           alpha=text_alpha, size=text_size)
 
         # Root Mean Square Error
         if plot_rmse is True:
@@ -552,8 +572,8 @@ def Comparison_Plotter(ax, xdata, ydata, param_dict, stats_df=None,
             axScatter.text(text_x - 2*text_xdisplacement,
                            text_y - 2*text_ydisplacement,
                            '$RMSE={:.2f}$'.format(RMSE),
-                           transform=axScatter.transAxes, color='k',
-                           alpha=0.8, size=0.9*fontsize)
+                           transform=axScatter.transAxes, color=text_color,
+                           alpha=text_alpha, size=text_size)
 
         # ---------------------------------------------------------------------
 
@@ -564,8 +584,8 @@ def Comparison_Plotter(ax, xdata, ydata, param_dict, stats_df=None,
         axScatter.text(text_x - 3*text_xdisplacement,
                        text_y - 3*text_ydisplacement,
                        '$N= $'+str(n_count),
-                       transform=axScatter.transAxes, color='k',
-                       alpha=0.8, size=0.9*fontsize)
+                       transform=axScatter.transAxes, color=text_color,
+                       alpha=text_alpha, size=text_size)
 
     # One-to-one dashed line for reference
     if plot_one_to_one is True:
@@ -598,18 +618,17 @@ Primary figure plotting functions
 
 def Scatter_Plotter(df_list, ref_df, stats_df=None, plot_subset=None,
                     param=None, sensor_name=None, figure_path=None,
-                    palette='seismic', write_to_file=True, xlim=(0, 40),
+                    write_to_file=True, xlim=(0, 40),
                     ylim=(0, 40), time_interval=None, text_pos='upper_left',
                     font_size=10, point_size=10, met_ref_df=None,
                     RH_colormap=True, tight_layout=False, plot_title=True,
-                    fontweight='normal', detection_limited=False,
                     filename_suffix='', plot_regression=True,
                     plot_trendline=True, plot_rmse=True,
                     plot_spearman=False, plot_n=True, title_text=None,
                     mono_color=None, alpha=.5, sensor_serials=None,
                     tick_spacing=5, ref_name=None, deploy_dict=None,
                     ax=None, fig=None, report_fmt=False, return_axs=False,
-                    empty_plot=False, param_class=None):
+                    empty_plot=False, param_class=None, **kwargs):
     """Front-end function for creating scatter plots.
 
     Calls Comparison_Plotter for lower-end tasks and sets formatting for plots
@@ -696,6 +715,10 @@ def Scatter_Plotter(df_list, ref_df, stats_df=None, plot_subset=None,
         plotting detail filled in will be returned. Otherwise, none will be
         returned.
     """
+    sns.set_style(kwargs.get('seaborn_style', 'darkgrid'))
+    palette = kwargs.get('color_palette', 'seismic')
+    sns.set_palette(palette)
+
     # Option to supply df_list indicies in list for subset of sensors to plot
     if plot_subset is not None:
         # limit dataframe list and sensor serials to selected sensors
@@ -720,11 +743,15 @@ def Scatter_Plotter(df_list, ref_df, stats_df=None, plot_subset=None,
     fmt_tuple = Sensor_Subplot_Formatting(number_of_sensors, param, font_size,
                                           RH_colormap, report_fmt)
 
-    (Nr, Nc, fig_size, suptitle_xpos, suptitle_ypos, title_text_wrap,
+    (Nr, Nc, fig_size, suptitle_xpos, suptitle_ypos, title_textwrap,
      detail_fontsize, wspace, hspace, left, right, top, bottom,
      auto_filename_suffix, cbar_padding, cbar_aspect, font_size) = fmt_tuple
 
-    sns.set_palette(palette)
+    font_size = kwargs.get('fontsize', font_size)
+    detail_fontsize = kwargs.get('detail_fontsize', detail_fontsize)
+
+
+
 
     if (ax and fig) is None:
         # No axes object passed to function, create unique fig, axes objects
@@ -736,16 +763,18 @@ def Scatter_Plotter(df_list, ref_df, stats_df=None, plot_subset=None,
         axs = ax
         unique_ax_obj = False
 
-    fig.subplots_adjust(wspace=wspace,
-                        hspace=hspace,
-                        left=left,
-                        right=right,
-                        top=top,
-                        bottom=bottom)
+    fig.subplots_adjust(wspace=kwargs.get('fig_wspace', wspace),
+                        hspace=kwargs.get('fig_hspace', hspace),
+                        left=kwargs.get('fig_left', left),
+                        right=kwargs.get('fig_right', right),
+                        top=kwargs.get('fig_top', top),
+                        bottom=kwargs.get('fig_bottom', bottom))
 
     if plot_title is True:
         if title_text is not None:
-            title_text = '\n'.join(wrap(title_text, title_text_wrap))
+            title_text = '\n'.join(wrap(title_text,
+                                        kwargs.get('title_textwrap',
+                                                   title_textwrap)))
             n_lines = len(title_text.split('\n'))
             if n_lines > 2:  # shift the figure down a tad if 3 or more lines
                 font_size *= 0.9
@@ -753,13 +782,14 @@ def Scatter_Plotter(df_list, ref_df, stats_df=None, plot_subset=None,
 
             axs.set_title(title_text,
                           fontsize=font_size,
-                          y=suptitle_ypos,
-                          x=suptitle_xpos,
-                          fontweight=fontweight)
+                          y=kwargs.get('title_yloc', suptitle_ypos),
+                          x=kwargs.get('title_xloc', suptitle_xpos))
         else:
             title_text = fmt_sensor_name + ' vs. ' + ref_name + ' ' + \
                 time_interval + ' ' + fmt_param
-            title_text = '\n'.join(wrap(title_text, title_text_wrap))
+            title_text = '\n'.join(wrap(title_text,
+                                        kwargs.get('title_textwrap',
+                                                   title_textwrap)))
             n_lines = len(title_text.split('\n'))
             if n_lines > 2:  # shift the figure down a tad if 3 or more lines
                 font_size *= 0.9
@@ -768,15 +798,13 @@ def Scatter_Plotter(df_list, ref_df, stats_df=None, plot_subset=None,
             if unique_ax_obj is True:
                 fig.suptitle(title_text,
                              fontsize=font_size,
-                             y=suptitle_ypos,
-                             x=suptitle_xpos,
-                             fontweight=fontweight)
+                             y=kwargs.get('title_yloc', suptitle_ypos),
+                             x=kwargs.get('title_xloc', suptitle_xpos))
             else:
                 axs.set_title(title_text,
                               fontsize=font_size,
-                              y=suptitle_ypos,
-                              x=suptitle_xpos,
-                              fontweight=fontweight)
+                              y=kwargs.get('title_yloc', suptitle_ypos),
+                              x=kwargs.get('title_xloc', suptitle_xpos))
 
     for i in range(Nr):
         for j in range(Nc):
@@ -796,12 +824,6 @@ def Scatter_Plotter(df_list, ref_df, stats_df=None, plot_subset=None,
 
                 ax.remove()
                 break
-
-            # Option to not plot data below Lower Detection Limit
-            if detection_limited is True:
-                sensor_df = df_list[sensor_data_index].where(
-                  df_list[sensor_data_index][param] > stats_df.at[
-                      sensor_data_index, 'Lower_Detect_Lim'])
 
             averaging_interval = sensor_df.index[1] - sensor_df.index[0]
 
@@ -909,47 +931,45 @@ def Scatter_Plotter(df_list, ref_df, stats_df=None, plot_subset=None,
                                     xlim=xlim,
                                     ylim=ylim,
                                     fontsize=font_size,
-                                    pointsize=point_size,
+                                    detail_fontsize=detail_fontsize,
                                     plot_regression=plot_regression,
                                     plot_trendline=plot_trendline,
                                     plot_rmse=plot_rmse,
                                     plot_spearman=plot_spearman,
                                     plot_n=plot_n,
                                     alpha=alpha,
-                                    empty_plot=empty_plot)
+                                    empty_plot=empty_plot,
+                                    **kwargs)
 
             ax.xaxis.set_major_locator(plt.MultipleLocator(tick_spacing))
             ax.yaxis.set_major_locator(plt.MultipleLocator(tick_spacing))
 
     # Plot colorbar
     if RH_colormap is True:
-        if number_of_sensors == 1:
-            cbar_size = 0.8
-        else:
+        try:
+            ctitle = 'Relative Humidity (%)'
+            cbar_orien = 'horizontal'
             cbar_size = 0.3
 
-        try:
             if number_of_sensors == 1:
+                cbar_size = 0.8
                 if param == 'O3':
                     cbar_orien = 'vertical'
                     # axes positioning [x0, y0, width, height]
-                    cax = plt.axes([0.85, 0.15, 0.05, 0.66])
-                    ctitle = '\n'.join(wrap('Relative Humidity (%)', 10))
+                    caxes_pos = [0.85, 0.15, 0.05, 0.66]
+                    ctitle = '\n'.join(wrap(ctitle, 10))
                 else:
-                    cbar_orien = 'horizontal'
                     if report_fmt is True:
-                        cax = plt.axes([0.25, 0.07, 0.50, 0.03])
+                        caxes_pos = [0.25, 0.07, 0.50, 0.03]
                     else:
-                        cax = plt.axes([0.125, 0.05, 0.75, 0.03])
-                    ctitle = 'Relative Humidity (%)'
+                        caxes_pos = [0.125, 0.05, 0.75, 0.03]
             if number_of_sensors == 3:
-                cbar_orien = 'horizontal'
-                cax = plt.axes([0.37, 0.07, 0.26, 0.03])
-                ctitle = 'Relative Humidity (%)'
+                caxes_pos = [0.37, 0.07, 0.26, 0.03]
             if number_of_sensors > 3:
-                cbar_orien = 'horizontal'
-                cax = plt.axes([0.37, 0.05, 0.26, 0.02])
-                ctitle = 'Relative Humidity (%)'
+                caxes_pos = [0.37, 0.57, 0.26, 0.02]
+
+            cax = plt.axes(kwargs.get('colorbar_axespos', caxes_pos))
+            cbar_orien = kwargs.get('colorbar_orientation', cbar_orien)
 
             cbar = fig.colorbar(im[0],
                                 cax=cax,
@@ -1008,14 +1028,11 @@ def Scatter_Plotter(df_list, ref_df, stats_df=None, plot_subset=None,
         return axs
 
 
-def Sensor_Timeplot(df_list, ref_df, param=None,
-                    sensor_name=None, figure_path=None,
-                    start_time=None, end_time=None,
-                    write_to_file=True,
-                    sensor_serials=None, filename_suffix='',
-                    ref_name=None,
-                    time_interval='1-Hour', return_mpl_obj=True,
-                    report_fmt=False, ax=None, fig=None, **kwargs):
+def Sensor_Timeplot(df_list, ref_df, param=None, sensor_name=None,
+                    figure_path=None, start=None, end=None, write_to_file=True,
+                    sensor_serials=None, ref_name=None, time_interval=None,
+                    return_mpl_obj=True, report_fmt=False, ax=None, fig=None,
+                    **kwargs):
     """Generate a timeplot for a specified pollutant alongside FRM/FEM
     concentration values.
 
@@ -1038,9 +1055,9 @@ def Sensor_Timeplot(df_list, ref_df, param=None,
         fontsize: int or float
             The font size for the xlabel, ylabel, and plot text. Passed on to
             Comparison_Plotter() which uses 0.85*font_size for tick labels.
-        start_time: string
+        start: string
             date ('yyyy-mm-dd' format) for beginning of timeseries plot
-        end_time: string
+        end: string
             date ('yyyy-mm-dd' format) for end of timeseries plot
         ylim: tuple of floats/ints
             The y-limits of the plot
@@ -1076,10 +1093,18 @@ def Sensor_Timeplot(df_list, ref_df, param=None,
     Returns:
 
     """
+    # Determine maximum concentration recorded during timeframe, use to set
+    # default ylim
+    max_list = [df.loc[start:end, param].max() for df in df_list]
+    ref_max = ref_df.loc[start:end, param + '_Value'].max()
+    max_list.append(ref_max)
+    max_conc = max(max_list)
+
+    # Get keyword argument values if specified, otherwise set default
     sns.set_style(kwargs.get('seaborn_style', 'darkgrid'))
     date_interval = kwargs.get('date_interval', 5)
     yscale = kwargs.get('yscale', 'linear')
-    ylims = kwargs.get('ylims', (0, 30))
+    ylims = kwargs.get('ylims', (0, 1.25*max_conc))
     format_xaxis_weeks = kwargs.get('format_xaxis_weeks', False)
     figsize = kwargs.get('figsize', (16, 3.5))
     fontsize = kwargs.get('fontsize', 15)
@@ -1087,6 +1112,7 @@ def Sensor_Timeplot(df_list, ref_df, param=None,
     cmap_name = kwargs.get('cmap_name', 'Set1')
     cmap_norm_range = kwargs.get('cmap_normrange', (0, 0.4))
     show_title = kwargs.get('show_title', True)
+    filename_suffix = kwargs.get('filename_suffix', '')
 
     # Performance target reporting template formatting for timeseries plots
     # Templates for PM2.5 and O3 evaluations
@@ -1100,13 +1126,14 @@ def Sensor_Timeplot(df_list, ref_df, param=None,
             show_title = True
 
             # Scaling values for axes box
-            x_scale = 0.45  # Translate x-axis position of plots
-            y_scale = 1.0  # Translate y-axis position of plots
-            w_scale = 1.0   # Transform plot width
-            h_scale = 1.12  # Transform plot height (stretch)
+            box_xscale = kwargs.get('box_xscale', 0.45)  # Translate x-axis loc
+            box_yscale = kwargs.get('box_yscale', 1.0)  # Translate y-axis loc
+            box_wscale = kwargs.get('box_wscale', 1.0)  # Transform plot width
+            box_hscale = kwargs.get('box_hscale', 1.12) # Transform plot height
 
             title_xpos = 0.5
-            legend_pos = (1.11, 1.29)  # x, y loc of legend (w.r.t axes obj)
+            # x, y loc of legend (w.r.t axes obj)
+            legend_pos = kwargs.get('legend_loc', (1.11, 1.29))
             columnspacing = 0.9  # Legend column spacing
 
         # O3: Figure consists of one timeseries plot (1-hr)
@@ -1116,14 +1143,13 @@ def Sensor_Timeplot(df_list, ref_df, param=None,
             figsize = (10.16, 3.8)
             show_title = False
 
-            # Scaling values for axes box
-            x_scale = 1.1
-            y_scale = 3.1
-            w_scale = 1.02
-            h_scale = 0.67
+            box_xscale = kwargs.get('box_xscale', 1.1)  # Translate x-axis loc
+            box_yscale = kwargs.get('box_yscale', 3.1)  # Translate y-axis loc
+            box_wscale = kwargs.get('box_wscale', 1.02)  # Transform plot width
+            box_hscale = kwargs.get('box_hscale', 0.67) # Transform plot height
 
             title_xpos = 0.5
-            legend_pos = (0.85, -0.55)
+            legend_pos = kwargs.get('legend_loc', (0.85, -0.55))
             columnspacing = 0.9
 
         # If report_fmt is requested by the parameter type is not PM2.5 or O3,
@@ -1133,10 +1159,10 @@ def Sensor_Timeplot(df_list, ref_df, param=None,
 
     # Generic figure formatting
     if report_fmt is False:
-        x_scale = kwargs.get('figure_xscale', 1.0)
-        y_scale = kwargs.get('figure_yscale', 1.2)
-        w_scale = kwargs.get('figure_wscale', 0.94)
-        h_scale = kwargs.get('figure_hscale', 0.94)
+        box_xscale = kwargs.get('box_xscale', 1.0)
+        box_yscale = kwargs.get('box_yscale', 1.2)
+        box_wscale = kwargs.get('box_wscale', 0.94)
+        box_hscale = kwargs.get('box_hscale', 0.94)
 
         title_xpos = kwargs.get('title_xloc', 0.5)
         legend_pos = kwargs.get('legend_loc', (1.06, 0.5))
@@ -1173,16 +1199,13 @@ def Sensor_Timeplot(df_list, ref_df, param=None,
                      + fmt_param)
         ax.set_title(title_str, fontsize=fontsize*1.1, x=title_xpos)
 
-    if unique_ax_obj is True:
-        fig.subplots_adjust(left=0.05, right=0.95, top=0.9, bottom=0.15)
-
     # Set the colormap and configure the range of hues that will be sampled
     colormap = plt.cm.get_cmap(cmap_name)
     cmap_lbound = cmap_norm_range[0]
     cmap_ubound = cmap_norm_range[1]
     colors = [colormap(i) for i in np.linspace(cmap_lbound, cmap_ubound,
               len(df_list))]
-    ax.set_prop_cycle('color', colors)
+    ax.set_prop_cycle('color', kwargs.get('sensor_colors', colors))
 
     # Loop through sensor dataframes, check data present, plot data
     for i, df in enumerate(df_list):
@@ -1202,7 +1225,8 @@ def Sensor_Timeplot(df_list, ref_df, param=None,
         # Plot each sensor data time series
         ax.plot(df.index, param_data, label=lbl,
                 alpha=kwargs.get('sensor_linealpha', .70),
-                linewidth=kwargs.get('sensor_linewidth', 1.5))
+                linewidth=kwargs.get('sensor_linewidth', 1.5),
+                linestyle=kwargs.get('sensor_linestyle', '-'))
 
     # Plot timeseries for regulatory monitor corresponding to the pollutant
     ax.plot(ref_df.index,
@@ -1210,13 +1234,14 @@ def Sensor_Timeplot(df_list, ref_df, param=None,
             label=ref_name,
             color=kwargs.get('ref_linecolor', 'k'),
             alpha=kwargs.get('ref_linealpha', .97),
-            linewidth=kwargs.get('ref_linewidth', 1.5))
+            linewidth=kwargs.get('ref_linewidth', 1.5),
+            linestyle=kwargs.get('ref_linestyle', '-'))
 
     # Configure x- and y-axis attributes (scale, labeling, limits, ticks)
     ax.set_yscale(yscale)
     ax.set_ylabel(fmt_param + ' ' + fmt_param_unit, fontsize=fontsize)
     ax.set_xlabel('Date', fontsize=fontsize)
-    ax.set_xlim(start_time, end_time)
+    ax.set_xlim(start, end)
     if ylims:
         ax.set_ylim(ylims[0], ylims[1])
     ax.tick_params(labelsize=.75*fontsize)
@@ -1242,7 +1267,7 @@ def Sensor_Timeplot(df_list, ref_df, param=None,
         ax.set_xlabel('Duration', fontsize=fontsize)
     # Format x-axis by date and time [MM-DD-YY] at specified date interval
     else:
-        date_form = DateFormatter("%m-%d-%y")
+        date_form = DateFormatter(kwargs.get('date_format', "%m-%d-%y"))
         ax.xaxis.set_major_formatter(date_form)
         ax.xaxis.set_major_locator(mdates.DayLocator(interval=date_interval))
 
@@ -1257,8 +1282,16 @@ def Sensor_Timeplot(df_list, ref_df, param=None,
 
     # Adjust axes dimensions to fit width and height of plot
     box = ax.get_position()
-    ax.set_position([box.x0*x_scale, box.y0*y_scale,
-                     box.width*w_scale, box.height*h_scale])
+    ax.set_position([box.x0*box_xscale, box.y0*box_yscale,
+                     box.width*box_wscale, box.height*box_hscale])
+
+    if unique_ax_obj is True:
+        subplot_adjust = kwargs.get('subplots_adjust',
+                                    (0.05, 0.9, 0.90, 0.15))
+        fig.subplots_adjust(left=subplot_adjust[0],
+                            right=subplot_adjust[1],
+                            top=subplot_adjust[2],
+                            bottom=subplot_adjust[3])
 
     # Save image to folder at figure_path
     if write_to_file is True:
