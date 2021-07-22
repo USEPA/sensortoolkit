@@ -954,7 +954,6 @@ def Scatter_Plotter(df_list, ref_df, stats_df=None, plot_subset=None,
             cax = plt.axes(kwargs.get('colorbar_axespos', caxes_pos))
             cbar_orien = kwargs.get('colorbar_orientation', cbar_orien)
 
-            print(im)
             cbar = fig.colorbar(im,
                                 cax=cax,
                                 orientation=cbar_orien,
