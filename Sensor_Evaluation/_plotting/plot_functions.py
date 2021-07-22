@@ -448,9 +448,6 @@ def Comparison_Plotter(ax, xdata, ydata, param_dict, stats_df=None,
     pointsize = kwargs.get('point_size', 20)
     alpha = kwargs.get('point_alpha', 0.5)
 
-
-    axScatter = ax  # Redefine within internal scope of Comparison_Plotter fun.
-
     if text_position == 'upper_left':
         text_x = 0.05
         text_y = 0.90
@@ -474,24 +471,23 @@ def Comparison_Plotter(ax, xdata, ydata, param_dict, stats_df=None,
     text_ydisplacement = kwargs.get('plottext_ydisplacement',
                                     (text_ydisplacement))
 
+    axScatter = ax  # Redefine within internal scope of Comparison_Plotter fun.
+
     # Plot scatterplot with colormap or with monochrome
     # Colormap is based on the input parameter the user gives
     if isinstance(colormap_vals, pd.core.series.Series):
         norm = mpl.colors.Normalize(vmin=0, vmax=100)
-        out = axScatter.scatter(xdata, ydata, s=pointsize, alpha=alpha,
-                                c=colormap_vals, cmap=colormap_name,
-                                norm=norm)
-
+        plotobj = axScatter.scatter(xdata, ydata, s=pointsize, alpha=alpha,
+                                    c=colormap_vals, cmap=colormap_name,
+                                    norm=norm)
     else:
         # If a particular color is specified, use that color, otherwise use
         # default color scheme
         if monocolor is not None:
-            out = axScatter.scatter(xdata, ydata,
-                                    color=monocolor,
-                                    s=pointsize,
-                                    alpha=alpha)
+            plotobj = axScatter.scatter(xdata, ydata, color=monocolor,
+                                        s=pointsize, alpha=alpha)
         else:
-            out = axScatter.scatter(xdata, ydata, s=pointsize, alpha=alpha)
+            plotobj = axScatter.scatter(xdata, ydata, s=pointsize, alpha=alpha)
 
     axScatter.set_xlabel(param_dict['xlabel'], fontsize=fontsize)
     axScatter.set_ylabel(param_dict['ylabel'], fontsize=fontsize)
@@ -515,20 +511,17 @@ def Comparison_Plotter(ax, xdata, ydata, param_dict, stats_df=None,
         s1 = pd.Series(xdata)
         s2 = pd.Series(ydata)
 
-        trend_data = np.linspace(s1.min(), 1.2*s1.max(), 2)
-
         if plot_trendline:
             try:
+                trend_data = np.linspace(s1.min(), 1.2*s1.max(), 2)
                 trendline_color = kwargs.get('trendline_color', 'k')
                 trendline_alpha = kwargs.get('trendline_alpha', 0.65)
-                lregression_plt = axScatter.plot(trend_data,
-                                                 slope*trend_data + intercept,
-                                                 color=trendline_color,
-                                                 alpha=trendline_alpha)
+                axScatter.plot(trend_data, slope*trend_data + intercept,
+                               color=trendline_color, alpha=trendline_alpha)
             except TypeError as e:
                 print(e)
 
-                return out
+                return plotobj
 
         if np.sign(intercept) == -1:
             intercept_sign = ''
@@ -590,23 +583,13 @@ def Comparison_Plotter(ax, xdata, ydata, param_dict, stats_df=None,
     # One-to-one dashed line for reference
     if plot_one_to_one is True:
         one_to_one = np.linspace(int(ylim[0]), int(ylim[1]), int(10*ylim[1]))
-        one_to_one_plot = axScatter.plot(one_to_one, one_to_one,
-                                         linestyle='--', color='grey',
-                                         alpha=0.7)
+        axScatter.plot(one_to_one, one_to_one, linestyle='--', color='grey',
+                       alpha=0.7)
 
     if empty_plot is True:
-        out.set_visible(False)
+        plotobj.set_visible(False)
 
-    # Various circumstances that may be specified by the user for the scope of
-    # the graphing function's implementation
-    if plot_one_to_one is True and plot_trendline is True:
-        return out, lregression_plt, one_to_one_plot
-    if plot_one_to_one is True and plot_trendline is False:
-        return out, one_to_one_plot
-    if plot_one_to_one is False and plot_trendline is True:
-        return out, lregression_plt
-    if plot_one_to_one is False and plot_trendline is False:
-        return out
+    return plotobj
 
 
 """----------------------------------------------------------------------------
@@ -971,7 +954,8 @@ def Scatter_Plotter(df_list, ref_df, stats_df=None, plot_subset=None,
             cax = plt.axes(kwargs.get('colorbar_axespos', caxes_pos))
             cbar_orien = kwargs.get('colorbar_orientation', cbar_orien)
 
-            cbar = fig.colorbar(im[0],
+            print(im)
+            cbar = fig.colorbar(im,
                                 cax=cax,
                                 orientation=cbar_orien,
                                 pad=cbar_padding,
