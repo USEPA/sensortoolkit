@@ -67,7 +67,7 @@ def Set_Fontsize(serials):
     if (n_sensors == 1):
         fontsize = 14
     if (n_sensors < 7 and n_sensors > 1):
-        fontsize = 13
+        fontsize = 12.75
     else:
         fontsize = 11.7
 
@@ -121,6 +121,17 @@ def Subplot_Dims(n_sensors):
     return (n_rows, n_cols)
 
 
+def Get_Max(df_list, ref_df, param, start=None, end=None):
+    # Determine maximum concentration recorded during timeframe, use to set
+    # default plot limits
+    max_list = [df.loc[start:end, param].max() for df in df_list]
+    ref_max = ref_df.loc[start:end, param + '_Value'].max()
+    max_list.append(ref_max)
+    max_conc = max(max_list)
+
+    return max_conc
+
+
 def Sensor_Subplot_Formatting(number_of_sensors, param, font_size,
                               RH_colormap, report_fmt=False):
     """Configure subplot parameters that control the spacing of subplots,
@@ -143,7 +154,7 @@ def Sensor_Subplot_Formatting(number_of_sensors, param, font_size,
     if Nc > 1:
         column_plural = 's'
 
-    print('Creating subplot for', str(number_of_sensors),
+    print('..creating subplot for', str(number_of_sensors),
           'sensor' + sensor_plural, 'with', str(Nr),
           'row' + row_plural,  'and', str(Nc), 'column' + column_plural)
 
@@ -383,12 +394,11 @@ def Plot_Error_Bars(xdata, ydata, ax, n_xbins=8, plot_yerror=True,
 
 
 def Comparison_Plotter(ax, xdata, ydata, param_dict, stats_df=None,
-                       sensor_index=None, text_position='upper_left',
-                       xlim=(0, 40), ylim=(0, 40), fontsize=None,
+                       sensor_index=None,
+                       xlim=None, ylim=None, fontsize=None,
                        detail_fontsize=None,
-                       param=None, sensor_name=None, plot_one_to_one=True,
-                       plot_regression=True, plot_trendline=True,
-                       plot_rmse=True, plot_spearman=False, plot_n=True,
+                       param=None, sensor_name=None,
+                       plot_regression=True,
                        monocolor=None, colormap_vals=None, colormap_name=None,
                        empty_plot=False, **kwargs):
     """A helper function to create comparison scatterplots with linear
@@ -447,6 +457,12 @@ def Comparison_Plotter(ax, xdata, ydata, param_dict, stats_df=None,
     """
     pointsize = kwargs.get('point_size', 20)
     alpha = kwargs.get('point_alpha', 0.5)
+    text_position = kwargs.get('text_position', 'upper_left')
+    plot_trendline = kwargs.get('show_trendline', True)
+    plot_rmse = kwargs.get('show_RMSE', True)
+    plot_spearman = kwargs.get('show_spearman', False)
+    plot_n = kwargs.get('show_N', True)
+    plot_one_to_one = kwargs.get('show_one_to_one', True)
 
     if text_position == 'upper_left':
         text_x = 0.05
@@ -493,8 +509,8 @@ def Comparison_Plotter(ax, xdata, ydata, param_dict, stats_df=None,
     axScatter.set_ylabel(param_dict['ylabel'], fontsize=fontsize)
     axScatter.tick_params(labelsize=detail_fontsize)
     axScatter.set_aspect('equal')
-    axScatter.set_xlim(xlim[0], xlim[1])
-    axScatter.set_ylim(ylim[0], ylim[1])
+    axScatter.set_xlim(xlim)
+    axScatter.set_ylim(ylim)
 
     # Linear Regression
     # -----------------
@@ -513,14 +529,14 @@ def Comparison_Plotter(ax, xdata, ydata, param_dict, stats_df=None,
 
         if plot_trendline:
             try:
-                trend_data = np.linspace(s1.min(), 1.2*s1.max(), 2)
+                trendline_xmax = kwargs.get('trendline_xmax', 1.2*s1.max())
+                trend_data = np.linspace(s1.min(), trendline_xmax, 2)
                 trendline_color = kwargs.get('trendline_color', 'k')
                 trendline_alpha = kwargs.get('trendline_alpha', 0.65)
                 axScatter.plot(trend_data, slope*trend_data + intercept,
                                color=trendline_color, alpha=trendline_alpha)
             except TypeError as e:
                 print(e)
-
                 return plotobj
 
         if np.sign(intercept) == -1:
@@ -601,17 +617,14 @@ Primary figure plotting functions
 
 def Scatter_Plotter(df_list, ref_df, stats_df=None, plot_subset=None,
                     param=None, sensor_name=None, figure_path=None,
-                    write_to_file=True, xlim=(0, 40),
-                    ylim=(0, 40), time_interval=None, text_pos='upper_left',
-                    font_size=10, point_size=10, met_ref_df=None,
-                    RH_colormap=True, tight_layout=False, plot_title=True,
-                    filename_suffix='', plot_regression=True,
-                    plot_trendline=True, plot_rmse=True,
-                    plot_spearman=False, plot_n=True, title_text=None,
-                    mono_color=None, alpha=.5, sensor_serials=None,
-                    tick_spacing=5, ref_name=None, deploy_dict=None,
+                    write_to_file=True, time_interval=None,
+                    met_ref_df=None, deploy_dict=None,
+                     sensor_serials=None,
+
                     ax=None, fig=None, report_fmt=False, return_axs=False,
-                    empty_plot=False, param_class=None, **kwargs):
+                     param_class=None, **kwargs
+
+                    ):
     """Front-end function for creating scatter plots.
 
     Calls Comparison_Plotter for lower-end tasks and sets formatting for plots
@@ -702,6 +715,20 @@ def Scatter_Plotter(df_list, ref_df, stats_df=None, plot_subset=None,
     palette = kwargs.get('color_palette', 'seismic')
     sns.set_palette(palette)
 
+    RH_colormap = kwargs.get('show_colorbar', True)
+    plot_title = kwargs.get('show_title', True)
+    plot_regression = kwargs.get('show_regression', True)
+    tick_spacing = kwargs.get('tick_spacing', 5)
+    title_text = kwargs.get('title_text', None)
+    ref_name = kwargs.get('ref_name', 'Unknown Reference')
+    mono_color = kwargs.get('monocolor', None)
+    tight_layout = kwargs.get('tight_layout', False)
+    filename_suffix = kwargs.get('filename_suffix', '')
+
+    interval_to_freq = {'1-hour': 'Hourly',
+                        '24-hour': 'Daily'}
+    freq = interval_to_freq[time_interval]
+
     # Option to supply df_list indicies in list for subset of sensors to plot
     if plot_subset is not None:
         # limit dataframe list and sensor serials to selected sensors
@@ -723,6 +750,7 @@ def Scatter_Plotter(df_list, ref_df, stats_df=None, plot_subset=None,
 
     number_of_sensors = len(df_list)
 
+    font_size = Set_Fontsize(sensor_serials) #default
     fmt_tuple = Sensor_Subplot_Formatting(number_of_sensors, param, font_size,
                                           RH_colormap, report_fmt)
 
@@ -730,10 +758,22 @@ def Scatter_Plotter(df_list, ref_df, stats_df=None, plot_subset=None,
      detail_fontsize, wspace, hspace, left, right, top, bottom,
      auto_filename_suffix, cbar_padding, cbar_aspect, font_size) = fmt_tuple
 
+    # Update fontsize if particular value specified
     font_size = kwargs.get('fontsize', font_size)
+    # dropped, variable 'font_size' passed to Comparison_Plotter
+    kwargs.pop('fontsize')  # Avoids multiple args passed to same param
     detail_fontsize = kwargs.get('detail_fontsize', detail_fontsize)
 
 
+    # Set concentration limits for x and y axes to the nearest multilple of
+    # 5 for 125% of the max concentration recorded by collocated sensors.
+    start = min([df.index.min() for df in df_list])
+    end = max([df.index.max() for df in df_list])
+    max_conc = Get_Max(df_list, ref_df, param, start, end)
+    xlims = kwargs.get('xlims',
+                       (0, tick_spacing*round(1.25*max_conc/tick_spacing)))
+    ylims = kwargs.get('ylims',
+                       (0, tick_spacing*round(1.25*max_conc/tick_spacing)))
 
 
     if (ax and fig) is None:
@@ -823,14 +863,22 @@ def Scatter_Plotter(df_list, ref_df, stats_df=None, plot_subset=None,
                 daily_ref_df = None
 
             if plot_regression is True:
-                sensor_stats_df = Regression_Stats(hourly_df_obj=hourly_df_obj,
-                                                   daily_df_obj=daily_df_obj,
-                                                   hourly_ref_df=hourly_ref_df,
-                                                   daily_ref_df=daily_ref_df,
-                                                   deploy_dict=deploy_dict,
-                                                   param=param,
-                                                   serials=sensor_serials,
-                                                   sensor_name=sensor_name)
+                if stats_df is not None:
+                    sensor_stats_df = stats_df[
+                                stats_df.Sensor_Number==str(sensor_number)]
+                    sensor_stats_df = sensor_stats_df[
+                                sensor_stats_df['Averaging Interval']==freq]
+                    sensor_stats_df = sensor_stats_df.reset_index(drop=True)
+                else:
+                    sensor_stats_df = Regression_Stats(
+                                            hourly_df_obj=hourly_df_obj,
+                                            daily_df_obj=daily_df_obj,
+                                            hourly_ref_df=hourly_ref_df,
+                                            daily_ref_df=daily_ref_df,
+                                            deploy_dict=deploy_dict,
+                                            param=param,
+                                            serials=sensor_serials,
+                                            sensor_name=sensor_name)
             else:
                 sensor_stats_df = None
 
@@ -907,21 +955,14 @@ def Scatter_Plotter(df_list, ref_df, stats_df=None, plot_subset=None,
                                     param_dict,
                                     sensor_stats_df,
                                     sensor_data_index,
-                                    text_position=text_pos,
                                     colormap_vals=cmap_vals,
                                     colormap_name=palette,
+                                    xlim=xlims,
+                                    ylim=ylims,
                                     monocolor=color,
-                                    xlim=xlim,
-                                    ylim=ylim,
                                     fontsize=font_size,
                                     detail_fontsize=detail_fontsize,
                                     plot_regression=plot_regression,
-                                    plot_trendline=plot_trendline,
-                                    plot_rmse=plot_rmse,
-                                    plot_spearman=plot_spearman,
-                                    plot_n=plot_n,
-                                    alpha=alpha,
-                                    empty_plot=empty_plot,
                                     **kwargs)
 
             ax.xaxis.set_major_locator(plt.MultipleLocator(tick_spacing))
@@ -961,8 +1002,10 @@ def Scatter_Plotter(df_list, ref_df, stats_df=None, plot_subset=None,
                                 aspect=cbar_aspect,
                                 shrink=cbar_size)
             cbar.ax.set_title(ctitle,
-                              fontsize=detail_fontsize)
-            cbar.ax.tick_params(labelsize=.8*font_size)
+                              fontsize=kwargs.get('colorbar_fontsize',
+                                                  detail_fontsize))
+            cbar.ax.tick_params(labelsize=kwargs.get('colorbar_labelsize',
+                                                     detail_fontsize))
 
         # Error when all passed x or y data are empty. Do not write to file.
         except TypeError:
@@ -1009,6 +1052,8 @@ def Scatter_Plotter(df_list, ref_df, stats_df=None, plot_subset=None,
     # Return a unique axes instance
     if return_axs is True:
         return axs
+
+
 
 
 def Sensor_Timeplot(df_list, ref_df, param=None, sensor_name=None,
@@ -1078,10 +1123,7 @@ def Sensor_Timeplot(df_list, ref_df, param=None, sensor_name=None,
     """
     # Determine maximum concentration recorded during timeframe, use to set
     # default ylim
-    max_list = [df.loc[start:end, param].max() for df in df_list]
-    ref_max = ref_df.loc[start:end, param + '_Value'].max()
-    max_list.append(ref_max)
-    max_conc = max(max_list)
+    max_conc = Get_Max(df_list, ref_df, param, start, end)
 
     # Get keyword argument values if specified, otherwise set default
     sns.set_style(kwargs.get('seaborn_style', 'darkgrid'))
@@ -2104,9 +2146,9 @@ def Normalized_Met_Scatter(df_list, ref_df, avg_df, met_ref_df=None,
 
         Comparison_Plotter(ax, xdata, ydata, param_dict, xlim=xlim, ylim=ylim,
                            pointsize=point_size, fontsize=fontsize,
-                           alpha=alpha, plot_regression=False, plot_n=False,
-                           plot_rmse=False, plot_spearman=False,
-                           plot_one_to_one=False, plot_trendline=False,
+                           point_alpha=alpha, plot_regression=False,
+                           show_N=False, show_RMSE=False, show_spearman=False,
+                           show_one_to_one=False, show_trendline=False,
                            empty_plot=empty_plot)
 
         ax.set_title(title, fontsize=fontsize, pad=6)
