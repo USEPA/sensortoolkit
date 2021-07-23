@@ -19,9 +19,8 @@ import sys
 lib_path = os.path.abspath(__file__ + '../../..')
 if lib_path not in sys.path:
     sys.path.append(lib_path)
-import SensorEvaluation as se
+import Sensor_Evaluation as se
 from Reports.performance_report import PerformanceReport
-
 
 #  ----------------------------------------------------------------------------
 #   Construct file structure for sensor, specify ingestion formatting scheme
