@@ -115,8 +115,8 @@ def Sensor_Averaging(full_df_list, sensor_serials=None, name='',
     return hourly_df_list, daily_df_list
 
 
-def Interval_Averaging(df, freq='H', interval_count=60, thres=0.75,
-                       return_counts=False):
+
+def Interval_Averaging(df, freq='H', interval_count=60, thres=0.75):
     """Average dataframe to the specified sampling frequency ('freq').
 
     Numeric columns are averaged for for each interval and a completeness
@@ -151,13 +151,13 @@ def Interval_Averaging(df, freq='H', interval_count=60, thres=0.75,
         averaged_df (pandas dataframe):
             Dataframe averaged to datetimeindex interval specified by 'freq'.
     """
-
     # Split dataframe in to object-like columns and numeric-like columns
     obj_df = df.select_dtypes(include=['object', 'datetime'])
     num_df = df.select_dtypes(exclude=['object', 'datetime'])
 
-    obj_df_cols = list(obj_df.columns)
+    #obj_df_cols = list(obj_df.columns)
     num_df_cols = list(num_df.columns)
+    obj_df_cols = list(obj_df.columns)
 
     num_df = num_df.dropna(axis=1, how='all')
 
@@ -167,17 +167,17 @@ def Interval_Averaging(df, freq='H', interval_count=60, thres=0.75,
                                freq=freq, normalize=True)
 
     # Sample object-like data at specified interval by the mode
-    try:
-        averaged_obj_df = obj_df.groupby(
-                        [pd.Grouper(freq=freq)]).agg(pd.Series.mode)
-    except Exception:
-        # Dataframe is full of NaNs
-        averaged_obj_df = pd.DataFrame(np.nan, index=nan_df_idx,
-                                       columns=obj_df_cols)
+    obj_df = obj_df.dropna(how='all', axis=1).dropna()
+    avg_obj_df = obj_df.groupby([pd.Grouper(freq=freq)]
+                                ).agg(lambda x:x.value_counts().index[0])
+
+    dropped_objcols = [col for col in obj_df_cols if col not in avg_obj_df]
+    for col in dropped_objcols:
+        avg_obj_df[col] = np.nan
 
     if num_df.empty:
-        averaged_num_df = pd.DataFrame(np.nan, index=nan_df_idx,
-                                       columns=num_df_cols)
+        avg_num_df = pd.DataFrame(np.nan, index=nan_df_idx,
+                                  columns=num_df_cols)
     else:
 
         # Mean param values for each averaging interval
@@ -186,15 +186,14 @@ def Interval_Averaging(df, freq='H', interval_count=60, thres=0.75,
 
         # Counts for each param and each averaging interval
         counts_df = num_df[:].groupby(
-                        [pd.Grouper(freq=freq)]).count().add_suffix(
+                            [pd.Grouper(freq=freq)]).count().add_suffix(
                                                             '_count' + freq)
 
-        averaged_num_df = mean_df.join(counts_df).sort_index(axis=1)
+        avg_num_df = mean_df.join(counts_df).sort_index(axis=1)
 
         # List of columns containing count for each averaging interval
-        count_list = list(averaged_num_df.columns[
-                        [col.endswith('count' + freq) for col in
-                         averaged_num_df.columns]])
+        count_list = list(avg_num_df.columns[[col.endswith('count' + freq)
+                                              for col in avg_num_df.columns]])
 
         n_thres = interval_count*thres
 
@@ -202,13 +201,10 @@ def Interval_Averaging(df, freq='H', interval_count=60, thres=0.75,
         for col in count_list:
             mean_col = col.replace('_count' + freq, '')
 
-            averaged_num_df[mean_col] = averaged_num_df[mean_col].where(
-                                        averaged_num_df[col] > n_thres, np.nan)
-
-        if return_counts is False:
-            averaged_num_df = averaged_num_df.drop(columns=count_list)
+            avg_num_df[mean_col] = avg_num_df[mean_col].where(
+                                        avg_num_df[col] > n_thres, np.nan)
 
     # Rejoin non-numeric columns on averaging interval
-    averaged_df = averaged_num_df.join(averaged_obj_df)
-
-    return averaged_df
+    avg_df = avg_num_df.join(avg_obj_df)
+    #print(avg_df)
+    return avg_df
