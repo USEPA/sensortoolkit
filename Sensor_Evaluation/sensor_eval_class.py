@@ -411,6 +411,9 @@ class SensorEvaluation:
                                                  index=hourly_ref_idx,
                                                  columns=cols,
                                                  dtype=object)
+            # Replace null method names with 'Unspecified Reference'
+            for col_name in [col for col in cols if col.endswith('_Method')]:
+                self.pm_hourly_ref_df[col_name] = 'Unknown Reference'
 
         if not self.ref_dict['Gases'].empty:
             self.gas_hourly_ref_df = self.ref_dict['Gases']
@@ -421,6 +424,9 @@ class SensorEvaluation:
                                                   index=hourly_ref_idx,
                                                   columns=cols,
                                                   dtype=object)
+            # Replace null method names with 'Unspecified Reference'
+            for col_name in [col for col in cols if col.endswith('_Method')]:
+                self.gas_hourly_ref_df[col_name] = 'Unknown Reference'
 
         if not self.ref_dict['Met'].empty:
             self.met_hourly_ref_df = self.ref_dict['Met']
@@ -433,6 +439,10 @@ class SensorEvaluation:
                                                   index=hourly_ref_idx,
                                                   columns=cols,
                                                   dtype=object)
+            # Replace null method names with 'Unspecified Reference'
+            for col_name in [col for col in cols if col.endswith('_Method')]:
+                self.met_hourly_ref_df[col_name] = 'Unknown Reference'
+
         # Get the name of the reference monitor
         try:
             self.ref_name = self.hourly_ref_df[self.eval_param + '_Method'
@@ -679,13 +689,9 @@ class SensorEvaluation:
                                     **kwargs)
 
     def plot_sensor_scatter(self, averaging_interval='24-hour',
-                            text_pos='upper_left', plot_limits=(-1, 25),
-                            point_size=20, tick_spacing=5, RH_colormap=True,
-                            plot_title=True, plot_subset=None,
-                            report_fmt=False, **kwargs):
+                            plot_subset=None, report_fmt=False, **kwargs):
         """
         """
-        self.plot_title = plot_title
 
         try:
             self.deploy_dict['Deployment Groups']['Group 1'][self.eval_param]
@@ -701,12 +707,12 @@ class SensorEvaluation:
             self.calculate_metrics()
 
         if plot_subset is None:
-            fontsize = se.Set_Fontsize(self.serials)
+            sensor_serials = self.serials
         else:
             subset_serials = {str(i): serial for i, serial in
                               enumerate(self.serials.values(), 1)
                               if str(i) in plot_subset}
-            fontsize = se.Set_Fontsize(subset_serials)
+            sensor_serials = subset_serials
 
         avg_list = self.eval_param_averaging
 
@@ -724,9 +730,8 @@ class SensorEvaluation:
                          'figure not specified for ' + self.eval_param)
 
             fig, axs = plt.subplots(1, len(avg_list), figsize=figsize)
-
+            kwargs['fontsize'] = 9
             fig.subplots_adjust(hspace=0.7)
-            fontsize = 9
             for i, avg_interval in enumerate(self.eval_param_averaging):
 
                 if avg_interval == '1-hour':
@@ -758,21 +763,13 @@ class SensorEvaluation:
                                    self.stats_df,
                                    deploy_dict=self.deploy_dict,
                                    met_ref_df=met_data,
-                                   sensor_serials=self.serials,
+                                   sensor_serials=sensor_serials,
                                    param=self.eval_param,
                                    figure_path=self.figure_path,
                                    sensor_name=self.sensor_name,
                                    ref_name=self.ref_name,
-                                   text_pos=text_pos,
                                    time_interval=avg_interval,
-                                   xlim=plot_limits,
-                                   ylim=plot_limits,
-                                   font_size=fontsize,
-                                   point_size=point_size,
-                                   RH_colormap=RH_colormap,
-                                   plot_title=plot_title,
                                    plot_subset=plot_subset,
-                                   tick_spacing=tick_spacing,
                                    write_to_file=write_to_file,
                                    report_fmt=True,
                                    ax=ax,
@@ -804,21 +801,13 @@ class SensorEvaluation:
                                self.stats_df,
                                deploy_dict=self.deploy_dict,
                                met_ref_df=self.met_hourly_ref_df,
-                               sensor_serials=self.serials,
+                               sensor_serials=sensor_serials,
                                param=self.eval_param,
                                figure_path=self.figure_path,
                                sensor_name=self.sensor_name,
                                ref_name=self.ref_name,
-                               text_pos=text_pos,
                                time_interval=averaging_interval,
-                               xlim=plot_limits,
-                               ylim=plot_limits,
-                               font_size=fontsize,
-                               point_size=point_size,
-                               RH_colormap=RH_colormap,
-                               plot_title=plot_title,
                                plot_subset=plot_subset,
-                               tick_spacing=tick_spacing,
                                report_fmt=report_fmt,
                                write_to_file=self.write_to_file,
                                **kwargs)
