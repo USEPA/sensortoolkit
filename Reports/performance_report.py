@@ -65,7 +65,7 @@ class PerformanceReport(SensorEvaluation):
 
     def __init__(self, sensor_name, eval_param, load_raw_data=False,
                  reference_data=None, serials=None, tzone_shift=0,
-                 write_to_file=False, **kwargs):
+                 write_to_file=False, figure_search=False, **kwargs):
 
         # Add keyword arguments (testing_loc, testing_org, etc.)
         self.__dict__.update(**kwargs)
@@ -79,6 +79,8 @@ class PerformanceReport(SensorEvaluation):
         if self.eval_param not in self.report_params:
             sys.exit('Reporting template not configured for '
                      + self.eval_param)
+
+        self.figure_search = figure_search
 
         # Placeholder method for formatted sensor name, replace '_' with spaces
         self.fmt_sensor_name = self.kwargs.get('fmt_sensor_name',
@@ -187,6 +189,16 @@ class PerformanceReport(SensorEvaluation):
             self.fig_locs['MetInfl']['left'] = 8.28
             self.fig_locs['MetInfl']['top'] = 17.31
 
+    def FigureSearch(self, figure_name, subfolder=None):
+        if subfolder is None:
+            subfolder = self.eval_param
+        # Search for figure created today
+        figure_name += '_' + self.today + '.png'
+        full_figure_path = self.figure_path + '\\'.join((subfolder,
+                                                         figure_name))
+
+        return os.path.exists(full_figure_path), full_figure_path
+
     def AddSingleScatterPlot(self, **kwargs):
         """
         Add sensor vs. reference scatter plots (1-hr, 24-hr [PM2.5 only])
@@ -194,31 +206,17 @@ class PerformanceReport(SensorEvaluation):
         """
         fig_name = self.sensor_name + '_vs_' + self.ref_name + '_report_fmt'
 
-        # Search for figure created today
-        try:
-            fig_name += '_' + self.today + '.png'
-            fig_path = self.figure_path + '\\'.join((self.eval_param,
-                                                     fig_name))
-            figure = open(fig_path, 'r')
-            figure.close()
+        fig_exists, fig_path = self.FigureSearch(fig_name)
 
-        # If figure not found, load sensor data and create figure
-        except FileNotFoundError:
-
+        # Draw figure if no figure exists at path or if figure_search attrib
+        # is false
+        if not fig_exists or not self.figure_search:
             self.plot_sensor_scatter(
                 plot_subset=kwargs.get('plot_subset', ['1']),
                 plot_limits=kwargs.get('plot_limits', (-1, self.plot_cmax)),
                 tick_spacing=kwargs.get('tick_spacing', 5),
                 text_pos=kwargs.get('text_pos', 'upper_left'),
                 report_fmt=True)
-
-#        if len(kwargs) != 0:
-#            self.plot_sensor_scatter(
-#                    plot_subset=kwargs.get('plot_subset', ['1']),
-#                    plot_limits=kwargs.get('plot_limits', (-1, self.plot_cmax)),
-#                    tick_spacing=kwargs.get('tick_spacing', 5),
-#                    text_pos=kwargs.get('text_pos', 'upper_left'),
-#                    report_fmt=True)
 
         scatter_loc = self.fig_locs['SingleScatter']
         self.scatterplt = self.shapes.add_picture(
@@ -272,30 +270,11 @@ class PerformanceReport(SensorEvaluation):
                         '_' + avg_interval + '_' + str(self.n_sensors) +
                         '_' + 'sensor' + plural)
 
-            # Search for figure created today
-            try:
-                fig_name += '_' + self.today + '.png'
-                fig_path = self.figure_path + '\\' + self.eval_param + '\\' \
-                    + fig_name
+            fig_exists, fig_path = self.FigureSearch(fig_name)
 
-                figure = open(fig_path, 'r')
-                figure.close()
-
-            # If figure not found, load sensor data and create figure
-            except FileNotFoundError as e:
-                print(e)
-
-                if len(kwargs) == 0:
-                    print('Warning: No plotting arguments passed to function,'
-                          ' using default configuration')
-                self.plot_sensor_scatter(
-                    avg_interval,
-                    plot_limits=kwargs.get('plot_limits',
-                                           (-1, self.plot_cmax)),
-                    tick_spacing=kwargs.get('tick_spacing', 5),
-                    text_pos=kwargs.get('text_pos', 'upper_left'))
-
-            if len(kwargs) != 0:
+            # Draw figure if no figure exists at path or if figure_search
+            # attrib is false
+            if not fig_exists or not self.figure_search:
                 self.plot_sensor_scatter(
                     avg_interval,
                     plot_limits=kwargs.get('plot_limits',
@@ -325,16 +304,11 @@ class PerformanceReport(SensorEvaluation):
         fig_name = self.sensor_name + '_timeseries_' + self.eval_param \
             + '_report_fmt'
 
-        # Search for figure created today
-        try:
-            fig_name += '_' + self.today + '.png'
-            fig_path = self.figure_path + '\\'.join((self.eval_param,
-                                                     fig_name))
+        fig_exists, fig_path = self.FigureSearch(fig_name)
 
-            figure = open(fig_path, 'r')
-            figure.close()
-
-        except FileNotFoundError:
+        # Draw figure if no figure exists at path or if figure_search
+        # attrib is false
+        if not fig_exists or not self.figure_search:
 
             self.plot_timeseries(
                     format_xaxis_weeks=kwargs.get('format_xaxis_weeks', False),
@@ -342,14 +316,6 @@ class PerformanceReport(SensorEvaluation):
                     date_interval=kwargs.get('date_interval', 7),
                     report_fmt=True,
                     ylims=(0, self.plot_cmax))
-
-#        if len(kwargs) != 0:
-#            self.plot_timeseries(
-#                format_xaxis_weeks=kwargs.get('format_xaxis_weeks', False),
-#                yscale=kwargs.get('yscale', 'linear'),
-#                date_interval=kwargs.get('date_interval', 7),
-#                report_fmt=True,
-#                ylims=kwargs.get('ylims', (0, 25)))
 
         timeseries_loc = self.fig_locs['Timeseries']
         self.timeseries = self.shapes.add_picture(
@@ -367,17 +333,11 @@ class PerformanceReport(SensorEvaluation):
         """
         fig_name = self.sensor_name + '_regression_boxplot_' + self.eval_param
 
-        # Search for figure created today
-        try:
-            fig_name += '_' + self.today + '.png'
-            fig_path = self.figure_path + '\\'.join((self.eval_param,
-                                                     fig_name))
+        fig_exists, fig_path = self.FigureSearch(fig_name)
 
-            figure = open(fig_path, 'r')
-            figure.close()
-
-        except FileNotFoundError:
-
+        # Draw figure if no figure exists at path or if figure_search
+        # attrib is false
+        if not fig_exists or not self.figure_search:
             self.plot_metrics()
 
         metricplt_loc = self.fig_locs['MetricPlot']
@@ -396,15 +356,11 @@ class PerformanceReport(SensorEvaluation):
         """
         fig_name = self.sensor_name + '_met_distplot_report_fmt'
 
-        # Search for figure created today
-        try:
-            fig_name += '_' + self.today + '.png'
-            fig_path = self.figure_path + '\\'.join(('Met', fig_name))
+        fig_exists, fig_path = self.FigureSearch(fig_name, subfolder='Met')
 
-            figure = open(fig_path, 'r')
-            figure.close()
-
-        except FileNotFoundError:
+        # Draw figure if no figure exists at path or if figure_search
+        # attrib is false
+        if not fig_exists or not self.figure_search:
 
             self.plot_met_dist()
 
@@ -425,16 +381,11 @@ class PerformanceReport(SensorEvaluation):
         fig_name = self.sensor_name + '_normalized_' + self.eval_param \
             + '_met_report_fmt'
 
-        # Search for figure created today
-        try:
-            fig_name += '_' + self.today + '.png'
-            fig_path = self.figure_path + '\\'.join(
-                                                (self.eval_param, fig_name))
+        fig_exists, fig_path = self.FigureSearch(fig_name)
 
-            figure = open(fig_path, 'r')
-            figure.close()
-
-        except FileNotFoundError:
+        # Draw figure if no figure exists at path or if figure_search
+        # attrib is false
+        if not fig_exists or not self.figure_search:
             self.plot_met_influence(report_fmt=True,
                                     plot_error_bars=False)
 
