@@ -290,18 +290,15 @@ def Meteorological_Stats(deploy_dict, df_list, met_ref_df,
             end timestamp in group), deployment duration, and sensor serial IDs
             for devices within each deployment group.
     """
-
     met_str = 'Meteorological Conditions'
     date_index, avg_suffix = Synoptic_Index(met_ref_df, averaging_suffix=True)
 
     #cal_check_dict = cal_check_dict['Met cal checks']
-
     for param in ['Temp', 'RH']:
         fmt_param, fmt_param_units = Format_Param_Name(param)
 
         try:
-            ref_name = met_ref_df[
-                    param + '_Method'].dropna().apply(
+            ref_name = met_ref_df.loc[:, param + '_Method'].dropna().apply(
                                             lambda x: str(x)).unique()[0]
         except IndexError:
             ref_name = 'Unknown Reference'
@@ -321,12 +318,13 @@ def Meteorological_Stats(deploy_dict, df_list, met_ref_df,
             ref_data = met_ref_df.loc[start:end,  param + '_Value']
 
             grp_idx = [int(i) - 1 for i in deploy['sensors'].keys()]
-
             data_pairs = []
             for idx in grp_idx:
                 df = df_list[idx]
+                start = df.index.min()
+                end = df.index.max()
                 data_pairs.append(
-                            met_ref_df.loc[df.index,
+                            met_ref_df.loc[start:end,
                                            param + '_Value'].dropna().size)
 
             if met_str not in deploy:
