@@ -581,9 +581,7 @@ class SensorEvaluation:
                                        write_to_file=self.write_to_file)
 
     def plot_timeseries(self, report_fmt=True, **kwargs):
-        """
-        Plot parameter concentrations over time alongside reference
-
+        """Plot parameter concentrations over time alongside reference
         """
         timestamp_fmt = '%Y-%m-%d %H:%M:%S'
         t_start = (self.avg_hrly_df.dropna(how='all', axis=0).index[0] -
@@ -612,22 +610,22 @@ class SensorEvaluation:
                 if i == len(avg_list) - 1:
                     write_to_file = self.write_to_file
 
-                axs[i] = se.Sensor_Timeplot(
-                            sensor_data,
-                            ref_data,
-                            sensor_serials=self.serials,
-                            param=self.eval_param,
-                            figure_path=self.figure_path,
-                            sensor_name=self.sensor_name,
-                            ref_name=self.ref_name,
-                            start=t_start,
-                            end=t_end,
-                            time_interval=avg_interval,
-                            report_fmt=report_fmt,
-                            write_to_file=write_to_file,
-                            ax=axs[i],
-                            fig=fig,
-                            **kwargs)
+                axs[i] = se.Sensor_Timeplot(sensor_data,
+                                            ref_data,
+                                            sensor_serials=self.serials,
+                                            param=self.eval_param,
+                                            figure_path=self.figure_path,
+                                            sensor_name=self.sensor_name,
+                                            ref_name=self.ref_name,
+                                            start=t_start,
+                                            end=t_end,
+                                            time_interval=avg_interval,
+                                            report_fmt=report_fmt,
+                                            write_to_file=write_to_file,
+                                            ax=axs[i],
+                                            fig=fig,
+                                            **kwargs)
+
                 if i == 0:
                     axs[i].get_legend().remove()
         else:
@@ -743,12 +741,14 @@ class SensorEvaluation:
                     ref_data = self.daily_ref_df
                     met_data = self.met_daily_ref_df
 
-                # Prevent Sensor_Timeplot from writing to file on first
-                # iteration of loop
+                # Prevent sub-routine from writing to file on first
+                # iteration of loop, also dont draw cbar on first loop
                 if i == 0:
                     write_to_file = False
+                    kwargs['draw_cbar'] = False
                 if i == len(self.eval_param_averaging) - 1:
                     write_to_file = self.write_to_file
+                    kwargs['draw_cbar'] = True
 
                 if isinstance(axs, np.ndarray):
                     ax = axs[i]
@@ -757,24 +757,24 @@ class SensorEvaluation:
                     ax = axs
                     multiplot = False
 
-                ax = se.Scatter_Plotter(
-                                   sensor_data,
-                                   ref_data,
-                                   self.stats_df,
-                                   deploy_dict=self.deploy_dict,
-                                   met_ref_df=met_data,
-                                   sensor_serials=sensor_serials,
-                                   param=self.eval_param,
-                                   figure_path=self.figure_path,
-                                   sensor_name=self.sensor_name,
-                                   ref_name=self.ref_name,
-                                   time_interval=avg_interval,
-                                   plot_subset=plot_subset,
-                                   write_to_file=write_to_file,
-                                   report_fmt=True,
-                                   ax=ax,
-                                   fig=fig,
-                                   **kwargs)
+                ax = se.Scatter_Plotter(sensor_data,
+                                        ref_data,
+                                        self.stats_df,
+                                        deploy_dict=self.deploy_dict,
+                                        met_ref_df=met_data,
+                                        sensor_serials=sensor_serials,
+                                        param=self.eval_param,
+                                        figure_path=self.figure_path,
+                                        sensor_name=self.sensor_name,
+                                        ref_name=self.ref_name,
+                                        time_interval=avg_interval,
+                                        plot_subset=plot_subset,
+                                        write_to_file=write_to_file,
+                                        report_fmt=True,
+                                        ax=ax,
+                                        fig=fig,
+                                        **kwargs)
+
                 if multiplot:
                     axs[i] = ax
                 else:
@@ -813,8 +813,7 @@ class SensorEvaluation:
                                **kwargs)
 
     def plot_met_dist(self):
-        """
-        Relative frequency distribution plots for temperature and relative
+        """Relative frequency distribution plots for temperature and relative
         humidity recorded by the R.M. Young 41382VC at AIRS
         """
         met_params = ['Temp_Value', 'RH_Value']
@@ -824,23 +823,21 @@ class SensorEvaluation:
                        sensor_name=self.sensor_name,
                        write_to_file=self.write_to_file)
 
-    def plot_met_influence(self, met_param=None, cmap_name='tab10',
-                           cmap_norm_range=(0.00, 1.00), point_size=15,
-                           alpha=0.50, fontsize=14, plot_legend=True,
-                           xlims=None, plot_error_bars=True, ylims=None,
-                           report_fmt=False, empty_plot=False,
-                           custom_adjust=None):
-        """
-        Normalized Sensor param vs. AIRS RH
+    def plot_met_influence(self, met_param=None, report_fmt=True,
+                           **kwargs):
+        """Normalized Sensor param vs. AIRS RH
         """
         # Reference data header names for met data
         met_params = ['Temp', 'RH']
 
+        if met_param not in met_params:
+            sys.exit('Invalid parameter name: ' + str(met_param))
+
         if report_fmt is True:
             fig, axs = plt.subplots(1, 2, figsize=(8.1, 3.8))
             fig.subplots_adjust(hspace=0.7)
-            fontsize = 10
-            ylims = (-.3, 4)
+            kwargs['fontsize'] = kwargs.get('fontsize', 10)
+            kwargs['ylims'] = kwargs.get('ylims', (-.3, 4))
 
             for i, met_param in enumerate(met_params):
                 # Prevent writing to file on first iteration of loop
@@ -859,21 +856,12 @@ class SensorEvaluation:
                                           sensor_serials=self.serials,
                                           sensor_name=self.sensor_name,
                                           met_param=met_param,
-                                          cmap_name=cmap_name,
-                                          cmap_norm_range=cmap_norm_range,
-                                          point_size=point_size,
-                                          alpha=alpha,
-                                          xlim=xlims,
-                                          ylim=ylims,
-                                          fontsize=fontsize,
-                                          plot_legend=plot_legend,
-                                          plot_error_bars=plot_error_bars,
                                           ref_name=self.ref_name,
                                           write_to_file=write_to_file,
                                           report_fmt=report_fmt,
                                           fig=fig,
                                           ax=axs[i],
-                                          empty_plot=empty_plot)
+                                          **kwargs)
                 if i == 0:
                     axs[i].get_legend().remove()
         else:
@@ -886,29 +874,24 @@ class SensorEvaluation:
                                       sensor_serials=self.serials,
                                       sensor_name=self.sensor_name,
                                       met_param=met_param,
-                                      cmap_name=cmap_name,
-                                      cmap_norm_range=cmap_norm_range,
-                                      point_size=point_size,
-                                      alpha=alpha,
-                                      xlim=xlims,
-                                      ylim=ylims,
-                                      fontsize=fontsize,
-                                      plot_legend=plot_legend,
-                                      plot_error_bars=plot_error_bars,
                                       ref_name=self.ref_name,
                                       write_to_file=self.write_to_file,
-                                      custom_adjust=custom_adjust,
-                                      empty_plot=empty_plot)
+                                      **kwargs)
 
-    def plot_sensor_met_scatter(self, averaging_interval, met_param,
-                                text_pos='upper_left', fontsize=14,
-                                mono_color='#0048AD', alpha=0.5,
-                                tick_spacing=10, RH_colormap=False):
+    def plot_sensor_met_scatter(self, averaging_interval='1-hour',
+                                met_param=None,
+                                **kwargs):
         """
         Creates one of the following scatter plots:
             Internal sensor RH vs. Reference monitor RH
             Internal sensor Temp vs. Reference monitor Temp
         """
+        # Data header names for met data
+        met_params = ['Temp', 'RH']
+
+        if met_param not in met_params:
+            sys.exit('Invalid parameter name: ' + str(met_param))
+
         if averaging_interval == '1-hour':
             sensor_data = self.hourly_df_list
             ref_data = self.met_hourly_ref_df
@@ -939,9 +922,15 @@ class SensorEvaluation:
 
         fontsize = se.Set_Fontsize(self.serials)
 
+        # Set keyword argument values to defaults or passed values
+        kwargs['fontsize'] = kwargs.get('fontsize', fontsize)
+        kwargs['ylims'] = kwargs.get('ylims', (ymin, ymax))
+        kwargs['xlims'] = kwargs.get('xlims', (xmin, xmax))
+        kwargs['param_class'] = 'Met'
+        kwargs['tick_spacing'] = kwargs.get('tick_spacing', 10)
+
         se.Scatter_Plotter(sensor_data,
                            ref_data,
-                           self.stats_df,
                            deploy_dict=self.deploy_dict,
                            param=met_param,
                            sensor_name=self.sensor_name,
@@ -949,16 +938,8 @@ class SensorEvaluation:
                            time_interval=averaging_interval,
                            figure_path=self.figure_path,
                            write_to_file=self.write_to_file,
-                           xlim=(xmin, xmax),
-                           ylim=(ymin, ymax),
-                           text_pos=text_pos,
-                           font_size=fontsize,
-                           mono_color=mono_color,
-                           alpha=alpha,
-                           tick_spacing=tick_spacing,
-                           RH_colormap=RH_colormap,
                            sensor_serials=self.serials,
-                           param_class='Met')
+                           **kwargs)
 
     def print_eval_metrics(self, avg_interval='Daily'):
         try:
