@@ -830,9 +830,6 @@ class SensorEvaluation:
         # Reference data header names for met data
         met_params = ['Temp', 'RH']
 
-        if met_param not in met_params:
-            sys.exit('Invalid parameter name: ' + str(met_param))
-
         if report_fmt is True:
             fig, axs = plt.subplots(1, 2, figsize=(8.1, 3.8))
             fig.subplots_adjust(hspace=0.7)
@@ -865,6 +862,12 @@ class SensorEvaluation:
                 if i == 0:
                     axs[i].get_legend().remove()
         else:
+            # Either Temp or RH must be passed to met_param if not using report
+            # formatting. Report formatted plots dont require a value for
+            # met_param as both Temp and RH scatter are automatically plotted.
+            if met_param not in met_params:
+                sys.exit('Invalid parameter name: ' + str(met_param))
+
             se.Normalized_Met_Scatter(self.hourly_df_list,
                                       self.hourly_ref_df,
                                       self.avg_hrly_df,
