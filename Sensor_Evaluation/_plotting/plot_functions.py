@@ -425,7 +425,27 @@ def Draw_Scatter(ax, xdata, ydata, param_dict, stats_df=None,
             Data that are used to set the colormap value.
         colormap_name: string or none
             The name of the colormap which the scatter plot will be assigned
-        kwargs
+        kwargs:
+            monocolor
+            point_size
+            point_alpha
+            plot_aspect
+            plottext_alpha
+            plottext_size
+            plottext_color
+            plottext_xloc
+            plottext_yloc
+            plottext_xdisplacement
+            plottext_ydisplacement
+            plottext_position
+            show_trendline
+            show_RMSE
+            show_spearman
+            show_N
+            show_one_to_one
+            trendline_xmax
+            trendline_color
+            trendline_alpha
 
     Returns:
         plotobj:
@@ -435,7 +455,7 @@ def Draw_Scatter(ax, xdata, ydata, param_dict, stats_df=None,
     # Set keyword arguments to passed values or defaults
     pointsize = kwargs.get('point_size', 20)
     alpha = kwargs.get('point_alpha', 0.7)
-    text_position = kwargs.get('text_position', 'upper_left')
+    text_position = kwargs.get('plottext_position', 'upper_left')
     plot_trendline = kwargs.get('show_trendline', True)
     plot_rmse = kwargs.get('show_RMSE', True)
     plot_spearman = kwargs.get('show_spearman', False)
@@ -612,61 +632,105 @@ def Scatter_Plotter(df_list, ref_df, stats_df=None, plot_subset=None,
             including formatted version on plot
         figure_path: string
             Path to directory where the figure will be saved
-        palette: string
-            Color palette assigned to relative-humidity colormapped scatter
-            plot points
         write_to_file: Boolean
             If true, writes to file and figure is closed. False skips file
             writing and does not close the figure
-        xlim: tuple
-            The x-limits of the scatter plot
-        ylim: tuple
-            The y-limits of the scatter plot
-        time_interval: string
-            Either '1-hour' or '24-hour', included in title of plot
-        text_pos: string
-            Determines position of text. Can either pass 'upper_left' or '
-            bottom_right'
-        font_size: int or float
-            The font size for the xlabel, ylabel, and plot text. Passed on to
-            Draw_Scatter() which uses 0.85*font_size for tick labels.
-            -- Recommend 15 for one sensor, 14 for three sensors, 14 for eight
-            sensors, 13 for nine sensors
-        point_size: int or float
-            The size of the scatterpoint plots
-            -- Recommend ~ 20
+        time_interval (str):
+            The averaging interval of the sensor and reference datasets, either
+            '1-hour' or '24-hour'.
         met_ref_df: Nonetype or Pandas dataframe
             Reference dataframe for met data. Used as an alternative to sensor
             met data for plotting colormap of relative humidity on scatterplot
             points. If passed, the reference met data takes precedence over
             any existing sensor met data.
-        RH_colormap: Boolean
-            If true, relative humidity values will be used as a colormap on the
-            scatterplot points.
-        tight_layout: Boolean
-            Optional plot with matplotlib's "fig.tight_layout()"
-        plot_title: Boolean
-            True generates a title at the top of the plot
-        fontweight: string
-            Passed on to matplotlib fontweight (accepts 'normal', 'bold', etc.)
-        detection_limited: Boolean
-            Passing true plots data with values below the lower detection limit
-            masked
-        filename_suffix: string
-            Optional string added to end of filename. Defaults to empty string.
-        plot_text: boolean
-            Pass on to underlying Draw_Scatter function. Defaults to
-            True. If false, text on plots will not be generated.
-        plot_regression: boolean
-            Pass on to underlying Draw_Scatter function. Defaults to
-            True. If false, regression lines on plots will not be generated.
-        monocolor: string
-            A single color (specified in hex) for scatter plots.
-            Recommend #2251D0 (nice blue hue)
+        deploy_dict
+
+        sensor_serials
+
+        ax
+
+        fig
+
+        report_fmt
+
+        return_axs
+
         param_class: string
             The parameter classification for the passed parameter to plot.
             E.g, if param is PM25, param_class = PM; if param is 03,
             param_class = Gases;if param is Temp, param_class = Met.
+
+        kwargs (args with * are passed to the Draw_Scatter subroutine, the
+        asterisk should not be included when specifying these kwargs)
+        --------
+        color_palette
+            Color palette assigned to relative-humidity colormapped scatter
+            plot points
+        colorbar_axespos
+        colorbar_fontsize
+        colorbar_labelsize
+        colorbar_orientation
+        draw_cbar
+        fig_wspace
+        fig_hspace
+        fig_left
+        fig_right
+        fig_top
+        fig_bottom
+        filename_suffix
+            Optional string added to end of filename. Defaults to empty string.
+        fontsize
+            The font size for the xlabel, ylabel, and plot text. Passed on to
+            Draw_Scatter() which uses 0.85*font_size for tick labels.
+        *monocolor
+             A single color (specified in hex) for scatter plots.
+             Recommend #2251D0 (nice blue hue).
+        detail_fontsize
+        *point_size
+            The size of the scatterpoint plots
+        *point_alpha
+        *plot_aspect
+        *plottext_alpha
+        *plottext_size
+        *plottext_color
+        *plottext_xloc
+        *plottext_yloc
+        *plottext_xdisplacement
+        *plottext_ydisplacement
+        *plottext_position
+            Determines position of plot text. Can either pass 'upper_left' or
+            'bottom_right'
+        ref_name
+        seaborn_style
+        show_colorbar
+            If true, relative humidity values will be used as a colormap on the
+            scatterplot points.
+        show_title
+            Show the title at the top of the plot. Includes the name of the
+            sensor, the averaging interval, the evaluation parameter, and
+            the name of the reference against which sensor data are compared.
+        show_regression
+            Pass on to underlying Draw_Scatter function. Defaults to
+            True. If false, regression lines on plots will not be generated.
+        *show_trendline
+        *show_RMSE
+        *show_spearman
+        *show_N
+        *show_one_to_one
+        tight_layout
+            Passed to matplotlib's "fig.tight_layout()" for narrow formatting
+        tick_spacing
+        title_text
+        title_textwrap
+        title_xloc
+        title_yloc
+        *trendline_xmax
+        *trendline_color
+        *trendline_alpha
+        xlims
+            The x-limits of the scatter plot
+        ylims
+            The y-limits of the scatter plot
 
     Returns:
         If an axis is passed to Scatter_Plotter(), the modified axis with
