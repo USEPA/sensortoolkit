@@ -210,7 +210,14 @@ class PerformanceReport(SensorEvaluation):
 
         # Draw figure if no figure exists at path or if figure_search attrib
         # is false
-        if not fig_exists or not self.figure_search:
+        create_figure = False
+        if self.figure_search is False:
+            create_figure = True
+        else:
+            if fig_exists is False:
+                create_figure = True
+
+        if create_figure:
             self.plot_sensor_scatter(
                 plot_subset=kwargs.get('plot_subset', ['1']),
                 plot_limits=kwargs.get('plot_limits', (-1, self.plot_cmax)),
@@ -274,7 +281,14 @@ class PerformanceReport(SensorEvaluation):
 
             # Draw figure if no figure exists at path or if figure_search
             # attrib is false
-            if not fig_exists or not self.figure_search:
+            create_figure = False
+            if self.figure_search is False:
+                create_figure = True
+            else:
+                if fig_exists is False:
+                    create_figure = True
+
+            if create_figure:
                 self.plot_sensor_scatter(
                     avg_interval,
                     plot_limits=kwargs.get('plot_limits',
@@ -308,14 +322,15 @@ class PerformanceReport(SensorEvaluation):
 
         # Draw figure if no figure exists at path or if figure_search
         # attrib is false
-        if not fig_exists or not self.figure_search:
+        create_figure = False
+        if self.figure_search is False:
+            create_figure = True
+        else:
+            if fig_exists is False:
+                create_figure = True
 
-            self.plot_timeseries(
-                    format_xaxis_weeks=kwargs.get('format_xaxis_weeks', False),
-                    yscale=kwargs.get('yscale', 'linear'),
-                    date_interval=kwargs.get('date_interval', 7),
-                    report_fmt=True,
-                    ylims=(0, self.plot_cmax))
+        if create_figure:
+            self.plot_timeseries(report_fmt=True)
 
         timeseries_loc = self.fig_locs['Timeseries']
         self.timeseries = self.shapes.add_picture(
@@ -337,7 +352,14 @@ class PerformanceReport(SensorEvaluation):
 
         # Draw figure if no figure exists at path or if figure_search
         # attrib is false
-        if not fig_exists or not self.figure_search:
+        create_figure = False
+        if self.figure_search is False:
+            create_figure = True
+        else:
+            if fig_exists is False:
+                create_figure = True
+
+        if create_figure:
             self.plot_metrics()
 
         metricplt_loc = self.fig_locs['MetricPlot']
@@ -360,8 +382,14 @@ class PerformanceReport(SensorEvaluation):
 
         # Draw figure if no figure exists at path or if figure_search
         # attrib is false
-        if not fig_exists or not self.figure_search:
+        create_figure = False
+        if self.figure_search is False:
+            create_figure = True
+        else:
+            if fig_exists is False:
+                create_figure = True
 
+        if create_figure:
             self.plot_met_dist()
 
         metdist_loc = self.fig_locs['MetDist']
@@ -385,7 +413,14 @@ class PerformanceReport(SensorEvaluation):
 
         # Draw figure if no figure exists at path or if figure_search
         # attrib is false
-        if not fig_exists or not self.figure_search:
+        create_figure = False
+        if self.figure_search is False:
+            create_figure = True
+        else:
+            if fig_exists is False:
+                create_figure = True
+
+        if create_figure:
             self.plot_met_influence(report_fmt=True,
                                     plot_error_bars=False)
 
@@ -792,13 +827,13 @@ class PerformanceReport(SensorEvaluation):
             ref = 'Reference'
             try:
                 ref_hmin = grp_info[grp][self.eval_param][ref][
-                                                            'conc_min_hourly']
+                                                            'conc_min_1-hour']
                 ref_hmax = grp_info[grp][self.eval_param][ref][
-                                                            'conc_max_hourly']
+                                                            'conc_max_1-hour']
                 ref_dmin = grp_info[grp][self.eval_param][ref][
-                                                            'conc_min_daily']
+                                                            'conc_min_24-hour']
                 ref_dmax = grp_info[grp][self.eval_param][ref][
-                                                            'conc_max_daily']
+                                                            'conc_max_24-hour']
 
                 self.refconc[grp] = \
                     '{0:3.1f}-{1:3.1f} (1-hr), '\
@@ -811,9 +846,9 @@ class PerformanceReport(SensorEvaluation):
 
         # Number of periods reference exceeded concentration target
         if self.eval_param == 'PM25':
-            exceed_str = 'n_exceed_conc_goal_daily'
+            exceed_str = 'n_exceed_conc_goal_24-hour'
         if self.eval_param == 'O3':
-            exceed_str = 'n_exceed_conc_goal_hourly'
+            exceed_str = 'n_exceed_conc_goal_1-hour'
 
         self.refexceed = {}
         for grp in list(grp_info.keys()):
@@ -878,7 +913,7 @@ class PerformanceReport(SensorEvaluation):
 
         # Number of 24-hr periods temp exceeded target criteria
         self.tempexceed = {}
-        exceed_str = 'n_exceed_target_criteria_daily'
+        exceed_str = 'n_exceed_target_criteria_24-hour'
         met_conds = 'Meteorological Conditions'  # abbreviating
         temp = 'Temperature'  # abbreviating
         for grp in list(grp_info.keys()):
@@ -893,7 +928,7 @@ class PerformanceReport(SensorEvaluation):
 
         # Number of 24-hr periods temp exceeded target criteria
         self.rhexceed = {}
-        exceed_str = 'n_exceed_target_criteria_daily'
+        exceed_str = 'n_exceed_target_criteria_24-hour'
         met_conds = 'Meteorological Conditions'  # abbreviating
         rh = 'Relative Humidity'  # abbreviating
         for grp in list(grp_info.keys()):
@@ -959,7 +994,7 @@ class PerformanceReport(SensorEvaluation):
         # Number of 1-hr periods temp exceeded target criteria
         params = ['Temperature', 'Relative Humidity']
         met_conds = 'Meteorological Conditions'
-        pair_str = 'n_measurement_pairs_hourly'
+        pair_str = 'n_measurement_pairs_1-hour'
 
         dic = {}
 
@@ -1053,17 +1088,17 @@ class PerformanceReport(SensorEvaluation):
         if self.eval_param == 'O3':
             c1_row, c2_row, c3_row, c4_row, c5_row = 0, 0, 0, 0, 0
             h_stats = self.grp_stats.where(
-                            self.grp_stats['Averaging Interval'] == 'Hourly'
+                            self.grp_stats['Averaging Interval'] == '1-hour'
                             ).dropna().reset_index(drop=True)
 
         if self.eval_param == 'PM25':
             (c1_row, c2_row, c3_row, c4_row, c5_row, c6_row, c7_row, c8_row,
              c9_row, c10_row) = (0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
             h_stats = self.grp_stats.where(
-                        self.grp_stats['Averaging Interval'] == 'Hourly'
+                        self.grp_stats['Averaging Interval'] == '1-hour'
                         ).dropna().reset_index(drop=True)
             d_stats = self.grp_stats.where(
-                        self.grp_stats['Averaging Interval'] == 'Daily'
+                        self.grp_stats['Averaging Interval'] == '24-hour'
                         ).dropna().reset_index(drop=True)
 
         # Sensor group dictionary, reset group keys for indexing
@@ -1190,7 +1225,7 @@ class PerformanceReport(SensorEvaluation):
                     try:
                         if self.eval_param == 'O3':
                             # 1-hr uptime
-                            val = grp_df[c4_row]['uptime_hourly']
+                            val = grp_df[c4_row]['uptime_1-hour']
                             self.uptime_h_vals.append(val)
                         if self.eval_param == 'PM25':
                             # 24-hr Slope
@@ -1236,7 +1271,7 @@ class PerformanceReport(SensorEvaluation):
                     if (j-6) % datacols == 0:
                         try:
                             # 1-hr Uptime
-                            val = grp_df[c7_row]['uptime_hourly']
+                            val = grp_df[c7_row]['uptime_1-hour']
                             self.uptime_h_vals.append(val)
                             text_obj.text = format(val, '3.2f')
                         except KeyError:  # Condition for empty grp stats
@@ -1247,7 +1282,7 @@ class PerformanceReport(SensorEvaluation):
                     if (j-7) % datacols == 0:
                         try:
                             # 24-hr Uptime
-                            val = grp_df[c8_row]['uptime_daily']
+                            val = grp_df[c8_row]['uptime_24-hour']
                             self.uptime_d_vals.append(val)
                             text_obj.text = format(val, '3.2f')
                         except KeyError:  # Condition for empty grp stats
@@ -1414,10 +1449,10 @@ class PerformanceReport(SensorEvaluation):
                               '18': '≤ 30',
                               '19': '≤ 30',
                               '20': 'Deployment Value'}
-            metric_vals = {'21': format(error_stats['rmse_hourly'], '3.2f'),
-                           '22': format(error_stats['rmse_daily'], '3.2f'),
-                           '23': format(error_stats['nrmse_hourly'], '3.2f'),
-                           '24': format(error_stats['nrmse_daily'], '3.2f')}
+            metric_vals = {'21': format(error_stats['rmse_1-hour'], '3.2f'),
+                           '22': format(error_stats['rmse_24-hour'], '3.2f'),
+                           '23': format(error_stats['nrmse_1-hour'], '3.2f'),
+                           '24': format(error_stats['nrmse_24-hour'], '3.2f')}
             for key, value in metric_vals.items():
                 if value == '-999.00':
                     metric_vals[key] = ''
@@ -1436,8 +1471,8 @@ class PerformanceReport(SensorEvaluation):
                               '10': '≤ 7',
                               '11': '≤ 30',
                               '12': 'Deployment Value'}
-            metric_vals = {'13': format(error_stats['rmse_hourly'], '3.2f'),
-                           '14': format(error_stats['nrmse_hourly'], '3.2f')}
+            metric_vals = {'13': format(error_stats['rmse_1-hour'], '3.2f'),
+                           '14': format(error_stats['nrmse_1-hour'], '3.2f')}
             for key, value in metric_vals.items():
                 if value == '-999.00':
                     metric_vals[key] = ''
@@ -1563,14 +1598,14 @@ class PerformanceReport(SensorEvaluation):
                               '34': '-',
                               '35': '-',
                               '36': 'Deployment Value'}
-            metric_vals = {'37': format(grp_stats['cv_hourly'], '3.2f'),
-                           '38': format(grp_stats['cv_daily'], '3.2f'),
-                           '39': format(grp_stats['std_hourly'], '3.2f'),
-                           '40': format(grp_stats['std_daily'], '3.2f'),
+            metric_vals = {'37': format(grp_stats['cv_1-hour'], '3.2f'),
+                           '38': format(grp_stats['cv_24-hour'], '3.2f'),
+                           '39': format(grp_stats['std_1-hour'], '3.2f'),
+                           '40': format(grp_stats['std_24-hour'], '3.2f'),
                            '41': format(np.mean(self.uptime_h_vals), '3.2f'),
                            '42': format(np.mean(self.uptime_d_vals), '3.2f'),
-                           '43': format(grp_stats['n_hourly']),
-                           '44': format(grp_stats['n_daily'])}
+                           '43': format(grp_stats['n_1-hour']),
+                           '44': format(grp_stats['n_24-hour'])}
 
         if self.eval_param == 'O3':
             datacols = 4
@@ -1596,10 +1631,10 @@ class PerformanceReport(SensorEvaluation):
                               '18': '75%*',
                               '19': '-',
                               '20': 'Deployment Value'}
-            metric_vals = {'21': format(grp_stats['cv_hourly']),
-                           '22': format(grp_stats['std_hourly']),
+            metric_vals = {'21': format(grp_stats['cv_1-hour']),
+                           '22': format(grp_stats['std_1-hour']),
                            '23': format(np.mean(self.uptime_h_vals), '3.2f'),
-                           '24': format(grp_stats['n_hourly'])}
+                           '24': format(grp_stats['n_1-hour'])}
 
         cells = self.SetSpanningCells(table, span_dict)
 
