@@ -714,6 +714,11 @@ class SensorEvaluation:
 
         avg_list = self.eval_param_averaging
 
+        if averaging_interval not in avg_list:
+            txt = ('Invalid averaging interval, choose from the following: '
+                   + ', '.join(avg_list))
+            sys.exit(txt)
+
         if (report_fmt is True and plot_subset is not None):
             if self.eval_param == 'PM25':
                 # Create a 1x2 subplot, 1-hr scatter on left and 24-hr scatter
@@ -895,6 +900,11 @@ class SensorEvaluation:
         if met_param not in met_params:
             sys.exit('Invalid parameter name: ' + str(met_param))
 
+        if averaging_interval not in  self.eval_param_averaging:
+            txt = ('Invalid averaging interval, choose from the following: '
+                   + ', '.join(self.eval_param_averaging))
+            sys.exit(txt)
+
         if averaging_interval == '1-hour':
             sensor_data = self.hourly_df_list
             ref_data = self.met_hourly_ref_df
@@ -944,7 +954,7 @@ class SensorEvaluation:
                            sensor_serials=self.serials,
                            **kwargs)
 
-    def print_eval_metrics(self, avg_interval='Daily'):
+    def print_eval_metrics(self, avg_interval='24-hour'):
         try:
             self.deploy_dict
         except AttributeError:
@@ -955,9 +965,6 @@ class SensorEvaluation:
             self.calculate_metrics()
 
         param = self.eval_param
-
-        avg_interval = avg_interval.title()
-        lcase_interval = avg_interval.lower()
 
         deploy_dic = self.deploy_dict
         deploy_stats = self.stats_df.where(
@@ -973,7 +980,7 @@ class SensorEvaluation:
               'Intercept', 'R^2', 'RMSE'))
         print(88*'-')
         cv_data = [(deploy_dic['Deployment Groups'][group]
-                              [param]['Precision']['cv_'+lcase_interval])
+                              [param]['Precision']['cv_' + avg_interval])
                    for group in deploy_dic['Deployment Groups']]
 
         slope_avg = deploy_stats.Slope.mean()
@@ -989,7 +996,7 @@ class SensorEvaluation:
         linearity_max = deploy_stats['R$^2$'].max()
 
         rmse_data = [(deploy_dic['Deployment Groups'][group]
-                      [param]['Error']['rmse_'+lcase_interval])
+                      [param]['Error']['rmse_' + avg_interval])
                      for group in deploy_dic['Deployment Groups']]
 
         print(('{:^6.1f}|{:^24.2f}|'
@@ -1010,7 +1017,7 @@ class SensorEvaluation:
                                                           linearity_max),
               5*' ')
 
-    def print_eval_conditions(self, avg_interval='Daily'):
+    def print_eval_conditions(self, avg_interval='24-hour'):
         try:
             self.deploy_dict
         except AttributeError:
@@ -1020,12 +1027,10 @@ class SensorEvaluation:
         except AttributeError:
             self.calculate_metrics()
 
-        avg_interval = avg_interval.title()
-
-        if avg_interval == 'Hourly':
+        if avg_interval == '1-hour':
             ref_df = self.hourly_ref_df
             met_ref_df = self.met_hourly_ref_df
-        if avg_interval == 'Daily':
+        if avg_interval == '24-hour':
             ref_df = self.daily_ref_df
             met_ref_df = self.met_daily_ref_df
 
