@@ -66,13 +66,13 @@ def Synoptic_Index(df_obj, averaging_suffix=True):
         timestamp_idx = pd.date_range(start=deploy_begin,
                                       end=deploy_end,
                                       freq='H')
-        avg_suffix = '_hourly'
+        avg_suffix = '_1-hour'
 
     elif time_delta == pd.Timedelta('1 D'):
         timestamp_idx = pd.date_range(start=deploy_begin,
                                       end=deploy_end,
                                       freq='D')
-        avg_suffix = '_daily'
+        avg_suffix = '_24-hour'
 
     if averaging_suffix is True:
         return timestamp_idx, avg_suffix

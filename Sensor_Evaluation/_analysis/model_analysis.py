@@ -143,9 +143,9 @@ def Regression_Stats(hourly_df_obj=None, daily_df_obj=None, hourly_ref_df=None,
 
             # Determine the averaging interval for the supplied dataset
             if (df.index[1] - df.index[0]) == pd.Timedelta('1 days'):
-                avg_int = 'Daily'
+                avg_int = '24-hour'
             if (df.index[1] - df.index[0]) == pd.Timedelta('1 hour'):
-                avg_int = 'Hourly'
+                avg_int = '1-hour'
 
             if combine_df.empty:
                 print('..Warning: Linear regression not possible for sensor '
