@@ -31,22 +31,24 @@ from textwrap import wrap
 register_matplotlib_converters()
 
 
-def Draw_Scatter(ax, xdata, ydata, param_dict, stats_df=None,
+def Draw_Scatter(ax, xdata, ydata, param_dict, sensor_stats=None,
                  xlims=None, ylims=None, fontsize=None,
                  detail_fontsize=None, param=None,
                  plot_regression=True, colormap_vals=None,
                  colormap_name=None, **kwargs):
-    """A helper function to create scatterplots with linear regressions
+    """A helper function to draw scatterplots with linear regressions on passed
+    matplotlib axes instance
 
     Args:
-        ax: Axes instance
-            The axes attributes which are drawn
-        xdata: array
-            The x data
-        ydata: array
-            The y data
-        stats_df
-            Dataframe contain regression statistics
+        ax: Matplotlib axes instance
+            The axes object on which the scatter plot is drawn
+        xdata: numpy array or pandas series
+            The x data (reference data)
+        ydata: numpy array or pandas series
+            The y data (sensor data)
+        sensor_stats: pandas dataframe
+            Dataframe contain regression statistics for single sensor (subset
+            of the full stats_df object)
         xlim: tuple
           The domain of the graph
         ylim: tuple
@@ -144,9 +146,9 @@ def Draw_Scatter(ax, xdata, ydata, param_dict, stats_df=None,
     ax.set_ylim(ylims)
 
     # Check for regression statistics
-    if stats_df is not None:
-        intercept = stats_df.loc[0, 'Intercept']
-        slope = stats_df.loc[0, 'Slope']
+    if sensor_stats is not None:
+        intercept = sensor_stats.loc[0, 'Intercept']
+        slope = sensor_stats.loc[0, 'Slope']
         if pd.isna(intercept) and pd.isna(slope):
             plot_regression = False
             plot_n = False
@@ -186,7 +188,7 @@ def Draw_Scatter(ax, xdata, ydata, param_dict, stats_df=None,
                 alpha=text_alpha, size=text_size)
 
         # Pearson Correlation Coefficient
-        r_square = stats_df.loc[0, 'R$^2$']
+        r_square = sensor_stats.loc[0, 'R$^2$']
         ax.text(text_x - text_xdisplacement,
                 text_y - text_ydisplacement,
                 '$R^2={:.2f}$'.format(r_square),
@@ -204,7 +206,7 @@ def Draw_Scatter(ax, xdata, ydata, param_dict, stats_df=None,
 
         # Root Mean Square Error
         if plot_rmse is True:
-            RMSE = stats_df.loc[0, 'Sensor RMSE']
+            RMSE = sensor_stats.loc[0, 'Sensor RMSE']
 
         if plot_spearman is False and plot_rmse is True:
             ax.text(text_x - 2*text_xdisplacement,
@@ -215,7 +217,7 @@ def Draw_Scatter(ax, xdata, ydata, param_dict, stats_df=None,
 
     # Draw the number of scatterplot points graphed
     if plot_n is True:
-        n_count = int(stats_df.loc[0, 'N'])
+        n_count = int(sensor_stats.loc[0, 'N'])
         # place the text below Rsqr text by same coord diff
         ax.text(text_x - 3*text_xdisplacement,
                 text_y - 3*text_ydisplacement,
@@ -230,13 +232,6 @@ def Draw_Scatter(ax, xdata, ydata, param_dict, stats_df=None,
                 color='grey', alpha=0.7)
 
     return plotobj
-
-
-"""----------------------------------------------------------------------------
-
-Primary figure plotting functions
-
-----------------------------------------------------------------------------"""
 
 
 def Scatter_Plotter(df_list, ref_df, stats_df=None, plot_subset=None,
@@ -465,57 +460,69 @@ def Scatter_Plotter(df_list, ref_df, stats_df=None, plot_subset=None,
                         bottom=kwargs.get('fig_bottom', bottom))
 
     if plot_title is True:
-        if title_text is not None:
-            title_text = '\n'.join(wrap(title_text,
-                                        kwargs.get('title_textwrap',
-                                                   title_textwrap)))
-            n_lines = len(title_text.split('\n'))
-            if n_lines > 2:  # shift the figure down a tad if 3 or more lines
-                font_size *= 0.9
-                suptitle_ypos *= 1.03
+        if title_text is None:
+            title_text = (fmt_sensor_name + ' vs. ' + ref_name + ' ' +
+                          time_interval + ' ' + fmt_param)
 
-            axs.set_title(title_text,
-                          fontsize=font_size,
+        title_text = '\n'.join(wrap(title_text,
+                                    kwargs.get('title_textwrap',
+                                               title_textwrap)))
+
+        if unique_ax_obj is True:
+            fig.suptitle(title_text, fontsize=font_size,
+                         y=kwargs.get('title_yloc', suptitle_ypos),
+                         x=kwargs.get('title_xloc', suptitle_xpos))
+        else:
+            axs.set_title(title_text, fontsize=font_size,
                           y=kwargs.get('title_yloc', suptitle_ypos),
                           x=kwargs.get('title_xloc', suptitle_xpos))
-        else:
-            title_text = fmt_sensor_name + ' vs. ' + ref_name + ' ' + \
-                time_interval + ' ' + fmt_param
-            title_text = '\n'.join(wrap(title_text,
-                                        kwargs.get('title_textwrap',
-                                                   title_textwrap)))
-            n_lines = len(title_text.split('\n'))
-            if n_lines > 2:  # shift the figure down a tad if 3 or more lines
-                font_size *= 0.9
-                suptitle_ypos *= 1.03
 
-            if unique_ax_obj is True:
-                fig.suptitle(title_text,
-                             fontsize=font_size,
-                             y=kwargs.get('title_yloc', suptitle_ypos),
-                             x=kwargs.get('title_xloc', suptitle_xpos))
-            else:
-                axs.set_title(title_text,
-                              fontsize=font_size,
-                              y=kwargs.get('title_yloc', suptitle_ypos),
-                              x=kwargs.get('title_xloc', suptitle_xpos))
+        n_lines = len(title_text.split('\n'))
+        if n_lines > 2:  # shift the figure down a tad if 3 or more lines
+            font_size *= 0.9
+            suptitle_ypos *= 1.03
 
     for i in range(Nr):
         for j in range(Nc):
             sensor_number = Nc*i + (j + 1)
-            sensor_data_index = sensor_number - 1
+            sensor_idx = sensor_number - 1
 
-            try:
-                sensor_df = df_list[sensor_data_index]
-            except IndexError:
-                print('Sensor index', str(sensor_data_index),
-                      'not in dataframe list')
+            # Initialize sensor, reference dataframe objects to None
+            sensor_stats = None
+            hourly_df_obj = None
+            hourly_ref_df = None
+            daily_df_obj = None
+            daily_ref_df = None
 
+            # Choose between serial ID and sensor number labels for legend
+            if isinstance(sensor_serials, dict):
+                lbl = list(sensor_serials.values())[sensor_number-1]
+            else:
+                lbl = 'Sensor ' + str(sensor_number)
+
+            param_dict = {'xlabel': ' '.join([ref_name, fmt_param,
+                                              fmt_param_units]),
+                          'ylabel': ' '.join([lbl, fmt_param,
+                                              fmt_param_units])}
+
+            # set appropriate plt axes array index based on # of sensors
+            if isinstance(axs, np.ndarray):
+                # More than one sensor, axes arranged in array structure
                 if len(axs.shape) > 1:
                     ax = axs[i, j]
                 else:
-                    ax = axs[i]
+                    ax = axs[j]
 
+                ax.set_title(lbl, fontsize=detail_fontsize)
+            else:
+                ax = axs
+                param_dict['ylabel'] = 'Sensor ' + fmt_param + ' ' + \
+                    fmt_param_units
+
+            try:
+                sensor_df = df_list[sensor_idx]
+            except IndexError:
+                print('Sensor index', str(sensor_idx), 'not in dataframe list')
                 ax.remove()
                 break
 
@@ -523,25 +530,21 @@ def Scatter_Plotter(df_list, ref_df, stats_df=None, plot_subset=None,
 
             if (averaging_interval) == pd.Timedelta('1 days'):
                 daily_df_obj = [sensor_df]
-                hourly_df_obj = None
-                hourly_ref_df = None
                 daily_ref_df = ref_df
 
             if (averaging_interval) == pd.Timedelta('1 hour'):
-                daily_df_obj = None
                 hourly_df_obj = [sensor_df]
                 hourly_ref_df = ref_df
-                daily_ref_df = None
 
             if plot_regression is True:
                 if stats_df is not None:
-                    sensor_stats_df = stats_df[
+                    sensor_stats = stats_df[
                                 stats_df.Sensor_Number == str(sensor_number)]
-                    sensor_stats_df = sensor_stats_df[
-                                sensor_stats_df['Averaging Interval'] == time_interval]
-                    sensor_stats_df = sensor_stats_df.reset_index(drop=True)
+                    sensor_stats = sensor_stats[
+                        sensor_stats['Averaging Interval'] == time_interval]
+                    sensor_stats = sensor_stats.reset_index(drop=True)
                 else:
-                    sensor_stats_df = Regression_Stats(
+                    sensor_stats = Regression_Stats(
                                             hourly_df_obj=hourly_df_obj,
                                             daily_df_obj=daily_df_obj,
                                             hourly_ref_df=hourly_ref_df,
@@ -550,8 +553,6 @@ def Scatter_Plotter(df_list, ref_df, stats_df=None, plot_subset=None,
                                             param=param,
                                             serials=sensor_serials,
                                             sensor_name=sensor_name)
-            else:
-                sensor_stats_df = None
 
             try:
                 df = pd.DataFrame()
@@ -592,36 +593,11 @@ def Scatter_Plotter(df_list, ref_df, stats_df=None, plot_subset=None,
             xdata = df['xdata']
             ydata = df['ydata']
 
-            # Choose between serial ID and sensor number labels for legend
-            if isinstance(sensor_serials, dict):
-                lbl = list(sensor_serials.values())[sensor_number-1]
-            else:
-                lbl = 'Sensor ' + str(sensor_number)
-
-            param_dict = {'xlabel': ref_name + ' ' + fmt_param + ' ' +
-                          fmt_param_units,
-                          'ylabel': lbl + ' ' + fmt_param + ' '
-                          + fmt_param_units}
-
-            # set appropriate plt axes array index based on # of sensors
-            if isinstance(axs, np.ndarray):
-                # More than one sensor, axes arranged in array structure
-                if len(axs.shape) > 1:
-                    ax = axs[i, j]
-                else:
-                    ax = axs[j]
-
-                ax.set_title(lbl, fontsize=detail_fontsize)
-            else:
-                ax = axs
-                param_dict['ylabel'] = 'Sensor ' + fmt_param + ' ' + \
-                    fmt_param_units
-
             im = Draw_Scatter(ax,
                               xdata,
                               ydata,
                               param_dict,
-                              sensor_stats_df,
+                              sensor_stats,
                               colormap_vals=cmap_vals,
                               colormap_name=palette,
                               xlims=xlims,
@@ -665,15 +641,12 @@ def Scatter_Plotter(df_list, ref_df, stats_df=None, plot_subset=None,
             # colorbar has been drawn onto the passed axes. If so, dont
             # duplicate to avoid matplotlib depreciation warning
             if draw_cbar is True:
-                cbar = fig.colorbar(im,
-                                    cax=fig.add_axes(cbar_pos),
-                                    orientation=cbar_orien,
-                                    pad=cbar_padding,
-                                    aspect=cbar_aspect,
-                                    shrink=cbar_size)
+                cbar = fig.colorbar(im, cax=fig.add_axes(cbar_pos),
+                                    orientation=cbar_orien, pad=cbar_padding,
+                                    aspect=cbar_aspect, shrink=cbar_size)
                 cbar.ax.set_title(ctitle,
                         fontsize=kwargs.get('colorbar_title_fontsize',
-                                             detail_fontsize),
+                                            detail_fontsize),
                         y=kwargs.get('colorbar_title_ypos', 0.6))
                 cbar.ax.tick_params(
                         labelsize=kwargs.get('colorbar_tick_labelsize',
