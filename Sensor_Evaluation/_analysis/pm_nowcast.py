@@ -68,8 +68,12 @@ def NowCast(df, column=None, return_window_df=False):
         column = df.columns[0]
 
     # Use standard index naming scheme
-    if df.index.name != 'DateTime':
-        df.index.name = 'DateTime'
+    idx_name = df.index.name
+    
+    if idx_name is None:
+        df.index.name = 'DateTime_UTC'
+    #if df.index.name != 'DateTime':
+    #    df.index.name = 'DateTime'
 
     df = df[[column]]
 
