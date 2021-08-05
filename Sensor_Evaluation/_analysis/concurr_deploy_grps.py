@@ -136,9 +136,8 @@ def Deployment_Groups(deploy_df, full_df_list, hourly_df_list, daily_df_list,
 
             # Record whether sensor encountered issues during deployment, ended
             # deployment early
-            sensor_df = deploy.where(
-                        deploy['Sensor_Number'].astype('int') == int(sensor_n)
-                                ).dropna().reset_index(drop=True)
+            sensor_df = deploy[deploy.Sensor_Number == sensor_n]
+            sensor_df = sensor_df.reset_index(drop=True)
             sensor_info[sensor_n]['deploy_issues'] = str(bool(
                                                         sensor_df.Issues[0]))
 
