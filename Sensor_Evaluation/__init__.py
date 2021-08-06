@@ -16,7 +16,7 @@ Last Updated:
 
 # Modules that do not require functions in other Sensor_Evaluation modules
 from ._analysis.dewpoint import Dewpoint
-from ._analysis.pm_nowcast import NowCast
+from ._analysis.pm25_nowcast import PM25NowCast
 from ._analysis.aqi_calculator import AQI_Calculator
 from ._analysis.time_averaging import Sensor_Averaging, Interval_Averaging
 from ._analysis.uptime_calculator import Uptime_Calculator
