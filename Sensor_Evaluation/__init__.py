@@ -40,7 +40,7 @@ from ._reference.load_ref_data import Load_Ref_DataFrames
 # Modules calling functions in other Sensor_Evaluation modules
 from ._reference.ref_api_query import (Ref_API_Query, Save_Query,
                                        AQS_Query, AirNow_Query)
-from ._reference.import_oaqps import Ingest_OAQPS
+from ._reference.import_oaqps import Ingest_OAQPS, Process_OAQPS
 from ._analysis.synoptic_idx import Synoptic_Index
 from ._analysis.concurr_deploy_grps import (Deployment_Groups,
                                             Reference_Stats,
