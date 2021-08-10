@@ -151,6 +151,7 @@ def Interval_Averaging(df, freq='H', interval_count=60, thres=0.75):
         averaged_df (pandas dataframe):
             Dataframe averaged to datetimeindex interval specified by 'freq'.
     """
+    col_list = list(df.columns)
     # Split dataframe in to object-like columns and numeric-like columns
     obj_df = df.select_dtypes(include=['object', 'datetime'])
     num_df = df.select_dtypes(exclude=['object', 'datetime'])
@@ -206,5 +207,14 @@ def Interval_Averaging(df, freq='H', interval_count=60, thres=0.75):
 
     # Rejoin non-numeric columns on averaging interval
     avg_df = avg_num_df.join(avg_obj_df)
+
+    # Ensure that any columns with all NaNs in passed df are in avg_df
+    # (Numeric type columns that were dropped)
+    dropped_numcols = [col for col in col_list if col not in avg_df.columns]
+    for col in dropped_numcols:
+        avg_df[col] = np.nan
+
+    # reorder columns before return
+    avg_df = avg_df[col_list]
     #print(avg_df)
     return avg_df
