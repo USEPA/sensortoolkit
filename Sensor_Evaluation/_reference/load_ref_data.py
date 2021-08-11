@@ -124,7 +124,10 @@ def Import_Ref_DataFrame(df, path, year, month, suffix=None):
         load_df = pd.read_csv(path + filename, parse_dates=['DateTime_UTC'],
                               index_col='DateTime_UTC')
 
-        df = df.append(load_df)
+        # Append loaded dataframe based on the first instance of a timestamp
+        # index value (i.e., avoid duplicate index values by combining only
+        # new timestamp indecies with the primary dataframe 'df')
+        df = df.combine_first(load_df)
 
         print('....' + filename)
 
