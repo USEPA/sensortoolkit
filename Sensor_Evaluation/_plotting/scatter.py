@@ -632,7 +632,7 @@ def Scatter_Plotter(df_list, ref_df, stats_df=None, plot_subset=None,
             if number_of_sensors == 3:
                 caxes_pos = [0.37, 0.07, 0.26, 0.03]
             if number_of_sensors > 3:
-                caxes_pos = [0.37, 0.57, 0.26, 0.02]
+                caxes_pos = [0.37, 0.07, 0.26, 0.02]
 
             cbar_pos = kwargs.get('colorbar_axespos', caxes_pos)
             cbar_orien = kwargs.get('colorbar_orientation', cbar_orien)
