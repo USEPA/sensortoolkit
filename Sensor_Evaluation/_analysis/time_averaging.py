@@ -85,8 +85,7 @@ def Sensor_Averaging(full_df_list, sensor_serials=None, name='',
         hourly_df = Interval_Averaging(full_df,
                                        freq='H',
                                        interval_count=hr_count,
-                                       thres=hr_thres,
-                                       return_counts=False)
+                                       thres=hr_thres)
 
         hourly_df_list.append(hourly_df)
 
@@ -96,8 +95,7 @@ def Sensor_Averaging(full_df_list, sensor_serials=None, name='',
         daily_df = Interval_Averaging(hourly_df,
                                       freq='D',
                                       interval_count=day_count,
-                                      thres=day_thres,
-                                      return_counts=False)
+                                      thres=day_thres)
 
         daily_df_list.append(daily_df)
 
@@ -169,8 +167,13 @@ def Interval_Averaging(df, freq='H', interval_count=60, thres=0.75):
 
     # Sample object-like data at specified interval by the mode
     obj_df = obj_df.dropna(how='all', axis=1).dropna()
-    avg_obj_df = obj_df.groupby([pd.Grouper(freq=freq)]
-                                ).agg(lambda x:x.value_counts().index[0])
+
+    if obj_df.empty:
+        avg_obj_df = pd.DataFrame(np.nan, index=nan_df_idx,
+                                  columns=obj_df_cols)
+    else:
+        avg_obj_df = obj_df.groupby([pd.Grouper(freq=freq)]
+                                    ).agg(lambda x:x.value_counts().index[0])
 
     dropped_objcols = [col for col in obj_df_cols if col not in avg_obj_df]
     for col in dropped_objcols:
