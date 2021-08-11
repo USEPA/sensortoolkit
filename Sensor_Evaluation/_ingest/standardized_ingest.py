@@ -66,22 +66,22 @@ def Ingest(path, name=None, setup_file_path=None):
     df['DateTime_UTC'] = df[idx_list].astype(str).apply(''.join, axis=1)
     time_format = ''.join(idx_format_dict.values())
 
-    # Check whether the timestamp data are in Unix epoch
-    if time_format == 'epoch':
-        unit = 's'
-        time_format = None
-    else:
-        unit = None
-
     # Since non-zero padded timestamp formatting depends on the platform, use
     # the strptime module to parse timestamps into standard formatting
-    if '%-' or '%#' in time_format:
+    if '%-' in time_format or '%#' in time_format:
         print('..Non-zero padded formatting encountered in timeseries, '
               'attempting to conform')
         time_format = time_format.replace('%-', '%').replace('%#', '%')
         df['DateTime_UTC'] = df['DateTime_UTC'].apply(
                                 lambda x: datetime.strptime(x, time_format))
         time_format = '%Y-%m-%d %H:%M:%S'
+
+    # Check whether the timestamp data are in Unix epoch
+    if time_format == 'epoch':
+        unit = 's'
+        time_format = None
+    else:
+        unit = None
 
     # Convert the DateTime_UTC column to time-like data format and set as index
     # If errors encountered (timestamps cant be parsed), 'coerce' will set NaT
