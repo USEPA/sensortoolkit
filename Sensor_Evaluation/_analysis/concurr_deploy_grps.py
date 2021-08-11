@@ -146,13 +146,13 @@ def Deployment_Groups(deploy_df, full_df_list, hourly_df_list, daily_df_list,
             sensor_info[sensor_n]['recording_interval'] = time_delta
 
             # 1-hr uptime
-            sensor_h_uptime = Uptime_Calculator(hourly_df.loc[hourly_idx, :],
+            sensor_h_uptime = Uptime_Calculator(hourly_df.loc[start:end, :],
                                                 key=sensor_n)
             sensor_info[sensor_n]['uptime_1-hour'] = \
                 sensor_h_uptime[sensor_n]['Uptime']
 
             # 24-hr uptime
-            sensor_d_uptime = Uptime_Calculator(daily_df.loc[daily_idx, :],
+            sensor_d_uptime = Uptime_Calculator(daily_df.loc[start:end, :],
                                                 key=sensor_n)
             sensor_info[sensor_n]['uptime_24-hour'] = \
                 sensor_d_uptime[sensor_n]['Uptime']
