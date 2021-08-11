@@ -272,7 +272,8 @@ class SensorEvaluation:
                              load_raw_data=self.load_raw_data,
                              data_path=self.data_path,
                              processed_path=self.processed_path,
-                             write_to_file=self.write_to_file)
+                             write_to_file=self.write_to_file,
+                             **self.kwargs)
 
         # Unpack the dataframe tuple
         self.full_df_list, self.hourly_df_list, self.daily_df_list = df_tuple
@@ -369,16 +370,11 @@ class SensorEvaluation:
                 self.ref_dict[self.eval_param_classification] = aqs_df
 
             elif os.path.exists(reference_data):
-                if reference_data.endswith('airnowtech/processed'):
-                    # Load AirNowTech data
-                    self.ref_dict = se.Load_Ref_DataFrames(
-                                            self.hourly_df_list,
-                                            reference_data,
-                                            self.sensor_params)
-
-                else:
-                    pass
-                    # Place custom written import module for ref data here
+                # Load local reference data from file location
+                self.ref_dict = se.Load_Ref_DataFrames(
+                                        self.hourly_df_list,
+                                        reference_data,
+                                        self.sensor_params)
 
             else:
                 sys.exit(reference_data
