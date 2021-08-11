@@ -16,10 +16,13 @@ Last Updated:
 import pandas as pd
 import numpy as np
 from Sensor_Evaluation._analysis.time_averaging import Interval_Averaging
+import os
+import pathlib
+import datetime
 
 
 def Ingest_OAQPS(file_path):
-    """
+    """Read raw csv data and format timestamps, column headers.
 
 
     Args:
@@ -38,9 +41,45 @@ def Ingest_OAQPS(file_path):
     df = df.set_index(df.DateTime_UTC).drop(columns=['DateTime_UTC'])
     df = Format_Headers(df)
 
-    #h_df = Interval_Averaging(df,
-
     return df
+
+
+def Process_OAQPS(data_path, lib_path):
+    """Loop through list of raw datasets, convert to standard format, save
+    processed datasets to file at recorded and 1-hour averaged intervals.
+
+
+    Args:
+        data_path (TYPE): DESCRIPTION.
+
+    Returns:
+        None.
+
+    """
+
+    for item in os.listdir(data_path):
+        if not item.endswith('.csv') and not item.startswith('min'):
+            continue
+        print(item)
+
+        file = pathlib.Path(str(data_path) + '//' + item)
+        df = Ingest_OAQPS(str(file))
+
+        # Modify time
+        mtime = datetime.datetime.fromtimestamp(file.stat().st_mtime)
+        df['Data_Acquisition_Date_Time'] = mtime
+
+        # Shift dataframes to UTC (ahead five hours)
+        df = df.shift(5, freq='H')
+
+        h_df = Interval_Averaging(df, freq='H', interval_count=60, thres=0.75)
+
+        processed_m_path = (lib_path + '/Data and Figures/reference_Data/'
+                            'oaqps/processed_data/' + item)
+        processed_h_path = (lib_path + '/Data and Figures/reference_Data/'
+                            'oaqps/processed_data/' + item.replace('min', 'H'))
+        df.to_csv(processed_m_path)
+        h_df.to_csv(processed_h_path)
 
 
 def Format_Ref_Timestamp(df):
@@ -280,3 +319,11 @@ def Format_QAQC(param, series, df):
         df[param + '_QAQC_Code'] = df[param + '_QAQC_Code'].fillna(0)
 
     return df
+
+
+if __name__ == '__main__':
+    lib_path = os.path.abspath(__file__ + '../../../..')
+    data_path = os.path.abspath(lib_path + '/Data and Figures/reference_data/'
+                                'oaqps/raw_data/1-minute')
+    data_path = pathlib.PureWindowsPath(data_path)
+    Process_OAQPS(data_path)
