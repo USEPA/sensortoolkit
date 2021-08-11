@@ -43,6 +43,7 @@ class Setup:
 
     def configSensor(self):
         self.setSensorName()
+        #self.setDeploymentPeriod()
         self.setHeaderIndex()
         self.setColumnHeaders(col_type='')  # Specify all header column names
         self.setColumnRenaming()
@@ -94,6 +95,19 @@ class Setup:
             print('Sensor name: ' + self.name)
             confirm = self.validateEntry()
         print('')
+
+    # def setDeploymentPeriod(self):
+    #     self.printSelectionBanner('Set Deployment Start and End',
+    #             options=['..start and End date must be entered as MM/DD/YYYY'])
+    #     confirm = 'n'
+    #     while confirm == 'n':
+    #         self.startdate = input('Enter the start date for the deployment: ')
+    #         self.enddate = input('Enter the end date for the deployment: ')
+    #         print('')
+    #         print('Deployment start: ' + self.startdate)
+    #         print('Deployment end: ' + self.enddate)
+    #         confirm = self.validateEntry()
+    #     print('')
 
     def setHeaderIndex(self, print_banner=True):
         if print_banner:
