@@ -20,8 +20,9 @@ import os
 
 def Sensor_Averaging(full_df_list, sensor_serials=None, name='',
                      write_to_file=True, path=None,):
-    """Wrapper function for computing hourly and daily averaged dataframes,
-    writes full (recorded), hourly, and daily averaged datasets to .csv files.
+    """Write full (recorded), hourly, and daily averaged datasets to csv.
+
+    Wrapper function for computing hourly and daily averaged dataframes.
 
     Args:
         full_df_list (list):
@@ -37,6 +38,7 @@ def Sensor_Averaging(full_df_list, sensor_serials=None, name='',
         path (str):
             The full directory path to processed sensor data for a given sensor
             make and model.
+
     Returns:
         hourly_df_list (list of pandas dataframes): List of sensor data frames
             of length N (where N is the number of sensor units in a testing
@@ -113,7 +115,6 @@ def Sensor_Averaging(full_df_list, sensor_serials=None, name='',
     return hourly_df_list, daily_df_list
 
 
-
 def Interval_Averaging(df, freq='H', interval_count=60, thres=0.75):
     """Average dataframe to the specified sampling frequency ('freq').
 
@@ -154,7 +155,6 @@ def Interval_Averaging(df, freq='H', interval_count=60, thres=0.75):
     obj_df = df.select_dtypes(include=['object', 'datetime'])
     num_df = df.select_dtypes(exclude=['object', 'datetime'])
 
-    #obj_df_cols = list(obj_df.columns)
     num_df_cols = list(num_df.columns)
     obj_df_cols = list(obj_df.columns)
 
@@ -173,7 +173,7 @@ def Interval_Averaging(df, freq='H', interval_count=60, thres=0.75):
                                   columns=obj_df_cols)
     else:
         avg_obj_df = obj_df.groupby([pd.Grouper(freq=freq)]
-                                    ).agg(lambda x:x.value_counts().index[0])
+                                    ).agg(lambda x: x.value_counts().index[0])
 
     dropped_objcols = [col for col in obj_df_cols if col not in avg_obj_df]
     for col in dropped_objcols:
@@ -219,5 +219,5 @@ def Interval_Averaging(df, freq='H', interval_count=60, thres=0.75):
 
     # reorder columns before return
     avg_df = avg_df[col_list]
-    #print(avg_df)
+
     return avg_df
