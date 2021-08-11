@@ -14,6 +14,7 @@ Last Updated:
   Wed Jul 14 09:11:15 2021
 """
 import os
+import sys
 import pandas as pd
 
 
@@ -47,9 +48,8 @@ def Processed_Data_Search(processed_path, sensor_serials):
 
     # Check if files in processed file directory
     if len(os.listdir(processed_path)) == 0:
-        print('No processed files exist.')
-        # Return empty dataframe lists
-        return full_df_list, hourly_df_list, daily_df_list
+        sys.exit('No processed files exist. Process recorded sensor datasets '
+                 'by setting "load_raw_data" to True')
 
     else:
         print('Loading processed sensor data')
