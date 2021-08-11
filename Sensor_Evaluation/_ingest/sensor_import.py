@@ -28,7 +28,7 @@ from Sensor_Evaluation._analysis.purpleair_modules import (Compute_AB_Averages,
 
 def Import(sensor_name=None, sensor_serials=None, tzone_shift=0,
            load_raw_data=False, data_path=None, processed_path=None,
-           write_to_file=False):
+           write_to_file=False, **kwargs):
     """Import recorded or processed sensor data.
 
     If loading recorded datasets (i.e., load_raw_data is True), the method will
@@ -164,15 +164,26 @@ def Import(sensor_name=None, sensor_serials=None, tzone_shift=0,
         for serial in sensor_serials.values():
             sensor_df = pd.DataFrame()
             print('..' + serial)
+
+            file_list = []
             for path, folders, files in os.walk(data_path):
                 for filename in files:
-                    if serial in filename and (filename.endswith('.csv')
-                       or filename.lower().endswith('.txt')):
+                    filename_l = filename.lower()
+                    if serial in filename and (filename_l.endswith('.csv')
+                       or filename_l.endswith('.txt')):
                         # Load sensor data and append file datasets
                         cwd = '//'.join([path, filename])
                         print('....' + filename)
-                        df = Ingest_Wrapper(cwd, sensor_name, serial)
+                        df = Ingest_Wrapper(cwd, sensor_name, serial,
+                                            data_path)
                         sensor_df = sensor_df.append(df)
+                file_list.extend(files)
+
+            # Check if serial ID not found in any file names.
+            if not any(serial in file for file in file_list):
+                console_out = ('Serial ID ' + serial + ' not found in data '
+                               'files:\n' + '\n'.join(files))
+                print(console_out)
 
             if sensor_df.empty:
                 console_out = ('No sensor data files found with the expected'
@@ -181,7 +192,16 @@ def Import(sensor_name=None, sensor_serials=None, tzone_shift=0,
                                ' serial ID. Files must be either .csv or .txt')
                 sys.exit(console_out)
 
+            # any concatenation would happen here
+            start = kwargs.get('deployment_start', None)
+            end = kwargs.get('deployment_end', None)
+            if start is not None:
+                sensor_df = sensor_df.loc[start:, :]
+            if end is not None:
+                sensor_df = sensor_df.loc[:end, :]
+
             sensor_df = sensor_df.shift(tzone_shift, freq='H')
+
             full_df_list.append(sensor_df)
 
         hourly_df_list, daily_df_list = Sensor_Averaging(full_df_list,
@@ -201,7 +221,7 @@ def Import(sensor_name=None, sensor_serials=None, tzone_shift=0,
     return full_df_list, hourly_df_list, daily_df_list
 
 
-def Ingest_Wrapper(cwd, sensor_name, serial):
+def Ingest_Wrapper(cwd, sensor_name, serial, data_path):
     """Wrapper for ingestion modules. Selects the ingestion module to convert
     sensor-specific data formatting to standardized format for analysis.
 
@@ -212,6 +232,9 @@ def Ingest_Wrapper(cwd, sensor_name, serial):
             The make and model of the sensor.
         serial (dict):
             The serial identifier unique to each sensor unit
+        data_path (str):
+            full path to sensor data top directory (contains subdirs for
+            processed and raw data, and the setup.json if configured)
 
     Returns:
         pandas dataframe object:
@@ -219,7 +242,7 @@ def Ingest_Wrapper(cwd, sensor_name, serial):
             ingestion module.
     """
     # If setup json exists for particular sensor, use standard ingest module
-    setup_path = os.path.abspath(cwd + '../../../' + sensor_name
+    setup_path = os.path.abspath(data_path + '../' + sensor_name
                                  + '_setup.json')
 
     if os.path.exists(setup_path):
@@ -240,7 +263,8 @@ def Ingest_Wrapper(cwd, sensor_name, serial):
 #        return Custom_Ingest_Module_For_Your_Sensor(cwd)
 
     else:
-        sys.exit('No sensor specific import module specified for', sensor_name)
+        sys.exit('No sensor specific import module specified for '
+                 + sensor_name)
 
 
 """Sensor specific ingestion modules-------------------------------------------
