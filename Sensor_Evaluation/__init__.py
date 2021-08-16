@@ -32,7 +32,8 @@ from ._ingest.setup import Setup
 from ._ingest.standardized_ingest import Ingest
 from ._models.apply_correction import Individual_Correction
 from ._plotting.plot_formatting import (Set_Fontsize,
-     Sensor_Subplot_Formatting, Get_Max, Met_Scatter_Lims, Wrap_Text)
+     Sensor_Subplot_Formatting, Get_Max, Met_Scatter_Lims, Wrap_Text,
+     Get_Colormap_Norm_Range)
 from ._plotting.errorbars import Plot_Error_Bars
 from ._reference.import_airnowtech import Import_AirNowTech, Flatten
 from ._reference.load_ref_data import Load_Ref_DataFrames
