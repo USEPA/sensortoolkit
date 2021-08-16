@@ -38,6 +38,19 @@ def Ingest_OAQPS(file_path):
     df = df[1:-8]
     df = Format_Ref_Timestamp(df)
 
+    # Formatting changed in Feb 2020 for some headers, rename for consistency
+    # with former column naming scheme
+    rename_dict = {'10M_Wind_Direction': 'WD Ultra 10m',
+                   '10M_Wind_Speed': 'WS Ultra 10m',
+                   '3M_RH': '3m RH',
+                   '3M_Temp': '3m Temp',
+                   'BC_880nm_AE33 LC': 'BC AE33 880nm',
+                   'GRIMM_PM1': 'GRIMM PM1',
+                   'GRIMM_PM10': 'Grimm PM10',
+                   'GRIMM_PM2.5': 'Grimm PM2.5',
+                   'T265_O3': 'O3-API T265'}
+    df = df.rename(columns=rename_dict)
+
     df = df.set_index(df.DateTime_UTC).drop(columns=['DateTime_UTC'])
     df = Format_Headers(df)
 
@@ -93,10 +106,11 @@ def Format_Ref_Timestamp(df):
         df (TYPE): DESCRIPTION.
 
     """
-
+    split_timestamp = False
     # Date and Time columns seperated after MM-YYYY
     if 'DateTime' and 'Time' in df:
         df['Date & Time'] = df.DateTime + ' ' + df.Time
+        split_timestamp = True
 
     # Split the datetime column into separate date and time info
     split_datetime = df['Date & Time'].str.split(expand=True)
@@ -136,6 +150,8 @@ def Format_Ref_Timestamp(df):
 
     df['DateTime_UTC'] = pd.to_datetime(datetime, format=datetime_fmt)
     df.drop(columns=['Date & Time'], inplace=True)
+    if split_timestamp:
+        df.drop(columns=['DateTime', 'Time'], inplace=True)
 
     return df
 
@@ -319,6 +335,7 @@ def Format_QAQC(param, series, df):
         df[param + '_QAQC_Code'] = df[param + '_QAQC_Code'].fillna(0)
 
     return df
+
 
 
 if __name__ == '__main__':
