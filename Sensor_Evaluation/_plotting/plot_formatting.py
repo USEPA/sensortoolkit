@@ -95,8 +95,12 @@ def Get_Max(df_list, ref_df, param, start=None, end=None):
     # Determine maximum concentration recorded during timeframe, use to set
     # default plot limits
     max_list = [df.loc[start:end, param].max() for df in df_list]
+
     ref_max = ref_df.loc[start:end, param + '_Value'].max()
     max_list.append(ref_max)
+
+    # Remove nans
+    max_list = [i for i in max_list if not np.isnan(i)]
     max_conc = max(max_list)
 
     return max_conc
@@ -289,6 +293,28 @@ def Sensor_Subplot_Formatting(number_of_sensors, param, font_size,
     return (Nr, Nc, fig_size, suptitle_xpos, suptitle_ypos, title_text_wrap,
             detail_fontsize, wspace, hspace, left, right, top, bottom,
             filename_suffix, cbar_padding, cbar_aspect, font_size)
+
+
+def Get_Colormap_Norm_Range(df_list):
+    """Set default range for colormap based on number of sensors
+
+    The range is normalized to between zero and one (0.0, 1.0)
+
+
+    Args:
+        df_list (TYPE): Sensor datasets.
+
+    Returns:
+        cmap_range (TYPE): Tuple of length 2 containing the lower and upper
+        bounds for the normalized colormap range.
+
+    """
+    if len(df_list) < 4:
+        cmap_range = (0, 0.4)
+    else:
+        cmap_range = (0, 1)
+
+    return cmap_range
 
 
 def Met_Scatter_Lims(met_data, met_param, xlims, ylims, serials, eval_param,
