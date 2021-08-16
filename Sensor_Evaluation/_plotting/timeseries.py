@@ -24,7 +24,8 @@ from matplotlib.colors import rgb2hex
 import seaborn as sns
 from Sensor_Evaluation._format.format_names import Format_Param_Name
 from Sensor_Evaluation._format.format_date import Get_Date
-from Sensor_Evaluation._plotting.plot_formatting import Wrap_Text, Get_Max
+from Sensor_Evaluation._plotting.plot_formatting import (Wrap_Text, Get_Max,
+                                                    Get_Colormap_Norm_Range)
 register_matplotlib_converters()
 
 
@@ -97,6 +98,10 @@ def Sensor_Timeplot(df_list, ref_df, param=None, sensor_name=None,
     # default ylim
     max_conc = Get_Max(df_list, ref_df, param, start, end)
 
+
+    cmap_range = Get_Colormap_Norm_Range(df_list)
+
+
     # Get keyword argument values if specified, otherwise set default
     sns.set_style(kwargs.get('seaborn_style', 'darkgrid'))
     date_interval = kwargs.get('date_interval', 5)
@@ -107,7 +112,7 @@ def Sensor_Timeplot(df_list, ref_df, param=None, sensor_name=None,
     fontsize = kwargs.get('fontsize', 15)
     legend_fontscale = kwargs.get('legend_fontscale', 0.65)
     cmap_name = kwargs.get('cmap_name', 'Set1')
-    cmap_norm_range = kwargs.get('cmap_normrange', (0, 0.4))
+    cmap_norm_range = kwargs.get('cmap_normrange', cmap_range)
     show_title = kwargs.get('show_title', True)
     filename_suffix = kwargs.get('filename_suffix', '')
 
@@ -238,7 +243,8 @@ def Sensor_Timeplot(df_list, ref_df, param=None, sensor_name=None,
     ax.set_yscale(yscale)
     ax.set_ylabel(fmt_param + ' ' + fmt_param_unit, fontsize=fontsize)
     ax.set_xlabel('Date', fontsize=fontsize)
-    ax.set_xlim(start, end)
+
+    ax.set_xlim(pd.to_datetime(start), pd.to_datetime(end))
     if ylims:
         ax.set_ylim(ylims[0], ylims[1])
     ax.tick_params(labelsize=.75*fontsize)
