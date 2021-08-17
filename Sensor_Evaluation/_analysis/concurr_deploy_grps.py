@@ -350,7 +350,7 @@ def Meteorological_Stats(deploy_dict, df_list, met_ref_df,
     return deploy_dict
 
 
-def Measure_Recording_Interval(df):
+def Measure_Recording_Interval(df, warning=False):
     """Compute recording interval for dataframe.
 
     Compute time delta between successive timestamps and take the mode of
@@ -388,7 +388,7 @@ def Measure_Recording_Interval(df):
         if i < delta_df.size:
             interval_str += ', '
 
-    if delta_std > 0:
+    if warning and delta_std > 0:
         print('Warning, variation in sampling frequency for passed dataframe')
         #interval_str += ' +/- ' + str(delta_std) + ' seconds'
 
