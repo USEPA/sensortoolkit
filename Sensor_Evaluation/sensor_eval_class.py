@@ -15,7 +15,6 @@ Last Updated:
 """
 import pandas as pd
 import numpy as np
-import statsmodels.api as sm
 import math
 import json
 import sys
@@ -542,8 +541,11 @@ class SensorEvaluation:
                 outfile.write(deploy_json)
 
     def calculate_metrics(self):
-        """
-        Compute hourly, daily, and inter-sensor averaged statistics dataframes
+        """Compute hourly, daily, and inter-sensor statistics dataframes.
+
+        Returns:
+            None.
+
         """
         try:
             self.deploy_dict['Deployment Groups']['Group 1'][self.eval_param]
@@ -577,7 +579,15 @@ class SensorEvaluation:
                                        write_to_file=self.write_to_file)
 
     def plot_timeseries(self, report_fmt=True, **kwargs):
-        """Plot parameter concentrations over time alongside reference
+        """Plot parameter concentrations over time alongside reference.
+
+        Args:
+            report_fmt (TYPE, optional): DESCRIPTION. Defaults to True.
+            **kwargs (TYPE): DESCRIPTION.
+
+        Returns:
+            None.
+
         """
         timestamp_fmt = '%Y-%m-%d %H:%M:%S'
         t_start = (self.avg_hrly_df.dropna(how='all', axis=0).index[0] -
@@ -656,9 +666,16 @@ class SensorEvaluation:
                     **kwargs)
 
     def plot_metrics(self, **kwargs):
-        """
-        Regression dot/boxplots for U.S EPA performance metrics and targets
+        """Regression dot/boxplots for U.S EPA performance metrics and targets
         developed for PM2.5 and O3 sensor evaluations.
+
+
+        Args:
+            **kwargs (TYPE): DESCRIPTION.
+
+        Returns:
+            None.
+
         """
         try:
             self.deploy_dict['Deployment Groups']['Group 1'][self.eval_param]
@@ -685,6 +702,17 @@ class SensorEvaluation:
     def plot_sensor_scatter(self, averaging_interval='24-hour',
                             plot_subset=None, report_fmt=False, **kwargs):
         """
+
+        Args:
+            averaging_interval (TYPE, optional): DESCRIPTION. Defaults to
+            '24-hour'.
+            plot_subset (TYPE, optional): DESCRIPTION. Defaults to None.
+            report_fmt (TYPE, optional): DESCRIPTION. Defaults to False.
+            **kwargs (TYPE): DESCRIPTION.
+
+        Returns:
+            None.
+
         """
 
         try:
@@ -815,7 +843,12 @@ class SensorEvaluation:
 
     def plot_met_dist(self):
         """Relative frequency distribution plots for temperature and relative
-        humidity recorded by the R.M. Young 41382VC at AIRS
+        humidity recorded by meterological instruments at the collocation site.
+
+
+        Returns:
+            None.
+
         """
         met_params = ['Temp_Value', 'RH_Value']
 
@@ -827,6 +860,16 @@ class SensorEvaluation:
     def plot_met_influence(self, met_param=None, report_fmt=True,
                            **kwargs):
         """Normalized Sensor param vs. AIRS RH
+
+
+        Args:
+            met_param (TYPE, optional): DESCRIPTION. Defaults to None.
+            report_fmt (TYPE, optional): DESCRIPTION. Defaults to True.
+            **kwargs (TYPE): DESCRIPTION.
+
+        Returns:
+            None.
+
         """
         # Reference data header names for met data
         met_params = ['Temp', 'RH']
@@ -1092,75 +1135,3 @@ class SensorEvaluation:
                         '(' + ref_min + ' to ' + ref_max + ')',
                         '(' + temp_min + ' to ' + temp_max + ')',
                         '(' + rh_min + ' to ' + rh_max + ')'))
-
-    def Cooks_Outlier_QC(self, invalidate=False):
-        """Estimate outliers via Cook’s distance for datapoints in each 1-hour
-        averaged sensor dataset via sensor vs. FRM/FEM reference OLS regression
-
-        Values for timestamps exceeding a threshold of 4/L (L is the total
-        number of sensor-FRM/FEM  data pairs) are indicated by Cooks distance
-        to be potential outliers. To ensure that data points identified by
-        Cooks distance are likely outliers, the absolute difference (AD) and
-        percent difference (PD) (and their respective standard deviations (SD))
-        are computed between sensor and reference data. The median plus twice
-        the SD of both the AD and PD are computed, and each data point
-        identified by Cook’s distance is compared against these thresholds.
-        If the AD and PD for the potential outlier data point exceed these
-        thresholds, a QA/QC code is assigned to the corresponding time stamp.
-
-        If ‘invalidate’ is true, sensor evaluation parameter data points that
-        are identified by Cook’s distance as potential outliers and exceed the
-        AD and PD thresholds are set to null.
-        """
-
-        for serial, sensor_df in zip(self.serials.values(),
-                                     self.hourly_df_list):
-            print('Flagged timestamps for', serial)
-            xdata = self.hourly_ref_df[self.eval_param + '_Value']
-            ydata = sensor_df[self.eval_param]
-            df = pd.DataFrame({'x': xdata, 'y': ydata}).dropna()
-
-            n_obs = df.shape[0]
-            thres = (4 / n_obs)
-
-            x = df['x']
-            y = df['y']
-            x = sm.add_constant(x)
-            model = sm.OLS(y, x).fit()
-
-            # Compute cooks distance for ref vs. average sensor conc.
-            infl = model.get_influence()
-            cooks = infl.cooks_distance
-            cooks_df = pd.DataFrame({'distance': cooks[0],
-                                     'p_val': cooks[1]})
-            outliers = cooks_df[cooks_df.distance > thres]
-
-            # Outlier timestamps
-            outlier_times = df.index[outliers.index]
-
-            # Thresholds for flagging data points
-            abs_diff = abs(sensor_df[self.eval_param] -
-                           self.hourly_ref_df[self.eval_param + '_Value'])
-            abs_diff_thres = abs_diff.median() + 2*abs_diff.std()
-
-            p_diff = 2*abs_diff / (sensor_df[self.eval_param] +
-                           self.hourly_ref_df[self.eval_param + '_Value'])
-            p_diff_thres = p_diff.median() + 2*p_diff.std()
-
-            # Create a column for flagging data points
-            sensor_df.loc[:, self.eval_param + '_QAQC_Code'] = np.nan
-            # Ensure that outlier times exceeding cooks thres. justify flagging
-            # by exceeding thresholds for abs diff and percent diff
-            flag_count = 0
-            for time in outlier_times:
-                if (abs_diff[time] > abs_diff_thres and
-                   p_diff[time] > p_diff_thres):
-                    # TODO: Temporary flag assignment. Need to consult QC flag
-                    # template
-                    sensor_df.loc[time, self.eval_param + '_QAQC_Code'] = 1
-                    if invalidate:
-                        sensor_df.loc[time, self.eval_param] = np.nan
-                    print('..' + str(time))
-                    flag_count += 1
-            if flag_count == 0:
-                print('..No data points flagged')
