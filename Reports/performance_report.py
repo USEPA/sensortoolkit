@@ -22,7 +22,7 @@ import sys
 lib_path = os.path.abspath(__file__ + '../../..')
 if lib_path not in sys.path:
     sys.path.append(lib_path)
-from Sensor_Evaluation.sensor_eval_class import SensorEvaluation
+from sensortoolkit.sensor_eval import SensorEvaluation
 
 
 class PerformanceReport(SensorEvaluation):
