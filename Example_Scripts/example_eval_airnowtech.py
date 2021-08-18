@@ -19,20 +19,20 @@ import sys
 lib_path = os.path.abspath(__file__ + '../../..')
 if lib_path not in sys.path:
     sys.path.append(lib_path)
-import Sensor_Evaluation as se
-from Sensor_Evaluation.sensor_eval_class import SensorEvaluation
+import sensortoolkit
+from sensortoolkit.sensor_eval import SensorEvaluation
 
 
 #  ----------------------------------------------------------------------------
 #   Construct file structure for sensor, specify ingestion formatting scheme
 #  ----------------------------------------------------------------------------
 # Run the next line of code to create sub-dirs for sensor data, figures, etc.
-se.Create_Sensor_Directories(name='New_Sensor_Make_Model',
+sensortoolkit.Create_Sensor_Directories(name='New_Sensor_Make_Model',
                              eval_params=['PM25', 'O3'])
 
 # Run the next line of code to configure the formatting scheme for converting
 # recorded sensor data to a standardized format utilized by SensorEvaluation
-IngestionConfig = se.Setup()
+IngestionConfig = sensortoolkit.Setup()
 
 #  ----------------------------------------------------------------------------
 #   Prepare the reference datasets and instantiate the SensorEvaluation class
@@ -43,7 +43,7 @@ ref_path = pathlib.PureWindowsPath(ref_path)
 filename = 'AirNowTech_BurdensCreek_20190801_20190902_PMGasMet.csv'
 airnowtech_path = (ref_path.as_posix()
                    + '/airnowtech/downloaded_datasets/' + filename)
-se.Import_AirNowTech(airnowtech_path)
+sensortoolkit.Import_AirNowTech(airnowtech_path)
 
 
 #  ----------------------------------------------------------------------------
