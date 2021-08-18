@@ -1,10 +1,17 @@
 # `sensortoolkit` Documentation
-*Last Updated: August 8th, 2021*
+
+*Last Updated: August 18th, 2021*
+
 The sensortoolkit library is organized into seven primary directories: `_analysis`, `_format`, `_ingest`, `_models`, `_plotting`, `_qc`, and `_reference`. Each directory contains modules and methods that support both the `SensorEvaluation` and `PerformanceReport` classes. A listing of `sensortoolkit` library methods is provided below.
 
 ## Readme Guide
 * [Analysis Modules](#analysis)
-* [Formatting Modules](#analysis)
+* [Formatting Modules](#format)
+* [Ingestion Modules](#ingest)
+* [Modeling Modules](#models)
+* [Plotting Modules](#plotting)
+* [Quality Control (QC) Modules](#qc)
+* [Reference Data Modules](#reference)
 
 ---
 ## `_analysis` <a name="analysis"></a>
@@ -105,7 +112,7 @@ Description.
 `Create_Sensor_Directories`
 
 ---
-## `_ingest`
+## `_ingest` <a name="ingest"></a>
 
 ### `processed_data_loader.py`
 | Methods |
@@ -132,12 +139,13 @@ Description.
 | ------- |
 `Ingest`
 
-## `_models`
+---
+## `_models` <a name="models"></a>
 ### `apply_correction.py`
 | Methods |
 | ------- |
 `Individual_Correction`
-  
+
 ### `purpleair_uscorrection.py`
 | Methods |
 | ------- |
@@ -148,7 +156,8 @@ Description.
 | ------- |
 `Sensor_OLS`
 
-## `_plotting`
+---
+## `_plotting` <a name="plotting"></a>
 ### `distribution.py`
 | Methods |
 | ------- |
@@ -194,7 +203,8 @@ Description.
 `Sensor_Timeplot`
 `Deployment_Timeline_Plot`
 
-## `_qc`
+---
+## `_qc` <a name="qc"></a>
 ### `interval_downsampling.py`
 | Methods |
 | ------- |
@@ -225,7 +235,8 @@ Description.
 | ------- |
 `Compute_AB_Averages`
 
-## `_reference`
+---
+## `_reference` <a name="reference"></a>E
 
 ### `import_airnowtech.py`
 | Methods |
