@@ -236,7 +236,7 @@ Description.
 `Compute_AB_Averages`
 
 ---
-## `_reference` <a name="reference"></a>E
+## `_reference` <a name="reference"></a>
 
 ### `import_airnowtech.py`
 | Methods |
