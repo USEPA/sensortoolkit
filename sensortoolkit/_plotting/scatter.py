@@ -487,6 +487,20 @@ def Scatter_Plotter(df_list, ref_df, stats_df=None, plot_subset=None,
             sensor_number = Nc*i + (j + 1)
             sensor_idx = sensor_number - 1
 
+            # set appropriate plt axes array index based on # of sensors
+            if isinstance(axs, np.ndarray):
+                # More than one sensor, axes arranged in array structure
+                if len(axs.shape) > 1:
+                    ax = axs[i, j]
+                else:
+                    ax = axs[j]
+            else:
+                ax = axs
+
+            if sensor_number > number_of_sensors:
+                ax.remove()
+                continue
+
             # Initialize sensor, reference dataframe objects to None
             sensor_stats = None
             hourly_df_obj = None
@@ -507,17 +521,7 @@ def Scatter_Plotter(df_list, ref_df, stats_df=None, plot_subset=None,
 
             # set appropriate plt axes array index based on # of sensors
             if isinstance(axs, np.ndarray):
-                # More than one sensor, axes arranged in array structure
-                if len(axs.shape) > 1:
-                    ax = axs[i, j]
-                else:
-                    ax = axs[j]
-
                 ax.set_title(lbl, fontsize=detail_fontsize)
-            else:
-                ax = axs
-                param_dict['ylabel'] = 'Sensor ' + fmt_param + ' ' + \
-                    fmt_param_units
 
             try:
                 sensor_df = df_list[sensor_idx]
