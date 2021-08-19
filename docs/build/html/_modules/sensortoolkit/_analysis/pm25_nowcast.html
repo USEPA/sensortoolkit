@@ -1,0 +1,232 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>sensortoolkit._analysis.pm25_nowcast &#8212; sensortoolkit 1.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/alabaster.css" />
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+   
+  <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for sensortoolkit._analysis.pm25_nowcast</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">@Author:</span>
+<span class="sd">  Samuel Frederick, NSSC Contractor (ORAU)</span>
+<span class="sd">  U.S. EPA, Office of Research and Development</span>
+<span class="sd">  Center for Environmental Measurement and Modeling</span>
+<span class="sd">  Air Methods and Characterization Division, Source and Fine Scale Branch</span>
+<span class="sd">  109 T.W. Alexander Drive, Research Triangle Park, NC 27711</span>
+<span class="sd">  Office: 919-541-4086 | Email: frederick.samuel@epa.gov</span>
+
+<span class="sd">Created:</span>
+<span class="sd">  Fri Jun 19 08:25:11 2020</span>
+<span class="sd">Last Updated:</span>
+<span class="sd">  Thu Aug 13 11:25:00 2020</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+
+
+<div class="viewcode-block" id="PM25NowCast"><a class="viewcode-back" href="../../../_autosummary/sensortoolkit._analysis.pm25_nowcast.PM25NowCast.html#sensortoolkit._analysis.pm25_nowcast.PM25NowCast">[docs]</a><span class="k">def</span> <span class="nf">PM25NowCast</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Generate NowCast values for PM2.5 1-hour averages.</span>
+
+<span class="sd">    References</span>
+<span class="sd">    ----------</span>
+<span class="sd">    https://usepa.servicenowservices.com/airnow?id=kb_article_view&amp;sys_id=</span>
+<span class="sd">    fed0037b1b62545040a1a7dbe54bcbd4</span>
+
+<span class="sd">    The presentation tited &#39;Transitioning to a new NowCast Method&#39; by</span>
+<span class="sd">    Mintz, Stone, and Davis (June 15, 2013)</span>
+
+<span class="sd">    Dependencies</span>
+<span class="sd">    ------------</span>
+<span class="sd">    NumPy (version &gt;= 1.16.5):</span>
+<span class="sd">        Mathematical operations library</span>
+<span class="sd">    Pandas (version &gt;= 0.25.1):</span>
+<span class="sd">        Data analysis library</span>
+<span class="sd">    Sys (Python version &gt;= 3.7):</span>
+<span class="sd">        Python base package for system specified parameters</span>
+
+<span class="sd">    Arguments</span>
+<span class="sd">    ----------</span>
+<span class="sd">    df (Pandas dataframe object):</span>
+<span class="sd">        DataFrame containing hourly PM2.5 data.</span>
+<span class="sd">    column (str):</span>
+<span class="sd">        The name of the column to NowCast.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    nowcast_df: Pandas Dataframe</span>
+<span class="sd">        Dataframe passed to function with added column for nowcasted values.</span>
+<span class="sd">        The index is set  to time. Data columns include the passed hourly PM2.5</span>
+<span class="sd">        data and the corresponding Nowcast values (&#39;nowcast&#39;).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">column</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="s1">&#39;No column header name specified to nowcast&#39;</span><span class="p">)</span>
+
+    <span class="n">df_idx</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">index</span>
+    <span class="n">idx_name</span> <span class="o">=</span> <span class="n">df_idx</span><span class="o">.</span><span class="n">name</span>
+    <span class="c1"># Use standard index naming scheme</span>
+    <span class="k">if</span> <span class="n">idx_name</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;DateTime_UTC&#39;</span>
+
+    <span class="c1"># Check type of index column, must be datetime formatted</span>
+    <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">df_idx</span><span class="p">)</span> <span class="o">!=</span> <span class="n">pd</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">indexes</span><span class="o">.</span><span class="n">datetimes</span><span class="o">.</span><span class="n">DatetimeIndex</span><span class="p">:</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="s1">&#39;Index must be data type &#39;</span>
+                 <span class="s1">&#39;pandas.core.indexes.datetimes.DatetimeIndex&#39;</span><span class="p">)</span>
+
+    <span class="c1"># Reindex to evenly spaced 1-hour intervals</span>
+    <span class="n">df_idx_min</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>
+    <span class="n">df_idx_max</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+    <span class="n">idx</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">date_range</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="n">df_idx_min</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="n">df_idx_max</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="s1">&#39;H&#39;</span><span class="p">)</span>
+    <span class="n">reindex_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="n">idx</span><span class="p">)</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">combine_first</span><span class="p">(</span><span class="n">reindex_df</span><span class="p">)</span>
+
+    <span class="c1"># subset passed dataframe to specified column for nowcasting, set aside</span>
+    <span class="c1"># copy of passed dataframe for merging before returning dataframe.</span>
+    <span class="n">passed_df</span> <span class="o">=</span> <span class="n">df</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[[</span><span class="n">column</span><span class="p">]]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+    <span class="c1"># Create 11 columns with PM data, each shifted by i hours (i = 1 to 11)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">):</span>
+        <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="n">column</span> <span class="o">+</span> <span class="s1">&#39;shift_&#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">column</span><span class="p">]</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+
+    <span class="c1"># Compute max and min for each 12-hr window</span>
+    <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Max&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Min&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="c1"># Compute weight factor for each 12-hr window</span>
+    <span class="n">df</span><span class="p">[</span><span class="s1">&#39;weight_factor&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">Max</span> <span class="o">-</span> <span class="n">df</span><span class="o">.</span><span class="n">Min</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">Max</span><span class="p">)</span>
+    <span class="n">df</span><span class="p">[</span><span class="s1">&#39;weight_factor&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="n">df</span><span class="o">.</span><span class="n">weight_factor</span> <span class="o">&lt;</span> <span class="mf">0.5</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.5</span>
+
+    <span class="c1"># Count NaNs for most recent 3 hrs (including present hr data in column)</span>
+    <span class="n">df</span><span class="p">[</span><span class="s1">&#39;row_3hr_nan_count&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[[</span><span class="n">column</span><span class="p">,</span>
+                                  <span class="n">column</span> <span class="o">+</span> <span class="s1">&#39;shift_1&#39;</span><span class="p">,</span>
+                                  <span class="n">column</span> <span class="o">+</span> <span class="s1">&#39;shift_2&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="n">denom</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="c1"># Multiply each column with pm data by weight factor**i, compute denom</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">):</span>
+        <span class="n">df</span><span class="p">[</span><span class="n">column</span> <span class="o">+</span> <span class="s1">&#39;shift_&#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)]</span> <span class="o">=</span> \
+            <span class="n">df</span><span class="p">[</span><span class="n">column</span> <span class="o">+</span> <span class="s1">&#39;shift_&#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)]</span><span class="o">*</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">weight_factor</span><span class="p">)</span><span class="o">**</span><span class="n">i</span>
+
+        <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="c1"># Determine boolean condition (not NaN) for zeroth hour PM values</span>
+            <span class="n">df</span><span class="p">[</span><span class="s1">&#39;denom_const_0&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">column</span><span class="p">]</span><span class="o">.</span><span class="n">notna</span><span class="p">()</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+            <span class="c1"># Denom val for zeroth hour</span>
+            <span class="n">denom</span> <span class="o">+=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;denom_const_0&#39;</span><span class="p">]</span><span class="o">*</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">weight_factor</span><span class="p">)</span><span class="o">**</span><span class="mi">0</span>
+
+        <span class="c1"># Determine boolean condition (not NaN) for ith hour PM values</span>
+        <span class="n">df</span><span class="p">[</span><span class="s1">&#39;denom_const_&#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)]</span> <span class="o">=</span> \
+            <span class="n">df</span><span class="p">[</span><span class="n">column</span> <span class="o">+</span> <span class="s1">&#39;shift_&#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)]</span><span class="o">.</span><span class="n">notna</span><span class="p">()</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+
+        <span class="c1"># Compute denominator terms for weight raised to ith power</span>
+        <span class="n">denom</span> <span class="o">+=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;denom_const_&#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)]</span><span class="o">*</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">weight_factor</span><span class="p">)</span><span class="o">**</span><span class="n">i</span>
+
+    <span class="c1"># Column names for zeroth to 11th hour PM with weights applied</span>
+    <span class="n">weighted_pm_cols</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">df</span><span class="p">)[</span><span class="mi">0</span><span class="p">:</span><span class="mi">12</span><span class="p">]</span>
+
+    <span class="c1"># Denominator and numerator for each hourly nowcast value</span>
+    <span class="n">df</span><span class="p">[</span><span class="s1">&#39;denom&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">denom</span>
+    <span class="n">df</span><span class="p">[</span><span class="s1">&#39;num&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">weighted_pm_cols</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="c1"># Compute NowCast, set NaN where not-NaN count for 3 most recent hours &lt; 2</span>
+    <span class="n">df</span><span class="p">[</span><span class="s1">&#39;nowcast&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">num</span> <span class="o">/</span> <span class="n">df</span><span class="o">.</span><span class="n">denom</span>
+    <span class="n">df</span><span class="o">.</span><span class="n">nowcast</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">nowcast</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">row_3hr_nan_count</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">)</span>
+
+    <span class="n">nowcast_df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[[</span><span class="s1">&#39;nowcast&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;nowcast&#39;</span><span class="p">:</span>
+                                                 <span class="n">column</span> <span class="o">+</span> <span class="s1">&#39;_nowcast&#39;</span><span class="p">})</span>
+
+    <span class="k">return</span> <span class="n">passed_df</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">nowcast_df</span><span class="p">)</span></div>
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../../index.html">sensortoolkit</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../_autosummary/sensortoolkit.html">sensortoolkit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../_autosummary/sensortoolkit._analysis.html">sensortoolkit._analysis</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2021, Samuel Frederick.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.0.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

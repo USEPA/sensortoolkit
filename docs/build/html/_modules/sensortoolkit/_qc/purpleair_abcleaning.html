@@ -1,0 +1,199 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>sensortoolkit._qc.purpleair_abcleaning &#8212; sensortoolkit 1.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/alabaster.css" />
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+   
+  <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for sensortoolkit._qc.purpleair_abcleaning</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">@Author:</span>
+<span class="sd">  Samuel Frederick, NSSC Contractor (ORAU)</span>
+<span class="sd">  U.S. EPA, Office of Research and Development</span>
+<span class="sd">  Center for Environmental Measurement and Modeling</span>
+<span class="sd">  Air Methods and Characterization Division, Source and Fine Scale Branch</span>
+<span class="sd">  109 T.W Alexander Drive, Research Triangle Park, NC 27711</span>
+<span class="sd">  Office: 919-541-4086 | Email: frederick.samuel@epa.gov</span>
+
+<span class="sd">Created:</span>
+<span class="sd">  Wed Jul  7 13:32:49 2021</span>
+<span class="sd">Last Updated:</span>
+<span class="sd">  Wed Aug 18 09:10:24 2021</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+
+<div class="viewcode-block" id="Compute_AB_Averages"><a class="viewcode-back" href="../../../_autosummary/sensortoolkit._qc.purpleair_abcleaning.Compute_AB_Averages.html#sensortoolkit._qc.purpleair_abcleaning.Compute_AB_Averages">[docs]</a><span class="k">def</span> <span class="nf">Compute_AB_Averages</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">cleaning</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">a_col_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                        <span class="n">b_col_name</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Average A and B channel data for  PurpleAir sensors.</span>
+
+<span class="sd">    QC criteria via Barkjohn et al. 2021, publication link:</span>
+<span class="sd">        https://amt.copernicus.org/articles/14/4617/2021/</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        df (pandas dataframe):</span>
+<span class="sd">            PurpleAir dataframe containing columns with A and B channel PM2.5</span>
+<span class="sd">            data.</span>
+<span class="sd">        cleaning (bool):</span>
+<span class="sd">            If true, datapoints outside the QC criteria of Barkjohn et al. 2021</span>
+<span class="sd">            will be invalidated (set null). Else, QC criteria will not be</span>
+<span class="sd">            applied.</span>
+<span class="sd">        a_col_name (str):</span>
+<span class="sd">            The column header name for PM2.5 data from channel A.</span>
+<span class="sd">        b_col_name (str):</span>
+<span class="sd">            The column header name for PM2.5 data from channel B.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        df (pandas dataframe):</span>
+<span class="sd">            Modified PurpleAir dataframe with computed AB averages</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">cleaning</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="c1"># Compute (A-B) difference</span>
+        <span class="n">AB_diff</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">a_col_name</span><span class="p">]</span> <span class="o">-</span> <span class="n">df</span><span class="p">[</span><span class="n">b_col_name</span><span class="p">]</span>
+
+        <span class="c1"># Absolute value of (A-B)</span>
+        <span class="n">AB_absdiff</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">AB_diff</span><span class="p">)</span>
+
+        <span class="c1"># Compute percent difference of A and B</span>
+        <span class="n">AB_pdiff</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">a_col_name</span><span class="p">]</span> <span class="o">-</span> <span class="n">df</span><span class="p">[</span><span class="n">b_col_name</span><span class="p">])</span> <span class="o">/</span> \
+                     <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">a_col_name</span><span class="p">]</span> <span class="o">+</span> <span class="n">df</span><span class="p">[</span><span class="n">b_col_name</span><span class="p">])</span>
+
+        <span class="c1"># Exclusion thresholds</span>
+        <span class="n">pm_thres</span> <span class="o">=</span> <span class="mf">5.0</span>  <span class="c1"># ug/m^3</span>
+        <span class="n">AB_pdiff_thres</span> <span class="o">=</span> <span class="mf">0.70</span>  <span class="c1"># exclude &gt; 70% difference</span>
+
+        <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">df</span><span class="p">,</span> <span class="n">AB_absdiff</span><span class="p">,</span> <span class="n">AB_pdiff</span><span class="p">],</span>
+                       <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="s1">&#39;PM25_AB_absdiff&#39;</span><span class="p">,</span>
+                                               <span class="mi">1</span><span class="p">:</span> <span class="s1">&#39;PM25_AB_pdiff&#39;</span><span class="p">})</span>
+
+        <span class="c1"># Datapoint exclusion mask</span>
+        <span class="n">invalid</span> <span class="o">=</span> <span class="p">((</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;PM25_AB_absdiff&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">pm_thres</span><span class="p">)</span> <span class="o">&amp;</span>
+                   <span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;PM25_AB_pdiff&#39;</span><span class="p">])</span> <span class="o">&gt;</span> <span class="n">AB_pdiff_thres</span><span class="p">))</span> <span class="o">|</span> \
+                   <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">a_col_name</span><span class="p">]</span><span class="o">.</span><span class="n">isnull</span><span class="p">())</span> <span class="o">|</span> \
+                   <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">b_col_name</span><span class="p">]</span><span class="o">.</span><span class="n">isnull</span><span class="p">())</span>
+
+        <span class="c1"># Raw AB averages</span>
+        <span class="n">df</span><span class="p">[</span><span class="s1">&#39;PM25_AB_raw&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">a_col_name</span><span class="p">]</span> <span class="o">+</span> <span class="n">df</span><span class="p">[</span><span class="n">b_col_name</span><span class="p">])</span><span class="o">/</span><span class="mi">2</span>
+
+        <span class="c1"># Extract as series</span>
+        <span class="n">AB_avgs</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;PM25_AB_raw&#39;</span><span class="p">]</span>
+
+        <span class="c1"># Cleaned AB averages</span>
+        <span class="n">AB_avgs</span><span class="p">[</span><span class="n">invalid</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+
+        <span class="c1"># Assign cleaned AB averaged data to dataframe</span>
+        <span class="n">df</span><span class="p">[</span><span class="s1">&#39;PM25&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">AB_avgs</span>
+
+        <span class="c1">#df = QC_flags(df, a_col_name, b_col_name)</span>
+
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># Raw AB averages</span>
+        <span class="n">df</span><span class="p">[</span><span class="s1">&#39;PM25_AB_raw&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">a_col_name</span><span class="p">]</span> <span class="o">+</span> <span class="n">df</span><span class="p">[</span><span class="n">b_col_name</span><span class="p">])</span><span class="o">/</span><span class="mi">2</span>
+        <span class="c1"># Extract as series</span>
+        <span class="n">AB_avgs</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;PM25_AB_raw&#39;</span><span class="p">]</span>
+
+        <span class="c1"># Assign AB averaged data to dataframe</span>
+        <span class="n">df</span><span class="p">[</span><span class="s1">&#39;PM25&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">AB_avgs</span>
+
+    <span class="k">return</span> <span class="n">df</span></div>
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../../index.html">sensortoolkit</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../_autosummary/sensortoolkit.html">sensortoolkit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../_autosummary/sensortoolkit._analysis.html">sensortoolkit._analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../_autosummary/sensortoolkit._format.html">sensortoolkit._format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../_autosummary/sensortoolkit._ingest.html">sensortoolkit._ingest</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../_autosummary/sensortoolkit._models.html">sensortoolkit._models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../_autosummary/sensortoolkit._plotting.html">sensortoolkit._plotting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../_autosummary/sensortoolkit._qc.html">sensortoolkit._qc</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../_autosummary/sensortoolkit._reference.html">sensortoolkit._reference</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2021, Samuel Frederick.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.0.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

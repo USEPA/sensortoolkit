@@ -1,0 +1,179 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+
+    <title>sensortoolkit._reference.ref_api_query &#8212; sensortoolkit 1.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="sensortoolkit._reference.ref_api_query.AQS_Query" href="sensortoolkit._reference.ref_api_query.AQS_Query.html" />
+    <link rel="prev" title="sensortoolkit._reference.load_ref_data.Timeframe_Search" href="sensortoolkit._reference.load_ref_data.Timeframe_Search.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="module-sensortoolkit._reference.ref_api_query">
+<span id="sensortoolkit-reference-ref-api-query"></span><h1>sensortoolkit._reference.ref_api_query<a class="headerlink" href="#module-sensortoolkit._reference.ref_api_query" title="Permalink to this headline">¶</a></h1>
+<dl class="simple">
+<dt>&#64;Author:</dt><dd><p>Samuel Frederick, NSSC Contractor (ORAU)
+U.S. EPA, Office of Research and Development
+Center for Environmental Measurement and Modeling
+Air Methods and Characterization Division, Source and Fine Scale Branch
+109 T.W Alexander Drive, Research Triangle Park, NC 27711
+Office: 919-541-4086 | Email: <a class="reference external" href="mailto:frederick&#46;samuel&#37;&#52;&#48;epa&#46;gov">frederick<span>&#46;</span>samuel<span>&#64;</span>epa<span>&#46;</span>gov</a></p>
+</dd>
+<dt>Created:</dt><dd><p>Mon May  3 12:56:38 2021</p>
+</dd>
+<dt>Last Updated:</dt><dd><p>Wed Jul 14 14:27:21 2021</p>
+</dd>
+</dl>
+<p class="rubric">Functions</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="sensortoolkit._reference.ref_api_query.AQS_Query.html#sensortoolkit._reference.ref_api_query.AQS_Query" title="sensortoolkit._reference.ref_api_query.AQS_Query"><code class="xref py py-obj docutils literal notranslate"><span class="pre">AQS_Query</span></code></a></p></td>
+<td><p>Construct an AQS API query request and parse response.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="sensortoolkit._reference.ref_api_query.AirNow_Query.html#sensortoolkit._reference.ref_api_query.AirNow_Query" title="sensortoolkit._reference.ref_api_query.AirNow_Query"><code class="xref py py-obj docutils literal notranslate"><span class="pre">AirNow_Query</span></code></a></p></td>
+<td><p>Construct an AirNow API query request and parse response.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="sensortoolkit._reference.ref_api_query.Date_Range_Selector.html#sensortoolkit._reference.ref_api_query.Date_Range_Selector" title="sensortoolkit._reference.ref_api_query.Date_Range_Selector"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Date_Range_Selector</span></code></a></p></td>
+<td><p>Generate two arrays (month_starts and month_ends) for which queries will be constructed in consecutive monthly segments.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="sensortoolkit._reference.ref_api_query.Modify_Ref_Cols.html#sensortoolkit._reference.ref_api_query.Modify_Ref_Cols" title="sensortoolkit._reference.ref_api_query.Modify_Ref_Cols"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Modify_Ref_Cols</span></code></a></p></td>
+<td><p>Modify the data type of columns in reference data and reorder columns.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="sensortoolkit._reference.ref_api_query.Modify_Ref_Method_Str.html#sensortoolkit._reference.ref_api_query.Modify_Ref_Method_Str" title="sensortoolkit._reference.ref_api_query.Modify_Ref_Method_Str"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Modify_Ref_Method_Str</span></code></a></p></td>
+<td><p>Subroutine for Ref_API_Query tha replaces various characters in data columns containing text, including the method name and the parameter units.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="sensortoolkit._reference.ref_api_query.Query_Periods.html#sensortoolkit._reference.ref_api_query.Query_Periods" title="sensortoolkit._reference.ref_api_query.Query_Periods"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Query_Periods</span></code></a></p></td>
+<td><p>Generate a dictionary with consecutive monthly intervals to query where dates are formatted a little differently depending on the API to query.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="sensortoolkit._reference.ref_api_query.Ref_API_Query.html#sensortoolkit._reference.ref_api_query.Ref_API_Query" title="sensortoolkit._reference.ref_api_query.Ref_API_Query"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Ref_API_Query</span></code></a></p></td>
+<td><p>Wrapper function for sending an API data query to either the AQS or AirNow API for a specified parameter (‘param’).</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="sensortoolkit._reference.ref_api_query.Save_Query.html#sensortoolkit._reference.ref_api_query.Save_Query" title="sensortoolkit._reference.ref_api_query.Save_Query"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Save_Query</span></code></a></p></td>
+<td><p>Save both processed and unmodified API query datasets to .csv files.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">sensortoolkit</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="sensortoolkit.html">sensortoolkit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sensortoolkit._analysis.html">sensortoolkit._analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sensortoolkit._format.html">sensortoolkit._format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sensortoolkit._ingest.html">sensortoolkit._ingest</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sensortoolkit._models.html">sensortoolkit._models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sensortoolkit._plotting.html">sensortoolkit._plotting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sensortoolkit._qc.html">sensortoolkit._qc</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="sensortoolkit._reference.html">sensortoolkit._reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="sensortoolkit._reference.import_airnowtech.html">sensortoolkit._reference.import_airnowtech</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sensortoolkit._reference.import_oaqps.html">sensortoolkit._reference.import_oaqps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sensortoolkit._reference.load_ref_data.html">sensortoolkit._reference.load_ref_data</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">sensortoolkit._reference.ref_api_query</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="sensortoolkit._reference.ref_api_query.AQS_Query.html">sensortoolkit._reference.ref_api_query.AQS_Query</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sensortoolkit._reference.ref_api_query.AirNow_Query.html">sensortoolkit._reference.ref_api_query.AirNow_Query</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sensortoolkit._reference.ref_api_query.Date_Range_Selector.html">sensortoolkit._reference.ref_api_query.Date_Range_Selector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sensortoolkit._reference.ref_api_query.Modify_Ref_Cols.html">sensortoolkit._reference.ref_api_query.Modify_Ref_Cols</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sensortoolkit._reference.ref_api_query.Modify_Ref_Method_Str.html">sensortoolkit._reference.ref_api_query.Modify_Ref_Method_Str</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sensortoolkit._reference.ref_api_query.Query_Periods.html">sensortoolkit._reference.ref_api_query.Query_Periods</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sensortoolkit._reference.ref_api_query.Ref_API_Query.html">sensortoolkit._reference.ref_api_query.Ref_API_Query</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sensortoolkit._reference.ref_api_query.Save_Query.html">sensortoolkit._reference.ref_api_query.Save_Query</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="sensortoolkit._reference.html">sensortoolkit._reference</a><ul>
+      <li>Previous: <a href="sensortoolkit._reference.load_ref_data.Timeframe_Search.html" title="previous chapter">sensortoolkit._reference.load_ref_data.Timeframe_Search</a></li>
+      <li>Next: <a href="sensortoolkit._reference.ref_api_query.AQS_Query.html" title="next chapter">sensortoolkit._reference.ref_api_query.AQS_Query</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2021, Samuel Frederick.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.0.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../_sources/_autosummary/sensortoolkit._reference.ref_api_query.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

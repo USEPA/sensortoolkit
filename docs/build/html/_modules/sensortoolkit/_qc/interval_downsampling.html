@@ -1,0 +1,305 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>sensortoolkit._qc.interval_downsampling &#8212; sensortoolkit 1.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/alabaster.css" />
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+   
+  <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for sensortoolkit._qc.interval_downsampling</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">@Author:</span>
+<span class="sd">  Samuel Frederick, NSSC Contractor (ORAU)</span>
+<span class="sd">  U.S. EPA, Office of Research and Development</span>
+<span class="sd">  Center for Environmental Measurement and Modeling</span>
+<span class="sd">  Air Methods and Characterization Division, Source and Fine Scale Branch</span>
+<span class="sd">  109 T.W Alexander Drive, Research Triangle Park, NC 27711</span>
+<span class="sd">  Office: 919-541-4086 | Email: frederick.samuel@epa.gov</span>
+
+<span class="sd">Created:</span>
+<span class="sd">  Tue Aug 17 10:55:08 2021</span>
+<span class="sd">Last Updated:</span>
+<span class="sd">  Tue Aug 17 10:55:08 2021</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+
+<div class="viewcode-block" id="Sensor_TimeDelta"><a class="viewcode-back" href="../../../_autosummary/sensortoolkit._qc.interval_downsampling.Sensor_TimeDelta.html#sensortoolkit._qc.interval_downsampling.Sensor_TimeDelta">[docs]</a><span class="k">def</span> <span class="nf">Sensor_TimeDelta</span><span class="p">(</span><span class="n">df_list</span><span class="p">,</span> <span class="n">serials</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Create dataframe with time deltas (in seconds) between subsequent data</span>
+<span class="sd">    entries.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        df_list (TYPE): DESCRIPTION.</span>
+<span class="sd">        serials (TYPE): DESCRIPTION.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        delta_df (TYPE): DESCRIPTION.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">delta_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">serial_id</span><span class="p">,</span> <span class="n">df</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">serials</span><span class="o">.</span><span class="n">values</span><span class="p">(),</span> <span class="n">df_list</span><span class="p">):</span>
+        <span class="n">delta</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">((</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="o">-</span> <span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span><span class="o">.</span><span class="n">seconds</span><span class="p">)</span>
+        <span class="n">delta_df</span><span class="p">[</span><span class="n">serial_id</span><span class="p">]</span> <span class="o">=</span> <span class="n">delta</span>
+
+        <span class="n">median</span> <span class="o">=</span> <span class="n">delta</span><span class="o">.</span><span class="n">median</span><span class="p">()</span>
+        <span class="n">total_len</span> <span class="o">=</span> <span class="n">delta</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">delta_drift</span> <span class="o">=</span> <span class="n">delta</span><span class="p">[</span><span class="n">delta</span> <span class="o">!=</span> <span class="n">median</span><span class="p">]</span>
+        <span class="n">delta_drift_len</span> <span class="o">=</span> <span class="n">delta_drift</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;..Sensor median time delta:&#39;</span><span class="p">,</span> <span class="n">median</span><span class="p">,</span> <span class="s1">&#39;seconds&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;....Percent of sensor dataset not recorded at median time &#39;</span>
+              <span class="s1">&#39;delta:&#39;</span><span class="p">,</span> <span class="s1">&#39;</span><span class="si">{:3.1f}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="mi">100</span><span class="o">*</span><span class="p">(</span><span class="n">delta_drift_len</span><span class="o">/</span><span class="n">total_len</span><span class="p">))</span>
+              <span class="o">+</span> <span class="s1">&#39;%&#39;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">delta_df</span></div>
+
+
+<div class="viewcode-block" id="Plot_RecordingInterval"><a class="viewcode-back" href="../../../_autosummary/sensortoolkit._qc.interval_downsampling.Plot_RecordingInterval.html#sensortoolkit._qc.interval_downsampling.Plot_RecordingInterval">[docs]</a><span class="k">def</span> <span class="nf">Plot_RecordingInterval</span><span class="p">(</span><span class="n">delta_df</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+
+
+<span class="sd">    Args:</span>
+<span class="sd">        delta_df (TYPE): DESCRIPTION.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        None.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+
+    <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">delta_df</span><span class="p">:</span>
+        <span class="n">delta_df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Row Index&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Recording interval delta (s)&#39;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="TimeDelta_Quantiles"><a class="viewcode-back" href="../../../_autosummary/sensortoolkit._qc.interval_downsampling.TimeDelta_Quantiles.html#sensortoolkit._qc.interval_downsampling.TimeDelta_Quantiles">[docs]</a><span class="k">def</span> <span class="nf">TimeDelta_Quantiles</span><span class="p">(</span><span class="n">df_list</span><span class="p">,</span> <span class="n">serials</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Create quantile dataframe for time deltas in the delta_df for each sensor</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        df_list (TYPE): DESCRIPTION.</span>
+<span class="sd">        serials (TYPE): DESCRIPTION.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        quant_df (TYPE): DESCRIPTION.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">delta_df</span> <span class="o">=</span> <span class="n">Sensor_TimeDelta</span><span class="p">(</span><span class="n">df_list</span><span class="p">,</span> <span class="n">serials</span><span class="p">)</span>
+
+    <span class="n">quant</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">header</span><span class="p">:</span> <span class="n">delta_df</span><span class="p">[</span><span class="n">header</span><span class="p">]</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="n">quant_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">delta_df</span><span class="p">:</span>
+        <span class="n">quant_data</span> <span class="o">=</span> <span class="n">quant</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mf">0.001</span><span class="p">),</span> <span class="n">col</span><span class="p">)</span>
+        <span class="n">quant_df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="n">quant_data</span>
+
+    <span class="n">quant_df</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">quant_df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">quant_df</span></div>
+
+
+<div class="viewcode-block" id="DownSampling_Interval"><a class="viewcode-back" href="../../../_autosummary/sensortoolkit._qc.interval_downsampling.DownSampling_Interval.html#sensortoolkit._qc.interval_downsampling.DownSampling_Interval">[docs]</a><span class="k">def</span> <span class="nf">DownSampling_Interval</span><span class="p">(</span><span class="n">quant_df</span><span class="p">,</span> <span class="n">thres_quant</span><span class="o">=</span><span class="mf">0.99</span><span class="p">,</span> <span class="n">plot_quantiles</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Check if N times the median time delta is greater than the time delta at</span>
+<span class="sd">    the 99% quantile for each dataframe.</span>
+
+<span class="sd">    E.g., if median recording interval is 60 seconds, on the first loop the</span>
+<span class="sd">    code will check whether 2*60=120 seconds is greater than the 99th</span>
+<span class="sd">    percentile of recording intervals within each dataset. If this is true</span>
+<span class="sd">    for all dataframes, exit the loop. Otherwise step the value of &#39;mult&#39;</span>
+<span class="sd">    by one and repeat the loop.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        quant_df (TYPE): DESCRIPTION.</span>
+<span class="sd">        thres_quant (TYPE, optional): DESCRIPTION. Defaults to 0.99.</span>
+<span class="sd">        plot_quantiles (TYPE): Defaults to True.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        interval (TYPE): DESCRIPTION.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">mult</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">exceed</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="n">median</span> <span class="o">=</span> <span class="n">quant_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="o">.</span><span class="mi">50</span><span class="p">,</span> <span class="p">:]</span>
+    <span class="k">while</span> <span class="n">exceed</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
+
+        <span class="n">exceed</span> <span class="o">=</span> <span class="nb">all</span><span class="p">(</span><span class="n">mult</span><span class="o">*</span><span class="n">median</span> <span class="o">&gt;</span> <span class="n">quant_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">thres_quant</span><span class="p">,</span> <span class="p">:])</span>
+
+        <span class="k">if</span> <span class="nb">all</span><span class="p">(</span><span class="n">mult</span><span class="o">*</span><span class="n">median</span> <span class="o">==</span> <span class="n">quant_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">thres_quant</span><span class="p">,</span> <span class="p">:]):</span>
+            <span class="n">exceed</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="n">mult</span> <span class="o">+=</span> <span class="mi">1</span>
+
+    <span class="n">mult</span> <span class="o">-=</span> <span class="mi">1</span>
+    <span class="n">interval</span> <span class="o">=</span> <span class="n">mult</span><span class="o">*</span><span class="n">median</span><span class="o">.</span><span class="n">mode</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="n">mult</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;A downsampling interval of &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">interval</span><span class="p">)</span> <span class="o">+</span>
+              <span class="s1">&#39; seconds exceeds the &#39;</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="si">{:3.2f}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">thres_quant</span><span class="p">)</span> <span class="o">+</span>
+              <span class="s1">&#39; percentile for sensor recording intervals.&#39;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;The &#39;</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="si">{:3.2f}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">thres_quant</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39; percentile for &#39;</span>
+              <span class="s1">&#39;sensor recording intervals equals the median recording interval&#39;</span>
+              <span class="s1">&#39;. Recommend proceeding with median recording interval.&#39;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">plot_quantiles</span><span class="p">:</span>
+        <span class="n">Plot_TimeDelta_Quantiles</span><span class="p">(</span><span class="n">quant_df</span><span class="p">,</span> <span class="n">interval</span><span class="p">,</span> <span class="n">thres_quant</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">interval</span></div>
+
+
+<div class="viewcode-block" id="Apply_DownSampling"><a class="viewcode-back" href="../../../_autosummary/sensortoolkit._qc.interval_downsampling.Apply_DownSampling.html#sensortoolkit._qc.interval_downsampling.Apply_DownSampling">[docs]</a><span class="k">def</span> <span class="nf">Apply_DownSampling</span><span class="p">(</span><span class="n">df_list</span><span class="p">,</span> <span class="n">downsampling_interval</span><span class="p">):</span>
+    <span class="c1"># Downsample to mean param values for every downsampled interval</span>
+    <span class="n">interval</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_timedelta</span><span class="p">(</span><span class="n">downsampling_interval</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s1">&#39;s&#39;</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">df</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">df_list</span><span class="p">):</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[:]</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="n">pd</span><span class="o">.</span><span class="n">Grouper</span><span class="p">(</span><span class="n">freq</span><span class="o">=</span><span class="n">interval</span><span class="p">)])</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+
+        <span class="n">df_list</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span>
+
+    <span class="k">return</span> <span class="n">df_list</span></div>
+
+
+<div class="viewcode-block" id="Plot_TimeDelta_Quantiles"><a class="viewcode-back" href="../../../_autosummary/sensortoolkit._qc.interval_downsampling.Plot_TimeDelta_Quantiles.html#sensortoolkit._qc.interval_downsampling.Plot_TimeDelta_Quantiles">[docs]</a><span class="k">def</span> <span class="nf">Plot_TimeDelta_Quantiles</span><span class="p">(</span><span class="n">quant_df</span><span class="p">,</span> <span class="n">interval</span><span class="p">,</span> <span class="n">thres_quant</span><span class="o">=</span><span class="mf">0.99</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Plot timedelta vs. qunatile, indicate the threshold quantile and</span>
+<span class="sd">    downsampling interval by gray dashed lines.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        quant_df (TYPE): DESCRIPTION.</span>
+<span class="sd">        interval (TYPE): DESCRIPTION.</span>
+<span class="sd">        thres_quant (TYPE, optional): DESCRIPTION. Defaults to 0.99.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        None.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">7</span><span class="p">))</span>
+    <span class="n">quant_df</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+    <span class="n">quant_label</span> <span class="o">=</span> <span class="s1">&#39;Quantile Threshold (&#39;</span> <span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">thres_quant</span><span class="p">)</span><span class="o">+</span><span class="s1">&#39;)&#39;</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">thres_quant</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">quant_label</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span>
+               <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">downsample_label</span> <span class="o">=</span> <span class="s1">&#39;Downsampling Interval (&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">interval</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39; s)&#39;</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="n">interval</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">downsample_label</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span>
+               <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;:&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+
+    <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">11</span><span class="p">)</span>
+
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Quantile (%)&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Recording Interval Time Delta (s)&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">&#39;both&#39;</span><span class="p">,</span> <span class="n">labelsize</span><span class="o">=</span><span class="mi">11</span><span class="p">)</span></div>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+
+    <span class="n">quant_df</span> <span class="o">=</span> <span class="n">TimeDelta_Quantiles</span><span class="p">(</span><span class="n">Eval</span><span class="o">.</span><span class="n">full_df_list</span><span class="p">,</span> <span class="n">Eval</span><span class="o">.</span><span class="n">serials</span><span class="p">)</span>
+    <span class="n">interval</span> <span class="o">=</span> <span class="n">DownSampling_Interval</span><span class="p">(</span><span class="n">quant_df</span><span class="p">,</span> <span class="n">thres_quant</span><span class="o">=</span><span class="mf">0.95</span><span class="p">)</span>
+
+    <span class="c1"># Consider adding a qc flag or something to the datasets that have been</span>
+    <span class="c1"># downsampled</span>
+
+    <span class="c1">#modified_df_list = Apply_DownSampling(Eval.full_df_list,</span>
+    <span class="c1">#                                      downsampling_interval=interval)</span>
+
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../../index.html">sensortoolkit</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../_autosummary/sensortoolkit.html">sensortoolkit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../_autosummary/sensortoolkit._analysis.html">sensortoolkit._analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../_autosummary/sensortoolkit._format.html">sensortoolkit._format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../_autosummary/sensortoolkit._ingest.html">sensortoolkit._ingest</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../_autosummary/sensortoolkit._models.html">sensortoolkit._models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../_autosummary/sensortoolkit._plotting.html">sensortoolkit._plotting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../_autosummary/sensortoolkit._qc.html">sensortoolkit._qc</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../_autosummary/sensortoolkit._reference.html">sensortoolkit._reference</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2021, Samuel Frederick.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.0.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

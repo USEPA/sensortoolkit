@@ -1,0 +1,193 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>sensortoolkit._analysis.intersensor_mean &#8212; sensortoolkit 1.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/alabaster.css" />
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+   
+  <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for sensortoolkit._analysis.intersensor_mean</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">@Author:</span>
+<span class="sd">  Samuel Frederick, NSSC Contractor (ORAU)</span>
+<span class="sd">  U.S. EPA, Office of Research and Development</span>
+<span class="sd">  Center for Environmental Measurement and Modeling</span>
+<span class="sd">  Air Methods and Characterization Division, Source and Fine Scale Branch</span>
+<span class="sd">  109 T.W Alexander Drive, Research Triangle Park, NC 27711</span>
+<span class="sd">  Office: 919-541-4086 | Email: frederick.samuel@epa.gov</span>
+
+<span class="sd">Created:</span>
+<span class="sd">  Tue Mar 10 08:38:24 2020</span>
+<span class="sd">Last Updated:</span>
+<span class="sd">  Tue Jul 13 09:45:24 2021</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">sensortoolkit._analysis.synoptic_idx</span> <span class="kn">import</span> <span class="n">Synoptic_Index</span>
+
+
+<div class="viewcode-block" id="Intersensor_Mean"><a class="viewcode-back" href="../../../_autosummary/sensortoolkit._analysis.intersensor_mean.Intersensor_Mean.html#sensortoolkit._analysis.intersensor_mean.Intersensor_Mean">[docs]</a><span class="k">def</span> <span class="nf">Intersensor_Mean</span><span class="p">(</span><span class="n">df_list</span><span class="p">,</span> <span class="n">deploy_dict</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Compute the average of each parameter across concurrently recorded</span>
+<span class="sd">    sensor datasets.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        df_list (list):</span>
+<span class="sd">            List of sensor dataframes at either 1-hour or 24-hour averaging</span>
+<span class="sd">            interval.</span>
+<span class="sd">        deploy_dict (dict):</span>
+<span class="sd">            A dictionary containing descriptive statistics and</span>
+<span class="sd">            textual information about the deployment (testing agency, site,</span>
+<span class="sd">            time period, etc.), sensors tested, and site conditions during the</span>
+<span class="sd">            evaluation.</span>
+<span class="sd">    Returns:</span>
+<span class="sd">        avg_df (pandas dataframe):</span>
+<span class="sd">            Dataframe to contain intersensor average for each parameter at</span>
+<span class="sd">            either 1-hour or 24-hour averaging interval.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Computing mean parameter values across concurrent sensor datasets&#39;</span><span class="p">)</span>
+    <span class="c1"># List of unique column headers</span>
+    <span class="n">param_list</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">df</span> <span class="ow">in</span> <span class="n">df_list</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">to_list</span><span class="p">():</span>
+            <span class="n">param_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+    <span class="n">param_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">dict</span><span class="o">.</span><span class="n">fromkeys</span><span class="p">(</span><span class="n">param_list</span><span class="p">))</span>
+
+    <span class="n">date_index</span><span class="p">,</span> <span class="n">avg_suffix</span> <span class="o">=</span> <span class="n">Synoptic_Index</span><span class="p">(</span><span class="n">df_list</span><span class="p">,</span> <span class="n">averaging_suffix</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="c1"># Dataframe to contain intersensor average for each parameter</span>
+    <span class="n">avg_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="n">date_index</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">group</span> <span class="ow">in</span> <span class="n">deploy_dict</span><span class="p">[</span><span class="s1">&#39;Deployment Groups&#39;</span><span class="p">]:</span>
+        <span class="n">deploy_details</span> <span class="o">=</span> <span class="n">deploy_dict</span><span class="p">[</span><span class="s1">&#39;Deployment Groups&#39;</span><span class="p">][</span><span class="n">group</span><span class="p">]</span>
+        <span class="n">start</span> <span class="o">=</span> <span class="n">deploy_details</span><span class="p">[</span><span class="s1">&#39;eval_start&#39;</span><span class="p">]</span>
+        <span class="n">end</span> <span class="o">=</span> <span class="n">deploy_details</span><span class="p">[</span><span class="s1">&#39;eval_end&#39;</span><span class="p">]</span>
+        <span class="n">group_sensor_nums</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">deploy_details</span><span class="p">[</span><span class="s1">&#39;sensors&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+
+        <span class="c1"># Check if issues with individual sensors during deployment, remove</span>
+        <span class="c1"># from serial dictionary and sensor number list used to pop. avg df</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">deploy_details</span><span class="p">[</span><span class="s1">&#39;sensors&#39;</span><span class="p">]):</span>
+            <span class="k">if</span> <span class="n">deploy_details</span><span class="p">[</span><span class="s1">&#39;sensors&#39;</span><span class="p">][</span><span class="n">n</span><span class="p">][</span><span class="s1">&#39;deploy_issues&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;True&#39;</span><span class="p">:</span>
+                <span class="n">group_sensor_nums</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;...Sensor&#39;</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="s1">&#39;indicates issues during deployment&#39;</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;...Excluding sensor&#39;</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="s1">&#39;from intersensor parameter &#39;</span>
+                      <span class="s1">&#39;average dataframe&#39;</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">param_list</span><span class="p">:</span>
+            <span class="n">combine_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="n">date_index</span><span class="p">)</span>
+
+            <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">df</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">df_list</span><span class="p">,</span> <span class="mi">1</span><span class="p">):</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">combine_df</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;_&#39;</span> <span class="o">+</span> <span class="n">param</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">param</span><span class="p">]</span>
+                <span class="k">except</span> <span class="ne">KeyError</span> <span class="k">as</span> <span class="n">k</span><span class="p">:</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;...Warning&#39;</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="s1">&#39;not found in dataframe at index &#39;</span><span class="p">,</span>
+                          <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span>
+                    <span class="n">combine_df</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;_&#39;</span> <span class="o">+</span> <span class="n">param</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+
+            <span class="n">deploy_avg_cols</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="s1">&#39;_&#39;</span> <span class="o">+</span> <span class="n">param</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">group_sensor_nums</span><span class="p">]</span>
+            <span class="n">deploy_avg</span> <span class="o">=</span> <span class="n">combine_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">start</span><span class="p">:</span><span class="n">end</span><span class="p">,</span> <span class="n">deploy_avg_cols</span><span class="p">]</span>
+
+            <span class="n">deploy_n</span> <span class="o">=</span> <span class="n">deploy_avg</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+            <span class="c1"># Compute intersensor averages for times where all sensors are</span>
+            <span class="c1"># measuring concurrently</span>
+            <span class="n">deploy_avg</span> <span class="o">=</span> <span class="n">deploy_avg</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;any&#39;</span><span class="p">)</span>
+            <span class="n">deploy_avg</span> <span class="o">=</span> <span class="n">deploy_avg</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">skipna</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+            <span class="n">avg_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">start</span><span class="p">:</span><span class="n">end</span><span class="p">,</span> <span class="s1">&#39;deploy_group&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">group</span>
+            <span class="n">avg_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">start</span><span class="p">:</span><span class="n">end</span><span class="p">,</span> <span class="s1">&#39;sensor_count&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">deploy_n</span>
+            <span class="n">avg_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">start</span><span class="p">:</span><span class="n">end</span><span class="p">,</span> <span class="s1">&#39;mean_&#39;</span><span class="o">+</span><span class="n">param</span><span class="p">]</span> <span class="o">=</span> <span class="n">deploy_avg</span>
+
+    <span class="k">return</span> <span class="n">avg_df</span></div>
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../../index.html">sensortoolkit</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../_autosummary/sensortoolkit.html">sensortoolkit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../_autosummary/sensortoolkit._analysis.html">sensortoolkit._analysis</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2021, Samuel Frederick.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.0.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

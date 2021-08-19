@@ -1,0 +1,204 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+
+    <title>sensortoolkit._ingest.setup.Setup &#8212; sensortoolkit 1.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="sensortoolkit._ingest.standardized_ingest" href="sensortoolkit._ingest.standardized_ingest.html" />
+    <link rel="prev" title="sensortoolkit._ingest.setup" href="sensortoolkit._ingest.setup.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="sensortoolkit-ingest-setup-setup">
+<h1>sensortoolkit._ingest.setup.Setup<a class="headerlink" href="#sensortoolkit-ingest-setup-setup" title="Permalink to this headline">¶</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="sensortoolkit._ingest.setup.Setup">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">Setup</span></span><a class="reference internal" href="../_modules/sensortoolkit/_ingest/setup.html#Setup"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sensortoolkit._ingest.setup.Setup" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Interactive class for handling the sensor data ingestion process.</p>
+<p>Users specify various attributes about sensor datasets, including column
+names for parameter data and timestamp entries. A renaming scheme is then
+constructed for converting the original naming scheme for columns into
+a standardized format for parameter names. The formatting for columns with
+date or time-like entries is then specified. The file type for sensor
+data is selected from a dictionary of valid data types than can be
+ingested.</p>
+<p class="rubric">Methods</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">configSensor</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">exportSetup</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">printSelectionBanner</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sensortoolkit._ingest.setup.Setup.setColumnHeaders" title="sensortoolkit._ingest.setup.Setup.setColumnHeaders"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setColumnHeaders</span></code></a></p></td>
+<td><p>If col_type is ‘’, specify all column headers.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">setColumnRenaming</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">setDataType</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">setDateTimeFormat</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">setHeaderIndex</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">setSensorName</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">validateEntry</span></code></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Attributes</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">data_types</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">params</span></code></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py method">
+<dt class="sig sig-object py" id="sensortoolkit._ingest.setup.Setup.setColumnHeaders">
+<span class="sig-name descname"><span class="pre">setColumnHeaders</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">col_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">print_banner</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">column_headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sensortoolkit/_ingest/setup.html#Setup.setColumnHeaders"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sensortoolkit._ingest.setup.Setup.setColumnHeaders" title="Permalink to this definition">¶</a></dt>
+<dd><p>If col_type is ‘’, specify all column headers. If col_type is
+‘Timestamp’, the specified column header names must be in the
+previously entered list of all column header names.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">sensortoolkit</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="sensortoolkit.html">sensortoolkit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sensortoolkit._analysis.html">sensortoolkit._analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sensortoolkit._format.html">sensortoolkit._format</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="sensortoolkit._ingest.html">sensortoolkit._ingest</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="sensortoolkit._ingest.processed_data_loader.html">sensortoolkit._ingest.processed_data_loader</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sensortoolkit._ingest.sensor_import.html">sensortoolkit._ingest.sensor_import</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="sensortoolkit._ingest.setup.html">sensortoolkit._ingest.setup</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">sensortoolkit._ingest.setup.Setup</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="sensortoolkit._ingest.standardized_ingest.html">sensortoolkit._ingest.standardized_ingest</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="sensortoolkit._models.html">sensortoolkit._models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sensortoolkit._plotting.html">sensortoolkit._plotting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sensortoolkit._qc.html">sensortoolkit._qc</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sensortoolkit._reference.html">sensortoolkit._reference</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="sensortoolkit._ingest.html">sensortoolkit._ingest</a><ul>
+  <li><a href="sensortoolkit._ingest.setup.html">sensortoolkit._ingest.setup</a><ul>
+      <li>Previous: <a href="sensortoolkit._ingest.setup.html" title="previous chapter">sensortoolkit._ingest.setup</a></li>
+      <li>Next: <a href="sensortoolkit._ingest.standardized_ingest.html" title="next chapter">sensortoolkit._ingest.standardized_ingest</a></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2021, Samuel Frederick.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.0.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../_sources/_autosummary/sensortoolkit._ingest.setup.Setup.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

@@ -1,0 +1,191 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>sensortoolkit._format.sensor_subfolders &#8212; sensortoolkit 1.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/alabaster.css" />
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+   
+  <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for sensortoolkit._format.sensor_subfolders</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">@Author:</span>
+<span class="sd">  Samuel Frederick, NSSC Contractor (ORAU)</span>
+<span class="sd">  U.S. EPA, Office of Research and Development</span>
+<span class="sd">  Center for Environmental Measurement and Modeling</span>
+<span class="sd">  Air Methods and Characterization Division, Source and Fine Scale Branch</span>
+<span class="sd">  109 T.W Alexander Drive, Research Triangle Park, NC 27711</span>
+<span class="sd">  Office: 919-541-4086 | Email: frederick.samuel@epa.gov</span>
+
+<span class="sd">Created:</span>
+<span class="sd">  Wed May 19 16:08:15 2021</span>
+<span class="sd">Last Updated:</span>
+<span class="sd">  Wed Jul 14 08:49:37 2021</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">os</span>
+
+
+<div class="viewcode-block" id="Create_Sensor_Directories"><a class="viewcode-back" href="../../../_autosummary/sensortoolkit._format.sensor_subfolders.Create_Sensor_Directories.html#sensortoolkit._format.sensor_subfolders.Create_Sensor_Directories">[docs]</a><span class="k">def</span> <span class="nf">Create_Sensor_Directories</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">eval_params</span><span class="o">=</span><span class="p">[]):</span>
+    <span class="sd">&quot;&quot;&quot;Construct the sensor directory file structure required for conducting</span>
+<span class="sd">    analysis with the SensorEvaluation library.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        name (str):</span>
+<span class="sd">            The name assigned to the sensor. Recommend using the sensor&#39;s make</span>
+<span class="sd">            and model, separated by underscores (&#39;_&#39;).</span>
+<span class="sd">        eval_params (list of strings):</span>
+<span class="sd">            The  parameters measured by the sensor that the user</span>
+<span class="sd">            wishes to evaluate. For instance, if a sensor measures both fine</span>
+<span class="sd">            particulate matter (PM25) and ozone (O3) and the user intends to</span>
+<span class="sd">            evalute the performance device with respecet to both of these</span>
+<span class="sd">            pollutants, the user may specify &#39;eval_params=[&#39;PM25&#39;, &#39;O3&#39;]&#39; to</span>
+<span class="sd">            create necessary subfolders for figures and data structures created</span>
+<span class="sd">            by the SensorEvaluation library for each of these evaluation</span>
+<span class="sd">            parameters.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        None</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">library_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="vm">__file__</span> <span class="o">+</span> <span class="s1">&#39;../../../..&#39;</span><span class="p">)</span>
+    <span class="n">data_fig_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">library_path</span><span class="p">,</span> <span class="s1">&#39;Data and Figures&#39;</span><span class="p">)</span>
+
+    <span class="n">subfolders</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;eval_stats&#39;</span><span class="p">,</span> <span class="s1">&#39;figures&#39;</span><span class="p">,</span> <span class="s1">&#39;sensor_data&#39;</span><span class="p">]</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Creating directories for &#39;</span> <span class="o">+</span> <span class="n">name</span> <span class="o">+</span> <span class="s1">&#39; and evaluation parameters: &#39;</span>
+          <span class="o">+</span> <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">eval_params</span><span class="p">))</span>
+
+    <span class="k">for</span> <span class="n">subfolder</span> <span class="ow">in</span> <span class="n">subfolders</span><span class="p">:</span>
+        <span class="n">subfolder_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">data_fig_path</span><span class="p">,</span> <span class="n">subfolder</span><span class="p">)</span>
+        <span class="n">sensor_subfolder</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">subfolder_path</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+
+        <span class="c1"># Create sensor subfolder</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">sensor_subfolder</span><span class="p">):</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">sensor_subfolder</span><span class="p">)</span>
+            <span class="n">new_dir</span> <span class="o">=</span> <span class="n">sensor_subfolder</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">library_path</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;..Creating directory:&#39;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;....&#39;</span> <span class="o">+</span> <span class="n">new_dir</span><span class="p">)</span>
+
+        <span class="c1"># Create sub-subfolders for figures and sensor data folders</span>
+        <span class="k">if</span> <span class="n">subfolder</span> <span class="o">==</span> <span class="s1">&#39;figures&#39;</span><span class="p">:</span>
+
+            <span class="n">figure_params</span> <span class="o">=</span> <span class="n">eval_params</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;Met&#39;</span><span class="p">,</span> <span class="s1">&#39;deployment&#39;</span><span class="p">]</span>
+            <span class="c1"># Create figure subfolders for specified eval params</span>
+            <span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">figure_params</span><span class="p">:</span>
+                <span class="n">param_fig_subfolder</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">sensor_subfolder</span><span class="p">,</span> <span class="n">param</span><span class="p">)</span>
+
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">param_fig_subfolder</span><span class="p">):</span>
+                    <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">param_fig_subfolder</span><span class="p">)</span>
+                    <span class="n">new_dir</span> <span class="o">=</span> <span class="n">param_fig_subfolder</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">library_path</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;....Creating sub-directory:&#39;</span><span class="p">)</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;......&#39;</span> <span class="o">+</span> <span class="n">new_dir</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">subfolder</span> <span class="o">==</span> <span class="s1">&#39;sensor_data&#39;</span><span class="p">:</span>
+            <span class="n">dataset_types</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;processed_data&#39;</span><span class="p">,</span> <span class="s1">&#39;raw_data&#39;</span><span class="p">]</span>
+            <span class="c1"># Create data subfolders for processed, raw data</span>
+            <span class="k">for</span> <span class="n">dataset_type</span> <span class="ow">in</span> <span class="n">dataset_types</span><span class="p">:</span>
+                <span class="n">data_subfolder</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">sensor_subfolder</span><span class="p">,</span> <span class="n">dataset_type</span><span class="p">)</span>
+
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">data_subfolder</span><span class="p">):</span>
+                    <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">data_subfolder</span><span class="p">)</span>
+                    <span class="n">new_dir</span> <span class="o">=</span> <span class="n">data_subfolder</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">library_path</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;....Creating sub-directory:&#39;</span><span class="p">)</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;......&#39;</span> <span class="o">+</span> <span class="n">new_dir</span><span class="p">)</span></div>
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../../index.html">sensortoolkit</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../_autosummary/sensortoolkit.html">sensortoolkit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../_autosummary/sensortoolkit._analysis.html">sensortoolkit._analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../_autosummary/sensortoolkit._format.html">sensortoolkit._format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../_autosummary/sensortoolkit._ingest.html">sensortoolkit._ingest</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../_autosummary/sensortoolkit._models.html">sensortoolkit._models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../_autosummary/sensortoolkit._plotting.html">sensortoolkit._plotting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../_autosummary/sensortoolkit._qc.html">sensortoolkit._qc</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../_autosummary/sensortoolkit._reference.html">sensortoolkit._reference</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2021, Samuel Frederick.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.0.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

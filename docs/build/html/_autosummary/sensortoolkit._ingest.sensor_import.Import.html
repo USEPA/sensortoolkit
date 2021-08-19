@@ -1,0 +1,283 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+
+    <title>sensortoolkit._ingest.sensor_import.Import &#8212; sensortoolkit 1.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="sensortoolkit._ingest.sensor_import.Ingest_Example_Make_Model" href="sensortoolkit._ingest.sensor_import.Ingest_Example_Make_Model.html" />
+    <link rel="prev" title="sensortoolkit._ingest.sensor_import" href="sensortoolkit._ingest.sensor_import.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="sensortoolkit-ingest-sensor-import-import">
+<h1>sensortoolkit._ingest.sensor_import.Import<a class="headerlink" href="#sensortoolkit-ingest-sensor-import-import" title="Permalink to this headline">¶</a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="sensortoolkit._ingest.sensor_import.Import">
+<span class="sig-name descname"><span class="pre">Import</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sensor_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sensor_serials</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tzone_shift</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">load_raw_data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">processed_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">write_to_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sensortoolkit/_ingest/sensor_import.html#Import"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sensortoolkit._ingest.sensor_import.Import" title="Permalink to this definition">¶</a></dt>
+<dd><p>Import recorded or processed sensor data.</p>
+<p>If loading recorded datasets (i.e., load_raw_data is True), the method will
+walk through the directory path where recorded sensor datasets should be
+located (..//Data and Figures//sensor_data//Sensor_Name//raw_data). Users
+must follow the expected naming scheme for files in this location,
+specifying the sensor name and sensor serial identifier for each dataset.
+If multiple files were recorded for each sensor unit, files must be
+chronologically ordered, and the naming scheme specifying sensor serial id
+and sensor make and model must also be adopted. Files must be type ‘.csv’
+or ‘.txt’.</p>
+<p>Here are two example cases that follow the expected naming scheme:</p>
+<blockquote>
+<div><p>Example 1)
+Import recorded data from one file per sensor
+———————————————
+Say the sensor name is ‘Example_Make_Model’ and three sensor units were
+tested with the following serial identifiers:</p>
+<blockquote>
+<div><p>sensor_serials = {‘1’: ‘SN01’, ‘2’: ‘SN02’, ‘3’: ‘SN03’}</p>
+</div></blockquote>
+<p>Let’s also assume that the three units each record separate ‘.csv’
+files. The recorded sensor datasets should be placed at the following
+folder location:</p>
+<blockquote>
+<div><p>‘..//Data and Figures//sensor_data//Example_Make_Model//raw_data’</p>
+</div></blockquote>
+<p>The folder structure should look something like:</p>
+<blockquote>
+<div><dl class="simple">
+<dt>path//to//raw_data//</dt><dd><p>Example_Make_Model_SN01.csv
+Example_Make_Model_SN02.csv
+Example_Make_Model_SN03.csv</p>
+</dd>
+</dl>
+</div></blockquote>
+<p>These files adhere to the expected file naming scheme and data file
+formatting and will be loaded without issue by the Import method.</p>
+<p>Example 2)
+Import data from multiple files per sensor within nested subdirectories
+—————————————————————–
+For simplicity, let’s use the same serial identifiers as before. The
+data will also be located at the same folder path. However, now let’s
+say that instead of one file per sensor, datasets are recorded at daily
+intervals over the evaluation period and were collected at weekly
+intervals and organized by unit ID into sub-directories. Let’s also say
+that the data files are recorded as .txt files instead of .csv files.
+The data sets can be placed into the ..//raw_data folder path, and
+might look something like:</p>
+<blockquote>
+<div><dl>
+<dt>path//to//raw_data//</dt><dd><dl class="simple">
+<dt>//2021_01_08_data_collection</dt><dd><dl class="simple">
+<dt>//SN01//</dt><dd><p>Example_Make_Model_SN01_20210101.txt
+Example_Make_Model_SN01_20210102.txt
+…
+Example_Make_Model_SN01_20210108.txt</p>
+</dd>
+<dt>//SN02//</dt><dd><p>Example_Make_Model_SN02_20210101.txt
+Example_Make_Model_SN02_20210102.txt
+…
+Example_Make_Model_SN02_20210108.txt</p>
+</dd>
+<dt>//SN03//</dt><dd><p>Example_Make_Model_SN03_20210101.txt
+Example_Make_Model_SN03_20210102.txt
+…
+Example_Make_Model_SN03_20210108.txt</p>
+</dd>
+</dl>
+</dd>
+<dt>//2021_01_15_data_collection</dt><dd><dl class="simple">
+<dt>//SN01//</dt><dd><p>Example_Make_Model_SN01_20210109.txt
+Example_Make_Model_SN01_20210110.txt
+…
+Example_Make_Model_SN01_20210115.txt</p>
+</dd>
+<dt>//SN02//</dt><dd><p>Example_Make_Model_SN02_20210109.txt
+Example_Make_Model_SN02_20210110.txt
+…
+Example_Make_Model_SN02_20210115.txt</p>
+</dd>
+<dt>//SN03//</dt><dd><p>Example_Make_Model_SN03_20210109.txt
+Example_Make_Model_SN03_20210110.txt
+…
+Example_Make_Model_SN03_20210115.txt</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p>…</p>
+</dd>
+</dl>
+</div></blockquote>
+<p>(Note: if all the files have unique names, one could place all of
+the .txt files in the //raw_data// directory. This example is simply
+meant to illustrate that the import method can handle these types of
+nested folder structures if the appropriate naming scheme is followed).</p>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sensor_name</strong> (<em>str</em>) – The make and model of the sensor being evaluated.</p></li>
+<li><p><strong>serials</strong> (<em>dict</em>) – A dictionary of sensor serial identifiers for each unit
+in a testing group</p></li>
+<li><p><strong>tzone_shift</strong> (<em>int</em>) – ) An integer value by which to shift the sensor data
+to UTC. Specifying 0 will not shift the data.</p></li>
+<li><p><strong>load_raw_data</strong> (<em>bool</em>) – If true, raw data in the appropriate subdirectory
+will be loaded and 1-hr and 24-hr averages will be computed and
+saved to a processed data subdirectory for the specified sensor.
+If false, processed data will be loaded.</p></li>
+<li><p><strong>data_path</strong> (<em>str</em>) – The full directory path to raw sensor data for a given
+sensor make and model.</p></li>
+<li><p><strong>processed_path</strong> (<em>str</em>) – The full directory path to processed sensor data
+for a given sensor make and model.</p></li>
+<li><p><strong>write_to_file</strong> (<em>bool</em>) – If true and load_raw_data true, processed files
+will be written to folder location. In addition, subsequent
+evaluation statistics will be written to the Data and Figures and
+eval_stats sensor subdirectory. Figures will also be written to the
+appropriate figures subdirectory.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>List of pandas dataframe objects, one for each sensor dataset</dt><dd><p>containing processed full time-resolution data.</p>
+</dd>
+<dt>hourly_df_list (list):</dt><dd><p>List of pandas dataframe objects, one for each sensor dataset
+containing processed hourly averaged time-resolution data.</p>
+</dd>
+<dt>daily_df_list (list):</dt><dd><p>List of pandas dataframe objects, one for each sensor dataset
+containing processed daily (24-hr) averaged time-resolution data.</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>full_df_list (list)</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>System exit</strong> – If searching for recorded sensor datasets and no files</p></li>
+<li><p><strong>found with the expected naming scheme</strong><strong> or </strong><strong>file formatting</strong><strong> (</strong><strong>files must</strong> – </p></li>
+<li><p><strong>be ordered chronologically</strong><strong>, </strong><strong>contain the unique serial identifier</strong> – </p></li>
+<li><p><strong>corresponding to the sensor unit that recorded the sensor data file</strong><strong>,</strong> – </p></li>
+<li><p><strong>and must be in either .csv</strong><strong> or </strong><strong>txt format</strong><strong>)</strong><strong></strong> – </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">sensortoolkit</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="sensortoolkit.html">sensortoolkit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sensortoolkit._analysis.html">sensortoolkit._analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sensortoolkit._format.html">sensortoolkit._format</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="sensortoolkit._ingest.html">sensortoolkit._ingest</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="sensortoolkit._ingest.processed_data_loader.html">sensortoolkit._ingest.processed_data_loader</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="sensortoolkit._ingest.sensor_import.html">sensortoolkit._ingest.sensor_import</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">sensortoolkit._ingest.sensor_import.Import</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sensortoolkit._ingest.sensor_import.Ingest_Example_Make_Model.html">sensortoolkit._ingest.sensor_import.Ingest_Example_Make_Model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sensortoolkit._ingest.sensor_import.Ingest_PurpleAir_PAII.html">sensortoolkit._ingest.sensor_import.Ingest_PurpleAir_PAII</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sensortoolkit._ingest.sensor_import.Ingest_Sensit_RAMP.html">sensortoolkit._ingest.sensor_import.Ingest_Sensit_RAMP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sensortoolkit._ingest.sensor_import.Ingest_Wrapper.html">sensortoolkit._ingest.sensor_import.Ingest_Wrapper</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="sensortoolkit._ingest.setup.html">sensortoolkit._ingest.setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sensortoolkit._ingest.standardized_ingest.html">sensortoolkit._ingest.standardized_ingest</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="sensortoolkit._models.html">sensortoolkit._models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sensortoolkit._plotting.html">sensortoolkit._plotting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sensortoolkit._qc.html">sensortoolkit._qc</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sensortoolkit._reference.html">sensortoolkit._reference</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="sensortoolkit._ingest.html">sensortoolkit._ingest</a><ul>
+  <li><a href="sensortoolkit._ingest.sensor_import.html">sensortoolkit._ingest.sensor_import</a><ul>
+      <li>Previous: <a href="sensortoolkit._ingest.sensor_import.html" title="previous chapter">sensortoolkit._ingest.sensor_import</a></li>
+      <li>Next: <a href="sensortoolkit._ingest.sensor_import.Ingest_Example_Make_Model.html" title="next chapter">sensortoolkit._ingest.sensor_import.Ingest_Example_Make_Model</a></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2021, Samuel Frederick.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.0.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../_sources/_autosummary/sensortoolkit._ingest.sensor_import.Import.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

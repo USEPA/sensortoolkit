@@ -1,0 +1,173 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+
+    <title>sensortoolkit._analysis.cv_calculator.Compute_CV &#8212; sensortoolkit 1.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="sensortoolkit._analysis.deployment_period" href="sensortoolkit._analysis.deployment_period.html" />
+    <link rel="prev" title="sensortoolkit._analysis.cv_calculator.CV_Calculator" href="sensortoolkit._analysis.cv_calculator.CV_Calculator.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="sensortoolkit-analysis-cv-calculator-compute-cv">
+<h1>sensortoolkit._analysis.cv_calculator.Compute_CV<a class="headerlink" href="#sensortoolkit-analysis-cv-calculator-compute-cv" title="Permalink to this headline">¶</a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="sensortoolkit._analysis.cv_calculator.Compute_CV">
+<span class="sig-name descname"><span class="pre">Compute_CV</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">deploy_dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">param</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'PM25'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_deploy_dict</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sensortoolkit/_analysis/cv_calculator.html#Compute_CV"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sensortoolkit._analysis.cv_calculator.Compute_CV" title="Permalink to this definition">¶</a></dt>
+<dd><p>Wrapper function for computing CV for generalized set of dataframes and
+parameter.</p>
+<p>Loops over the unique deployment groups and computes CV for each
+group of concurrently collocated and recording sensors.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df_list</strong> (<em>list</em>) – List of sensor dataframes</p></li>
+<li><p><strong>deploy_dict</strong> (<em>dict</em>) – A dictionary containing descriptive statistics and
+textual information about the deployment (testing agency, site,
+time period, etc.), sensors tested, and site conditions during the
+evaluation.</p></li>
+<li><p><strong>param</strong> (<em>str</em>) – Parameter name to evaluate</p></li>
+<li><p><strong>return_deploy_dict</strong> (<em>bool</em>) – If true, return modified deployment dictionary with precision
+statisitcs (CV, standard deviation, N concurrent datapoints across
+all sensors).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><p>Returns deploy_dict with updated precision statistics
+else:</p>
+<blockquote>
+<div><p>Return CV (float)</p>
+</div></blockquote>
+</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>If return_deploy_dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">sensortoolkit</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="sensortoolkit.html">sensortoolkit</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="sensortoolkit._analysis.html">sensortoolkit._analysis</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="sensortoolkit._analysis.aqi_calculator.html">sensortoolkit._analysis.aqi_calculator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sensortoolkit._analysis.concurr_deploy_grps.html">sensortoolkit._analysis.concurr_deploy_grps</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="sensortoolkit._analysis.cv_calculator.html">sensortoolkit._analysis.cv_calculator</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="sensortoolkit._analysis.cv_calculator.CV_Calculator.html">sensortoolkit._analysis.cv_calculator.CV_Calculator</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">sensortoolkit._analysis.cv_calculator.Compute_CV</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="sensortoolkit._analysis.deployment_period.html">sensortoolkit._analysis.deployment_period</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sensortoolkit._analysis.dewpoint.html">sensortoolkit._analysis.dewpoint</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sensortoolkit._analysis.duplicate_removal.html">sensortoolkit._analysis.duplicate_removal</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sensortoolkit._analysis.intersensor_mean.html">sensortoolkit._analysis.intersensor_mean</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sensortoolkit._analysis.model_analysis.html">sensortoolkit._analysis.model_analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sensortoolkit._analysis.normalize_calculator.html">sensortoolkit._analysis.normalize_calculator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sensortoolkit._analysis.pm25_nowcast.html">sensortoolkit._analysis.pm25_nowcast</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sensortoolkit._analysis.synoptic_idx.html">sensortoolkit._analysis.synoptic_idx</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sensortoolkit._analysis.time_averaging.html">sensortoolkit._analysis.time_averaging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sensortoolkit._analysis.uptime_calculator.html">sensortoolkit._analysis.uptime_calculator</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="sensortoolkit._format.html">sensortoolkit._format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sensortoolkit._ingest.html">sensortoolkit._ingest</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sensortoolkit._models.html">sensortoolkit._models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sensortoolkit._plotting.html">sensortoolkit._plotting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sensortoolkit._qc.html">sensortoolkit._qc</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sensortoolkit._reference.html">sensortoolkit._reference</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="sensortoolkit._analysis.html">sensortoolkit._analysis</a><ul>
+  <li><a href="sensortoolkit._analysis.cv_calculator.html">sensortoolkit._analysis.cv_calculator</a><ul>
+      <li>Previous: <a href="sensortoolkit._analysis.cv_calculator.CV_Calculator.html" title="previous chapter">sensortoolkit._analysis.cv_calculator.CV_Calculator</a></li>
+      <li>Next: <a href="sensortoolkit._analysis.deployment_period.html" title="next chapter">sensortoolkit._analysis.deployment_period</a></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2021, Samuel Frederick.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.0.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../_sources/_autosummary/sensortoolkit._analysis.cv_calculator.Compute_CV.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

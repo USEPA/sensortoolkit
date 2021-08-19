@@ -1,0 +1,181 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>sensortoolkit._analysis.synoptic_idx &#8212; sensortoolkit 1.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/alabaster.css" />
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+   
+  <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for sensortoolkit._analysis.synoptic_idx</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">@Author:</span>
+<span class="sd">  Samuel Frederick, NSSC Contractor (ORAU)</span>
+<span class="sd">  U.S. EPA, Office of Research and Development</span>
+<span class="sd">  Center for Environmental Measurement and Modeling</span>
+<span class="sd">  Air Methods and Characterization Division, Source and Fine Scale Branch</span>
+<span class="sd">  109 T.W Alexander Drive, Research Triangle Park, NC 27711</span>
+<span class="sd">  Office: 919-541-4086 | Email: frederick.samuel@epa.gov</span>
+
+<span class="sd">Created:</span>
+<span class="sd">  Tue Nov 10 14:31:42 2020</span>
+<span class="sd">Last Updated:</span>
+<span class="sd">  Tue Jul 13 11:42:22 2021</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">sensortoolkit._reference.load_ref_data</span> <span class="kn">import</span> <span class="n">Timeframe_Search</span>
+
+
+<div class="viewcode-block" id="Synoptic_Index"><a class="viewcode-back" href="../../../_autosummary/sensortoolkit._analysis.synoptic_idx.Synoptic_Index.html#sensortoolkit._analysis.synoptic_idx.Synoptic_Index">[docs]</a><span class="k">def</span> <span class="nf">Synoptic_Index</span><span class="p">(</span><span class="n">df_obj</span><span class="p">,</span> <span class="n">averaging_suffix</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Create a timestamp index that spans the total duration of time during</span>
+<span class="sd">    which sensors in an evaluation group were deployed.</span>
+
+<span class="sd">    Searches for the eariest and latest timestamp in sensor datasets and</span>
+<span class="sd">    creates a datetime index at the indicated averaging interval spanning the</span>
+<span class="sd">    time period of testing.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        df_obj (either pandas dataframe or list of dataframes):</span>
+<span class="sd">            Sensor dataframe(s)</span>
+<span class="sd">        averaging_suffix (bool):</span>
+<span class="sd">            If true, a string suffix will be returned indicating the averaging</span>
+<span class="sd">            interval of the passed dataframe object.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        timestamp_idx (pandas datetimeindex):</span>
+<span class="sd">            Index at either 1-hour or 24-hour averaging intervals spanning</span>
+<span class="sd">            the entire evaluation period.</span>
+<span class="sd">        avg_suffix (str):</span>
+<span class="sd">            If averaging_suffix is true, return suffix indicating the averaging</span>
+<span class="sd">            interval of the timestamp index.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">df_obj</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">list</span><span class="p">:</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">df_obj</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># Use the first dataframe in the list as model</span>
+        <span class="n">df_list</span> <span class="o">=</span> <span class="n">df_obj</span>
+
+    <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">df_obj</span><span class="p">)</span> <span class="ow">is</span> <span class="n">pd</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">frame</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">df_obj</span>
+        <span class="n">df_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">df</span><span class="p">]</span>
+
+    <span class="c1"># Compute timedelta between successive timestamps</span>
+    <span class="n">delta</span> <span class="o">=</span> <span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="o">-</span> <span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span><span class="o">.</span><span class="n">to_frame</span><span class="p">()</span>
+
+    <span class="n">idx_name</span> <span class="o">=</span> <span class="n">delta</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">name</span>
+    <span class="k">if</span> <span class="n">idx_name</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">idx_name</span> <span class="o">=</span> <span class="s1">&#39;Datetime_UTC&#39;</span>
+        <span class="n">delta</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">idx_name</span>
+
+    <span class="c1"># Use mode of timedelta to extrapolate # of datapoints recorded per hr</span>
+    <span class="n">time_delta</span> <span class="o">=</span> <span class="n">delta</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">to_series</span><span class="p">()</span><span class="o">.</span><span class="n">mode</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="c1"># Check time interval (1hr or 24hr)</span>
+    <span class="n">deploy_begin</span><span class="p">,</span> <span class="n">deploy_end</span> <span class="o">=</span> <span class="n">Timeframe_Search</span><span class="p">(</span><span class="n">df_list</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">time_delta</span> <span class="o">==</span> <span class="n">pd</span><span class="o">.</span><span class="n">Timedelta</span><span class="p">(</span><span class="s1">&#39;1 H&#39;</span><span class="p">):</span>
+        <span class="n">timestamp_idx</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">date_range</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="n">deploy_begin</span><span class="p">,</span>
+                                      <span class="n">end</span><span class="o">=</span><span class="n">deploy_end</span><span class="p">,</span>
+                                      <span class="n">freq</span><span class="o">=</span><span class="s1">&#39;H&#39;</span><span class="p">)</span>
+        <span class="n">avg_suffix</span> <span class="o">=</span> <span class="s1">&#39;_1-hour&#39;</span>
+
+    <span class="k">elif</span> <span class="n">time_delta</span> <span class="o">==</span> <span class="n">pd</span><span class="o">.</span><span class="n">Timedelta</span><span class="p">(</span><span class="s1">&#39;1 D&#39;</span><span class="p">):</span>
+        <span class="n">timestamp_idx</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">date_range</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="n">deploy_begin</span><span class="p">,</span>
+                                      <span class="n">end</span><span class="o">=</span><span class="n">deploy_end</span><span class="p">,</span>
+                                      <span class="n">freq</span><span class="o">=</span><span class="s1">&#39;D&#39;</span><span class="p">)</span>
+        <span class="n">avg_suffix</span> <span class="o">=</span> <span class="s1">&#39;_24-hour&#39;</span>
+
+    <span class="k">if</span> <span class="n">averaging_suffix</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">timestamp_idx</span><span class="p">,</span> <span class="n">avg_suffix</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">timestamp_idx</span></div>
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../../index.html">sensortoolkit</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../_autosummary/sensortoolkit.html">sensortoolkit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../_autosummary/sensortoolkit._analysis.html">sensortoolkit._analysis</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2021, Samuel Frederick.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.0.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

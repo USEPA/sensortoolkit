@@ -1,0 +1,197 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+
+    <title>sensortoolkit._plotting.scatter.Draw_Scatter &#8212; sensortoolkit 1.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="sensortoolkit._plotting.scatter.Normalized_Met_Scatter" href="sensortoolkit._plotting.scatter.Normalized_Met_Scatter.html" />
+    <link rel="prev" title="sensortoolkit._plotting.scatter" href="sensortoolkit._plotting.scatter.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="sensortoolkit-plotting-scatter-draw-scatter">
+<h1>sensortoolkit._plotting.scatter.Draw_Scatter<a class="headerlink" href="#sensortoolkit-plotting-scatter-draw-scatter" title="Permalink to this headline">¶</a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="sensortoolkit._plotting.scatter.Draw_Scatter">
+<span class="sig-name descname"><span class="pre">Draw_Scatter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xdata</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ydata</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">param_dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sensor_stats</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xlims</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ylims</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fontsize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">detail_fontsize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">param</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot_regression</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">colormap_vals</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">colormap_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sensortoolkit/_plotting/scatter.html#Draw_Scatter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sensortoolkit._plotting.scatter.Draw_Scatter" title="Permalink to this definition">¶</a></dt>
+<dd><p>A helper function to draw scatterplots with linear regressions on passed
+matplotlib axes instance</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ax</strong> – Matplotlib axes instance
+The axes object on which the scatter plot is drawn</p></li>
+<li><p><strong>xdata</strong> – numpy array or pandas series
+The x data (reference data)</p></li>
+<li><p><strong>ydata</strong> – numpy array or pandas series
+The y data (sensor data)</p></li>
+<li><p><strong>sensor_stats</strong> – pandas dataframe
+Dataframe contain regression statistics for single sensor (subset
+of the full stats_df object)</p></li>
+<li><p><strong>xlim</strong> – tuple
+The domain of the graph</p></li>
+<li><p><strong>ylim</strong> – tuple
+The range of the graph</p></li>
+<li><p><strong>fontsize</strong> – int
+Selects the fontsize of regression statistics</p></li>
+<li><p><strong>detail_fontsize</strong> – Fontsize for axes tick labels</p></li>
+<li><p><strong>param_dict</strong> – dict
+Dictionary of kwargs to pass to ax.plot</p></li>
+<li><p><strong>plot_regression</strong> – bool
+True plots linear regression, regression equation, R^2, and RMSE</p></li>
+<li><p><strong>colormap_vals</strong> – Dataframe column or none
+Data that are used to set the colormap value.</p></li>
+<li><p><strong>colormap_name</strong> – string or none
+The name of the colormap which the scatter plot will be assigned</p></li>
+<li><p><strong>kwargs</strong> – monocolor
+point_size
+point_alpha
+plot_aspect
+plottext_alpha
+plottext_size
+plottext_color
+plottext_xloc
+plottext_yloc
+plottext_xdisplacement
+plottext_ydisplacement
+plottext_position
+show_trendline
+show_RMSE
+show_spearman
+show_N
+show_one_to_one
+trendline_xmax
+trendline_color
+trendline_alpha</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Matplotlib axes instance with scatter drawn along with additional
+elements specified in the kwargs (text, colormap)</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>plotobj</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">sensortoolkit</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="sensortoolkit.html">sensortoolkit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sensortoolkit._analysis.html">sensortoolkit._analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sensortoolkit._format.html">sensortoolkit._format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sensortoolkit._ingest.html">sensortoolkit._ingest</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sensortoolkit._models.html">sensortoolkit._models</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="sensortoolkit._plotting.html">sensortoolkit._plotting</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="sensortoolkit._plotting.distribution.html">sensortoolkit._plotting.distribution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sensortoolkit._plotting.errorbars.html">sensortoolkit._plotting.errorbars</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sensortoolkit._plotting.intrasensor_comparison.html">sensortoolkit._plotting.intrasensor_comparison</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sensortoolkit._plotting.plot_formatting.html">sensortoolkit._plotting.plot_formatting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sensortoolkit._plotting.plot_performance_metrics.html">sensortoolkit._plotting.plot_performance_metrics</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="sensortoolkit._plotting.scatter.html">sensortoolkit._plotting.scatter</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">sensortoolkit._plotting.scatter.Draw_Scatter</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sensortoolkit._plotting.scatter.Normalized_Met_Scatter.html">sensortoolkit._plotting.scatter.Normalized_Met_Scatter</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sensortoolkit._plotting.scatter.Scatter_Plotter.html">sensortoolkit._plotting.scatter.Scatter_Plotter</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="sensortoolkit._plotting.timeseries.html">sensortoolkit._plotting.timeseries</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="sensortoolkit._qc.html">sensortoolkit._qc</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sensortoolkit._reference.html">sensortoolkit._reference</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="sensortoolkit._plotting.html">sensortoolkit._plotting</a><ul>
+  <li><a href="sensortoolkit._plotting.scatter.html">sensortoolkit._plotting.scatter</a><ul>
+      <li>Previous: <a href="sensortoolkit._plotting.scatter.html" title="previous chapter">sensortoolkit._plotting.scatter</a></li>
+      <li>Next: <a href="sensortoolkit._plotting.scatter.Normalized_Met_Scatter.html" title="next chapter">sensortoolkit._plotting.scatter.Normalized_Met_Scatter</a></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2021, Samuel Frederick.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.0.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../_sources/_autosummary/sensortoolkit._plotting.scatter.Draw_Scatter.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

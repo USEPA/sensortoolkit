@@ -1,0 +1,432 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>sensortoolkit._ingest.setup &#8212; sensortoolkit 1.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/alabaster.css" />
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+   
+  <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for sensortoolkit._ingest.setup</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">@Author:</span>
+<span class="sd">  Samuel Frederick, NSSC Contractor (ORAU)</span>
+<span class="sd">  U.S. EPA, Office of Research and Development</span>
+<span class="sd">  Center for Environmental Measurement and Modeling</span>
+<span class="sd">  Air Methods and Characterization Division, Source and Fine Scale Branch</span>
+<span class="sd">  109 T.W Alexander Drive, Research Triangle Park, NC 27711</span>
+<span class="sd">  Office: 919-541-4086 | Email: frederick.samuel@epa.gov</span>
+
+<span class="sd">Created:</span>
+<span class="sd">  Mon Jul 19 08:25:55 2021</span>
+<span class="sd">Last Updated:</span>
+<span class="sd">  Mon Jul 19 08:25:55 2021</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">textwrap</span> <span class="kn">import</span> <span class="n">wrap</span>
+<span class="kn">import</span> <span class="nn">json</span>
+
+
+<div class="viewcode-block" id="Setup"><a class="viewcode-back" href="../../../_autosummary/sensortoolkit._ingest.setup.Setup.html#sensortoolkit._ingest.setup.Setup">[docs]</a><span class="k">class</span> <span class="nc">Setup</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Interactive class for handling the sensor data ingestion process.</span>
+
+<span class="sd">    Users specify various attributes about sensor datasets, including column</span>
+<span class="sd">    names for parameter data and timestamp entries. A renaming scheme is then</span>
+<span class="sd">    constructed for converting the original naming scheme for columns into</span>
+<span class="sd">    a standardized format for parameter names. The formatting for columns with</span>
+<span class="sd">    date or time-like entries is then specified. The file type for sensor</span>
+<span class="sd">    data is selected from a dictionary of valid data types than can be</span>
+<span class="sd">    ingested.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">params</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;PM1&#39;</span><span class="p">,</span> <span class="s1">&#39;PM25&#39;</span><span class="p">,</span> <span class="s1">&#39;PM10&#39;</span><span class="p">,</span> <span class="s1">&#39;O3&#39;</span><span class="p">,</span> <span class="s1">&#39;NO2&#39;</span><span class="p">,</span> <span class="s1">&#39;NO&#39;</span><span class="p">,</span> <span class="s1">&#39;NOx&#39;</span><span class="p">,</span>
+              <span class="s1">&#39;SO2&#39;</span><span class="p">,</span> <span class="s1">&#39;SOx&#39;</span><span class="p">,</span> <span class="s1">&#39;CO&#39;</span><span class="p">,</span> <span class="s1">&#39;CO2&#39;</span><span class="p">,</span> <span class="s1">&#39;Temp&#39;</span><span class="p">,</span> <span class="s1">&#39;RH&#39;</span><span class="p">,</span> <span class="s1">&#39;Press&#39;</span><span class="p">,</span>
+              <span class="s1">&#39;DP&#39;</span><span class="p">,</span> <span class="s1">&#39;WS&#39;</span><span class="p">,</span> <span class="s1">&#39;WD&#39;</span><span class="p">]</span>
+    <span class="n">data_types</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;1&#39;</span><span class="p">:</span> <span class="s1">&#39;.csv&#39;</span><span class="p">,</span> <span class="s1">&#39;2&#39;</span><span class="p">:</span> <span class="s1">&#39;.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;3&#39;</span><span class="p">:</span> <span class="s1">&#39;.xlsx&#39;</span><span class="p">}</span>
+    <span class="n">__banner_w__</span> <span class="o">=</span> <span class="mi">79</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dtype</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">all_col_headers</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">timestamp_col_headers</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">configSensor</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">configSensor</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setSensorName</span><span class="p">()</span>
+        <span class="c1">#self.setDeploymentPeriod()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setHeaderIndex</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setColumnHeaders</span><span class="p">(</span><span class="n">col_type</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>  <span class="c1"># Specify all header column names</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setColumnRenaming</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setColumnHeaders</span><span class="p">(</span><span class="n">col_type</span><span class="o">=</span><span class="s1">&#39;Timestamp&#39;</span><span class="p">,</span> <span class="n">column_headers</span><span class="o">=</span><span class="p">[])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setDateTimeFormat</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setDataType</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">exportSetup</span><span class="p">()</span>
+        <span class="k">return</span>
+
+    <span class="k">def</span> <span class="nf">validateEntry</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">val</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+        <span class="n">options</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="s1">&#39;n&#39;</span><span class="p">]</span>
+        <span class="k">while</span> <span class="n">val</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">options</span><span class="p">:</span>
+            <span class="n">val</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s1">&#39;Confirm entry [y/n]: &#39;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">options</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">val</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;..invalid entry, select [y/n]&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">printSelectionBanner</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">select_type</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="p">[]):</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">end_str</span> <span class="o">=</span> <span class="s1">&#39;..press X to end adding entries&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">del_str</span> <span class="o">=</span> <span class="s1">&#39;..press D to delete the previous entry&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">skip_str</span> <span class="o">=</span> <span class="s1">&#39;..press enter to skip columns that will be dropped&#39;</span>
+
+        <span class="n">banner_c</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__banner_w__</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="n">select_len</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">select_type</span><span class="p">)</span>
+        <span class="n">select_start</span> <span class="o">=</span> <span class="n">banner_c</span> <span class="o">-</span> <span class="nb">int</span><span class="p">(</span><span class="n">select_len</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
+        <span class="n">n_left</span><span class="p">,</span> <span class="n">n_right</span> <span class="o">=</span> <span class="n">select_start</span><span class="p">,</span> <span class="n">select_start</span>
+
+        <span class="k">if</span> <span class="n">select_len</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">n_right</span> <span class="o">-=</span> <span class="mi">1</span>
+
+        <span class="n">flier</span> <span class="o">=</span> <span class="p">(</span><span class="n">n_left</span><span class="o">*</span><span class="s1">&#39;=&#39;</span> <span class="o">+</span> <span class="s1">&#39; &#39;</span> <span class="o">+</span> <span class="n">select_type</span> <span class="o">+</span> <span class="s1">&#39; &#39;</span> <span class="o">+</span> <span class="n">n_right</span><span class="o">*</span><span class="s1">&#39;=&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">flier</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Options</span><span class="se">\n</span><span class="s1">-------&#39;</span><span class="p">)</span>
+        <span class="n">options</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">wrap</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">l</span><span class="p">),</span>
+                             <span class="n">width</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">__banner_w__</span><span class="p">))</span> <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="n">options</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">options</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">flier</span><span class="p">)</span><span class="o">*</span><span class="s1">&#39;=&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">setSensorName</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">printSelectionBanner</span><span class="p">(</span><span class="s1">&#39;Set Sensor Name&#39;</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;&#39;</span><span class="p">])</span>
+        <span class="n">confirm</span> <span class="o">=</span> <span class="s1">&#39;n&#39;</span>
+        <span class="k">while</span> <span class="n">confirm</span> <span class="o">==</span> <span class="s1">&#39;n&#39;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s1">&#39;Enter the name of the sensor: &#39;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Sensor name: &#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+            <span class="n">confirm</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">validateEntry</span><span class="p">()</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+
+    <span class="c1"># def setDeploymentPeriod(self):</span>
+    <span class="c1">#     self.printSelectionBanner(&#39;Set Deployment Start and End&#39;,</span>
+    <span class="c1">#             options=[&#39;..start and End date must be entered as MM/DD/YYYY&#39;])</span>
+    <span class="c1">#     confirm = &#39;n&#39;</span>
+    <span class="c1">#     while confirm == &#39;n&#39;:</span>
+    <span class="c1">#         self.startdate = input(&#39;Enter the start date for the deployment: &#39;)</span>
+    <span class="c1">#         self.enddate = input(&#39;Enter the end date for the deployment: &#39;)</span>
+    <span class="c1">#         print(&#39;&#39;)</span>
+    <span class="c1">#         print(&#39;Deployment start: &#39; + self.startdate)</span>
+    <span class="c1">#         print(&#39;Deployment end: &#39; + self.enddate)</span>
+    <span class="c1">#         confirm = self.validateEntry()</span>
+    <span class="c1">#     print(&#39;&#39;)</span>
+
+    <span class="k">def</span> <span class="nf">setHeaderIndex</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">print_banner</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">print_banner</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">printSelectionBanner</span><span class="p">(</span><span class="s1">&#39;Column Header Index&#39;</span><span class="p">,</span>
+                                      <span class="n">options</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;..type &quot;None&quot; if no header &#39;</span>
+                                               <span class="s1">&#39;columns in recorded sensor &#39;</span>
+                                               <span class="s1">&#39;dataset&#39;</span><span class="p">])</span>
+        <span class="n">valid</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="k">while</span> <span class="n">valid</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">header_iloc</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s1">&#39;Enter the row index number for column &#39;</span>
+                                     <span class="s1">&#39;headers: &#39;</span><span class="p">)</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">header_iloc</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">header_iloc</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">header_iloc</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">header_iloc</span>
+
+            <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">header_iloc</span> <span class="o">!=</span> <span class="s1">&#39;None&#39;</span> <span class="ow">and</span>
+               <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">header_iloc</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="nb">int</span><span class="p">):</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;..invalid entry, enter either an integer or &quot;None&quot;&#39;</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">header_iloc</span> <span class="o">==</span> <span class="s1">&#39;None&#39;</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">header_iloc</span> <span class="o">=</span> <span class="kc">None</span>
+                <span class="n">valid</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="k">elif</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">header_iloc</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">int</span><span class="p">:</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">header_iloc</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;..invalid entry, enter either an integer or &quot;None&quot;&#39;</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">valid</span> <span class="o">=</span> <span class="kc">True</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Header row index:&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">header_iloc</span><span class="p">))</span>
+        <span class="n">confirm</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">validateEntry</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">confirm</span> <span class="o">==</span> <span class="s1">&#39;n&#39;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">setHeaderIndex</span><span class="p">(</span><span class="n">print_banner</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+
+<div class="viewcode-block" id="Setup.setColumnHeaders"><a class="viewcode-back" href="../../../_autosummary/sensortoolkit._ingest.setup.Setup.html#sensortoolkit._ingest.setup.Setup.setColumnHeaders">[docs]</a>    <span class="k">def</span> <span class="nf">setColumnHeaders</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">col_type</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">print_banner</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                         <span class="n">column_headers</span><span class="o">=</span><span class="p">[],</span> <span class="n">reset</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;If col_type is &#39;&#39;, specify all column headers. If col_type is</span>
+<span class="sd">        &#39;Timestamp&#39;, the specified column header names must be in the</span>
+<span class="sd">        previously entered list of all column header names.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">print_banner</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">col_type</span> <span class="o">!=</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
+                <span class="n">fmt_col_type</span> <span class="o">=</span> <span class="s2">&quot; </span><span class="si">{:s}</span><span class="s2"> &quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">col_type</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">fmt_col_type</span> <span class="o">=</span> <span class="s1">&#39; &#39;</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">printSelectionBanner</span><span class="p">(</span><span class="s1">&#39;Set&#39;</span> <span class="o">+</span> <span class="n">fmt_col_type</span> <span class="o">+</span> <span class="s1">&#39;Column Headers&#39;</span><span class="p">,</span>
+                                      <span class="n">options</span><span class="o">=</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">end_str</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">del_str</span><span class="p">])</span>
+
+        <span class="n">col_type</span> <span class="o">=</span> <span class="n">col_type</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+
+        <span class="n">i</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+        <span class="n">esc</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="k">while</span> <span class="n">esc</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
+            <span class="n">val</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s1">&#39;Enter &#39;</span> <span class="o">+</span> <span class="n">col_type</span> <span class="o">+</span> <span class="s1">&#39; column &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="o">+</span>
+                        <span class="s1">&#39; header name: &#39;</span><span class="p">)</span>
+
+            <span class="c1"># Shortcut method: specify first entry as list of parameter names</span>
+            <span class="c1"># rather than entering in one by one</span>
+            <span class="k">if</span> <span class="n">val</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;[&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">val</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;]&#39;</span><span class="p">):</span>
+                <span class="c1"># Since input sets val to string, have to work backwards a bit</span>
+                <span class="c1"># to recover the list as type list</span>
+                <span class="n">column_headers</span> <span class="o">=</span> <span class="n">val</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;&#39;&quot;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">,</span>
+                                    <span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)</span>
+                <span class="n">val</span> <span class="o">=</span> <span class="s1">&#39;X&#39;</span>
+
+            <span class="k">if</span> <span class="n">val</span> <span class="o">==</span> <span class="s1">&#39;X&#39;</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="n">column_headers</span><span class="p">)</span>
+                <span class="n">confirm</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">validateEntry</span><span class="p">()</span>
+                <span class="n">esc</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="k">elif</span> <span class="n">val</span> <span class="o">==</span> <span class="s1">&#39;D&#39;</span><span class="p">:</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">column_headers</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">i</span><span class="o">-</span><span class="mi">2</span><span class="p">)</span>
+                    <span class="n">i</span> <span class="o">-=</span> <span class="mi">1</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;..deleting &#39;</span> <span class="o">+</span> <span class="n">col_type</span> <span class="o">+</span> <span class="s1">&#39; column &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="o">+</span>
+                          <span class="s1">&#39; header name&#39;</span><span class="p">)</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;..updated column headers list: &#39;</span><span class="p">,</span>
+                          <span class="n">column_headers</span><span class="p">)</span>
+                <span class="k">except</span> <span class="ne">IndexError</span><span class="p">:</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Empty list, no entries to delete&#39;</span><span class="p">)</span>
+                    <span class="k">pass</span>
+            <span class="k">elif</span> <span class="n">val</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;..invalid entry&#39;</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">col_type</span> <span class="o">==</span> <span class="s1">&#39;timestamp&#39;</span> <span class="ow">and</span> <span class="n">val</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">all_col_headers</span><span class="p">:</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;..invalid entry, name not in passed list of &#39;</span>
+                          <span class="s1">&#39;column headers&#39;</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">reset</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+                        <span class="n">column_headers</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">val</span>
+                        <span class="n">reset</span> <span class="o">=</span> <span class="kc">False</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">column_headers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">val</span><span class="p">)</span>
+                    <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+
+            <span class="k">if</span> <span class="n">esc</span> <span class="ow">is</span> <span class="kc">True</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">column_headers</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;..warning, &#39;</span> <span class="o">+</span> <span class="n">col_type</span> <span class="o">+</span> <span class="s1">&#39; column headers list&#39;</span><span class="p">,</span>
+                      <span class="s1">&#39; is empty&#39;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">col_type</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">all_col_headers</span> <span class="o">=</span> <span class="n">column_headers</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">timestamp_col_headers</span> <span class="o">=</span> <span class="n">column_headers</span>
+
+        <span class="k">if</span> <span class="n">confirm</span> <span class="o">==</span> <span class="s1">&#39;n&#39;</span><span class="p">:</span>
+            <span class="n">valid</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="k">while</span> <span class="n">valid</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
+                <span class="n">iloc</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s1">&#39;Enter column number to edit: &#39;</span><span class="p">)</span>
+                <span class="k">if</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">iloc</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">iloc</span><span class="p">)</span> <span class="o">&gt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">column_headers</span><span class="p">)):</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;..invalid entry&#39;</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">valid</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">setColumnHeaders</span><span class="p">(</span><span class="n">col_type</span><span class="p">,</span> <span class="n">print_banner</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                                  <span class="n">i</span><span class="o">=</span><span class="n">iloc</span><span class="p">,</span> <span class="n">column_headers</span><span class="o">=</span><span class="n">column_headers</span><span class="p">,</span>
+                                  <span class="n">reset</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="nf">setColumnRenaming</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">print_banner</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">print_banner</span><span class="p">:</span>
+            <span class="n">note</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;Note, timestamp columns should be skipped by pressing &#39;</span>
+                    <span class="s1">&#39;enter. These columns are assigned as the index during &#39;</span>
+                    <span class="s1">&#39;ingestion, and as a result, timestamp columns are &#39;</span>
+                    <span class="s1">&#39;redundant and should be dropped.&#39;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">printSelectionBanner</span><span class="p">(</span><span class="s1">&#39;Configure Column Renaming Scheme&#39;</span><span class="p">,</span>
+                                      <span class="n">options</span><span class="o">=</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">skip_str</span><span class="p">,</span> <span class="n">note</span><span class="p">,</span>
+                                               <span class="s1">&#39;Choose from the followng list&#39;</span><span class="p">,</span>
+                                               <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">col_rename_dict</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">drop_cols</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">all_col_headers</span><span class="p">:</span>
+            <span class="n">invalid</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="k">while</span> <span class="n">invalid</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+                <span class="n">val</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s1">&#39;Enter parameter associated with &quot;&#39;</span> <span class="o">+</span> <span class="n">col</span> <span class="o">+</span> <span class="s1">&#39;&quot;: &#39;</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">val</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">drop_cols</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">col</span><span class="p">)</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;..&quot;&#39;</span> <span class="o">+</span> <span class="n">col</span> <span class="o">+</span> <span class="s1">&#39;&quot; will be dropped&#39;</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">drop_cols</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">all_col_headers</span><span class="p">:</span>
+                        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;..warning, all columns will be dropped&#39;</span><span class="p">)</span>
+                    <span class="n">invalid</span> <span class="o">=</span> <span class="kc">False</span>
+                    <span class="k">continue</span>
+                <span class="k">elif</span> <span class="n">val</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">:</span>
+                    <span class="n">invalid</span> <span class="o">=</span> <span class="kc">True</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;..invalid entry, parameter name must be in the &#39;</span>
+                          <span class="s1">&#39;above list&#39;</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">invalid</span> <span class="o">=</span> <span class="kc">False</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">col_rename_dict</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="n">val</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Configured renaming scheme:&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">col_rename_dict</span><span class="p">)</span>
+        <span class="n">confirm</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">validateEntry</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">confirm</span> <span class="o">==</span> <span class="s1">&#39;n&#39;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">setColumnRenaming</span><span class="p">(</span><span class="n">print_banner</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">setDateTimeFormat</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">cite</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;..format code list: https://docs.python.org/3/library/&#39;</span>
+                <span class="s1">&#39;datetime.html#strftime-and-strptime-format-codes&#39;</span><span class="p">)</span>
+        <span class="n">epoch</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;..If a timestamp column is formatted as the number of &#39;</span>
+                 <span class="s1">&#39;seconds since the Unix epoch (1 Jan. 1970), enter &quot;epoch&quot;&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">printSelectionBanner</span><span class="p">(</span><span class="s1">&#39;Configure Timestamp Column Formatting&#39;</span><span class="p">,</span>
+                                  <span class="n">options</span><span class="o">=</span><span class="p">[</span><span class="n">cite</span><span class="p">,</span> <span class="n">epoch</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">skip_str</span><span class="p">])</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">time_format_dict</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">timestamp_col_headers</span><span class="p">:</span>
+            <span class="n">invalid</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="k">while</span> <span class="n">invalid</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+                <span class="n">val</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s1">&#39;Enter date/time formatting for &quot;&#39;</span> <span class="o">+</span> <span class="n">col</span> <span class="o">+</span> <span class="s1">&#39;&quot;: &#39;</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">val</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">drop_cols</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">col</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">drop_cols</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">timestamp_col_headers</span><span class="p">:</span>
+                        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;..warning, all columns will be dropped&#39;</span><span class="p">)</span>
+                    <span class="n">invalid</span> <span class="o">=</span> <span class="kc">False</span>
+                    <span class="k">continue</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">confirm</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">validateEntry</span><span class="p">()</span>
+                    <span class="k">if</span> <span class="n">confirm</span> <span class="o">==</span> <span class="s1">&#39;y&#39;</span><span class="p">:</span>
+                        <span class="n">invalid</span> <span class="o">=</span> <span class="kc">False</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">time_format_dict</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="n">val</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Configured formatting scheme:&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">time_format_dict</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">setDataType</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">printSelectionBanner</span><span class="p">(</span><span class="s1">&#39;Select Data Type&#39;</span><span class="p">,</span>
+                                  <span class="n">options</span><span class="o">=</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">data_types</span><span class="p">])</span>
+
+        <span class="k">while</span> <span class="bp">self</span><span class="o">.</span><span class="n">dtype</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">val</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s1">&#39;Enter the number associated with the data type: &#39;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">str</span><span class="p">(</span><span class="n">val</span><span class="p">)</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_types</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;..invalid entry, please enter an integer&#39;</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">dtype</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_types</span><span class="p">[</span><span class="n">val</span><span class="p">]</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Selected data type:&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">exportSetup</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">printSelectionBanner</span><span class="p">(</span><span class="s1">&#39;Setup Configuration&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">config_dict</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">config_dict</span><span class="p">[</span><span class="s1">&#39;end_str&#39;</span><span class="p">]</span>
+        <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">config_dict</span><span class="p">[</span><span class="s1">&#39;del_str&#39;</span><span class="p">]</span>
+        <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">config_dict</span><span class="p">[</span><span class="s1">&#39;skip_str&#39;</span><span class="p">]</span>
+
+        <span class="c1">#today = se.Get_Date()</span>
+
+        <span class="c1"># check if sensor-specific subfolder exists</span>
+        <span class="c1">#if not os.path.exists(self.stats_path):</span>
+        <span class="c1">#    os.makedirs(self.stats_path)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;..writing setup configuration to &#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">+</span> <span class="s1">&#39;_setup.json&#39;</span><span class="p">)</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">+</span> <span class="s1">&#39;_setup.json&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">outfile</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">config_dict</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">config_dict</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+            <span class="n">outfile</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">config_dict</span><span class="p">)</span></div>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">test</span> <span class="o">=</span> <span class="n">Setup</span><span class="p">()</span>
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../../index.html">sensortoolkit</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../_autosummary/sensortoolkit.html">sensortoolkit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../_autosummary/sensortoolkit._analysis.html">sensortoolkit._analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../_autosummary/sensortoolkit._format.html">sensortoolkit._format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../_autosummary/sensortoolkit._ingest.html">sensortoolkit._ingest</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../_autosummary/sensortoolkit._models.html">sensortoolkit._models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../_autosummary/sensortoolkit._plotting.html">sensortoolkit._plotting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../_autosummary/sensortoolkit._qc.html">sensortoolkit._qc</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../_autosummary/sensortoolkit._reference.html">sensortoolkit._reference</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2021, Samuel Frederick.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.0.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

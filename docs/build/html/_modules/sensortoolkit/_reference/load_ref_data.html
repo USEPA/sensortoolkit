@@ -1,0 +1,281 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>sensortoolkit._reference.load_ref_data &#8212; sensortoolkit 1.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/alabaster.css" />
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+   
+  <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for sensortoolkit._reference.load_ref_data</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">@Author:</span>
+<span class="sd">  Samuel Frederick, NSSC Contractor (ORAU)</span>
+<span class="sd">  U.S. EPA, Office of Research and Development</span>
+<span class="sd">  Center for Environmental Measurement and Modeling</span>
+<span class="sd">  Air Methods and Characterization Division, Source and Fine Scale Branch</span>
+<span class="sd">  109 T.W Alexander Drive, Research Triangle Park, NC 27711</span>
+<span class="sd">  Office: 919-541-4086 | Email: frederick.samuel@epa.gov</span>
+
+<span class="sd">Created:</span>
+<span class="sd">  Tue Jan 28 14:23:44 2020</span>
+<span class="sd">Last Updated:</span>
+<span class="sd">  Wed Jul 14 12:44:57 2021</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+
+<div class="viewcode-block" id="Load_Ref_DataFrames"><a class="viewcode-back" href="../../../_autosummary/sensortoolkit._reference.load_ref_data.Load_Ref_DataFrames.html#sensortoolkit._reference.load_ref_data.Load_Ref_DataFrames">[docs]</a><span class="k">def</span> <span class="nf">Load_Ref_DataFrames</span><span class="p">(</span><span class="n">sensor_df_list</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sensor_params</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Load reference data for the parameters measured by the sensors in the</span>
+<span class="sd">    passed sensor dataframe list and for the timeframe indicated by sensor</span>
+<span class="sd">    dataset timestamps.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        sensor_df_list (list):</span>
+<span class="sd">            List of sensor dataframes.</span>
+<span class="sd">        path (str):</span>
+<span class="sd">            Full directory path to reference data.</span>
+<span class="sd">        sensor_params (set):</span>
+<span class="sd">            A unique listing of parameters measured by the</span>
+<span class="sd">            sensor make and model being evaluated.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        ref_dict (dict):</span>
+<span class="sd">            Dictionary containing reference datasets organized by parameter</span>
+<span class="sd">            classification (keys).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Loading reference dataframes&quot;</span><span class="p">)</span>
+
+    <span class="n">overall_begin</span><span class="p">,</span> <span class="n">overall_end</span> <span class="o">=</span> <span class="n">Timeframe_Search</span><span class="p">(</span><span class="n">sensor_df_list</span><span class="p">)</span>
+
+    <span class="n">pm_list</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;PM1&#39;</span><span class="p">,</span> <span class="s1">&#39;PM25&#39;</span><span class="p">,</span> <span class="s1">&#39;PM10&#39;</span><span class="p">]</span>
+    <span class="n">gas_list</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;O3&#39;</span><span class="p">,</span> <span class="s1">&#39;NO2&#39;</span><span class="p">,</span> <span class="s1">&#39;SO2&#39;</span><span class="p">,</span> <span class="s1">&#39;CO&#39;</span><span class="p">,</span> <span class="s1">&#39;NOx&#39;</span><span class="p">]</span>
+    <span class="n">met_list</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Temp&#39;</span><span class="p">,</span> <span class="s1">&#39;RH&#39;</span><span class="p">,</span> <span class="s1">&#39;Press&#39;</span><span class="p">,</span> <span class="s1">&#39;DP&#39;</span><span class="p">,</span> <span class="s1">&#39;WS&#39;</span><span class="p">,</span> <span class="s1">&#39;WD&#39;</span><span class="p">]</span>
+
+    <span class="n">pm_ref_data</span><span class="p">,</span> <span class="n">gas_ref_data</span><span class="p">,</span> <span class="n">met_ref_data</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">False</span>
+
+    <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">i</span> <span class="ow">in</span> <span class="n">sensor_params</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">pm_list</span><span class="p">):</span>
+        <span class="n">pm_ref_data</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">i</span> <span class="ow">in</span> <span class="n">sensor_params</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">gas_list</span><span class="p">):</span>
+        <span class="n">gas_ref_data</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">i</span> <span class="ow">in</span> <span class="n">sensor_params</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">met_list</span><span class="p">):</span>
+        <span class="n">met_ref_data</span> <span class="o">=</span> <span class="kc">True</span>
+
+    <span class="k">if</span> <span class="n">pm_ref_data</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="n">pm_ref_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">gas_ref_data</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="n">gas_ref_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">met_ref_data</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="n">met_ref_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+
+    <span class="p">(</span><span class="n">pm_ref_df</span><span class="p">,</span> <span class="n">gas_ref_df</span><span class="p">,</span> <span class="n">met_ref_df</span><span class="p">)</span> <span class="o">=</span> <span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(),</span>
+                                           <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(),</span>
+                                           <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">())</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">path</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">):</span>
+        <span class="n">path</span> <span class="o">+=</span> <span class="s1">&#39;/&#39;</span>
+
+    <span class="k">for</span> <span class="n">date</span> <span class="ow">in</span> <span class="n">pd</span><span class="o">.</span><span class="n">date_range</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="n">overall_begin</span><span class="p">,</span>
+                              <span class="n">end</span><span class="o">=</span><span class="n">overall_end</span><span class="p">)</span><span class="o">.</span><span class="n">to_period</span><span class="p">(</span><span class="s1">&#39;M&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">unique</span><span class="p">():</span>
+        <span class="n">month</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">date</span><span class="o">.</span><span class="n">month</span><span class="p">)</span><span class="o">.</span><span class="n">zfill</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+        <span class="n">year</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">date</span><span class="o">.</span><span class="n">year</span><span class="p">)</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;..</span><span class="si">{0:s}</span><span class="s1">-</span><span class="si">{1:s}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">year</span><span class="p">,</span> <span class="n">month</span><span class="p">))</span>
+
+        <span class="k">if</span> <span class="n">pm_ref_data</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="n">pm_ref_df</span> <span class="o">=</span> <span class="n">Import_Ref_DataFrame</span><span class="p">(</span><span class="n">pm_ref_df</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span>
+                                             <span class="n">year</span><span class="p">,</span> <span class="n">month</span><span class="p">,</span>
+                                             <span class="n">suffix</span><span class="o">=</span><span class="s1">&#39;_PM&#39;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">met_ref_data</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="n">met_ref_df</span> <span class="o">=</span> <span class="n">Import_Ref_DataFrame</span><span class="p">(</span><span class="n">met_ref_df</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span>
+                                              <span class="n">year</span><span class="p">,</span> <span class="n">month</span><span class="p">,</span>
+                                              <span class="n">suffix</span><span class="o">=</span><span class="s1">&#39;_Met&#39;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">gas_ref_data</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="n">gas_ref_df</span> <span class="o">=</span> <span class="n">Import_Ref_DataFrame</span><span class="p">(</span><span class="n">gas_ref_df</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span>
+                                              <span class="n">year</span><span class="p">,</span> <span class="n">month</span><span class="p">,</span>
+                                              <span class="n">suffix</span><span class="o">=</span><span class="s1">&#39;_Gases&#39;</span><span class="p">)</span>
+
+    <span class="n">ref_dict</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;PM&#39;</span><span class="p">:</span> <span class="n">pm_ref_df</span><span class="p">,</span> <span class="s1">&#39;Gases&#39;</span><span class="p">:</span> <span class="n">gas_ref_df</span><span class="p">,</span> <span class="s1">&#39;Met&#39;</span><span class="p">:</span> <span class="n">met_ref_df</span><span class="p">}</span>
+
+    <span class="k">return</span> <span class="n">ref_dict</span></div>
+
+
+<div class="viewcode-block" id="Import_Ref_DataFrame"><a class="viewcode-back" href="../../../_autosummary/sensortoolkit._reference.load_ref_data.Import_Ref_DataFrame.html#sensortoolkit._reference.load_ref_data.Import_Ref_DataFrame">[docs]</a><span class="k">def</span> <span class="nf">Import_Ref_DataFrame</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">year</span><span class="p">,</span> <span class="n">month</span><span class="p">,</span> <span class="n">suffix</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Import reference data for the specified monthly period and parameter</span>
+<span class="sd">    classification.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        df (pandas dataframe):</span>
+<span class="sd">            Constructor dataframe containing reference data (FRM/FEM) at 1-hour</span>
+<span class="sd">            averaged intervals. Data loaded by this module are appended to the</span>
+<span class="sd">            constructor dataframe and returned.</span>
+<span class="sd">        path (str):</span>
+<span class="sd">            Full path to reference data directory where files are located.</span>
+<span class="sd">        year (str):</span>
+<span class="sd">            The year (YYYY) for which data will be loaded.</span>
+<span class="sd">        month (str):</span>
+<span class="sd">            The month (MM) for which data will be loaded.</span>
+<span class="sd">        suffix (str):</span>
+<span class="sd">            The parameter classification (&#39;PM&#39;, &#39;Gases&#39;, or &#39;Met&#39;) indicating</span>
+<span class="sd">            the type of reference data to be imported.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        df (pandas dataframe):</span>
+<span class="sd">            Modified dataframe with imported data appended to the passed</span>
+<span class="sd">            dataset. Contains reference data (FRM/FEM) at 1-hour averaged</span>
+<span class="sd">            intervals.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">filename</span> <span class="o">=</span> <span class="s1">&#39;H_&#39;</span> <span class="o">+</span> <span class="n">year</span> <span class="o">+</span> <span class="n">month</span> <span class="o">+</span> <span class="n">suffix</span> <span class="o">+</span> <span class="s1">&#39;.csv&#39;</span>
+        <span class="n">load_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">path</span> <span class="o">+</span> <span class="n">filename</span><span class="p">,</span> <span class="n">parse_dates</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;DateTime_UTC&#39;</span><span class="p">],</span>
+                              <span class="n">index_col</span><span class="o">=</span><span class="s1">&#39;DateTime_UTC&#39;</span><span class="p">)</span>
+
+        <span class="c1"># Append loaded dataframe based on the first instance of a timestamp</span>
+        <span class="c1"># index value (i.e., avoid duplicate index values by combining only</span>
+        <span class="c1"># new timestamp indecies with the primary dataframe &#39;df&#39;)</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">combine_first</span><span class="p">(</span><span class="n">load_df</span><span class="p">)</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;....&#39;</span> <span class="o">+</span> <span class="n">filename</span><span class="p">)</span>
+
+    <span class="k">except</span> <span class="ne">FileNotFoundError</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Warning, file not found:&quot;</span><span class="p">,</span> <span class="n">filename</span><span class="p">)</span>
+        <span class="k">pass</span>
+
+    <span class="k">return</span> <span class="n">df</span></div>
+
+
+<div class="viewcode-block" id="Timeframe_Search"><a class="viewcode-back" href="../../../_autosummary/sensortoolkit._reference.load_ref_data.Timeframe_Search.html#sensortoolkit._reference.load_ref_data.Timeframe_Search">[docs]</a><span class="k">def</span> <span class="nf">Timeframe_Search</span><span class="p">(</span><span class="n">sensor_df_list</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Determines the timeframe for which reference data should be loaded.</span>
+
+<span class="sd">    Locates the beginning and end date of each hourly averaged sensor dataframe</span>
+<span class="sd">    and subsequently determines the eariest and latest date within all recorded</span>
+<span class="sd">    sensor datasets</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        sensor_df_list (list):</span>
+<span class="sd">            List of sensor dataframes</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        overall_begin (datetime.date):</span>
+<span class="sd">            Earliest recorded date in the passed sensor dataframe list.</span>
+<span class="sd">        overall_end (datetime.date):</span>
+<span class="sd">            Latest recorded date in the passed sensor dataframe list.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Determine reference data to load via begin and end timestamp for sensor</span>
+    <span class="c1"># datasets. Choose earliest begin and latest end timestamp.</span>
+    <span class="n">begin_times</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">end_times</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">df</span> <span class="ow">in</span> <span class="n">sensor_df_list</span><span class="p">:</span>
+
+        <span class="n">begin_time</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="o">.</span><span class="n">date</span><span class="p">()</span>
+        <span class="n">end_time</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="o">.</span><span class="n">date</span><span class="p">()</span>
+
+        <span class="n">begin_times</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">begin_time</span><span class="p">)</span>
+        <span class="n">end_times</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">end_time</span><span class="p">)</span>
+
+    <span class="n">overall_begin</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">begin_times</span><span class="p">)</span>
+    <span class="n">overall_end</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">end_times</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">overall_begin</span><span class="p">,</span> <span class="n">overall_end</span></div>
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../../index.html">sensortoolkit</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../_autosummary/sensortoolkit.html">sensortoolkit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../_autosummary/sensortoolkit._analysis.html">sensortoolkit._analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../_autosummary/sensortoolkit._format.html">sensortoolkit._format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../_autosummary/sensortoolkit._ingest.html">sensortoolkit._ingest</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../_autosummary/sensortoolkit._models.html">sensortoolkit._models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../_autosummary/sensortoolkit._plotting.html">sensortoolkit._plotting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../_autosummary/sensortoolkit._qc.html">sensortoolkit._qc</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../_autosummary/sensortoolkit._reference.html">sensortoolkit._reference</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2021, Samuel Frederick.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.0.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

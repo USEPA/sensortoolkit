@@ -1,0 +1,803 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>sensortoolkit._reference.ref_api_query &#8212; sensortoolkit 1.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/alabaster.css" />
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+   
+  <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for sensortoolkit._reference.ref_api_query</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">@Author:</span>
+<span class="sd">  Samuel Frederick, NSSC Contractor (ORAU)</span>
+<span class="sd">  U.S. EPA, Office of Research and Development</span>
+<span class="sd">  Center for Environmental Measurement and Modeling</span>
+<span class="sd">  Air Methods and Characterization Division, Source and Fine Scale Branch</span>
+<span class="sd">  109 T.W Alexander Drive, Research Triangle Park, NC 27711</span>
+<span class="sd">  Office: 919-541-4086 | Email: frederick.samuel@epa.gov</span>
+
+<span class="sd">Created:</span>
+<span class="sd">  Mon May  3 12:56:38 2021</span>
+<span class="sd">Last Updated:</span>
+<span class="sd">  Wed Jul 14 14:27:21 2021</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">pandas.tseries.offsets</span> <span class="kn">import</span> <span class="n">MonthBegin</span>
+<span class="kn">from</span> <span class="nn">pandas.tseries.offsets</span> <span class="kn">import</span> <span class="n">MonthEnd</span>
+<span class="kn">from</span> <span class="nn">io</span> <span class="kn">import</span> <span class="n">StringIO</span>
+<span class="kn">import</span> <span class="nn">datetime</span>
+<span class="kn">import</span> <span class="nn">pathlib</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">sensortoolkit._reference.import_airnowtech</span> <span class="kn">import</span> <span class="n">Flatten</span>
+
+
+<div class="viewcode-block" id="Ref_API_Query"><a class="viewcode-back" href="../../../_autosummary/sensortoolkit._reference.ref_api_query.Ref_API_Query.html#sensortoolkit._reference.ref_api_query.Ref_API_Query">[docs]</a><span class="k">def</span> <span class="nf">Ref_API_Query</span><span class="p">(</span><span class="n">query_type</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">param</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">bdate</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">edate</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span>
+                  <span class="n">aqs_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">airnow_bbox</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">username</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Wrapper function for sending an API data query to either the AQS or</span>
+<span class="sd">    AirNow API for a specified parameter (&#39;param&#39;). Data returned by queries</span>
+<span class="sd">    are parsed into pandas dataframes and processed to convert header labels</span>
+<span class="sd">    and column data types into a consistent standard for reference data sets.</span>
+
+<span class="sd">    A note on limitations of this method:</span>
+<span class="sd">        This method is configured to return datasets containing data for a</span>
+<span class="sd">        single parameter query, and is currently utilized in the</span>
+<span class="sd">        SensorEvaluation class to return data for the evaluation parameter</span>
+<span class="sd">        &#39;eval_param&#39;.</span>
+
+<span class="sd">        Separate API calls would need to be made to query either service for</span>
+<span class="sd">        related data, such as meteorological (temperature, RH) datasets.</span>
+<span class="sd">        Future versions of SensorEvaluation may resolve this limitation.</span>
+
+<span class="sd">        Also, please note that AQS and AirNow use different naming conventions</span>
+<span class="sd">        for parameters (e.g., AQS uses the parameter code 88101 for PM2.5 and</span>
+<span class="sd">        AirNow uses &#39;pm25&#39;). These naming conventions are each different than</span>
+<span class="sd">        the parameter naming convention used for this library. The</span>
+<span class="sd">        &#39;param_to_api_naming&#39; dictionary provides a lookup dictionary for</span>
+<span class="sd">        translating from the parameter naming convention of the</span>
+<span class="sd">        SensorEvaluation library to each of the API services, however, the</span>
+<span class="sd">        list of associated parameter API names is not comprehensive. Users</span>
+<span class="sd">        wishing to query parameters outside those listed below will need to</span>
+<span class="sd">        modify this method accordingly.</span>
+
+<span class="sd">        Please consult the linked documentation for each of these APIs for</span>
+<span class="sd">        additional resources.</span>
+
+<span class="sd">        AQS Documentation:</span>
+<span class="sd">            https://aqs.epa.gov/aqsweb/documents/data_api.html</span>
+<span class="sd">        AirNow Documentation:</span>
+<span class="sd">            https://docs.airnowapi.org/Data/docs</span>
+<span class="sd">        More information about AQS Qualifier codes:</span>
+<span class="sd">            https://aqs.epa.gov/aqsweb/documents/codetables/qualifiers.html</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        query_type (str):</span>
+<span class="sd">            The API service to query (either &#39;AQS&#39; or &#39;AirNow&#39;).</span>
+<span class="sd">        param (str):</span>
+<span class="sd">            The evaluation parameter for which to return API query data.</span>
+<span class="sd">        bdate (str):</span>
+<span class="sd">            The overall starting date for the API query.</span>
+<span class="sd">        edate (str):</span>
+<span class="sd">            The overall ending date for the API query.</span>
+<span class="sd">        aqs_id (dict):</span>
+<span class="sd">            AQS only: AQS site ID separated into state, county, and</span>
+<span class="sd">            site ID components.</span>
+<span class="sd">        airnow_bbox (dict):</span>
+<span class="sd">            AirNow only: Bounding box of latitude and longitude values.</span>
+<span class="sd">        username (str):</span>
+<span class="sd">            AQS only: email associated with API account</span>
+<span class="sd">        key (str):</span>
+<span class="sd">            Both AQS and AirNow: API authentication key code.</span>
+<span class="sd">    Returns:</span>
+<span class="sd">        query_data:</span>
+<span class="sd">            Data returned by the API for the specified parameter and time</span>
+<span class="sd">            frame. Data have been processed with column headers converted into</span>
+<span class="sd">            standard naming scheme and column data types converted into a</span>
+<span class="sd">            consistent formatting scheme for reference datasets.</span>
+<span class="sd">        raw_data (pandas dataframe):</span>
+<span class="sd">            An unmodified version of the dataset returned by the API query.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Dictionary for translating between parameter terminology used in code and</span>
+    <span class="c1"># terminology used by AQS/AirNow. Note that this list is not comprehensive,</span>
+    <span class="c1"># and users wishing to query parameters outside those listed below will</span>
+    <span class="c1"># need to modify this method accordingly.</span>
+    <span class="n">param_to_api_naming</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;AQS&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;PM25&#39;</span><span class="p">:</span> <span class="s1">&#39;88101&#39;</span><span class="p">,</span>
+                                   <span class="s1">&#39;PM10&#39;</span><span class="p">:</span> <span class="s1">&#39;88102&#39;</span><span class="p">,</span>
+                                   <span class="s1">&#39;O3&#39;</span><span class="p">:</span> <span class="s1">&#39;44201&#39;</span><span class="p">,</span>
+                                   <span class="s1">&#39;CO&#39;</span><span class="p">:</span> <span class="s1">&#39;42101&#39;</span><span class="p">,</span>
+                                   <span class="s1">&#39;NO2&#39;</span><span class="p">:</span> <span class="s1">&#39;42602&#39;</span><span class="p">,</span>
+                                   <span class="s1">&#39;SO2&#39;</span><span class="p">:</span> <span class="s1">&#39;42401&#39;</span><span class="p">},</span>
+                           <span class="s1">&#39;AirNow&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;PM25&#39;</span><span class="p">:</span> <span class="s1">&#39;pm25&#39;</span><span class="p">,</span>
+                                      <span class="s1">&#39;PM10&#39;</span><span class="p">:</span> <span class="s1">&#39;pm10&#39;</span><span class="p">,</span>
+                                      <span class="s1">&#39;O3&#39;</span><span class="p">:</span> <span class="s1">&#39;O3&#39;</span><span class="p">,</span>
+                                      <span class="s1">&#39;CO&#39;</span><span class="p">:</span> <span class="s1">&#39;co&#39;</span><span class="p">,</span>
+                                      <span class="s1">&#39;NO2&#39;</span><span class="p">:</span> <span class="s1">&#39;no2&#39;</span><span class="p">,</span>
+                                      <span class="s1">&#39;SO2&#39;</span><span class="p">:</span> <span class="s1">&#39;so2&#39;</span><span class="p">},</span>
+                           <span class="p">}</span>
+
+    <span class="n">api_param</span> <span class="o">=</span> <span class="n">param_to_api_naming</span><span class="p">[</span><span class="n">query_type</span><span class="p">][</span><span class="n">param</span><span class="p">]</span>
+
+    <span class="c1"># Caution, Windows only</span>
+    <span class="n">method_path</span> <span class="o">=</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">PureWindowsPath</span><span class="p">(</span>
+                        <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="vm">__file__</span><span class="p">,</span> <span class="s1">&#39;../../..&#39;</span><span class="p">)))</span>
+    <span class="n">method_path</span> <span class="o">=</span> <span class="p">(</span><span class="n">method_path</span><span class="o">.</span><span class="n">as_posix</span><span class="p">()</span> <span class="o">+</span>
+                   <span class="s1">&#39;/Data and Figures/reference_data/&#39;</span>
+                   <span class="s1">&#39;method_codes//methods_criteria.csv&#39;</span><span class="p">)</span>
+
+    <span class="c1"># Method code lookup dataframe</span>
+    <span class="n">method_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">method_path</span><span class="p">)</span>
+
+    <span class="n">month_starts</span><span class="p">,</span> <span class="n">month_ends</span> <span class="o">=</span> <span class="n">Date_Range_Selector</span><span class="p">(</span><span class="n">bdate</span><span class="p">,</span> <span class="n">edate</span><span class="p">)</span>
+    <span class="n">query_months</span> <span class="o">=</span> <span class="n">Query_Periods</span><span class="p">(</span><span class="n">query_type</span><span class="p">,</span> <span class="n">month_starts</span><span class="p">,</span> <span class="n">month_ends</span><span class="p">)</span>
+
+    <span class="n">query_data</span><span class="p">,</span> <span class="n">raw_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(),</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">month</span> <span class="ow">in</span> <span class="n">query_months</span><span class="p">:</span>
+        <span class="n">data_period</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">query_months</span><span class="p">[</span><span class="n">month</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+        <span class="n">time_of_query</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1"> %H:%M:%S&#39;</span><span class="p">)</span>
+
+        <span class="c1">#  --------------------------------------------------------------------</span>
+        <span class="c1">#                   | AQS Specific query data tasks |</span>
+        <span class="c1">#  --------------------------------------------------------------------</span>
+        <span class="k">if</span> <span class="n">query_type</span> <span class="o">==</span> <span class="s1">&#39;AQS&#39;</span><span class="p">:</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="n">AQS_Query</span><span class="p">(</span><span class="n">api_param</span><span class="p">,</span> <span class="n">data_period</span><span class="p">,</span> <span class="n">aqs_id</span><span class="p">,</span> <span class="n">username</span><span class="o">=</span><span class="n">username</span><span class="p">,</span>
+                             <span class="n">key</span><span class="o">=</span><span class="n">key</span><span class="p">)</span>
+            <span class="n">raw_copy</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">data</span><span class="o">.</span><span class="n">empty</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
+                <span class="n">idx</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">date_gmt</span> <span class="o">+</span> <span class="s1">&#39; &#39;</span> <span class="o">+</span> <span class="n">data</span><span class="o">.</span><span class="n">time_gmt</span><span class="p">)</span>
+
+                <span class="c1"># Method code instrument look up</span>
+                <span class="n">instrument</span> <span class="o">=</span> <span class="n">method_df</span><span class="o">.</span><span class="n">where</span><span class="p">(</span>
+                    <span class="p">(</span><span class="n">method_df</span><span class="p">[</span><span class="s1">&#39;Parameter Code&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="nb">int</span><span class="p">(</span><span class="n">api_param</span><span class="p">))</span> <span class="o">&amp;</span>
+                    <span class="p">(</span><span class="n">method_df</span><span class="p">[</span><span class="s1">&#39;Method Code&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="nb">int</span><span class="p">(</span>
+                            <span class="n">data</span><span class="p">[</span><span class="s1">&#39;method_code&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()[</span><span class="mi">0</span><span class="p">]))</span>
+                    <span class="p">)[</span><span class="s1">&#39;Equivalent Method&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
+
+                <span class="n">instrument</span> <span class="o">=</span> <span class="n">instrument</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">title</span><span class="p">()</span>
+                <span class="n">data</span><span class="p">[</span><span class="s1">&#39;method&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">instrument</span>
+
+                <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span>
+                         <span class="s1">&#39;latitude&#39;</span><span class="p">:</span> <span class="s1">&#39;Site_Lat&#39;</span><span class="p">,</span>
+                         <span class="s1">&#39;longitude&#39;</span><span class="p">:</span> <span class="s1">&#39;Site_Lon&#39;</span><span class="p">,</span>
+                         <span class="s1">&#39;parameter_code&#39;</span><span class="p">:</span> <span class="n">param</span> <span class="o">+</span> <span class="s1">&#39;_Param_Code&#39;</span><span class="p">,</span>
+                         <span class="s1">&#39;poc&#39;</span><span class="p">:</span> <span class="n">param</span> <span class="o">+</span> <span class="s1">&#39;_Method_POC&#39;</span><span class="p">,</span>
+                         <span class="s1">&#39;sample_measurement&#39;</span><span class="p">:</span> <span class="n">param</span> <span class="o">+</span> <span class="s1">&#39;_Value&#39;</span><span class="p">,</span>
+                         <span class="s1">&#39;units_of_measure&#39;</span><span class="p">:</span> <span class="n">param</span> <span class="o">+</span> <span class="s1">&#39;_Unit&#39;</span><span class="p">,</span>
+                         <span class="s1">&#39;method&#39;</span><span class="p">:</span> <span class="n">param</span> <span class="o">+</span> <span class="s1">&#39;_Method&#39;</span><span class="p">,</span>
+                         <span class="s1">&#39;method_code&#39;</span><span class="p">:</span> <span class="n">param</span> <span class="o">+</span> <span class="s1">&#39;_Method_Code&#39;</span><span class="p">,</span>
+                         <span class="s1">&#39;qualifier&#39;</span><span class="p">:</span> <span class="n">param</span> <span class="o">+</span> <span class="s1">&#39;_QAQC_Code&#39;</span>
+                         <span class="p">})</span>
+
+                <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span>
+                        <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;state_code&#39;</span><span class="p">,</span> <span class="s1">&#39;county_code&#39;</span><span class="p">,</span> <span class="s1">&#39;site_number&#39;</span><span class="p">,</span>
+                                 <span class="s1">&#39;datum&#39;</span><span class="p">,</span> <span class="s1">&#39;parameter&#39;</span><span class="p">,</span> <span class="s1">&#39;date_local&#39;</span><span class="p">,</span>
+                                 <span class="s1">&#39;time_local&#39;</span><span class="p">,</span> <span class="s1">&#39;date_gmt&#39;</span><span class="p">,</span> <span class="s1">&#39;time_gmt&#39;</span><span class="p">,</span>
+                                 <span class="s1">&#39;units_of_measure_code&#39;</span><span class="p">,</span> <span class="s1">&#39;sample_duration&#39;</span><span class="p">,</span>
+                                 <span class="s1">&#39;sample_duration_code&#39;</span><span class="p">,</span> <span class="s1">&#39;sample_frequency&#39;</span><span class="p">,</span>
+                                 <span class="s1">&#39;detection_limit&#39;</span><span class="p">,</span> <span class="s1">&#39;uncertainty&#39;</span><span class="p">,</span>
+                                 <span class="s1">&#39;method_type&#39;</span><span class="p">,</span> <span class="s1">&#39;state&#39;</span><span class="p">,</span> <span class="s1">&#39;county&#39;</span><span class="p">,</span>
+                                 <span class="s1">&#39;date_of_last_change&#39;</span><span class="p">,</span> <span class="s1">&#39;cbsa_code&#39;</span><span class="p">])</span>
+
+                <span class="k">if</span> <span class="n">param</span> <span class="o">==</span> <span class="s1">&#39;O3&#39;</span><span class="p">:</span>
+                    <span class="c1"># Convert to concentrations to ppb</span>
+                    <span class="n">data</span><span class="p">[</span><span class="n">param</span> <span class="o">+</span> <span class="s1">&#39;_Value&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1000</span><span class="o">*</span><span class="n">data</span><span class="p">[</span>
+                                                    <span class="n">param</span> <span class="o">+</span> <span class="s1">&#39;_Value&#39;</span><span class="p">]</span>
+                    <span class="n">data</span><span class="p">[</span><span class="n">param</span> <span class="o">+</span> <span class="s1">&#39;_Unit&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span>
+                        <span class="n">param</span> <span class="o">+</span> <span class="s1">&#39;_Unit&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;PPB&#39;</span><span class="p">,</span> <span class="s1">&#39;Parts per Billion&#39;</span><span class="p">)</span>
+
+                <span class="n">data</span><span class="p">[</span><span class="s1">&#39;Data_Source&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;AQS API&#39;</span>
+                <span class="n">data</span><span class="p">[</span><span class="s1">&#39;Data_Acquisition_Date_Time&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">time_of_query</span>
+
+        <span class="c1">#  --------------------------------------------------------------------</span>
+        <span class="c1">#                 | AirNow Specific query data tasks |</span>
+        <span class="c1">#  --------------------------------------------------------------------</span>
+        <span class="k">if</span> <span class="n">query_type</span> <span class="o">==</span> <span class="s1">&#39;AirNow&#39;</span><span class="p">:</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="n">AirNow_Query</span><span class="p">(</span><span class="n">api_param</span><span class="p">,</span> <span class="n">data_period</span><span class="p">,</span> <span class="n">airnow_bbox</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="n">key</span><span class="p">)</span>
+            <span class="n">raw_copy</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">data</span><span class="o">.</span><span class="n">empty</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
+                <span class="n">idx</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">DateTime_UTC</span><span class="p">)</span>
+
+                <span class="n">rename</span> <span class="o">=</span> <span class="p">{</span><span class="n">col</span><span class="p">:</span> <span class="n">col</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;Param&#39;</span><span class="p">,</span> <span class="n">param</span><span class="p">)</span>
+                          <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">columns</span> <span class="k">if</span> <span class="n">col</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;Param&#39;</span><span class="p">)}</span>
+                <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="n">rename</span><span class="p">)</span>
+
+                <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;DateTime_UTC&#39;</span><span class="p">,</span>
+                                          <span class="n">param</span> <span class="o">+</span> <span class="s1">&#39;_Name&#39;</span><span class="p">,</span>
+                                          <span class="s1">&#39;Site_Full_AQS&#39;</span><span class="p">])</span>
+
+                <span class="c1"># Note that AirNow doesn&#39;t report the reference monitor method</span>
+                <span class="c1"># so labeling as unknown</span>
+                <span class="n">data</span><span class="p">[</span><span class="s1">&#39;Data_Source&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;AirNow API&#39;</span>
+                <span class="n">data</span><span class="p">[</span><span class="s1">&#39;Data_Acquisition_Date_Time&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">time_of_query</span>
+                <span class="n">data</span><span class="p">[</span><span class="n">param</span> <span class="o">+</span> <span class="s1">&#39;_QAQC_Code&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+                <span class="n">data</span><span class="p">[</span><span class="n">param</span> <span class="o">+</span> <span class="s1">&#39;_Param_Code&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+                <span class="n">data</span><span class="p">[</span><span class="n">param</span> <span class="o">+</span> <span class="s1">&#39;_Method&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;Unknown Reference&#39;</span>
+                <span class="n">data</span><span class="p">[</span><span class="n">param</span> <span class="o">+</span> <span class="s1">&#39;_Method_Code&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+                <span class="n">data</span><span class="p">[</span><span class="n">param</span> <span class="o">+</span> <span class="s1">&#39;_Method_POC&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+
+                <span class="c1"># Identify periods where data are flagged (conc = -999). Set</span>
+                <span class="c1"># these hours to NaN and associate QAQC flag with hour</span>
+                <span class="n">flag_val</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">param</span><span class="o">+</span><span class="s1">&#39;_Value&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">where</span><span class="p">(</span>
+                                                <span class="n">data</span><span class="p">[</span><span class="n">param</span><span class="o">+</span><span class="s1">&#39;_Value&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="o">-</span><span class="mi">999</span><span class="p">)</span>
+                <span class="n">flag_idx</span> <span class="o">=</span> <span class="n">flag_val</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span><span class="o">.</span><span class="n">index</span>
+                <span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">flag_idx</span><span class="p">,</span> <span class="n">param</span> <span class="o">+</span> <span class="s1">&#39;_QAQC_Code&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;-999&#39;</span>
+                <span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">flag_idx</span><span class="p">,</span> <span class="n">param</span> <span class="o">+</span> <span class="s1">&#39;_Value&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+
+        <span class="c1"># Cleaning up the query dataframe (Set column data types, reorder</span>
+        <span class="c1"># columns, replace incorrectly cased phrases with correct casing</span>
+        <span class="k">if</span> <span class="n">data</span><span class="o">.</span><span class="n">empty</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="n">idx</span><span class="p">)</span>
+
+            <span class="c1"># Set the data type for columns and reorder column arrangement</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="n">Modify_Ref_Cols</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">param</span><span class="p">)</span>
+
+            <span class="c1"># Replace certain phrases with non-title cased phrases</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="n">Modify_Ref_Method_Str</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">param</span><span class="p">)</span>
+
+            <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">sort_index</span><span class="p">()</span>
+
+            <span class="n">query_data</span> <span class="o">=</span> <span class="n">query_data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+            <span class="n">raw_data</span> <span class="o">=</span> <span class="n">raw_data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">raw_copy</span><span class="p">)</span>
+
+    <span class="n">query_data</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;DateTime_UTC&#39;</span>
+
+    <span class="k">return</span> <span class="n">query_data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">bdate</span><span class="p">:</span><span class="n">edate</span><span class="p">,</span> <span class="p">:],</span> <span class="n">raw_data</span></div>
+
+
+<div class="viewcode-block" id="Modify_Ref_Cols"><a class="viewcode-back" href="../../../_autosummary/sensortoolkit._reference.ref_api_query.Modify_Ref_Cols.html#sensortoolkit._reference.ref_api_query.Modify_Ref_Cols">[docs]</a><span class="k">def</span> <span class="nf">Modify_Ref_Cols</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">param</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Modify the data type of columns in reference data and reorder columns.</span>
+
+<span class="sd">    Args</span>
+<span class="sd">        df (pandas dataframe):</span>
+<span class="sd">            Dataframe resulting from API query.</span>
+<span class="sd">        param (str):</span>
+<span class="sd">            The evaluation parameter.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        df (pandas dataframe):</span>
+<span class="sd">            Modified dataframe column data types correected and column ordering</span>
+<span class="sd">            reorganized.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># Column header suffixes for parameter data</span>
+    <span class="n">param_attribs</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;_Value&#39;</span><span class="p">,</span> <span class="s1">&#39;_Unit&#39;</span><span class="p">,</span> <span class="s1">&#39;_QAQC_Code&#39;</span><span class="p">,</span> <span class="s1">&#39;_Param_Code&#39;</span><span class="p">,</span>
+                     <span class="s1">&#39;_Method&#39;</span><span class="p">,</span> <span class="s1">&#39;_Method_Code&#39;</span><span class="p">,</span> <span class="s1">&#39;_Method_POC&#39;</span><span class="p">]</span>
+
+    <span class="c1"># Column header suffixes for site metadata (site name, location, etc.)</span>
+    <span class="n">meta_attribs</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Agency&#39;</span><span class="p">,</span> <span class="s1">&#39;Site_Name&#39;</span><span class="p">,</span> <span class="s1">&#39;Site_AQS&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;Site_Lat&#39;</span><span class="p">,</span> <span class="s1">&#39;Site_Lon&#39;</span><span class="p">,</span> <span class="s1">&#39;Data_Source&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;Data_Acquisition_Date_Time&#39;</span><span class="p">]</span>
+
+    <span class="c1"># Data types for parameter columns</span>
+    <span class="n">param_type</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;_Value&#39;</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+                  <span class="s1">&#39;_Unit&#39;</span><span class="p">:</span> <span class="nb">object</span><span class="p">,</span>
+                  <span class="s1">&#39;_QAQC_Code&#39;</span><span class="p">:</span> <span class="nb">object</span><span class="p">,</span>
+                  <span class="s1">&#39;_Param_Code&#39;</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+                  <span class="s1">&#39;_Method&#39;</span><span class="p">:</span> <span class="nb">object</span><span class="p">,</span>
+                  <span class="s1">&#39;_Method_Code&#39;</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+                  <span class="s1">&#39;_Method_POC&#39;</span><span class="p">:</span> <span class="nb">float</span><span class="p">}</span>
+
+    <span class="c1"># Data types for metadata columns</span>
+    <span class="n">meta_type</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;Agency&#39;</span><span class="p">:</span> <span class="nb">object</span><span class="p">,</span>
+                 <span class="s1">&#39;Site_Name&#39;</span><span class="p">:</span> <span class="nb">object</span><span class="p">,</span>
+                 <span class="s1">&#39;Site_AQS&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+                 <span class="s1">&#39;Site_Lat&#39;</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+                 <span class="s1">&#39;Site_Lon&#39;</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+                 <span class="s1">&#39;Data_Source&#39;</span><span class="p">:</span> <span class="nb">object</span><span class="p">,</span>
+                 <span class="s1">&#39;Data_Acquisition_Date_Time&#39;</span><span class="p">:</span> <span class="nb">object</span><span class="p">}</span>
+
+    <span class="c1"># Sort parameter data columns</span>
+    <span class="n">param_cols</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">attr</span> <span class="ow">in</span> <span class="n">param_attribs</span><span class="p">:</span>
+        <span class="n">param_cols</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">param</span> <span class="o">+</span> <span class="n">attr</span><span class="p">)</span>
+        <span class="n">param_type</span><span class="p">[</span><span class="n">param</span> <span class="o">+</span> <span class="n">attr</span><span class="p">]</span> <span class="o">=</span> <span class="n">param_type</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">attr</span><span class="p">)</span>
+
+    <span class="c1"># Set the data type of columns</span>
+    <span class="n">col_type</span> <span class="o">=</span> <span class="p">{</span><span class="o">**</span><span class="n">param_type</span><span class="p">,</span> <span class="o">**</span><span class="n">meta_type</span><span class="p">}</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">col_type</span><span class="p">)</span>
+
+    <span class="c1"># reorder columns</span>
+    <span class="n">col_reorder</span> <span class="o">=</span> <span class="p">[</span><span class="n">param_cols</span><span class="p">,</span> <span class="n">meta_attribs</span><span class="p">]</span>
+    <span class="n">col_reorder_flat</span> <span class="o">=</span> <span class="n">Flatten</span><span class="p">(</span><span class="n">col_reorder</span><span class="p">)</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">col_reorder_flat</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">df</span></div>
+
+
+<div class="viewcode-block" id="Modify_Ref_Method_Str"><a class="viewcode-back" href="../../../_autosummary/sensortoolkit._reference.ref_api_query.Modify_Ref_Method_Str.html#sensortoolkit._reference.ref_api_query.Modify_Ref_Method_Str">[docs]</a><span class="k">def</span> <span class="nf">Modify_Ref_Method_Str</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">param</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Subroutine for Ref_API_Query tha replaces various characters in data</span>
+<span class="sd">    columns containing text, including the method name and the parameter units.</span>
+
+<span class="sd">    Instrument Method names retrieved from the method code lookup table are</span>
+<span class="sd">    specified in all upper case characters. These are converted to title cased</span>
+<span class="sd">    characters (e.g., This Is Title Cased Text). While this imrpoves legibility</span>
+<span class="sd">    some phrases (particularly acronyms, conjunctions, prepositions, ect.)</span>
+<span class="sd">    should not be title cased. This function replaces specific phrases with the</span>
+<span class="sd">    expected format.</span>
+
+<span class="sd">    In addition, abbreviated unit names (used by AirNow) are converted to</span>
+<span class="sd">    long format text to ensure consistency for reference data retreived from</span>
+<span class="sd">    AQS, AirNow, and AirNowTech, and also to improve legibility.</span>
+
+<span class="sd">    Args</span>
+<span class="sd">        df (pandas dataframe):</span>
+<span class="sd">            Dataframe resulting from API query.</span>
+<span class="sd">        param (str):</span>
+<span class="sd">            The evaluation parameter.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        df (pandas dataframe):</span>
+<span class="sd">            Modified dataframe with method and unit strings corrected.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Lookup dictionary of phrases that shouldn&#39;t be title cased</span>
+    <span class="n">replace</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;Method&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;Api&#39;</span><span class="p">:</span> <span class="s1">&#39;API&#39;</span><span class="p">,</span>
+                          <span class="s1">&#39;Frm&#39;</span><span class="p">:</span> <span class="s1">&#39;FRM&#39;</span><span class="p">,</span>
+                          <span class="s1">&#39;Fem&#39;</span><span class="p">:</span> <span class="s1">&#39;FEM&#39;</span><span class="p">,</span>
+                          <span class="s1">&#39;Lpm&#39;</span><span class="p">:</span> <span class="s1">&#39;LPM&#39;</span><span class="p">,</span>
+                          <span class="s1">&#39; At &#39;</span><span class="p">:</span> <span class="s1">&#39; at &#39;</span><span class="p">,</span>
+                          <span class="s1">&#39;Bam&#39;</span><span class="p">:</span> <span class="s1">&#39;BAM&#39;</span><span class="p">,</span>
+                          <span class="s1">&#39;Pm&#39;</span><span class="p">:</span> <span class="s1">&#39;PM&#39;</span><span class="p">,</span>
+                          <span class="s1">&#39;Vscc&#39;</span><span class="p">:</span> <span class="s1">&#39;VSCC&#39;</span><span class="p">,</span>
+                          <span class="s1">&#39;Te&#39;</span><span class="p">:</span> <span class="s1">&#39;TE&#39;</span><span class="p">,</span>
+                          <span class="s1">&#39; Or &#39;</span><span class="p">:</span> <span class="s1">&#39; or &#39;</span><span class="p">,</span>
+                          <span class="s1">&#39;W/&#39;</span><span class="p">:</span> <span class="s1">&#39;w/&#39;</span><span class="p">,</span>
+                          <span class="s1">&#39; And &#39;</span><span class="p">:</span> <span class="s1">&#39; and &#39;</span><span class="p">},</span>
+               <span class="s1">&#39;Unit&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;PPB&#39;</span><span class="p">:</span> <span class="s1">&#39;Parts per billion&#39;</span><span class="p">,</span>
+                        <span class="s1">&#39;PPM&#39;</span><span class="p">:</span> <span class="s1">&#39;Parts per million&#39;</span><span class="p">,</span>
+                        <span class="s1">&#39;UG/M3&#39;</span><span class="p">:</span> <span class="s1">&#39;Micrograms/cubic meter&#39;</span><span class="p">}</span>
+               <span class="p">}</span>
+
+    <span class="k">for</span> <span class="n">attrib</span> <span class="ow">in</span> <span class="n">replace</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">oldstr</span><span class="p">,</span> <span class="n">newstr</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">replace</span><span class="p">[</span><span class="n">attrib</span><span class="p">],</span> <span class="n">replace</span><span class="p">[</span><span class="n">attrib</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">()):</span>
+            <span class="n">col</span> <span class="o">=</span> <span class="n">param</span> <span class="o">+</span> <span class="s1">&#39;_&#39;</span> <span class="o">+</span> <span class="n">attrib</span>
+            <span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">oldstr</span><span class="p">,</span> <span class="n">newstr</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">df</span></div>
+
+
+<div class="viewcode-block" id="Date_Range_Selector"><a class="viewcode-back" href="../../../_autosummary/sensortoolkit._reference.ref_api_query.Date_Range_Selector.html#sensortoolkit._reference.ref_api_query.Date_Range_Selector">[docs]</a><span class="k">def</span> <span class="nf">Date_Range_Selector</span><span class="p">(</span><span class="n">start_date</span><span class="p">,</span> <span class="n">end_date</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Generate two arrays (month_starts and month_ends) for which queries will</span>
+<span class="sd">    be constructed in consecutive monthly segments.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        start_date (str):</span>
+<span class="sd">            Query period will begin on this date. Should be specified in a</span>
+<span class="sd">            format accepted by pandas to_datetime module.</span>
+<span class="sd">        end_date (str)</span>
+<span class="sd">            Query period will end on this date. Should be specified in a</span>
+<span class="sd">            format accepted by pandas to_datetime module.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        month_starts (pandas datetimeindex):</span>
+<span class="sd">            An array of monthly start dates.</span>
+<span class="sd">            Example:</span>
+<span class="sd">            DatetimeIndex([&#39;2021-01-01&#39;, &#39;2021-02-01&#39;,</span>
+<span class="sd">                           &#39;2021-03-01&#39;, &#39;2021-04-01&#39;,</span>
+<span class="sd">                           &#39;2021-05-01&#39;, &#39;2021-06-01&#39;],</span>
+<span class="sd">                            dtype=&#39;datetime64[ns]&#39;, freq=&#39;MS&#39;)</span>
+
+<span class="sd">        month_ends (pandas datetimeindex):</span>
+<span class="sd">            An array of monthly end dates.</span>
+<span class="sd">            Example:</span>
+<span class="sd">            DatetimeIndex([&#39;2021-01-31&#39;, &#39;2021-02-28&#39;,</span>
+<span class="sd">                           &#39;2021-03-31&#39;, &#39;2021-04-30&#39;,</span>
+<span class="sd">                           &#39;2021-05-31&#39;, &#39;2021-06-30&#39;],</span>
+<span class="sd">                            dtype=&#39;datetime64[ns]&#39;, freq=&#39;M&#39;)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">start_date</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">start_date</span><span class="p">)</span>
+    <span class="n">end_date</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">end_date</span><span class="p">)</span>
+
+    <span class="c1"># If start day after first day of start month, set to first day of month</span>
+    <span class="k">if</span> <span class="n">start_date</span><span class="o">.</span><span class="n">day</span> <span class="o">&gt;</span> <span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">start_date</span><span class="p">)</span> <span class="o">-</span> <span class="n">MonthBegin</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span><span class="o">.</span><span class="n">day</span><span class="p">:</span>
+        <span class="n">start_date</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">start_date</span><span class="p">)</span> <span class="o">-</span> <span class="n">MonthBegin</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="c1"># If end date day before last day of end month, set to first day of month</span>
+    <span class="k">if</span> <span class="n">end_date</span><span class="o">.</span><span class="n">day</span> <span class="o">&lt;</span> <span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">end_date</span><span class="p">)</span> <span class="o">+</span> <span class="n">MonthEnd</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span><span class="o">.</span><span class="n">day</span><span class="p">:</span>
+        <span class="n">end_date</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">end_date</span><span class="p">)</span> <span class="o">+</span> <span class="n">MonthEnd</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="c1"># Generate series for dates at beginning and end of months to query</span>
+    <span class="n">month_starts</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">date_range</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="n">start_date</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="n">end_date</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="s1">&#39;MS&#39;</span><span class="p">,</span>
+                                 <span class="n">normalize</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">month_ends</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">date_range</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="n">start_date</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="n">end_date</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="s1">&#39;M&#39;</span><span class="p">,</span>
+                               <span class="n">normalize</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">month_starts</span><span class="p">,</span> <span class="n">month_ends</span></div>
+
+
+<div class="viewcode-block" id="Query_Periods"><a class="viewcode-back" href="../../../_autosummary/sensortoolkit._reference.ref_api_query.Query_Periods.html#sensortoolkit._reference.ref_api_query.Query_Periods">[docs]</a><span class="k">def</span> <span class="nf">Query_Periods</span><span class="p">(</span><span class="n">query_type</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">month_starts</span><span class="o">=</span><span class="p">[],</span> <span class="n">month_ends</span><span class="o">=</span><span class="p">[]):</span>
+    <span class="sd">&quot;&quot;&quot;Generate a dictionary with consecutive monthly intervals to query where</span>
+<span class="sd">    dates are formatted a little differently depending on the API to query.</span>
+
+<span class="sd">    API date formatting:</span>
+<span class="sd">        AirNow API: Expects dates in format &#39;YYYY-MM-DDTHH&#39;</span>
+<span class="sd">            Example: &#39;2019-08-01T00&#39;</span>
+<span class="sd">        AQS API: Expects dates in format &#39;YYYYMMDD&#39;</span>
+<span class="sd">            Example: &#39;20190801&#39;</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        query_type (str):</span>
+<span class="sd">            The name of the API to query (either &#39;AirNow&#39; or &#39;AQS&#39;).</span>
+<span class="sd">        month_starts (pandas datetimeindex):</span>
+<span class="sd">            An array of monthly start dates generated by Date_Range_Selector</span>
+<span class="sd">        month_ends (pandas datetimeindex):</span>
+<span class="sd">            An array of monthly end dates generated by Date_Range_Selector</span>
+<span class="sd">    Returns:</span>
+<span class="sd">        monthly_periods (dict):</span>
+<span class="sd">            Dictionary with monthly beginning and end dates formatted to the</span>
+<span class="sd">            scheme expected by the API to be queried.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">monthly_periods</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">start</span><span class="p">,</span> <span class="n">end</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">month_starts</span><span class="p">,</span> <span class="n">month_ends</span><span class="p">):</span>
+
+        <span class="n">month_name</span> <span class="o">=</span> <span class="n">start</span><span class="o">.</span><span class="n">month_name</span><span class="p">()</span>
+        <span class="n">year_name</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">start</span><span class="o">.</span><span class="n">year</span><span class="p">)[</span><span class="o">-</span><span class="mi">2</span><span class="p">:]</span>
+
+        <span class="n">s_yr</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">start</span><span class="o">.</span><span class="n">year</span><span class="p">)</span>
+        <span class="n">s_mo</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">start</span><span class="o">.</span><span class="n">month</span><span class="p">)</span><span class="o">.</span><span class="n">zfill</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+        <span class="n">s_day</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">start</span><span class="o">.</span><span class="n">day</span><span class="p">)</span>
+
+        <span class="n">e_yr</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">end</span><span class="o">.</span><span class="n">year</span><span class="p">)</span>
+        <span class="n">e_mo</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">end</span><span class="o">.</span><span class="n">month</span><span class="p">)</span><span class="o">.</span><span class="n">zfill</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+        <span class="n">e_day</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">end</span><span class="o">.</span><span class="n">day</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">query_type</span> <span class="o">==</span> <span class="s1">&#39;AQS&#39;</span><span class="p">:</span>
+            <span class="n">bdate</span> <span class="o">=</span> <span class="n">s_yr</span> <span class="o">+</span> <span class="n">s_mo</span> <span class="o">+</span> <span class="s1">&#39;0&#39;</span> <span class="o">+</span> <span class="n">s_day</span>
+            <span class="n">edate</span> <span class="o">=</span> <span class="n">e_yr</span> <span class="o">+</span> <span class="n">e_mo</span> <span class="o">+</span> <span class="n">e_day</span>
+            <span class="n">monthly_periods</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="n">month_name</span> <span class="o">+</span> <span class="n">year_name</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;bdate&#39;</span><span class="p">:</span> <span class="n">bdate</span><span class="p">,</span>
+                                                             <span class="s1">&#39;edate&#39;</span><span class="p">:</span> <span class="n">edate</span><span class="p">}})</span>
+        <span class="k">if</span> <span class="n">query_type</span> <span class="o">==</span> <span class="s1">&#39;AirNow&#39;</span><span class="p">:</span>
+            <span class="n">bdate</span> <span class="o">=</span> <span class="p">(</span><span class="n">s_yr</span> <span class="o">+</span> <span class="s1">&#39;-&#39;</span> <span class="o">+</span> <span class="n">s_mo</span> <span class="o">+</span> <span class="s1">&#39;-&#39;</span> <span class="o">+</span> <span class="s1">&#39;0&#39;</span> <span class="o">+</span> <span class="n">s_day</span> <span class="o">+</span> <span class="s1">&#39;T00&#39;</span><span class="p">)</span>
+            <span class="n">edate</span> <span class="o">=</span> <span class="p">(</span><span class="n">e_yr</span> <span class="o">+</span> <span class="s1">&#39;-&#39;</span> <span class="o">+</span> <span class="n">e_mo</span> <span class="o">+</span> <span class="s1">&#39;-&#39;</span> <span class="o">+</span> <span class="n">e_day</span> <span class="o">+</span> <span class="s1">&#39;T23&#39;</span><span class="p">)</span>
+            <span class="n">monthly_periods</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="n">e_yr</span> <span class="o">+</span> <span class="n">s_mo</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;startDate&#39;</span><span class="p">:</span> <span class="n">bdate</span><span class="p">,</span>
+                                                  <span class="s1">&#39;endDate&#39;</span><span class="p">:</span> <span class="n">edate</span><span class="p">}})</span>
+
+    <span class="k">return</span> <span class="n">monthly_periods</span></div>
+
+
+<div class="viewcode-block" id="AQS_Query"><a class="viewcode-back" href="../../../_autosummary/sensortoolkit._reference.ref_api_query.AQS_Query.html#sensortoolkit._reference.ref_api_query.AQS_Query">[docs]</a><span class="k">def</span> <span class="nf">AQS_Query</span><span class="p">(</span><span class="n">param</span><span class="p">,</span> <span class="n">data_period</span><span class="p">,</span> <span class="n">aqs_id</span><span class="p">,</span> <span class="n">username</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Construct an AQS API query request and parse response.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        param (str):</span>
+<span class="sd">            The evaluation parameter for which to query data.</span>
+<span class="sd">        data_period (list):</span>
+<span class="sd">            List with two elements, the first is the start date and time for</span>
+<span class="sd">            the query and the second is the end date and time for the query.</span>
+<span class="sd">            The API is sequentially queried in monthly intervals, so the start</span>
+<span class="sd">            date will usually be something like &#39;20210101&#39; and the end</span>
+<span class="sd">            date will follow as &#39;20210131&#39;.</span>
+<span class="sd">        aqs_id (str):</span>
+<span class="sd">            The AQS site ID for the air monitoring site from which reference</span>
+<span class="sd">            measurements will be returned by the API.</span>
+<span class="sd">        key (str):</span>
+<span class="sd">            User key for API authentication.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        data (pandas dataframe):</span>
+<span class="sd">            Data returned by the API for the specified query parameter and</span>
+<span class="sd">            time period.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">aqs_id</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="s1">&#39;AQS Site ID missing from API Query&#39;</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Querying AQS API&#39;</span><span class="p">)</span>
+    <span class="n">begin</span> <span class="o">=</span> <span class="p">(</span><span class="n">data_period</span><span class="p">[</span><span class="mi">0</span><span class="p">][:</span><span class="mi">4</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39;-&#39;</span> <span class="o">+</span> <span class="n">data_period</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">4</span><span class="p">:</span><span class="mi">6</span><span class="p">]</span>
+             <span class="o">+</span> <span class="s1">&#39;-&#39;</span> <span class="o">+</span> <span class="n">data_period</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">6</span><span class="p">:])</span>
+    <span class="n">end</span> <span class="o">=</span> <span class="p">(</span><span class="n">data_period</span><span class="p">[</span><span class="mi">1</span><span class="p">][:</span><span class="mi">4</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39;-&#39;</span> <span class="o">+</span> <span class="n">data_period</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">4</span><span class="p">:</span><span class="mi">6</span><span class="p">]</span>
+           <span class="o">+</span> <span class="s1">&#39;-&#39;</span> <span class="o">+</span> <span class="n">data_period</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">6</span><span class="p">:])</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;..Query start:&#39;</span><span class="p">,</span> <span class="n">begin</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;..Query end:&#39;</span><span class="p">,</span> <span class="n">end</span><span class="p">)</span>
+
+    <span class="c1"># API Items</span>
+    <span class="n">urlbase</span> <span class="o">=</span> <span class="s1">&#39;https://aqs.epa.gov/data/api/sampleData/bySite?&#39;</span>
+
+    <span class="c1"># Construct query URL</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">urlbase</span> <span class="o">+</span> <span class="s1">&#39;email=&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">username</span><span class="p">)</span>
+    <span class="n">url</span> <span class="o">+=</span> <span class="s1">&#39;&amp;key=&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+    <span class="n">url</span> <span class="o">+=</span> <span class="s1">&#39;&amp;param=&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">param</span><span class="p">)</span>
+    <span class="n">url</span> <span class="o">+=</span> <span class="s1">&#39;&amp;bdate=&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">data_period</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">url</span> <span class="o">+=</span> <span class="s1">&#39;&amp;edate=&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">data_period</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">url</span> <span class="o">+=</span> <span class="s1">&#39;&amp;state=&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">aqs_id</span><span class="p">[</span><span class="s2">&quot;state&quot;</span><span class="p">])</span>
+    <span class="n">url</span> <span class="o">+=</span> <span class="s1">&#39;&amp;county=&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">aqs_id</span><span class="p">[</span><span class="s2">&quot;county&quot;</span><span class="p">])</span>
+    <span class="n">url</span> <span class="o">+=</span> <span class="s1">&#39;&amp;site=&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">aqs_id</span><span class="p">[</span><span class="s2">&quot;site&quot;</span><span class="p">])</span>
+
+    <span class="c1"># Get query response (two queries: first for reference data, second for</span>
+    <span class="c1"># site metadata)</span>
+
+    <span class="c1"># Query reference concentration data</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+
+    <span class="c1"># Query site information (site name, operating agency, etc.)</span>
+    <span class="n">site_data</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;sampleData&#39;</span><span class="p">,</span> <span class="s1">&#39;monitors&#39;</span><span class="p">))</span>
+    <span class="n">site_json</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">site_data</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+    <span class="n">site_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">site_json</span><span class="p">[</span><span class="s1">&#39;Data&#39;</span><span class="p">])</span>
+
+    <span class="c1"># Load data to json module, pandas dataframe</span>
+    <span class="n">ref_data_json</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">ref_data_json</span><span class="p">[</span><span class="s1">&#39;Data&#39;</span><span class="p">])</span>
+
+    <span class="n">data</span><span class="p">[</span><span class="s1">&#39;Site_AQS&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">state_code</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;-&#39;</span> <span class="o">+</span>
+                        <span class="n">data</span><span class="o">.</span><span class="n">county_code</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;-&#39;</span> <span class="o">+</span>
+                        <span class="n">data</span><span class="o">.</span><span class="n">site_number</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">))</span>
+
+    <span class="n">status</span> <span class="o">=</span> <span class="n">ref_data_json</span><span class="p">[</span><span class="s1">&#39;Header&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;status&#39;</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="n">status</span> <span class="o">==</span> <span class="s1">&#39;Success&#39;</span><span class="p">:</span>
+        <span class="n">site_name</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">site_data</span><span class="o">.</span><span class="n">local_site_name</span><span class="o">.</span><span class="n">unique</span><span class="p">())</span>
+        <span class="n">agency</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">site_data</span><span class="o">.</span><span class="n">monitoring_agency</span><span class="o">.</span><span class="n">unique</span><span class="p">())</span>
+        <span class="n">site_aqs</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">Site_AQS</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span><span class="o">.</span><span class="n">unique</span><span class="p">())</span>
+        <span class="n">site_lat</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">site_data</span><span class="o">.</span><span class="n">latitude</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span><span class="o">.</span><span class="n">unique</span><span class="p">())</span>
+        <span class="n">site_lon</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">site_data</span><span class="o">.</span><span class="n">longitude</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span><span class="o">.</span><span class="n">unique</span><span class="p">())</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;..Query site(s):&#39;</span><span class="p">)</span>
+        <span class="c1"># Since AQS queries are site specific, should only include one site</span>
+        <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">aqs</span><span class="p">,</span> <span class="n">lat</span><span class="p">,</span> <span class="n">lon</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">site_name</span><span class="p">,</span> <span class="n">site_aqs</span><span class="p">,</span>
+                                       <span class="n">site_lat</span><span class="p">,</span> <span class="n">site_lon</span><span class="p">):</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;....Site name:&#39;</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;......AQS ID:&#39;</span><span class="p">,</span> <span class="n">aqs</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;......Latitude:&#39;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="si">{0:7.4f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">lat</span><span class="p">)))</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;......Longitude:&#39;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="si">{0:7.4f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">lon</span><span class="p">)))</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;..Query Status:&#39;</span><span class="p">,</span> <span class="n">status</span><span class="p">)</span>
+
+    <span class="n">data</span><span class="p">[</span><span class="s1">&#39;Agency&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;,&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">agency</span><span class="p">)</span>
+    <span class="n">data</span><span class="p">[</span><span class="s1">&#39;Site_Name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;,&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">site_name</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">data</span></div>
+
+
+<div class="viewcode-block" id="AirNow_Query"><a class="viewcode-back" href="../../../_autosummary/sensortoolkit._reference.ref_api_query.AirNow_Query.html#sensortoolkit._reference.ref_api_query.AirNow_Query">[docs]</a><span class="k">def</span> <span class="nf">AirNow_Query</span><span class="p">(</span><span class="n">param</span><span class="p">,</span> <span class="n">data_period</span><span class="p">,</span> <span class="n">bbox</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Construct an AirNow API query request and parse response.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        param (str):</span>
+<span class="sd">            The evaluation parameter for which to query data.</span>
+<span class="sd">        data_period (list):</span>
+<span class="sd">            List with two elements, the first is the start date and time for</span>
+<span class="sd">            the query and the second is the end date and time for the query.</span>
+<span class="sd">            The API is sequentially queried in monthly intervals, so the start</span>
+<span class="sd">            date will usually be something like &#39;2021-01-01T00&#39; and the end</span>
+<span class="sd">            date will follow as &#39;2021-01-31T23&#39;.</span>
+<span class="sd">        bbox (dict):</span>
+<span class="sd">            Bounding box of latitude andlongitude values for AirNow API</span>
+<span class="sd">            queries.</span>
+<span class="sd">        key (str):</span>
+<span class="sd">            User key for API authentication.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        data (pandas dataframe):</span>
+<span class="sd">            Data returned by the API for the specified query parameter and</span>
+<span class="sd">            time period.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Querying AirNow API&#39;</span><span class="p">)</span>
+
+    <span class="n">begin</span> <span class="o">=</span> <span class="n">data_period</span><span class="p">[</span><span class="mi">0</span><span class="p">][:</span><span class="o">-</span><span class="mi">3</span><span class="p">]</span>
+    <span class="n">end</span> <span class="o">=</span> <span class="n">data_period</span><span class="p">[</span><span class="mi">1</span><span class="p">][:</span><span class="o">-</span><span class="mi">3</span><span class="p">]</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;..Query start:&#39;</span><span class="p">,</span> <span class="n">begin</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;..Query end:&#39;</span><span class="p">,</span> <span class="n">end</span><span class="p">)</span>
+
+    <span class="c1"># API Items</span>
+    <span class="n">urlbase</span> <span class="o">=</span> <span class="s2">&quot;http://www.airnowapi.org/aq/data/?&quot;</span>
+    <span class="n">dataType</span> <span class="o">=</span> <span class="s2">&quot;C&quot;</span>
+    <span class="n">dataformat</span> <span class="o">=</span> <span class="s2">&quot;text/csv&quot;</span>
+    <span class="n">verbose</span> <span class="o">=</span> <span class="s2">&quot;1&quot;</span>                    <span class="c1"># bool</span>
+    <span class="n">nowcastonly</span> <span class="o">=</span> <span class="s2">&quot;0&quot;</span>                <span class="c1"># bool</span>
+    <span class="n">rawconc</span> <span class="o">=</span> <span class="s2">&quot;1&quot;</span>                    <span class="c1"># bool</span>
+
+    <span class="c1"># Construct query URL</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">urlbase</span> <span class="o">+</span> <span class="s1">&#39;startdate=&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">data_period</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">url</span> <span class="o">+=</span> <span class="s1">&#39;&amp;enddate=&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">data_period</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">url</span> <span class="o">+=</span> <span class="s1">&#39;&amp;parameters=&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">param</span><span class="p">)</span>
+    <span class="n">url</span> <span class="o">+=</span> <span class="s1">&#39;&amp;bbox=&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">bbox</span><span class="p">[</span><span class="s2">&quot;minLong&quot;</span><span class="p">])</span> <span class="o">+</span> <span class="s1">&#39;,&#39;</span>
+    <span class="n">url</span> <span class="o">+=</span> <span class="nb">str</span><span class="p">(</span><span class="n">bbox</span><span class="p">[</span><span class="s2">&quot;minLat&quot;</span><span class="p">])</span> <span class="o">+</span> <span class="s1">&#39;,&#39;</span>
+    <span class="n">url</span> <span class="o">+=</span> <span class="nb">str</span><span class="p">(</span><span class="n">bbox</span><span class="p">[</span><span class="s2">&quot;maxLong&quot;</span><span class="p">])</span> <span class="o">+</span> <span class="s1">&#39;,&#39;</span>
+    <span class="n">url</span> <span class="o">+=</span> <span class="nb">str</span><span class="p">(</span><span class="n">bbox</span><span class="p">[</span><span class="s2">&quot;maxLat&quot;</span><span class="p">])</span>
+    <span class="n">url</span> <span class="o">+=</span> <span class="s1">&#39;&amp;datatype=&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">dataType</span><span class="p">)</span>
+    <span class="n">url</span> <span class="o">+=</span> <span class="s1">&#39;&amp;format=&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">dataformat</span><span class="p">)</span>
+    <span class="n">url</span> <span class="o">+=</span> <span class="s1">&#39;&amp;verbose=&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">verbose</span><span class="p">)</span>
+    <span class="n">url</span> <span class="o">+=</span> <span class="s1">&#39;&amp;nowcastonly=&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">nowcastonly</span><span class="p">)</span>
+    <span class="n">url</span> <span class="o">+=</span> <span class="s1">&#39;&amp;includerawconcentrations=&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">rawconc</span><span class="p">)</span>
+    <span class="n">url</span> <span class="o">+=</span> <span class="s1">&#39;&amp;api_key=&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+
+    <span class="c1"># Get query response</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+    <span class="n">fmt_query_data</span> <span class="o">=</span> <span class="n">StringIO</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+
+    <span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">fmt_query_data</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;,&#39;</span><span class="p">,</span>
+                       <span class="n">names</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Site_Lat&#39;</span><span class="p">,</span> <span class="s1">&#39;Site_Lon&#39;</span><span class="p">,</span> <span class="s1">&#39;DateTime_UTC&#39;</span><span class="p">,</span>
+                              <span class="s1">&#39;Param_Name&#39;</span><span class="p">,</span> <span class="s1">&#39;Param_NowCast_Value&#39;</span><span class="p">,</span>
+                              <span class="s1">&#39;Param_Unit&#39;</span><span class="p">,</span> <span class="s1">&#39;Param_Value&#39;</span><span class="p">,</span> <span class="s1">&#39;Site_Name&#39;</span><span class="p">,</span>
+                              <span class="s1">&#39;Agency&#39;</span><span class="p">,</span> <span class="s1">&#39;Site_AQS&#39;</span><span class="p">,</span> <span class="s1">&#39;Site_Full_AQS&#39;</span><span class="p">])</span>
+    <span class="k">if</span> <span class="n">data</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
+        <span class="n">status</span> <span class="o">=</span> <span class="s1">&#39;Failed&#39;</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">status</span> <span class="o">=</span> <span class="s1">&#39;Success&#39;</span>
+
+        <span class="n">data</span><span class="p">[</span><span class="s1">&#39;Site_AQS&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;Site_AQS&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span>
+
+        <span class="n">state_id</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;Site_AQS&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">slice</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="n">county_id</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;Site_AQS&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">slice</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+        <span class="n">site_id</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;Site_AQS&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">slice</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">9</span><span class="p">)</span>
+
+        <span class="n">data</span><span class="p">[</span><span class="s1">&#39;Site_AQS&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">state_id</span> <span class="o">+</span> <span class="s1">&#39;-&#39;</span> <span class="o">+</span> <span class="n">county_id</span> <span class="o">+</span> <span class="s1">&#39;-&#39;</span> <span class="o">+</span> <span class="n">site_id</span><span class="p">)</span>
+
+        <span class="n">site_name</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">Site_Name</span><span class="o">.</span><span class="n">unique</span><span class="p">())</span>
+        <span class="n">site_aqs</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">Site_AQS</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span><span class="o">.</span><span class="n">unique</span><span class="p">())</span>
+        <span class="n">site_lat</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">Site_Lat</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span><span class="o">.</span><span class="n">unique</span><span class="p">())</span>
+        <span class="n">site_lon</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">Site_Lon</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span><span class="o">.</span><span class="n">unique</span><span class="p">())</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;..Query site(s):&#39;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">aqs</span><span class="p">,</span> <span class="n">lat</span><span class="p">,</span> <span class="n">lon</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">site_name</span><span class="p">,</span> <span class="n">site_aqs</span><span class="p">,</span>
+                                       <span class="n">site_lat</span><span class="p">,</span> <span class="n">site_lon</span><span class="p">):</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;....Site name:&#39;</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;......AQS ID:&#39;</span><span class="p">,</span> <span class="n">aqs</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;......Latitude:&#39;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="si">{0:7.4f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">lat</span><span class="p">)))</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;......Longitude:&#39;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="si">{0:7.4f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">lon</span><span class="p">)))</span>
+
+        <span class="c1"># Print warning if data from multiple sites are returned</span>
+        <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">lst</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="k">for</span> <span class="n">lst</span> <span class="ow">in</span> <span class="p">[</span><span class="n">site_name</span><span class="p">,</span> <span class="n">site_aqs</span><span class="p">,</span>
+                                        <span class="n">site_lat</span><span class="p">,</span> <span class="n">site_lon</span><span class="p">]):</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;..Warning: Query returned data from multiple sites.&#39;</span><span class="p">,</span>
+                  <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">..Site selection can be narrowed by reducing the &#39;</span>
+                  <span class="s1">&#39;bounding box size.&#39;</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;..Query Status:&#39;</span><span class="p">,</span> <span class="n">status</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">data</span></div>
+
+
+<div class="viewcode-block" id="Save_Query"><a class="viewcode-back" href="../../../_autosummary/sensortoolkit._reference.ref_api_query.Save_Query.html#sensortoolkit._reference.ref_api_query.Save_Query">[docs]</a><span class="k">def</span> <span class="nf">Save_Query</span><span class="p">(</span><span class="n">query_tuple</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Save both processed and unmodified API query datasets to .csv files.</span>
+
+<span class="sd">    Processed data saved to:</span>
+<span class="sd">    ..//Data and Figures//reference_data//(name of API)//processed//</span>
+<span class="sd">    Unmodified data saved to:</span>
+<span class="sd">    ..//Data and Figures//reference_data//(name of API)//raw_api_datasets//</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        query_tuple (tuple):</span>
+<span class="sd">            A tuple of two pandas datasets returned by Ref_API_Query. The first</span>
+<span class="sd">            element is the processed dataset and the second is the unprocessed</span>
+<span class="sd">            version.</span>
+<span class="sd">    Returns:</span>
+<span class="sd">        processed_df (pandas dataframe):</span>
+<span class="sd">            Data returned by the API for the specified parameter and time</span>
+<span class="sd">            frame. Data have been processed with column headers converted into</span>
+<span class="sd">            standard naming scheme and column data types converted into a</span>
+<span class="sd">            consistent formatting scheme for reference datasets.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">processed_df</span><span class="p">,</span> <span class="n">raw_df</span> <span class="o">=</span> <span class="n">query_tuple</span>
+    <span class="n">api_src</span> <span class="o">=</span> <span class="n">processed_df</span><span class="p">[</span><span class="s1">&#39;Data_Source&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39; API&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Writing&#39;</span><span class="p">,</span> <span class="n">api_src</span><span class="p">,</span> <span class="s1">&#39;query dataframes to csv files&#39;</span><span class="p">)</span>
+
+    <span class="n">begin</span> <span class="o">=</span> <span class="s1">&#39;B&#39;</span> <span class="o">+</span> <span class="n">processed_df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%y%m</span><span class="si">%d</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">end</span> <span class="o">=</span> <span class="s1">&#39;E&#39;</span> <span class="o">+</span> <span class="n">processed_df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%y%m</span><span class="si">%d</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">site_id</span> <span class="o">=</span> <span class="n">processed_df</span><span class="p">[</span><span class="s1">&#39;Site_AQS&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">params</span> <span class="o">=</span> <span class="p">[</span><span class="n">col</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;_Value&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span>
+              <span class="n">processed_df</span><span class="o">.</span><span class="n">columns</span> <span class="k">if</span> <span class="n">col</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;_Value&#39;</span><span class="p">)]</span>
+    <span class="n">param_str</span> <span class="o">=</span> <span class="s1">&#39;_&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">param</span> <span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">params</span><span class="p">)</span>
+
+    <span class="n">process_filename</span> <span class="o">=</span> <span class="s1">&#39;_&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">api_src</span><span class="p">,</span> <span class="n">site_id</span><span class="p">,</span>
+                                 <span class="n">param_str</span><span class="p">,</span> <span class="n">begin</span><span class="p">,</span> <span class="n">end</span><span class="p">])</span> <span class="o">+</span> <span class="s1">&#39;.csv&#39;</span>
+    <span class="n">raw_filename</span> <span class="o">=</span> <span class="s1">&#39;_&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">api_src</span><span class="p">,</span> <span class="s1">&#39;raw&#39;</span><span class="p">,</span> <span class="n">site_id</span><span class="p">,</span>
+                             <span class="n">param_str</span><span class="p">,</span> <span class="n">begin</span><span class="p">,</span> <span class="n">end</span><span class="p">])</span> <span class="o">+</span> <span class="s1">&#39;.csv&#39;</span>
+
+    <span class="n">outpath</span> <span class="o">=</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">PureWindowsPath</span><span class="p">(</span>
+                        <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="vm">__file__</span><span class="p">,</span> <span class="s1">&#39;../../..&#39;</span><span class="p">)))</span>
+    <span class="n">outpath</span> <span class="o">=</span> <span class="p">(</span><span class="n">outpath</span><span class="o">.</span><span class="n">as_posix</span><span class="p">()</span> <span class="o">+</span> <span class="s1">&#39;/Data and Figures/reference_data/&#39;</span> <span class="o">+</span>
+               <span class="n">api_src</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;../reference_data/&#39;</span> <span class="o">+</span> <span class="n">api_src</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">+</span> <span class="s1">&#39;/processed/&#39;</span>
+          <span class="o">+</span> <span class="n">process_filename</span><span class="p">)</span>
+    <span class="n">processed_df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">outpath</span> <span class="o">+</span> <span class="s1">&#39;/processed/&#39;</span> <span class="o">+</span> <span class="n">process_filename</span><span class="p">,</span>
+                        <span class="n">index_label</span><span class="o">=</span><span class="s1">&#39;DateTime_UTC&#39;</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;../reference_data/&#39;</span> <span class="o">+</span> <span class="n">api_src</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">+</span> <span class="s1">&#39;/raw_api_datasets/&#39;</span>
+          <span class="o">+</span> <span class="n">raw_filename</span><span class="p">)</span>
+    <span class="n">raw_df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">outpath</span> <span class="o">+</span> <span class="s1">&#39;/raw_api_datasets/&#39;</span> <span class="o">+</span> <span class="n">raw_filename</span><span class="p">,</span>
+                  <span class="n">index_label</span><span class="o">=</span><span class="s1">&#39;DateTime_UTC&#39;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">processed_df</span></div>
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../../index.html">sensortoolkit</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../_autosummary/sensortoolkit.html">sensortoolkit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../_autosummary/sensortoolkit._analysis.html">sensortoolkit._analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../_autosummary/sensortoolkit._format.html">sensortoolkit._format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../_autosummary/sensortoolkit._ingest.html">sensortoolkit._ingest</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../_autosummary/sensortoolkit._models.html">sensortoolkit._models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../_autosummary/sensortoolkit._plotting.html">sensortoolkit._plotting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../_autosummary/sensortoolkit._qc.html">sensortoolkit._qc</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../_autosummary/sensortoolkit._reference.html">sensortoolkit._reference</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2021, Samuel Frederick.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.0.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

@@ -1,0 +1,318 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>sensortoolkit._analysis.time_averaging &#8212; sensortoolkit 1.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/alabaster.css" />
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+   
+  <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for sensortoolkit._analysis.time_averaging</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">@Author:</span>
+<span class="sd">  Samuel Frederick, NSSC Contractor (ORAU)</span>
+<span class="sd">  U.S. EPA, Office of Research and Development</span>
+<span class="sd">  Center for Environmental Measurement and Modeling</span>
+<span class="sd">  Air Methods and Characterization Division, Source and Fine Scale Branch</span>
+<span class="sd">  109 T.W Alexander Drive, Research Triangle Park, NC 27711</span>
+<span class="sd">  Office: 919-541-4086 | Email: frederick.samuel@epa.gov</span>
+
+<span class="sd">Created:</span>
+<span class="sd">  Wed Oct 21 14:46:27 2020</span>
+<span class="sd">Last Updated:</span>
+<span class="sd">  Tue Jul 13 16:32:44 2021</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">os</span>
+
+
+<div class="viewcode-block" id="Sensor_Averaging"><a class="viewcode-back" href="../../../_autosummary/sensortoolkit._analysis.time_averaging.Sensor_Averaging.html#sensortoolkit._analysis.time_averaging.Sensor_Averaging">[docs]</a><span class="k">def</span> <span class="nf">Sensor_Averaging</span><span class="p">(</span><span class="n">full_df_list</span><span class="p">,</span> <span class="n">sensor_serials</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span>
+                     <span class="n">write_to_file</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="kc">None</span><span class="p">,):</span>
+    <span class="sd">&quot;&quot;&quot;Write full (recorded), hourly, and daily averaged datasets to csv.</span>
+
+<span class="sd">    Wrapper function for computing hourly and daily averaged dataframes.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        full_df_list (list):</span>
+<span class="sd">            List of sensor dataframes at original recorded sampling frequency.</span>
+<span class="sd">        sensor_serials (dict):</span>
+<span class="sd">        name (str):</span>
+<span class="sd">            The make and model of the sensor being evaluated.</span>
+<span class="sd">        write_to_file (bool):</span>
+<span class="sd">            If true, datasets will be written to the path for data at original</span>
+<span class="sd">            recorded sampling frequency (files ending in &#39;_full.csv&#39;), 1-hour</span>
+<span class="sd">            averaged datasets (files ending in &#39;_hourly.csv&#39;), and 24-hour</span>
+<span class="sd">            averaged datasets (files ending in &#39;_daily.csv&#39;).</span>
+<span class="sd">        path (str):</span>
+<span class="sd">            The full directory path to processed sensor data for a given sensor</span>
+<span class="sd">            make and model.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        hourly_df_list (list of pandas dataframes): List of sensor data frames</span>
+<span class="sd">            of length N (where N is the number of sensor units in a testing</span>
+<span class="sd">            group). frames indexed by DateTime_UTC at 1-hour averaged sampling</span>
+<span class="sd">            frequency.</span>
+<span class="sd">        daily_df_list (list of pandas dataframes): List of sensor data frames</span>
+<span class="sd">            of length N (where N is the number of sensor units in a testing</span>
+<span class="sd">            group). frames indexed by DateTime_UTC at 24-hour averaged sampling</span>
+<span class="sd">            frequency.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">hourly_df_list</span><span class="p">,</span> <span class="n">daily_df_list</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
+
+    <span class="k">if</span> <span class="n">sensor_serials</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">n_sensors</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">full_df_list</span><span class="p">)</span>
+        <span class="n">sensor_serials</span> <span class="o">=</span> <span class="p">{</span><span class="n">i</span><span class="p">:</span> <span class="s1">&#39;Sensor &#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span>
+                          <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n_sensors</span><span class="p">,</span> <span class="n">n_sensors</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)}</span>
+
+    <span class="c1"># Loop over each recorded sensor dataset and compute hourly, daily averages</span>
+    <span class="k">for</span> <span class="n">full_df</span><span class="p">,</span> <span class="n">sensor_n</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">full_df_list</span><span class="p">,</span> <span class="n">sensor_serials</span><span class="p">):</span>
+        <span class="n">serial_id</span> <span class="o">=</span> <span class="n">sensor_serials</span><span class="p">[</span><span class="n">sensor_n</span><span class="p">]</span>
+
+        <span class="c1"># Compute timedelta between successive timestamps</span>
+        <span class="n">delta</span> <span class="o">=</span> <span class="p">(</span><span class="n">full_df</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="o">-</span> <span class="n">full_df</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span><span class="o">.</span><span class="n">to_frame</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">delta</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">name</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">delta</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;DateTime_UTC&#39;</span>
+        <span class="n">idx_name</span> <span class="o">=</span> <span class="n">delta</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">name</span>
+
+        <span class="c1"># Use mode of timedelta to extrapolate # of datapoints recorded per hr</span>
+        <span class="n">time_delta</span> <span class="o">=</span> <span class="n">delta</span><span class="p">[</span><span class="n">idx_name</span><span class="p">]</span><span class="o">.</span><span class="n">mode</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">hr_count</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_timedelta</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s1">&#39;H&#39;</span><span class="p">)</span> <span class="o">/</span> <span class="n">time_delta</span>
+        <span class="n">day_count</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_timedelta</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s1">&#39;D&#39;</span><span class="p">)</span> <span class="o">/</span> <span class="n">time_delta</span>
+
+        <span class="c1"># Use a 75% threshold</span>
+        <span class="n">hr_thres</span> <span class="o">=</span> <span class="mf">0.75</span>
+        <span class="n">day_thres</span> <span class="o">=</span> <span class="mf">0.75</span>
+
+        <span class="c1"># Print the mode of the sampling interval for recorded sensor data and</span>
+        <span class="c1"># the number of counts within each hour interval.</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;..</span><span class="si">{0:s}</span><span class="s1"> recording interval mode: </span><span class="si">{1:s}</span><span class="s1">, &#39;</span>
+              <span class="s1">&#39;</span><span class="si">{2:4.1f}</span><span class="s1"> counts per hour&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">serial_id</span><span class="p">,</span>
+                                                <span class="nb">str</span><span class="p">(</span><span class="n">time_delta</span><span class="p">),</span>
+                                                <span class="n">hr_count</span><span class="p">,))</span>
+
+        <span class="n">hourly_df</span> <span class="o">=</span> <span class="n">Interval_Averaging</span><span class="p">(</span><span class="n">full_df</span><span class="p">,</span>
+                                       <span class="n">freq</span><span class="o">=</span><span class="s1">&#39;H&#39;</span><span class="p">,</span>
+                                       <span class="n">interval_count</span><span class="o">=</span><span class="n">hr_count</span><span class="p">,</span>
+                                       <span class="n">thres</span><span class="o">=</span><span class="n">hr_thres</span><span class="p">)</span>
+
+        <span class="n">daily_df</span> <span class="o">=</span> <span class="n">Interval_Averaging</span><span class="p">(</span><span class="n">full_df</span><span class="p">,</span>
+                                      <span class="n">freq</span><span class="o">=</span><span class="s1">&#39;D&#39;</span><span class="p">,</span>
+                                      <span class="n">interval_count</span><span class="o">=</span><span class="n">day_count</span><span class="p">,</span>
+                                      <span class="n">thres</span><span class="o">=</span><span class="n">day_thres</span><span class="p">)</span>
+
+        <span class="n">hourly_df_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">hourly_df</span><span class="p">)</span>
+        <span class="n">daily_df_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">daily_df</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">write_to_file</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;....writing full, hourly, and daily datasets to .csv files&#39;</span><span class="p">)</span>
+
+            <span class="c1"># check if sensor-specific subfolder exists</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+                <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+
+            <span class="n">full_df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">path</span> <span class="o">+</span> <span class="n">name</span> <span class="o">+</span> <span class="s1">&#39;_&#39;</span> <span class="o">+</span> <span class="n">serial_id</span> <span class="o">+</span> <span class="s1">&#39;_full.csv&#39;</span><span class="p">)</span>
+            <span class="n">hourly_df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">path</span> <span class="o">+</span> <span class="n">name</span> <span class="o">+</span> <span class="s1">&#39;_&#39;</span> <span class="o">+</span> <span class="n">serial_id</span> <span class="o">+</span> <span class="s1">&#39;_hourly.csv&#39;</span><span class="p">)</span>
+            <span class="n">daily_df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">path</span> <span class="o">+</span> <span class="n">name</span> <span class="o">+</span> <span class="s1">&#39;_&#39;</span> <span class="o">+</span> <span class="n">serial_id</span> <span class="o">+</span> <span class="s1">&#39;_daily.csv&#39;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">hourly_df_list</span><span class="p">,</span> <span class="n">daily_df_list</span></div>
+
+
+<div class="viewcode-block" id="Interval_Averaging"><a class="viewcode-back" href="../../../_autosummary/sensortoolkit._analysis.time_averaging.Interval_Averaging.html#sensortoolkit._analysis.time_averaging.Interval_Averaging">[docs]</a><span class="k">def</span> <span class="nf">Interval_Averaging</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="n">interval_count</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span> <span class="n">thres</span><span class="o">=</span><span class="mf">0.75</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Average dataframe to the specified sampling frequency (&#39;freq&#39;).</span>
+
+<span class="sd">    Numeric columns are averaged for for each interval and a completeness</span>
+<span class="sd">    threshold (default 75%) must be met, otherwise averages are null. Columns</span>
+<span class="sd">    of type &#39;object&#39; (i.e. text) are aggregated within each interval by the</span>
+<span class="sd">    mode of unique object values.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        df (pandas dataframe):</span>
+<span class="sd">            Dataframe with datetimeindex</span>
+<span class="sd">        freq (str):</span>
+<span class="sd">            The frequency (averaging interval) to which the dataframe will</span>
+<span class="sd">            be averaged. Pandas refers to these as &#39;offset aliases&#39;, and a list</span>
+<span class="sd">            is found at the following link:</span>
+<span class="sd">                https://pandas.pydata.org/pandas-docs/stable/user_guide/</span>
+<span class="sd">                timeseries.html#offset-aliases</span>
+<span class="sd">        interval_count (int):</span>
+<span class="sd">            The number of datapoints expected within the passed dataframe for</span>
+<span class="sd">            the specified averaging interval (&#39;freq&#39;). E.g., if computing</span>
+<span class="sd">            1-hour averages (freq=&#39;H&#39;) and the passed dataframe is for a sensor</span>
+<span class="sd">            that recorded measurements at 1-minute sampling frequency,</span>
+<span class="sd">            interval_count will equal 60 (expect 60 non-null data points per</span>
+<span class="sd">            averaging interval).</span>
+<span class="sd">        thres (float):</span>
+<span class="sd">            Threshold (ranging from 0 to 1) for ratio of the number of</span>
+<span class="sd">            data points recorded within a given averaging interval vs. the</span>
+<span class="sd">            number of expected data points. For example, if a sensor has a</span>
+<span class="sd">            sampling frequency of 1-minute per data point and</span>
+<span class="sd">        return_counts (bool):</span>
+
+<span class="sd">    Return:</span>
+<span class="sd">        averaged_df (pandas dataframe):</span>
+<span class="sd">            Dataframe averaged to datetimeindex interval specified by &#39;freq&#39;.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">col_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
+    <span class="c1"># Split dataframe in to object-like columns and numeric-like columns</span>
+    <span class="n">obj_df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">select_dtypes</span><span class="p">(</span><span class="n">include</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;object&#39;</span><span class="p">,</span> <span class="s1">&#39;datetime&#39;</span><span class="p">])</span>
+    <span class="n">num_df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">select_dtypes</span><span class="p">(</span><span class="n">exclude</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;object&#39;</span><span class="p">,</span> <span class="s1">&#39;datetime&#39;</span><span class="p">])</span>
+
+    <span class="n">num_df_cols</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">num_df</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
+    <span class="n">obj_df_cols</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">obj_df</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
+
+    <span class="n">num_df</span> <span class="o">=</span> <span class="n">num_df</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">)</span>
+
+    <span class="c1"># index at specified interval for empty dataframes (all NaNs)</span>
+    <span class="n">nan_df_idx</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">date_range</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="n">obj_df</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+                               <span class="n">end</span><span class="o">=</span><span class="n">obj_df</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span>
+                               <span class="n">freq</span><span class="o">=</span><span class="n">freq</span><span class="p">,</span> <span class="n">normalize</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="c1"># Sample object-like data at specified interval by the mode</span>
+    <span class="n">obj_df</span> <span class="o">=</span> <span class="n">obj_df</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">how</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="n">obj_df</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
+        <span class="n">avg_obj_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">nan_df_idx</span><span class="p">,</span>
+                                  <span class="n">columns</span><span class="o">=</span><span class="n">obj_df_cols</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">avg_obj_df</span> <span class="o">=</span> <span class="n">obj_df</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="n">pd</span><span class="o">.</span><span class="n">Grouper</span><span class="p">(</span><span class="n">freq</span><span class="o">=</span><span class="n">freq</span><span class="p">)]</span>
+                                    <span class="p">)</span><span class="o">.</span><span class="n">agg</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+    <span class="n">dropped_objcols</span> <span class="o">=</span> <span class="p">[</span><span class="n">col</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">obj_df_cols</span> <span class="k">if</span> <span class="n">col</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">avg_obj_df</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">dropped_objcols</span><span class="p">:</span>
+        <span class="n">avg_obj_df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+
+    <span class="k">if</span> <span class="n">num_df</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
+        <span class="n">avg_num_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">nan_df_idx</span><span class="p">,</span>
+                                  <span class="n">columns</span><span class="o">=</span><span class="n">num_df_cols</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+
+        <span class="c1"># Mean param values for each averaging interval</span>
+        <span class="n">mean_df</span> <span class="o">=</span> <span class="n">num_df</span><span class="p">[:]</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span>
+                            <span class="p">[</span><span class="n">pd</span><span class="o">.</span><span class="n">Grouper</span><span class="p">(</span><span class="n">freq</span><span class="o">=</span><span class="n">freq</span><span class="p">)])</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+
+        <span class="c1"># Counts for each param and each averaging interval</span>
+        <span class="n">counts_df</span> <span class="o">=</span> <span class="n">num_df</span><span class="p">[:]</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span>
+                            <span class="p">[</span><span class="n">pd</span><span class="o">.</span><span class="n">Grouper</span><span class="p">(</span><span class="n">freq</span><span class="o">=</span><span class="n">freq</span><span class="p">)])</span><span class="o">.</span><span class="n">count</span><span class="p">()</span><span class="o">.</span><span class="n">add_suffix</span><span class="p">(</span>
+                                                            <span class="s1">&#39;_count&#39;</span> <span class="o">+</span> <span class="n">freq</span><span class="p">)</span>
+
+        <span class="n">avg_num_df</span> <span class="o">=</span> <span class="n">mean_df</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">counts_df</span><span class="p">)</span><span class="o">.</span><span class="n">sort_index</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+        <span class="c1"># List of columns containing count for each averaging interval</span>
+        <span class="n">count_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">avg_num_df</span><span class="o">.</span><span class="n">columns</span><span class="p">[[</span><span class="n">col</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;count&#39;</span> <span class="o">+</span> <span class="n">freq</span><span class="p">)</span>
+                                              <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">avg_num_df</span><span class="o">.</span><span class="n">columns</span><span class="p">]])</span>
+
+        <span class="n">n_thres</span> <span class="o">=</span> <span class="n">interval_count</span><span class="o">*</span><span class="n">thres</span>
+
+        <span class="c1"># Set null param vals for averaging intervals below completeness thres</span>
+        <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">count_list</span><span class="p">:</span>
+            <span class="n">mean_col</span> <span class="o">=</span> <span class="n">col</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;_count&#39;</span> <span class="o">+</span> <span class="n">freq</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+
+            <span class="n">avg_num_df</span><span class="p">[</span><span class="n">mean_col</span><span class="p">]</span> <span class="o">=</span> <span class="n">avg_num_df</span><span class="p">[</span><span class="n">mean_col</span><span class="p">]</span><span class="o">.</span><span class="n">where</span><span class="p">(</span>
+                                        <span class="n">avg_num_df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">n_thres</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>
+
+    <span class="c1"># Rejoin non-numeric columns on averaging interval</span>
+    <span class="n">avg_df</span> <span class="o">=</span> <span class="n">avg_num_df</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">avg_obj_df</span><span class="p">)</span>
+
+    <span class="c1"># Ensure that any columns with all NaNs in passed df are in avg_df</span>
+    <span class="c1"># (Numeric type columns that were dropped)</span>
+    <span class="n">dropped_numcols</span> <span class="o">=</span> <span class="p">[</span><span class="n">col</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">col_list</span> <span class="k">if</span> <span class="n">col</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">avg_df</span><span class="o">.</span><span class="n">columns</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">dropped_numcols</span><span class="p">:</span>
+        <span class="n">avg_df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+
+    <span class="c1"># reorder columns before return</span>
+    <span class="n">avg_df</span> <span class="o">=</span> <span class="n">avg_df</span><span class="p">[</span><span class="n">col_list</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">avg_df</span></div>
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../../index.html">sensortoolkit</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../_autosummary/sensortoolkit.html">sensortoolkit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../_autosummary/sensortoolkit._analysis.html">sensortoolkit._analysis</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2021, Samuel Frederick.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.0.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>
