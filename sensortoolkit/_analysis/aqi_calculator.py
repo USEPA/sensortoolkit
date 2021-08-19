@@ -1,12 +1,11 @@
 # -*- coding: utf-8 -*-
 """
+This module is used to calculate the air quality index (AQI) as defined by U.S.
+EPA for fine particulate matter (PM2.5).
+
 @Author:
   Samuel Frederick, NSSC Contractor (ORAU)
-  U.S. EPA, Office of Research and Development
-  Center for Environmental Measurement and Modeling
-  Air Methods and Characterization Division, Source and Fine Scale Branch
-  109 T.W Alexander Drive, Research Triangle Park, NC 27711
-  Office: 919-541-4086 | Email: frederick.samuel@epa.gov
+  U.S. EPA, ORD / CEMM / AMCD / SFSB
 
 Created:
   Mon Jan 27 13:11:40 2020
@@ -39,17 +38,16 @@ def AQI_Calculator(data):
     the AQI value and category return null)**
 
     Args:
-        data (float, int, numpy array, or pandas dataframe):
-            PM2.5 concentration value(s), if dataframe, column must be labeled
-            'PM25'.
+        data (float, int, numpy array, or pandas dataframe): PM2.5 concentration
+            value(s), if dataframe, column must be labeled 'PM25'.
 
     Returns:
         data (pandas dataframe): Dataframe with PM25 concentrations, AQI
-        values, and corresponding AQI category names.
+            values, and corresponding AQI category names.
 
     Raises:
         KeyError: If passed data object is type pandas dataframe and the column
-        header 'PM25' is not found.
+            header 'PM25' is not found.
     """
     AQI_dict = {'Good': {'I_h': 50,
                          'I_l': 0,
