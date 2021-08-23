@@ -1,17 +1,6 @@
 # -*- coding: utf-8 -*-
-"""
-@Author:
-  Samuel Frederick, NSSC Contractor (ORAU)
-  U.S. EPA, Office of Research and Development
-  Center for Environmental Measurement and Modeling
-  Air Methods and Characterization Division, Source and Fine Scale Branch
-  109 T.W Alexander Drive, Research Triangle Park, NC 27711
-  Office: 919-541-4086 | Email: frederick.samuel@epa.gov
-
-Created:
-  Mon Jan 27 08:41:23 2020
-Last Updated:
-  Wed Jul 7 15:02:00 2021
+"""Top-level module for the ``sensortoolkit`` library. Contains the front-facing
+``SensorEvaluation`` class for conducting analysis of sensor data.
 """
 
 # Modules that do not require functions in other sensortoolkit modules
