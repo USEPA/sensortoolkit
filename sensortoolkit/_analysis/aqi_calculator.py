@@ -6,8 +6,8 @@ EPA for fine particulate matter (PM2.5).
 ================================================================================
 
 @Author:
-  Samuel Frederick, NSSC Contractor (ORAU)
-  U.S. EPA, ORD / CEMM / AMCD / SFSB
+  | Samuel Frederick, NSSC Contractor (ORAU)
+  | U.S. EPA / ORD / CEMM / AMCD / SFSB
 
 Created:
   Mon Jan 27 13:11:40 2020
@@ -18,7 +18,7 @@ import pandas as pd
 
 
 def AQI_Calculator(data):
-    """Calculate the air quality index for PM2.5 as defined by U.S. EPA.
+    """Calculate US EPA's air quality index for PM2.5.
 
     Information about EPA's AQI scale here:
         https://aqs.epa.gov/aqsweb/documents/codetables/aqi_breakpoints.html
@@ -44,7 +44,7 @@ def AQI_Calculator(data):
             value(s), if dataframe, column must be labeled 'PM25'.
 
     Returns:
-        data (pandas dataframe): Dataframe with PM25 concentrations, AQI
+        dataframe: A pandas dataframe with PM25 concentrations, AQI
             values, and corresponding AQI category names.
 
     Raises:
