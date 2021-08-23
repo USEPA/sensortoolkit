@@ -35,6 +35,7 @@
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
@@ -395,12 +396,59 @@
             
   <div class="section" id="data-structures">
 <h1>Data Structures<a class="headerlink" href="#data-structures" title="Permalink to this headline">¶</a></h1>
-<p>Discuss data structures and formatting in this section, link to SensorEvaluation
-documentation for more detail</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">SensorEvaluation</span></code> class contains a number of data structures that store
+sensor and reference data, and related statistical metrics. Below is a discussion
+of these data structures, as well as the Sensor Data Formattting Scheme (S-DFS) and
+Reference Data Formatting Scheme (R-DFS) in which sensor and reference data are formatted.</p>
+<p>More detail regarding the <code class="docutils literal notranslate"><span class="pre">SensorEvaluation</span></code> class, including its methods and
+arguments are included in the <a class="reference external" href="../html/_autosummary/sensortoolkit.sensor_eval.SensorEvaluation.html">API documentation for SensorEvaluation</a></p>
 <div class="section" id="sensorevaluation-data-structures">
-<h2>SensorEvaluation Data Structures<a class="headerlink" href="#sensorevaluation-data-structures" title="Permalink to this headline">¶</a></h2>
-<table class="colwidths-auto docutils align-default" id="id1">
-<caption><span class="caption-text"><cite>Example_Make_Model_SN01_full.csv</cite></span><a class="headerlink" href="#id1" title="Permalink to this table">¶</a></caption>
+<h2><code class="docutils literal notranslate"><span class="pre">SensorEvaluation</span></code> Data Structures<a class="headerlink" href="#sensorevaluation-data-structures" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="sensor-data-list-containers">
+<h3>Sensor Data List Containers<a class="headerlink" href="#sensor-data-list-containers" title="Permalink to this headline">¶</a></h3>
+<p>Sensor data files that have been imported and processed into the S-DFS scheme are
+sorted based on the interval between consecutive timestamps. Data sets at the
+original recorded sampling frequency of the sensor are placed in a list named <code class="docutils literal notranslate"><span class="pre">full_df_list</span></code>.
+Data sets that have been averaged to 1-hour and 24-hour averages are placed in
+<code class="docutils literal notranslate"><span class="pre">hourly_df_list</span></code> and <code class="docutils literal notranslate"><span class="pre">daily_df_list</span></code>, respectively. These lists contain data sets
+for all sensors in the evaluation cohort, and are referred to here as list containers
+for pandas Dataframes as these lists hold or <cite>contain</cite> data sets in the <a class="reference external" href="https://pandas.pydata.org/docs/reference/frame.html">pandas.DataFrame object</a>
+format.</p>
+<blockquote>
+<div><div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Data sets for sensor units within each list container are organized by the order
+each unit serial ID appears in the <code class="docutils literal notranslate"><span class="pre">SensorEvaluation.serials</span></code> dictionary.</p>
+<p>For example, if the <code class="docutils literal notranslate"><span class="pre">serials</span></code> dictionary lists three sensors as</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">SensorEvaluation</span><span class="o">.</span><span class="n">serials</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;1&#39;</span><span class="p">:</span> <span class="s1">&#39;SN01&#39;</span><span class="p">,</span>
+                            <span class="s1">&#39;2&#39;</span><span class="p">:</span> <span class="s1">&#39;SN02&#39;</span><span class="p">,</span>
+                            <span class="s1">&#39;3&#39;</span><span class="p">:</span> <span class="s1">&#39;SN03&#39;</span><span class="p">}</span>
+</pre></div>
+</div>
+<p>and the associated <code class="docutils literal notranslate"><span class="pre">SensorEvaluation.hourly_df_list</span></code> (or
+<code class="docutils literal notranslate"><span class="pre">SensorEvaluation.full_df_list</span></code> or <code class="docutils literal notranslate"><span class="pre">SensorEvaluation.daily_df_list</span></code>) lists three data sets as</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">SensorEvaluation</span><span class="o">.</span><span class="n">hourly_df_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">pandas</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
+                                   <span class="n">pandas</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
+                                   <span class="n">pandas</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>then the pandas DataFrame object corresponding to sensor <code class="docutils literal notranslate"><span class="pre">SN01</span></code> is found at
+the first position within the <code class="docutils literal notranslate"><span class="pre">hourly_df_list</span></code>, i.e., index position zero:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sn01_dataset</span> <span class="o">=</span>  <span class="n">SensorEvaluation</span><span class="o">.</span><span class="n">hourly_df_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div></blockquote>
+<div class="section" id="example-dataset-within-full-df-list">
+<h4>Example dataset within <code class="docutils literal notranslate"><span class="pre">full_df_list</span></code><a class="headerlink" href="#example-dataset-within-full-df-list" title="Permalink to this headline">¶</a></h4>
+<blockquote>
+<div><div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>DataFrame object at list position zero shown (<code class="docutils literal notranslate"><span class="pre">dataset</span> <span class="pre">=</span> <span class="pre">full_df_list[0]</span></code>). Only the first ten rows are
+displayed.</p>
+</div>
+<table class="colwidths-auto docutils align-default" id="id3">
+<caption><span class="caption-text"><cite>Example_Make_Model_SN01_full.csv</cite></span><a class="headerlink" href="#id3" title="Permalink to this table">¶</a></caption>
 <thead>
 <tr class="row-odd"><th class="head"><p>DateTime_UTC</p></th>
 <th class="head"><p>NO2</p></th>
@@ -494,8 +542,18 @@ documentation for more detail</p>
 </tr>
 </tbody>
 </table>
-<table class="colwidths-auto docutils align-default" id="id2">
-<caption><span class="caption-text"><cite>Example_Make_Model_SN01_hourly.csv</cite></span><a class="headerlink" href="#id2" title="Permalink to this table">¶</a></caption>
+</div></blockquote>
+</div>
+<div class="section" id="example-dataset-within-hourly-df-list">
+<h4>Example dataset within <code class="docutils literal notranslate"><span class="pre">hourly_df_list</span></code><a class="headerlink" href="#example-dataset-within-hourly-df-list" title="Permalink to this headline">¶</a></h4>
+<blockquote>
+<div><div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>DataFrame object at list position zero shown (<code class="docutils literal notranslate"><span class="pre">dataset</span> <span class="pre">=</span> <span class="pre">hourly_df_list[0]</span></code>). Only the first ten rows are
+displayed.</p>
+</div>
+<table class="colwidths-auto docutils align-default" id="id4">
+<caption><span class="caption-text"><cite>Example_Make_Model_SN01_hourly.csv</cite></span><a class="headerlink" href="#id4" title="Permalink to this table">¶</a></caption>
 <thead>
 <tr class="row-odd"><th class="head"><p>DateTime_UTC</p></th>
 <th class="head"><p>DP</p></th>
@@ -589,8 +647,18 @@ documentation for more detail</p>
 </tr>
 </tbody>
 </table>
-<table class="colwidths-auto docutils align-default" id="id3">
-<caption><span class="caption-text"><cite>Example_Make_Model_SN01_daily.csv</cite></span><a class="headerlink" href="#id3" title="Permalink to this table">¶</a></caption>
+</div></blockquote>
+</div>
+<div class="section" id="example-dataset-within-daily-df-list">
+<h4>Example dataset within <code class="docutils literal notranslate"><span class="pre">daily_df_list</span></code><a class="headerlink" href="#example-dataset-within-daily-df-list" title="Permalink to this headline">¶</a></h4>
+<blockquote>
+<div><div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>DataFrame object at list position zero shown (<code class="docutils literal notranslate"><span class="pre">dataset</span> <span class="pre">=</span> <span class="pre">daily_df_list[0]</span></code>). Only the first ten rows are
+displayed.</p>
+</div>
+<table class="colwidths-auto docutils align-default" id="id5">
+<caption><span class="caption-text"><cite>Example_Make_Model_SN01_daily.csv</cite></span><a class="headerlink" href="#id5" title="Permalink to this table">¶</a></caption>
 <thead>
 <tr class="row-odd"><th class="head"><p>DateTime_UTC</p></th>
 <th class="head"><p>DP</p></th>
@@ -684,14 +752,280 @@ documentation for more detail</p>
 </tr>
 </tbody>
 </table>
+</div></blockquote>
+</div>
+</div>
+<div class="section" id="reference-dataframes">
+<h3>Reference Dataframes<a class="headerlink" href="#reference-dataframes" title="Permalink to this headline">¶</a></h3>
+<p>Both 1-hour and 24-hour averaged data sets are computed for FRM/FEM reference data,
+and data sets are organized by parameter classification and adhere to the following
+naming convention for the prefix of each DataFrame:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">pm_</span></code>: Instruments measuring particulate matter (<span class="math notranslate nohighlight">\(PM_{1}\)</span>, <span class="math notranslate nohighlight">\(PM_{2.5}\)</span>, <span class="math notranslate nohighlight">\(PM_{10}\)</span>)</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">pm_hourly_ref_df</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">pm_daily_ref_df</span></code></p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">gas_</span></code>: Instruments measuring gaseous pollutants (<span class="math notranslate nohighlight">\(O_3\)</span>, <span class="math notranslate nohighlight">\(CO\)</span>, <span class="math notranslate nohighlight">\(CO_2\)</span>, <span class="math notranslate nohighlight">\(NO\)</span>, <span class="math notranslate nohighlight">\(NO_2\)</span>, <span class="math notranslate nohighlight">\(NO_x\)</span>, <span class="math notranslate nohighlight">\(SO_2\)</span>, <span class="math notranslate nohighlight">\(SO_x\)</span>)</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">gas_hourly_ref_df</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">gas_daily_ref_df</span></code></p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">met_</span></code>: Instruments measuring meteorlogical parameters (temperature, relative humidity, pressure, dewpoint, wind speed, wind direction)</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">met_hourly_ref_df</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">met_daily_ref_df</span></code></p></li>
+</ul>
+</li>
+</ul>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Since working with six reference dataframes can be challenging to track and retreive
+reference data for the selected <code class="docutils literal notranslate"><span class="pre">eval_param</span></code>, the dataframes <code class="docutils literal notranslate"><span class="pre">hourly_ref_df</span></code> and
+<code class="docutils literal notranslate"><span class="pre">daily_ref_df</span></code> are aliases of the reference dataframes corresponding to the parameter
+classification of the <code class="docutils literal notranslate"><span class="pre">eval_param</span></code>.</p>
+<p>For instance, if <code class="docutils literal notranslate"><span class="pre">eval_param</span> <span class="pre">=</span> <span class="pre">'PM25'</span></code>, <code class="docutils literal notranslate"><span class="pre">hourly_ref_df</span></code> corresponds to  <code class="docutils literal notranslate"><span class="pre">pm_hourly_ref_df</span></code> and <code class="docutils literal notranslate"><span class="pre">daily_ref_df</span></code> corresponds
+to  <code class="docutils literal notranslate"><span class="pre">pm_daily_ref_df</span></code>. Note that corresponding dataframes point to the same object
+in memory, and as a result, modifications to one dataframe will be reflected in the corresponding
+dataframe.</p>
+</div>
+</div>
 </div>
 <div class="section" id="data-formatting">
 <h2>Data Formatting<a class="headerlink" href="#data-formatting" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="sensor-data-formatting-standard-s-dfs">
 <h3>Sensor Data Formatting Standard (S-DFS)<a class="headerlink" href="#sensor-data-formatting-standard-s-dfs" title="Permalink to this headline">¶</a></h3>
+<table class="colwidths-auto docutils align-default" id="id6">
+<caption><span class="caption-text"><cite>S-DFS</cite></span><a class="headerlink" href="#id6" title="Permalink to this table">¶</a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p>Parameter Classification</p></th>
+<th class="head"><p>Label</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Units</p></th>
+<th class="head"><p>Notes</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Pollutant; PM</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">PM1</span></code></p></td>
+<td><p>Particulate matter &lt; 1 micrometer in aerosol diameter</p></td>
+<td><p>Micrograms/cubic meter</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>Pollutant; Criteria; PM</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">PM25</span></code></p></td>
+<td><p>Particulate matter &lt; 2.5 micrometers in aerosol diameter</p></td>
+<td><p>Micrograms/cubic meter</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>Pollutant; Criteria; PM</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">PM10</span></code></p></td>
+<td><p>Particulate matter &lt; 10 micrometers in aerosol diameter</p></td>
+<td><p>Micrograms/cubic meter</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>Pollutant; Criteria; Gas</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">O3</span></code></p></td>
+<td><p>Ozone</p></td>
+<td><p>Parts per billion by volume</p></td>
+<td><p>AQS standard is parts per million</p></td>
+</tr>
+<tr class="row-even"><td><p>Pollutant; Gas</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">NO</span></code></p></td>
+<td><p>Nitrogen Monoxide</p></td>
+<td></td>
+<td><p>verify with performance target report recommendation</p></td>
+</tr>
+<tr class="row-odd"><td><p>Pollutant; Criteria; Gas</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">NO2</span></code></p></td>
+<td><p>Nitrogen Dioxide</p></td>
+<td><p>Parts per billion by volume</p></td>
+<td><p>AQS standard, verify with performance target report recommendation</p></td>
+</tr>
+<tr class="row-even"><td><p>Pollutant; Gas</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">NOx</span></code></p></td>
+<td><p>Nitrogen Oxides</p></td>
+<td></td>
+<td><p>verify with performance target report recommendation</p></td>
+</tr>
+<tr class="row-odd"><td><p>Pollutant; Criteria; Gas</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">SO2</span></code></p></td>
+<td><p>Sulfur Dioxide</p></td>
+<td><p>Parts per billion by volume</p></td>
+<td><p>AQS standard, verify with performance target report recommendation</p></td>
+</tr>
+<tr class="row-even"><td><p>Pollutant; Gas</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">SOx</span></code></p></td>
+<td><p>Sulfur Dioxides</p></td>
+<td></td>
+<td><p>verify with performance target report recommendation</p></td>
+</tr>
+<tr class="row-odd"><td><p>Pollutant; Criteria; Gas</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">CO</span></code></p></td>
+<td><p>Carbon Monoxide</p></td>
+<td><p>Parts per million by volume</p></td>
+<td><p>AQS standard, verify with performance target report recommendation</p></td>
+</tr>
+<tr class="row-even"><td><p>Pollutant; Gas</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">CO2</span></code></p></td>
+<td><p>Carbon Dioxide</p></td>
+<td></td>
+<td><p>verify with performance target report recommendation</p></td>
+</tr>
+<tr class="row-odd"><td><p>Meteorological</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">RH</span></code></p></td>
+<td><p>Relative Humidity</p></td>
+<td><p>Percent</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>Meteorological</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Temp</span></code></p></td>
+<td><p>Temperature</p></td>
+<td><p>Degrees Celsius</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>Meteorological</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">DP</span></code> *</p></td>
+<td><p>Dewpoint</p></td>
+<td><p>Degrees Celsius</p></td>
+<td><p><a href="#id1"><span class="problematic" id="id2">*</span></a>If internal Temp and RH measured, but not DP, DP is calculated via the Dewpoint() module and is labeled ‘DP_calculated’</p></td>
+</tr>
+<tr class="row-even"><td><p>Meteorological</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">WS</span></code></p></td>
+<td><p>Wind Speed</p></td>
+<td><p>Meters/second</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>Meteorological</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">WD</span></code></p></td>
+<td><p>Wind Direction</p></td>
+<td><p>Radians</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>Meteorological</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Press</span></code></p></td>
+<td><p>Pressure</p></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>Metadata</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">[param</span> <span class="pre">name]_QC</span></code></p></td>
+<td><p>Parameter QC Code</p></td>
+<td><p>N/a</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>Metadata; Sensor Siting</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Sensor_Lat</span></code></p></td>
+<td><p>Latitude of sensor</p></td>
+<td><p>Decimal degrees</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>Metadata; Sensor Siting</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Sensor_Lon</span></code></p></td>
+<td><p>Longitude of sensor</p></td>
+<td><p>Decimal degrees</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>Performance evaluation</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">[param</span> <span class="pre">name]_Normalized</span></code></p></td>
+<td><p>Parameter data normalized by corresponding reference</p></td>
+<td><p>N/a</p></td>
+<td><p>Calculated during sensor evaluation analysis</p></td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="section" id="reference-data-formatting-standard-r-dfs">
 <h3>Reference Data Formatting Standard (R-DFS)<a class="headerlink" href="#reference-data-formatting-standard-r-dfs" title="Permalink to this headline">¶</a></h3>
+<table class="colwidths-auto docutils align-default" id="id7">
+<caption><span class="caption-text"><cite>R-DFS</cite></span><a class="headerlink" href="#id7" title="Permalink to this table">¶</a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p>Column Header</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Example</p></th>
+<th class="head"><p>Data type</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">DateTime_UTC</span></code></p></td>
+<td><p>Timestamp</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">8/1/2019</span>&#160; <span class="pre">1:00:00</span> <span class="pre">PM</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">datetime64[ns]</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">PM25_Value</span></code></p></td>
+<td><p>Parameter value</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">9</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">float64</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">PM25_Unit</span></code></p></td>
+<td><p>Parameter units</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Micrograms/cubic</span> <span class="pre">meter</span> <span class="pre">(LC)</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">object</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">PM25_QAQC_Code</span></code></p></td>
+<td><p>Parameter QC code</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">V</span> <span class="pre">-</span> <span class="pre">Validated</span> <span class="pre">Value.</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">float64</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">PM25_Param_Code</span></code></p></td>
+<td><p>Parameter AQS code</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">88101</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">float64</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">PM25_Method</span></code></p></td>
+<td><p>Parameter Method (Instrument)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Met</span> <span class="pre">One</span> <span class="pre">BAM-1022</span> <span class="pre">PM2.5</span> <span class="pre">w/</span> <span class="pre">VSCC</span> <span class="pre">or</span> <span class="pre">TE-PM2.5C</span> <span class="pre">FEM</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">object</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">PM25_Method_Code</span></code></p></td>
+<td><p>Parameter Method AQS Code</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">209</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">float64</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">PM25_Method_POC</span></code></p></td>
+<td><p>Parameter Occurance Code</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">3</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">float64</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Agency</span></code></p></td>
+<td><p>Reporting agency overseeing site</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">North</span> <span class="pre">Carolina</span> <span class="pre">Dept</span> <span class="pre">Of</span> <span class="pre">Environmental</span> <span class="pre">Quality</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">object</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Site_Name</span></code></p></td>
+<td><p>Name of monitoring site</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Triple</span> <span class="pre">Oak</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">object</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Site_AQS</span></code></p></td>
+<td><p>Site AQS ID (combine state, county, site FIPS codes)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">37-183-0021</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">object</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Site_Lat</span></code></p></td>
+<td><p>Site Latitude</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">35.8652</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">float64</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Site_Lon</span></code></p></td>
+<td><p>Site Longitude</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">-78.8197</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">float64</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Data_Source</span></code></p></td>
+<td><p>Name of API data source</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">AQS</span> <span class="pre">API</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">object</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Data_Acquisition_Date_Time</span></code></p></td>
+<td><p>Date and Time of data query, acquisition</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">5/18/2021</span>&#160; <span class="pre">8:44:00</span> <span class="pre">AM</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">object</span></code></p></td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 </div>
