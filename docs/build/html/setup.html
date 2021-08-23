@@ -1,0 +1,750 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>Configuring sensortoolkit for Analyzing Sensor Data &mdash; sensortoolkit 1.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Conducting Analysis with the SensorEvaluation Class" href="sensoreval.html" />
+    <link rel="prev" title="Importing the sensortoolkit Library" href="import_sensortoolkit.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> sensortoolkit
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">User Guide</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="import_sensortoolkit.html">Importing the sensortoolkit Library</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Configuring sensortoolkit for Analyzing Sensor Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sensoreval.html">Conducting Analysis with the SensorEvaluation Class</a></li>
+<li class="toctree-l1"><a class="reference internal" href="datastructures.html">Data Structures</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="api.html">sensortoolkit Modules</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="_autosummary/sensortoolkit.sensor_eval.html">sensortoolkit.sensor_eval</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="_autosummary/sensortoolkit.sensor_eval.SensorEvaluation.html">sensortoolkit.sensor_eval.SensorEvaluation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="_autosummary/sensortoolkit._analysis.html">sensortoolkit._analysis</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="_autosummary/sensortoolkit._analysis.aqi_calculator.html">sensortoolkit._analysis.aqi_calculator</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._analysis.aqi_calculator.AQI_Calculator.html">sensortoolkit._analysis.aqi_calculator.AQI_Calculator</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="_autosummary/sensortoolkit._analysis.concurr_deploy_grps.html">sensortoolkit._analysis.concurr_deploy_grps</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._analysis.concurr_deploy_grps.Deployment_Groups.html">sensortoolkit._analysis.concurr_deploy_grps.Deployment_Groups</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._analysis.concurr_deploy_grps.Measure_Recording_Interval.html">sensortoolkit._analysis.concurr_deploy_grps.Measure_Recording_Interval</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._analysis.concurr_deploy_grps.Meteorological_Stats.html">sensortoolkit._analysis.concurr_deploy_grps.Meteorological_Stats</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._analysis.concurr_deploy_grps.Reference_Stats.html">sensortoolkit._analysis.concurr_deploy_grps.Reference_Stats</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="_autosummary/sensortoolkit._analysis.cv_calculator.html">sensortoolkit._analysis.cv_calculator</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._analysis.cv_calculator.CV_Calculator.html">sensortoolkit._analysis.cv_calculator.CV_Calculator</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._analysis.cv_calculator.Compute_CV.html">sensortoolkit._analysis.cv_calculator.Compute_CV</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="_autosummary/sensortoolkit._analysis.deployment_period.html">sensortoolkit._analysis.deployment_period</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._analysis.deployment_period.Deployment_Period.html">sensortoolkit._analysis.deployment_period.Deployment_Period</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="_autosummary/sensortoolkit._analysis.dewpoint.html">sensortoolkit._analysis.dewpoint</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._analysis.dewpoint.Dewpoint.html">sensortoolkit._analysis.dewpoint.Dewpoint</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="_autosummary/sensortoolkit._analysis.duplicate_removal.html">sensortoolkit._analysis.duplicate_removal</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._analysis.duplicate_removal.Remove_Duplicates.html">sensortoolkit._analysis.duplicate_removal.Remove_Duplicates</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="_autosummary/sensortoolkit._analysis.intersensor_mean.html">sensortoolkit._analysis.intersensor_mean</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._analysis.intersensor_mean.Intersensor_Mean.html">sensortoolkit._analysis.intersensor_mean.Intersensor_Mean</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="_autosummary/sensortoolkit._analysis.model_analysis.html">sensortoolkit._analysis.model_analysis</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._analysis.model_analysis.Compute_RMSE.html">sensortoolkit._analysis.model_analysis.Compute_RMSE</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._analysis.model_analysis.Regression_Stats.html">sensortoolkit._analysis.model_analysis.Regression_Stats</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="_autosummary/sensortoolkit._analysis.normalize_calculator.html">sensortoolkit._analysis.normalize_calculator</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._analysis.normalize_calculator.Normalize.html">sensortoolkit._analysis.normalize_calculator.Normalize</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="_autosummary/sensortoolkit._analysis.pm25_nowcast.html">sensortoolkit._analysis.pm25_nowcast</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._analysis.pm25_nowcast.PM25NowCast.html">sensortoolkit._analysis.pm25_nowcast.PM25NowCast</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="_autosummary/sensortoolkit._analysis.synoptic_idx.html">sensortoolkit._analysis.synoptic_idx</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._analysis.synoptic_idx.Synoptic_Index.html">sensortoolkit._analysis.synoptic_idx.Synoptic_Index</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="_autosummary/sensortoolkit._analysis.time_averaging.html">sensortoolkit._analysis.time_averaging</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._analysis.time_averaging.Interval_Averaging.html">sensortoolkit._analysis.time_averaging.Interval_Averaging</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._analysis.time_averaging.Sensor_Averaging.html">sensortoolkit._analysis.time_averaging.Sensor_Averaging</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="_autosummary/sensortoolkit._analysis.uptime_calculator.html">sensortoolkit._analysis.uptime_calculator</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._analysis.uptime_calculator.Uptime_Calculator.html">sensortoolkit._analysis.uptime_calculator.Uptime_Calculator</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="_autosummary/sensortoolkit._format.html">sensortoolkit._format</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="_autosummary/sensortoolkit._format.format_date.html">sensortoolkit._format.format_date</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._format.format_date.Get_Date.html">sensortoolkit._format.format_date.Get_Date</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="_autosummary/sensortoolkit._format.format_names.html">sensortoolkit._format.format_names</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._format.format_names.Format_Metric_Name.html">sensortoolkit._format.format_names.Format_Metric_Name</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._format.format_names.Format_Param_Name.html">sensortoolkit._format.format_names.Format_Param_Name</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="_autosummary/sensortoolkit._format.sensor_subfolders.html">sensortoolkit._format.sensor_subfolders</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._format.sensor_subfolders.Create_Sensor_Directories.html">sensortoolkit._format.sensor_subfolders.Create_Sensor_Directories</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="_autosummary/sensortoolkit._ingest.html">sensortoolkit._ingest</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="_autosummary/sensortoolkit._ingest.processed_data_loader.html">sensortoolkit._ingest.processed_data_loader</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._ingest.processed_data_loader.Processed_Data_Search.html">sensortoolkit._ingest.processed_data_loader.Processed_Data_Search</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._ingest.processed_data_loader.Set_DateTime_Index.html">sensortoolkit._ingest.processed_data_loader.Set_DateTime_Index</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="_autosummary/sensortoolkit._ingest.sensor_import.html">sensortoolkit._ingest.sensor_import</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._ingest.sensor_import.Import.html">sensortoolkit._ingest.sensor_import.Import</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._ingest.sensor_import.Ingest_Example_Make_Model.html">sensortoolkit._ingest.sensor_import.Ingest_Example_Make_Model</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._ingest.sensor_import.Ingest_PurpleAir_PAII.html">sensortoolkit._ingest.sensor_import.Ingest_PurpleAir_PAII</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._ingest.sensor_import.Ingest_Sensit_RAMP.html">sensortoolkit._ingest.sensor_import.Ingest_Sensit_RAMP</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._ingest.sensor_import.Ingest_Wrapper.html">sensortoolkit._ingest.sensor_import.Ingest_Wrapper</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="_autosummary/sensortoolkit._ingest.setup.html">sensortoolkit._ingest.setup</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._ingest.setup.Setup.html">sensortoolkit._ingest.setup.Setup</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="_autosummary/sensortoolkit._ingest.standardized_ingest.html">sensortoolkit._ingest.standardized_ingest</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._ingest.standardized_ingest.Ingest.html">sensortoolkit._ingest.standardized_ingest.Ingest</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="_autosummary/sensortoolkit._models.html">sensortoolkit._models</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="_autosummary/sensortoolkit._models.apply_correction.html">sensortoolkit._models.apply_correction</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._models.apply_correction.Individual_Correction.html">sensortoolkit._models.apply_correction.Individual_Correction</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="_autosummary/sensortoolkit._models.purpleair_uscorrection.html">sensortoolkit._models.purpleair_uscorrection</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._models.purpleair_uscorrection.USCorrection.html">sensortoolkit._models.purpleair_uscorrection.USCorrection</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="_autosummary/sensortoolkit._models.sensor_ols.html">sensortoolkit._models.sensor_ols</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._models.sensor_ols.Sensor_OLS.html">sensortoolkit._models.sensor_ols.Sensor_OLS</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="_autosummary/sensortoolkit._plotting.html">sensortoolkit._plotting</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="_autosummary/sensortoolkit._plotting.distribution.html">sensortoolkit._plotting.distribution</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._plotting.distribution.Met_Distrib.html">sensortoolkit._plotting.distribution.Met_Distrib</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._plotting.distribution.Recording_Interval_Histogram.html">sensortoolkit._plotting.distribution.Recording_Interval_Histogram</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._plotting.distribution.Ref_Dist_Plot.html">sensortoolkit._plotting.distribution.Ref_Dist_Plot</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="_autosummary/sensortoolkit._plotting.errorbars.html">sensortoolkit._plotting.errorbars</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._plotting.errorbars.Plot_Error_Bars.html">sensortoolkit._plotting.errorbars.Plot_Error_Bars</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="_autosummary/sensortoolkit._plotting.intrasensor_comparison.html">sensortoolkit._plotting.intrasensor_comparison</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._plotting.intrasensor_comparison.Stats_Comparison_Plot.html">sensortoolkit._plotting.intrasensor_comparison.Stats_Comparison_Plot</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="_autosummary/sensortoolkit._plotting.plot_formatting.html">sensortoolkit._plotting.plot_formatting</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._plotting.plot_formatting.Get_Colormap_Norm_Range.html">sensortoolkit._plotting.plot_formatting.Get_Colormap_Norm_Range</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._plotting.plot_formatting.Get_Max.html">sensortoolkit._plotting.plot_formatting.Get_Max</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._plotting.plot_formatting.Met_Scatter_Lims.html">sensortoolkit._plotting.plot_formatting.Met_Scatter_Lims</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._plotting.plot_formatting.Sensor_Subplot_Formatting.html">sensortoolkit._plotting.plot_formatting.Sensor_Subplot_Formatting</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._plotting.plot_formatting.Set_Fontsize.html">sensortoolkit._plotting.plot_formatting.Set_Fontsize</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._plotting.plot_formatting.Subplot_Dims.html">sensortoolkit._plotting.plot_formatting.Subplot_Dims</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._plotting.plot_formatting.Wrap_Text.html">sensortoolkit._plotting.plot_formatting.Wrap_Text</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="_autosummary/sensortoolkit._plotting.plot_performance_metrics.html">sensortoolkit._plotting.plot_performance_metrics</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._plotting.plot_performance_metrics.Plot_Performance_Metrics.html">sensortoolkit._plotting.plot_performance_metrics.Plot_Performance_Metrics</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="_autosummary/sensortoolkit._plotting.scatter.html">sensortoolkit._plotting.scatter</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._plotting.scatter.Draw_Scatter.html">sensortoolkit._plotting.scatter.Draw_Scatter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._plotting.scatter.Normalized_Met_Scatter.html">sensortoolkit._plotting.scatter.Normalized_Met_Scatter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._plotting.scatter.Scatter_Plotter.html">sensortoolkit._plotting.scatter.Scatter_Plotter</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="_autosummary/sensortoolkit._plotting.timeseries.html">sensortoolkit._plotting.timeseries</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._plotting.timeseries.Deployment_Timeline_Plot.html">sensortoolkit._plotting.timeseries.Deployment_Timeline_Plot</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._plotting.timeseries.Sensor_Timeplot.html">sensortoolkit._plotting.timeseries.Sensor_Timeplot</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="_autosummary/sensortoolkit._qc.html">sensortoolkit._qc</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="_autosummary/sensortoolkit._qc.interval_downsampling.html">sensortoolkit._qc.interval_downsampling</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._qc.interval_downsampling.Apply_DownSampling.html">sensortoolkit._qc.interval_downsampling.Apply_DownSampling</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._qc.interval_downsampling.DownSampling_Interval.html">sensortoolkit._qc.interval_downsampling.DownSampling_Interval</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._qc.interval_downsampling.Plot_RecordingInterval.html">sensortoolkit._qc.interval_downsampling.Plot_RecordingInterval</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._qc.interval_downsampling.Plot_TimeDelta_Quantiles.html">sensortoolkit._qc.interval_downsampling.Plot_TimeDelta_Quantiles</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._qc.interval_downsampling.Sensor_TimeDelta.html">sensortoolkit._qc.interval_downsampling.Sensor_TimeDelta</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._qc.interval_downsampling.TimeDelta_Quantiles.html">sensortoolkit._qc.interval_downsampling.TimeDelta_Quantiles</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="_autosummary/sensortoolkit._qc.invalidate.html">sensortoolkit._qc.invalidate</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._qc.invalidate.QC_Invalidate_Period.html">sensortoolkit._qc.invalidate.QC_Invalidate_Period</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="_autosummary/sensortoolkit._qc.outlier_detection.html">sensortoolkit._qc.outlier_detection</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._qc.outlier_detection.Cooks_Outlier_QC.html">sensortoolkit._qc.outlier_detection.Cooks_Outlier_QC</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="_autosummary/sensortoolkit._qc.persistent_values.html">sensortoolkit._qc.persistent_values</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._qc.persistent_values.QC_Persistent_Values.html">sensortoolkit._qc.persistent_values.QC_Persistent_Values</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="_autosummary/sensortoolkit._qc.purpleair_abcleaning.html">sensortoolkit._qc.purpleair_abcleaning</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._qc.purpleair_abcleaning.Compute_AB_Averages.html">sensortoolkit._qc.purpleair_abcleaning.Compute_AB_Averages</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="_autosummary/sensortoolkit._reference.html">sensortoolkit._reference</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="_autosummary/sensortoolkit._reference.import_airnowtech.html">sensortoolkit._reference.import_airnowtech</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._reference.import_airnowtech.Flatten.html">sensortoolkit._reference.import_airnowtech.Flatten</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._reference.import_airnowtech.Import_AirNowTech.html">sensortoolkit._reference.import_airnowtech.Import_AirNowTech</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._reference.import_airnowtech.Ingest_AirNowTech.html">sensortoolkit._reference.import_airnowtech.Ingest_AirNowTech</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._reference.import_airnowtech.Sort_AirNowTech.html">sensortoolkit._reference.import_airnowtech.Sort_AirNowTech</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._reference.import_airnowtech.Write_To_File.html">sensortoolkit._reference.import_airnowtech.Write_To_File</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="_autosummary/sensortoolkit._reference.import_oaqps.html">sensortoolkit._reference.import_oaqps</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._reference.import_oaqps.Format_Headers.html">sensortoolkit._reference.import_oaqps.Format_Headers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._reference.import_oaqps.Format_QAQC.html">sensortoolkit._reference.import_oaqps.Format_QAQC</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._reference.import_oaqps.Format_Ref_Timestamp.html">sensortoolkit._reference.import_oaqps.Format_Ref_Timestamp</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._reference.import_oaqps.Ingest_OAQPS.html">sensortoolkit._reference.import_oaqps.Ingest_OAQPS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._reference.import_oaqps.Process_OAQPS.html">sensortoolkit._reference.import_oaqps.Process_OAQPS</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="_autosummary/sensortoolkit._reference.load_ref_data.html">sensortoolkit._reference.load_ref_data</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._reference.load_ref_data.Import_Ref_DataFrame.html">sensortoolkit._reference.load_ref_data.Import_Ref_DataFrame</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._reference.load_ref_data.Load_Ref_DataFrames.html">sensortoolkit._reference.load_ref_data.Load_Ref_DataFrames</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._reference.load_ref_data.Timeframe_Search.html">sensortoolkit._reference.load_ref_data.Timeframe_Search</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="_autosummary/sensortoolkit._reference.ref_api_query.html">sensortoolkit._reference.ref_api_query</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._reference.ref_api_query.AQS_Query.html">sensortoolkit._reference.ref_api_query.AQS_Query</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._reference.ref_api_query.AirNow_Query.html">sensortoolkit._reference.ref_api_query.AirNow_Query</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._reference.ref_api_query.Date_Range_Selector.html">sensortoolkit._reference.ref_api_query.Date_Range_Selector</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._reference.ref_api_query.Modify_Ref_Cols.html">sensortoolkit._reference.ref_api_query.Modify_Ref_Cols</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._reference.ref_api_query.Modify_Ref_Method_Str.html">sensortoolkit._reference.ref_api_query.Modify_Ref_Method_Str</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._reference.ref_api_query.Query_Periods.html">sensortoolkit._reference.ref_api_query.Query_Periods</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._reference.ref_api_query.Ref_API_Query.html">sensortoolkit._reference.ref_api_query.Ref_API_Query</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._reference.ref_api_query.Save_Query.html">sensortoolkit._reference.ref_api_query.Save_Query</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">sensortoolkit</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Configuring sensortoolkit for Analyzing Sensor Data</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/setup.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="configuring-sensortoolkit-for-analyzing-sensor-data">
+<h1>Configuring sensortoolkit for Analyzing Sensor Data<a class="headerlink" href="#configuring-sensortoolkit-for-analyzing-sensor-data" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="creating-sensor-directories">
+<h2>Creating Sensor Directories<a class="headerlink" href="#creating-sensor-directories" title="Permalink to this headline">¶</a></h2>
+<p><cite>sensortoolkit</cite> organizes sensor data, resulting data structures, and figures
+into several sub-directories in the …/Data and Figures/… folder.  Users can
+create these folders during the setup process by running the <code class="docutils literal notranslate"><span class="pre">Create_Sensor_Directories</span></code>
+function. The function accepts two arguments: the sensor name <code class="docutils literal notranslate"><span class="pre">name</span></code> and the
+parameters the user intends to evaluate <code class="docutils literal notranslate"><span class="pre">eval_params</span></code>. Users are recommended to
+include the name of the sensor make and model in the sensor name, separated by
+an underscore. Below is an example for a sensor that will be evaluated for PM2.5
+and O3:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">SensorEvaluation</span><span class="o">.</span><span class="n">Create_Sensor_Directories</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;Sensor_Make_Model&#39;</span><span class="p">,</span>
+                                             <span class="n">eval_params</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;PM25&#39;</span><span class="p">,</span> <span class="s1">&#39;O3&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>Running the code above will construct the sensor-specific directory structure
+for subsequent analysis. The following is printed to the console indicating the
+directories that are created by the <code class="docutils literal notranslate"><span class="pre">Create_Sensor_Directories</span></code> function.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">Creating directories for sensor_make_model and evaluation parameters: PM25, O3</span>
+<span class="go">..Creating directory:</span>
+<span class="go">....\Data and Figures\eval_stats\sensor_make_model</span>
+<span class="go">..Creating directory:</span>
+<span class="go">....\Data and Figures\figures\sensor_make_model</span>
+<span class="go">....Creating sub-directory:</span>
+<span class="go">......\Data and Figures\figures\sensor_make_model\PM25</span>
+<span class="go">....Creating sub-directory:</span>
+<span class="go">......\Data and Figures\figures\sensor_make_model\O3</span>
+<span class="go">....Creating sub-directory:</span>
+<span class="go">......\Data and Figures\figures\sensor_make_model\Met</span>
+<span class="go">....Creating sub-directory:</span>
+<span class="go">......\Data and Figures\figures\sensor_make_model\deployment</span>
+<span class="go">..Creating directory:</span>
+<span class="go">....\Data and Figures\sensor_data\sensor_make_model</span>
+<span class="go">....Creating sub-directory:</span>
+<span class="go">......\Data and Figures\sensor_data\sensor_make_model\processed_data</span>
+<span class="go">....Creating sub-directory:</span>
+<span class="go">......\Data and Figures\sensor_data\sensor_make_model\raw_data</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="adding-sensor-datasets">
+<h2>Adding Sensor datasets<a class="headerlink" href="#adding-sensor-datasets" title="Permalink to this headline">¶</a></h2>
+<p>Once sensor directories have been established, users should place files for unprocessed data
+recorded by the sensor make and model into the appropriate sub-directory. For the
+example shown above, data files should be located at <code class="docutils literal notranslate"><span class="pre">..\Data</span> <span class="pre">and</span> <span class="pre">Figures\sensor_data\sensor_make_model\raw_data</span></code>.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Data files pertaining to a particular sensor unit must include the unique
+serial identifier in each file name associated with the unit. The ingest
+module uses the IDs listed in the serials dictionary to locate, group, and
+import data for each unit.</p>
+</div>
+<div class="section" id="example">
+<h3><em>Example</em><a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h3>
+<p><cite>sensortoolkit</cite> comes with a set of example sensor datasets to help users familiarize
+themselves with the structure of the library and its implementation. These data files
+are organized under the sensor name <code class="docutils literal notranslate"><span class="pre">Example_Make_Model</span></code>, and unprocessed sensor datasets
+are located at <code class="docutils literal notranslate"><span class="pre">..\Data</span> <span class="pre">and</span> <span class="pre">Figures\sensor_data\Example_Make_Model\raw_data</span></code>. Below is a
+listing of .csv files at this directory location, where the name of the sensor, serial ID
+(<code class="docutils literal notranslate"><span class="pre">SN01</span></code>, <code class="docutils literal notranslate"><span class="pre">SN02</span></code>, and <code class="docutils literal notranslate"><span class="pre">SN03</span></code>), and unprocessed data descriptor <code class="docutils literal notranslate"><span class="pre">_raw</span></code> are
+indicated in each file name.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">Example_Make_Model_SN01_raw.csv</span>
+<span class="go">Example_Make_Model_SN02_raw.csv</span>
+<span class="go">Example_Make_Model_SN03_raw.csv</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="running-the-setup-module">
+<h2>Running the Setup Module<a class="headerlink" href="#running-the-setup-module" title="Permalink to this headline">¶</a></h2>
+<p>Sensor data are recorded in a wide variety of formatting conventions and data types.
+Data ingestion converts datasets recorded by sensors to a standardized formatting
+scheme for data types, header names, and a sorted datetime index.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">Setup</span></code> module included alongside the <cite>sensortoolkit</cite> library guides users
+through an interactive process of entering in details regarding the formatting
+of sensor datasets in recorded form. The Setup module creates a <code class="docutils literal notranslate"><span class="pre">setup.json</span></code>
+configuration file that contains details for describing and converting the recorded sensor
+data format into the <cite>sensortoolkit</cite> Sensor Data Formatting Scheme (S-DFS). This file is
+passed to a subroutine <code class="docutils literal notranslate"><span class="pre">Ingest()</span></code> to import the recorded dataset and convert
+headers and date/time-like columns to S-DFS formatting.</p>
+<p>To run the <code class="docutils literal notranslate"><span class="pre">Setup</span></code> module, import the <cite>sensortoolkit</cite> library (see Importing
+the sensortoolkit Library for more detail) and run the following code:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">IngestionConfig</span> <span class="o">=</span> <span class="n">sensortoolkit</span><span class="o">.</span><span class="n">Setup</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="section" id="setting-the-sensor-name">
+<h3>Setting the Sensor Name<a class="headerlink" href="#setting-the-sensor-name" title="Permalink to this headline">¶</a></h3>
+<p>The user will then be prompted by the module to enter the name of the sensor.
+Once the name is typed in the console, press enter. The user will be asked to
+confirm the entry by typing <code class="docutils literal notranslate"><span class="pre">y</span></code> to confirm and continue or <code class="docutils literal notranslate"><span class="pre">n</span></code> to revise the entered name.
+Below is an example of <code class="docutils literal notranslate"><span class="pre">Setup</span></code> module output and user entry for the <cite>Example_Make_Model</cite>
+sensor dataset.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">=============================== Set Sensor Name ==============================</span>
+<span class="go">Options</span>
+<span class="go">-------</span>
+
+<span class="go">==============================================================================</span>
+
+<span class="go">Enter the name of the sensor: Example_Make_Model</span>
+
+<span class="go">Sensor name: Example_Make_Model</span>
+
+<span class="go">Confirm entry [y/n]: y</span>
+</pre></div>
+</div>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>The name of the sensor should be the same name and format passed to the
+<code class="docutils literal notranslate"><span class="pre">Create_Sensor_Directories</span></code> module.</p>
+</div>
+</div>
+<div class="section" id="setting-the-column-header-index">
+<h3>Setting the Column Header Index<a class="headerlink" href="#setting-the-column-header-index" title="Permalink to this headline">¶</a></h3>
+<p>Next, users are prompted to enter the row index corresponding to the column headers.
+If the column headers are included on the first row of each sensor dataset, the
+user will enter <code class="docutils literal notranslate"><span class="pre">0</span></code> (row index starting at zero).</p>
+<p>If column headers are not included in the sensor dataset, users should type <code class="docutils literal notranslate"><span class="pre">None</span></code>.
+As with sensor name entry, the user will be asked to confirm the entry with
+<code class="docutils literal notranslate"><span class="pre">y</span></code> or <code class="docutils literal notranslate"><span class="pre">n</span></code> to either continue or revise the entered value.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">============================= Column Header Index ============================</span>
+<span class="go">Options</span>
+<span class="go">-------</span>
+<span class="go">..type &quot;None&quot; if no header columns in recorded sensor dataset</span>
+<span class="go">===============================================================================</span>
+
+<span class="go">Enter the row index number for column headers: 5</span>
+<span class="go">Header row index: 5</span>
+
+<span class="go">Confirm entry [y/n]: y</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="setting-the-column-header-list">
+<h3>Setting the Column Header List<a class="headerlink" href="#setting-the-column-header-list" title="Permalink to this headline">¶</a></h3>
+<p>Next, users enter the name of each column header in recorded sensor datasets.
+Names must be entered as they appear in the datasets, and should include all
+columns such as time-like columns and parameter related columns.</p>
+<p>Once all the column headers in sensor datasets have been entered, press <code class="docutils literal notranslate"><span class="pre">X</span></code> to
+exit column header name entry. A list of entered column names will appear, and
+the user will be asked to confirm the entry with <code class="docutils literal notranslate"><span class="pre">y</span></code> or <code class="docutils literal notranslate"><span class="pre">n</span></code> to either continue
+or revise the entered list.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">============================= Set Column Headers =============================</span>
+<span class="go">Options</span>
+<span class="go">-------</span>
+<span class="go">..press X to end adding entries</span>
+<span class="go">..press D to delete the previous entry</span>
+<span class="go">===============================================================================</span>
+
+<span class="go">Enter column 1 header name: Time</span>
+
+<span class="go">Enter column 2 header name: NO2 (ppb)</span>
+
+<span class="go">Enter column 3 header name: O3 (ppb)</span>
+
+<span class="go">Enter column 4 header name: PM2.5 (µg/m³)</span>
+
+<span class="go">Enter column 5 header name: TEMP (°C)</span>
+
+<span class="go">Enter column 6 header name: RH (%)</span>
+
+<span class="go">Enter column 7 header name: DP (°C)</span>
+
+<span class="go">Enter column 8 header name: Inlet</span>
+
+<span class="go">Enter parameter column 9 header name: X</span>
+<span class="go">[&#39;Time&#39;, &#39;NO2 (ppb)&#39;, &#39;O3 (ppb)&#39;, &#39;PM2.5 (µg/m³)&#39;, &#39;TEMP (°C)&#39;, &#39;RH (%)&#39;, &#39;DP (°C)&#39;, &#39;Inlet&#39;]</span>
+
+<span class="go">Confirm entry [y/n]: y</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="configuring-the-parameter-renaming-scheme">
+<h3>Configuring the Parameter Renaming Scheme<a class="headerlink" href="#configuring-the-parameter-renaming-scheme" title="Permalink to this headline">¶</a></h3>
+<p>Next, users are prompted to configure the parameter renaming scheme by entering
+in the formatted parameter name (see list in options section) that corresponds
+to each header name entered previously.</p>
+<p>Column names that do not have a corresponding listed parameter should be dropped
+from the dataset by pressing enter. In the example below, note that the columns
+<code class="docutils literal notranslate"><span class="pre">Time</span></code> and <code class="docutils literal notranslate"><span class="pre">Inlet</span></code> are dropped. Also note that  time-like columns are set as the
+index via the ingestion module, and as a result, time-like columns duplicate the
+index and are redundant. The user should always specify to drop time-like columns.</p>
+<p>The user will be asked to confirm the entry with <code class="docutils literal notranslate"><span class="pre">y</span></code> or <code class="docutils literal notranslate"><span class="pre">n</span></code> to either continue or
+revise the configured dictionary.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">===================== Configure Parameter Column Renaming ====================</span>
+<span class="go">Options</span>
+<span class="go">-------</span>
+<span class="go">..press enter to skip columns that will be dropped</span>
+<span class="go">Note, timestamp columns should be skipped by pressing enter. These columns are</span>
+<span class="go">assigned as the index during ingestion, and as a result, timestamp columns are</span>
+<span class="go">redundant and should be dropped.</span>
+<span class="go">Choose from the following list</span>
+<span class="go">[&#39;PM1&#39;, &#39;PM25&#39;, &#39;PM10&#39;, &#39;O3&#39;, &#39;NO2&#39;, &#39;NO&#39;, &#39;NOx&#39;, &#39;SO2&#39;, &#39;SOx&#39;, &#39;CO&#39;, &#39;CO2&#39;,</span>
+<span class="go">&#39;Temp&#39;, &#39;RH&#39;, &#39;Press&#39;, &#39;DP&#39;, &#39;WS&#39;, &#39;WD&#39;]</span>
+<span class="go">===============================================================================</span>
+
+<span class="go">Enter parameter associated with &quot;Time&quot;:</span>
+<span class="go">..&quot;Time&quot; will be dropped</span>
+
+<span class="go">Enter parameter associated with &quot;NO2 (ppb)&quot;: NO2</span>
+
+<span class="go">Enter parameter associated with &quot;O3 (ppb)&quot;: O3</span>
+
+<span class="go">Enter parameter associated with &quot;PM2.5 (µg/m³)&quot;: PM25</span>
+
+<span class="go">Enter parameter associated with &quot;TEMP (°C)&quot;: Temp</span>
+
+<span class="go">Enter parameter associated with &quot;RH (%)&quot;: RH</span>
+
+<span class="go">Enter parameter associated with &quot;DP (°C)&quot;: DP</span>
+
+<span class="go">Enter parameter associated with &quot;Inlet&quot;:</span>
+<span class="go">..&quot;Inlet&quot; will be dropped</span>
+<span class="go">Configured renaming scheme: {&#39;NO2 (ppb)&#39;: &#39;NO2&#39;, &#39;O3 (ppb)&#39;: &#39;O3&#39;, &#39;PM2.5 (µg/m³)&#39;: &#39;PM25&#39;, &#39;TEMP (°C)&#39;: &#39;Temp&#39;, &#39;RH (%)&#39;: &#39;RH&#39;, &#39;DP (°C)&#39;: &#39;DP&#39;}</span>
+
+<span class="go">Confirm entry [y/n]: y</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="setting-timestamp-column-headers">
+<h3>Setting Timestamp Column Headers<a class="headerlink" href="#setting-timestamp-column-headers" title="Permalink to this headline">¶</a></h3>
+<p>Similar to the process of specifying all column header names, users must list
+all time-like columns that will be used for the DateTime_UTC index. Typically,
+this either includes one column as is the case for the example, or two columns;
+one column for the date and another for the time.</p>
+<p>Once entry is complete, the user should press <code class="docutils literal notranslate"><span class="pre">X</span></code> to exit column header entry mode.
+The user will be asked to confirm the entry with <code class="docutils literal notranslate"><span class="pre">y</span></code> or <code class="docutils literal notranslate"><span class="pre">n</span></code> to either continue
+or revise the entered list of time line column headers.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">======================== Set Timestamp Column Headers ========================</span>
+<span class="go">Options</span>
+<span class="go">-------</span>
+<span class="go">..press X to end adding entries</span>
+<span class="go">..press D to delete the previous entry</span>
+<span class="go">===============================================================================</span>
+
+<span class="go">Enter timestamp column 1 header name: Time</span>
+
+<span class="go">Enter timestamp column 2 header name: X</span>
+<span class="go">[&#39;Time&#39;]</span>
+
+<span class="go">Confirm entry [y/n]: y</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="configuring-timestamp-column-formatting">
+<h3>Configuring Timestamp Column Formatting<a class="headerlink" href="#configuring-timestamp-column-formatting" title="Permalink to this headline">¶</a></h3>
+<p>Next, the timestamp column formatting should be specified. Users are encouraged
+to reference <a class="reference external" href="https://strftime.org/">https://strftime.org/</a> for a table of formatting codes. Additional
+info is available in the Python documentation: <a class="reference external" href="https://docs.python.org/3/library/datetime.html#strftime-and-strptime-format-codes">https://docs.python.org/3/library/datetime.html#strftime-and-strptime-format-codes</a>.</p>
+<p>A formatting scheme must be specified for each time-like column indicated in
+the previous section.</p>
+<p>The user will be asked to confirm the entry with <cite>y</cite> or <cite>n</cite> to either continue
+or revise the entered formatting scheme.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">==================== Configure Timestamp Column Formatting ===================</span>
+<span class="go">Options</span>
+<span class="go">-------</span>
+<span class="go">..format code list: https://docs.python.org/3/library/datetime.html#strftime-</span>
+<span class="go">and-strptime-format-codes</span>
+<span class="go">..If a timestamp column is formatted as the number of seconds since the Unix</span>
+<span class="go">epoch (1 Jan. 1970), enter &quot;epoch&quot;</span>
+<span class="go">..press enter to skip columns that will be dropped</span>
+<span class="go">===============================================================================</span>
+
+<span class="go">Enter date/time formatting for &quot;Time&quot;: %Y/%m/%d %H:%M:%S</span>
+
+<span class="go">Confirm entry [y/n]: y</span>
+<span class="go">Configured formatting scheme: {&#39;Time&#39;: &#39;%Y/%m/%d %H:%M:%S&#39;}</span>
+</pre></div>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Non-zero padded values (e.g., specifying January as <code class="docutils literal notranslate"><span class="pre">1</span></code> rather than
+zero-padded <code class="docutils literal notranslate"><span class="pre">01</span></code>) should be indicated by either <code class="docutils literal notranslate"><span class="pre">%-</span></code> or <code class="docutils literal notranslate"><span class="pre">%#</span></code> (e.g.,
+non-zero padded month will be <code class="docutils literal notranslate"><span class="pre">%-m</span></code> or <code class="docutils literal notranslate"><span class="pre">%#m</span></code>).</p>
+</div>
+</div>
+<div class="section" id="selecting-file-data-type">
+<h3>Selecting File Data Type<a class="headerlink" href="#selecting-file-data-type" title="Permalink to this headline">¶</a></h3>
+<p>Lastly, users specify the data type for recorded sensor data. Accepted data
+types include .csv, .txt, and .xlsx. Future updates to sensortoolkit may
+expand this list to include additional supported data types. Users should enter
+the number associated with the data types listed in the section banner.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">============================== Select Data Type ==============================</span>
+<span class="go">Options</span>
+<span class="go">-------</span>
+<span class="go">{&#39;1&#39;: &#39;.csv&#39;, &#39;2&#39;: &#39;.txt&#39;, &#39;3&#39;: &#39;.xlsx&#39;}</span>
+<span class="go">===============================================================================</span>
+
+<span class="go">Enter the number associated with the data type: 1</span>
+<span class="go">Selected data type: .csv</span>
+</pre></div>
+</div>
+<p>Once a data type is selected, the setup configuration will be written to a
+setup.json file located at <code class="docutils literal notranslate"><span class="pre">..\Data</span> <span class="pre">and</span> <span class="pre">Figures\sensor_data\Sensor_Make_Model\</span></code>
+where <code class="docutils literal notranslate"><span class="pre">Sensor_Make_Model</span></code> is replaced by the name given to the sensor.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">============================= Setup Configuration ============================</span>
+<span class="go">Options</span>
+<span class="go">-------</span>
+<span class="go">===============================================================================</span>
+<span class="go">..writing setup configuration to Example_Make_Model_setup.json</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="sensoreval.html" class="btn btn-neutral float-right" title="Conducting Analysis with the SensorEvaluation Class" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="import_sensortoolkit.html" class="btn btn-neutral float-left" title="Importing the sensortoolkit Library" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, Samuel Frederick.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

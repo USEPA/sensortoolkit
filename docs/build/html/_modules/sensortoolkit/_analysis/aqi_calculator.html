@@ -33,13 +33,14 @@
   <h1>Source code for sensortoolkit._analysis.aqi_calculator</h1><div class="highlight"><pre>
 <span></span><span class="c1"># -*- coding: utf-8 -*-</span>
 <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">This module is used to calculate the air quality index (AQI) as defined by U.S.</span>
+<span class="sd">EPA for fine particulate matter (PM2.5).</span>
+
+<span class="sd">================================================================================</span>
+
 <span class="sd">@Author:</span>
-<span class="sd">  Samuel Frederick, NSSC Contractor (ORAU)</span>
-<span class="sd">  U.S. EPA, Office of Research and Development</span>
-<span class="sd">  Center for Environmental Measurement and Modeling</span>
-<span class="sd">  Air Methods and Characterization Division, Source and Fine Scale Branch</span>
-<span class="sd">  109 T.W Alexander Drive, Research Triangle Park, NC 27711</span>
-<span class="sd">  Office: 919-541-4086 | Email: frederick.samuel@epa.gov</span>
+<span class="sd">  | Samuel Frederick, NSSC Contractor (ORAU)</span>
+<span class="sd">  | U.S. EPA / ORD / CEMM / AMCD / SFSB</span>
 
 <span class="sd">Created:</span>
 <span class="sd">  Mon Jan 27 13:11:40 2020</span>
@@ -50,7 +51,7 @@
 
 
 <div class="viewcode-block" id="AQI_Calculator"><a class="viewcode-back" href="../../../_autosummary/sensortoolkit._analysis.aqi_calculator.AQI_Calculator.html#sensortoolkit._analysis.aqi_calculator.AQI_Calculator">[docs]</a><span class="k">def</span> <span class="nf">AQI_Calculator</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Calculate the air quality index for PM2.5 as defined by U.S. EPA.</span>
+    <span class="sd">&quot;&quot;&quot;Calculate US EPA&#39;s air quality index for PM2.5.</span>
 
 <span class="sd">    Information about EPA&#39;s AQI scale here:</span>
 <span class="sd">        https://aqs.epa.gov/aqsweb/documents/codetables/aqi_breakpoints.html</span>
@@ -72,17 +73,16 @@
 <span class="sd">    the AQI value and category return null)**</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        data (float, int, numpy array, or pandas dataframe):</span>
-<span class="sd">            PM2.5 concentration value(s), if dataframe, column must be labeled</span>
-<span class="sd">            &#39;PM25&#39;.</span>
+<span class="sd">        data (float, int, numpy array, or pandas dataframe): PM2.5 concentration</span>
+<span class="sd">            value(s), if dataframe, column must be labeled &#39;PM25&#39;.</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        data (pandas dataframe): Dataframe with PM25 concentrations, AQI</span>
-<span class="sd">        values, and corresponding AQI category names.</span>
+<span class="sd">        dataframe: A pandas dataframe with PM25 concentrations, AQI</span>
+<span class="sd">            values, and corresponding AQI category names.</span>
 
 <span class="sd">    Raises:</span>
 <span class="sd">        KeyError: If passed data object is type pandas dataframe and the column</span>
-<span class="sd">        header &#39;PM25&#39; is not found.</span>
+<span class="sd">            header &#39;PM25&#39; is not found.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">AQI_dict</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;Good&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;I_h&#39;</span><span class="p">:</span> <span class="mi">50</span><span class="p">,</span>
                          <span class="s1">&#39;I_l&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
@@ -161,6 +161,12 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../_autosummary/sensortoolkit.html">sensortoolkit</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../_autosummary/sensortoolkit._analysis.html">sensortoolkit._analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../_autosummary/sensortoolkit._format.html">sensortoolkit._format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../_autosummary/sensortoolkit._ingest.html">sensortoolkit._ingest</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../_autosummary/sensortoolkit._models.html">sensortoolkit._models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../_autosummary/sensortoolkit._plotting.html">sensortoolkit._plotting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../_autosummary/sensortoolkit._qc.html">sensortoolkit._qc</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../_autosummary/sensortoolkit._reference.html">sensortoolkit._reference</a></li>
 </ul>
 
 <div class="relations">

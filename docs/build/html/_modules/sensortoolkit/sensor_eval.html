@@ -33,13 +33,23 @@
   <h1>Source code for sensortoolkit.sensor_eval</h1><div class="highlight"><pre>
 <span></span><span class="c1"># -*- coding: utf-8 -*-</span>
 <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Top-level module for the ``sensortoolkit`` library. Contains the front-facing</span>
+<span class="sd">``SensorEvaluation`` class for conducting analysis of sensor data.</span>
+
+<span class="sd">================================================================================</span>
+
 <span class="sd">@Author:</span>
-<span class="sd">  Samuel Frederick, NSSC Contractor (ORAU)</span>
-<span class="sd">  U.S. EPA, Office of Research and Development</span>
-<span class="sd">  Center for Environmental Measurement and Modeling</span>
-<span class="sd">  Air Methods and Characterization Division, Source and Fine Scale Branch</span>
-<span class="sd">  109 T.W Alexander Drive, Research Triangle Park, NC 27711</span>
-<span class="sd">  Office: 919-541-4086 | Email: frederick.samuel@epa.gov</span>
+<span class="sd">    | Samuel Frederick, NSSC Contractor (ORAU)</span>
+<span class="sd">    | U.S. EPA / ORD / CEMM / AMCD / SFSB</span>
+
+<span class="sd">*Please direct all inquiries to:*</span>
+<span class="sd">    | Andrea Clements Ph.D., Research Physical Scientist</span>
+<span class="sd">    | U.S. EPA, Office of Research and Development</span>
+<span class="sd">    | Center for Environmental Measurement and Modeling</span>
+<span class="sd">    | Air Methods &amp; Characterization Division, Source and Fine Scale Branch</span>
+<span class="sd">    | 109 T.W. Alexander Drive, Research Triangle Park, NC  27711</span>
+<span class="sd">    | Office: 919-541-1363 | Email: clements.andrea@epa.gov</span>
+<span class="sd">    |</span>
 
 <span class="sd">Created:</span>
 <span class="sd">  Fri Jul 31 08:39:37 2020</span>
@@ -68,41 +78,33 @@
 <span class="sd">    as both reports can be found online at EPA&#39;s Air Sensor Toolbox:</span>
 <span class="sd">        https://www.epa.gov/air-sensor-toolbox</span>
 
-<span class="sd">    Please direct all inquiries to:</span>
-<span class="sd">        Andrea Clements Ph.D., Research Physical Scientist</span>
-<span class="sd">        U.S. EPA, Office of Research and Development</span>
-<span class="sd">        Center for Environmental Measurement and Modeling</span>
-<span class="sd">        Air Methods &amp; Characterization Division, Source and Fine Scale Branch</span>
-<span class="sd">        109 T.W. Alexander Drive, Research Triangle Park, NC  27711</span>
-<span class="sd">        Office: 919-541-1363 | Email: clements.andrea@epa.gov</span>
-
 <span class="sd">    Args:</span>
 <span class="sd">        sensor_name (str): The make and model of the sensor being evaluated.</span>
-<span class="sd">        eval_param (str): Parameter name to evaluate (e.g. PM25 or O3)</span>
+<span class="sd">        eval_param (str): Parameter name to evaluate (e.g. ``PM25`` or ``O3``)</span>
 <span class="sd">        reference_data (str): The service or folder directory from which</span>
 <span class="sd">            reference data are acquired.</span>
 <span class="sd">        serials (dict): A dictionary of sensor serial identifiers for each unit</span>
 <span class="sd">            in a testing group</span>
 <span class="sd">        tzone_shift (int): ) An integer value by which to shift the sensor data</span>
-<span class="sd">            to UTC. Specifying 0 will not shift the data.</span>
+<span class="sd">            to UTC. Specifying ``0`` will not shift the data.</span>
 <span class="sd">        load_raw_data (bool): If true, raw data in the appropriate subdirectory</span>
 <span class="sd">            will be loaded and 1-hr and 24-hr averages will be computed and</span>
 <span class="sd">            saved to a processed data subdirectory for the specified sensor.</span>
 <span class="sd">            If false, processed data will be loaded.</span>
 <span class="sd">        write_to_file (bool): If true and load_raw_data true, processed files</span>
 <span class="sd">            will be written to folder location. In addition, subsequent</span>
-<span class="sd">            evaluation statistics will be written to the Data and Figures and</span>
-<span class="sd">            eval_stats sensor subdirectory. Figures will also be written to the</span>
-<span class="sd">            appropriate figures subdirectory.</span>
+<span class="sd">            evaluation statistics will be written to the ``Data and Figures``</span>
+<span class="sd">            and ``eval_stats`` sensor subdirectory. Figures will also be written</span>
+<span class="sd">            to the appropriate figures subdirectory.</span>
 <span class="sd">        **kwargs: Keyword arguments that may be passed to the function for</span>
-<span class="sd">            particulate use cases. Includes &#39;testing_org&#39; (a dictionary of</span>
+<span class="sd">            particulate use cases. Includes ``testing_org`` (a dictionary of</span>
 <span class="sd">             organization information that is included in deploy_dict),</span>
-<span class="sd">            &#39;testing_loc&#39; (a dictionary of testing location information also</span>
-<span class="sd">            included in deploy_dict), bbox (bounding box of latitude and</span>
-<span class="sd">            longitude values for AirNow API queries), and aqs_id (AQS site ID</span>
-<span class="sd">            for AQS API queries).</span>
+<span class="sd">            ``testing_loc`` (a dictionary of testing location information also</span>
+<span class="sd">            included in ``deploy_dict``), ``bbox`` (bounding box of latitude and</span>
+<span class="sd">            longitude values for AirNow API queries), and ``aqs_id`` (AQS site</span>
+<span class="sd">            ID for AQS API queries).</span>
 
-<span class="sd">    Instance attributes:</span>
+<span class="sd">    Attributes:</span>
 <span class="sd">        data_path (str): The full directory path to raw sensor data for a given</span>
 <span class="sd">            sensor make and model.</span>
 <span class="sd">        figure_path (str): The full directory path to figures for a given</span>
@@ -111,9 +113,9 @@
 <span class="sd">            for a given sensor make and model.</span>
 <span class="sd">        stats_path: The full directory path to evaluation statistics for a</span>
 <span class="sd">            given sensor make and model.</span>
-<span class="sd">        full_df_list (list of pandas dataframes): List of sensor data frames</span>
-<span class="sd">            of length N (where N is the number of sensor units in a testing</span>
-<span class="sd">            group). frames indexed by DateTime_UTC at recorded sampling</span>
+<span class="sd">        full_df_list (:obj:`list` of :obj: `pandas dataframes`): List of sensor</span>
+<span class="sd">            data frames of length N (where N is the number of sensor units in a</span>
+<span class="sd">            testing group). frames indexed by DateTime_UTC at recorded sampling</span>
 <span class="sd">            frequency.</span>
 <span class="sd">        hourly_df_list (list of pandas dataframes): List of sensor data frames</span>
 <span class="sd">            of length N (where N is the number of sensor units in a testing</span>
@@ -1192,7 +1194,14 @@
 
 <h3>Navigation</h3>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../_autosummary/sensortoolkit.html">sensortoolkit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../_autosummary/sensortoolkit.sensor_eval.html">sensortoolkit.sensor_eval</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../_autosummary/sensortoolkit._analysis.html">sensortoolkit._analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../_autosummary/sensortoolkit._format.html">sensortoolkit._format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../_autosummary/sensortoolkit._ingest.html">sensortoolkit._ingest</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../_autosummary/sensortoolkit._models.html">sensortoolkit._models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../_autosummary/sensortoolkit._plotting.html">sensortoolkit._plotting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../_autosummary/sensortoolkit._qc.html">sensortoolkit._qc</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../_autosummary/sensortoolkit._reference.html">sensortoolkit._reference</a></li>
 </ul>
 
 <div class="relations">

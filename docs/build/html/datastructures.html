@@ -1,0 +1,747 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>Data Structures &mdash; sensortoolkit 1.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="sensortoolkit Modules" href="api.html" />
+    <link rel="prev" title="Conducting Analysis with the SensorEvaluation Class" href="sensoreval.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> sensortoolkit
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">User Guide</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="import_sensortoolkit.html">Importing the sensortoolkit Library</a></li>
+<li class="toctree-l1"><a class="reference internal" href="setup.html">Configuring sensortoolkit for Analyzing Sensor Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sensoreval.html">Conducting Analysis with the SensorEvaluation Class</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Data Structures</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="api.html">sensortoolkit Modules</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="_autosummary/sensortoolkit.sensor_eval.html">sensortoolkit.sensor_eval</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="_autosummary/sensortoolkit.sensor_eval.SensorEvaluation.html">sensortoolkit.sensor_eval.SensorEvaluation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="_autosummary/sensortoolkit._analysis.html">sensortoolkit._analysis</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="_autosummary/sensortoolkit._analysis.aqi_calculator.html">sensortoolkit._analysis.aqi_calculator</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._analysis.aqi_calculator.AQI_Calculator.html">sensortoolkit._analysis.aqi_calculator.AQI_Calculator</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="_autosummary/sensortoolkit._analysis.concurr_deploy_grps.html">sensortoolkit._analysis.concurr_deploy_grps</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._analysis.concurr_deploy_grps.Deployment_Groups.html">sensortoolkit._analysis.concurr_deploy_grps.Deployment_Groups</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._analysis.concurr_deploy_grps.Measure_Recording_Interval.html">sensortoolkit._analysis.concurr_deploy_grps.Measure_Recording_Interval</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._analysis.concurr_deploy_grps.Meteorological_Stats.html">sensortoolkit._analysis.concurr_deploy_grps.Meteorological_Stats</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._analysis.concurr_deploy_grps.Reference_Stats.html">sensortoolkit._analysis.concurr_deploy_grps.Reference_Stats</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="_autosummary/sensortoolkit._analysis.cv_calculator.html">sensortoolkit._analysis.cv_calculator</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._analysis.cv_calculator.CV_Calculator.html">sensortoolkit._analysis.cv_calculator.CV_Calculator</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._analysis.cv_calculator.Compute_CV.html">sensortoolkit._analysis.cv_calculator.Compute_CV</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="_autosummary/sensortoolkit._analysis.deployment_period.html">sensortoolkit._analysis.deployment_period</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._analysis.deployment_period.Deployment_Period.html">sensortoolkit._analysis.deployment_period.Deployment_Period</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="_autosummary/sensortoolkit._analysis.dewpoint.html">sensortoolkit._analysis.dewpoint</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._analysis.dewpoint.Dewpoint.html">sensortoolkit._analysis.dewpoint.Dewpoint</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="_autosummary/sensortoolkit._analysis.duplicate_removal.html">sensortoolkit._analysis.duplicate_removal</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._analysis.duplicate_removal.Remove_Duplicates.html">sensortoolkit._analysis.duplicate_removal.Remove_Duplicates</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="_autosummary/sensortoolkit._analysis.intersensor_mean.html">sensortoolkit._analysis.intersensor_mean</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._analysis.intersensor_mean.Intersensor_Mean.html">sensortoolkit._analysis.intersensor_mean.Intersensor_Mean</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="_autosummary/sensortoolkit._analysis.model_analysis.html">sensortoolkit._analysis.model_analysis</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._analysis.model_analysis.Compute_RMSE.html">sensortoolkit._analysis.model_analysis.Compute_RMSE</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._analysis.model_analysis.Regression_Stats.html">sensortoolkit._analysis.model_analysis.Regression_Stats</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="_autosummary/sensortoolkit._analysis.normalize_calculator.html">sensortoolkit._analysis.normalize_calculator</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._analysis.normalize_calculator.Normalize.html">sensortoolkit._analysis.normalize_calculator.Normalize</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="_autosummary/sensortoolkit._analysis.pm25_nowcast.html">sensortoolkit._analysis.pm25_nowcast</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._analysis.pm25_nowcast.PM25NowCast.html">sensortoolkit._analysis.pm25_nowcast.PM25NowCast</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="_autosummary/sensortoolkit._analysis.synoptic_idx.html">sensortoolkit._analysis.synoptic_idx</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._analysis.synoptic_idx.Synoptic_Index.html">sensortoolkit._analysis.synoptic_idx.Synoptic_Index</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="_autosummary/sensortoolkit._analysis.time_averaging.html">sensortoolkit._analysis.time_averaging</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._analysis.time_averaging.Interval_Averaging.html">sensortoolkit._analysis.time_averaging.Interval_Averaging</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._analysis.time_averaging.Sensor_Averaging.html">sensortoolkit._analysis.time_averaging.Sensor_Averaging</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="_autosummary/sensortoolkit._analysis.uptime_calculator.html">sensortoolkit._analysis.uptime_calculator</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._analysis.uptime_calculator.Uptime_Calculator.html">sensortoolkit._analysis.uptime_calculator.Uptime_Calculator</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="_autosummary/sensortoolkit._format.html">sensortoolkit._format</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="_autosummary/sensortoolkit._format.format_date.html">sensortoolkit._format.format_date</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._format.format_date.Get_Date.html">sensortoolkit._format.format_date.Get_Date</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="_autosummary/sensortoolkit._format.format_names.html">sensortoolkit._format.format_names</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._format.format_names.Format_Metric_Name.html">sensortoolkit._format.format_names.Format_Metric_Name</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._format.format_names.Format_Param_Name.html">sensortoolkit._format.format_names.Format_Param_Name</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="_autosummary/sensortoolkit._format.sensor_subfolders.html">sensortoolkit._format.sensor_subfolders</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._format.sensor_subfolders.Create_Sensor_Directories.html">sensortoolkit._format.sensor_subfolders.Create_Sensor_Directories</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="_autosummary/sensortoolkit._ingest.html">sensortoolkit._ingest</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="_autosummary/sensortoolkit._ingest.processed_data_loader.html">sensortoolkit._ingest.processed_data_loader</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._ingest.processed_data_loader.Processed_Data_Search.html">sensortoolkit._ingest.processed_data_loader.Processed_Data_Search</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._ingest.processed_data_loader.Set_DateTime_Index.html">sensortoolkit._ingest.processed_data_loader.Set_DateTime_Index</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="_autosummary/sensortoolkit._ingest.sensor_import.html">sensortoolkit._ingest.sensor_import</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._ingest.sensor_import.Import.html">sensortoolkit._ingest.sensor_import.Import</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._ingest.sensor_import.Ingest_Example_Make_Model.html">sensortoolkit._ingest.sensor_import.Ingest_Example_Make_Model</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._ingest.sensor_import.Ingest_PurpleAir_PAII.html">sensortoolkit._ingest.sensor_import.Ingest_PurpleAir_PAII</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._ingest.sensor_import.Ingest_Sensit_RAMP.html">sensortoolkit._ingest.sensor_import.Ingest_Sensit_RAMP</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._ingest.sensor_import.Ingest_Wrapper.html">sensortoolkit._ingest.sensor_import.Ingest_Wrapper</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="_autosummary/sensortoolkit._ingest.setup.html">sensortoolkit._ingest.setup</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._ingest.setup.Setup.html">sensortoolkit._ingest.setup.Setup</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="_autosummary/sensortoolkit._ingest.standardized_ingest.html">sensortoolkit._ingest.standardized_ingest</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._ingest.standardized_ingest.Ingest.html">sensortoolkit._ingest.standardized_ingest.Ingest</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="_autosummary/sensortoolkit._models.html">sensortoolkit._models</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="_autosummary/sensortoolkit._models.apply_correction.html">sensortoolkit._models.apply_correction</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._models.apply_correction.Individual_Correction.html">sensortoolkit._models.apply_correction.Individual_Correction</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="_autosummary/sensortoolkit._models.purpleair_uscorrection.html">sensortoolkit._models.purpleair_uscorrection</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._models.purpleair_uscorrection.USCorrection.html">sensortoolkit._models.purpleair_uscorrection.USCorrection</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="_autosummary/sensortoolkit._models.sensor_ols.html">sensortoolkit._models.sensor_ols</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._models.sensor_ols.Sensor_OLS.html">sensortoolkit._models.sensor_ols.Sensor_OLS</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="_autosummary/sensortoolkit._plotting.html">sensortoolkit._plotting</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="_autosummary/sensortoolkit._plotting.distribution.html">sensortoolkit._plotting.distribution</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._plotting.distribution.Met_Distrib.html">sensortoolkit._plotting.distribution.Met_Distrib</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._plotting.distribution.Recording_Interval_Histogram.html">sensortoolkit._plotting.distribution.Recording_Interval_Histogram</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._plotting.distribution.Ref_Dist_Plot.html">sensortoolkit._plotting.distribution.Ref_Dist_Plot</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="_autosummary/sensortoolkit._plotting.errorbars.html">sensortoolkit._plotting.errorbars</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._plotting.errorbars.Plot_Error_Bars.html">sensortoolkit._plotting.errorbars.Plot_Error_Bars</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="_autosummary/sensortoolkit._plotting.intrasensor_comparison.html">sensortoolkit._plotting.intrasensor_comparison</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._plotting.intrasensor_comparison.Stats_Comparison_Plot.html">sensortoolkit._plotting.intrasensor_comparison.Stats_Comparison_Plot</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="_autosummary/sensortoolkit._plotting.plot_formatting.html">sensortoolkit._plotting.plot_formatting</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._plotting.plot_formatting.Get_Colormap_Norm_Range.html">sensortoolkit._plotting.plot_formatting.Get_Colormap_Norm_Range</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._plotting.plot_formatting.Get_Max.html">sensortoolkit._plotting.plot_formatting.Get_Max</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._plotting.plot_formatting.Met_Scatter_Lims.html">sensortoolkit._plotting.plot_formatting.Met_Scatter_Lims</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._plotting.plot_formatting.Sensor_Subplot_Formatting.html">sensortoolkit._plotting.plot_formatting.Sensor_Subplot_Formatting</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._plotting.plot_formatting.Set_Fontsize.html">sensortoolkit._plotting.plot_formatting.Set_Fontsize</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._plotting.plot_formatting.Subplot_Dims.html">sensortoolkit._plotting.plot_formatting.Subplot_Dims</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._plotting.plot_formatting.Wrap_Text.html">sensortoolkit._plotting.plot_formatting.Wrap_Text</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="_autosummary/sensortoolkit._plotting.plot_performance_metrics.html">sensortoolkit._plotting.plot_performance_metrics</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._plotting.plot_performance_metrics.Plot_Performance_Metrics.html">sensortoolkit._plotting.plot_performance_metrics.Plot_Performance_Metrics</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="_autosummary/sensortoolkit._plotting.scatter.html">sensortoolkit._plotting.scatter</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._plotting.scatter.Draw_Scatter.html">sensortoolkit._plotting.scatter.Draw_Scatter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._plotting.scatter.Normalized_Met_Scatter.html">sensortoolkit._plotting.scatter.Normalized_Met_Scatter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._plotting.scatter.Scatter_Plotter.html">sensortoolkit._plotting.scatter.Scatter_Plotter</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="_autosummary/sensortoolkit._plotting.timeseries.html">sensortoolkit._plotting.timeseries</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._plotting.timeseries.Deployment_Timeline_Plot.html">sensortoolkit._plotting.timeseries.Deployment_Timeline_Plot</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._plotting.timeseries.Sensor_Timeplot.html">sensortoolkit._plotting.timeseries.Sensor_Timeplot</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="_autosummary/sensortoolkit._qc.html">sensortoolkit._qc</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="_autosummary/sensortoolkit._qc.interval_downsampling.html">sensortoolkit._qc.interval_downsampling</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._qc.interval_downsampling.Apply_DownSampling.html">sensortoolkit._qc.interval_downsampling.Apply_DownSampling</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._qc.interval_downsampling.DownSampling_Interval.html">sensortoolkit._qc.interval_downsampling.DownSampling_Interval</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._qc.interval_downsampling.Plot_RecordingInterval.html">sensortoolkit._qc.interval_downsampling.Plot_RecordingInterval</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._qc.interval_downsampling.Plot_TimeDelta_Quantiles.html">sensortoolkit._qc.interval_downsampling.Plot_TimeDelta_Quantiles</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._qc.interval_downsampling.Sensor_TimeDelta.html">sensortoolkit._qc.interval_downsampling.Sensor_TimeDelta</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._qc.interval_downsampling.TimeDelta_Quantiles.html">sensortoolkit._qc.interval_downsampling.TimeDelta_Quantiles</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="_autosummary/sensortoolkit._qc.invalidate.html">sensortoolkit._qc.invalidate</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._qc.invalidate.QC_Invalidate_Period.html">sensortoolkit._qc.invalidate.QC_Invalidate_Period</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="_autosummary/sensortoolkit._qc.outlier_detection.html">sensortoolkit._qc.outlier_detection</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._qc.outlier_detection.Cooks_Outlier_QC.html">sensortoolkit._qc.outlier_detection.Cooks_Outlier_QC</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="_autosummary/sensortoolkit._qc.persistent_values.html">sensortoolkit._qc.persistent_values</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._qc.persistent_values.QC_Persistent_Values.html">sensortoolkit._qc.persistent_values.QC_Persistent_Values</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="_autosummary/sensortoolkit._qc.purpleair_abcleaning.html">sensortoolkit._qc.purpleair_abcleaning</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._qc.purpleair_abcleaning.Compute_AB_Averages.html">sensortoolkit._qc.purpleair_abcleaning.Compute_AB_Averages</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="_autosummary/sensortoolkit._reference.html">sensortoolkit._reference</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="_autosummary/sensortoolkit._reference.import_airnowtech.html">sensortoolkit._reference.import_airnowtech</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._reference.import_airnowtech.Flatten.html">sensortoolkit._reference.import_airnowtech.Flatten</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._reference.import_airnowtech.Import_AirNowTech.html">sensortoolkit._reference.import_airnowtech.Import_AirNowTech</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._reference.import_airnowtech.Ingest_AirNowTech.html">sensortoolkit._reference.import_airnowtech.Ingest_AirNowTech</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._reference.import_airnowtech.Sort_AirNowTech.html">sensortoolkit._reference.import_airnowtech.Sort_AirNowTech</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._reference.import_airnowtech.Write_To_File.html">sensortoolkit._reference.import_airnowtech.Write_To_File</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="_autosummary/sensortoolkit._reference.import_oaqps.html">sensortoolkit._reference.import_oaqps</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._reference.import_oaqps.Format_Headers.html">sensortoolkit._reference.import_oaqps.Format_Headers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._reference.import_oaqps.Format_QAQC.html">sensortoolkit._reference.import_oaqps.Format_QAQC</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._reference.import_oaqps.Format_Ref_Timestamp.html">sensortoolkit._reference.import_oaqps.Format_Ref_Timestamp</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._reference.import_oaqps.Ingest_OAQPS.html">sensortoolkit._reference.import_oaqps.Ingest_OAQPS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._reference.import_oaqps.Process_OAQPS.html">sensortoolkit._reference.import_oaqps.Process_OAQPS</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="_autosummary/sensortoolkit._reference.load_ref_data.html">sensortoolkit._reference.load_ref_data</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._reference.load_ref_data.Import_Ref_DataFrame.html">sensortoolkit._reference.load_ref_data.Import_Ref_DataFrame</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._reference.load_ref_data.Load_Ref_DataFrames.html">sensortoolkit._reference.load_ref_data.Load_Ref_DataFrames</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._reference.load_ref_data.Timeframe_Search.html">sensortoolkit._reference.load_ref_data.Timeframe_Search</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="_autosummary/sensortoolkit._reference.ref_api_query.html">sensortoolkit._reference.ref_api_query</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._reference.ref_api_query.AQS_Query.html">sensortoolkit._reference.ref_api_query.AQS_Query</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._reference.ref_api_query.AirNow_Query.html">sensortoolkit._reference.ref_api_query.AirNow_Query</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._reference.ref_api_query.Date_Range_Selector.html">sensortoolkit._reference.ref_api_query.Date_Range_Selector</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._reference.ref_api_query.Modify_Ref_Cols.html">sensortoolkit._reference.ref_api_query.Modify_Ref_Cols</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._reference.ref_api_query.Modify_Ref_Method_Str.html">sensortoolkit._reference.ref_api_query.Modify_Ref_Method_Str</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._reference.ref_api_query.Query_Periods.html">sensortoolkit._reference.ref_api_query.Query_Periods</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._reference.ref_api_query.Ref_API_Query.html">sensortoolkit._reference.ref_api_query.Ref_API_Query</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._reference.ref_api_query.Save_Query.html">sensortoolkit._reference.ref_api_query.Save_Query</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">sensortoolkit</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Data Structures</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/datastructures.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="data-structures">
+<h1>Data Structures<a class="headerlink" href="#data-structures" title="Permalink to this headline">¶</a></h1>
+<p>Discuss data structures and formatting in this section, link to SensorEvaluation
+documentation for more detail</p>
+<div class="section" id="sensorevaluation-data-structures">
+<h2>SensorEvaluation Data Structures<a class="headerlink" href="#sensorevaluation-data-structures" title="Permalink to this headline">¶</a></h2>
+<table class="colwidths-auto docutils align-default" id="id1">
+<caption><span class="caption-text"><cite>Example_Make_Model_SN01_full.csv</cite></span><a class="headerlink" href="#id1" title="Permalink to this table">¶</a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p>DateTime_UTC</p></th>
+<th class="head"><p>NO2</p></th>
+<th class="head"><p>O3</p></th>
+<th class="head"><p>PM25</p></th>
+<th class="head"><p>Temp</p></th>
+<th class="head"><p>RH</p></th>
+<th class="head"><p>DP</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>2019-08-01 12:11:00</p></td>
+<td></td>
+<td></td>
+<td><p>5.4</p></td>
+<td><p>24.8</p></td>
+<td><p>95.3</p></td>
+<td><p>24.0</p></td>
+</tr>
+<tr class="row-odd"><td><p>2019-08-01 12:12:00</p></td>
+<td><p>5.5</p></td>
+<td><p>0.0</p></td>
+<td><p>5.5</p></td>
+<td><p>24.88</p></td>
+<td><p>95.1</p></td>
+<td><p>24.0</p></td>
+</tr>
+<tr class="row-even"><td><p>2019-08-01 12:13:00</p></td>
+<td><p>2.0</p></td>
+<td><p>4.4</p></td>
+<td><p>5.3</p></td>
+<td><p>25.0</p></td>
+<td><p>95.1</p></td>
+<td><p>24.2</p></td>
+</tr>
+<tr class="row-odd"><td><p>2019-08-01 12:14:00</p></td>
+<td><p>-0.9</p></td>
+<td><p>8.8</p></td>
+<td><p>5.4</p></td>
+<td><p>25.14</p></td>
+<td><p>95.2</p></td>
+<td><p>24.3</p></td>
+</tr>
+<tr class="row-even"><td><p>2019-08-01 12:15:00</p></td>
+<td><p>3.8</p></td>
+<td><p>6.0</p></td>
+<td><p>5.6</p></td>
+<td><p>25.34</p></td>
+<td><p>95.2</p></td>
+<td><p>24.5</p></td>
+</tr>
+<tr class="row-odd"><td><p>2019-08-01 12:16:00</p></td>
+<td><p>3.3</p></td>
+<td><p>4.3</p></td>
+<td><p>5.4</p></td>
+<td><p>25.44</p></td>
+<td><p>95.0</p></td>
+<td><p>24.6</p></td>
+</tr>
+<tr class="row-even"><td><p>2019-08-01 12:17:00</p></td>
+<td><p>3.1</p></td>
+<td><p>3.1</p></td>
+<td><p>5.3</p></td>
+<td><p>25.56</p></td>
+<td><p>94.4</p></td>
+<td><p>24.6</p></td>
+</tr>
+<tr class="row-odd"><td><p>2019-08-01 12:18:00</p></td>
+<td><p>4.1</p></td>
+<td><p>2.3</p></td>
+<td><p>5.5</p></td>
+<td><p>25.62</p></td>
+<td><p>94.1</p></td>
+<td><p>24.6</p></td>
+</tr>
+<tr class="row-even"><td><p>2019-08-01 12:19:00</p></td>
+<td><p>5.9</p></td>
+<td><p>1.3</p></td>
+<td><p>5.5</p></td>
+<td><p>25.59</p></td>
+<td><p>93.6</p></td>
+<td><p>24.5</p></td>
+</tr>
+<tr class="row-odd"><td><p>2019-08-01 12:20:00</p></td>
+<td><p>3.4</p></td>
+<td><p>0.7</p></td>
+<td><p>5.3</p></td>
+<td><p>25.44</p></td>
+<td><p>93.5</p></td>
+<td><p>24.3</p></td>
+</tr>
+</tbody>
+</table>
+<table class="colwidths-auto docutils align-default" id="id2">
+<caption><span class="caption-text"><cite>Example_Make_Model_SN01_hourly.csv</cite></span><a class="headerlink" href="#id2" title="Permalink to this table">¶</a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p>DateTime_UTC</p></th>
+<th class="head"><p>DP</p></th>
+<th class="head"><p>NO2</p></th>
+<th class="head"><p>O3</p></th>
+<th class="head"><p>PM25</p></th>
+<th class="head"><p>RH</p></th>
+<th class="head"><p>Temp</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>2019-08-01 12:00:00</p></td>
+<td><p>24.137</p></td>
+<td><p>-2.638</p></td>
+<td><p>10.702</p></td>
+<td><p>5.788</p></td>
+<td><p>89.122</p></td>
+<td><p>26.098</p></td>
+</tr>
+<tr class="row-odd"><td><p>2019-08-01 13:00:00</p></td>
+<td><p>24.562</p></td>
+<td><p>-12.467</p></td>
+<td><p>23.888</p></td>
+<td><p>7.328</p></td>
+<td><p>70.668</p></td>
+<td><p>30.532</p></td>
+</tr>
+<tr class="row-even"><td><p>2019-08-01 14:00:00</p></td>
+<td><p>25.272</p></td>
+<td><p>-17.265</p></td>
+<td><p>40.133</p></td>
+<td><p>8.397</p></td>
+<td><p>59.747</p></td>
+<td><p>34.248</p></td>
+</tr>
+<tr class="row-odd"><td><p>2019-08-01 15:00:00</p></td>
+<td><p>24.67</p></td>
+<td><p>-20.837</p></td>
+<td><p>55.867</p></td>
+<td><p>10.053</p></td>
+<td><p>50.222</p></td>
+<td><p>36.73</p></td>
+</tr>
+<tr class="row-even"><td><p>2019-08-01 16:00:00</p></td>
+<td><p>24.398</p></td>
+<td><p>-15.418</p></td>
+<td><p>61.143</p></td>
+<td><p>12.028</p></td>
+<td><p>47.043</p></td>
+<td><p>37.622</p></td>
+</tr>
+<tr class="row-odd"><td><p>2019-08-01 17:00:00</p></td>
+<td><p>23.962</p></td>
+<td><p>-17.412</p></td>
+<td><p>57.143</p></td>
+<td><p>11.817</p></td>
+<td><p>52.492</p></td>
+<td><p>35.164</p></td>
+</tr>
+<tr class="row-even"><td><p>2019-08-01 18:00:00</p></td>
+<td><p>22.677</p></td>
+<td><p>-16.137</p></td>
+<td><p>55.318</p></td>
+<td><p>9.19</p></td>
+<td><p>61.11</p></td>
+<td><p>31.058</p></td>
+</tr>
+<tr class="row-odd"><td><p>2019-08-01 19:00:00</p></td>
+<td><p>21.982</p></td>
+<td><p>-16.495</p></td>
+<td><p>55.22</p></td>
+<td><p>6.125</p></td>
+<td><p>64.792</p></td>
+<td><p>29.325</p></td>
+</tr>
+<tr class="row-even"><td><p>2019-08-01 20:00:00</p></td>
+<td><p>22.608</p></td>
+<td><p>-18.148</p></td>
+<td><p>49.358</p></td>
+<td><p>4.967</p></td>
+<td><p>68.193</p></td>
+<td><p>29.084</p></td>
+</tr>
+<tr class="row-odd"><td><p>2019-08-01 21:00:00</p></td>
+<td><p>22.473</p></td>
+<td><p>-17.45</p></td>
+<td><p>51.902</p></td>
+<td><p>5.103</p></td>
+<td><p>57.585</p></td>
+<td><p>31.903</p></td>
+</tr>
+</tbody>
+</table>
+<table class="colwidths-auto docutils align-default" id="id3">
+<caption><span class="caption-text"><cite>Example_Make_Model_SN01_daily.csv</cite></span><a class="headerlink" href="#id3" title="Permalink to this table">¶</a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p>DateTime_UTC</p></th>
+<th class="head"><p>DP</p></th>
+<th class="head"><p>NO2</p></th>
+<th class="head"><p>O3</p></th>
+<th class="head"><p>PM25</p></th>
+<th class="head"><p>RH</p></th>
+<th class="head"><p>Temp</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>2019-08-01</p></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>2019-08-02</p></td>
+<td><p>22.974</p></td>
+<td><p>-11.064</p></td>
+<td><p>40.296</p></td>
+<td><p>6.049</p></td>
+<td><p>83.182</p></td>
+<td><p>26.666</p></td>
+</tr>
+<tr class="row-even"><td><p>2019-08-03</p></td>
+<td><p>23.918</p></td>
+<td><p>-8.258</p></td>
+<td><p>31.267</p></td>
+<td><p>5.46</p></td>
+<td><p>87.393</p></td>
+<td><p>26.581</p></td>
+</tr>
+<tr class="row-odd"><td><p>2019-08-04</p></td>
+<td><p>24.081</p></td>
+<td><p>-2.703</p></td>
+<td><p>22.023</p></td>
+<td><p>5.163</p></td>
+<td><p>89.143</p></td>
+<td><p>26.4</p></td>
+</tr>
+<tr class="row-even"><td><p>2019-08-05</p></td>
+<td><p>24.605</p></td>
+<td><p>-3.811</p></td>
+<td><p>23.703</p></td>
+<td><p>6.874</p></td>
+<td><p>95.856</p></td>
+<td><p>25.438</p></td>
+</tr>
+<tr class="row-odd"><td><p>2019-08-06</p></td>
+<td><p>23.605</p></td>
+<td><p>1.71</p></td>
+<td><p>22.377</p></td>
+<td><p>6.472</p></td>
+<td><p>85.803</p></td>
+<td><p>26.642</p></td>
+</tr>
+<tr class="row-even"><td><p>2019-08-07</p></td>
+<td><p>25.746</p></td>
+<td><p>-4.305</p></td>
+<td><p>34.707</p></td>
+<td><p>7.857</p></td>
+<td><p>86.951</p></td>
+<td><p>28.493</p></td>
+</tr>
+<tr class="row-odd"><td><p>2019-08-08</p></td>
+<td><p>23.988</p></td>
+<td><p>-4.784</p></td>
+<td><p>37.555</p></td>
+<td><p>5.793</p></td>
+<td><p>81.21</p></td>
+<td><p>28.335</p></td>
+</tr>
+<tr class="row-even"><td><p>2019-08-09</p></td>
+<td><p>23.515</p></td>
+<td><p>0.428</p></td>
+<td><p>31.737</p></td>
+<td><p>7.018</p></td>
+<td><p>76.675</p></td>
+<td><p>29.006</p></td>
+</tr>
+<tr class="row-odd"><td><p>2019-08-10</p></td>
+<td><p>23.098</p></td>
+<td><p>-0.215</p></td>
+<td><p>33.665</p></td>
+<td><p>6.368</p></td>
+<td><p>74.231</p></td>
+<td><p>29.115</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="data-formatting">
+<h2>Data Formatting<a class="headerlink" href="#data-formatting" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="sensor-data-formatting-standard-s-dfs">
+<h3>Sensor Data Formatting Standard (S-DFS)<a class="headerlink" href="#sensor-data-formatting-standard-s-dfs" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="reference-data-formatting-standard-r-dfs">
+<h3>Reference Data Formatting Standard (R-DFS)<a class="headerlink" href="#reference-data-formatting-standard-r-dfs" title="Permalink to this headline">¶</a></h3>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="api.html" class="btn btn-neutral float-right" title="sensortoolkit Modules" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="sensoreval.html" class="btn btn-neutral float-left" title="Conducting Analysis with the SensorEvaluation Class" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, Samuel Frederick.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

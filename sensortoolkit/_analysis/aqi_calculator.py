@@ -3,6 +3,8 @@
 This module is used to calculate the air quality index (AQI) as defined by U.S.
 EPA for fine particulate matter (PM2.5).
 
+================================================================================
+
 @Author:
   Samuel Frederick, NSSC Contractor (ORAU)
   U.S. EPA, ORD / CEMM / AMCD / SFSB
