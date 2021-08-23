@@ -1,12 +1,22 @@
 # -*- coding: utf-8 -*-
 """
+Top-level module for the ``sensortoolkit`` library. Contains the front-facing
+``SensorEvaluation`` class for conducting analysis of sensor data.
+
+================================================================================
+
 @Author:
-  Samuel Frederick, NSSC Contractor (ORAU)
-  U.S. EPA, Office of Research and Development
-  Center for Environmental Measurement and Modeling
-  Air Methods and Characterization Division, Source and Fine Scale Branch
-  109 T.W Alexander Drive, Research Triangle Park, NC 27711
-  Office: 919-541-4086 | Email: frederick.samuel@epa.gov
+    | Samuel Frederick, NSSC Contractor (ORAU)
+    | U.S. EPA / ORD / CEMM / AMCD / SFSB
+
+*Please direct all inquiries to:*
+    | Andrea Clements Ph.D., Research Physical Scientist
+    | U.S. EPA, Office of Research and Development
+    | Center for Environmental Measurement and Modeling
+    | Air Methods & Characterization Division, Source and Fine Scale Branch
+    | 109 T.W. Alexander Drive, Research Triangle Park, NC  27711
+    | Office: 919-541-1363 | Email: clements.andrea@epa.gov
+    |
 
 Created:
   Fri Jul 31 08:39:37 2020
@@ -35,41 +45,33 @@ class SensorEvaluation:
     as both reports can be found online at EPA's Air Sensor Toolbox:
         https://www.epa.gov/air-sensor-toolbox
 
-    Please direct all inquiries to:
-        Andrea Clements Ph.D., Research Physical Scientist
-        U.S. EPA, Office of Research and Development
-        Center for Environmental Measurement and Modeling
-        Air Methods & Characterization Division, Source and Fine Scale Branch
-        109 T.W. Alexander Drive, Research Triangle Park, NC  27711
-        Office: 919-541-1363 | Email: clements.andrea@epa.gov
-
     Args:
         sensor_name (str): The make and model of the sensor being evaluated.
-        eval_param (str): Parameter name to evaluate (e.g. PM25 or O3)
+        eval_param (str): Parameter name to evaluate (e.g. ``PM25`` or ``O3``)
         reference_data (str): The service or folder directory from which
             reference data are acquired.
         serials (dict): A dictionary of sensor serial identifiers for each unit
             in a testing group
         tzone_shift (int): ) An integer value by which to shift the sensor data
-            to UTC. Specifying 0 will not shift the data.
+            to UTC. Specifying ``0`` will not shift the data.
         load_raw_data (bool): If true, raw data in the appropriate subdirectory
             will be loaded and 1-hr and 24-hr averages will be computed and
             saved to a processed data subdirectory for the specified sensor.
             If false, processed data will be loaded.
         write_to_file (bool): If true and load_raw_data true, processed files
             will be written to folder location. In addition, subsequent
-            evaluation statistics will be written to the Data and Figures and
-            eval_stats sensor subdirectory. Figures will also be written to the
-            appropriate figures subdirectory.
+            evaluation statistics will be written to the ``Data and Figures``
+            and ``eval_stats`` sensor subdirectory. Figures will also be written
+            to the appropriate figures subdirectory.
         **kwargs: Keyword arguments that may be passed to the function for
-            particulate use cases. Includes 'testing_org' (a dictionary of
+            particulate use cases. Includes ``testing_org`` (a dictionary of
              organization information that is included in deploy_dict),
-            'testing_loc' (a dictionary of testing location information also
-            included in deploy_dict), bbox (bounding box of latitude and
-            longitude values for AirNow API queries), and aqs_id (AQS site ID
-            for AQS API queries).
+            ``testing_loc`` (a dictionary of testing location information also
+            included in ``deploy_dict``), ``bbox`` (bounding box of latitude and
+            longitude values for AirNow API queries), and ``aqs_id`` (AQS site
+            ID for AQS API queries).
 
-    Instance attributes:
+    Attributes:
         data_path (str): The full directory path to raw sensor data for a given
             sensor make and model.
         figure_path (str): The full directory path to figures for a given
@@ -78,9 +80,9 @@ class SensorEvaluation:
             for a given sensor make and model.
         stats_path: The full directory path to evaluation statistics for a
             given sensor make and model.
-        full_df_list (list of pandas dataframes): List of sensor data frames
-            of length N (where N is the number of sensor units in a testing
-            group). frames indexed by DateTime_UTC at recorded sampling
+        full_df_list (:obj:`list` of :obj: `pandas dataframes`): List of sensor
+            data frames of length N (where N is the number of sensor units in a
+            testing group). frames indexed by DateTime_UTC at recorded sampling
             frequency.
         hourly_df_list (list of pandas dataframes): List of sensor data frames
             of length N (where N is the number of sensor units in a testing
@@ -333,9 +335,13 @@ class SensorEvaluation:
 
         # Retrieve reference data
         if reference_data is not None:
-            self.ref_dict = {'PM': pd.DataFrame(),
-                             'Gases': pd.DataFrame(),
-                             'Met': pd.DataFrame()}
+            self.ref_dict = {'PM': {'1-hour': pd.DataFrame(),
+                                    '24-hour':  pd.DataFrame()},
+                             'Gases': {'1-hour': pd.DataFrame(),
+                                       '24-hour':  pd.DataFrame()},
+                             'Met': {'1-hour': pd.DataFrame(),
+                                     '24-hour':  pd.DataFrame()}
+                             }
             if reference_data == 'AirNow':
                 # Call AirNow API
                 bbox = self.kwargs.get('bbox', None)
@@ -354,7 +360,7 @@ class SensorEvaluation:
                                                     key=self.airnow_key)
                                                     )
 
-                self.ref_dict[self.eval_param_classification] = airnow_df
+                self.ref_dict[self.eval_param_classification]['1-hour'] = airnow_df
 
             elif reference_data == 'AQS':
                 # Call AQS API
@@ -370,7 +376,7 @@ class SensorEvaluation:
                                              username=self.aqs_username,
                                              key=self.aqs_key))
 
-                self.ref_dict[self.eval_param_classification] = aqs_df
+                self.ref_dict[self.eval_param_classification]['1-hour'] = aqs_df
 
             elif os.path.exists(reference_data):
                 # Load local reference data from file location
@@ -389,7 +395,7 @@ class SensorEvaluation:
             # Do not load or download any reference data
 
         # Set reference dataframe based on evaluation parameter classification
-        self.hourly_ref_df = self.ref_dict[self.eval_param_classification]
+        self.hourly_ref_df = self.ref_dict[self.eval_param_classification]['1-hour']
         hourly_ref_idx = self.hourly_ref_df.index
 
         ref_param_cols = ['_Value', '_Unit', '_QAQC_Code', '_Param_Code',
@@ -401,8 +407,8 @@ class SensorEvaluation:
 
         # Unpack the ref data into dataframes. If no reference data found,
         # return a dataframe backfilled with nulls.
-        if not self.ref_dict['PM'].empty:
-            self.pm_hourly_ref_df = self.ref_dict['PM']
+        if not self.ref_dict['PM']['1-hour'].empty:
+            self.pm_hourly_ref_df = self.ref_dict['PM']['1-hour']
         else:
             cols = ['PM25' + col for col in ref_param_cols]
             cols = cols + site_cols
@@ -414,8 +420,8 @@ class SensorEvaluation:
             for col_name in [col for col in cols if col.endswith('_Method')]:
                 self.pm_hourly_ref_df[col_name] = 'Unknown Reference'
 
-        if not self.ref_dict['Gases'].empty:
-            self.gas_hourly_ref_df = self.ref_dict['Gases']
+        if not self.ref_dict['Gases']['1-hour'].empty:
+            self.gas_hourly_ref_df = self.ref_dict['Gases']['1-hour']
         else:
             cols = ['O3' + col for col in ref_param_cols]
             cols = cols + site_cols
@@ -427,8 +433,8 @@ class SensorEvaluation:
             for col_name in [col for col in cols if col.endswith('_Method')]:
                 self.gas_hourly_ref_df[col_name] = 'Unknown Reference'
 
-        if not self.ref_dict['Met'].empty:
-            self.met_hourly_ref_df = self.ref_dict['Met']
+        if not self.ref_dict['Met']['1-hour'].empty:
+            self.met_hourly_ref_df = self.ref_dict['Met']['1-hour']
         else:
             cols = [met_param + col for col in ref_param_cols
                     for met_param in ['RH', 'Temp']]
@@ -450,16 +456,30 @@ class SensorEvaluation:
             self.ref_name = 'Unknown Reference'
 
         # Compute 24-hr averaged data
-        self.daily_ref_df = sensortoolkit.Interval_Averaging(self.hourly_ref_df,
-                                                             freq='D',
-                                                             interval_count=24,
-                                                             thres=0.75)
+        self.pm_daily_ref_df = sensortoolkit.Interval_Averaging(
+                                                        self.pm_hourly_ref_df,
+                                                        freq='D',
+                                                        interval_count=24,
+                                                        thres=0.75)
 
         self.met_daily_ref_df = sensortoolkit.Interval_Averaging(
                                                         self.met_hourly_ref_df,
                                                         freq='D',
                                                         interval_count=24,
                                                         thres=0.75)
+
+        self.gas_daily_ref_df = sensortoolkit.Interval_Averaging(
+                                                self.gas_hourly_ref_df,
+                                                freq='D',
+                                                interval_count=24,
+                                                thres=0.75)
+
+        self.ref_dict['PM']['24-hour'] = self.pm_daily_ref_df
+        self.ref_dict['Gases']['24-hour'] = self.gas_daily_ref_df
+        self.ref_dict['Met']['24-hour'] = self.met_daily_ref_df
+
+        self.daily_ref_df = self.ref_dict[self.eval_param_classification]['24-hour']
+
 
         # Compute normalized param values
         self.hourly_df_list = sensortoolkit.Normalize(self.hourly_df_list,
