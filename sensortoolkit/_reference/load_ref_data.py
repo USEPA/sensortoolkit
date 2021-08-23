@@ -89,7 +89,13 @@ def Load_Ref_DataFrames(sensor_df_list, path=None, sensor_params=None):
                                               year, month,
                                               suffix='_Gases')
 
-    ref_dict = {'PM': pm_ref_df, 'Gases': gas_ref_df, 'Met': met_ref_df}
+    ref_dict = {'PM': {'1-hour': pm_ref_df,
+                       '24-hour':  pd.DataFrame()},
+                'Gases': {'1-hour': gas_ref_df,
+                          '24-hour':  pd.DataFrame()},
+                'Met': {'1-hour': met_ref_df,
+                        '24-hour':  pd.DataFrame()}
+                }
 
     return ref_dict
 
