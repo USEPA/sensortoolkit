@@ -48,3 +48,7 @@ from ._plotting.scatter import (Draw_Scatter, Scatter_Plotter,
                                 Normalized_Met_Scatter)
 from ._analysis.intersensor_mean import Intersensor_Mean
 from ._ingest.sensor_import import Import
+
+# Import front-facing classes
+from ._performancereport.performance_report import PerformanceReport
+from ._evaluation.sensor_eval import SensorEvaluation
