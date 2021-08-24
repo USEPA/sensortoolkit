@@ -94,6 +94,7 @@
 <li class="toctree-l1"><a class="reference internal" href="setup.html">Configuring sensortoolkit for Analyzing Sensor Data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="sensoreval.html">Conducting Analysis with the SensorEvaluation Class</a></li>
 <li class="toctree-l1"><a class="reference internal" href="datastructures.html">Data Structures and Formatting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performancereport.html">Creating Testing Reports with PerformanceReport</a></li>
 </ul>
 <p class="caption"><span class="caption-text">API Documentation</span></p>
 <ul>
@@ -473,6 +474,18 @@ file within the main directory of the library. Dependencies are installed with
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ pip install –r requirements.txt --user
 </pre></div>
 </div>
+</div>
+</div>
+<div class="section" id="run-setup-py">
+<h2>Run <code class="docutils literal notranslate"><span class="pre">setup.py</span></code><a class="headerlink" href="#run-setup-py" title="Permalink to this headline">¶</a></h2>
+<p>The last step in the installation process is ensuring that the <code class="docutils literal notranslate"><span class="pre">sensortoolkit</span></code>
+package modules can be imported from any directory location on a users system. For Anaconda
+users, packages are placed in a directory location with a path that should look
+something like <code class="docutils literal notranslate"><span class="pre">user/Anaconda3/Lib/site-packages</span></code>.</p>
+<p>To run the setup.py module, open a command line utility and ensure that the current
+directory is the location of the cloned repository. Then type the following command:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ python setup.py install
+</pre></div>
 </div>
 </div>
 </div>
