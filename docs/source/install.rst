@@ -93,3 +93,17 @@ file within the main directory of the library. Dependencies are installed with
 ::
 
   $ pip install –r requirements.txt --user
+
+Run ``setup.py``
+----------------------------------
+
+The last step in the installation process is ensuring that the ``sensortoolkit``
+package modules can be imported from any directory location on a users system. For Anaconda
+users, packages are placed in a directory location with a path that should look
+something like ``user/Anaconda3/Lib/site-packages``.
+
+To run the setup.py module, open a command line utility and ensure that the current
+directory is the location of the cloned repository. Then type the following command:
+::
+
+  $ python setup.py install
