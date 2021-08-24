@@ -58,6 +58,7 @@ collocated alongside reference instrumentation capable of reporting 1-hour and/o
     setup
     sensoreval
     datastructures
+    performancereport
 
 .. toctree::
     :hidden:

@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>Data Structures &mdash; sensortoolkit 1.0 documentation</title>
+  <title>Data Structures and Formatting &mdash; sensortoolkit 1.0 documentation</title>
   
 
   
@@ -42,7 +42,7 @@
     
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="sensortoolkit Modules" href="api.html" />
+    <link rel="next" title="Creating Testing Reports with PerformanceReport" href="performancereport.html" />
     <link rel="prev" title="Conducting Analysis with the SensorEvaluation Class" href="sensoreval.html" /> 
 </head>
 
@@ -93,8 +93,9 @@
 <li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="import_sensortoolkit.html">Importing the sensortoolkit Library</a></li>
 <li class="toctree-l1"><a class="reference internal" href="setup.html">Configuring sensortoolkit for Analyzing Sensor Data</a></li>
-<li class="toctree-l1"><a class="reference internal" href="sensoreval.html">Conducting Analysis with the SensorEvaluation Class</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Data Structures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sensoreval.html">Conducting Analysis with the <code class="docutils literal notranslate"><span class="pre">SensorEvaluation</span></code> Class</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Data Structures and Formatting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performancereport.html">Creating Testing Reports with <code class="docutils literal notranslate"><span class="pre">PerformanceReport</span></code></a></li>
 </ul>
 <p class="caption"><span class="caption-text">API Documentation</span></p>
 <ul>
@@ -375,7 +376,7 @@
     
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
         
-      <li>Data Structures</li>
+      <li>Data Structures and Formatting</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -394,8 +395,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="data-structures">
-<h1>Data Structures<a class="headerlink" href="#data-structures" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="data-structures-and-formatting">
+<h1>Data Structures and Formatting<a class="headerlink" href="#data-structures-and-formatting" title="Permalink to this headline">¶</a></h1>
 <p>The <code class="docutils literal notranslate"><span class="pre">SensorEvaluation</span></code> class contains a number of data structures that store
 sensor and reference data, and related statistical metrics. Below is a discussion
 of these data structures, as well as the Sensor Data Formattting Scheme (S-DFS) and
@@ -404,6 +405,13 @@ Reference Data Formatting Scheme (R-DFS) in which sensor and reference data are 
 arguments are included in the <a class="reference external" href="../html/_autosummary/sensortoolkit.sensor_eval.SensorEvaluation.html">API documentation for SensorEvaluation</a></p>
 <div class="section" id="sensorevaluation-data-structures">
 <h2><code class="docutils literal notranslate"><span class="pre">SensorEvaluation</span></code> Data Structures<a class="headerlink" href="#sensorevaluation-data-structures" title="Permalink to this headline">¶</a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>We remind readers that the <code class="docutils literal notranslate"><span class="pre">SensorEvaluation</span></code> class can be instantiated with
+whichever name suits the user’s needs best, however, below we refer to an instance
+of <code class="docutils literal notranslate"><span class="pre">SensorEvaluation</span></code> as <code class="docutils literal notranslate"><span class="pre">Eval</span></code> when referencing instance attributes (including data structures).</p>
+<p>See <a class="reference external" href="sensoreval.html">Conducting Analysis with the SensorEvaluation Class</a> for more information regarding instantiation of the <code class="docutils literal notranslate"><span class="pre">SensorEvaluation</span></code> class.</p>
+</div>
 <div class="section" id="sensor-data-list-containers">
 <h3>Sensor Data List Containers<a class="headerlink" href="#sensor-data-list-containers" title="Permalink to this headline">¶</a></h3>
 <p>Sensor data files that have been imported and processed into the S-DFS scheme are
@@ -418,23 +426,23 @@ format.</p>
 <div><div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Data sets for sensor units within each list container are organized by the order
-each unit serial ID appears in the <code class="docutils literal notranslate"><span class="pre">SensorEvaluation.serials</span></code> dictionary.</p>
+each unit serial ID appears in the <code class="docutils literal notranslate"><span class="pre">Eval.serials</span></code> dictionary.</p>
 <p>For example, if the <code class="docutils literal notranslate"><span class="pre">serials</span></code> dictionary lists three sensors as</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">SensorEvaluation</span><span class="o">.</span><span class="n">serials</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;1&#39;</span><span class="p">:</span> <span class="s1">&#39;SN01&#39;</span><span class="p">,</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">Eval</span><span class="o">.</span><span class="n">serials</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;1&#39;</span><span class="p">:</span> <span class="s1">&#39;SN01&#39;</span><span class="p">,</span>
                             <span class="s1">&#39;2&#39;</span><span class="p">:</span> <span class="s1">&#39;SN02&#39;</span><span class="p">,</span>
                             <span class="s1">&#39;3&#39;</span><span class="p">:</span> <span class="s1">&#39;SN03&#39;</span><span class="p">}</span>
 </pre></div>
 </div>
-<p>and the associated <code class="docutils literal notranslate"><span class="pre">SensorEvaluation.hourly_df_list</span></code> (or
-<code class="docutils literal notranslate"><span class="pre">SensorEvaluation.full_df_list</span></code> or <code class="docutils literal notranslate"><span class="pre">SensorEvaluation.daily_df_list</span></code>) lists three data sets as</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">SensorEvaluation</span><span class="o">.</span><span class="n">hourly_df_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">pandas</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
-                                   <span class="n">pandas</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
-                                   <span class="n">pandas</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">]</span>
+<p>and the associated <code class="docutils literal notranslate"><span class="pre">Eval.hourly_df_list</span></code> (or
+<code class="docutils literal notranslate"><span class="pre">Eval.full_df_list</span></code> or <code class="docutils literal notranslate"><span class="pre">Eval.daily_df_list</span></code>) lists three data sets as</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">Eval</span><span class="o">.</span><span class="n">hourly_df_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">pandas</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
+                       <span class="n">pandas</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
+                       <span class="n">pandas</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">]</span>
 </pre></div>
 </div>
 <p>then the pandas DataFrame object corresponding to sensor <code class="docutils literal notranslate"><span class="pre">SN01</span></code> is found at
 the first position within the <code class="docutils literal notranslate"><span class="pre">hourly_df_list</span></code>, i.e., index position zero:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sn01_dataset</span> <span class="o">=</span>  <span class="n">SensorEvaluation</span><span class="o">.</span><span class="n">hourly_df_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sn01_dataset</span> <span class="o">=</span>  <span class="n">Eval</span><span class="o">.</span><span class="n">hourly_df_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 </pre></div>
 </div>
 </div>
@@ -444,7 +452,7 @@ the first position within the <code class="docutils literal notranslate"><span c
 <blockquote>
 <div><div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>DataFrame object at list position zero shown (<code class="docutils literal notranslate"><span class="pre">dataset</span> <span class="pre">=</span> <span class="pre">full_df_list[0]</span></code>). Only the first ten rows are
+<p>DataFrame object at list position zero shown (<code class="docutils literal notranslate"><span class="pre">dataset</span> <span class="pre">=</span> <span class="pre">Eval.full_df_list[0]</span></code>). Only the first ten rows are
 displayed.</p>
 </div>
 <table class="colwidths-auto docutils align-default" id="id3">
@@ -549,7 +557,7 @@ displayed.</p>
 <blockquote>
 <div><div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>DataFrame object at list position zero shown (<code class="docutils literal notranslate"><span class="pre">dataset</span> <span class="pre">=</span> <span class="pre">hourly_df_list[0]</span></code>). Only the first ten rows are
+<p>DataFrame object at list position zero shown (<code class="docutils literal notranslate"><span class="pre">dataset</span> <span class="pre">=</span> <span class="pre">Eval.hourly_df_list[0]</span></code>). Only the first ten rows are
 displayed.</p>
 </div>
 <table class="colwidths-auto docutils align-default" id="id4">
@@ -654,7 +662,7 @@ displayed.</p>
 <blockquote>
 <div><div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>DataFrame object at list position zero shown (<code class="docutils literal notranslate"><span class="pre">dataset</span> <span class="pre">=</span> <span class="pre">daily_df_list[0]</span></code>). Only the first ten rows are
+<p>DataFrame object at list position zero shown (<code class="docutils literal notranslate"><span class="pre">dataset</span> <span class="pre">=</span> <span class="pre">Eval.daily_df_list[0]</span></code>). Only the first ten rows are
 displayed.</p>
 </div>
 <table class="colwidths-auto docutils align-default" id="id5">
@@ -792,13 +800,488 @@ in memory, and as a result, modifications to one dataframe will be reflected in 
 dataframe.</p>
 </div>
 </div>
+<div class="section" id="performance-evaluation-data-structures">
+<h3>Performance Evaluation Data Structures<a class="headerlink" href="#performance-evaluation-data-structures" title="Permalink to this headline">¶</a></h3>
+<p>Various data structures containing tabular statistics and information about
+evaluation conditions can also be constructed. These data structures can be
+constructed by running the following line of code:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">Eval</span><span class="o">.</span><span class="n">calculate_metrics</span><span class="p">()</span>
+</pre></div>
 </div>
-<div class="section" id="data-formatting">
-<h2>Data Formatting<a class="headerlink" href="#data-formatting" title="Permalink to this headline">¶</a></h2>
+<p>This will constuct the statistics dataframes <code class="docutils literal notranslate"><span class="pre">stats_df</span></code> and <code class="docutils literal notranslate"><span class="pre">avg_stats_df</span></code> and
+populate the deployment dictionary <code class="docutils literal notranslate"><span class="pre">deploy_dict</span></code> with details about the evaluation.
+More detail about each of these data structures is provided below.</p>
+<div class="section" id="statistics-dataframes-stats-df-and-avg-stats-df">
+<h4>Statistics Dataframes: <code class="docutils literal notranslate"><span class="pre">stats_df</span></code> and <code class="docutils literal notranslate"><span class="pre">avg_stats_df</span></code><a class="headerlink" href="#statistics-dataframes-stats-df-and-avg-stats-df" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="sensor-vs-frm-fem-statisitcs-stats-df">
+<h5>Sensor vs. FRM/FEM Statisitcs: <code class="docutils literal notranslate"><span class="pre">stats_df</span></code><a class="headerlink" href="#sensor-vs-frm-fem-statisitcs-stats-df" title="Permalink to this headline">¶</a></h5>
+<p>DataFrame containing statisitics relating the <strong>sensor vs. FRM/FEM</strong> linearity (<span class="math notranslate nohighlight">\(R^2\)</span>),
+bias (<cite>slope</cite> and <cite>intercept</cite>), <cite>RMSE</cite>, N (Number of sensor-FRM/FEM data point pairs), as well
+as the minimum, maximum, and the mean sensor concentration. Data are presented for all
+averaging intervals specified by <code class="docutils literal notranslate"><span class="pre">Eval.eval_param_averaging</span></code>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">stats_df</span></code> is saved as a comma-separated value file at …</p>
+<p>Below is an example of <code class="docutils literal notranslate"><span class="pre">stats_df</span></code> for the <code class="docutils literal notranslate"><span class="pre">Example_Make_Model</span></code> sensor dataset:</p>
+<table class="colwidths-auto docutils align-default" id="id6">
+<caption><span class="caption-text"><cite>stats_df.csv</cite></span><a class="headerlink" href="#id6" title="Permalink to this table">¶</a></caption>
+<thead>
+<tr class="row-odd"><th class="head"></th>
+<th class="head"><p>Sensor Name</p></th>
+<th class="head"><p>Sensor_Number</p></th>
+<th class="head"><p>Sensor_Serial</p></th>
+<th class="head"><p>Averaging Interval</p></th>
+<th class="head"><p>Param</p></th>
+<th class="head"><p>Reference</p></th>
+<th class="head"><p>R$^2$</p></th>
+<th class="head"><p>Slope</p></th>
+<th class="head"><p>Intercept</p></th>
+<th class="head"><p>Sensor RMSE</p></th>
+<th class="head"><p>N</p></th>
+<th class="head"><p>Sensor_Min</p></th>
+<th class="head"><p>Sensor_Max</p></th>
+<th class="head"><p>Sensor_Mean</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>0</p></td>
+<td><p>Example_Make_Model</p></td>
+<td><p>1</p></td>
+<td><p>SN01</p></td>
+<td><p>1-hour</p></td>
+<td><p>PM25</p></td>
+<td><p>T-API T640X at 16.67 LPM</p></td>
+<td><p>0.51</p></td>
+<td><p>0.799</p></td>
+<td><p>-1.569</p></td>
+<td><p>3.585</p></td>
+<td><p>734.0</p></td>
+<td><p>1.105</p></td>
+<td><p>13.763</p></td>
+<td><p>4.629</p></td>
+</tr>
+<tr class="row-odd"><td><p>1</p></td>
+<td><p>Example_Make_Model</p></td>
+<td><p>2</p></td>
+<td><p>SN02</p></td>
+<td><p>1-hour</p></td>
+<td><p>PM25</p></td>
+<td><p>T-API T640X at 16.67 LPM</p></td>
+<td><p>0.537</p></td>
+<td><p>0.803</p></td>
+<td><p>-1.637</p></td>
+<td><p>3.576</p></td>
+<td><p>736.0</p></td>
+<td><p>1.145</p></td>
+<td><p>12.465</p></td>
+<td><p>4.592</p></td>
+</tr>
+<tr class="row-even"><td><p>2</p></td>
+<td><p>Example_Make_Model</p></td>
+<td><p>3</p></td>
+<td><p>SN03</p></td>
+<td><p>1-hour</p></td>
+<td><p>PM25</p></td>
+<td><p>T-API T640X at 16.67 LPM</p></td>
+<td><p>0.545</p></td>
+<td><p>0.734</p></td>
+<td><p>-1.624</p></td>
+<td><p>4.003</p></td>
+<td><p>736.0</p></td>
+<td><p>0.882</p></td>
+<td><p>11.37</p></td>
+<td><p>4.069</p></td>
+</tr>
+<tr class="row-odd"><td><p>3</p></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td><p>Metric Average:</p></td>
+<td><p>0.531</p></td>
+<td><p>0.779</p></td>
+<td><p>-1.61</p></td>
+<td><p>3.721</p></td>
+<td><p>735.333</p></td>
+<td><p>1.044</p></td>
+<td><p>12.533</p></td>
+<td><p>4.43</p></td>
+</tr>
+<tr class="row-even"><td><p>4</p></td>
+<td><p>Example_Make_Model</p></td>
+<td><p>1</p></td>
+<td><p>SN01</p></td>
+<td><p>24-hour</p></td>
+<td><p>PM25</p></td>
+<td><p>T-API T640X at 16.67 LPM</p></td>
+<td><p>0.615</p></td>
+<td><p>0.872</p></td>
+<td><p>-2.18</p></td>
+<td><p>3.356</p></td>
+<td><p>30.0</p></td>
+<td><p>2.014</p></td>
+<td><p>7.857</p></td>
+<td><p>4.589</p></td>
+</tr>
+<tr class="row-odd"><td><p>5</p></td>
+<td><p>Example_Make_Model</p></td>
+<td><p>2</p></td>
+<td><p>SN02</p></td>
+<td><p>24-hour</p></td>
+<td><p>PM25</p></td>
+<td><p>T-API T640X at 16.67 LPM</p></td>
+<td><p>0.646</p></td>
+<td><p>0.93</p></td>
+<td><p>-2.635</p></td>
+<td><p>3.36</p></td>
+<td><p>30.0</p></td>
+<td><p>1.918</p></td>
+<td><p>8.14</p></td>
+<td><p>4.579</p></td>
+</tr>
+<tr class="row-even"><td><p>6</p></td>
+<td><p>Example_Make_Model</p></td>
+<td><p>3</p></td>
+<td><p>SN03</p></td>
+<td><p>24-hour</p></td>
+<td><p>PM25</p></td>
+<td><p>T-API T640X at 16.67 LPM</p></td>
+<td><p>0.563</p></td>
+<td><p>0.854</p></td>
+<td><p>-2.558</p></td>
+<td><p>3.883</p></td>
+<td><p>30.0</p></td>
+<td><p>1.164</p></td>
+<td><p>7.641</p></td>
+<td><p>4.067</p></td>
+</tr>
+<tr class="row-odd"><td><p>7</p></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td><p>Metric Average:</p></td>
+<td><p>0.608</p></td>
+<td><p>0.885</p></td>
+<td><p>-2.458</p></td>
+<td><p>3.533</p></td>
+<td><p>30.0</p></td>
+<td><p>1.698</p></td>
+<td><p>7.88</p></td>
+<td><p>4.412</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="sensor-vs-intersensor-average-statistics-avg-stats-df">
+<h5>Sensor vs. Intersensor Average Statistics: <code class="docutils literal notranslate"><span class="pre">avg_stats_df</span></code><a class="headerlink" href="#sensor-vs-intersensor-average-statistics-avg-stats-df" title="Permalink to this headline">¶</a></h5>
+<p>DataFrame containing statisitics relating the <strong>sensor vs. intersensor average</strong>
+linearity (<span class="math notranslate nohighlight">\(R^2\)</span>), bias (<cite>slope</cite> and <cite>intercept</cite>), RMSE, N (Number of concurrent
+sensor measurements during which all sensors in the testing group reported values), as well as the
+minimum, maximum, and the mean sensor concentration. Data are presented for all
+averaging intervals specified by <code class="docutils literal notranslate"><span class="pre">Eval.eval_param_averaging</span></code>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">avg_stats_df</span></code> is saved as a comma-separated value file at …</p>
+<p>Below is an example of <code class="docutils literal notranslate"><span class="pre">stats_df</span></code> for the <code class="docutils literal notranslate"><span class="pre">Example_Make_Model</span></code> sensor dataset:</p>
+<table class="colwidths-auto docutils align-default" id="id7">
+<caption><span class="caption-text"><cite>avg_stats_df.csv</cite></span><a class="headerlink" href="#id7" title="Permalink to this table">¶</a></caption>
+<thead>
+<tr class="row-odd"><th class="head"></th>
+<th class="head"><p>Sensor Name</p></th>
+<th class="head"><p>Sensor_Number</p></th>
+<th class="head"><p>Sensor_Serial</p></th>
+<th class="head"><p>Averaging Interval</p></th>
+<th class="head"><p>Param</p></th>
+<th class="head"><p>Reference</p></th>
+<th class="head"><p>R$^2$</p></th>
+<th class="head"><p>Slope</p></th>
+<th class="head"><p>Intercept</p></th>
+<th class="head"><p>Sensor RMSE</p></th>
+<th class="head"><p>N</p></th>
+<th class="head"><p>Sensor_Min</p></th>
+<th class="head"><p>Sensor_Max</p></th>
+<th class="head"><p>Sensor_Mean</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>0</p></td>
+<td><p>Example_Make_Model</p></td>
+<td><p>1</p></td>
+<td><p>SN01</p></td>
+<td><p>1-hour</p></td>
+<td><p>PM25</p></td>
+<td><p>Intersensor_mean_PM25</p></td>
+<td><p>0.933</p></td>
+<td><p>1.037</p></td>
+<td><p>0.033</p></td>
+<td><p>0.657</p></td>
+<td><p>736.0</p></td>
+<td><p>1.08</p></td>
+<td><p>13.763</p></td>
+<td><p>4.634</p></td>
+</tr>
+<tr class="row-odd"><td><p>1</p></td>
+<td><p>Example_Make_Model</p></td>
+<td><p>2</p></td>
+<td><p>SN02</p></td>
+<td><p>1-hour</p></td>
+<td><p>PM25</p></td>
+<td><p>Intersensor_mean_PM25</p></td>
+<td><p>0.977</p></td>
+<td><p>1.038</p></td>
+<td><p>-0.003</p></td>
+<td><p>0.403</p></td>
+<td><p>736.0</p></td>
+<td><p>1.145</p></td>
+<td><p>12.465</p></td>
+<td><p>4.602</p></td>
+</tr>
+<tr class="row-even"><td><p>2</p></td>
+<td><p>Example_Make_Model</p></td>
+<td><p>3</p></td>
+<td><p>SN03</p></td>
+<td><p>1-hour</p></td>
+<td><p>PM25</p></td>
+<td><p>Intersensor_mean_PM25</p></td>
+<td><p>0.943</p></td>
+<td><p>0.925</p></td>
+<td><p>-0.03</p></td>
+<td><p>0.648</p></td>
+<td><p>736.0</p></td>
+<td><p>0.882</p></td>
+<td><p>11.37</p></td>
+<td><p>4.076</p></td>
+</tr>
+<tr class="row-odd"><td><p>3</p></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td><p>Metric Average:</p></td>
+<td><p>0.951</p></td>
+<td><p>1.0</p></td>
+<td><p>-0.0</p></td>
+<td><p>0.569</p></td>
+<td><p>736.0</p></td>
+<td><p>1.036</p></td>
+<td><p>12.533</p></td>
+<td><p>4.437</p></td>
+</tr>
+<tr class="row-even"><td><p>4</p></td>
+<td><p>Example_Make_Model</p></td>
+<td><p>1</p></td>
+<td><p>SN01</p></td>
+<td><p>24-hour</p></td>
+<td><p>PM25</p></td>
+<td><p>Intersensor_mean_PM25</p></td>
+<td><p>0.983</p></td>
+<td><p>0.977</p></td>
+<td><p>0.279</p></td>
+<td><p>0.29</p></td>
+<td><p>30.0</p></td>
+<td><p>2.014</p></td>
+<td><p>7.857</p></td>
+<td><p>4.589</p></td>
+</tr>
+<tr class="row-odd"><td><p>5</p></td>
+<td><p>Example_Make_Model</p></td>
+<td><p>2</p></td>
+<td><p>SN02</p></td>
+<td><p>24-hour</p></td>
+<td><p>PM25</p></td>
+<td><p>Intersensor_mean_PM25</p></td>
+<td><p>0.993</p></td>
+<td><p>1.021</p></td>
+<td><p>0.075</p></td>
+<td><p>0.228</p></td>
+<td><p>30.0</p></td>
+<td><p>1.918</p></td>
+<td><p>8.14</p></td>
+<td><p>4.579</p></td>
+</tr>
+<tr class="row-even"><td><p>6</p></td>
+<td><p>Example_Make_Model</p></td>
+<td><p>3</p></td>
+<td><p>SN03</p></td>
+<td><p>24-hour</p></td>
+<td><p>PM25</p></td>
+<td><p>Intersensor_mean_PM25</p></td>
+<td><p>0.989</p></td>
+<td><p>1.002</p></td>
+<td><p>-0.354</p></td>
+<td><p>0.393</p></td>
+<td><p>30.0</p></td>
+<td><p>1.164</p></td>
+<td><p>7.641</p></td>
+<td><p>4.067</p></td>
+</tr>
+<tr class="row-odd"><td><p>7</p></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td><p>Metric Average:</p></td>
+<td><p>0.988</p></td>
+<td><p>1.0</p></td>
+<td><p>-0.0</p></td>
+<td><p>0.304</p></td>
+<td><p>30.0</p></td>
+<td><p>1.698</p></td>
+<td><p>7.88</p></td>
+<td><p>4.412</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="deployment-dictionary-deploy-dict">
+<h4>Deployment Dictionary: <code class="docutils literal notranslate"><span class="pre">deploy_dict</span></code><a class="headerlink" href="#deployment-dictionary-deploy-dict" title="Permalink to this headline">¶</a></h4>
+<p>The deployment dictionary <code class="docutils literal notranslate"><span class="pre">Eval.deploy_dict</span></code> contains descriptive statistics and textual information about
+the deployment, including details about the testing agency, deployment site,
+sensors tested, and site conditions during the evaluation.</p>
+<p>The top level organizes details by deployment group, testing information, and
+testing location. A deployment group is defined as a collection of sensors that are
+collocated and concurrently recording data during a consecutive timeframe.</p>
+<p>Expanding the deployment group field, three subfields are listed detailing sensor
+descriptions (‘sensors’), statistics pertaining to the evaluation parameter (‘PM25’),
+and statistics describing the meteorological site conditions during the deployment
+(‘Meteorological Conditions’). Timestamps for the start, end, and duration of the
+evaluation are also listed (derived from sensor dataset timestamps).</p>
+<p>The parameter statistics subfield contains categories for sensor-sensor (inter-sensor)
+precision, error relative to FRM/FEM, and reference (FRM/FEM) measurement statistics.
+The example shown below is for a scenario where the evaluation parameter is ‘PM25’
+(PM2.5). Statistics are presented at sampling frequencies indicated for the
+evaluation parameter via the  eval_param_averaging instance attribute.</p>
+<p>The Meteorological Conditions subfield contains statistics pertaining to
+temperature, relative humidity, and other parameters measured by instruments
+at the testing site. These measurements are independent of air sensor meteorological
+measurements collected by internal sensing components.</p>
+<p>The deployment dictionary <code class="docutils literal notranslate"><span class="pre">Eval.deploy_dict</span></code> is saved as a JSON file to …</p>
+<p>Below is an example of <code class="docutils literal notranslate"><span class="pre">deploy_dict</span></code> for the <code class="docutils literal notranslate"><span class="pre">Example_Make_Model</span></code> sensor dataset:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="nt">&quot;Sensor Name&quot;</span><span class="p">:</span> <span class="s2">&quot;Example_Make_Model&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;Deployment Groups&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;Group 1&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;sensors&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">&quot;1&quot;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="nt">&quot;serial_id&quot;</span><span class="p">:</span> <span class="s2">&quot;SN01&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;deploy_issues&quot;</span><span class="p">:</span> <span class="s2">&quot;False&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;recording_interval&quot;</span><span class="p">:</span> <span class="s2">&quot;1.0 minute&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;uptime_1-hour&quot;</span><span class="p">:</span> <span class="mf">97.372</span><span class="p">,</span>
+                    <span class="nt">&quot;uptime_24-hour&quot;</span><span class="p">:</span> <span class="mf">93.75</span>
+                <span class="p">},</span>
+                <span class="nt">&quot;2&quot;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="nt">&quot;serial_id&quot;</span><span class="p">:</span> <span class="s2">&quot;SN02&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;deploy_issues&quot;</span><span class="p">:</span> <span class="s2">&quot;False&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;recording_interval&quot;</span><span class="p">:</span> <span class="s2">&quot;1.0 minute&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;uptime_1-hour&quot;</span><span class="p">:</span> <span class="mf">97.635</span><span class="p">,</span>
+                    <span class="nt">&quot;uptime_24-hour&quot;</span><span class="p">:</span> <span class="mf">93.75</span>
+                <span class="p">},</span>
+                <span class="nt">&quot;3&quot;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="nt">&quot;serial_id&quot;</span><span class="p">:</span> <span class="s2">&quot;SN03&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;deploy_issues&quot;</span><span class="p">:</span> <span class="s2">&quot;False&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;recording_interval&quot;</span><span class="p">:</span> <span class="s2">&quot;1.0 minute&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;uptime_1-hour&quot;</span><span class="p">:</span> <span class="mf">97.635</span><span class="p">,</span>
+                    <span class="nt">&quot;uptime_24-hour&quot;</span><span class="p">:</span> <span class="mf">93.75</span>
+                <span class="p">}</span>
+            <span class="p">},</span>
+            <span class="nt">&quot;eval_start&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-08-01 12:11:00&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;eval_end&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-09-02 04:59:00&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;eval_duration&quot;</span><span class="p">:</span> <span class="s2">&quot;31 days 16:48:00&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;PM25&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">&quot;Precision&quot;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="nt">&quot;cv_1-hour&quot;</span><span class="p">:</span> <span class="mf">13.094</span><span class="p">,</span>
+                    <span class="nt">&quot;std_1-hour&quot;</span><span class="p">:</span> <span class="mf">0.581</span><span class="p">,</span>
+                    <span class="nt">&quot;n_1-hour&quot;</span><span class="p">:</span> <span class="mi">736</span><span class="p">,</span>
+                    <span class="nt">&quot;cv_24-hour&quot;</span><span class="p">:</span> <span class="mf">7.091</span><span class="p">,</span>
+                    <span class="nt">&quot;std_24-hour&quot;</span><span class="p">:</span> <span class="mf">0.313</span><span class="p">,</span>
+                    <span class="nt">&quot;n_24-hour&quot;</span><span class="p">:</span> <span class="mi">30</span>
+                <span class="p">},</span>
+                <span class="nt">&quot;Error&quot;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="nt">&quot;rmse_1-hour&quot;</span><span class="p">:</span> <span class="mf">3.798</span><span class="p">,</span>
+                    <span class="nt">&quot;nrmse_1-hour&quot;</span><span class="p">:</span> <span class="mf">48.561</span><span class="p">,</span>
+                    <span class="nt">&quot;rmse_24-hour&quot;</span><span class="p">:</span> <span class="mf">3.615</span><span class="p">,</span>
+                    <span class="nt">&quot;nrmse_24-hour&quot;</span><span class="p">:</span> <span class="mf">46.804</span>
+                <span class="p">},</span>
+                <span class="nt">&quot;Reference&quot;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="nt">&quot;reference_name&quot;</span><span class="p">:</span> <span class="s2">&quot;Teledyne API T640x&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;conc_min_1-hour&quot;</span><span class="p">:</span> <span class="mf">3.352</span><span class="p">,</span>
+                    <span class="nt">&quot;conc_max_1-hour&quot;</span><span class="p">:</span> <span class="mf">15.318</span><span class="p">,</span>
+                    <span class="nt">&quot;n_exceed_conc_goal_1-hour&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+                    <span class="nt">&quot;conc_min_24-hour&quot;</span><span class="p">:</span> <span class="mf">4.999</span><span class="p">,</span>
+                    <span class="nt">&quot;conc_max_24-hour&quot;</span><span class="p">:</span> <span class="mf">11.087</span><span class="p">,</span>
+                    <span class="nt">&quot;n_exceed_conc_goal_24-hour&quot;</span><span class="p">:</span> <span class="mi">0</span>
+                <span class="p">}</span>
+            <span class="p">},</span>
+            <span class="nt">&quot;Meteorological Conditions&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">&quot;Temperature&quot;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="nt">&quot;instrument_name&quot;</span><span class="p">:</span> <span class="s2">&quot;RM Young 41382 VC&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;min_1-hour&quot;</span><span class="p">:</span> <span class="mf">14.348</span><span class="p">,</span>
+                    <span class="nt">&quot;max_1-hour&quot;</span><span class="p">:</span> <span class="mf">37.735</span><span class="p">,</span>
+                    <span class="nt">&quot;n_exceed_target_criteria_1-hour&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+                    <span class="nt">&quot;n_measurement_pairs_1-hour&quot;</span><span class="p">:</span> <span class="mf">758.0</span><span class="p">,</span>
+                    <span class="nt">&quot;min_24-hour&quot;</span><span class="p">:</span> <span class="mf">21.21</span><span class="p">,</span>
+                    <span class="nt">&quot;max_24-hour&quot;</span><span class="p">:</span> <span class="mf">28.956</span><span class="p">,</span>
+                    <span class="nt">&quot;n_exceed_target_criteria_24-hour&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+                    <span class="nt">&quot;n_measurement_pairs_24-hour&quot;</span><span class="p">:</span> <span class="mf">32.0</span>
+                <span class="p">},</span>
+                <span class="nt">&quot;Relative Humidity&quot;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="nt">&quot;instrument_name&quot;</span><span class="p">:</span> <span class="s2">&quot;RM Young 41382 VC&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;min_1-hour&quot;</span><span class="p">:</span> <span class="mf">24.933</span><span class="p">,</span>
+                    <span class="nt">&quot;max_1-hour&quot;</span><span class="p">:</span> <span class="mf">97.0</span><span class="p">,</span>
+                    <span class="nt">&quot;n_exceed_target_criteria_1-hour&quot;</span><span class="p">:</span> <span class="mi">172</span><span class="p">,</span>
+                    <span class="nt">&quot;n_measurement_pairs_1-hour&quot;</span><span class="p">:</span> <span class="mf">758.0</span><span class="p">,</span>
+                    <span class="nt">&quot;min_24-hour&quot;</span><span class="p">:</span> <span class="mf">60.369</span><span class="p">,</span>
+                    <span class="nt">&quot;max_24-hour&quot;</span><span class="p">:</span> <span class="mf">88.171</span><span class="p">,</span>
+                    <span class="nt">&quot;n_exceed_target_criteria_24-hour&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+                    <span class="nt">&quot;n_measurement_pairs_24-hour&quot;</span><span class="p">:</span> <span class="mf">32.0</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="nt">&quot;Testing Organization&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;Deployment number&quot;</span><span class="p">:</span> <span class="s2">&quot;Deployment #1&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;Org name&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="s2">&quot;U.S. Environmental Protection Agency&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;Office of Research and Development&quot;</span>
+        <span class="p">],</span>
+        <span class="nt">&quot;Website&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;website name&quot;</span><span class="p">:</span> <span class="s2">&quot;Air Sensor Toolbox | U.S. EPA Website&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;website link&quot;</span><span class="p">:</span> <span class="s2">&quot;https://www.epa.gov/air-sensor-toolbox/evaluation-emerging-air-sensor-performance&quot;</span>
+        <span class="p">},</span>
+        <span class="nt">&quot;Contact email&quot;</span><span class="p">:</span> <span class="s2">&quot;PI: Clements.Andrea@epa.gov&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;Contact phone&quot;</span><span class="p">:</span> <span class="s2">&quot;919-541-1364&quot;</span>
+    <span class="p">},</span>
+    <span class="nt">&quot;Testing Location&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;Site name&quot;</span><span class="p">:</span> <span class="s2">&quot;Ambient Monitoring Innovative Research Station (AIRS) &quot;</span><span class="p">,</span>
+        <span class="nt">&quot;Site address&quot;</span><span class="p">:</span> <span class="s2">&quot;Research Triangle Park, NC&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;Site lat&quot;</span><span class="p">:</span> <span class="s2">&quot;35.889510N&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;Site long&quot;</span><span class="p">:</span> <span class="s2">&quot;-78.874572W&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;Site AQS ID&quot;</span><span class="p">:</span> <span class="s2">&quot;37 \u2013 063 \u2013 0099&quot;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><code class="docutils literal notranslate"><span class="pre">n_exceed_conc_goal</span></code> (1-hour/24-hour) for the evaluation parameter reference
+is the number of averaging intervals during which the reference concentration
+exceeds the EPA’s recommended elevated concentration value for either PM2.5
+(&gt;25 μg/m3) or O3 (&gt; ? ppbv)  testing.</p>
+<p>This term as it relates to the <code class="docutils literal notranslate"><span class="pre">Meteorological_Conditions</span></code> subcategories for
+temperature and relative humidity indicate the number of intervals during which
+conditions exceeded the manufacturer’s recommended operating range.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="sensor-and-reference-data-formatting">
+<h2>Sensor and Reference Data Formatting<a class="headerlink" href="#sensor-and-reference-data-formatting" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="sensor-data-formatting-standard-s-dfs">
 <h3>Sensor Data Formatting Standard (S-DFS)<a class="headerlink" href="#sensor-data-formatting-standard-s-dfs" title="Permalink to this headline">¶</a></h3>
-<table class="colwidths-auto docutils align-default" id="id6">
-<caption><span class="caption-text"><cite>S-DFS</cite></span><a class="headerlink" href="#id6" title="Permalink to this table">¶</a></caption>
+<table class="colwidths-auto docutils align-default" id="id8">
+<caption><span class="caption-text"><cite>S-DFS</cite></span><a class="headerlink" href="#id8" title="Permalink to this table">¶</a></caption>
 <thead>
 <tr class="row-odd"><th class="head"><p>Parameter Classification</p></th>
 <th class="head"><p>Label</p></th>
@@ -939,8 +1422,8 @@ dataframe.</p>
 </div>
 <div class="section" id="reference-data-formatting-standard-r-dfs">
 <h3>Reference Data Formatting Standard (R-DFS)<a class="headerlink" href="#reference-data-formatting-standard-r-dfs" title="Permalink to this headline">¶</a></h3>
-<table class="colwidths-auto docutils align-default" id="id7">
-<caption><span class="caption-text"><cite>R-DFS</cite></span><a class="headerlink" href="#id7" title="Permalink to this table">¶</a></caption>
+<table class="colwidths-auto docutils align-default" id="id9">
+<caption><span class="caption-text"><cite>R-DFS</cite></span><a class="headerlink" href="#id9" title="Permalink to this table">¶</a></caption>
 <thead>
 <tr class="row-odd"><th class="head"><p>Column Header</p></th>
 <th class="head"><p>Description</p></th>
@@ -1027,6 +1510,50 @@ dataframe.</p>
 </tbody>
 </table>
 </div>
+<div class="section" id="setup-json">
+<h3>Setup.JSON<a class="headerlink" href="#setup-json" title="Permalink to this headline">¶</a></h3>
+<p>Setup.json files are generated by running the Setup module and contain information
+about recorded sensor datasets that is used by the standard ingestion module
+(<code class="docutils literal notranslate"><span class="pre">sensortoolkit.Ingest</span></code>).</p>
+<p>As sensors often record data with different formatting and header naming schemes,
+these files assist in converting data recorded in their original format into S-DFS
+scheme for parameter data names and date/time formatting.</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Example_Make_Model&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;dtype&quot;</span><span class="p">:</span> <span class="s2">&quot;.csv&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;all_col_headers&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="s2">&quot;Time&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;NO2 (ppb)&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;O3 (ppb)&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;PM2.5 (\u00b5g/m\u00b3)&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;TEMP (\u00b0C)&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;RH (%)&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;DP (\u00b0C)&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Inlet&quot;</span>
+    <span class="p">],</span>
+    <span class="nt">&quot;timestamp_col_headers&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="s2">&quot;Time&quot;</span>
+    <span class="p">],</span>
+    <span class="nt">&quot;header_iloc&quot;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
+    <span class="nt">&quot;col_rename_dict&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;NO2 (ppb)&quot;</span><span class="p">:</span> <span class="s2">&quot;NO2&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;O3 (ppb)&quot;</span><span class="p">:</span> <span class="s2">&quot;O3&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;PM2.5 (\u00b5g/m\u00b3)&quot;</span><span class="p">:</span> <span class="s2">&quot;PM25&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;TEMP (\u00b0C)&quot;</span><span class="p">:</span> <span class="s2">&quot;Temp&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;RH (%)&quot;</span><span class="p">:</span> <span class="s2">&quot;RH&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;DP (\u00b0C)&quot;</span><span class="p">:</span> <span class="s2">&quot;DP&quot;</span>
+    <span class="p">},</span>
+    <span class="nt">&quot;drop_cols&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="s2">&quot;Time&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Inlet&quot;</span>
+    <span class="p">],</span>
+    <span class="nt">&quot;time_format_dict&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;Time&quot;</span><span class="p">:</span> <span class="s2">&quot;%Y/%m/%d %H:%M:%S&quot;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
 </div>
 </div>
 
@@ -1036,7 +1563,7 @@ dataframe.</p>
           </div>
           <footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="api.html" class="btn btn-neutral float-right" title="sensortoolkit Modules" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="performancereport.html" class="btn btn-neutral float-right" title="Creating Testing Reports with PerformanceReport" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
         <a href="sensoreval.html" class="btn btn-neutral float-left" title="Conducting Analysis with the SensorEvaluation Class" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
 

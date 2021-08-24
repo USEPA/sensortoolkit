@@ -46,6 +46,13 @@ reference data sources follows below*).
                   load_raw_data=False,
                   write_to_file=True)
 
+.. note::
+  ``Eval`` is the name given to the ``SensorEvaluation`` class instance. Users are not required
+  to refer to their class instances as ``Eval`` and can instead assign whichever name suits best.
+
+  Please note that subsequent reference to ``SensorEvaluation`` instance attributes and
+  modules will use the name ``Eval``.
+
 Console Output:
 
 .. code-block:: console
