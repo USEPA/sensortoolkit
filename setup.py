@@ -14,6 +14,7 @@ setup(name='sensortoolkit',
                 'sensortoolkit/_qc',
                 'sensortoolkit/_reference',
                 'sensortoolkit/_performancereport',
-                'sensortoolkit/_evaluation'
+                'sensortoolkit/_evaluation',
+                'sensortoolkit/_pkg'
                 ]
       )
