@@ -2,6 +2,9 @@
 """Top-level module for the ``sensortoolkit`` library. Contains the front-facing
 ``SensorEvaluation`` class for conducting analysis of sensor data.
 """
+# Package maintenance
+from ._pkg.get_version import Get_Version
+__version__ = Get_Version()
 
 # Modules that do not require functions in other sensortoolkit modules
 from ._analysis.dewpoint import Dewpoint
@@ -25,7 +28,7 @@ from ._plotting.plot_formatting import (Set_Fontsize,
      Get_Colormap_Norm_Range)
 from ._plotting.errorbars import Plot_Error_Bars
 from ._qc.purpleair_abcleaning import Compute_AB_Averages
-from ._reference.import_airnowtech import Import_AirNowTech, Flatten
+from ._reference.import_airnowtech import PreProcess_AirNowTech, Flatten
 from ._reference.load_ref_data import Load_Ref_DataFrames
 
 # Modules calling functions in other sensortoolkit modules
