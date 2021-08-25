@@ -94,14 +94,11 @@
 <li class="toctree-l1"><a class="reference internal" href="../setup.html">Configuring sensortoolkit for Analyzing Sensor Data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../sensoreval.html">Conducting Analysis with the SensorEvaluation Class</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../datastructures.html">Data Structures and Formatting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../performancereport.html">Creating Testing Reports with PerformanceReport</a></li>
 </ul>
 <p class="caption"><span class="caption-text">API Documentation</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="../api.html">sensortoolkit Modules</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="sensortoolkit.sensor_eval.html">sensortoolkit.sensor_eval</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="sensortoolkit.sensor_eval.SensorEvaluation.html">sensortoolkit.sensor_eval.SensorEvaluation</a></li>
-</ul>
-</li>
 <li class="toctree-l2"><a class="reference internal" href="sensortoolkit._analysis.html">sensortoolkit._analysis</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="sensortoolkit._analysis.aqi_calculator.html">sensortoolkit._analysis.aqi_calculator</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="sensortoolkit._analysis.aqi_calculator.AQI_Calculator.html">sensortoolkit._analysis.aqi_calculator.AQI_Calculator</a></li>
@@ -163,6 +160,13 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="sensortoolkit._evaluation.html">sensortoolkit._evaluation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="sensortoolkit._evaluation.sensor_eval.html">sensortoolkit._evaluation.sensor_eval</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="sensortoolkit._evaluation.sensor_eval.SensorEvaluation.html">sensortoolkit._evaluation.sensor_eval.SensorEvaluation</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="sensortoolkit._format.html">sensortoolkit._format</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="sensortoolkit._format.format_date.html">sensortoolkit._format.format_date</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="sensortoolkit._format.format_date.Get_Date.html">sensortoolkit._format.format_date.Get_Date</a></li>
@@ -214,6 +218,20 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="sensortoolkit._models.sensor_ols.html">sensortoolkit._models.sensor_ols</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="sensortoolkit._models.sensor_ols.Sensor_OLS.html">sensortoolkit._models.sensor_ols.Sensor_OLS</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="sensortoolkit._performancereport.html">sensortoolkit._performancereport</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="sensortoolkit._performancereport.performance_report.html">sensortoolkit._performancereport.performance_report</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="sensortoolkit._performancereport.performance_report.PerformanceReport.html">sensortoolkit._performancereport.performance_report.PerformanceReport</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="sensortoolkit._pkg.html">sensortoolkit._pkg</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="sensortoolkit._pkg.get_version.html">sensortoolkit._pkg.get_version</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="sensortoolkit._pkg.get_version.Get_Version.html">sensortoolkit._pkg.get_version.Get_Version</a></li>
 </ul>
 </li>
 </ul>
@@ -291,8 +309,8 @@
 <li class="toctree-l2 current"><a class="reference internal" href="sensortoolkit._reference.html">sensortoolkit._reference</a><ul class="current">
 <li class="toctree-l3 current"><a class="current reference internal" href="#">sensortoolkit._reference.import_airnowtech</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="sensortoolkit._reference.import_airnowtech.Flatten.html">sensortoolkit._reference.import_airnowtech.Flatten</a></li>
-<li class="toctree-l4"><a class="reference internal" href="sensortoolkit._reference.import_airnowtech.Import_AirNowTech.html">sensortoolkit._reference.import_airnowtech.Import_AirNowTech</a></li>
 <li class="toctree-l4"><a class="reference internal" href="sensortoolkit._reference.import_airnowtech.Ingest_AirNowTech.html">sensortoolkit._reference.import_airnowtech.Ingest_AirNowTech</a></li>
+<li class="toctree-l4"><a class="reference internal" href="sensortoolkit._reference.import_airnowtech.PreProcess_AirNowTech.html">sensortoolkit._reference.import_airnowtech.PreProcess_AirNowTech</a></li>
 <li class="toctree-l4"><a class="reference internal" href="sensortoolkit._reference.import_airnowtech.Sort_AirNowTech.html">sensortoolkit._reference.import_airnowtech.Sort_AirNowTech</a></li>
 <li class="toctree-l4"><a class="reference internal" href="sensortoolkit._reference.import_airnowtech.Write_To_File.html">sensortoolkit._reference.import_airnowtech.Write_To_File</a></li>
 </ul>
@@ -422,11 +440,11 @@ Office: 919-541-4086 | Email: <a class="reference external" href="mailto:frederi
 <tr class="row-odd"><td><p><a class="reference internal" href="sensortoolkit._reference.import_airnowtech.Flatten.html#sensortoolkit._reference.import_airnowtech.Flatten" title="sensortoolkit._reference.import_airnowtech.Flatten"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Flatten</span></code></a></p></td>
 <td><p>Function for flattening a nested list of values.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="sensortoolkit._reference.import_airnowtech.Import_AirNowTech.html#sensortoolkit._reference.import_airnowtech.Import_AirNowTech" title="sensortoolkit._reference.import_airnowtech.Import_AirNowTech"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Import_AirNowTech</span></code></a></p></td>
-<td><p>Wrapper module for pre-processing datasets downloaded as .csv files from airnowtech.org.</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="sensortoolkit._reference.import_airnowtech.Ingest_AirNowTech.html#sensortoolkit._reference.import_airnowtech.Ingest_AirNowTech" title="sensortoolkit._reference.import_airnowtech.Ingest_AirNowTech"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Ingest_AirNowTech</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="sensortoolkit._reference.import_airnowtech.Ingest_AirNowTech.html#sensortoolkit._reference.import_airnowtech.Ingest_AirNowTech" title="sensortoolkit._reference.import_airnowtech.Ingest_AirNowTech"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Ingest_AirNowTech</span></code></a></p></td>
 <td><p>Ingest raw AirNowTech data (table, unpivoted format, 1-hr recording freq) and set index column to Date &amp; Time (UTC).</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="sensortoolkit._reference.import_airnowtech.PreProcess_AirNowTech.html#sensortoolkit._reference.import_airnowtech.PreProcess_AirNowTech" title="sensortoolkit._reference.import_airnowtech.PreProcess_AirNowTech"><code class="xref py py-obj docutils literal notranslate"><span class="pre">PreProcess_AirNowTech</span></code></a></p></td>
+<td><p>Wrapper module for pre-processing datasets downloaded as .csv files from airnowtech.org.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="sensortoolkit._reference.import_airnowtech.Sort_AirNowTech.html#sensortoolkit._reference.import_airnowtech.Sort_AirNowTech" title="sensortoolkit._reference.import_airnowtech.Sort_AirNowTech"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Sort_AirNowTech</span></code></a></p></td>
 <td><p>Data are sorted into PM, gas, and met dataframes and a table containing all AQS method codes is used to associate the recorded method code for data streams with the instrument used to make the measurement.</p></td>

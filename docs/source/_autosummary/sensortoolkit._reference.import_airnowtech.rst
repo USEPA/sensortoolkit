@@ -1,4 +1,4 @@
-sensortoolkit.\_reference.import\_airnowtech
+﻿sensortoolkit.\_reference.import\_airnowtech
 ============================================
 
 .. automodule:: sensortoolkit._reference.import_airnowtech
@@ -16,8 +16,8 @@ sensortoolkit.\_reference.import\_airnowtech
       :nosignatures:
    
       Flatten
-      Import_AirNowTech
       Ingest_AirNowTech
+      PreProcess_AirNowTech
       Sort_AirNowTech
       Write_To_File
    

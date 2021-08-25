@@ -14,11 +14,13 @@ library methods is provided below.
    :template: custom-module-template.rst
    :recursive:
 
-   sensortoolkit.sensor_eval
    sensortoolkit._analysis
+   sensortoolkit._evaluation
    sensortoolkit._format
    sensortoolkit._ingest
    sensortoolkit._models
+   sensortoolkit._performancereport
+   sensortoolkit._pkg
    sensortoolkit._plotting
    sensortoolkit._qc
    sensortoolkit._reference

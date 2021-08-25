@@ -42,8 +42,8 @@ format.
    .. code-block:: python
 
       Eval.serials = {'1': 'SN01',
-                                  '2': 'SN02',
-                                  '3': 'SN03'}
+                      '2': 'SN02',
+                      '3': 'SN03'}
 
    and the associated ``Eval.hourly_df_list`` (or
    ``Eval.full_df_list`` or ``Eval.daily_df_list``) lists three data sets as
@@ -219,35 +219,57 @@ Below is an example of ``deploy_dict`` for the ``Example_Make_Model`` sensor dat
 .. code-block:: json
 
   {
+      "sensortoolkit Version": "1.0.0",
+      "Date of Analysis": "2021-08-25 09:46:19 AM",
+      "Testing Organization": {
+          "Deployment number": "Deployment #1",
+          "Org name": [
+              "U.S. Environmental Protection Agency",
+              "Office of Research and Development"
+          ],
+          "Website": {
+              "website name": "Air Sensor Toolbox | U.S. EPA Website",
+              "website link": "https://www.epa.gov/air-sensor-toolbox/evaluation-emerging-air-sensor-performance"
+          },
+          "Contact email": "PI: Clements.Andrea@epa.gov",
+          "Contact phone": "919-541-1364"
+      },
+      "Testing Location": {
+          "Site name": "Ambient Monitoring Innovative Research Station (AIRS) ",
+          "Site address": "Research Triangle Park, NC",
+          "Site lat": "35.889510N",
+          "Site long": "-78.874572W",
+          "Site AQS ID": "37 \u2013 063 \u2013 0099"
+      },
       "Sensor Name": "Example_Make_Model",
       "Deployment Groups": {
           "Group 1": {
+              "eval_start": "2019-08-01 12:11:00",
+              "eval_end": "2019-09-02 04:59:00",
+              "eval_duration": "31 days 16:48:00",
               "sensors": {
                   "1": {
                       "serial_id": "SN01",
                       "deploy_issues": "False",
                       "recording_interval": "1.0 minute",
-                      "uptime_1-hour": 97.372,
+                      "uptime_1-hour": 97.368,
                       "uptime_24-hour": 93.75
                   },
                   "2": {
                       "serial_id": "SN02",
                       "deploy_issues": "False",
                       "recording_interval": "1.0 minute",
-                      "uptime_1-hour": 97.635,
+                      "uptime_1-hour": 97.632,
                       "uptime_24-hour": 93.75
                   },
                   "3": {
                       "serial_id": "SN03",
                       "deploy_issues": "False",
                       "recording_interval": "1.0 minute",
-                      "uptime_1-hour": 97.635,
+                      "uptime_1-hour": 97.632,
                       "uptime_24-hour": 93.75
                   }
               },
-              "eval_start": "2019-08-01 12:11:00",
-              "eval_end": "2019-09-02 04:59:00",
-              "eval_duration": "31 days 16:48:00",
               "PM25": {
                   "Precision": {
                       "cv_1-hour": 13.094,
@@ -298,26 +320,6 @@ Below is an example of ``deploy_dict`` for the ``Example_Make_Model`` sensor dat
                   }
               }
           }
-      },
-      "Testing Organization": {
-          "Deployment number": "Deployment #1",
-          "Org name": [
-              "U.S. Environmental Protection Agency",
-              "Office of Research and Development"
-          ],
-          "Website": {
-              "website name": "Air Sensor Toolbox | U.S. EPA Website",
-              "website link": "https://www.epa.gov/air-sensor-toolbox/evaluation-emerging-air-sensor-performance"
-          },
-          "Contact email": "PI: Clements.Andrea@epa.gov",
-          "Contact phone": "919-541-1364"
-      },
-      "Testing Location": {
-          "Site name": "Ambient Monitoring Innovative Research Station (AIRS) ",
-          "Site address": "Research Triangle Park, NC",
-          "Site lat": "35.889510N",
-          "Site long": "-78.874572W",
-          "Site AQS ID": "37 \u2013 063 \u2013 0099"
       }
   }
 

@@ -12,14 +12,17 @@
 #
 import os
 import sys
-sys.path.insert(0, os.path.abspath('../..'))
-sys.path.insert(0, os.path.abspath('../../_analysis'))
-sys.path.insert(0, os.path.abspath('../../_format'))
-sys.path.insert(0, os.path.abspath('../../_ingest'))
-sys.path.insert(0, os.path.abspath('../../_models'))
-sys.path.insert(0, os.path.abspath('../../_plotting'))
-sys.path.insert(0, os.path.abspath('../../_qc'))
-sys.path.insert(0, os.path.abspath('../../_reference'))
+sys.path.insert(0, os.path.abspath('../../sensortoolkit/_analysis'))
+sys.path.insert(0, os.path.abspath('../../sensortoolkit/_format'))
+sys.path.insert(0, os.path.abspath('../../sensortoolkit/_ingest'))
+sys.path.insert(0, os.path.abspath('../../sensortoolkit/_models'))
+sys.path.insert(0, os.path.abspath('../../sensortoolkit/_plotting'))
+sys.path.insert(0, os.path.abspath('../../sensortoolkit/_qc'))
+sys.path.insert(0, os.path.abspath('../../sensortoolkit/_reference'))
+sys.path.insert(0, os.path.abspath('../../sensortoolkit/_pkg'))
+sys.path.insert(0, os.path.abspath('../../sensortoolkit/_evaluation'))
+sys.path.insert(0, os.path.abspath('../../sensortoolkit/_performancereport'))
+sys.path.insert(0, os.path.abspath('../../sensortoolkit'))
 
 
 # -- Project information -----------------------------------------------------

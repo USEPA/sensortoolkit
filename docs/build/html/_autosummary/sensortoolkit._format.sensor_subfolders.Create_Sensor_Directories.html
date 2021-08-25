@@ -94,14 +94,11 @@
 <li class="toctree-l1"><a class="reference internal" href="../setup.html">Configuring sensortoolkit for Analyzing Sensor Data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../sensoreval.html">Conducting Analysis with the SensorEvaluation Class</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../datastructures.html">Data Structures and Formatting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../performancereport.html">Creating Testing Reports with PerformanceReport</a></li>
 </ul>
 <p class="caption"><span class="caption-text">API Documentation</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="../api.html">sensortoolkit Modules</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="sensortoolkit.sensor_eval.html">sensortoolkit.sensor_eval</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="sensortoolkit.sensor_eval.SensorEvaluation.html">sensortoolkit.sensor_eval.SensorEvaluation</a></li>
-</ul>
-</li>
 <li class="toctree-l2"><a class="reference internal" href="sensortoolkit._analysis.html">sensortoolkit._analysis</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="sensortoolkit._analysis.aqi_calculator.html">sensortoolkit._analysis.aqi_calculator</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="sensortoolkit._analysis.aqi_calculator.AQI_Calculator.html">sensortoolkit._analysis.aqi_calculator.AQI_Calculator</a></li>
@@ -163,6 +160,13 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="sensortoolkit._evaluation.html">sensortoolkit._evaluation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="sensortoolkit._evaluation.sensor_eval.html">sensortoolkit._evaluation.sensor_eval</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="sensortoolkit._evaluation.sensor_eval.SensorEvaluation.html">sensortoolkit._evaluation.sensor_eval.SensorEvaluation</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l2 current"><a class="reference internal" href="sensortoolkit._format.html">sensortoolkit._format</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="sensortoolkit._format.format_date.html">sensortoolkit._format.format_date</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="sensortoolkit._format.format_date.Get_Date.html">sensortoolkit._format.format_date.Get_Date</a></li>
@@ -214,6 +218,20 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="sensortoolkit._models.sensor_ols.html">sensortoolkit._models.sensor_ols</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="sensortoolkit._models.sensor_ols.Sensor_OLS.html">sensortoolkit._models.sensor_ols.Sensor_OLS</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="sensortoolkit._performancereport.html">sensortoolkit._performancereport</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="sensortoolkit._performancereport.performance_report.html">sensortoolkit._performancereport.performance_report</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="sensortoolkit._performancereport.performance_report.PerformanceReport.html">sensortoolkit._performancereport.performance_report.PerformanceReport</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="sensortoolkit._pkg.html">sensortoolkit._pkg</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="sensortoolkit._pkg.get_version.html">sensortoolkit._pkg.get_version</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="sensortoolkit._pkg.get_version.Get_Version.html">sensortoolkit._pkg.get_version.Get_Version</a></li>
 </ul>
 </li>
 </ul>
@@ -291,8 +309,8 @@
 <li class="toctree-l2"><a class="reference internal" href="sensortoolkit._reference.html">sensortoolkit._reference</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="sensortoolkit._reference.import_airnowtech.html">sensortoolkit._reference.import_airnowtech</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="sensortoolkit._reference.import_airnowtech.Flatten.html">sensortoolkit._reference.import_airnowtech.Flatten</a></li>
-<li class="toctree-l4"><a class="reference internal" href="sensortoolkit._reference.import_airnowtech.Import_AirNowTech.html">sensortoolkit._reference.import_airnowtech.Import_AirNowTech</a></li>
 <li class="toctree-l4"><a class="reference internal" href="sensortoolkit._reference.import_airnowtech.Ingest_AirNowTech.html">sensortoolkit._reference.import_airnowtech.Ingest_AirNowTech</a></li>
+<li class="toctree-l4"><a class="reference internal" href="sensortoolkit._reference.import_airnowtech.PreProcess_AirNowTech.html">sensortoolkit._reference.import_airnowtech.PreProcess_AirNowTech</a></li>
 <li class="toctree-l4"><a class="reference internal" href="sensortoolkit._reference.import_airnowtech.Sort_AirNowTech.html">sensortoolkit._reference.import_airnowtech.Sort_AirNowTech</a></li>
 <li class="toctree-l4"><a class="reference internal" href="sensortoolkit._reference.import_airnowtech.Write_To_File.html">sensortoolkit._reference.import_airnowtech.Write_To_File</a></li>
 </ul>
@@ -403,7 +421,7 @@
 <h1>sensortoolkit._format.sensor_subfolders.Create_Sensor_Directories<a class="headerlink" href="#sensortoolkit-format-sensor-subfolders-create-sensor-directories" title="Permalink to this headline">¶</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="sensortoolkit._format.sensor_subfolders.Create_Sensor_Directories">
-<span class="sig-name descname"><span class="pre">Create_Sensor_Directories</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eval_params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sensortoolkit/_format/sensor_subfolders.html#Create_Sensor_Directories"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sensortoolkit._format.sensor_subfolders.Create_Sensor_Directories" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">Create_Sensor_Directories</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eval_params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">work_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lib_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sensortoolkit/_format/sensor_subfolders.html#Create_Sensor_Directories"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sensortoolkit._format.sensor_subfolders.Create_Sensor_Directories" title="Permalink to this definition">¶</a></dt>
 <dd><p>Construct the sensor directory file structure required for conducting
 analysis with the SensorEvaluation library.</p>
 <dl class="field-list simple">
@@ -419,6 +437,10 @@ pollutants, the user may specify ‘eval_params=[‘PM25’, ‘O3’]’ to
 create necessary subfolders for figures and data structures created
 by the SensorEvaluation library for each of these evaluation
 parameters.</p></li>
+<li><p><strong>work_path</strong> (<em>str</em>) – The full path to the work directory where the user intends to store
+datasets, figures, and reports.</p></li>
+<li><p><strong>lib_path</strong> (<em>str</em>) – The full path to the library as downloaded from the online
+repository.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
