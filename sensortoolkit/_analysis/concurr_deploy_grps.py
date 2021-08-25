@@ -15,6 +15,7 @@ Last Updated:
 """
 import pandas as pd
 import numpy as np
+from datetime import datetime
 from sensortoolkit._format.format_names import Format_Param_Name
 from sensortoolkit._analysis.synoptic_idx import Synoptic_Index
 from sensortoolkit._analysis.uptime_calculator import Uptime_Calculator
@@ -75,7 +76,10 @@ def Deployment_Groups(deploy_df, full_df_list, hourly_df_list, daily_df_list,
                                               'Site long': None,
                                               'Site AQS ID': None})
 
-    deploy_dict = {'Sensor Name': sensor_name,
+    current_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S %p')
+    deploy_dict = {'sensortoolkit Version': sensortoolkit.__version__,
+                   'Date of Analysis': current_time,
+                   'Sensor Name': sensor_name,
                    'Deployment Groups': {},
                    'Testing Organization': testing_org,
                    'Testing Location': testing_loc}
