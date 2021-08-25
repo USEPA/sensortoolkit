@@ -324,7 +324,7 @@ def Write_To_File(df, inpath, outpath):
                 month_df.to_csv(outpath + filename, index_label='DateTime_UTC')
 
 
-def Import_AirNowTech(inpath):
+def PreProcess_AirNowTech(inpath):
     """Wrapper module for pre-processing datasets downloaded as .csv files
     from airnowtech.org. When downloading data, the table box under "Display
     Settings" should be checked and configured to 'unpivoted' format.
