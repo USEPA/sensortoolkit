@@ -13,6 +13,7 @@ Created:
 Last Updated:
   Mon Jul 19 08:25:55 2021
 """
+import os
 from textwrap import wrap
 import json
 
@@ -34,7 +35,8 @@ class Setup:
     data_types = {'1': '.csv', '2': '.txt', '3': '.xlsx'}
     __banner_w__ = 79
 
-    def __init__(self):
+    def __init__(self, work_path):
+        self.work_path = work_path
         self.name = None
         self.dtype = None
         self.all_col_headers = []
@@ -310,14 +312,12 @@ class Setup:
         del self.config_dict['del_str']
         del self.config_dict['skip_str']
 
-        #today = se.Get_Date()
-
-        # check if sensor-specific subfolder exists
-        #if not os.path.exists(self.stats_path):
-        #    os.makedirs(self.stats_path)
-        self.name
-        print('..writing setup configuration to ' + self.name + '_setup.json')
-        with open(self.name + '_setup.json', 'w') as outfile:
+        outpath = (self.work_path + '\\Data and Figures\\sensor_data\\'
+                   + self.name)
+        filename = self.name + '_setup.json'
+        outpath = os.path.join(outpath, filename)
+        print('..writing setup configuration to ' + outpath)
+        with open(outpath, 'w') as outfile:
             self.config_dict = json.dumps(self.config_dict, indent=4)
             outfile.write(self.config_dict)
 
