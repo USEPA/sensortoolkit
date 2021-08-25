@@ -7,23 +7,90 @@ Creating Sensor Directories
 `sensortoolkit` organizes sensor data, resulting data structures, and figures
 into several sub-directories in the …/Data and Figures/… folder.  Users can
 create these folders during the setup process by running the ``Create_Sensor_Directories``
-function. The function accepts two arguments: the sensor name ``name`` and the
-parameters the user intends to evaluate ``eval_params``. Users are recommended to
-include the name of the sensor make and model in the sensor name, separated by
-an underscore. Below is an example for a sensor that will be evaluated for PM2.5
-and O3:
+function. The function accepts the following arguments
+
+* ``name``: The sensor name. Users are recommended to include the name of the
+  sensor make and model in the sensor name, separated by an underscore.
+* ``eval_params``: A list of parameters the user intends to evaluate
+* ``work_path``: The path to the directory where the user intends to store data, figures,
+  and reports
+* ``lib_path``:  The path to the directory where the sensortoolkit repository was
+  downloaded.
+
+.. note::
+
+  ``lib_path`` needs to be included if the ``work_path`` is
+  different than the ``lib_path`` in order to copy over reporting templates and
+  reference code lookup tables.
+
+Below is an example for a sensor that will be evaluated for PM2.5 and O3 at the
+folder location ``C:/Users/.../Documents/my_evaluation``:
 
 .. code-block:: python
 
+    work_path = 'C:/Users/.../Documents/my_evaluation'
+    lib_path = 'C:/Users/.../Documents/sensor-evaluation'
+
     SensorEvaluation.Create_Sensor_Directories(name='Sensor_Make_Model',
-                             	                 eval_params=['PM25', 'O3'])
+                             	                 eval_params=['PM25', 'O3'],
+                                               work_path=work_path,
+                                               lib_path=lib_path,)
 
 Running the code above will construct the sensor-specific directory structure
-for subsequent analysis. The following is printed to the console indicating the
-directories that are created by the ``Create_Sensor_Directories`` function.
+for subsequent analysis. Since the work path and library path differ, the reporting
+templates and reference data code lookup tables will be copied into the appropriate
+path location within ``.../my_evaluation``. Here, we're assuming that the folder
+``my_evaluation`` only has the python file with the code written above. The
+``Data and Figures`` and ``Reports`` folders, along with all relevant subdirectories,
+will be construted.
+
+The following is printed to the console indicating the directories that are created
+by the ``Create_Sensor_Directories`` function.
 
 .. code-block:: console
 
+  Creating "Data and Figures" subdirectory within C:/Users/.../Documents/my_evaluation
+  ..Creating directory:
+  ....\Data and Figures\eval_stats
+  ..Creating directory:
+  ....\Data and Figures\figures
+  ..Creating directory:
+  ....\Data and Figures\reference_data
+  ....Creating sub-directory:
+  ......\Data and Figures\reference_data\airnow
+  ......Creating sub-sub-directory:
+  ........\Data and Figures\reference_data\airnow\raw_api_datasets
+  ......Creating sub-sub-directory:
+  ........\Data and Figures\reference_data\airnow\processed
+  ....Creating sub-directory:
+  ......\Data and Figures\reference_data\airnowtech
+  ......Creating sub-sub-directory:
+  ........\Data and Figures\reference_data\airnowtech\downloaded_datasets
+  ......Creating sub-sub-directory:
+  ........\Data and Figures\reference_data\airnowtech\processed
+  ....Creating sub-directory:
+  ......\Data and Figures\reference_data\aqs
+  ......Creating sub-sub-directory:
+  ........\Data and Figures\reference_data\aqs\raw_api_datasets
+  ......Creating sub-sub-directory:
+  ........\Data and Figures\reference_data\aqs\processed
+  ....Creating sub-directory:
+  ......\Data and Figures\reference_data\method_codes
+  ....Creating sub-directory:
+  ......\Data and Figures\reference_data\oaqps
+  ......Creating sub-sub-directory:
+  ........\Data and Figures\reference_data\oaqps\raw_data
+  ......Creating sub-sub-directory:
+  ........\Data and Figures\reference_data\oaqps\processed_data
+  ..Creating directory:
+  ....\Data and Figures\sensor_data
+  Creating "Reports" subdirectory within C:/Users/.../Documents/my_evaluation
+  ..Creating directory:
+  ....\Reports\templates
+  ....Creating sub-directory:
+  ......\Reports\templates\O3
+  ....Creating sub-directory:
+  ......\Reports\templates\PM25
   Creating directories for sensor_make_model and evaluation parameters: PM25, O3
   ..Creating directory:
   ....\Data and Figures\eval_stats\sensor_make_model
@@ -335,5 +402,4 @@ where ``Sensor_Make_Model`` is replaced by the name given to the sensor.
   Options
   -------
   ===============================================================================
-  ..writing setup configuration to Example_Make_Model_setup.json
-   
+  ..writing setup configuration to \Data and Figures\sensor_data\Example_Make_Model\Example_Make_Model_setup.json

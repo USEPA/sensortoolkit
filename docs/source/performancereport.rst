@@ -38,6 +38,7 @@ report for the ``Example_Make_Model`` sensor evaluating its PM<sub>2.5</sub> per
   test_report = PerformanceReport(
                   sensor_name='Example_Make_Model',
                   eval_param='PM25',
+                  work_path=work_path,
                   reference_data=ref_path.as_posix() + '/airnowtech/processed',
                   serials={'1': 'SN01',
                            '2': 'SN02',
@@ -137,4 +138,3 @@ relative humidity, and meteorological influences that may be present in sensor d
    :align: center
 
    Example_Make_Model Base Testing Report (Page 3)
-   

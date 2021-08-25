@@ -418,19 +418,85 @@
 <p><cite>sensortoolkit</cite> organizes sensor data, resulting data structures, and figures
 into several sub-directories in the …/Data and Figures/… folder.  Users can
 create these folders during the setup process by running the <code class="docutils literal notranslate"><span class="pre">Create_Sensor_Directories</span></code>
-function. The function accepts two arguments: the sensor name <code class="docutils literal notranslate"><span class="pre">name</span></code> and the
-parameters the user intends to evaluate <code class="docutils literal notranslate"><span class="pre">eval_params</span></code>. Users are recommended to
-include the name of the sensor make and model in the sensor name, separated by
-an underscore. Below is an example for a sensor that will be evaluated for PM2.5
-and O3:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">SensorEvaluation</span><span class="o">.</span><span class="n">Create_Sensor_Directories</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;Sensor_Make_Model&#39;</span><span class="p">,</span>
-                                             <span class="n">eval_params</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;PM25&#39;</span><span class="p">,</span> <span class="s1">&#39;O3&#39;</span><span class="p">])</span>
+function. The function accepts the following arguments</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">name</span></code>: The sensor name. Users are recommended to include the name of the
+sensor make and model in the sensor name, separated by an underscore.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">eval_params</span></code>: A list of parameters the user intends to evaluate</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">work_path</span></code>: The path to the directory where the user intends to store data, figures,
+and reports</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">lib_path</span></code>:  The path to the directory where the sensortoolkit repository was
+downloaded.</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><code class="docutils literal notranslate"><span class="pre">lib_path</span></code> needs to be included if the <code class="docutils literal notranslate"><span class="pre">work_path</span></code> is
+different than the <code class="docutils literal notranslate"><span class="pre">lib_path</span></code> in order to copy over reporting templates and
+reference code lookup tables.</p>
+</div>
+<p>Below is an example for a sensor that will be evaluated for PM2.5 and O3 at the
+folder location <code class="docutils literal notranslate"><span class="pre">C:/Users/.../Documents/my_evaluation</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">work_path</span> <span class="o">=</span> <span class="s1">&#39;C:/Users/.../Documents/my_evaluation&#39;</span>
+<span class="n">lib_path</span> <span class="o">=</span> <span class="s1">&#39;C:/Users/.../Documents/sensor-evaluation&#39;</span>
+
+<span class="n">SensorEvaluation</span><span class="o">.</span><span class="n">Create_Sensor_Directories</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;Sensor_Make_Model&#39;</span><span class="p">,</span>
+                                             <span class="n">eval_params</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;PM25&#39;</span><span class="p">,</span> <span class="s1">&#39;O3&#39;</span><span class="p">],</span>
+                                           <span class="n">work_path</span><span class="o">=</span><span class="n">work_path</span><span class="p">,</span>
+                                           <span class="n">lib_path</span><span class="o">=</span><span class="n">lib_path</span><span class="p">,)</span>
 </pre></div>
 </div>
 <p>Running the code above will construct the sensor-specific directory structure
-for subsequent analysis. The following is printed to the console indicating the
-directories that are created by the <code class="docutils literal notranslate"><span class="pre">Create_Sensor_Directories</span></code> function.</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">Creating directories for sensor_make_model and evaluation parameters: PM25, O3</span>
+for subsequent analysis. Since the work path and library path differ, the reporting
+templates and reference data code lookup tables will be copied into the appropriate
+path location within <code class="docutils literal notranslate"><span class="pre">.../my_evaluation</span></code>. Here, we’re assuming that the folder
+<code class="docutils literal notranslate"><span class="pre">my_evaluation</span></code> only has the python file with the code written above. The
+<code class="docutils literal notranslate"><span class="pre">Data</span> <span class="pre">and</span> <span class="pre">Figures</span></code> and <code class="docutils literal notranslate"><span class="pre">Reports</span></code> folders, along with all relevant subdirectories,
+will be construted.</p>
+<p>The following is printed to the console indicating the directories that are created
+by the <code class="docutils literal notranslate"><span class="pre">Create_Sensor_Directories</span></code> function.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">Creating &quot;Data and Figures&quot; subdirectory within C:/Users/.../Documents/my_evaluation</span>
+<span class="go">..Creating directory:</span>
+<span class="go">....\Data and Figures\eval_stats</span>
+<span class="go">..Creating directory:</span>
+<span class="go">....\Data and Figures\figures</span>
+<span class="go">..Creating directory:</span>
+<span class="go">....\Data and Figures\reference_data</span>
+<span class="go">....Creating sub-directory:</span>
+<span class="go">......\Data and Figures\reference_data\airnow</span>
+<span class="go">......Creating sub-sub-directory:</span>
+<span class="go">........\Data and Figures\reference_data\airnow\raw_api_datasets</span>
+<span class="go">......Creating sub-sub-directory:</span>
+<span class="go">........\Data and Figures\reference_data\airnow\processed</span>
+<span class="go">....Creating sub-directory:</span>
+<span class="go">......\Data and Figures\reference_data\airnowtech</span>
+<span class="go">......Creating sub-sub-directory:</span>
+<span class="go">........\Data and Figures\reference_data\airnowtech\downloaded_datasets</span>
+<span class="go">......Creating sub-sub-directory:</span>
+<span class="go">........\Data and Figures\reference_data\airnowtech\processed</span>
+<span class="go">....Creating sub-directory:</span>
+<span class="go">......\Data and Figures\reference_data\aqs</span>
+<span class="go">......Creating sub-sub-directory:</span>
+<span class="go">........\Data and Figures\reference_data\aqs\raw_api_datasets</span>
+<span class="go">......Creating sub-sub-directory:</span>
+<span class="go">........\Data and Figures\reference_data\aqs\processed</span>
+<span class="go">....Creating sub-directory:</span>
+<span class="go">......\Data and Figures\reference_data\method_codes</span>
+<span class="go">....Creating sub-directory:</span>
+<span class="go">......\Data and Figures\reference_data\oaqps</span>
+<span class="go">......Creating sub-sub-directory:</span>
+<span class="go">........\Data and Figures\reference_data\oaqps\raw_data</span>
+<span class="go">......Creating sub-sub-directory:</span>
+<span class="go">........\Data and Figures\reference_data\oaqps\processed_data</span>
+<span class="go">..Creating directory:</span>
+<span class="go">....\Data and Figures\sensor_data</span>
+<span class="go">Creating &quot;Reports&quot; subdirectory within C:/Users/.../Documents/my_evaluation</span>
+<span class="go">..Creating directory:</span>
+<span class="go">....\Reports\templates</span>
+<span class="go">....Creating sub-directory:</span>
+<span class="go">......\Reports\templates\O3</span>
+<span class="go">....Creating sub-directory:</span>
+<span class="go">......\Reports\templates\PM25</span>
+<span class="go">Creating directories for sensor_make_model and evaluation parameters: PM25, O3</span>
 <span class="go">..Creating directory:</span>
 <span class="go">....\Data and Figures\eval_stats\sensor_make_model</span>
 <span class="go">..Creating directory:</span>
@@ -710,7 +776,7 @@ where <code class="docutils literal notranslate"><span class="pre">Sensor_Make_M
 <span class="go">Options</span>
 <span class="go">-------</span>
 <span class="go">===============================================================================</span>
-<span class="go">..writing setup configuration to Example_Make_Model_setup.json</span>
+<span class="go">..writing setup configuration to \Data and Figures\sensor_data\Example_Make_Model\Example_Make_Model_setup.json</span>
 </pre></div>
 </div>
 </div>

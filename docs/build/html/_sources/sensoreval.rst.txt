@@ -35,16 +35,16 @@ reference data sources follows below*).
 
 .. code-block:: python
 
-  Eval = SensorEvaluation(
-                  sensor_name='Example_Make_Model',
-                  eval_param='PM25',
-                  reference_data=ref_path.as_posix() + '/airnowtech/processed_data',
-                  serials={'1': 'SN01',
-                            '2': 'SN02',
-                            '3': 'SN03'},
-                  tzone_shift=5,
-                  load_raw_data=False,
-                  write_to_file=True)
+  Eval = SensorEvaluation(sensor_name='Example_Make_Model',
+                          eval_param='PM25',
+                          work_path=work_path,
+                          reference_data=ref_path,
+                          serials={'1': 'SN01',
+                                   '2': 'SN02',
+                                   '3': 'SN03'},
+                          tzone_shift=5,
+                          load_raw_data=False,
+                          write_to_file=True)
 
 .. note::
   ``Eval`` is the name given to the ``SensorEvaluation`` class instance. Users are not required
@@ -88,6 +88,8 @@ Arguments passed to ``SensorEvaluation``
   ``Create_Sensor_Directories()`` and ``Setup()`` methods.
 * ``eval_param``: The parameter to evaluate, should be one of the parameters
   listed in the eval_params list passed to the ``Create_Sensor_Directories()`` method.
+* ``work_path``: The path to the directory where the user intends to store data, figures,
+  and reports
 * ``reference_data``: The service or folder directory from which reference data
   are acquired. More detail about the different options for reference data acquisition below...
 * ``serials``: A dictionary of sensor serial identifiers for each unit in a testing group.
@@ -131,7 +133,7 @@ can be imported for use by the ``SensorEvaluation`` class and `sensortoolkit` mo
   When downloading data from AirNowTech's online data query tool, users should check 'Table' and
   select 'Unpivoted' under the Display Settings box.
 
-`sensortoolkit`'s ``Import_AirNowTech()`` function parses the downloaded dataset
+`sensortoolkit`'s ``PreProcess_AirNowTech()`` function parses the downloaded dataset
 in monthly intervals and creates three separate datasets for particulate matter
 (:math:`PM_{2.5}` and :math:`PM_{10}`), gaseous pollutants (:math:`O3`, :math:`NO_2`, :math:`CO`, etc.),
 and meteorological parameters (temperature, relative humidity, etc.). These data sets
@@ -142,14 +144,9 @@ saved to ``../Data and Figures/reference_data/airnowtech/processed``.
 
   import sensortoolkit
 
-  ref_path = os.path.abspath(__file__ + '../../../reference_data')
-  ref_path = pathlib.PureWindowsPath(ref_path)
+  airnowtech_path = 'path/to/airnowtech-download.csv'
+  sensortoolkit.PreProcess_AirNowTech(airnowtech_path)
 
-  # Pre-process AirNowTech files, create separate, monthly files for PM, gas, met
-  filename = 'AirNowTech_BurdensCreek_20190801_20190902_PMGasMet.csv'
-  airnowtech_path = (ref_path.as_posix()
-                     + '/airnowtech/downloaded_datasets/' + filename)
-  sensortoolkit.Import_AirNowTech(airnowtech_path)
 
 Once AirNowTech datasets have been formatted, the ``SensorEvaluation`` class can
 be instantiated, where the ``reference_data`` argument is set to the full directory
@@ -162,6 +159,7 @@ path for the processed AirNowTech datasets:
   # Mock evaluation using AIRS reference data downloaded from AirNowTech
   Eval = SensorEvaluation(sensor_name='Example_Make_Model',
                           eval_param='PM25',
+                          work_path=work_path,
                           reference_data=ref_path.as_posix() + ‘/airnowtech/processed’,
                           bbox=AIRS_bbox,
                           serials={'1': 'SN01',
@@ -202,6 +200,7 @@ Additionally, the reference_data parameter should be set to ``AQS``
 
   Eval = SensorEvaluation(sensor_name='Example_Make_Model',
                           eval_param='PM25',
+                          work_path=work_path,
                           reference_data='AQS',
                           aqs_id=triple_oaks_ID,
                           serials={'1': 'SN01',
@@ -298,6 +297,7 @@ should be set to ``AirNow``.
   # Mock evaluation using AIRS reference data obtained from the AirNow API
   Eval = SensorEvaluation(sensor_name='Example_Make_Model',
                           eval_param='PM25',
+                          work_path=work_path,
                           reference_data='AirNow',
                           bbox=AIRS_bbox,
                           serials={'1': 'SN01',

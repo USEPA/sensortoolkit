@@ -442,16 +442,16 @@ performance evaluation results using U.S EPA’s recommended performance metrics
 sensor datasets included alongside <cite>sensortoolkit</cite>. This example is for an evaluation of
 PM2.5 sensor data against reference data retieved from AirNowTech (<em>further discussion of
 reference data sources follows below</em>).</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">Eval</span> <span class="o">=</span> <span class="n">SensorEvaluation</span><span class="p">(</span>
-                <span class="n">sensor_name</span><span class="o">=</span><span class="s1">&#39;Example_Make_Model&#39;</span><span class="p">,</span>
-                <span class="n">eval_param</span><span class="o">=</span><span class="s1">&#39;PM25&#39;</span><span class="p">,</span>
-                <span class="n">reference_data</span><span class="o">=</span><span class="n">ref_path</span><span class="o">.</span><span class="n">as_posix</span><span class="p">()</span> <span class="o">+</span> <span class="s1">&#39;/airnowtech/processed_data&#39;</span><span class="p">,</span>
-                <span class="n">serials</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;1&#39;</span><span class="p">:</span> <span class="s1">&#39;SN01&#39;</span><span class="p">,</span>
-                          <span class="s1">&#39;2&#39;</span><span class="p">:</span> <span class="s1">&#39;SN02&#39;</span><span class="p">,</span>
-                          <span class="s1">&#39;3&#39;</span><span class="p">:</span> <span class="s1">&#39;SN03&#39;</span><span class="p">},</span>
-                <span class="n">tzone_shift</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
-                <span class="n">load_raw_data</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-                <span class="n">write_to_file</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">Eval</span> <span class="o">=</span> <span class="n">SensorEvaluation</span><span class="p">(</span><span class="n">sensor_name</span><span class="o">=</span><span class="s1">&#39;Example_Make_Model&#39;</span><span class="p">,</span>
+                        <span class="n">eval_param</span><span class="o">=</span><span class="s1">&#39;PM25&#39;</span><span class="p">,</span>
+                        <span class="n">work_path</span><span class="o">=</span><span class="n">work_path</span><span class="p">,</span>
+                        <span class="n">reference_data</span><span class="o">=</span><span class="n">ref_path</span><span class="p">,</span>
+                        <span class="n">serials</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;1&#39;</span><span class="p">:</span> <span class="s1">&#39;SN01&#39;</span><span class="p">,</span>
+                                 <span class="s1">&#39;2&#39;</span><span class="p">:</span> <span class="s1">&#39;SN02&#39;</span><span class="p">,</span>
+                                 <span class="s1">&#39;3&#39;</span><span class="p">:</span> <span class="s1">&#39;SN03&#39;</span><span class="p">},</span>
+                        <span class="n">tzone_shift</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+                        <span class="n">load_raw_data</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                        <span class="n">write_to_file</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="admonition note">
@@ -494,6 +494,8 @@ modules will use the name <code class="docutils literal notranslate"><span class
 <code class="docutils literal notranslate"><span class="pre">Create_Sensor_Directories()</span></code> and <code class="docutils literal notranslate"><span class="pre">Setup()</span></code> methods.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">eval_param</span></code>: The parameter to evaluate, should be one of the parameters
 listed in the eval_params list passed to the <code class="docutils literal notranslate"><span class="pre">Create_Sensor_Directories()</span></code> method.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">work_path</span></code>: The path to the directory where the user intends to store data, figures,
+and reports</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">reference_data</span></code>: The service or folder directory from which reference data
 are acquired. More detail about the different options for reference data acquisition below…</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">serials</span></code>: A dictionary of sensor serial identifiers for each unit in a testing group.</p></li>
@@ -534,7 +536,7 @@ can be imported for use by the <code class="docutils literal notranslate"><span 
 <p>When downloading data from AirNowTech’s online data query tool, users should check ‘Table’ and
 select ‘Unpivoted’ under the Display Settings box.</p>
 </div>
-<p><cite>sensortoolkit</cite>’s <code class="docutils literal notranslate"><span class="pre">Import_AirNowTech()</span></code> function parses the downloaded dataset
+<p><cite>sensortoolkit</cite>’s <code class="docutils literal notranslate"><span class="pre">PreProcess_AirNowTech()</span></code> function parses the downloaded dataset
 in monthly intervals and creates three separate datasets for particulate matter
 (<span class="math notranslate nohighlight">\(PM_{2.5}\)</span> and <span class="math notranslate nohighlight">\(PM_{10}\)</span>), gaseous pollutants (<span class="math notranslate nohighlight">\(O3\)</span>, <span class="math notranslate nohighlight">\(NO_2\)</span>, <span class="math notranslate nohighlight">\(CO\)</span>, etc.),
 and meteorological parameters (temperature, relative humidity, etc.). These data sets
@@ -542,14 +544,8 @@ are processed with <cite>sensortoolkit</cite>’s Reference Data Formatting Stan
 saved to <code class="docutils literal notranslate"><span class="pre">../Data</span> <span class="pre">and</span> <span class="pre">Figures/reference_data/airnowtech/processed</span></code>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sensortoolkit</span>
 
-<span class="n">ref_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="vm">__file__</span> <span class="o">+</span> <span class="s1">&#39;../../../reference_data&#39;</span><span class="p">)</span>
-<span class="n">ref_path</span> <span class="o">=</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">PureWindowsPath</span><span class="p">(</span><span class="n">ref_path</span><span class="p">)</span>
-
-<span class="c1"># Pre-process AirNowTech files, create separate, monthly files for PM, gas, met</span>
-<span class="n">filename</span> <span class="o">=</span> <span class="s1">&#39;AirNowTech_BurdensCreek_20190801_20190902_PMGasMet.csv&#39;</span>
-<span class="n">airnowtech_path</span> <span class="o">=</span> <span class="p">(</span><span class="n">ref_path</span><span class="o">.</span><span class="n">as_posix</span><span class="p">()</span>
-                   <span class="o">+</span> <span class="s1">&#39;/airnowtech/downloaded_datasets/&#39;</span> <span class="o">+</span> <span class="n">filename</span><span class="p">)</span>
-<span class="n">sensortoolkit</span><span class="o">.</span><span class="n">Import_AirNowTech</span><span class="p">(</span><span class="n">airnowtech_path</span><span class="p">)</span>
+<span class="n">airnowtech_path</span> <span class="o">=</span> <span class="s1">&#39;path/to/airnowtech-download.csv&#39;</span>
+<span class="n">sensortoolkit</span><span class="o">.</span><span class="n">PreProcess_AirNowTech</span><span class="p">(</span><span class="n">airnowtech_path</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Once AirNowTech datasets have been formatted, the <code class="docutils literal notranslate"><span class="pre">SensorEvaluation</span></code> class can
@@ -560,6 +556,7 @@ path for the processed AirNowTech datasets:</p>
 # Mock evaluation using AIRS reference data downloaded from AirNowTech
 Eval = SensorEvaluation(sensor_name=&#39;Example_Make_Model&#39;,
                         eval_param=&#39;PM25&#39;,
+                        work_path=work_path,
                         reference_data=ref_path.as_posix() + ‘/airnowtech/processed’,
                         bbox=AIRS_bbox,
                         serials={&#39;1&#39;: &#39;SN01&#39;,
@@ -599,6 +596,7 @@ Additionally, the reference_data parameter should be set to <code class="docutil
 
 <span class="n">Eval</span> <span class="o">=</span> <span class="n">SensorEvaluation</span><span class="p">(</span><span class="n">sensor_name</span><span class="o">=</span><span class="s1">&#39;Example_Make_Model&#39;</span><span class="p">,</span>
                         <span class="n">eval_param</span><span class="o">=</span><span class="s1">&#39;PM25&#39;</span><span class="p">,</span>
+                        <span class="n">work_path</span><span class="o">=</span><span class="n">work_path</span><span class="p">,</span>
                         <span class="n">reference_data</span><span class="o">=</span><span class="s1">&#39;AQS&#39;</span><span class="p">,</span>
                         <span class="n">aqs_id</span><span class="o">=</span><span class="n">triple_oaks_ID</span><span class="p">,</span>
                         <span class="n">serials</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;1&#39;</span><span class="p">:</span> <span class="s1">&#39;SN01&#39;</span><span class="p">,</span>
@@ -691,6 +689,7 @@ should be set to <code class="docutils literal notranslate"><span class="pre">Ai
 <span class="c1"># Mock evaluation using AIRS reference data obtained from the AirNow API</span>
 <span class="n">Eval</span> <span class="o">=</span> <span class="n">SensorEvaluation</span><span class="p">(</span><span class="n">sensor_name</span><span class="o">=</span><span class="s1">&#39;Example_Make_Model&#39;</span><span class="p">,</span>
                         <span class="n">eval_param</span><span class="o">=</span><span class="s1">&#39;PM25&#39;</span><span class="p">,</span>
+                        <span class="n">work_path</span><span class="o">=</span><span class="n">work_path</span><span class="p">,</span>
                         <span class="n">reference_data</span><span class="o">=</span><span class="s1">&#39;AirNow&#39;</span><span class="p">,</span>
                         <span class="n">bbox</span><span class="o">=</span><span class="n">AIRS_bbox</span><span class="p">,</span>
                         <span class="n">serials</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;1&#39;</span><span class="p">:</span> <span class="s1">&#39;SN01&#39;</span><span class="p">,</span>
