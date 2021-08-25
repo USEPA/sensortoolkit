@@ -15,6 +15,7 @@ Last Updated:
 """
 import os
 import sys
+from shutil import copy
 
 def Create_Sensor_Directories(name=None, eval_params=[], work_path=None,
                               lib_path=None):
@@ -48,6 +49,7 @@ def Create_Sensor_Directories(name=None, eval_params=[], work_path=None,
     data_fig_path = os.path.join(work_path, 'Data and Figures')
     report_path = os.path.join(work_path, 'Reports')
 
+    new_folders = []
     # Check if Data and Figures folder in work directory
     if not os.path.exists(data_fig_path):
 
@@ -75,6 +77,7 @@ def Create_Sensor_Directories(name=None, eval_params=[], work_path=None,
                 new_dir = folder_path.replace(work_path, '')
                 print('..Creating directory:')
                 print('....' + new_dir)
+                new_folders.append(new_dir)
 
                 subfolders = folders[folder]
                 if subfolders is not None:
@@ -84,6 +87,7 @@ def Create_Sensor_Directories(name=None, eval_params=[], work_path=None,
                         new_dir = subfolder_path.replace(work_path, '')
                         print('....Creating sub-directory:')
                         print('......' + new_dir)
+                        new_folders.append(new_dir)
 
                         subsubfolders = subfolders[subfolder]
                         if subsubfolders is not None:
@@ -96,9 +100,14 @@ def Create_Sensor_Directories(name=None, eval_params=[], work_path=None,
                                                                     '')
                                 print('......Creating sub-sub-directory:')
                                 print('........' + new_dir)
+                                new_folders.append(new_dir)
 
-            #if sensor name is Example_Make_Model, copy over path to deployment figure
             #copy over method codes
+            subpath = ('Data and Figures/reference_data/method_codes/'
+                       'methods_criteria.csv')
+            src = os.path.join(lib_path, subpath)
+            dst =  os.path.join(work_path, subpath)
+            copy(src, dst)
 
         else:
             console = ('No path given to library location, not able '
@@ -112,7 +121,7 @@ def Create_Sensor_Directories(name=None, eval_params=[], work_path=None,
             print('Creating "Reports" subdirectory within', work_path)
             os.makedirs(report_path)
 
-            folders = {'templates': None}
+            folders = {'templates': ['O3', 'PM25']}
 
             for folder in folders:
                 folder_path = os.path.join(report_path, folder)
@@ -120,8 +129,28 @@ def Create_Sensor_Directories(name=None, eval_params=[], work_path=None,
                 new_dir = folder_path.replace(work_path, '')
                 print('..Creating directory:')
                 print('....' + new_dir)
+                new_folders.append(new_dir)
+
+                subfolders = folders[folder]
+                if subfolders is not None:
+                    for subfolder in subfolders:
+                        subfolder_path = os.path.join(folder_path, subfolder)
+                        os.makedirs(subfolder_path)
+                        new_dir = subfolder_path.replace(work_path, '')
+                        print('....Creating sub-directory:')
+                        print('......' + new_dir)
+                        new_folders.append(new_dir)
 
             # Copy over the templates
+            subpath = ('Reports/templates/')
+            subfolders = ['O3', 'PM25']
+            filenames = ['Reporting_Template_Base_O3.pptx',
+                         'Reporting_Template_Base_PM25.pptx']
+            for subfolder, filename in zip(subfolders, filenames):
+                filepath = subpath + '/' + subfolder + '/' + filename
+                src = os.path.join(lib_path, filepath)
+                dst =  os.path.join(work_path, filepath)
+                copy(src, dst)
 
         else:
             console = ('No path given to library location, not able '
@@ -145,6 +174,7 @@ def Create_Sensor_Directories(name=None, eval_params=[], work_path=None,
             new_dir = sensor_subfolder.replace(work_path, '')
             print('..Creating directory:')
             print('....' + new_dir)
+            new_folders.append(new_dir)
 
         # Create sub-subfolders for figures and sensor data folders
         if subfolder == 'figures':
@@ -159,6 +189,7 @@ def Create_Sensor_Directories(name=None, eval_params=[], work_path=None,
                     new_dir = param_fig_subfolder.replace(work_path, '')
                     print('....Creating sub-directory:')
                     print('......' + new_dir)
+                    new_folders.append(new_dir)
 
         if subfolder == 'sensor_data':
             dataset_types = ['processed_data', 'raw_data']
@@ -171,3 +202,14 @@ def Create_Sensor_Directories(name=None, eval_params=[], work_path=None,
                     new_dir = data_subfolder.replace(work_path, '')
                     print('....Creating sub-directory:')
                     print('......' + new_dir)
+                    new_folders.append(new_dir)
+
+    # copy over deployment figure for Example_Make_Model
+    deploy_fig_loc = ('\\Data and Figures\\figures\\'
+                      'Example_Make_Model\\deployment')
+    if name == 'Example_Make_Model' and deploy_fig_loc in new_folders:
+        subpath = ('Data and Figures/figures/'
+                    'Example_Make_Model/deployment/' + name + '.png')
+        src = os.path.join(lib_path, subpath)
+        dst =  os.path.join(work_path, subpath)
+        copy(src, dst)
