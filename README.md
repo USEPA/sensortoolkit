@@ -73,7 +73,7 @@ documentation. The HTML documentation contain greater detail about implementing 
 
 To open the included HTML documentation, first navigate to the repository folder.  Go to docs -> build -> html. Double click to open the file named `index.html`, which is the main landing page for the documentation. The documentation should open in a browser, and look like the following landing page:
 
-![sensortoolkit Landing Page](Data%20and%20Figures/figures/_readme_/toolkit_landing_page.png){width=1000}
+![sensortoolkit Landing Page](Data%20and%20Figures/figures/_readme_/toolkit_landing_page.png){width=800}
 
 Note: Users will need an installation of Python (v3.7 or greater). It’s
 highly recommended that users download an Anaconda distribution of
