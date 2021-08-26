@@ -63,7 +63,7 @@ Additional information about EPA's research involving air sensors including the 
 
 ****
 ## Installation <a name="install"></a>
-Note: Users will need an installation of Python (v3.7 or greater). It's
+Note: Users will need an installation of Python (v3.7 or greater). It’s
 highly recommended that users download an Anaconda distribution of
 Python. Anaconda is a package distribution of Python that includes many
 widely used libraries as well as the Spyder IDE for editing and
@@ -81,11 +81,13 @@ be cloned via the following command
 
 # Install package dependencies:
 
-[conda]{.title-ref} and [pip]{.title-ref} are two popular package
-managers for installing python packages and manage the dependency
-structure for the packages the user wishes to install. Below are guides
-for installing dependencies for [senortoolkit]{.title-ref} in either
-[conda]{.title-ref} or [pip]{.title-ref}.
+<span class="title-ref">conda</span> and <span
+class="title-ref">pip</span> are two popular package managers for
+installing python packages and manage the dependency structure for the
+packages the user wishes to install. Below are guides for installing
+dependencies for <span class="title-ref">senortoolkit</span> in either
+<span class="title-ref">conda</span> or <span
+class="title-ref">pip</span>.
 
 **Please note, users should either follow the conda installation process
 using a virtual environment or install dependencies with pip.**
@@ -93,23 +95,24 @@ using a virtual environment or install dependencies with pip.**
 ## Installing dependencies in a conda virtual environment
 
 If users have an Anaconda distribution of Python, users may wish to
-create a virtual environment via [conda]{.title-ref} for installing the
-dependencies required by the [sensortoolkit]{.title-ref} library. The
-benefit of a virtual environment is that software package versions
-required by the library won\'t modify package versions in the default
-base environment (a virtual environment creates a walled garden where
-users can install the packages and the package versions they require
-without changing the state or version of packages installed in the base
-environment).
+create a virtual environment via <span class="title-ref">conda</span>
+for installing the dependencies required by the <span
+class="title-ref">sensortoolkit</span> library. The benefit of a virtual
+environment is that software package versions required by the library
+won't modify package versions in the default base environment (a virtual
+environment creates a walled garden where users can install the packages
+and the package versions they require without changing the state or
+version of packages installed in the base environment).
 
-[sensortoolkit]{.title-ref} comes with the file `env.yml` that allows
-easy installation of dependencies into a [conda]{.title-ref} virtual
-environment named `sensor-eval`. First, navigate to the folder location
-for the cloned repository: :: \$ cd path/to/library
+<span class="title-ref">sensortoolkit</span> comes with the file
+`env.yml` that allows easy installation of dependencies into a <span
+class="title-ref">conda</span> virtual environment named `sensor-eval`.
+First, navigate to the folder location for the cloned repository: :: $
+cd path/to/library
 
 Next, create the virtual environment from the provided `env.yml` file.
-This will install various packages that are required by the
-[sensortoolkit]{.title-ref} library. :
+This will install various packages that are required by the <span
+class="title-ref">sensortoolkit</span> library. :
 
     $ conda env create -f env.yml
 
@@ -124,26 +127,47 @@ prompt `$`: :
 
     (sensor-eval) $
 
-::: tip
-::: title
 Tip
-:::
 
 To exit the `sensor-eval` environment, type: `conda deactivate`
-:::
 
-## Installing dependencies with pip
+# Installing dependencies with pip
 
-::: warning
-::: title
 Warning
-:::
 
-[conda]{.title-ref} users are discouraged from
-:::
+<span class="title-ref">conda</span> users are discouraged from using
+pip to install dependencies, as packages installed via <span
+class="title-ref">pip</span> may supersede previously installed packages
+via <span class="title-ref">conda</span>. In addition, <span
+class="title-ref">conda</span> and <span class="title-ref">pip</span>
+manage dependencies differently, and this may lead to potential issues
+if users wish to update package versions at a future point.
 
-  [tutorial]: https://www.atlassian.com/git/tutorials/setting-up-a-repository/git-clone?utm_campaign=learn-git-clone&utm_medium=in-app-help&utm_source=stash
-  
+First, navigate to the folder location for the cloned repository: :
+
+    $ cd path/to/library
+
+A list of dependencies and package versions is provided in the
+`requirements.txt` file within the main directory of the library.
+Dependencies are installed with <span class="title-ref">pip</span> via
+the following command: :
+
+    $ pip install –r requirements.txt --user
+
+## Run `setup.py`
+
+The last step in the installation process is ensuring that the
+`sensortoolkit` package modules can be imported from any directory
+location on a users system. For Anaconda users, packages are placed in a
+directory location with a path that should look something like
+`user/Anaconda3/Lib/site-packages`.
+
+To run the setup.py module, open a command line utility and ensure that
+the current directory is the location of the cloned repository. Then
+type the following command: :
+
+    $ python setup.py install
+
 <!--
 Recommended Software:
 * [Anaconda](https://www.anaconda.com/) distribution of Python
