@@ -44,7 +44,8 @@ def AQI_Calculator(data):
             value(s), if dataframe, column must be labeled 'PM25'.
 
     Returns:
-        dataframe: A pandas dataframe with PM25 concentrations, AQI
+        dataframe:
+            A pandas dataframe with PM25 concentrations, AQI
             values, and corresponding AQI category names.
 
     Raises:
