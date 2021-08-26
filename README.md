@@ -40,14 +40,14 @@ In February 2021, EPA released [two reports](https://www.epa.gov/air-sensor-tool
 Users must provide an ingestion module for importing recorded sensor data into a data formatting standard developed for this project.
 
 #### Dependencies: <a name="dependencies"></a>
-* [Python](https://www.python.org/) 3.7.4
-* [pandas](https://pypi.org/project/pandas/) 0.25.1
-* [numpy](https://pypi.org/project/numpy/) 1.16.5
-* [matplotlib](https://pypi.org/project/matplotlib/) 3.1.1
-* [seaborn](https://pypi.org/project/seaborn/) 0.9.0
-* [statsmodels](https://pypi.org/project/statsmodels/) 0.10.1
-* [pathlib2](https://pypi.org/project/pathlib2/) 2.3.5
-* [requests](https://pypi.org/project/requests/) 2.25.1
+* [Python](https://www.python.org/) 3.7, 3.8
+* [pandas](https://pypi.org/project/pandas/) >= 0.25.1
+* [numpy](https://pypi.org/project/numpy/) >= 1.16.5
+* [matplotlib](https://pypi.org/project/matplotlib/) >= 3.1.1
+* [seaborn](https://pypi.org/project/seaborn/) >= 0.9.0
+* [statsmodels](https://pypi.org/project/statsmodels/) >= 0.10.1
+* [pathlib2](https://pypi.org/project/pathlib2/) >= 2.3.5
+* [requests](https://pypi.org/project/requests/) >= 2.25.1
 * [python-pptx](https://pypi.org/project/python-pptx/) 0.6.18
 
 ### Contact and Resources <a name="contact"></a>
@@ -63,7 +63,88 @@ Additional information about EPA's research involving air sensors including the 
 
 ****
 ## Installation <a name="install"></a>
+Note: Users will need an installation of Python (v3.7 or greater). It's
+highly recommended that users download an Anaconda distribution of
+Python. Anaconda is a package distribution of Python that includes many
+widely used libraries as well as the Spyder IDE for editing and
+compiling code. Anaconda is free for individuals.
 
+# Clone the repository on BitBucket:
+
+There are a couple ways this can be done, either via a program with a UI
+like SourceTree or via a command-line interface. For users just getting
+starting with how to use Git, Bitbucket has a [tutorial] on how to clone
+repositories that may be helpful. From the terminal, the repository can
+be cloned via the following command
+
+    $ git clone https://bitbucket.epa.gov/scm/~sfrede01/sensor-evaluation.git
+
+# Install package dependencies:
+
+[conda]{.title-ref} and [pip]{.title-ref} are two popular package
+managers for installing python packages and manage the dependency
+structure for the packages the user wishes to install. Below are guides
+for installing dependencies for [senortoolkit]{.title-ref} in either
+[conda]{.title-ref} or [pip]{.title-ref}.
+
+**Please note, users should either follow the conda installation process
+using a virtual environment or install dependencies with pip.**
+
+## Installing dependencies in a conda virtual environment
+
+If users have an Anaconda distribution of Python, users may wish to
+create a virtual environment via [conda]{.title-ref} for installing the
+dependencies required by the [sensortoolkit]{.title-ref} library. The
+benefit of a virtual environment is that software package versions
+required by the library won\'t modify package versions in the default
+base environment (a virtual environment creates a walled garden where
+users can install the packages and the package versions they require
+without changing the state or version of packages installed in the base
+environment).
+
+[sensortoolkit]{.title-ref} comes with the file `env.yml` that allows
+easy installation of dependencies into a [conda]{.title-ref} virtual
+environment named `sensor-eval`. First, navigate to the folder location
+for the cloned repository: :: \$ cd path/to/library
+
+Next, create the virtual environment from the provided `env.yml` file.
+This will install various packages that are required by the
+[sensortoolkit]{.title-ref} library. :
+
+    $ conda env create -f env.yml
+
+Finally, activate the environment to use packages installed in the
+environment: :
+
+    $ conda activate sensor-eval
+
+If the environment has been activate successfully, the command prompt
+should display the environment name in parentheses before the system
+prompt `$`: :
+
+    (sensor-eval) $
+
+::: tip
+::: title
+Tip
+:::
+
+To exit the `sensor-eval` environment, type: `conda deactivate`
+:::
+
+## Installing dependencies with pip
+
+::: warning
+::: title
+Warning
+:::
+
+[conda]{.title-ref} users are discouraged from
+:::
+
+  [tutorial]: https://www.atlassian.com/git/tutorials/setting-up-a-repository/git-clone?utm_campaign=learn-git-clone&utm_medium=in-app-help&utm_source=stash
+  
+<!--
 Recommended Software:
 * [Anaconda](https://www.anaconda.com/) distribution of Python
   * Package management including version control and dependency installation with `conda`
@@ -77,6 +158,9 @@ Steps to get started using SensorEvaluation:
 3. Once the library has been downloaded and users have an installation of Python, navigate to the location of the SensorEvaluation library and copy the folder path. If users have Anaconda installed, search for ‘Anaconda Prompt’ from the task bar search and open an instance.
     * Type `cd path/to/sensorevaluation` where `path/to/sensorevaluation` is replaced by the full path previous copied to the clipboard. Press enter   and the prompt will change directories to the `sensorevaluation` folder.
     * Type `pip install –r requirements.txt --user` to install the various libraries required by SensorEvaluation.
+
+-->
+
 
 ****
 ## Using SensorEvaluation <a name="use"></a>
