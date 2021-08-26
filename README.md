@@ -63,6 +63,17 @@ Additional information about EPA's research involving air sensors including the 
 
 ****
 ## Installation <a name="install"></a>
+
+***The following installation guide is pulled from the HTML formatted documentation packaged alongside `sensortoolkit`. Once the respository has been downloaded, users
+are strongly recommended to follow the remainder of the documentation via the HTML
+documentation. The HTML documentation contain greater detail about implementing the
+`sensortoolkit` library, detailed API documentation, as well as formatted tips, notes, and recommendations for using the library.***
+
+To open the included HTML documentation, first navigate to the repository folder.  Go to docs -> build -> html. Double click to open the file named `index.html`, which is the main landing page for the documentation. The documentation should open in a browser, and look like the following landing page:
+
+![sensortoolkit Landing Page](Data%20and%20Figures/figures/_readme_/toolkit_landing_page.png)
+
+
 Note: Users will need an installation of Python (v3.7 or greater). It’s
 highly recommended that users download an Anaconda distribution of
 Python. Anaconda is a package distribution of Python that includes many
@@ -183,7 +194,7 @@ Steps to get started using SensorEvaluation:
     * Type `cd path/to/sensorevaluation` where `path/to/sensorevaluation` is replaced by the full path previous copied to the clipboard. Press enter   and the prompt will change directories to the `sensorevaluation` folder.
     * Type `pip install –r requirements.txt --user` to install the various libraries required by SensorEvaluation.
 
--->
+
 
 
 ****
@@ -709,3 +720,4 @@ Regular text\
 *Italic*\
 __Bold__\
 ~~strikethrough~~
+-->
