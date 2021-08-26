@@ -69,7 +69,7 @@ Python. Anaconda is a package distribution of Python that includes many
 widely used libraries as well as the Spyder IDE for editing and
 compiling code. Anaconda is free for individuals.
 
-# Clone the repository on BitBucket:
+### Clone the repository on BitBucket:
 
 There are a couple ways this can be done, either via a program with a UI
 like SourceTree or via a command-line interface. For users just getting
@@ -79,7 +79,7 @@ be cloned via the following command
 
     $ git clone https://bitbucket.epa.gov/scm/~sfrede01/sensor-evaluation.git
 
-# Install package dependencies:
+### Install package dependencies:
 
 <span class="title-ref">conda</span> and <span
 class="title-ref">pip</span> are two popular package managers for
@@ -92,7 +92,7 @@ class="title-ref">pip</span>.
 **Please note, users should either follow the conda installation process
 using a virtual environment or install dependencies with pip.**
 
-## Installing dependencies in a conda virtual environment
+### Installing dependencies in a conda virtual environment
 
 If users have an Anaconda distribution of Python, users may wish to
 create a virtual environment via <span class="title-ref">conda</span>
@@ -112,18 +112,18 @@ cd path/to/library
 
 Next, create the virtual environment from the provided `env.yml` file.
 This will install various packages that are required by the <span
-class="title-ref">sensortoolkit</span> library. :
+class="title-ref">sensortoolkit</span> library.
 
     $ conda env create -f env.yml
 
 Finally, activate the environment to use packages installed in the
-environment: :
+environment:
 
     $ conda activate sensor-eval
 
 If the environment has been activate successfully, the command prompt
 should display the environment name in parentheses before the system
-prompt `$`: :
+prompt `$`:
 
     (sensor-eval) $
 
@@ -131,7 +131,7 @@ Tip
 
 To exit the `sensor-eval` environment, type: `conda deactivate`
 
-# Installing dependencies with pip
+### Installing dependencies with pip
 
 Warning
 
@@ -150,11 +150,11 @@ First, navigate to the folder location for the cloned repository: :
 A list of dependencies and package versions is provided in the
 `requirements.txt` file within the main directory of the library.
 Dependencies are installed with <span class="title-ref">pip</span> via
-the following command: :
+the following command:
 
     $ pip install –r requirements.txt --user
 
-## Run `setup.py`
+### Run `setup.py`
 
 The last step in the installation process is ensuring that the
 `sensortoolkit` package modules can be imported from any directory
@@ -164,7 +164,7 @@ directory location with a path that should look something like
 
 To run the setup.py module, open a command line utility and ensure that
 the current directory is the location of the cloned repository. Then
-type the following command: :
+type the following command:
 
     $ python setup.py install
 
