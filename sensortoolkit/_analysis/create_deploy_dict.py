@@ -22,10 +22,11 @@ from datetime import datetime
 from sensortoolkit._format.format_names import Format_Param_Name
 from sensortoolkit._analysis.synoptic_idx import Synoptic_Index
 from sensortoolkit._analysis.uptime_calculator import Uptime_Calculator
+import sensortoolkit._pkg
 
 
-def Construct_DeployDict(deploy_df, full_df_list, hourly_df_list, daily_df_list,
-                      sensor_name, **kwargs):
+def Construct_Deploy_Dict(deploy_df, full_df_list, hourly_df_list,
+                          daily_df_list, sensor_name, **kwargs):
     """Create the deployment dictionary, initialize with sensor group info,
     time period of deployment, testing agency and location, and library version
     and time at which the dictionary were constructed.
@@ -58,7 +59,8 @@ def Construct_DeployDict(deploy_df, full_df_list, hourly_df_list, daily_df_list,
             The make and model of the sensor being evaluated.
 
     Returns:
-        deploy_dict: Dictionary containing separate deployment group start and
+        deploy_dict:
+            Dictionary containing separate deployment group start and
             end times (based on the latest (max) start timestamp and earliest
             (min) end timestamp in group), deployment duration, and sensor
             serial IDs for devices within each deployment group.
@@ -80,7 +82,7 @@ def Construct_DeployDict(deploy_df, full_df_list, hourly_df_list, daily_df_list,
                                               'Site AQS ID': None})
 
     current_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S %p')
-    deploy_dict = {'sensortoolkit Version': sensortoolkit.__version__,
+    deploy_dict = {'sensortoolkit Version': sensortoolkit._pkg.__version__,
                    'Date of Analysis': current_time,
                    'Sensor Name': sensor_name,
                    'Deployment Groups': {},
@@ -170,20 +172,21 @@ def Construct_DeployDict(deploy_df, full_df_list, hourly_df_list, daily_df_list,
     return deploy_dict
 
 
-def Reference_Stats(deploy_dict, ref_df, cal_check_dict=None, param='PM25',
-                    ref_name=None):
+def Add_Ref_Stats(deploy_dict, ref_df, cal_check_dict=None, param='PM25',
+                  ref_name=None):
     """Add reference monitor statistics to the parameter statistics subfield in
     the deployment dictionary.
 
-    Details added include:
-        1) The FRM/FEM monitor name
-        2) The minimum concentration recorded at the specified interval
-        averaging.
-        3) The maximum concentration recorded at the specified interval
-        averaging.
-        4) The number of intervals during which the FRM/FEM exceeds the goal
-        concentration recommended by the performance targets testing report for
-        elevated concentrations (goal >= three days).
+    Details added include
+    ----------------------
+    1. The FRM/FEM monitor name
+    2. The minimum concentration recorded at the specified interval
+       averaging.
+    3. The maximum concentration recorded at the specified interval
+       averaging.
+    4. The number of intervals during which the FRM/FEM exceeds the goal
+       concentration recommended by the performance targets testing report
+       for elevated concentrations (goal >= three days).
 
     Args:
         deploy_dict (dict):
@@ -203,7 +206,7 @@ def Reference_Stats(deploy_dict, ref_df, cal_check_dict=None, param='PM25',
             The name of the FRM/FEM monitor (make and model).
 
     Returns:
-        deploy_dict
+        deploy_dict:
             Dictionary containing separate deployment group start and end times
             (based on the latest (max) start timestamp and earliest (min)
             end timestamp in group), deployment duration, and sensor serial IDs
@@ -256,22 +259,20 @@ def Reference_Stats(deploy_dict, ref_df, cal_check_dict=None, param='PM25',
     return deploy_dict
 
 
-def Meteorological_Stats(deploy_dict, df_list, met_ref_df,
-                         cal_check_dict=None):
+def Add_Met_Stats(deploy_dict, df_list, met_ref_df,
+                  cal_check_dict=None):
     """Add meteorological instrument statistics to the parameter statistics
     subfield in the deployment dictionary.
 
     Details added include:
-        1) The name of the instrument collocated nearby sensor deployment
-        location.
-        2) The minimum value recorded at the specified interval
-        averaging.
-        3) The maximum value recorded at the specified interval
-        averaging.
-        4) The number of intervals during which the instrument exceeds the
-        manufacturer's recommended target range for instrument performance.
-        This is provisionally set for RH (exceedence when <=10% or >= 90%) and
-        Temp (exceedence when <=-20 C or >= 40 C).
+    ----------------------
+    1. The name of the instrument collocated nearby sensor deployment location.
+    2. The minimum value recorded at the specified interval averaging.
+    3. The maximum value recorded at the specified interval averaging.
+    4. The number of intervals during which the instrument exceeds the
+       manufacturer's recommended target range for instrument performance.
+       This is provisionally set for RH (exceedence when <=10% or >= 90%) and
+       Temp (exceedence when <=-20 C or >= 40 C).
 
     Args:
     	deploy_dict (dict):
@@ -290,7 +291,7 @@ def Meteorological_Stats(deploy_dict, df_list, met_ref_df,
             Description
 
     Returns:
-        deploy_dict
+        deploy_dict:
             Dictionary containing separate deployment group start and end times
             (based on the latest (max) start timestamp and earliest (min)
             end timestamp in group), deployment duration, and sensor serial IDs
@@ -368,7 +369,7 @@ def Measure_Recording_Interval(df, warning=False):
             A dataframe with time-like index.
 
     Returns:
-        interval_str (str):
+        interval_str:
             A string describing the most common (mode) recording interval
             in the dataframe.
     """
