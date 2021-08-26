@@ -304,7 +304,7 @@ class SensorEvaluation:
                                                         self.sensor_name,
                                                         self.serials)
 
-        self.deploy_dict = sensortoolkit.Deployment_Groups(
+        self.deploy_dict = sensortoolkit.Construct_DeployDict(
                                                         self.deploy_period_df,
                                                         self.full_df_list,
                                                         self.hourly_df_list,
