@@ -5,8 +5,16 @@ Configuring sensortoolkit for Analyzing Sensor Data
 Creating Sensor Directories
 ---------------------------
 `sensortoolkit` organizes sensor data, resulting data structures, and figures
-into several sub-directories in the …/Data and Figures/… folder.  Users can
-create these folders during the setup process by running the ``Create_Sensor_Directories``
+into several sub-directories in the …/Data and Figures/… folder.
+
+.. important::
+  Users have the option of working from within the folder location where the `sensortoolkit`
+  repository was downloaded, storing sensor and reference data in the provided /Data and Figures directory,
+  or users may wish to organize their work in a separate directory. In either case, various
+  subdirectories and folders will need to be created so users can store data, figures, and evaluation
+  statistics.
+
+Users can create these folders during the setup process by running the ``Create_Sensor_Directories``
 function. The function accepts the following arguments
 
 * ``name``: The sensor name. Users are recommended to include the name of the
@@ -24,14 +32,18 @@ function. The function accepts the following arguments
   reference code lookup tables.
 
 Below is an example for a sensor that will be evaluated for PM2.5 and O3 at the
-folder location ``C:/Users/.../Documents/my_evaluation``:
+folder location ``C:/Users/.../Documents/my_evaluation``. The `sensortoolkit` library
+has been downloaded to ``C:/Users/.../Documents/sensor-evaluation``, and since this is a
+different location than where the sensor will be evaluated (i.e., the work path will store
+data, figures, and statistics), we need to point ``Create_Sensor_Directories`` to the
+location of the `sensortoolkit` library so that necessary files can be copied over.
 
 .. code-block:: python
 
     work_path = 'C:/Users/.../Documents/my_evaluation'
     lib_path = 'C:/Users/.../Documents/sensor-evaluation'
 
-    SensorEvaluation.Create_Sensor_Directories(name='Sensor_Make_Model',
+    sensortoolkit.Create_Sensor_Directories(name='Sensor_Make_Model',
                              	                 eval_params=['PM25', 'O3'],
                                                work_path=work_path,
                                                lib_path=lib_path,)

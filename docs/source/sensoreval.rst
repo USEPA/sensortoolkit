@@ -156,11 +156,14 @@ path for the processed AirNowTech datasets:
 
   from sensortoolkit import SensorEvaluation
 
+  work_path = 'C:/Users/.../Documents/my_evaluation'
+  ref_path = work_path + '/Data and Figures/reference_data/airnowtech/processed'
+
   # Mock evaluation using AIRS reference data downloaded from AirNowTech
   Eval = SensorEvaluation(sensor_name='Example_Make_Model',
                           eval_param='PM25',
                           work_path=work_path,
-                          reference_data=ref_path.as_posix() + ‘/airnowtech/processed’,
+                          reference_data=ref_path,
                           bbox=AIRS_bbox,
                           serials={'1': 'SN01',
                                    '2': 'SN02',
@@ -168,6 +171,7 @@ path for the processed AirNowTech datasets:
                           tzone_shift=5,
                           load_raw_data=False,
                           write_to_file=False)
+
 
 .. note::
 
@@ -188,6 +192,8 @@ Additionally, the reference_data parameter should be set to ``AQS``
 .. code-block:: python
 
   from sensortoolkit import SensorEvaluation
+
+  work_path = 'C:/Users/.../Documents/my_evaluation'
 
   # Mock evaluation using Triple Oak AQS site (nearby AIRS) reference data
   # obtained from the AQS API
@@ -285,6 +291,8 @@ should be set to ``AirNow``.
 .. code-block:: python
 
   from sensortoolkit import SensorEvaluation
+
+  work_path = 'C:/Users/.../Documents/my_evaluation'
 
   # bbox for AIRS [set narrow margins (+/- 0.01 deg) around known coordinates]
   AIRS_bbox = {"minLat": "35.88",

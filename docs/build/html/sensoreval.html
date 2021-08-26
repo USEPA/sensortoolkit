@@ -106,10 +106,10 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="_autosummary/sensortoolkit._analysis.create_deploy_dict.html">sensortoolkit._analysis.create_deploy_dict</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._analysis.create_deploy_dict.Add_Met_Stats.html">sensortoolkit._analysis.create_deploy_dict.Add_Met_Stats</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._analysis.create_deploy_dict.Add_Ref_Stats.html">sensortoolkit._analysis.create_deploy_dict.Add_Ref_Stats</a></li>
 <li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._analysis.create_deploy_dict.Construct_Deploy_Dict.html">sensortoolkit._analysis.create_deploy_dict.Construct_Deploy_Dict</a></li>
 <li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._analysis.create_deploy_dict.Measure_Recording_Interval.html">sensortoolkit._analysis.create_deploy_dict.Measure_Recording_Interval</a></li>
-<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._analysis.create_deploy_dict.Meteorological_Stats.html">sensortoolkit._analysis.create_deploy_dict.Meteorological_Stats</a></li>
-<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._analysis.create_deploy_dict.Reference_Stats.html">sensortoolkit._analysis.create_deploy_dict.Reference_Stats</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="_autosummary/sensortoolkit._analysis.cv_calculator.html">sensortoolkit._analysis.cv_calculator</a><ul>
@@ -161,7 +161,13 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="_autosummary/sensortoolkit._evaluation.html">sensortoolkit._evaluation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_autosummary/sensortoolkit._evaluation.html">sensortoolkit._evaluation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="_autosummary/sensortoolkit._evaluation.sensor_eval.html">sensortoolkit._evaluation.sensor_eval</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._evaluation.sensor_eval.SensorEvaluation.html">sensortoolkit._evaluation.sensor_eval.SensorEvaluation</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="_autosummary/sensortoolkit._format.html">sensortoolkit._format</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="_autosummary/sensortoolkit._format.format_date.html">sensortoolkit._format.format_date</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._format.format_date.Get_Date.html">sensortoolkit._format.format_date.Get_Date</a></li>
@@ -217,7 +223,13 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="_autosummary/sensortoolkit._performancereport.html">sensortoolkit._performancereport</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_autosummary/sensortoolkit._performancereport.html">sensortoolkit._performancereport</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="_autosummary/sensortoolkit._performancereport.performance_report.html">sensortoolkit._performancereport.performance_report</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._performancereport.performance_report.PerformanceReport.html">sensortoolkit._performancereport.performance_report.PerformanceReport</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="_autosummary/sensortoolkit._pkg.html">sensortoolkit._pkg</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="_autosummary/sensortoolkit._pkg.get_version.html">sensortoolkit._pkg.get_version</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._pkg.get_version.Get_Version.html">sensortoolkit._pkg.get_version.Get_Version</a></li>
@@ -539,20 +551,23 @@ saved to <code class="docutils literal notranslate"><span class="pre">../Data</s
 <p>Once AirNowTech datasets have been formatted, the <code class="docutils literal notranslate"><span class="pre">SensorEvaluation</span></code> class can
 be instantiated, where the <code class="docutils literal notranslate"><span class="pre">reference_data</span></code> argument is set to the full directory
 path for the processed AirNowTech datasets:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>from sensortoolkit import SensorEvaluation
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sensortoolkit</span> <span class="kn">import</span> <span class="n">SensorEvaluation</span>
 
-# Mock evaluation using AIRS reference data downloaded from AirNowTech
-Eval = SensorEvaluation(sensor_name=&#39;Example_Make_Model&#39;,
-                        eval_param=&#39;PM25&#39;,
-                        work_path=work_path,
-                        reference_data=ref_path.as_posix() + ‘/airnowtech/processed’,
-                        bbox=AIRS_bbox,
-                        serials={&#39;1&#39;: &#39;SN01&#39;,
-                                 &#39;2&#39;: &#39;SN02&#39;,
-                                 &#39;3&#39;: &#39;SN03&#39;},
-                        tzone_shift=5,
-                        load_raw_data=False,
-                        write_to_file=False)
+<span class="n">work_path</span> <span class="o">=</span> <span class="s1">&#39;C:/Users/.../Documents/my_evaluation&#39;</span>
+<span class="n">ref_path</span> <span class="o">=</span> <span class="n">work_path</span> <span class="o">+</span> <span class="s1">&#39;/Data and Figures/reference_data/airnowtech/processed&#39;</span>
+
+<span class="c1"># Mock evaluation using AIRS reference data downloaded from AirNowTech</span>
+<span class="n">Eval</span> <span class="o">=</span> <span class="n">SensorEvaluation</span><span class="p">(</span><span class="n">sensor_name</span><span class="o">=</span><span class="s1">&#39;Example_Make_Model&#39;</span><span class="p">,</span>
+                        <span class="n">eval_param</span><span class="o">=</span><span class="s1">&#39;PM25&#39;</span><span class="p">,</span>
+                        <span class="n">work_path</span><span class="o">=</span><span class="n">work_path</span><span class="p">,</span>
+                        <span class="n">reference_data</span><span class="o">=</span><span class="n">ref_path</span><span class="p">,</span>
+                        <span class="n">bbox</span><span class="o">=</span><span class="n">AIRS_bbox</span><span class="p">,</span>
+                        <span class="n">serials</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;1&#39;</span><span class="p">:</span> <span class="s1">&#39;SN01&#39;</span><span class="p">,</span>
+                                 <span class="s1">&#39;2&#39;</span><span class="p">:</span> <span class="s1">&#39;SN02&#39;</span><span class="p">,</span>
+                                 <span class="s1">&#39;3&#39;</span><span class="p">:</span> <span class="s1">&#39;SN03&#39;</span><span class="p">},</span>
+                        <span class="n">tzone_shift</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+                        <span class="n">load_raw_data</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                        <span class="n">write_to_file</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="admonition note">
@@ -572,6 +587,8 @@ To determine the AQS ID for sites nearby a testing location, please visit <a cla
 Air Quality Monitor Map</a>.
 Additionally, the reference_data parameter should be set to <code class="docutils literal notranslate"><span class="pre">AQS</span></code></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sensortoolkit</span> <span class="kn">import</span> <span class="n">SensorEvaluation</span>
+
+<span class="n">work_path</span> <span class="o">=</span> <span class="s1">&#39;C:/Users/.../Documents/my_evaluation&#39;</span>
 
 <span class="c1"># Mock evaluation using Triple Oak AQS site (nearby AIRS) reference data</span>
 <span class="c1"># obtained from the AQS API</span>
@@ -665,6 +682,8 @@ campus. Users are encouraged to set narrow margins for the bounding box surround
 the air monitoring site of interest. Additionally, the reference_data parameter
 should be set to <code class="docutils literal notranslate"><span class="pre">AirNow</span></code>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sensortoolkit</span> <span class="kn">import</span> <span class="n">SensorEvaluation</span>
+
+<span class="n">work_path</span> <span class="o">=</span> <span class="s1">&#39;C:/Users/.../Documents/my_evaluation&#39;</span>
 
 <span class="c1"># bbox for AIRS [set narrow margins (+/- 0.01 deg) around known coordinates]</span>
 <span class="n">AIRS_bbox</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;minLat&quot;</span><span class="p">:</span> <span class="s2">&quot;35.88&quot;</span><span class="p">,</span>
