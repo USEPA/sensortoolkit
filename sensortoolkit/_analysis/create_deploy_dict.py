@@ -1,12 +1,15 @@
 # -*- coding: utf-8 -*-
 """
+This module constructs and populates the deployment dictionary data
+structure ``deploy_dict`` with testing organization and testing site
+information, individual sensor uptime statistics, performance metric results for
+precision, error, and reference statistics, and meteorlogical conditions.
+
+================================================================================
+
 @Author:
-  Samuel Frederick, NSSC Contractor (ORAU)
-  U.S. EPA, Office of Research and Development
-  Center for Environmental Measurement and Modeling
-  Air Methods and Characterization Division, Source and Fine Scale Branch
-  109 T.W Alexander Drive, Research Triangle Park, NC 27711
-  Office: 919-541-4086 | Email: frederick.samuel@epa.gov
+  | Samuel Frederick, NSSC Contractor (ORAU)
+  | U.S. EPA / ORD / CEMM / AMCD / SFSB
 
 Created:
   Mon Nov  9 10:47:56 2020
@@ -21,21 +24,22 @@ from sensortoolkit._analysis.synoptic_idx import Synoptic_Index
 from sensortoolkit._analysis.uptime_calculator import Uptime_Calculator
 
 
-def Deployment_Groups(deploy_df, full_df_list, hourly_df_list, daily_df_list,
+def Construct_DeployDict(deploy_df, full_df_list, hourly_df_list, daily_df_list,
                       sensor_name, **kwargs):
-    """Determine which sensors were deployed concurrently. Identify beginning,
-    end, and duration of concurrent deployment group.
+    """Create the deployment dictionary, initialize with sensor group info,
+    time period of deployment, testing agency and location, and library version
+    and time at which the dictionary were constructed.
 
-    Step through deployment dataframe and determine which sensors match
-    the beginning and end dates for deployment (provided a timedelta padding
-    window of 1 day around the begin and end timestamps). As groups are
-    identified, the group is subtracted from the deployment dataframe to
-    reduce redudant iteration over sensors for which the deployment group has
-    been identified.
+    Determines which sensors match the beginning and end dates for deployment
+    (provided a timedelta padding window of 1 day around the begin and end
+    timestamps). Sensors measuring concurrently are grouped together as a
+    `deployment group`. Sensors with beginning and end deployment dates that
+    differ from the identified deployment group are assigned ``True`` for the
+    ``deploy_dict`` sensor unit entry ``deploy_issues``.
 
     Args:
         deploy_df (pandas dataframe):
-            A data frame containing the start time (‘Begin’), end time (‘End’),
+            A data frame containing the start time (`Begin`), end time (`End`),
             and total duration of evaluation period for each sensor in a
             deployment group.
         full_df_list (list):
@@ -54,11 +58,10 @@ def Deployment_Groups(deploy_df, full_df_list, hourly_df_list, daily_df_list,
             The make and model of the sensor being evaluated.
 
     Returns:
-        deploy_dict
-            Dictionary containing separate deployment group start and end times
-            (based on the latest (max) start timestamp and earliest (min)
-            end timestamp in group), deployment duration, and sensor serial IDs
-            for devices within each deployment group.
+        deploy_dict: Dictionary containing separate deployment group start and
+            end times (based on the latest (max) start timestamp and earliest
+            (min) end timestamp in group), deployment duration, and sensor
+            serial IDs for devices within each deployment group.
     """
 
     # Testing organization information
