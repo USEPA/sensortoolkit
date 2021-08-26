@@ -37,8 +37,8 @@ from ._reference.ref_api_query import (Ref_API_Query, Save_Query,
 from ._reference.import_oaqps import Ingest_OAQPS, Process_OAQPS
 from ._analysis.synoptic_idx import Synoptic_Index
 from ._analysis.create_deploy_dict import (Construct_Deploy_Dict,
-                                            Reference_Stats,
-                                            Meteorological_Stats)
+                                           Add_Ref_Stats,
+                                           Add_Met_Stats)
 from ._analysis.cv_calculator import CV_Calculator, Compute_CV
 from ._models.sensor_ols import Sensor_OLS
 from ._analysis.model_analysis import Regression_Stats, Compute_RMSE
