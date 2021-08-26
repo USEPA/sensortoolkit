@@ -14,6 +14,7 @@ library methods is provided below.
    :template: custom-module-template.rst
    :recursive:
 
+   sensortoolkit
    sensortoolkit._analysis
    sensortoolkit._evaluation
    sensortoolkit._format

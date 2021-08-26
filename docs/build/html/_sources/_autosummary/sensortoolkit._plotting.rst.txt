@@ -30,7 +30,6 @@
    sensortoolkit._plotting.errorbars
    sensortoolkit._plotting.intrasensor_comparison
    sensortoolkit._plotting.plot_formatting
-   sensortoolkit._plotting.plot_functions_depreciate
    sensortoolkit._plotting.plot_performance_metrics
    sensortoolkit._plotting.scatter
    sensortoolkit._plotting.timeseries

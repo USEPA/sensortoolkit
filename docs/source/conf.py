@@ -12,17 +12,19 @@
 #
 import os
 import sys
-sys.path.insert(0, os.path.abspath('../../sensortoolkit/_analysis'))
-sys.path.insert(0, os.path.abspath('../../sensortoolkit/_format'))
-sys.path.insert(0, os.path.abspath('../../sensortoolkit/_ingest'))
-sys.path.insert(0, os.path.abspath('../../sensortoolkit/_models'))
-sys.path.insert(0, os.path.abspath('../../sensortoolkit/_plotting'))
-sys.path.insert(0, os.path.abspath('../../sensortoolkit/_qc'))
-sys.path.insert(0, os.path.abspath('../../sensortoolkit/_reference'))
-sys.path.insert(0, os.path.abspath('../../sensortoolkit/_pkg'))
-sys.path.insert(0, os.path.abspath('../../sensortoolkit/_evaluation'))
-sys.path.insert(0, os.path.abspath('../../sensortoolkit/_performancereport'))
-sys.path.insert(0, os.path.abspath('../../sensortoolkit'))
+
+lib = r'C:\Users\SFREDE01\OneDrive - Environmental Protection Agency (EPA)\Profile\Documents\Public_Sensor_Evaluation\sensortoolkit'
+sys.path.insert(0, os.path.abspath(lib))
+sys.path.insert(0, os.path.abspath(lib + '/_analysis'))
+sys.path.insert(0, os.path.abspath(lib + '/_evaluation'))
+sys.path.insert(0, os.path.abspath(lib + '/_format'))
+sys.path.insert(0, os.path.abspath(lib + '/_ingest'))
+sys.path.insert(0, os.path.abspath(lib + '/_models'))
+sys.path.insert(0, os.path.abspath(lib + '/_performancereport'))
+sys.path.insert(0, os.path.abspath(lib +  '/_pkg'))
+sys.path.insert(0, os.path.abspath(lib + '/_plotting'))
+sys.path.insert(0, os.path.abspath(lib + '/_qc'))
+sys.path.insert(0, os.path.abspath(lib + '/_reference'))
 
 
 # -- Project information -----------------------------------------------------

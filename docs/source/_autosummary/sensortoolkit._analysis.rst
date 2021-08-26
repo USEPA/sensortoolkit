@@ -27,7 +27,7 @@
    :recursive:
 
    sensortoolkit._analysis.aqi_calculator
-   sensortoolkit._analysis.concurr_deploy_grps
+   sensortoolkit._analysis.create_deploy_dict
    sensortoolkit._analysis.cv_calculator
    sensortoolkit._analysis.deployment_period
    sensortoolkit._analysis.dewpoint

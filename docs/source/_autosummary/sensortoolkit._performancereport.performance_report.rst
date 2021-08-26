@@ -1,4 +1,4 @@
-sensortoolkit.\_performancereport.performance\_report
+﻿sensortoolkit.\_performancereport.performance\_report
 =====================================================
 
 .. automodule:: sensortoolkit._performancereport.performance_report
