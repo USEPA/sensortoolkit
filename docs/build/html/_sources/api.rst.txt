@@ -2,6 +2,11 @@
 sensortoolkit Modules
 =====================
 
+.. note::
+
+    The API documentation is currently under development. Please check for
+    updates to the BitBucket repository before referencing this section.
+
 The sensortoolkit library is organized into seven primary directories:
 _analysis, _format, _ingest, _models, _plotting, _qc, and _reference.
 Each directory contains modules and methods that support both the

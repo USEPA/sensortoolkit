@@ -1,4 +1,4 @@
-sensortoolkit.\_ingest.setup.Setup
+﻿sensortoolkit.\_ingest.setup.Setup
 ==================================
 
 .. currentmodule:: sensortoolkit._ingest.setup
@@ -18,13 +18,14 @@ sensortoolkit.\_ingest.setup.Setup
    
       ~Setup.configSensor
       ~Setup.exportSetup
+      ~Setup.parseDataSets
       ~Setup.printSelectionBanner
-      ~Setup.setColumnHeaders
-      ~Setup.setColumnRenaming
       ~Setup.setDataType
       ~Setup.setDateTimeFormat
       ~Setup.setHeaderIndex
+      ~Setup.setParamHeaders
       ~Setup.setSensorName
+      ~Setup.setTimeHeaders
       ~Setup.validateEntry
    
    

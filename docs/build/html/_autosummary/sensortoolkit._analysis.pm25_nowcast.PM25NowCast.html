@@ -99,16 +99,17 @@
 <p class="caption"><span class="caption-text">API Documentation</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="../api.html">sensortoolkit Modules</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="sensortoolkit.html">sensortoolkit</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="sensortoolkit._analysis.html">sensortoolkit._analysis</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="sensortoolkit._analysis.aqi_calculator.html">sensortoolkit._analysis.aqi_calculator</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="sensortoolkit._analysis.aqi_calculator.AQI_Calculator.html">sensortoolkit._analysis.aqi_calculator.AQI_Calculator</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="sensortoolkit._analysis.create_deploy_dict.html">sensortoolkit._analysis.create_deploy_dict</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="sensortoolkit._analysis.create_deploy_dict.Add_Met_Stats.html">sensortoolkit._analysis.create_deploy_dict.Add_Met_Stats</a></li>
+<li class="toctree-l4"><a class="reference internal" href="sensortoolkit._analysis.create_deploy_dict.Add_Ref_Stats.html">sensortoolkit._analysis.create_deploy_dict.Add_Ref_Stats</a></li>
 <li class="toctree-l4"><a class="reference internal" href="sensortoolkit._analysis.create_deploy_dict.Construct_Deploy_Dict.html">sensortoolkit._analysis.create_deploy_dict.Construct_Deploy_Dict</a></li>
 <li class="toctree-l4"><a class="reference internal" href="sensortoolkit._analysis.create_deploy_dict.Measure_Recording_Interval.html">sensortoolkit._analysis.create_deploy_dict.Measure_Recording_Interval</a></li>
-<li class="toctree-l4"><a class="reference internal" href="sensortoolkit._analysis.create_deploy_dict.Meteorological_Stats.html">sensortoolkit._analysis.create_deploy_dict.Meteorological_Stats</a></li>
-<li class="toctree-l4"><a class="reference internal" href="sensortoolkit._analysis.create_deploy_dict.Reference_Stats.html">sensortoolkit._analysis.create_deploy_dict.Reference_Stats</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="sensortoolkit._analysis.cv_calculator.html">sensortoolkit._analysis.cv_calculator</a><ul>
@@ -160,7 +161,13 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="sensortoolkit._evaluation.html">sensortoolkit._evaluation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sensortoolkit._evaluation.html">sensortoolkit._evaluation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="sensortoolkit._evaluation.sensor_eval.html">sensortoolkit._evaluation.sensor_eval</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="sensortoolkit._evaluation.sensor_eval.SensorEvaluation.html">sensortoolkit._evaluation.sensor_eval.SensorEvaluation</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="sensortoolkit._format.html">sensortoolkit._format</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="sensortoolkit._format.format_date.html">sensortoolkit._format.format_date</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="sensortoolkit._format.format_date.Get_Date.html">sensortoolkit._format.format_date.Get_Date</a></li>
@@ -216,7 +223,13 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="sensortoolkit._performancereport.html">sensortoolkit._performancereport</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sensortoolkit._performancereport.html">sensortoolkit._performancereport</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="sensortoolkit._performancereport.performance_report.html">sensortoolkit._performancereport.performance_report</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="sensortoolkit._performancereport.performance_report.PerformanceReport.html">sensortoolkit._performancereport.performance_report.PerformanceReport</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="sensortoolkit._pkg.html">sensortoolkit._pkg</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="sensortoolkit._pkg.get_version.html">sensortoolkit._pkg.get_version</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="sensortoolkit._pkg.get_version.Get_Version.html">sensortoolkit._pkg.get_version.Get_Version</a></li>
@@ -411,33 +424,42 @@
 <dt class="sig sig-object py" id="sensortoolkit._analysis.pm25_nowcast.PM25NowCast">
 <span class="sig-name descname"><span class="pre">PM25NowCast</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">column</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sensortoolkit/_analysis/pm25_nowcast.html#PM25NowCast"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sensortoolkit._analysis.pm25_nowcast.PM25NowCast" title="Permalink to this definition">¶</a></dt>
 <dd><p>Generate NowCast values for PM2.5 1-hour averages.</p>
-<p class="rubric">References</p>
-<p><a class="reference external" href="https://usepa.servicenowservices.com/airnow?id=kb_article_view&amp;sys_id=">https://usepa.servicenowservices.com/airnow?id=kb_article_view&amp;sys_id=</a>
-fed0037b1b62545040a1a7dbe54bcbd4</p>
-<p>The presentation tited ‘Transitioning to a new NowCast Method’ by
-Mintz, Stone, and Davis (June 15, 2013)</p>
+<p><strong>Resources:</strong></p>
+<blockquote>
+<div><ul class="simple">
+<li><p><a class="reference external" href="https://usepa.servicenowservices.com/airnow?id=kb_article_view&amp;sys_id=fed0037b1b62545040a1a7dbe54bcbd4">Technical information about the NowCast algorithm</a></p></li>
+<li><p>The presentation titled <cite>Transitioning to a new NowCast Method</cite> by
+Mintz, Stone, and Davis (June 15, 2013)</p></li>
+</ul>
+</div></blockquote>
 <dl class="simple">
-<dt>NumPy (version &gt;= 1.16.5):</dt><dd><p>Mathematical operations library</p>
+<dt>Dependencies:</dt><dd><dl class="simple">
+<dt>Python (version &gt;= 3.7):</dt><dd><p>Programming language. Module tested with Python versions 3.7 and
+version 3.8.</p>
 </dd>
-<dt>Pandas (version &gt;= 0.25.1):</dt><dd><p>Data analysis library</p>
+<dt>NumPy (version &gt;= 1.16.5):</dt><dd><p>Mathematical operations library. Module tested with versions 1.16.5
+through 1.20.1.</p>
 </dd>
-<dt>Sys (Python version &gt;= 3.7):</dt><dd><p>Python base package for system specified parameters</p>
+<dt>Pandas (version &gt;= 0.25.1):</dt><dd><p>Data analysis library. Module tested with versions 0.25.1 through
+1.2.4.</p>
+</dd>
+</dl>
 </dd>
 </dl>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>(</strong><strong>Pandas dataframe object</strong><strong>)</strong> (<em>df</em>) – DataFrame containing hourly PM2.5 data.</p></li>
-<li><p><strong>(</strong><strong>str</strong><strong>)</strong> (<em>column</em>) – The name of the column to NowCast.</p></li>
+<li><p><strong>df</strong> (<em>Pandas dataframe object</em>) – DataFrame containing hourly PM2.5 data.</p></li>
+<li><p><strong>column</strong> (<em>str</em>) – The name of the column to NowCast.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p><strong>nowcast_df</strong> – Dataframe passed to function with added column for nowcasted values.
-The index is set  to time. Data columns include the passed hourly PM2.5
-data and the corresponding Nowcast values (‘nowcast’).</p>
+<dd class="field-even"><p>Dataframe passed to function with added column for nowcasted values.
+The index is set  to time. Data columns include the passed hourly
+PM2.5 data and the corresponding Nowcast values (‘nowcast’).</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>Pandas Dataframe</p>
+<dd class="field-odd"><p>nowcast_df</p>
 </dd>
 </dl>
 </dd></dl>

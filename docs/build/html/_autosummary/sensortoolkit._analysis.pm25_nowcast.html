@@ -35,6 +35,7 @@
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -99,16 +100,17 @@
 <p class="caption"><span class="caption-text">API Documentation</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="../api.html">sensortoolkit Modules</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="sensortoolkit.html">sensortoolkit</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="sensortoolkit._analysis.html">sensortoolkit._analysis</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="sensortoolkit._analysis.aqi_calculator.html">sensortoolkit._analysis.aqi_calculator</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="sensortoolkit._analysis.aqi_calculator.AQI_Calculator.html">sensortoolkit._analysis.aqi_calculator.AQI_Calculator</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="sensortoolkit._analysis.create_deploy_dict.html">sensortoolkit._analysis.create_deploy_dict</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="sensortoolkit._analysis.create_deploy_dict.Add_Met_Stats.html">sensortoolkit._analysis.create_deploy_dict.Add_Met_Stats</a></li>
+<li class="toctree-l4"><a class="reference internal" href="sensortoolkit._analysis.create_deploy_dict.Add_Ref_Stats.html">sensortoolkit._analysis.create_deploy_dict.Add_Ref_Stats</a></li>
 <li class="toctree-l4"><a class="reference internal" href="sensortoolkit._analysis.create_deploy_dict.Construct_Deploy_Dict.html">sensortoolkit._analysis.create_deploy_dict.Construct_Deploy_Dict</a></li>
 <li class="toctree-l4"><a class="reference internal" href="sensortoolkit._analysis.create_deploy_dict.Measure_Recording_Interval.html">sensortoolkit._analysis.create_deploy_dict.Measure_Recording_Interval</a></li>
-<li class="toctree-l4"><a class="reference internal" href="sensortoolkit._analysis.create_deploy_dict.Meteorological_Stats.html">sensortoolkit._analysis.create_deploy_dict.Meteorological_Stats</a></li>
-<li class="toctree-l4"><a class="reference internal" href="sensortoolkit._analysis.create_deploy_dict.Reference_Stats.html">sensortoolkit._analysis.create_deploy_dict.Reference_Stats</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="sensortoolkit._analysis.cv_calculator.html">sensortoolkit._analysis.cv_calculator</a><ul>
@@ -160,7 +162,13 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="sensortoolkit._evaluation.html">sensortoolkit._evaluation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sensortoolkit._evaluation.html">sensortoolkit._evaluation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="sensortoolkit._evaluation.sensor_eval.html">sensortoolkit._evaluation.sensor_eval</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="sensortoolkit._evaluation.sensor_eval.SensorEvaluation.html">sensortoolkit._evaluation.sensor_eval.SensorEvaluation</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="sensortoolkit._format.html">sensortoolkit._format</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="sensortoolkit._format.format_date.html">sensortoolkit._format.format_date</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="sensortoolkit._format.format_date.Get_Date.html">sensortoolkit._format.format_date.Get_Date</a></li>
@@ -216,7 +224,13 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="sensortoolkit._performancereport.html">sensortoolkit._performancereport</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sensortoolkit._performancereport.html">sensortoolkit._performancereport</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="sensortoolkit._performancereport.performance_report.html">sensortoolkit._performancereport.performance_report</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="sensortoolkit._performancereport.performance_report.PerformanceReport.html">sensortoolkit._performancereport.performance_report.PerformanceReport</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="sensortoolkit._pkg.html">sensortoolkit._pkg</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="sensortoolkit._pkg.get_version.html">sensortoolkit._pkg.get_version</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="sensortoolkit._pkg.get_version.Get_Version.html">sensortoolkit._pkg.get_version.Get_Version</a></li>
@@ -405,13 +419,63 @@
             
   <div class="section" id="module-sensortoolkit._analysis.pm25_nowcast">
 <span id="sensortoolkit-analysis-pm25-nowcast"></span><h1>sensortoolkit._analysis.pm25_nowcast<a class="headerlink" href="#module-sensortoolkit._analysis.pm25_nowcast" title="Permalink to this headline">¶</a></h1>
-<dl class="simple">
-<dt>&#64;Author:</dt><dd><p>Samuel Frederick, NSSC Contractor (ORAU)
-U.S. EPA, Office of Research and Development
-Center for Environmental Measurement and Modeling
-Air Methods and Characterization Division, Source and Fine Scale Branch
-109 T.W. Alexander Drive, Research Triangle Park, NC 27711
-Office: 919-541-4086 | Email: <a class="reference external" href="mailto:frederick&#46;samuel&#37;&#52;&#48;epa&#46;gov">frederick<span>&#46;</span>samuel<span>&#64;</span>epa<span>&#46;</span>gov</a></p>
+<p>This module calculates U.S. EPA’s NowCast for fine particulate matter
+(<span class="math notranslate nohighlight">\(PM_{2.5}\)</span>) for data recorded or averaged to 1-hour measurement
+intervals.</p>
+<p>For reporting changes in air quality at high time-resolution, U.S.
+EPA’s NowCast calculates hourly <span class="math notranslate nohighlight">\(PM_{2.5}\)</span> concentration values via a
+12-hour window of hourly <span class="math notranslate nohighlight">\(PM_{2.5}\)</span> measurements. Values are weighted
+based on the range of concentration levels observed within the 12-hour window,
+whereby large changes result in greater weighting of recent hours while steady
+air conditions result in more evenly distributed weighting of hourly
+concentrations.</p>
+<div class="section" id="calculation">
+<h2>Calculation<a class="headerlink" href="#calculation" title="Permalink to this headline">¶</a></h2>
+<p>The NowCast for a selected (current) hour is computed via the following steps:</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Select a 12-hour window of PM measurements whereby the oldest hour in the
+selection is 11 hours preceding the current hour. The most recent
+(current) hour is the hour for which the NowCast will be computed. <strong>At
+least two of the last three hours (including the current hour) must have
+concentration values to compute the NowCast.</strong></p></li>
+<li><p>From this 12-hour window, select the maximum and minimum PM
+concentrations present. Compute the range by subtracting the minimum from
+the maximum.</p></li>
+<li><p>Normalize the range by dividing by the maximum concentration value. This
+gives a measure of the rate of change of PM values within the 12-hour
+window.</p></li>
+<li><p>Compute the weight factor by subtracting the normalized rate of change
+from 1.</p></li>
+<li><p>If the weight factor is less than 0.5, round the value up to 0.5. The
+weight factor must fall within the range 0.5 to 1.0.</p></li>
+<li><p>Multiply each hour in the 12-hour window by the weight factor raised to
+the power of the number of hours ago that the value was recorded. The
+most recent (current) hour in the series is raised to the zeroth power
+and the oldest hour is raised to the 11th power.</p></li>
+<li><p>Sum the weighted PM values computed in the previous step for each hour
+in the 12-hour window.</p></li>
+<li><p>In a similar method to steps 6 and 7, compute the sum of the weight
+factor raised to the 0th through 11th power. This sum includes 12 terms,
+whereby the power of each term corresponds to the number of hours ago
+that a concentration value was recoded.</p></li>
+<li><p>Divide the weighted concentration sum calculated in step 7 by the sum
+determined in step 8. The result is the NowCast for the zeroth (current)
+hour in the 12-hour window.</p></li>
+</ol>
+</div></blockquote>
+</div>
+<div class="section" id="resources">
+<h2>Resources<a class="headerlink" href="#resources" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><p><a class="reference external" href="https://usepa.servicenowservices.com/airnow?id=kb_article_view&amp;sys_id=fed0037b1b62545040a1a7dbe54bcbd4">Technical information about the NowCast algorithm</a></p>
+</div></blockquote>
+<hr class="docutils" />
+<dl>
+<dt>&#64;Author:</dt><dd><div class="line-block">
+<div class="line">Samuel Frederick, NSSC Contractor (ORAU)</div>
+<div class="line">U.S. EPA / ORD / CEMM / AMCD / SFSB</div>
+</div>
 </dd>
 <dt>Created:</dt><dd><p>Fri Jun 19 08:25:11 2020</p>
 </dd>
@@ -430,6 +494,7 @@ Office: 919-541-4086 | Email: <a class="reference external" href="mailto:frederi
 </tr>
 </tbody>
 </table>
+</div>
 </div>
 
 

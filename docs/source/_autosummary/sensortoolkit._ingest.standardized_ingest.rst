@@ -1,4 +1,4 @@
-sensortoolkit.\_ingest.standardized\_ingest
+﻿sensortoolkit.\_ingest.standardized\_ingest
 ===========================================
 
 .. automodule:: sensortoolkit._ingest.standardized_ingest
@@ -16,6 +16,7 @@ sensortoolkit.\_ingest.standardized\_ingest
       :nosignatures:
    
       Ingest
+      ParseSetup
    
    
 

@@ -97,16 +97,17 @@
 <p class="caption"><span class="caption-text">API Documentation</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../api.html">sensortoolkit Modules</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../_autosummary/sensortoolkit.html">sensortoolkit</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../_autosummary/sensortoolkit._analysis.html">sensortoolkit._analysis</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/sensortoolkit._analysis.aqi_calculator.html">sensortoolkit._analysis.aqi_calculator</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../_autosummary/sensortoolkit._analysis.aqi_calculator.AQI_Calculator.html">sensortoolkit._analysis.aqi_calculator.AQI_Calculator</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/sensortoolkit._analysis.create_deploy_dict.html">sensortoolkit._analysis.create_deploy_dict</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../_autosummary/sensortoolkit._analysis.create_deploy_dict.Add_Met_Stats.html">sensortoolkit._analysis.create_deploy_dict.Add_Met_Stats</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_autosummary/sensortoolkit._analysis.create_deploy_dict.Add_Ref_Stats.html">sensortoolkit._analysis.create_deploy_dict.Add_Ref_Stats</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../_autosummary/sensortoolkit._analysis.create_deploy_dict.Construct_Deploy_Dict.html">sensortoolkit._analysis.create_deploy_dict.Construct_Deploy_Dict</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../_autosummary/sensortoolkit._analysis.create_deploy_dict.Measure_Recording_Interval.html">sensortoolkit._analysis.create_deploy_dict.Measure_Recording_Interval</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../_autosummary/sensortoolkit._analysis.create_deploy_dict.Meteorological_Stats.html">sensortoolkit._analysis.create_deploy_dict.Meteorological_Stats</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../_autosummary/sensortoolkit._analysis.create_deploy_dict.Reference_Stats.html">sensortoolkit._analysis.create_deploy_dict.Reference_Stats</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/sensortoolkit._analysis.cv_calculator.html">sensortoolkit._analysis.cv_calculator</a><ul>
@@ -158,7 +159,13 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../../../_autosummary/sensortoolkit._evaluation.html">sensortoolkit._evaluation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../_autosummary/sensortoolkit._evaluation.html">sensortoolkit._evaluation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/sensortoolkit._evaluation.sensor_eval.html">sensortoolkit._evaluation.sensor_eval</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../_autosummary/sensortoolkit._evaluation.sensor_eval.SensorEvaluation.html">sensortoolkit._evaluation.sensor_eval.SensorEvaluation</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../../../_autosummary/sensortoolkit._format.html">sensortoolkit._format</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/sensortoolkit._format.format_date.html">sensortoolkit._format.format_date</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../_autosummary/sensortoolkit._format.format_date.Get_Date.html">sensortoolkit._format.format_date.Get_Date</a></li>
@@ -214,7 +221,13 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../../../_autosummary/sensortoolkit._performancereport.html">sensortoolkit._performancereport</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../_autosummary/sensortoolkit._performancereport.html">sensortoolkit._performancereport</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/sensortoolkit._performancereport.performance_report.html">sensortoolkit._performancereport.performance_report</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../_autosummary/sensortoolkit._performancereport.performance_report.PerformanceReport.html">sensortoolkit._performancereport.performance_report.PerformanceReport</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../../../_autosummary/sensortoolkit._pkg.html">sensortoolkit._pkg</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/sensortoolkit._pkg.get_version.html">sensortoolkit._pkg.get_version</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../_autosummary/sensortoolkit._pkg.get_version.Get_Version.html">sensortoolkit._pkg.get_version.Get_Version</a></li>
@@ -398,13 +411,52 @@
   <h1>Source code for sensortoolkit._analysis.cv_calculator</h1><div class="highlight"><pre>
 <span></span><span class="c1"># -*- coding: utf-8 -*-</span>
 <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">This module computes the coefficient of variation (CV), a measure of precision,</span>
+<span class="sd">for collocated sensors recording data concurrently.</span>
+
+<span class="sd">.. note::</span>
+
+<span class="sd">    CV as defined by U.S. EPA&#39;s Performance Targets Reports is measured for</span>
+<span class="sd">    periods where all sensors in the evaluation group are measuring</span>
+<span class="sd">    concurrently.</span>
+
+<span class="sd">    For example, if three sensors are included in a deployment group,</span>
+<span class="sd">    the CV will only be calculated for periods where all three sensors are operating</span>
+<span class="sd">    normally and recording values simultaneously.</span>
+
+<span class="sd">U.S. EPA&#39;s Performance Targets Reports calculate CV as</span>
+
+<span class="sd">.. math::</span>
+
+<span class="sd">    CV = \\frac{SD}{\\bar{x}}\\times 100</span>
+
+<span class="sd">where :math:`\\bar{x}` is the deployment averaged sensor concentration for a</span>
+<span class="sd">field test, and :math:`SD`, the standard deviation, is defined as</span>
+
+<span class="sd">.. math::</span>
+
+<span class="sd">    SD = \\sqrt{\\frac{1}{(N\\times M)-1}\\sum_{j=1}^{M}\\left[</span>
+<span class="sd">    \\sum_{d=1}^{N}(x_{dj} - \\bar{x_d})^2\\right]}</span>
+
+<span class="sd">and where:</span>
+
+<span class="sd">    :math:`M` = number of identical sensors operated simultaneously during a</span>
+<span class="sd">    field test</span>
+
+<span class="sd">    :math:`N` = number of 24-hour periods during which all identical instruments</span>
+<span class="sd">    are operating and returning valid averages over the duration of the field</span>
+<span class="sd">    test</span>
+
+<span class="sd">    :math:`x_{dj}` = 24-hour averaged sensor concentration for day d and sensor</span>
+<span class="sd">    j</span>
+
+<span class="sd">    :math:`\\bar{x_d}` = 24-hour averaged sensor concentration for day d</span>
+
+<span class="sd">================================================================================</span>
+
 <span class="sd">@Author:</span>
-<span class="sd">  Samuel Frederick, NSSC Contractor (ORAU)</span>
-<span class="sd">  U.S. EPA, Office of Research and Development</span>
-<span class="sd">  Center for Environmental Measurement and Modeling</span>
-<span class="sd">  Air Methods and Characterization Division, Source and Fine Scale Branch</span>
-<span class="sd">  109 T.W Alexander Drive, Research Triangle Park, NC 27711</span>
-<span class="sd">  Office: 919-541-4086 | Email: frederick.samuel@epa.gov</span>
+<span class="sd">  | Samuel Frederick, NSSC Contractor (ORAU)</span>
+<span class="sd">  | U.S. EPA / ORD / CEMM / AMCD / SFSB</span>
 
 <span class="sd">Created:</span>
 <span class="sd">  Wed Jan 29 10:03:27 2020</span>

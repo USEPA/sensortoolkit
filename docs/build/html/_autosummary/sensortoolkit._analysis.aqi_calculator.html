@@ -35,6 +35,7 @@
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -99,16 +100,17 @@
 <p class="caption"><span class="caption-text">API Documentation</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="../api.html">sensortoolkit Modules</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="sensortoolkit.html">sensortoolkit</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="sensortoolkit._analysis.html">sensortoolkit._analysis</a><ul class="current">
 <li class="toctree-l3 current"><a class="current reference internal" href="#">sensortoolkit._analysis.aqi_calculator</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="sensortoolkit._analysis.aqi_calculator.AQI_Calculator.html">sensortoolkit._analysis.aqi_calculator.AQI_Calculator</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="sensortoolkit._analysis.create_deploy_dict.html">sensortoolkit._analysis.create_deploy_dict</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="sensortoolkit._analysis.create_deploy_dict.Add_Met_Stats.html">sensortoolkit._analysis.create_deploy_dict.Add_Met_Stats</a></li>
+<li class="toctree-l4"><a class="reference internal" href="sensortoolkit._analysis.create_deploy_dict.Add_Ref_Stats.html">sensortoolkit._analysis.create_deploy_dict.Add_Ref_Stats</a></li>
 <li class="toctree-l4"><a class="reference internal" href="sensortoolkit._analysis.create_deploy_dict.Construct_Deploy_Dict.html">sensortoolkit._analysis.create_deploy_dict.Construct_Deploy_Dict</a></li>
 <li class="toctree-l4"><a class="reference internal" href="sensortoolkit._analysis.create_deploy_dict.Measure_Recording_Interval.html">sensortoolkit._analysis.create_deploy_dict.Measure_Recording_Interval</a></li>
-<li class="toctree-l4"><a class="reference internal" href="sensortoolkit._analysis.create_deploy_dict.Meteorological_Stats.html">sensortoolkit._analysis.create_deploy_dict.Meteorological_Stats</a></li>
-<li class="toctree-l4"><a class="reference internal" href="sensortoolkit._analysis.create_deploy_dict.Reference_Stats.html">sensortoolkit._analysis.create_deploy_dict.Reference_Stats</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="sensortoolkit._analysis.cv_calculator.html">sensortoolkit._analysis.cv_calculator</a><ul>
@@ -160,7 +162,13 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="sensortoolkit._evaluation.html">sensortoolkit._evaluation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sensortoolkit._evaluation.html">sensortoolkit._evaluation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="sensortoolkit._evaluation.sensor_eval.html">sensortoolkit._evaluation.sensor_eval</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="sensortoolkit._evaluation.sensor_eval.SensorEvaluation.html">sensortoolkit._evaluation.sensor_eval.SensorEvaluation</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="sensortoolkit._format.html">sensortoolkit._format</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="sensortoolkit._format.format_date.html">sensortoolkit._format.format_date</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="sensortoolkit._format.format_date.Get_Date.html">sensortoolkit._format.format_date.Get_Date</a></li>
@@ -197,6 +205,7 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="sensortoolkit._ingest.standardized_ingest.html">sensortoolkit._ingest.standardized_ingest</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="sensortoolkit._ingest.standardized_ingest.Ingest.html">sensortoolkit._ingest.standardized_ingest.Ingest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="sensortoolkit._ingest.standardized_ingest.ParseSetup.html">sensortoolkit._ingest.standardized_ingest.ParseSetup</a></li>
 </ul>
 </li>
 </ul>
@@ -216,7 +225,13 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="sensortoolkit._performancereport.html">sensortoolkit._performancereport</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sensortoolkit._performancereport.html">sensortoolkit._performancereport</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="sensortoolkit._performancereport.performance_report.html">sensortoolkit._performancereport.performance_report</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="sensortoolkit._performancereport.performance_report.PerformanceReport.html">sensortoolkit._performancereport.performance_report.PerformanceReport</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="sensortoolkit._pkg.html">sensortoolkit._pkg</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="sensortoolkit._pkg.get_version.html">sensortoolkit._pkg.get_version</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="sensortoolkit._pkg.get_version.Get_Version.html">sensortoolkit._pkg.get_version.Get_Version</a></li>
@@ -407,6 +422,35 @@
 <span id="sensortoolkit-analysis-aqi-calculator"></span><h1>sensortoolkit._analysis.aqi_calculator<a class="headerlink" href="#module-sensortoolkit._analysis.aqi_calculator" title="Permalink to this headline">¶</a></h1>
 <p>This module is used to calculate the air quality index (AQI) as defined by U.S.
 EPA for fine particulate matter (PM2.5).</p>
+<div class="section" id="resources">
+<h2>Resources<a class="headerlink" href="#resources" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://www.airnow.gov/aqi/aqi-basics/using-air-quality-index/">AirNow - Using the Air Quality Index</a></p></li>
+<li><p><a class="reference external" href="https://www.airnow.gov/aqi/aqi-basics/">AirNow - AQI Basics</a></p></li>
+<li><p><a class="reference external" href="https://aqs.epa.gov/aqsweb/documents/codetables/aqi_breakpoints.html">AQI Breakpoint Table</a></p></li>
+<li><p><a class="reference external" href="https://www.airnow.gov/sites/default/files/2020-05/aqi-technical-assistance-document-sept2018.pdf">Technical Assistance Document for the Reporting of Daily Air Quality – the
+Air Quality Index (AQI)</a></p></li>
+</ul>
+</div>
+<div class="section" id="calculation">
+<h2>Calculation<a class="headerlink" href="#calculation" title="Permalink to this headline">¶</a></h2>
+<p>The AQI is calculated via the following equation:</p>
+<div class="math notranslate nohighlight">
+\[I_p = \frac{I_{Hi} - I_{Lo}}{BP_{Hi} - BP_{Lo}}\left(C_p -
+BP_{Lo}\right) + I_{Lo}\]</div>
+<p>where</p>
+<blockquote>
+<div><p><span class="math notranslate nohighlight">\(I_p\)</span> = the index for pollutant p</p>
+<p><span class="math notranslate nohighlight">\(C_p\)</span> = the truncated concentration of pollutant p</p>
+<p><span class="math notranslate nohighlight">\(BP_{Hi}\)</span> = the concentration breakpoint that is greater than or equal
+to <span class="math notranslate nohighlight">\(C_p\)</span></p>
+<p><span class="math notranslate nohighlight">\(BP_{Lo}\)</span> = the concentration breakpoint that is less than or equal to
+<span class="math notranslate nohighlight">\(C_p\)</span></p>
+<p><span class="math notranslate nohighlight">\(I_{Hi}\)</span> = the AQI value corresponding to <span class="math notranslate nohighlight">\(BP_{Hi}\)</span></p>
+<p><span class="math notranslate nohighlight">\(I_{Lo}\)</span> = the AQI value corresponding to <span class="math notranslate nohighlight">\(BP_{Lo}\)</span></p>
+</div></blockquote>
+<p>More detail about the AQI calculation, as well as a detailed description, are
+included in the <cite>Technical Assistant Document</cite> listed above.</p>
 <hr class="docutils" />
 <dl>
 <dt>&#64;Author:</dt><dd><div class="line-block">
@@ -431,6 +475,7 @@ EPA for fine particulate matter (PM2.5).</p>
 </tr>
 </tbody>
 </table>
+</div>
 </div>
 
 

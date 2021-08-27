@@ -100,16 +100,17 @@
 <p class="caption"><span class="caption-text">API Documentation</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="api.html">sensortoolkit Modules</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="_autosummary/sensortoolkit.html">sensortoolkit</a></li>
 <li class="toctree-l2"><a class="reference internal" href="_autosummary/sensortoolkit._analysis.html">sensortoolkit._analysis</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="_autosummary/sensortoolkit._analysis.aqi_calculator.html">sensortoolkit._analysis.aqi_calculator</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._analysis.aqi_calculator.AQI_Calculator.html">sensortoolkit._analysis.aqi_calculator.AQI_Calculator</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="_autosummary/sensortoolkit._analysis.create_deploy_dict.html">sensortoolkit._analysis.create_deploy_dict</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._analysis.create_deploy_dict.Add_Met_Stats.html">sensortoolkit._analysis.create_deploy_dict.Add_Met_Stats</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._analysis.create_deploy_dict.Add_Ref_Stats.html">sensortoolkit._analysis.create_deploy_dict.Add_Ref_Stats</a></li>
 <li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._analysis.create_deploy_dict.Construct_Deploy_Dict.html">sensortoolkit._analysis.create_deploy_dict.Construct_Deploy_Dict</a></li>
 <li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._analysis.create_deploy_dict.Measure_Recording_Interval.html">sensortoolkit._analysis.create_deploy_dict.Measure_Recording_Interval</a></li>
-<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._analysis.create_deploy_dict.Meteorological_Stats.html">sensortoolkit._analysis.create_deploy_dict.Meteorological_Stats</a></li>
-<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._analysis.create_deploy_dict.Reference_Stats.html">sensortoolkit._analysis.create_deploy_dict.Reference_Stats</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="_autosummary/sensortoolkit._analysis.cv_calculator.html">sensortoolkit._analysis.cv_calculator</a><ul>
@@ -161,7 +162,13 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="_autosummary/sensortoolkit._evaluation.html">sensortoolkit._evaluation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_autosummary/sensortoolkit._evaluation.html">sensortoolkit._evaluation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="_autosummary/sensortoolkit._evaluation.sensor_eval.html">sensortoolkit._evaluation.sensor_eval</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._evaluation.sensor_eval.SensorEvaluation.html">sensortoolkit._evaluation.sensor_eval.SensorEvaluation</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="_autosummary/sensortoolkit._format.html">sensortoolkit._format</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="_autosummary/sensortoolkit._format.format_date.html">sensortoolkit._format.format_date</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._format.format_date.Get_Date.html">sensortoolkit._format.format_date.Get_Date</a></li>
@@ -198,6 +205,7 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="_autosummary/sensortoolkit._ingest.standardized_ingest.html">sensortoolkit._ingest.standardized_ingest</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._ingest.standardized_ingest.Ingest.html">sensortoolkit._ingest.standardized_ingest.Ingest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._ingest.standardized_ingest.ParseSetup.html">sensortoolkit._ingest.standardized_ingest.ParseSetup</a></li>
 </ul>
 </li>
 </ul>
@@ -217,7 +225,13 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="_autosummary/sensortoolkit._performancereport.html">sensortoolkit._performancereport</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_autosummary/sensortoolkit._performancereport.html">sensortoolkit._performancereport</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="_autosummary/sensortoolkit._performancereport.performance_report.html">sensortoolkit._performancereport.performance_report</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._performancereport.performance_report.PerformanceReport.html">sensortoolkit._performancereport.performance_report.PerformanceReport</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="_autosummary/sensortoolkit._pkg.html">sensortoolkit._pkg</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="_autosummary/sensortoolkit._pkg.get_version.html">sensortoolkit._pkg.get_version</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._pkg.get_version.Get_Version.html">sensortoolkit._pkg.get_version.Get_Version</a></li>
@@ -1527,6 +1541,7 @@ these files assist in converting data recorded in their original format into S-D
 scheme for parameter data names and date/time formatting.</p>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
     <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Example_Make_Model&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;work_path&quot;</span><span class="p">:</span> <span class="s2">&quot;C:/Users/.../Documents/my_evaluation&quot;</span><span class="p">,</span>
     <span class="nt">&quot;dtype&quot;</span><span class="p">:</span> <span class="s2">&quot;.csv&quot;</span><span class="p">,</span>
     <span class="nt">&quot;all_col_headers&quot;</span><span class="p">:</span> <span class="p">[</span>
         <span class="s2">&quot;Time&quot;</span><span class="p">,</span>
@@ -1541,17 +1556,105 @@ scheme for parameter data names and date/time formatting.</p>
     <span class="nt">&quot;timestamp_col_headers&quot;</span><span class="p">:</span> <span class="p">[</span>
         <span class="s2">&quot;Time&quot;</span>
     <span class="p">],</span>
-    <span class="nt">&quot;header_iloc&quot;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
-    <span class="nt">&quot;col_rename_dict&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="nt">&quot;NO2 (ppb)&quot;</span><span class="p">:</span> <span class="s2">&quot;NO2&quot;</span><span class="p">,</span>
-        <span class="nt">&quot;O3 (ppb)&quot;</span><span class="p">:</span> <span class="s2">&quot;O3&quot;</span><span class="p">,</span>
-        <span class="nt">&quot;PM2.5 (\u00b5g/m\u00b3)&quot;</span><span class="p">:</span> <span class="s2">&quot;PM25&quot;</span><span class="p">,</span>
-        <span class="nt">&quot;TEMP (\u00b0C)&quot;</span><span class="p">:</span> <span class="s2">&quot;Temp&quot;</span><span class="p">,</span>
-        <span class="nt">&quot;RH (%)&quot;</span><span class="p">:</span> <span class="s2">&quot;RH&quot;</span><span class="p">,</span>
-        <span class="nt">&quot;DP (\u00b0C)&quot;</span><span class="p">:</span> <span class="s2">&quot;DP&quot;</span>
-    <span class="p">},</span>
     <span class="nt">&quot;drop_cols&quot;</span><span class="p">:</span> <span class="p">[</span>
-        <span class="s2">&quot;Time&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Inlet&quot;</span>
+    <span class="p">],</span>
+    <span class="nt">&quot;header_iloc&quot;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
+    <span class="nt">&quot;file_list&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="s2">&quot;C:/Users/.../Documents/test_dir/Data and Figures/sensor_data/Example_Make_Model/raw_data/Example_Make_Model_SN01_raw.csv&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;C:/Users/.../Documents/test_dir/Data and Figures/sensor_data/Example_Make_Model/raw_data/Example_Make_Model_SN02_raw.csv&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;C:/Users/.../Documents/test_dir/Data and Figures/sensor_data/Example_Make_Model/raw_data/Example_Make_Model_SN03_raw.csv&quot;</span>
+    <span class="p">],</span>
+    <span class="nt">&quot;data_path&quot;</span><span class="p">:</span> <span class="s2">&quot;C:/Users/.../Documents/test_dir/Data and Figures/sensor_data/Example_Make_Model/raw_data&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;col_headers&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;row_idx_0&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;Time&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">&quot;SDFS_param&quot;</span><span class="p">:</span> <span class="s2">&quot;DateTime_UTC&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;files&quot;</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="s2">&quot;C:/Users/.../Documents/test_dir/Data and Figures/sensor_data/Example_Make_Model/raw_data/Example_Make_Model_SN01_raw.csv&quot;</span>
+                    <span class="s2">&quot;C:/Users/.../Documents/test_dir/Data and Figures/sensor_data/Example_Make_Model/raw_data/Example_Make_Model_SN02_raw.csv&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;C:/Users/.../Documents/test_dir/Data and Figures/sensor_data/Example_Make_Model/raw_data/Example_Make_Model_SN03_raw.csv&quot;</span>
+                <span class="p">]</span>
+            <span class="p">}</span>
+        <span class="p">},</span>
+        <span class="nt">&quot;row_idx_1&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;NO2 (ppb)&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">&quot;SDFS_param&quot;</span><span class="p">:</span> <span class="s2">&quot;NO2&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;files&quot;</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="s2">&quot;C:/Users/.../Documents/test_dir/Data and Figures/sensor_data/Example_Make_Model/raw_data/Example_Make_Model_SN01_raw.csv&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;C:/Users/.../Documents/test_dir/Data and Figures/sensor_data/Example_Make_Model/raw_data/Example_Make_Model_SN02_raw.csv&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;C:/Users/.../Documents/test_dir/Data and Figures/sensor_data/Example_Make_Model/raw_data/Example_Make_Model_SN03_raw.csv&quot;</span>
+                <span class="p">]</span>
+            <span class="p">}</span>
+        <span class="p">},</span>
+        <span class="nt">&quot;row_idx_2&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;O3 (ppb)&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">&quot;SDFS_param&quot;</span><span class="p">:</span> <span class="s2">&quot;O3&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;files&quot;</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="s2">&quot;C:/Users/.../Documents/test_dir/Data and Figures/sensor_data/Example_Make_Model/raw_data/Example_Make_Model_SN01_raw.csv&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;C:/Users/.../Documents/test_dir/Data and Figures/sensor_data/Example_Make_Model/raw_data/Example_Make_Model_SN02_raw.csv&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;C:/Users/.../Documents/test_dir/Data and Figures/sensor_data/Example_Make_Model/raw_data/Example_Make_Model_SN03_raw.csv&quot;</span>
+                <span class="p">]</span>
+            <span class="p">}</span>
+        <span class="p">},</span>
+        <span class="nt">&quot;row_idx_3&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;PM2.5 (\u00b5g/m\u00b3)&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">&quot;SDFS_param&quot;</span><span class="p">:</span> <span class="s2">&quot;PM25&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;files&quot;</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="s2">&quot;C:/Users/.../Documents/test_dir/Data and Figures/sensor_data/Example_Make_Model/raw_data/Example_Make_Model_SN01_raw.csv&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;C:/Users/.../Documents/test_dir/Data and Figures/sensor_data/Example_Make_Model/raw_data/Example_Make_Model_SN02_raw.csv&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;C:/Users/.../Documents/test_dir/Data and Figures/sensor_data/Example_Make_Model/raw_data/Example_Make_Model_SN03_raw.csv&quot;</span>
+                <span class="p">]</span>
+            <span class="p">}</span>
+        <span class="p">},</span>
+        <span class="nt">&quot;row_idx_4&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;TEMP (\u00b0C)&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">&quot;SDFS_param&quot;</span><span class="p">:</span> <span class="s2">&quot;Temp&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;files&quot;</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="s2">&quot;C:/Users/.../Documents/test_dir/Data and Figures/sensor_data/Example_Make_Model/raw_data/Example_Make_Model_SN01_raw.csv&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;C:/Users/.../Documents/test_dir/Data and Figures/sensor_data/Example_Make_Model/raw_data/Example_Make_Model_SN02_raw.csv&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;C:/Users/.../Documents/test_dir/Data and Figures/sensor_data/Example_Make_Model/raw_data/Example_Make_Model_SN03_raw.csv&quot;</span>
+                <span class="p">]</span>
+            <span class="p">}</span>
+        <span class="p">},</span>
+        <span class="nt">&quot;row_idx_5&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;RH (%)&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">&quot;SDFS_param&quot;</span><span class="p">:</span> <span class="s2">&quot;RH&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;files&quot;</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="s2">&quot;C:/Users/.../Documents/test_dir/Data and Figures/sensor_data/Example_Make_Model/raw_data/Example_Make_Model_SN01_raw.csv&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;C:/Users/.../Documents/test_dir/Data and Figures/sensor_data/Example_Make_Model/raw_data/Example_Make_Model_SN02_raw.csv&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;C:/Users/.../Documents/test_dir/Data and Figures/sensor_data/Example_Make_Model/raw_data/Example_Make_Model_SN03_raw.csv&quot;</span>
+                <span class="p">]</span>
+            <span class="p">}</span>
+        <span class="p">},</span>
+        <span class="nt">&quot;row_idx_6&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;DP (\u00b0C)&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">&quot;SDFS_param&quot;</span><span class="p">:</span> <span class="s2">&quot;DP&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;files&quot;</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="s2">&quot;C:/Users/.../Documents/test_dir/Data and Figures/sensor_data/Example_Make_Model/raw_data/Example_Make_Model_SN01_raw.csv&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;C:/Users/.../Documents/test_dir/Data and Figures/sensor_data/Example_Make_Model/raw_data/Example_Make_Model_SN02_raw.csv&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;C:/Users/.../Documents/test_dir/Data and Figures/sensor_data/Example_Make_Model/raw_data/Example_Make_Model_SN03_raw.csv&quot;</span>
+                <span class="p">]</span>
+            <span class="p">}</span>
+        <span class="p">},</span>
+        <span class="nt">&quot;row_idx_7&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;Inlet&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">&quot;SDFS_param&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;files&quot;</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="s2">&quot;C:/Users/.../Documents/test_dir/Data and Figures/sensor_data/Example_Make_Model/raw_data/Example_Make_Model_SN01_raw.csv&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;C:/Users/.../Documents/test_dir/Data and Figures/sensor_data/Example_Make_Model/raw_data/Example_Make_Model_SN02_raw.csv&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;C:/Users/.../Documents/test_dir/Data and Figures/sensor_data/Example_Make_Model/raw_data/Example_Make_Model_SN03_raw.csv&quot;</span>
+                <span class="p">]</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="nt">&quot;param_col_list&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="s2">&quot;NO2 (ppb)&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;O3 (ppb)&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;PM2.5 (\u00b5g/m\u00b3)&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;TEMP (\u00b0C)&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;RH (%)&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;DP (\u00b0C)&quot;</span><span class="p">,</span>
         <span class="s2">&quot;Inlet&quot;</span>
     <span class="p">],</span>
     <span class="nt">&quot;time_format_dict&quot;</span><span class="p">:</span> <span class="p">{</span>

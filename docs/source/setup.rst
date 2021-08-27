@@ -9,7 +9,7 @@ into several sub-directories in the …/Data and Figures/… folder.
 
 .. important::
   Users have the option of working from within the folder location where the `sensortoolkit`
-  repository was downloaded, storing sensor and reference data in the provided /Data and Figures directory,
+  repository was downloaded, storing sensor and reference data in the provided ``.../Data and Figures`` directory,
   or users may wish to organize their work in a separate directory. In either case, various
   subdirectories and folders will need to be created so users can store data, figures, and evaluation
   statistics.
@@ -172,7 +172,9 @@ the sensortoolkit Library for more detail) and run the following code:
 
 .. code-block:: python
 
-  IngestionConfig = sensortoolkit.Setup()
+  work_path = 'C:/Users/.../Documents/my_evaluation'
+
+  IngestionConfig = sensortoolkit.Setup(work_path)
 
 Setting the Sensor Name
 ^^^^^^^^^^^^^^^^^^^^^^^

@@ -97,16 +97,17 @@
 <p class="caption"><span class="caption-text">API Documentation</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../api.html">sensortoolkit Modules</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../_autosummary/sensortoolkit.html">sensortoolkit</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../_autosummary/sensortoolkit._analysis.html">sensortoolkit._analysis</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/sensortoolkit._analysis.aqi_calculator.html">sensortoolkit._analysis.aqi_calculator</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../_autosummary/sensortoolkit._analysis.aqi_calculator.AQI_Calculator.html">sensortoolkit._analysis.aqi_calculator.AQI_Calculator</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/sensortoolkit._analysis.create_deploy_dict.html">sensortoolkit._analysis.create_deploy_dict</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../_autosummary/sensortoolkit._analysis.create_deploy_dict.Add_Met_Stats.html">sensortoolkit._analysis.create_deploy_dict.Add_Met_Stats</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_autosummary/sensortoolkit._analysis.create_deploy_dict.Add_Ref_Stats.html">sensortoolkit._analysis.create_deploy_dict.Add_Ref_Stats</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../_autosummary/sensortoolkit._analysis.create_deploy_dict.Construct_Deploy_Dict.html">sensortoolkit._analysis.create_deploy_dict.Construct_Deploy_Dict</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../_autosummary/sensortoolkit._analysis.create_deploy_dict.Measure_Recording_Interval.html">sensortoolkit._analysis.create_deploy_dict.Measure_Recording_Interval</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../_autosummary/sensortoolkit._analysis.create_deploy_dict.Meteorological_Stats.html">sensortoolkit._analysis.create_deploy_dict.Meteorological_Stats</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../_autosummary/sensortoolkit._analysis.create_deploy_dict.Reference_Stats.html">sensortoolkit._analysis.create_deploy_dict.Reference_Stats</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/sensortoolkit._analysis.cv_calculator.html">sensortoolkit._analysis.cv_calculator</a><ul>
@@ -158,7 +159,13 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../../../_autosummary/sensortoolkit._evaluation.html">sensortoolkit._evaluation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../_autosummary/sensortoolkit._evaluation.html">sensortoolkit._evaluation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/sensortoolkit._evaluation.sensor_eval.html">sensortoolkit._evaluation.sensor_eval</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../_autosummary/sensortoolkit._evaluation.sensor_eval.SensorEvaluation.html">sensortoolkit._evaluation.sensor_eval.SensorEvaluation</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../../../_autosummary/sensortoolkit._format.html">sensortoolkit._format</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/sensortoolkit._format.format_date.html">sensortoolkit._format.format_date</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../_autosummary/sensortoolkit._format.format_date.Get_Date.html">sensortoolkit._format.format_date.Get_Date</a></li>
@@ -214,7 +221,13 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../../../_autosummary/sensortoolkit._performancereport.html">sensortoolkit._performancereport</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../_autosummary/sensortoolkit._performancereport.html">sensortoolkit._performancereport</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/sensortoolkit._performancereport.performance_report.html">sensortoolkit._performancereport.performance_report</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../_autosummary/sensortoolkit._performancereport.performance_report.PerformanceReport.html">sensortoolkit._performancereport.performance_report.PerformanceReport</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../../../_autosummary/sensortoolkit._pkg.html">sensortoolkit._pkg</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/sensortoolkit._pkg.get_version.html">sensortoolkit._pkg.get_version</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../_autosummary/sensortoolkit._pkg.get_version.Get_Version.html">sensortoolkit._pkg.get_version.Get_Version</a></li>
@@ -398,13 +411,72 @@
   <h1>Source code for sensortoolkit._analysis.pm25_nowcast</h1><div class="highlight"><pre>
 <span></span><span class="c1"># -*- coding: utf-8 -*-</span>
 <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">This module calculates U.S. EPA&#39;s NowCast for fine particulate matter</span>
+<span class="sd">(:math:`PM_{2.5}`) for data recorded or averaged to 1-hour measurement</span>
+<span class="sd">intervals.</span>
+
+<span class="sd">For reporting changes in air quality at high time-resolution, U.S.</span>
+<span class="sd">EPA’s NowCast calculates hourly :math:`PM_{2.5}` concentration values via a</span>
+<span class="sd">12-hour window of hourly :math:`PM_{2.5}` measurements. Values are weighted</span>
+<span class="sd">based on the range of concentration levels observed within the 12-hour window,</span>
+<span class="sd">whereby large changes result in greater weighting of recent hours while steady</span>
+<span class="sd">air conditions result in more evenly distributed weighting of hourly</span>
+<span class="sd">concentrations.</span>
+
+<span class="sd">Calculation</span>
+<span class="sd">-----------</span>
+
+<span class="sd">The NowCast for a selected (current) hour is computed via the following steps:</span>
+
+<span class="sd">    1. Select a 12-hour window of PM measurements whereby the oldest hour in the</span>
+<span class="sd">       selection is 11 hours preceding the current hour. The most recent</span>
+<span class="sd">       (current) hour is the hour for which the NowCast will be computed. **At</span>
+<span class="sd">       least two of the last three hours (including the current hour) must have</span>
+<span class="sd">       concentration values to compute the NowCast.**</span>
+
+<span class="sd">    2. From this 12-hour window, select the maximum and minimum PM</span>
+<span class="sd">       concentrations present. Compute the range by subtracting the minimum from</span>
+<span class="sd">       the maximum.</span>
+
+<span class="sd">    3. Normalize the range by dividing by the maximum concentration value. This</span>
+<span class="sd">       gives a measure of the rate of change of PM values within the 12-hour</span>
+<span class="sd">       window.</span>
+
+<span class="sd">    4. Compute the weight factor by subtracting the normalized rate of change</span>
+<span class="sd">       from 1.</span>
+
+<span class="sd">    5. If the weight factor is less than 0.5, round the value up to 0.5. The</span>
+<span class="sd">       weight factor must fall within the range 0.5 to 1.0.</span>
+
+<span class="sd">    6. Multiply each hour in the 12-hour window by the weight factor raised to</span>
+<span class="sd">       the power of the number of hours ago that the value was recorded. The</span>
+<span class="sd">       most recent (current) hour in the series is raised to the zeroth power</span>
+<span class="sd">       and the oldest hour is raised to the 11th power.</span>
+
+<span class="sd">    7. Sum the weighted PM values computed in the previous step for each hour</span>
+<span class="sd">       in the 12-hour window.</span>
+
+<span class="sd">    8. In a similar method to steps 6 and 7, compute the sum of the weight</span>
+<span class="sd">       factor raised to the 0th through 11th power. This sum includes 12 terms,</span>
+<span class="sd">       whereby the power of each term corresponds to the number of hours ago</span>
+<span class="sd">       that a concentration value was recoded.</span>
+
+<span class="sd">    9. Divide the weighted concentration sum calculated in step 7 by the sum</span>
+<span class="sd">       determined in step 8. The result is the NowCast for the zeroth (current)</span>
+<span class="sd">       hour in the 12-hour window.</span>
+
+<span class="sd">Resources</span>
+<span class="sd">---------</span>
+
+<span class="sd">    `Technical information about the NowCast algorithm</span>
+<span class="sd">    &lt;https://usepa.servicenowservices.com/airnow?id=kb_article_view&amp;</span>
+<span class="sd">    sys_id=fed0037b1b62545040a1a7dbe54bcbd4&gt;`_</span>
+
+<span class="sd">================================================================================</span>
+
 <span class="sd">@Author:</span>
-<span class="sd">  Samuel Frederick, NSSC Contractor (ORAU)</span>
-<span class="sd">  U.S. EPA, Office of Research and Development</span>
-<span class="sd">  Center for Environmental Measurement and Modeling</span>
-<span class="sd">  Air Methods and Characterization Division, Source and Fine Scale Branch</span>
-<span class="sd">  109 T.W. Alexander Drive, Research Triangle Park, NC 27711</span>
-<span class="sd">  Office: 919-541-4086 | Email: frederick.samuel@epa.gov</span>
+<span class="sd">  | Samuel Frederick, NSSC Contractor (ORAU)</span>
+<span class="sd">  | U.S. EPA / ORD / CEMM / AMCD / SFSB</span>
 
 <span class="sd">Created:</span>
 <span class="sd">  Fri Jun 19 08:25:11 2020</span>
@@ -419,36 +491,35 @@
 <div class="viewcode-block" id="PM25NowCast"><a class="viewcode-back" href="../../../_autosummary/sensortoolkit._analysis.pm25_nowcast.PM25NowCast.html#sensortoolkit._analysis.pm25_nowcast.PM25NowCast">[docs]</a><span class="k">def</span> <span class="nf">PM25NowCast</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Generate NowCast values for PM2.5 1-hour averages.</span>
 
-<span class="sd">    References</span>
-<span class="sd">    ----------</span>
-<span class="sd">    https://usepa.servicenowservices.com/airnow?id=kb_article_view&amp;sys_id=</span>
-<span class="sd">    fed0037b1b62545040a1a7dbe54bcbd4</span>
+<span class="sd">    **Resources:**</span>
 
-<span class="sd">    The presentation tited &#39;Transitioning to a new NowCast Method&#39; by</span>
-<span class="sd">    Mintz, Stone, and Davis (June 15, 2013)</span>
+<span class="sd">        * `Technical information about the NowCast algorithm</span>
+<span class="sd">          &lt;https://usepa.servicenowservices.com/airnow?id=kb_article_view&amp;</span>
+<span class="sd">          sys_id=fed0037b1b62545040a1a7dbe54bcbd4&gt;`_</span>
 
-<span class="sd">    Dependencies</span>
-<span class="sd">    ------------</span>
-<span class="sd">    NumPy (version &gt;= 1.16.5):</span>
-<span class="sd">        Mathematical operations library</span>
-<span class="sd">    Pandas (version &gt;= 0.25.1):</span>
-<span class="sd">        Data analysis library</span>
-<span class="sd">    Sys (Python version &gt;= 3.7):</span>
-<span class="sd">        Python base package for system specified parameters</span>
+<span class="sd">        * The presentation titled `Transitioning to a new NowCast Method` by</span>
+<span class="sd">          Mintz, Stone, and Davis (June 15, 2013)</span>
 
-<span class="sd">    Arguments</span>
-<span class="sd">    ----------</span>
-<span class="sd">    df (Pandas dataframe object):</span>
-<span class="sd">        DataFrame containing hourly PM2.5 data.</span>
-<span class="sd">    column (str):</span>
-<span class="sd">        The name of the column to NowCast.</span>
+<span class="sd">    Dependencies:</span>
+<span class="sd">        Python (version &gt;= 3.7):</span>
+<span class="sd">            Programming language. Module tested with Python versions 3.7 and</span>
+<span class="sd">            version 3.8.</span>
+<span class="sd">        NumPy (version &gt;= 1.16.5):</span>
+<span class="sd">            Mathematical operations library. Module tested with versions 1.16.5</span>
+<span class="sd">            through 1.20.1.</span>
+<span class="sd">        Pandas (version &gt;= 0.25.1):</span>
+<span class="sd">            Data analysis library. Module tested with versions 0.25.1 through</span>
+<span class="sd">            1.2.4.</span>
 
-<span class="sd">    Returns</span>
-<span class="sd">    -------</span>
-<span class="sd">    nowcast_df: Pandas Dataframe</span>
-<span class="sd">        Dataframe passed to function with added column for nowcasted values.</span>
-<span class="sd">        The index is set  to time. Data columns include the passed hourly PM2.5</span>
-<span class="sd">        data and the corresponding Nowcast values (&#39;nowcast&#39;).</span>
+<span class="sd">    Args:</span>
+<span class="sd">        df (Pandas dataframe object): DataFrame containing hourly PM2.5 data.</span>
+<span class="sd">        column (str): The name of the column to NowCast.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        nowcast_df:</span>
+<span class="sd">            Dataframe passed to function with added column for nowcasted values.</span>
+<span class="sd">            The index is set  to time. Data columns include the passed hourly</span>
+<span class="sd">            PM2.5 data and the corresponding Nowcast values (&#39;nowcast&#39;).</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">column</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="s1">&#39;No column header name specified to nowcast&#39;</span><span class="p">)</span>
