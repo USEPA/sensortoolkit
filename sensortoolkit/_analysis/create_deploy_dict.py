@@ -1,9 +1,25 @@
 # -*- coding: utf-8 -*-
 """
 This module constructs and populates the deployment dictionary data
-structure ``deploy_dict`` with testing organization and testing site
-information, individual sensor uptime statistics, performance metric results for
-precision, error, and reference statistics, and meteorlogical conditions.
+structure ``deploy_dict``. Below is an overview of the deployment dictionary:
+
+* Testing organization
+    * Organization name, contact information
+* Testing Location
+    * Site name, address, coordinates, and AQS site identifier
+* Deployment Information and Statistics
+    * Unique deployment groups
+        * Description of sensor uptime for each sensor unit
+    * Evaluation parameter statistics
+        * Precision
+        * Error
+        * Description of reference monitor, measured range during
+          deployment period at 1-hour and 24-hour averages
+    * Meteorological conditions
+        * Description of temperature instrument, measured range during
+          deployment period at 1-hour and 24-hour averages
+        * Description of relative humidity instrument, measured range during
+          deployment period at 1-hour and 24-hour averages
 
 ================================================================================
 
