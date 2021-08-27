@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Top-level module for the ``sensortoolkit`` library. Contains the front-facing
-``SensorEvaluation`` class for conducting analysis of sensor data.
+"""Top-level module for the ``sensortoolkit`` library.
 """
 # Package maintenance
 from ._pkg.get_version import Get_Version
@@ -19,7 +18,6 @@ from ._format.format_date import Get_Date
 from ._format.format_names import Format_Param_Name, Format_Metric_Name
 from ._format.sensor_subfolders import Create_Sensor_Directories
 from ._ingest.processed_data_loader import Processed_Data_Search
-from ._ingest.setup import Setup
 from ._ingest.standardized_ingest import Ingest
 from ._models.purpleair_uscorrection import USCorrection
 from ._models.apply_correction import Individual_Correction
@@ -51,6 +49,7 @@ from ._plotting.scatter import (Draw_Scatter, Scatter_Plotter,
                                 Normalized_Met_Scatter)
 from ._analysis.intersensor_mean import Intersensor_Mean
 from ._ingest.sensor_import import Import
+from ._ingest.setup import Setup
 
 # Import front-facing classes
 from ._performancereport.performance_report import PerformanceReport
