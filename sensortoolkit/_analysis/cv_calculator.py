@@ -1,12 +1,51 @@
 # -*- coding: utf-8 -*-
 """
+This module computes the coefficient of variation (CV), a measure of precision,
+for collocated sensors recording data concurrently.
+
+.. note::
+
+    CV as defined by U.S. EPA's Performance Targets Reports is measured for
+    periods where all sensors in the evaluation group are measuring
+    concurrently.
+
+    For example, if three sensors are included in a deployment group,
+    the CV will only be calculated for periods where all three sensors are operating
+    normally and recording values simultaneously.
+
+U.S. EPA's Performance Targets Reports calculate CV as
+
+.. math::
+
+    CV = \\frac{SD}{\\bar{x}}\\times 100
+
+where :math:`\\bar{x}` is the deployment averaged sensor concentration for a
+field test, and :math:`SD`, the standard deviation, is defined as
+
+.. math::
+
+    SD = \\sqrt{\\frac{1}{(N\\times M)-1}\\sum_{j=1}^{M}\\left[
+    \\sum_{d=1}^{N}(x_{dj} - \\bar{x_d})^2\\right]}
+
+and where:
+
+    :math:`M` = number of identical sensors operated simultaneously during a
+    field test
+
+    :math:`N` = number of 24-hour periods during which all identical instruments
+    are operating and returning valid averages over the duration of the field
+    test
+
+    :math:`x_{dj}` = 24-hour averaged sensor concentration for day d and sensor
+    j
+
+    :math:`\\bar{x_d}` = 24-hour averaged sensor concentration for day d
+
+================================================================================
+
 @Author:
-  Samuel Frederick, NSSC Contractor (ORAU)
-  U.S. EPA, Office of Research and Development
-  Center for Environmental Measurement and Modeling
-  Air Methods and Characterization Division, Source and Fine Scale Branch
-  109 T.W Alexander Drive, Research Triangle Park, NC 27711
-  Office: 919-541-4086 | Email: frederick.samuel@epa.gov
+  | Samuel Frederick, NSSC Contractor (ORAU)
+  | U.S. EPA / ORD / CEMM / AMCD / SFSB
 
 Created:
   Wed Jan 29 10:03:27 2020
