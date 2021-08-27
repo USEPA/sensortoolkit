@@ -4,7 +4,8 @@ sensortoolkit
 
 .. important::
 
-    This documentation is currently under development.
+    This documentation is currently under development. Please check for
+    updates to the BitBucket repository before referencing the documentation.
 
 `sensortoolkit` is a Python library for evaluating air sensor data. The library
 is intended for use with sensors collocated at ambient air monitoring sites
