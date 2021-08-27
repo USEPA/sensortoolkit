@@ -1,12 +1,43 @@
 # -*- coding: utf-8 -*-
 """
+This module estimates dewpoint via ambient temperature and relative humidity
+measurements made by independent temperature and relative humidity instruments
+running alonside sensors and FRM/FEM instrumentation at the evaluation site.
+
+.. caution::
+
+    DP should not be calculated using on-board temperature and relative humidity
+    sensor measurements (if applicable), as these measurements may not accurately
+    represent ambient temperature and relative humidity conditions.
+
+Calculation
+-----------
+
+Dewpoint is estimated via the Magnus Formula,
+
+.. math::
+
+    DP_{d} = \\lambda \\times \\left[ \\frac{\\ln(\\frac{RH_d}{100}) + \\frac{
+    \\beta\\times T_d}{\\lambda + T_d} }{\\beta - \\ln(\\frac{RH_d}{100} -
+    \\frac{\\beta\\times T_d}{\\lambda + T_d})} \\right]
+
+where
+
+    :math:`\\beta` = 17.625
+
+    :math:`\\lambda` = 243.04
+
+    :math:`DP_d` = valid 24-hour averaged ambient dewpoint for day d (°C)
+
+    :math:`RH_d` = valid 24-hour averaged ambient relative humidity for day d (%)
+
+    :math:`T_d` = valid 24-hour averaged ambient temperature for day d (°C)
+
+================================================================================
+
 @Author:
-  Samuel Frederick, NSSC Contractor (ORAU)
-  U.S. EPA, Office of Research and Development
-  Center for Environmental Measurement and Modeling
-  Air Methods and Characterization Division, Source and Fine Scale Branch
-  109 T.W Alexander Drive, Research Triangle Park, NC 27711
-  Office: 919-541-4086 | Email: frederick.samuel@epa.gov
+  | Samuel Frederick, NSSC Contractor (ORAU)
+  | U.S. EPA / ORD / CEMM / AMCD / SFSB
 
 Created:
   Mon Jan 27 11:42:49 2020
