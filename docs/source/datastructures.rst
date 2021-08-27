@@ -369,6 +369,7 @@ scheme for parameter data names and date/time formatting.
 
   {
       "name": "Example_Make_Model",
+      "work_path": "C:/Users/.../Documents/my_evaluation",
       "dtype": ".csv",
       "all_col_headers": [
           "Time",
@@ -383,17 +384,105 @@ scheme for parameter data names and date/time formatting.
       "timestamp_col_headers": [
           "Time"
       ],
-      "header_iloc": 5,
-      "col_rename_dict": {
-          "NO2 (ppb)": "NO2",
-          "O3 (ppb)": "O3",
-          "PM2.5 (\u00b5g/m\u00b3)": "PM25",
-          "TEMP (\u00b0C)": "Temp",
-          "RH (%)": "RH",
-          "DP (\u00b0C)": "DP"
-      },
       "drop_cols": [
-          "Time",
+          "Inlet"
+      ],
+      "header_iloc": 5,
+      "file_list": [
+          "C:/Users/.../Documents/test_dir/Data and Figures/sensor_data/Example_Make_Model/raw_data/Example_Make_Model_SN01_raw.csv",
+          "C:/Users/.../Documents/test_dir/Data and Figures/sensor_data/Example_Make_Model/raw_data/Example_Make_Model_SN02_raw.csv",
+          "C:/Users/.../Documents/test_dir/Data and Figures/sensor_data/Example_Make_Model/raw_data/Example_Make_Model_SN03_raw.csv"
+      ],
+      "data_path": "C:/Users/.../Documents/test_dir/Data and Figures/sensor_data/Example_Make_Model/raw_data",
+      "col_headers": {
+          "row_idx_0": {
+              "Time": {
+                  "SDFS_param": "DateTime_UTC",
+                  "files": [
+                      "C:/Users/.../Documents/test_dir/Data and Figures/sensor_data/Example_Make_Model/raw_data/Example_Make_Model_SN01_raw.csv"
+                      "C:/Users/.../Documents/test_dir/Data and Figures/sensor_data/Example_Make_Model/raw_data/Example_Make_Model_SN02_raw.csv",
+                      "C:/Users/.../Documents/test_dir/Data and Figures/sensor_data/Example_Make_Model/raw_data/Example_Make_Model_SN03_raw.csv"
+                  ]
+              }
+          },
+          "row_idx_1": {
+              "NO2 (ppb)": {
+                  "SDFS_param": "NO2",
+                  "files": [
+                      "C:/Users/.../Documents/test_dir/Data and Figures/sensor_data/Example_Make_Model/raw_data/Example_Make_Model_SN01_raw.csv",
+                      "C:/Users/.../Documents/test_dir/Data and Figures/sensor_data/Example_Make_Model/raw_data/Example_Make_Model_SN02_raw.csv",
+                      "C:/Users/.../Documents/test_dir/Data and Figures/sensor_data/Example_Make_Model/raw_data/Example_Make_Model_SN03_raw.csv"
+                  ]
+              }
+          },
+          "row_idx_2": {
+              "O3 (ppb)": {
+                  "SDFS_param": "O3",
+                  "files": [
+                      "C:/Users/.../Documents/test_dir/Data and Figures/sensor_data/Example_Make_Model/raw_data/Example_Make_Model_SN01_raw.csv",
+                      "C:/Users/.../Documents/test_dir/Data and Figures/sensor_data/Example_Make_Model/raw_data/Example_Make_Model_SN02_raw.csv",
+                      "C:/Users/.../Documents/test_dir/Data and Figures/sensor_data/Example_Make_Model/raw_data/Example_Make_Model_SN03_raw.csv"
+                  ]
+              }
+          },
+          "row_idx_3": {
+              "PM2.5 (\u00b5g/m\u00b3)": {
+                  "SDFS_param": "PM25",
+                  "files": [
+                      "C:/Users/.../Documents/test_dir/Data and Figures/sensor_data/Example_Make_Model/raw_data/Example_Make_Model_SN01_raw.csv",
+                      "C:/Users/.../Documents/test_dir/Data and Figures/sensor_data/Example_Make_Model/raw_data/Example_Make_Model_SN02_raw.csv",
+                      "C:/Users/.../Documents/test_dir/Data and Figures/sensor_data/Example_Make_Model/raw_data/Example_Make_Model_SN03_raw.csv"
+                  ]
+              }
+          },
+          "row_idx_4": {
+              "TEMP (\u00b0C)": {
+                  "SDFS_param": "Temp",
+                  "files": [
+                      "C:/Users/.../Documents/test_dir/Data and Figures/sensor_data/Example_Make_Model/raw_data/Example_Make_Model_SN01_raw.csv",
+                      "C:/Users/.../Documents/test_dir/Data and Figures/sensor_data/Example_Make_Model/raw_data/Example_Make_Model_SN02_raw.csv",
+                      "C:/Users/.../Documents/test_dir/Data and Figures/sensor_data/Example_Make_Model/raw_data/Example_Make_Model_SN03_raw.csv"
+                  ]
+              }
+          },
+          "row_idx_5": {
+              "RH (%)": {
+                  "SDFS_param": "RH",
+                  "files": [
+                      "C:/Users/.../Documents/test_dir/Data and Figures/sensor_data/Example_Make_Model/raw_data/Example_Make_Model_SN01_raw.csv",
+                      "C:/Users/.../Documents/test_dir/Data and Figures/sensor_data/Example_Make_Model/raw_data/Example_Make_Model_SN02_raw.csv",
+                      "C:/Users/.../Documents/test_dir/Data and Figures/sensor_data/Example_Make_Model/raw_data/Example_Make_Model_SN03_raw.csv"
+                  ]
+              }
+          },
+          "row_idx_6": {
+              "DP (\u00b0C)": {
+                  "SDFS_param": "DP",
+                  "files": [
+                      "C:/Users/.../Documents/test_dir/Data and Figures/sensor_data/Example_Make_Model/raw_data/Example_Make_Model_SN01_raw.csv",
+                      "C:/Users/.../Documents/test_dir/Data and Figures/sensor_data/Example_Make_Model/raw_data/Example_Make_Model_SN02_raw.csv",
+                      "C:/Users/.../Documents/test_dir/Data and Figures/sensor_data/Example_Make_Model/raw_data/Example_Make_Model_SN03_raw.csv"
+                  ]
+              }
+          },
+          "row_idx_7": {
+              "Inlet": {
+                  "SDFS_param": "",
+                  "files": [
+                      "C:/Users/.../Documents/test_dir/Data and Figures/sensor_data/Example_Make_Model/raw_data/Example_Make_Model_SN01_raw.csv",
+                      "C:/Users/.../Documents/test_dir/Data and Figures/sensor_data/Example_Make_Model/raw_data/Example_Make_Model_SN02_raw.csv",
+                      "C:/Users/.../Documents/test_dir/Data and Figures/sensor_data/Example_Make_Model/raw_data/Example_Make_Model_SN03_raw.csv"
+                  ]
+              }
+          }
+      },
+      "param_col_list": [
+          "NO2 (ppb)",
+          "O3 (ppb)",
+          "PM2.5 (\u00b5g/m\u00b3)",
+          "TEMP (\u00b0C)",
+          "RH (%)",
+          "DP (\u00b0C)",
           "Inlet"
       ],
       "time_format_dict": {
