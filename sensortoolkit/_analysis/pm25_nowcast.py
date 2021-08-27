@@ -1,12 +1,71 @@
 # -*- coding: utf-8 -*-
 """
+This module calculates U.S. EPA's NowCast for fine particulate matter
+(:math:`PM_{2.5}`) for data recorded or averaged to 1-hour measurement
+intervals.
+
+For reporting changes in air quality at high time-resolution, U.S.
+EPA’s NowCast calculates hourly :math:`PM_{2.5}` concentration values via a
+12-hour window of hourly :math:`PM_{2.5}` measurements. Values are weighted
+based on the range of concentration levels observed within the 12-hour window,
+whereby large changes result in greater weighting of recent hours while steady
+air conditions result in more evenly distributed weighting of hourly
+concentrations.
+
+Calculation
+-----------
+
+The NowCast for a selected (current) hour is computed via the following steps:
+
+    1. Select a 12-hour window of PM measurements whereby the oldest hour in the
+       selection is 11 hours preceding the current hour. The most recent
+       (current) hour is the hour for which the NowCast will be computed. **At
+       least two of the last three hours (including the current hour) must have
+       concentration values to compute the NowCast.**
+
+    2. From this 12-hour window, select the maximum and minimum PM
+       concentrations present. Compute the range by subtracting the minimum from
+       the maximum.
+
+    3. Normalize the range by dividing by the maximum concentration value. This
+       gives a measure of the rate of change of PM values within the 12-hour
+       window.
+
+    4. Compute the weight factor by subtracting the normalized rate of change
+       from 1.
+
+    5. If the weight factor is less than 0.5, round the value up to 0.5. The
+       weight factor must fall within the range 0.5 to 1.0.
+
+    6. Multiply each hour in the 12-hour window by the weight factor raised to
+       the power of the number of hours ago that the value was recorded. The
+       most recent (current) hour in the series is raised to the zeroth power
+       and the oldest hour is raised to the 11th power.
+
+    7. Sum the weighted PM values computed in the previous step for each hour
+       in the 12-hour window.
+
+    8. In a similar method to steps 6 and 7, compute the sum of the weight
+       factor raised to the 0th through 11th power. This sum includes 12 terms,
+       whereby the power of each term corresponds to the number of hours ago
+       that a concentration value was recoded.
+
+    9. Divide the weighted concentration sum calculated in step 7 by the sum
+       determined in step 8. The result is the NowCast for the zeroth (current)
+       hour in the 12-hour window.
+
+Resources
+---------
+
+    `Technical information about the NowCast algorithm
+    <https://usepa.servicenowservices.com/airnow?id=kb_article_view&
+    sys_id=fed0037b1b62545040a1a7dbe54bcbd4>`_
+
+================================================================================
+
 @Author:
-  Samuel Frederick, NSSC Contractor (ORAU)
-  U.S. EPA, Office of Research and Development
-  Center for Environmental Measurement and Modeling
-  Air Methods and Characterization Division, Source and Fine Scale Branch
-  109 T.W. Alexander Drive, Research Triangle Park, NC 27711
-  Office: 919-541-4086 | Email: frederick.samuel@epa.gov
+  | Samuel Frederick, NSSC Contractor (ORAU)
+  | U.S. EPA / ORD / CEMM / AMCD / SFSB
 
 Created:
   Fri Jun 19 08:25:11 2020
@@ -21,36 +80,35 @@ import sys
 def PM25NowCast(df, column=None):
     """Generate NowCast values for PM2.5 1-hour averages.
 
-    References
-    ----------
-    https://usepa.servicenowservices.com/airnow?id=kb_article_view&sys_id=
-    fed0037b1b62545040a1a7dbe54bcbd4
+    **Resources:**
 
-    The presentation tited 'Transitioning to a new NowCast Method' by
-    Mintz, Stone, and Davis (June 15, 2013)
+        * `Technical information about the NowCast algorithm
+          <https://usepa.servicenowservices.com/airnow?id=kb_article_view&
+          sys_id=fed0037b1b62545040a1a7dbe54bcbd4>`_
 
-    Dependencies
-    ------------
-    NumPy (version >= 1.16.5):
-        Mathematical operations library
-    Pandas (version >= 0.25.1):
-        Data analysis library
-    Sys (Python version >= 3.7):
-        Python base package for system specified parameters
+        * The presentation titled `Transitioning to a new NowCast Method` by
+          Mintz, Stone, and Davis (June 15, 2013)
 
-    Arguments
-    ----------
-    df (Pandas dataframe object):
-        DataFrame containing hourly PM2.5 data.
-    column (str):
-        The name of the column to NowCast.
+    Dependencies:
+        Python (version >= 3.7):
+            Programming language. Module tested with Python versions 3.7 and
+            version 3.8.
+        NumPy (version >= 1.16.5):
+            Mathematical operations library. Module tested with versions 1.16.5
+            through 1.20.1.
+        Pandas (version >= 0.25.1):
+            Data analysis library. Module tested with versions 0.25.1 through
+            1.2.4.
 
-    Returns
-    -------
-    nowcast_df: Pandas Dataframe
-        Dataframe passed to function with added column for nowcasted values.
-        The index is set  to time. Data columns include the passed hourly PM2.5
-        data and the corresponding Nowcast values ('nowcast').
+    Args:
+        df (Pandas dataframe object): DataFrame containing hourly PM2.5 data.
+        column (str): The name of the column to NowCast.
+
+    Returns:
+        nowcast_df:
+            Dataframe passed to function with added column for nowcasted values.
+            The index is set  to time. Data columns include the passed hourly
+            PM2.5 data and the corresponding Nowcast values ('nowcast').
     """
     if column is None:
         sys.exit('No column header name specified to nowcast')
