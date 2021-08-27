@@ -3,6 +3,47 @@
 This module is used to calculate the air quality index (AQI) as defined by U.S.
 EPA for fine particulate matter (PM2.5).
 
+Resources
+---------
+
+* `AirNow - Using the Air Quality Index <https://www.airnow.gov/aqi/aqi-basics/
+  using-air-quality-index/>`_
+* `AirNow - AQI Basics <https://www.airnow.gov/aqi/aqi-basics/>`_
+* `AQI Breakpoint Table <https://aqs.epa.gov/aqsweb/documents/codetables/
+  aqi_breakpoints.html>`_
+* `Technical Assistance Document for the Reporting of Daily Air Quality – the
+  Air Quality Index (AQI) <https://www.airnow.gov/sites/default/files/2020-05/
+  aqi-technical-assistance-document-sept2018.pdf>`_
+
+Calculation
+-----------
+
+The AQI is calculated via the following equation:
+
+.. math::
+
+    I_p = \\frac{I_{Hi} - I_{Lo}}{BP_{Hi} - BP_{Lo}}\\left(C_p -
+    BP_{Lo}\\right) + I_{Lo}
+
+where
+
+    :math:`I_p` = the index for pollutant p
+
+    :math:`C_p` = the truncated concentration of pollutant p
+
+    :math:`BP_{Hi}` = the concentration breakpoint that is greater than or equal
+    to :math:`C_p`
+
+    :math:`BP_{Lo}` = the concentration breakpoint that is less than or equal to
+    :math:`C_p`
+
+    :math:`I_{Hi}` = the AQI value corresponding to :math:`BP_{Hi}`
+
+    :math:`I_{Lo}` = the AQI value corresponding to :math:`BP_{Lo}`
+
+More detail about the AQI calculation, as well as a detailed description, are
+included in the `Technical Assistant Document` listed above.
+
 ================================================================================
 
 @Author:
