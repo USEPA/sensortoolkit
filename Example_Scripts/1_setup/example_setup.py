@@ -27,8 +27,9 @@ lib_path = None
    Construct file structure for sensor, specify ingestion formatting scheme
   ----------------------------------------------------------------------------
 """
+sensor_name = 'Example_Make_Model'
 # Run the next line of code to create sub-dirs for sensor data, figures, etc.
-sensortoolkit.Create_Sensor_Directories(name='Example_Make_Model',
+sensortoolkit.Create_Sensor_Directories(name=sensor_name,
                                         eval_params=['PM25', 'O3'],
                                         work_path=work_path,
                                         lib_path=lib_path,
@@ -38,7 +39,8 @@ sensortoolkit.Create_Sensor_Directories(name='Example_Make_Model',
 
 # Run the next line of code to configure the formatting scheme for converting
 # recorded sensor data to a standardized format utilized by SensorEvaluation
-IngestionConfig = sensortoolkit.Setup(work_path)
+IngestionConfig = sensortoolkit.Setup(name=sensor_name,
+                                      work_path=work_path)
 
 """
   ----------------------------------------------------------------------------
