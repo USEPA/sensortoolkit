@@ -7,7 +7,7 @@
 
 **Warning: This code is currently under development and is intended for internal EPA use only. Please do not distribute or share components of this repository with individuals external to EPA.**
 ****
-#### Readme Guide
+## Readme Guide
 * [Overview](#overview)
   * [Key Features](#key-features)
   * [Dependencies](#dependencies)
@@ -33,7 +33,7 @@ monitoring applications.
 
 In February 2021, EPA released [two reports](https://www.epa.gov/air-sensor-toolbox/air-sensor-performance-targets-and-testing-protocols#reports) detailing recommended performance testing protocols, metrics, and target values for the evaluation of sensors measuring either fine particulate matter (PM<sub>2.5</sub>) or ozone (O<sub>3</sub>). This library provides modules for testing air sensors measuring PM<sub>2.5</sub> and O<sub>3</sub> against FRM/FEM reference measurements collected at an ambient air monitoring site. Included modules utilize the performance metrics and target ranges recommended by EPA.
 
-##### Key features: <a name="key-features"></a>
+## Key features: <a name="key-features"></a>
 * Class-based approach for analyzing sensor data in a consistent, reproduceable manner. Evaluation of sensor performance for fine particulate matter and ozone against EPA's recommended performance metrics and target values.
 * Time averaging of timeseries data to 1-hour and 24-hour intervals with configurable data completeness threshold for computing averages (default 75%).
 * Reference data retrieval from AirNow and AQS APIs (user API accounts and keys must be specified). Ingestion of reference data into a consistent data formatting standard. Import and ingestion of reference data from AirNowTech including multiple parameters and pollutant types. Reference data are sorted by parameter type (particulate matter, gaseous pollutants, and meteorological parameters) and files are saved in monthly increments to .csv files.
@@ -41,7 +41,7 @@ In February 2021, EPA released [two reports](https://www.epa.gov/air-sensor-tool
 
 Users must provide an ingestion module for importing recorded sensor data into a data formatting standard developed for this project.
 
-#### Dependencies: <a name="dependencies"></a>
+## Dependencies: <a name="dependencies"></a>
 * [Python](https://www.python.org/) 3.7, 3.8
 * [pandas](https://pypi.org/project/pandas/) >= 0.25.1
 * [numpy](https://pypi.org/project/numpy/) >= 1.16.5
@@ -52,7 +52,7 @@ Users must provide an ingestion module for importing recorded sensor data into a
 * [requests](https://pypi.org/project/requests/) >= 2.25.1
 * [python-pptx](https://pypi.org/project/python-pptx/) 0.6.18
 
-### Contact and Resources <a name="contact"></a>
+## Contact and Resources <a name="contact"></a>
 *Please direct all inquiries to*\
 &nbsp;&nbsp;&nbsp;&nbsp;Andrea Clements Ph.D., Research Physical Scientist\
 &nbsp;&nbsp;&nbsp;&nbsp;U.S. EPA, Office of Research and Development\
@@ -81,7 +81,7 @@ Python. Anaconda is a package distribution of Python that includes many
 widely used libraries as well as the Spyder IDE for editing and
 compiling code. Anaconda is free for individuals.
 
-### Clone the repository on BitBucket:
+### 1. Clone the repository on BitBucket:
 
 There are a couple ways this can be done, either via a program with a UI
 like SourceTree or via a command-line interface. For users just getting
@@ -89,8 +89,60 @@ starting with how to use Git, Bitbucket has a [tutorial] on how to clone
 repositories that may be helpful. From the terminal, the repository can
 be cloned via the following command
 
-    $ git clone https://bitbucket.epa.gov/scm/~sfrede01/sensor-evaluation.git
+    git clone https://bitbucket.epa.gov/scm/~sfrede01/sensor-evaluation.git
 
+### 2. Install `sensortoolkit`
+
+First, navigate to the folder location for the cloned repository:
+
+  cd path/to/library
+
+Next, install the library with pip:
+
+  pip install .
+
+
+Users will see something similar to the following be printed to the
+console:
+
+  Processing c:\users\..\documents\sensor-evaluation
+  Requirement already satisfied: matplotlib in c:\users\sfrede01\anaconda3\lib\site-packages (from sensortoolkit==0.1.0b2) (3.3.4)
+  Requirement already satisfied: numpy in c:\users\sfrede01\anaconda3\lib\site-packages (from sensortoolkit==0.1.0b2) (1.20.1)
+  Requirement already satisfied: pandas in c:\users\sfrede01\anaconda3\lib\site-packages (from sensortoolkit==0.1.0b2) (1.2.4)
+  Requirement already satisfied: pathlib2 in c:\users\sfrede01\anaconda3\lib\site-packages (from sensortoolkit==0.1.0b2) (2.3.5)
+  Requirement already satisfied: python-pptx in c:\users\sfrede01\anaconda3\lib\site-packages (from sensortoolkit==0.1.0b2) (0.6.18)
+  Requirement already satisfied: requests in c:\users\sfrede01\anaconda3\lib\site-packages (from sensortoolkit==0.1.0b2) (2.25.1)
+  Requirement already satisfied: scipy in c:\users\sfrede01\anaconda3\lib\site-packages (from sensortoolkit==0.1.0b2) (1.6.2)
+  Requirement already satisfied: seaborn in c:\users\sfrede01\anaconda3\lib\site-packages (from sensortoolkit==0.1.0b2) (0.11.1)
+  Requirement already satisfied: statsmodels in c:\users\sfrede01\anaconda3\lib\site-packages (from sensortoolkit==0.1.0b2) (0.12.2)
+  Requirement already satisfied: urllib3 in c:\users\sfrede01\anaconda3\lib\site-packages (from sensortoolkit==0.1.0b2) (1.26.4)
+  Requirement already satisfied: pip in c:\users\sfrede01\anaconda3\lib\site-packages (from sensortoolkit==0.1.0b2) (21.0.1)
+  Requirement already satisfied: pyparsing!=2.0.4,!=2.1.2,!=2.1.6,>=2.0.3 in c:\users\sfrede01\anaconda3\lib\site-packages (from matplotlib->sensortoolkit==0.1.0b2) (2.4.7)
+  Requirement already satisfied: pillow>=6.2.0 in c:\users\sfrede01\anaconda3\lib\site-packages (from matplotlib->sensortoolkit==0.1.0b2) (8.2.0)
+  Requirement already satisfied: python-dateutil>=2.1 in c:\users\sfrede01\anaconda3\lib\site-packages (from matplotlib->sensortoolkit==0.1.0b2) (2.8.1)
+  Requirement already satisfied: kiwisolver>=1.0.1 in c:\users\sfrede01\anaconda3\lib\site-packages (from matplotlib->sensortoolkit==0.1.0b2) (1.3.1)
+  Requirement already satisfied: cycler>=0.10 in c:\users\sfrede01\anaconda3\lib\site-packages (from matplotlib->sensortoolkit==0.1.0b2) (0.10.0)
+  Requirement already satisfied: six in c:\users\sfrede01\anaconda3\lib\site-packages (from cycler>=0.10->matplotlib->sensortoolkit==0.1.0b2) (1.15.0)
+  Requirement already satisfied: pytz>=2017.3 in c:\users\sfrede01\anaconda3\lib\site-packages (from pandas->sensortoolkit==0.1.0b2) (2021.1)
+  Requirement already satisfied: lxml>=3.1.0 in c:\users\sfrede01\anaconda3\lib\site-packages (from python-pptx->sensortoolkit==0.1.0b2) (4.6.3)
+  Requirement already satisfied: XlsxWriter>=0.5.7 in c:\users\sfrede01\anaconda3\lib\site-packages (from python-pptx->sensortoolkit==0.1.0b2) (1.3.8)
+  Requirement already satisfied: chardet<5,>=3.0.2 in c:\users\sfrede01\anaconda3\lib\site-packages (from requests->sensortoolkit==0.1.0b2) (4.0.0)
+  Requirement already satisfied: idna<3,>=2.5 in c:\users\sfrede01\anaconda3\lib\site-packages (from requests->sensortoolkit==0.1.0b2) (2.10)
+  Requirement already satisfied: certifi>=2017.4.17 in c:\users\sfrede01\anaconda3\lib\site-packages (from requests->sensortoolkit==0.1.0b2) (2020.12.5)
+  Requirement already satisfied: patsy>=0.5 in c:\users\sfrede01\anaconda3\lib\site-packages (from statsmodels->sensortoolkit==0.1.0b2) (0.5.1)
+  Building wheels for collected packages: sensortoolkit
+    Building wheel for sensortoolkit (setup.py) ... done
+    Created wheel for sensortoolkit: filename=sensortoolkit-0.1.0b2-py3-none-any.whl size=264195 sha256=255f3b7f2818bc10ed695d7bbdf9facfcde8fbe88866621d77cba99376ef8fbb
+    Stored in directory: C:\Users\SFREDE01\AppData\Local\Temp\pip-ephem-wheel-cache-k4dnnl3u\wheels\d0\5d\9f\8f5c8d55a67e2c9d9ff85111d0e96da3ef3782e3356c46e010
+  Successfully built sensortoolkit
+  Installing collected packages: sensortoolkit
+  Successfully installed sensortoolkit-0.1.0b2
+
+*Note*- The above console output indicates that the dependencies for ``sensortoolkit``
+were previously installed and found on the user's system. Any packages not found
+during installation will be installed by pip.
+
+<!--
 ### Install package dependencies:
 
 <span class="title-ref">conda</span> and <span
@@ -179,6 +231,7 @@ the current directory is the location of the cloned repository. Then
 type the following command:
 
     $ python setup.py install
+-->
 
 <!--
 Recommended Software:
