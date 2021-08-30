@@ -31,9 +31,9 @@ setup(name='sensortoolkit',
                 'sensortoolkit._pkg'
                 ]),
       package_data={'': ["_performancereport/templates/O3/Reporting_Template_Base_O3.pptx",
-                         "_performancereport/templates/PM25/Reporting_Template_Base_PM25.pptx"
+                         "_performancereport/templates/PM25/Reporting_Template_Base_PM25.pptx",
+                         "_reference/method_codes/methods_criteria.csv"
                          # data and figures/example_make_model placeholder image
-                         # method code lookup table
                          ]
                     },
       install_requires=['matplotlib',
