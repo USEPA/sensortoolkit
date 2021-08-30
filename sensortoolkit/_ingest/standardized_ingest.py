@@ -48,17 +48,24 @@ def Ingest(path, name=None, setup_file_path=None):
     idx_list = setup['timestamp_col_headers']
     idx_format_dict = setup['time_format_dict']
 
-    if setup['dtype'] in ('.csv', '.txt'):
+    if setup['dtype'] in ('.csv', '.txt', '.xlsx'):
         try:
             names = None
             if setup['header_iloc'] is None:
                 names = setup['all_col_headers']
-            df = pd.read_csv(path, header=setup['header_iloc'], names=names)
+
+            if setup['dtype'] in ('.csv', 'txt'):
+                df = pd.read_csv(path, header=setup['header_iloc'],
+                                 names=names)
+            if setup['dtype'] == '.xlsx':
+                df = pd.read_excel(path, header=setup['header_iloc'],
+                                   names=names)
+
         except FileNotFoundError as e:
             sys.exit(e)
     else:
         # Put other pandas read functions here
-        sys.exit()
+        sys.exit('Invalid data type. Must be either .csv, .txt, or .xlsx')
 
     # If the header row loads on a row of data (may be intentional if
     # formatting for first row is unusual and doesnt follow delimited format).
@@ -130,17 +137,17 @@ def ParseSetup(setup_file_path, data_path):
     file_drop_cols = []
 
     # Parse setup.json for data file specific header names
-    for row_entry in setup['col_headers']:
-        row_config = setup['col_headers'][row_entry]
-        row_headers = list(row_config.keys())
+    for col_entry in setup['col_headers']:
+        col_config = setup['col_headers'][col_entry]
+        col_headers = list(col_config.keys())
 
-        for header in row_headers:
-            file_list = row_config[header]['files']
+        for header in col_headers:
+            file_list = col_config[header]['files']
             file_list = [os.path.normpath(path) for path in file_list]
             if data_path in file_list:
                 file_col_list.append(header)
 
-                sdfs_param_header = row_config[header]['SDFS_param']
+                sdfs_param_header = col_config[header]['SDFS_param']
                 if sdfs_param_header != '':
                     file_col_renaming_dict[header] = sdfs_param_header
                 else:
