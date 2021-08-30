@@ -95,12 +95,15 @@ be cloned via the following command
 
 First, navigate to the folder location for the cloned repository:
 
-  cd path/to/library
+```
+cd path/to/library
+```
 
 Next, install the library with pip:
 
-  pip install .
-
+```
+pip install .
+```
 
 Users will see something similar to the following be printed to the
 console:
