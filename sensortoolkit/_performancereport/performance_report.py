@@ -89,8 +89,8 @@ class PerformanceReport(SensorEvaluation):
         self.template_name = ('Reporting_Template_Base_' + self.eval_param
                               + '.pptx')
         # Path to reporting template
-        self.template_path = '\\'.join((self.work_path, 'Reports', 'templates',
-                                        self.eval_param, self.template_name))
+        self.template_path = os.path.abspath(os.path.join(__file__,
+                        '../templates', self.eval_param, self.template_name))
 
         # Details about testing and deployment site
         self.testing_org = self.kwargs.get('testing_org',
