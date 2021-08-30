@@ -53,109 +53,56 @@ def Create_Sensor_Directories(name=None, eval_params=[], work_path=None,
     # Check if Data and Figures folder in work directory
     if not os.path.exists(data_fig_path):
 
-        if lib_path is not None:
-            print('Creating "Data and Figures" subdirectory within', work_path)
-            os.makedirs(data_fig_path)
+        print('Creating "Data and Figures" subdirectory within', work_path)
+        os.makedirs(data_fig_path)
 
-            # create eval_stats, figures, reference_data, sensor_data subdirs
-            folders = {'eval_stats': None,
-                       'figures': None,
-                       'reference_data': {'airnow': ['raw_api_datasets',
+        # create eval_stats, figures, reference_data, sensor_data subdirs
+        folders = {'eval_stats': None,
+                   'figures': None,
+                   'reference_data': {'airnow': ['raw_api_datasets',
+                                                 'processed'],
+                                      'airnowtech': ['downloaded_datasets',
                                                      'processed'],
-                                          'airnowtech': ['downloaded_datasets',
-                                                         'processed'],
-                                          'aqs': ['raw_api_datasets',
-                                                  'processed'],
-                                          #'method_codes': None,
-                                          'oaqps': ['raw_data',
-                                                    'processed_data']},
-                       'sensor_data': None}
+                                      'aqs': ['raw_api_datasets',
+                                              'processed'],
+                                      #'method_codes': None,
+                                      'oaqps': ['raw_data',
+                                                'processed_data']},
+                   'sensor_data': None}
 
-            for folder in folders:
-                folder_path = os.path.join(data_fig_path, folder)
-                os.makedirs(folder_path)
-                new_dir = folder_path.replace(work_path, '')
-                print('..Creating directory:')
-                print('....' + new_dir)
-                new_folders.append(new_dir)
+        for folder in folders:
+            folder_path = os.path.join(data_fig_path, folder)
+            os.makedirs(folder_path)
+            new_dir = folder_path.replace(work_path, '')
+            print('....' + new_dir)
+            new_folders.append(new_dir)
 
-                subfolders = folders[folder]
-                if subfolders is not None:
-                    for subfolder in subfolders:
-                        subfolder_path = os.path.join(folder_path, subfolder)
-                        os.makedirs(subfolder_path)
-                        new_dir = subfolder_path.replace(work_path, '')
-                        print('....Creating sub-directory:')
-                        print('......' + new_dir)
-                        new_folders.append(new_dir)
+            subfolders = folders[folder]
+            if subfolders is not None:
+                for subfolder in subfolders:
+                    subfolder_path = os.path.join(folder_path, subfolder)
+                    os.makedirs(subfolder_path)
+                    new_dir = subfolder_path.replace(work_path, '')
+                    print('......' + new_dir)
+                    new_folders.append(new_dir)
 
-                        subsubfolders = subfolders[subfolder]
-                        if subsubfolders is not None:
-                            for subsubfolder in subsubfolders:
-                                subsubfolder_path = os.path.join(
-                                                            subfolder_path,
-                                                            subsubfolder)
-                                os.makedirs(subsubfolder_path)
-                                new_dir = subsubfolder_path.replace(work_path,
-                                                                    '')
-                                print('......Creating sub-sub-directory:')
-                                print('........' + new_dir)
-                                new_folders.append(new_dir)
-
-            #copy over method codes
-            #subpath = ('Data and Figures/reference_data/method_codes/'
-            #           'methods_criteria.csv')
-            #src = os.path.join(lib_path, subpath)
-            #dst =  os.path.join(work_path, subpath)
-            #copy(src, dst)
-
-        else:
-            console = ('No path given to library location, not able '
-                       'to copy over required files')
-            sys.exit(console)
+                    subsubfolders = subfolders[subfolder]
+                    if subsubfolders is not None:
+                        for subsubfolder in subsubfolders:
+                            subsubfolder_path = os.path.join(
+                                                        subfolder_path,
+                                                        subsubfolder)
+                            os.makedirs(subsubfolder_path)
+                            new_dir = subsubfolder_path.replace(work_path,
+                                                                '')
+                            print('........' + new_dir)
+                            new_folders.append(new_dir)
 
     # Check if Reports folder in work directory
     if not os.path.exists(report_path):
-
-        if lib_path is not None:
-            print('Creating "Reports" subdirectory within', work_path)
-            os.makedirs(report_path)
-
-            # folders = {'templates': ['O3', 'PM25']}
-
-            # for folder in folders:
-            #     folder_path = os.path.join(report_path, folder)
-            #     os.makedirs(folder_path)
-            #     new_dir = folder_path.replace(work_path, '')
-            #     print('..Creating directory:')
-            #     print('....' + new_dir)
-            #     new_folders.append(new_dir)
-
-            #     subfolders = folders[folder]
-            #     if subfolders is not None:
-            #         for subfolder in subfolders:
-            #             subfolder_path = os.path.join(folder_path, subfolder)
-            #             os.makedirs(subfolder_path)
-            #             new_dir = subfolder_path.replace(work_path, '')
-            #             print('....Creating sub-directory:')
-            #             print('......' + new_dir)
-            #             new_folders.append(new_dir)
-
-            # Copy over the templates
-            #subpath = ('Reports/templates/')
-            #subfolders = ['O3', 'PM25']
-            #filenames = ['Reporting_Template_Base_O3.pptx',
-            #             'Reporting_Template_Base_PM25.pptx']
-            #for subfolder, filename in zip(subfolders, filenames):
-            #    filepath = subpath + '/' + subfolder + '/' + filename
-            #    src = os.path.join(lib_path, filepath)
-            #    dst =  os.path.join(work_path, filepath)
-            #    copy(src, dst)
-
-        else:
-            console = ('No path given to library location, not able '
-                       'to copy over required files')
-            sys.exit(console)
+        print('/nCreating "Reports" subdirectory within', work_path)
+        os.makedirs(report_path)
+        print('/n')
 
 
     # Create Subfolders for Sensor Data and Figures
@@ -172,7 +119,6 @@ def Create_Sensor_Directories(name=None, eval_params=[], work_path=None,
         if not os.path.exists(sensor_subfolder):
             os.makedirs(sensor_subfolder)
             new_dir = sensor_subfolder.replace(work_path, '')
-            print('..Creating directory:')
             print('....' + new_dir)
             new_folders.append(new_dir)
 
