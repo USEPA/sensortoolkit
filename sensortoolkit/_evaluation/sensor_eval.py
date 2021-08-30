@@ -537,24 +537,24 @@ class SensorEvaluation:
                                            param=self.eval_param)
 
         # Reference details for param evaluation (hourly data)
-        self.deploy_dict = sensortoolkit.Reference_Stats(self.deploy_dict,
+        self.deploy_dict = sensortoolkit.Add_Ref_Stats(self.deploy_dict,
                                               self.hourly_ref_df,
                                               param=self.eval_param,
                                               ref_name=self.ref_name)
 
         # Reference details for param evaluation (daily data)
-        self.deploy_dict = sensortoolkit.Reference_Stats(self.deploy_dict,
+        self.deploy_dict = sensortoolkit.Add_Ref_Stats(self.deploy_dict,
                                               self.daily_ref_df,
                                               param=self.eval_param,
                                               ref_name=self.ref_name)
 
         # Reference details for meteorological data (1-hr averages)
-        self.deploy_dict = sensortoolkit.Meteorological_Stats(self.deploy_dict,
+        self.deploy_dict = sensortoolkit.Add_Met_Stats(self.deploy_dict,
                                                    self.hourly_df_list,
                                                    self.met_hourly_ref_df)
 
         # Reference details for meteorological data (24-hr averages)
-        self.deploy_dict = sensortoolkit.Meteorological_Stats(self.deploy_dict,
+        self.deploy_dict = sensortoolkit.Add_Met_Stats(self.deploy_dict,
                                                    self.daily_df_list,
                                                    self.met_daily_ref_df)
 
