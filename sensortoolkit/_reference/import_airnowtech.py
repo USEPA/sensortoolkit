@@ -80,12 +80,8 @@ def Sort_AirNowTech(df):
         path.
 
     """
-    # Caution, Windows only
-    method_path = pathlib.PureWindowsPath(
-                        os.path.abspath(os.path.join(__file__, '../../..')))
-    method_path = (method_path.as_posix() +
-                   '/Data and Figures/reference_data/'
-                   'method_codes//methods_criteria.csv')
+    method_path = os.path.abspath(os.path.join(__file__,
+                                  '../method_codes/methods_criteria.csv'))
 
     # Method code lookup dataframe
     method_df = pd.read_csv(method_path)
