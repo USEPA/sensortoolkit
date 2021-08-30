@@ -5,11 +5,11 @@ Configuring sensortoolkit for Analyzing Sensor Data
 Creating Sensor Directories
 ---------------------------
 `sensortoolkit` organizes sensor data, resulting data structures, and figures
-into several sub-directories in the …/Data and Figures/… folder.
+into several sub-directories in the ``/Data and Figures`` folder.
 
 .. important::
   Users have the option of working from within the folder location where the `sensortoolkit`
-  repository was downloaded, storing sensor and reference data in the provided ``.../Data and Figures`` directory,
+  repository was downloaded, storing sensor and reference data in the provided ``/Data and Figures`` directory,
   or users may wish to organize their work in a separate directory. In either case, various
   subdirectories and folders will need to be created so users can store data, figures, and evaluation
   statistics.
@@ -22,39 +22,23 @@ function. The function accepts the following arguments
 * ``eval_params``: A list of parameters the user intends to evaluate
 * ``work_path``: The path to the directory where the user intends to store data, figures,
   and reports
-* ``lib_path``:  The path to the directory where the sensortoolkit repository was
-  downloaded.
-
-.. note::
-
-  ``lib_path`` needs to be included if the ``work_path`` is
-  different than the ``lib_path`` in order to copy over reporting templates and
-  reference code lookup tables.
 
 Below is an example for a sensor that will be evaluated for PM2.5 and O3 at the
-folder location ``C:/Users/.../Documents/my_evaluation``. The `sensortoolkit` library
-has been downloaded to ``C:/Users/.../Documents/sensor-evaluation``, and since this is a
-different location than where the sensor will be evaluated (i.e., the work path will store
-data, figures, and statistics), we need to point ``Create_Sensor_Directories`` to the
-location of the `sensortoolkit` library so that necessary files can be copied over.
+folder location ``C:/Users/.../Documents/my_evaluation``:
 
 .. code-block:: python
 
+    sensor_name = 'Sensor_Make_Model'
     work_path = 'C:/Users/.../Documents/my_evaluation'
-    lib_path = 'C:/Users/.../Documents/sensor-evaluation'
 
-    sensortoolkit.Create_Sensor_Directories(name='Sensor_Make_Model',
-                             	                 eval_params=['PM25', 'O3'],
-                                               work_path=work_path,
-                                               lib_path=lib_path,)
+    sensortoolkit.Create_Sensor_Directories(name=sensor_name,
+                             	              eval_params=['PM25', 'O3'],
+                                            work_path=work_path)
 
 Running the code above will construct the sensor-specific directory structure
-for subsequent analysis. Since the work path and library path differ, the reporting
-templates and reference data code lookup tables will be copied into the appropriate
-path location within ``.../my_evaluation``. Here, we're assuming that the folder
-``my_evaluation`` only has the python file with the code written above. The
-``Data and Figures`` and ``Reports`` folders, along with all relevant subdirectories,
-will be construted.
+for subsequent analysis. Here, we're assuming that the folder``my_evaluation``
+only has the python file with the code written above. The ``Data and Figures``
+and ``Reports`` folders, along with all relevant subdirectories, will be constructed.
 
 The following is printed to the console indicating the directories that are created
 by the ``Create_Sensor_Directories`` function.
@@ -62,72 +46,41 @@ by the ``Create_Sensor_Directories`` function.
 .. code-block:: console
 
   Creating "Data and Figures" subdirectory within C:/Users/.../Documents/my_evaluation
-  ..Creating directory:
   ....\Data and Figures\eval_stats
-  ..Creating directory:
   ....\Data and Figures\figures
-  ..Creating directory:
   ....\Data and Figures\reference_data
-  ....Creating sub-directory:
   ......\Data and Figures\reference_data\airnow
-  ......Creating sub-sub-directory:
   ........\Data and Figures\reference_data\airnow\raw_api_datasets
-  ......Creating sub-sub-directory:
   ........\Data and Figures\reference_data\airnow\processed
-  ....Creating sub-directory:
   ......\Data and Figures\reference_data\airnowtech
-  ......Creating sub-sub-directory:
   ........\Data and Figures\reference_data\airnowtech\downloaded_datasets
-  ......Creating sub-sub-directory:
   ........\Data and Figures\reference_data\airnowtech\processed
-  ....Creating sub-directory:
   ......\Data and Figures\reference_data\aqs
-  ......Creating sub-sub-directory:
   ........\Data and Figures\reference_data\aqs\raw_api_datasets
-  ......Creating sub-sub-directory:
   ........\Data and Figures\reference_data\aqs\processed
-  ....Creating sub-directory:
-  ......\Data and Figures\reference_data\method_codes
-  ....Creating sub-directory:
   ......\Data and Figures\reference_data\oaqps
-  ......Creating sub-sub-directory:
   ........\Data and Figures\reference_data\oaqps\raw_data
-  ......Creating sub-sub-directory:
   ........\Data and Figures\reference_data\oaqps\processed_data
-  ..Creating directory:
   ....\Data and Figures\sensor_data
+
   Creating "Reports" subdirectory within C:/Users/.../Documents/my_evaluation
-  ..Creating directory:
-  ....\Reports\templates
-  ....Creating sub-directory:
-  ......\Reports\templates\O3
-  ....Creating sub-directory:
-  ......\Reports\templates\PM25
+
   Creating directories for sensor_make_model and evaluation parameters: PM25, O3
-  ..Creating directory:
   ....\Data and Figures\eval_stats\sensor_make_model
-  ..Creating directory:
   ....\Data and Figures\figures\sensor_make_model
-  ....Creating sub-directory:
   ......\Data and Figures\figures\sensor_make_model\PM25
-  ....Creating sub-directory:
   ......\Data and Figures\figures\sensor_make_model\O3
-  ....Creating sub-directory:
   ......\Data and Figures\figures\sensor_make_model\Met
-  ....Creating sub-directory:
   ......\Data and Figures\figures\sensor_make_model\deployment
-  ..Creating directory:
   ....\Data and Figures\sensor_data\sensor_make_model
-  ....Creating sub-directory:
   ......\Data and Figures\sensor_data\sensor_make_model\processed_data
-  ....Creating sub-directory:
   ......\Data and Figures\sensor_data\sensor_make_model\raw_data
 
 Adding Sensor datasets
 ----------------------
 Once sensor directories have been established, users should place files for unprocessed data
 recorded by the sensor make and model into the appropriate sub-directory. For the
-example shown above, data files should be located at ``..\Data and Figures\sensor_data\sensor_make_model\raw_data``.
+example shown above, data files should be located at ``\Data and Figures\sensor_data\sensor_make_model\raw_data``.
 
 .. important::
 
@@ -141,7 +94,7 @@ example shown above, data files should be located at ``..\Data and Figures\senso
 `sensortoolkit` comes with a set of example sensor datasets to help users familiarize
 themselves with the structure of the library and its implementation. These data files
 are organized under the sensor name ``Example_Make_Model``, and unprocessed sensor datasets
-are located at ``..\Data and Figures\sensor_data\Example_Make_Model\raw_data``. Below is a
+are located at ``\Data and Figures\sensor_data\Example_Make_Model\raw_data``. Below is a
 listing of .csv files at this directory location, where the name of the sensor, serial ID
 (``SN01``, ``SN02``, and ``SN03``), and unprocessed data descriptor ``_raw`` are
 indicated in each file name.
@@ -172,39 +125,15 @@ the sensortoolkit Library for more detail) and run the following code:
 
 .. code-block:: python
 
+  sensor_name = 'Example_Make_Model'
   work_path = 'C:/Users/.../Documents/my_evaluation'
 
-  IngestionConfig = sensortoolkit.Setup(work_path)
+  IngestionConfig = sensortoolkit.Setup(name=sensor_name,
+                                        work_path)
 
-Setting the Sensor Name
-^^^^^^^^^^^^^^^^^^^^^^^
 
-The user will then be prompted by the module to enter the name of the sensor.
-Once the name is typed in the console, press enter. The user will be asked to
-confirm the entry by typing ``y`` to confirm and continue or ``n`` to revise the entered name.
-Below is an example of ``Setup`` module output and user entry for the `Example_Make_Model`
-sensor dataset.
-
-.. code-block:: console
-
-  =============================== Set Sensor Name ==============================
-  Options
-  -------
-   
-  ==============================================================================
-   
-  Enter the name of the sensor: Example_Make_Model
-   
-  Sensor name: Example_Make_Model
-   
-  Confirm entry [y/n]: y
-
-.. important::
-  The name of the sensor should be the same name and format passed to the
-  ``Create_Sensor_Directories`` module.
-
-Setting the Column Header Index
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+1. Setting the Column Header Index
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Next, users are prompted to enter the row index corresponding to the column headers.
 If the column headers are included on the first row of each sensor dataset, the
@@ -220,177 +149,18 @@ As with sensor name entry, the user will be asked to confirm the entry with
   Options
   -------
   ..type "None" if no header columns in recorded sensor dataset
-  ===============================================================================
-   
+  ==============================================================================
+
   Enter the row index number for column headers: 5
+
   Header row index: 5
-   
+
   Confirm entry [y/n]: y
 
+2. Selecting File Data Type
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Setting the Column Header List
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-Next, users enter the name of each column header in recorded sensor datasets.
-Names must be entered as they appear in the datasets, and should include all
-columns such as time-like columns and parameter related columns.
-
-Once all the column headers in sensor datasets have been entered, press ``X`` to
-exit column header name entry. A list of entered column names will appear, and
-the user will be asked to confirm the entry with ``y`` or ``n`` to either continue
-or revise the entered list.
-
-.. code-block:: console
-
-  ============================= Set Column Headers =============================
-  Options
-  -------
-  ..press X to end adding entries
-  ..press D to delete the previous entry
-  ===============================================================================
-   
-  Enter column 1 header name: Time
-   
-  Enter column 2 header name: NO2 (ppb)
-   
-  Enter column 3 header name: O3 (ppb)
-   
-  Enter column 4 header name: PM2.5 (µg/m³)
-   
-  Enter column 5 header name: TEMP (°C)
-   
-  Enter column 6 header name: RH (%)
-   
-  Enter column 7 header name: DP (°C)
-   
-  Enter column 8 header name: Inlet
-   
-  Enter parameter column 9 header name: X
-  ['Time', 'NO2 (ppb)', 'O3 (ppb)', 'PM2.5 (µg/m³)', 'TEMP (°C)', 'RH (%)', 'DP (°C)', 'Inlet']
-   
-  Confirm entry [y/n]: y
-
-
-Configuring the Parameter Renaming Scheme
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-Next, users are prompted to configure the parameter renaming scheme by entering
-in the formatted parameter name (see list in options section) that corresponds
-to each header name entered previously.
-
-Column names that do not have a corresponding listed parameter should be dropped
-from the dataset by pressing enter. In the example below, note that the columns
-``Time`` and ``Inlet`` are dropped. Also note that  time-like columns are set as the
-index via the ingestion module, and as a result, time-like columns duplicate the
-index and are redundant. The user should always specify to drop time-like columns.
-
-The user will be asked to confirm the entry with ``y`` or ``n`` to either continue or
-revise the configured dictionary.
-
-.. code-block:: console
-
-  ===================== Configure Parameter Column Renaming ====================
-  Options
-  -------
-  ..press enter to skip columns that will be dropped
-  Note, timestamp columns should be skipped by pressing enter. These columns are
-  assigned as the index during ingestion, and as a result, timestamp columns are
-  redundant and should be dropped.
-  Choose from the following list
-  ['PM1', 'PM25', 'PM10', 'O3', 'NO2', 'NO', 'NOx', 'SO2', 'SOx', 'CO', 'CO2',
-  'Temp', 'RH', 'Press', 'DP', 'WS', 'WD']
-  ===============================================================================
-   
-  Enter parameter associated with "Time":
-  .."Time" will be dropped
-   
-  Enter parameter associated with "NO2 (ppb)": NO2
-   
-  Enter parameter associated with "O3 (ppb)": O3
-   
-  Enter parameter associated with "PM2.5 (µg/m³)": PM25
-   
-  Enter parameter associated with "TEMP (°C)": Temp
-   
-  Enter parameter associated with "RH (%)": RH
-   
-  Enter parameter associated with "DP (°C)": DP
-   
-  Enter parameter associated with "Inlet":
-  .."Inlet" will be dropped
-  Configured renaming scheme: {'NO2 (ppb)': 'NO2', 'O3 (ppb)': 'O3', 'PM2.5 (µg/m³)': 'PM25', 'TEMP (°C)': 'Temp', 'RH (%)': 'RH', 'DP (°C)': 'DP'}
-   
-  Confirm entry [y/n]: y
-
-Setting Timestamp Column Headers
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-Similar to the process of specifying all column header names, users must list
-all time-like columns that will be used for the DateTime_UTC index. Typically,
-this either includes one column as is the case for the example, or two columns;
-one column for the date and another for the time.
-
-Once entry is complete, the user should press ``X`` to exit column header entry mode.
-The user will be asked to confirm the entry with ``y`` or ``n`` to either continue
-or revise the entered list of time line column headers.
-
-.. code-block:: console
-
-  ======================== Set Timestamp Column Headers ========================
-  Options
-  -------
-  ..press X to end adding entries
-  ..press D to delete the previous entry
-  ===============================================================================
-   
-  Enter timestamp column 1 header name: Time
-   
-  Enter timestamp column 2 header name: X
-  ['Time']
-   
-  Confirm entry [y/n]: y
-
-
-Configuring Timestamp Column Formatting
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-Next, the timestamp column formatting should be specified. Users are encouraged
-to reference https://strftime.org/ for a table of formatting codes. Additional
-info is available in the Python documentation: https://docs.python.org/3/library/datetime.html#strftime-and-strptime-format-codes.
-
-A formatting scheme must be specified for each time-like column indicated in
-the previous section.
-
-The user will be asked to confirm the entry with `y` or `n` to either continue
-or revise the entered formatting scheme.
-
-.. code-block:: console
-
-  ==================== Configure Timestamp Column Formatting ===================
-  Options
-  -------
-  ..format code list: https://docs.python.org/3/library/datetime.html#strftime-
-  and-strptime-format-codes
-  ..If a timestamp column is formatted as the number of seconds since the Unix
-  epoch (1 Jan. 1970), enter "epoch"
-  ..press enter to skip columns that will be dropped
-  ===============================================================================
-   
-  Enter date/time formatting for "Time": %Y/%m/%d %H:%M:%S
-   
-  Confirm entry [y/n]: y
-  Configured formatting scheme: {'Time': '%Y/%m/%d %H:%M:%S'}
-
-.. tip::
-
-    Non-zero padded values (e.g., specifying January as ``1`` rather than
-    zero-padded ``01``) should be indicated by either ``%-`` or ``%#`` (e.g.,
-    non-zero padded month will be ``%-m`` or ``%#m``).
-
-
-Selecting File Data Type
-^^^^^^^^^^^^^^^^^^^^^^^^
-Lastly, users specify the data type for recorded sensor data. Accepted data
+Next, users specify the data type for recorded sensor data. Accepted data
 types include .csv, .txt, and .xlsx. Future updates to sensortoolkit may
 expand this list to include additional supported data types. Users should enter
 the number associated with the data types listed in the section banner.
@@ -400,20 +170,193 @@ the number associated with the data types listed in the section banner.
   ============================== Select Data Type ==============================
   Options
   -------
-  {'1': '.csv', '2': '.txt', '3': '.xlsx'}
-  ===============================================================================
-   
-  Enter the number associated with the data type: 1
+  ['.csv', '.txt', '.xlsx']
+  ==============================================================================
+
+  Enter the sensor data type from the list of supported data types: .csv
+
   Selected data type: .csv
 
-Once a data type is selected, the setup configuration will be written to a
-setup.json file located at ``..\Data and Figures\sensor_data\Sensor_Make_Model\``
+  Confirm entry [y/n]: y
+
+3. Specifying Column Headers and Parsing Sensor Datasets
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+If column headers are not included in the sensor datasets (i.e., the column
+header index in step 1 was set to ``None``), users will need to manually enter
+the names of column headers for sensor datasets. This will prompt a section labeled
+`Manually Set Column Headers` and the user will be asked to enter in columns until
+the user indicates to the console to end header entry model by pressing ``X``.
+
+.. note::
+
+  Manual configuration of column headers is not required if an integer header row index
+  value is set in step 1 of the ``Setup()`` module.
+
+Next, the module will automatically search for datafiles corresponding to the
+file type and header index (if previously specified). A list of unique headers for
+each column index are displayed.
+
+.. important::
+  In order to load sensor datasets, files must be placed in the proper subdirectory
+  (e.g., ``/Data and Figures/sensor_data/Example_Make_Model/raw_data``).
+
+.. code-block:: console
+
+  ============================== Parsing Datasets ==============================
+  ==============================================================================
+
+  The following data files were found at "../Data and Figures/sensor_data/"Example_Make_Model/raw_data":
+  ../Data and Figures/sensor_data/Example_Make_Model/raw_data/Example_Make_Model_SN01_raw.csv
+  ../Data and Figures/sensor_data/Example_Make_Model/raw_data/Example_Make_Model_SN02_raw.csv
+  ../Data and Figures/sensor_data/Example_Make_Model/raw_data/Example_Make_Model_SN03_raw.csv
+
+  Parsing datasets at "../Data and Figures/sensor_data/"Example_Make_Model/raw_data"
+  ..Column header(s) at row index 0: ['Time']
+  ..Column header(s) at row index 1: ['NO2 (ppb)']
+  ..Column header(s) at row index 2: ['O3 (ppb)']
+  ..Column header(s) at row index 3: ['PM2.5 (µg/m³)']
+  ..Column header(s) at row index 4: ['TEMP (°C)']
+  ..Column header(s) at row index 5: ['RH (%)']
+  ..Column header(s) at row index 6: ['DP (°C)']
+  ..Column header(s) at row index 7: ['Inlet']
+
+  Press enter to continue.
+
+4. Specifying Timestamp Columns
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Users must list all time-like columns that will be used for the DateTime_UTC
+index. Typically, this either includes one column as is the case for the
+example, or two columns (one column for the date and another for the time).
+
+Once entry is complete, the user should press ``X`` to exit column header entry
+mode.
+
+.. code-block:: console
+
+  ========================== Specify Timestamp columns =========================
+  Options
+  -------
+  ..press X to end adding entries
+  ..press D to delete the previous entry
+  ==============================================================================
+
+  Enter Timestamp column #1: Time
+
+  Enter Timestamp column #2: X
+
+  Timestamp column list: ['Time']
+
+  Press enter to continue.
+
+5. Specifying the Parameter Renaming Scheme
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Next, users are prompted to configure the parameter renaming scheme by entering
+in `sensortoolkit`'s Sensor Data Formatting Standard (S-DFS) parameter name
+that corresponds to each parameter header name.
+
+.. tip::
+
+  Column names that do not have a corresponding listed parameter should be dropped
+  from the dataset by pressing enter.
+
+.. code-block:: console
+
+  ========================== Specify Parameter columns =========================
+  Options
+  -------
+  ..press enter to skip columns that will be dropped
+
+  Notes
+  -----
+  Choose from the following list of SDFS parameter names:
+  ['PM1', 'PM25', 'PM10', 'O3', 'NO2', 'NO', 'NOx', 'SO2', 'SOx', 'CO', 'CO2',
+  'Temp', 'RH', 'Press', 'DP', 'WS', 'WD']
+  ==============================================================================
+
+  [1/7] Enter SDFS parameter associated with NO2 (ppb): NO2
+
+  [2/7] Enter SDFS parameter associated with O3 (ppb): O3
+
+  [3/7] Enter SDFS parameter associated with PM2.5 (µg/m³): PM25
+
+  [4/7] Enter SDFS parameter associated with TEMP (°C): Temp
+
+  [5/7] Enter SDFS parameter associated with RH (%): RH
+
+  [6/7] Enter SDFS parameter associated with DP (°C): DP
+
+  [7/7] Enter SDFS parameter associated with Inlet:
+  ..Inlet will be dropped
+
+  Configured renaming scheme:
+  {'DP (°C)': 'DP',
+   'Inlet': '',
+   'NO2 (ppb)': 'NO2',
+   'O3 (ppb)': 'O3',
+   'PM2.5 (µg/m³)': 'PM25',
+   'RH (%)': 'RH',
+   'TEMP (°C)': 'Temp'}
+
+  Press enter to continue.
+
+6. Configuring Timestamp Column Formatting
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Next, the timestamp column formatting should be specified. Users are encouraged
+to reference https://strftime.org/ for a table of formatting codes. Additional
+info is available in the Python documentation: https://docs.python.org/3/library/datetime.html#strftime-and-strptime-format-codes.
+
+A formatting scheme must be specified for each time-like column indicated in
+the previous section.
+
+The user will be asked to confirm the entry with ``y`` or ``n`` to either continue
+or revise the entered formatting scheme.
+
+.. code-block:: console
+
+  ==================== Configure Timestamp Column Formatting ===================
+  Options
+  -------
+  ..If a timestamp column is formatted as the number of seconds since the Unix
+  epoch (1 Jan. 1970), enter "epoch"
+  ..press enter to skip columns that will be dropped
+
+  Notes
+  -----
+  ..format code list: https://docs.python.org/3/library/datetime.html#strftime-
+  and-strptime-format-codes
+  ==============================================================================
+
+  Enter date/time formatting for "Time": %Y/%m/%d %H:%M:%S
+
+  Confirm entry [y/n]: y
+
+  Configured formatting scheme:
+  {'Time': '%Y/%m/%d %H:%M:%S'}
+
+  Press enter to continue.
+
+.. tip::
+
+    Non-zero padded values (e.g., specifying January as ``1`` rather than
+    zero-padded ``01``) should be indicated by either ``%-`` or ``%#`` (e.g.,
+    non-zero padded month will be ``%-m`` or ``%#m``).
+
+7. Saving the Setup Configuration to ``setup.json``
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Once the timestamp column formatting has been confirmed, the Setup module will
+automatically save the setup configuration to a ``setup.json`` file.
+
+This file is located at ``..\Data and Figures\sensor_data\Sensor_Make_Model\``
 where ``Sensor_Make_Model`` is replaced by the name given to the sensor.
 
 .. code-block:: console
 
   ============================= Setup Configuration ============================
-  Options
-  -------
-  ===============================================================================
-  ..writing setup configuration to \Data and Figures\sensor_data\Example_Make_Model\Example_Make_Model_setup.json
+  ==============================================================================
+
+  ..writing setup configuration to the following path:
+  \Data and Figures\sensor_data\Example_Make_Model\Example_Make_Model_setup.json
