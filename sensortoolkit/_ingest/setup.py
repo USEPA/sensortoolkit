@@ -17,6 +17,7 @@ import os
 from textwrap import wrap
 import json
 import pandas as pd
+import pprint
 from sensortoolkit._reference.import_airnowtech import Flatten
 
 
@@ -36,6 +37,7 @@ class Setup:
               'DP', 'WS', 'WD']
     data_types = ['.csv', '.txt', '.xlsx']
     __banner_w__ = 79
+    pp = pprint.PrettyPrinter()
 
     def __init__(self, name, work_path):
         self.name = name
@@ -47,19 +49,21 @@ class Setup:
         self.configSensor()
 
     def configSensor(self):
-        #self.setSensorName()
         #self.setDeploymentPeriod()
         self.setHeaderIndex()
         self.setDataType()
+
+        if self.header_iloc is None:
+            # Manually specify column names if none provided
+            self.setColumnHeaders()
+        # otherwise, specify column headers in parsedatasets, infer header at
+        # iloc position
+        else:
+            self.header_names = None
         self.parseDataSets()
         self.setTimeHeaders()
         self.setParamHeaders()
         self.setDateTimeFormat()
-
-        # self.loadColumnHeaders()
-        # self.setColumnHeaders(col_type='')  # Specify all header column names
-        # self.setColumnRenaming()
-        # self.setColumnHeaders(col_type='Timestamp', column_headers=[])
 
         self.exportSetup()
         return
@@ -74,7 +78,15 @@ class Setup:
             else:
                 print('..invalid entry, select [y/n]')
 
-    def printSelectionBanner(self, select_type, options=[]):
+    def enterContinue(self):
+        end = False
+        while end is False:
+            return_val = input('Press enter to continue.')
+            if return_val == '':
+                end=True
+        print('')
+
+    def printSelectionBanner(self, select_type, options=[], notes=[]):
 
         self.end_str = '..press X to end adding entries'
         self.del_str = '..press D to delete the previous entry'
@@ -90,22 +102,34 @@ class Setup:
 
         flier = (n_left*'=' + ' ' + select_type + ' ' + n_right*'=')
         print(flier)
-        print('Options\n-------')
-        options = ['\n'.join(wrap(str(l),
-                             width=self.__banner_w__)) for l in options]
-        for line in options:
-            print(line)
+
+        if options != []:
+            print('Options\n-------')
+            options = ['\n'.join(wrap(str(l),
+                                 width=self.__banner_w__)) for l in options]
+            for line in options:
+                print(line)
+
+        if notes != []:
+            if options!= []:
+                print('')
+            print('Notes\n-----')
+            notes = ['\n'.join(wrap(str(l),
+                                 width=self.__banner_w__)) for l in notes]
+            for line in notes:
+                print(line)
+
         print(len(flier)*'=')
 
-    def setSensorName(self):
-        self.printSelectionBanner('Set Sensor Name', options=[''])
-        confirm = 'n'
-        while confirm == 'n':
-            self.name = input('Enter the name of the sensor: ')
-            print('')
-            print('Sensor name: ' + self.name)
-            confirm = self.validateEntry()
-        print('')
+    # def setSensorName(self):
+    #     self.printSelectionBanner('Set Sensor Name', options=[''])
+    #     confirm = 'n'
+    #     while confirm == 'n':
+    #         self.name = input('Enter the name of the sensor: ')
+    #         print('')
+    #         print('Sensor name: ' + self.name)
+    #         confirm = self.validateEntry()
+    #     print('')
 
     # def setDeploymentPeriod(self):
     #     self.printSelectionBanner('Set Deployment Start and End',
@@ -147,17 +171,47 @@ class Setup:
                 else:
                     valid = True
 
+        print('')
         print('Header row index:', str(self.header_iloc))
         confirm = self.validateEntry()
         if confirm == 'n':
             self.setHeaderIndex(print_banner=False)
         print('')
 
+    def setColumnHeaders(self, print_banner=True):
+        if print_banner:
+            self.printSelectionBanner('Manually Set Column Headers',
+                                      options=[self.end_str])
+        self.header_names = []
+        edit = True
+        col_n = 1
+        while edit:
+            confirm = 'n'
+            while confirm == 'n':
+                col_name = input("Enter Column Header #{0}: ".format(str(col_n)))
+                if col_name == 'X':
+                    edit = False
+                    break
+
+                confirm = self.validateEntry()
+
+            if edit is False:
+                break
+            else:
+                self.header_names.append(col_name)
+                col_n += 1
+
+        print('')
+        print('Column Headers:', self.header_names)
+        print('')
+        self.enterContinue()
+
+
     def parseDataSets(self, print_banner=True):
         if print_banner:
             self.printSelectionBanner('Parsing Datasets',
                                       options=[])
-
+            print('')
         # Create a list of data files to load
         self.file_list = []
         self.data_path = (self.work_path + '/Data and Figures/sensor_data/'
@@ -181,21 +235,23 @@ class Setup:
         for file in self.file_list:
 
             if self.dtype == '.csv' or self.dtype == '.txt':
-                df = pd.read_csv(file, header=self.header_iloc, nrows=1)
+                df = pd.read_csv(file, header=self.header_iloc,
+                                 names=self.header_names, nrows=1)
             if self.dtype == '.xlsx':
-                df = pd.read_excel(file, header=self.header_iloc, nrows=1)
+                df = pd.read_excel(file, header=self.header_iloc,
+                                   names=self.header_names, nrows=1)
 
             file_col_list = list(df.columns)
 
             for i, col in enumerate(file_col_list):
-                if 'row_idx_' + str(i) not in self.col_headers:
-                    self.col_headers['row_idx_' + str(i)] = {}
+                if 'col_idx_' + str(i) not in self.col_headers:
+                    self.col_headers['col_idx_' + str(i)] = {}
 
-                if col not in self.col_headers['row_idx_' + str(i)]:
-                    self.col_headers['row_idx_' + str(i)][col] = {"SDFS_param": None,
+                if col not in self.col_headers['col_idx_' + str(i)]:
+                    self.col_headers['col_idx_' + str(i)][col] = {"SDFS_param": None,
                                                              "files": [file]}
                 else:
-                    self.col_headers['row_idx_' + str(i)][col]["files"].append(file)
+                    self.col_headers['col_idx_' + str(i)][col]["files"].append(file)
 
         # Create a nested list of unique column names
         col_list = [list(self.col_headers[key].keys()) for key in
@@ -205,18 +261,13 @@ class Setup:
         for i, cols in enumerate(col_list):
             print('..Column header(s) at row index {0:d}: {1}'.format(i, cols))
 
-        end = False
-        while end is False:
-            return_val = input('Press enter to continue.')
-            if return_val == '':
-                end=True
-        print('')
+        self.enterContinue()
 
 
     def setTimeHeaders(self, print_banner=True):
         if print_banner:
             self.printSelectionBanner('Specify Timestamp columns',
-                                      options=[self.end_str])
+                                      options=[self.end_str, self.del_str])
         # Create a list of time-like columns, update the col_headers list with the
         # datetime_utc type corresponding to the specified header name
         # Enter in the time like columns [LOOP]
@@ -224,9 +275,20 @@ class Setup:
         i = 1
         while end is False:
             val = input("Enter Timestamp column #{0}: ".format(str(i)))
-            i += 1
+
             if val == 'X':
                 end = True
+            elif val == 'D':
+                try:
+                    self.timestamp_col_headers.pop(i-2)
+                    print('..removing timestamp column #{0} from '
+                          'list'.format(str(i-1)))
+                    i -= 2
+                    print('..updated timestamp column headers list: ')
+                    print(' ', self.timestamp_col_headers)
+                except IndexError:
+                    print('Empty list, no entries to delete')
+                    continue
 
             elif val in self.all_col_headers:
                 self.timestamp_col_headers.append(val)
@@ -236,23 +298,36 @@ class Setup:
                               self.col_headers[row].keys()]
                 for key in header_loc:
                     self.col_headers[key][val]['SDFS_param'] = 'DateTime_UTC'
+            else:
+                print('..Invalid entry. Choose from the following list:')
+                print(' ', self.all_col_headers)
+                continue
+            i += 1
+
+        print('\nTimestamp column list:', self.timestamp_col_headers)
+        self.enterContinue()
+
+
+        #TODO: Once press X, print list of timestamp columns and ask to confirm before moving on
 
     def setParamHeaders(self, print_banner=True):
         if print_banner:
+            txt = 'Choose from the following list of SDFS parameter names'
             self.printSelectionBanner('Specify Parameter columns',
-                                      options=[self.skip_str,
-                                               'Choose from the followng list',
-                                               self.params])
+                                      options=[self.skip_str],
+                                      notes=[txt, self.params])
         # drop time-like columns and ask user for SDFS parameter associated with
         # remaining cols
         self.param_col_list = [param for param in self.all_col_headers
                                if param not in self.timestamp_col_headers]
 
-        for param in self.param_col_list:
+        n_params = len(self.param_col_list)
+        renaming_dict = {}
+        for i, param in enumerate(self.param_col_list, 1):
             valid = False
             while valid is False:
-                sdfs_param = input('Enter SDFS parameter associated '
-                                   'with {0}: '.format(param))
+                sdfs_param = input('[{0}/{1}] Enter SDFS parameter associated '
+                                   'with {2}: '.format(i, n_params, param))
                 if sdfs_param in self.params:
                     valid = True
                 elif sdfs_param == '':
@@ -262,30 +337,30 @@ class Setup:
                 else:
                     print('..Invalid entry. Choose from the list above.')
 
-            # Get a list of the row index locations where the column header name is
-            header_loc = [row for row in self.col_headers if param in
-                          self.col_headers[row].keys()]
+            renaming_dict[param] = sdfs_param
+
+            # Get a list of the col index locations where the column header name is
+            header_loc = [col for col in self.col_headers if param in
+                          self.col_headers[col].keys()]
             for key in header_loc:
                 self.col_headers[key][param]['SDFS_param'] = sdfs_param
 
+        #TODO: Print dictionary with renaming scheme, ask to confirm
+        # add something like following code block,
+        print('')
+        print('Configured renaming scheme:')
+        self.pp.pprint(renaming_dict)
+        self.enterContinue()
 
-    # def loadColumnHeaders(self):
-    #     self.file_list = []
-    #     self.col_headers = {}
-    #     data_subpath = ('/Data and Figures/sensor_data/' + self.name +
-    #                     '/raw_data')
-    #     self.data_path = self.work_path + data_subpath
-
-    #     # Get list of full paths to recorded sensor datasets
-    #     for cwd, folders, files in os.walk(self.data_path):
-    #         # append full file path to list if type matches configured dtype
-    #         self.file_list.extend([cwd+ '/' + file for file in files if
-    #                                file.lower().endswith(self.dtype)])
-
-    #     confirm = self.validateEntry()
-    #     if confirm == 'n':
-    #         self.setHeaderIndex(print_banner=False)
-    #     print('')
+        # confirm = self.validateEntry()
+        # if confirm == 'n':
+        #     valid = False
+        #     while valid is False:
+        #         iloc = input('Enter column number to edit: ')
+        #         if (int(iloc) < 1) or (int(iloc) > n_params):
+        #             print('..invalid entry')
+        #         else:
+        #             valid = True
 
     # def setColumnHeaders(self, col_type=None, print_banner=True, i=1,
     #                      column_headers=[], reset=False):
@@ -412,7 +487,8 @@ class Setup:
         epoch = ('..If a timestamp column is formatted as the number of '
                  'seconds since the Unix epoch (1 Jan. 1970), enter "epoch"')
         self.printSelectionBanner('Configure Timestamp Column Formatting',
-                                  options=[cite, epoch, self.skip_str])
+                                  options=[epoch, self.skip_str],
+                                  notes=[cite])
 
         self.time_format_dict = {}
         for col in self.timestamp_col_headers:
@@ -431,8 +507,11 @@ class Setup:
                         invalid = False
                         self.time_format_dict[col] = val
 
-        print('Configured formatting scheme:', self.time_format_dict)
         print('')
+        print('Configured formatting scheme:')
+        self.pp.print(self.time_format_dict)
+        self.enterContinue()
+
 
     def setDataType(self):
         self.printSelectionBanner('Select Data Type',
@@ -446,8 +525,8 @@ class Setup:
                       'types')
             else:
                 self.dtype = val
-                print('Selected data type:', self.dtype)
                 print('')
+                print('Selected data type:', self.dtype)
                 confirm = self.validateEntry()
                 if confirm == 'y':
                     valid = True
@@ -459,15 +538,22 @@ class Setup:
         del self.config_dict['end_str']
         del self.config_dict['del_str']
         del self.config_dict['skip_str']
+        del self.config_dict['header_names']
 
         outpath = (self.work_path + '\\Data and Figures\\sensor_data\\'
                    + self.name)
         filename = self.name + '_setup.json'
         outpath = os.path.join(outpath, filename)
-        print('..writing setup configuration to ' + outpath)
+        print('')
+        print('..writing setup configuration to the following path:')
+        print(outpath)
         with open(outpath, 'w') as outfile:
             self.config_dict = json.dumps(self.config_dict, indent=4)
             outfile.write(self.config_dict)
 
 if __name__ == '__main__':
-    test = Setup()
+    sensor_name = 'Example_Make_Model'
+    work_path = r'C:\Users\SFREDE01\OneDrive - Environmental Protection Agency (EPA)\Profile\Documents\test_dir'
+
+    test = Setup(name=sensor_name,
+                 work_path=work_path)
