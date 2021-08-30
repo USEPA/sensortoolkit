@@ -102,7 +102,59 @@ Arguments passed to ``SensorEvaluation``
   written to folder location. In addition, subsequent evaluation statistics will
   be written to the Data and Figures/eval_stats sensor subdirectory. Figures will
   also be written to the appropriate figures subdirectory.
-* kwargs (tip about for evaluation dates (other kwargs?))
+
+Keyword Arguments passed to ``SensorEvaluation``
+""""""""""""""""""""""""""""""""""""""""""""""""
+
+Additional keyword arguments may be passed to the class. The current
+version of ``SensorEvaluation`` supports two additional keyword arguments for
+specifying information about the testing organization and evaluation location.
+
+* ``testing_org``: A dictionary containing the information about the testing
+  organization.
+
+  Parameters:
+
+  * ``Deployment number``: The number associated with unique deployments of the sensor
+    make and model being evaluated at the monitoring site.
+  * ``Org name``: The name of the testing organization.
+  * ``Website``: Website address for the testing organization.
+  * ``Contact email``: Contact email address responsible parties conducting testing.
+  * ``Contact phone``: Phone number for responsible parties conducting testing.
+
+  Example:
+
+  .. code-block:: python
+
+    testing_org = {'Deployment number': 'Deployment #1',
+                   'Org name': ['U.S. Environmental Protection Agency',
+                                'Office of Research and Development'],
+                   'Website': {'website name': 'Air Sensor Toolbox | U.S. EPA Website',
+                               'website link': 'https://www.epa.gov/air-sensor-toolbox/'
+                                               'evaluation-emerging-air-sensor-performance'},
+                   'Contact email': 'PI: Clements.Andrea@epa.gov',
+                   'Contact phone': '919-541-1364'}
+
+* ``testing_loc``: A dictionary containing information about the testing site.
+  If the site is part of U.S. EPA's Air Quality System (AQS), the AQS Site ID
+  should be specified.
+
+  Parameters:
+
+  * ``Site name``: The name of the ambient monitoring site.
+  * ``Site address``: The street address of the monitoring site.
+  * ``Site lat``: The latitude coordinate of the site.
+  * ``Site lon``: The longitude coordinate of the site.
+
+  Example:
+
+  .. code-block:: python
+
+    testing_loc = {'Site name': 'Ambient Monitoring Innovative Research Station (AIRS) ',
+                   'Site address': 'Research Triangle Park, NC',
+                   'Site lat': '35.889510N',
+                   'Site long': '-78.874572W',
+                   'Site AQS ID': '37 – 063 – 0099'}
 
 ==============
 Reference Data
