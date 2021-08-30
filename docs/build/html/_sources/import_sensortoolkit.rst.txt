@@ -9,12 +9,12 @@ Prompt with the following command:
 
 ::
 
-  (sensor-eval) $ spyder
+  spyder
+..
+  .. note::
 
-.. note::
-
-    A reminder that `conda` users should be actively working in the ``sensor-eval``
-    environment.
+      A reminder that `conda` users should be actively working in the ``sensor-eval``
+      environment.
 
 The `sensortoolkit` library can be imported in the same manner as other python
 packages via the following code:
@@ -35,8 +35,10 @@ packages via the following code:
   Console output:
 
   .. code-block:: console
-  
-    '1.0.0'
+
+    '0.1.0bN'
+
+  where ``N`` is the beta version number.
 
 .. Users are recommended to save custom scripts that use the `sensortoolkit` library
   in the ``User_Scripts`` folder within the main library directory:

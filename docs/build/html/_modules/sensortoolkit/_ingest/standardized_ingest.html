@@ -460,17 +460,24 @@
     <span class="n">idx_list</span> <span class="o">=</span> <span class="n">setup</span><span class="p">[</span><span class="s1">&#39;timestamp_col_headers&#39;</span><span class="p">]</span>
     <span class="n">idx_format_dict</span> <span class="o">=</span> <span class="n">setup</span><span class="p">[</span><span class="s1">&#39;time_format_dict&#39;</span><span class="p">]</span>
 
-    <span class="k">if</span> <span class="n">setup</span><span class="p">[</span><span class="s1">&#39;dtype&#39;</span><span class="p">]</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">&#39;.csv&#39;</span><span class="p">,</span> <span class="s1">&#39;.txt&#39;</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">setup</span><span class="p">[</span><span class="s1">&#39;dtype&#39;</span><span class="p">]</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">&#39;.csv&#39;</span><span class="p">,</span> <span class="s1">&#39;.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;.xlsx&#39;</span><span class="p">):</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">names</span> <span class="o">=</span> <span class="kc">None</span>
             <span class="k">if</span> <span class="n">setup</span><span class="p">[</span><span class="s1">&#39;header_iloc&#39;</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="n">names</span> <span class="o">=</span> <span class="n">setup</span><span class="p">[</span><span class="s1">&#39;all_col_headers&#39;</span><span class="p">]</span>
-            <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="n">setup</span><span class="p">[</span><span class="s1">&#39;header_iloc&#39;</span><span class="p">],</span> <span class="n">names</span><span class="o">=</span><span class="n">names</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">setup</span><span class="p">[</span><span class="s1">&#39;dtype&#39;</span><span class="p">]</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">&#39;.csv&#39;</span><span class="p">,</span> <span class="s1">&#39;txt&#39;</span><span class="p">):</span>
+                <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="n">setup</span><span class="p">[</span><span class="s1">&#39;header_iloc&#39;</span><span class="p">],</span>
+                                 <span class="n">names</span><span class="o">=</span><span class="n">names</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">setup</span><span class="p">[</span><span class="s1">&#39;dtype&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;.xlsx&#39;</span><span class="p">:</span>
+                <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="n">setup</span><span class="p">[</span><span class="s1">&#39;header_iloc&#39;</span><span class="p">],</span>
+                                   <span class="n">names</span><span class="o">=</span><span class="n">names</span><span class="p">)</span>
+
         <span class="k">except</span> <span class="ne">FileNotFoundError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
             <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="c1"># Put other pandas read functions here</span>
-        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">()</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="s1">&#39;Invalid data type. Must be either .csv, .txt, or .xlsx&#39;</span><span class="p">)</span>
 
     <span class="c1"># If the header row loads on a row of data (may be intentional if</span>
     <span class="c1"># formatting for first row is unusual and doesnt follow delimited format).</span>
@@ -542,17 +549,17 @@
     <span class="n">file_drop_cols</span> <span class="o">=</span> <span class="p">[]</span>
 
     <span class="c1"># Parse setup.json for data file specific header names</span>
-    <span class="k">for</span> <span class="n">row_entry</span> <span class="ow">in</span> <span class="n">setup</span><span class="p">[</span><span class="s1">&#39;col_headers&#39;</span><span class="p">]:</span>
-        <span class="n">row_config</span> <span class="o">=</span> <span class="n">setup</span><span class="p">[</span><span class="s1">&#39;col_headers&#39;</span><span class="p">][</span><span class="n">row_entry</span><span class="p">]</span>
-        <span class="n">row_headers</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">row_config</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+    <span class="k">for</span> <span class="n">col_entry</span> <span class="ow">in</span> <span class="n">setup</span><span class="p">[</span><span class="s1">&#39;col_headers&#39;</span><span class="p">]:</span>
+        <span class="n">col_config</span> <span class="o">=</span> <span class="n">setup</span><span class="p">[</span><span class="s1">&#39;col_headers&#39;</span><span class="p">][</span><span class="n">col_entry</span><span class="p">]</span>
+        <span class="n">col_headers</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">col_config</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
 
-        <span class="k">for</span> <span class="n">header</span> <span class="ow">in</span> <span class="n">row_headers</span><span class="p">:</span>
-            <span class="n">file_list</span> <span class="o">=</span> <span class="n">row_config</span><span class="p">[</span><span class="n">header</span><span class="p">][</span><span class="s1">&#39;files&#39;</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">header</span> <span class="ow">in</span> <span class="n">col_headers</span><span class="p">:</span>
+            <span class="n">file_list</span> <span class="o">=</span> <span class="n">col_config</span><span class="p">[</span><span class="n">header</span><span class="p">][</span><span class="s1">&#39;files&#39;</span><span class="p">]</span>
             <span class="n">file_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">normpath</span><span class="p">(</span><span class="n">path</span><span class="p">)</span> <span class="k">for</span> <span class="n">path</span> <span class="ow">in</span> <span class="n">file_list</span><span class="p">]</span>
             <span class="k">if</span> <span class="n">data_path</span> <span class="ow">in</span> <span class="n">file_list</span><span class="p">:</span>
                 <span class="n">file_col_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">header</span><span class="p">)</span>
 
-                <span class="n">sdfs_param_header</span> <span class="o">=</span> <span class="n">row_config</span><span class="p">[</span><span class="n">header</span><span class="p">][</span><span class="s1">&#39;SDFS_param&#39;</span><span class="p">]</span>
+                <span class="n">sdfs_param_header</span> <span class="o">=</span> <span class="n">col_config</span><span class="p">[</span><span class="n">header</span><span class="p">][</span><span class="s1">&#39;SDFS_param&#39;</span><span class="p">]</span>
                 <span class="k">if</span> <span class="n">sdfs_param_header</span> <span class="o">!=</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
                     <span class="n">file_col_renaming_dict</span><span class="p">[</span><span class="n">header</span><span class="p">]</span> <span class="o">=</span> <span class="n">sdfs_param_header</span>
                 <span class="k">else</span><span class="p">:</span>

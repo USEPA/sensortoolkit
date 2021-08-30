@@ -204,6 +204,7 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="_autosummary/sensortoolkit._ingest.standardized_ingest.html">sensortoolkit._ingest.standardized_ingest</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._ingest.standardized_ingest.Ingest.html">sensortoolkit._ingest.standardized_ingest.Ingest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._ingest.standardized_ingest.ParseSetup.html">sensortoolkit._ingest.standardized_ingest.ParseSetup</a></li>
 </ul>
 </li>
 </ul>
@@ -426,84 +427,60 @@ SourceTree or via a command-line interface. For users just getting starting with
 use Git, Bitbucket has a <a class="reference external" href="https://www.atlassian.com/git/tutorials/setting-up-a-repository/git-clone?utm_campaign=learn-git-clone&amp;utm_medium=in-app-help&amp;utm_source=stash">tutorial</a>
 on how to clone repositories that may be helpful. From the terminal, the
 repository can be cloned via the following command</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ git clone https://bitbucket.epa.gov/scm/~sfrede01/sensor-evaluation.git
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">bitbucket</span><span class="o">.</span><span class="n">epa</span><span class="o">.</span><span class="n">gov</span><span class="o">/</span><span class="n">scm</span><span class="o">/~</span><span class="n">sfrede01</span><span class="o">/</span><span class="n">sensor</span><span class="o">-</span><span class="n">evaluation</span><span class="o">.</span><span class="n">git</span>
 </pre></div>
 </div>
 </div>
-<div class="section" id="install-package-dependencies">
-<h2>Install package dependencies:<a class="headerlink" href="#install-package-dependencies" title="Permalink to this headline">¶</a></h2>
-<p><cite>conda</cite> and <cite>pip</cite> are two popular package managers for installing python packages
-and manage the dependency structure for the packages the user wishes to install.
-Below are guides for installing dependencies for <cite>senortoolkit</cite> in either <cite>conda</cite>
-or <cite>pip</cite>.</p>
-<p><strong>Please note, users should either follow the conda installation process
-using a virtual environment or install dependencies with pip.</strong></p>
-<div class="section" id="installing-dependencies-in-a-conda-virtual-environment">
-<h3>Installing dependencies in a conda virtual environment<a class="headerlink" href="#installing-dependencies-in-a-conda-virtual-environment" title="Permalink to this headline">¶</a></h3>
-<p>If users have an Anaconda distribution of Python, users may wish to create a virtual
-environment via <cite>conda</cite> for installing the dependencies required by the <cite>sensortoolkit</cite>
-library. The benefit of a virtual environment is that software package versions
-required by the library won’t modify package versions in the
-default base environment (a virtual environment creates a walled garden where
-users can install the packages and the package versions they require without
-changing the state or version of packages installed in the base environment).</p>
-<p><cite>sensortoolkit</cite> comes with the file <code class="docutils literal notranslate"><span class="pre">env.yml</span></code> that allows easy installation of
-dependencies into a <cite>conda</cite> virtual environment named <code class="docutils literal notranslate"><span class="pre">sensor-eval</span></code>. First,
-navigate to the folder location for the cloned repository:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ cd path/to/library
-</pre></div>
-</div>
-<p>Next, create the virtual environment from the provided <code class="docutils literal notranslate"><span class="pre">env.yml</span></code> file. This
-will install various packages that are required by the <cite>sensortoolkit</cite> library.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ conda env create -f env.yml
-</pre></div>
-</div>
-<p>Finally, activate the environment to use packages installed in the environment:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ conda activate sensor-eval
-</pre></div>
-</div>
-<p>If the environment has been activate successfully, the command prompt should
-display the environment name in parentheses before the system prompt <code class="docutils literal notranslate"><span class="pre">$</span></code>:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>(sensor-eval) $
-</pre></div>
-</div>
-<div class="admonition tip">
-<p class="admonition-title">Tip</p>
-<p>To exit the <code class="docutils literal notranslate"><span class="pre">sensor-eval</span></code> environment, type: <code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">deactivate</span></code></p>
-</div>
-</div>
-<div class="section" id="installing-dependencies-with-pip">
-<h3>Installing dependencies with pip<a class="headerlink" href="#installing-dependencies-with-pip" title="Permalink to this headline">¶</a></h3>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p><cite>conda</cite> users are discouraged from using pip to install dependencies, as
-packages installed via <cite>pip</cite> may supersede previously installed packages
-via <cite>conda</cite>. In addition, <cite>conda</cite> and <cite>pip</cite> manage dependencies differently,
-and this may lead to potential issues if users wish to update package versions
-at a future point.</p>
-</div>
+<div class="section" id="installing-sensortoolkit">
+<h2>Installing <code class="docutils literal notranslate"><span class="pre">sensortoolkit</span></code><a class="headerlink" href="#installing-sensortoolkit" title="Permalink to this headline">¶</a></h2>
 <p>First, navigate to the folder location for the cloned repository:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ cd path/to/library
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">library</span>
 </pre></div>
 </div>
-<p>A list of dependencies and package versions is provided in the <code class="docutils literal notranslate"><span class="pre">requirements.txt</span></code>
-file within the main directory of the library. Dependencies are installed with
-<cite>pip</cite> via the following command:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ pip install –r requirements.txt --user
+<p>Next, install the library with pip:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="o">.</span>
 </pre></div>
 </div>
-</div>
-</div>
-<div class="section" id="run-setup-py">
-<h2>Run <code class="docutils literal notranslate"><span class="pre">setup.py</span></code><a class="headerlink" href="#run-setup-py" title="Permalink to this headline">¶</a></h2>
-<p>The last step in the installation process is ensuring that the <code class="docutils literal notranslate"><span class="pre">sensortoolkit</span></code>
-package modules can be imported from any directory location on a users system. For Anaconda
-users, packages are placed in a directory location with a path that should look
-something like <code class="docutils literal notranslate"><span class="pre">user/Anaconda3/Lib/site-packages</span></code>.</p>
-<p>To run the setup.py module, open a command line utility and ensure that the current
-directory is the location of the cloned repository. Then type the following command:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ python setup.py install
+<p>Users will see something similar to the following be printed to the console:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">Processing c:\users\..\documents\sensor-evaluation</span>
+<span class="go">Requirement already satisfied: matplotlib in c:\users\sfrede01\anaconda3\lib\site-packages (from sensortoolkit==0.1.0b2) (3.3.4)</span>
+<span class="go">Requirement already satisfied: numpy in c:\users\sfrede01\anaconda3\lib\site-packages (from sensortoolkit==0.1.0b2) (1.20.1)</span>
+<span class="go">Requirement already satisfied: pandas in c:\users\sfrede01\anaconda3\lib\site-packages (from sensortoolkit==0.1.0b2) (1.2.4)</span>
+<span class="go">Requirement already satisfied: pathlib2 in c:\users\sfrede01\anaconda3\lib\site-packages (from sensortoolkit==0.1.0b2) (2.3.5)</span>
+<span class="go">Requirement already satisfied: python-pptx in c:\users\sfrede01\anaconda3\lib\site-packages (from sensortoolkit==0.1.0b2) (0.6.18)</span>
+<span class="go">Requirement already satisfied: requests in c:\users\sfrede01\anaconda3\lib\site-packages (from sensortoolkit==0.1.0b2) (2.25.1)</span>
+<span class="go">Requirement already satisfied: scipy in c:\users\sfrede01\anaconda3\lib\site-packages (from sensortoolkit==0.1.0b2) (1.6.2)</span>
+<span class="go">Requirement already satisfied: seaborn in c:\users\sfrede01\anaconda3\lib\site-packages (from sensortoolkit==0.1.0b2) (0.11.1)</span>
+<span class="go">Requirement already satisfied: statsmodels in c:\users\sfrede01\anaconda3\lib\site-packages (from sensortoolkit==0.1.0b2) (0.12.2)</span>
+<span class="go">Requirement already satisfied: urllib3 in c:\users\sfrede01\anaconda3\lib\site-packages (from sensortoolkit==0.1.0b2) (1.26.4)</span>
+<span class="go">Requirement already satisfied: pip in c:\users\sfrede01\anaconda3\lib\site-packages (from sensortoolkit==0.1.0b2) (21.0.1)</span>
+<span class="go">Requirement already satisfied: pyparsing!=2.0.4,!=2.1.2,!=2.1.6,&gt;=2.0.3 in c:\users\sfrede01\anaconda3\lib\site-packages (from matplotlib-&gt;sensortoolkit==0.1.0b2) (2.4.7)</span>
+<span class="go">Requirement already satisfied: pillow&gt;=6.2.0 in c:\users\sfrede01\anaconda3\lib\site-packages (from matplotlib-&gt;sensortoolkit==0.1.0b2) (8.2.0)</span>
+<span class="go">Requirement already satisfied: python-dateutil&gt;=2.1 in c:\users\sfrede01\anaconda3\lib\site-packages (from matplotlib-&gt;sensortoolkit==0.1.0b2) (2.8.1)</span>
+<span class="go">Requirement already satisfied: kiwisolver&gt;=1.0.1 in c:\users\sfrede01\anaconda3\lib\site-packages (from matplotlib-&gt;sensortoolkit==0.1.0b2) (1.3.1)</span>
+<span class="go">Requirement already satisfied: cycler&gt;=0.10 in c:\users\sfrede01\anaconda3\lib\site-packages (from matplotlib-&gt;sensortoolkit==0.1.0b2) (0.10.0)</span>
+<span class="go">Requirement already satisfied: six in c:\users\sfrede01\anaconda3\lib\site-packages (from cycler&gt;=0.10-&gt;matplotlib-&gt;sensortoolkit==0.1.0b2) (1.15.0)</span>
+<span class="go">Requirement already satisfied: pytz&gt;=2017.3 in c:\users\sfrede01\anaconda3\lib\site-packages (from pandas-&gt;sensortoolkit==0.1.0b2) (2021.1)</span>
+<span class="go">Requirement already satisfied: lxml&gt;=3.1.0 in c:\users\sfrede01\anaconda3\lib\site-packages (from python-pptx-&gt;sensortoolkit==0.1.0b2) (4.6.3)</span>
+<span class="go">Requirement already satisfied: XlsxWriter&gt;=0.5.7 in c:\users\sfrede01\anaconda3\lib\site-packages (from python-pptx-&gt;sensortoolkit==0.1.0b2) (1.3.8)</span>
+<span class="go">Requirement already satisfied: chardet&lt;5,&gt;=3.0.2 in c:\users\sfrede01\anaconda3\lib\site-packages (from requests-&gt;sensortoolkit==0.1.0b2) (4.0.0)</span>
+<span class="go">Requirement already satisfied: idna&lt;3,&gt;=2.5 in c:\users\sfrede01\anaconda3\lib\site-packages (from requests-&gt;sensortoolkit==0.1.0b2) (2.10)</span>
+<span class="go">Requirement already satisfied: certifi&gt;=2017.4.17 in c:\users\sfrede01\anaconda3\lib\site-packages (from requests-&gt;sensortoolkit==0.1.0b2) (2020.12.5)</span>
+<span class="go">Requirement already satisfied: patsy&gt;=0.5 in c:\users\sfrede01\anaconda3\lib\site-packages (from statsmodels-&gt;sensortoolkit==0.1.0b2) (0.5.1)</span>
+<span class="go">Building wheels for collected packages: sensortoolkit</span>
+<span class="go">  Building wheel for sensortoolkit (setup.py) ... done</span>
+<span class="go">  Created wheel for sensortoolkit: filename=sensortoolkit-0.1.0b2-py3-none-any.whl size=264195 sha256=255f3b7f2818bc10ed695d7bbdf9facfcde8fbe88866621d77cba99376ef8fbb</span>
+<span class="go">  Stored in directory: C:\Users\SFREDE01\AppData\Local\Temp\pip-ephem-wheel-cache-k4dnnl3u\wheels\d0\5d\9f\8f5c8d55a67e2c9d9ff85111d0e96da3ef3782e3356c46e010</span>
+<span class="go">Successfully built sensortoolkit</span>
+<span class="go">Installing collected packages: sensortoolkit</span>
+<span class="go">Successfully installed sensortoolkit-0.1.0b2</span>
 </pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The above console output indicates that the dependencies for <code class="docutils literal notranslate"><span class="pre">sensortoolkit</span></code>
+were previously installed and found on the user’s system. Any packages not found
+during installation will be installed by pip.</p>
 </div>
 </div>
 </div>

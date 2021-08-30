@@ -20,11 +20,11 @@
       ~Setup.exportSetup
       ~Setup.parseDataSets
       ~Setup.printSelectionBanner
+      ~Setup.setColumnHeaders
       ~Setup.setDataType
       ~Setup.setDateTimeFormat
       ~Setup.setHeaderIndex
       ~Setup.setParamHeaders
-      ~Setup.setSensorName
       ~Setup.setTimeHeaders
       ~Setup.validateEntry
    

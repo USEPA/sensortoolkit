@@ -202,6 +202,7 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/sensortoolkit._ingest.standardized_ingest.html">sensortoolkit._ingest.standardized_ingest</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../_autosummary/sensortoolkit._ingest.standardized_ingest.Ingest.html">sensortoolkit._ingest.standardized_ingest.Ingest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_autosummary/sensortoolkit._ingest.standardized_ingest.ParseSetup.html">sensortoolkit._ingest.standardized_ingest.ParseSetup</a></li>
 </ul>
 </li>
 </ul>
@@ -500,8 +501,8 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">template_name</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;Reporting_Template_Base_&#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">eval_param</span>
                               <span class="o">+</span> <span class="s1">&#39;.pptx&#39;</span><span class="p">)</span>
         <span class="c1"># Path to reporting template</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">template_path</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\\</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">work_path</span><span class="p">,</span> <span class="s1">&#39;Reports&#39;</span><span class="p">,</span> <span class="s1">&#39;templates&#39;</span><span class="p">,</span>
-                                        <span class="bp">self</span><span class="o">.</span><span class="n">eval_param</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">template_name</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">template_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="vm">__file__</span><span class="p">,</span>
+                        <span class="s1">&#39;../templates&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">eval_param</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">template_name</span><span class="p">))</span>
 
         <span class="c1"># Details about testing and deployment site</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">testing_org</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;testing_org&#39;</span><span class="p">,</span>

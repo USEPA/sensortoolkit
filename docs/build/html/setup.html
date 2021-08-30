@@ -204,6 +204,7 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="_autosummary/sensortoolkit._ingest.standardized_ingest.html">sensortoolkit._ingest.standardized_ingest</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._ingest.standardized_ingest.Ingest.html">sensortoolkit._ingest.standardized_ingest.Ingest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._ingest.standardized_ingest.ParseSetup.html">sensortoolkit._ingest.standardized_ingest.ParseSetup</a></li>
 </ul>
 </li>
 </ul>
@@ -417,11 +418,11 @@
 <div class="section" id="creating-sensor-directories">
 <h2>Creating Sensor Directories<a class="headerlink" href="#creating-sensor-directories" title="Permalink to this headline">¶</a></h2>
 <p><cite>sensortoolkit</cite> organizes sensor data, resulting data structures, and figures
-into several sub-directories in the …/Data and Figures/… folder.</p>
+into several sub-directories in the <code class="docutils literal notranslate"><span class="pre">/Data</span> <span class="pre">and</span> <span class="pre">Figures</span></code> folder.</p>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
 <p>Users have the option of working from within the folder location where the <cite>sensortoolkit</cite>
-repository was downloaded, storing sensor and reference data in the provided <code class="docutils literal notranslate"><span class="pre">.../Data</span> <span class="pre">and</span> <span class="pre">Figures</span></code> directory,
+repository was downloaded, storing sensor and reference data in the provided <code class="docutils literal notranslate"><span class="pre">/Data</span> <span class="pre">and</span> <span class="pre">Figures</span></code> directory,
 or users may wish to organize their work in a separate directory. In either case, various
 subdirectories and folders will need to be created so users can store data, figures, and evaluation
 statistics.</p>
@@ -434,99 +435,52 @@ sensor make and model in the sensor name, separated by an underscore.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">eval_params</span></code>: A list of parameters the user intends to evaluate</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">work_path</span></code>: The path to the directory where the user intends to store data, figures,
 and reports</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">lib_path</span></code>:  The path to the directory where the sensortoolkit repository was
-downloaded.</p></li>
 </ul>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p><code class="docutils literal notranslate"><span class="pre">lib_path</span></code> needs to be included if the <code class="docutils literal notranslate"><span class="pre">work_path</span></code> is
-different than the <code class="docutils literal notranslate"><span class="pre">lib_path</span></code> in order to copy over reporting templates and
-reference code lookup tables.</p>
-</div>
 <p>Below is an example for a sensor that will be evaluated for PM2.5 and O3 at the
-folder location <code class="docutils literal notranslate"><span class="pre">C:/Users/.../Documents/my_evaluation</span></code>. The <cite>sensortoolkit</cite> library
-has been downloaded to <code class="docutils literal notranslate"><span class="pre">C:/Users/.../Documents/sensor-evaluation</span></code>, and since this is a
-different location than where the sensor will be evaluated (i.e., the work path will store
-data, figures, and statistics), we need to point <code class="docutils literal notranslate"><span class="pre">Create_Sensor_Directories</span></code> to the
-location of the <cite>sensortoolkit</cite> library so that necessary files can be copied over.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">work_path</span> <span class="o">=</span> <span class="s1">&#39;C:/Users/.../Documents/my_evaluation&#39;</span>
-<span class="n">lib_path</span> <span class="o">=</span> <span class="s1">&#39;C:/Users/.../Documents/sensor-evaluation&#39;</span>
+folder location <code class="docutils literal notranslate"><span class="pre">C:/Users/.../Documents/my_evaluation</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sensor_name</span> <span class="o">=</span> <span class="s1">&#39;Sensor_Make_Model&#39;</span>
+<span class="n">work_path</span> <span class="o">=</span> <span class="s1">&#39;C:/Users/.../Documents/my_evaluation&#39;</span>
 
-<span class="n">sensortoolkit</span><span class="o">.</span><span class="n">Create_Sensor_Directories</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;Sensor_Make_Model&#39;</span><span class="p">,</span>
-                                             <span class="n">eval_params</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;PM25&#39;</span><span class="p">,</span> <span class="s1">&#39;O3&#39;</span><span class="p">],</span>
-                                           <span class="n">work_path</span><span class="o">=</span><span class="n">work_path</span><span class="p">,</span>
-                                           <span class="n">lib_path</span><span class="o">=</span><span class="n">lib_path</span><span class="p">,)</span>
+<span class="n">sensortoolkit</span><span class="o">.</span><span class="n">Create_Sensor_Directories</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">sensor_name</span><span class="p">,</span>
+                                          <span class="n">eval_params</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;PM25&#39;</span><span class="p">,</span> <span class="s1">&#39;O3&#39;</span><span class="p">],</span>
+                                        <span class="n">work_path</span><span class="o">=</span><span class="n">work_path</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Running the code above will construct the sensor-specific directory structure
-for subsequent analysis. Since the work path and library path differ, the reporting
-templates and reference data code lookup tables will be copied into the appropriate
-path location within <code class="docutils literal notranslate"><span class="pre">.../my_evaluation</span></code>. Here, we’re assuming that the folder
-<code class="docutils literal notranslate"><span class="pre">my_evaluation</span></code> only has the python file with the code written above. The
-<code class="docutils literal notranslate"><span class="pre">Data</span> <span class="pre">and</span> <span class="pre">Figures</span></code> and <code class="docutils literal notranslate"><span class="pre">Reports</span></code> folders, along with all relevant subdirectories,
-will be construted.</p>
+for subsequent analysis. Here, we’re assuming that the folder``my_evaluation``
+only has the python file with the code written above. The <code class="docutils literal notranslate"><span class="pre">Data</span> <span class="pre">and</span> <span class="pre">Figures</span></code>
+and <code class="docutils literal notranslate"><span class="pre">Reports</span></code> folders, along with all relevant subdirectories, will be constructed.</p>
 <p>The following is printed to the console indicating the directories that are created
 by the <code class="docutils literal notranslate"><span class="pre">Create_Sensor_Directories</span></code> function.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">Creating &quot;Data and Figures&quot; subdirectory within C:/Users/.../Documents/my_evaluation</span>
-<span class="go">..Creating directory:</span>
 <span class="go">....\Data and Figures\eval_stats</span>
-<span class="go">..Creating directory:</span>
 <span class="go">....\Data and Figures\figures</span>
-<span class="go">..Creating directory:</span>
 <span class="go">....\Data and Figures\reference_data</span>
-<span class="go">....Creating sub-directory:</span>
 <span class="go">......\Data and Figures\reference_data\airnow</span>
-<span class="go">......Creating sub-sub-directory:</span>
 <span class="go">........\Data and Figures\reference_data\airnow\raw_api_datasets</span>
-<span class="go">......Creating sub-sub-directory:</span>
 <span class="go">........\Data and Figures\reference_data\airnow\processed</span>
-<span class="go">....Creating sub-directory:</span>
 <span class="go">......\Data and Figures\reference_data\airnowtech</span>
-<span class="go">......Creating sub-sub-directory:</span>
 <span class="go">........\Data and Figures\reference_data\airnowtech\downloaded_datasets</span>
-<span class="go">......Creating sub-sub-directory:</span>
 <span class="go">........\Data and Figures\reference_data\airnowtech\processed</span>
-<span class="go">....Creating sub-directory:</span>
 <span class="go">......\Data and Figures\reference_data\aqs</span>
-<span class="go">......Creating sub-sub-directory:</span>
 <span class="go">........\Data and Figures\reference_data\aqs\raw_api_datasets</span>
-<span class="go">......Creating sub-sub-directory:</span>
 <span class="go">........\Data and Figures\reference_data\aqs\processed</span>
-<span class="go">....Creating sub-directory:</span>
-<span class="go">......\Data and Figures\reference_data\method_codes</span>
-<span class="go">....Creating sub-directory:</span>
 <span class="go">......\Data and Figures\reference_data\oaqps</span>
-<span class="go">......Creating sub-sub-directory:</span>
 <span class="go">........\Data and Figures\reference_data\oaqps\raw_data</span>
-<span class="go">......Creating sub-sub-directory:</span>
 <span class="go">........\Data and Figures\reference_data\oaqps\processed_data</span>
-<span class="go">..Creating directory:</span>
 <span class="go">....\Data and Figures\sensor_data</span>
+
 <span class="go">Creating &quot;Reports&quot; subdirectory within C:/Users/.../Documents/my_evaluation</span>
-<span class="go">..Creating directory:</span>
-<span class="go">....\Reports\templates</span>
-<span class="go">....Creating sub-directory:</span>
-<span class="go">......\Reports\templates\O3</span>
-<span class="go">....Creating sub-directory:</span>
-<span class="go">......\Reports\templates\PM25</span>
+
 <span class="go">Creating directories for sensor_make_model and evaluation parameters: PM25, O3</span>
-<span class="go">..Creating directory:</span>
 <span class="go">....\Data and Figures\eval_stats\sensor_make_model</span>
-<span class="go">..Creating directory:</span>
 <span class="go">....\Data and Figures\figures\sensor_make_model</span>
-<span class="go">....Creating sub-directory:</span>
 <span class="go">......\Data and Figures\figures\sensor_make_model\PM25</span>
-<span class="go">....Creating sub-directory:</span>
 <span class="go">......\Data and Figures\figures\sensor_make_model\O3</span>
-<span class="go">....Creating sub-directory:</span>
 <span class="go">......\Data and Figures\figures\sensor_make_model\Met</span>
-<span class="go">....Creating sub-directory:</span>
 <span class="go">......\Data and Figures\figures\sensor_make_model\deployment</span>
-<span class="go">..Creating directory:</span>
 <span class="go">....\Data and Figures\sensor_data\sensor_make_model</span>
-<span class="go">....Creating sub-directory:</span>
 <span class="go">......\Data and Figures\sensor_data\sensor_make_model\processed_data</span>
-<span class="go">....Creating sub-directory:</span>
 <span class="go">......\Data and Figures\sensor_data\sensor_make_model\raw_data</span>
 </pre></div>
 </div>
@@ -535,7 +489,7 @@ by the <code class="docutils literal notranslate"><span class="pre">Create_Senso
 <h2>Adding Sensor datasets<a class="headerlink" href="#adding-sensor-datasets" title="Permalink to this headline">¶</a></h2>
 <p>Once sensor directories have been established, users should place files for unprocessed data
 recorded by the sensor make and model into the appropriate sub-directory. For the
-example shown above, data files should be located at <code class="docutils literal notranslate"><span class="pre">..\Data</span> <span class="pre">and</span> <span class="pre">Figures\sensor_data\sensor_make_model\raw_data</span></code>.</p>
+example shown above, data files should be located at <code class="docutils literal notranslate"><span class="pre">\Data</span> <span class="pre">and</span> <span class="pre">Figures\sensor_data\sensor_make_model\raw_data</span></code>.</p>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
 <p>Data files pertaining to a particular sensor unit must include the unique
@@ -548,7 +502,7 @@ import data for each unit.</p>
 <p><cite>sensortoolkit</cite> comes with a set of example sensor datasets to help users familiarize
 themselves with the structure of the library and its implementation. These data files
 are organized under the sensor name <code class="docutils literal notranslate"><span class="pre">Example_Make_Model</span></code>, and unprocessed sensor datasets
-are located at <code class="docutils literal notranslate"><span class="pre">..\Data</span> <span class="pre">and</span> <span class="pre">Figures\sensor_data\Example_Make_Model\raw_data</span></code>. Below is a
+are located at <code class="docutils literal notranslate"><span class="pre">\Data</span> <span class="pre">and</span> <span class="pre">Figures\sensor_data\Example_Make_Model\raw_data</span></code>. Below is a
 listing of .csv files at this directory location, where the name of the sensor, serial ID
 (<code class="docutils literal notranslate"><span class="pre">SN01</span></code>, <code class="docutils literal notranslate"><span class="pre">SN02</span></code>, and <code class="docutils literal notranslate"><span class="pre">SN03</span></code>), and unprocessed data descriptor <code class="docutils literal notranslate"><span class="pre">_raw</span></code> are
 indicated in each file name.</p>
@@ -573,39 +527,15 @@ passed to a subroutine <code class="docutils literal notranslate"><span class="p
 headers and date/time-like columns to S-DFS formatting.</p>
 <p>To run the <code class="docutils literal notranslate"><span class="pre">Setup</span></code> module, import the <cite>sensortoolkit</cite> library (see Importing
 the sensortoolkit Library for more detail) and run the following code:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">work_path</span> <span class="o">=</span> <span class="s1">&#39;C:/Users/.../Documents/my_evaluation&#39;</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sensor_name</span> <span class="o">=</span> <span class="s1">&#39;Example_Make_Model&#39;</span>
+<span class="n">work_path</span> <span class="o">=</span> <span class="s1">&#39;C:/Users/.../Documents/my_evaluation&#39;</span>
 
-<span class="n">IngestionConfig</span> <span class="o">=</span> <span class="n">sensortoolkit</span><span class="o">.</span><span class="n">Setup</span><span class="p">(</span><span class="n">work_path</span><span class="p">)</span>
+<span class="n">IngestionConfig</span> <span class="o">=</span> <span class="n">sensortoolkit</span><span class="o">.</span><span class="n">Setup</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">sensor_name</span><span class="p">,</span>
+                                      <span class="n">work_path</span><span class="p">)</span>
 </pre></div>
-</div>
-<div class="section" id="setting-the-sensor-name">
-<h3>Setting the Sensor Name<a class="headerlink" href="#setting-the-sensor-name" title="Permalink to this headline">¶</a></h3>
-<p>The user will then be prompted by the module to enter the name of the sensor.
-Once the name is typed in the console, press enter. The user will be asked to
-confirm the entry by typing <code class="docutils literal notranslate"><span class="pre">y</span></code> to confirm and continue or <code class="docutils literal notranslate"><span class="pre">n</span></code> to revise the entered name.
-Below is an example of <code class="docutils literal notranslate"><span class="pre">Setup</span></code> module output and user entry for the <cite>Example_Make_Model</cite>
-sensor dataset.</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">=============================== Set Sensor Name ==============================</span>
-<span class="go">Options</span>
-<span class="go">-------</span>
-
-<span class="go">==============================================================================</span>
-
-<span class="go">Enter the name of the sensor: Example_Make_Model</span>
-
-<span class="go">Sensor name: Example_Make_Model</span>
-
-<span class="go">Confirm entry [y/n]: y</span>
-</pre></div>
-</div>
-<div class="admonition important">
-<p class="admonition-title">Important</p>
-<p>The name of the sensor should be the same name and format passed to the
-<code class="docutils literal notranslate"><span class="pre">Create_Sensor_Directories</span></code> module.</p>
-</div>
 </div>
 <div class="section" id="setting-the-column-header-index">
-<h3>Setting the Column Header Index<a class="headerlink" href="#setting-the-column-header-index" title="Permalink to this headline">¶</a></h3>
+<h3>1. Setting the Column Header Index<a class="headerlink" href="#setting-the-column-header-index" title="Permalink to this headline">¶</a></h3>
 <p>Next, users are prompted to enter the row index corresponding to the column headers.
 If the column headers are included on the first row of each sensor dataset, the
 user will enter <code class="docutils literal notranslate"><span class="pre">0</span></code> (row index starting at zero).</p>
@@ -616,149 +546,182 @@ As with sensor name entry, the user will be asked to confirm the entry with
 <span class="go">Options</span>
 <span class="go">-------</span>
 <span class="go">..type &quot;None&quot; if no header columns in recorded sensor dataset</span>
-<span class="go">===============================================================================</span>
+<span class="go">==============================================================================</span>
 
 <span class="go">Enter the row index number for column headers: 5</span>
+
 <span class="go">Header row index: 5</span>
 
 <span class="go">Confirm entry [y/n]: y</span>
 </pre></div>
 </div>
 </div>
-<div class="section" id="setting-the-column-header-list">
-<h3>Setting the Column Header List<a class="headerlink" href="#setting-the-column-header-list" title="Permalink to this headline">¶</a></h3>
-<p>Next, users enter the name of each column header in recorded sensor datasets.
-Names must be entered as they appear in the datasets, and should include all
-columns such as time-like columns and parameter related columns.</p>
-<p>Once all the column headers in sensor datasets have been entered, press <code class="docutils literal notranslate"><span class="pre">X</span></code> to
-exit column header name entry. A list of entered column names will appear, and
-the user will be asked to confirm the entry with <code class="docutils literal notranslate"><span class="pre">y</span></code> or <code class="docutils literal notranslate"><span class="pre">n</span></code> to either continue
-or revise the entered list.</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">============================= Set Column Headers =============================</span>
+<div class="section" id="selecting-file-data-type">
+<h3>2. Selecting File Data Type<a class="headerlink" href="#selecting-file-data-type" title="Permalink to this headline">¶</a></h3>
+<p>Next, users specify the data type for recorded sensor data. Accepted data
+types include .csv, .txt, and .xlsx. Future updates to sensortoolkit may
+expand this list to include additional supported data types. Users should enter
+the number associated with the data types listed in the section banner.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">============================== Select Data Type ==============================</span>
 <span class="go">Options</span>
 <span class="go">-------</span>
-<span class="go">..press X to end adding entries</span>
-<span class="go">..press D to delete the previous entry</span>
-<span class="go">===============================================================================</span>
+<span class="go">[&#39;.csv&#39;, &#39;.txt&#39;, &#39;.xlsx&#39;]</span>
+<span class="go">==============================================================================</span>
 
-<span class="go">Enter column 1 header name: Time</span>
+<span class="go">Enter the sensor data type from the list of supported data types: .csv</span>
 
-<span class="go">Enter column 2 header name: NO2 (ppb)</span>
-
-<span class="go">Enter column 3 header name: O3 (ppb)</span>
-
-<span class="go">Enter column 4 header name: PM2.5 (µg/m³)</span>
-
-<span class="go">Enter column 5 header name: TEMP (°C)</span>
-
-<span class="go">Enter column 6 header name: RH (%)</span>
-
-<span class="go">Enter column 7 header name: DP (°C)</span>
-
-<span class="go">Enter column 8 header name: Inlet</span>
-
-<span class="go">Enter parameter column 9 header name: X</span>
-<span class="go">[&#39;Time&#39;, &#39;NO2 (ppb)&#39;, &#39;O3 (ppb)&#39;, &#39;PM2.5 (µg/m³)&#39;, &#39;TEMP (°C)&#39;, &#39;RH (%)&#39;, &#39;DP (°C)&#39;, &#39;Inlet&#39;]</span>
+<span class="go">Selected data type: .csv</span>
 
 <span class="go">Confirm entry [y/n]: y</span>
 </pre></div>
 </div>
 </div>
-<div class="section" id="configuring-the-parameter-renaming-scheme">
-<h3>Configuring the Parameter Renaming Scheme<a class="headerlink" href="#configuring-the-parameter-renaming-scheme" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="specifying-column-headers-and-parsing-sensor-datasets">
+<h3>3. Specifying Column Headers and Parsing Sensor Datasets<a class="headerlink" href="#specifying-column-headers-and-parsing-sensor-datasets" title="Permalink to this headline">¶</a></h3>
+<p>If column headers are not included in the sensor datasets (i.e., the column
+header index in step 1 was set to <code class="docutils literal notranslate"><span class="pre">None</span></code>), users will need to manually enter
+the names of column headers for sensor datasets. This will prompt a section labeled
+<cite>Manually Set Column Headers</cite> and the user will be asked to enter in columns until
+the user indicates to the console to end header entry model by pressing <code class="docutils literal notranslate"><span class="pre">X</span></code>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Manual configuration of column headers is not required if an integer header row index
+value is set in step 1 of the <code class="docutils literal notranslate"><span class="pre">Setup()</span></code> module.</p>
+</div>
+<p>Next, the module will automatically search for datafiles corresponding to the
+file type and header index (if previously specified). A list of unique headers for
+each column index are displayed.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>In order to load sensor datasets, files must be placed in the proper subdirectory
+(e.g., <code class="docutils literal notranslate"><span class="pre">/Data</span> <span class="pre">and</span> <span class="pre">Figures/sensor_data/Example_Make_Model/raw_data</span></code>).</p>
+</div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">============================== Parsing Datasets ==============================</span>
+<span class="go">==============================================================================</span>
+
+<span class="go">The following data files were found at &quot;../Data and Figures/sensor_data/&quot;Example_Make_Model/raw_data&quot;:</span>
+<span class="go">../Data and Figures/sensor_data/Example_Make_Model/raw_data/Example_Make_Model_SN01_raw.csv</span>
+<span class="go">../Data and Figures/sensor_data/Example_Make_Model/raw_data/Example_Make_Model_SN02_raw.csv</span>
+<span class="go">../Data and Figures/sensor_data/Example_Make_Model/raw_data/Example_Make_Model_SN03_raw.csv</span>
+
+<span class="go">Parsing datasets at &quot;../Data and Figures/sensor_data/&quot;Example_Make_Model/raw_data&quot;</span>
+<span class="go">..Column header(s) at row index 0: [&#39;Time&#39;]</span>
+<span class="go">..Column header(s) at row index 1: [&#39;NO2 (ppb)&#39;]</span>
+<span class="go">..Column header(s) at row index 2: [&#39;O3 (ppb)&#39;]</span>
+<span class="go">..Column header(s) at row index 3: [&#39;PM2.5 (µg/m³)&#39;]</span>
+<span class="go">..Column header(s) at row index 4: [&#39;TEMP (°C)&#39;]</span>
+<span class="go">..Column header(s) at row index 5: [&#39;RH (%)&#39;]</span>
+<span class="go">..Column header(s) at row index 6: [&#39;DP (°C)&#39;]</span>
+<span class="go">..Column header(s) at row index 7: [&#39;Inlet&#39;]</span>
+
+<span class="go">Press enter to continue.</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="specifying-timestamp-columns">
+<h3>4. Specifying Timestamp Columns<a class="headerlink" href="#specifying-timestamp-columns" title="Permalink to this headline">¶</a></h3>
+<p>Users must list all time-like columns that will be used for the DateTime_UTC
+index. Typically, this either includes one column as is the case for the
+example, or two columns (one column for the date and another for the time).</p>
+<p>Once entry is complete, the user should press <code class="docutils literal notranslate"><span class="pre">X</span></code> to exit column header entry
+mode.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">========================== Specify Timestamp columns =========================</span>
+<span class="go">Options</span>
+<span class="go">-------</span>
+<span class="go">..press X to end adding entries</span>
+<span class="go">..press D to delete the previous entry</span>
+<span class="go">==============================================================================</span>
+
+<span class="go">Enter Timestamp column #1: Time</span>
+
+<span class="go">Enter Timestamp column #2: X</span>
+
+<span class="go">Timestamp column list: [&#39;Time&#39;]</span>
+
+<span class="go">Press enter to continue.</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="specifying-the-parameter-renaming-scheme">
+<h3>5. Specifying the Parameter Renaming Scheme<a class="headerlink" href="#specifying-the-parameter-renaming-scheme" title="Permalink to this headline">¶</a></h3>
 <p>Next, users are prompted to configure the parameter renaming scheme by entering
-in the formatted parameter name (see list in options section) that corresponds
-to each header name entered previously.</p>
+in <cite>sensortoolkit</cite>’s Sensor Data Formatting Standard (S-DFS) parameter name
+that corresponds to each parameter header name.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
 <p>Column names that do not have a corresponding listed parameter should be dropped
-from the dataset by pressing enter. In the example below, note that the columns
-<code class="docutils literal notranslate"><span class="pre">Time</span></code> and <code class="docutils literal notranslate"><span class="pre">Inlet</span></code> are dropped. Also note that  time-like columns are set as the
-index via the ingestion module, and as a result, time-like columns duplicate the
-index and are redundant. The user should always specify to drop time-like columns.</p>
-<p>The user will be asked to confirm the entry with <code class="docutils literal notranslate"><span class="pre">y</span></code> or <code class="docutils literal notranslate"><span class="pre">n</span></code> to either continue or
-revise the configured dictionary.</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">===================== Configure Parameter Column Renaming ====================</span>
+from the dataset by pressing enter.</p>
+</div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">========================== Specify Parameter columns =========================</span>
 <span class="go">Options</span>
 <span class="go">-------</span>
 <span class="go">..press enter to skip columns that will be dropped</span>
-<span class="go">Note, timestamp columns should be skipped by pressing enter. These columns are</span>
-<span class="go">assigned as the index during ingestion, and as a result, timestamp columns are</span>
-<span class="go">redundant and should be dropped.</span>
-<span class="go">Choose from the following list</span>
+
+<span class="go">Notes</span>
+<span class="go">-----</span>
+<span class="go">Choose from the following list of SDFS parameter names:</span>
 <span class="go">[&#39;PM1&#39;, &#39;PM25&#39;, &#39;PM10&#39;, &#39;O3&#39;, &#39;NO2&#39;, &#39;NO&#39;, &#39;NOx&#39;, &#39;SO2&#39;, &#39;SOx&#39;, &#39;CO&#39;, &#39;CO2&#39;,</span>
 <span class="go">&#39;Temp&#39;, &#39;RH&#39;, &#39;Press&#39;, &#39;DP&#39;, &#39;WS&#39;, &#39;WD&#39;]</span>
-<span class="go">===============================================================================</span>
+<span class="go">==============================================================================</span>
 
-<span class="go">Enter parameter associated with &quot;Time&quot;:</span>
-<span class="go">..&quot;Time&quot; will be dropped</span>
+<span class="go">[1/7] Enter SDFS parameter associated with NO2 (ppb): NO2</span>
 
-<span class="go">Enter parameter associated with &quot;NO2 (ppb)&quot;: NO2</span>
+<span class="go">[2/7] Enter SDFS parameter associated with O3 (ppb): O3</span>
 
-<span class="go">Enter parameter associated with &quot;O3 (ppb)&quot;: O3</span>
+<span class="go">[3/7] Enter SDFS parameter associated with PM2.5 (µg/m³): PM25</span>
 
-<span class="go">Enter parameter associated with &quot;PM2.5 (µg/m³)&quot;: PM25</span>
+<span class="go">[4/7] Enter SDFS parameter associated with TEMP (°C): Temp</span>
 
-<span class="go">Enter parameter associated with &quot;TEMP (°C)&quot;: Temp</span>
+<span class="go">[5/7] Enter SDFS parameter associated with RH (%): RH</span>
 
-<span class="go">Enter parameter associated with &quot;RH (%)&quot;: RH</span>
+<span class="go">[6/7] Enter SDFS parameter associated with DP (°C): DP</span>
 
-<span class="go">Enter parameter associated with &quot;DP (°C)&quot;: DP</span>
+<span class="go">[7/7] Enter SDFS parameter associated with Inlet:</span>
+<span class="go">..Inlet will be dropped</span>
 
-<span class="go">Enter parameter associated with &quot;Inlet&quot;:</span>
-<span class="go">..&quot;Inlet&quot; will be dropped</span>
-<span class="go">Configured renaming scheme: {&#39;NO2 (ppb)&#39;: &#39;NO2&#39;, &#39;O3 (ppb)&#39;: &#39;O3&#39;, &#39;PM2.5 (µg/m³)&#39;: &#39;PM25&#39;, &#39;TEMP (°C)&#39;: &#39;Temp&#39;, &#39;RH (%)&#39;: &#39;RH&#39;, &#39;DP (°C)&#39;: &#39;DP&#39;}</span>
+<span class="go">Configured renaming scheme:</span>
+<span class="go">{&#39;DP (°C)&#39;: &#39;DP&#39;,</span>
+<span class="go"> &#39;Inlet&#39;: &#39;&#39;,</span>
+<span class="go"> &#39;NO2 (ppb)&#39;: &#39;NO2&#39;,</span>
+<span class="go"> &#39;O3 (ppb)&#39;: &#39;O3&#39;,</span>
+<span class="go"> &#39;PM2.5 (µg/m³)&#39;: &#39;PM25&#39;,</span>
+<span class="go"> &#39;RH (%)&#39;: &#39;RH&#39;,</span>
+<span class="go"> &#39;TEMP (°C)&#39;: &#39;Temp&#39;}</span>
 
-<span class="go">Confirm entry [y/n]: y</span>
-</pre></div>
-</div>
-</div>
-<div class="section" id="setting-timestamp-column-headers">
-<h3>Setting Timestamp Column Headers<a class="headerlink" href="#setting-timestamp-column-headers" title="Permalink to this headline">¶</a></h3>
-<p>Similar to the process of specifying all column header names, users must list
-all time-like columns that will be used for the DateTime_UTC index. Typically,
-this either includes one column as is the case for the example, or two columns;
-one column for the date and another for the time.</p>
-<p>Once entry is complete, the user should press <code class="docutils literal notranslate"><span class="pre">X</span></code> to exit column header entry mode.
-The user will be asked to confirm the entry with <code class="docutils literal notranslate"><span class="pre">y</span></code> or <code class="docutils literal notranslate"><span class="pre">n</span></code> to either continue
-or revise the entered list of time line column headers.</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">======================== Set Timestamp Column Headers ========================</span>
-<span class="go">Options</span>
-<span class="go">-------</span>
-<span class="go">..press X to end adding entries</span>
-<span class="go">..press D to delete the previous entry</span>
-<span class="go">===============================================================================</span>
-
-<span class="go">Enter timestamp column 1 header name: Time</span>
-
-<span class="go">Enter timestamp column 2 header name: X</span>
-<span class="go">[&#39;Time&#39;]</span>
-
-<span class="go">Confirm entry [y/n]: y</span>
+<span class="go">Press enter to continue.</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="configuring-timestamp-column-formatting">
-<h3>Configuring Timestamp Column Formatting<a class="headerlink" href="#configuring-timestamp-column-formatting" title="Permalink to this headline">¶</a></h3>
+<h3>6. Configuring Timestamp Column Formatting<a class="headerlink" href="#configuring-timestamp-column-formatting" title="Permalink to this headline">¶</a></h3>
 <p>Next, the timestamp column formatting should be specified. Users are encouraged
 to reference <a class="reference external" href="https://strftime.org/">https://strftime.org/</a> for a table of formatting codes. Additional
 info is available in the Python documentation: <a class="reference external" href="https://docs.python.org/3/library/datetime.html#strftime-and-strptime-format-codes">https://docs.python.org/3/library/datetime.html#strftime-and-strptime-format-codes</a>.</p>
 <p>A formatting scheme must be specified for each time-like column indicated in
 the previous section.</p>
-<p>The user will be asked to confirm the entry with <cite>y</cite> or <cite>n</cite> to either continue
+<p>The user will be asked to confirm the entry with <code class="docutils literal notranslate"><span class="pre">y</span></code> or <code class="docutils literal notranslate"><span class="pre">n</span></code> to either continue
 or revise the entered formatting scheme.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">==================== Configure Timestamp Column Formatting ===================</span>
 <span class="go">Options</span>
 <span class="go">-------</span>
-<span class="go">..format code list: https://docs.python.org/3/library/datetime.html#strftime-</span>
-<span class="go">and-strptime-format-codes</span>
 <span class="go">..If a timestamp column is formatted as the number of seconds since the Unix</span>
 <span class="go">epoch (1 Jan. 1970), enter &quot;epoch&quot;</span>
 <span class="go">..press enter to skip columns that will be dropped</span>
-<span class="go">===============================================================================</span>
+
+<span class="go">Notes</span>
+<span class="go">-----</span>
+<span class="go">..format code list: https://docs.python.org/3/library/datetime.html#strftime-</span>
+<span class="go">and-strptime-format-codes</span>
+<span class="go">==============================================================================</span>
 
 <span class="go">Enter date/time formatting for &quot;Time&quot;: %Y/%m/%d %H:%M:%S</span>
 
 <span class="go">Confirm entry [y/n]: y</span>
-<span class="go">Configured formatting scheme: {&#39;Time&#39;: &#39;%Y/%m/%d %H:%M:%S&#39;}</span>
+
+<span class="go">Configured formatting scheme:</span>
+<span class="go">{&#39;Time&#39;: &#39;%Y/%m/%d %H:%M:%S&#39;}</span>
+
+<span class="go">Press enter to continue.</span>
 </pre></div>
 </div>
 <div class="admonition tip">
@@ -768,30 +731,17 @@ zero-padded <code class="docutils literal notranslate"><span class="pre">01</spa
 non-zero padded month will be <code class="docutils literal notranslate"><span class="pre">%-m</span></code> or <code class="docutils literal notranslate"><span class="pre">%#m</span></code>).</p>
 </div>
 </div>
-<div class="section" id="selecting-file-data-type">
-<h3>Selecting File Data Type<a class="headerlink" href="#selecting-file-data-type" title="Permalink to this headline">¶</a></h3>
-<p>Lastly, users specify the data type for recorded sensor data. Accepted data
-types include .csv, .txt, and .xlsx. Future updates to sensortoolkit may
-expand this list to include additional supported data types. Users should enter
-the number associated with the data types listed in the section banner.</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">============================== Select Data Type ==============================</span>
-<span class="go">Options</span>
-<span class="go">-------</span>
-<span class="go">{&#39;1&#39;: &#39;.csv&#39;, &#39;2&#39;: &#39;.txt&#39;, &#39;3&#39;: &#39;.xlsx&#39;}</span>
-<span class="go">===============================================================================</span>
-
-<span class="go">Enter the number associated with the data type: 1</span>
-<span class="go">Selected data type: .csv</span>
-</pre></div>
-</div>
-<p>Once a data type is selected, the setup configuration will be written to a
-setup.json file located at <code class="docutils literal notranslate"><span class="pre">..\Data</span> <span class="pre">and</span> <span class="pre">Figures\sensor_data\Sensor_Make_Model\</span></code>
+<div class="section" id="saving-the-setup-configuration-to-setup-json">
+<h3>7. Saving the Setup Configuration to <code class="docutils literal notranslate"><span class="pre">setup.json</span></code><a class="headerlink" href="#saving-the-setup-configuration-to-setup-json" title="Permalink to this headline">¶</a></h3>
+<p>Once the timestamp column formatting has been confirmed, the Setup module will
+automatically save the setup configuration to a <code class="docutils literal notranslate"><span class="pre">setup.json</span></code> file.</p>
+<p>This file is located at <code class="docutils literal notranslate"><span class="pre">..\Data</span> <span class="pre">and</span> <span class="pre">Figures\sensor_data\Sensor_Make_Model\</span></code>
 where <code class="docutils literal notranslate"><span class="pre">Sensor_Make_Model</span></code> is replaced by the name given to the sensor.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">============================= Setup Configuration ============================</span>
-<span class="go">Options</span>
-<span class="go">-------</span>
-<span class="go">===============================================================================</span>
-<span class="go">..writing setup configuration to \Data and Figures\sensor_data\Example_Make_Model\Example_Make_Model_setup.json</span>
+<span class="go">==============================================================================</span>
+
+<span class="go">..writing setup configuration to the following path:</span>
+<span class="go">\Data and Figures\sensor_data\Example_Make_Model\Example_Make_Model_setup.json</span>
 </pre></div>
 </div>
 </div>

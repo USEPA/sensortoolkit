@@ -202,6 +202,7 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/sensortoolkit._ingest.standardized_ingest.html">sensortoolkit._ingest.standardized_ingest</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../_autosummary/sensortoolkit._ingest.standardized_ingest.Ingest.html">sensortoolkit._ingest.standardized_ingest.Ingest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_autosummary/sensortoolkit._ingest.standardized_ingest.ParseSetup.html">sensortoolkit._ingest.standardized_ingest.ParseSetup</a></li>
 </ul>
 </li>
 </ul>
@@ -464,109 +465,56 @@
     <span class="c1"># Check if Data and Figures folder in work directory</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">data_fig_path</span><span class="p">):</span>
 
-        <span class="k">if</span> <span class="n">lib_path</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Creating &quot;Data and Figures&quot; subdirectory within&#39;</span><span class="p">,</span> <span class="n">work_path</span><span class="p">)</span>
-            <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">data_fig_path</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Creating &quot;Data and Figures&quot; subdirectory within&#39;</span><span class="p">,</span> <span class="n">work_path</span><span class="p">)</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">data_fig_path</span><span class="p">)</span>
 
-            <span class="c1"># create eval_stats, figures, reference_data, sensor_data subdirs</span>
-            <span class="n">folders</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;eval_stats&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
-                       <span class="s1">&#39;figures&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
-                       <span class="s1">&#39;reference_data&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;airnow&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;raw_api_datasets&#39;</span><span class="p">,</span>
+        <span class="c1"># create eval_stats, figures, reference_data, sensor_data subdirs</span>
+        <span class="n">folders</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;eval_stats&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+                   <span class="s1">&#39;figures&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+                   <span class="s1">&#39;reference_data&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;airnow&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;raw_api_datasets&#39;</span><span class="p">,</span>
+                                                 <span class="s1">&#39;processed&#39;</span><span class="p">],</span>
+                                      <span class="s1">&#39;airnowtech&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;downloaded_datasets&#39;</span><span class="p">,</span>
                                                      <span class="s1">&#39;processed&#39;</span><span class="p">],</span>
-                                          <span class="s1">&#39;airnowtech&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;downloaded_datasets&#39;</span><span class="p">,</span>
-                                                         <span class="s1">&#39;processed&#39;</span><span class="p">],</span>
-                                          <span class="s1">&#39;aqs&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;raw_api_datasets&#39;</span><span class="p">,</span>
-                                                  <span class="s1">&#39;processed&#39;</span><span class="p">],</span>
-                                          <span class="s1">&#39;method_codes&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
-                                          <span class="s1">&#39;oaqps&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;raw_data&#39;</span><span class="p">,</span>
-                                                    <span class="s1">&#39;processed_data&#39;</span><span class="p">]},</span>
-                       <span class="s1">&#39;sensor_data&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">}</span>
+                                      <span class="s1">&#39;aqs&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;raw_api_datasets&#39;</span><span class="p">,</span>
+                                              <span class="s1">&#39;processed&#39;</span><span class="p">],</span>
+                                      <span class="c1">#&#39;method_codes&#39;: None,</span>
+                                      <span class="s1">&#39;oaqps&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;raw_data&#39;</span><span class="p">,</span>
+                                                <span class="s1">&#39;processed_data&#39;</span><span class="p">]},</span>
+                   <span class="s1">&#39;sensor_data&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">}</span>
 
-            <span class="k">for</span> <span class="n">folder</span> <span class="ow">in</span> <span class="n">folders</span><span class="p">:</span>
-                <span class="n">folder_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">data_fig_path</span><span class="p">,</span> <span class="n">folder</span><span class="p">)</span>
-                <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">folder_path</span><span class="p">)</span>
-                <span class="n">new_dir</span> <span class="o">=</span> <span class="n">folder_path</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">work_path</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
-                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;..Creating directory:&#39;</span><span class="p">)</span>
-                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;....&#39;</span> <span class="o">+</span> <span class="n">new_dir</span><span class="p">)</span>
-                <span class="n">new_folders</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">new_dir</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">folder</span> <span class="ow">in</span> <span class="n">folders</span><span class="p">:</span>
+            <span class="n">folder_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">data_fig_path</span><span class="p">,</span> <span class="n">folder</span><span class="p">)</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">folder_path</span><span class="p">)</span>
+            <span class="n">new_dir</span> <span class="o">=</span> <span class="n">folder_path</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">work_path</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;....&#39;</span> <span class="o">+</span> <span class="n">new_dir</span><span class="p">)</span>
+            <span class="n">new_folders</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">new_dir</span><span class="p">)</span>
 
-                <span class="n">subfolders</span> <span class="o">=</span> <span class="n">folders</span><span class="p">[</span><span class="n">folder</span><span class="p">]</span>
-                <span class="k">if</span> <span class="n">subfolders</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-                    <span class="k">for</span> <span class="n">subfolder</span> <span class="ow">in</span> <span class="n">subfolders</span><span class="p">:</span>
-                        <span class="n">subfolder_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">folder_path</span><span class="p">,</span> <span class="n">subfolder</span><span class="p">)</span>
-                        <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">subfolder_path</span><span class="p">)</span>
-                        <span class="n">new_dir</span> <span class="o">=</span> <span class="n">subfolder_path</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">work_path</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
-                        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;....Creating sub-directory:&#39;</span><span class="p">)</span>
-                        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;......&#39;</span> <span class="o">+</span> <span class="n">new_dir</span><span class="p">)</span>
-                        <span class="n">new_folders</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">new_dir</span><span class="p">)</span>
+            <span class="n">subfolders</span> <span class="o">=</span> <span class="n">folders</span><span class="p">[</span><span class="n">folder</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">subfolders</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">subfolder</span> <span class="ow">in</span> <span class="n">subfolders</span><span class="p">:</span>
+                    <span class="n">subfolder_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">folder_path</span><span class="p">,</span> <span class="n">subfolder</span><span class="p">)</span>
+                    <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">subfolder_path</span><span class="p">)</span>
+                    <span class="n">new_dir</span> <span class="o">=</span> <span class="n">subfolder_path</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">work_path</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;......&#39;</span> <span class="o">+</span> <span class="n">new_dir</span><span class="p">)</span>
+                    <span class="n">new_folders</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">new_dir</span><span class="p">)</span>
 
-                        <span class="n">subsubfolders</span> <span class="o">=</span> <span class="n">subfolders</span><span class="p">[</span><span class="n">subfolder</span><span class="p">]</span>
-                        <span class="k">if</span> <span class="n">subsubfolders</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-                            <span class="k">for</span> <span class="n">subsubfolder</span> <span class="ow">in</span> <span class="n">subsubfolders</span><span class="p">:</span>
-                                <span class="n">subsubfolder_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
-                                                            <span class="n">subfolder_path</span><span class="p">,</span>
-                                                            <span class="n">subsubfolder</span><span class="p">)</span>
-                                <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">subsubfolder_path</span><span class="p">)</span>
-                                <span class="n">new_dir</span> <span class="o">=</span> <span class="n">subsubfolder_path</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">work_path</span><span class="p">,</span>
-                                                                    <span class="s1">&#39;&#39;</span><span class="p">)</span>
-                                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;......Creating sub-sub-directory:&#39;</span><span class="p">)</span>
-                                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;........&#39;</span> <span class="o">+</span> <span class="n">new_dir</span><span class="p">)</span>
-                                <span class="n">new_folders</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">new_dir</span><span class="p">)</span>
-
-            <span class="c1">#copy over method codes</span>
-            <span class="n">subpath</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;Data and Figures/reference_data/method_codes/&#39;</span>
-                       <span class="s1">&#39;methods_criteria.csv&#39;</span><span class="p">)</span>
-            <span class="n">src</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">lib_path</span><span class="p">,</span> <span class="n">subpath</span><span class="p">)</span>
-            <span class="n">dst</span> <span class="o">=</span>  <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">work_path</span><span class="p">,</span> <span class="n">subpath</span><span class="p">)</span>
-            <span class="n">copy</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">dst</span><span class="p">)</span>
-
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">console</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;No path given to library location, not able &#39;</span>
-                       <span class="s1">&#39;to copy over required files&#39;</span><span class="p">)</span>
-            <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="n">console</span><span class="p">)</span>
+                    <span class="n">subsubfolders</span> <span class="o">=</span> <span class="n">subfolders</span><span class="p">[</span><span class="n">subfolder</span><span class="p">]</span>
+                    <span class="k">if</span> <span class="n">subsubfolders</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                        <span class="k">for</span> <span class="n">subsubfolder</span> <span class="ow">in</span> <span class="n">subsubfolders</span><span class="p">:</span>
+                            <span class="n">subsubfolder_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+                                                        <span class="n">subfolder_path</span><span class="p">,</span>
+                                                        <span class="n">subsubfolder</span><span class="p">)</span>
+                            <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">subsubfolder_path</span><span class="p">)</span>
+                            <span class="n">new_dir</span> <span class="o">=</span> <span class="n">subsubfolder_path</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">work_path</span><span class="p">,</span>
+                                                                <span class="s1">&#39;&#39;</span><span class="p">)</span>
+                            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;........&#39;</span> <span class="o">+</span> <span class="n">new_dir</span><span class="p">)</span>
+                            <span class="n">new_folders</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">new_dir</span><span class="p">)</span>
 
     <span class="c1"># Check if Reports folder in work directory</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">report_path</span><span class="p">):</span>
-
-        <span class="k">if</span> <span class="n">lib_path</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Creating &quot;Reports&quot; subdirectory within&#39;</span><span class="p">,</span> <span class="n">work_path</span><span class="p">)</span>
-            <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">report_path</span><span class="p">)</span>
-
-            <span class="n">folders</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;templates&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;O3&#39;</span><span class="p">,</span> <span class="s1">&#39;PM25&#39;</span><span class="p">]}</span>
-
-            <span class="k">for</span> <span class="n">folder</span> <span class="ow">in</span> <span class="n">folders</span><span class="p">:</span>
-                <span class="n">folder_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">report_path</span><span class="p">,</span> <span class="n">folder</span><span class="p">)</span>
-                <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">folder_path</span><span class="p">)</span>
-                <span class="n">new_dir</span> <span class="o">=</span> <span class="n">folder_path</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">work_path</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
-                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;..Creating directory:&#39;</span><span class="p">)</span>
-                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;....&#39;</span> <span class="o">+</span> <span class="n">new_dir</span><span class="p">)</span>
-                <span class="n">new_folders</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">new_dir</span><span class="p">)</span>
-
-                <span class="n">subfolders</span> <span class="o">=</span> <span class="n">folders</span><span class="p">[</span><span class="n">folder</span><span class="p">]</span>
-                <span class="k">if</span> <span class="n">subfolders</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-                    <span class="k">for</span> <span class="n">subfolder</span> <span class="ow">in</span> <span class="n">subfolders</span><span class="p">:</span>
-                        <span class="n">subfolder_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">folder_path</span><span class="p">,</span> <span class="n">subfolder</span><span class="p">)</span>
-                        <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">subfolder_path</span><span class="p">)</span>
-                        <span class="n">new_dir</span> <span class="o">=</span> <span class="n">subfolder_path</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">work_path</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
-                        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;....Creating sub-directory:&#39;</span><span class="p">)</span>
-                        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;......&#39;</span> <span class="o">+</span> <span class="n">new_dir</span><span class="p">)</span>
-                        <span class="n">new_folders</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">new_dir</span><span class="p">)</span>
-
-            <span class="c1"># Copy over the templates</span>
-            <span class="n">subpath</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;Reports/templates/&#39;</span><span class="p">)</span>
-            <span class="n">subfolders</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;O3&#39;</span><span class="p">,</span> <span class="s1">&#39;PM25&#39;</span><span class="p">]</span>
-            <span class="n">filenames</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Reporting_Template_Base_O3.pptx&#39;</span><span class="p">,</span>
-                         <span class="s1">&#39;Reporting_Template_Base_PM25.pptx&#39;</span><span class="p">]</span>
-            <span class="k">for</span> <span class="n">subfolder</span><span class="p">,</span> <span class="n">filename</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">subfolders</span><span class="p">,</span> <span class="n">filenames</span><span class="p">):</span>
-                <span class="n">filepath</span> <span class="o">=</span> <span class="n">subpath</span> <span class="o">+</span> <span class="s1">&#39;/&#39;</span> <span class="o">+</span> <span class="n">subfolder</span> <span class="o">+</span> <span class="s1">&#39;/&#39;</span> <span class="o">+</span> <span class="n">filename</span>
-                <span class="n">src</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">lib_path</span><span class="p">,</span> <span class="n">filepath</span><span class="p">)</span>
-                <span class="n">dst</span> <span class="o">=</span>  <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">work_path</span><span class="p">,</span> <span class="n">filepath</span><span class="p">)</span>
-                <span class="n">copy</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">dst</span><span class="p">)</span>
-
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">console</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;No path given to library location, not able &#39;</span>
-                       <span class="s1">&#39;to copy over required files&#39;</span><span class="p">)</span>
-            <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="n">console</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;/nCreating &quot;Reports&quot; subdirectory within&#39;</span><span class="p">,</span> <span class="n">work_path</span><span class="p">)</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">report_path</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;/n&#39;</span><span class="p">)</span>
 
 
     <span class="c1"># Create Subfolders for Sensor Data and Figures</span>
@@ -583,7 +531,6 @@
         <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">sensor_subfolder</span><span class="p">):</span>
             <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">sensor_subfolder</span><span class="p">)</span>
             <span class="n">new_dir</span> <span class="o">=</span> <span class="n">sensor_subfolder</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">work_path</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;..Creating directory:&#39;</span><span class="p">)</span>
             <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;....&#39;</span> <span class="o">+</span> <span class="n">new_dir</span><span class="p">)</span>
             <span class="n">new_folders</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">new_dir</span><span class="p">)</span>
 

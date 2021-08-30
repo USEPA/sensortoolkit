@@ -395,7 +395,7 @@ scheme for parameter data names and date/time formatting.
       ],
       "data_path": "C:/Users/.../Documents/test_dir/Data and Figures/sensor_data/Example_Make_Model/raw_data",
       "col_headers": {
-          "row_idx_0": {
+          "col_idx_0": {
               "Time": {
                   "SDFS_param": "DateTime_UTC",
                   "files": [
@@ -405,7 +405,7 @@ scheme for parameter data names and date/time formatting.
                   ]
               }
           },
-          "row_idx_1": {
+          "col_idx_1": {
               "NO2 (ppb)": {
                   "SDFS_param": "NO2",
                   "files": [
@@ -415,7 +415,7 @@ scheme for parameter data names and date/time formatting.
                   ]
               }
           },
-          "row_idx_2": {
+          "col_idx_2": {
               "O3 (ppb)": {
                   "SDFS_param": "O3",
                   "files": [
@@ -425,7 +425,7 @@ scheme for parameter data names and date/time formatting.
                   ]
               }
           },
-          "row_idx_3": {
+          "col_idx_3": {
               "PM2.5 (\u00b5g/m\u00b3)": {
                   "SDFS_param": "PM25",
                   "files": [
@@ -435,7 +435,7 @@ scheme for parameter data names and date/time formatting.
                   ]
               }
           },
-          "row_idx_4": {
+          "col_idx_4": {
               "TEMP (\u00b0C)": {
                   "SDFS_param": "Temp",
                   "files": [
@@ -445,7 +445,7 @@ scheme for parameter data names and date/time formatting.
                   ]
               }
           },
-          "row_idx_5": {
+          "col_idx_5": {
               "RH (%)": {
                   "SDFS_param": "RH",
                   "files": [
@@ -455,7 +455,7 @@ scheme for parameter data names and date/time formatting.
                   ]
               }
           },
-          "row_idx_6": {
+          "col_idx_6": {
               "DP (\u00b0C)": {
                   "SDFS_param": "DP",
                   "files": [
@@ -465,7 +465,7 @@ scheme for parameter data names and date/time formatting.
                   ]
               }
           },
-          "row_idx_7": {
+          "col_idx_7": {
               "Inlet": {
                   "SDFS_param": "",
                   "files": [

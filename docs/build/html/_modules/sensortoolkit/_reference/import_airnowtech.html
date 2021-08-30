@@ -202,6 +202,7 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/sensortoolkit._ingest.standardized_ingest.html">sensortoolkit._ingest.standardized_ingest</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../_autosummary/sensortoolkit._ingest.standardized_ingest.Ingest.html">sensortoolkit._ingest.standardized_ingest.Ingest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_autosummary/sensortoolkit._ingest.standardized_ingest.ParseSetup.html">sensortoolkit._ingest.standardized_ingest.ParseSetup</a></li>
 </ul>
 </li>
 </ul>
@@ -491,12 +492,8 @@
 <span class="sd">        path.</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="c1"># Caution, Windows only</span>
-    <span class="n">method_path</span> <span class="o">=</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">PureWindowsPath</span><span class="p">(</span>
-                        <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="vm">__file__</span><span class="p">,</span> <span class="s1">&#39;../../..&#39;</span><span class="p">)))</span>
-    <span class="n">method_path</span> <span class="o">=</span> <span class="p">(</span><span class="n">method_path</span><span class="o">.</span><span class="n">as_posix</span><span class="p">()</span> <span class="o">+</span>
-                   <span class="s1">&#39;/Data and Figures/reference_data/&#39;</span>
-                   <span class="s1">&#39;method_codes//methods_criteria.csv&#39;</span><span class="p">)</span>
+    <span class="n">method_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="vm">__file__</span><span class="p">,</span>
+                                  <span class="s1">&#39;../method_codes/methods_criteria.csv&#39;</span><span class="p">))</span>
 
     <span class="c1"># Method code lookup dataframe</span>
     <span class="n">method_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">method_path</span><span class="p">)</span>
