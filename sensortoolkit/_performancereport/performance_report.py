@@ -566,7 +566,12 @@ class PerformanceReport(SensorEvaluation):
             pic_path = self.figure_path + '\\deployment\\' + \
                 self.sensor_name + '.png'
             if not os.path.exists(pic_path):
-                sys.exit('No deployment picture found at', pic_path)
+                print('No deployment picture found at', pic_path)
+                placeholder_path = os.path.join(__file__,
+                                                '../templates',
+                                                'placeholder_image.png')
+                pic.insert_picture(placeholder_path)
+
             else:
                 pic.insert_picture(pic_path)
 
