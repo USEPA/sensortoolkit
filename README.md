@@ -1,6 +1,6 @@
 # sensortoolkit (v0.1.0 beta 3) - Air Sensor Data Analysis Library
 
-![Sensors at an Ambient Air Monitoring Site](Data%20and%20Figures/figures/_readme_/CSAM_3_crop.jpg)
+![Sensors at an Ambient Air Monitoring Site](Data%20and%20Figures/figures/_readme_/CSAM_3_crop.jpg){width=1000}
 
 **Warning: This code is currently under development and is intended for internal EPA use only. Please do not distribute or share components of this repository with individuals external to EPA.**
 
