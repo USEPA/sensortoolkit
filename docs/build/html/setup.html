@@ -4,10 +4,11 @@
 <html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8" />
-  
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>Configuring sensortoolkit for Analyzing Sensor Data &mdash; sensortoolkit 1.0 documentation</title>
+  <title>Configuring sensortoolkit for Analyzing Sensor Data &mdash; sensortoolkit 0.1.0b3 documentation</title>
   
 
   
@@ -64,6 +65,10 @@
 
           
             
+            
+              <div class="version">
+                0.1.0b3
+              </div>
             
           
 
@@ -413,9 +418,9 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="configuring-sensortoolkit-for-analyzing-sensor-data">
+  <section id="configuring-sensortoolkit-for-analyzing-sensor-data">
 <h1>Configuring sensortoolkit for Analyzing Sensor Data<a class="headerlink" href="#configuring-sensortoolkit-for-analyzing-sensor-data" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="creating-sensor-directories">
+<section id="creating-sensor-directories">
 <h2>Creating Sensor Directories<a class="headerlink" href="#creating-sensor-directories" title="Permalink to this headline">¶</a></h2>
 <p><cite>sensortoolkit</cite> organizes sensor data, resulting data structures, and figures
 into several sub-directories in the <code class="docutils literal notranslate"><span class="pre">/Data</span> <span class="pre">and</span> <span class="pre">Figures</span></code> folder.</p>
@@ -484,8 +489,8 @@ by the <code class="docutils literal notranslate"><span class="pre">Create_Senso
 <span class="go">......\Data and Figures\sensor_data\sensor_make_model\raw_data</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="adding-sensor-datasets">
+</section>
+<section id="adding-sensor-datasets">
 <h2>Adding Sensor datasets<a class="headerlink" href="#adding-sensor-datasets" title="Permalink to this headline">¶</a></h2>
 <p>Once sensor directories have been established, users should place files for unprocessed data
 recorded by the sensor make and model into the appropriate sub-directory. For the
@@ -497,7 +502,7 @@ serial identifier in each file name associated with the unit. The ingest
 module uses the IDs listed in the serials dictionary to locate, group, and
 import data for each unit.</p>
 </div>
-<div class="section" id="example">
+<section id="example">
 <h3><em>Example</em><a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h3>
 <p><cite>sensortoolkit</cite> comes with a set of example sensor datasets to help users familiarize
 themselves with the structure of the library and its implementation. These data files
@@ -511,9 +516,9 @@ indicated in each file name.</p>
 <span class="go">Example_Make_Model_SN03_raw.csv</span>
 </pre></div>
 </div>
-</div>
-</div>
-<div class="section" id="running-the-setup-module">
+</section>
+</section>
+<section id="running-the-setup-module">
 <h2>Running the Setup Module<a class="headerlink" href="#running-the-setup-module" title="Permalink to this headline">¶</a></h2>
 <p>Sensor data are recorded in a wide variety of formatting conventions and data types.
 Data ingestion converts datasets recorded by sensors to a standardized formatting
@@ -534,7 +539,7 @@ the sensortoolkit Library for more detail) and run the following code:</p>
                                       <span class="n">work_path</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="section" id="setting-the-column-header-index">
+<section id="setting-the-column-header-index">
 <h3>1. Setting the Column Header Index<a class="headerlink" href="#setting-the-column-header-index" title="Permalink to this headline">¶</a></h3>
 <p>Next, users are prompted to enter the row index corresponding to the column headers.
 If the column headers are included on the first row of each sensor dataset, the
@@ -555,8 +560,8 @@ As with sensor name entry, the user will be asked to confirm the entry with
 <span class="go">Confirm entry [y/n]: y</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="selecting-file-data-type">
+</section>
+<section id="selecting-file-data-type">
 <h3>2. Selecting File Data Type<a class="headerlink" href="#selecting-file-data-type" title="Permalink to this headline">¶</a></h3>
 <p>Next, users specify the data type for recorded sensor data. Accepted data
 types include .csv, .txt, and .xlsx. Future updates to sensortoolkit may
@@ -575,8 +580,8 @@ the number associated with the data types listed in the section banner.</p>
 <span class="go">Confirm entry [y/n]: y</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="specifying-column-headers-and-parsing-sensor-datasets">
+</section>
+<section id="specifying-column-headers-and-parsing-sensor-datasets">
 <h3>3. Specifying Column Headers and Parsing Sensor Datasets<a class="headerlink" href="#specifying-column-headers-and-parsing-sensor-datasets" title="Permalink to this headline">¶</a></h3>
 <p>If column headers are not included in the sensor datasets (i.e., the column
 header index in step 1 was set to <code class="docutils literal notranslate"><span class="pre">None</span></code>), users will need to manually enter
@@ -617,8 +622,8 @@ each column index are displayed.</p>
 <span class="go">Press enter to continue.</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="specifying-timestamp-columns">
+</section>
+<section id="specifying-timestamp-columns">
 <h3>4. Specifying Timestamp Columns<a class="headerlink" href="#specifying-timestamp-columns" title="Permalink to this headline">¶</a></h3>
 <p>Users must list all time-like columns that will be used for the DateTime_UTC
 index. Typically, this either includes one column as is the case for the
@@ -641,8 +646,8 @@ mode.</p>
 <span class="go">Press enter to continue.</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="specifying-the-parameter-renaming-scheme">
+</section>
+<section id="specifying-the-parameter-renaming-scheme">
 <h3>5. Specifying the Parameter Renaming Scheme<a class="headerlink" href="#specifying-the-parameter-renaming-scheme" title="Permalink to this headline">¶</a></h3>
 <p>Next, users are prompted to configure the parameter renaming scheme by entering
 in <cite>sensortoolkit</cite>’s Sensor Data Formatting Standard (S-DFS) parameter name
@@ -691,8 +696,8 @@ from the dataset by pressing enter.</p>
 <span class="go">Press enter to continue.</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="configuring-timestamp-column-formatting">
+</section>
+<section id="configuring-timestamp-column-formatting">
 <h3>6. Configuring Timestamp Column Formatting<a class="headerlink" href="#configuring-timestamp-column-formatting" title="Permalink to this headline">¶</a></h3>
 <p>Next, the timestamp column formatting should be specified. Users are encouraged
 to reference <a class="reference external" href="https://strftime.org/">https://strftime.org/</a> for a table of formatting codes. Additional
@@ -730,8 +735,8 @@ or revise the entered formatting scheme.</p>
 zero-padded <code class="docutils literal notranslate"><span class="pre">01</span></code>) should be indicated by either <code class="docutils literal notranslate"><span class="pre">%-</span></code> or <code class="docutils literal notranslate"><span class="pre">%#</span></code> (e.g.,
 non-zero padded month will be <code class="docutils literal notranslate"><span class="pre">%-m</span></code> or <code class="docutils literal notranslate"><span class="pre">%#m</span></code>).</p>
 </div>
-</div>
-<div class="section" id="saving-the-setup-configuration-to-setup-json">
+</section>
+<section id="saving-the-setup-configuration-to-setup-json">
 <h3>7. Saving the Setup Configuration to <code class="docutils literal notranslate"><span class="pre">setup.json</span></code><a class="headerlink" href="#saving-the-setup-configuration-to-setup-json" title="Permalink to this headline">¶</a></h3>
 <p>Once the timestamp column formatting has been confirmed, the Setup module will
 automatically save the setup configuration to a <code class="docutils literal notranslate"><span class="pre">setup.json</span></code> file.</p>
@@ -744,9 +749,9 @@ where <code class="docutils literal notranslate"><span class="pre">Sensor_Make_M
 <span class="go">\Data and Figures\sensor_data\Example_Make_Model\Example_Make_Model_setup.json</span>
 </pre></div>
 </div>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
 
            </div>

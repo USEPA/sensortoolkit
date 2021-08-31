@@ -17,6 +17,7 @@
       :nosignatures:
    
       ~Setup.configSensor
+      ~Setup.enterContinue
       ~Setup.exportSetup
       ~Setup.parseDataSets
       ~Setup.printSelectionBanner
@@ -38,5 +39,6 @@
    
       ~Setup.data_types
       ~Setup.params
+      ~Setup.pp
    
    

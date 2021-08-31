@@ -26,11 +26,15 @@ Installing ``sensortoolkit``
 --------------------------
 
 First, navigate to the folder location for the cloned repository:
-::
+
+.. code-block:: console
+
   cd path/to/library
 
 Next, install the library with pip:
-::
+
+.. code-block:: console
+
   pip install .
 
 Users will see something similar to the following be printed to the console:

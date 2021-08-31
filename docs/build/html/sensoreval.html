@@ -4,10 +4,11 @@
 <html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8" />
-  
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>Conducting Analysis with the SensorEvaluation Class &mdash; sensortoolkit 1.0 documentation</title>
+  <title>Conducting Analysis with the SensorEvaluation Class &mdash; sensortoolkit 0.1.0b3 documentation</title>
   
 
   
@@ -65,6 +66,10 @@
 
           
             
+            
+              <div class="version">
+                0.1.0b3
+              </div>
             
           
 
@@ -414,14 +419,14 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="conducting-analysis-with-the-sensorevaluation-class">
+  <section id="conducting-analysis-with-the-sensorevaluation-class">
 <h1>Conducting Analysis with the SensorEvaluation Class<a class="headerlink" href="#conducting-analysis-with-the-sensorevaluation-class" title="Permalink to this headline">¶</a></h1>
 <p><cite>sensortoolkit</cite> contains dozens of individual modules and functions for computing
 statistical metrics and generating figures in accordance with U.S. EPA’s recommended
 <a class="reference external" href="https://www.epa.gov/air-sensor-toolbox/air-sensor-performance-targets-and-testing-protocols">performance metrics and targets</a>.
 The <code class="docutils literal notranslate"><span class="pre">SensorEvaluation</span></code> class packages many of <cite>sensortoolkit</cite>’s modules into
 a user-friendly and efficient platform for evaluating sensor performance.</p>
-<div class="section" id="a-brief-overview-of-sensorevaluation">
+<section id="a-brief-overview-of-sensorevaluation">
 <h2>A brief overview of <code class="docutils literal notranslate"><span class="pre">SensorEvaluation</span></code>:<a class="headerlink" href="#a-brief-overview-of-sensorevaluation" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>Loads unprocessed, recorded sensor data and converts datasets to <cite>sensortoolkit</cite>’s
@@ -489,7 +494,7 @@ modules will use the name <code class="docutils literal notranslate"><span class
 <span class="go">Computing mean parameter values across concurrent sensor datasets</span>
 </pre></div>
 </div>
-<div class="section" id="arguments-passed-to-sensorevaluation">
+<section id="arguments-passed-to-sensorevaluation">
 <h3>Arguments passed to <code class="docutils literal notranslate"><span class="pre">SensorEvaluation</span></code><a class="headerlink" href="#arguments-passed-to-sensorevaluation" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">sensor_name</span></code>: The name of the sensor, should be the same name passed to the
@@ -511,7 +516,7 @@ written to folder location. In addition, subsequent evaluation statistics will
 be written to the Data and Figures/eval_stats sensor subdirectory. Figures will
 also be written to the appropriate figures subdirectory.</p></li>
 </ul>
-<div class="section" id="keyword-arguments-passed-to-sensorevaluation">
+<section id="keyword-arguments-passed-to-sensorevaluation">
 <h4>Keyword Arguments passed to <code class="docutils literal notranslate"><span class="pre">SensorEvaluation</span></code><a class="headerlink" href="#keyword-arguments-passed-to-sensorevaluation" title="Permalink to this headline">¶</a></h4>
 <p>Additional keyword arguments may be passed to the class. The current
 version of <code class="docutils literal notranslate"><span class="pre">SensorEvaluation</span></code> supports two additional keyword arguments for
@@ -560,10 +565,10 @@ should be specified.</p>
 </div>
 </li>
 </ul>
-</div>
-</div>
-</div>
-<div class="section" id="reference-data">
+</section>
+</section>
+</section>
+<section id="reference-data">
 <h2>Reference Data<a class="headerlink" href="#reference-data" title="Permalink to this headline">¶</a></h2>
 <p>Upon creation of a class instance, the user must indicate what reference data
 to use. Users can either specify that reference data should be retrieved by API
@@ -578,7 +583,7 @@ services are free and can created via the following links
 <p>The use of each service involves a slightly difference process for data retreival,
 and arguments that must be passed to <code class="docutils literal notranslate"><span class="pre">SensorEvaluation</span></code> at the time of instantiation.
 The use of each service with <code class="docutils literal notranslate"><span class="pre">SensorEvaluation</span></code> is detailed below:</p>
-<div class="section" id="airnowtech">
+<section id="airnowtech">
 <h3>AirNowTech<a class="headerlink" href="#airnowtech" title="Permalink to this headline">¶</a></h3>
 <p>If users have an AirNowTech account, data files downloaded from <a class="reference external" href="https://www.airnowtech.org/data/index.cfm">https://www.airnowtech.org/data/index.cfm</a>
 can be imported for use by the <code class="docutils literal notranslate"><span class="pre">SensorEvaluation</span></code> class and <cite>sensortoolkit</cite> modules.</p>
@@ -627,8 +632,8 @@ path for the processed AirNowTech datasets:</p>
 option, and write to file option should be configured by the user for their
 unique use case and may differ from those shown above.</p>
 </div>
-</div>
-<div class="section" id="aqs-api">
+</section>
+<section id="aqs-api">
 <h3>AQS API<a class="headerlink" href="#aqs-api" title="Permalink to this headline">¶</a></h3>
 <p>To query AQS for reference data corresponding to the specified evaluation parameter,
 the AQS site ID corresponding to the ambient monitoring site of interest must be specified.
@@ -722,8 +727,8 @@ particular AQS query indicates that the reference monitor is a Met One BAM-1022
 <li><p>The mean across sensor measurements is also calculated.</p></li>
 <li><p>Processed sensor data are loaded</p></li>
 </ul>
-</div>
-<div class="section" id="airnow-api">
+</section>
+<section id="airnow-api">
 <h3>AirNow API<a class="headerlink" href="#airnow-api" title="Permalink to this headline">¶</a></h3>
 <p>To query AirNow for reference data corresponding to the specified evaluation
 parameter, the parameter bbox  must be specified. AirNow returns all relevant
@@ -815,9 +820,9 @@ so the reference is referred to as ’Unknown Reference’).</p></li>
 <li><p>The mean across sensor measurements is also calculated.</p></li>
 <li><p>Processed sensor data are loaded</p></li>
 </ul>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
 
            </div>

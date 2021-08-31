@@ -4,10 +4,11 @@
 <html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8" />
-  
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>Data Structures and Formatting &mdash; sensortoolkit 1.0 documentation</title>
+  <title>Data Structures and Formatting &mdash; sensortoolkit 0.1.0b3 documentation</title>
   
 
   
@@ -65,6 +66,10 @@
 
           
             
+            
+              <div class="version">
+                0.1.0b3
+              </div>
             
           
 
@@ -414,7 +419,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="data-structures-and-formatting">
+  <section id="data-structures-and-formatting">
 <h1>Data Structures and Formatting<a class="headerlink" href="#data-structures-and-formatting" title="Permalink to this headline">¶</a></h1>
 <p>The <code class="docutils literal notranslate"><span class="pre">SensorEvaluation</span></code> class contains a number of data structures that store
 sensor and reference data, and related statistical metrics. Below is a discussion
@@ -422,7 +427,7 @@ of these data structures, as well as the Sensor Data Formattting Scheme (S-DFS) 
 Reference Data Formatting Scheme (R-DFS) in which sensor and reference data are formatted.</p>
 <p>More detail regarding the <code class="docutils literal notranslate"><span class="pre">SensorEvaluation</span></code> class, including its methods and
 arguments are included in the <a class="reference external" href="../html/_autosummary/sensortoolkit.sensor_eval.SensorEvaluation.html">API documentation for SensorEvaluation</a></p>
-<div class="section" id="sensorevaluation-data-structures">
+<section id="sensorevaluation-data-structures">
 <h2><code class="docutils literal notranslate"><span class="pre">SensorEvaluation</span></code> Data Structures<a class="headerlink" href="#sensorevaluation-data-structures" title="Permalink to this headline">¶</a></h2>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -431,7 +436,7 @@ whichever name suits the user’s needs best, however, below we refer to an inst
 of <code class="docutils literal notranslate"><span class="pre">SensorEvaluation</span></code> as <code class="docutils literal notranslate"><span class="pre">Eval</span></code> when referencing instance attributes (including data structures).</p>
 <p>See <a class="reference external" href="sensoreval.html">Conducting Analysis with the SensorEvaluation Class</a> for more information regarding instantiation of the <code class="docutils literal notranslate"><span class="pre">SensorEvaluation</span></code> class.</p>
 </div>
-<div class="section" id="sensor-data-list-containers">
+<section id="sensor-data-list-containers">
 <h3>Sensor Data List Containers<a class="headerlink" href="#sensor-data-list-containers" title="Permalink to this headline">¶</a></h3>
 <p>Sensor data files that have been imported and processed into the S-DFS scheme are
 sorted based on the interval between consecutive timestamps. Data sets at the
@@ -466,7 +471,7 @@ the first position within the <code class="docutils literal notranslate"><span c
 </div>
 </div>
 </div></blockquote>
-<div class="section" id="example-dataset-within-full-df-list">
+<section id="example-dataset-within-full-df-list">
 <h4>Example dataset within <code class="docutils literal notranslate"><span class="pre">full_df_list</span></code><a class="headerlink" href="#example-dataset-within-full-df-list" title="Permalink to this headline">¶</a></h4>
 <blockquote>
 <div><div class="admonition note">
@@ -570,8 +575,8 @@ displayed.</p>
 </tbody>
 </table>
 </div></blockquote>
-</div>
-<div class="section" id="example-dataset-within-hourly-df-list">
+</section>
+<section id="example-dataset-within-hourly-df-list">
 <h4>Example dataset within <code class="docutils literal notranslate"><span class="pre">hourly_df_list</span></code><a class="headerlink" href="#example-dataset-within-hourly-df-list" title="Permalink to this headline">¶</a></h4>
 <blockquote>
 <div><div class="admonition note">
@@ -675,8 +680,8 @@ displayed.</p>
 </tbody>
 </table>
 </div></blockquote>
-</div>
-<div class="section" id="example-dataset-within-daily-df-list">
+</section>
+<section id="example-dataset-within-daily-df-list">
 <h4>Example dataset within <code class="docutils literal notranslate"><span class="pre">daily_df_list</span></code><a class="headerlink" href="#example-dataset-within-daily-df-list" title="Permalink to this headline">¶</a></h4>
 <blockquote>
 <div><div class="admonition note">
@@ -780,9 +785,9 @@ displayed.</p>
 </tbody>
 </table>
 </div></blockquote>
-</div>
-</div>
-<div class="section" id="reference-dataframes">
+</section>
+</section>
+<section id="reference-dataframes">
 <h3>Reference Dataframes<a class="headerlink" href="#reference-dataframes" title="Permalink to this headline">¶</a></h3>
 <p>Both 1-hour and 24-hour averaged data sets are computed for FRM/FEM reference data,
 and data sets are organized by parameter classification and adhere to the following
@@ -818,8 +823,8 @@ to  <code class="docutils literal notranslate"><span class="pre">pm_daily_ref_df
 in memory, and as a result, modifications to one dataframe will be reflected in the corresponding
 dataframe.</p>
 </div>
-</div>
-<div class="section" id="performance-evaluation-data-structures">
+</section>
+<section id="performance-evaluation-data-structures">
 <h3>Performance Evaluation Data Structures<a class="headerlink" href="#performance-evaluation-data-structures" title="Permalink to this headline">¶</a></h3>
 <p>Various data structures containing tabular statistics and information about
 evaluation conditions can also be constructed. These data structures can be
@@ -830,9 +835,9 @@ constructed by running the following line of code:</p>
 <p>This will constuct the statistics dataframes <code class="docutils literal notranslate"><span class="pre">stats_df</span></code> and <code class="docutils literal notranslate"><span class="pre">avg_stats_df</span></code> and
 populate the deployment dictionary <code class="docutils literal notranslate"><span class="pre">deploy_dict</span></code> with details about the evaluation.
 More detail about each of these data structures is provided below.</p>
-<div class="section" id="statistics-dataframes-stats-df-and-avg-stats-df">
+<section id="statistics-dataframes-stats-df-and-avg-stats-df">
 <h4>Statistics Dataframes: <code class="docutils literal notranslate"><span class="pre">stats_df</span></code> and <code class="docutils literal notranslate"><span class="pre">avg_stats_df</span></code><a class="headerlink" href="#statistics-dataframes-stats-df-and-avg-stats-df" title="Permalink to this headline">¶</a></h4>
-<div class="section" id="sensor-vs-frm-fem-statisitcs-stats-df">
+<section id="sensor-vs-frm-fem-statisitcs-stats-df">
 <h5>Sensor vs. FRM/FEM Statisitcs: <code class="docutils literal notranslate"><span class="pre">stats_df</span></code><a class="headerlink" href="#sensor-vs-frm-fem-statisitcs-stats-df" title="Permalink to this headline">¶</a></h5>
 <p>DataFrame containing statisitics relating the <strong>sensor vs. FRM/FEM</strong> linearity (<span class="math notranslate nohighlight">\(R^2\)</span>),
 bias (<cite>slope</cite> and <cite>intercept</cite>), <cite>RMSE</cite>, N (Number of sensor-FRM/FEM data point pairs), as well
@@ -991,8 +996,8 @@ averaging intervals specified by <code class="docutils literal notranslate"><spa
 </tr>
 </tbody>
 </table>
-</div>
-<div class="section" id="sensor-vs-intersensor-average-statistics-avg-stats-df">
+</section>
+<section id="sensor-vs-intersensor-average-statistics-avg-stats-df">
 <h5>Sensor vs. Intersensor Average Statistics: <code class="docutils literal notranslate"><span class="pre">avg_stats_df</span></code><a class="headerlink" href="#sensor-vs-intersensor-average-statistics-avg-stats-df" title="Permalink to this headline">¶</a></h5>
 <p>DataFrame containing statisitics relating the <strong>sensor vs. intersensor average</strong>
 linearity (<span class="math notranslate nohighlight">\(R^2\)</span>), bias (<cite>slope</cite> and <cite>intercept</cite>), RMSE, N (Number of concurrent
@@ -1152,9 +1157,9 @@ averaging intervals specified by <code class="docutils literal notranslate"><spa
 </tr>
 </tbody>
 </table>
-</div>
-</div>
-<div class="section" id="deployment-dictionary-deploy-dict">
+</section>
+</section>
+<section id="deployment-dictionary-deploy-dict">
 <h4>Deployment Dictionary: <code class="docutils literal notranslate"><span class="pre">deploy_dict</span></code><a class="headerlink" href="#deployment-dictionary-deploy-dict" title="Permalink to this headline">¶</a></h4>
 <p>The deployment dictionary <code class="docutils literal notranslate"><span class="pre">Eval.deploy_dict</span></code> contains descriptive statistics and textual information about
 the deployment, including details about the testing agency, deployment site,
@@ -1294,12 +1299,12 @@ exceeds the EPA’s recommended elevated concentration value for either PM2.5
 temperature and relative humidity indicate the number of intervals during which
 conditions exceeded the manufacturer’s recommended operating range.</p>
 </div>
-</div>
-</div>
-</div>
-<div class="section" id="sensor-and-reference-data-formatting">
+</section>
+</section>
+</section>
+<section id="sensor-and-reference-data-formatting">
 <h2>Sensor and Reference Data Formatting<a class="headerlink" href="#sensor-and-reference-data-formatting" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="sensor-data-formatting-standard-s-dfs">
+<section id="sensor-data-formatting-standard-s-dfs">
 <h3>Sensor Data Formatting Standard (S-DFS)<a class="headerlink" href="#sensor-data-formatting-standard-s-dfs" title="Permalink to this headline">¶</a></h3>
 <table class="colwidths-auto docutils align-default" id="id8">
 <caption><span class="caption-text"><cite>S-DFS</cite></span><a class="headerlink" href="#id8" title="Permalink to this table">¶</a></caption>
@@ -1440,8 +1445,8 @@ conditions exceeded the manufacturer’s recommended operating range.</p>
 </tr>
 </tbody>
 </table>
-</div>
-<div class="section" id="reference-data-formatting-standard-r-dfs">
+</section>
+<section id="reference-data-formatting-standard-r-dfs">
 <h3>Reference Data Formatting Standard (R-DFS)<a class="headerlink" href="#reference-data-formatting-standard-r-dfs" title="Permalink to this headline">¶</a></h3>
 <table class="colwidths-auto docutils align-default" id="id9">
 <caption><span class="caption-text"><cite>R-DFS</cite></span><a class="headerlink" href="#id9" title="Permalink to this table">¶</a></caption>
@@ -1530,8 +1535,8 @@ conditions exceeded the manufacturer’s recommended operating range.</p>
 </tr>
 </tbody>
 </table>
-</div>
-<div class="section" id="setup-json">
+</section>
+<section id="setup-json">
 <h3>Setup.JSON<a class="headerlink" href="#setup-json" title="Permalink to this headline">¶</a></h3>
 <p>Setup.json files are generated by running the Setup module and contain information
 about recorded sensor datasets that is used by the standard ingestion module
@@ -1663,9 +1668,9 @@ scheme for parameter data names and date/time formatting.</p>
 <span class="p">}</span>
 </pre></div>
 </div>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
 
            </div>

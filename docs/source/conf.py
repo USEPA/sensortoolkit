@@ -28,13 +28,16 @@ sys.path.insert(0, os.path.abspath(lib + '/_reference'))
 
 
 # -- Project information -----------------------------------------------------
-
+import sensortoolkit
 project = 'sensortoolkit'
 copyright = '2021, Samuel Frederick'
 author = 'Samuel Frederick'
 
 # The full version, including alpha/beta/rc tags
-release = '1.0'
+version = sensortoolkit.__version__
+release = version
+
+rst_epilog = '.. |sensortoolkit_version| replace:: ``%s``' % version
 
 
 # -- General configuration ---------------------------------------------------
