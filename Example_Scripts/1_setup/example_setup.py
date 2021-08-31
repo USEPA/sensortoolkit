@@ -18,10 +18,6 @@ import sensortoolkit
 # full path to where you would like to place data, figures, reports, etc.
 work_path = 'path/to/work-directory'
 
-# If the work directory is different than the library folder, change the
-# line below with the path to the library: e.g., user/documents/sensor-evaluation
-lib_path = None
-
 """
   ----------------------------------------------------------------------------
    Construct file structure for sensor, specify ingestion formatting scheme
@@ -32,10 +28,10 @@ sensor_name = 'Example_Make_Model'
 sensortoolkit.Create_Sensor_Directories(name=sensor_name,
                                         eval_params=['PM25', 'O3'],
                                         work_path=work_path,
-                                        lib_path=lib_path,
                                         )
 
-# Code for copying sensor data into the folder structure?
+# Copy sensor data into the folder structure
+sensortoolkit.CopySensorData(name=sensor_name, work_path=work_path)
 
 # Run the next line of code to configure the formatting scheme for converting
 # recorded sensor data to a standardized format utilized by SensorEvaluation
