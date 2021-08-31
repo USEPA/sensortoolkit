@@ -1,4 +1,4 @@
-# sensortoolkit
+# sensortoolkit - Air Sensor Data Analysis Library
 ### (v0.1.0 beta 3)
 
 ![Sensors at the Air Innovation Research Site](Data%20and%20Figures/figures/_readme_/sensors_at_airs.jpg)
