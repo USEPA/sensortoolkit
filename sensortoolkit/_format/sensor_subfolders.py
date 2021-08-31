@@ -17,8 +17,7 @@ import os
 import sys
 from shutil import copy
 
-def Create_Sensor_Directories(name=None, eval_params=[], work_path=None,
-                              lib_path=None):
+def Create_Sensor_Directories(name=None, eval_params=[], work_path=None):
     """Construct the sensor directory file structure required for conducting
     analysis with the SensorEvaluation library.
 
@@ -38,9 +37,6 @@ def Create_Sensor_Directories(name=None, eval_params=[], work_path=None,
         work_path (str):
             The full path to the work directory where the user intends to store
             datasets, figures, and reports.
-        lib_path (str):
-            The full path to the library as downloaded from the online
-            repository.
 
     Returns:
         None
@@ -149,13 +145,3 @@ def Create_Sensor_Directories(name=None, eval_params=[], work_path=None,
                     print('....Creating sub-directory:')
                     print('......' + new_dir)
                     new_folders.append(new_dir)
-
-    # copy over deployment figure for Example_Make_Model
-    deploy_fig_loc = ('\\Data and Figures\\figures\\'
-                      'Example_Make_Model\\deployment')
-    if name == 'Example_Make_Model' and deploy_fig_loc in new_folders:
-        subpath = ('Data and Figures/figures/'
-                    'Example_Make_Model/deployment/' + name + '.png')
-        src = os.path.join(lib_path, subpath)
-        dst =  os.path.join(work_path, subpath)
-        copy(src, dst)
