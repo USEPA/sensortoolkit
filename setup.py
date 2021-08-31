@@ -5,7 +5,7 @@ here = pathlib.Path(__file__).parent
 readme = (here / 'README.md').read_text()
 
 setup(name='sensortoolkit',
-      version='0.1.0b2',
+      version='0.1.1b1',
       description='Library for evaluating air sensor data',
       long_description=readme,
       long_description_content_type='text/markdown',
@@ -32,6 +32,7 @@ setup(name='sensortoolkit',
                 ]),
       package_data={'': ["_performancereport/templates/O3/Reporting_Template_Base_O3.pptx",
                          "_performancereport/templates/PM25/Reporting_Template_Base_PM25.pptx",
+                         "_performancereport/templates/placeholder_image.png",
                          "_reference/method_codes/methods_criteria.csv"
                          # data and figures/example_make_model placeholder image
                          ]
