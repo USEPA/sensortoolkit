@@ -157,6 +157,8 @@ def Import(sensor_name=None, sensor_serials=None, tzone_shift=0,
         corresponding to the sensor unit that recorded the sensor data file,
         and must be in either .csv or .txt format).
     """
+    valid_extensions = ['.csv', '.txt', '.xlsx']
+
     if load_raw_data is True:
         full_df_list = []
         print('Importing Recorded Sensor Data:')
@@ -169,8 +171,10 @@ def Import(sensor_name=None, sensor_serials=None, tzone_shift=0,
             for path, folders, files in os.walk(data_path):
                 for filename in files:
                     filename_l = filename.lower()
-                    if serial in filename and (filename_l.endswith('.csv')
-                       or filename_l.endswith('.txt')):
+                    # check the file has one of the listed valid extensions
+                    valid_file = any(filename_l.endswith(extension) for
+                                     extension in valid_extensions)
+                    if serial in filename and valid_file:
                         # Load sensor data and append file datasets
                         cwd = '//'.join([path, filename])
                         print('....' + filename)
