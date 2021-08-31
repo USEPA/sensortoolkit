@@ -1,11 +1,13 @@
-# Air Sensor Evaluation Library
-
-*Samuel Frederick, NSSC Contractor (ORAU)*\
-*Office: 919-541-4086 | Email: frederick.samuel@epa.gov*
+# sensortoolkit
+### (v0.1.0 beta 3)
 
 ![Sensors at the Air Innovation Research Site](Data%20and%20Figures/figures/_readme_/sensors_at_airs.jpg)
 
 **Warning: This code is currently under development and is intended for internal EPA use only. Please do not distribute or share components of this repository with individuals external to EPA.**
+
+*Samuel Frederick, NSSC Contractor (ORAU)*\
+*Office: 919-541-4086 | Email: frederick.samuel@epa.gov*
+
 ****
 ## Readme Guide
 * [Overview](#overview)
@@ -142,7 +144,8 @@ Installing collected packages: sensortoolkit
 Successfully installed sensortoolkit-0.1.0b2
 ```
 
-*Note*- The above console output indicates that the dependencies for ``sensortoolkit``
+### *Note*
+The above console output indicates that the dependencies for ``sensortoolkit``
 were previously installed and found on the user's system. Any packages not found
 during installation will be installed by pip.
 
