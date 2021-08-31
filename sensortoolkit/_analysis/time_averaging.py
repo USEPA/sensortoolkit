@@ -1,12 +1,35 @@
 # -*- coding: utf-8 -*-
 """
+This module calculates 1-hour and 24-hour averaged datasets from sensor and
+FRM/FEM recorded datasets.
+
+U.S. EPA's Performance Targets Reports stipulate that a 75% data completeness
+requirement for each averaging interval should be imposed. For example, a
+:math:`PM_{2.5}` sensor recording concentration measurements every hour would
+require a minimum of 18 valid measurements in order to calculate a valid
+24-hour averaged concentration [i.e., (18/24) * 100% = 75%].
+
+U.S. EPA's Performance Targets Reports calculate averages as
+
+.. math::
+
+    x_{kpj} = \\frac{1}{n}\\sum_{i=1}^{n}c_{ij}
+
+where:
+
+    :math:`x_{kpj}` = 1-hour or 24-hour averaged measurement k for hour/day p
+    and instrument j
+
+    :math:`n` = number of instrument measurements per averaging interval
+
+    :math:`c_{ij}` = measurement from instrument j for time i of the averaging
+    interval
+
+================================================================================
+
 @Author:
-  Samuel Frederick, NSSC Contractor (ORAU)
-  U.S. EPA, Office of Research and Development
-  Center for Environmental Measurement and Modeling
-  Air Methods and Characterization Division, Source and Fine Scale Branch
-  109 T.W Alexander Drive, Research Triangle Park, NC 27711
-  Office: 919-541-4086 | Email: frederick.samuel@epa.gov
+  | Samuel Frederick, NSSC Contractor (ORAU)
+  | U.S. EPA / ORD / CEMM / AMCD / SFSB
 
 Created:
   Wed Oct 21 14:46:27 2020
