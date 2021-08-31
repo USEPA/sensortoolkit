@@ -1,12 +1,73 @@
 # -*- coding: utf-8 -*-
 """
+This module computes statistical metrics for the Ordinary Least Squares linear
+regression between sensor and FRM/FEM datasets (FRM/FEM as the dependent
+variable along the x-axis and sensor data as the independent variable along
+the y-axis).
+
+Bias and linearity
+------------------
+
+U.S. EPA's Performance Targets Reports recommend using a linear regression
+model, relating sensor and FRM/FEM measurements, to determine the magnitude
+of bias and linearity. The regression model takes the form
+
+.. math::
+
+    y = mx + b
+
+where
+
+    :math:`y` = sensor measurements
+
+    :math:`x` = FRM/FEM measurements
+
+    :math:`m` = regression slope
+
+    :math:`y` = regression intercept
+
+
+The slope :math:`m` and intercept :math:`y` indicate the degree of systematic
+bias between sensor and reference measurements.
+
+Linearity is measured via the coefficient of determination (:math:`R^2`).
+
+Error
+-----
+
+U.S. EPA's Performance Targets Reports recommend the root mean square error
+(RMSE) for quantifying the error between sensor and FRM/FEM measurements. RMSE
+is calculated as
+
+.. math::
+
+    RMSE = \\sqrt(\\frac{1}{N\\timesM}\\sum_{j=1}^{M}\\left[
+    \\sum_{d=1}^{N}\\left(x_{dj}-R_{d}\\right)^2\\right])
+
+where:
+    :math:`RMSE` = root mean square error
+
+    N = number of 1-hour/24-hour periods during which all identical instruments
+    are operating and returning valid averages over the duration of the field
+    test
+
+    N = number of identical sensors operated simultaneously during a field test
+
+    x_{pj} = valid 1-hour/24-hour averaged sensor PM2.5 concentration for
+    averaging interval p and instrument j
+
+    R_{p} = valid 1-hour/24-hour averaged FRM/FEM PM2.5 concentration for
+    averaging interval p
+
+This equation assumes only one FRM/FEM instrument will be running. If multiple
+FRM/FEM instruments are running, separate testing reports can be generated for
+each.
+================================================================================
+
 @Author:
-  Samuel Frederick, NSSC Contractor (ORAU)
-  U.S. EPA, Office of Research and Development
-  Center for Environmental Measurement and Modeling
-  Air Methods and Characterization Division, Source and Fine Scale Branch
-  109 T.W Alexander Drive, Research Triangle Park, NC 27711
-  Office: 919-541-4086 | Email: frederick.samuel@epa.gov
+  | Samuel Frederick, NSSC Contractor (ORAU)
+  | U.S. EPA / ORD / CEMM / AMCD / SFSB
+
 
 Created:
   Tue Mar 3 13:47:32 2020
