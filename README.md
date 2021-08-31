@@ -1,4 +1,4 @@
-# sensortoolkit (v0.1.0 beta 3) - Air Sensor Data Analysis Library
+# sensortoolkit (v0.1.1 beta 1) - Air Sensor Data Analysis Library
 
 ![Sensors at an Ambient Air Monitoring Site](Data%20and%20Figures/figures/_readme_/CSAM_3_crop.jpg){width=1200}
 
@@ -67,7 +67,7 @@ Additional information about EPA's research involving air sensors including the 
 ****
 ## Installation <a name="install"></a>
 
-***The following installation guide is pulled from the HTML formatted documentation packaged alongside `sensortoolkit`. Once the respository has been downloaded, users
+***The following installation guide is pulled from the HTML formatted documentation packaged alongside `sensortoolkit`. Once the repository has been downloaded, users
 are strongly recommended to follow the remainder of the documentation via the HTML
 documentation. The HTML documentation contain greater detail about implementing the
 `sensortoolkit` library, detailed API documentation, as well as formatted tips, notes, and recommendations for using the library.***
