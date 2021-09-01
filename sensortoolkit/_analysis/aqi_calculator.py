@@ -126,10 +126,12 @@ def AQI_Calculator(data):
                                 'C_l': 500.45,
                                 'C_h': 99999.9}}
 
+    # Coerce input type to pandas dataframe
     data_type = type(data)
     if data_type is not pd.core.frame.DataFrame:
         data = pd.Series(data).to_frame(name='PM25')
 
+    # Passed datatype is pandas dataframe but expected header not found
     if 'PM25' not in data:
         raise KeyError('Column header "PM25" not in passed dataframe.')
 
