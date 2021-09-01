@@ -45,41 +45,57 @@ Last Updated:
   Tue Jul 13 09:35:33 2021
 """
 import numpy as np
+import pandas as pd
 
 
-def Dewpoint(df_list):
+def Dewpoint(data):
     """Calculate dewpoint using the Magnus Formula.
 
     Constants via U.S EPA Performance Targets reports for evaluating sensors
     measuring fine particulate matter and ozone.
 
     Args:
-        df_list:
-            List of sensor dataframes.
+        data:
+            Pandas dataframe or list of pandas dataframes
     Returns:
-        df_list:
-            List of modified sensor dataframes with calulcated dewpoint
-            ('DP_Calculated').
+        data:
+            Pandas dataframe or list of pandas dataframes with calculated
+            dewpoint (column header ``DP_Calculated``).
     """
-    for i, df in enumerate(df_list):
+    # Coerce input type to pandas dataframe
+    data_type = type(data)
+    if data_type is not pd.core.frame.DataFrame and data_type is not list:
+        raise TypeError('Passed data must be in the form of a pandas dataframe'
+                        ' or list of dataframes')
+
+    # temporarily place dataframe in list for calculation
+    if data_type is pd.core.frame.DataFrame:
+        data = [data]
+
+    for i, df in enumerate(data):
+
+        # Passed datatype is pandas dataframe but expected header not found
+        if 'Temp' not in df:
+            raise KeyError('Column header "Temp" not in passed dataframe.')
+        if 'RH' not in df:
+            raise KeyError('Column header "RH" not in passed dataframe.')
 
         beta = 17.625
         lbda = 243.04  # degrees C
 
-        if 'Temp' and 'RH' in df:
-            T = df.Temp
-            RH = df.RH
-        else:
-            print('Warning, Temperature and RH labels not recognized, DP not '
-                  'computed')
-            return df_list
+        T = df.Temp
+        RH = df.RH
 
         numerator = lbda*(np.log(RH/100) + (beta*T)/(lbda+T))
         denominator = beta - (np.log(RH/100) + (beta*T)/(lbda+T))
-        Dp = numerator / denominator
+        DP = numerator / denominator
 
-        df['DP_calculated'] = Dp
+        df['DP_calculated'] = DP
 
-        df_list[i] = df
+        data[i] = df
 
-    return df_list
+    # Extract dataframe from list if input type was dataframe
+    if data_type is pd.core.frame.DataFrame:
+        data = data[0]
+
+    return data
