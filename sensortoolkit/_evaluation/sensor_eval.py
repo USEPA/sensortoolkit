@@ -586,29 +586,75 @@ class SensorEvaluation:
             self.add_deploy_dict_stats()
 
         # Sensor param vs. reference monitor (hourly, daily averages)
-        self.stats_df = sensortoolkit.Regression_Stats(
-                                       hourly_df_obj=self.hourly_df_list,
-                                       daily_df_obj=self.daily_df_list,
-                                       hourly_ref_df=self.hourly_ref_df,
-                                       daily_ref_df=self.daily_ref_df,
-                                       deploy_dict=self.deploy_dict,
-                                       param=self.eval_param,
-                                       ref_name=self.ref_name,
-                                       serials=self.serials,
-                                       path=self.stats_path,
-                                       write_to_file=self.write_to_file)
+        # self.stats_df = sensortoolkit.Regression_Stats(
+        #                                hourly_df_obj=self.hourly_df_list,
+        #                                daily_df_obj=self.daily_df_list,
+        #                                hourly_ref_df=self.hourly_ref_df,
+        #                                daily_ref_df=self.daily_ref_df,
+        #                                deploy_dict=self.deploy_dict,
+        #                                param=self.eval_param,
+        #                                ref_name=self.ref_name,
+        #                                serials=self.serials,
+        #                                path=self.stats_path,
+        #                                write_to_file=self.write_to_file)
+
+        hourly_stats = sensortoolkit.Regression_Stats(
+                                        sensor_df_obj=self.hourly_df_list,
+                                        ref_df_obj=self.hourly_ref_df,
+                                        deploy_dict=self.deploy_dict,
+                                        param=self.eval_param,
+                                        serials=self.serials
+                                        )
+
+        daily_stats = sensortoolkit.Regression_Stats(
+                                        sensor_df_obj=self.daily_df_list,
+                                        ref_df_obj=self.daily_ref_df,
+                                        deploy_dict=self.deploy_dict,
+                                        param=self.eval_param,
+                                        serials=self.serials
+                                        )
+
+        # Combine the statistics dataframes into one
+        self.stats_df = sensortoolkit.Join_Stats(
+                                        hourly_stats,
+                                        daily_stats,
+                                        stats_path=self.stats_path,
+                                        write_to_file=self.write_to_file)
 
         # Sensor param vs. inter-sensor average (hourly, daily averages)
-        self.avg_stats_df = sensortoolkit.Regression_Stats(
-                                       hourly_df_obj=self.hourly_df_list,
-                                       daily_df_obj=self.daily_df_list,
-                                       hourly_ref_df=self.avg_hrly_df,
-                                       daily_ref_df=self.avg_daily_df,
-                                       deploy_dict=self.deploy_dict,
-                                       param=self.eval_param,
-                                       serials=self.serials,
-                                       path=self.stats_path,
-                                       write_to_file=self.write_to_file)
+        # self.avg_stats_df = sensortoolkit.Regression_Stats(
+        #                                hourly_df_obj=self.hourly_df_list,
+        #                                daily_df_obj=self.daily_df_list,
+        #                                hourly_ref_df=self.avg_hrly_df,
+        #                                daily_ref_df=self.avg_daily_df,
+        #                                deploy_dict=self.deploy_dict,
+        #                                param=self.eval_param,
+        #                                serials=self.serials,
+        #                                path=self.stats_path,
+        #                                write_to_file=self.write_to_file)
+
+        avg_hourly_stats = sensortoolkit.Regression_Stats(
+                                sensor_df_obj=self.hourly_df_list,
+                                ref_df_obj=self.hourly_ref_df,
+                                deploy_dict=self.deploy_dict,
+                                param=self.eval_param,
+                                serials=self.serials
+                                )
+
+        avg_daily_stats = sensortoolkit.Regression_Stats(
+                                        sensor_df_obj=self.daily_df_list,
+                                        ref_df_obj=self.daily_ref_df,
+                                        deploy_dict=self.deploy_dict,
+                                        param=self.eval_param,
+                                        serials=self.serials
+                                        )
+
+        # Combine the statistics dataframes into one
+        self.avg_stats_df = sensortoolkit.Join_Stats(
+                                        avg_hourly_stats,
+                                        avg_daily_stats,
+                                        stats_path=self.stats_path,
+                                        write_to_file=self.write_to_file)
 
     def plot_timeseries(self, report_fmt=True, **kwargs):
         """Plot parameter concentrations over time alongside reference.
