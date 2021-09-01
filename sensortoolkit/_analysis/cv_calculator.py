@@ -58,8 +58,7 @@ from sensortoolkit._analysis.synoptic_idx import Synoptic_Index
 
 
 def CV_Calculator(cv_df, sensor_numbers, param):
-    """Compute CV for a deployment group of collocated, concurrently recording
-    sensors.
+    """Compute CV for a group of collocated, concurrently recording sensors.
 
     Args:
         cv_df (pandas dataframe):
@@ -86,7 +85,6 @@ def CV_Calculator(cv_df, sensor_numbers, param):
             Number of concurrent hours with all sensors reporting pollutant
             values.
     """
-
     if cv_df.index[1] - cv_df.index[0] == pd.Timedelta('0 days 01:00:00'):
         time_interval = "1-Hour"
     elif cv_df.index[1] - cv_df.index[0] == pd.Timedelta('1 days 00:00:00'):
@@ -137,11 +135,11 @@ def CV_Calculator(cv_df, sensor_numbers, param):
 
 
 def Compute_CV(df_list, deploy_dict, param='PM25', return_deploy_dict=True):
-    """Wrapper function for computing CV for generalized set of dataframes and
-    parameter.
+    """Compute CV for set of sensor dataframes and indicated parameter.
 
-    Loops over the unique deployment groups and computes CV for each
-    group of concurrently collocated and recording sensors.
+    Loops over the unique deployment groups and constructs a dataframe of
+    concurrently recorded sensor measurements which is passed to CV_Calculator
+    to determine CV.
 
     Args:
         df_list (list):
@@ -164,7 +162,6 @@ def Compute_CV(df_list, deploy_dict, param='PM25', return_deploy_dict=True):
         else:
             Return CV (float)
     """
-
     date_index, avg_suffix = Synoptic_Index(df_list, averaging_suffix=True)
 
     cv_df = pd.DataFrame(index=date_index)
