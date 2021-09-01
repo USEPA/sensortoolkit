@@ -42,7 +42,7 @@ import os
 
 
 def Sensor_Averaging(full_df_list, sensor_serials=None, name='',
-                     write_to_file=True, path=None,):
+                     write_to_file=True, path=None, **kwargs):
     """Write full (recorded), hourly, and daily averaged datasets to csv.
 
     Wrapper function for computing hourly and daily averaged dataframes.
@@ -51,6 +51,8 @@ def Sensor_Averaging(full_df_list, sensor_serials=None, name='',
         full_df_list (list):
             List of sensor dataframes at original recorded sampling frequency.
         sensor_serials (dict):
+            A dictionary of unique serial identifiers for each sensor in the
+            testing group.
         name (str):
             The make and model of the sensor being evaluated.
         write_to_file (bool):
@@ -61,6 +63,9 @@ def Sensor_Averaging(full_df_list, sensor_serials=None, name='',
         path (str):
             The full directory path to processed sensor data for a given sensor
             make and model.
+        **kwargs:
+            threshold (float): The completeness threshold for averaging
+            datasets to 1-hour/24-hour intervals. Defaults to 75% (``0.75``).
 
     Returns:
         hourly_df_list (list of pandas dataframes): List of sensor data frames
@@ -95,8 +100,8 @@ def Sensor_Averaging(full_df_list, sensor_serials=None, name='',
         day_count = pd.to_timedelta(1, unit='D') / time_delta
 
         # Use a 75% threshold
-        hr_thres = 0.75
-        day_thres = 0.75
+        hr_thres = kwargs.get('threshold', 0.75)
+        day_thres = kwargs.get('threshold', 0.75)
 
         # Print the mode of the sampling interval for recorded sensor data and
         # the number of counts within each hour interval.
@@ -142,29 +147,26 @@ def Interval_Averaging(df, freq='H', interval_count=60, thres=0.75):
 
     Args:
         df (pandas dataframe):
-            Dataframe with datetimeindex
+            Dataframe for which averages will be computed.
         freq (str):
             The frequency (averaging interval) to which the dataframe will
-            be averaged. Pandas refers to these as 'offset aliases', and a list
-            is found at the following link:
-                https://pandas.pydata.org/pandas-docs/stable/user_guide/
-                timeseries.html#offset-aliases
+            be averaged. Defaults to ``H``. Pandas refers to these as
+            'offset aliases', and a list is found at the following link:
+                `<https://pandas.pydata.org/pandas-docs/stable/user_guide/timeseries.html#offset-aliases>`_
         interval_count (int):
             The number of datapoints expected within the passed dataframe for
-            the specified averaging interval ('freq'). E.g., if computing
-            1-hour averages (freq='H') and the passed dataframe is for a sensor
-            that recorded measurements at 1-minute sampling frequency,
-            interval_count will equal 60 (expect 60 non-null data points per
-            averaging interval).
+            the specified averaging interval ('freq'). Defaults to 60 for
+            1-hour averages. E.g., if computing 1-hour averages (freq='H') an
+            the passed dataframe is for a sensor that recorded measurements at
+            1-minute sampling frequency, interval_count will equal 60 (expect
+            60 non-null data points per averaging interval).
         thres (float):
             Threshold (ranging from 0 to 1) for ratio of the number of
             data points recorded within a given averaging interval vs. the
-            number of expected data points. For example, if a sensor has a
-            sampling frequency of 1-minute per data point and
-        return_counts (bool):
+            number of expected data points. Defaults to ``0.75`` (i.e., 75%).
 
     Return:
-        averaged_df (pandas dataframe):
+        avg_df (pandas dataframe):
             Dataframe averaged to datetimeindex interval specified by 'freq'.
     """
     col_list = list(df.columns)
