@@ -40,7 +40,8 @@ from ._analysis.create_deploy_dict import (Construct_Deploy_Dict,
                                            Add_Met_Stats)
 from ._analysis.cv_calculator import CV_Calculator, Compute_CV
 from ._models.sensor_ols import Sensor_OLS
-from ._analysis.model_analysis import Regression_Stats, Compute_RMSE
+from ._analysis.model_analysis import (Regression_Stats, Join_Stats,
+                                       Compute_RMSE)
 from ._plotting.distribution import (Ref_Dist_Plot, Met_Distrib,
                                      Recording_Interval_Histogram)
 from ._plotting.intrasensor_comparison import Stats_Comparison_Plot
