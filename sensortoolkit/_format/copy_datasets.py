@@ -28,13 +28,13 @@ def PromptDirectory():
     return path
 
 
-def CopySensorData(name=None, work_path=None):
+def CopySensorData(name=None, path=None):
     """Prompts the user to select a source directory for datasets and copies
     files to "/Data and Figures.." raw data subdirectory for a sensor.
 
     Args:
         name (TYPE, optional): The name of the sensor. Defaults to None.
-        work_path (TYPE, optional): The full path of the work directory in
+        path (TYPE, optional): The full path of the work directory in
         which data will be stored. Defaults to None.
 
     Returns:
@@ -44,7 +44,7 @@ def CopySensorData(name=None, work_path=None):
     print('[File Browser: Select the directory for recorded sensor datasets]')
     src_dir = PromptDirectory()
 
-    dest_dir = os.path.join(work_path, 'Data and Figures',
+    dest_dir = os.path.join(path, 'Data and Figures',
                             'sensor_data', name,  'raw_data')
 
     print('')
@@ -81,7 +81,7 @@ def CopySensorData(name=None, work_path=None):
     print('')
 
     copied_files = copy_tree(src_dir, dest_dir, verbose=1)
-    abbrev_file_list = [file.replace(work_path, '') for file in copied_files]
+    abbrev_file_list = [file.replace(path, '') for file in copied_files]
 
     print('Copying the following files:')
     for file in abbrev_file_list:
