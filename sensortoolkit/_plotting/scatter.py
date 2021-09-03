@@ -21,7 +21,7 @@ import matplotlib.pyplot as plt
 import matplotlib as mpl
 import seaborn as sns
 from sensortoolkit._analysis.model_analysis import Regression_Stats
-from sensortoolkit._format.format_names import Format_Param_Name
+from sensortoolkit._parameter.parameter_class import Parameter
 from sensortoolkit._format.format_date import Get_Date
 from sensortoolkit._analysis.normalize_calculator import Normalize
 from sensortoolkit._plotting.plot_formatting import (Set_Fontsize,
@@ -401,7 +401,11 @@ def Scatter_Plotter(df_list, ref_df, stats_df=None, plot_subset=None,
                           enumerate(sensor_serials.values(), 1)
                           if str(i) in plot_subset}
 
-    fmt_param, fmt_param_units = Format_Param_Name(param)
+    param_obj = Parameter(param)
+    param_name = param_obj.param_name
+    fmt_param = param_obj.param_format_name
+    fmt_param_units = param_obj.param_units
+
     fmt_sensor_name = sensor_name.replace('_', ' ')
 
     # For occasions where a dataframe is passed rather than a list
@@ -415,7 +419,7 @@ def Scatter_Plotter(df_list, ref_df, stats_df=None, plot_subset=None,
 
     # Get default fontsize to fall back on if none specified
     font_size = Set_Fontsize(sensor_serials)
-    fmt_tuple = Sensor_Subplot_Formatting(number_of_sensors, param,
+    fmt_tuple = Sensor_Subplot_Formatting(number_of_sensors, param_name,
                                           font_size, RH_colormap, report_fmt)
 
     (Nr, Nc, fig_size, suptitle_xpos, suptitle_ypos, title_textwrap,
@@ -432,7 +436,9 @@ def Scatter_Plotter(df_list, ref_df, stats_df=None, plot_subset=None,
     # 5 for 125% of the max concentration recorded by collocated sensors.
     start = min([df.index.min() for df in df_list])
     end = max([df.index.max() for df in df_list])
-    max_conc = Get_Max(df_list, ref_df, param, start, end)
+    max_conc = Get_Max(param_name, df_list=df_list, ref_df=ref_df,
+                       start=start, end=end)
+
     xlims = kwargs.get('xlims',
                        (0, tick_spacing*round(1.25*max_conc/tick_spacing)))
     ylims = kwargs.get('ylims',
@@ -554,14 +560,14 @@ def Scatter_Plotter(df_list, ref_df, stats_df=None, plot_subset=None,
                                             hourly_ref_df=hourly_ref_df,
                                             daily_ref_df=daily_ref_df,
                                             deploy_dict=deploy_dict,
-                                            param=param,
+                                            param=param_name,
                                             serials=sensor_serials,
                                             sensor_name=sensor_name)
 
             try:
                 df = pd.DataFrame()
-                df['ydata'] = sensor_df[param]
-                df['xdata'] = ref_df[param + '_Value']
+                df['ydata'] = sensor_df[param_name]
+                df['xdata'] = ref_df[param_name + '_Value']
             except KeyError:
                 print(ref_name + ' not in passed reference dataframe.')
 
@@ -623,7 +629,7 @@ def Scatter_Plotter(df_list, ref_df, stats_df=None, plot_subset=None,
 
             if number_of_sensors == 1:
                 cbar_size = 0.8
-                if param == 'O3':
+                if param_name == 'O3':
                     cbar_orien = 'vertical'
                     # axes positioning [x0, y0, width, height]
                     caxes_pos = [0.85, 0.15, 0.05, 0.66]
@@ -672,12 +678,12 @@ def Scatter_Plotter(df_list, ref_df, stats_df=None, plot_subset=None,
         # Sensor vs ref Temp or RH should be saved to the 'Met' subfolder,
         # modify param for correct file path
         if param_class == 'Met':
-            param = param_class
+            param_name = param_class
 
         file_name = (sensor_name + '_vs_'
                      + ref_name).replace(r'/', '').replace('\\', '')
 
-        file_path = figure_path + param + '\\' + file_name
+        file_path = figure_path + param_name + '\\' + file_name
 
         # if matplotlib axes object not passed to Scatter_Plotter, the figure
         # created will be for data at the averaging interval specified by
@@ -706,7 +712,8 @@ def Scatter_Plotter(df_list, ref_df, stats_df=None, plot_subset=None,
 
 
 def Normalized_Met_Scatter(df_list, ref_df, avg_df, met_ref_df=None,
-                           figure_path=None, param='PM25', met_param=None,
+                           figure_path=None, param=None,
+                           met_param=None,
                            sensor_name=None, write_to_file=True,
                            sensor_serials=None, ref_name=None,
                            report_fmt=False, fig=None, ax=None,
@@ -719,6 +726,16 @@ def Normalized_Met_Scatter(df_list, ref_df, avg_df, met_ref_df=None,
     Returns:
 
     """
+    param_obj = Parameter(param)
+    param_name = param_obj.param_name
+    fmt_param = param_obj.param_format_name
+    fmt_param_units = param_obj.param_units
+
+    met_param_obj = Parameter(met_param)
+    met_param_name = met_param_obj.param_name
+    fmt_met_param = param_obj.param_format_name
+    fmt_met_units = param_obj.param_units
+
     sns.set_style(kwargs.get('seaborn_style', 'darkgrid'))
 
     kwargs['show_N'] = False
@@ -746,8 +763,8 @@ def Normalized_Met_Scatter(df_list, ref_df, avg_df, met_ref_df=None,
     kwargs.pop('ylims', None)
     kwargs.pop('xlims', None)
 
-    if met_ref_df[met_param + '_Value'].dropna().empty:
-        sys.exit('Reference ' + met_param + ' not found in dataframe')
+    if met_ref_df[met_param_name + '_Value'].dropna().empty:
+        sys.exit('Reference ' + met_param_name + ' not found in dataframe')
 
     # Set xlim and ylim if not specified
     if xlims is None or ylims is None:
@@ -761,22 +778,22 @@ def Normalized_Met_Scatter(df_list, ref_df, avg_df, met_ref_df=None,
             set_ylims = False
 
         lim_tup = Met_Scatter_Lims(met_data=met_ref_df,
-                                   met_param=met_param,
+                                   met_param=met_param_name,
                                    xlims=xlims, ylims=ylims,
                                    serials=sensor_serials,
-                                   eval_param=param,
+                                   eval_param=param_name,
                                    avg_df=avg_df)
         if set_xlims:
             xlims = lim_tup[0]
         if set_ylims:
             ylims = lim_tup[1]
 
-    if param == 'Temp':
-        met_param = 'Temp'
-    if param == 'RH':
-        met_param = 'RH'
-    elif met_param is None:
-        print('Enter valid parameter for met_param: Either Temp or RH')
+    if param_name == 'Temp':
+        met_param_name = 'Temp'
+    if param_name == 'RH':
+        met_param_name = 'RH'
+    elif met_param_name is None:
+        print('Enter valid parameter for met_param_name: Either Temp or RH')
 
     if (ax and fig) is None:
         # No axes object passed to function, create unique fig, axes objects
@@ -791,18 +808,15 @@ def Normalized_Met_Scatter(df_list, ref_df, avg_df, met_ref_df=None,
     # Retreive formatted version of sensor and parameter name
     fmt_sensor_name = sensor_name.replace('_', ' ')
 
-    fmt_met_tuple = Format_Param_Name(met_param)
-    fmt_met_param, fmt_met_units = fmt_met_tuple
-
     try:
-        met_ref_name = met_ref_df[met_param + '_Method'].dropna().unique()[0]
+        met_ref_name = met_ref_df[met_param_name + '_Method'].dropna().unique()[0]
     except IndexError:
         met_ref_name = 'Unspecified Reference'
 
     x_label = met_ref_name + ' ' + fmt_met_param + ' ' + fmt_met_units
 
-    fmt_param_tuple = Format_Param_Name(param)
-    fmt_param, fmt_param_units = fmt_param_tuple
+    #fmt_param_tuple = Format_Param_Name(param_name)
+    #fmt_param, fmt_param_units = fmt_param_tuple
     title = fmt_sensor_name + ' ' + fmt_param + ' Normalized by ' + ref_name
 
     labels = [title]
@@ -813,7 +827,7 @@ def Normalized_Met_Scatter(df_list, ref_df, avg_df, met_ref_df=None,
                   'ylabel': ''}
 
     # Compute normalized dataframes
-    norm_df_list = Normalize(df_list, ref_df, param, ref_name)
+    norm_df_list = Normalize(df_list, ref_df, param_name, ref_name)
 
     # Plot 1:1 normalization line
     ax.axhline(y=1.0, linewidth=1.5, color='#8b8b8b', alpha=.8)
@@ -837,10 +851,10 @@ def Normalized_Met_Scatter(df_list, ref_df, avg_df, met_ref_df=None,
     legend_list = ['1:1']
     for i, (df, sensor_n) in enumerate(zip(norm_df_list, sensor_serials)):
         compare_df = pd.DataFrame()
-        compare_df[met_param] = met_ref_df[met_param + '_Value']
-        compare_df['Normalized_' + param] = df['Normalized_' + param]
-        xdata = compare_df[met_param]
-        ydata = compare_df['Normalized_'+param]
+        compare_df[met_param_name] = met_ref_df[met_param_name + '_Value']
+        compare_df['Normalized_' + param_name] = df['Normalized_' + param_name]
+        xdata = compare_df[met_param_name]
+        ydata = compare_df['Normalized_'+param_name]
 
         if ydata.dropna().empty is True:
             continue
@@ -936,8 +950,8 @@ def Normalized_Met_Scatter(df_list, ref_df, avg_df, met_ref_df=None,
     # Error bars --------------------------------------------------------------
     all_sensor_data = pd.DataFrame()
     for i, df in enumerate(norm_df_list, 1):
-        sensor_data = df['Normalized_' + param]
-        all_sensor_data[param + '_sensor_' + str(i)] = sensor_data
+        sensor_data = df['Normalized_' + param_name]
+        all_sensor_data[param_name + '_sensor_' + str(i)] = sensor_data
     ydata = all_sensor_data
 
     if show_errorbars is True:
@@ -954,17 +968,17 @@ def Normalized_Met_Scatter(df_list, ref_df, avg_df, met_ref_df=None,
     # Write plot to file ------------------------------------------------------
     if write_to_file is True:
         todays_date = Get_Date()
-        figure_path = figure_path + param + '\\' + sensor_name +\
-            '_normalized_' + param + '_vs_' + met_param
+        figure_path = figure_path + param_name + '\\' + sensor_name +\
+            '_normalized_' + param_name + '_vs_' + met_param_name
 
         # Indicate performance targets template formatted
         if report_fmt is True:
             if unique_ax_obj is False:
-                figure_path = figure_path.replace('_vs_' + met_param, '_met')
+                figure_path = figure_path.replace('_vs_' + met_param_name, '_met')
             figure_path = figure_path + '_' + 'report_fmt'
 
         # Filename suffix for harmonized sensor datasets
-        if param.startswith('corrected'):
+        if param_name.startswith('corrected'):
             figure_path = figure_path + '_' + 'corrected'
 
         figure_path += '_' + todays_date + '.png'
