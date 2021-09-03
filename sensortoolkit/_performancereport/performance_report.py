@@ -60,7 +60,7 @@ class PerformanceReport(SensorEvaluation):
     # constuct reports
     report_params = ['PM25', 'O3']
 
-    def __init__(self, sensor_name, param, work_path, load_raw_data=False,
+    def __init__(self, name, param, path, load_raw_data=False,
                  reference_data=None, serials=None, tzone_shift=0,
                  write_to_file=False, figure_search=False, **kwargs):
 
@@ -69,7 +69,7 @@ class PerformanceReport(SensorEvaluation):
         self.kwargs = kwargs
 
         # Inherit the SensorEvaluation class instance attributes
-        super().__init__(sensor_name, param, work_path, load_raw_data,
+        super().__init__(name, param, path, load_raw_data,
                          reference_data, serials, tzone_shift,
                          write_to_file, **kwargs)
 
@@ -81,7 +81,7 @@ class PerformanceReport(SensorEvaluation):
 
         # Placeholder method for formatted sensor name, replace '_' with spaces
         self.fmt_sensor_name = self.kwargs.get('fmt_sensor_name',
-                                               self.sensor_name.replace('_',
+                                               self.name.replace('_',
                                                                         ' '))
 
         self.today = dt.datetime.now().strftime('%y%m%d')
@@ -201,7 +201,7 @@ class PerformanceReport(SensorEvaluation):
         Add sensor vs. reference scatter plots (1-hr, 24-hr [PM2.5 only])
         to report
         """
-        fig_name = self.sensor_name + '_vs_' + self.ref_name + '_report_fmt'
+        fig_name = self.name + '_vs_' + self.ref_name + '_report_fmt'
 
         fig_exists, fig_path = self.FigureSearch(fig_name)
 
@@ -270,7 +270,7 @@ class PerformanceReport(SensorEvaluation):
                 plural = 's'
             else:
                 plural = ''
-            fig_name = (self.sensor_name + '_vs_' + self.ref_name +
+            fig_name = (self.name + '_vs_' + self.ref_name +
                         '_' + avg_interval + '_' + str(self.n_sensors) +
                         '_' + 'sensor' + plural)
 
@@ -312,7 +312,7 @@ class PerformanceReport(SensorEvaluation):
         """
         Add timeseries plots (1-hr, 24-hr [PM2.5 only]) to report
         """
-        fig_name = self.sensor_name + '_timeseries_' + self.__param_name__ \
+        fig_name = self.name + '_timeseries_' + self.__param_name__ \
             + '_report_fmt'
 
         fig_exists, fig_path = self.FigureSearch(fig_name)
@@ -343,7 +343,7 @@ class PerformanceReport(SensorEvaluation):
         Add Performance target metric boxplots/dot plots to report,
         (1-hr, 24-hr [PM2.5 only])
         """
-        fig_name = self.sensor_name + '_regression_boxplot_' + self.__param_name__
+        fig_name = self.name + '_regression_boxplot_' + self.__param_name__
 
         fig_exists, fig_path = self.FigureSearch(fig_name)
 
@@ -373,7 +373,7 @@ class PerformanceReport(SensorEvaluation):
         Add meteorological distribution (temperature, relative humidity) to
         report
         """
-        fig_name = self.sensor_name + '_met_distplot_report_fmt'
+        fig_name = self.name + '_met_distplot_report_fmt'
 
         fig_exists, fig_path = self.FigureSearch(fig_name, subfolder='Met')
 
@@ -403,7 +403,7 @@ class PerformanceReport(SensorEvaluation):
         Add normalized meteorological influence (temperature,
         relative humidity) scatter plots to report
         """
-        fig_name = self.sensor_name + '_normalized_' + self.__param_name__ \
+        fig_name = self.name + '_normalized_' + self.__param_name__ \
             + '_met_report_fmt'
 
         fig_exists, fig_path = self.FigureSearch(fig_name)
@@ -513,7 +513,7 @@ class PerformanceReport(SensorEvaluation):
 
             # Set deployment number
             tester_text = tester_info.text_frame.paragraphs[0]
-            tester_text.text = self.testing_org['Deployment number']
+            tester_text.text = self.testing_org['Deployment name']
             self.FormatText(tester_text, alignment='left',
                             font_name='Calibri', font_size=20, bold=True)
             tester_text.line_spacing = ppt.util.Pt(text_vspace)
@@ -562,7 +562,7 @@ class PerformanceReport(SensorEvaluation):
             slide_idx = int(slide_n) - 1
             pic = self.GetShape(slide_idx, shape_loc=(pic_left, pic_top))
             pic_path = self.figure_path + '\\deployment\\' + \
-                self.sensor_name + '.png'
+                self.name + '.png'
             if not os.path.exists(pic_path):
                 print('No deployment picture found at', pic_path)
                 placeholder_path = os.path.join(__file__,
@@ -2303,7 +2303,7 @@ class PerformanceReport(SensorEvaluation):
         are loaded via the SensorEvaluation class and the figure is generated.
 
         """
-        print('Creating Testing Report for', self.sensor_name)
+        print('Creating Testing Report for', self.name)
 
         # Set figure positions
         self.FigPositions()
@@ -2341,10 +2341,10 @@ class PerformanceReport(SensorEvaluation):
     def SaveReport(self):
         print('..Saving report')
         self.rpt_name = 'Base_Testing_Report_' + self.__param_name__\
-                        + '_' + self.sensor_name + '_' + self.today + '.pptx'
+                        + '_' + self.name + '_' + self.today + '.pptx'
 
-        save_dir = '\\'.join((self.work_path, 'Reports',
-                              self.sensor_name, self.__param_name__))
+        save_dir = '\\'.join((self.path, 'Reports',
+                              self.name, self.__param_name__))
         save_path = '\\'.join((save_dir, self.rpt_name))
 
         if not os.path.exists(save_dir):
@@ -2352,5 +2352,5 @@ class PerformanceReport(SensorEvaluation):
             print('..Creating directory:')
             print('....' + save_dir)
 
-        print('....' + save_path.replace(self.work_path, ''))
+        print('....' + save_path.replace(self.path, ''))
         self.rpt.save(save_path)
