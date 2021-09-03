@@ -19,6 +19,8 @@
       ~Setup.configSensor
       ~Setup.enterContinue
       ~Setup.exportSetup
+      ~Setup.findDataFiles
+      ~Setup.loadDataFile
       ~Setup.parseDataSets
       ~Setup.printSelectionBanner
       ~Setup.setColumnHeaders

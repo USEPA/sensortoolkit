@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>sensortoolkit._ingest.setup &mdash; sensortoolkit 0.2.4b1 documentation</title>
+  <title>sensortoolkit._ingest.setup &mdash; sensortoolkit 0.2.5b1 documentation</title>
   
 
   
@@ -64,7 +64,7 @@
             
             
               <div class="version">
-                0.2.4b1
+                0.2.5b1
               </div>
             
           
@@ -454,6 +454,7 @@
 <span class="sd">  Mon Jul 19 08:25:55 2021</span>
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">sys</span>
 <span class="kn">from</span> <span class="nn">textwrap</span> <span class="kn">import</span> <span class="n">wrap</span>
 <span class="kn">import</span> <span class="nn">json</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
@@ -485,6 +486,8 @@
             <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span><span class="s1">&#39;Path for working directory not specified&#39;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">path</span> <span class="o">=</span> <span class="n">path</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">dtype</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">header_names</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">header_iloc</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">all_col_headers</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">timestamp_col_headers</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">drop_cols</span> <span class="o">=</span> <span class="p">[]</span>
@@ -492,16 +495,14 @@
 
     <span class="k">def</span> <span class="nf">configSensor</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="c1">#self.setDeploymentPeriod()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">setHeaderIndex</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">setDataType</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setHeaderIndex</span><span class="p">()</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">header_iloc</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="c1"># Manually specify column names if none provided</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">setColumnHeaders</span><span class="p">()</span>
         <span class="c1"># otherwise, specify column headers in parsedatasets, infer header at</span>
         <span class="c1"># iloc position</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">header_names</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">parseDataSets</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">setTimeHeaders</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">setParamHeaders</span><span class="p">()</span>
@@ -592,6 +593,26 @@
                                       <span class="n">options</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;..type &quot;None&quot; if no header &#39;</span>
                                                <span class="s1">&#39;columns in recorded sensor &#39;</span>
                                                <span class="s1">&#39;dataset&#39;</span><span class="p">])</span>
+
+        <span class="c1"># Load the first dataset (display 10 rows to user)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">findDataFiles</span><span class="p">()</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">file_list</span> <span class="o">==</span> <span class="p">[]:</span>
+            <span class="n">data_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">normpath</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">path</span> <span class="o">+</span>
+                                         <span class="s1">&#39;/Data and Figures/sensor_data/&#39;</span> <span class="o">+</span>
+                                         <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">+</span><span class="s1">&#39;/raw_data&#39;</span><span class="p">)</span>
+            <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="s1">&#39;No data files found with type&#39;</span>
+                     <span class="s1">&#39; </span><span class="si">{0}</span><span class="s1"> at </span><span class="si">{1}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span> <span class="n">data_path</span><span class="p">))</span>
+
+        <span class="n">df</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">loadDataFile</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">file_list</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+                               <span class="n">nrows</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+                               <span class="n">load_table</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="n">filename</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">file_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;The first ten unformatted rows of </span><span class="si">{0}</span><span class="s1"> are displayed&#39;</span>
+              <span class="s1">&#39; below:&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">filename</span><span class="p">))</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">10</span><span class="p">))</span>
+
         <span class="n">valid</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="k">while</span> <span class="n">valid</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">header_iloc</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s1">&#39;Enter the row index number for column &#39;</span>
@@ -648,12 +669,7 @@
         <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">enterContinue</span><span class="p">()</span>
 
-
-    <span class="k">def</span> <span class="nf">parseDataSets</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">print_banner</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
-        <span class="k">if</span> <span class="n">print_banner</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">printSelectionBanner</span><span class="p">(</span><span class="s1">&#39;Parsing Datasets&#39;</span><span class="p">,</span>
-                                      <span class="n">options</span><span class="o">=</span><span class="p">[])</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">findDataFiles</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="c1"># Create a list of data files to load</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">file_list</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">data_path</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">path</span> <span class="o">+</span> <span class="s1">&#39;/Data and Figures/sensor_data/&#39;</span>
@@ -661,7 +677,36 @@
 
         <span class="k">for</span> <span class="n">cwd</span><span class="p">,</span> <span class="n">folders</span><span class="p">,</span> <span class="n">files</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">walk</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data_path</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">file_list</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="n">cwd</span><span class="o">+</span> <span class="s1">&#39;/&#39;</span> <span class="o">+</span> <span class="n">file</span> <span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="n">files</span> <span class="k">if</span>
-                                   <span class="n">file</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;.csv&#39;</span><span class="p">)])</span>
+                                   <span class="n">file</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dtype</span><span class="p">)])</span>
+
+    <span class="k">def</span> <span class="nf">loadDataFile</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+        <span class="n">load_table</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;load_table&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">load_table</span><span class="p">:</span>
+            <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_table</span><span class="p">(</span><span class="n">file</span><span class="p">,</span>
+                               <span class="n">nrows</span><span class="o">=</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;nrows&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+                               <span class="n">header</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">dtype</span> <span class="o">==</span> <span class="s1">&#39;.csv&#39;</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">dtype</span> <span class="o">==</span> <span class="s1">&#39;.txt&#39;</span><span class="p">:</span>
+            <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">header_iloc</span><span class="p">,</span>
+                             <span class="n">names</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">header_names</span><span class="p">,</span>
+                             <span class="n">nrows</span><span class="o">=</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;nrows&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+                             <span class="n">on_bad_lines</span><span class="o">=</span><span class="s1">&#39;skip&#39;</span>
+                             <span class="p">)</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">dtype</span> <span class="o">==</span> <span class="s1">&#39;.xlsx&#39;</span><span class="p">:</span>
+            <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">header_iloc</span><span class="p">,</span>
+                               <span class="n">names</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">header_names</span><span class="p">,</span>
+                               <span class="n">nrows</span><span class="o">=</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;nrows&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;Invalid data type&#39;</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">df</span>
+
+    <span class="k">def</span> <span class="nf">parseDataSets</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">print_banner</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">print_banner</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">printSelectionBanner</span><span class="p">(</span><span class="s1">&#39;Parsing Datasets&#39;</span><span class="p">,</span>
+                                      <span class="n">options</span><span class="o">=</span><span class="p">[])</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
 
         <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;The following data files were found at &quot;../Data and Figures/&#39;</span>
               <span class="s1">&#39;sensor_data/&quot;&#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">+</span> <span class="s1">&#39;/raw_data&quot;:&#39;</span><span class="p">)</span>
@@ -674,15 +719,9 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">col_headers</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Parsing datasets at &quot;../Data and Figures/sensor_data/&quot;&#39;</span> <span class="o">+</span>
               <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">+</span> <span class="s1">&#39;/raw_data&quot;&#39;</span><span class="p">)</span>
+
         <span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">file_list</span><span class="p">:</span>
-
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">dtype</span> <span class="o">==</span> <span class="s1">&#39;.csv&#39;</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">dtype</span> <span class="o">==</span> <span class="s1">&#39;.txt&#39;</span><span class="p">:</span>
-                <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">header_iloc</span><span class="p">,</span>
-                                 <span class="n">names</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">header_names</span><span class="p">,</span> <span class="n">nrows</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">dtype</span> <span class="o">==</span> <span class="s1">&#39;.xlsx&#39;</span><span class="p">:</span>
-                <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">header_iloc</span><span class="p">,</span>
-                                   <span class="n">names</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">header_names</span><span class="p">,</span> <span class="n">nrows</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-
+            <span class="n">df</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">loadDataFile</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
             <span class="n">file_col_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
 
             <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">col</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">file_col_list</span><span class="p">):</span>
@@ -701,7 +740,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">all_col_headers</span> <span class="o">=</span> <span class="n">Flatten</span><span class="p">(</span><span class="n">col_list</span><span class="p">)</span>
 
         <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">cols</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">col_list</span><span class="p">):</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;..Column header(s) at row index </span><span class="si">{0:d}</span><span class="s1">: </span><span class="si">{1}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">cols</span><span class="p">))</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;..Header(s) at column index </span><span class="si">{0:d}</span><span class="s1">: </span><span class="si">{1}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">cols</span><span class="p">))</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">enterContinue</span><span class="p">()</span>
 
@@ -994,8 +1033,15 @@
             <span class="n">outfile</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">config_dict</span><span class="p">)</span></div>
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
-    <span class="n">sensor_name</span> <span class="o">=</span> <span class="s1">&#39;Example_Make_Model&#39;</span>
-    <span class="n">work_path</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;C:\Users\SFREDE01\OneDrive - Environmental Protection Agency (EPA)\Profile\Documents\test_dir&#39;</span>
+    <span class="c1"># sensor_name = &#39;Example_Make_Model&#39;</span>
+    <span class="c1"># work_path = r&#39;C:\Users\SFREDE01\OneDrive - Environmental Protection Agency (EPA)\Profile\Documents\test_dir&#39;</span>
+
+    <span class="c1"># test = Setup(name=sensor_name,</span>
+    <span class="c1">#              path=work_path)</span>
+
+    <span class="n">work_path</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;C:\Users\SFREDE01\OneDrive - Environmental Protection Agency (EPA)\Profile\Documents\Public_Sensor_Evaluation&quot;</span>
+
+    <span class="n">sensor_name</span> <span class="o">=</span> <span class="s1">&#39;Vaisala_AQT420&#39;</span>
 
     <span class="n">test</span> <span class="o">=</span> <span class="n">Setup</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">sensor_name</span><span class="p">,</span>
                  <span class="n">path</span><span class="o">=</span><span class="n">work_path</span><span class="p">)</span>
