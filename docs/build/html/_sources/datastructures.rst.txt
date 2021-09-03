@@ -8,7 +8,7 @@ of these data structures, as well as the Sensor Data Formattting Scheme (S-DFS) 
 Reference Data Formatting Scheme (R-DFS) in which sensor and reference data are formatted.
 
 More detail regarding the ``SensorEvaluation`` class, including its methods and
-arguments are included in the `API documentation for SensorEvaluation <../html/_autosummary/sensortoolkit.sensor_eval.SensorEvaluation.html>`_
+arguments are included in the `API documentation for SensorEvaluation <../html/_autosummary/sensortoolkit._evaluation.sensor_eval.SensorEvaluation.html>`_
 
 ``SensorEvaluation`` Data Structures
 ====================================
