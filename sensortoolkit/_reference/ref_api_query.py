@@ -83,6 +83,7 @@ def Ref_API_Query(query_type=None, param=None, bdate='', edate='',
             AQS only: email associated with API account
         key (str):
             Both AQS and AirNow: API authentication key code.
+
     Returns:
         query_data:
             Data returned by the API for the specified parameter and time
@@ -638,7 +639,7 @@ def AirNow_Query(param, data_period, bbox, key=None):
     return data
 
 
-def Save_Query(query_tuple):
+def Save_Query(query_tuple, path):
     """Save both processed and unmodified API query datasets to .csv files.
 
     Processed data saved to:
@@ -651,6 +652,9 @@ def Save_Query(query_tuple):
             A tuple of two pandas datasets returned by Ref_API_Query. The first
             element is the processed dataset and the second is the unprocessed
             version.
+        path (str):
+            The working directory where the Data and Figures folder structure
+            is located (where the data files will be saved)
     Returns:
         processed_df (pandas dataframe):
             Data returned by the API for the specified parameter and time
@@ -674,10 +678,9 @@ def Save_Query(query_tuple):
     raw_filename = '_'.join([api_src, 'raw', site_id,
                              param_str, begin, end]) + '.csv'
 
-    outpath = pathlib.PureWindowsPath(
-                        os.path.abspath(os.path.join(__file__, '../../..')))
-    outpath = (outpath.as_posix() + '/Data and Figures/reference_data/' +
-               api_src.lower())
+    outpath = os.path.abspath(path +
+                              '/Data and Figures/reference_data/' +
+                              api_src.lower())
 
     print('../reference_data/' + api_src.lower() + '/processed/'
           + process_filename)
