@@ -83,7 +83,7 @@ def Construct_Deploy_Dict(deploy_df, full_df_list, hourly_df_list,
     """
 
     # Testing organization information
-    testing_org = kwargs.get('testing_org', {'Deployment number': None,
+    testing_org = kwargs.get('testing_org', {'Deployment name': None,
                                              'Org name': None,
                                              'Website': {'website name': None,
                                                          'website link': None},
