@@ -24,7 +24,7 @@ ref_path = work_path + '/Data and Figures/reference_data/airnowtech/processed'
 #  ----------------------------------------------------------------------------
 
 # Testing organization information
-testing_org = {'Deployment number': 'Deployment #1',
+testing_org = {'Deployment name': 'Deployment #1',
                'Org name': ['U.S. Environmental Protection Agency',
                             'Office of Research and Development'],
                'Website': {'website name': 'Air Sensor Toolbox | U.S. EPA Website',
@@ -47,9 +47,9 @@ testing_loc = {'Site name': 'Ambient Monitoring Innovative '
 PM25 = sensortoolkit.Parameter('PM25')
 
 test_report = sensortoolkit.PerformanceReport(
-                                    sensor_name='Example_Make_Model',
-                                    eval_param=PM25,
-                                    work_path=work_path,
+                                    name='Example_Make_Model',
+                                    param=PM25,
+                                    path=work_path,
                                     reference_data=ref_path,
                                     serials={'1': 'SN01',
                                              '2': 'SN02',
