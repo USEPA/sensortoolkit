@@ -21,6 +21,9 @@ work_path = 'path/to/work-directory'
 #  ----------------------------------------------------------------------------
 #   Instantiate the SensorEvaluation class
 #  ----------------------------------------------------------------------------
+
+PM25 = sensortoolkit.Parameter('PM25')
+
 # Mock evaluation using Triple Oak AQS site (nearby AIRS) reference data
 # obtained from the AQS API
 triple_oaks_ID = {"state": "37",
@@ -31,7 +34,7 @@ sensortoolkit.SensorEvaluation.aqs_username = 'username_address@email.com'
 sensortoolkit.SensorEvaluation.aqs_key = 'Your-AQS-Key-Here'
 
 Eval = sensortoolkit.SensorEvaluation(sensor_name='Example_Make_Model',
-                                      eval_param='PM25',
+                                      eval_param=PM25,
                                       work_path=work_path,
                                       reference_data='AQS',
                                       aqs_id=triple_oaks_ID,

@@ -44,9 +44,11 @@ testing_loc = {'Site name': 'Ambient Monitoring Innovative '
 #  ----------------------------------------------------------------------------
 #   Instantiate the PerformanceReport class for the example sensor dataset
 #  ----------------------------------------------------------------------------
+PM25 = sensortoolkit.Parameter('PM25')
+
 test_report = sensortoolkit.PerformanceReport(
                                     sensor_name='Example_Make_Model',
-                                    eval_param='PM25',
+                                    eval_param=PM25,
                                     work_path=work_path,
                                     reference_data=ref_path,
                                     serials={'1': 'SN01',
