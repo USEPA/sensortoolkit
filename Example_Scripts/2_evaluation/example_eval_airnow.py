@@ -32,9 +32,9 @@ sensortoolkit.SensorEvaluation.airnow_key = 'Your-AirNow-Key-Here'
 PM25 = sensortoolkit.Parameter('PM25')
 
 # Mock evaluation using AIRS reference data obtained from the AirNow API
-Eval = sensortoolkit.SensorEvaluation(sensor_name='Example_Make_Model',
-                                      eval_param=PM25,
-                                      work_path=work_path,
+Eval = sensortoolkit.SensorEvaluation(name='Example_Make_Model',
+                                      param=PM25,
+                                      path=work_path,
                                       reference_data='AirNow',
                                       bbox=AIRS_bbox,
                                       serials={'1': 'SN01',
