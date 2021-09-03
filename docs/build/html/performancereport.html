@@ -444,47 +444,30 @@
             
   <section id="creating-testing-reports-with-performancereport">
 <h1>Creating Testing Reports with PerformanceReport<a class="headerlink" href="#creating-testing-reports-with-performancereport" title="Permalink to this headline">¶</a></h1>
-<p>Creating testing reports is very similar to using the <code class="docutils literal notranslate"><span class="pre">SensorEvaluation</span></code> class,
-as the <code class="docutils literal notranslate"><span class="pre">PerformanceReport</span></code> class that generates reports is an inherited class of
-<code class="docutils literal notranslate"><span class="pre">SensorEvaluation</span></code>. This means that users pass the same attributes to the
-<code class="docutils literal notranslate"><span class="pre">PerformanceReport</span></code> class as they do to conduct analysis with <code class="docutils literal notranslate"><span class="pre">SensorEvaluation</span></code>.</p>
+<p>Creating testing reports with <code class="docutils literal notranslate"><span class="pre">performancereport</span></code> is very similar to using
+the <code class="docutils literal notranslate"><span class="pre">SensorEvaluation</span></code> class. Users pass the same attributes to the
+<code class="docutils literal notranslate"><span class="pre">PerformanceReport</span></code> class as they do to conduct analysis with <code class="docutils literal notranslate"><span class="pre">SensorEvaluation</span></code>
+(<code class="docutils literal notranslate"><span class="pre">PerformanceReport</span></code> is an inherited class )</p>
 <p>There are a few additional attributes users can pass to the <code class="docutils literal notranslate"><span class="pre">PerformanceReport</span></code>
 class, including the dictionaries <code class="docutils literal notranslate"><span class="pre">testing_org</span></code> and <code class="docutils literal notranslate"><span class="pre">testing_loc</span></code>. These
 dictionaries house information about the testing organization, contact information,
 and site details including the address, coordinates, and site AQS ID if applicable.</p>
 <p>Below is an example of running the <cite>PerformanceReport</cite> class to create a testing
 report for the <code class="docutils literal notranslate"><span class="pre">Example_Make_Model</span></code> sensor evaluating its PM&lt;sub&gt;2.5&lt;/sub&gt; performance.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Testing organization information</span>
-<span class="n">testing_org</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;Deployment number&#39;</span><span class="p">:</span> <span class="s1">&#39;Deployment #1&#39;</span><span class="p">,</span>
-               <span class="s1">&#39;Org name&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;U.S. Environmental Protection Agency&#39;</span><span class="p">,</span>
-                            <span class="s1">&#39;Office of Research and Development&#39;</span><span class="p">],</span>
-               <span class="s1">&#39;Link&#39;</span><span class="p">:</span> <span class="s1">&#39;https://www.epa.gov/air-sensor-toolbox/&#39;</span>
-                       <span class="s1">&#39;evaluation-emerging-air-sensor-performance&#39;</span><span class="p">,</span>
-               <span class="s1">&#39;Contact email&#39;</span><span class="p">:</span> <span class="s1">&#39;PI: Clements.Andrea@epa.gov&#39;</span><span class="p">,</span>
-               <span class="s1">&#39;Contact phone&#39;</span><span class="p">:</span> <span class="s1">&#39;919-541-1364&#39;</span><span class="p">}</span>
-
-<span class="c1"># Testing location information</span>
-<span class="n">testing_loc</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;Site name&#39;</span><span class="p">:</span> <span class="s1">&#39;(AIRS) Ambient Monitoring Innovative &#39;</span>
-                            <span class="s1">&#39;Research Station &#39;</span><span class="p">,</span>
-               <span class="s1">&#39;Site address&#39;</span><span class="p">:</span> <span class="s1">&#39;111 TW Alexander Dr. RTP, NC 27713&#39;</span><span class="p">,</span>
-               <span class="s1">&#39;Site lat&#39;</span><span class="p">:</span> <span class="s1">&#39;35.889510N&#39;</span><span class="p">,</span>
-               <span class="s1">&#39;Site long&#39;</span><span class="p">:</span> <span class="s1">&#39;-78.874572W&#39;</span><span class="p">,</span>
-               <span class="s1">&#39;Site AQS ID&#39;</span><span class="p">:</span> <span class="s1">&#39;37 – 063 – 0099&#39;</span><span class="p">}</span>
-
-<span class="c1"># Instantiate the PerformanceReport class for the example sensor dataset</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Instantiate the PerformanceReport class for the example sensor dataset</span>
 <span class="n">test_report</span> <span class="o">=</span> <span class="n">PerformanceReport</span><span class="p">(</span>
-                <span class="n">sensor_name</span><span class="o">=</span><span class="s1">&#39;Example_Make_Model&#39;</span><span class="p">,</span>
-                <span class="n">eval_param</span><span class="o">=</span><span class="s1">&#39;PM25&#39;</span><span class="p">,</span>
-                <span class="n">work_path</span><span class="o">=</span><span class="n">work_path</span><span class="p">,</span>
-                <span class="n">reference_data</span><span class="o">=</span><span class="n">ref_path</span><span class="o">.</span><span class="n">as_posix</span><span class="p">()</span> <span class="o">+</span> <span class="s1">&#39;/airnowtech/processed&#39;</span><span class="p">,</span>
-                <span class="n">serials</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;1&#39;</span><span class="p">:</span> <span class="s1">&#39;SN01&#39;</span><span class="p">,</span>
-                         <span class="s1">&#39;2&#39;</span><span class="p">:</span> <span class="s1">&#39;SN02&#39;</span><span class="p">,</span>
-                         <span class="s1">&#39;3&#39;</span><span class="p">:</span> <span class="s1">&#39;SN03&#39;</span><span class="p">},</span>
-                <span class="n">tzone_shift</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
-                <span class="n">load_raw_data</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-                <span class="n">write_to_file</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                <span class="n">testing_org</span><span class="o">=</span><span class="n">testing_org</span><span class="p">,</span>
-                <span class="n">testing_loc</span><span class="o">=</span><span class="n">testing_loc</span><span class="p">)</span>
+                  <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Example_Make_Model&#39;</span><span class="p">,</span>
+                  <span class="n">param</span><span class="o">=</span><span class="s1">&#39;PM25&#39;</span><span class="p">,</span>
+                  <span class="n">path</span><span class="o">=</span><span class="n">work_path</span><span class="p">,</span>
+                  <span class="n">reference_data</span><span class="o">=</span><span class="n">ref_path</span><span class="o">.</span><span class="n">as_posix</span><span class="p">()</span> <span class="o">+</span> <span class="s1">&#39;/airnowtech/processed&#39;</span><span class="p">,</span>
+                  <span class="n">serials</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;1&#39;</span><span class="p">:</span> <span class="s1">&#39;SN01&#39;</span><span class="p">,</span>
+                           <span class="s1">&#39;2&#39;</span><span class="p">:</span> <span class="s1">&#39;SN02&#39;</span><span class="p">,</span>
+                           <span class="s1">&#39;3&#39;</span><span class="p">:</span> <span class="s1">&#39;SN03&#39;</span><span class="p">},</span>
+                  <span class="n">tzone_shift</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+                  <span class="n">load_raw_data</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                  <span class="n">write_to_file</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                  <span class="n">testing_org</span><span class="o">=</span><span class="n">testing_org</span><span class="p">,</span>
+                  <span class="n">testing_loc</span><span class="o">=</span><span class="n">testing_loc</span><span class="p">)</span>
 
 <span class="c1"># Compile the report and save the file to the reports subfolder</span>
 <span class="n">test_report</span><span class="o">.</span><span class="n">CreateReport</span><span class="p">()</span>
