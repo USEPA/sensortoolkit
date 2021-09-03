@@ -37,7 +37,7 @@ import numpy as np
 from datetime import datetime
 from sensortoolkit._analysis.synoptic_idx import Synoptic_Index
 from sensortoolkit._analysis.uptime_calculator import Uptime_Calculator
-import sensortoolkit._pkg
+from sensortoolkit._pkg import Get_Version
 from sensortoolkit._parameter.parameter_class import Parameter
 
 
@@ -98,7 +98,7 @@ def Construct_Deploy_Dict(deploy_df, full_df_list, hourly_df_list,
                                               'Site AQS ID': None})
 
     current_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S %p')
-    deploy_dict = {'sensortoolkit Version': sensortoolkit._pkg.__version__,
+    deploy_dict = {'sensortoolkit Version': Get_Version(),
                    'Date of Analysis': current_time,
                    'Sensor Name': sensor_name,
                    'Deployment Groups': {},
