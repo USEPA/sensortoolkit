@@ -39,9 +39,11 @@ class Setup:
     __banner_w__ = 79
     pp = pprint.PrettyPrinter()
 
-    def __init__(self, name, work_path):
+    def __init__(self, name, path=None):
         self.name = name
-        self.work_path = work_path
+        if path is None:
+            raise AttributeError('Path for working directory not specified')
+        self.path = path
         self.dtype = None
         self.all_col_headers = []
         self.timestamp_col_headers = []
@@ -214,7 +216,7 @@ class Setup:
             print('')
         # Create a list of data files to load
         self.file_list = []
-        self.data_path = (self.work_path + '/Data and Figures/sensor_data/'
+        self.data_path = (self.path + '/Data and Figures/sensor_data/'
                           + self.name+ '/raw_data')
 
         for cwd, folders, files in os.walk(self.data_path):
@@ -224,7 +226,7 @@ class Setup:
         print('The following data files were found at "../Data and Figures/'
               'sensor_data/"' + self.name + '/raw_data":')
         for file in self.file_list:
-            print('..{0}'.format(file.replace(self.work_path, '')))
+            print('..{0}'.format(file.replace(self.path, '')))
 
         # Load data files and populate a dictionary of unique headers that occur.
         # Top level is ordered by the row index, so if some files have different headers,
@@ -509,7 +511,7 @@ class Setup:
 
         print('')
         print('Configured formatting scheme:')
-        self.pp.print(self.time_format_dict)
+        self.pp.pprint(self.time_format_dict)
         self.enterContinue()
 
 
@@ -540,7 +542,7 @@ class Setup:
         del self.config_dict['skip_str']
         del self.config_dict['header_names']
 
-        outpath = (self.work_path + '\\Data and Figures\\sensor_data\\'
+        outpath = (self.path + '\\Data and Figures\\sensor_data\\'
                    + self.name)
         filename = self.name + '_setup.json'
         outpath = os.path.join(outpath, filename)
@@ -556,4 +558,4 @@ if __name__ == '__main__':
     work_path = r'C:\Users\SFREDE01\OneDrive - Environmental Protection Agency (EPA)\Profile\Documents\test_dir'
 
     test = Setup(name=sensor_name,
-                 work_path=work_path)
+                 path=work_path)
