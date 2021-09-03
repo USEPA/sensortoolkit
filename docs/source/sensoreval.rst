@@ -35,16 +35,20 @@ reference data sources follows below*).
 
 .. code-block:: python
 
-  Eval = SensorEvaluation(sensor_name='Example_Make_Model',
-                          eval_param='PM25',
-                          work_path=work_path,
-                          reference_data=ref_path,
-                          serials={'1': 'SN01',
-                                   '2': 'SN02',
-                                   '3': 'SN03'},
-                          tzone_shift=5,
-                          load_raw_data=False,
-                          write_to_file=True)
+  PM25 = sensortoolkit.Parameter('PM25')
+
+  # Mock evaluation using AIRS reference data downloaded from AirNowTech
+  Eval = sensortoolkit.SensorEvaluation(sensor_name='Example_Make_Model',
+                                        eval_param=PM25,
+                                        work_path=work_path,
+                                        reference_data=ref_path,
+                                        bbox=AIRS_bbox,
+                                        serials={'1': 'SN01',
+                                                 '2': 'SN02',
+                                                 '3': 'SN03’},
+                                        tzone_shift=5,
+                                        load_raw_data=True,
+                                        write_to_file=True)
 
 .. note::
   ``Eval`` is the name given to the ``SensorEvaluation`` class instance. Users are not required
@@ -206,23 +210,25 @@ path for the processed AirNowTech datasets:
 
 .. code-block:: python
 
-  from sensortoolkit import SensorEvaluation
+  import sensortoolkit
 
   work_path = 'C:/Users/.../Documents/my_evaluation'
   ref_path = work_path + '/Data and Figures/reference_data/airnowtech/processed'
 
+  PM25 = sensortoolkit.Parameter('PM25')
+
   # Mock evaluation using AIRS reference data downloaded from AirNowTech
-  Eval = SensorEvaluation(sensor_name='Example_Make_Model',
-                          eval_param='PM25',
-                          work_path=work_path,
-                          reference_data=ref_path,
-                          bbox=AIRS_bbox,
-                          serials={'1': 'SN01',
-                                   '2': 'SN02',
-                                   '3': 'SN03'},
-                          tzone_shift=5,
-                          load_raw_data=False,
-                          write_to_file=False)
+  Eval = sensortoolkit.SensorEvaluation(sensor_name='Example_Make_Model',
+                                        eval_param=PM25,
+                                        work_path=work_path,
+                                        reference_data='AQS',
+                                        bbox=AIRS_bbox,
+                                        serials={'1': 'SN01',
+                                                 '2': 'SN02',
+                                                 '3': 'SN03’},
+                		                    tzone_shift=5,
+                                        load_raw_data=True,
+                                        write_to_file=True)
 
 
 .. note::
@@ -243,7 +249,7 @@ Additionally, the reference_data parameter should be set to ``AQS``
 
 .. code-block:: python
 
-  from sensortoolkit import SensorEvaluation
+  import sensortoolkit
 
   work_path = 'C:/Users/.../Documents/my_evaluation'
 
@@ -253,20 +259,22 @@ Additionally, the reference_data parameter should be set to ``AQS``
                     "county": "183",
                     "site": "0021"}
 
-  SensorEvaluation.aqs_username = 'username_address@email.com'
-  SensorEvaluation.aqs_key = 'Your-AQS-Key-Here'
+  sensortoolkit.SensorEvaluation.aqs_username = 'username_address@email.com'
+  sensortoolkit.SensorEvaluation.aqs_key = 'Your-AQS-Key-Here'
 
-  Eval = SensorEvaluation(sensor_name='Example_Make_Model',
-                          eval_param='PM25',
-                          work_path=work_path,
-                          reference_data='AQS',
-                          aqs_id=triple_oaks_ID,
-                          serials={'1': 'SN01',
-                                   '2': 'SN02',
-                                   '3': 'SN03’},
-  		                    tzone_shift=5,
-                          load_raw_data=True,
-                          write_to_file=True)
+  PM25 = sensortoolkit.Parameter('PM25')
+
+  Eval = sensortoolkit.SensorEvaluation(sensor_name='Example_Make_Model',
+                                        eval_param=PM25,
+                                        work_path=work_path,
+                                        reference_data='AQS',
+                                        aqs_id=triple_oaks_ID,
+                                        serials={'1': 'SN01',
+                                                 '2': 'SN02',
+                                                 '3': 'SN03’},
+                		                    tzone_shift=5,
+                                        load_raw_data=True,
+                                        write_to_file=True)
 
 .. note::
 
@@ -342,7 +350,7 @@ should be set to ``AirNow``.
 
 .. code-block:: python
 
-  from sensortoolkit import SensorEvaluation
+  import sensortoolkit
 
   work_path = 'C:/Users/.../Documents/my_evaluation'
 
@@ -352,11 +360,14 @@ should be set to ``AirNow``.
                "minLong": "-78.88",
                "maxLong": "-78.87"}
 
-  SensorEvaluation.airnow_key = 'Your-AirNow-Key-Here'
+  sensortoolkit.SensorEvaluation.airnow_key = 'Your-AirNow-Key-Here'
+
+  PM25 = sensortoolkit.Parameter('PM25')
+
 
   # Mock evaluation using AIRS reference data obtained from the AirNow API
   Eval = SensorEvaluation(sensor_name='Example_Make_Model',
-                          eval_param='PM25',
+                          eval_param=PM25,
                           work_path=work_path,
                           reference_data='AirNow',
                           bbox=AIRS_bbox,
@@ -366,7 +377,6 @@ should be set to ``AirNow``.
                           tzone_shift=5,
                           load_raw_data=False,
                           write_to_file=False)
-
 
 .. note::
 
