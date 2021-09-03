@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>sensortoolkit._analysis.model_analysis &mdash; sensortoolkit 1.0 documentation</title>
+  <title>sensortoolkit._analysis.model_analysis &mdash; sensortoolkit 0.2.4b1 documentation</title>
   
 
   
@@ -62,6 +62,10 @@
 
           
             
+            
+              <div class="version">
+                0.2.4b1
+              </div>
             
           
 
@@ -132,8 +136,11 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/sensortoolkit._analysis.model_analysis.html">sensortoolkit._analysis.model_analysis</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../_autosummary/sensortoolkit._analysis.model_analysis.CheckType.html">sensortoolkit._analysis.model_analysis.CheckType</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../_autosummary/sensortoolkit._analysis.model_analysis.Compute_RMSE.html">sensortoolkit._analysis.model_analysis.Compute_RMSE</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_autosummary/sensortoolkit._analysis.model_analysis.Join_Stats.html">sensortoolkit._analysis.model_analysis.Join_Stats</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../_autosummary/sensortoolkit._analysis.model_analysis.Regression_Stats.html">sensortoolkit._analysis.model_analysis.Regression_Stats</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_autosummary/sensortoolkit._analysis.model_analysis.WritetoFile_DataFrame.html">sensortoolkit._analysis.model_analysis.WritetoFile_DataFrame</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/sensortoolkit._analysis.normalize_calculator.html">sensortoolkit._analysis.normalize_calculator</a><ul>
@@ -167,6 +174,16 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../_autosummary/sensortoolkit._format.html">sensortoolkit._format</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/sensortoolkit._format.copy_datasets.html">sensortoolkit._format.copy_datasets</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../_autosummary/sensortoolkit._format.copy_datasets.CopySensorData.html">sensortoolkit._format.copy_datasets.CopySensorData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_autosummary/sensortoolkit._format.copy_datasets.PromptDirectory.html">sensortoolkit._format.copy_datasets.PromptDirectory</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/sensortoolkit._format.depreciate_format_names.html">sensortoolkit._format.depreciate_format_names</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../_autosummary/sensortoolkit._format.depreciate_format_names.Format_Metric_Name.html">sensortoolkit._format.depreciate_format_names.Format_Metric_Name</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_autosummary/sensortoolkit._format.depreciate_format_names.Format_Param_Name.html">sensortoolkit._format.depreciate_format_names.Format_Param_Name</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/sensortoolkit._format.format_date.html">sensortoolkit._format.format_date</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../_autosummary/sensortoolkit._format.format_date.Get_Date.html">sensortoolkit._format.format_date.Get_Date</a></li>
 </ul>
@@ -218,6 +235,17 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/sensortoolkit._models.sensor_ols.html">sensortoolkit._models.sensor_ols</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../_autosummary/sensortoolkit._models.sensor_ols.Sensor_OLS.html">sensortoolkit._models.sensor_ols.Sensor_OLS</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../_autosummary/sensortoolkit._parameter.html">sensortoolkit._parameter</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/sensortoolkit._parameter.parameter_class.html">sensortoolkit._parameter.parameter_class</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../_autosummary/sensortoolkit._parameter.parameter_class.Parameter.html">sensortoolkit._parameter.parameter_class.Parameter</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/sensortoolkit._parameter.targets_class.html">sensortoolkit._parameter.targets_class</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../_autosummary/sensortoolkit._parameter.targets_class.ParameterTargets.html">sensortoolkit._parameter.targets_class.ParameterTargets</a></li>
 </ul>
 </li>
 </ul>
@@ -412,13 +440,74 @@
   <h1>Source code for sensortoolkit._analysis.model_analysis</h1><div class="highlight"><pre>
 <span></span><span class="c1"># -*- coding: utf-8 -*-</span>
 <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">This module computes statistical metrics for the Ordinary Least Squares linear</span>
+<span class="sd">regression between sensor and FRM/FEM datasets (FRM/FEM as the dependent</span>
+<span class="sd">variable along the x-axis and sensor data as the independent variable along</span>
+<span class="sd">the y-axis).</span>
+
+<span class="sd">Bias and linearity</span>
+<span class="sd">------------------</span>
+
+<span class="sd">U.S. EPA&#39;s Performance Targets Reports recommend using a linear regression</span>
+<span class="sd">model, relating sensor and FRM/FEM measurements, to determine the magnitude</span>
+<span class="sd">of bias and linearity. The regression model takes the form</span>
+
+<span class="sd">.. math::</span>
+
+<span class="sd">    y = mx + b</span>
+
+<span class="sd">where</span>
+
+<span class="sd">    :math:`y` = sensor measurements</span>
+
+<span class="sd">    :math:`x` = FRM/FEM measurements</span>
+
+<span class="sd">    :math:`m` = regression slope</span>
+
+<span class="sd">    :math:`y` = regression intercept</span>
+
+
+<span class="sd">The slope :math:`m` and intercept :math:`y` indicate the degree of systematic</span>
+<span class="sd">bias between sensor and reference measurements.</span>
+
+<span class="sd">Linearity is measured via the coefficient of determination (:math:`R^2`).</span>
+
+<span class="sd">Error</span>
+<span class="sd">-----</span>
+
+<span class="sd">U.S. EPA&#39;s Performance Targets Reports recommend the root mean square error</span>
+<span class="sd">(RMSE) for quantifying the error between sensor and FRM/FEM measurements. RMSE</span>
+<span class="sd">is calculated as</span>
+
+<span class="sd">.. math::</span>
+
+<span class="sd">    RMSE = \\sqrt(\\frac{1}{N\\timesM}\\sum_{j=1}^{M}\\left[</span>
+<span class="sd">    \\sum_{d=1}^{N}\\left(x_{dj}-R_{d}\\right)^2\\right])</span>
+
+<span class="sd">where:</span>
+<span class="sd">    :math:`RMSE` = root mean square error</span>
+
+<span class="sd">    N = number of 1-hour/24-hour periods during which all identical instruments</span>
+<span class="sd">    are operating and returning valid averages over the duration of the field</span>
+<span class="sd">    test</span>
+
+<span class="sd">    N = number of identical sensors operated simultaneously during a field test</span>
+
+<span class="sd">    x_{pj} = valid 1-hour/24-hour averaged sensor PM2.5 concentration for</span>
+<span class="sd">    averaging interval p and instrument j</span>
+
+<span class="sd">    R_{p} = valid 1-hour/24-hour averaged FRM/FEM PM2.5 concentration for</span>
+<span class="sd">    averaging interval p</span>
+
+<span class="sd">This equation assumes only one FRM/FEM instrument will be running. If multiple</span>
+<span class="sd">FRM/FEM instruments are running, separate testing reports can be generated for</span>
+<span class="sd">each.</span>
+<span class="sd">================================================================================</span>
+
 <span class="sd">@Author:</span>
-<span class="sd">  Samuel Frederick, NSSC Contractor (ORAU)</span>
-<span class="sd">  U.S. EPA, Office of Research and Development</span>
-<span class="sd">  Center for Environmental Measurement and Modeling</span>
-<span class="sd">  Air Methods and Characterization Division, Source and Fine Scale Branch</span>
-<span class="sd">  109 T.W Alexander Drive, Research Triangle Park, NC 27711</span>
-<span class="sd">  Office: 919-541-4086 | Email: frederick.samuel@epa.gov</span>
+<span class="sd">  | Samuel Frederick, NSSC Contractor (ORAU)</span>
+<span class="sd">  | U.S. EPA / ORD / CEMM / AMCD / SFSB</span>
+
 
 <span class="sd">Created:</span>
 <span class="sd">  Tue Mar 3 13:47:32 2020</span>
@@ -427,11 +516,261 @@
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">sys</span>
 <span class="kn">from</span> <span class="nn">sensortoolkit._format.format_date</span> <span class="kn">import</span> <span class="n">Get_Date</span>
 <span class="kn">from</span> <span class="nn">sensortoolkit._analysis.synoptic_idx</span> <span class="kn">import</span> <span class="n">Synoptic_Index</span>
 
 
-<div class="viewcode-block" id="Regression_Stats"><a class="viewcode-back" href="../../../_autosummary/sensortoolkit._analysis.model_analysis.Regression_Stats.html#sensortoolkit._analysis.model_analysis.Regression_Stats">[docs]</a><span class="k">def</span> <span class="nf">Regression_Stats</span><span class="p">(</span><span class="n">hourly_df_obj</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">daily_df_obj</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">hourly_ref_df</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+<div class="viewcode-block" id="Regression_Stats"><a class="viewcode-back" href="../../../_autosummary/sensortoolkit._analysis.model_analysis.Regression_Stats.html#sensortoolkit._analysis.model_analysis.Regression_Stats">[docs]</a><span class="k">def</span> <span class="nf">Regression_Stats</span><span class="p">(</span><span class="n">sensor_df_obj</span><span class="p">,</span> <span class="n">ref_df_obj</span><span class="p">,</span> <span class="n">deploy_dict</span><span class="p">,</span> <span class="n">param</span><span class="p">,</span> <span class="n">serials</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Compute OLS regression statistics.</span>
+
+<span class="sd">    Module is used to compute the following regressions:</span>
+<span class="sd">        Sensor vs. FRM/FEM</span>
+<span class="sd">        Sensor vs. Inter-sensor average</span>
+
+<span class="sd">    For each instance, the dependent and independent variables are assigned as</span>
+<span class="sd">    {hourly/daily_df_obj vs. hourly/daily_ref_df}; please note that the</span>
+<span class="sd">    &#39;..ref_df&#39; object can be either a dataframe containg FRM/FEM concentratons,</span>
+<span class="sd">    or a dataframe containing intersensor averages depending on the use case.</span>
+<span class="sd">    The &#39;ref&#39; label refers moreso to the fact that the dataset is used as the</span>
+<span class="sd">    independent variable for regressions.</span>
+
+<span class="sd">    If sensor and reference dataframes are passed at both hourly and daily</span>
+<span class="sd">    averaging intervals (i.e., hourly_df_obj, daily_df_obj, hourly_ref_df,</span>
+<span class="sd">    daily_ref_df), regression statistics will be computed for both averaging</span>
+<span class="sd">    intervals (looping over hourly and then daily regressions) and are returned</span>
+<span class="sd">    in the same statistics dataframe.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        hourly_df_obj (pandas dataframe object):</span>
+<span class="sd">            Sensor dataframe at 1-hour averaged intervals. Data corresponding</span>
+<span class="sd">            to passed parameter name are used as the dependent variable.</span>
+<span class="sd">        daily_df_obj (pandas dataframe object):</span>
+<span class="sd">            Sensor dataframe at 24-hour averaged intervals. Data corresponding</span>
+<span class="sd">            to passed parameter name are used as the dependent variable.</span>
+<span class="sd">        hourly_ref_df (pandas dataframe object):</span>
+<span class="sd">            Reference dataframe (either FRM/FEM OR Inter-sensor averages) at</span>
+<span class="sd">            1-hour averaged intervals. Data corresponding to passed parameter</span>
+<span class="sd">            name are used as the independent variable.</span>
+<span class="sd">        daily_ref_df (pandas dataframe object):</span>
+<span class="sd">            Reference dataframe (either FRM/FEM OR Inter-sensor averages) at</span>
+<span class="sd">            24-hour averaged intervals. Data corresponding to passed parameter</span>
+<span class="sd">            name are used as the independent variable.</span>
+<span class="sd">        deploy_dict (dict):</span>
+<span class="sd">            A dictionary containing descriptive statistics and</span>
+<span class="sd">            textual information about the deployment (testing agency, site,</span>
+<span class="sd">            time period, etc.), sensors tested, and site conditions during the</span>
+<span class="sd">            evaluation.</span>
+<span class="sd">        param (str):</span>
+<span class="sd">            Parameter name for which to compute regression statistics.</span>
+<span class="sd">        sensor_name (str):</span>
+<span class="sd">            The make and model of the sensor being evaluated.</span>
+<span class="sd">        ref_name (str):</span>
+<span class="sd">            The name of the dataset assigned as the independent variable. This</span>
+<span class="sd">            may either be FRM/FEM concentrations in the case of sensor vs.</span>
+<span class="sd">            FRM/FEM regression, or it may be the inter-sensor average in the</span>
+<span class="sd">            case of sensor vs. inter-sensor average regression statistics.</span>
+<span class="sd">        serials (dict):</span>
+<span class="sd">            A dictionary of sensor serial identifiers for each unit</span>
+<span class="sd">            in a testing group.</span>
+<span class="sd">        path (str):</span>
+<span class="sd">            The full directory path to evaluation statistics for a</span>
+<span class="sd">            given sensor make and model.</span>
+<span class="sd">        write_to_file (str):</span>
+<span class="sd">            If true, the statistics dataframe will be saved to the path</span>
+<span class="sd">            location.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        stats_df: (pandas dataframe)</span>
+<span class="sd">            Statistics dataframe for either sensor vs. FRM/FEM or sensor vs.</span>
+<span class="sd">            intersensor mean OLS regression. Results are organized by averaging</span>
+<span class="sd">            interval if both 1-hour and 24-hour averaged datasets passed to</span>
+<span class="sd">            module.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">stats_cols</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Sensor Name&#39;</span><span class="p">,</span> <span class="s1">&#39;Sensor_Number&#39;</span><span class="p">,</span> <span class="s1">&#39;Sensor_Serial&#39;</span><span class="p">,</span>
+                  <span class="s1">&#39;Averaging Interval&#39;</span><span class="p">,</span> <span class="s1">&#39;Param&#39;</span><span class="p">,</span> <span class="s1">&#39;Reference&#39;</span><span class="p">,</span> <span class="s1">&#39;R$^2$&#39;</span><span class="p">,</span>
+                  <span class="s1">&#39;Slope&#39;</span><span class="p">,</span> <span class="s1">&#39;Intercept&#39;</span><span class="p">,</span> <span class="s1">&#39;Sensor RMSE&#39;</span><span class="p">,</span> <span class="s1">&#39;N&#39;</span><span class="p">,</span> <span class="s1">&#39;Sensor_Min&#39;</span><span class="p">,</span>
+                  <span class="s1">&#39;Sensor_Max&#39;</span><span class="p">,</span> <span class="s1">&#39;Sensor_Mean&#39;</span><span class="p">]</span>
+
+    <span class="n">stats_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="n">stats_cols</span><span class="p">)</span>
+
+    <span class="n">sensor_name</span> <span class="o">=</span> <span class="n">deploy_dict</span><span class="p">[</span><span class="s1">&#39;Sensor Name&#39;</span><span class="p">]</span>
+    <span class="n">sensor_nums</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">serials</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+
+    <span class="n">sensor_dtype</span> <span class="o">=</span> <span class="n">CheckType</span><span class="p">(</span><span class="n">sensor_df_obj</span><span class="p">,</span>
+                             <span class="n">accept_types</span><span class="o">=</span><span class="p">[</span><span class="n">pd</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">frame</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="nb">list</span><span class="p">])</span>
+    <span class="n">CheckType</span><span class="p">(</span><span class="n">ref_df_obj</span><span class="p">,</span> <span class="n">accept_types</span><span class="o">=</span><span class="p">[</span><span class="n">pd</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">frame</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">])</span>
+
+    <span class="k">if</span> <span class="n">sensor_dtype</span> <span class="ow">is</span> <span class="n">pd</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">frame</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+        <span class="n">df_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">sensor_df_obj</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">sensor_dtype</span> <span class="ow">is</span> <span class="nb">list</span><span class="p">:</span>
+        <span class="n">df_list</span> <span class="o">=</span> <span class="n">sensor_df_obj</span>
+
+    <span class="c1"># Loop over dataframes for sensors, compute regression stats</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">sensor_num</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">df_list</span><span class="p">,</span> <span class="n">sensor_nums</span><span class="p">)):</span>
+
+        <span class="n">ydata</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">param</span><span class="p">]</span>
+        <span class="k">if</span> <span class="s1">&#39;mean_&#39;</span> <span class="o">+</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">ref_df_obj</span><span class="p">:</span>
+            <span class="n">xdata</span> <span class="o">=</span> <span class="n">ref_df_obj</span><span class="p">[</span><span class="s1">&#39;mean_&#39;</span> <span class="o">+</span> <span class="n">param</span><span class="p">]</span>
+            <span class="n">ref_name</span> <span class="o">=</span> <span class="s1">&#39;Intersensor_mean_&#39;</span> <span class="o">+</span> <span class="n">param</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">xdata</span> <span class="o">=</span> <span class="n">ref_df_obj</span><span class="p">[</span><span class="n">param</span> <span class="o">+</span> <span class="s1">&#39;_Value&#39;</span><span class="p">]</span>
+            <span class="n">ref_name</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+                        <span class="nb">list</span><span class="p">(</span><span class="n">ref_df_obj</span><span class="p">[</span><span class="n">param</span> <span class="o">+</span> <span class="s1">&#39;_Method&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span>
+                                        <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">))</span><span class="o">.</span><span class="n">unique</span><span class="p">()[</span><span class="mi">0</span><span class="p">]))</span>
+
+        <span class="c1"># Locate the union of non-nan sensor (y) and reference (x) data</span>
+        <span class="c1"># False if either is nan and true if both are finite</span>
+        <span class="n">idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">isfinite</span><span class="p">(</span><span class="n">xdata</span><span class="p">)</span> <span class="o">&amp;</span> <span class="n">np</span><span class="o">.</span><span class="n">isfinite</span><span class="p">(</span><span class="n">ydata</span><span class="p">)</span>
+
+        <span class="n">X</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">xdata</span><span class="p">)</span>
+        <span class="n">Y</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">ydata</span><span class="p">)</span>
+
+        <span class="n">combine_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+        <span class="n">combine_df</span><span class="p">[</span><span class="s1">&#39;ref_data&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">xdata</span>
+        <span class="n">combine_df</span><span class="p">[</span><span class="s1">&#39;sensor_data&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ydata</span>
+        <span class="n">combine_df</span> <span class="o">=</span> <span class="n">combine_df</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
+
+        <span class="c1"># Determine the averaging interval for the supplied dataset</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">==</span> <span class="n">pd</span><span class="o">.</span><span class="n">Timedelta</span><span class="p">(</span><span class="s1">&#39;1 days&#39;</span><span class="p">):</span>
+            <span class="n">avg_int</span> <span class="o">=</span> <span class="s1">&#39;24-hour&#39;</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">==</span> <span class="n">pd</span><span class="o">.</span><span class="n">Timedelta</span><span class="p">(</span><span class="s1">&#39;1 hour&#39;</span><span class="p">):</span>
+            <span class="n">avg_int</span> <span class="o">=</span> <span class="s1">&#39;1-hour&#39;</span>
+
+        <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Computing </span><span class="si">{0}</span><span class="s1"> regression statistics for </span><span class="si">{1}</span><span class="s1"> vs.&#39;</span>
+                  <span class="s1">&#39; </span><span class="si">{2}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">avg_int</span><span class="p">,</span> <span class="n">sensor_name</span><span class="p">,</span> <span class="n">ref_name</span><span class="p">))</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;..</span><span class="si">{0}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">serials</span><span class="o">.</span><span class="n">values</span><span class="p">())[</span><span class="n">i</span><span class="p">]))</span>
+
+        <span class="k">if</span> <span class="n">combine_df</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;..Warning: Linear regression not possible for sensor &#39;</span>
+                  <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">sensor_num</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;. Sensor or reference data are &#39;</span>
+                  <span class="s1">&#39;null.&#39;</span><span class="p">)</span>
+            <span class="n">r_square</span> <span class="o">=</span> <span class="n">slope</span> <span class="o">=</span> <span class="n">intercept</span> <span class="o">=</span> <span class="n">RMSE</span> <span class="o">=</span> <span class="n">N</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+            <span class="n">param_min</span> <span class="o">=</span> <span class="n">param_max</span> <span class="o">=</span> <span class="n">param_mean</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">N</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">combine_df</span><span class="p">))</span>
+
+            <span class="k">if</span> <span class="n">N</span> <span class="o">&lt;=</span> <span class="mi">2</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;..Warning: Linear regression not possible for&#39;</span> <span class="o">+</span>
+                      <span class="s1">&#39; sensor &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">sensor_num</span><span class="p">)</span> <span class="o">+</span>
+                      <span class="s1">&#39;. Insufficient number of data points&#39;</span><span class="p">)</span>
+                <span class="n">r_square</span> <span class="o">=</span> <span class="n">slope</span> <span class="o">=</span> <span class="n">intercept</span> <span class="o">=</span> <span class="n">RMSE</span> <span class="o">=</span> <span class="n">N</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+                <span class="n">param_min</span> <span class="o">=</span> <span class="n">param_max</span> <span class="o">=</span> <span class="n">param_mean</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># Compute linear regress. for the union of finite</span>
+                <span class="c1"># x and y data</span>
+                <span class="n">fit</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">polyfit</span><span class="p">(</span><span class="n">xdata</span><span class="p">[</span><span class="n">idx</span><span class="p">],</span> <span class="n">ydata</span><span class="p">[</span><span class="n">idx</span><span class="p">],</span> <span class="mi">1</span><span class="p">)</span>
+                <span class="n">slope</span> <span class="o">=</span> <span class="n">fit</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="n">intercept</span> <span class="o">=</span> <span class="n">fit</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+                <span class="n">pearson_coeff</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">corr</span><span class="p">(</span><span class="n">Y</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;pearson&#39;</span><span class="p">)</span>
+                <span class="n">r_square</span> <span class="o">=</span> <span class="n">pearson_coeff</span><span class="o">*</span><span class="n">pearson_coeff</span>
+
+                <span class="n">sensor_val</span> <span class="o">=</span> <span class="n">combine_df</span><span class="o">.</span><span class="n">sensor_data</span>
+                <span class="n">ref_val</span> <span class="o">=</span> <span class="n">combine_df</span><span class="o">.</span><span class="n">ref_data</span>
+                <span class="n">MSE</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">N</span><span class="p">)</span><span class="o">*</span><span class="nb">sum</span><span class="p">((</span><span class="n">sensor_val</span><span class="o">-</span><span class="n">ref_val</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+                <span class="n">RMSE</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">MSE</span><span class="p">)</span>
+
+                <span class="n">param_min</span> <span class="o">=</span> <span class="n">combine_df</span><span class="o">.</span><span class="n">sensor_data</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>
+                <span class="n">param_max</span> <span class="o">=</span> <span class="n">combine_df</span><span class="o">.</span><span class="n">sensor_data</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+                <span class="n">param_mean</span> <span class="o">=</span> <span class="n">combine_df</span><span class="o">.</span><span class="n">sensor_data</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+
+        <span class="n">serial_id</span> <span class="o">=</span> <span class="n">serials</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">sensor_num</span><span class="p">)]</span>
+
+        <span class="n">row_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([</span><span class="n">sensor_name</span><span class="p">,</span>
+                               <span class="n">sensor_num</span><span class="p">,</span>
+                               <span class="n">serial_id</span><span class="p">,</span>
+                               <span class="n">avg_int</span><span class="p">,</span>
+                               <span class="n">param</span><span class="p">,</span>
+                               <span class="n">ref_name</span><span class="p">,</span>
+                               <span class="n">r_square</span><span class="p">,</span>
+                               <span class="n">slope</span><span class="p">,</span>
+                               <span class="n">intercept</span><span class="p">,</span>
+                               <span class="n">RMSE</span><span class="p">,</span>
+                               <span class="n">N</span><span class="p">,</span>
+                               <span class="n">param_min</span><span class="p">,</span>
+                               <span class="n">param_max</span><span class="p">,</span>
+                               <span class="n">param_mean</span><span class="p">])</span>
+
+        <span class="n">row_df</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">stats_df</span><span class="o">.</span><span class="n">columns</span>
+        <span class="n">row_df</span> <span class="o">=</span> <span class="n">row_df</span><span class="o">.</span><span class="n">T</span>
+
+        <span class="n">stats_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">stats_df</span><span class="p">,</span> <span class="n">row_df</span><span class="p">])</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="c1"># Add metric averages if multiple sensor datasets passed to function</span>
+    <span class="k">if</span> <span class="n">sensor_dtype</span> <span class="ow">is</span> <span class="nb">list</span><span class="p">:</span>
+        <span class="n">metric_list</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;R$^2$&#39;</span><span class="p">,</span> <span class="s1">&#39;Slope&#39;</span><span class="p">,</span> <span class="s1">&#39;Intercept&#39;</span><span class="p">,</span> <span class="s1">&#39;Sensor RMSE&#39;</span><span class="p">,</span>
+                       <span class="s1">&#39;N&#39;</span><span class="p">,</span> <span class="s1">&#39;Sensor_Min&#39;</span><span class="p">,</span> <span class="s1">&#39;Sensor_Max&#39;</span><span class="p">,</span> <span class="s1">&#39;Sensor_Mean&#39;</span><span class="p">]</span>
+        <span class="n">avg_data</span> <span class="o">=</span> <span class="n">stats_df</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">stats_df</span><span class="p">[</span><span class="s1">&#39;Averaging Interval&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">avg_int</span>
+                                  <span class="p">)</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">how</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+        <span class="n">avg_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">stats_cols</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="n">avg_df</span><span class="p">[</span><span class="s1">&#39;Reference&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;Metric Average:&#39;</span>
+
+        <span class="k">for</span> <span class="n">col_i</span><span class="p">,</span> <span class="n">metric</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">metric_list</span><span class="p">,</span> <span class="mi">6</span><span class="p">):</span>
+            <span class="n">metric_data</span> <span class="o">=</span> <span class="n">avg_data</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="n">col_i</span><span class="p">]</span>
+            <span class="n">metric_mean</span> <span class="o">=</span> <span class="n">metric_data</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+            <span class="n">avg_df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">col_i</span><span class="p">]</span> <span class="o">=</span> <span class="n">metric_mean</span>
+
+        <span class="n">stats_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">stats_df</span><span class="p">,</span> <span class="n">avg_df</span><span class="p">])</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="n">stats_df</span><span class="p">[</span><span class="n">stats_df</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="mi">6</span><span class="p">:]]</span> <span class="o">=</span> <span class="n">stats_df</span><span class="p">[</span><span class="n">stats_df</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="mi">6</span><span class="p">:]</span>
+                                                  <span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;float64&#39;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">stats_df</span></div>
+
+
+<div class="viewcode-block" id="Join_Stats"><a class="viewcode-back" href="../../../_autosummary/sensortoolkit._analysis.model_analysis.Join_Stats.html#sensortoolkit._analysis.model_analysis.Join_Stats">[docs]</a><span class="k">def</span> <span class="nf">Join_Stats</span><span class="p">(</span><span class="n">hourly_stats</span><span class="p">,</span> <span class="n">daily_stats</span><span class="p">,</span> <span class="n">write_to_file</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">stats_path</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+
+    <span class="n">stats_df</span> <span class="o">=</span> <span class="n">hourly_stats</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">daily_stats</span><span class="p">)</span>
+
+    <span class="n">ref_name</span> <span class="o">=</span> <span class="n">stats_df</span><span class="o">.</span><span class="n">Reference</span><span class="p">[</span><span class="n">stats_df</span><span class="o">.</span><span class="n">Reference</span><span class="o">!=</span><span class="s1">&#39;Metric Average:&#39;</span>
+                                  <span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">keys</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">sensor_name</span> <span class="o">=</span>  <span class="n">stats_df</span><span class="p">[</span><span class="s1">&#39;Sensor Name&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">keys</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">param</span> <span class="o">=</span>  <span class="n">stats_df</span><span class="p">[</span><span class="s1">&#39;Param&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">keys</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="c1"># Save the statistics dataframe</span>
+    <span class="k">if</span> <span class="n">write_to_file</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">stats_path</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="s1">&#39;No directory path specified for saving dataframe&#39;</span><span class="p">)</span>
+
+        <span class="n">today</span> <span class="o">=</span> <span class="n">Get_Date</span><span class="p">()</span>
+        <span class="n">ref_name</span> <span class="o">=</span> <span class="n">ref_name</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="s1">&#39;_&#39;</span><span class="p">)</span>
+        <span class="n">filename</span> <span class="o">=</span> <span class="p">(</span><span class="n">sensor_name</span> <span class="o">+</span> <span class="s1">&#39;_&#39;</span> <span class="o">+</span> <span class="n">param</span> <span class="o">+</span> <span class="s1">&#39;_vs_&#39;</span> <span class="o">+</span> <span class="n">ref_name</span> <span class="o">+</span>
+                    <span class="s1">&#39;_stats_df_&#39;</span> <span class="o">+</span> <span class="n">today</span> <span class="o">+</span> <span class="s1">&#39;.csv&#39;</span><span class="p">)</span>
+
+        <span class="n">WritetoFile_DataFrame</span><span class="p">(</span><span class="n">stats_df</span><span class="p">,</span>
+                              <span class="n">parent_path</span><span class="o">=</span><span class="n">stats_path</span><span class="p">,</span>
+                              <span class="n">filename</span><span class="o">=</span><span class="n">filename</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">stats_df</span></div>
+
+
+<div class="viewcode-block" id="CheckType"><a class="viewcode-back" href="../../../_autosummary/sensortoolkit._analysis.model_analysis.CheckType.html#sensortoolkit._analysis.model_analysis.CheckType">[docs]</a><span class="k">def</span> <span class="nf">CheckType</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">accept_types</span><span class="p">):</span>
+
+    <span class="n">obj_type</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">obj_type</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">accept_types</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;Invalid object type. Received &#39;</span>
+                        <span class="s1">&#39;type </span><span class="si">{0}</span><span class="s1"> but expected one of the following &#39;</span>
+                        <span class="s1">&#39;types: </span><span class="si">{1}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">obj_type</span><span class="p">,</span> <span class="n">accept_types</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">obj_type</span></div>
+
+
+<div class="viewcode-block" id="WritetoFile_DataFrame"><a class="viewcode-back" href="../../../_autosummary/sensortoolkit._analysis.model_analysis.WritetoFile_DataFrame.html#sensortoolkit._analysis.model_analysis.WritetoFile_DataFrame">[docs]</a><span class="k">def</span> <span class="nf">WritetoFile_DataFrame</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">parent_path</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="n">CheckType</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">accept_types</span><span class="o">=</span><span class="p">[</span><span class="n">pd</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">frame</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">])</span>
+    <span class="n">filepath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">parent_path</span><span class="p">,</span> <span class="n">filename</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;..Saving dataset to the following path: </span><span class="si">{0}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">filepath</span><span class="p">))</span>
+    <span class="n">obj</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">filepath</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;index&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">))</span></div>
+
+
+
+<span class="k">def</span> <span class="nf">__Depreciate_Regression_Stats__</span><span class="p">(</span><span class="n">hourly_df_obj</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">daily_df_obj</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                                    <span class="n">hourly_ref_df</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                      <span class="n">daily_ref_df</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">deploy_dict</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">param</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                      <span class="n">sensor_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ref_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">serials</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                      <span class="n">path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">write_to_file</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
@@ -500,7 +839,7 @@
 <span class="sd">            interval if both 1-hour and 24-hour averaged datasets passed to</span>
 <span class="sd">            module.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">hourly_df_obj</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">daily_df_obj</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">hourly_df_obj</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">daily_df_obj</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;No sensor data passed to function.&#39;</span><span class="p">)</span>
         <span class="k">return</span>
     <span class="k">elif</span> <span class="n">hourly_df_obj</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># Compute only daily regression statistics</span>
@@ -642,7 +981,7 @@
         <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;../Data and Figures/eval_stats/&#39;</span> <span class="o">+</span> <span class="n">sensor_name</span> <span class="o">+</span> <span class="s1">&#39;/&#39;</span> <span class="o">+</span> <span class="n">filename</span><span class="p">)</span>
         <span class="n">stats_df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">path</span> <span class="o">+</span> <span class="n">filename</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
-    <span class="k">return</span> <span class="n">stats_df</span></div>
+    <span class="k">return</span> <span class="n">stats_df</span>
 
 
 <div class="viewcode-block" id="Compute_RMSE"><a class="viewcode-back" href="../../../_autosummary/sensortoolkit._analysis.model_analysis.Compute_RMSE.html#sensortoolkit._analysis.model_analysis.Compute_RMSE">[docs]</a><span class="k">def</span> <span class="nf">Compute_RMSE</span><span class="p">(</span><span class="n">df_list</span><span class="p">,</span> <span class="n">ref_df</span><span class="p">,</span> <span class="n">deploy_dict</span><span class="p">,</span> <span class="n">stats_df</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>

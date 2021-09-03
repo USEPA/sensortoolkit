@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>sensortoolkit._analysis.time_averaging &mdash; sensortoolkit 1.0 documentation</title>
+  <title>sensortoolkit._analysis.time_averaging &mdash; sensortoolkit 0.2.4b1 documentation</title>
   
 
   
@@ -62,6 +62,10 @@
 
           
             
+            
+              <div class="version">
+                0.2.4b1
+              </div>
             
           
 
@@ -132,8 +136,11 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/sensortoolkit._analysis.model_analysis.html">sensortoolkit._analysis.model_analysis</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../_autosummary/sensortoolkit._analysis.model_analysis.CheckType.html">sensortoolkit._analysis.model_analysis.CheckType</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../_autosummary/sensortoolkit._analysis.model_analysis.Compute_RMSE.html">sensortoolkit._analysis.model_analysis.Compute_RMSE</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_autosummary/sensortoolkit._analysis.model_analysis.Join_Stats.html">sensortoolkit._analysis.model_analysis.Join_Stats</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../_autosummary/sensortoolkit._analysis.model_analysis.Regression_Stats.html">sensortoolkit._analysis.model_analysis.Regression_Stats</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_autosummary/sensortoolkit._analysis.model_analysis.WritetoFile_DataFrame.html">sensortoolkit._analysis.model_analysis.WritetoFile_DataFrame</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/sensortoolkit._analysis.normalize_calculator.html">sensortoolkit._analysis.normalize_calculator</a><ul>
@@ -167,6 +174,16 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../_autosummary/sensortoolkit._format.html">sensortoolkit._format</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/sensortoolkit._format.copy_datasets.html">sensortoolkit._format.copy_datasets</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../_autosummary/sensortoolkit._format.copy_datasets.CopySensorData.html">sensortoolkit._format.copy_datasets.CopySensorData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_autosummary/sensortoolkit._format.copy_datasets.PromptDirectory.html">sensortoolkit._format.copy_datasets.PromptDirectory</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/sensortoolkit._format.depreciate_format_names.html">sensortoolkit._format.depreciate_format_names</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../_autosummary/sensortoolkit._format.depreciate_format_names.Format_Metric_Name.html">sensortoolkit._format.depreciate_format_names.Format_Metric_Name</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_autosummary/sensortoolkit._format.depreciate_format_names.Format_Param_Name.html">sensortoolkit._format.depreciate_format_names.Format_Param_Name</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/sensortoolkit._format.format_date.html">sensortoolkit._format.format_date</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../_autosummary/sensortoolkit._format.format_date.Get_Date.html">sensortoolkit._format.format_date.Get_Date</a></li>
 </ul>
@@ -218,6 +235,17 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/sensortoolkit._models.sensor_ols.html">sensortoolkit._models.sensor_ols</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../_autosummary/sensortoolkit._models.sensor_ols.Sensor_OLS.html">sensortoolkit._models.sensor_ols.Sensor_OLS</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../_autosummary/sensortoolkit._parameter.html">sensortoolkit._parameter</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/sensortoolkit._parameter.parameter_class.html">sensortoolkit._parameter.parameter_class</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../_autosummary/sensortoolkit._parameter.parameter_class.Parameter.html">sensortoolkit._parameter.parameter_class.Parameter</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/sensortoolkit._parameter.targets_class.html">sensortoolkit._parameter.targets_class</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../_autosummary/sensortoolkit._parameter.targets_class.ParameterTargets.html">sensortoolkit._parameter.targets_class.ParameterTargets</a></li>
 </ul>
 </li>
 </ul>
@@ -412,13 +440,36 @@
   <h1>Source code for sensortoolkit._analysis.time_averaging</h1><div class="highlight"><pre>
 <span></span><span class="c1"># -*- coding: utf-8 -*-</span>
 <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">This module calculates 1-hour and 24-hour averaged datasets from sensor and</span>
+<span class="sd">FRM/FEM recorded datasets.</span>
+
+<span class="sd">U.S. EPA&#39;s Performance Targets Reports stipulate that a 75% data completeness</span>
+<span class="sd">requirement for each averaging interval should be imposed. For example, a</span>
+<span class="sd">:math:`PM_{2.5}` sensor recording concentration measurements every hour would</span>
+<span class="sd">require a minimum of 18 valid measurements in order to calculate a valid</span>
+<span class="sd">24-hour averaged concentration [i.e., (18/24) * 100% = 75%].</span>
+
+<span class="sd">U.S. EPA&#39;s Performance Targets Reports calculate averages as</span>
+
+<span class="sd">.. math::</span>
+
+<span class="sd">    x_{kpj} = \\frac{1}{n}\\sum_{i=1}^{n}c_{ij}</span>
+
+<span class="sd">where:</span>
+
+<span class="sd">    :math:`x_{kpj}` = 1-hour or 24-hour averaged measurement k for hour/day p</span>
+<span class="sd">    and instrument j</span>
+
+<span class="sd">    :math:`n` = number of instrument measurements per averaging interval</span>
+
+<span class="sd">    :math:`c_{ij}` = measurement from instrument j for time i of the averaging</span>
+<span class="sd">    interval</span>
+
+<span class="sd">================================================================================</span>
+
 <span class="sd">@Author:</span>
-<span class="sd">  Samuel Frederick, NSSC Contractor (ORAU)</span>
-<span class="sd">  U.S. EPA, Office of Research and Development</span>
-<span class="sd">  Center for Environmental Measurement and Modeling</span>
-<span class="sd">  Air Methods and Characterization Division, Source and Fine Scale Branch</span>
-<span class="sd">  109 T.W Alexander Drive, Research Triangle Park, NC 27711</span>
-<span class="sd">  Office: 919-541-4086 | Email: frederick.samuel@epa.gov</span>
+<span class="sd">  | Samuel Frederick, NSSC Contractor (ORAU)</span>
+<span class="sd">  | U.S. EPA / ORD / CEMM / AMCD / SFSB</span>
 
 <span class="sd">Created:</span>
 <span class="sd">  Wed Oct 21 14:46:27 2020</span>
@@ -431,7 +482,7 @@
 
 
 <div class="viewcode-block" id="Sensor_Averaging"><a class="viewcode-back" href="../../../_autosummary/sensortoolkit._analysis.time_averaging.Sensor_Averaging.html#sensortoolkit._analysis.time_averaging.Sensor_Averaging">[docs]</a><span class="k">def</span> <span class="nf">Sensor_Averaging</span><span class="p">(</span><span class="n">full_df_list</span><span class="p">,</span> <span class="n">sensor_serials</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span>
-                     <span class="n">write_to_file</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="kc">None</span><span class="p">,):</span>
+                     <span class="n">write_to_file</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Write full (recorded), hourly, and daily averaged datasets to csv.</span>
 
 <span class="sd">    Wrapper function for computing hourly and daily averaged dataframes.</span>
@@ -440,6 +491,8 @@
 <span class="sd">        full_df_list (list):</span>
 <span class="sd">            List of sensor dataframes at original recorded sampling frequency.</span>
 <span class="sd">        sensor_serials (dict):</span>
+<span class="sd">            A dictionary of unique serial identifiers for each sensor in the</span>
+<span class="sd">            testing group.</span>
 <span class="sd">        name (str):</span>
 <span class="sd">            The make and model of the sensor being evaluated.</span>
 <span class="sd">        write_to_file (bool):</span>
@@ -450,6 +503,9 @@
 <span class="sd">        path (str):</span>
 <span class="sd">            The full directory path to processed sensor data for a given sensor</span>
 <span class="sd">            make and model.</span>
+<span class="sd">        **kwargs:</span>
+<span class="sd">            threshold (float): The completeness threshold for averaging</span>
+<span class="sd">            datasets to 1-hour/24-hour intervals. Defaults to 75% (``0.75``).</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        hourly_df_list (list of pandas dataframes): List of sensor data frames</span>
@@ -484,8 +540,8 @@
         <span class="n">day_count</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_timedelta</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s1">&#39;D&#39;</span><span class="p">)</span> <span class="o">/</span> <span class="n">time_delta</span>
 
         <span class="c1"># Use a 75% threshold</span>
-        <span class="n">hr_thres</span> <span class="o">=</span> <span class="mf">0.75</span>
-        <span class="n">day_thres</span> <span class="o">=</span> <span class="mf">0.75</span>
+        <span class="n">hr_thres</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;threshold&#39;</span><span class="p">,</span> <span class="mf">0.75</span><span class="p">)</span>
+        <span class="n">day_thres</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;threshold&#39;</span><span class="p">,</span> <span class="mf">0.75</span><span class="p">)</span>
 
         <span class="c1"># Print the mode of the sampling interval for recorded sensor data and</span>
         <span class="c1"># the number of counts within each hour interval.</span>
@@ -531,29 +587,26 @@
 
 <span class="sd">    Args:</span>
 <span class="sd">        df (pandas dataframe):</span>
-<span class="sd">            Dataframe with datetimeindex</span>
+<span class="sd">            Dataframe for which averages will be computed.</span>
 <span class="sd">        freq (str):</span>
 <span class="sd">            The frequency (averaging interval) to which the dataframe will</span>
-<span class="sd">            be averaged. Pandas refers to these as &#39;offset aliases&#39;, and a list</span>
-<span class="sd">            is found at the following link:</span>
-<span class="sd">                https://pandas.pydata.org/pandas-docs/stable/user_guide/</span>
-<span class="sd">                timeseries.html#offset-aliases</span>
+<span class="sd">            be averaged. Defaults to ``H``. Pandas refers to these as</span>
+<span class="sd">            &#39;offset aliases&#39;, and a list is found at the following link:</span>
+<span class="sd">                `&lt;https://pandas.pydata.org/pandas-docs/stable/user_guide/timeseries.html#offset-aliases&gt;`_</span>
 <span class="sd">        interval_count (int):</span>
 <span class="sd">            The number of datapoints expected within the passed dataframe for</span>
-<span class="sd">            the specified averaging interval (&#39;freq&#39;). E.g., if computing</span>
-<span class="sd">            1-hour averages (freq=&#39;H&#39;) and the passed dataframe is for a sensor</span>
-<span class="sd">            that recorded measurements at 1-minute sampling frequency,</span>
-<span class="sd">            interval_count will equal 60 (expect 60 non-null data points per</span>
-<span class="sd">            averaging interval).</span>
+<span class="sd">            the specified averaging interval (&#39;freq&#39;). Defaults to 60 for</span>
+<span class="sd">            1-hour averages. E.g., if computing 1-hour averages (freq=&#39;H&#39;) an</span>
+<span class="sd">            the passed dataframe is for a sensor that recorded measurements at</span>
+<span class="sd">            1-minute sampling frequency, interval_count will equal 60 (expect</span>
+<span class="sd">            60 non-null data points per averaging interval).</span>
 <span class="sd">        thres (float):</span>
 <span class="sd">            Threshold (ranging from 0 to 1) for ratio of the number of</span>
 <span class="sd">            data points recorded within a given averaging interval vs. the</span>
-<span class="sd">            number of expected data points. For example, if a sensor has a</span>
-<span class="sd">            sampling frequency of 1-minute per data point and</span>
-<span class="sd">        return_counts (bool):</span>
+<span class="sd">            number of expected data points. Defaults to ``0.75`` (i.e., 75%).</span>
 
 <span class="sd">    Return:</span>
-<span class="sd">        averaged_df (pandas dataframe):</span>
+<span class="sd">        avg_df (pandas dataframe):</span>
 <span class="sd">            Dataframe averaged to datetimeindex interval specified by &#39;freq&#39;.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">col_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>

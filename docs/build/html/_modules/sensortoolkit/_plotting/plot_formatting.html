@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>sensortoolkit._plotting.plot_formatting &mdash; sensortoolkit 1.0 documentation</title>
+  <title>sensortoolkit._plotting.plot_formatting &mdash; sensortoolkit 0.2.4b1 documentation</title>
   
 
   
@@ -62,6 +62,10 @@
 
           
             
+            
+              <div class="version">
+                0.2.4b1
+              </div>
             
           
 
@@ -132,8 +136,11 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/sensortoolkit._analysis.model_analysis.html">sensortoolkit._analysis.model_analysis</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../_autosummary/sensortoolkit._analysis.model_analysis.CheckType.html">sensortoolkit._analysis.model_analysis.CheckType</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../_autosummary/sensortoolkit._analysis.model_analysis.Compute_RMSE.html">sensortoolkit._analysis.model_analysis.Compute_RMSE</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_autosummary/sensortoolkit._analysis.model_analysis.Join_Stats.html">sensortoolkit._analysis.model_analysis.Join_Stats</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../_autosummary/sensortoolkit._analysis.model_analysis.Regression_Stats.html">sensortoolkit._analysis.model_analysis.Regression_Stats</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_autosummary/sensortoolkit._analysis.model_analysis.WritetoFile_DataFrame.html">sensortoolkit._analysis.model_analysis.WritetoFile_DataFrame</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/sensortoolkit._analysis.normalize_calculator.html">sensortoolkit._analysis.normalize_calculator</a><ul>
@@ -167,6 +174,16 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../_autosummary/sensortoolkit._format.html">sensortoolkit._format</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/sensortoolkit._format.copy_datasets.html">sensortoolkit._format.copy_datasets</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../_autosummary/sensortoolkit._format.copy_datasets.CopySensorData.html">sensortoolkit._format.copy_datasets.CopySensorData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_autosummary/sensortoolkit._format.copy_datasets.PromptDirectory.html">sensortoolkit._format.copy_datasets.PromptDirectory</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/sensortoolkit._format.depreciate_format_names.html">sensortoolkit._format.depreciate_format_names</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../_autosummary/sensortoolkit._format.depreciate_format_names.Format_Metric_Name.html">sensortoolkit._format.depreciate_format_names.Format_Metric_Name</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_autosummary/sensortoolkit._format.depreciate_format_names.Format_Param_Name.html">sensortoolkit._format.depreciate_format_names.Format_Param_Name</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/sensortoolkit._format.format_date.html">sensortoolkit._format.format_date</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../_autosummary/sensortoolkit._format.format_date.Get_Date.html">sensortoolkit._format.format_date.Get_Date</a></li>
 </ul>
@@ -218,6 +235,17 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/sensortoolkit._models.sensor_ols.html">sensortoolkit._models.sensor_ols</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../_autosummary/sensortoolkit._models.sensor_ols.Sensor_OLS.html">sensortoolkit._models.sensor_ols.Sensor_OLS</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../_autosummary/sensortoolkit._parameter.html">sensortoolkit._parameter</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/sensortoolkit._parameter.parameter_class.html">sensortoolkit._parameter.parameter_class</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../_autosummary/sensortoolkit._parameter.parameter_class.Parameter.html">sensortoolkit._parameter.parameter_class.Parameter</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/sensortoolkit._parameter.targets_class.html">sensortoolkit._parameter.targets_class</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../_autosummary/sensortoolkit._parameter.targets_class.ParameterTargets.html">sensortoolkit._parameter.targets_class.ParameterTargets</a></li>
 </ul>
 </li>
 </ul>
@@ -503,13 +531,43 @@
     <span class="k">return</span> <span class="p">(</span><span class="n">n_rows</span><span class="p">,</span> <span class="n">n_cols</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="Get_Max"><a class="viewcode-back" href="../../../_autosummary/sensortoolkit._plotting.plot_formatting.Get_Max.html#sensortoolkit._plotting.plot_formatting.Get_Max">[docs]</a><span class="k">def</span> <span class="nf">Get_Max</span><span class="p">(</span><span class="n">df_list</span><span class="p">,</span> <span class="n">ref_df</span><span class="p">,</span> <span class="n">param</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-    <span class="c1"># Determine maximum concentration recorded during timeframe, use to set</span>
-    <span class="c1"># default plot limits</span>
+<div class="viewcode-block" id="Get_Max"><a class="viewcode-back" href="../../../_autosummary/sensortoolkit._plotting.plot_formatting.Get_Max.html#sensortoolkit._plotting.plot_formatting.Get_Max">[docs]</a><span class="k">def</span> <span class="nf">Get_Max</span><span class="p">(</span><span class="n">param</span><span class="p">,</span> <span class="n">df_list</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ref_df</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Determine maximum concentration measured across passed dataframes.</span>
+
+<span class="sd">    If both sensor dataframes are passed to ``df_list`` and a reference</span>
+<span class="sd">    dataframe is passed to ``ref_df``, the maximum will be computed across</span>
+<span class="sd">    both sensor and reference concentrations.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        param (str): The name of the evaluation parameter.</span>
+<span class="sd">        df_list (list of pandas dataframes, optional): A list of sensor</span>
+<span class="sd">            dataframes. Defaults to None.</span>
+<span class="sd">        ref_df (pandas dataframe, optional): Reference dataframe. Defaults to</span>
+<span class="sd">            None. If dataframe passed, will be considered in calculation of</span>
+<span class="sd">            maximum concentration.</span>
+<span class="sd">        start (str, optional): The starting timestamp to begin search. Defaults</span>
+<span class="sd">            to None, will use the earliest timestamp recorded in datasets.</span>
+<span class="sd">        end (str, optional): The ending timestamp to end search. Defaults</span>
+<span class="sd">            to None, will use the latest timestamp recorded in datasets.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        max_conc (float): The maximum concentration indicated by the dataframes</span>
+<span class="sd">        passed to the function for the specified parameter.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        TypeError: If `df_list` and `ref_df` are both ``None`` (i.e., no</span>
+<span class="sd">            dataframes passed to function).</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">df_list</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">ref_df</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;Get_Max() missing required dataframe objects: &#39;</span>
+                        <span class="s1">&#39;&quot;df_list&quot; and/or &quot;ref_df&quot;&#39;</span><span class="p">)</span>
+
     <span class="n">max_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">start</span><span class="p">:</span><span class="n">end</span><span class="p">,</span> <span class="n">param</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="k">for</span> <span class="n">df</span> <span class="ow">in</span> <span class="n">df_list</span><span class="p">]</span>
 
-    <span class="n">ref_max</span> <span class="o">=</span> <span class="n">ref_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">start</span><span class="p">:</span><span class="n">end</span><span class="p">,</span> <span class="n">param</span> <span class="o">+</span> <span class="s1">&#39;_Value&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
-    <span class="n">max_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ref_max</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">ref_df</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">ref_max</span> <span class="o">=</span> <span class="n">ref_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">start</span><span class="p">:</span><span class="n">end</span><span class="p">,</span> <span class="n">param</span> <span class="o">+</span> <span class="s1">&#39;_Value&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+        <span class="n">max_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ref_max</span><span class="p">)</span>
 
     <span class="c1"># Remove nans</span>
     <span class="n">max_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">max_list</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">i</span><span class="p">)]</span>
@@ -553,8 +611,8 @@
             <span class="k">if</span> <span class="n">param</span> <span class="o">==</span> <span class="s1">&#39;O3&#39;</span><span class="p">:</span>
                 <span class="n">font_size</span> <span class="o">=</span> <span class="mi">12</span>
                 <span class="n">fig_size</span> <span class="o">=</span> <span class="p">(</span><span class="mf">4.3</span><span class="p">,</span> <span class="mf">3.91</span><span class="p">)</span>
-                <span class="n">wspace</span> <span class="o">=</span> <span class="o">.</span><span class="mi">1</span>
-                <span class="n">hspace</span> <span class="o">=</span> <span class="o">.</span><span class="mi">1</span>
+                <span class="n">wspace</span> <span class="o">=</span> <span class="mf">.1</span>
+                <span class="n">hspace</span> <span class="o">=</span> <span class="mf">.1</span>
                 <span class="n">left</span> <span class="o">=</span> <span class="mf">0.12</span>
                 <span class="n">right</span> <span class="o">=</span> <span class="mf">0.8</span>
                 <span class="n">top</span> <span class="o">=</span> <span class="mf">0.85</span>
@@ -565,23 +623,23 @@
                 <span class="n">suptitle_ypos</span> <span class="o">=</span> <span class="mf">0.95</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">fig_size</span> <span class="o">=</span> <span class="p">(</span><span class="mf">4.9</span><span class="p">,</span> <span class="mf">5.5</span><span class="p">)</span>
-                <span class="n">wspace</span> <span class="o">=</span> <span class="o">.</span><span class="mi">01</span>
-                <span class="n">hspace</span> <span class="o">=</span> <span class="o">.</span><span class="mi">01</span>
+                <span class="n">wspace</span> <span class="o">=</span> <span class="mf">.01</span>
+                <span class="n">hspace</span> <span class="o">=</span> <span class="mf">.01</span>
                 <span class="n">left</span> <span class="o">=</span> <span class="mf">0.15</span>
                 <span class="n">right</span> <span class="o">=</span> <span class="mf">0.85</span>
                 <span class="n">top</span> <span class="o">=</span> <span class="mf">0.9</span>
                 <span class="n">bottom</span> <span class="o">=</span> <span class="mf">0.25</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">fig_size</span> <span class="o">=</span> <span class="p">(</span><span class="mf">4.9</span><span class="p">,</span> <span class="mf">5.5</span><span class="p">)</span>
-            <span class="n">wspace</span> <span class="o">=</span> <span class="o">.</span><span class="mi">01</span>
-            <span class="n">hspace</span> <span class="o">=</span> <span class="o">.</span><span class="mi">01</span>
+            <span class="n">wspace</span> <span class="o">=</span> <span class="mf">.01</span>
+            <span class="n">hspace</span> <span class="o">=</span> <span class="mf">.01</span>
             <span class="n">left</span> <span class="o">=</span> <span class="mf">0.15</span>
             <span class="n">right</span> <span class="o">=</span> <span class="mf">0.85</span>
             <span class="n">top</span> <span class="o">=</span> <span class="mf">0.95</span>
             <span class="n">bottom</span> <span class="o">=</span> <span class="mf">0.1</span>
-        <span class="n">detail_fontsize</span> <span class="o">=</span> <span class="o">.</span><span class="mi">75</span><span class="o">*</span><span class="n">font_size</span>
+        <span class="n">detail_fontsize</span> <span class="o">=</span> <span class="mf">.75</span><span class="o">*</span><span class="n">font_size</span>
         <span class="n">filename_suffix</span> <span class="o">=</span> <span class="s1">&#39;1_sensor&#39;</span>
-        <span class="n">cbar_padding</span> <span class="o">=</span> <span class="o">.</span><span class="mi">13</span>
+        <span class="n">cbar_padding</span> <span class="o">=</span> <span class="mf">.13</span>
         <span class="n">cbar_aspect</span> <span class="o">=</span> <span class="mi">20</span>
 
     <span class="k">elif</span> <span class="n">number_of_sensors</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>  <span class="c1"># 3x1 subplot</span>
@@ -590,23 +648,23 @@
         <span class="n">title_text_wrap</span> <span class="o">=</span> <span class="mi">70</span>
 
         <span class="k">if</span> <span class="n">RH_colormap</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
-            <span class="n">wspace</span> <span class="o">=</span> <span class="o">.</span><span class="mi">38</span>
-            <span class="n">hspace</span> <span class="o">=</span> <span class="o">.</span><span class="mi">05</span>
+            <span class="n">wspace</span> <span class="o">=</span> <span class="mf">.38</span>
+            <span class="n">hspace</span> <span class="o">=</span> <span class="mf">.05</span>
             <span class="n">left</span> <span class="o">=</span> <span class="mf">0.06</span>
             <span class="n">right</span> <span class="o">=</span> <span class="mf">0.94</span>
             <span class="n">top</span> <span class="o">=</span> <span class="mf">0.97</span>
             <span class="n">bottom</span> <span class="o">=</span> <span class="mf">0.22</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">fig_size</span> <span class="o">=</span> <span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
-            <span class="n">wspace</span> <span class="o">=</span> <span class="o">.</span><span class="mi">4</span>
-            <span class="n">hspace</span> <span class="o">=</span> <span class="o">.</span><span class="mi">01</span>
+            <span class="n">wspace</span> <span class="o">=</span> <span class="mf">.4</span>
+            <span class="n">hspace</span> <span class="o">=</span> <span class="mf">.01</span>
             <span class="n">left</span> <span class="o">=</span> <span class="mf">0.07</span>
             <span class="n">right</span> <span class="o">=</span> <span class="mf">0.93</span>
             <span class="n">top</span> <span class="o">=</span> <span class="mf">0.90</span>
             <span class="n">bottom</span> <span class="o">=</span> <span class="mf">0.1</span>
-        <span class="n">detail_fontsize</span> <span class="o">=</span> <span class="o">.</span><span class="mi">9</span><span class="o">*</span><span class="n">font_size</span>
+        <span class="n">detail_fontsize</span> <span class="o">=</span> <span class="mf">.9</span><span class="o">*</span><span class="n">font_size</span>
         <span class="n">filename_suffix</span> <span class="o">=</span> <span class="s1">&#39;3_sensors&#39;</span>
-        <span class="n">cbar_padding</span> <span class="o">=</span> <span class="o">.</span><span class="mi">16</span>
+        <span class="n">cbar_padding</span> <span class="o">=</span> <span class="mf">.16</span>
         <span class="n">cbar_aspect</span> <span class="o">=</span> <span class="mi">20</span>
 
     <span class="k">elif</span> <span class="n">number_of_sensors</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">):</span>  <span class="c1"># 2x3 subplot</span>
@@ -615,23 +673,23 @@
         <span class="n">title_text_wrap</span> <span class="o">=</span> <span class="mi">70</span>
 
         <span class="k">if</span> <span class="n">RH_colormap</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
-            <span class="n">wspace</span> <span class="o">=</span> <span class="o">.</span><span class="mi">1</span>
-            <span class="n">hspace</span> <span class="o">=</span> <span class="o">.</span><span class="mi">34</span>
+            <span class="n">wspace</span> <span class="o">=</span> <span class="mf">.1</span>
+            <span class="n">hspace</span> <span class="o">=</span> <span class="mf">.34</span>
             <span class="n">left</span> <span class="o">=</span> <span class="mf">0.03</span>
             <span class="n">right</span> <span class="o">=</span> <span class="mf">0.97</span>
             <span class="n">top</span> <span class="o">=</span> <span class="mf">0.90</span>
             <span class="n">bottom</span> <span class="o">=</span> <span class="mf">0.17</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">fig_size</span> <span class="o">=</span> <span class="p">(</span><span class="mi">13</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span>
-            <span class="n">wspace</span> <span class="o">=</span> <span class="o">.</span><span class="mi">4</span>
-            <span class="n">hspace</span> <span class="o">=</span> <span class="o">.</span><span class="mi">33</span>
+            <span class="n">wspace</span> <span class="o">=</span> <span class="mf">.4</span>
+            <span class="n">hspace</span> <span class="o">=</span> <span class="mf">.33</span>
             <span class="n">left</span> <span class="o">=</span> <span class="mf">0.07</span>
             <span class="n">right</span> <span class="o">=</span> <span class="mf">0.93</span>
             <span class="n">top</span> <span class="o">=</span> <span class="mf">0.89</span>
             <span class="n">bottom</span> <span class="o">=</span> <span class="mf">0.1</span>
-        <span class="n">detail_fontsize</span> <span class="o">=</span> <span class="o">.</span><span class="mi">85</span><span class="o">*</span><span class="n">font_size</span>
+        <span class="n">detail_fontsize</span> <span class="o">=</span> <span class="mf">.85</span><span class="o">*</span><span class="n">font_size</span>
         <span class="n">filename_suffix</span> <span class="o">=</span> <span class="s1">&#39;6_sensors&#39;</span>
-        <span class="n">cbar_padding</span> <span class="o">=</span> <span class="o">.</span><span class="mi">08</span>
+        <span class="n">cbar_padding</span> <span class="o">=</span> <span class="mf">.08</span>
         <span class="n">cbar_aspect</span> <span class="o">=</span> <span class="mi">20</span>
 
     <span class="k">elif</span> <span class="n">number_of_sensors</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">):</span>  <span class="c1"># 2x4 subplot</span>
@@ -642,23 +700,23 @@
         <span class="n">title_text_wrap</span> <span class="o">=</span> <span class="mi">70</span>
 
         <span class="k">if</span> <span class="n">RH_colormap</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
-            <span class="n">wspace</span> <span class="o">=</span> <span class="o">.</span><span class="mi">1</span>
-            <span class="n">hspace</span> <span class="o">=</span> <span class="o">.</span><span class="mi">34</span>
+            <span class="n">wspace</span> <span class="o">=</span> <span class="mf">.1</span>
+            <span class="n">hspace</span> <span class="o">=</span> <span class="mf">.34</span>
             <span class="n">left</span> <span class="o">=</span> <span class="mf">0.03</span>
             <span class="n">right</span> <span class="o">=</span> <span class="mf">0.97</span>
             <span class="n">top</span> <span class="o">=</span> <span class="mf">0.90</span>
             <span class="n">bottom</span> <span class="o">=</span> <span class="mf">0.17</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">fig_size</span> <span class="o">=</span> <span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span>
-            <span class="n">wspace</span> <span class="o">=</span> <span class="o">.</span><span class="mi">44</span>
-            <span class="n">hspace</span> <span class="o">=</span> <span class="o">.</span><span class="mi">35</span>
+            <span class="n">wspace</span> <span class="o">=</span> <span class="mf">.44</span>
+            <span class="n">hspace</span> <span class="o">=</span> <span class="mf">.35</span>
             <span class="n">left</span> <span class="o">=</span> <span class="mf">0.05</span>
             <span class="n">right</span> <span class="o">=</span> <span class="mf">0.95</span>
             <span class="n">top</span> <span class="o">=</span> <span class="mf">0.89</span>
             <span class="n">bottom</span> <span class="o">=</span> <span class="mf">0.1</span>
-        <span class="n">detail_fontsize</span> <span class="o">=</span> <span class="o">.</span><span class="mi">85</span><span class="o">*</span><span class="n">font_size</span>
+        <span class="n">detail_fontsize</span> <span class="o">=</span> <span class="mf">.85</span><span class="o">*</span><span class="n">font_size</span>
         <span class="n">filename_suffix</span> <span class="o">=</span> <span class="s1">&#39;8_sensors&#39;</span>
-        <span class="n">cbar_padding</span> <span class="o">=</span> <span class="o">.</span><span class="mi">08</span>
+        <span class="n">cbar_padding</span> <span class="o">=</span> <span class="mf">.08</span>
         <span class="n">cbar_aspect</span> <span class="o">=</span> <span class="mi">20</span>
 
     <span class="k">elif</span> <span class="n">number_of_sensors</span> <span class="o">==</span> <span class="mi">9</span><span class="p">:</span>  <span class="c1"># 3x3 subplot</span>
@@ -669,36 +727,36 @@
         <span class="n">title_text_wrap</span> <span class="o">=</span> <span class="mi">70</span>
 
         <span class="k">if</span> <span class="n">RH_colormap</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
-            <span class="n">wspace</span> <span class="o">=</span> <span class="o">.</span><span class="mi">04</span>
-            <span class="n">hspace</span> <span class="o">=</span> <span class="o">.</span><span class="mi">4</span>
+            <span class="n">wspace</span> <span class="o">=</span> <span class="mf">.04</span>
+            <span class="n">hspace</span> <span class="o">=</span> <span class="mf">.4</span>
             <span class="n">left</span> <span class="o">=</span> <span class="mf">0.01</span>
             <span class="n">right</span> <span class="o">=</span> <span class="mf">0.99</span>
             <span class="n">top</span> <span class="o">=</span> <span class="mf">0.92</span>
             <span class="n">bottom</span> <span class="o">=</span> <span class="mf">0.15</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">fig_size</span> <span class="o">=</span> <span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
-            <span class="n">wspace</span> <span class="o">=</span> <span class="o">.</span><span class="mi">4</span>
-            <span class="n">hspace</span> <span class="o">=</span> <span class="o">.</span><span class="mi">35</span>
+            <span class="n">wspace</span> <span class="o">=</span> <span class="mf">.4</span>
+            <span class="n">hspace</span> <span class="o">=</span> <span class="mf">.35</span>
             <span class="n">left</span> <span class="o">=</span> <span class="mf">0.07</span>
             <span class="n">right</span> <span class="o">=</span> <span class="mf">0.93</span>
             <span class="n">top</span> <span class="o">=</span> <span class="mf">0.89</span>
             <span class="n">bottom</span> <span class="o">=</span> <span class="mf">0.1</span>
-        <span class="n">detail_fontsize</span> <span class="o">=</span> <span class="o">.</span><span class="mi">85</span><span class="o">*</span><span class="n">font_size</span>
+        <span class="n">detail_fontsize</span> <span class="o">=</span> <span class="mf">.85</span><span class="o">*</span><span class="n">font_size</span>
         <span class="n">filename_suffix</span> <span class="o">=</span> <span class="s1">&#39;9_sensors&#39;</span>
-        <span class="n">cbar_padding</span> <span class="o">=</span> <span class="o">.</span><span class="mi">06</span>
+        <span class="n">cbar_padding</span> <span class="o">=</span> <span class="mf">.06</span>
         <span class="n">cbar_aspect</span> <span class="o">=</span> <span class="mi">20</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;No formatting presets configured for&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">number_of_sensors</span><span class="p">))</span>
 
     <span class="k">if</span> <span class="n">report_fmt</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">param</span> <span class="o">==</span> <span class="s1">&#39;PM25&#39;</span><span class="p">:</span>
-            <span class="n">wspace</span> <span class="o">=</span> <span class="o">.</span><span class="mi">4</span>
-            <span class="n">hspace</span> <span class="o">=</span> <span class="o">.</span><span class="mi">08</span>
+            <span class="n">wspace</span> <span class="o">=</span> <span class="mf">.4</span>
+            <span class="n">hspace</span> <span class="o">=</span> <span class="mf">.08</span>
             <span class="n">left</span> <span class="o">=</span> <span class="mf">0.1</span>
             <span class="n">right</span> <span class="o">=</span> <span class="mf">0.92</span>
             <span class="n">top</span> <span class="o">=</span> <span class="mf">0.9</span>
             <span class="n">bottom</span> <span class="o">=</span> <span class="mf">0.30</span>
-            <span class="n">cbar_padding</span> <span class="o">=</span> <span class="o">.</span><span class="mi">0</span>
+            <span class="n">cbar_padding</span> <span class="o">=</span> <span class="mf">.0</span>
             <span class="n">cbar_aspect</span> <span class="o">=</span> <span class="mi">20</span>
         <span class="n">filename_suffix</span> <span class="o">=</span> <span class="s1">&#39;report_fmt&#39;</span>
 
@@ -763,7 +821,7 @@
 
         <span class="k">if</span> <span class="n">ymin</span> <span class="o">==</span> <span class="n">ymax</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
             <span class="n">ymin</span><span class="p">,</span> <span class="n">ymax</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">1.1</span>
-        <span class="k">if</span> <span class="n">ymin</span> <span class="o">&lt;</span> <span class="mf">0.1</span> <span class="ow">and</span> <span class="n">ymin</span> <span class="o">&gt;</span> <span class="o">-.</span><span class="mi">1</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">ymin</span> <span class="o">&lt;</span> <span class="mf">0.1</span> <span class="ow">and</span> <span class="n">ymin</span> <span class="o">&gt;</span> <span class="o">-</span><span class="mf">.1</span><span class="p">:</span>
             <span class="n">ymin</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.5</span>
         <span class="k">if</span> <span class="n">ymax</span> <span class="o">&lt;</span> <span class="mf">1.0</span><span class="p">:</span>
             <span class="n">ymin</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="o">*</span><span class="n">ymax</span>

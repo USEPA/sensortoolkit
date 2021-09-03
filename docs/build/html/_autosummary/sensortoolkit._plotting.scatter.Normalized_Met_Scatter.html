@@ -8,7 +8,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>sensortoolkit._plotting.scatter.Normalized_Met_Scatter &mdash; sensortoolkit 0.1.0b3 documentation</title>
+  <title>sensortoolkit._plotting.scatter.Normalized_Met_Scatter &mdash; sensortoolkit 0.2.4b1 documentation</title>
   
 
   
@@ -67,7 +67,7 @@
             
             
               <div class="version">
-                0.1.0b3
+                0.2.4b1
               </div>
             
           
@@ -139,8 +139,11 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="sensortoolkit._analysis.model_analysis.html">sensortoolkit._analysis.model_analysis</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="sensortoolkit._analysis.model_analysis.CheckType.html">sensortoolkit._analysis.model_analysis.CheckType</a></li>
 <li class="toctree-l4"><a class="reference internal" href="sensortoolkit._analysis.model_analysis.Compute_RMSE.html">sensortoolkit._analysis.model_analysis.Compute_RMSE</a></li>
+<li class="toctree-l4"><a class="reference internal" href="sensortoolkit._analysis.model_analysis.Join_Stats.html">sensortoolkit._analysis.model_analysis.Join_Stats</a></li>
 <li class="toctree-l4"><a class="reference internal" href="sensortoolkit._analysis.model_analysis.Regression_Stats.html">sensortoolkit._analysis.model_analysis.Regression_Stats</a></li>
+<li class="toctree-l4"><a class="reference internal" href="sensortoolkit._analysis.model_analysis.WritetoFile_DataFrame.html">sensortoolkit._analysis.model_analysis.WritetoFile_DataFrame</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="sensortoolkit._analysis.normalize_calculator.html">sensortoolkit._analysis.normalize_calculator</a><ul>
@@ -174,6 +177,16 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="sensortoolkit._format.html">sensortoolkit._format</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="sensortoolkit._format.copy_datasets.html">sensortoolkit._format.copy_datasets</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="sensortoolkit._format.copy_datasets.CopySensorData.html">sensortoolkit._format.copy_datasets.CopySensorData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="sensortoolkit._format.copy_datasets.PromptDirectory.html">sensortoolkit._format.copy_datasets.PromptDirectory</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="sensortoolkit._format.depreciate_format_names.html">sensortoolkit._format.depreciate_format_names</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="sensortoolkit._format.depreciate_format_names.Format_Metric_Name.html">sensortoolkit._format.depreciate_format_names.Format_Metric_Name</a></li>
+<li class="toctree-l4"><a class="reference internal" href="sensortoolkit._format.depreciate_format_names.Format_Param_Name.html">sensortoolkit._format.depreciate_format_names.Format_Param_Name</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="sensortoolkit._format.format_date.html">sensortoolkit._format.format_date</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="sensortoolkit._format.format_date.Get_Date.html">sensortoolkit._format.format_date.Get_Date</a></li>
 </ul>
@@ -225,6 +238,17 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="sensortoolkit._models.sensor_ols.html">sensortoolkit._models.sensor_ols</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="sensortoolkit._models.sensor_ols.Sensor_OLS.html">sensortoolkit._models.sensor_ols.Sensor_OLS</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="sensortoolkit._parameter.html">sensortoolkit._parameter</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="sensortoolkit._parameter.parameter_class.html">sensortoolkit._parameter.parameter_class</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="sensortoolkit._parameter.parameter_class.Parameter.html">sensortoolkit._parameter.parameter_class.Parameter</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="sensortoolkit._parameter.targets_class.html">sensortoolkit._parameter.targets_class</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="sensortoolkit._parameter.targets_class.ParameterTargets.html">sensortoolkit._parameter.targets_class.ParameterTargets</a></li>
 </ul>
 </li>
 </ul>
@@ -428,7 +452,7 @@
 <h1>sensortoolkit._plotting.scatter.Normalized_Met_Scatter<a class="headerlink" href="#sensortoolkit-plotting-scatter-normalized-met-scatter" title="Permalink to this headline">¶</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="sensortoolkit._plotting.scatter.Normalized_Met_Scatter">
-<span class="sig-name descname"><span class="pre">Normalized_Met_Scatter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ref_df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">avg_df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">met_ref_df</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">figure_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">param</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'PM25'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">met_param</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sensor_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">write_to_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sensor_serials</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ref_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">report_fmt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fig</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_mpl_obj</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sensortoolkit/_plotting/scatter.html#Normalized_Met_Scatter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sensortoolkit._plotting.scatter.Normalized_Met_Scatter" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">Normalized_Met_Scatter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ref_df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">avg_df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">met_ref_df</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">figure_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">param</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">met_param</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sensor_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">write_to_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sensor_serials</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ref_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">report_fmt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fig</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_mpl_obj</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sensortoolkit/_plotting/scatter.html#Normalized_Met_Scatter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sensortoolkit._plotting.scatter.Normalized_Met_Scatter" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plot parameter values normalized by reference values against either
 temperature or relative humidity.</p>
 <p>Args:</p>

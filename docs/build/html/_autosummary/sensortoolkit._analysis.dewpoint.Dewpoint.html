@@ -8,7 +8,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>sensortoolkit._analysis.dewpoint.Dewpoint &mdash; sensortoolkit 0.1.0b3 documentation</title>
+  <title>sensortoolkit._analysis.dewpoint.Dewpoint &mdash; sensortoolkit 0.2.4b1 documentation</title>
   
 
   
@@ -67,7 +67,7 @@
             
             
               <div class="version">
-                0.1.0b3
+                0.2.4b1
               </div>
             
           
@@ -139,8 +139,11 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="sensortoolkit._analysis.model_analysis.html">sensortoolkit._analysis.model_analysis</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="sensortoolkit._analysis.model_analysis.CheckType.html">sensortoolkit._analysis.model_analysis.CheckType</a></li>
 <li class="toctree-l4"><a class="reference internal" href="sensortoolkit._analysis.model_analysis.Compute_RMSE.html">sensortoolkit._analysis.model_analysis.Compute_RMSE</a></li>
+<li class="toctree-l4"><a class="reference internal" href="sensortoolkit._analysis.model_analysis.Join_Stats.html">sensortoolkit._analysis.model_analysis.Join_Stats</a></li>
 <li class="toctree-l4"><a class="reference internal" href="sensortoolkit._analysis.model_analysis.Regression_Stats.html">sensortoolkit._analysis.model_analysis.Regression_Stats</a></li>
+<li class="toctree-l4"><a class="reference internal" href="sensortoolkit._analysis.model_analysis.WritetoFile_DataFrame.html">sensortoolkit._analysis.model_analysis.WritetoFile_DataFrame</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="sensortoolkit._analysis.normalize_calculator.html">sensortoolkit._analysis.normalize_calculator</a><ul>
@@ -174,6 +177,16 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="sensortoolkit._format.html">sensortoolkit._format</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="sensortoolkit._format.copy_datasets.html">sensortoolkit._format.copy_datasets</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="sensortoolkit._format.copy_datasets.CopySensorData.html">sensortoolkit._format.copy_datasets.CopySensorData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="sensortoolkit._format.copy_datasets.PromptDirectory.html">sensortoolkit._format.copy_datasets.PromptDirectory</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="sensortoolkit._format.depreciate_format_names.html">sensortoolkit._format.depreciate_format_names</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="sensortoolkit._format.depreciate_format_names.Format_Metric_Name.html">sensortoolkit._format.depreciate_format_names.Format_Metric_Name</a></li>
+<li class="toctree-l4"><a class="reference internal" href="sensortoolkit._format.depreciate_format_names.Format_Param_Name.html">sensortoolkit._format.depreciate_format_names.Format_Param_Name</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="sensortoolkit._format.format_date.html">sensortoolkit._format.format_date</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="sensortoolkit._format.format_date.Get_Date.html">sensortoolkit._format.format_date.Get_Date</a></li>
 </ul>
@@ -225,6 +238,17 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="sensortoolkit._models.sensor_ols.html">sensortoolkit._models.sensor_ols</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="sensortoolkit._models.sensor_ols.Sensor_OLS.html">sensortoolkit._models.sensor_ols.Sensor_OLS</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="sensortoolkit._parameter.html">sensortoolkit._parameter</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="sensortoolkit._parameter.parameter_class.html">sensortoolkit._parameter.parameter_class</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="sensortoolkit._parameter.parameter_class.Parameter.html">sensortoolkit._parameter.parameter_class.Parameter</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="sensortoolkit._parameter.targets_class.html">sensortoolkit._parameter.targets_class</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="sensortoolkit._parameter.targets_class.ParameterTargets.html">sensortoolkit._parameter.targets_class.ParameterTargets</a></li>
 </ul>
 </li>
 </ul>
@@ -428,20 +452,20 @@
 <h1>sensortoolkit._analysis.dewpoint.Dewpoint<a class="headerlink" href="#sensortoolkit-analysis-dewpoint-dewpoint" title="Permalink to this headline">¶</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="sensortoolkit._analysis.dewpoint.Dewpoint">
-<span class="sig-name descname"><span class="pre">Dewpoint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df_list</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sensortoolkit/_analysis/dewpoint.html#Dewpoint"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sensortoolkit._analysis.dewpoint.Dewpoint" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">Dewpoint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sensortoolkit/_analysis/dewpoint.html#Dewpoint"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sensortoolkit._analysis.dewpoint.Dewpoint" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculate dewpoint using the Magnus Formula.</p>
 <p>Constants via U.S EPA Performance Targets reports for evaluating sensors
 measuring fine particulate matter and ozone.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>df_list</strong> – List of sensor dataframes.</p>
+<dd class="field-odd"><p><strong>data</strong> – Pandas dataframe or list of pandas dataframes</p>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>List of modified sensor dataframes with calulcated dewpoint
-(‘DP_Calculated’).</p>
+<dd class="field-even"><p>Pandas dataframe or list of pandas dataframes with calculated
+dewpoint (column header <code class="docutils literal notranslate"><span class="pre">DP_Calculated</span></code>).</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>df_list</p>
+<dd class="field-odd"><p>data</p>
 </dd>
 </dl>
 </dd></dl>

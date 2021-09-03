@@ -1,4 +1,4 @@
-sensortoolkit.\_performancereport.performance\_report.PerformanceReport
+﻿sensortoolkit.\_performancereport.performance\_report.PerformanceReport
 =======================================================================
 
 .. currentmodule:: sensortoolkit._performancereport.performance_report
@@ -71,8 +71,6 @@ sensortoolkit.\_performancereport.performance\_report.PerformanceReport
       ~PerformanceReport.airnow_key
       ~PerformanceReport.aqs_key
       ~PerformanceReport.aqs_username
-      ~PerformanceReport.param_dict
-      ~PerformanceReport.param_formatting_dict
       ~PerformanceReport.report_params
    
    

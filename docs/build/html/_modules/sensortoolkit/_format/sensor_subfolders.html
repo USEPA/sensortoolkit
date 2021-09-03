@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>sensortoolkit._format.sensor_subfolders &mdash; sensortoolkit 1.0 documentation</title>
+  <title>sensortoolkit._format.sensor_subfolders &mdash; sensortoolkit 0.2.4b1 documentation</title>
   
 
   
@@ -62,6 +62,10 @@
 
           
             
+            
+              <div class="version">
+                0.2.4b1
+              </div>
             
           
 
@@ -132,8 +136,11 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/sensortoolkit._analysis.model_analysis.html">sensortoolkit._analysis.model_analysis</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../_autosummary/sensortoolkit._analysis.model_analysis.CheckType.html">sensortoolkit._analysis.model_analysis.CheckType</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../_autosummary/sensortoolkit._analysis.model_analysis.Compute_RMSE.html">sensortoolkit._analysis.model_analysis.Compute_RMSE</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_autosummary/sensortoolkit._analysis.model_analysis.Join_Stats.html">sensortoolkit._analysis.model_analysis.Join_Stats</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../_autosummary/sensortoolkit._analysis.model_analysis.Regression_Stats.html">sensortoolkit._analysis.model_analysis.Regression_Stats</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_autosummary/sensortoolkit._analysis.model_analysis.WritetoFile_DataFrame.html">sensortoolkit._analysis.model_analysis.WritetoFile_DataFrame</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/sensortoolkit._analysis.normalize_calculator.html">sensortoolkit._analysis.normalize_calculator</a><ul>
@@ -167,6 +174,16 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../_autosummary/sensortoolkit._format.html">sensortoolkit._format</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/sensortoolkit._format.copy_datasets.html">sensortoolkit._format.copy_datasets</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../_autosummary/sensortoolkit._format.copy_datasets.CopySensorData.html">sensortoolkit._format.copy_datasets.CopySensorData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_autosummary/sensortoolkit._format.copy_datasets.PromptDirectory.html">sensortoolkit._format.copy_datasets.PromptDirectory</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/sensortoolkit._format.depreciate_format_names.html">sensortoolkit._format.depreciate_format_names</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../_autosummary/sensortoolkit._format.depreciate_format_names.Format_Metric_Name.html">sensortoolkit._format.depreciate_format_names.Format_Metric_Name</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_autosummary/sensortoolkit._format.depreciate_format_names.Format_Param_Name.html">sensortoolkit._format.depreciate_format_names.Format_Param_Name</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/sensortoolkit._format.format_date.html">sensortoolkit._format.format_date</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../_autosummary/sensortoolkit._format.format_date.Get_Date.html">sensortoolkit._format.format_date.Get_Date</a></li>
 </ul>
@@ -218,6 +235,17 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/sensortoolkit._models.sensor_ols.html">sensortoolkit._models.sensor_ols</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../_autosummary/sensortoolkit._models.sensor_ols.Sensor_OLS.html">sensortoolkit._models.sensor_ols.Sensor_OLS</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../_autosummary/sensortoolkit._parameter.html">sensortoolkit._parameter</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/sensortoolkit._parameter.parameter_class.html">sensortoolkit._parameter.parameter_class</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../_autosummary/sensortoolkit._parameter.parameter_class.Parameter.html">sensortoolkit._parameter.parameter_class.Parameter</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/sensortoolkit._parameter.targets_class.html">sensortoolkit._parameter.targets_class</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../_autosummary/sensortoolkit._parameter.targets_class.ParameterTargets.html">sensortoolkit._parameter.targets_class.ParameterTargets</a></li>
 </ul>
 </li>
 </ul>
@@ -429,8 +457,7 @@
 <span class="kn">import</span> <span class="nn">sys</span>
 <span class="kn">from</span> <span class="nn">shutil</span> <span class="kn">import</span> <span class="n">copy</span>
 
-<div class="viewcode-block" id="Create_Sensor_Directories"><a class="viewcode-back" href="../../../_autosummary/sensortoolkit._format.sensor_subfolders.Create_Sensor_Directories.html#sensortoolkit._format.sensor_subfolders.Create_Sensor_Directories">[docs]</a><span class="k">def</span> <span class="nf">Create_Sensor_Directories</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">eval_params</span><span class="o">=</span><span class="p">[],</span> <span class="n">work_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                              <span class="n">lib_path</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="Create_Sensor_Directories"><a class="viewcode-back" href="../../../_autosummary/sensortoolkit._format.sensor_subfolders.Create_Sensor_Directories.html#sensortoolkit._format.sensor_subfolders.Create_Sensor_Directories">[docs]</a><span class="k">def</span> <span class="nf">Create_Sensor_Directories</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">eval_params</span><span class="o">=</span><span class="p">[],</span> <span class="n">work_path</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Construct the sensor directory file structure required for conducting</span>
 <span class="sd">    analysis with the SensorEvaluation library.</span>
 
@@ -450,9 +477,6 @@
 <span class="sd">        work_path (str):</span>
 <span class="sd">            The full path to the work directory where the user intends to store</span>
 <span class="sd">            datasets, figures, and reports.</span>
-<span class="sd">        lib_path (str):</span>
-<span class="sd">            The full path to the library as downloaded from the online</span>
-<span class="sd">            repository.</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        None</span>
@@ -560,17 +584,7 @@
                     <span class="n">new_dir</span> <span class="o">=</span> <span class="n">data_subfolder</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">work_path</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
                     <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;....Creating sub-directory:&#39;</span><span class="p">)</span>
                     <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;......&#39;</span> <span class="o">+</span> <span class="n">new_dir</span><span class="p">)</span>
-                    <span class="n">new_folders</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">new_dir</span><span class="p">)</span>
-
-    <span class="c1"># copy over deployment figure for Example_Make_Model</span>
-    <span class="n">deploy_fig_loc</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;</span><span class="se">\\</span><span class="s1">Data and Figures</span><span class="se">\\</span><span class="s1">figures</span><span class="se">\\</span><span class="s1">&#39;</span>
-                      <span class="s1">&#39;Example_Make_Model</span><span class="se">\\</span><span class="s1">deployment&#39;</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">name</span> <span class="o">==</span> <span class="s1">&#39;Example_Make_Model&#39;</span> <span class="ow">and</span> <span class="n">deploy_fig_loc</span> <span class="ow">in</span> <span class="n">new_folders</span><span class="p">:</span>
-        <span class="n">subpath</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;Data and Figures/figures/&#39;</span>
-                    <span class="s1">&#39;Example_Make_Model/deployment/&#39;</span> <span class="o">+</span> <span class="n">name</span> <span class="o">+</span> <span class="s1">&#39;.png&#39;</span><span class="p">)</span>
-        <span class="n">src</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">lib_path</span><span class="p">,</span> <span class="n">subpath</span><span class="p">)</span>
-        <span class="n">dst</span> <span class="o">=</span>  <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">work_path</span><span class="p">,</span> <span class="n">subpath</span><span class="p">)</span>
-        <span class="n">copy</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">dst</span><span class="p">)</span></div>
+                    <span class="n">new_folders</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">new_dir</span><span class="p">)</span></div>
 </pre></div>
 
            </div>

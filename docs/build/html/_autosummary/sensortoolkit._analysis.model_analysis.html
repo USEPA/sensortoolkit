@@ -8,7 +8,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>sensortoolkit._analysis.model_analysis &mdash; sensortoolkit 0.1.0b3 documentation</title>
+  <title>sensortoolkit._analysis.model_analysis &mdash; sensortoolkit 0.2.4b1 documentation</title>
   
 
   
@@ -36,13 +36,14 @@
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
     
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="sensortoolkit._analysis.model_analysis.Compute_RMSE" href="sensortoolkit._analysis.model_analysis.Compute_RMSE.html" />
+    <link rel="next" title="sensortoolkit._analysis.model_analysis.CheckType" href="sensortoolkit._analysis.model_analysis.CheckType.html" />
     <link rel="prev" title="sensortoolkit._analysis.intersensor_mean.Intersensor_Mean" href="sensortoolkit._analysis.intersensor_mean.Intersensor_Mean.html" /> 
 </head>
 
@@ -67,7 +68,7 @@
             
             
               <div class="version">
-                0.1.0b3
+                0.2.4b1
               </div>
             
           
@@ -139,8 +140,11 @@
 </ul>
 </li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">sensortoolkit._analysis.model_analysis</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="sensortoolkit._analysis.model_analysis.CheckType.html">sensortoolkit._analysis.model_analysis.CheckType</a></li>
 <li class="toctree-l4"><a class="reference internal" href="sensortoolkit._analysis.model_analysis.Compute_RMSE.html">sensortoolkit._analysis.model_analysis.Compute_RMSE</a></li>
+<li class="toctree-l4"><a class="reference internal" href="sensortoolkit._analysis.model_analysis.Join_Stats.html">sensortoolkit._analysis.model_analysis.Join_Stats</a></li>
 <li class="toctree-l4"><a class="reference internal" href="sensortoolkit._analysis.model_analysis.Regression_Stats.html">sensortoolkit._analysis.model_analysis.Regression_Stats</a></li>
+<li class="toctree-l4"><a class="reference internal" href="sensortoolkit._analysis.model_analysis.WritetoFile_DataFrame.html">sensortoolkit._analysis.model_analysis.WritetoFile_DataFrame</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="sensortoolkit._analysis.normalize_calculator.html">sensortoolkit._analysis.normalize_calculator</a><ul>
@@ -174,6 +178,16 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="sensortoolkit._format.html">sensortoolkit._format</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="sensortoolkit._format.copy_datasets.html">sensortoolkit._format.copy_datasets</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="sensortoolkit._format.copy_datasets.CopySensorData.html">sensortoolkit._format.copy_datasets.CopySensorData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="sensortoolkit._format.copy_datasets.PromptDirectory.html">sensortoolkit._format.copy_datasets.PromptDirectory</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="sensortoolkit._format.depreciate_format_names.html">sensortoolkit._format.depreciate_format_names</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="sensortoolkit._format.depreciate_format_names.Format_Metric_Name.html">sensortoolkit._format.depreciate_format_names.Format_Metric_Name</a></li>
+<li class="toctree-l4"><a class="reference internal" href="sensortoolkit._format.depreciate_format_names.Format_Param_Name.html">sensortoolkit._format.depreciate_format_names.Format_Param_Name</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="sensortoolkit._format.format_date.html">sensortoolkit._format.format_date</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="sensortoolkit._format.format_date.Get_Date.html">sensortoolkit._format.format_date.Get_Date</a></li>
 </ul>
@@ -225,6 +239,17 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="sensortoolkit._models.sensor_ols.html">sensortoolkit._models.sensor_ols</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="sensortoolkit._models.sensor_ols.Sensor_OLS.html">sensortoolkit._models.sensor_ols.Sensor_OLS</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="sensortoolkit._parameter.html">sensortoolkit._parameter</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="sensortoolkit._parameter.parameter_class.html">sensortoolkit._parameter.parameter_class</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="sensortoolkit._parameter.parameter_class.Parameter.html">sensortoolkit._parameter.parameter_class.Parameter</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="sensortoolkit._parameter.targets_class.html">sensortoolkit._parameter.targets_class</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="sensortoolkit._parameter.targets_class.ParameterTargets.html">sensortoolkit._parameter.targets_class.ParameterTargets</a></li>
 </ul>
 </li>
 </ul>
@@ -424,14 +449,60 @@
             
   <section id="module-sensortoolkit._analysis.model_analysis">
 <span id="sensortoolkit-analysis-model-analysis"></span><h1>sensortoolkit._analysis.model_analysis<a class="headerlink" href="#module-sensortoolkit._analysis.model_analysis" title="Permalink to this headline">¶</a></h1>
-<dl class="simple">
-<dt>&#64;Author:</dt><dd><p>Samuel Frederick, NSSC Contractor (ORAU)
-U.S. EPA, Office of Research and Development
-Center for Environmental Measurement and Modeling
-Air Methods and Characterization Division, Source and Fine Scale Branch
-109 T.W Alexander Drive, Research Triangle Park, NC 27711
-Office: 919-541-4086 | Email: <a class="reference external" href="mailto:frederick&#46;samuel&#37;&#52;&#48;epa&#46;gov">frederick<span>&#46;</span>samuel<span>&#64;</span>epa<span>&#46;</span>gov</a></p>
+<p>This module computes statistical metrics for the Ordinary Least Squares linear
+regression between sensor and FRM/FEM datasets (FRM/FEM as the dependent
+variable along the x-axis and sensor data as the independent variable along
+the y-axis).</p>
+<section id="bias-and-linearity">
+<h2>Bias and linearity<a class="headerlink" href="#bias-and-linearity" title="Permalink to this headline">¶</a></h2>
+<p>U.S. EPA’s Performance Targets Reports recommend using a linear regression
+model, relating sensor and FRM/FEM measurements, to determine the magnitude
+of bias and linearity. The regression model takes the form</p>
+<div class="math notranslate nohighlight">
+\[y = mx + b\]</div>
+<p>where</p>
+<blockquote>
+<div><p><span class="math notranslate nohighlight">\(y\)</span> = sensor measurements</p>
+<p><span class="math notranslate nohighlight">\(x\)</span> = FRM/FEM measurements</p>
+<p><span class="math notranslate nohighlight">\(m\)</span> = regression slope</p>
+<p><span class="math notranslate nohighlight">\(y\)</span> = regression intercept</p>
+</div></blockquote>
+<p>The slope <span class="math notranslate nohighlight">\(m\)</span> and intercept <span class="math notranslate nohighlight">\(y\)</span> indicate the degree of systematic
+bias between sensor and reference measurements.</p>
+<p>Linearity is measured via the coefficient of determination (<span class="math notranslate nohighlight">\(R^2\)</span>).</p>
+<div class="admonition error">
+<p class="admonition-title">Error</p>
+<p>U.S. EPA’s Performance Targets Reports recommend the root mean square error
+(RMSE) for quantifying the error between sensor and FRM/FEM measurements. RMSE
+is calculated as</p>
+<div class="math notranslate nohighlight">
+\[RMSE = \sqrt(\frac{1}{N\timesM}\sum_{j=1}^{M}\left[
+\sum_{d=1}^{N}\left(x_{dj}-R_{d}\right)^2\right])\]</div>
+<dl>
+<dt>where:</dt><dd><p><span class="math notranslate nohighlight">\(RMSE\)</span> = root mean square error</p>
+<p>N = number of 1-hour/24-hour periods during which all identical instruments
+are operating and returning valid averages over the duration of the field
+test</p>
+<p>N = number of identical sensors operated simultaneously during a field test</p>
+<p>x_{pj} = valid 1-hour/24-hour averaged sensor PM2.5 concentration for
+averaging interval p and instrument j</p>
+<p>R_{p} = valid 1-hour/24-hour averaged FRM/FEM PM2.5 concentration for
+averaging interval p</p>
 </dd>
+</dl>
+<p>This equation assumes only one FRM/FEM instrument will be running. If multiple
+FRM/FEM instruments are running, separate testing reports can be generated for
+each.
+================================================================================</p>
+<dl>
+<dt>&#64;Author:</dt><dd><div class="line-block">
+<div class="line">Samuel Frederick, NSSC Contractor (ORAU)</div>
+<div class="line">U.S. EPA / ORD / CEMM / AMCD / SFSB</div>
+</div>
+</dd>
+</dl>
+</div>
+<dl class="simple">
 <dt>Created:</dt><dd><p>Tue Mar 3 13:47:32 2020</p>
 </dd>
 <dt>Last Updated:</dt><dd><p>Tue Jul 13 11:09:13 2021</p>
@@ -444,14 +515,24 @@ Office: 919-541-4086 | Email: <a class="reference external" href="mailto:frederi
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="sensortoolkit._analysis.model_analysis.Compute_RMSE.html#sensortoolkit._analysis.model_analysis.Compute_RMSE" title="sensortoolkit._analysis.model_analysis.Compute_RMSE"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Compute_RMSE</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="sensortoolkit._analysis.model_analysis.CheckType.html#sensortoolkit._analysis.model_analysis.CheckType" title="sensortoolkit._analysis.model_analysis.CheckType"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CheckType</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="sensortoolkit._analysis.model_analysis.Compute_RMSE.html#sensortoolkit._analysis.model_analysis.Compute_RMSE" title="sensortoolkit._analysis.model_analysis.Compute_RMSE"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Compute_RMSE</span></code></a></p></td>
 <td><p>Compute the root mean square error for concurrent sensor measurements in each testing deployment groups.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="sensortoolkit._analysis.model_analysis.Join_Stats.html#sensortoolkit._analysis.model_analysis.Join_Stats" title="sensortoolkit._analysis.model_analysis.Join_Stats"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Join_Stats</span></code></a></p></td>
+<td><p></p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="sensortoolkit._analysis.model_analysis.Regression_Stats.html#sensortoolkit._analysis.model_analysis.Regression_Stats" title="sensortoolkit._analysis.model_analysis.Regression_Stats"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Regression_Stats</span></code></a></p></td>
 <td><p>Compute OLS regression statistics.</p></td>
 </tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="sensortoolkit._analysis.model_analysis.WritetoFile_DataFrame.html#sensortoolkit._analysis.model_analysis.WritetoFile_DataFrame" title="sensortoolkit._analysis.model_analysis.WritetoFile_DataFrame"><code class="xref py py-obj docutils literal notranslate"><span class="pre">WritetoFile_DataFrame</span></code></a></p></td>
+<td><p></p></td>
+</tr>
 </tbody>
 </table>
+</section>
 </section>
 
 
@@ -460,7 +541,7 @@ Office: 919-541-4086 | Email: <a class="reference external" href="mailto:frederi
           </div>
           <footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="sensortoolkit._analysis.model_analysis.Compute_RMSE.html" class="btn btn-neutral float-right" title="sensortoolkit._analysis.model_analysis.Compute_RMSE" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="sensortoolkit._analysis.model_analysis.CheckType.html" class="btn btn-neutral float-right" title="sensortoolkit._analysis.model_analysis.CheckType" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
         <a href="sensortoolkit._analysis.intersensor_mean.Intersensor_Mean.html" class="btn btn-neutral float-left" title="sensortoolkit._analysis.intersensor_mean.Intersensor_Mean" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
 

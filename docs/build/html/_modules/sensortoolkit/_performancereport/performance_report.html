@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>sensortoolkit._performancereport.performance_report &mdash; sensortoolkit 1.0 documentation</title>
+  <title>sensortoolkit._performancereport.performance_report &mdash; sensortoolkit 0.2.4b1 documentation</title>
   
 
   
@@ -62,6 +62,10 @@
 
           
             
+            
+              <div class="version">
+                0.2.4b1
+              </div>
             
           
 
@@ -132,8 +136,11 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/sensortoolkit._analysis.model_analysis.html">sensortoolkit._analysis.model_analysis</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../_autosummary/sensortoolkit._analysis.model_analysis.CheckType.html">sensortoolkit._analysis.model_analysis.CheckType</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../_autosummary/sensortoolkit._analysis.model_analysis.Compute_RMSE.html">sensortoolkit._analysis.model_analysis.Compute_RMSE</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_autosummary/sensortoolkit._analysis.model_analysis.Join_Stats.html">sensortoolkit._analysis.model_analysis.Join_Stats</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../_autosummary/sensortoolkit._analysis.model_analysis.Regression_Stats.html">sensortoolkit._analysis.model_analysis.Regression_Stats</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_autosummary/sensortoolkit._analysis.model_analysis.WritetoFile_DataFrame.html">sensortoolkit._analysis.model_analysis.WritetoFile_DataFrame</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/sensortoolkit._analysis.normalize_calculator.html">sensortoolkit._analysis.normalize_calculator</a><ul>
@@ -167,6 +174,16 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../_autosummary/sensortoolkit._format.html">sensortoolkit._format</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/sensortoolkit._format.copy_datasets.html">sensortoolkit._format.copy_datasets</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../_autosummary/sensortoolkit._format.copy_datasets.CopySensorData.html">sensortoolkit._format.copy_datasets.CopySensorData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_autosummary/sensortoolkit._format.copy_datasets.PromptDirectory.html">sensortoolkit._format.copy_datasets.PromptDirectory</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/sensortoolkit._format.depreciate_format_names.html">sensortoolkit._format.depreciate_format_names</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../_autosummary/sensortoolkit._format.depreciate_format_names.Format_Metric_Name.html">sensortoolkit._format.depreciate_format_names.Format_Metric_Name</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../_autosummary/sensortoolkit._format.depreciate_format_names.Format_Param_Name.html">sensortoolkit._format.depreciate_format_names.Format_Param_Name</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/sensortoolkit._format.format_date.html">sensortoolkit._format.format_date</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../_autosummary/sensortoolkit._format.format_date.Get_Date.html">sensortoolkit._format.format_date.Get_Date</a></li>
 </ul>
@@ -218,6 +235,17 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/sensortoolkit._models.sensor_ols.html">sensortoolkit._models.sensor_ols</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../_autosummary/sensortoolkit._models.sensor_ols.Sensor_OLS.html">sensortoolkit._models.sensor_ols.Sensor_OLS</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../_autosummary/sensortoolkit._parameter.html">sensortoolkit._parameter</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/sensortoolkit._parameter.parameter_class.html">sensortoolkit._parameter.parameter_class</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../_autosummary/sensortoolkit._parameter.parameter_class.Parameter.html">sensortoolkit._parameter.parameter_class.Parameter</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/sensortoolkit._parameter.targets_class.html">sensortoolkit._parameter.targets_class</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../_autosummary/sensortoolkit._parameter.targets_class.ParameterTargets.html">sensortoolkit._parameter.targets_class.ParameterTargets</a></li>
 </ul>
 </li>
 </ul>
@@ -472,7 +500,7 @@
     <span class="c1"># constuct reports</span>
     <span class="n">report_params</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;PM25&#39;</span><span class="p">,</span> <span class="s1">&#39;O3&#39;</span><span class="p">]</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sensor_name</span><span class="p">,</span> <span class="n">eval_param</span><span class="p">,</span> <span class="n">work_path</span><span class="p">,</span> <span class="n">load_raw_data</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sensor_name</span><span class="p">,</span> <span class="n">param</span><span class="p">,</span> <span class="n">work_path</span><span class="p">,</span> <span class="n">load_raw_data</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
                  <span class="n">reference_data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">serials</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">tzone_shift</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
                  <span class="n">write_to_file</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">figure_search</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 
@@ -481,13 +509,13 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span> <span class="o">=</span> <span class="n">kwargs</span>
 
         <span class="c1"># Inherit the SensorEvaluation class instance attributes</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">sensor_name</span><span class="p">,</span> <span class="n">eval_param</span><span class="p">,</span> <span class="n">work_path</span><span class="p">,</span> <span class="n">load_raw_data</span><span class="p">,</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">sensor_name</span><span class="p">,</span> <span class="n">param</span><span class="p">,</span> <span class="n">work_path</span><span class="p">,</span> <span class="n">load_raw_data</span><span class="p">,</span>
                          <span class="n">reference_data</span><span class="p">,</span> <span class="n">serials</span><span class="p">,</span> <span class="n">tzone_shift</span><span class="p">,</span>
                          <span class="n">write_to_file</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">eval_param</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">report_params</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__param_name__</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">report_params</span><span class="p">:</span>
             <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="s1">&#39;Reporting template not configured for &#39;</span>
-                     <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">eval_param</span><span class="p">)</span>
+                     <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">__param_name__</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">figure_search</span> <span class="o">=</span> <span class="n">figure_search</span>
 
@@ -498,11 +526,11 @@
 
         <span class="bp">self</span><span class="o">.</span><span class="n">today</span> <span class="o">=</span> <span class="n">dt</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%y%m</span><span class="si">%d</span><span class="s1">&#39;</span><span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">template_name</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;Reporting_Template_Base_&#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">eval_param</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">template_name</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;Reporting_Template_Base_&#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">__param_name__</span>
                               <span class="o">+</span> <span class="s1">&#39;.pptx&#39;</span><span class="p">)</span>
         <span class="c1"># Path to reporting template</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">template_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="vm">__file__</span><span class="p">,</span>
-                        <span class="s1">&#39;../templates&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">eval_param</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">template_name</span><span class="p">))</span>
+                        <span class="s1">&#39;../templates&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__param_name__</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">template_name</span><span class="p">))</span>
 
         <span class="c1"># Details about testing and deployment site</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">testing_org</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;testing_org&#39;</span><span class="p">,</span>
@@ -547,8 +575,8 @@
         <span class="c1"># Plotting: determine the max concentration for average of concurrent</span>
         <span class="c1"># sensor measurements and also the ref max concentration. Select the</span>
         <span class="c1"># upper limit for plots as 1.25x the larger of these values.</span>
-        <span class="n">sensor_avg_cmax</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">avg_hrly_df</span><span class="p">[</span><span class="s1">&#39;mean_&#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">eval_param</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
-        <span class="n">ref_cmax</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">hourly_ref_df</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">eval_param</span> <span class="o">+</span> <span class="s1">&#39;_Value&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+        <span class="n">sensor_avg_cmax</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">avg_hrly_df</span><span class="p">[</span><span class="s1">&#39;mean_&#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">__param_name__</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+        <span class="n">ref_cmax</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">hourly_ref_df</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">__param_name__</span> <span class="o">+</span> <span class="s1">&#39;_Value&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">plot_cmax</span> <span class="o">=</span> <span class="mf">1.25</span><span class="o">*</span><span class="nb">max</span><span class="p">(</span><span class="n">sensor_avg_cmax</span><span class="p">,</span> <span class="n">ref_cmax</span><span class="p">)</span>
 
 <div class="viewcode-block" id="PerformanceReport.FigPositions"><a class="viewcode-back" href="../../../_autosummary/sensortoolkit._performancereport.performance_report.PerformanceReport.html#sensortoolkit._performancereport.performance_report.PerformanceReport.FigPositions">[docs]</a>    <span class="k">def</span> <span class="nf">FigPositions</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -570,7 +598,7 @@
                                      <span class="s1">&#39;top&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">}</span>
                          <span class="p">}</span>
 
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">eval_param</span> <span class="o">==</span> <span class="s1">&#39;PM25&#39;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__param_name__</span> <span class="o">==</span> <span class="s1">&#39;PM25&#39;</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">fig_locs</span><span class="p">[</span><span class="s1">&#39;SingleScatter&#39;</span><span class="p">][</span><span class="s1">&#39;left&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">11.11</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">fig_locs</span><span class="p">[</span><span class="s1">&#39;SingleScatter&#39;</span><span class="p">][</span><span class="s1">&#39;top&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">8.16</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">fig_locs</span><span class="p">[</span><span class="s1">&#39;TripleScatter&#39;</span><span class="p">][</span><span class="s1">&#39;left&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">2.35</span>
@@ -584,7 +612,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">fig_locs</span><span class="p">[</span><span class="s1">&#39;MetInfl&#39;</span><span class="p">][</span><span class="s1">&#39;left&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">8.24</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">fig_locs</span><span class="p">[</span><span class="s1">&#39;MetInfl&#39;</span><span class="p">][</span><span class="s1">&#39;top&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">17.54</span>
 
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">eval_param</span> <span class="o">==</span> <span class="s1">&#39;O3&#39;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__param_name__</span> <span class="o">==</span> <span class="s1">&#39;O3&#39;</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">fig_locs</span><span class="p">[</span><span class="s1">&#39;SingleScatter&#39;</span><span class="p">][</span><span class="s1">&#39;left&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">11.57</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">fig_locs</span><span class="p">[</span><span class="s1">&#39;SingleScatter&#39;</span><span class="p">][</span><span class="s1">&#39;top&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">8.14</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">fig_locs</span><span class="p">[</span><span class="s1">&#39;TripleScatter&#39;</span><span class="p">][</span><span class="s1">&#39;left&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">2.35</span>
@@ -600,7 +628,7 @@
 
     <span class="k">def</span> <span class="nf">FigureSearch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">figure_name</span><span class="p">,</span> <span class="n">subfolder</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">subfolder</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">subfolder</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">eval_param</span>
+            <span class="n">subfolder</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__param_name__</span>
         <span class="c1"># Search for figure created today</span>
         <span class="n">figure_name</span> <span class="o">+=</span> <span class="s1">&#39;_&#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">today</span> <span class="o">+</span> <span class="s1">&#39;.png&#39;</span>
         <span class="n">full_figure_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">figure_path</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\\</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">((</span><span class="n">subfolder</span><span class="p">,</span>
@@ -724,7 +752,7 @@
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Add timeseries plots (1-hr, 24-hr [PM2.5 only]) to report</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">fig_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sensor_name</span> <span class="o">+</span> <span class="s1">&#39;_timeseries_&#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">eval_param</span> \
+        <span class="n">fig_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sensor_name</span> <span class="o">+</span> <span class="s1">&#39;_timeseries_&#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">__param_name__</span> \
             <span class="o">+</span> <span class="s1">&#39;_report_fmt&#39;</span>
 
         <span class="n">fig_exists</span><span class="p">,</span> <span class="n">fig_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">FigureSearch</span><span class="p">(</span><span class="n">fig_name</span><span class="p">)</span>
@@ -755,7 +783,7 @@
 <span class="sd">        Add Performance target metric boxplots/dot plots to report,</span>
 <span class="sd">        (1-hr, 24-hr [PM2.5 only])</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">fig_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sensor_name</span> <span class="o">+</span> <span class="s1">&#39;_regression_boxplot_&#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">eval_param</span>
+        <span class="n">fig_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sensor_name</span> <span class="o">+</span> <span class="s1">&#39;_regression_boxplot_&#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">__param_name__</span>
 
         <span class="n">fig_exists</span><span class="p">,</span> <span class="n">fig_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">FigureSearch</span><span class="p">(</span><span class="n">fig_name</span><span class="p">)</span>
 
@@ -815,7 +843,7 @@
 <span class="sd">        Add normalized meteorological influence (temperature,</span>
 <span class="sd">        relative humidity) scatter plots to report</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">fig_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sensor_name</span> <span class="o">+</span> <span class="s1">&#39;_normalized_&#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">eval_param</span> \
+        <span class="n">fig_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sensor_name</span> <span class="o">+</span> <span class="s1">&#39;_normalized_&#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">__param_name__</span> \
             <span class="o">+</span> <span class="s1">&#39;_met_report_fmt&#39;</span>
 
         <span class="n">fig_exists</span><span class="p">,</span> <span class="n">fig_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">FigureSearch</span><span class="p">(</span><span class="n">fig_name</span><span class="p">)</span>
@@ -854,8 +882,8 @@
             <span class="n">shp_l</span> <span class="o">=</span> <span class="n">shape_loc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
             <span class="n">shp_t</span> <span class="o">=</span> <span class="n">shape_loc</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
             <span class="k">for</span> <span class="n">shape</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">rpt</span><span class="o">.</span><span class="n">slides</span><span class="p">[</span><span class="n">slide_idx</span><span class="p">]</span><span class="o">.</span><span class="n">shapes</span><span class="p">:</span>
-                <span class="k">if</span> <span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">isclose</span><span class="p">(</span><span class="n">shape</span><span class="o">.</span><span class="n">left</span><span class="o">.</span><span class="n">inches</span><span class="p">,</span> <span class="n">shp_l</span><span class="p">,</span> <span class="n">rel_tol</span><span class="o">=.</span><span class="mi">05</span><span class="p">)</span>
-                   <span class="ow">and</span> <span class="n">math</span><span class="o">.</span><span class="n">isclose</span><span class="p">(</span><span class="n">shape</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">inches</span><span class="p">,</span> <span class="n">shp_t</span><span class="p">,</span> <span class="n">rel_tol</span><span class="o">=.</span><span class="mi">05</span><span class="p">)):</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">isclose</span><span class="p">(</span><span class="n">shape</span><span class="o">.</span><span class="n">left</span><span class="o">.</span><span class="n">inches</span><span class="p">,</span> <span class="n">shp_l</span><span class="p">,</span> <span class="n">rel_tol</span><span class="o">=</span><span class="mf">.05</span><span class="p">)</span>
+                   <span class="ow">and</span> <span class="n">math</span><span class="o">.</span><span class="n">isclose</span><span class="p">(</span><span class="n">shape</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">inches</span><span class="p">,</span> <span class="n">shp_t</span><span class="p">,</span> <span class="n">rel_tol</span><span class="o">=</span><span class="mf">.05</span><span class="p">)):</span>
                     <span class="k">return</span> <span class="n">shape</span>
             <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;No shape within specified tolerance!&#39;</span><span class="p">)</span>
 
@@ -892,11 +920,9 @@
             <span class="n">run1</span> <span class="o">=</span> <span class="n">title_line_1</span><span class="o">.</span><span class="n">add_run</span><span class="p">()</span>
             <span class="n">run1</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="s1">&#39;Testing Report - &#39;</span>
             <span class="n">param_baseline</span> <span class="o">=</span> <span class="n">title_line_1</span><span class="o">.</span><span class="n">add_run</span><span class="p">()</span>
-            <span class="n">param_baseline</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">param_formatting_dict</span><span class="p">[</span>
-                                        <span class="bp">self</span><span class="o">.</span><span class="n">eval_param</span><span class="p">][</span><span class="s1">&#39;baseline&#39;</span><span class="p">]</span>
+            <span class="n">param_baseline</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">param_format_baseline</span>
             <span class="n">param_subscript</span> <span class="o">=</span> <span class="n">title_line_1</span><span class="o">.</span><span class="n">add_run</span><span class="p">()</span>
-            <span class="n">param_subscript</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">param_formatting_dict</span><span class="p">[</span>
-                                        <span class="bp">self</span><span class="o">.</span><span class="n">eval_param</span><span class="p">][</span><span class="s1">&#39;subscript&#39;</span><span class="p">]</span>
+            <span class="n">param_subscript</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">param_format_subscript</span>
             <span class="n">font</span> <span class="o">=</span> <span class="n">param_subscript</span><span class="o">.</span><span class="n">font</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">SetSubscript</span><span class="p">(</span><span class="n">font</span><span class="p">)</span>
             <span class="n">run4</span> <span class="o">=</span> <span class="n">title_line_1</span><span class="o">.</span><span class="n">add_run</span><span class="p">()</span>
@@ -978,7 +1004,12 @@
             <span class="n">pic_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">figure_path</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\\</span><span class="s1">deployment</span><span class="se">\\</span><span class="s1">&#39;</span> <span class="o">+</span> \
                 <span class="bp">self</span><span class="o">.</span><span class="n">sensor_name</span> <span class="o">+</span> <span class="s1">&#39;.png&#39;</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">pic_path</span><span class="p">):</span>
-                <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="s1">&#39;No deployment picture found at&#39;</span><span class="p">,</span> <span class="n">pic_path</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;No deployment picture found at&#39;</span><span class="p">,</span> <span class="n">pic_path</span><span class="p">)</span>
+                <span class="n">placeholder_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="vm">__file__</span><span class="p">,</span>
+                                                <span class="s1">&#39;../templates&#39;</span><span class="p">,</span>
+                                                <span class="s1">&#39;placeholder_image.png&#39;</span><span class="p">)</span>
+                <span class="n">pic</span><span class="o">.</span><span class="n">insert_picture</span><span class="p">(</span><span class="n">placeholder_path</span><span class="p">)</span>
+
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">pic</span><span class="o">.</span><span class="n">insert_picture</span><span class="p">(</span><span class="n">pic_path</span><span class="p">)</span></div>
 
@@ -1080,9 +1111,9 @@
 <span class="sd">        Sensor info             49 (PM2.5), 30 (O3)</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># Get pptx table shape for modifying cells</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">eval_param</span> <span class="o">==</span> <span class="s1">&#39;PM25&#39;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__param_name__</span> <span class="o">==</span> <span class="s1">&#39;PM25&#39;</span><span class="p">:</span>
             <span class="n">shape</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">GetShape</span><span class="p">(</span><span class="n">slide_idx</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">shape_id</span><span class="o">=</span><span class="mi">49</span><span class="p">)</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">eval_param</span> <span class="o">==</span> <span class="s1">&#39;O3&#39;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__param_name__</span> <span class="o">==</span> <span class="s1">&#39;O3&#39;</span><span class="p">:</span>
             <span class="n">shape</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">GetShape</span><span class="p">(</span><span class="n">slide_idx</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">shape_id</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
 
         <span class="c1"># Populate list with configured sensor recording interval(s)</span>
@@ -1224,9 +1255,9 @@
 <span class="sd">        Reference conc info          56 (O3)</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># Get pptx table shape for modifying cells</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">eval_param</span> <span class="o">==</span> <span class="s1">&#39;PM25&#39;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__param_name__</span> <span class="o">==</span> <span class="s1">&#39;PM25&#39;</span><span class="p">:</span>
             <span class="n">shape</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">GetShape</span><span class="p">(</span><span class="n">slide_idx</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">shape_id</span><span class="o">=</span><span class="mi">75</span><span class="p">)</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">eval_param</span> <span class="o">==</span> <span class="s1">&#39;O3&#39;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__param_name__</span> <span class="o">==</span> <span class="s1">&#39;O3&#39;</span><span class="p">:</span>
             <span class="n">shape</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">GetShape</span><span class="p">(</span><span class="n">slide_idx</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">shape_id</span><span class="o">=</span><span class="mi">56</span><span class="p">)</span>
 
         <span class="n">grp_info</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">deploy_dict</span><span class="p">[</span><span class="s1">&#39;Deployment Groups&#39;</span><span class="p">]</span>
@@ -1235,13 +1266,13 @@
         <span class="k">for</span> <span class="n">grp</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">grp_info</span><span class="o">.</span><span class="n">keys</span><span class="p">()):</span>
             <span class="n">ref</span> <span class="o">=</span> <span class="s1">&#39;Reference&#39;</span>
             <span class="k">try</span><span class="p">:</span>
-                <span class="n">ref_hmin</span> <span class="o">=</span> <span class="n">grp_info</span><span class="p">[</span><span class="n">grp</span><span class="p">][</span><span class="bp">self</span><span class="o">.</span><span class="n">eval_param</span><span class="p">][</span><span class="n">ref</span><span class="p">][</span>
+                <span class="n">ref_hmin</span> <span class="o">=</span> <span class="n">grp_info</span><span class="p">[</span><span class="n">grp</span><span class="p">][</span><span class="bp">self</span><span class="o">.</span><span class="n">__param_name__</span><span class="p">][</span><span class="n">ref</span><span class="p">][</span>
                                                             <span class="s1">&#39;conc_min_1-hour&#39;</span><span class="p">]</span>
-                <span class="n">ref_hmax</span> <span class="o">=</span> <span class="n">grp_info</span><span class="p">[</span><span class="n">grp</span><span class="p">][</span><span class="bp">self</span><span class="o">.</span><span class="n">eval_param</span><span class="p">][</span><span class="n">ref</span><span class="p">][</span>
+                <span class="n">ref_hmax</span> <span class="o">=</span> <span class="n">grp_info</span><span class="p">[</span><span class="n">grp</span><span class="p">][</span><span class="bp">self</span><span class="o">.</span><span class="n">__param_name__</span><span class="p">][</span><span class="n">ref</span><span class="p">][</span>
                                                             <span class="s1">&#39;conc_max_1-hour&#39;</span><span class="p">]</span>
-                <span class="n">ref_dmin</span> <span class="o">=</span> <span class="n">grp_info</span><span class="p">[</span><span class="n">grp</span><span class="p">][</span><span class="bp">self</span><span class="o">.</span><span class="n">eval_param</span><span class="p">][</span><span class="n">ref</span><span class="p">][</span>
+                <span class="n">ref_dmin</span> <span class="o">=</span> <span class="n">grp_info</span><span class="p">[</span><span class="n">grp</span><span class="p">][</span><span class="bp">self</span><span class="o">.</span><span class="n">__param_name__</span><span class="p">][</span><span class="n">ref</span><span class="p">][</span>
                                                             <span class="s1">&#39;conc_min_24-hour&#39;</span><span class="p">]</span>
-                <span class="n">ref_dmax</span> <span class="o">=</span> <span class="n">grp_info</span><span class="p">[</span><span class="n">grp</span><span class="p">][</span><span class="bp">self</span><span class="o">.</span><span class="n">eval_param</span><span class="p">][</span><span class="n">ref</span><span class="p">][</span>
+                <span class="n">ref_dmax</span> <span class="o">=</span> <span class="n">grp_info</span><span class="p">[</span><span class="n">grp</span><span class="p">][</span><span class="bp">self</span><span class="o">.</span><span class="n">__param_name__</span><span class="p">][</span><span class="n">ref</span><span class="p">][</span>
                                                             <span class="s1">&#39;conc_max_24-hour&#39;</span><span class="p">]</span>
 
                 <span class="bp">self</span><span class="o">.</span><span class="n">refconc</span><span class="p">[</span><span class="n">grp</span><span class="p">]</span> <span class="o">=</span> \
@@ -1254,9 +1285,9 @@
                 <span class="k">pass</span>
 
         <span class="c1"># Number of periods reference exceeded concentration target</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">eval_param</span> <span class="o">==</span> <span class="s1">&#39;PM25&#39;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__param_name__</span> <span class="o">==</span> <span class="s1">&#39;PM25&#39;</span><span class="p">:</span>
             <span class="n">exceed_str</span> <span class="o">=</span> <span class="s1">&#39;n_exceed_conc_goal_24-hour&#39;</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">eval_param</span> <span class="o">==</span> <span class="s1">&#39;O3&#39;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__param_name__</span> <span class="o">==</span> <span class="s1">&#39;O3&#39;</span><span class="p">:</span>
             <span class="n">exceed_str</span> <span class="o">=</span> <span class="s1">&#39;n_exceed_conc_goal_1-hour&#39;</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">refexceed</span> <span class="o">=</span> <span class="p">{}</span>
@@ -1264,7 +1295,7 @@
             <span class="k">try</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">refexceed</span><span class="p">[</span><span class="n">grp</span><span class="p">]</span> <span class="o">=</span> \
                     <span class="s1">&#39;</span><span class="si">{0:d}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-                       <span class="n">grp_info</span><span class="p">[</span><span class="n">grp</span><span class="p">][</span><span class="bp">self</span><span class="o">.</span><span class="n">eval_param</span><span class="p">][</span><span class="s1">&#39;Reference&#39;</span><span class="p">][</span><span class="n">exceed_str</span><span class="p">])</span>
+                       <span class="n">grp_info</span><span class="p">[</span><span class="n">grp</span><span class="p">][</span><span class="bp">self</span><span class="o">.</span><span class="n">__param_name__</span><span class="p">][</span><span class="s1">&#39;Reference&#39;</span><span class="p">][</span><span class="n">exceed_str</span><span class="p">])</span>
 
             <span class="c1"># Raise when attributes are &#39;none&#39; likely due to no data</span>
             <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>
@@ -1313,9 +1344,9 @@
 
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># Get pptx table shape for modifying cells</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">eval_param</span> <span class="o">==</span> <span class="s1">&#39;PM25&#39;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__param_name__</span> <span class="o">==</span> <span class="s1">&#39;PM25&#39;</span><span class="p">:</span>
             <span class="n">shape</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">GetShape</span><span class="p">(</span><span class="n">slide_idx</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">shape_id</span><span class="o">=</span><span class="mi">74</span><span class="p">)</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">eval_param</span> <span class="o">==</span> <span class="s1">&#39;O3&#39;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__param_name__</span> <span class="o">==</span> <span class="s1">&#39;O3&#39;</span><span class="p">:</span>
             <span class="n">shape</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">GetShape</span><span class="p">(</span><span class="n">slide_idx</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">shape_id</span><span class="o">=</span><span class="mi">32</span><span class="p">)</span>
 
         <span class="n">grp_info</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">deploy_dict</span><span class="p">[</span><span class="s1">&#39;Deployment Groups&#39;</span><span class="p">]</span>
@@ -1393,9 +1424,9 @@
 <span class="sd">        N paired met conc vals   48 (O3), 76 (PM25)</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># Get pptx table shape for modifying cells</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">eval_param</span> <span class="o">==</span> <span class="s1">&#39;PM25&#39;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__param_name__</span> <span class="o">==</span> <span class="s1">&#39;PM25&#39;</span><span class="p">:</span>
             <span class="n">shape</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">GetShape</span><span class="p">(</span><span class="n">slide_idx</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">shape_id</span><span class="o">=</span><span class="mi">76</span><span class="p">)</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">eval_param</span> <span class="o">==</span> <span class="s1">&#39;O3&#39;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__param_name__</span> <span class="o">==</span> <span class="s1">&#39;O3&#39;</span><span class="p">:</span>
             <span class="n">shape</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">GetShape</span><span class="p">(</span><span class="n">slide_idx</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">shape_id</span><span class="o">=</span><span class="mi">33</span><span class="p">)</span>
 
         <span class="n">grp_info</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">deploy_dict</span><span class="p">[</span><span class="s1">&#39;Deployment Groups&#39;</span><span class="p">]</span>
@@ -1429,7 +1460,7 @@
 <div class="viewcode-block" id="PerformanceReport.EditSensorRefTable"><a class="viewcode-back" href="../../../_autosummary/sensortoolkit._performancereport.performance_report.PerformanceReport.html#sensortoolkit._performancereport.performance_report.PerformanceReport.EditSensorRefTable">[docs]</a>    <span class="k">def</span> <span class="nf">EditSensorRefTable</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">table</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">eval_param</span> <span class="o">==</span> <span class="s1">&#39;PM25&#39;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__param_name__</span> <span class="o">==</span> <span class="s1">&#39;PM25&#39;</span><span class="p">:</span>
             <span class="n">span_dict</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;Bias and Linearity&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">6</span><span class="p">],</span>
                          <span class="s1">&#39;Data Quality&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">7</span><span class="p">,</span> <span class="mi">10</span><span class="p">],</span>
                          <span class="s1">&#39;R^2&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">12</span><span class="p">,</span> <span class="mi">13</span><span class="p">],</span>
@@ -1467,7 +1498,7 @@
                               <span class="s1">&#39;42&#39;</span><span class="p">:</span> <span class="s1">&#39;-&#39;</span><span class="p">,</span>
                               <span class="s1">&#39;43&#39;</span><span class="p">:</span> <span class="s1">&#39;-&#39;</span><span class="p">}</span>
 
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">eval_param</span> <span class="o">==</span> <span class="s1">&#39;O3&#39;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__param_name__</span> <span class="o">==</span> <span class="s1">&#39;O3&#39;</span><span class="p">:</span>
             <span class="n">span_dict</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;Bias and Linearity&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span>
                          <span class="s1">&#39;Data Quality&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]}</span>
             <span class="n">table_categories</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;1&#39;</span><span class="p">:</span> <span class="s1">&#39;Bias and Linearity&#39;</span><span class="p">,</span>
@@ -1494,13 +1525,13 @@
 
         <span class="n">cells</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">SetSpanningCells</span><span class="p">(</span><span class="n">table</span><span class="p">,</span> <span class="n">span_dict</span><span class="p">)</span>
 
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">eval_param</span> <span class="o">==</span> <span class="s1">&#39;O3&#39;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__param_name__</span> <span class="o">==</span> <span class="s1">&#39;O3&#39;</span><span class="p">:</span>
             <span class="n">c1_row</span><span class="p">,</span> <span class="n">c2_row</span><span class="p">,</span> <span class="n">c3_row</span><span class="p">,</span> <span class="n">c4_row</span><span class="p">,</span> <span class="n">c5_row</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span>
             <span class="n">h_stats</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">grp_stats</span><span class="o">.</span><span class="n">where</span><span class="p">(</span>
                             <span class="bp">self</span><span class="o">.</span><span class="n">grp_stats</span><span class="p">[</span><span class="s1">&#39;Averaging Interval&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;1-hour&#39;</span>
                             <span class="p">)</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">eval_param</span> <span class="o">==</span> <span class="s1">&#39;PM25&#39;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__param_name__</span> <span class="o">==</span> <span class="s1">&#39;PM25&#39;</span><span class="p">:</span>
             <span class="p">(</span><span class="n">c1_row</span><span class="p">,</span> <span class="n">c2_row</span><span class="p">,</span> <span class="n">c3_row</span><span class="p">,</span> <span class="n">c4_row</span><span class="p">,</span> <span class="n">c5_row</span><span class="p">,</span> <span class="n">c6_row</span><span class="p">,</span> <span class="n">c7_row</span><span class="p">,</span> <span class="n">c8_row</span><span class="p">,</span>
              <span class="n">c9_row</span><span class="p">,</span> <span class="n">c10_row</span><span class="p">)</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
             <span class="n">h_stats</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">grp_stats</span><span class="o">.</span><span class="n">where</span><span class="p">(</span>
@@ -1526,9 +1557,9 @@
             <span class="n">text_obj</span> <span class="o">=</span> <span class="n">cell</span><span class="o">.</span><span class="n">text_frame</span><span class="o">.</span><span class="n">paragraphs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 
             <span class="n">n_header_rows</span> <span class="o">=</span> <span class="mi">4</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">eval_param</span> <span class="o">==</span> <span class="s1">&#39;O3&#39;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__param_name__</span> <span class="o">==</span> <span class="s1">&#39;O3&#39;</span><span class="p">:</span>
                 <span class="n">datacols</span> <span class="o">=</span> <span class="mi">6</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">eval_param</span> <span class="o">==</span> <span class="s1">&#39;PM25&#39;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__param_name__</span> <span class="o">==</span> <span class="s1">&#39;PM25&#39;</span><span class="p">:</span>
                 <span class="n">datacols</span> <span class="o">=</span> <span class="mi">11</span>
             <span class="n">datacell0</span> <span class="o">=</span> <span class="n">datacols</span><span class="o">*</span><span class="n">n_header_rows</span>
             <span class="n">datacellend</span> <span class="o">=</span> <span class="n">datacell0</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">grp_n_sensors</span><span class="o">*</span><span class="n">datacols</span>
@@ -1598,11 +1629,11 @@
                 <span class="c1"># Metric column 2</span>
                 <span class="k">if</span> <span class="p">(</span><span class="n">j</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="n">datacols</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
                     <span class="k">try</span><span class="p">:</span>
-                        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">eval_param</span> <span class="o">==</span> <span class="s1">&#39;O3&#39;</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__param_name__</span> <span class="o">==</span> <span class="s1">&#39;O3&#39;</span><span class="p">:</span>
                             <span class="c1"># 1-hr slope</span>
                             <span class="n">val</span> <span class="o">=</span> <span class="n">h_stats</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">c2_row</span><span class="p">,</span> <span class="s1">&#39;Slope&#39;</span><span class="p">]</span>
                             <span class="n">slope_h_vals</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">val</span><span class="p">)</span>
-                        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">eval_param</span> <span class="o">==</span> <span class="s1">&#39;PM25&#39;</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__param_name__</span> <span class="o">==</span> <span class="s1">&#39;PM25&#39;</span><span class="p">:</span>
                             <span class="c1"># 24-hr R^2</span>
                             <span class="n">val</span> <span class="o">=</span> <span class="n">d_stats</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">c2_row</span><span class="p">,</span> <span class="s1">&#39;R$^2$&#39;</span><span class="p">]</span>
                             <span class="n">rsqr_d_vals</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">val</span><span class="p">)</span>
@@ -1615,11 +1646,11 @@
                 <span class="c1"># Metric column 3</span>
                 <span class="k">if</span> <span class="p">(</span><span class="n">j</span><span class="o">-</span><span class="mi">2</span><span class="p">)</span> <span class="o">%</span> <span class="n">datacols</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
                     <span class="k">try</span><span class="p">:</span>
-                        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">eval_param</span> <span class="o">==</span> <span class="s1">&#39;O3&#39;</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__param_name__</span> <span class="o">==</span> <span class="s1">&#39;O3&#39;</span><span class="p">:</span>
                             <span class="c1"># 1-hr Intercept</span>
                             <span class="n">val</span> <span class="o">=</span> <span class="n">h_stats</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">c3_row</span><span class="p">,</span> <span class="s1">&#39;Intercept&#39;</span><span class="p">]</span>
                             <span class="n">intcpt_h_vals</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">val</span><span class="p">)</span>
-                        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">eval_param</span> <span class="o">==</span> <span class="s1">&#39;PM25&#39;</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__param_name__</span> <span class="o">==</span> <span class="s1">&#39;PM25&#39;</span><span class="p">:</span>
                             <span class="c1"># 1-hr Slope</span>
                             <span class="n">val</span> <span class="o">=</span> <span class="n">h_stats</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">c3_row</span><span class="p">,</span> <span class="s1">&#39;Slope&#39;</span><span class="p">]</span>
                             <span class="n">slope_h_vals</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">val</span><span class="p">)</span>
@@ -1632,11 +1663,11 @@
                 <span class="k">if</span> <span class="p">(</span><span class="n">j</span><span class="o">-</span><span class="mi">3</span><span class="p">)</span> <span class="o">%</span> <span class="n">datacols</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
                     <span class="c1"># insert Uptime</span>
                     <span class="k">try</span><span class="p">:</span>
-                        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">eval_param</span> <span class="o">==</span> <span class="s1">&#39;O3&#39;</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__param_name__</span> <span class="o">==</span> <span class="s1">&#39;O3&#39;</span><span class="p">:</span>
                             <span class="c1"># 1-hr uptime</span>
                             <span class="n">val</span> <span class="o">=</span> <span class="n">grp_df</span><span class="p">[</span><span class="n">c4_row</span><span class="p">][</span><span class="s1">&#39;uptime_1-hour&#39;</span><span class="p">]</span>
                             <span class="bp">self</span><span class="o">.</span><span class="n">uptime_h_vals</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">val</span><span class="p">)</span>
-                        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">eval_param</span> <span class="o">==</span> <span class="s1">&#39;PM25&#39;</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__param_name__</span> <span class="o">==</span> <span class="s1">&#39;PM25&#39;</span><span class="p">:</span>
                             <span class="c1"># 24-hr Slope</span>
                             <span class="n">val</span> <span class="o">=</span> <span class="n">d_stats</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">c4_row</span><span class="p">,</span> <span class="s1">&#39;Slope&#39;</span><span class="p">]</span>
                             <span class="n">slope_d_vals</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">val</span><span class="p">)</span>
@@ -1649,11 +1680,11 @@
                 <span class="k">if</span> <span class="p">(</span><span class="n">j</span><span class="o">-</span><span class="mi">4</span><span class="p">)</span> <span class="o">%</span> <span class="n">datacols</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
                     <span class="c1"># insert N paired sensor/reference values</span>
                     <span class="k">try</span><span class="p">:</span>
-                        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">eval_param</span> <span class="o">==</span> <span class="s1">&#39;O3&#39;</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__param_name__</span> <span class="o">==</span> <span class="s1">&#39;O3&#39;</span><span class="p">:</span>
                             <span class="c1"># 1-hr N</span>
                             <span class="n">val</span> <span class="o">=</span> <span class="n">h_stats</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">c5_row</span><span class="p">,</span> <span class="s1">&#39;N&#39;</span><span class="p">]</span>
                             <span class="n">n_h_vals</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">val</span><span class="p">)</span>
-                        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">eval_param</span> <span class="o">==</span> <span class="s1">&#39;PM25&#39;</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__param_name__</span> <span class="o">==</span> <span class="s1">&#39;PM25&#39;</span><span class="p">:</span>
                             <span class="c1"># 1-hr Intercept</span>
                             <span class="n">val</span> <span class="o">=</span> <span class="n">h_stats</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">c5_row</span><span class="p">,</span> <span class="s1">&#39;Intercept&#39;</span><span class="p">]</span>
                             <span class="n">intcpt_h_vals</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">val</span><span class="p">)</span>
@@ -1663,7 +1694,7 @@
                     <span class="n">c5_row</span> <span class="o">+=</span> <span class="mi">1</span>
 
                 <span class="c1"># Columns 6-10 only in PM2.5 sensor-reference table</span>
-                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">eval_param</span> <span class="o">==</span> <span class="s1">&#39;PM25&#39;</span><span class="p">:</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__param_name__</span> <span class="o">==</span> <span class="s1">&#39;PM25&#39;</span><span class="p">:</span>
 
                     <span class="c1"># Metric column 6</span>
                     <span class="k">if</span> <span class="p">(</span><span class="n">j</span><span class="o">-</span><span class="mi">5</span><span class="p">)</span> <span class="o">%</span> <span class="n">datacols</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
@@ -1726,61 +1757,61 @@
                 <span class="c1"># Metric Mean column 1</span>
                 <span class="k">if</span> <span class="n">j</span> <span class="o">%</span> <span class="n">datacols</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
                     <span class="c1"># Mean 1-hr R^2</span>
-                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">eval_param</span> <span class="o">==</span> <span class="s1">&#39;O3&#39;</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__param_name__</span> <span class="o">==</span> <span class="s1">&#39;O3&#39;</span><span class="p">:</span>
                         <span class="n">val</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">rsqr_h_vals</span><span class="p">)</span>
                         <span class="n">txt</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">CheckTargets</span><span class="p">(</span><span class="n">rsqr_h_vals</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="s1">&#39;R$^2$&#39;</span><span class="p">)</span>
                     <span class="c1"># Mean 1-hr R^2</span>
-                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">eval_param</span> <span class="o">==</span> <span class="s1">&#39;PM25&#39;</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__param_name__</span> <span class="o">==</span> <span class="s1">&#39;PM25&#39;</span><span class="p">:</span>
                         <span class="n">val</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">rsqr_h_vals</span><span class="p">)</span>
                         <span class="n">txt</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">CheckTargets</span><span class="p">(</span><span class="n">rsqr_h_vals</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="s1">&#39;R$^2$&#39;</span><span class="p">)</span>
 
                 <span class="c1"># Metric Mean column 2</span>
                 <span class="k">if</span> <span class="p">(</span><span class="n">j</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="n">datacols</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
                     <span class="c1"># Mean 1-hr Slope</span>
-                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">eval_param</span> <span class="o">==</span> <span class="s1">&#39;O3&#39;</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__param_name__</span> <span class="o">==</span> <span class="s1">&#39;O3&#39;</span><span class="p">:</span>
                         <span class="n">val</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">slope_h_vals</span><span class="p">)</span>
                         <span class="n">txt</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">CheckTargets</span><span class="p">(</span><span class="n">slope_h_vals</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="s1">&#39;Slope&#39;</span><span class="p">)</span>
                     <span class="c1"># Mean 24-hr R^2</span>
-                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">eval_param</span> <span class="o">==</span> <span class="s1">&#39;PM25&#39;</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__param_name__</span> <span class="o">==</span> <span class="s1">&#39;PM25&#39;</span><span class="p">:</span>
                         <span class="n">val</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">rsqr_d_vals</span><span class="p">)</span>
                         <span class="n">txt</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">CheckTargets</span><span class="p">(</span><span class="n">rsqr_d_vals</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="s1">&#39;R$^2$&#39;</span><span class="p">)</span>
 
                 <span class="c1"># Metric Mean column 3</span>
                 <span class="k">if</span> <span class="p">(</span><span class="n">j</span> <span class="o">-</span> <span class="mi">2</span><span class="p">)</span> <span class="o">%</span> <span class="n">datacols</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
                     <span class="c1"># Mean 1-hr Intercept</span>
-                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">eval_param</span> <span class="o">==</span> <span class="s1">&#39;O3&#39;</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__param_name__</span> <span class="o">==</span> <span class="s1">&#39;O3&#39;</span><span class="p">:</span>
                         <span class="n">val</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">intcpt_h_vals</span><span class="p">)</span>
                         <span class="n">txt</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">CheckTargets</span><span class="p">(</span><span class="n">intcpt_h_vals</span><span class="p">,</span>
                                                 <span class="n">metric</span><span class="o">=</span><span class="s1">&#39;Intercept&#39;</span><span class="p">)</span>
                     <span class="c1"># Mean 1-hr Slope</span>
-                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">eval_param</span> <span class="o">==</span> <span class="s1">&#39;PM25&#39;</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__param_name__</span> <span class="o">==</span> <span class="s1">&#39;PM25&#39;</span><span class="p">:</span>
                         <span class="n">val</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">slope_h_vals</span><span class="p">)</span>
                         <span class="n">txt</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">CheckTargets</span><span class="p">(</span><span class="n">slope_h_vals</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="s1">&#39;Slope&#39;</span><span class="p">)</span>
 
                 <span class="c1"># Metric Mean column 4</span>
                 <span class="k">if</span> <span class="p">(</span><span class="n">j</span> <span class="o">-</span> <span class="mi">3</span><span class="p">)</span> <span class="o">%</span> <span class="n">datacols</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
                     <span class="c1"># Mean 1-hr Uptime</span>
-                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">eval_param</span> <span class="o">==</span> <span class="s1">&#39;O3&#39;</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__param_name__</span> <span class="o">==</span> <span class="s1">&#39;O3&#39;</span><span class="p">:</span>
                         <span class="n">val</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">uptime_h_vals</span><span class="p">)</span>
                         <span class="n">txt</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">CheckTargets</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">uptime_h_vals</span><span class="p">,</span>
                                                 <span class="n">metric</span><span class="o">=</span><span class="s1">&#39;Uptime&#39;</span><span class="p">)</span>
                     <span class="c1"># Mean 24-hr Slope</span>
-                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">eval_param</span> <span class="o">==</span> <span class="s1">&#39;PM25&#39;</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__param_name__</span> <span class="o">==</span> <span class="s1">&#39;PM25&#39;</span><span class="p">:</span>
                         <span class="n">val</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">slope_d_vals</span><span class="p">)</span>
                         <span class="n">txt</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">CheckTargets</span><span class="p">(</span><span class="n">slope_d_vals</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="s1">&#39;Slope&#39;</span><span class="p">)</span>
 
                 <span class="c1"># Metric Mean column 5</span>
                 <span class="k">if</span> <span class="p">(</span><span class="n">j</span> <span class="o">-</span> <span class="mi">4</span><span class="p">)</span> <span class="o">%</span> <span class="n">datacols</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
                     <span class="c1"># Mean 1-hr N paired measurements</span>
-                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">eval_param</span> <span class="o">==</span> <span class="s1">&#39;O3&#39;</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__param_name__</span> <span class="o">==</span> <span class="s1">&#39;O3&#39;</span><span class="p">:</span>
                         <span class="n">val</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">n_h_vals</span><span class="p">)</span>
                     <span class="c1"># Mean 1-hr Intercept</span>
-                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">eval_param</span> <span class="o">==</span> <span class="s1">&#39;PM25&#39;</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__param_name__</span> <span class="o">==</span> <span class="s1">&#39;PM25&#39;</span><span class="p">:</span>
                         <span class="n">val</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">intcpt_h_vals</span><span class="p">)</span>
                         <span class="n">txt</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">CheckTargets</span><span class="p">(</span><span class="n">intcpt_h_vals</span><span class="p">,</span>
                                                 <span class="n">metric</span><span class="o">=</span><span class="s1">&#39;Intercept&#39;</span><span class="p">)</span>
 
-                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">eval_param</span> <span class="o">==</span> <span class="s1">&#39;PM25&#39;</span><span class="p">:</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__param_name__</span> <span class="o">==</span> <span class="s1">&#39;PM25&#39;</span><span class="p">:</span>
                     <span class="c1"># Metric Mean column 6</span>
                     <span class="k">if</span> <span class="p">(</span><span class="n">j</span> <span class="o">-</span> <span class="mi">5</span><span class="p">)</span> <span class="o">%</span> <span class="n">datacols</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
                         <span class="c1"># Mean 24-hr Intercept</span>
@@ -1831,14 +1862,14 @@
 
         <span class="n">error_stats</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">deploy_dict</span><span class="p">[</span><span class="s1">&#39;Deployment Groups&#39;</span><span class="p">]</span>
                                        <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">grp_name</span><span class="p">]</span>
-                                       <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">eval_param</span><span class="p">]</span>
+                                       <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">__param_name__</span><span class="p">]</span>
                                        <span class="p">[</span><span class="s1">&#39;Error&#39;</span><span class="p">])</span>
 
         <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">error_stats</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
             <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="n">error_stats</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">999</span>
 
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">eval_param</span> <span class="o">==</span> <span class="s1">&#39;PM25&#39;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__param_name__</span> <span class="o">==</span> <span class="s1">&#39;PM25&#39;</span><span class="p">:</span>
             <span class="n">datacols</span> <span class="o">=</span> <span class="mi">4</span>
             <span class="n">nheaderrows</span> <span class="o">=</span> <span class="mi">4</span>
             <span class="n">headercellend</span> <span class="o">=</span> <span class="n">nheaderrows</span><span class="o">*</span><span class="p">(</span><span class="n">datacols</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
@@ -1866,7 +1897,7 @@
                 <span class="k">if</span> <span class="n">value</span> <span class="o">==</span> <span class="s1">&#39;-999.00&#39;</span><span class="p">:</span>
                     <span class="n">metric_vals</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
 
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">eval_param</span> <span class="o">==</span> <span class="s1">&#39;O3&#39;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__param_name__</span> <span class="o">==</span> <span class="s1">&#39;O3&#39;</span><span class="p">:</span>
             <span class="n">datacols</span> <span class="o">=</span> <span class="mi">2</span>
             <span class="n">nheaderrows</span> <span class="o">=</span> <span class="mi">4</span>
             <span class="n">headercellend</span> <span class="o">=</span> <span class="n">nheaderrows</span><span class="o">*</span><span class="p">(</span><span class="n">datacols</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
@@ -1921,25 +1952,25 @@
             <span class="k">if</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="n">headercellend</span><span class="p">:</span>
                 <span class="k">if</span> <span class="p">(</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="n">datacols</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
                     <span class="c1"># Mean 1-hr RMSE</span>
-                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">eval_param</span> <span class="o">==</span> <span class="s1">&#39;O3&#39;</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__param_name__</span> <span class="o">==</span> <span class="s1">&#39;O3&#39;</span><span class="p">:</span>
                         <span class="n">val</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">metric_vals</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)])</span>
                         <span class="n">txt</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">CheckTargets</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="s1">&#39;RMSE&#39;</span><span class="p">)</span>
                     <span class="c1"># Mean 1-hr RMSE</span>
-                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">eval_param</span> <span class="o">==</span> <span class="s1">&#39;PM25&#39;</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__param_name__</span> <span class="o">==</span> <span class="s1">&#39;PM25&#39;</span><span class="p">:</span>
                         <span class="n">val</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">metric_vals</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)])</span>
                         <span class="n">txt</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">CheckTargets</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="s1">&#39;RMSE&#39;</span><span class="p">)</span>
                 <span class="c1"># Metric column 2</span>
                 <span class="k">if</span> <span class="p">(</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="n">datacols</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
                     <span class="c1"># 1-hr nRMSE</span>
-                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">eval_param</span> <span class="o">==</span> <span class="s1">&#39;O3&#39;</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__param_name__</span> <span class="o">==</span> <span class="s1">&#39;O3&#39;</span><span class="p">:</span>
                         <span class="n">val</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">metric_vals</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)])</span>
                         <span class="n">txt</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">CheckTargets</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="s1">&#39;nRMSE&#39;</span><span class="p">)</span>
                     <span class="c1"># 24-hr RMSE</span>
-                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">eval_param</span> <span class="o">==</span> <span class="s1">&#39;PM25&#39;</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__param_name__</span> <span class="o">==</span> <span class="s1">&#39;PM25&#39;</span><span class="p">:</span>
                         <span class="n">val</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">metric_vals</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)])</span>
                         <span class="n">txt</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">CheckTargets</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="s1">&#39;RMSE&#39;</span><span class="p">)</span>
 
-                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">eval_param</span> <span class="o">==</span> <span class="s1">&#39;PM25&#39;</span><span class="p">:</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__param_name__</span> <span class="o">==</span> <span class="s1">&#39;PM25&#39;</span><span class="p">:</span>
                     <span class="c1"># Metric column 3</span>
                     <span class="k">if</span> <span class="p">(</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="n">datacols</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
                         <span class="c1"># 1-hr nRMSE</span>
@@ -1948,7 +1979,7 @@
                     <span class="c1"># Metric column 4</span>
                     <span class="k">if</span> <span class="p">(</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="n">datacols</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
                         <span class="c1"># 24-hr nRMSE</span>
-                        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">eval_param</span> <span class="o">==</span> <span class="s1">&#39;PM25&#39;</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__param_name__</span> <span class="o">==</span> <span class="s1">&#39;PM25&#39;</span><span class="p">:</span>
                             <span class="n">val</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">metric_vals</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)])</span>
                             <span class="n">txt</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">CheckTargets</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="s1">&#39;nRMSE&#39;</span><span class="p">)</span>
 
@@ -1969,10 +2000,10 @@
 
         <span class="n">grp_stats</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">deploy_dict</span><span class="p">[</span><span class="s1">&#39;Deployment Groups&#39;</span><span class="p">]</span>
                                      <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">grp_name</span><span class="p">]</span>
-                                     <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">eval_param</span><span class="p">]</span>
+                                     <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">__param_name__</span><span class="p">]</span>
                                      <span class="p">[</span><span class="s1">&#39;Precision&#39;</span><span class="p">])</span>
 
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">eval_param</span> <span class="o">==</span> <span class="s1">&#39;PM25&#39;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__param_name__</span> <span class="o">==</span> <span class="s1">&#39;PM25&#39;</span><span class="p">:</span>
             <span class="n">datacols</span> <span class="o">=</span> <span class="mi">8</span>
             <span class="n">nheaderrows</span> <span class="o">=</span> <span class="mi">4</span>
             <span class="n">headercellend</span> <span class="o">=</span> <span class="n">nheaderrows</span><span class="o">*</span><span class="p">(</span><span class="n">datacols</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
@@ -2016,7 +2047,7 @@
                            <span class="s1">&#39;43&#39;</span><span class="p">:</span> <span class="nb">format</span><span class="p">(</span><span class="n">grp_stats</span><span class="p">[</span><span class="s1">&#39;n_1-hour&#39;</span><span class="p">]),</span>
                            <span class="s1">&#39;44&#39;</span><span class="p">:</span> <span class="nb">format</span><span class="p">(</span><span class="n">grp_stats</span><span class="p">[</span><span class="s1">&#39;n_24-hour&#39;</span><span class="p">])}</span>
 
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">eval_param</span> <span class="o">==</span> <span class="s1">&#39;O3&#39;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__param_name__</span> <span class="o">==</span> <span class="s1">&#39;O3&#39;</span><span class="p">:</span>
             <span class="n">datacols</span> <span class="o">=</span> <span class="mi">4</span>
             <span class="n">nheaderrows</span> <span class="o">=</span> <span class="mi">4</span>
             <span class="n">headercellend</span> <span class="o">=</span> <span class="n">nheaderrows</span><span class="o">*</span><span class="p">(</span><span class="n">datacols</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
@@ -2080,41 +2111,41 @@
                 <span class="n">j</span> <span class="o">=</span> <span class="n">i</span> <span class="o">-</span> <span class="n">headercellend</span>
                 <span class="k">if</span> <span class="p">(</span><span class="n">j</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="n">datacols</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
                     <span class="c1"># Mean 1-hr CV</span>
-                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">eval_param</span> <span class="o">==</span> <span class="s1">&#39;O3&#39;</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__param_name__</span> <span class="o">==</span> <span class="s1">&#39;O3&#39;</span><span class="p">:</span>
                         <span class="n">val</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">metric_vals</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)])</span>
                         <span class="n">txt</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">CheckTargets</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="s1">&#39;CV&#39;</span><span class="p">)</span>
                     <span class="c1"># Mean 1-hr CV</span>
-                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">eval_param</span> <span class="o">==</span> <span class="s1">&#39;PM25&#39;</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__param_name__</span> <span class="o">==</span> <span class="s1">&#39;PM25&#39;</span><span class="p">:</span>
                         <span class="n">val</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">metric_vals</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)])</span>
                         <span class="n">txt</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">CheckTargets</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="s1">&#39;CV&#39;</span><span class="p">)</span>
                 <span class="c1"># Metric column 2</span>
                 <span class="k">if</span> <span class="p">(</span><span class="n">j</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="n">datacols</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
                     <span class="c1"># 1-hr Std dev</span>
-                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">eval_param</span> <span class="o">==</span> <span class="s1">&#39;O3&#39;</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__param_name__</span> <span class="o">==</span> <span class="s1">&#39;O3&#39;</span><span class="p">:</span>
                         <span class="n">val</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">metric_vals</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)])</span>
                         <span class="n">txt</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">CheckTargets</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="s1">&#39;SD&#39;</span><span class="p">)</span>
                     <span class="c1"># 24-hr CV</span>
-                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">eval_param</span> <span class="o">==</span> <span class="s1">&#39;PM25&#39;</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__param_name__</span> <span class="o">==</span> <span class="s1">&#39;PM25&#39;</span><span class="p">:</span>
                         <span class="n">val</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">metric_vals</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)])</span>
                         <span class="n">txt</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">CheckTargets</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="s1">&#39;CV&#39;</span><span class="p">)</span>
                 <span class="c1"># Metric column 3</span>
                 <span class="k">if</span> <span class="p">(</span><span class="n">j</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="n">datacols</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
                     <span class="c1"># 1-hr Uptime</span>
-                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">eval_param</span> <span class="o">==</span> <span class="s1">&#39;O3&#39;</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__param_name__</span> <span class="o">==</span> <span class="s1">&#39;O3&#39;</span><span class="p">:</span>
                         <span class="n">val</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">metric_vals</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)])</span>
                         <span class="n">txt</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">CheckTargets</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="s1">&#39;Uptime&#39;</span><span class="p">)</span>
                     <span class="c1"># 1-hr Std dev</span>
-                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">eval_param</span> <span class="o">==</span> <span class="s1">&#39;PM25&#39;</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__param_name__</span> <span class="o">==</span> <span class="s1">&#39;PM25&#39;</span><span class="p">:</span>
                         <span class="n">val</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">metric_vals</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)])</span>
                         <span class="n">txt</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">CheckTargets</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="s1">&#39;CV&#39;</span><span class="p">)</span>
                 <span class="c1"># Metric column 4</span>
                 <span class="k">if</span> <span class="p">(</span><span class="n">j</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="n">datacols</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
                     <span class="c1"># 24-hr Std dev</span>
-                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">eval_param</span> <span class="o">==</span> <span class="s1">&#39;PM25&#39;</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__param_name__</span> <span class="o">==</span> <span class="s1">&#39;PM25&#39;</span><span class="p">:</span>
                         <span class="n">val</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">metric_vals</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)])</span>
                         <span class="n">txt</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">CheckTargets</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="s1">&#39;SD&#39;</span><span class="p">)</span>
 
-                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">eval_param</span> <span class="o">==</span> <span class="s1">&#39;PM25&#39;</span><span class="p">:</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__param_name__</span> <span class="o">==</span> <span class="s1">&#39;PM25&#39;</span><span class="p">:</span>
                     <span class="c1"># Metric column 5</span>
                     <span class="k">if</span> <span class="p">(</span><span class="n">j</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="n">datacols</span> <span class="o">==</span> <span class="mi">4</span><span class="p">:</span>
                         <span class="c1"># 1-hr uptime</span>
@@ -2359,7 +2390,7 @@
 
         <span class="c1"># Create Sensor-Reference Correlation Table ---------------------------</span>
         <span class="k">if</span> <span class="n">table_type</span> <span class="o">==</span> <span class="s1">&#39;sensor_reference&#39;</span><span class="p">:</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">eval_param</span> <span class="o">==</span> <span class="s1">&#39;PM25&#39;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__param_name__</span> <span class="o">==</span> <span class="s1">&#39;PM25&#39;</span><span class="p">:</span>
                 <span class="n">nrows</span> <span class="o">=</span> <span class="mi">5</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">grp_n_sensors</span>
                 <span class="n">ncols</span> <span class="o">=</span> <span class="mi">11</span>
                 <span class="n">col_width</span> <span class="o">=</span> <span class="n">ppt</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">Inches</span><span class="p">(</span><span class="mf">1.2</span><span class="p">)</span>
@@ -2370,7 +2401,7 @@
                 <span class="c1"># grey out cells at index (from l-r where top left is 0)</span>
                 <span class="n">greyed_cells</span> <span class="o">=</span> <span class="p">[</span><span class="mi">42</span><span class="p">,</span> <span class="mi">43</span><span class="p">]</span>
 
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">eval_param</span> <span class="o">==</span> <span class="s1">&#39;O3&#39;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__param_name__</span> <span class="o">==</span> <span class="s1">&#39;O3&#39;</span><span class="p">:</span>
                 <span class="n">nrows</span> <span class="o">=</span> <span class="mi">5</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">grp_n_sensors</span>
                 <span class="n">ncols</span> <span class="o">=</span> <span class="mi">6</span>
                 <span class="n">col_width</span> <span class="o">=</span> <span class="n">ppt</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">Inches</span><span class="p">(</span><span class="mf">2.4</span><span class="p">)</span>
@@ -2381,7 +2412,7 @@
                 <span class="n">greyed_cells</span> <span class="o">=</span> <span class="p">[</span><span class="mi">23</span><span class="p">]</span>
 
         <span class="k">if</span> <span class="n">table_type</span> <span class="o">==</span> <span class="s1">&#39;error&#39;</span><span class="p">:</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">eval_param</span> <span class="o">==</span> <span class="s1">&#39;PM25&#39;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__param_name__</span> <span class="o">==</span> <span class="s1">&#39;PM25&#39;</span><span class="p">:</span>
                 <span class="n">nrows</span> <span class="o">=</span> <span class="mi">5</span>
                 <span class="n">ncols</span> <span class="o">=</span> <span class="mi">5</span>
                 <span class="n">col_width</span> <span class="o">=</span> <span class="n">ppt</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">Inches</span><span class="p">(</span><span class="mf">1.2</span><span class="p">)</span>
@@ -2391,7 +2422,7 @@
                 <span class="n">top</span> <span class="o">=</span> <span class="n">ppt</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">Inches</span><span class="p">(</span><span class="mf">3.69</span> <span class="o">+</span> <span class="mf">7.83</span> <span class="o">+</span> <span class="n">table_spacing</span><span class="p">)</span>
                 <span class="n">greyed_cells</span> <span class="o">=</span> <span class="kc">None</span>
 
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">eval_param</span> <span class="o">==</span> <span class="s1">&#39;O3&#39;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__param_name__</span> <span class="o">==</span> <span class="s1">&#39;O3&#39;</span><span class="p">:</span>
                 <span class="n">nrows</span> <span class="o">=</span> <span class="mi">5</span>
                 <span class="n">ncols</span> <span class="o">=</span> <span class="mi">3</span>
                 <span class="n">col_width</span> <span class="o">=</span> <span class="n">ppt</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">Inches</span><span class="p">(</span><span class="mf">2.4</span><span class="p">)</span>
@@ -2402,7 +2433,7 @@
                 <span class="n">greyed_cells</span> <span class="o">=</span> <span class="kc">None</span>
 
         <span class="k">if</span> <span class="n">table_type</span> <span class="o">==</span> <span class="s1">&#39;sensor_sensor&#39;</span><span class="p">:</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">eval_param</span> <span class="o">==</span> <span class="s1">&#39;PM25&#39;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__param_name__</span> <span class="o">==</span> <span class="s1">&#39;PM25&#39;</span><span class="p">:</span>
                 <span class="n">nrows</span> <span class="o">=</span> <span class="mi">5</span>
                 <span class="n">ncols</span> <span class="o">=</span> <span class="mi">9</span>
                 <span class="n">col_width</span> <span class="o">=</span> <span class="n">ppt</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">Inches</span><span class="p">(</span><span class="mf">1.2</span><span class="p">)</span>
@@ -2412,7 +2443,7 @@
                 <span class="n">top</span> <span class="o">=</span> <span class="n">ppt</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">Inches</span><span class="p">(</span><span class="mf">3.69</span> <span class="o">+</span> <span class="mf">7.83</span> <span class="o">+</span> <span class="mi">2</span><span class="o">*</span><span class="n">table_spacing</span> <span class="o">+</span> <span class="mf">3.23</span><span class="p">)</span>
                 <span class="n">greyed_cells</span> <span class="o">=</span> <span class="p">[</span><span class="mi">34</span><span class="p">,</span> <span class="mi">35</span><span class="p">]</span>
 
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">eval_param</span> <span class="o">==</span> <span class="s1">&#39;O3&#39;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__param_name__</span> <span class="o">==</span> <span class="s1">&#39;O3&#39;</span><span class="p">:</span>
                 <span class="n">nrows</span> <span class="o">=</span> <span class="mi">5</span>
                 <span class="n">ncols</span> <span class="o">=</span> <span class="mi">5</span>
                 <span class="n">col_width</span> <span class="o">=</span> <span class="n">ppt</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">Inches</span><span class="p">(</span><span class="mf">2.4</span><span class="p">)</span>
@@ -2636,7 +2667,7 @@
             <span class="n">metric_vals</span> <span class="o">=</span> <span class="p">[</span><span class="n">metric_vals</span><span class="p">]</span>
 
         <span class="c1"># Performance target values for PM2.5 base test evaluations</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">eval_param</span> <span class="o">==</span> <span class="s1">&#39;PM25&#39;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__param_name__</span> <span class="o">==</span> <span class="s1">&#39;PM25&#39;</span><span class="p">:</span>
             <span class="n">Rsqr_min</span><span class="p">,</span> <span class="n">Rsqr_max</span> <span class="o">=</span> <span class="mf">0.70</span><span class="p">,</span> <span class="mf">1.0</span>
             <span class="n">Slope_min</span><span class="p">,</span> <span class="n">Slope_max</span> <span class="o">=</span> <span class="mf">0.65</span><span class="p">,</span>  <span class="mf">1.35</span>
             <span class="n">Intcpt_min</span><span class="p">,</span> <span class="n">Intcpt_max</span> <span class="o">=</span> <span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span>
@@ -2647,7 +2678,7 @@
             <span class="n">SD_min</span><span class="p">,</span> <span class="n">SD_max</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">5</span>
 
         <span class="c1"># Performance target values for O3 base test evaluations</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">eval_param</span> <span class="o">==</span> <span class="s1">&#39;O3&#39;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__param_name__</span> <span class="o">==</span> <span class="s1">&#39;O3&#39;</span><span class="p">:</span>
             <span class="n">Rsqr_min</span><span class="p">,</span> <span class="n">Rsqr_max</span> <span class="o">=</span> <span class="mf">0.80</span><span class="p">,</span> <span class="mf">1.0</span>
             <span class="n">Slope_min</span><span class="p">,</span> <span class="n">Slope_max</span> <span class="o">=</span> <span class="mf">0.80</span><span class="p">,</span>  <span class="mf">1.20</span>
             <span class="n">Intcpt_min</span><span class="p">,</span> <span class="n">Intcpt_max</span> <span class="o">=</span> <span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span>
@@ -2749,11 +2780,11 @@
 
     <span class="k">def</span> <span class="nf">SaveReport</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;..Saving report&#39;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">rpt_name</span> <span class="o">=</span> <span class="s1">&#39;Base_Testing_Report_&#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">eval_param</span>\
+        <span class="bp">self</span><span class="o">.</span><span class="n">rpt_name</span> <span class="o">=</span> <span class="s1">&#39;Base_Testing_Report_&#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">__param_name__</span>\
                         <span class="o">+</span> <span class="s1">&#39;_&#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">sensor_name</span> <span class="o">+</span> <span class="s1">&#39;_&#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">today</span> <span class="o">+</span> <span class="s1">&#39;.pptx&#39;</span>
 
         <span class="n">save_dir</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\\</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">work_path</span><span class="p">,</span> <span class="s1">&#39;Reports&#39;</span><span class="p">,</span>
-                              <span class="bp">self</span><span class="o">.</span><span class="n">sensor_name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">eval_param</span><span class="p">))</span>
+                              <span class="bp">self</span><span class="o">.</span><span class="n">sensor_name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__param_name__</span><span class="p">))</span>
         <span class="n">save_path</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\\</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">((</span><span class="n">save_dir</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">rpt_name</span><span class="p">))</span>
 
         <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">save_dir</span><span class="p">):</span>

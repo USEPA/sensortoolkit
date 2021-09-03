@@ -8,7 +8,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>sensortoolkit Modules &mdash; sensortoolkit 0.1.0b3 documentation</title>
+  <title>sensortoolkit Modules &mdash; sensortoolkit 0.2.4b1 documentation</title>
   
 
   
@@ -67,7 +67,7 @@
             
             
               <div class="version">
-                0.1.0b3
+                0.2.4b1
               </div>
             
           
@@ -139,8 +139,11 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="_autosummary/sensortoolkit._analysis.model_analysis.html">sensortoolkit._analysis.model_analysis</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._analysis.model_analysis.CheckType.html">sensortoolkit._analysis.model_analysis.CheckType</a></li>
 <li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._analysis.model_analysis.Compute_RMSE.html">sensortoolkit._analysis.model_analysis.Compute_RMSE</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._analysis.model_analysis.Join_Stats.html">sensortoolkit._analysis.model_analysis.Join_Stats</a></li>
 <li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._analysis.model_analysis.Regression_Stats.html">sensortoolkit._analysis.model_analysis.Regression_Stats</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._analysis.model_analysis.WritetoFile_DataFrame.html">sensortoolkit._analysis.model_analysis.WritetoFile_DataFrame</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="_autosummary/sensortoolkit._analysis.normalize_calculator.html">sensortoolkit._analysis.normalize_calculator</a><ul>
@@ -174,6 +177,16 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="_autosummary/sensortoolkit._format.html">sensortoolkit._format</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="_autosummary/sensortoolkit._format.copy_datasets.html">sensortoolkit._format.copy_datasets</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._format.copy_datasets.CopySensorData.html">sensortoolkit._format.copy_datasets.CopySensorData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._format.copy_datasets.PromptDirectory.html">sensortoolkit._format.copy_datasets.PromptDirectory</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="_autosummary/sensortoolkit._format.depreciate_format_names.html">sensortoolkit._format.depreciate_format_names</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._format.depreciate_format_names.Format_Metric_Name.html">sensortoolkit._format.depreciate_format_names.Format_Metric_Name</a></li>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._format.depreciate_format_names.Format_Param_Name.html">sensortoolkit._format.depreciate_format_names.Format_Param_Name</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="_autosummary/sensortoolkit._format.format_date.html">sensortoolkit._format.format_date</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._format.format_date.Get_Date.html">sensortoolkit._format.format_date.Get_Date</a></li>
 </ul>
@@ -225,6 +238,17 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="_autosummary/sensortoolkit._models.sensor_ols.html">sensortoolkit._models.sensor_ols</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._models.sensor_ols.Sensor_OLS.html">sensortoolkit._models.sensor_ols.Sensor_OLS</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="_autosummary/sensortoolkit._parameter.html">sensortoolkit._parameter</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="_autosummary/sensortoolkit._parameter.parameter_class.html">sensortoolkit._parameter.parameter_class</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._parameter.parameter_class.Parameter.html">sensortoolkit._parameter.parameter_class.Parameter</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="_autosummary/sensortoolkit._parameter.targets_class.html">sensortoolkit._parameter.targets_class</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="_autosummary/sensortoolkit._parameter.targets_class.ParameterTargets.html">sensortoolkit._parameter.targets_class.ParameterTargets</a></li>
 </ul>
 </li>
 </ul>
@@ -425,11 +449,15 @@
 <p>The API documentation is currently under development. Please check for
 updates to the BitBucket repository before referencing this section.</p>
 </div>
-<p>The sensortoolkit library is organized into seven primary directories:
+<p>Below is listing of subpackages contained within <cite>sensortoolkit</cite>. Click on
+categories to view modules and methods.</p>
+<blockquote>
+<div><p>The sensortoolkit library is organized into seven primary directories:
 _analysis, _format, _ingest, _models, _plotting, _qc, and _reference.
 Each directory contains modules and methods that support both the
 SensorEvaluation and PerformanceReport classes. A listing of sensortoolkit
 library methods is provided below.</p>
+</div></blockquote>
 <table class="longtable docutils align-default">
 <colgroup>
 <col style="width: 10%" />
@@ -454,19 +482,22 @@ library methods is provided below.</p>
 <tr class="row-even"><td><p><a class="reference internal" href="_autosummary/sensortoolkit._models.html#module-sensortoolkit._models" title="sensortoolkit._models"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sensortoolkit._models</span></code></a></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="_autosummary/sensortoolkit._performancereport.html#module-sensortoolkit._performancereport" title="sensortoolkit._performancereport"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sensortoolkit._performancereport</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="_autosummary/sensortoolkit._parameter.html#module-sensortoolkit._parameter" title="sensortoolkit._parameter"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sensortoolkit._parameter</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="_autosummary/sensortoolkit._performancereport.html#module-sensortoolkit._performancereport" title="sensortoolkit._performancereport"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sensortoolkit._performancereport</span></code></a></p></td>
 <td><p>&#64;Author:</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="_autosummary/sensortoolkit._pkg.html#module-sensortoolkit._pkg" title="sensortoolkit._pkg"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sensortoolkit._pkg</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="_autosummary/sensortoolkit._pkg.html#module-sensortoolkit._pkg" title="sensortoolkit._pkg"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sensortoolkit._pkg</span></code></a></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="_autosummary/sensortoolkit._plotting.html#module-sensortoolkit._plotting" title="sensortoolkit._plotting"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sensortoolkit._plotting</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="_autosummary/sensortoolkit._plotting.html#module-sensortoolkit._plotting" title="sensortoolkit._plotting"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sensortoolkit._plotting</span></code></a></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="_autosummary/sensortoolkit._qc.html#module-sensortoolkit._qc" title="sensortoolkit._qc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sensortoolkit._qc</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="_autosummary/sensortoolkit._qc.html#module-sensortoolkit._qc" title="sensortoolkit._qc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sensortoolkit._qc</span></code></a></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="_autosummary/sensortoolkit._reference.html#module-sensortoolkit._reference" title="sensortoolkit._reference"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sensortoolkit._reference</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="_autosummary/sensortoolkit._reference.html#module-sensortoolkit._reference" title="sensortoolkit._reference"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sensortoolkit._reference</span></code></a></p></td>
 <td><p></p></td>
 </tr>
 </tbody>

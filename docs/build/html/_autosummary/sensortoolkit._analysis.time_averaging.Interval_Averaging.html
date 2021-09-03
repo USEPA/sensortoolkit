@@ -8,7 +8,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>sensortoolkit._analysis.time_averaging.Interval_Averaging &mdash; sensortoolkit 0.1.0b3 documentation</title>
+  <title>sensortoolkit._analysis.time_averaging.Interval_Averaging &mdash; sensortoolkit 0.2.4b1 documentation</title>
   
 
   
@@ -67,7 +67,7 @@
             
             
               <div class="version">
-                0.1.0b3
+                0.2.4b1
               </div>
             
           
@@ -139,8 +139,11 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="sensortoolkit._analysis.model_analysis.html">sensortoolkit._analysis.model_analysis</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="sensortoolkit._analysis.model_analysis.CheckType.html">sensortoolkit._analysis.model_analysis.CheckType</a></li>
 <li class="toctree-l4"><a class="reference internal" href="sensortoolkit._analysis.model_analysis.Compute_RMSE.html">sensortoolkit._analysis.model_analysis.Compute_RMSE</a></li>
+<li class="toctree-l4"><a class="reference internal" href="sensortoolkit._analysis.model_analysis.Join_Stats.html">sensortoolkit._analysis.model_analysis.Join_Stats</a></li>
 <li class="toctree-l4"><a class="reference internal" href="sensortoolkit._analysis.model_analysis.Regression_Stats.html">sensortoolkit._analysis.model_analysis.Regression_Stats</a></li>
+<li class="toctree-l4"><a class="reference internal" href="sensortoolkit._analysis.model_analysis.WritetoFile_DataFrame.html">sensortoolkit._analysis.model_analysis.WritetoFile_DataFrame</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="sensortoolkit._analysis.normalize_calculator.html">sensortoolkit._analysis.normalize_calculator</a><ul>
@@ -174,6 +177,16 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="sensortoolkit._format.html">sensortoolkit._format</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="sensortoolkit._format.copy_datasets.html">sensortoolkit._format.copy_datasets</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="sensortoolkit._format.copy_datasets.CopySensorData.html">sensortoolkit._format.copy_datasets.CopySensorData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="sensortoolkit._format.copy_datasets.PromptDirectory.html">sensortoolkit._format.copy_datasets.PromptDirectory</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="sensortoolkit._format.depreciate_format_names.html">sensortoolkit._format.depreciate_format_names</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="sensortoolkit._format.depreciate_format_names.Format_Metric_Name.html">sensortoolkit._format.depreciate_format_names.Format_Metric_Name</a></li>
+<li class="toctree-l4"><a class="reference internal" href="sensortoolkit._format.depreciate_format_names.Format_Param_Name.html">sensortoolkit._format.depreciate_format_names.Format_Param_Name</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="sensortoolkit._format.format_date.html">sensortoolkit._format.format_date</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="sensortoolkit._format.format_date.Get_Date.html">sensortoolkit._format.format_date.Get_Date</a></li>
 </ul>
@@ -225,6 +238,17 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="sensortoolkit._models.sensor_ols.html">sensortoolkit._models.sensor_ols</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="sensortoolkit._models.sensor_ols.Sensor_OLS.html">sensortoolkit._models.sensor_ols.Sensor_OLS</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="sensortoolkit._parameter.html">sensortoolkit._parameter</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="sensortoolkit._parameter.parameter_class.html">sensortoolkit._parameter.parameter_class</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="sensortoolkit._parameter.parameter_class.Parameter.html">sensortoolkit._parameter.parameter_class.Parameter</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="sensortoolkit._parameter.targets_class.html">sensortoolkit._parameter.targets_class</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="sensortoolkit._parameter.targets_class.ParameterTargets.html">sensortoolkit._parameter.targets_class.ParameterTargets</a></li>
 </ul>
 </li>
 </ul>
@@ -437,33 +461,30 @@ mode of unique object values.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>df</strong> (<em>pandas dataframe</em>) – Dataframe with datetimeindex</p></li>
+<li><p><strong>df</strong> (<em>pandas dataframe</em>) – Dataframe for which averages will be computed.</p></li>
 <li><p><strong>freq</strong> (<em>str</em>) – <p>The frequency (averaging interval) to which the dataframe will
-be averaged. Pandas refers to these as ‘offset aliases’, and a list
-is found at the following link:</p>
+be averaged. Defaults to <code class="docutils literal notranslate"><span class="pre">H</span></code>. Pandas refers to these as
+‘offset aliases’, and a list is found at the following link:</p>
 <blockquote>
-<div><p><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/user_guide/">https://pandas.pydata.org/pandas-docs/stable/user_guide/</a>
-timeseries.html#offset-aliases</p>
+<div><p><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/user_guide/timeseries.html#offset-aliases">https://pandas.pydata.org/pandas-docs/stable/user_guide/timeseries.html#offset-aliases</a></p>
 </div></blockquote>
 </p></li>
 <li><p><strong>interval_count</strong> (<em>int</em>) – The number of datapoints expected within the passed dataframe for
-the specified averaging interval (‘freq’). E.g., if computing
-1-hour averages (freq=’H’) and the passed dataframe is for a sensor
-that recorded measurements at 1-minute sampling frequency,
-interval_count will equal 60 (expect 60 non-null data points per
-averaging interval).</p></li>
+the specified averaging interval (‘freq’). Defaults to 60 for
+1-hour averages. E.g., if computing 1-hour averages (freq=’H’) an
+the passed dataframe is for a sensor that recorded measurements at
+1-minute sampling frequency, interval_count will equal 60 (expect
+60 non-null data points per averaging interval).</p></li>
 <li><p><strong>thres</strong> (<em>float</em>) – Threshold (ranging from 0 to 1) for ratio of the number of
 data points recorded within a given averaging interval vs. the
-number of expected data points. For example, if a sensor has a
-sampling frequency of 1-minute per data point and</p></li>
-<li><p><strong>return_counts</strong> (<em>bool</em>) – </p></li>
+number of expected data points. Defaults to <code class="docutils literal notranslate"><span class="pre">0.75</span></code> (i.e., 75%).</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>Dataframe averaged to datetimeindex interval specified by ‘freq’.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>averaged_df (pandas dataframe)</p>
+<dd class="field-odd"><p>avg_df (pandas dataframe)</p>
 </dd>
 </dl>
 </dd></dl>

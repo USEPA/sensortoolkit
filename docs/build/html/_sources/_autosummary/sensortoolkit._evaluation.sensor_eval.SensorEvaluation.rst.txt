@@ -1,4 +1,4 @@
-sensortoolkit.\_evaluation.sensor\_eval.SensorEvaluation
+﻿sensortoolkit.\_evaluation.sensor\_eval.SensorEvaluation
 ========================================================
 
 .. currentmodule:: sensortoolkit._evaluation.sensor_eval
@@ -38,7 +38,5 @@ sensortoolkit.\_evaluation.sensor\_eval.SensorEvaluation
       ~SensorEvaluation.airnow_key
       ~SensorEvaluation.aqs_key
       ~SensorEvaluation.aqs_username
-      ~SensorEvaluation.param_dict
-      ~SensorEvaluation.param_formatting_dict
    
    

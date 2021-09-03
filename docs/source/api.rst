@@ -8,8 +8,10 @@ sensortoolkit Modules
     updates to the BitBucket repository before referencing this section.
 
 Below is listing of subpackages contained within `sensortoolkit`. Click on
-categories to view modules and methods. 
+categories to view modules and methods.
+
 ..
+
   The sensortoolkit library is organized into seven primary directories:
   _analysis, _format, _ingest, _models, _plotting, _qc, and _reference.
   Each directory contains modules and methods that support both the
