@@ -114,7 +114,7 @@ scheme for data types, header names, and a sorted datetime index.
 
 The ``Setup`` module included alongside the `sensortoolkit` library guides users
 through an interactive process of entering in details regarding the formatting
-of sensor datasets in recorded form. The Setup module creates a ``setup.json``
+of raw sensor datasets. The Setup module creates a ``setup.json``
 configuration file that contains details for describing and converting the recorded sensor
 data format into the `sensortoolkit` Sensor Data Formatting Scheme (S-DFS). This file is
 passed to a subroutine ``Ingest()`` to import the recorded dataset and convert
