@@ -35,13 +35,14 @@ reference data sources follows below*).
 
 .. code-block:: python
 
+  sensor_name = 'Example_Make_Model'
   PM25 = sensortoolkit.Parameter('PM25')
 
   # Mock evaluation using AIRS reference data downloaded from AirNowTech
-  Eval = sensortoolkit.SensorEvaluation(sensor_name='Example_Make_Model',
-                                        eval_param=PM25,
+  Eval = sensortoolkit.SensorEvaluation(sensor_name=sensor_name,
+                                        param=PM25,
                                         work_path=work_path,
-                                        reference_data=ref_path,
+                                        reference_data='[Reference source - see below]',
                                         bbox=AIRS_bbox,
                                         serials={'1': 'SN01',
                                                  '2': 'SN02',
@@ -90,12 +91,17 @@ Arguments passed to ``SensorEvaluation``
 
 * ``sensor_name``: The name of the sensor, should be the same name passed to the
   ``Create_Sensor_Directories()`` and ``Setup()`` methods.
-* ``eval_param``: The parameter to evaluate, should be one of the parameters
-  listed in the eval_params list passed to the ``Create_Sensor_Directories()`` method.
+* ``param``: The parameter to evaluate, should be one of the parameters
+  listed in the params list passed to the ``Create_Sensor_Directories()`` method.
 * ``work_path``: The path to the directory where the user intends to store data, figures,
   and reports
 * ``reference_data``: The service or folder directory from which reference data
   are acquired. More detail about the different options for reference data acquisition below...
+
+  * ``AQS`` - Query U.S. EPA's Air Quality System API.
+  * ``AirNow`` - Query AirNow API.
+  * `Local file path` - Path to a local directory where AirNowTech data have been downloaded.
+
 * ``serials``: A dictionary of sensor serial identifiers for each unit in a testing group.
 * ``tzone_shift``: An integer value by which to shift the sensor data to UTC.
   Specifying ``0`` will not shift the data.
@@ -119,8 +125,7 @@ specifying information about the testing organization and evaluation location.
 
   Parameters:
 
-  * ``Deployment number``: The number associated with unique deployments of the sensor
-    make and model being evaluated at the monitoring site.
+  * ``Deployment name``: The descriptive name assigned to the sensor deployment.
   * ``Org name``: The name of the testing organization.
   * ``Website``: Website address for the testing organization.
   * ``Contact email``: Contact email address responsible parties conducting testing.
@@ -130,14 +135,14 @@ specifying information about the testing organization and evaluation location.
 
   .. code-block:: python
 
-    testing_org = {'Deployment number': 'Deployment #1',
-                   'Org name': ['U.S. Environmental Protection Agency',
-                                'Office of Research and Development'],
-                   'Website': {'website name': 'Air Sensor Toolbox | U.S. EPA Website',
-                               'website link': 'https://www.epa.gov/air-sensor-toolbox/'
-                                               'evaluation-emerging-air-sensor-performance'},
-                   'Contact email': 'PI: Clements.Andrea@epa.gov',
-                   'Contact phone': '919-541-1364'}
+    testing_org = {'Deployment name': '[Insert name of deployment]',
+                   'Org name': ['[Insert organization name]'],
+                   'Website': {'website name': '[Insert name of website]',
+                               'website link': '[Insert website here]'},
+                   'Contact email': '[Insert email here]',
+                   'Contact phone': '[Insert phone number here]'}
+
+# Add note that contact info appear in header and first table
 
 * ``testing_loc``: A dictionary containing information about the testing site.
   If the site is part of U.S. EPA's Air Quality System (AQS), the AQS Site ID
@@ -154,11 +159,11 @@ specifying information about the testing organization and evaluation location.
 
   .. code-block:: python
 
-    testing_loc = {'Site name': 'Ambient Monitoring Innovative Research Station (AIRS) ',
-                   'Site address': 'Research Triangle Park, NC',
-                   'Site lat': '35.889510N',
-                   'Site long': '-78.874572W',
-                   'Site AQS ID': '37 – 063 – 0099'}
+    testing_loc = {'Site name': '[Insert name of site] ',
+                   'Site address': '[Insert site address]',
+                   'Site lat': '[Insert site latitude]',
+                   'Site long': '[Insert site longitude]',
+                   'Site AQS ID': '[If applicable, insert site AQS ID]'}
 
 ==============
 Reference Data
@@ -219,7 +224,7 @@ path for the processed AirNowTech datasets:
 
   # Mock evaluation using AIRS reference data downloaded from AirNowTech
   Eval = sensortoolkit.SensorEvaluation(sensor_name='Example_Make_Model',
-                                        eval_param=PM25,
+                                        param=PM25,
                                         work_path=work_path,
                                         reference_data='AQS',
                                         bbox=AIRS_bbox,
@@ -265,7 +270,7 @@ Additionally, the reference_data parameter should be set to ``AQS``
   PM25 = sensortoolkit.Parameter('PM25')
 
   Eval = sensortoolkit.SensorEvaluation(sensor_name='Example_Make_Model',
-                                        eval_param=PM25,
+                                        param=PM25,
                                         work_path=work_path,
                                         reference_data='AQS',
                                         aqs_id=triple_oaks_ID,
@@ -367,7 +372,7 @@ should be set to ``AirNow``.
 
   # Mock evaluation using AIRS reference data obtained from the AirNow API
   Eval = SensorEvaluation(sensor_name='Example_Make_Model',
-                          eval_param=PM25,
+                          param=PM25,
                           work_path=work_path,
                           reference_data='AirNow',
                           bbox=AIRS_bbox,
