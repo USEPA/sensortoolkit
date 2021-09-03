@@ -23,7 +23,7 @@ repository can be cloned via the following command
 
 
 Installing ``sensortoolkit``
---------------------------
+----------------------------
 
 First, navigate to the folder location for the cloned repository:
 
