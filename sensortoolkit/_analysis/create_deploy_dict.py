@@ -35,10 +35,10 @@ Last Updated:
 import pandas as pd
 import numpy as np
 from datetime import datetime
-from sensortoolkit._format.format_names import Format_Param_Name
 from sensortoolkit._analysis.synoptic_idx import Synoptic_Index
 from sensortoolkit._analysis.uptime_calculator import Uptime_Calculator
 import sensortoolkit._pkg
+from sensortoolkit._parameter.parameter_class import Parameter
 
 
 def Construct_Deploy_Dict(deploy_df, full_df_list, hourly_df_list,
@@ -188,7 +188,7 @@ def Construct_Deploy_Dict(deploy_df, full_df_list, hourly_df_list,
     return deploy_dict
 
 
-def Add_Ref_Stats(deploy_dict, ref_df, cal_check_dict=None, param='PM25',
+def Add_Ref_Stats(deploy_dict, ref_df, cal_check_dict=None, param=None,
                   ref_name=None):
     """Add reference monitor statistics to the parameter statistics subfield in
     the deployment dictionary.
@@ -216,8 +216,8 @@ def Add_Ref_Stats(deploy_dict, ref_df, cal_check_dict=None, param='PM25',
             averaging interval.
     	cal_check_dict (dict):
             Description
-        param (str):
-            The name of the evaluation parameter.
+        param_obj (str):
+            The evaluation parameter
         ref_name (str):
             The name of the FRM/FEM monitor (make and model).
 
@@ -228,14 +228,17 @@ def Add_Ref_Stats(deploy_dict, ref_df, cal_check_dict=None, param='PM25',
             end timestamp in group), deployment duration, and sensor serial IDs
             for devices within each deployment group.
     """
-    fmt_param, fmt_param_units = Format_Param_Name(param)
+    param_obj = Parameter(param)
+    param_name = param_obj.param_name
+    fmt_param = param_obj.param_format_name
+    fmt_param_units = param_obj.param_units
 
     date_index, avg_suffix = Synoptic_Index(ref_df, averaging_suffix=True)
 
-    if param == 'PM25':
+    if param_name == 'PM25':
         conc_goal = 25  # Concentration goal: 25 ug/m^3 for at least one day
         #cal_check_dict = cal_check_dict['PM cal checks'][ref_name]
-    if param == 'O3':
+    if param_name == 'O3':
         conc_goal = 60  # Concentration goal: 60 ppbv for at least one day
         #cal_check_dict = cal_check_dict['Gas cal checks'][ref_name]
     else:
@@ -247,16 +250,16 @@ def Add_Ref_Stats(deploy_dict, ref_df, cal_check_dict=None, param='PM25',
         start = deploy['eval_start']
         end = deploy['eval_end']
 
-        ref_data = ref_df.loc[start:end, param + '_Value']
+        ref_data = ref_df.loc[start:end, param_name + '_Value']
 
-        if param not in deploy:
-            deploy[param] = {}
-            deploy[param]['Reference'] = {}
+        if param_name not in deploy:
+            deploy[param_name] = {}
+            deploy[param_name]['Reference'] = {}
 
-        if 'Reference' not in deploy[param]:
-            deploy[param]['Reference'] = {}
+        if 'Reference' not in deploy[param_name]:
+            deploy[param_name]['Reference'] = {}
 
-        stats_loc = deploy[param]['Reference']
+        stats_loc = deploy[param_name]['Reference']
 
         stats_loc['reference_name'] = ref_name
         stats_loc['conc_min' + avg_suffix] = \
@@ -317,19 +320,22 @@ def Add_Met_Stats(deploy_dict, df_list, met_ref_df,
     date_index, avg_suffix = Synoptic_Index(met_ref_df, averaging_suffix=True)
 
     #cal_check_dict = cal_check_dict['Met cal checks']
-    for param in ['Temp', 'RH']:
-        fmt_param, fmt_param_units = Format_Param_Name(param)
+    for name in ['Temp', 'RH']:
+        param_obj = Parameter(name)
+        param_name = param_obj.param_name
+        fmt_param = param_obj.param_format_name
+        fmt_param_units = param_obj.param_units
 
         try:
-            ref_name = met_ref_df.loc[:, param + '_Method'].dropna().apply(
+            ref_name = met_ref_df.loc[:, param_name + '_Method'].dropna().apply(
                                             lambda x: str(x)).unique()[0]
         except IndexError:
             ref_name = 'Unknown Reference'
 
-        if param == 'Temp':
+        if param_name == 'Temp':
             max_criterion = 40  # provisional criterion for upper lim (deg C)
             min_criterion = -20  # provisional criterion for lower lim (deg C)
-        if param == 'RH':
+        if param_name == 'RH':
             max_criterion = 90  # provisional criterion for upper lim (%)
             min_criterion = 10  # provisional criterion for lower lim (%)
 
@@ -338,7 +344,7 @@ def Add_Met_Stats(deploy_dict, df_list, met_ref_df,
             start = deploy['eval_start']
             end = deploy['eval_end']
 
-            ref_data = met_ref_df.loc[start:end,  param + '_Value']
+            ref_data = met_ref_df.loc[start:end,  param_name + '_Value']
 
             grp_idx = [int(i) - 1 for i in deploy['sensors'].keys()]
             data_pairs = []
@@ -348,7 +354,7 @@ def Add_Met_Stats(deploy_dict, df_list, met_ref_df,
                 end = df.index.max()
                 data_pairs.append(
                             met_ref_df.loc[start:end,
-                                           param + '_Value'].dropna().size)
+                                           param_name + '_Value'].dropna().size)
 
             if met_str not in deploy:
                 deploy[met_str] = {}
