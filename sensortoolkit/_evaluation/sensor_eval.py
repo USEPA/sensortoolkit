@@ -303,15 +303,18 @@ class SensorEvaluation:
                                    'for AirNow API query')
                     sys.exit(console_out)
 
-                airnow_df = sensortoolkit.Save_Query(
-                                    sensortoolkit.Ref_API_Query(
+                query_tuple = sensortoolkit.Ref_API_Query(
                                                     query_type=reference_data,
                                                     param=self.__param_name__,
                                                     bdate=self.deploy_bdate,
                                                     edate=self.deploy_edate,
                                                     airnow_bbox=bbox,
-                                                    key=self.airnow_key)
+                                                    key=self.airnow_key
                                                     )
+
+                airnow_df = sensortoolkit.Save_Query(query_tuple,
+                                                     path=self.path
+                                                     )
 
                 self.ref_dict[self.param.param_classifier]['1-hour'] = airnow_df
 
@@ -320,14 +323,19 @@ class SensorEvaluation:
                 aqs_id = self.kwargs.get('aqs_id', None)
                 if aqs_id is None:
                     sys.exit('AQS Site ID required for AQS API query')
-                aqs_df = sensortoolkit.Save_Query(sensortoolkit.Ref_API_Query(
+                aqs_df = sensortoolkit.Ref_API_Query(
                                              query_type=reference_data,
                                              param=self.__param_name__,
                                              bdate=self.deploy_bdate,
                                              edate=self.deploy_edate,
                                              aqs_id=aqs_id,
                                              username=self.aqs_username,
-                                             key=self.aqs_key))
+                                             key=self.aqs_key
+                                             )
+
+                aqs_df = sensortoolkit.Save_Query(query_tuple,
+                                                  path=self.path
+                                                  )
 
                 self.ref_dict[self.param.param_classifier]['1-hour'] = aqs_df
 
