@@ -39,9 +39,9 @@ reference data sources follows below*).
   PM25 = sensortoolkit.Parameter('PM25')
 
   # Mock evaluation using AIRS reference data downloaded from AirNowTech
-  Eval = sensortoolkit.SensorEvaluation(sensor_name=sensor_name,
+  Eval = sensortoolkit.SensorEvaluation(name=sensor_name,
                                         param=PM25,
-                                        work_path=work_path,
+                                        path=work_path,
                                         reference_data='[Reference source - see below]',
                                         bbox=AIRS_bbox,
                                         serials={'1': 'SN01',
@@ -89,11 +89,11 @@ Console Output:
 Arguments passed to ``SensorEvaluation``
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-* ``sensor_name``: The name of the sensor, should be the same name passed to the
+* ``name``: The name of the sensor, should be the same name passed to the
   ``Create_Sensor_Directories()`` and ``Setup()`` methods.
 * ``param``: The parameter to evaluate, should be one of the parameters
   listed in the params list passed to the ``Create_Sensor_Directories()`` method.
-* ``work_path``: The path to the directory where the user intends to store data, figures,
+* ``path``: The path to the directory where the user intends to store data, figures,
   and reports
 * ``reference_data``: The service or folder directory from which reference data
   are acquired. More detail about the different options for reference data acquisition below...
@@ -217,15 +217,16 @@ path for the processed AirNowTech datasets:
 
   import sensortoolkit
 
+  sensor_name = 'Example_Make_Model'
   work_path = 'C:/Users/.../Documents/my_evaluation'
   ref_path = work_path + '/Data and Figures/reference_data/airnowtech/processed'
 
   PM25 = sensortoolkit.Parameter('PM25')
 
   # Mock evaluation using AIRS reference data downloaded from AirNowTech
-  Eval = sensortoolkit.SensorEvaluation(sensor_name='Example_Make_Model',
+  Eval = sensortoolkit.SensorEvaluation(name=sensor_name,
                                         param=PM25,
-                                        work_path=work_path,
+                                        path=work_path,
                                         reference_data='AQS',
                                         bbox=AIRS_bbox,
                                         serials={'1': 'SN01',
@@ -256,6 +257,7 @@ Additionally, the reference_data parameter should be set to ``AQS``
 
   import sensortoolkit
 
+  sensor_name = 'Example_Make_Model'
   work_path = 'C:/Users/.../Documents/my_evaluation'
 
   # Mock evaluation using Triple Oak AQS site (nearby AIRS) reference data
@@ -269,9 +271,9 @@ Additionally, the reference_data parameter should be set to ``AQS``
 
   PM25 = sensortoolkit.Parameter('PM25')
 
-  Eval = sensortoolkit.SensorEvaluation(sensor_name='Example_Make_Model',
+  Eval = sensortoolkit.SensorEvaluation(name=sensor_name,
                                         param=PM25,
-                                        work_path=work_path,
+                                        path=work_path,
                                         reference_data='AQS',
                                         aqs_id=triple_oaks_ID,
                                         serials={'1': 'SN01',
@@ -357,6 +359,7 @@ should be set to ``AirNow``.
 
   import sensortoolkit
 
+  sensor_name = 'Example_Make_Model'
   work_path = 'C:/Users/.../Documents/my_evaluation'
 
   # bbox for AIRS [set narrow margins (+/- 0.01 deg) around known coordinates]
@@ -371,9 +374,9 @@ should be set to ``AirNow``.
 
 
   # Mock evaluation using AIRS reference data obtained from the AirNow API
-  Eval = SensorEvaluation(sensor_name='Example_Make_Model',
+  Eval = SensorEvaluation(name=sensor_name,
                           param=PM25,
-                          work_path=work_path,
+                          path=work_path,
                           reference_data='AirNow',
                           bbox=AIRS_bbox,
                           serials={'1': 'SN01',
