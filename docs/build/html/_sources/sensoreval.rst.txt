@@ -46,7 +46,7 @@ reference data sources follows below*).
                                         bbox=AIRS_bbox,
                                         serials={'1': 'SN01',
                                                  '2': 'SN02',
-                                                 '3': 'SN03’},
+                                                 '3': 'SN03'},
                                         tzone_shift=5,
                                         load_raw_data=True,
                                         write_to_file=True)
@@ -231,7 +231,7 @@ path for the processed AirNowTech datasets:
                                         bbox=AIRS_bbox,
                                         serials={'1': 'SN01',
                                                  '2': 'SN02',
-                                                 '3': 'SN03’},
+                                                 '3': 'SN03'},
                 		                    tzone_shift=5,
                                         load_raw_data=True,
                                         write_to_file=True)
@@ -278,7 +278,7 @@ Additionally, the reference_data parameter should be set to ``AQS``
                                         aqs_id=triple_oaks_ID,
                                         serials={'1': 'SN01',
                                                  '2': 'SN02',
-                                                 '3': 'SN03’},
+                                                 '3': 'SN03'},
                 		                    tzone_shift=5,
                                         load_raw_data=True,
                                         write_to_file=True)

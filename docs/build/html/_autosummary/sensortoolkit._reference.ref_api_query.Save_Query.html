@@ -8,7 +8,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>sensortoolkit._reference.ref_api_query.Save_Query &mdash; sensortoolkit 0.2.5b1 documentation</title>
+  <title>sensortoolkit._reference.ref_api_query.Save_Query &mdash; sensortoolkit 0.2.6b2 documentation</title>
   
 
   
@@ -66,7 +66,7 @@
             
             
               <div class="version">
-                0.2.5b1
+                0.2.6b2
               </div>
             
           
@@ -451,7 +451,7 @@
 <h1>sensortoolkit._reference.ref_api_query.Save_Query<a class="headerlink" href="#sensortoolkit-reference-ref-api-query-save-query" title="Permalink to this headline">¶</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="sensortoolkit._reference.ref_api_query.Save_Query">
-<span class="sig-name descname"><span class="pre">Save_Query</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">query_tuple</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sensortoolkit/_reference/ref_api_query.html#Save_Query"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sensortoolkit._reference.ref_api_query.Save_Query" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">Save_Query</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">query_tuple</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sensortoolkit/_reference/ref_api_query.html#Save_Query"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sensortoolkit._reference.ref_api_query.Save_Query" title="Permalink to this definition">¶</a></dt>
 <dd><p>Save both processed and unmodified API query datasets to .csv files.</p>
 <p>Processed data saved to:
 ..//Data and Figures//reference_data//(name of API)//processed//
@@ -459,9 +459,13 @@ Unmodified data saved to:
 ..//Data and Figures//reference_data//(name of API)//raw_api_datasets//</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>query_tuple</strong> (<em>tuple</em>) – A tuple of two pandas datasets returned by Ref_API_Query. The first
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>query_tuple</strong> (<em>tuple</em>) – A tuple of two pandas datasets returned by Ref_API_Query. The first
 element is the processed dataset and the second is the unprocessed
-version.</p>
+version.</p></li>
+<li><p><strong>path</strong> (<em>str</em>) – The working directory where the Data and Figures folder structure
+is located (where the data files will be saved)</p></li>
+</ul>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>Data returned by the API for the specified parameter and time

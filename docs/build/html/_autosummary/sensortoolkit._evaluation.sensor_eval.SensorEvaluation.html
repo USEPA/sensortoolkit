@@ -8,7 +8,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>sensortoolkit._evaluation.sensor_eval.SensorEvaluation &mdash; sensortoolkit 0.2.5b1 documentation</title>
+  <title>sensortoolkit._evaluation.sensor_eval.SensorEvaluation &mdash; sensortoolkit 0.2.6b2 documentation</title>
   
 
   
@@ -67,7 +67,7 @@
             
             
               <div class="version">
-                0.2.5b1
+                0.2.6b2
               </div>
             
           
@@ -452,7 +452,7 @@
 <h1>sensortoolkit._evaluation.sensor_eval.SensorEvaluation<a class="headerlink" href="#sensortoolkit-evaluation-sensor-eval-sensorevaluation" title="Permalink to this headline">¶</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="sensortoolkit._evaluation.sensor_eval.SensorEvaluation">
-<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">SensorEvaluation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sensor_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">param</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">work_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">load_raw_data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reference_data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">serials</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tzone_shift</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">write_to_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sensortoolkit/_evaluation/sensor_eval.html#SensorEvaluation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sensortoolkit._evaluation.sensor_eval.SensorEvaluation" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">SensorEvaluation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">param</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">load_raw_data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reference_data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">serials</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tzone_shift</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">write_to_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sensortoolkit/_evaluation/sensor_eval.html#SensorEvaluation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sensortoolkit._evaluation.sensor_eval.SensorEvaluation" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>A class for evaluating the performance of air sensors for use in
 ambient, outdoor, fixed site, non-regulatory supplemental and informational
@@ -468,9 +468,9 @@ as both reports can be found online at EPA’s Air Sensor Toolbox:</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>sensor_name</strong> (<em>str</em>) – The make and model of the sensor being evaluated.</p></li>
+<li><p><strong>name</strong> (<em>str</em>) – The make and model of the sensor being evaluated.</p></li>
 <li><p><strong>param</strong> (<em>str</em>) – Parameter name to evaluate (e.g. <code class="docutils literal notranslate"><span class="pre">PM25</span></code> or <code class="docutils literal notranslate"><span class="pre">O3</span></code>)</p></li>
-<li><p><strong>work_path</strong> (<em>str</em>) – Absolute path for working library</p></li>
+<li><p><strong>path</strong> (<em>str</em>) – Absolute path for working library</p></li>
 <li><p><strong>reference_data</strong> (<em>str</em>) – The service or folder directory from which
 reference data are acquired.</p></li>
 <li><p><strong>serials</strong> (<em>dict</em>) – A dictionary of sensor serial identifiers for each unit

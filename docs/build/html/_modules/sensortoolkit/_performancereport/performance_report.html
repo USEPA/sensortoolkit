@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>sensortoolkit._performancereport.performance_report &mdash; sensortoolkit 0.2.5b1 documentation</title>
+  <title>sensortoolkit._performancereport.performance_report &mdash; sensortoolkit 0.2.6b2 documentation</title>
   
 
   
@@ -64,7 +64,7 @@
             
             
               <div class="version">
-                0.2.5b1
+                0.2.6b2
               </div>
             
           
@@ -500,7 +500,7 @@
     <span class="c1"># constuct reports</span>
     <span class="n">report_params</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;PM25&#39;</span><span class="p">,</span> <span class="s1">&#39;O3&#39;</span><span class="p">]</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sensor_name</span><span class="p">,</span> <span class="n">param</span><span class="p">,</span> <span class="n">work_path</span><span class="p">,</span> <span class="n">load_raw_data</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">param</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">load_raw_data</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
                  <span class="n">reference_data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">serials</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">tzone_shift</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
                  <span class="n">write_to_file</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">figure_search</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 
@@ -509,7 +509,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span> <span class="o">=</span> <span class="n">kwargs</span>
 
         <span class="c1"># Inherit the SensorEvaluation class instance attributes</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">sensor_name</span><span class="p">,</span> <span class="n">param</span><span class="p">,</span> <span class="n">work_path</span><span class="p">,</span> <span class="n">load_raw_data</span><span class="p">,</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">param</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">load_raw_data</span><span class="p">,</span>
                          <span class="n">reference_data</span><span class="p">,</span> <span class="n">serials</span><span class="p">,</span> <span class="n">tzone_shift</span><span class="p">,</span>
                          <span class="n">write_to_file</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
@@ -521,7 +521,7 @@
 
         <span class="c1"># Placeholder method for formatted sensor name, replace &#39;_&#39; with spaces</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">fmt_sensor_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;fmt_sensor_name&#39;</span><span class="p">,</span>
-                                               <span class="bp">self</span><span class="o">.</span><span class="n">sensor_name</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">,</span>
+                                               <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">,</span>
                                                                         <span class="s1">&#39; &#39;</span><span class="p">))</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">today</span> <span class="o">=</span> <span class="n">dt</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%y%m</span><span class="si">%d</span><span class="s1">&#39;</span><span class="p">)</span>
@@ -641,7 +641,7 @@
 <span class="sd">        Add sensor vs. reference scatter plots (1-hr, 24-hr [PM2.5 only])</span>
 <span class="sd">        to report</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">fig_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sensor_name</span> <span class="o">+</span> <span class="s1">&#39;_vs_&#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">ref_name</span> <span class="o">+</span> <span class="s1">&#39;_report_fmt&#39;</span>
+        <span class="n">fig_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">+</span> <span class="s1">&#39;_vs_&#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">ref_name</span> <span class="o">+</span> <span class="s1">&#39;_report_fmt&#39;</span>
 
         <span class="n">fig_exists</span><span class="p">,</span> <span class="n">fig_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">FigureSearch</span><span class="p">(</span><span class="n">fig_name</span><span class="p">)</span>
 
@@ -710,7 +710,7 @@
                 <span class="n">plural</span> <span class="o">=</span> <span class="s1">&#39;s&#39;</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">plural</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
-            <span class="n">fig_name</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sensor_name</span> <span class="o">+</span> <span class="s1">&#39;_vs_&#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">ref_name</span> <span class="o">+</span>
+            <span class="n">fig_name</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">+</span> <span class="s1">&#39;_vs_&#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">ref_name</span> <span class="o">+</span>
                         <span class="s1">&#39;_&#39;</span> <span class="o">+</span> <span class="n">avg_interval</span> <span class="o">+</span> <span class="s1">&#39;_&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n_sensors</span><span class="p">)</span> <span class="o">+</span>
                         <span class="s1">&#39;_&#39;</span> <span class="o">+</span> <span class="s1">&#39;sensor&#39;</span> <span class="o">+</span> <span class="n">plural</span><span class="p">)</span>
 
@@ -752,7 +752,7 @@
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Add timeseries plots (1-hr, 24-hr [PM2.5 only]) to report</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">fig_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sensor_name</span> <span class="o">+</span> <span class="s1">&#39;_timeseries_&#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">__param_name__</span> \
+        <span class="n">fig_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">+</span> <span class="s1">&#39;_timeseries_&#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">__param_name__</span> \
             <span class="o">+</span> <span class="s1">&#39;_report_fmt&#39;</span>
 
         <span class="n">fig_exists</span><span class="p">,</span> <span class="n">fig_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">FigureSearch</span><span class="p">(</span><span class="n">fig_name</span><span class="p">)</span>
@@ -783,7 +783,7 @@
 <span class="sd">        Add Performance target metric boxplots/dot plots to report,</span>
 <span class="sd">        (1-hr, 24-hr [PM2.5 only])</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">fig_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sensor_name</span> <span class="o">+</span> <span class="s1">&#39;_regression_boxplot_&#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">__param_name__</span>
+        <span class="n">fig_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">+</span> <span class="s1">&#39;_regression_boxplot_&#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">__param_name__</span>
 
         <span class="n">fig_exists</span><span class="p">,</span> <span class="n">fig_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">FigureSearch</span><span class="p">(</span><span class="n">fig_name</span><span class="p">)</span>
 
@@ -813,7 +813,7 @@
 <span class="sd">        Add meteorological distribution (temperature, relative humidity) to</span>
 <span class="sd">        report</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">fig_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sensor_name</span> <span class="o">+</span> <span class="s1">&#39;_met_distplot_report_fmt&#39;</span>
+        <span class="n">fig_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">+</span> <span class="s1">&#39;_met_distplot_report_fmt&#39;</span>
 
         <span class="n">fig_exists</span><span class="p">,</span> <span class="n">fig_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">FigureSearch</span><span class="p">(</span><span class="n">fig_name</span><span class="p">,</span> <span class="n">subfolder</span><span class="o">=</span><span class="s1">&#39;Met&#39;</span><span class="p">)</span>
 
@@ -843,7 +843,7 @@
 <span class="sd">        Add normalized meteorological influence (temperature,</span>
 <span class="sd">        relative humidity) scatter plots to report</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">fig_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sensor_name</span> <span class="o">+</span> <span class="s1">&#39;_normalized_&#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">__param_name__</span> \
+        <span class="n">fig_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">+</span> <span class="s1">&#39;_normalized_&#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">__param_name__</span> \
             <span class="o">+</span> <span class="s1">&#39;_met_report_fmt&#39;</span>
 
         <span class="n">fig_exists</span><span class="p">,</span> <span class="n">fig_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">FigureSearch</span><span class="p">(</span><span class="n">fig_name</span><span class="p">)</span>
@@ -953,7 +953,7 @@
 
             <span class="c1"># Set deployment number</span>
             <span class="n">tester_text</span> <span class="o">=</span> <span class="n">tester_info</span><span class="o">.</span><span class="n">text_frame</span><span class="o">.</span><span class="n">paragraphs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-            <span class="n">tester_text</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">testing_org</span><span class="p">[</span><span class="s1">&#39;Deployment number&#39;</span><span class="p">]</span>
+            <span class="n">tester_text</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">testing_org</span><span class="p">[</span><span class="s1">&#39;Deployment name&#39;</span><span class="p">]</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">FormatText</span><span class="p">(</span><span class="n">tester_text</span><span class="p">,</span> <span class="n">alignment</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">,</span>
                             <span class="n">font_name</span><span class="o">=</span><span class="s1">&#39;Calibri&#39;</span><span class="p">,</span> <span class="n">font_size</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">bold</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
             <span class="n">tester_text</span><span class="o">.</span><span class="n">line_spacing</span> <span class="o">=</span> <span class="n">ppt</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">Pt</span><span class="p">(</span><span class="n">text_vspace</span><span class="p">)</span>
@@ -1002,7 +1002,7 @@
             <span class="n">slide_idx</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">slide_n</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
             <span class="n">pic</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">GetShape</span><span class="p">(</span><span class="n">slide_idx</span><span class="p">,</span> <span class="n">shape_loc</span><span class="o">=</span><span class="p">(</span><span class="n">pic_left</span><span class="p">,</span> <span class="n">pic_top</span><span class="p">))</span>
             <span class="n">pic_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">figure_path</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\\</span><span class="s1">deployment</span><span class="se">\\</span><span class="s1">&#39;</span> <span class="o">+</span> \
-                <span class="bp">self</span><span class="o">.</span><span class="n">sensor_name</span> <span class="o">+</span> <span class="s1">&#39;.png&#39;</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">+</span> <span class="s1">&#39;.png&#39;</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">pic_path</span><span class="p">):</span>
                 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;No deployment picture found at&#39;</span><span class="p">,</span> <span class="n">pic_path</span><span class="p">)</span>
                 <span class="n">placeholder_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="vm">__file__</span><span class="p">,</span>
@@ -2743,7 +2743,7 @@
 <span class="sd">        are loaded via the SensorEvaluation class and the figure is generated.</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Creating Testing Report for&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">sensor_name</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Creating Testing Report for&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
 
         <span class="c1"># Set figure positions</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">FigPositions</span><span class="p">()</span>
@@ -2781,10 +2781,10 @@
     <span class="k">def</span> <span class="nf">SaveReport</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;..Saving report&#39;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">rpt_name</span> <span class="o">=</span> <span class="s1">&#39;Base_Testing_Report_&#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">__param_name__</span>\
-                        <span class="o">+</span> <span class="s1">&#39;_&#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">sensor_name</span> <span class="o">+</span> <span class="s1">&#39;_&#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">today</span> <span class="o">+</span> <span class="s1">&#39;.pptx&#39;</span>
+                        <span class="o">+</span> <span class="s1">&#39;_&#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">+</span> <span class="s1">&#39;_&#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">today</span> <span class="o">+</span> <span class="s1">&#39;.pptx&#39;</span>
 
-        <span class="n">save_dir</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\\</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">work_path</span><span class="p">,</span> <span class="s1">&#39;Reports&#39;</span><span class="p">,</span>
-                              <span class="bp">self</span><span class="o">.</span><span class="n">sensor_name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__param_name__</span><span class="p">))</span>
+        <span class="n">save_dir</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\\</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="p">,</span> <span class="s1">&#39;Reports&#39;</span><span class="p">,</span>
+                              <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__param_name__</span><span class="p">))</span>
         <span class="n">save_path</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\\</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">((</span><span class="n">save_dir</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">rpt_name</span><span class="p">))</span>
 
         <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">save_dir</span><span class="p">):</span>
@@ -2792,7 +2792,7 @@
             <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;..Creating directory:&#39;</span><span class="p">)</span>
             <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;....&#39;</span> <span class="o">+</span> <span class="n">save_dir</span><span class="p">)</span>
 
-        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;....&#39;</span> <span class="o">+</span> <span class="n">save_path</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">work_path</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">))</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;....&#39;</span> <span class="o">+</span> <span class="n">save_path</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">rpt</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">save_path</span><span class="p">)</span></div>
 </pre></div>
 

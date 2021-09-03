@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>sensortoolkit._reference.ref_api_query &mdash; sensortoolkit 0.2.5b1 documentation</title>
+  <title>sensortoolkit._reference.ref_api_query &mdash; sensortoolkit 0.2.6b2 documentation</title>
   
 
   
@@ -64,7 +64,7 @@
             
             
               <div class="version">
-                0.2.5b1
+                0.2.6b2
               </div>
             
           
@@ -523,6 +523,7 @@
 <span class="sd">            AQS only: email associated with API account</span>
 <span class="sd">        key (str):</span>
 <span class="sd">            Both AQS and AirNow: API authentication key code.</span>
+
 <span class="sd">    Returns:</span>
 <span class="sd">        query_data:</span>
 <span class="sd">            Data returned by the API for the specified parameter and time</span>
@@ -1078,7 +1079,7 @@
     <span class="k">return</span> <span class="n">data</span></div>
 
 
-<div class="viewcode-block" id="Save_Query"><a class="viewcode-back" href="../../../_autosummary/sensortoolkit._reference.ref_api_query.Save_Query.html#sensortoolkit._reference.ref_api_query.Save_Query">[docs]</a><span class="k">def</span> <span class="nf">Save_Query</span><span class="p">(</span><span class="n">query_tuple</span><span class="p">):</span>
+<div class="viewcode-block" id="Save_Query"><a class="viewcode-back" href="../../../_autosummary/sensortoolkit._reference.ref_api_query.Save_Query.html#sensortoolkit._reference.ref_api_query.Save_Query">[docs]</a><span class="k">def</span> <span class="nf">Save_Query</span><span class="p">(</span><span class="n">query_tuple</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Save both processed and unmodified API query datasets to .csv files.</span>
 
 <span class="sd">    Processed data saved to:</span>
@@ -1091,6 +1092,9 @@
 <span class="sd">            A tuple of two pandas datasets returned by Ref_API_Query. The first</span>
 <span class="sd">            element is the processed dataset and the second is the unprocessed</span>
 <span class="sd">            version.</span>
+<span class="sd">        path (str):</span>
+<span class="sd">            The working directory where the Data and Figures folder structure</span>
+<span class="sd">            is located (where the data files will be saved)</span>
 <span class="sd">    Returns:</span>
 <span class="sd">        processed_df (pandas dataframe):</span>
 <span class="sd">            Data returned by the API for the specified parameter and time</span>
@@ -1114,10 +1118,9 @@
     <span class="n">raw_filename</span> <span class="o">=</span> <span class="s1">&#39;_&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">api_src</span><span class="p">,</span> <span class="s1">&#39;raw&#39;</span><span class="p">,</span> <span class="n">site_id</span><span class="p">,</span>
                              <span class="n">param_str</span><span class="p">,</span> <span class="n">begin</span><span class="p">,</span> <span class="n">end</span><span class="p">])</span> <span class="o">+</span> <span class="s1">&#39;.csv&#39;</span>
 
-    <span class="n">outpath</span> <span class="o">=</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">PureWindowsPath</span><span class="p">(</span>
-                        <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="vm">__file__</span><span class="p">,</span> <span class="s1">&#39;../../..&#39;</span><span class="p">)))</span>
-    <span class="n">outpath</span> <span class="o">=</span> <span class="p">(</span><span class="n">outpath</span><span class="o">.</span><span class="n">as_posix</span><span class="p">()</span> <span class="o">+</span> <span class="s1">&#39;/Data and Figures/reference_data/&#39;</span> <span class="o">+</span>
-               <span class="n">api_src</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span>
+    <span class="n">outpath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">path</span> <span class="o">+</span>
+                              <span class="s1">&#39;/Data and Figures/reference_data/&#39;</span> <span class="o">+</span>
+                              <span class="n">api_src</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span>
 
     <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;../reference_data/&#39;</span> <span class="o">+</span> <span class="n">api_src</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">+</span> <span class="s1">&#39;/processed/&#39;</span>
           <span class="o">+</span> <span class="n">process_filename</span><span class="p">)</span>
