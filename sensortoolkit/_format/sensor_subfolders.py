@@ -17,7 +17,7 @@ import os
 import sys
 from shutil import copy
 
-def Create_Sensor_Directories(name=None, eval_params=[], work_path=None):
+def Create_Sensor_Directories(name=None, eval_params=[], path=None):
     """Construct the sensor directory file structure required for conducting
     analysis with the SensorEvaluation library.
 
@@ -34,7 +34,7 @@ def Create_Sensor_Directories(name=None, eval_params=[], work_path=None):
             create necessary subfolders for figures and data structures created
             by the SensorEvaluation library for each of these evaluation
             parameters.
-        work_path (str):
+        path (str):
             The full path to the work directory where the user intends to store
             datasets, figures, and reports.
 
@@ -42,14 +42,14 @@ def Create_Sensor_Directories(name=None, eval_params=[], work_path=None):
         None
     """
 
-    data_fig_path = os.path.join(work_path, 'Data and Figures')
-    report_path = os.path.join(work_path, 'Reports')
+    data_fig_path = os.path.join(path, 'Data and Figures')
+    report_path = os.path.join(path, 'Reports')
 
     new_folders = []
     # Check if Data and Figures folder in work directory
     if not os.path.exists(data_fig_path):
 
-        print('Creating "Data and Figures" subdirectory within', work_path)
+        print('Creating "Data and Figures" subdirectory within', path)
         os.makedirs(data_fig_path)
 
         # create eval_stats, figures, reference_data, sensor_data subdirs
@@ -69,7 +69,7 @@ def Create_Sensor_Directories(name=None, eval_params=[], work_path=None):
         for folder in folders:
             folder_path = os.path.join(data_fig_path, folder)
             os.makedirs(folder_path)
-            new_dir = folder_path.replace(work_path, '')
+            new_dir = folder_path.replace(path, '')
             print('....' + new_dir)
             new_folders.append(new_dir)
 
@@ -78,7 +78,7 @@ def Create_Sensor_Directories(name=None, eval_params=[], work_path=None):
                 for subfolder in subfolders:
                     subfolder_path = os.path.join(folder_path, subfolder)
                     os.makedirs(subfolder_path)
-                    new_dir = subfolder_path.replace(work_path, '')
+                    new_dir = subfolder_path.replace(path, '')
                     print('......' + new_dir)
                     new_folders.append(new_dir)
 
@@ -89,14 +89,14 @@ def Create_Sensor_Directories(name=None, eval_params=[], work_path=None):
                                                         subfolder_path,
                                                         subsubfolder)
                             os.makedirs(subsubfolder_path)
-                            new_dir = subsubfolder_path.replace(work_path,
+                            new_dir = subsubfolder_path.replace(path,
                                                                 '')
                             print('........' + new_dir)
                             new_folders.append(new_dir)
 
     # Check if Reports folder in work directory
     if not os.path.exists(report_path):
-        print('/nCreating "Reports" subdirectory within', work_path)
+        print('/nCreating "Reports" subdirectory within', path)
         os.makedirs(report_path)
         print('/n')
 
@@ -114,7 +114,7 @@ def Create_Sensor_Directories(name=None, eval_params=[], work_path=None):
         # Create sensor subfolder
         if not os.path.exists(sensor_subfolder):
             os.makedirs(sensor_subfolder)
-            new_dir = sensor_subfolder.replace(work_path, '')
+            new_dir = sensor_subfolder.replace(path, '')
             print('....' + new_dir)
             new_folders.append(new_dir)
 
@@ -128,7 +128,7 @@ def Create_Sensor_Directories(name=None, eval_params=[], work_path=None):
 
                 if not os.path.exists(param_fig_subfolder):
                     os.makedirs(param_fig_subfolder)
-                    new_dir = param_fig_subfolder.replace(work_path, '')
+                    new_dir = param_fig_subfolder.replace(path, '')
                     print('....Creating sub-directory:')
                     print('......' + new_dir)
                     new_folders.append(new_dir)
@@ -141,7 +141,7 @@ def Create_Sensor_Directories(name=None, eval_params=[], work_path=None):
 
                 if not os.path.exists(data_subfolder):
                     os.makedirs(data_subfolder)
-                    new_dir = data_subfolder.replace(work_path, '')
+                    new_dir = data_subfolder.replace(path, '')
                     print('....Creating sub-directory:')
                     print('......' + new_dir)
                     new_folders.append(new_dir)
