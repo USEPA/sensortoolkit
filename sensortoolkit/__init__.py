@@ -6,6 +6,8 @@ from ._pkg.get_version import Get_Version
 __version__ = Get_Version()
 
 # Modules that do not require functions in other sensortoolkit modules
+from ._parameter.parameter_class import Parameter
+from ._parameter.targets_class import ParameterTargets
 from ._analysis.dewpoint import Dewpoint
 from ._analysis.pm25_nowcast import PM25NowCast
 from ._analysis.aqi_calculator import AQI_Calculator
@@ -15,7 +17,6 @@ from ._analysis.deployment_period import Deployment_Period
 from ._analysis.duplicate_removal import Remove_Duplicates
 from ._analysis.normalize_calculator import Normalize
 from ._format.format_date import Get_Date
-from ._format.format_names import Format_Param_Name, Format_Metric_Name
 from ._format.sensor_subfolders import Create_Sensor_Directories
 from ._format.copy_datasets import CopySensorData
 from ._ingest.processed_data_loader import Processed_Data_Search
