@@ -19,13 +19,13 @@ class Parameter:
     """
     """
     __param_dict__ = {'CO': {'baseline': 'CO',
-                           'classifier': 'Gases',
-                           'fmt_param': 'CO',
-                           'subscript': None,
-                           'units': '(ppbv)',
-                           'averaging': None,
-                           'usepa_targets': False
-                           },
+                            'classifier': 'Gases',
+                            'fmt_param': 'CO',
+                            'subscript': None,
+                            'units': '(ppbv)',
+                            'averaging': None,
+                            'usepa_targets': False
+                            },
 
                     'DP': {'baseline': 'Dew point',
                            'classifier': 'Met',
