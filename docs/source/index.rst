@@ -2,10 +2,6 @@
 sensortoolkit - Air Sensor Data Analysis Library
 ================================================
 
-..
-  Version: |sensortoolkit_version|
-
-
 .. figure:: data/CSAM_3_crop.jpg
    :align: center
 
