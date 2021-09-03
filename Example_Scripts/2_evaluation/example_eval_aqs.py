@@ -33,9 +33,9 @@ triple_oaks_ID = {"state": "37",
 sensortoolkit.SensorEvaluation.aqs_username = 'username_address@email.com'
 sensortoolkit.SensorEvaluation.aqs_key = 'Your-AQS-Key-Here'
 
-Eval = sensortoolkit.SensorEvaluation(sensor_name='Example_Make_Model',
-                                      eval_param=PM25,
-                                      work_path=work_path,
+Eval = sensortoolkit.SensorEvaluation(name='Example_Make_Model',
+                                      param=PM25,
+                                      path=work_path,
                                       reference_data='AQS',
                                       aqs_id=triple_oaks_ID,
                                       serials={'1': 'SN01',
