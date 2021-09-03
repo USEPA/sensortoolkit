@@ -327,7 +327,7 @@ Below is an example of ``deploy_dict`` for the ``Example_Make_Model`` sensor dat
   ``n_exceed_conc_goal`` (1-hour/24-hour) for the evaluation parameter reference
   is the number of averaging intervals during which the reference concentration
   exceeds the EPA’s recommended elevated concentration value for either PM2.5
-  (>25 μg/m3) or O3 (> ? ppbv)  testing.
+  (>25 μg/m3) or O3 (> 60 ppbv) testing.
 
   This term as it relates to the ``Meteorological_Conditions`` subcategories for
   temperature and relative humidity indicate the number of intervals during which
