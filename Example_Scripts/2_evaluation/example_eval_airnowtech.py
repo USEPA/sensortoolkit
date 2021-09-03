@@ -26,9 +26,9 @@ PM25 = sensortoolkit.Parameter('PM25')
 
 # Mock evaluation using AIRS reference data downloaded from AirNowTech
 Eval = sensortoolkit.SensorEvaluation(
-                        sensor_name='Example_Make_Model',
-                        eval_param=PM25,
-                        work_path=work_path,
+                        name='Example_Make_Model',
+                        param=PM25,
+                        path=work_path,
                         reference_data=ref_path,
                         serials={'1': 'SN01',
                                  '2': 'SN02',
