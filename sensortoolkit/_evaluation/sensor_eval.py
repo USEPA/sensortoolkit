@@ -53,9 +53,9 @@ class SensorEvaluation:
         https://www.epa.gov/air-sensor-toolbox
 
     Args:
-        sensor_name (str): The make and model of the sensor being evaluated.
+        name (str): The make and model of the sensor being evaluated.
         param (str): Parameter name to evaluate (e.g. ``PM25`` or ``O3``)
-        work_path (str): Absolute path for working library
+        path (str): Absolute path for working library
         reference_data (str): The service or folder directory from which
             reference data are acquired.
         serials (dict): A dictionary of sensor serial identifiers for each unit
@@ -202,17 +202,17 @@ class SensorEvaluation:
     aqs_key = None
     airnow_key = None
 
-    def __init__(self, sensor_name, param, work_path, load_raw_data=False,
+    def __init__(self, name, param, path, load_raw_data=False,
                  reference_data=None, serials=None, tzone_shift=0,
                  write_to_file=False, **kwargs):
 
-        self.sensor_name = sensor_name
+        self.name = name
         self.param = param
 
         # Private to avoid confusion between SensorEvaluation attribute and
         # paraeter attribute
         self.__param_name__ = param.param_name
-        self.work_path = work_path
+        self.path = path
         self.load_raw_data = load_raw_data
         self.write_to_file = write_to_file
         self.serials = serials
@@ -223,22 +223,22 @@ class SensorEvaluation:
         self.kwargs = kwargs
 
         # path to raw sensor data
-        self.data_path = '\\'.join((self.work_path, 'Data and Figures',
-                                    'sensor_data', self.sensor_name,
+        self.data_path = '\\'.join((self.path, 'Data and Figures',
+                                    'sensor_data', self.name,
                                     'raw_data', ''))
         # path to sensor figures
-        self.figure_path = '\\'.join((self.work_path, 'Data and Figures',
-                                      'figures', self.sensor_name, ''))
+        self.figure_path = '\\'.join((self.path, 'Data and Figures',
+                                      'figures', self.name, ''))
         # path to processed sensor data
-        self.processed_path = '\\'.join((self.work_path, 'Data and Figures',
-                                         'sensor_data', self.sensor_name,
+        self.processed_path = '\\'.join((self.path, 'Data and Figures',
+                                         'sensor_data', self.name,
                                          'processed_data', ''))
         # path to evaluation statistics
-        self.stats_path = '\\'.join((self.work_path, 'Data and Figures',
-                                     'eval_stats', self.sensor_name, ''))
+        self.stats_path = '\\'.join((self.path, 'Data and Figures',
+                                     'eval_stats', self.name, ''))
 
         # Import sensor data
-        df_tuple = sensortoolkit.Import(sensor_name=self.sensor_name,
+        df_tuple = sensortoolkit.Import(sensor_name=self.name,
                                         sensor_serials=self.serials,
                                         tzone_shift=self.tzone_shift,
                                         load_raw_data=self.load_raw_data,
@@ -260,12 +260,12 @@ class SensorEvaluation:
         # Exit if passed evaluation parameter not in sensor dataframes
         if self.param.param_name not in self.sensor_params:
             sys.exit(self.param.param_name + ' not measured by '
-                     + self.sensor_name)
+                     + self.name)
 
         # Compute sensor deployment period and concurrent deployment groups
         self.deploy_period_df = sensortoolkit.Deployment_Period(
                                                         self.full_df_list,
-                                                        self.sensor_name,
+                                                        self.name,
                                                         self.serials)
 
         self.deploy_dict = sensortoolkit.Construct_Deploy_Dict(
@@ -273,7 +273,7 @@ class SensorEvaluation:
                                                         self.full_df_list,
                                                         self.hourly_df_list,
                                                         self.daily_df_list,
-                                                        self.sensor_name,
+                                                        self.name,
                                                         **self.kwargs)
 
         deploy_grps = self.deploy_dict['Deployment Groups']
@@ -511,7 +511,7 @@ class SensorEvaluation:
             if not os.path.exists(self.stats_path):
                 os.makedirs(self.stats_path)
 
-            with open(self.stats_path + self.sensor_name + '_' +
+            with open(self.stats_path + self.name + '_' +
                       self.__param_name__ + "_Evaluation_" + today +
                       ".json", "w") as outfile:
                 deploy_json = json.dumps(self.deploy_dict, indent=4)
@@ -619,7 +619,7 @@ class SensorEvaluation:
                                             sensor_serials=self.serials,
                                             param=self.__param_name__,
                                             figure_path=self.figure_path,
-                                            sensor_name=self.sensor_name,
+                                            sensor_name=self.name,
                                             ref_name=self.ref_name,
                                             start=t_start,
                                             end=t_end,
@@ -654,7 +654,7 @@ class SensorEvaluation:
                     sensor_serials=self.serials,
                     param=self.__param_name__,
                     figure_path=self.figure_path,
-                    sensor_name=self.sensor_name,
+                    sensor_name=self.name,
                     ref_name=self.ref_name,
                     start=t_start,
                     end=t_end,
@@ -693,7 +693,7 @@ class SensorEvaluation:
                                     param=self.__param_name__,
                                     param_averaging=self.eval_param_averaging,
                                     path=self.figure_path,
-                                    sensor_name=self.sensor_name,
+                                    sensor_name=self.name,
                                     write_to_file=self.write_to_file,
                                     **kwargs)
 
@@ -792,7 +792,7 @@ class SensorEvaluation:
                                         sensor_serials=sensor_serials,
                                         param=self.__param_name__,
                                         figure_path=self.figure_path,
-                                        sensor_name=self.sensor_name,
+                                        sensor_name=self.name,
                                         ref_name=self.ref_name,
                                         time_interval=avg_interval,
                                         plot_subset=plot_subset,
@@ -831,7 +831,7 @@ class SensorEvaluation:
                                sensor_serials=sensor_serials,
                                param=self.__param_name__,
                                figure_path=self.figure_path,
-                               sensor_name=self.sensor_name,
+                               sensor_name=self.name,
                                ref_name=self.ref_name,
                                time_interval=averaging_interval,
                                plot_subset=plot_subset,
@@ -852,7 +852,7 @@ class SensorEvaluation:
 
         sensortoolkit.Met_Distrib(self.met_hourly_ref_df[met_params],
                        figure_path=self.figure_path,
-                       sensor_name=self.sensor_name,
+                       sensor_name=self.name,
                        write_to_file=self.write_to_file)
 
     def plot_met_influence(self, met_param=None, report_fmt=True,
@@ -893,7 +893,7 @@ class SensorEvaluation:
                                           self.figure_path,
                                           param=self.__param_name__,
                                           sensor_serials=self.serials,
-                                          sensor_name=self.sensor_name,
+                                          sensor_name=self.name,
                                           met_param=met_param,
                                           ref_name=self.ref_name,
                                           write_to_file=write_to_file,
@@ -917,7 +917,7 @@ class SensorEvaluation:
                                       self.figure_path,
                                       param=self.__param_name__,
                                       sensor_serials=self.serials,
-                                      sensor_name=self.sensor_name,
+                                      sensor_name=self.name,
                                       met_param=met_param,
                                       ref_name=self.ref_name,
                                       write_to_file=self.write_to_file,
@@ -983,7 +983,7 @@ class SensorEvaluation:
                            ref_data,
                            deploy_dict=self.deploy_dict,
                            param=met_param,
-                           sensor_name=self.sensor_name,
+                           sensor_name=self.name,
                            ref_name=ref_name,
                            time_interval=averaging_interval,
                            figure_path=self.figure_path,
@@ -1008,7 +1008,7 @@ class SensorEvaluation:
                            self.stats_df['Averaging Interval'] == avg_interval)
 
         print(88*'-')
-        print('{:^88s}'.format(self.sensor_name + ' '
+        print('{:^88s}'.format(self.name + ' '
                                + avg_interval +
                                ' Performance Evaluation Results'))
         print('{:^88s}'.format('Reference Method: ' + self.ref_name))
@@ -1078,7 +1078,7 @@ class SensorEvaluation:
         n_sensors = len(self.serials)
 
         print(88*'-')
-        print('{:^88s}'.format(self.sensor_name + ' (' + str(n_sensors) + ') '
+        print('{:^88s}'.format(self.name + ' (' + str(n_sensors) + ') '
                                + avg_interval + ' Evaluation Conditions'))
 
         print(88*'-')
