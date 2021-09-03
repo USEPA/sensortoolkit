@@ -14,6 +14,7 @@ Last Updated:
   Mon Jul 19 08:25:55 2021
 """
 import os
+import sys
 from textwrap import wrap
 import json
 import pandas as pd
@@ -45,6 +46,8 @@ class Setup:
             raise AttributeError('Path for working directory not specified')
         self.path = path
         self.dtype = None
+        self.header_names = None
+        self.header_iloc = None
         self.all_col_headers = []
         self.timestamp_col_headers = []
         self.drop_cols = []
@@ -52,16 +55,14 @@ class Setup:
 
     def configSensor(self):
         #self.setDeploymentPeriod()
-        self.setHeaderIndex()
         self.setDataType()
+        self.setHeaderIndex()
 
         if self.header_iloc is None:
             # Manually specify column names if none provided
             self.setColumnHeaders()
         # otherwise, specify column headers in parsedatasets, infer header at
         # iloc position
-        else:
-            self.header_names = None
         self.parseDataSets()
         self.setTimeHeaders()
         self.setParamHeaders()
@@ -152,6 +153,26 @@ class Setup:
                                       options=['..type "None" if no header '
                                                'columns in recorded sensor '
                                                'dataset'])
+
+        # Load the first dataset (display 10 rows to user)
+        self.findDataFiles()
+        if self.file_list == []:
+            data_path = os.path.normpath(self.path +
+                                         '/Data and Figures/sensor_data/' +
+                                         self.name +'/raw_data')
+            sys.exit('No data files found with type'
+                     ' {0} at {1}'.format(self.dtype, data_path))
+
+        df = self.loadDataFile(self.file_list[0],
+                               nrows=10,
+                               load_table=True)
+
+        filename = self.file_list[0].split('/')[-1]
+        print('')
+        print('The first ten unformatted rows of {0} are displayed'
+              ' below:'.format(filename))
+        print(df.head(n=10))
+
         valid = False
         while valid is False:
             self.header_iloc = input('Enter the row index number for column '
@@ -208,12 +229,7 @@ class Setup:
         print('')
         self.enterContinue()
 
-
-    def parseDataSets(self, print_banner=True):
-        if print_banner:
-            self.printSelectionBanner('Parsing Datasets',
-                                      options=[])
-            print('')
+    def findDataFiles(self):
         # Create a list of data files to load
         self.file_list = []
         self.data_path = (self.path + '/Data and Figures/sensor_data/'
@@ -221,7 +237,36 @@ class Setup:
 
         for cwd, folders, files in os.walk(self.data_path):
             self.file_list.extend([cwd+ '/' + file for file in files if
-                                   file.lower().endswith('.csv')])
+                                   file.lower().endswith(self.dtype)])
+
+    def loadDataFile(self, file, **kwargs):
+
+        load_table = kwargs.get('load_table', False)
+        if load_table:
+            df = pd.read_table(file,
+                               nrows=kwargs.get('nrows', 1),
+                               header=None)
+
+        elif self.dtype == '.csv' or self.dtype == '.txt':
+            df = pd.read_csv(file, header=self.header_iloc,
+                             names=self.header_names,
+                             nrows=kwargs.get('nrows', 1),
+                             on_bad_lines='skip'
+                             )
+        elif self.dtype == '.xlsx':
+            df = pd.read_excel(file, header=self.header_iloc,
+                               names=self.header_names,
+                               nrows=kwargs.get('nrows', 1))
+        else:
+            raise TypeError('Invalid data type')
+
+        return df
+
+    def parseDataSets(self, print_banner=True):
+        if print_banner:
+            self.printSelectionBanner('Parsing Datasets',
+                                      options=[])
+            print('')
 
         print('The following data files were found at "../Data and Figures/'
               'sensor_data/"' + self.name + '/raw_data":')
@@ -234,15 +279,9 @@ class Setup:
         self.col_headers = {}
         print('\nParsing datasets at "../Data and Figures/sensor_data/"' +
               self.name + '/raw_data"')
+
         for file in self.file_list:
-
-            if self.dtype == '.csv' or self.dtype == '.txt':
-                df = pd.read_csv(file, header=self.header_iloc,
-                                 names=self.header_names, nrows=1)
-            if self.dtype == '.xlsx':
-                df = pd.read_excel(file, header=self.header_iloc,
-                                   names=self.header_names, nrows=1)
-
+            df = self.loadDataFile(file)
             file_col_list = list(df.columns)
 
             for i, col in enumerate(file_col_list):
@@ -261,7 +300,7 @@ class Setup:
         self.all_col_headers = Flatten(col_list)
 
         for i, cols in enumerate(col_list):
-            print('..Column header(s) at row index {0:d}: {1}'.format(i, cols))
+            print('..Header(s) at column index {0:d}: {1}'.format(i, cols))
 
         self.enterContinue()
 
@@ -554,8 +593,15 @@ class Setup:
             outfile.write(self.config_dict)
 
 if __name__ == '__main__':
-    sensor_name = 'Example_Make_Model'
-    work_path = r'C:\Users\SFREDE01\OneDrive - Environmental Protection Agency (EPA)\Profile\Documents\test_dir'
+    # sensor_name = 'Example_Make_Model'
+    # work_path = r'C:\Users\SFREDE01\OneDrive - Environmental Protection Agency (EPA)\Profile\Documents\test_dir'
+
+    # test = Setup(name=sensor_name,
+    #              path=work_path)
+
+    work_path = r"C:\Users\SFREDE01\OneDrive - Environmental Protection Agency (EPA)\Profile\Documents\Public_Sensor_Evaluation"
+
+    sensor_name = 'Vaisala_AQT420'
 
     test = Setup(name=sensor_name,
                  path=work_path)
