@@ -22,7 +22,7 @@ from matplotlib.dates import DateFormatter
 from matplotlib.patches import FancyBboxPatch
 from matplotlib.colors import rgb2hex
 import seaborn as sns
-from sensortoolkit._format.format_names import Format_Param_Name
+from sensortoolkit._parameter.parameter_class import Parameter
 from sensortoolkit._format.format_date import Get_Date
 from sensortoolkit._plotting.plot_formatting import (Wrap_Text, Get_Max,
                                                     Get_Colormap_Norm_Range)
@@ -96,8 +96,8 @@ def Sensor_Timeplot(df_list, ref_df, param=None, sensor_name=None,
     """
     # Determine maximum concentration recorded during timeframe, use to set
     # default ylim
-    max_conc = Get_Max(df_list, ref_df, param, start, end)
-
+    max_conc = Get_Max(param, df_list=df_list, ref_df=ref_df,
+                       start=start, end=end)
 
     cmap_range = Get_Colormap_Norm_Range(df_list)
 
@@ -192,8 +192,10 @@ def Sensor_Timeplot(df_list, ref_df, param=None, sensor_name=None,
         unique_ax_obj = False
 
     # Format parameter name and sensor name
-    param_name_tup = Format_Param_Name(param)
-    fmt_param, fmt_param_unit = param_name_tup
+    param_obj = Parameter(param)
+    param_name = param_obj.param_name
+    fmt_param = param_obj.param_format_name
+    fmt_param_units = param_obj.param_units
     fmt_sensor_name = sensor_name.replace('_', ' ')
 
     if show_title is True:
@@ -241,7 +243,7 @@ def Sensor_Timeplot(df_list, ref_df, param=None, sensor_name=None,
 
     # Configure x- and y-axis attributes (scale, labeling, limits, ticks)
     ax.set_yscale(yscale)
-    ax.set_ylabel(fmt_param + ' ' + fmt_param_unit, fontsize=fontsize)
+    ax.set_ylabel(fmt_param + ' ' + fmt_param_units, fontsize=fontsize)
     ax.set_xlabel('Date', fontsize=fontsize)
 
     ax.set_xlim(pd.to_datetime(start), pd.to_datetime(end))
