@@ -5,7 +5,7 @@ here = pathlib.Path(__file__).parent
 readme = (here / 'README.md').read_text()
 
 setup(name='sensortoolkit',
-      version='0.2.6b5',
+      version='0.3.0b1',
       description='Library for evaluating air sensor data',
       long_description=readme,
       long_description_content_type='text/markdown',
@@ -19,23 +19,23 @@ setup(name='sensortoolkit',
         'Programming Language :: Python :: 3.8',
         ],
       packages=find_packages(include=['sensortoolkit',
-                'sensortoolkit._analysis',
-                'sensortoolkit._format',
-                'sensortoolkit._ingest',
-                'sensortoolkit._models',
-                'sensortoolkit._plotting',
-                'sensortoolkit._qc',
-                'sensortoolkit._reference',
-                'sensortoolkit._parameter',
-                'sensortoolkit._performancereport',
-                'sensortoolkit._evaluation',
-                'sensortoolkit._pkg'
+                'sensortoolkit.calculate',
+                'sensortoolkit.datetime_utils',
+                'sensortoolkit.deploy',
+                'sensortoolkit.evaluation',
+                'sensortoolkit.lib_utils',
+                'sensortoolkit.model',
+                'sensortoolkit.param',
+                'sensortoolkit.performancereport',
+                'sensortoolkit.plotting',
+                'sensortoolkit.qc',
+                'sensortoolkit.reference',
+                'sensortoolkit.sensor_ingest'
                 ]),
-      package_data={'': ["_performancereport/templates/O3/Reporting_Template_Base_O3.pptx",
-                         "_performancereport/templates/PM25/Reporting_Template_Base_PM25.pptx",
-                         "_performancereport/templates/placeholder_image.png",
-                         "_reference/method_codes/methods_criteria.csv"
-                         # data and figures/example_make_model placeholder image
+      package_data={'': ["performancereport/templates/O3/Reporting_Template_Base_O3.pptx",
+                         "performancereport/templates/PM25/Reporting_Template_Base_PM25.pptx",
+                         "performancereport/templates/placeholder_image.png",
+                         "reference/method_codes/methods_criteria.csv"
                          ]
                     },
       install_requires=['matplotlib',
