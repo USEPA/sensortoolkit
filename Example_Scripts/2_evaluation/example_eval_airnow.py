@@ -29,7 +29,7 @@ AIRS_bbox = {"minLat": "35.88",
 
 sensortoolkit.SensorEvaluation.airnow_key = 'Your-AirNow-Key-Here'
 
-PM25 = sensortoolkit.Parameter('PM25')
+PM25 = sensortoolkit.param.Parameter('PM25')
 
 # Mock evaluation using AIRS reference data obtained from the AirNow API
 Eval = sensortoolkit.SensorEvaluation(name='Example_Make_Model',

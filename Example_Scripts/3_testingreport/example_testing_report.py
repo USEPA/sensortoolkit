@@ -44,7 +44,7 @@ testing_loc = {'Site name': 'Ambient Monitoring Innovative '
 #  ----------------------------------------------------------------------------
 #   Instantiate the PerformanceReport class for the example sensor dataset
 #  ----------------------------------------------------------------------------
-PM25 = sensortoolkit.Parameter('PM25')
+PM25 = sensortoolkit.param.Parameter('PM25')
 
 test_report = sensortoolkit.PerformanceReport(
                                     name='Example_Make_Model',

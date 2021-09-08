@@ -22,7 +22,7 @@ ref_path = work_path + '/Data and Figures/reference_data/airnowtech/processed'
 #  ----------------------------------------------------------------------------
 #   Instantiate the SensorEvaluation class
 #  ----------------------------------------------------------------------------
-PM25 = sensortoolkit.Parameter('PM25')
+PM25 = sensortoolkit.param.Parameter('PM25')
 
 # Mock evaluation using AIRS reference data downloaded from AirNowTech
 Eval = sensortoolkit.SensorEvaluation(

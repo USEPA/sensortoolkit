@@ -22,7 +22,7 @@ work_path = 'path/to/work-directory'
 #   Instantiate the SensorEvaluation class
 #  ----------------------------------------------------------------------------
 
-PM25 = sensortoolkit.Parameter('PM25')
+PM25 = sensortoolkit.param.Parameter('PM25')
 
 # Mock evaluation using Triple Oak AQS site (nearby AIRS) reference data
 # obtained from the AQS API
