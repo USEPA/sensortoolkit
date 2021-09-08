@@ -213,7 +213,7 @@ class SensorEvaluation:
 
         # Private to avoid confusion between SensorEvaluation attribute and
         # paraeter attribute
-        self.__param_name__ = param.param_name
+        self._param_name = param.param_name
         self.path = path
         self.load_raw_data = load_raw_data
         self.write_to_file = write_to_file
@@ -308,7 +308,7 @@ class SensorEvaluation:
 
                 query_tuple = sensortoolkit.reference.ref_api_query(
                                                     query_type=reference_data,
-                                                    param=self.__param_name__,
+                                                    param=self._param_name,
                                                     bdate=self.deploy_bdate,
                                                     edate=self.deploy_edate,
                                                     airnow_bbox=bbox,
@@ -329,7 +329,7 @@ class SensorEvaluation:
                     sys.exit('AQS Site ID required for AQS API query')
                 aqs_df = sensortoolkit.reference.ref_api_query(
                                              query_type=reference_data,
-                                             param=self.__param_name__,
+                                             param=self._param_name,
                                              bdate=self.deploy_bdate,
                                              edate=self.deploy_edate,
                                              aqs_id=aqs_id,
@@ -416,7 +416,7 @@ class SensorEvaluation:
 
         # Get the name of the reference monitor
         try:
-            self.ref_name = self.hourly_ref_df[self.__param_name__ + '_Method'
+            self.ref_name = self.hourly_ref_df[self._param_name + '_Method'
                                                ].dropna().unique()[0]
         except IndexError:
             self.ref_name = 'Unknown Reference'
@@ -450,13 +450,13 @@ class SensorEvaluation:
         self.hourly_df_list = sensortoolkit.calculate.normalize(
                                             self.hourly_df_list,
                                             self.hourly_ref_df,
-                                            param=self.__param_name__,
+                                            param=self._param_name,
                                             ref_name=self.ref_name)
 
         self.daily_df_list = sensortoolkit.calculate.normalize(
                                             self.daily_df_list,
                                             self.hourly_ref_df,
-                                            param=self.__param_name__,
+                                            param=self._param_name,
                                             ref_name=self.ref_name)
 
         # Compute inter-sensor averaged parameter dataframes
@@ -480,40 +480,40 @@ class SensorEvaluation:
         self.deploy_dict = sensortoolkit.calculate.cv(
                                             self.hourly_df_list,
                                             self.deploy_dict,
-                                            param=self.__param_name__)
+                                            param=self._param_name)
 
         # CV: 24-hour averaged sensor param
         self.deploy_dict = sensortoolkit.calculate.cv(
                                             self.daily_df_list,
                                             self.deploy_dict,
-                                            param=self.__param_name__)
+                                            param=self._param_name)
 
         # RMSE: 1-hour averaged sensor param
         self.deploy_dict = sensortoolkit.calculate.rmse(
                                             self.hourly_df_list,
                                             self.hourly_ref_df,
                                             self.deploy_dict,
-                                            param=self.__param_name__)
+                                            param=self._param_name)
 
         # RMSE: 24-hour averaged sensor param
         self.deploy_dict = sensortoolkit.calculate.rmse(
                                             self.daily_df_list,
                                             self.daily_ref_df,
                                             self.deploy_dict,
-                                            param=self.__param_name__)
+                                            param=self._param_name)
 
         # Reference details for param evaluation (hourly data)
         self.deploy_dict = sensortoolkit.deploy.deploy_ref_stats(
                                             self.deploy_dict,
                                             self.hourly_ref_df,
-                                            param=self.__param_name__,
+                                            param=self._param_name,
                                             ref_name=self.ref_name)
 
         # Reference details for param evaluation (daily data)
         self.deploy_dict = sensortoolkit.deploy.deploy_ref_stats(
                                             self.deploy_dict,
                                             self.daily_ref_df,
-                                            param=self.__param_name__,
+                                            param=self._param_name,
                                             ref_name=self.ref_name)
 
         # Reference details for meteorological data (1-hr averages)
@@ -537,7 +537,7 @@ class SensorEvaluation:
                 os.makedirs(self.stats_path)
 
             with open(self.stats_path + self.name + '_' +
-                      self.__param_name__ + "_Evaluation_" + today +
+                      self._param_name + "_Evaluation_" + today +
                       ".json", "w") as outfile:
                 deploy_json = json.dumps(self.deploy_dict, indent=4)
                 outfile.write(deploy_json)
@@ -550,7 +550,7 @@ class SensorEvaluation:
 
         """
         try:
-            self.deploy_dict['Deployment Groups']['Group 1'][self.__param_name__]
+            self.deploy_dict['Deployment Groups']['Group 1'][self._param_name]
         except KeyError:
             print('Populating deployment dataframe with evaluation statistics')
             self.add_deploy_dict_stats()
@@ -559,7 +559,7 @@ class SensorEvaluation:
                                         sensor_df_obj=self.hourly_df_list,
                                         ref_df_obj=self.hourly_ref_df,
                                         deploy_dict=self.deploy_dict,
-                                        param=self.__param_name__,
+                                        param=self._param_name,
                                         serials=self.serials
                                         )
 
@@ -567,7 +567,7 @@ class SensorEvaluation:
                                         sensor_df_obj=self.daily_df_list,
                                         ref_df_obj=self.daily_ref_df,
                                         deploy_dict=self.deploy_dict,
-                                        param=self.__param_name__,
+                                        param=self._param_name,
                                         serials=self.serials
                                         )
 
@@ -582,7 +582,7 @@ class SensorEvaluation:
                                 sensor_df_obj=self.hourly_df_list,
                                 ref_df_obj=self.hourly_ref_df,
                                 deploy_dict=self.deploy_dict,
-                                param=self.__param_name__,
+                                param=self._param_name,
                                 serials=self.serials
                                 )
 
@@ -590,7 +590,7 @@ class SensorEvaluation:
                                         sensor_df_obj=self.daily_df_list,
                                         ref_df_obj=self.daily_ref_df,
                                         deploy_dict=self.deploy_dict,
-                                        param=self.__param_name__,
+                                        param=self._param_name,
                                         serials=self.serials
                                         )
 
@@ -643,7 +643,7 @@ class SensorEvaluation:
                                             sensor_data,
                                             ref_data,
                                             sensor_serials=self.serials,
-                                            param=self.__param_name__,
+                                            param=self._param_name,
                                             figure_path=self.figure_path,
                                             sensor_name=self.name,
                                             ref_name=self.ref_name,
@@ -678,7 +678,7 @@ class SensorEvaluation:
                     sensor_data,
                     ref_data,
                     sensor_serials=self.serials,
-                    param=self.__param_name__,
+                    param=self._param_name,
                     figure_path=self.figure_path,
                     sensor_name=self.name,
                     ref_name=self.ref_name,
@@ -702,7 +702,7 @@ class SensorEvaluation:
 
         """
         try:
-            self.deploy_dict['Deployment Groups']['Group 1'][self.__param_name__]
+            self.deploy_dict['Deployment Groups']['Group 1'][self._param_name]
         except KeyError:
             print('Populating deployment dataframe with evaluation statistics')
             self.add_deploy_dict_stats()
@@ -716,7 +716,7 @@ class SensorEvaluation:
 
         sensortoolkit.plotting.performance_metrics(self.stats_df,
                                     self.deploy_dict,
-                                    param=self.__param_name__,
+                                    param=self._param_name,
                                     param_averaging=self.eval_param_averaging,
                                     path=self.figure_path,
                                     sensor_name=self.name,
@@ -740,7 +740,7 @@ class SensorEvaluation:
         """
 
         try:
-            self.deploy_dict['Deployment Groups']['Group 1'][self.__param_name__]
+            self.deploy_dict['Deployment Groups']['Group 1'][self._param_name]
         except KeyError:
             print('Populating deployment dataframe with evaluation statistics')
             self.add_deploy_dict_stats()
@@ -768,17 +768,17 @@ class SensorEvaluation:
             sys.exit(txt)
 
         if (report_fmt is True and plot_subset is not None):
-            if self.__param_name__ == 'PM25':
+            if self._param_name == 'PM25':
                 # Create a 1x2 subplot, 1-hr scatter on left and 24-hr scatter
                 # on right for a single sensor unit (performance report page
                 # 1 plot)
                 figsize = (5.29, 3.17)
-            elif self.__param_name__ == 'O3':
+            elif self._param_name == 'O3':
                 # Create a 1x1 subplot, 1-hr scatter with vertical colorbar
                 figsize = (4.3, 3.91)
             else:
                 sys.exit('Reporting template formatted '
-                         'figure not specified for ' + self.__param_name__)
+                         'figure not specified for ' + self._param_name)
 
             fig, axs = plt.subplots(1, len(avg_list), figsize=figsize)
             kwargs['fontsize'] = 9
@@ -817,7 +817,7 @@ class SensorEvaluation:
                                         deploy_dict=self.deploy_dict,
                                         met_ref_df=met_data,
                                         sensor_serials=sensor_serials,
-                                        param=self.__param_name__,
+                                        param=self._param_name,
                                         figure_path=self.figure_path,
                                         sensor_name=self.name,
                                         ref_name=self.ref_name,
@@ -857,7 +857,7 @@ class SensorEvaluation:
                                deploy_dict=self.deploy_dict,
                                met_ref_df=self.met_hourly_ref_df,
                                sensor_serials=sensor_serials,
-                               param=self.__param_name__,
+                               param=self._param_name,
                                figure_path=self.figure_path,
                                sensor_name=self.name,
                                ref_name=self.ref_name,
@@ -919,7 +919,7 @@ class SensorEvaluation:
                                           self.avg_hrly_df,
                                           self.met_hourly_ref_df,
                                           self.figure_path,
-                                          param=self.__param_name__,
+                                          param=self._param_name,
                                           sensor_serials=self.serials,
                                           sensor_name=self.name,
                                           met_param=met_param,
@@ -944,7 +944,7 @@ class SensorEvaluation:
                                       self.avg_hrly_df,
                                       self.met_hourly_ref_df,
                                       self.figure_path,
-                                      param=self.__param_name__,
+                                      param=self._param_name,
                                       sensor_serials=self.serials,
                                       sensor_name=self.name,
                                       met_param=met_param,
@@ -987,7 +987,7 @@ class SensorEvaluation:
         xmin, xmax = ymin, ymax
 
         try:
-            self.deploy_dict['Deployment Groups']['Group 1'][self.__param_name__]
+            self.deploy_dict['Deployment Groups']['Group 1'][self._param_name]
         except KeyError:
             print('Populating deployment dataframe with evaluation statistics')
             self.add_deploy_dict_stats()
@@ -1031,7 +1031,7 @@ class SensorEvaluation:
         except AttributeError:
             self.calculate_metrics()
 
-        param = self.__param_name__
+        param = self._param_name
 
         deploy_dic = self.deploy_dict
         deploy_stats = self.stats_df.where(
@@ -1113,8 +1113,8 @@ class SensorEvaluation:
 
         print(88*'-')
         print('{:^14s}|{:^14s}|{:^14s}|{:^14s}|{:^14s}|{:^14s}'.format(
-                'Eval period', 'Duration', 'Sensor ' + self.__param_name__,
-                'Ref ' + self.__param_name__, 'Temp', 'RH'))
+                'Eval period', 'Duration', 'Sensor ' + self._param_name,
+                'Ref ' + self._param_name, 'Temp', 'RH'))
         print(88*'-')
 
         deploy_loc = deploy_dict['Deployment Groups']
@@ -1136,9 +1136,9 @@ class SensorEvaluation:
         sensor_max = format(deploy_stats.Sensor_Max.max(), '3.1f')
         sensor_mean = format(deploy_stats.Sensor_Mean.mean(), '3.1f')
 
-        ref_min = format(ref_df[self.__param_name__ + '_Value'].min(), '3.1f')
-        ref_max = format(ref_df[self.__param_name__ + '_Value'].max(), '3.1f')
-        ref_mean = format(ref_df[self.__param_name__ + '_Value'].mean(), '3.1f')
+        ref_min = format(ref_df[self._param_name + '_Value'].min(), '3.1f')
+        ref_max = format(ref_df[self._param_name + '_Value'].max(), '3.1f')
+        ref_mean = format(ref_df[self._param_name + '_Value'].mean(), '3.1f')
 
         temp_min = format(met_ref_df['Temp_Value'].min(), '2.0f')
         temp_max = format(met_ref_df['Temp_Value'].max(), '2.0f')
