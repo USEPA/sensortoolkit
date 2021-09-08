@@ -17,20 +17,22 @@ report for the ``Example_Make_Model`` sensor evaluating its PM<sub>2.5</sub> per
 
 .. code-block:: python
 
+  pollutant = sensortoolkit.Parameter('PM25')
+
   # Instantiate the PerformanceReport class for the example sensor dataset
-  test_report = PerformanceReport(
-                    name='Example_Make_Model',
-                    param='PM25',
-                    path=work_path,
-                    reference_data=ref_path.as_posix() + '/airnowtech/processed',
-                    serials={'1': 'SN01',
-                             '2': 'SN02',
-                             '3': 'SN03'},
-                    tzone_shift=5,
-                    load_raw_data=False,
-                    write_to_file=True,
-                    testing_org=testing_org,
-                    testing_loc=testing_loc)
+  test_report = sensortoolkit.PerformanceReport(
+                                name=sensor_name,
+                                param=pollutant,
+                                path=work_path,
+                                reference_data=ref_path,
+                                serials={'1': 'SN01',
+                                         '2': 'SN02',
+                                         '3': 'SN03'},
+                                tzone_shift=5,
+                                load_raw_data=False,
+                                write_to_file=True,
+                                testing_org=testing_org,
+                                testing_loc=testing_loc)
 
   # Compile the report and save the file to the reports subfolder
   test_report.CreateReport()

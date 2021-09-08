@@ -12,20 +12,20 @@ a user-friendly and efficient platform for evaluating sensor performance.
 A brief overview of ``SensorEvaluation``:
 =========================================
 
-* Loads unprocessed, recorded sensor data and converts datasets to `sensortoolkit`'s
+- Loads unprocessed, recorded sensor data and converts datasets to `sensortoolkit`'s
   Sensor Data Formatting Scheme (S-DFS).
-* Saves processed S-DFS datasets at recorded sampling frequnecy, and 1-hour and 24-hour averages
-* Retreival of reference data from reference data repositories (AQS, AirNow) or local
+- Saves processed S-DFS datasets at recorded sampling frequnecy, and 1-hour and 24-hour averages
+- Retreival of reference data from reference data repositories (AQS, AirNow) or local
   import of reference datasets, including support for downloaded datasets from AirNowTech.
   Reference data from any of the sources listed are translated into `sensortoolkit`'s
   Reference Data Formatting Standard (R-DFS) and are saved locally as .csv files.
-* Time alignment of sensor and reference data to UTC timestamps.
-* Computes various quantitites and metrics recommended by U.S. EPA's performance targets reports
+- Time alignment of sensor and reference data to UTC timestamps.
+- Computes various quantitites and metrics recommended by U.S. EPA's performance targets reports
   including precision (standard deviation, coefficient of variation), error (RMSE),
   linarity (:math:`R^2`), and bias (OLS regression slope and intercept).
-* Contains numerous plotting methods for displaying and saving figures for
+- Contains numerous plotting methods for displaying and saving figures for
   time series, sensor vs. reference scatter, meteorological conditions, etc.
-* Contains methods for printing summary statistics for evaluation conditions and
+- Contains methods for printing summary statistics for evaluation conditions and
   performance evaluation results using U.S EPA's recommended performance metrics.
 
 Below is an example instantiating the `SensorEvaluation` class for the `Example_Make_Model`
@@ -36,11 +36,11 @@ reference data sources follows below*).
 .. code-block:: python
 
   sensor_name = 'Example_Make_Model'
-  PM25 = sensortoolkit.Parameter('PM25')
+  pollutant = sensortoolkit.Parameter('PM25')
 
   # Mock evaluation using AIRS reference data downloaded from AirNowTech
   Eval = sensortoolkit.SensorEvaluation(name=sensor_name,
-                                        param=PM25,
+                                        param=pollutant,
                                         path=work_path,
                                         reference_data='[Reference source - see below]',
                                         bbox=AIRS_bbox,
@@ -221,13 +221,13 @@ path for the processed AirNowTech datasets:
   work_path = 'C:/Users/.../Documents/my_evaluation'
   ref_path = work_path + '/Data and Figures/reference_data/airnowtech/processed'
 
-  PM25 = sensortoolkit.Parameter('PM25')
+  pollutant = sensortoolkit.Parameter('PM25')
 
   # Mock evaluation using AIRS reference data downloaded from AirNowTech
   Eval = sensortoolkit.SensorEvaluation(name=sensor_name,
-                                        param=PM25,
+                                        param=pollutant,
                                         path=work_path,
-                                        reference_data='AQS',
+                                        reference_data=ref_path,
                                         bbox=AIRS_bbox,
                                         serials={'1': 'SN01',
                                                  '2': 'SN02',
@@ -269,10 +269,10 @@ Additionally, the reference_data parameter should be set to ``AQS``
   sensortoolkit.SensorEvaluation.aqs_username = 'username_address@email.com'
   sensortoolkit.SensorEvaluation.aqs_key = 'Your-AQS-Key-Here'
 
-  PM25 = sensortoolkit.Parameter('PM25')
+  pollutant = sensortoolkit.Parameter('PM25')
 
   Eval = sensortoolkit.SensorEvaluation(name=sensor_name,
-                                        param=PM25,
+                                        param=pollutant,
                                         path=work_path,
                                         reference_data='AQS',
                                         aqs_id=triple_oaks_ID,
@@ -370,12 +370,11 @@ should be set to ``AirNow``.
 
   sensortoolkit.SensorEvaluation.airnow_key = 'Your-AirNow-Key-Here'
 
-  PM25 = sensortoolkit.Parameter('PM25')
-
+  pollutant = sensortoolkit.Parameter('PM25')
 
   # Mock evaluation using AIRS reference data obtained from the AirNow API
   Eval = SensorEvaluation(name=sensor_name,
-                          param=PM25,
+                          param=pollutant,
                           path=work_path,
                           reference_data='AirNow',
                           bbox=AIRS_bbox,
