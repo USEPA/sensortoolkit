@@ -15,7 +15,7 @@ Last Updated:
 """
 import os
 import sys
-from shutil import copy
+
 
 def create_sensor_directories(name=None, eval_params=[], path=None):
     """Construct the sensor directory file structure required for conducting
