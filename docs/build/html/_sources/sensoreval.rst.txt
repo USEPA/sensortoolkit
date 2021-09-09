@@ -89,29 +89,39 @@ Console Output:
 Arguments passed to ``SensorEvaluation``
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-* ``name``: The name of the sensor, should be the same name passed to the
-  ``Create_Sensor_Directories()`` and ``Setup()`` methods.
-* ``param``: The parameter to evaluate, should be one of the parameters
-  listed in the params list passed to the ``Create_Sensor_Directories()`` method.
-* ``path``: The path to the directory where the user intends to store data, figures,
-  and reports
-* ``reference_data``: The service or folder directory from which reference data
-  are acquired. More detail about the different options for reference data acquisition below...
+.. list-table:: ``sensortoolkit.SensorEvaluation()`` attributes
+  :widths: 50 75
+  :header-rows: 1
 
-  * ``AQS`` - Query U.S. EPA's Air Quality System API.
-  * ``AirNow`` - Query AirNow API.
-  * `Local file path` - Path to a local directory where AirNowTech data have been downloaded.
-
-* ``serials``: A dictionary of sensor serial identifiers for each unit in a testing group.
-* ``tzone_shift``: An integer value by which to shift the sensor data to UTC.
-  Specifying ``0`` will not shift the data.
-* ``load_raw_data``: If true, raw data in the appropriate subdirectory will be
-  loaded and 1-hour and 24-hour averages will be computed and saved to a processed
-  data subdirectory for the specified sensor. If false, processed data will be loaded.
-* ``write_to_file``: If true and load_raw_data true, processed files will be
-  written to folder location. In addition, subsequent evaluation statistics will
-  be written to the Data and Figures/eval_stats sensor subdirectory. Figures will
-  also be written to the appropriate figures subdirectory.
+  * - Attribute name
+    - Description
+  * - ``name``
+    - The name of the sensor, should be the same name passed to the
+      ``Create_Sensor_Directories()`` and ``Setup()`` methods.
+  * - ``param``
+    - The parameter to evaluate, should be one of the parameters
+      listed in the params list passed to the ``Create_Sensor_Directories()`` method.
+  * - ``path``
+    - The path to the directory where the user intends to store data, figures,
+      and reports
+  * - ``reference_data``
+    - The service or folder directory from which reference data
+      are acquired. Set to ``AQS`` to query  U.S. EPA's Air Quality System API. Set
+      to ``AirNow`` to query the AirNow API.
+  * - ``serials``
+    - A dictionary of sensor serial identifiers for each unit in a testing group.
+  * - ``tzone_shift``
+    - An integer value by which to shift the sensor data to UTC.
+      Specifying ``0`` will not shift the data.
+  * - ``load_raw_data``
+    - If true, raw data in the appropriate subdirectory will be
+      loaded and 1-hour and 24-hour averages will be computed and saved to a processed
+      data subdirectory for the specified sensor. If false, processed data will be loaded.
+  * - ``write_to_file``
+    - If true and load_raw_data true, processed files will be
+      written to folder location. In addition, subsequent evaluation statistics will
+      be written to the Data and Figures/eval_stats sensor subdirectory. Figures will
+      also be written to the appropriate figures subdirectory.
 
 Keyword Arguments passed to ``SensorEvaluation``
 """"""""""""""""""""""""""""""""""""""""""""""""
@@ -120,50 +130,71 @@ Additional keyword arguments may be passed to the class. The current
 version of ``SensorEvaluation`` supports two additional keyword arguments for
 specifying information about the testing organization and evaluation location.
 
-* ``testing_org``: A dictionary containing the information about the testing
-  organization.
+``testing_org``
+"""""""""""""""
 
-  Parameters:
+A dictionary containing the information about the testing organization.
 
-  * ``Deployment name``: The descriptive name assigned to the sensor deployment.
-  * ``Org name``: The name of the testing organization.
-  * ``Website``: Website address for the testing organization.
-  * ``Contact email``: Contact email address responsible parties conducting testing.
-  * ``Contact phone``: Phone number for responsible parties conducting testing.
+.. list-table:: ``testing_org`` Attributes
+  :widths: 50 75
+  :header-rows: 1
 
-  Example:
+  * - Attribute name
+    - Description
+  * - ``Deployment name``
+    - The descriptive name assigned to the sensor deployment.
+  * - ``Org name``
+    - The name of the testing organization.
+  * - ``Website``
+    - Website address for the testing organization.
+  * - ``Contact email``
+    - Contact email address responsible parties conducting testing.
+  * - ``Contact phone``
+    - Phone number for responsible parties conducting testing.
 
-  .. code-block:: python
+**Example:**
 
-    testing_org = {'Deployment name': '[Insert name of deployment]',
-                   'Org name': ['[Insert organization name]'],
-                   'Website': {'website name': '[Insert name of website]',
-                               'website link': '[Insert website here]'},
-                   'Contact email': '[Insert email here]',
-                   'Contact phone': '[Insert phone number here]'}
+.. code-block:: python
+
+  testing_org = {'Deployment name': '[Insert name of deployment]',
+                 'Org name': ['[Insert organization name]'],
+                 'Website': {'website name': '[Insert name of website]',
+                             'website link': '[Insert website here]'},
+                 'Contact email': '[Insert email here]',
+                 'Contact phone': '[Insert phone number here]'}
 
 # Add note that contact info appear in header and first table
 
-* ``testing_loc``: A dictionary containing information about the testing site.
-  If the site is part of U.S. EPA's Air Quality System (AQS), the AQS Site ID
-  should be specified.
+``testing_loc``
+"""""""""""""""
 
-  Parameters:
+A dictionary containing information about the testing site. If the site is part
+of U.S. EPA's Air Quality System (AQS), the AQS Site ID should be specified.
 
-  * ``Site name``: The name of the ambient monitoring site.
-  * ``Site address``: The street address of the monitoring site.
-  * ``Site lat``: The latitude coordinate of the site.
-  * ``Site lon``: The longitude coordinate of the site.
+.. list-table:: ``testing_org`` Attributes
+  :widths: 50 75
+  :header-rows: 1
 
-  Example:
+  * - Attribute name
+    - Description
+  * - ``Site name``
+    - The name of the ambient monitoring site.
+  * - ``Site address``
+    - The street address of the monitoring site.
+  * - ``Site lat``
+    - The latitude coordinate of the site.
+  * - ``Site lon``
+    - The longitude coordinate of the site.
 
-  .. code-block:: python
+**Example:**
 
-    testing_loc = {'Site name': '[Insert name of site] ',
-                   'Site address': '[Insert site address]',
-                   'Site lat': '[Insert site latitude]',
-                   'Site long': '[Insert site longitude]',
-                   'Site AQS ID': '[If applicable, insert site AQS ID]'}
+.. code-block:: python
+
+  testing_loc = {'Site name': '[Insert name of site] ',
+                 'Site address': '[Insert site address]',
+                 'Site lat': '[Insert site latitude]',
+                 'Site long': '[Insert site longitude]',
+                 'Site AQS ID': '[If applicable, insert site AQS ID]'}
 
 ==============
 Reference Data

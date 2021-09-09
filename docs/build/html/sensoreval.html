@@ -8,7 +8,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>Conducting Analysis with the SensorEvaluation Class &mdash; sensortoolkit 0.3.1b1 documentation</title>
+  <title>Conducting Analysis with the SensorEvaluation Class &mdash; sensortoolkit 0.3.2b3 documentation</title>
   
 
   
@@ -68,7 +68,7 @@
             
             
               <div class="version">
-                0.3.1b1
+                0.3.2b3
               </div>
             
           
@@ -315,7 +315,6 @@
 <li class="toctree-l3"><a class="reference internal" href="_autosummary/sensortoolkit.reference._ref_api_query.query_aqs.html">sensortoolkit.reference._ref_api_query.query_aqs</a></li>
 <li class="toctree-l3"><a class="reference internal" href="_autosummary/sensortoolkit.reference._ref_api_query.query_periods.html">sensortoolkit.reference._ref_api_query.query_periods</a></li>
 <li class="toctree-l3"><a class="reference internal" href="_autosummary/sensortoolkit.reference._ref_api_query.ref_api_query.html">sensortoolkit.reference._ref_api_query.ref_api_query</a></li>
-<li class="toctree-l3"><a class="reference internal" href="_autosummary/sensortoolkit.reference._ref_api_query.save_query_data.html">sensortoolkit.reference._ref_api_query.save_query_data</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="_autosummary/sensortoolkit.sensor_ingest._processed_data_loader.html">sensortoolkit.sensor_ingest._processed_data_loader</a><ul>
@@ -486,49 +485,94 @@ modules will use the name <code class="docutils literal notranslate"><span class
 </div>
 <section id="arguments-passed-to-sensorevaluation">
 <h3>Arguments passed to <code class="docutils literal notranslate"><span class="pre">SensorEvaluation</span></code><a class="headerlink" href="#arguments-passed-to-sensorevaluation" title="Permalink to this headline">¶</a></h3>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">name</span></code>: The name of the sensor, should be the same name passed to the
-<code class="docutils literal notranslate"><span class="pre">Create_Sensor_Directories()</span></code> and <code class="docutils literal notranslate"><span class="pre">Setup()</span></code> methods.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">param</span></code>: The parameter to evaluate, should be one of the parameters
-listed in the params list passed to the <code class="docutils literal notranslate"><span class="pre">Create_Sensor_Directories()</span></code> method.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">path</span></code>: The path to the directory where the user intends to store data, figures,
-and reports</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">reference_data</span></code>: The service or folder directory from which reference data
-are acquired. More detail about the different options for reference data acquisition below…</p>
-<ul>
-<li><p><code class="docutils literal notranslate"><span class="pre">AQS</span></code> - Query U.S. EPA’s Air Quality System API.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">AirNow</span></code> - Query AirNow API.</p></li>
-<li><p><cite>Local file path</cite> - Path to a local directory where AirNowTech data have been downloaded.</p></li>
-</ul>
-</li>
-<li><p><code class="docutils literal notranslate"><span class="pre">serials</span></code>: A dictionary of sensor serial identifiers for each unit in a testing group.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">tzone_shift</span></code>: An integer value by which to shift the sensor data to UTC.
-Specifying <code class="docutils literal notranslate"><span class="pre">0</span></code> will not shift the data.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">load_raw_data</span></code>: If true, raw data in the appropriate subdirectory will be
+<table class="colwidths-given docutils align-default" id="id1">
+<caption><span class="caption-text"><code class="docutils literal notranslate"><span class="pre">sensortoolkit.SensorEvaluation()</span></code> attributes</span><a class="headerlink" href="#id1" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col style="width: 40%" />
+<col style="width: 60%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Attribute name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">name</span></code></p></td>
+<td><p>The name of the sensor, should be the same name passed to the
+<code class="docutils literal notranslate"><span class="pre">Create_Sensor_Directories()</span></code> and <code class="docutils literal notranslate"><span class="pre">Setup()</span></code> methods.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">param</span></code></p></td>
+<td><p>The parameter to evaluate, should be one of the parameters
+listed in the params list passed to the <code class="docutils literal notranslate"><span class="pre">Create_Sensor_Directories()</span></code> method.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">path</span></code></p></td>
+<td><p>The path to the directory where the user intends to store data, figures,
+and reports</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">reference_data</span></code></p></td>
+<td><p>The service or folder directory from which reference data
+are acquired. Set to <code class="docutils literal notranslate"><span class="pre">AQS</span></code> to query  U.S. EPA’s Air Quality System API. Set
+to <code class="docutils literal notranslate"><span class="pre">AirNow</span></code> to query the AirNow API.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">serials</span></code></p></td>
+<td><p>A dictionary of sensor serial identifiers for each unit in a testing group.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">tzone_shift</span></code></p></td>
+<td><p>An integer value by which to shift the sensor data to UTC.
+Specifying <code class="docutils literal notranslate"><span class="pre">0</span></code> will not shift the data.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">load_raw_data</span></code></p></td>
+<td><p>If true, raw data in the appropriate subdirectory will be
 loaded and 1-hour and 24-hour averages will be computed and saved to a processed
-data subdirectory for the specified sensor. If false, processed data will be loaded.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">write_to_file</span></code>: If true and load_raw_data true, processed files will be
+data subdirectory for the specified sensor. If false, processed data will be loaded.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">write_to_file</span></code></p></td>
+<td><p>If true and load_raw_data true, processed files will be
 written to folder location. In addition, subsequent evaluation statistics will
 be written to the Data and Figures/eval_stats sensor subdirectory. Figures will
-also be written to the appropriate figures subdirectory.</p></li>
-</ul>
+also be written to the appropriate figures subdirectory.</p></td>
+</tr>
+</tbody>
+</table>
 <section id="keyword-arguments-passed-to-sensorevaluation">
 <h4>Keyword Arguments passed to <code class="docutils literal notranslate"><span class="pre">SensorEvaluation</span></code><a class="headerlink" href="#keyword-arguments-passed-to-sensorevaluation" title="Permalink to this headline">¶</a></h4>
 <p>Additional keyword arguments may be passed to the class. The current
 version of <code class="docutils literal notranslate"><span class="pre">SensorEvaluation</span></code> supports two additional keyword arguments for
 specifying information about the testing organization and evaluation location.</p>
-<ul>
-<li><p><code class="docutils literal notranslate"><span class="pre">testing_org</span></code>: A dictionary containing the information about the testing
-organization.</p>
-<p>Parameters:</p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">Deployment</span> <span class="pre">name</span></code>: The descriptive name assigned to the sensor deployment.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">Org</span> <span class="pre">name</span></code>: The name of the testing organization.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">Website</span></code>: Website address for the testing organization.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">Contact</span> <span class="pre">email</span></code>: Contact email address responsible parties conducting testing.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">Contact</span> <span class="pre">phone</span></code>: Phone number for responsible parties conducting testing.</p></li>
-</ul>
-<p>Example:</p>
+</section>
+<section id="testing-org">
+<h4><code class="docutils literal notranslate"><span class="pre">testing_org</span></code><a class="headerlink" href="#testing-org" title="Permalink to this headline">¶</a></h4>
+<p>A dictionary containing the information about the testing organization.</p>
+<table class="colwidths-given docutils align-default" id="id2">
+<caption><span class="caption-text"><code class="docutils literal notranslate"><span class="pre">testing_org</span></code> Attributes</span><a class="headerlink" href="#id2" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col style="width: 40%" />
+<col style="width: 60%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Attribute name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Deployment</span> <span class="pre">name</span></code></p></td>
+<td><p>The descriptive name assigned to the sensor deployment.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Org</span> <span class="pre">name</span></code></p></td>
+<td><p>The name of the testing organization.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Website</span></code></p></td>
+<td><p>Website address for the testing organization.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Contact</span> <span class="pre">email</span></code></p></td>
+<td><p>Contact email address responsible parties conducting testing.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Contact</span> <span class="pre">phone</span></code></p></td>
+<td><p>Phone number for responsible parties conducting testing.</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Example:</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">testing_org</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;Deployment name&#39;</span><span class="p">:</span> <span class="s1">&#39;[Insert name of deployment]&#39;</span><span class="p">,</span>
                <span class="s1">&#39;Org name&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;[Insert organization name]&#39;</span><span class="p">],</span>
                <span class="s1">&#39;Website&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;website name&#39;</span><span class="p">:</span> <span class="s1">&#39;[Insert name of website]&#39;</span><span class="p">,</span>
@@ -537,21 +581,39 @@ organization.</p>
                <span class="s1">&#39;Contact phone&#39;</span><span class="p">:</span> <span class="s1">&#39;[Insert phone number here]&#39;</span><span class="p">}</span>
 </pre></div>
 </div>
-</li>
-</ul>
 <p># Add note that contact info appear in header and first table</p>
-<ul>
-<li><p><code class="docutils literal notranslate"><span class="pre">testing_loc</span></code>: A dictionary containing information about the testing site.
-If the site is part of U.S. EPA’s Air Quality System (AQS), the AQS Site ID
-should be specified.</p>
-<p>Parameters:</p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">Site</span> <span class="pre">name</span></code>: The name of the ambient monitoring site.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">Site</span> <span class="pre">address</span></code>: The street address of the monitoring site.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">Site</span> <span class="pre">lat</span></code>: The latitude coordinate of the site.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">Site</span> <span class="pre">lon</span></code>: The longitude coordinate of the site.</p></li>
-</ul>
-<p>Example:</p>
+</section>
+<section id="testing-loc">
+<h4><code class="docutils literal notranslate"><span class="pre">testing_loc</span></code><a class="headerlink" href="#testing-loc" title="Permalink to this headline">¶</a></h4>
+<p>A dictionary containing information about the testing site. If the site is part
+of U.S. EPA’s Air Quality System (AQS), the AQS Site ID should be specified.</p>
+<table class="colwidths-given docutils align-default" id="id3">
+<caption><span class="caption-text"><code class="docutils literal notranslate"><span class="pre">testing_org</span></code> Attributes</span><a class="headerlink" href="#id3" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col style="width: 40%" />
+<col style="width: 60%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Attribute name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Site</span> <span class="pre">name</span></code></p></td>
+<td><p>The name of the ambient monitoring site.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Site</span> <span class="pre">address</span></code></p></td>
+<td><p>The street address of the monitoring site.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Site</span> <span class="pre">lat</span></code></p></td>
+<td><p>The latitude coordinate of the site.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Site</span> <span class="pre">lon</span></code></p></td>
+<td><p>The longitude coordinate of the site.</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Example:</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">testing_loc</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;Site name&#39;</span><span class="p">:</span> <span class="s1">&#39;[Insert name of site] &#39;</span><span class="p">,</span>
                <span class="s1">&#39;Site address&#39;</span><span class="p">:</span> <span class="s1">&#39;[Insert site address]&#39;</span><span class="p">,</span>
                <span class="s1">&#39;Site lat&#39;</span><span class="p">:</span> <span class="s1">&#39;[Insert site latitude]&#39;</span><span class="p">,</span>
@@ -559,8 +621,6 @@ should be specified.</p>
                <span class="s1">&#39;Site AQS ID&#39;</span><span class="p">:</span> <span class="s1">&#39;[If applicable, insert site AQS ID]&#39;</span><span class="p">}</span>
 </pre></div>
 </div>
-</li>
-</ul>
 </section>
 </section>
 </section>

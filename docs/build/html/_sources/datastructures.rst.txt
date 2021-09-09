@@ -26,9 +26,9 @@ Sensor Data List Containers
 
 Sensor data files that have been imported and processed into the S-DFS scheme are
 sorted based on the interval between consecutive timestamps. Data sets at the
-original recorded sampling frequency of the sensor are placed in a list named ``full_df_list``.
+original recorded sampling frequency of the sensor are placed in a list named ``Eval.full_df_list``.
 Data sets that have been averaged to 1-hour and 24-hour averages are placed in
-``hourly_df_list`` and ``daily_df_list``, respectively. These lists contain data sets
+``Eval.hourly_df_list`` and ``Eval.daily_df_list``, respectively. These lists contain data sets
 for all sensors in the evaluation cohort, and are referred to here as list containers
 for pandas Dataframes as these lists hold or `contain` data sets in the `pandas.DataFrame object <https://pandas.pydata.org/docs/reference/frame.html>`_
 format.
@@ -37,7 +37,7 @@ format.
    Data sets for sensor units within each list container are organized by the order
    each unit serial ID appears in the ``Eval.serials`` dictionary.
 
-   For example, if the ``serials`` dictionary lists three sensors as
+   For example, if the ``Eval.serials`` dictionary lists three sensors as
 
    .. code-block:: python
 
@@ -55,14 +55,14 @@ format.
                              pandas.DataFrame]
 
    then the pandas DataFrame object corresponding to sensor ``SN01`` is found at
-   the first position within the ``hourly_df_list``, i.e., index position zero:
+   the first position within the ``Eval.hourly_df_list``, i.e., index position zero:
 
    .. code-block:: python
 
       sn01_dataset =  Eval.hourly_df_list[0]
 
 
-Example dataset within ``full_df_list``
+Example dataset within ``Eval.full_df_list``
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
     .. note::
@@ -74,7 +74,7 @@ Example dataset within ``full_df_list``
        :header-rows: 1
        :widths: auto
 
-Example dataset within ``hourly_df_list``
+Example dataset within ``Eval.hourly_df_list``
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
   .. note::
@@ -86,7 +86,7 @@ Example dataset within ``hourly_df_list``
      :header-rows: 1
      :widths: auto
 
-Example dataset within ``daily_df_list``
+Example dataset within ``Eval.daily_df_list``
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
   .. note::
@@ -122,12 +122,13 @@ naming convention for the prefix of each DataFrame:
 .. tip::
 
   Since working with six reference dataframes can be challenging to track and retreive
-  reference data for the selected ``eval_param``, the dataframes ``hourly_ref_df`` and
-  ``daily_ref_df`` are aliases of the reference dataframes corresponding to the parameter
-  classification of the ``eval_param``.
+  reference data for the selected ``Eval.param``, the dataframes ``Eval.hourly_ref_df`` and
+  ``Eval.daily_ref_df`` are aliases of the reference dataframes corresponding to the parameter
+  classification of the ``Eval.param``.
 
-  For instance, if ``eval_param = 'PM25'``, ``hourly_ref_df`` corresponds to  ``pm_hourly_ref_df`` and ``daily_ref_df`` corresponds
-  to  ``pm_daily_ref_df``. Note that corresponding dataframes point to the same object
+  For instance, if ``Eval.param.name = 'PM25'``, ``Eval.hourly_ref_df`` corresponds to
+  ``Eval.pm_hourly_ref_df`` and ``Eval.daily_ref_df`` corresponds
+  to  ``Eval.pm_daily_ref_df``. Note that corresponding dataframes point to the same object
   in memory, and as a result, modifications to one dataframe will be reflected in the corresponding
   dataframe.
 
@@ -142,14 +143,14 @@ constructed by running the following line of code:
 
   Eval.calculate_metrics()
 
-This will constuct the statistics dataframes ``stats_df`` and ``avg_stats_df`` and
-populate the deployment dictionary ``deploy_dict`` with details about the evaluation.
+This will constuct the statistics dataframes ``Eval.stats_df`` and ``Eval.avg_stats_df`` and
+populate the deployment dictionary ``Eval.deploy_dict`` with details about the evaluation.
 More detail about each of these data structures is provided below.
 
-Statistics Dataframes: ``stats_df`` and ``avg_stats_df``
+Statistics Dataframes: ``Eval.stats_df`` and ``Eval.avg_stats_df``
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Sensor vs. FRM/FEM Statisitcs: ``stats_df``
+Sensor vs. FRM/FEM Statisitcs: ``Eval.stats_df``
 """""""""""""""""""""""""""""""""""""""""""
 
 DataFrame containing statisitics relating the **sensor vs. FRM/FEM** linearity (:math:`R^2`),
@@ -157,16 +158,16 @@ bias (`slope` and `intercept`), `RMSE`, N (Number of sensor-FRM/FEM data point p
 as the minimum, maximum, and the mean sensor concentration. Data are presented for all
 averaging intervals specified by ``Eval.eval_param_averaging``.
 
-``stats_df`` is saved as a comma-separated value file at ...
+``Eval.stats_df`` is saved as a comma-separated value file at ...
 
-Below is an example of ``stats_df`` for the ``Example_Make_Model`` sensor dataset:
+Below is an example of ``Eval.stats_df`` for the ``Example_Make_Model`` sensor dataset:
 
 .. csv-table:: `stats_df.csv`
    :file: data/stats_df.csv
    :header-rows: 1
    :widths: auto
 
-Sensor vs. Intersensor Average Statistics: ``avg_stats_df``
+Sensor vs. Intersensor Average Statistics: ``Eval.avg_stats_df``
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 DataFrame containing statisitics relating the **sensor vs. intersensor average**
@@ -175,16 +176,16 @@ sensor measurements during which all sensors in the testing group reported value
 minimum, maximum, and the mean sensor concentration. Data are presented for all
 averaging intervals specified by ``Eval.eval_param_averaging``.
 
-``avg_stats_df`` is saved as a comma-separated value file at ...
+``Eval.avg_stats_df`` is saved as a comma-separated value file at ...
 
-Below is an example of ``stats_df`` for the ``Example_Make_Model`` sensor dataset:
+Below is an example of ``Eval.stats_df`` for the ``Example_Make_Model`` sensor dataset:
 
 .. csv-table:: `avg_stats_df.csv`
    :file: data/avg_stats_df.csv
    :header-rows: 1
    :widths: auto
 
-Deployment Dictionary: ``deploy_dict``
+Deployment Dictionary: ``Eval.deploy_dict``
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The deployment dictionary ``Eval.deploy_dict`` contains descriptive statistics and textual information about
@@ -214,7 +215,7 @@ measurements collected by internal sensing components.
 
 The deployment dictionary ``Eval.deploy_dict`` is saved as a JSON file to ...
 
-Below is an example of ``deploy_dict`` for the ``Example_Make_Model`` sensor dataset:
+Below is an example of ``Eval.deploy_dict`` for the ``Example_Make_Model`` sensor dataset:
 
 .. code-block:: json
 
@@ -359,7 +360,7 @@ Setup.JSON
 
 Setup.json files are generated by running the Setup module and contain information
 about recorded sensor datasets that is used by the standard ingestion module
-(``sensortoolkit.Ingest``).
+(``sensortoolkit.sensor_ingest.standard_ingest()``).
 
 As sensors often record data with different formatting and header naming schemes,
 these files assist in converting data recorded in their original format into S-DFS

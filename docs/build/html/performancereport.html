@@ -8,7 +8,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>Creating Testing Reports with PerformanceReport &mdash; sensortoolkit 0.3.1b1 documentation</title>
+  <title>Creating Testing Reports with PerformanceReport &mdash; sensortoolkit 0.3.2b3 documentation</title>
   
 
   
@@ -67,7 +67,7 @@
             
             
               <div class="version">
-                0.3.1b1
+                0.3.2b3
               </div>
             
           
@@ -314,7 +314,6 @@
 <li class="toctree-l3"><a class="reference internal" href="_autosummary/sensortoolkit.reference._ref_api_query.query_aqs.html">sensortoolkit.reference._ref_api_query.query_aqs</a></li>
 <li class="toctree-l3"><a class="reference internal" href="_autosummary/sensortoolkit.reference._ref_api_query.query_periods.html">sensortoolkit.reference._ref_api_query.query_periods</a></li>
 <li class="toctree-l3"><a class="reference internal" href="_autosummary/sensortoolkit.reference._ref_api_query.ref_api_query.html">sensortoolkit.reference._ref_api_query.ref_api_query</a></li>
-<li class="toctree-l3"><a class="reference internal" href="_autosummary/sensortoolkit.reference._ref_api_query.save_query_data.html">sensortoolkit.reference._ref_api_query.save_query_data</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="_autosummary/sensortoolkit.sensor_ingest._processed_data_loader.html">sensortoolkit.sensor_ingest._processed_data_loader</a><ul>
@@ -405,10 +404,11 @@
             
   <section id="creating-testing-reports-with-performancereport">
 <h1>Creating Testing Reports with PerformanceReport<a class="headerlink" href="#creating-testing-reports-with-performancereport" title="Permalink to this headline">¶</a></h1>
-<p>Creating testing reports with <code class="docutils literal notranslate"><span class="pre">performancereport</span></code> is very similar to using
-the <code class="docutils literal notranslate"><span class="pre">SensorEvaluation</span></code> class. Users pass the same attributes to the
+<p>Creating testing reports with <code class="docutils literal notranslate"><span class="pre">sensortoolkit.PerformanceReport</span></code> is very similar to using
+the <code class="docutils literal notranslate"><span class="pre">sensortoolkit.SensorEvaluation</span></code> class. Users pass the same attributes to the
 <code class="docutils literal notranslate"><span class="pre">PerformanceReport</span></code> class as they do to conduct analysis with <code class="docutils literal notranslate"><span class="pre">SensorEvaluation</span></code>
-(<code class="docutils literal notranslate"><span class="pre">PerformanceReport</span></code> is an inherited class )</p>
+(<code class="docutils literal notranslate"><span class="pre">PerformanceReport</span></code> is an inherited class of <code class="docutils literal notranslate"><span class="pre">SensorEvaluation</span></code>, which means that
+its initialization creates a <code class="docutils literal notranslate"><span class="pre">SensorEvaluation</span></code> instance and is used to construct reports).</p>
 <p>There are a few additional attributes users can pass to the <code class="docutils literal notranslate"><span class="pre">PerformanceReport</span></code>
 class, including the dictionaries <code class="docutils literal notranslate"><span class="pre">testing_org</span></code> and <code class="docutils literal notranslate"><span class="pre">testing_loc</span></code>. These
 dictionaries house information about the testing organization, contact information,

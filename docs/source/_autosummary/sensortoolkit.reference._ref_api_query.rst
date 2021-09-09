@@ -22,7 +22,6 @@
       query_aqs
       query_periods
       ref_api_query
-      save_query_data
    
    
 

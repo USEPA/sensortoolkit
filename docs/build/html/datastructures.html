@@ -8,7 +8,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>Data Structures and Formatting &mdash; sensortoolkit 0.3.1b1 documentation</title>
+  <title>Data Structures and Formatting &mdash; sensortoolkit 0.3.2b3 documentation</title>
   
 
   
@@ -68,7 +68,7 @@
             
             
               <div class="version">
-                0.3.1b1
+                0.3.2b3
               </div>
             
           
@@ -315,7 +315,6 @@
 <li class="toctree-l3"><a class="reference internal" href="_autosummary/sensortoolkit.reference._ref_api_query.query_aqs.html">sensortoolkit.reference._ref_api_query.query_aqs</a></li>
 <li class="toctree-l3"><a class="reference internal" href="_autosummary/sensortoolkit.reference._ref_api_query.query_periods.html">sensortoolkit.reference._ref_api_query.query_periods</a></li>
 <li class="toctree-l3"><a class="reference internal" href="_autosummary/sensortoolkit.reference._ref_api_query.ref_api_query.html">sensortoolkit.reference._ref_api_query.ref_api_query</a></li>
-<li class="toctree-l3"><a class="reference internal" href="_autosummary/sensortoolkit.reference._ref_api_query.save_query_data.html">sensortoolkit.reference._ref_api_query.save_query_data</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="_autosummary/sensortoolkit.sensor_ingest._processed_data_loader.html">sensortoolkit.sensor_ingest._processed_data_loader</a><ul>
@@ -425,9 +424,9 @@ of <code class="docutils literal notranslate"><span class="pre">SensorEvaluation
 <h3>Sensor Data List Containers<a class="headerlink" href="#sensor-data-list-containers" title="Permalink to this headline">¶</a></h3>
 <p>Sensor data files that have been imported and processed into the S-DFS scheme are
 sorted based on the interval between consecutive timestamps. Data sets at the
-original recorded sampling frequency of the sensor are placed in a list named <code class="docutils literal notranslate"><span class="pre">full_df_list</span></code>.
+original recorded sampling frequency of the sensor are placed in a list named <code class="docutils literal notranslate"><span class="pre">Eval.full_df_list</span></code>.
 Data sets that have been averaged to 1-hour and 24-hour averages are placed in
-<code class="docutils literal notranslate"><span class="pre">hourly_df_list</span></code> and <code class="docutils literal notranslate"><span class="pre">daily_df_list</span></code>, respectively. These lists contain data sets
+<code class="docutils literal notranslate"><span class="pre">Eval.hourly_df_list</span></code> and <code class="docutils literal notranslate"><span class="pre">Eval.daily_df_list</span></code>, respectively. These lists contain data sets
 for all sensors in the evaluation cohort, and are referred to here as list containers
 for pandas Dataframes as these lists hold or <cite>contain</cite> data sets in the <a class="reference external" href="https://pandas.pydata.org/docs/reference/frame.html">pandas.DataFrame object</a>
 format.</p>
@@ -436,7 +435,7 @@ format.</p>
 <p class="admonition-title">Note</p>
 <p>Data sets for sensor units within each list container are organized by the order
 each unit serial ID appears in the <code class="docutils literal notranslate"><span class="pre">Eval.serials</span></code> dictionary.</p>
-<p>For example, if the <code class="docutils literal notranslate"><span class="pre">serials</span></code> dictionary lists three sensors as</p>
+<p>For example, if the <code class="docutils literal notranslate"><span class="pre">Eval.serials</span></code> dictionary lists three sensors as</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">Eval</span><span class="o">.</span><span class="n">serials</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;1&#39;</span><span class="p">:</span> <span class="s1">&#39;SN01&#39;</span><span class="p">,</span>
                 <span class="s1">&#39;2&#39;</span><span class="p">:</span> <span class="s1">&#39;SN02&#39;</span><span class="p">,</span>
                 <span class="s1">&#39;3&#39;</span><span class="p">:</span> <span class="s1">&#39;SN03&#39;</span><span class="p">}</span>
@@ -450,14 +449,14 @@ each unit serial ID appears in the <code class="docutils literal notranslate"><s
 </pre></div>
 </div>
 <p>then the pandas DataFrame object corresponding to sensor <code class="docutils literal notranslate"><span class="pre">SN01</span></code> is found at
-the first position within the <code class="docutils literal notranslate"><span class="pre">hourly_df_list</span></code>, i.e., index position zero:</p>
+the first position within the <code class="docutils literal notranslate"><span class="pre">Eval.hourly_df_list</span></code>, i.e., index position zero:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sn01_dataset</span> <span class="o">=</span>  <span class="n">Eval</span><span class="o">.</span><span class="n">hourly_df_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 </pre></div>
 </div>
 </div>
 </div></blockquote>
-<section id="example-dataset-within-full-df-list">
-<h4>Example dataset within <code class="docutils literal notranslate"><span class="pre">full_df_list</span></code><a class="headerlink" href="#example-dataset-within-full-df-list" title="Permalink to this headline">¶</a></h4>
+<section id="example-dataset-within-eval-full-df-list">
+<h4>Example dataset within <code class="docutils literal notranslate"><span class="pre">Eval.full_df_list</span></code><a class="headerlink" href="#example-dataset-within-eval-full-df-list" title="Permalink to this headline">¶</a></h4>
 <blockquote>
 <div><div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -561,8 +560,8 @@ displayed.</p>
 </table>
 </div></blockquote>
 </section>
-<section id="example-dataset-within-hourly-df-list">
-<h4>Example dataset within <code class="docutils literal notranslate"><span class="pre">hourly_df_list</span></code><a class="headerlink" href="#example-dataset-within-hourly-df-list" title="Permalink to this headline">¶</a></h4>
+<section id="example-dataset-within-eval-hourly-df-list">
+<h4>Example dataset within <code class="docutils literal notranslate"><span class="pre">Eval.hourly_df_list</span></code><a class="headerlink" href="#example-dataset-within-eval-hourly-df-list" title="Permalink to this headline">¶</a></h4>
 <blockquote>
 <div><div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -666,8 +665,8 @@ displayed.</p>
 </table>
 </div></blockquote>
 </section>
-<section id="example-dataset-within-daily-df-list">
-<h4>Example dataset within <code class="docutils literal notranslate"><span class="pre">daily_df_list</span></code><a class="headerlink" href="#example-dataset-within-daily-df-list" title="Permalink to this headline">¶</a></h4>
+<section id="example-dataset-within-eval-daily-df-list">
+<h4>Example dataset within <code class="docutils literal notranslate"><span class="pre">Eval.daily_df_list</span></code><a class="headerlink" href="#example-dataset-within-eval-daily-df-list" title="Permalink to this headline">¶</a></h4>
 <blockquote>
 <div><div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -800,11 +799,12 @@ naming convention for the prefix of each DataFrame:</p>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
 <p>Since working with six reference dataframes can be challenging to track and retreive
-reference data for the selected <code class="docutils literal notranslate"><span class="pre">eval_param</span></code>, the dataframes <code class="docutils literal notranslate"><span class="pre">hourly_ref_df</span></code> and
-<code class="docutils literal notranslate"><span class="pre">daily_ref_df</span></code> are aliases of the reference dataframes corresponding to the parameter
-classification of the <code class="docutils literal notranslate"><span class="pre">eval_param</span></code>.</p>
-<p>For instance, if <code class="docutils literal notranslate"><span class="pre">eval_param</span> <span class="pre">=</span> <span class="pre">'PM25'</span></code>, <code class="docutils literal notranslate"><span class="pre">hourly_ref_df</span></code> corresponds to  <code class="docutils literal notranslate"><span class="pre">pm_hourly_ref_df</span></code> and <code class="docutils literal notranslate"><span class="pre">daily_ref_df</span></code> corresponds
-to  <code class="docutils literal notranslate"><span class="pre">pm_daily_ref_df</span></code>. Note that corresponding dataframes point to the same object
+reference data for the selected <code class="docutils literal notranslate"><span class="pre">Eval.param</span></code>, the dataframes <code class="docutils literal notranslate"><span class="pre">Eval.hourly_ref_df</span></code> and
+<code class="docutils literal notranslate"><span class="pre">Eval.daily_ref_df</span></code> are aliases of the reference dataframes corresponding to the parameter
+classification of the <code class="docutils literal notranslate"><span class="pre">Eval.param</span></code>.</p>
+<p>For instance, if <code class="docutils literal notranslate"><span class="pre">Eval.param.name</span> <span class="pre">=</span> <span class="pre">'PM25'</span></code>, <code class="docutils literal notranslate"><span class="pre">Eval.hourly_ref_df</span></code> corresponds to
+<code class="docutils literal notranslate"><span class="pre">Eval.pm_hourly_ref_df</span></code> and <code class="docutils literal notranslate"><span class="pre">Eval.daily_ref_df</span></code> corresponds
+to  <code class="docutils literal notranslate"><span class="pre">Eval.pm_daily_ref_df</span></code>. Note that corresponding dataframes point to the same object
 in memory, and as a result, modifications to one dataframe will be reflected in the corresponding
 dataframe.</p>
 </div>
@@ -817,19 +817,19 @@ constructed by running the following line of code:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">Eval</span><span class="o">.</span><span class="n">calculate_metrics</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>This will constuct the statistics dataframes <code class="docutils literal notranslate"><span class="pre">stats_df</span></code> and <code class="docutils literal notranslate"><span class="pre">avg_stats_df</span></code> and
-populate the deployment dictionary <code class="docutils literal notranslate"><span class="pre">deploy_dict</span></code> with details about the evaluation.
+<p>This will constuct the statistics dataframes <code class="docutils literal notranslate"><span class="pre">Eval.stats_df</span></code> and <code class="docutils literal notranslate"><span class="pre">Eval.avg_stats_df</span></code> and
+populate the deployment dictionary <code class="docutils literal notranslate"><span class="pre">Eval.deploy_dict</span></code> with details about the evaluation.
 More detail about each of these data structures is provided below.</p>
-<section id="statistics-dataframes-stats-df-and-avg-stats-df">
-<h4>Statistics Dataframes: <code class="docutils literal notranslate"><span class="pre">stats_df</span></code> and <code class="docutils literal notranslate"><span class="pre">avg_stats_df</span></code><a class="headerlink" href="#statistics-dataframes-stats-df-and-avg-stats-df" title="Permalink to this headline">¶</a></h4>
-<section id="sensor-vs-frm-fem-statisitcs-stats-df">
-<h5>Sensor vs. FRM/FEM Statisitcs: <code class="docutils literal notranslate"><span class="pre">stats_df</span></code><a class="headerlink" href="#sensor-vs-frm-fem-statisitcs-stats-df" title="Permalink to this headline">¶</a></h5>
+<section id="statistics-dataframes-eval-stats-df-and-eval-avg-stats-df">
+<h4>Statistics Dataframes: <code class="docutils literal notranslate"><span class="pre">Eval.stats_df</span></code> and <code class="docutils literal notranslate"><span class="pre">Eval.avg_stats_df</span></code><a class="headerlink" href="#statistics-dataframes-eval-stats-df-and-eval-avg-stats-df" title="Permalink to this headline">¶</a></h4>
+<section id="sensor-vs-frm-fem-statisitcs-eval-stats-df">
+<h5>Sensor vs. FRM/FEM Statisitcs: <code class="docutils literal notranslate"><span class="pre">Eval.stats_df</span></code><a class="headerlink" href="#sensor-vs-frm-fem-statisitcs-eval-stats-df" title="Permalink to this headline">¶</a></h5>
 <p>DataFrame containing statisitics relating the <strong>sensor vs. FRM/FEM</strong> linearity (<span class="math notranslate nohighlight">\(R^2\)</span>),
 bias (<cite>slope</cite> and <cite>intercept</cite>), <cite>RMSE</cite>, N (Number of sensor-FRM/FEM data point pairs), as well
 as the minimum, maximum, and the mean sensor concentration. Data are presented for all
 averaging intervals specified by <code class="docutils literal notranslate"><span class="pre">Eval.eval_param_averaging</span></code>.</p>
-<p><code class="docutils literal notranslate"><span class="pre">stats_df</span></code> is saved as a comma-separated value file at …</p>
-<p>Below is an example of <code class="docutils literal notranslate"><span class="pre">stats_df</span></code> for the <code class="docutils literal notranslate"><span class="pre">Example_Make_Model</span></code> sensor dataset:</p>
+<p><code class="docutils literal notranslate"><span class="pre">Eval.stats_df</span></code> is saved as a comma-separated value file at …</p>
+<p>Below is an example of <code class="docutils literal notranslate"><span class="pre">Eval.stats_df</span></code> for the <code class="docutils literal notranslate"><span class="pre">Example_Make_Model</span></code> sensor dataset:</p>
 <table class="colwidths-auto docutils align-default" id="id6">
 <caption><span class="caption-text"><cite>stats_df.csv</cite></span><a class="headerlink" href="#id6" title="Permalink to this table">¶</a></caption>
 <thead>
@@ -982,15 +982,15 @@ averaging intervals specified by <code class="docutils literal notranslate"><spa
 </tbody>
 </table>
 </section>
-<section id="sensor-vs-intersensor-average-statistics-avg-stats-df">
-<h5>Sensor vs. Intersensor Average Statistics: <code class="docutils literal notranslate"><span class="pre">avg_stats_df</span></code><a class="headerlink" href="#sensor-vs-intersensor-average-statistics-avg-stats-df" title="Permalink to this headline">¶</a></h5>
+<section id="sensor-vs-intersensor-average-statistics-eval-avg-stats-df">
+<h5>Sensor vs. Intersensor Average Statistics: <code class="docutils literal notranslate"><span class="pre">Eval.avg_stats_df</span></code><a class="headerlink" href="#sensor-vs-intersensor-average-statistics-eval-avg-stats-df" title="Permalink to this headline">¶</a></h5>
 <p>DataFrame containing statisitics relating the <strong>sensor vs. intersensor average</strong>
 linearity (<span class="math notranslate nohighlight">\(R^2\)</span>), bias (<cite>slope</cite> and <cite>intercept</cite>), RMSE, N (Number of concurrent
 sensor measurements during which all sensors in the testing group reported values), as well as the
 minimum, maximum, and the mean sensor concentration. Data are presented for all
 averaging intervals specified by <code class="docutils literal notranslate"><span class="pre">Eval.eval_param_averaging</span></code>.</p>
-<p><code class="docutils literal notranslate"><span class="pre">avg_stats_df</span></code> is saved as a comma-separated value file at …</p>
-<p>Below is an example of <code class="docutils literal notranslate"><span class="pre">stats_df</span></code> for the <code class="docutils literal notranslate"><span class="pre">Example_Make_Model</span></code> sensor dataset:</p>
+<p><code class="docutils literal notranslate"><span class="pre">Eval.avg_stats_df</span></code> is saved as a comma-separated value file at …</p>
+<p>Below is an example of <code class="docutils literal notranslate"><span class="pre">Eval.stats_df</span></code> for the <code class="docutils literal notranslate"><span class="pre">Example_Make_Model</span></code> sensor dataset:</p>
 <table class="colwidths-auto docutils align-default" id="id7">
 <caption><span class="caption-text"><cite>avg_stats_df.csv</cite></span><a class="headerlink" href="#id7" title="Permalink to this table">¶</a></caption>
 <thead>
@@ -1144,8 +1144,8 @@ averaging intervals specified by <code class="docutils literal notranslate"><spa
 </table>
 </section>
 </section>
-<section id="deployment-dictionary-deploy-dict">
-<h4>Deployment Dictionary: <code class="docutils literal notranslate"><span class="pre">deploy_dict</span></code><a class="headerlink" href="#deployment-dictionary-deploy-dict" title="Permalink to this headline">¶</a></h4>
+<section id="deployment-dictionary-eval-deploy-dict">
+<h4>Deployment Dictionary: <code class="docutils literal notranslate"><span class="pre">Eval.deploy_dict</span></code><a class="headerlink" href="#deployment-dictionary-eval-deploy-dict" title="Permalink to this headline">¶</a></h4>
 <p>The deployment dictionary <code class="docutils literal notranslate"><span class="pre">Eval.deploy_dict</span></code> contains descriptive statistics and textual information about
 the deployment, including details about the testing agency, deployment site,
 sensors tested, and site conditions during the evaluation.</p>
@@ -1167,7 +1167,7 @@ temperature, relative humidity, and other parameters measured by instruments
 at the testing site. These measurements are independent of air sensor meteorological
 measurements collected by internal sensing components.</p>
 <p>The deployment dictionary <code class="docutils literal notranslate"><span class="pre">Eval.deploy_dict</span></code> is saved as a JSON file to …</p>
-<p>Below is an example of <code class="docutils literal notranslate"><span class="pre">deploy_dict</span></code> for the <code class="docutils literal notranslate"><span class="pre">Example_Make_Model</span></code> sensor dataset:</p>
+<p>Below is an example of <code class="docutils literal notranslate"><span class="pre">Eval.deploy_dict</span></code> for the <code class="docutils literal notranslate"><span class="pre">Example_Make_Model</span></code> sensor dataset:</p>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
     <span class="nt">&quot;sensortoolkit Version&quot;</span><span class="p">:</span> <span class="s2">&quot;1.0.0&quot;</span><span class="p">,</span>
     <span class="nt">&quot;Date of Analysis&quot;</span><span class="p">:</span> <span class="s2">&quot;2021-08-25 09:46:19 AM&quot;</span><span class="p">,</span>
@@ -1525,7 +1525,7 @@ conditions exceeded the manufacturer’s recommended operating range.</p>
 <h3>Setup.JSON<a class="headerlink" href="#setup-json" title="Permalink to this headline">¶</a></h3>
 <p>Setup.json files are generated by running the Setup module and contain information
 about recorded sensor datasets that is used by the standard ingestion module
-(<code class="docutils literal notranslate"><span class="pre">sensortoolkit.Ingest</span></code>).</p>
+(<code class="docutils literal notranslate"><span class="pre">sensortoolkit.sensor_ingest.standard_ingest()</span></code>).</p>
 <p>As sensors often record data with different formatting and header naming schemes,
 these files assist in converting data recorded in their original format into S-DFS
 scheme for parameter data names and date/time formatting.</p>

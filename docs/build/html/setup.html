@@ -8,7 +8,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>Configuring sensortoolkit for Analyzing Sensor Data &mdash; sensortoolkit 0.3.1b1 documentation</title>
+  <title>Configuring sensortoolkit for Analyzing Sensor Data &mdash; sensortoolkit 0.3.2b3 documentation</title>
   
 
   
@@ -67,7 +67,7 @@
             
             
               <div class="version">
-                0.3.1b1
+                0.3.2b3
               </div>
             
           
@@ -314,7 +314,6 @@
 <li class="toctree-l3"><a class="reference internal" href="_autosummary/sensortoolkit.reference._ref_api_query.query_aqs.html">sensortoolkit.reference._ref_api_query.query_aqs</a></li>
 <li class="toctree-l3"><a class="reference internal" href="_autosummary/sensortoolkit.reference._ref_api_query.query_periods.html">sensortoolkit.reference._ref_api_query.query_periods</a></li>
 <li class="toctree-l3"><a class="reference internal" href="_autosummary/sensortoolkit.reference._ref_api_query.ref_api_query.html">sensortoolkit.reference._ref_api_query.ref_api_query</a></li>
-<li class="toctree-l3"><a class="reference internal" href="_autosummary/sensortoolkit.reference._ref_api_query.save_query_data.html">sensortoolkit.reference._ref_api_query.save_query_data</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="_autosummary/sensortoolkit.sensor_ingest._processed_data_loader.html">sensortoolkit.sensor_ingest._processed_data_loader</a><ul>
@@ -417,23 +416,47 @@ or users may wish to organize their work in a separate directory. In either case
 subdirectories and folders will need to be created so users can store data, figures, and evaluation
 statistics.</p>
 </div>
-<p>Users can create these folders during the setup process by running the <code class="docutils literal notranslate"><span class="pre">Create_Sensor_Directories</span></code>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The following guide assumes that the user intends to place all user-created scripts,
+datasets, figures, and reports at a folder location <code class="docutils literal notranslate"><span class="pre">C:/Users/.../Documents/my_evaluation</span></code>. While we name this
+folder <code class="docutils literal notranslate"><span class="pre">my_evaluation</span></code>, users are free to assign their directory whatever name suits best.</p>
+</div>
+<p>Users can create these folders during the setup process by running the <code class="docutils literal notranslate"><span class="pre">sensortoolkit.lib_utils.create_sensor_directories()</span></code>
 function. The function accepts the following arguments</p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">name</span></code>: The sensor name. Users are recommended to include the name of the
-sensor make and model in the sensor name, separated by an underscore.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">eval_params</span></code>: A list of parameters the user intends to evaluate</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">work_path</span></code>: The path to the directory where the user intends to store data, figures,
-and reports</p></li>
-</ul>
+<table class="colwidths-given docutils align-default" id="id1">
+<caption><span class="caption-text"><code class="docutils literal notranslate"><span class="pre">sensortoolkit.lib_utils.create_sensor_directories()</span> <span class="pre">attributes</span></code></span><a class="headerlink" href="#id1" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col style="width: 40%" />
+<col style="width: 60%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Attribute name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">name</span></code></p></td>
+<td><p>The sensor name. Users are recommended to include the name of the
+sensor make and model in the sensor name, separated by an underscore.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">eval_params</span></code></p></td>
+<td><p>A list of parameters the user intends to evaluate</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">path</span></code></p></td>
+<td><p>The path to the directory where the user intends to store data, figures,
+and reports</p></td>
+</tr>
+</tbody>
+</table>
 <p>Below is an example for a sensor that will be evaluated for PM2.5 and O3 at the
 folder location <code class="docutils literal notranslate"><span class="pre">C:/Users/.../Documents/my_evaluation</span></code>:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sensor_name</span> <span class="o">=</span> <span class="s1">&#39;Sensor_Make_Model&#39;</span>
 <span class="n">work_path</span> <span class="o">=</span> <span class="s1">&#39;C:/Users/.../Documents/my_evaluation&#39;</span>
 
-<span class="n">sensortoolkit</span><span class="o">.</span><span class="n">Create_Sensor_Directories</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">sensor_name</span><span class="p">,</span>
-                                          <span class="n">eval_params</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;PM25&#39;</span><span class="p">,</span> <span class="s1">&#39;O3&#39;</span><span class="p">],</span>
-                                        <span class="n">work_path</span><span class="o">=</span><span class="n">work_path</span><span class="p">)</span>
+<span class="n">sensortoolkit</span><span class="o">.</span><span class="n">lib_utils</span><span class="o">.</span><span class="n">create_sensor_directories</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">sensor_name</span><span class="p">,</span>
+                                                  <span class="n">eval_params</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;PM25&#39;</span><span class="p">,</span> <span class="s1">&#39;O3&#39;</span><span class="p">],</span>
+                                                  <span class="n">path</span><span class="o">=</span><span class="n">work_path</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Running the code above will construct the sensor-specific directory structure
@@ -441,7 +464,7 @@ for subsequent analysis. Here, we’re assuming that the folder``my_evaluation``
 only has the python file with the code written above. The <code class="docutils literal notranslate"><span class="pre">Data</span> <span class="pre">and</span> <span class="pre">Figures</span></code>
 and <code class="docutils literal notranslate"><span class="pre">Reports</span></code> folders, along with all relevant subdirectories, will be constructed.</p>
 <p>The following is printed to the console indicating the directories that are created
-by the <code class="docutils literal notranslate"><span class="pre">Create_Sensor_Directories</span></code> function.</p>
+by the <code class="docutils literal notranslate"><span class="pre">sensortoolkit.lib_utils.create_sensor_directories()</span></code> function.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">Creating &quot;Data and Figures&quot; subdirectory within C:/Users/.../Documents/my_evaluation</span>
 <span class="go">....\Data and Figures\eval_stats</span>
 <span class="go">....\Data and Figures\figures</span>
@@ -474,12 +497,48 @@ by the <code class="docutils literal notranslate"><span class="pre">Create_Senso
 <span class="go">......\Data and Figures\sensor_data\sensor_make_model\raw_data</span>
 </pre></div>
 </div>
+<section id="directory-structure">
+<h3>Directory Structure<a class="headerlink" href="#directory-structure" title="Permalink to this headline">¶</a></h3>
+<p>Below is the directory structure created by running the <code class="docutils literal notranslate"><span class="pre">sensortoolkit.lib_utils.create_sensor_directories()</span></code>
+function for the <code class="docutils literal notranslate"><span class="pre">Example_Make_Model</span></code> sensor type.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">my_evaluation                             &lt;-- Top level directory. Set as ``work_path``.</span>
+<span class="go">|</span>
+<span class="go">├───Data and Figures                      &lt;-- Sensor and reference data, statistics, and figures.</span>
+<span class="go">│   ├───eval_stats                        &lt;-- Subdirectories organized by sensor type.</span>
+<span class="go">│   │   └───Example_Make_Model</span>
+<span class="go">│   ├───figures                           &lt;-- Subdirectories organized by sensor type.</span>
+<span class="go">│   │   └───Example_Make_Model</span>
+<span class="go">│   │       ├───deployment</span>
+<span class="go">│   │       ├───Met</span>
+<span class="go">│   │       ├───O3</span>
+<span class="go">│   │       └───PM25</span>
+<span class="go">│   ├───reference_data                    &lt;-- Subdirectories organized by reference data source.</span>
+<span class="go">│   │   ├───airnow</span>
+<span class="go">│   │   │   ├───processed</span>
+<span class="go">│   │   │   └───raw_api_datasets</span>
+<span class="go">│   │   ├───airnowtech</span>
+<span class="go">│   │   │   ├───downloaded_datasets</span>
+<span class="go">│   │   │   └───processed</span>
+<span class="go">│   │   └───aqs</span>
+<span class="go">│   │       ├───processed</span>
+<span class="go">│   │       └───raw_api_datasets</span>
+<span class="go">│   └───sensor_data                       &lt;-- Subdirectories organized by sensor type.</span>
+<span class="go">│       └───Example_Make_Model</span>
+<span class="go">│           ├───processed_data</span>
+<span class="go">│           └───raw_data</span>
+<span class="go">└───Reports                               &lt;-- Performance testing reports. Subdirectories organized by sensor type.</span>
+<span class="go">    └───Example_Make_Model</span>
+<span class="go">        └───PM25</span>
+</pre></div>
+</div>
+</section>
 </section>
 <section id="adding-sensor-datasets">
 <h2>Adding Sensor datasets<a class="headerlink" href="#adding-sensor-datasets" title="Permalink to this headline">¶</a></h2>
-<p>Once sensor directories have been established, users should place files for unprocessed data
-recorded by the sensor make and model into the appropriate sub-directory. For the
-example shown above, data files should be located at <code class="docutils literal notranslate"><span class="pre">\Data</span> <span class="pre">and</span> <span class="pre">Figures\sensor_data\sensor_make_model\raw_data</span></code>.</p>
+<p>Once sensor directories have been established, users should use the <code class="docutils literal notranslate"><span class="pre">sensortoolkit.lib_utils.copy_datasets()</span></code>
+method to place files for unprocessed data recorded by the sensor make and model
+into the appropriate sub-directory. Following with the example for the sensor <code class="docutils literal notranslate"><span class="pre">sensor_make_model</span></code>, data files
+should be located at <code class="docutils literal notranslate"><span class="pre">\Data</span> <span class="pre">and</span> <span class="pre">Figures\sensor_data\sensor_make_model\raw_data</span></code>.</p>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
 <p>Data files pertaining to a particular sensor unit must include the unique
@@ -487,6 +546,14 @@ serial identifier in each file name associated with the unit. The ingest
 module uses the IDs listed in the serials dictionary to locate, group, and
 import data for each unit.</p>
 </div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sensortoolkit</span><span class="o">.</span><span class="n">lib_utils</span><span class="o">.</span><span class="n">copy_datasets</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">sensor_name</span><span class="p">,</span>
+                                      <span class="n">path</span><span class="o">=</span><span class="n">work_path</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>When the <code class="docutils literal notranslate"><span class="pre">copy_datasets()</span></code> function is run, a file explorer window will open
+and the user will be prompted to select the location where recorded (raw) sensor datasets
+are stored. Files within the selected location will be copied to the <code class="docutils literal notranslate"><span class="pre">\Data</span> <span class="pre">and</span> <span class="pre">Figures\sensor_data\[name</span> <span class="pre">of</span> <span class="pre">sensor]\raw_data</span></code>
+subdirectory path within the user’s <code class="docutils literal notranslate"><span class="pre">work_path</span></code>.</p>
 <section id="example">
 <h3><em>Example</em><a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h3>
 <p><cite>sensortoolkit</cite> comes with a set of example sensor datasets to help users familiarize
@@ -508,14 +575,14 @@ indicated in each file name.</p>
 <p>Sensor data are recorded in a wide variety of formatting conventions and data types.
 Data ingestion converts datasets recorded by sensors to a standardized formatting
 scheme for data types, header names, and a sorted datetime index.</p>
-<p>The <code class="docutils literal notranslate"><span class="pre">Setup</span></code> module included alongside the <cite>sensortoolkit</cite> library guides users
+<p>The <code class="docutils literal notranslate"><span class="pre">sensortoolkit.lib_utils.Setup()</span></code> module included alongside the <cite>sensortoolkit</cite> library guides users
 through an interactive process of entering in details regarding the formatting
 of raw sensor datasets. The Setup module creates a <code class="docutils literal notranslate"><span class="pre">setup.json</span></code>
 configuration file that contains details for describing and converting the recorded sensor
 data format into the <cite>sensortoolkit</cite> Sensor Data Formatting Scheme (S-DFS). This file is
-passed to a subroutine <code class="docutils literal notranslate"><span class="pre">Ingest()</span></code> to import the recorded dataset and convert
+passed to a subroutine <code class="docutils literal notranslate"><span class="pre">sensortoolkit.sensor_ingest.standard_ingest()</span></code> to import the recorded dataset and convert
 headers and date/time-like columns to S-DFS formatting.</p>
-<p>To run the <code class="docutils literal notranslate"><span class="pre">Setup</span></code> module, import the <cite>sensortoolkit</cite> library (see Importing
+<p>To run the <code class="docutils literal notranslate"><span class="pre">sensortoolkit.lib_utils.Setup()</span></code> module, import the <cite>sensortoolkit</cite> library (see Importing
 the sensortoolkit Library for more detail) and run the following code:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sensor_name</span> <span class="o">=</span> <span class="s1">&#39;Example_Make_Model&#39;</span>
 <span class="n">work_path</span> <span class="o">=</span> <span class="s1">&#39;C:/Users/.../Documents/my_evaluation&#39;</span>
@@ -576,7 +643,7 @@ the user indicates to the console to end header entry model by pressing <code cl
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Manual configuration of column headers is not required if an integer header row index
-value is set in step 1 of the <code class="docutils literal notranslate"><span class="pre">Setup()</span></code> module.</p>
+value is set in step 1 of the <code class="docutils literal notranslate"><span class="pre">sensortoolkit.lib_utils.Setup()</span></code> module.</p>
 </div>
 <p>Next, the module will automatically search for datafiles corresponding to the
 file type and header index (if previously specified). A list of unique headers for

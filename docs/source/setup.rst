@@ -14,14 +14,29 @@ into several sub-directories in the ``/Data and Figures`` folder.
   subdirectories and folders will need to be created so users can store data, figures, and evaluation
   statistics.
 
+.. note::
+
+  The following guide assumes that the user intends to place all user-created scripts,
+  datasets, figures, and reports at a folder location ``C:/Users/.../Documents/my_evaluation``. While we name this
+  folder ``my_evaluation``, users are free to assign their directory whatever name suits best.
+
 Users can create these folders during the setup process by running the ``sensortoolkit.lib_utils.create_sensor_directories()``
 function. The function accepts the following arguments
 
-* ``name``: The sensor name. Users are recommended to include the name of the
-  sensor make and model in the sensor name, separated by an underscore.
-* ``eval_params``: A list of parameters the user intends to evaluate
-* ``work_path``: The path to the directory where the user intends to store data, figures,
-  and reports
+.. list-table:: ``sensortoolkit.lib_utils.create_sensor_directories() attributes``
+  :widths: 50 75
+  :header-rows: 1
+
+  * - Attribute name
+    - Description
+  * - ``name``
+    - The sensor name. Users are recommended to include the name of the
+      sensor make and model in the sensor name, separated by an underscore.
+  * - ``eval_params``
+    - A list of parameters the user intends to evaluate
+  * - ``path``
+    - The path to the directory where the user intends to store data, figures,
+      and reports
 
 Below is an example for a sensor that will be evaluated for PM2.5 and O3 at the
 folder location ``C:/Users/.../Documents/my_evaluation``:
@@ -33,7 +48,7 @@ folder location ``C:/Users/.../Documents/my_evaluation``:
 
     sensortoolkit.lib_utils.create_sensor_directories(name=sensor_name,
                                        	              eval_params=['PM25', 'O3'],
-                                                      work_path=work_path)
+                                                      path=work_path)
 
 Running the code above will construct the sensor-specific directory structure
 for subsequent analysis. Here, we're assuming that the folder``my_evaluation``
@@ -76,11 +91,50 @@ by the ``sensortoolkit.lib_utils.create_sensor_directories()`` function.
   ......\Data and Figures\sensor_data\sensor_make_model\processed_data
   ......\Data and Figures\sensor_data\sensor_make_model\raw_data
 
+Directory Structure
+^^^^^^^^^^^^^^^^^^^
+
+Below is the directory structure created by running the ``sensortoolkit.lib_utils.create_sensor_directories()``
+function for the ``Example_Make_Model`` sensor type. 
+
+.. code-block:: console
+
+  my_evaluation                             <-- Top level directory. Set as ``work_path``.
+  |
+  ├───Data and Figures                      <-- Sensor and reference data, statistics, and figures.
+  │   ├───eval_stats                        <-- Subdirectories organized by sensor type.
+  │   │   └───Example_Make_Model
+  │   ├───figures                           <-- Subdirectories organized by sensor type.
+  │   │   └───Example_Make_Model
+  │   │       ├───deployment
+  │   │       ├───Met
+  │   │       ├───O3
+  │   │       └───PM25
+  │   ├───reference_data                    <-- Subdirectories organized by reference data source.
+  │   │   ├───airnow
+  │   │   │   ├───processed
+  │   │   │   └───raw_api_datasets
+  │   │   ├───airnowtech
+  │   │   │   ├───downloaded_datasets
+  │   │   │   └───processed
+  │   │   └───aqs
+  │   │       ├───processed
+  │   │       └───raw_api_datasets
+  │   └───sensor_data                       <-- Subdirectories organized by sensor type.
+  │       └───Example_Make_Model
+  │           ├───processed_data
+  │           └───raw_data
+  └───Reports                               <-- Performance testing reports. Subdirectories organized by sensor type.
+      └───Example_Make_Model
+          └───PM25
+
+
 Adding Sensor datasets
 ----------------------
-Once sensor directories have been established, users should place files for unprocessed data
-recorded by the sensor make and model into the appropriate sub-directory. For the
-example shown above, data files should be located at ``\Data and Figures\sensor_data\sensor_make_model\raw_data``.
+Once sensor directories have been established, users should use the ``sensortoolkit.lib_utils.copy_datasets()``
+method to place files for unprocessed data recorded by the sensor make and model
+into the appropriate sub-directory. Following with the example for the sensor ``sensor_make_model``, data files
+should be located at ``\Data and Figures\sensor_data\sensor_make_model\raw_data``.
 
 .. important::
 
@@ -88,6 +142,17 @@ example shown above, data files should be located at ``\Data and Figures\sensor_
     serial identifier in each file name associated with the unit. The ingest
     module uses the IDs listed in the serials dictionary to locate, group, and
     import data for each unit.
+
+.. code-block:: python
+
+    sensortoolkit.lib_utils.copy_datasets(name=sensor_name,
+                                          path=work_path)
+
+When the ``copy_datasets()`` function is run, a file explorer window will open
+and the user will be prompted to select the location where recorded (raw) sensor datasets
+are stored. Files within the selected location will be copied to the ``\Data and Figures\sensor_data\[name of sensor]\raw_data``
+subdirectory path within the user's ``work_path``.
+
 
 *Example*
 ^^^^^^^^^
