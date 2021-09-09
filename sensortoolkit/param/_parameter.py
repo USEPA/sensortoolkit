@@ -158,17 +158,17 @@ class Parameter:
 
     def __init__(self, param, **kwargs):
 
-        self.param_name = param
-        self.param_format_name = None
-        self.param_format_baseline = None
-        self.param_format_subscript = None
-        self.param_units = None
-        self.param_classifier = None
-        self.param_averaging = ['1-hour', '24-hour']  # default averaging
+        self.name = param
+        self.format_name = None
+        self.format_baseline = None
+        self.format_subscript = None
+        self.units = None
+        self.classifier = None
+        self.averaging = ['1-hour', '24-hour']  # default averaging
         self.__verbose__ = kwargs.get('verbose', False)
 
 
-        if self.param_name in self.__param_dict__:
+        if self.name in self.__param_dict__:
             self.__Autoset_Param__()
 
         self.__set_ParameterTargets__()
@@ -181,16 +181,16 @@ class Parameter:
             None.
 
         """
-        self.param_units = self.__param_dict__[self.param_name]['units']
-        self.param_classifier = self.__param_dict__[self.param_name]['classifier']
-        averaging = self.__param_dict__[self.param_name]['averaging']
+        self.units = self.__param_dict__[self.name]['units']
+        self.classifier = self.__param_dict__[self.name]['classifier']
+        averaging = self.__param_dict__[self.name]['averaging']
         if averaging is not None:
-            self.param_averaging = averaging
-        baseline = self.__param_dict__[self.param_name]['baseline']
-        subscript = self.__param_dict__[self.param_name]['subscript']
+            self.averaging = averaging
+        baseline = self.__param_dict__[self.name]['baseline']
+        subscript = self.__param_dict__[self.name]['subscript']
         self.set_ParameterFormatting(baseline, subscript)
-        self.param_format_baseline = baseline
-        self.param_format_subscript = subscript
+        self.format_baseline = baseline
+        self.format_subscript = subscript
 
 
     def set_ParameterFormatting(self, baseline=None, subscript=None):
@@ -205,9 +205,9 @@ class Parameter:
             None.
 
         """
-        self.param_format_name = baseline
+        self.format_name = baseline
         if subscript is not None:
-            self.param_format_name += '_{' + subscript + '}'
+            self.format_name += '_{' + subscript + '}'
 
     def __set_ParameterTargets__(self):
         """
@@ -219,8 +219,8 @@ class Parameter:
         """
         if self.__verbose__:
             print('..Initializing performance targets '
-                  'for {0}'.format(self.param_name))
-        self.PerformanceTargets = ParameterTargets(self.param_name)
+                  'for {0}'.format(self.name))
+        self.PerformanceTargets = ParameterTargets(self.name)
 
 
 
