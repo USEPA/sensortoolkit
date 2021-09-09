@@ -2,10 +2,11 @@
 Creating Testing Reports with PerformanceReport
 ***********************************************
 
-Creating testing reports with ``performancereport`` is very similar to using
-the ``SensorEvaluation`` class. Users pass the same attributes to the
+Creating testing reports with ``sensortoolkit.PerformanceReport`` is very similar to using
+the ``sensortoolkit.SensorEvaluation`` class. Users pass the same attributes to the
 ``PerformanceReport`` class as they do to conduct analysis with ``SensorEvaluation``
-(``PerformanceReport`` is an inherited class )
+(``PerformanceReport`` is an inherited class of ``SensorEvaluation``, which means that
+its initialization creates a ``SensorEvaluation`` instance and is used to construct reports).
 
 There are a few additional attributes users can pass to the ``PerformanceReport``
 class, including the dictionaries ``testing_org`` and ``testing_loc``. These

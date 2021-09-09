@@ -14,7 +14,7 @@ into several sub-directories in the ``/Data and Figures`` folder.
   subdirectories and folders will need to be created so users can store data, figures, and evaluation
   statistics.
 
-Users can create these folders during the setup process by running the ``Create_Sensor_Directories``
+Users can create these folders during the setup process by running the ``sensortoolkit.lib_utils.create_sensor_directories()``
 function. The function accepts the following arguments
 
 * ``name``: The sensor name. Users are recommended to include the name of the
@@ -31,9 +31,9 @@ folder location ``C:/Users/.../Documents/my_evaluation``:
     sensor_name = 'Sensor_Make_Model'
     work_path = 'C:/Users/.../Documents/my_evaluation'
 
-    sensortoolkit.Create_Sensor_Directories(name=sensor_name,
-                             	              eval_params=['PM25', 'O3'],
-                                            work_path=work_path)
+    sensortoolkit.lib_utils.create_sensor_directories(name=sensor_name,
+                                       	              eval_params=['PM25', 'O3'],
+                                                      work_path=work_path)
 
 Running the code above will construct the sensor-specific directory structure
 for subsequent analysis. Here, we're assuming that the folder``my_evaluation``
@@ -41,7 +41,7 @@ only has the python file with the code written above. The ``Data and Figures``
 and ``Reports`` folders, along with all relevant subdirectories, will be constructed.
 
 The following is printed to the console indicating the directories that are created
-by the ``Create_Sensor_Directories`` function.
+by the ``sensortoolkit.lib_utils.create_sensor_directories()`` function.
 
 .. code-block:: console
 
@@ -112,15 +112,15 @@ Sensor data are recorded in a wide variety of formatting conventions and data ty
 Data ingestion converts datasets recorded by sensors to a standardized formatting
 scheme for data types, header names, and a sorted datetime index.
 
-The ``Setup`` module included alongside the `sensortoolkit` library guides users
+The ``sensortoolkit.lib_utils.Setup()`` module included alongside the `sensortoolkit` library guides users
 through an interactive process of entering in details regarding the formatting
 of raw sensor datasets. The Setup module creates a ``setup.json``
 configuration file that contains details for describing and converting the recorded sensor
 data format into the `sensortoolkit` Sensor Data Formatting Scheme (S-DFS). This file is
-passed to a subroutine ``Ingest()`` to import the recorded dataset and convert
+passed to a subroutine ``sensortoolkit.sensor_ingest.standard_ingest()`` to import the recorded dataset and convert
 headers and date/time-like columns to S-DFS formatting.
 
-To run the ``Setup`` module, import the `sensortoolkit` library (see Importing
+To run the ``sensortoolkit.lib_utils.Setup()`` module, import the `sensortoolkit` library (see Importing
 the sensortoolkit Library for more detail) and run the following code:
 
 .. code-block:: python
@@ -191,7 +191,7 @@ the user indicates to the console to end header entry model by pressing ``X``.
 .. note::
 
   Manual configuration of column headers is not required if an integer header row index
-  value is set in step 1 of the ``Setup()`` module.
+  value is set in step 1 of the ``sensortoolkit.lib_utils.Setup()`` module.
 
 Next, the module will automatically search for datafiles corresponding to the
 file type and header index (if previously specified). A list of unique headers for
