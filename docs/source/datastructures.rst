@@ -22,7 +22,7 @@ arguments are included in the `API documentation for SensorEvaluation <../html/_
 
 
 Sensor Data List Containers
---------------------------------
+---------------------------
 
 Sensor data files that have been imported and processed into the S-DFS scheme are
 sorted based on the interval between consecutive timestamps. Data sets at the
@@ -63,7 +63,7 @@ format.
 
 
 Example dataset within ``Eval.full_df_list``
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
     .. note::
       DataFrame object at list position zero shown (``dataset = Eval.full_df_list[0]``). Only the first ten rows are
@@ -75,7 +75,7 @@ Example dataset within ``Eval.full_df_list``
        :widths: auto
 
 Example dataset within ``Eval.hourly_df_list``
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
   .. note::
     DataFrame object at list position zero shown (``dataset = Eval.hourly_df_list[0]``). Only the first ten rows are
@@ -87,7 +87,7 @@ Example dataset within ``Eval.hourly_df_list``
      :widths: auto
 
 Example dataset within ``Eval.daily_df_list``
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
   .. note::
     DataFrame object at list position zero shown (``dataset = Eval.daily_df_list[0]``). Only the first ten rows are
@@ -148,10 +148,10 @@ populate the deployment dictionary ``Eval.deploy_dict`` with details about the e
 More detail about each of these data structures is provided below.
 
 Statistics Dataframes: ``Eval.stats_df`` and ``Eval.avg_stats_df``
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Sensor vs. FRM/FEM Statisitcs: ``Eval.stats_df``
-"""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""
 
 DataFrame containing statisitics relating the **sensor vs. FRM/FEM** linearity (:math:`R^2`),
 bias (`slope` and `intercept`), `RMSE`, N (Number of sensor-FRM/FEM data point pairs), as well
@@ -168,7 +168,7 @@ Below is an example of ``Eval.stats_df`` for the ``Example_Make_Model`` sensor d
    :widths: auto
 
 Sensor vs. Intersensor Average Statistics: ``Eval.avg_stats_df``
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 DataFrame containing statisitics relating the **sensor vs. intersensor average**
 linearity (:math:`R^2`), bias (`slope` and `intercept`), RMSE, N (Number of concurrent
@@ -186,7 +186,7 @@ Below is an example of ``Eval.stats_df`` for the ``Example_Make_Model`` sensor d
    :widths: auto
 
 Deployment Dictionary: ``Eval.deploy_dict``
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The deployment dictionary ``Eval.deploy_dict`` contains descriptive statistics and textual information about
 the deployment, including details about the testing agency, deployment site,
