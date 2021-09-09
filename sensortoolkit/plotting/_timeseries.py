@@ -193,9 +193,9 @@ def sensor_timeplot(df_list, ref_df, param=None, sensor_name=None,
 
     # Format parameter name and sensor name
     param_obj = Parameter(param)
-    param_name = param_obj.param_name
-    fmt_param = param_obj.param_format_name
-    fmt_param_units = param_obj.param_units
+    param_name = param_obj.name
+    fmt_param = param_obj.format_name
+    fmt_param_units = param_obj.units
     fmt_sensor_name = sensor_name.replace('_', ' ')
 
     if show_title is True:

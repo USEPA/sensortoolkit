@@ -230,9 +230,9 @@ def deploy_ref_stats(deploy_dict, ref_df, cal_check_dict=None, param=None,
             for devices within each deployment group.
     """
     param_obj = Parameter(param)
-    param_name = param_obj.param_name
-    fmt_param = param_obj.param_format_name
-    fmt_param_units = param_obj.param_units
+    param_name = param_obj.name
+    fmt_param = param_obj.format_name
+    fmt_param_units = param_obj.units
 
     date_index, avg_suffix = deploy_timestamp_index(ref_df,
                                                     averaging_suffix=True)
@@ -325,9 +325,9 @@ def deploy_met_stats(deploy_dict, df_list, met_ref_df,
     #cal_check_dict = cal_check_dict['Met cal checks']
     for name in ['Temp', 'RH']:
         param_obj = Parameter(name)
-        param_name = param_obj.param_name
-        fmt_param = param_obj.param_format_name
-        fmt_param_units = param_obj.param_units
+        param_name = param_obj.name
+        fmt_param = param_obj.format_name
+        fmt_param_units = param_obj.units
 
         try:
             ref_name = met_ref_df.loc[:, param_name + '_Method'].dropna().apply(

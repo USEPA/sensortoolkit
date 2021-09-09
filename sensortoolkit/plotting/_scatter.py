@@ -402,9 +402,9 @@ def scatter_plotter(df_list, ref_df, stats_df=None, plot_subset=None,
                           if str(i) in plot_subset}
 
     param_obj = Parameter(param)
-    param_name = param_obj.param_name
-    fmt_param = param_obj.param_format_name
-    fmt_param_units = param_obj.param_units
+    param_name = param_obj.name
+    fmt_param = param_obj.format_name
+    fmt_param_units = param_obj.units
 
     fmt_sensor_name = sensor_name.replace('_', ' ')
 
@@ -727,14 +727,14 @@ def normalized_met_scatter(df_list, ref_df, avg_df, met_ref_df=None,
 
     """
     param_obj = Parameter(param)
-    param_name = param_obj.param_name
-    fmt_param = param_obj.param_format_name
-    fmt_param_units = param_obj.param_units
+    param_name = param_obj.name
+    fmt_param = param_obj.format_name
+    fmt_param_units = param_obj.units
 
     met_param_obj = Parameter(met_param)
-    met_param_name = met_param_obj.param_name
-    fmt_met_param = param_obj.param_format_name
-    fmt_met_units = param_obj.param_units
+    met_param_name = met_param_obj.name
+    fmt_met_param = param_obj.format_name
+    fmt_met_units = param_obj.units
 
     sns.set_style(kwargs.get('seaborn_style', 'darkgrid'))
 
