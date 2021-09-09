@@ -213,7 +213,7 @@ class SensorEvaluation:
 
         # Private to avoid confusion between SensorEvaluation attribute and
         # paraeter attribute
-        self._param_name = param.param_name
+        self._param_name = param.name
         self.path = path
         self.load_raw_data = load_raw_data
         self.write_to_file = write_to_file
@@ -261,8 +261,8 @@ class SensorEvaluation:
         self.sensor_params = set(self.sensor_params)
 
         # Exit if passed evaluation parameter not in sensor dataframes
-        if self.param.param_name not in self.sensor_params:
-            sys.exit(self.param.param_name + ' not measured by '
+        if self.param.name not in self.sensor_params:
+            sys.exit(self.param.name + ' not measured by '
                      + self.name)
 
         # Compute sensor deployment period and concurrent deployment groups
@@ -287,7 +287,7 @@ class SensorEvaluation:
                                  for grp in deploy_grps.keys()])
 
         # Averaging intervals for parameters
-        self.eval_param_averaging = self.param.param_averaging
+        self.eval_param_averaging = self.param.averaging
 
         # Retrieve reference data
         if reference_data is not None:
@@ -320,7 +320,7 @@ class SensorEvaluation:
                                                     path=self.path
                                                     )
 
-                self.ref_dict[self.param.param_classifier]['1-hour'] = airnow_df
+                self.ref_dict[self.param.classifier]['1-hour'] = airnow_df
 
             elif reference_data == 'AQS':
                 # Call AQS API
@@ -342,7 +342,7 @@ class SensorEvaluation:
                                                         path=self.path
                                                         )
 
-                self.ref_dict[self.param.param_classifier]['1-hour'] = aqs_df
+                self.ref_dict[self.param.classifier]['1-hour'] = aqs_df
 
             elif os.path.exists(reference_data):
                 # Load local reference data from file location
@@ -361,7 +361,7 @@ class SensorEvaluation:
             # Do not load or download any reference data
 
         # Set reference dataframe based on evaluation parameter classification
-        self.hourly_ref_df = self.ref_dict[self.param.param_classifier]['1-hour']
+        self.hourly_ref_df = self.ref_dict[self.param.classifier]['1-hour']
         hourly_ref_idx = self.hourly_ref_df.index
 
         ref_param_cols = ['_Value', '_Unit', '_QAQC_Code', '_Param_Code',
@@ -444,7 +444,7 @@ class SensorEvaluation:
         self.ref_dict['Gases']['24-hour'] = self.gas_daily_ref_df
         self.ref_dict['Met']['24-hour'] = self.met_daily_ref_df
 
-        self.daily_ref_df = self.ref_dict[self.param.param_classifier]['24-hour']
+        self.daily_ref_df = self.ref_dict[self.param.classifier]['24-hour']
 
         # Compute normalized param values
         self.hourly_df_list = sensortoolkit.calculate.normalize(
