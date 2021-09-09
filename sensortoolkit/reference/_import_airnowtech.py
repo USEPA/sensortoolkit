@@ -19,6 +19,7 @@ import os
 import pathlib
 import datetime
 from sensortoolkit.lib_utils import flatten_list
+from shutil import copy
 """
 Module for importing raw AirNowTech data (table, unpivoted format) queried at
 month-long intervals at 1-hr recording frequency for PM2.5, PM10, O3, NO2, CO,
@@ -184,6 +185,7 @@ def write_to_file(df, inpath, outpath):
         None
 
     """
+    folder = None
     # Dictionary for renaming AirNowTech parameter names to common format
     renaming = {'PM10-85101': 'PM10',
                 'PM2.5-88101': 'PM25',
@@ -216,6 +218,9 @@ def write_to_file(df, inpath, outpath):
                'W/': 'w/',
                ' And ': ' and '}
 
+    orig_inpath = inpath
+    orig_outpath = outpath
+
     # Require non-empty dataframe
     if not df.empty:
         print('Writing AirNowTech dataframes to csv files')
@@ -225,6 +230,11 @@ def write_to_file(df, inpath, outpath):
 
         for month_period in pd.period_range(start=start_month,
                                             end=end_month, freq='M'):
+
+            # Reassign path name scope since modified when saving files
+            outpath = orig_outpath
+            inpath = orig_inpath
+
             month = month_period.month
             year = month_period.year
 
@@ -316,8 +326,34 @@ def write_to_file(df, inpath, outpath):
             # file (fixes issue with UTC shifted datasets with ~5 hours shifted
             # into the next month)
             if month_df.shape[0] > 11:
-                print('../reference_data/airnowtech/processed/' + filename)
-                month_df.to_csv(outpath + filename, index_label='DateTime_UTC')
+
+                # Use the site name and AQS ID to name subfolder containing
+                # site data
+                try:
+                    site_name = month_df['Site_Name'].mode()[0]
+                    site_name = site_name.replace(' ', '_')
+                except KeyError:
+                    site_name = 'Unspecified_Site_Name'
+
+                try:
+                    site_aqs = month_df['Site_AQS'].mode()[0]
+                    site_aqs = site_aqs.replace('-', '').replace(' ', '')
+                except KeyError:
+                    site_aqs = 'Unspecified_Site_AQS_ID'
+
+                folder = '{0}_{1}'.format(site_name, site_aqs)
+
+                outpath = os.path.join(outpath, folder)
+
+                if not os.path.exists(outpath):
+                    os.makedirs(outpath)
+
+                print('../reference_data/airnowtech/processed/' + folder
+                      + '/' + filename)
+                month_df.to_csv(outpath + '/' + filename,
+                                index_label='DateTime_UTC')
+
+    return folder
 
 
 def preprocess_airnowtech(inpath):
@@ -339,6 +375,14 @@ def preprocess_airnowtech(inpath):
                '/airnowtech/processed/')
 
     for df in sort_airnowtech(ant_df):
-        write_to_file(df, inpath, outpath)
+        site_folder = write_to_file(df, inpath, outpath)
 
+    # Copy the downloaded dataset to site specific subfolder
+    if site_folder is not None:
+        dest_inpath = os.path.abspath(
+                            os.path.join(inpath, '..', site_folder))
 
+        if not os.path.exists(dest_inpath):
+            os.makedirs(dest_inpath)
+
+        copy(inpath, dest_inpath)
