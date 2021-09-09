@@ -1,12 +1,8 @@
 # -*- coding: utf-8 -*-
 """
 @Author:
-  Samuel Frederick, NSSC Contractor (ORAU)
-  U.S. EPA, Office of Research and Development
-  Center for Environmental Measurement and Modeling
-  Air Methods and Characterization Division, Source and Fine Scale Branch
-  109 T.W Alexander Drive, Research Triangle Park, NC 27711
-  Office: 919-541-4086 | Email: frederick.samuel@epa.gov
+  | Samuel Frederick, NSSC Contractor (ORAU)
+  | U.S. EPA / ORD / CEMM / AMCD / SFSB
 
 Created:
   Fri May 21 15:19:53 2021
@@ -24,22 +20,19 @@ ref_path = work_path + '/Data and Figures/reference_data/airnowtech/processed'
 #  ----------------------------------------------------------------------------
 
 # Testing organization information
-testing_org = {'Deployment name': 'Deployment #1',
-               'Org name': ['U.S. Environmental Protection Agency',
-                            'Office of Research and Development'],
-               'Website': {'website name': 'Air Sensor Toolbox | U.S. EPA Website',
-                           'website link': 'https://www.epa.gov/air-sensor-toolbox/'
-                                           'evaluation-emerging-air-sensor-performance'},
-               'Contact email': 'PI: Clements.Andrea@epa.gov',
-               'Contact phone': '919-541-1364'}
+testing_org = {'Deployment name': '[Insert name of deployment]',
+               'Org name': ['[Insert organization name]'],
+               'Website': {'website name': '[Insert name of website]',
+                           'website link': '[Insert website here]'},
+               'Contact email': '[Insert email here]',
+               'Contact phone': '[Insert phone number here]'}
 
 # Testing location information
-testing_loc = {'Site name': 'Ambient Monitoring Innovative '
-                            'Research Station (AIRS) ',
-               'Site address': 'Research Triangle Park, NC',
-               'Site lat': '35.889510N',
-               'Site long': '-78.874572W',
-               'Site AQS ID': '37 – 063 – 0099'}
+testing_loc = {'Site name': '[Insert name of site] ',
+               'Site address': '[Insert site address]',
+               'Site lat': '[Insert site latitude]',
+               'Site long': '[Insert site longitude]',
+               'Site AQS ID': '[If applicable, insert site AQS ID]'}
 
 #  ----------------------------------------------------------------------------
 #   Instantiate the PerformanceReport class for the example sensor dataset
