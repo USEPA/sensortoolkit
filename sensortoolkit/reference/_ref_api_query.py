@@ -25,10 +25,12 @@ import os
 import sys
 import numpy as np
 from sensortoolkit.lib_utils import flatten_list
+from sensortoolkit.param import Parameter
 
 
 def ref_api_query(query_type=None, param=None, bdate='', edate='',
-                  aqs_id=None, airnow_bbox=None, username=None, key=None):
+                  aqs_id=None, airnow_bbox=None, username=None, key=None,
+                  path=None):
     """Wrapper function for sending an API data query to either the AQS or
     AirNow API for a specified parameter ('param'). Data returned by queries
     are parsed into pandas dataframes and processed to convert header labels
@@ -93,6 +95,9 @@ def ref_api_query(query_type=None, param=None, bdate='', edate='',
         raw_data (pandas dataframe):
             An unmodified version of the dataset returned by the API query.
     """
+    param_obj = Parameter(param)
+    param_class = param_obj.classifier
+
     # Dictionary for translating between parameter terminology used in code and
     # terminology used by AQS/AirNow. Note that this list is not comprehensive,
     # and users wishing to query parameters outside those listed below will
@@ -227,12 +232,48 @@ def ref_api_query(query_type=None, param=None, bdate='', edate='',
 
             data = data.sort_index()
 
+            # Save monthly datasets
+            # Use the site name and AQS ID to name subfolder containing
+            # site data
+            try:
+                site_name = data['Site_Name'].mode()[0]
+                site_name = site_name.replace(' ', '_')
+            except KeyError:
+                site_name = 'Unspecified_Site_Name'
+
+            try:
+                site_aqs = data['Site_AQS'].mode()[0]
+                site_aqs = site_aqs.replace('-', '').replace(' ', '')
+            except KeyError:
+                site_aqs = 'Unspecified_Site_AQS_ID'
+
+            folder = '{0}_{1}'.format(site_name, site_aqs)
+
+            data_path = os.path.join(path,
+                                     'Data and Figures',
+                                     'reference_data',
+                                     query_type.lower())
+
+            process_path = os.path.join(data_path, 'processed', folder)
+            raw_path = os.path.join(data_path, 'raw', folder)
+
+            if not os.path.exists(process_path):
+                os.makedirs(process_path)
+            if not os.path.exists(raw_path):
+                os.makedirs(raw_path)
+
+            year_month = pd.to_datetime(data_period[0]).strftime('%Y%m')
+            filename = 'H_' + year_month + '_' + param_class + '.csv'
+
+            data.to_csv(process_path + '/' + filename)
+            raw_copy.to_csv(raw_path + '/' + filename)
+
             query_data = query_data.append(data)
             raw_data = raw_data.append(raw_copy)
 
     query_data.index.name = 'DateTime_UTC'
 
-    return query_data.loc[bdate:edate, :], raw_data
+    return query_data.loc[bdate:edate, :]
 
 
 def modify_ref_cols(df, param):
@@ -639,57 +680,60 @@ def query_airnow(param, data_period, bbox, key=None):
     return data
 
 
-def save_query_data(query_tuple, path):
-    """Save both processed and unmodified API query datasets to .csv files.
+# def save_query_data(query_tuple, path):
+#     """Save both processed and unmodified API query datasets to .csv files.
 
-    Processed data saved to:
-    ..//Data and Figures//reference_data//(name of API)//processed//
-    Unmodified data saved to:
-    ..//Data and Figures//reference_data//(name of API)//raw_api_datasets//
+#     Processed data saved to:
+#     ..//Data and Figures//reference_data//(name of API)//processed//
+#     Unmodified data saved to:
+#     ..//Data and Figures//reference_data//(name of API)//raw_api_datasets//
 
-    Args:
-        query_tuple (tuple):
-            A tuple of two pandas datasets returned by Ref_API_Query. The first
-            element is the processed dataset and the second is the unprocessed
-            version.
-        path (str):
-            The working directory where the Data and Figures folder structure
-            is located (where the data files will be saved)
-    Returns:
-        processed_df (pandas dataframe):
-            Data returned by the API for the specified parameter and time
-            frame. Data have been processed with column headers converted into
-            standard naming scheme and column data types converted into a
-            consistent formatting scheme for reference datasets.
-    """
-    processed_df, raw_df = query_tuple
-    api_src = processed_df['Data_Source'].unique()[0].replace(' API', '')
-    print('Writing', api_src, 'query dataframes to csv files')
+#     Args:
+#         query_tuple (tuple):
+#             A tuple of two pandas datasets returned by Ref_API_Query. The first
+#             element is the processed dataset and the second is the unprocessed
+#             version.
+#         path (str):
+#             The working directory where the Data and Figures folder structure
+#             is located (where the data files will be saved)
+#     Returns:
+#         processed_df (pandas dataframe):
+#             Data returned by the API for the specified parameter and time
+#             frame. Data have been processed with column headers converted into
+#             standard naming scheme and column data types converted into a
+#             consistent formatting scheme for reference datasets.
+#     """
+#     processed_df, raw_df = query_tuple
+#     api_src = processed_df['Data_Source'].unique()[0].replace(' API', '')
+#     print('Writing', api_src, 'query dataframes to csv files')
 
-    begin = 'B' + processed_df.index.min().strftime('%y%m%d')
-    end = 'E' + processed_df.index.max().strftime('%y%m%d')
-    site_id = processed_df['Site_AQS'].unique()[0]
-    params = [col.replace('_Value', '') for col in
-              processed_df.columns if col.endswith('_Value')]
-    param_str = '_'.join(param for param in params)
 
-    process_filename = '_'.join([api_src, site_id,
-                                 param_str, begin, end]) + '.csv'
-    raw_filename = '_'.join([api_src, 'raw', site_id,
-                             param_str, begin, end]) + '.csv'
 
-    outpath = os.path.abspath(path +
-                              '/Data and Figures/reference_data/' +
-                              api_src.lower())
 
-    print('../reference_data/' + api_src.lower() + '/processed/'
-          + process_filename)
-    processed_df.to_csv(outpath + '/processed/' + process_filename,
-                        index_label='DateTime_UTC')
+#     begin = 'B' + processed_df.index.min().strftime('%y%m%d')
+#     end = 'E' + processed_df.index.max().strftime('%y%m%d')
+#     site_id = processed_df['Site_AQS'].unique()[0]
+#     params = [col.replace('_Value', '') for col in
+#               processed_df.columns if col.endswith('_Value')]
+#     param_str = '_'.join(param for param in params)
 
-    print('../reference_data/' + api_src.lower() + '/raw_api_datasets/'
-          + raw_filename)
-    raw_df.to_csv(outpath + '/raw_api_datasets/' + raw_filename,
-                  index_label='DateTime_UTC')
+#     process_filename = '_'.join([api_src, site_id,
+#                                  param_str, begin, end]) + '.csv'
+#     raw_filename = '_'.join([api_src, 'raw', site_id,
+#                              param_str, begin, end]) + '.csv'
 
-    return processed_df
+#     outpath = os.path.abspath(path +
+#                               '/Data and Figures/reference_data/' +
+#                               api_src.lower())
+
+#     print('../reference_data/' + api_src.lower() + '/processed/'
+#           + process_filename)
+#     processed_df.to_csv(outpath + '/processed/' + process_filename,
+#                         index_label='DateTime_UTC')
+
+#     print('../reference_data/' + api_src.lower() + '/raw/'
+#           + raw_filename)
+#     raw_df.to_csv(outpath + '/raw/' + raw_filename,
+#                   index_label='DateTime_UTC')
+
+#     return processed_df
