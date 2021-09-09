@@ -18,7 +18,7 @@ report for the ``Example_Make_Model`` sensor evaluating its PM<sub>2.5</sub> per
 
 .. code-block:: python
 
-  pollutant = sensortoolkit.Parameter('PM25')
+  pollutant = sensortoolkit.param.Parameter('PM25')
 
   # Instantiate the PerformanceReport class for the example sensor dataset
   test_report = sensortoolkit.PerformanceReport(

@@ -657,7 +657,7 @@ saved to <code class="docutils literal notranslate"><span class="pre">../Data</s
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sensortoolkit</span>
 
 <span class="n">airnowtech_path</span> <span class="o">=</span> <span class="s1">&#39;path/to/airnowtech-download.csv&#39;</span>
-<span class="n">sensortoolkit</span><span class="o">.</span><span class="n">PreProcess_AirNowTech</span><span class="p">(</span><span class="n">airnowtech_path</span><span class="p">)</span>
+<span class="n">sensortoolkit</span><span class="o">.</span><span class="n">refernece</span><span class="o">.</span><span class="n">PreProcess_AirNowTech</span><span class="p">(</span><span class="n">airnowtech_path</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Once AirNowTech datasets have been formatted, the <code class="docutils literal notranslate"><span class="pre">SensorEvaluation</span></code> class can
@@ -669,7 +669,7 @@ path for the processed AirNowTech datasets:</p>
 <span class="n">work_path</span> <span class="o">=</span> <span class="s1">&#39;C:/Users/.../Documents/my_evaluation&#39;</span>
 <span class="n">ref_path</span> <span class="o">=</span> <span class="n">work_path</span> <span class="o">+</span> <span class="s1">&#39;/Data and Figures/reference_data/airnowtech/processed&#39;</span>
 
-<span class="n">pollutant</span> <span class="o">=</span> <span class="n">sensortoolkit</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="s1">&#39;PM25&#39;</span><span class="p">)</span>
+<span class="n">pollutant</span> <span class="o">=</span> <span class="n">sensortoolkit</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="s1">&#39;PM25&#39;</span><span class="p">)</span>
 
 <span class="c1"># Mock evaluation using AIRS reference data downloaded from AirNowTech</span>
 <span class="n">Eval</span> <span class="o">=</span> <span class="n">sensortoolkit</span><span class="o">.</span><span class="n">SensorEvaluation</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">sensor_name</span><span class="p">,</span>
@@ -715,7 +715,7 @@ Additionally, the reference_data parameter should be set to <code class="docutil
 <span class="n">sensortoolkit</span><span class="o">.</span><span class="n">SensorEvaluation</span><span class="o">.</span><span class="n">aqs_username</span> <span class="o">=</span> <span class="s1">&#39;username_address@email.com&#39;</span>
 <span class="n">sensortoolkit</span><span class="o">.</span><span class="n">SensorEvaluation</span><span class="o">.</span><span class="n">aqs_key</span> <span class="o">=</span> <span class="s1">&#39;Your-AQS-Key-Here&#39;</span>
 
-<span class="n">pollutant</span> <span class="o">=</span> <span class="n">sensortoolkit</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="s1">&#39;PM25&#39;</span><span class="p">)</span>
+<span class="n">pollutant</span> <span class="o">=</span> <span class="n">sensortoolkit</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="s1">&#39;PM25&#39;</span><span class="p">)</span>
 
 <span class="n">Eval</span> <span class="o">=</span> <span class="n">sensortoolkit</span><span class="o">.</span><span class="n">SensorEvaluation</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">sensor_name</span><span class="p">,</span>
                                       <span class="n">param</span><span class="o">=</span><span class="n">pollutant</span><span class="p">,</span>
@@ -812,7 +812,7 @@ should be set to <code class="docutils literal notranslate"><span class="pre">Ai
 
 <span class="n">sensortoolkit</span><span class="o">.</span><span class="n">SensorEvaluation</span><span class="o">.</span><span class="n">airnow_key</span> <span class="o">=</span> <span class="s1">&#39;Your-AirNow-Key-Here&#39;</span>
 
-<span class="n">pollutant</span> <span class="o">=</span> <span class="n">sensortoolkit</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="s1">&#39;PM25&#39;</span><span class="p">)</span>
+<span class="n">pollutant</span> <span class="o">=</span> <span class="n">sensortoolkit</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="s1">&#39;PM25&#39;</span><span class="p">)</span>
 
 <span class="c1"># Mock evaluation using AIRS reference data obtained from the AirNow API</span>
 <span class="n">Eval</span> <span class="o">=</span> <span class="n">SensorEvaluation</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">sensor_name</span><span class="p">,</span>

@@ -237,7 +237,7 @@ saved to ``../Data and Figures/reference_data/airnowtech/processed``.
   import sensortoolkit
 
   airnowtech_path = 'path/to/airnowtech-download.csv'
-  sensortoolkit.PreProcess_AirNowTech(airnowtech_path)
+  sensortoolkit.refernece.PreProcess_AirNowTech(airnowtech_path)
 
 
 Once AirNowTech datasets have been formatted, the ``SensorEvaluation`` class can
@@ -252,7 +252,7 @@ path for the processed AirNowTech datasets:
   work_path = 'C:/Users/.../Documents/my_evaluation'
   ref_path = work_path + '/Data and Figures/reference_data/airnowtech/processed'
 
-  pollutant = sensortoolkit.Parameter('PM25')
+  pollutant = sensortoolkit.param.Parameter('PM25')
 
   # Mock evaluation using AIRS reference data downloaded from AirNowTech
   Eval = sensortoolkit.SensorEvaluation(name=sensor_name,
@@ -300,7 +300,7 @@ Additionally, the reference_data parameter should be set to ``AQS``
   sensortoolkit.SensorEvaluation.aqs_username = 'username_address@email.com'
   sensortoolkit.SensorEvaluation.aqs_key = 'Your-AQS-Key-Here'
 
-  pollutant = sensortoolkit.Parameter('PM25')
+  pollutant = sensortoolkit.param.Parameter('PM25')
 
   Eval = sensortoolkit.SensorEvaluation(name=sensor_name,
                                         param=pollutant,
@@ -401,7 +401,7 @@ should be set to ``AirNow``.
 
   sensortoolkit.SensorEvaluation.airnow_key = 'Your-AirNow-Key-Here'
 
-  pollutant = sensortoolkit.Parameter('PM25')
+  pollutant = sensortoolkit.param.Parameter('PM25')
 
   # Mock evaluation using AIRS reference data obtained from the AirNow API
   Eval = SensorEvaluation(name=sensor_name,

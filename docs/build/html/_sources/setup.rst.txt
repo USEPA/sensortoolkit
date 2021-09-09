@@ -95,7 +95,7 @@ Directory Structure
 ^^^^^^^^^^^^^^^^^^^
 
 Below is the directory structure created by running the ``sensortoolkit.lib_utils.create_sensor_directories()``
-function for the ``Example_Make_Model`` sensor type. 
+function for the ``Example_Make_Model`` sensor type.
 
 .. code-block:: console
 
@@ -193,8 +193,8 @@ the sensortoolkit Library for more detail) and run the following code:
   sensor_name = 'Example_Make_Model'
   work_path = 'C:/Users/.../Documents/my_evaluation'
 
-  IngestionConfig = sensortoolkit.Setup(name=sensor_name,
-                                        work_path)
+  IngestionConfig = sensortoolkit.lib_utils.Setup(name=sensor_name,
+                                                  work_path)
 
 
 1. Setting the Column Header Index
