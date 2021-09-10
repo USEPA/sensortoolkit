@@ -102,7 +102,7 @@ class Parameter:
                              },
 
                     'RH': {'baseline': 'Relative Humidity',
-                           'classifier': 'Gases',
+                           'classifier': 'Met',
                            'fmt_param': 'Relative Humidity',
                            'subscript': None,
                            'units': '(%)',
@@ -129,7 +129,7 @@ class Parameter:
                             },
 
                     'Temp': {'baseline': 'Temperature',
-                             'classifier': 'Gases',
+                             'classifier': 'Met',
                              'fmt_param': 'Temperature',
                              'subscript': None,
                              'units': '($\\degree$C)',
