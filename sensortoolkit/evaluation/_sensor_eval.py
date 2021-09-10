@@ -329,9 +329,20 @@ class SensorEvaluation:
                 if aqs_id is None:
                     sys.exit('AQS Site ID required for AQS API query')
 
-                aqs_df = sensortoolkit.reference.ref_api_query(
+                aqs_param_df = sensortoolkit.reference.ref_api_query(
                                              query_type=reference_data,
                                              param=self._param_name,
+                                             bdate=self.deploy_bdate,
+                                             edate=self.deploy_edate,
+                                             aqs_id=aqs_id,
+                                             username=self.aqs_username,
+                                             key=self.aqs_key,
+                                             path=self.path
+                                             )
+
+                aqs_met_df = sensortoolkit.reference.ref_api_query(
+                                             query_type=reference_data,
+                                             param=['Temp', 'RH'],
                                              bdate=self.deploy_bdate,
                                              edate=self.deploy_edate,
                                              aqs_id=aqs_id,
@@ -345,7 +356,8 @@ class SensorEvaluation:
                 #                                         path=self.path
                 #                                         )
 
-                self.ref_dict[self.param.classifier]['1-hour'] = aqs_df
+                self.ref_dict[self.param.classifier]['1-hour'] = aqs_param_df
+                self.ref_dict['Met']['1-hour'] = aqs_param_df
 
             elif os.path.exists(reference_data):
                 # Load local reference data from file location
