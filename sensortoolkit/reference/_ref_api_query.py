@@ -184,6 +184,8 @@ def ref_api_query(query_type=None, param=None, bdate='', edate='',
 
         # AQS Specific query data tasks ---------------------------------------
         if query_type == 'AQS':
+            print('Querying AQS API')
+            print('..Parameter(s): {0}'.format(', '.join(month_param_list)))
 
             query_data = query_aqs(api_param_list, data_period, aqs_id,
                                    username=username, key=key)
@@ -212,6 +214,9 @@ def ref_api_query(query_type=None, param=None, bdate='', edate='',
 
         # AirNow Specific query data tasks ------------------------------------
         if query_type == 'AirNow':
+            print('Querying AirNow API')
+            print('..Parameter(s): {0}'.format(', '.join(month_param_list)))
+
             query_data = query_airnow(api_param_list, data_period,
                                       airnow_bbox, key=key)
             raw_query = query_data.copy()
@@ -525,7 +530,6 @@ def query_aqs(param, data_period, aqs_id, username=None, key=None):
     if aqs_id is None:
         sys.exit('AQS Site ID missing from API Query')
 
-    print('Querying AQS API')
     begin = (data_period[0][:4] + '-' + data_period[0][4:6]
              + '-' + data_period[0][6:])
     end = (data_period[1][:4] + '-' + data_period[1][4:6]
@@ -601,7 +605,7 @@ def query_aqs(param, data_period, aqs_id, username=None, key=None):
         return data
 
     elif status == 'No data matched your selection':
-        return
+        return pd.DataFrame()
 
 
 def ingest_aqs(data, param, api_param, param_classifier,
@@ -725,7 +729,6 @@ def query_airnow(param, data_period, bbox, key=None):
             Data returned by the API for the specified query parameter and
             time period.
     """
-    print('Querying AirNow API')
     if type(param) is str:
         param_list = [param]
     elif type(param) is list:
