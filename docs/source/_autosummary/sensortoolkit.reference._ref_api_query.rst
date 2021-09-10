@@ -16,12 +16,15 @@
       :nosignatures:
    
       date_range_selector
+      ingest_airnow
+      ingest_aqs
       modify_ref_cols
       modify_ref_method_str
       query_airnow
       query_aqs
       query_periods
       ref_api_query
+      save_api_dataset
    
    
 
