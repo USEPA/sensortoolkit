@@ -320,8 +320,8 @@ class SensorEvaluation:
                 #                                     query_tuple,
                 #                                     path=self.path
                 #                                     )
-
-                self.ref_dict[self.param.classifier]['1-hour'] = airnow_df
+                if not airnow_df.empty:
+                    self.ref_dict[self.param.classifier]['1-hour'] = airnow_df
 
             elif reference_data == 'AQS':
                 # Call AQS API
@@ -355,9 +355,12 @@ class SensorEvaluation:
                 #                                         query_tuple,
                 #                                         path=self.path
                 #                                         )
-
-                self.ref_dict[self.param.classifier]['1-hour'] = aqs_param_df
-                self.ref_dict['Met']['1-hour'] = aqs_param_df
+                if not aqs_param_df.empty:
+                    self.ref_dict[self.param.classifier]['1-hour'] = aqs_param_df
+                if not aqs_met_df.empty:
+                    print('Adding met dataframe', aqs_met_df.empty)
+                    self.ref_dict['Met']['1-hour'] = aqs_met_df
+                    #TODO: This also means PerformanceReport cant use AQS met data
 
             elif os.path.exists(reference_data):
                 # Load local reference data from file location
