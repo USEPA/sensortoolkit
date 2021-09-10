@@ -36,19 +36,28 @@ def ref_api_query(query_type=None, param=None, bdate='', edate='',
     are parsed into pandas dataframes and processed to convert header labels
     and column data types into a consistent standard for reference data sets.
 
-    A note on limitations of this method:
-        This method is configured to return datasets containing data for a
-        single parameter query, and is currently utilized in the
-        SensorEvaluation class to return data for the evaluation parameter
-        'eval_param'.
+    A note on use:
+        This method is configured to return datasets for parameters with the
+        same parameter classification. The R-DFS scheme for formatting reference
+        data in sensortoolkit organizes reference data into three primary
+        classifications (datasets containing parameters corresponding to
+        particulate matter are given the 'PM' classification, datasets
+        containing gaseous parameters are assigned the 'Gases' classification,
+        and datasets with meteorological parameters are assigned the 'Met'
+        classification).
 
-        Separate API calls would need to be made to query either service for
-        related data, such as meteorological (temperature, RH) datasets.
-        Future versions of SensorEvaluation may resolve this limitation.
+        If users wish to query multiple parameters in one API call, the
+        parameters passed to the ref_api_query() function via the ``param``
+        argument must be of the same parameter classification. For example,
+        passing ``param=['PM25', 'PM10']`` would result in a valid query
+        request, as both PM25 and PM10 have the same classification (PM). If
+        instead, a user passed ``param=['PM25', 'O3']``, this would result
+        in the function exiting execution as PM25 and O3 have different
+        parameter classifications (PM and Gases).
 
         Also, please note that AQS and AirNow use different naming conventions
         for parameters (e.g., AQS uses the parameter code 88101 for PM2.5 and
-        AirNow uses 'pm25'). These naming conventions are each different than
+        AirNow uses 'PM25'). These naming conventions are each different than
         the parameter naming convention used for this library. The
         'param_to_api_naming' dictionary provides a lookup dictionary for
         translating from the parameter naming convention of the
@@ -95,185 +104,180 @@ def ref_api_query(query_type=None, param=None, bdate='', edate='',
         raw_data (pandas dataframe):
             An unmodified version of the dataset returned by the API query.
     """
-    param_obj = Parameter(param)
-    param_class = param_obj.classifier
+    if type(param) is str:
+        param_list = [param]
+    elif type(param) is list:
+        param_list = param
+    else:
+        raise TypeError('Invalid type passed to "param". Must be either type'
+                        ' string or list.')
 
-    # Dictionary for translating between parameter terminology used in code and
-    # terminology used by AQS/AirNow. Note that this list is not comprehensive,
-    # and users wishing to query parameters outside those listed below will
-    # need to modify this method accordingly.
-    param_to_api_naming = {'AQS': {'PM25': '88101',
-                                   'PM10': '88102',
-                                   'O3': '44201',
-                                   'CO': '42101',
-                                   'NO2': '42602',
-                                   'SO2': '42401'},
-                           'AirNow': {'PM25': 'pm25',
-                                      'PM10': 'pm10',
-                                      'O3': 'O3',
-                                      'CO': 'co',
-                                      'NO2': 'no2',
-                                      'SO2': 'so2'},
-                           }
+    # Create a dictionary of parameters to query. Keys are the SDFS parameter
+    # name, entries include the api name associated with the SDFS name,
+    # classification for parameter, etc.
+    param_dict = {}
+    classes = []
+    for param in param_list:
 
-    api_param = param_to_api_naming[query_type][param]
+        param_obj = Parameter(param)
+        param_class = param_obj.classifier
+        classes.append(param_class)
 
-    method_path = os.path.abspath(os.path.join(__file__,
+        # Dictionary for translating between parameter terminology used in code and
+        # terminology used by AQS/AirNow. Note that this list is not comprehensive,
+        # and users wishing to query parameters outside those listed below will
+        # need to modify this method accordingly.
+        param_to_api_naming = {'AQS': {'PM25': '88101',
+                                       'PM10': '88102',
+                                       'O3': '44201',
+                                       'CO': '42101',
+                                       'NO2': '42602',
+                                       'SO2': '42401',
+                                       'Temp': '62101', # or 68105?
+                                       'RH': '62201',
+                                       },
+                               'AirNow': {'PM25': 'PM25',
+                                          'PM10': 'PM10',
+                                          'O3': 'OZONE',
+                                          'CO': 'CO',
+                                          'NO2':  'NO2',
+                                          'SO2': 'SO2'
+                                          },
+                               }
+
+        api_param = param_to_api_naming[query_type][param]
+
+        param_dict[param] = {}
+        param_dict[param]['parameter_object'] = param_obj
+        param_dict[param]['api_name'] = api_param
+        param_dict[param]['classifier'] = param_class
+
+
+    if classes.count(classes[0]) != len(classes):
+        sys.exit('Query parameters have mixed classifications (i.e., some '
+                 'combination of PM, gases, or meteorological parameters). '
+                 'Only pass parameters of the same classification (e.g., '
+                 'PM25 and PM10 (PM classif.) or Temp and RH (Met classif.).')
+
+    api_param_list = [param_dict[param]['api_name']
+                          for param in param_dict]
+
+    # Method code lookup tables
+    criteria_methods_path = os.path.abspath(os.path.join(__file__,
                                   '../method_codes/methods_criteria.csv'))
+    criteria_lookup_table = pd.read_csv(criteria_methods_path)
 
-    # Method code lookup dataframe
-    method_df = pd.read_csv(method_path)
+    met_methods_path = os.path.abspath(os.path.join(__file__,
+                                  '../method_codes/methods_met.csv'))
+    met_lookup_table = pd.read_csv(met_methods_path)
 
+    # Monthly intervals to query
     month_starts, month_ends = date_range_selector(bdate, edate)
     query_months = query_periods(query_type, month_starts, month_ends)
 
-    query_data, raw_data = pd.DataFrame(), pd.DataFrame()
+    # Loop over monthly intervals, query API, process datasets, save .csv files
+    full_query, raw_full_query = pd.DataFrame(), pd.DataFrame()
     for month in query_months:
+        month_param_list = param_list
         data_period = list(query_months[month].values())
         time_of_query = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
-        #  --------------------------------------------------------------------
-        #                   | AQS Specific query data tasks |
-        #  --------------------------------------------------------------------
+        # AQS Specific query data tasks ---------------------------------------
         if query_type == 'AQS':
-            data = query_aqs(api_param, data_period, aqs_id, username=username,
-                             key=key)
-            raw_copy = data.copy()
-            if data.empty is False:
-                idx = pd.to_datetime(data.date_gmt + ' ' + data.time_gmt)
 
-                # Method code instrument look up
-                instrument = method_df.where(
-                    (method_df['Parameter Code'] == int(api_param)) &
-                    (method_df['Method Code'] == int(
-                            data['method_code'].unique()[0]))
-                    )['Equivalent Method'].dropna()
+            query_data = query_aqs(api_param_list, data_period, aqs_id,
+                                   username=username, key=key)
+            raw_query = query_data.copy()
 
-                instrument = instrument.values[0].title()
-                data['method'] = instrument
+            # If query did not return data, continue with next month query
+            if query_data.empty:
+                continue
 
-                data = data.rename(columns={
-                         'latitude': 'Site_Lat',
-                         'longitude': 'Site_Lon',
-                         'parameter_code': param + '_Param_Code',
-                         'poc': param + '_Method_POC',
-                         'sample_measurement': param + '_Value',
-                         'units_of_measure': param + '_Unit',
-                         'method': param + '_Method',
-                         'method_code': param + '_Method_Code',
-                         'qualifier': param + '_QAQC_Code'
-                         })
+            # Loop over query params to modify parameter-specific columns
+            for param in param_dict:
+                api_param = param_dict[param]['api_name']
+                param_class = param_dict[param]['classifier']
 
-                data = data.drop(
-                        columns=['state_code', 'county_code', 'site_number',
-                                 'datum', 'parameter', 'date_local',
-                                 'time_local', 'date_gmt', 'time_gmt',
-                                 'units_of_measure_code', 'sample_duration',
-                                 'sample_duration_code', 'sample_frequency',
-                                 'detection_limit', 'uncertainty',
-                                 'method_type', 'state', 'county',
-                                 'date_of_last_change', 'cbsa_code'])
+                if param_class == 'Met':
+                    lookup_table = met_lookup_table
+                else:
+                    lookup_table = criteria_lookup_table
 
-                if param == 'O3':
-                    # Convert to concentrations to ppb
-                    data[param + '_Value'] = 1000*data[
-                                                    param + '_Value']
-                    data[param + '_Unit'] = data[
-                        param + '_Unit'].replace('PPB', 'Parts per Billion')
+                # Modify header names, drop unused columns
+                query_data, idx = ingest_aqs(query_data, param, api_param,
+                                             param_class, time_of_query,
+                                             lookup_table)
+            data = query_data
+            data = data.set_index(idx)
 
-                data['Data_Source'] = 'AQS API'
-                data['Data_Acquisition_Date_Time'] = time_of_query
-
-        #  --------------------------------------------------------------------
-        #                 | AirNow Specific query data tasks |
-        #  --------------------------------------------------------------------
+        # AirNow Specific query data tasks ------------------------------------
         if query_type == 'AirNow':
-            data = query_airnow(api_param, data_period, airnow_bbox, key=key)
-            raw_copy = data.copy()
-            if data.empty is False:
-                idx = pd.to_datetime(data.DateTime_UTC)
+            query_data = query_airnow(api_param_list, data_period,
+                                      airnow_bbox, key=key)
+            raw_query = query_data.copy()
 
-                rename = {col: col.replace('Param', param)
-                          for col in data.columns if col.startswith('Param')}
-                data = data.rename(columns=rename)
+            # If query did not return data, continue with next month query
+            if query_data.empty:
 
-                data = data.drop(columns=['DateTime_UTC',
-                                          param + '_Name',
-                                          'Site_Full_AQS'])
+                continue
 
-                # Note that AirNow doesn't report the reference monitor method
-                # so labeling as unknown
-                data['Data_Source'] = 'AirNow API'
-                data['Data_Acquisition_Date_Time'] = time_of_query
-                data[param + '_QAQC_Code'] = np.nan
-                data[param + '_Param_Code'] = np.nan
-                data[param + '_Method'] = 'Unknown Reference'
-                data[param + '_Method_Code'] = np.nan
-                data[param + '_Method_POC'] = np.nan
+            # Loop over query params to modify parameter-specific columns
+            merge_data = pd.DataFrame()
+            for param in param_dict:
+                api_param = param_dict[param]['api_name']
+                param_class = param_dict[param]['classifier']
+                param_data = query_data[query_data.Param_Name==api_param]
 
-                # Identify periods where data are flagged (conc = -999). Set
-                # these hours to NaN and associate QAQC flag with hour
-                flag_val = data[param+'_Value'].where(
-                                                data[param+'_Value'] == -999)
-                flag_idx = flag_val.dropna().index
-                data.loc[flag_idx, param + '_QAQC_Code'] = '-999'
-                data.loc[flag_idx, param + '_Value'] = np.nan
+                if param_data.empty:
+                    month_param_list.remove(param)
+                    print('Dropping {0}'.format(param))
+                    continue
+
+                # Modify header names, drop unused columns
+                param_data = ingest_airnow(param_data, param,
+                                                time_of_query)
+                merge_data = merge_data.combine_first(param_data)
+
+            data = merge_data
+        # ---------------------------------------------------------------------
 
         # Cleaning up the query dataframe (Set column data types, reorder
         # columns, replace incorrectly cased phrases with correct casing
-        if data.empty is False:
-            data = data.set_index(idx)
+
+        merge_data = pd.DataFrame()
+        for param in month_param_list:
+
+            param_data_cols = [col for col in data.columns if
+                               col.startswith(param)]
+            site_cols =['Site_AQS', 'Site_Lat', 'Site_Lon', 'Agency',
+                        'Site_Name', 'Data_Source',
+                        'Data_Acquisition_Date_Time']
+            param_data_cols.extend(site_cols)
+
+            param_data = data[param_data_cols]
 
             # Set the data type for columns and reorder column arrangement
-            data = modify_ref_cols(data, param)
+            param_data = modify_ref_cols(param_data, param)
 
             # Replace certain phrases with non-title cased phrases
-            data = modify_ref_method_str(data, param)
+            param_data = modify_ref_method_str(param_data, param)
 
-            data = data.sort_index()
+            merge_data = merge_data.combine_first(param_data)
 
-            # Save monthly datasets
-            # Use the site name and AQS ID to name subfolder containing
-            # site data
-            try:
-                site_name = data['Site_Name'].mode()[0]
-                site_name = site_name.replace(' ', '_')
-            except KeyError:
-                site_name = 'Unspecified_Site_Name'
+        process_df = merge_data.sort_index()
 
-            try:
-                site_aqs = data['Site_AQS'].mode()[0]
-                site_aqs = site_aqs.replace('-', '').replace(' ', '')
-            except KeyError:
-                site_aqs = 'Unspecified_Site_AQS_ID'
+        # Save monthly datasets
+        save_api_dataset(process_df, raw_query, path,
+                         query_type, param_class, data_period)
 
-            folder = '{0}_{1}'.format(site_name, site_aqs)
+        full_query = full_query.append(process_df)
+        raw_full_query = raw_full_query.append(raw_query)
 
-            data_path = os.path.join(path,
-                                     'Data and Figures',
-                                     'reference_data',
-                                     query_type.lower())
 
-            process_path = os.path.join(data_path, 'processed', folder)
-            raw_path = os.path.join(data_path, 'raw', folder)
-
-            if not os.path.exists(process_path):
-                os.makedirs(process_path)
-            if not os.path.exists(raw_path):
-                os.makedirs(raw_path)
-
-            year_month = pd.to_datetime(data_period[0]).strftime('%Y%m')
-            filename = 'H_' + year_month + '_' + param_class + '.csv'
-
-            data.to_csv(process_path + '/' + filename)
-            raw_copy.to_csv(raw_path + '/' + filename)
-
-            query_data = query_data.append(data)
-            raw_data = raw_data.append(raw_copy)
-
-    query_data.index.name = 'DateTime_UTC'
-
-    return query_data.loc[bdate:edate, :]
+    full_query.index.name = 'DateTime_UTC'
+    bdate = pd.to_datetime(bdate).strftime('%Y-%m-%d')
+    edate = pd.to_datetime(edate).strftime('%Y-%m-%d')
+    return full_query.loc[bdate:edate, :]
 
 
 def modify_ref_cols(df, param):
@@ -290,7 +294,6 @@ def modify_ref_cols(df, param):
             Modified dataframe column data types correected and column ordering
             reorganized.
     """
-
     # Column header suffixes for parameter data
     param_attribs = ['_Value', '_Unit', '_QAQC_Code', '_Param_Code',
                      '_Method', '_Method_Code', '_Method_POC']
@@ -492,8 +495,8 @@ def query_aqs(param, data_period, aqs_id, username=None, key=None):
     """Construct an AQS API query request and parse response.
 
     Args:
-        param (str):
-            The evaluation parameter for which to query data.
+        param (str or list of str values):
+            The evaluation parameter(s) for which to query data.
         data_period (list):
             List with two elements, the first is the start date and time for
             the query and the second is the end date and time for the query.
@@ -511,6 +514,14 @@ def query_aqs(param, data_period, aqs_id, username=None, key=None):
             Data returned by the API for the specified query parameter and
             time period.
     """
+    if type(param) is str:
+        param_list = [param]
+    elif type(param) is list:
+        param_list = param
+    else:
+        raise TypeError('Invalid type specified for "param". Must be either '
+                        'str or list.')
+
     if aqs_id is None:
         sys.exit('AQS Site ID missing from API Query')
 
@@ -528,7 +539,7 @@ def query_aqs(param, data_period, aqs_id, username=None, key=None):
     # Construct query URL
     url = urlbase + 'email=' + str(username)
     url += '&key=' + str(key)
-    url += '&param=' + str(param)
+    url += '&param=' + ','.join(param_list)
     url += '&bdate=' + str(data_period[0])
     url += '&edate=' + str(data_period[1])
     url += '&state=' + str(aqs_id["state"])
@@ -538,25 +549,28 @@ def query_aqs(param, data_period, aqs_id, username=None, key=None):
     # Get query response (two queries: first for reference data, second for
     # site metadata)
 
-    # Query reference concentration data
+    # Query #1: reference concentration data, load to json
     data = requests.get(url)
+    ref_data_json = json.loads(data.text)
 
-    # Query site information (site name, operating agency, etc.)
+    # Query #2: site information (site name, operating agency, etc.)
     site_data = requests.get(url.replace('sampleData', 'monitors'))
     site_json = json.loads(site_data.text)
+
+    # return site status
+    status = ref_data_json['Header'][0]['status']
+    print('..Response status: {0}'.format(status))
+
     site_data = pd.DataFrame(site_json['Data'])
 
-    # Load data to json module, pandas dataframe
-    ref_data_json = json.loads(data.text)
-    data = pd.DataFrame(ref_data_json['Data'])
-
-    data['Site_AQS'] = (data.state_code.astype(str) + '-' +
-                        data.county_code.astype(str) + '-' +
-                        data.site_number.astype(str))
-
-    status = ref_data_json['Header'][0]['status']
-
     if status == 'Success':
+        # Convert data to pandas dataframe
+        data = pd.DataFrame(ref_data_json['Data'])
+
+        data['Site_AQS'] = (data.state_code.astype(str) + '-' +
+                            data.county_code.astype(str) + '-' +
+                            data.site_number.astype(str))
+
         site_name = list(i for i in site_data.local_site_name.unique())
         agency = list(i for i in site_data.monitoring_agency.unique())
         site_aqs = list(i for i in data.Site_AQS.astype(str).unique())
@@ -572,12 +586,120 @@ def query_aqs(param, data_period, aqs_id, username=None, key=None):
             print('......Latitude:', "{0:7.4f}".format(float(lat)))
             print('......Longitude:', "{0:7.4f}".format(float(lon)))
 
-    print('..Query Status:', status)
+        query_df = pd.DataFrame()
+        for code in param_list:
+            param_df = data[data.parameter_code==code].reset_index(drop=True)
+            param_df = param_df.add_suffix('_' + code)
+            query_df = query_df.combine_first(param_df)
 
-    data['Agency'] = ','.join(agency)
-    data['Site_Name'] = ','.join(site_name)
+        data = query_df
 
-    return data
+
+        data['Agency'] = ','.join(agency)
+        data['Site_Name'] = ','.join(site_name)
+
+        return data
+
+    elif status == 'No data matched your selection':
+        return
+
+
+def ingest_aqs(data, param, api_param, param_classifier,
+               time_of_query, lookup_table):
+    """
+
+
+    Args:
+        data (TYPE): DESCRIPTION.
+        param (TYPE): DESCRIPTION.
+        api_param (TYPE): DESCRIPTION.
+        param_classifier (TYPE): DESCRIPTION.
+        time_of_query (TYPE): DESCRIPTION.
+        lookup_table (TYPE): DESCRIPTION.
+
+    Returns:
+        data (TYPE): DESCRIPTION.
+        idx (TYPE): DESCRIPTION.
+
+    """
+    idx = pd.to_datetime(data['date_gmt_' + api_param] + ' '
+                         + data['time_gmt_' + api_param])
+    idx.name = 'DateTime_UTC'
+
+    # Method code instrument look up
+    if param_classifier == 'Met':
+        row = lookup_table.where(
+                (lookup_table['Parameter Code'] == int(api_param)) &
+                (lookup_table['Method Code'] == int(data['method_code_' + api_param].unique()[0]))
+                ).dropna(how='all', axis=0)
+        instrument = row['Collection Description'] + row['Analysis Description']
+        instrument = instrument.mode()[0]
+
+        # replace various phrases that are not the instrument name
+        remove_phrases = ['Instrumental', 'INSTRUMENTAL', 'Electronic',
+                          'Barometric Sensor']
+        for phrase in remove_phrases:
+            instrument = instrument.replace(phrase, '')
+        if instrument.replace(' ', '') == '':
+            instrument = 'Unspecified_Reference'
+
+    else:
+        instrument = lookup_table.where(
+            (lookup_table['Parameter Code'] == int(api_param)) &
+            (lookup_table['Method Code'] == int(data['method_code_' + api_param].unique()[0]))
+            )['Equivalent Method'].dropna()
+        instrument = instrument.mode()[0]
+
+    data['method_' + api_param] = instrument
+
+
+    site_headers = {'Site_AQS_' + api_param: 'Site_AQS',
+                     'latitude_' + api_param: 'Site_Lat',
+                     'longitude_' + api_param: 'Site_Lon'}
+
+    for site_col in site_headers:
+            if site_headers[site_col] in data:
+                data = data.drop(columns=[site_col])
+
+    data = data.rename(columns={
+             'Site_AQS_' + api_param: 'Site_AQS',
+             'latitude_' + api_param: 'Site_Lat',
+             'longitude_' + api_param: 'Site_Lon',
+             'parameter_code_' + api_param: param + '_Param_Code',
+             'poc_' + api_param: param + '_Method_POC',
+             'sample_measurement_' + api_param: param + '_Value',
+             'units_of_measure_' + api_param: param + '_Unit',
+             'method_' + api_param: param + '_Method',
+             'method_code_' + api_param: param + '_Method_Code',
+             'qualifier_' + api_param: param + '_QAQC_Code'
+             })
+
+
+    api_param = str(api_param)
+    data = data.drop(columns=[
+        'state_code_' + api_param, 'county_code_' + api_param,
+        'site_number_' + api_param, 'datum_' + api_param,
+        'parameter_' + api_param, 'date_local_' + api_param,
+        'time_local_' + api_param, 'date_gmt_' + api_param,
+        'time_gmt_' + api_param, 'units_of_measure_code_' + api_param,
+        'sample_duration_' + api_param, 'sample_duration_code_' + api_param,
+        'sample_frequency_' + api_param, 'detection_limit_' + api_param,
+        'uncertainty_' + api_param, 'method_type_' + api_param,
+        'state_' + api_param, 'county_' + api_param,
+        'date_of_last_change_' + api_param,
+        'cbsa_code_' + api_param])
+
+    if param == 'O3':
+        # Convert to concentrations to ppb
+        data[param + '_Value'] = 1000*data[
+                                        param + '_Value']
+        data[param + '_Unit'] = data[
+            param + '_Unit'].replace('PPB', 'Parts per Billion')
+
+    data['Data_Source'] = 'AQS API'
+    data['Data_Acquisition_Date_Time'] = time_of_query
+
+    return data, idx
 
 
 def query_airnow(param, data_period, bbox, key=None):
@@ -604,6 +726,13 @@ def query_airnow(param, data_period, bbox, key=None):
             time period.
     """
     print('Querying AirNow API')
+    if type(param) is str:
+        param_list = [param]
+    elif type(param) is list:
+        param_list = param
+    else:
+        raise TypeError('Invalid type specified for "param". Must be either '
+                        'str or list.')
 
     begin = data_period[0][:-3]
     end = data_period[1][:-3]
@@ -621,7 +750,7 @@ def query_airnow(param, data_period, bbox, key=None):
     # Construct query URL
     url = urlbase + 'startdate=' + str(data_period[0])
     url += '&enddate=' + str(data_period[1])
-    url += '&parameters=' + str(param)
+    url += '&parameters=' + ','.join(param_list)
     url += '&bbox=' + str(bbox["minLong"]) + ','
     url += str(bbox["minLat"]) + ','
     url += str(bbox["maxLong"]) + ','
@@ -636,6 +765,7 @@ def query_airnow(param, data_period, bbox, key=None):
     # Get query response
     data = requests.get(url)
     fmt_query_data = StringIO(data.text)
+
 
     data = pd.read_csv(fmt_query_data, sep=',',
                        names=['Site_Lat', 'Site_Lon', 'DateTime_UTC',
@@ -680,60 +810,143 @@ def query_airnow(param, data_period, bbox, key=None):
     return data
 
 
-# def save_query_data(query_tuple, path):
-#     """Save both processed and unmodified API query datasets to .csv files.
-
-#     Processed data saved to:
-#     ..//Data and Figures//reference_data//(name of API)//processed//
-#     Unmodified data saved to:
-#     ..//Data and Figures//reference_data//(name of API)//raw_api_datasets//
-
-#     Args:
-#         query_tuple (tuple):
-#             A tuple of two pandas datasets returned by Ref_API_Query. The first
-#             element is the processed dataset and the second is the unprocessed
-#             version.
-#         path (str):
-#             The working directory where the Data and Figures folder structure
-#             is located (where the data files will be saved)
-#     Returns:
-#         processed_df (pandas dataframe):
-#             Data returned by the API for the specified parameter and time
-#             frame. Data have been processed with column headers converted into
-#             standard naming scheme and column data types converted into a
-#             consistent formatting scheme for reference datasets.
-#     """
-#     processed_df, raw_df = query_tuple
-#     api_src = processed_df['Data_Source'].unique()[0].replace(' API', '')
-#     print('Writing', api_src, 'query dataframes to csv files')
+def ingest_airnow(data, param, time_of_query):
+    """
 
 
+    Args:
+        data (TYPE): DESCRIPTION.
+        param (TYPE): DESCRIPTION.
+        time_of_query (TYPE): DESCRIPTION.
+
+    Returns:
+        data (TYPE): DESCRIPTION.
+
+    """
+    idx = pd.to_datetime(data.DateTime_UTC)
+
+    rename = {col: col.replace('Param', param)
+              for col in data.columns if col.startswith('Param')}
+    data = data.rename(columns=rename)
+
+    data = data.drop(columns=['DateTime_UTC',
+                                param + '_Name',
+                              'Site_Full_AQS'])
+
+    # Note that AirNow doesn't report the reference monitor method
+    # so labeling as unknown
+    data['Data_Source'] = 'AirNow API'
+    data['Data_Acquisition_Date_Time'] = time_of_query
+    data[param + '_QAQC_Code'] = np.nan
+    data[param + '_Param_Code'] = np.nan
+    data[param + '_Method'] = 'Unknown Reference'
+    data[param + '_Method_Code'] = np.nan
+    data[param + '_Method_POC'] = np.nan
+
+    # Identify periods where data are flagged (conc = -999). Set
+    # these hours to NaN and associate QAQC flag with hour
+    flag_val = data[param+'_Value'].where(
+                                    data[param+'_Value'] == -999)
+    flag_idx = flag_val.dropna().index
+    data.loc[flag_idx, param + '_QAQC_Code'] = '-999'
+    data.loc[flag_idx, param + '_Value'] = np.nan
+
+    data = data.set_index(idx)
+
+    return data
 
 
-#     begin = 'B' + processed_df.index.min().strftime('%y%m%d')
-#     end = 'E' + processed_df.index.max().strftime('%y%m%d')
-#     site_id = processed_df['Site_AQS'].unique()[0]
-#     params = [col.replace('_Value', '') for col in
-#               processed_df.columns if col.endswith('_Value')]
-#     param_str = '_'.join(param for param in params)
+def save_api_dataset(process_df, raw_df, path, query_type, param_class,
+                     data_period):
+    """Save monthly datasets.
 
-#     process_filename = '_'.join([api_src, site_id,
-#                                  param_str, begin, end]) + '.csv'
-#     raw_filename = '_'.join([api_src, 'raw', site_id,
-#                              param_str, begin, end]) + '.csv'
 
-#     outpath = os.path.abspath(path +
-#                               '/Data and Figures/reference_data/' +
-#                               api_src.lower())
+    Args:
+        process_df (TYPE): DESCRIPTION.
+        raw_df (TYPE): DESCRIPTION.
+        path (TYPE): DESCRIPTION.
+        query_type (TYPE): DESCRIPTION.
+        param_class (TYPE): DESCRIPTION.
+        data_period (TYPE): DESCRIPTION.
 
-#     print('../reference_data/' + api_src.lower() + '/processed/'
-#           + process_filename)
-#     processed_df.to_csv(outpath + '/processed/' + process_filename,
-#                         index_label='DateTime_UTC')
+    Returns:
+        None.
 
-#     print('../reference_data/' + api_src.lower() + '/raw/'
-#           + raw_filename)
-#     raw_df.to_csv(outpath + '/raw/' + raw_filename,
-#                   index_label='DateTime_UTC')
+    """
+    # Use the site name and AQS ID to name subfolder containing
+    # site data
+    try:
+        site_name = process_df['Site_Name'].mode()[0]
+        site_name = site_name.replace(' ', '_')
+    except KeyError:
+        site_name = 'Unspecified_Site_Name'
 
-#     return processed_df
+    try:
+        site_aqs = process_df['Site_AQS'].mode()[0]
+        site_aqs = site_aqs.replace('-', '').replace(' ', '')
+    except KeyError:
+        site_aqs = 'Unspecified_Site_AQS_ID'
+
+    folder = '{0}_{1}'.format(site_name, site_aqs)
+
+    data_path = os.path.join(path,
+                             'Data and Figures',
+                             'reference_data',
+                             query_type.lower())
+
+    process_path = os.path.join(data_path, 'processed', folder)
+    raw_path = os.path.join(data_path, 'raw', folder)
+
+    if not os.path.exists(process_path):
+        os.makedirs(process_path)
+    if not os.path.exists(raw_path):
+        os.makedirs(raw_path)
+
+    year_month = pd.to_datetime(data_period[0]).strftime('%Y%m')
+    filename = 'H_' + year_month + '_' + param_class + '.csv'
+
+    process_df.to_csv(process_path + '/' + filename)
+    raw_df.to_csv(raw_path + '/' + filename)
+
+
+if __name__ == '__main__':
+    # 'Temp': '62101', # or 68105?
+    # 'RH': '62201'
+    #param = '62101'
+    data_period = ['20200101', '20200201']
+
+    # Millbrook Elem
+    # aqs_id = {"state": "37",
+    #           "county": "183",
+    #           "site": "0021"}
+
+    # Birmingham AL (NCORE, has met data)
+    aqs_id = {"state": "01",
+          "county": "073",
+          "site": "0023"}
+
+    bbox = {"minLat": "35.88",
+             "maxLat": "35.89",
+             "minLong": "-78.88",
+             "maxLong": "-78.87"}
+
+    airnow_key = '0121DF3A-BE3D-4B10-B86B-37913970B672'
+
+    username = 'frederick.samuel@epa.gov'
+    key = 'silverbird29'
+
+    path = r'C:\Users\SFREDE01\OneDrive - Environmental Protection Agency (EPA)\Profile\Documents\test_dir'
+
+    data = ref_api_query(query_type='AQS', param=['Temp', 'RH'],
+                          bdate='20200101', edate='20200201',
+                          aqs_id=aqs_id, username=username, key=key,
+                          path=path)
+
+
+    # data = ref_api_query(query_type='AirNow', param=['O3', 'NO2'],
+    #                       bdate='20200101', edate='20200201',
+    #                       airnow_bbox=bbox, key=airnow_key,
+    #                       path=path)
+
+
+    #df = query_aqs(['62101', '62201'], data_period, aqs_id, username, key)
