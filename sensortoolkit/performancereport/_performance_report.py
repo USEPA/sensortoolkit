@@ -2308,7 +2308,7 @@ class PerformanceReport(SensorEvaluation):
 
         ref_source = self.hourly_ref_df.Data_Source.mode()[0]
 
-        if ref_source == 'AirNow API' or ref_source == 'AQS API':
+        if ref_source == 'AirNow API':
             print('')
             warnings.warn('Warning: No Meteorological data for reference data'
                           ' source. Met plots will not be added to the report')
@@ -2332,7 +2332,7 @@ class PerformanceReport(SensorEvaluation):
 
         # Reference dependent details. Only add met plots if reference data
         # come from AirNowTech or another source where met data are provided
-        if ref_source != 'AirNow API' and ref_source != 'AQS API':
+        if ref_source != 'AirNow API':
             self.AddMetDistPlot()
             self.AddMetInflPlot()
             self.EditMetCondTable()
