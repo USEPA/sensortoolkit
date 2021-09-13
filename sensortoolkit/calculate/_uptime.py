@@ -1,12 +1,24 @@
 # -*- coding: utf-8 -*-
 """
+This module computes the uptime for sensor or reference datasets.
+
+U.S. EPA's Performance Targets Reports define uptime in the following way:
+
+    A measure of the amount of valid data obtained by all tested sensors
+    relative to the amount of data that was expected to be obtained under
+    correct, normal operation for the entire length of a test. For example, if
+    valid data is collected by all three sensors for 29 days of a 30-day base
+    test field deployment the uptime for the deployment can be expressed as
+    96.7% (i.e., 29 days/30 days * 100%). Operation may be interrupted by
+    sensor failure, connectivity issues, equipment maintenance, extreme weather
+    events, etc. No matter the reason for missing data, all downtime should be
+    included in the uptime calculation. However, tests may report more
+    information such as specifying the percent of downtime attributed to
+    various types of interruptions.
+
 @Author:
-  Samuel Frederick, NSSC Contractor (ORAU)
-  U.S. EPA, Office of Research and Development
-  Center for Environmental Measurement and Modeling
-  Air Methods and Characterization Division, Source and Fine Scale Branch
-  109 T.W Alexander Drive, Research Triangle Park, NC 27711
-  Office: 919-541-4086 | Email: frederick.samuel@epa.gov
+  | Samuel Frederick, NSSC Contractor (ORAU)
+  | U.S. EPA / ORD / CEMM / AMCD / SFSB
 
 Created:
   Fri Apr 24 13:03:32 2020
