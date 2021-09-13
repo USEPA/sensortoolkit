@@ -36,14 +36,6 @@ each.
   | Samuel Frederick, NSSC Contractor (ORAU)
   | U.S. EPA / ORD / CEMM / AMCD / SFSB
 
-@Author:
-  Samuel Frederick, NSSC Contractor (ORAU)
-  U.S. EPA, Office of Research and Development
-  Center for Environmental Measurement and Modeling
-  Air Methods and Characterization Division, Source and Fine Scale Branch
-  109 T.W Alexander Drive, Research Triangle Park, NC 27711
-  Office: 919-541-4086 | Email: frederick.samuel@epa.gov
-
 Created:
   Wed Sep  8 10:34:51 2021
 Last Updated:

@@ -34,6 +34,10 @@ Linearity is measured via the coefficient of determination (:math:`R^2`).
 
 ===============================================================================
 
+@Author:
+  | Samuel Frederick, NSSC Contractor (ORAU)
+  | U.S. EPA / ORD / CEMM / AMCD / SFSB
+
 Created:
   Tue Mar 3 13:47:32 2020
 Last Updated:
@@ -186,8 +190,7 @@ def regression_stats(sensor_df_obj, ref_df_obj, deploy_dict, param, serials):
                 param_min = param_max = param_mean = np.nan
 
             else:
-                # Compute linear regress. for the union of finite
-                # x and y data
+                # Compute linear regress. for the union of finite x and y data
                 fit = np.polyfit(xdata[idx], ydata[idx], 1)
                 slope = fit[0]
                 intercept = fit[1]
