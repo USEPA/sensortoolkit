@@ -21,6 +21,7 @@ from matplotlib.collections import PatchCollection
 from matplotlib.patches import Rectangle
 import seaborn as sns
 from sensortoolkit.datetime_utils import get_todays_date
+from sensortoolkit.param import Parameter
 register_matplotlib_converters()
 
 
@@ -37,49 +38,132 @@ def performance_metrics(stats_df, deploy_dict, param=None,
     """
     sns.set_style('darkgrid')
 
-    eval_params = ['PM25', 'O3']
-    if param not in eval_params:
+    param_obj = Parameter(param)
+
+    targets = param_obj.PerformanceTargets.get_AllMetrics()
+
+    if any(metric_info == {} for metric_info in targets.values()):
         sys.exit('Performance metrics and target values not set for ' + param)
 
-    plotting_dims = {'PM25':
-                     {'ylims': {'rsqr': (-0.02, 1.02),
-                                },
-                      'hline_dims': {'rsqr': (1.0, -0.50, 1.50),
-                                     'slope': (1.0, -0.50, 1.50),
-                                     'intercept': (0.0, -0.50, 1.50),
-                                     'cv': (0.35, -0.50, 1.50),
-                                     'rmse': (0.10, -0.50, 1.50),
-                                     'nrmse': (0.35, -0.50, 1.50),
-                                     'sd': (0.05, -0.50, 1.50)},
-                      'box_dims': {'rsqr': (-0.5, 0.7, 2.0, 0.3),
-                                   'slope': (-0.5, 0.65, 2.0, 0.7),
-                                   'intercept': (-0.5, -5.0, 2.0, 10),
-                                   'cv': (-0.5, 0.0, 2.0, 30.0),
-                                   'rmse': (-0.5, 0, 2, 7),
-                                   'nrmse': (-0.5, 0, 2, 30),
-                                   'sd': (-0.5, 0.0, 2.0, 5.0)}
-                      },
-                     'O3':
-                     {'ylims': {'rsqr': (-0.02, 1.02),
-                                },
-                      'hline_dims': {'rsqr': (1, -1, 1),
-                                     'slope': (1, -1, 1),
-                                     'intercept': (0, -1, 1),
-                                     'cv': (0.35, -1, 1),
-                                     'rmse': (0.10, -1, 1),
-                                     'nrmse': (0.35, -1, 1),
-                                     'sd': (0.05, -1, 1)},
-                      'box_dims': {'rsqr': (-1, 0.8, 2.0, 0.2),
-                                   'slope': (-1, 0.8, 2.0, 0.4),
-                                   'intercept': (-1, -5.0, 2.0, 10),
-                                   'cv': (-1, 0.0, 2.0, 30.0),
-                                   'rmse': (-1, 0.0, 2.0, 5.0),
-                                   'nrmse': (-1, 0, 2, 30),
-                                   'sd': (-1, 0.0, 2.0, 5.0)}
-                      }
-                     }
+    if len(param_obj.averaging) == 2:
+        PLOT_XMIN = -0.50
+        PLOT_XMAX = 1.5
+    if len(param_obj.averaging) == 1:
+        PLOT_XMIN = -1
+        PLOT_XMAX = 1
 
-    param_dims = plotting_dims.get(param)
+    PLOT_XRANGE = PLOT_XMAX - PLOT_XMIN
+
+    plotting_dims = {
+        # Plot y-limits
+        # y-min, y-max
+        'ylims': {'rsqr': (-0.02, 1.02)},
+
+        # Target goal horizontal line
+        # (y-coord, x-min, x-max)
+        'hline_dims': {'rsqr': (targets['Linearity']['R^2']['goal'],
+                                PLOT_XMIN,
+                                PLOT_XMAX),
+                       'slope': (targets['Bias']['Slope']['goal'],
+                                 PLOT_XMIN,
+                                 PLOT_XMAX),
+                       'intercept': (targets['Bias']['Intercept']['goal'],
+                                     PLOT_XMIN,
+                                     PLOT_XMAX),
+                       'cv': (targets['Precision']['CV']['goal'],
+                              PLOT_XMIN,
+                              PLOT_XMAX),
+                       'rmse': (targets['Error']['RMSE']['goal'],
+                                PLOT_XMIN,
+                                PLOT_XMAX),
+                       'nrmse': (targets['Error']['NRMSE']['goal'],
+                                 PLOT_XMIN,
+                                 PLOT_XMAX),
+                       'sd': (targets['Error']['SD']['goal'],
+                              PLOT_XMIN,
+                              PLOT_XMAX)},
+
+        # x-min, y-min, x-range, y-range
+        'box_dims': {'rsqr': (PLOT_XMIN,
+                              targets['Linearity']['R^2']['bound'][0],
+                              PLOT_XRANGE,
+                              targets['Linearity']['R^2']['bound'][1] -
+                              targets['Linearity']['R^2']['bound'][0]),
+                     'slope': (PLOT_XRANGE,
+                               targets['Bias']['Slope']['bound'][0],
+                               PLOT_XRANGE,
+                               targets['Bias']['Slope']['bound'][1] -
+                               targets['Bias']['Slope']['bound'][0]),
+                     'intercept': (PLOT_XRANGE,
+                                   targets['Bias']['Intercept']['bound'][0],
+                                   PLOT_XRANGE,
+                                   targets['Bias']['Intercept']['bound'][1] -
+                                   targets['Bias']['Intercept']['bound'][0]),
+                     'cv': (PLOT_XRANGE,
+                            targets['Precision']['CV']['bound'][0],
+                            PLOT_XRANGE,
+                            targets['Precision']['CV']['bound'][1] -
+                            targets['Precision']['CV']['bound'][0]),
+                     'rmse': (PLOT_XRANGE,
+                              targets['Error']['RMSE']['bound'][0],
+                              PLOT_XRANGE,
+                              targets['Error']['RMSE']['bound'][1] -
+                              targets['Error']['RMSE']['bound'][0]),
+                     'nrmse': (PLOT_XRANGE,
+                               targets['Error']['NRMSE']['bound'][0],
+                               PLOT_XRANGE,
+                               targets['Error']['NRMSE']['bound'][1] -
+                               targets['Error']['NRMSE']['bound'][0]),
+                     'sd': (PLOT_XRANGE,
+                            targets['Error']['SD']['bound'][0],
+                            PLOT_XRANGE,
+                            targets['Error']['SD']['bound'][1] -
+                            targets['Error']['SD']['bound'][0])}
+        }
+
+    # plotting_dims = {'PM25':
+    #                  # y-min, y-max
+    #                  {'ylims': {'rsqr': (-0.02, 1.02),
+    #                             },
+    #                   # Target goal horizontal line
+    #                   # (y-coord, x-min, x-max)
+    #                   'hline_dims': {'rsqr': (1.0, -0.50, 1.50),
+    #                                  'slope': (1.0, -0.50, 1.50),
+    #                                  'intercept': (0.0, -0.50, 1.50),
+    #                                  'cv': (0.35, -0.50, 1.50),
+    #                                  'rmse': (0.10, -0.50, 1.50),
+    #                                  'nrmse': (0.35, -0.50, 1.50),
+    #                                  'sd': (0.05, -0.50, 1.50)},
+    #                   # x-min, y-min, x-max, y-range
+    #                   'box_dims': {'rsqr': (-0.5, 0.7, 2.0, 0.3),
+    #                                'slope': (-0.5, 0.65, 2.0, 0.7),
+    #                                'intercept': (-0.5, -5.0, 2.0, 10),
+    #                                'cv': (-0.5, 0.0, 2.0, 30.0),
+    #                                'rmse': (-0.5, 0, 2, 7),
+    #                                'nrmse': (-0.5, 0, 2, 30),
+    #                                'sd': (-0.5, 0.0, 2.0, 5.0)}
+    #                   },
+    #                  'O3':
+    #                  {'ylims': {'rsqr': (-0.02, 1.02),
+    #                             },
+    #                   'hline_dims': {'rsqr': (1, -1, 1),
+    #                                  'slope': (1, -1, 1),
+    #                                  'intercept': (0, -1, 1),
+    #                                  'cv': (0.35, -1, 1),
+    #                                  'rmse': (0.10, -1, 1),
+    #                                  'nrmse': (0.35, -1, 1),
+    #                                  'sd': (0.05, -1, 1)},
+    #                   'box_dims': {'rsqr': (-1, 0.8, 2.0, 0.2),
+    #                                'slope': (-1, 0.8, 2.0, 0.4),
+    #                                'intercept': (-1, -5.0, 2.0, 10),
+    #                                'cv': (-1, 0.0, 2.0, 30.0),
+    #                                'rmse': (-1, 0.0, 2.0, 5.0),
+    #                                'nrmse': (-1, 0, 2, 30),
+    #                                'sd': (-1, 0.0, 2.0, 5.0)}
+    #                   }
+    #                  }
+
+    #param_dims = plotting_dims.get(param)
 
     cv_vals = {interval: [] for interval in param_averaging}
     std_vals = {interval: [] for interval in param_averaging}
@@ -254,12 +338,12 @@ def performance_metrics(stats_df, deploy_dict, param=None,
 
             # Get formatting values
             ylims = kwargs.get(dim_key + '_ylims',
-                               param_dims['ylims'].get(dim_key,
+                               plotting_dims['ylims'].get(dim_key,
                                                        (lower_lim, upper_lim)))
             hline_dims = kwargs.get(dim_key + '_hline_dims',
-                                    param_dims.get('hline_dims').get(dim_key))
+                                    plotting_dims.get('hline_dims').get(dim_key))
             box_dims = kwargs.get(dim_key + '_box_dims',
-                                  param_dims.get('box_dims').get(dim_key))
+                                  plotting_dims.get('box_dims').get(dim_key))
 
             # Assign to local variables
             ymin, ymax = ylims
