@@ -38,13 +38,6 @@ class SensorEvaluation:
     ambient, outdoor, fixed site, non-regulatory supplemental and informational
     monitoring applications.
 
-    As of February 2021, U.S. EPA has released two reports detailing
-    recommended performance testing protocols, metrics, and target values for
-    the evaluation of sensors measuring either fine particulate matter (PM2.5)
-    or ozone (O3). More detail about EPA's sensor evaluation research as well
-    as both reports can be found online at EPA's Air Sensor Toolbox:
-        https://www.epa.gov/air-sensor-toolbox
-
     Args:
         name (str): The make and model of the sensor being evaluated.
         param (str): Parameter name to evaluate (e.g. ``PM25`` or ``O3``)
@@ -159,9 +152,10 @@ class SensorEvaluation:
             the minimum, maximum, and the mean sensor concentration.
 
     Class attributes:
-        aqs_username (str)
-        aqs_key (str)
-        airnow_key (str)
+        aqs_username (str): Optional. Account username for the AQS API.
+        aqs_key (str): Optional. Account authentication key for the AQS API.
+        airnow_key (str): Optional. Account authentication key for the AirNow
+            API.
 
     Methods:
         add_deploy_dict_stats
