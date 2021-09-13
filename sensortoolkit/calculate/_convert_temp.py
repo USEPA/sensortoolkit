@@ -16,6 +16,23 @@ Last Updated:
 import pandas as pd
 
 def convert_temp(data, from_unit='F', to_unit='C'):
+    """Convert temperature from one unit basis to another.
+
+    Can convert from Fahrenheit to Celsius or vice versa.
+
+    Args:
+        data (TYPE): DESCRIPTION.
+        from_unit (TYPE, optional): DESCRIPTION. Defaults to 'F'.
+        to_unit (TYPE, optional): DESCRIPTION. Defaults to 'C'.
+
+    Raises:
+        KeyError: DESCRIPTION.
+        AttributeError: DESCRIPTION.
+
+    Returns:
+        converted_data (TYPE): DESCRIPTION.
+
+    """
     # Convert input type to pandas dataframe
     data_type = type(data)
     if data_type is not pd.core.frame.DataFrame:

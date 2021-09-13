@@ -54,8 +54,7 @@ import numpy as np
 from sensortoolkit.datetime_utils import deploy_timestamp_index
 
 
-def rmse(df_list, ref_df, deploy_dict, stats_df=None,
-                 param='PM25', return_deploy_dict=True):
+def rmse(df_list, ref_df, deploy_dict, param='PM25', return_deploy_dict=True):
     """Compute the root mean square error for concurrent sensor measurements in
     each testing deployment groups.
 
@@ -72,8 +71,6 @@ def rmse(df_list, ref_df, deploy_dict, stats_df=None,
             textual information about the deployment (testing agency, site,
             time period, etc.), sensors tested, and site conditions during the
             evaluation.
-        stats_df (pandas dataframe):
-            Dataframe containing OLS regression statisitcs.
         param (str):
             Parameter name to evaluate
         return_deploy_dict (bool):
@@ -152,5 +149,5 @@ def rmse(df_list, ref_df, deploy_dict, stats_df=None,
 
     if return_deploy_dict is True:
         return deploy_dict
-    else:
-        return RMSE
+
+    return RMSE

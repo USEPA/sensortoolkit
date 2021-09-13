@@ -39,10 +39,10 @@ Created:
 Last Updated:
   Tue Jul 13 11:09:13 2021
 """
-import numpy as np
-import pandas as pd
 import os
 import sys
+import numpy as np
+import pandas as pd
 from sensortoolkit.datetime_utils import get_todays_date
 
 
@@ -173,7 +173,7 @@ def regression_stats(sensor_df_obj, ref_df_obj, deploy_dict, param, serials):
             print('..Warning: Linear regression not possible for sensor '
                   + str(sensor_num) + '. Sensor or reference data are '
                   'null.')
-            r_square = slope = intercept = RMSE = N = np.nan
+            r_square = slope = intercept = rmse = N = np.nan
             param_min = param_max = param_mean = np.nan
         else:
             N = int(len(combine_df))
@@ -182,7 +182,7 @@ def regression_stats(sensor_df_obj, ref_df_obj, deploy_dict, param, serials):
                 print('..Warning: Linear regression not possible for' +
                       ' sensor ' + str(sensor_num) +
                       '. Insufficient number of data points')
-                r_square = slope = intercept = RMSE = N = np.nan
+                r_square = slope = intercept = rmse = N = np.nan
                 param_min = param_max = param_mean = np.nan
 
             else:
@@ -197,7 +197,7 @@ def regression_stats(sensor_df_obj, ref_df_obj, deploy_dict, param, serials):
                 sensor_val = combine_df.sensor_data
                 ref_val = combine_df.ref_data
                 MSE = (1/N)*sum((sensor_val-ref_val)**2)
-                RMSE = np.sqrt(MSE)
+                rmse = np.sqrt(MSE)
 
                 param_min = combine_df.sensor_data.min()
                 param_max = combine_df.sensor_data.max()
@@ -214,7 +214,7 @@ def regression_stats(sensor_df_obj, ref_df_obj, deploy_dict, param, serials):
                                r_square,
                                slope,
                                intercept,
-                               RMSE,
+                               rmse,
                                N,
                                param_min,
                                param_max,

@@ -38,10 +38,7 @@ def uptime(dataframe_object, key=None):
         df_list = dataframe_object
 
     # Check if any of the above ref column names are in the passed dataframe(s)
-    if any(header.endswith('_Value') for header in df_list[0]):
-        ref_data = True
-    else:
-        ref_data = False
+    ref_data = bool(any(header.endswith('_Value') for header in df_list[0]))
 
     uptime_dict = {}
 

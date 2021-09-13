@@ -85,9 +85,9 @@ Created:
 Last Updated:
   Thu Sep 7 16:41:00 2021
 """
+import sys
 import numpy as np
 import pandas as pd
-import sys
 
 
 def nowcast_pm25(df, column=None):
@@ -122,7 +122,7 @@ def nowcast_pm25(df, column=None):
         df.index.name = 'DateTime_UTC'
 
     # Check type of index column, must be datetime formatted
-    if type(df_idx) != pd.core.indexes.datetimes.DatetimeIndex:
+    if not isinstance(df_idx, pd.core.indexes.datetimes.DatetimeIndex):
         sys.exit('Index must be data type '
                  'pandas.core.indexes.datetimes.DatetimeIndex')
 

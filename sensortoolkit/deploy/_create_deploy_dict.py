@@ -102,6 +102,7 @@ def construct_deploy_dict(deploy_df, full_df_list, hourly_df_list,
     deploy_dict = {'sensortoolkit Version': _get_version(),
                    'Date of Analysis': current_time,
                    'Sensor Name': sensor_name,
+                   'Sensor Firmware Version': 'Unspecified',
                    'Deployment Groups': {},
                    'Testing Organization': testing_org,
                    'Testing Location': testing_loc}

@@ -93,7 +93,7 @@ def aqi(data):
         KeyError: If passed data object is type pandas dataframe and the column
             header 'PM25' is not found.
     """
-    AQI_dict = {'Good': {'I_h': 50,
+    breakpoints = {'Good': {'I_h': 50,
                          'I_l': 0,
                          'C_l': 0.0,
                          'C_h': 12.05},
@@ -135,11 +135,11 @@ def aqi(data):
     if 'PM25' not in data:
         raise KeyError('Column header "PM25" not in passed dataframe.')
 
-    for cat in AQI_dict:
-        conc_max = AQI_dict[cat]['C_h']
-        conc_min = AQI_dict[cat]['C_l']
-        index_max = AQI_dict[cat]['I_h']
-        index_min = AQI_dict[cat]['I_l']
+    for cat in breakpoints:
+        conc_max = breakpoints[cat]['C_h']
+        conc_min = breakpoints[cat]['C_l']
+        index_max = breakpoints[cat]['I_h']
+        index_min = breakpoints[cat]['I_l']
 
         cat_conc = data[(data.PM25 >= conc_min) & (data.PM25 < conc_max)].PM25
         cat_idx = cat_conc.index
