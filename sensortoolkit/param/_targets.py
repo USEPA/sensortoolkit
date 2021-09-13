@@ -25,35 +25,41 @@ class ParameterTargets:
                                {'Bias':
                                     {'Slope': {'description': 'Ordinary least squares regression slope',
                                                'bounds': (0.65, 1.35),
+                                               'goal': 1.0,
                                                'metric_units': None},
 
                                      'Intercept': {'description': 'Ordinary least squares regression intercept',
-                                                   'lower_bound': -5.0,
-                                                   'upper_bound': 5.0,
+                                                   'bounds': (-5.0, 5.0),
+                                                   'goal': 1.0,
                                                    'metric_units': '$\\mu g/m^3$'},
                                      },
 
                                 'Linearity':
                                     {'R^2': {'description': 'Coefficient of determination',
                                                'bounds': (0.70, 1.0),
+                                               'goal': 1.0,
                                                'metric_units': None}
                                      },
 
                                 'Error': {'RMSE': {'description': 'Root mean square error',
                                                    'bounds': (0.0, 7.0),
+                                                   'goal': 0.0,
                                                    'metric_units': '$\\mu g/m^3$'},
 
                                           'NRMSE': {'description': 'Normalized root mean square error',
                                                     'bounds': (0.0, 30.0),
+                                                    'goal': 0.0,
                                                     'metric_units': '%'}
                                           },
 
                                 'Precision': {'SD': {'description': 'Standard deviation',
                                                      'bounds': (0.0, 5.0),
+                                                     'goal': 0.0,
                                                      'metric_units': '$\\mu g/m^3$'},
 
                                               'CV': {'description': 'Coefficient of variation',
                                                      'bounds': (0.0, 30.0),
+                                                     'goal': 0.0,
                                                      'metric_units': '%'}}
                                 },
 
@@ -61,31 +67,36 @@ class ParameterTargets:
                                {'Bias':
                                     {'Slope': {'description': 'Ordinary least squares regression slope',
                                                'bounds': (0.8, 1.2),
+                                               'goal': 1.0,
                                                'metric_units': None},
 
                                      'Intercept': {'description': 'Ordinary least squares regression intercept',
-                                                   'lower_bound': -5.0,
-                                                   'upper_bound': 5.0,
+                                                   'bounds': (-5.0, 5.0),
+                                                   'goal': 0.0,
                                                    'metric_units': 'ppbv'},
                                      },
 
                                 'Linearity':
                                     {'R^2': {'description': 'Coefficient of determination',
                                                'bounds': (0.80, 1.0),
+                                               'goal': 1.0,
                                                'metric_units': None}
                                      },
 
                                 'Error': {'RMSE': {'description': 'Root mean square error',
                                                    'bounds': (0.0, 5.0),
+                                                   'goal': 0.0,
                                                    'metric_units': 'ppbv'}
                                           },
 
                                 'Precision': {'SD': {'description': 'Standard deviation',
                                                      'bounds': (0.0, 5.0),
+                                                     'goal': 0.0,
                                                      'metric_units': 'ppbv'},
 
                                               'CV': {'description': 'Coefficient of variation',
                                                      'bounds': (0.0, 30.0),
+                                                     'goal': 0.0,
                                                      'metric_units': '%'}}
                                 }
                            }
@@ -132,8 +143,8 @@ class ParameterTargets:
 
         metric_entry = self.__metrics__[metric_category][metric_name]
         metric_entry['description'] = kwargs.get('description', None)
-        metric_entry['lower_bound'] = kwargs.get('lower_bound', None)
-        metric_entry['upper_bound'] = kwargs.get('upper_bound', None)
+        metric_entry['bounds'] = kwargs.get('bounds', None)
+        metric_entry['goal'] = kwargs.get('goal', None)
         metric_entry['metric_units'] = kwargs.get('metric_units', None)
 
     def get_PerformanceMetric(self, metric_category, metric_name):
