@@ -1,22 +1,13 @@
 # -*- coding: utf-8 -*-
 """
-Top-level module for the ``sensortoolkit`` library. Contains the front-facing
-``SensorEvaluation`` class for conducting analysis of sensor data.
+Top-level analysis module for the ``sensortoolkit`` library. Contains the
+front-facing ``SensorEvaluation`` class for conducting analysis of sensor data.
 
 ================================================================================
 
 @Author:
     | Samuel Frederick, NSSC Contractor (ORAU)
     | U.S. EPA / ORD / CEMM / AMCD / SFSB
-
-*Please direct all inquiries to:*
-    | Andrea Clements Ph.D., Research Physical Scientist
-    | U.S. EPA, Office of Research and Development
-    | Center for Environmental Measurement and Modeling
-    | Air Methods & Characterization Division, Source and Fine Scale Branch
-    | 109 T.W. Alexander Drive, Research Triangle Park, NC  27711
-    | Office: 919-541-1363 | Email: clements.andrea@epa.gov
-    |
 
 Created:
   Fri Jul 31 08:39:37 2020

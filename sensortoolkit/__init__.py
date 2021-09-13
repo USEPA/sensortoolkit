@@ -1,5 +1,14 @@
 # -*- coding: utf-8 -*-
 """Top-level module for the ``sensortoolkit`` library.
+
+*Please direct all inquiries to:*
+    | Andrea Clements Ph.D., Research Physical Scientist
+    | U.S. EPA, Office of Research and Development
+    | Center for Environmental Measurement and Modeling
+    | Air Methods & Characterization Division, Source and Fine Scale Branch
+    | 109 T.W. Alexander Drive, Research Triangle Park, NC  27711
+    | Office: 919-541-1363 | Email: clements.andrea@epa.gov
+    |
 """
 
 # Setup modules and package maintenance
