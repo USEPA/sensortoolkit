@@ -297,7 +297,7 @@ class Setup:
         # Create a nested list of unique column names
         col_list = [list(self.col_headers[key].keys()) for key in
                     list(self.col_headers.keys())]
-        self.all_col_headers = Flatten(col_list)
+        self.all_col_headers = flatten_list(col_list)
 
         for i, cols in enumerate(col_list):
             print('..Header(s) at column index {0:d}: {1}'.format(i, cols))
@@ -315,7 +315,7 @@ class Setup:
         end = False
         i = 1
         while end is False:
-            val = input("Enter Timestamp column #{0}: ".format(str(i)))
+            val = input("Enter Timestamp column name #{0}: ".format(str(i)))
 
             if val == 'X':
                 end = True
