@@ -23,41 +23,49 @@ class ParameterTargets:
 
         __target_dict__ = {'PM25':
                                {'Bias':
-                                    {'Slope': {'description': 'Ordinary least squares regression slope',
+                                    {'Slope': {'description': 'Ordinary least '
+                                               'squares regression slope',
                                                'bounds': (0.65, 1.35),
                                                'goal': 1.0,
                                                'metric_units': None},
 
-                                     'Intercept': {'description': 'Ordinary least squares regression intercept',
+                                     'Intercept': {'description': 'Ordinary '
+                                                   'least squares regression '
+                                                   'intercept',
                                                    'bounds': (-5.0, 5.0),
-                                                   'goal': 1.0,
+                                                   'goal': 0.0,
                                                    'metric_units': '$\\mu g/m^3$'},
                                      },
 
                                 'Linearity':
-                                    {'R^2': {'description': 'Coefficient of determination',
+                                    {'R^2': {'description': 'Coefficient of '
+                                             'determination',
                                                'bounds': (0.70, 1.0),
                                                'goal': 1.0,
                                                'metric_units': None}
                                      },
 
-                                'Error': {'RMSE': {'description': 'Root mean square error',
+                                'Error': {'RMSE': {'description': 'Root mean '
+                                                   'square error',
                                                    'bounds': (0.0, 7.0),
                                                    'goal': 0.0,
                                                    'metric_units': '$\\mu g/m^3$'},
 
-                                          'NRMSE': {'description': 'Normalized root mean square error',
+                                          'NRMSE': {'description': 'Normalized'
+                                                    ' root mean square error',
                                                     'bounds': (0.0, 30.0),
                                                     'goal': 0.0,
                                                     'metric_units': '%'}
                                           },
 
-                                'Precision': {'SD': {'description': 'Standard deviation',
+                                'Precision': {'SD': {'description': 'Standard'
+                                                     ' deviation',
                                                      'bounds': (0.0, 5.0),
                                                      'goal': 0.0,
                                                      'metric_units': '$\\mu g/m^3$'},
 
-                                              'CV': {'description': 'Coefficient of variation',
+                                              'CV': {'description': 'Coeffici'
+                                                     'ent of variation',
                                                      'bounds': (0.0, 30.0),
                                                      'goal': 0.0,
                                                      'metric_units': '%'}}
@@ -65,36 +73,48 @@ class ParameterTargets:
 
                            'O3':
                                {'Bias':
-                                    {'Slope': {'description': 'Ordinary least squares regression slope',
+                                    {'Slope': {'description': 'Ordinary least'
+                                               ' squares regression slope',
                                                'bounds': (0.8, 1.2),
                                                'goal': 1.0,
                                                'metric_units': None},
 
-                                     'Intercept': {'description': 'Ordinary least squares regression intercept',
+                                     'Intercept': {'description': 'Ordinary '
+                                                   'least squares regression'
+                                                   ' intercept',
                                                    'bounds': (-5.0, 5.0),
                                                    'goal': 0.0,
                                                    'metric_units': 'ppbv'},
                                      },
 
                                 'Linearity':
-                                    {'R^2': {'description': 'Coefficient of determination',
+                                    {'R^2': {'description': 'Coefficient of de'
+                                             'termination',
                                                'bounds': (0.80, 1.0),
                                                'goal': 1.0,
                                                'metric_units': None}
                                      },
 
-                                'Error': {'RMSE': {'description': 'Root mean square error',
+                                'Error': {'RMSE': {'description': 'Root mean '
+                                                   'square error',
                                                    'bounds': (0.0, 5.0),
                                                    'goal': 0.0,
-                                                   'metric_units': 'ppbv'}
+                                                   'metric_units': 'ppbv'},
+
+                                          'NRMSE': {'description': None,
+                                                    'bounds': (0, 0),
+                                                    'goal': None,
+                                                    'metric_units': None}
                                           },
 
-                                'Precision': {'SD': {'description': 'Standard deviation',
+                                'Precision': {'SD': {'description': 'Standard '
+                                                     'deviation',
                                                      'bounds': (0.0, 5.0),
                                                      'goal': 0.0,
                                                      'metric_units': 'ppbv'},
 
-                                              'CV': {'description': 'Coefficient of variation',
+                                              'CV': {'description': 'Coeffici'
+                                                     'ent of variation',
                                                      'bounds': (0.0, 30.0),
                                                      'goal': 0.0,
                                                      'metric_units': '%'}}
