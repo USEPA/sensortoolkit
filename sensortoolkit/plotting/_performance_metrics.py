@@ -31,9 +31,20 @@ def performance_metrics(stats_df, deploy_dict, param=None,
                         write_to_file=True, **kwargs):
     """
 
+
     Args:
+        stats_df (pandas dataframe): DESCRIPTION.
+        deploy_dict (dict): DESCRIPTION.
+        param (str, optional): DESCRIPTION. Defaults to None.
+        param_averaging (str, optional): DESCRIPTION. Defaults to None.
+        font_size (int, optional): DESCRIPTION. Defaults to 12.
+        path (str, optional): DESCRIPTION. Defaults to None.
+        sensor_name (str, optional): DESCRIPTION. Defaults to None.
+        write_to_file (bool, optional): DESCRIPTION. Defaults to True.
+        **kwargs (TYPE): DESCRIPTION.
 
     Returns:
+        None.
 
     """
     sns.set_style('darkgrid')
@@ -57,130 +68,92 @@ def performance_metrics(stats_df, deploy_dict, param=None,
     plotting_dims = {
         # Plot y-limits
         # y-min, y-max
-        'ylims': {'rsqr': (-0.02, 1.02)},
+        'ylims': {'R^2': (-0.02, 1.02)},
 
         # Target goal horizontal line
         # (y-coord, x-min, x-max)
-        'hline_dims': {'rsqr': (targets['Linearity']['R^2']['goal'],
-                                PLOT_XMIN,
-                                PLOT_XMAX),
-                       'slope': (targets['Bias']['Slope']['goal'],
+        'hline_dims': {'R^2': (targets['Linearity']['R^2']['goal'],
+                               PLOT_XMIN,
+                               PLOT_XMAX),
+                       'Slope': (targets['Bias']['Slope']['goal'],
                                  PLOT_XMIN,
                                  PLOT_XMAX),
-                       'intercept': (targets['Bias']['Intercept']['goal'],
+                       'Intercept': (targets['Bias']['Intercept']['goal'],
                                      PLOT_XMIN,
                                      PLOT_XMAX),
-                       'cv': (targets['Precision']['CV']['goal'],
+                       'CV': (targets['Precision']['CV']['goal'],
                               PLOT_XMIN,
                               PLOT_XMAX),
-                       'rmse': (targets['Error']['RMSE']['goal'],
+                       'RMSE': (targets['Error']['RMSE']['goal'],
                                 PLOT_XMIN,
                                 PLOT_XMAX),
-                       'nrmse': (targets['Error']['NRMSE']['goal'],
+                       'NRMSE': (targets['Error']['NRMSE']['goal'],
                                  PLOT_XMIN,
                                  PLOT_XMAX),
-                       'sd': (targets['Error']['SD']['goal'],
+                       'SD': (targets['Precision']['SD']['goal'],
                               PLOT_XMIN,
                               PLOT_XMAX)},
 
         # x-min, y-min, x-range, y-range
-        'box_dims': {'rsqr': (PLOT_XMIN,
-                              targets['Linearity']['R^2']['bound'][0],
-                              PLOT_XRANGE,
-                              targets['Linearity']['R^2']['bound'][1] -
-                              targets['Linearity']['R^2']['bound'][0]),
-                     'slope': (PLOT_XRANGE,
-                               targets['Bias']['Slope']['bound'][0],
+        'box_dims': {'R^2': (PLOT_XMIN,
+                             targets['Linearity']['R^2']['bounds'][0],
+                             PLOT_XRANGE,
+                             targets['Linearity']['R^2']['bounds'][1] -
+                             targets['Linearity']['R^2']['bounds'][0]),
+                     'Slope': (PLOT_XMIN,
+                               targets['Bias']['Slope']['bounds'][0],
                                PLOT_XRANGE,
-                               targets['Bias']['Slope']['bound'][1] -
-                               targets['Bias']['Slope']['bound'][0]),
-                     'intercept': (PLOT_XRANGE,
-                                   targets['Bias']['Intercept']['bound'][0],
+                               targets['Bias']['Slope']['bounds'][1] -
+                               targets['Bias']['Slope']['bounds'][0]),
+                     'Intercept': (PLOT_XMIN,
+                                   targets['Bias']['Intercept']['bounds'][0],
                                    PLOT_XRANGE,
-                                   targets['Bias']['Intercept']['bound'][1] -
-                                   targets['Bias']['Intercept']['bound'][0]),
-                     'cv': (PLOT_XRANGE,
-                            targets['Precision']['CV']['bound'][0],
+                                   targets['Bias']['Intercept']['bounds'][1] -
+                                   targets['Bias']['Intercept']['bounds'][0]),
+                     'CV': (PLOT_XMIN,
+                            targets['Precision']['CV']['bounds'][0],
                             PLOT_XRANGE,
-                            targets['Precision']['CV']['bound'][1] -
-                            targets['Precision']['CV']['bound'][0]),
-                     'rmse': (PLOT_XRANGE,
-                              targets['Error']['RMSE']['bound'][0],
+                            targets['Precision']['CV']['bounds'][1] -
+                            targets['Precision']['CV']['bounds'][0]),
+                     'RMSE': (PLOT_XMIN,
+                              targets['Error']['RMSE']['bounds'][0],
                               PLOT_XRANGE,
-                              targets['Error']['RMSE']['bound'][1] -
-                              targets['Error']['RMSE']['bound'][0]),
-                     'nrmse': (PLOT_XRANGE,
-                               targets['Error']['NRMSE']['bound'][0],
+                              targets['Error']['RMSE']['bounds'][1] -
+                              targets['Error']['RMSE']['bounds'][0]),
+                     'NRMSE': (PLOT_XMIN,
+                               targets['Error']['NRMSE']['bounds'][0],
                                PLOT_XRANGE,
-                               targets['Error']['NRMSE']['bound'][1] -
-                               targets['Error']['NRMSE']['bound'][0]),
-                     'sd': (PLOT_XRANGE,
-                            targets['Error']['SD']['bound'][0],
+                               targets['Error']['NRMSE']['bounds'][1] -
+                               targets['Error']['NRMSE']['bounds'][0]),
+                     'SD': (PLOT_XMIN,
+                            targets['Precision']['SD']['bounds'][0],
                             PLOT_XRANGE,
-                            targets['Error']['SD']['bound'][1] -
-                            targets['Error']['SD']['bound'][0])}
+                            targets['Precision']['SD']['bounds'][1] -
+                            targets['Precision']['SD']['bounds'][0])}
         }
 
-    # plotting_dims = {'PM25':
-    #                  # y-min, y-max
-    #                  {'ylims': {'rsqr': (-0.02, 1.02),
-    #                             },
-    #                   # Target goal horizontal line
-    #                   # (y-coord, x-min, x-max)
-    #                   'hline_dims': {'rsqr': (1.0, -0.50, 1.50),
-    #                                  'slope': (1.0, -0.50, 1.50),
-    #                                  'intercept': (0.0, -0.50, 1.50),
-    #                                  'cv': (0.35, -0.50, 1.50),
-    #                                  'rmse': (0.10, -0.50, 1.50),
-    #                                  'nrmse': (0.35, -0.50, 1.50),
-    #                                  'sd': (0.05, -0.50, 1.50)},
-    #                   # x-min, y-min, x-max, y-range
-    #                   'box_dims': {'rsqr': (-0.5, 0.7, 2.0, 0.3),
-    #                                'slope': (-0.5, 0.65, 2.0, 0.7),
-    #                                'intercept': (-0.5, -5.0, 2.0, 10),
-    #                                'cv': (-0.5, 0.0, 2.0, 30.0),
-    #                                'rmse': (-0.5, 0, 2, 7),
-    #                                'nrmse': (-0.5, 0, 2, 30),
-    #                                'sd': (-0.5, 0.0, 2.0, 5.0)}
-    #                   },
-    #                  'O3':
-    #                  {'ylims': {'rsqr': (-0.02, 1.02),
-    #                             },
-    #                   'hline_dims': {'rsqr': (1, -1, 1),
-    #                                  'slope': (1, -1, 1),
-    #                                  'intercept': (0, -1, 1),
-    #                                  'cv': (0.35, -1, 1),
-    #                                  'rmse': (0.10, -1, 1),
-    #                                  'nrmse': (0.35, -1, 1),
-    #                                  'sd': (0.05, -1, 1)},
-    #                   'box_dims': {'rsqr': (-1, 0.8, 2.0, 0.2),
-    #                                'slope': (-1, 0.8, 2.0, 0.4),
-    #                                'intercept': (-1, -5.0, 2.0, 10),
-    #                                'cv': (-1, 0.0, 2.0, 30.0),
-    #                                'rmse': (-1, 0.0, 2.0, 5.0),
-    #                                'nrmse': (-1, 0, 2, 30),
-    #                                'sd': (-1, 0.0, 2.0, 5.0)}
-    #                   }
-    #                  }
+    remove_keys = {}
+    for category in targets.keys():
+        for metric in targets[category].keys():
+            goal = targets[category][metric]['goal']
+            if goal is None:
+                remove_keys[category] = metric
 
-    #param_dims = plotting_dims.get(param)
+    for category in remove_keys:
+        metric = remove_keys[category]
+        targets[category].pop(metric)
+        plotting_dims['hline_dims'].pop(metric)
+        plotting_dims['box_dims'].pop(metric)
 
     cv_vals = {interval: [] for interval in param_averaging}
     std_vals = {interval: [] for interval in param_averaging}
     rmse_vals = {interval: [] for interval in param_averaging}
     nrmse_vals = {interval: [] for interval in param_averaging}
 
-    #interval_to_freq = {'1-hour': 'Hourly',
-     #                   '24-hour': 'Daily'}
-
-    # List of frequencies ('Hourly, Daily') for specified parameter
-    #param_freq = [interval_to_freq[interval] for interval in param_averaging]
-
     # Extract metric values into metric dictionaries
     for group in deploy_dict['Deployment Groups']:
         param_stats = deploy_dict['Deployment Groups'][group][param]
         for interval in param_averaging:
-            #freq = interval_to_freq[interval].lower()
             cv_vals[interval].append(
                                 param_stats['Precision']['cv_' + interval])
             std_vals[interval].append(
@@ -200,24 +173,28 @@ def performance_metrics(stats_df, deploy_dict, param=None,
     marker_line_width = kwargs.get('marker_line_width', 1)
     mean_marker = kwargs.get('mean_marker', 'd')
 
+    # List of metrics to plot
+    metrics = []
+    for category in targets:
+        metrics.extend(targets[category].keys())
+
+    metric_names = ['R$^2$', 'Slope', 'Intercept', 'RMSE',
+                    'NRMSE', 'CV (%)', 'Standard Deviation']
+
+    if 'NRMSE' in remove_keys.values():
+        metric_names.remove('NRMSE')
+
     fig_width = kwargs.get('figure_width', 15.7)
     fig_height = kwargs.get('figure_height', 3.9)
-    fig, axs = plt.subplots(1, 7, figsize=(fig_width, fig_height))
+    fig, axs = plt.subplots(1, len(metrics), figsize=(fig_width, fig_height))
 
     n_sensors = stats_df.where((stats_df['Sensor Name'].notna()) &
                                (stats_df['R$^2$'].notna())
                                ).Sensor_Number.nunique()
 
-    metric_names = ['R$^2$', 'Slope', 'Intercept', 'RMSE',
-                    'nRMSE', 'CV (%)', 'Standard Deviation']
-
     stats_df = stats_df[['R$^2$', 'Slope', 'Intercept', 'Averaging Interval']]
     stats_df = stats_df.where(
                     stats_df['Averaging Interval'].isin(param_averaging))
-
-#    for interval, freq in zip(param_averaging, param_freq):
-#        header = 'Averaging Interval'
-#        stats_df[header] = stats_df[header].str.replace(freq, interval)
 
     for ax_idx, metric_name in enumerate(metric_names):
         with sns.plotting_context(context="notebook", font_scale=1):
@@ -253,7 +230,7 @@ def performance_metrics(stats_df, deploy_dict, param=None,
                     metric_data = std_vals
                 if metric_name == 'RMSE':
                     metric_data = rmse_vals
-                if metric_name == 'nRMSE':
+                if metric_name == 'NRMSE':
                     metric_data = nrmse_vals
 
                 data_df = pd.DataFrame(metric_data).T.reset_index()
@@ -273,12 +250,12 @@ def performance_metrics(stats_df, deploy_dict, param=None,
             boxes = []
 
             if metric_name == 'R$^2$':
-                dim_key = 'rsqr'
+                dim_key = 'R^2'
                 lower_lim = None
                 upper_lim = None
 
             if metric_name == 'Slope':
-                dim_key = 'slope'
+                dim_key = 'Slope'
                 upper_lim = abs(1.5*stats_df[metric_name]).max()
                 lower_lim = 1.5*stats_df[metric_name].min()
 
@@ -293,55 +270,51 @@ def performance_metrics(stats_df, deploy_dict, param=None,
                     lower_lim = 1.5*lower_lim
 
             if metric_name == 'Intercept':
-                dim_key = 'intercept'
+                dim_key = 'Intercept'
                 upper_lim = abs(1.5*stats_df[metric_name]).max()
                 if upper_lim < 10:
                     upper_lim = 10
                 lower_lim = -1*upper_lim
 
-                if param == 'PM25':
-                    metric_name = r'Intercept ($\mu g/m^3$)'
-                if param == 'O3':
-                    metric_name = 'Intercept (ppbv)'
+                metric_name = 'Intercept ' + param_obj.units
 
             if metric_name == 'CV (%)':
-                dim_key = 'cv'
+                dim_key = 'CV'
                 lower_lim = 0
                 upper_lim = 1.5*data_df[metric_name].max()
                 if upper_lim < 50:
                     upper_lim = 50
 
             if metric_name == 'RMSE':
-                dim_key = 'rmse'
+                dim_key = 'RMSE'
                 upper_lim = 1.5*data_df[metric_name].max()
                 lower_lim = 0
                 if upper_lim < 10:
                     upper_lim = 10
 
-                metric_name = r'RMSE ($\mu g/m^3$)'
+                metric_name = r'RMSE ' + param_obj.units
 
-            if metric_name == 'nRMSE':
-                dim_key = 'nrmse'
+            if metric_name == 'NRMSE':
+                dim_key = 'NRMSE'
                 lower_lim = 0
                 if upper_lim < 50:
                     upper_lim = 50
-                metric_name = r'nRMSE ($\%$)'
+                metric_name = r'NRMSE ($\%$)'
 
             if metric_name.startswith('Standard Deviation'):
-                dim_key = 'sd'
+                dim_key = 'SD'
                 lower_lim = 0
                 upper_lim = 1.5*data_df[metric_name].max()
-                metric_name = r'Standard Dev. ($\mu g/m^3$)'
+                metric_name = r'Standard Dev. ' + param_obj.units
 
                 if upper_lim < 10:
                     upper_lim = 10
 
             # Get formatting values
             ylims = kwargs.get(dim_key + '_ylims',
-                               plotting_dims['ylims'].get(dim_key,
-                                                       (lower_lim, upper_lim)))
+                plotting_dims['ylims'].get(dim_key, (lower_lim, upper_lim)))
             hline_dims = kwargs.get(dim_key + '_hline_dims',
-                                    plotting_dims.get('hline_dims').get(dim_key))
+                                plotting_dims.get('hline_dims').get(dim_key))
             box_dims = kwargs.get(dim_key + '_box_dims',
                                   plotting_dims.get('box_dims').get(dim_key))
 
@@ -350,10 +323,7 @@ def performance_metrics(stats_df, deploy_dict, param=None,
             hline_y, hline_xmin, hline_xmax = hline_dims
             rec_x0, rec_y0, rec_xspan, rec_yspan = box_dims
 
-            if param == 'PM25':
-                axs[ax_idx].set_xlim(-.5, 1.5)
-            if param == 'O3':
-                axs[ax_idx].set_xlim(-1, 1)
+            axs[ax_idx].set_xlim(PLOT_XMIN, PLOT_XMAX)
 
             axs[ax_idx].hlines(y=hline_y, xmin=hline_xmin,
                                xmax=hline_xmax, linewidth=1.5,
