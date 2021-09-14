@@ -11,7 +11,7 @@ Last Updated:
 """
 
 
-def remove_duplicates(full_df):
+def remove_duplicates(full_df, aggregate_by='mean'):
     """Locate and remove duplicate timestamp entries if present in passed
     dataframe.
 
@@ -33,7 +33,7 @@ def remove_duplicates(full_df):
         print('No duplicate timestamps found')
     else:
         original_df_len = full_df.shape[0]
-        full_df = full_df.groupby(full_df.index).mean()
+        full_df = full_df.groupby(full_df.index).agg(aggregate_by)
         modified_df_len = full_df.shape[0]
 
         n_duplicates = original_df_len - modified_df_len
