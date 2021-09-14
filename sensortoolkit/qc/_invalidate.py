@@ -11,7 +11,7 @@ Last Updated:
 """
 import numpy as np
 
-def invalidate_period(df, param, start, end):
+def invalidate_period(df, param, bdate, edate):
     """Invalidate data by manually indicating a period of time.
 
     Data within the indicated start and end timestamps will be invaldiated
@@ -23,13 +23,13 @@ def invalidate_period(df, param, start, end):
     Args:
         df (TYPE): DESCRIPTION.
         param (TYPE): DESCRIPTION.
-        start (TYPE): DESCRIPTION.
-        end (TYPE): DESCRIPTION.
+        bdate (TYPE): DESCRIPTION.
+        edate (TYPE): DESCRIPTION.
 
     Returns:
         df (TYPE): DESCRIPTION.
 
     """
-    df.loc[start:end, param] = np.nan
-    df.loc[start:end, param + '_QAQC_Code'] = 2  # temporary flag
+    df.loc[bdate:edate, param] = np.nan
+    df.loc[bdate:edate, param + '_QAQC_Code'] = 2  # temporary flag
     return df
