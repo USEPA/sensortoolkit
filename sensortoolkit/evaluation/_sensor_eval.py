@@ -626,12 +626,12 @@ class SensorEvaluation:
         if len(avg_list) == 2 and report_fmt is True:
             fig, axs = plt.subplots(2, 1, figsize=(10.15, 4.1))
             fig.subplots_adjust(hspace=0.7)
-            for i, avg_interval in enumerate(avg_list):
+            for i, averaging_interval in enumerate(avg_list):
 
-                if avg_interval == '1-hour':
+                if averaging_interval == '1-hour':
                     sensor_data = self.hourly_df_list
                     ref_data = self.hourly_ref_df
-                if avg_interval == '24-hour':
+                if averaging_interval == '24-hour':
                     sensor_data = self.daily_df_list
                     ref_data = self.daily_ref_df
 
@@ -652,7 +652,7 @@ class SensorEvaluation:
                                             ref_name=self.ref_name,
                                             start=t_start,
                                             end=t_end,
-                                            time_interval=avg_interval,
+                                            averaging_interval=averaging_interval,
                                             report_fmt=report_fmt,
                                             write_to_file=write_to_file,
                                             ax=axs[i],
@@ -687,7 +687,7 @@ class SensorEvaluation:
                     ref_name=self.ref_name,
                     start=t_start,
                     end=t_end,
-                    time_interval=averaging_interval,
+                    averaging_interval=averaging_interval,
                     report_fmt=report_fmt,
                     write_to_file=self.write_to_file,
                     **kwargs)
@@ -786,13 +786,13 @@ class SensorEvaluation:
             fig, axs = plt.subplots(1, len(avg_list), figsize=figsize)
             kwargs['fontsize'] = 9
             fig.subplots_adjust(hspace=0.7)
-            for i, avg_interval in enumerate(self.eval_param_averaging):
+            for i, averaging_interval in enumerate(self.eval_param_averaging):
 
-                if avg_interval == '1-hour':
+                if averaging_interval == '1-hour':
                     sensor_data = self.hourly_df_list
                     ref_data = self.hourly_ref_df
                     met_data = self.met_hourly_ref_df
-                if avg_interval == '24-hour':
+                if averaging_interval == '24-hour':
                     sensor_data = self.daily_df_list
                     ref_data = self.daily_ref_df
                     met_data = self.met_daily_ref_df
@@ -824,7 +824,7 @@ class SensorEvaluation:
                                         figure_path=self.figure_path,
                                         sensor_name=self.name,
                                         ref_name=self.ref_name,
-                                        time_interval=avg_interval,
+                                        averaging_interval=averaging_interval,
                                         plot_subset=plot_subset,
                                         write_to_file=write_to_file,
                                         report_fmt=True,
@@ -864,7 +864,7 @@ class SensorEvaluation:
                                figure_path=self.figure_path,
                                sensor_name=self.name,
                                ref_name=self.ref_name,
-                               time_interval=averaging_interval,
+                               averaging_interval=averaging_interval,
                                plot_subset=plot_subset,
                                report_fmt=report_fmt,
                                write_to_file=self.write_to_file,
@@ -1018,13 +1018,13 @@ class SensorEvaluation:
                            param=met_param,
                            sensor_name=self.name,
                            ref_name=ref_name,
-                           time_interval=averaging_interval,
+                           averaging_interval=averaging_interval,
                            figure_path=self.figure_path,
                            write_to_file=self.write_to_file,
                            sensor_serials=self.serials,
                            **kwargs)
 
-    def print_eval_metrics(self, avg_interval='24-hour'):
+    def print_eval_metrics(self, averaging_interval='24-hour'):
         try:
             self.deploy_dict
         except AttributeError:
@@ -1038,11 +1038,11 @@ class SensorEvaluation:
 
         deploy_dic = self.deploy_dict
         deploy_stats = self.stats_df.where(
-                           self.stats_df['Averaging Interval'] == avg_interval)
+                           self.stats_df['Averaging Interval'] == averaging_interval)
 
         print(88*'-')
         print('{:^88s}'.format(self.name + ' '
-                               + avg_interval +
+                               + averaging_interval +
                                ' Performance Evaluation Results'))
         print('{:^88s}'.format('Reference Method: ' + self.ref_name))
         print(88*'-')
@@ -1050,7 +1050,7 @@ class SensorEvaluation:
               'Intercept', 'R^2', 'RMSE'))
         print(88*'-')
         cv_data = [(deploy_dic['Deployment Groups'][group]
-                              [param]['Precision']['cv_' + avg_interval])
+                              [param]['Precision']['cv_' + averaging_interval])
                    for group in deploy_dic['Deployment Groups']]
 
         slope_avg = deploy_stats.Slope.mean()
@@ -1066,7 +1066,7 @@ class SensorEvaluation:
         linearity_max = deploy_stats['R$^2$'].max()
 
         rmse_data = [(deploy_dic['Deployment Groups'][group]
-                      [param]['Error']['rmse_' + avg_interval])
+                      [param]['Error']['rmse_' + averaging_interval])
                      for group in deploy_dic['Deployment Groups']]
 
         print(('{:^6.1f}|{:^24.2f}|'
@@ -1087,7 +1087,7 @@ class SensorEvaluation:
                                                           linearity_max),
               5*' ')
 
-    def print_eval_conditions(self, avg_interval='24-hour'):
+    def print_eval_conditions(self, averaging_interval='24-hour'):
         try:
             self.deploy_dict
         except AttributeError:
@@ -1097,22 +1097,22 @@ class SensorEvaluation:
         except AttributeError:
             self.calculate_metrics()
 
-        if avg_interval == '1-hour':
+        if averaging_interval == '1-hour':
             ref_df = self.hourly_ref_df
             met_ref_df = self.met_hourly_ref_df
-        if avg_interval == '24-hour':
+        if averaging_interval == '24-hour':
             ref_df = self.daily_ref_df
             met_ref_df = self.met_daily_ref_df
 
         deploy_dict = self.deploy_dict
         deploy_stats = self.stats_df.where(
-                            self.stats_df['Averaging Interval'] == avg_interval
+                            self.stats_df['Averaging Interval'] == averaging_interval
                             ).dropna(how='all', axis=0)
         n_sensors = len(self.serials)
 
         print(88*'-')
         print('{:^88s}'.format(self.name + ' (' + str(n_sensors) + ') '
-                               + avg_interval + ' Evaluation Conditions'))
+                               + averaging_interval + ' Evaluation Conditions'))
 
         print(88*'-')
         print('{:^14s}|{:^14s}|{:^14s}|{:^14s}|{:^14s}|{:^14s}'.format(
