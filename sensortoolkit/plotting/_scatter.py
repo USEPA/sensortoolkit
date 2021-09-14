@@ -433,7 +433,7 @@ def scatter_plotter(df_list, ref_df, stats_df=None, plot_subset=None,
     start = min([df.index.min() for df in df_list])
     end = max([df.index.max() for df in df_list])
     max_conc = get_max_conc(param_name, df_list=df_list, ref_df=ref_df,
-                       start=start, end=end)
+                       bdate=start, edate=end)
 
     xlims = kwargs.get('xlims',
                        (0, tick_spacing*round(1.25*max_conc/tick_spacing)))
@@ -522,6 +522,17 @@ def scatter_plotter(df_list, ref_df, stats_df=None, plot_subset=None,
                                               fmt_param_units])}
 
             # set appropriate plt axes array index based on # of sensors
+            if isinstance(sensor_serials, dict):
+                lbl = list(sensor_serials.values())[sensor_idx]
+            else:
+                lbl = 'Sensor ' + str(sensor_number)
+
+            param_dict = {'xlabel': ' '.join([ref_name, fmt_param,
+                                              fmt_param_units]),
+                          'ylabel': ' '.join([lbl, fmt_param,
+                                              fmt_param_units])}
+
+            # set appropriate plt axes array index based on # of sensors
             if isinstance(axs, np.ndarray):
                 ax.set_title(lbl, fontsize=detail_fontsize)
 
@@ -532,15 +543,16 @@ def scatter_plotter(df_list, ref_df, stats_df=None, plot_subset=None,
                 ax.remove()
                 break
 
-            averaging_interval = sensor_df.index[1] - sensor_df.index[0]
+            tdelta_interval = sensor_df.index[1] - sensor_df.index[0]
 
-            if (averaging_interval) == pd.Timedelta('1 days'):
+            if (tdelta_interval) == pd.Timedelta('1 days'):
                 daily_df_obj = [sensor_df]
                 daily_ref_df = ref_df
 
-            if (averaging_interval) == pd.Timedelta('1 hour'):
+            if (tdelta_interval) == pd.Timedelta('1 hour'):
                 hourly_df_obj = [sensor_df]
                 hourly_ref_df = ref_df
+
 
             if plot_regression is True:
                 if stats_df is not None:
@@ -550,15 +562,11 @@ def scatter_plotter(df_list, ref_df, stats_df=None, plot_subset=None,
                         sensor_stats['Averaging Interval'] == averaging_interval]
                     sensor_stats = sensor_stats.reset_index(drop=True)
                 else:
-                    sensor_stats = regression_stats(
-                                            hourly_df_obj=hourly_df_obj,
-                                            daily_df_obj=daily_df_obj,
-                                            hourly_ref_df=hourly_ref_df,
-                                            daily_ref_df=daily_ref_df,
-                                            deploy_dict=deploy_dict,
-                                            param=param_name,
-                                            serials=sensor_serials,
-                                            sensor_name=sensor_name)
+                    sensor_stats = regression_stats(sensor_df_obj=sensor_df,
+                                                    ref_df_obj=ref_df,
+                                                    deploy_dict=deploy_dict,
+                                                    param=param,
+                                                    serials=sensor_serials)
 
             try:
                 df = pd.DataFrame()
