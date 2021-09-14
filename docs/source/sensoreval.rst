@@ -237,7 +237,7 @@ saved to ``../Data and Figures/reference_data/airnowtech/processed``.
   import sensortoolkit
 
   airnowtech_path = 'path/to/airnowtech-download.csv'
-  sensortoolkit.refernece.PreProcess_AirNowTech(airnowtech_path)
+  sensortoolkit.reference.preprocess_airnowtech(airnowtech_path)
 
 
 Once AirNowTech datasets have been formatted, the ``SensorEvaluation`` class can
