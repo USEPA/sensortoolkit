@@ -262,13 +262,13 @@ class PerformanceReport(SensorEvaluation):
         hline.line.fill.fore_color.rgb = ppt.dml.color.RGBColor(171, 171, 171)
 
         # Loop over averaging intervals specified for the parameter
-        for i, avg_interval in enumerate(self.eval_param_averaging):
+        for i, averaging_interval in enumerate(self.eval_param_averaging):
             if self.n_sensors > 1:
                 plural = 's'
             else:
                 plural = ''
             fig_name = (self.name + '_vs_' + self.ref_name +
-                        '_' + avg_interval + '_' + str(self.n_sensors) +
+                        '_' + averaging_interval + '_' + str(self.n_sensors) +
                         '_' + 'sensor' + plural)
 
             fig_exists, fig_path = self.FigureSearch(fig_name)
@@ -284,7 +284,7 @@ class PerformanceReport(SensorEvaluation):
 
             if create_figure:
                 self.plot_sensor_scatter(
-                    avg_interval,
+                    averaging_interval,
                     plot_limits=kwargs.get('plot_limits',
                                            (-1, self.plot_cmax)),
                     tick_spacing=kwargs.get('tick_spacing', 5),
