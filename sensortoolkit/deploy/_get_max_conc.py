@@ -11,7 +11,7 @@ Last Updated:
 """
 import numpy as np
 
-def get_max_conc(param, df_list=None, ref_df=None, start=None, end=None):
+def get_max_conc(param, df_list=None, ref_df=None, bdate=None, edate=None):
     """Determine maximum concentration measured across passed dataframes.
 
     If both sensor dataframes are passed to ``df_list`` and a reference
@@ -25,9 +25,9 @@ def get_max_conc(param, df_list=None, ref_df=None, start=None, end=None):
         ref_df (pandas dataframe, optional): Reference dataframe. Defaults to
             None. If dataframe passed, will be considered in calculation of
             maximum concentration.
-        start (str, optional): The starting timestamp to begin search. Defaults
+        bdate (str, optional): The starting timestamp to begin search. Defaults
             to None, will use the earliest timestamp recorded in datasets.
-        end (str, optional): The ending timestamp to end search. Defaults
+        edate (str, optional): The ending timestamp to end search. Defaults
             to None, will use the latest timestamp recorded in datasets.
 
     Returns:
@@ -43,10 +43,10 @@ def get_max_conc(param, df_list=None, ref_df=None, start=None, end=None):
         raise TypeError('Get_Max() missing required dataframe objects: '
                         '"df_list" and/or "ref_df"')
 
-    max_list = [df.loc[start:end, param].max() for df in df_list]
+    max_list = [df.loc[bdate:edate, param].max() for df in df_list]
 
     if ref_df is not None:
-        ref_max = ref_df.loc[start:end, param + '_Value'].max()
+        ref_max = ref_df.loc[bdate:edate, param + '_Value'].max()
         max_list.append(ref_max)
 
     # Remove nans
