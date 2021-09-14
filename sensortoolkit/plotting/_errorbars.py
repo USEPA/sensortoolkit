@@ -16,19 +16,20 @@ register_matplotlib_converters()
 
 
 def error_bars(xdata, ydata, ax, n_xbins=8, plot_yerror=True,
-                    errorbar_c='k'):
+               errorbar_color='k'):
     """
 
+
     Args:
-        xdata
-        ydata
-        ax
-        b_xbins
-        plot_yerror
-        errorbar_c
+        xdata (TYPE): DESCRIPTION.
+        ydata (TYPE): DESCRIPTION.
+        ax (TYPE): DESCRIPTION.
+        n_xbins (TYPE, optional): DESCRIPTION. Defaults to 8.
+        plot_yerror (TYPE, optional): DESCRIPTION. Defaults to True.
+        errorbar_color (TYPE, optional): DESCRIPTION. Defaults to 'k'.
 
     Returns:
-        None
+        None.
 
     """
     combine = xdata.to_frame().join(ydata)
@@ -76,5 +77,6 @@ def error_bars(xdata, ydata, ax, n_xbins=8, plot_yerror=True,
                 print('Warning, divide by zero encountered, zero bin size')
 
     ax.errorbar(xbin_centers, yavg_list, yerr=yerr_list,
-                fmt='D', mfc=errorbar_c, mec=errorbar_c, ecolor=errorbar_c,
-                capsize=4, **{'markersize': 4}, alpha=.7)
+                fmt='D', mfc=errorbar_color, mec=errorbar_color,
+                ecolor=errorbar_color, capsize=4, **{'markersize': 4},
+                alpha=.7)

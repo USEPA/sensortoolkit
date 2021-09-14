@@ -26,8 +26,8 @@ register_matplotlib_converters()
 
 
 def sensor_timeplot(df_list, ref_df, param=None, sensor_name=None,
-                    figure_path=None, start=None, end=None, write_to_file=True,
-                    sensor_serials=None, ref_name=None, time_interval=None,
+                    figure_path=None, bdate=None, edate=None, write_to_file=True,
+                    sensor_serials=None, ref_name=None, averaging_interval=None,
                     return_mpl_obj=True, report_fmt=False, ax=None, fig=None,
                     **kwargs):
     """Generate a timeplot for a specified pollutant alongside FRM/FEM
@@ -52,9 +52,9 @@ def sensor_timeplot(df_list, ref_df, param=None, sensor_name=None,
         fontsize: int or float
             The font size for the xlabel, ylabel, and plot text. Passed on to
             Draw_Scatter() which uses 0.85*font_size for tick labels.
-        start: string
+        bdate: string
             date ('yyyy-mm-dd' format) for beginning of timeseries plot
-        end: string
+        edate: string
             date ('yyyy-mm-dd' format) for end of timeseries plot
         ylim: tuple of floats/ints
             The y-limits of the plot
@@ -84,19 +84,18 @@ def sensor_timeplot(df_list, ref_df, param=None, sensor_name=None,
             text.
         format_xaxis_weeks:
             Plot the timeseries x-axis (time) in increments of 1 week.
-        figsize:
+        fig_size:
             Tuple for setting the figure size.
 
     Returns:
-
+        if return_mpl_obj is True or report_fmt is True, return ax object.
     """
     # Determine maximum concentration recorded during timeframe, use to set
     # default ylim
     max_conc = get_max_conc(param, df_list=df_list, ref_df=ref_df,
-                       start=start, end=end)
+                       bdate=bdate, edate=edate)
 
     cmap_range = get_colormap_range(df_list)
-
 
     # Get keyword argument values if specified, otherwise set default
     sns.set_style(kwargs.get('seaborn_style', 'darkgrid'))
@@ -104,7 +103,7 @@ def sensor_timeplot(df_list, ref_df, param=None, sensor_name=None,
     yscale = kwargs.get('yscale', 'linear')
     ylims = kwargs.get('ylims', (0, 1.25*max_conc))
     format_xaxis_weeks = kwargs.get('format_xaxis_weeks', False)
-    figsize = kwargs.get('figsize', (16, 3.5))
+    fig_size = kwargs.get('fig_size', (16, 3.5))
     fontsize = kwargs.get('fontsize', 15)
     legend_fontscale = kwargs.get('legend_fontscale', 0.65)
     cmap_name = kwargs.get('cmap_name', 'Set1')
@@ -120,7 +119,7 @@ def sensor_timeplot(df_list, ref_df, param=None, sensor_name=None,
         # timeseries [plots arranged as 2 rows, 1 column])
         if 'PM25' in param:
             fontsize = 10.5
-            figsize = (10.15, 4.1)
+            fig_size = (10.15, 4.1)
             show_title = True
 
             # Scaling values for axes box
@@ -138,7 +137,7 @@ def sensor_timeplot(df_list, ref_df, param=None, sensor_name=None,
         # [plot arranged as 1 row, 1 column])
         elif 'O3' in param:
             fontsize = 11
-            figsize = (10.16, 3.8)
+            fig_size = (10.16, 3.8)
             show_title = False
 
             box_xscale = kwargs.get('box_xscale', 1.1)  # Translate x-axis loc
@@ -179,7 +178,7 @@ def sensor_timeplot(df_list, ref_df, param=None, sensor_name=None,
 
     if (ax and fig) is None:
         # No axes object passed to function, create unique fig, axes objects
-        fig, ax = plt.subplots(1, 1, figsize=figsize)
+        fig, ax = plt.subplots(1, 1, figsize=fig_size)
         unique_ax_obj = True
     else:
         # Axes object passed to function, set axes within scope of function to
@@ -195,7 +194,7 @@ def sensor_timeplot(df_list, ref_df, param=None, sensor_name=None,
     fmt_sensor_name = sensor_name.replace('_', ' ')
 
     if show_title is True:
-        title_str = (time_interval + " Averaged " + fmt_sensor_name + ' '
+        title_str = (averaging_interval + " Averaged " + fmt_sensor_name + ' '
                      + fmt_param)
         ax.set_title(title_str, fontsize=fontsize*1.1, x=title_xpos)
 
@@ -242,7 +241,7 @@ def sensor_timeplot(df_list, ref_df, param=None, sensor_name=None,
     ax.set_ylabel(fmt_param + ' ' + fmt_param_units, fontsize=fontsize)
     ax.set_xlabel('Date', fontsize=fontsize)
 
-    ax.set_xlim(pd.to_datetime(start), pd.to_datetime(end))
+    ax.set_xlim(pd.to_datetime(bdate), pd.to_datetime(edate))
     if ylims:
         ax.set_ylim(ylims[0], ylims[1])
     ax.tick_params(labelsize=.75*fontsize)
@@ -298,7 +297,7 @@ def sensor_timeplot(df_list, ref_df, param=None, sensor_name=None,
     if write_to_file is True:
         todays_date = get_todays_date()
         figure_path = (figure_path + param + '\\' + sensor_name +
-                       '_timeseries_' + param + '_' + time_interval)
+                       '_timeseries_' + param + '_' + averaging_interval)
 
         # Optionally add suffix to filename
         if filename_suffix != '':
@@ -308,7 +307,7 @@ def sensor_timeplot(df_list, ref_df, param=None, sensor_name=None,
         # info if multiple subplots for 1-hr, 24-hr data used
         if report_fmt is True or unique_ax_obj is False:
             figure_path = figure_path + '_' + 'report_fmt'
-            figure_path = figure_path.replace('_' + time_interval, '')
+            figure_path = figure_path.replace('_' + averaging_interval, '')
 
         # Filename suffix for harmonized sensor datasets
         if param.startswith('corrected'):
@@ -323,10 +322,10 @@ def sensor_timeplot(df_list, ref_df, param=None, sensor_name=None,
 
 
 def deployment_timeline(deployment_df, cmap_name='Dark2',
-                             cmap_norm_range=(.0, .75), fontsize=10,
-                             date_interval=1, figsize=(11, 7),
-                             write_to_file=True, figure_path=None,
-                             tight_layout=False):
+                        cmap_norm_range=(.0, .75), fontsize=10,
+                        date_interval=1, fig_size=(11, 7),
+                        write_to_file=True, figure_path=None,
+                        tight_layout=False):
     """
 
     More details about line 70-82 code on barh rounding at MatPlotLib
@@ -349,7 +348,7 @@ def deployment_timeline(deployment_df, cmap_name='Dark2',
                                                             cmap_ubound,
                                                             len(unique_types))]
 
-    fig, ax = plt.subplots(1, 1, figsize=figsize)
+    fig, ax = plt.subplots(1, 1, figsize=fig_size)
 
     wspace = 0.0
     hspace = 0.1

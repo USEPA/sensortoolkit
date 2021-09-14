@@ -232,7 +232,7 @@ def draw_scatter(ax, xdata, ydata, param_dict, sensor_stats=None,
 
 def scatter_plotter(df_list, ref_df, stats_df=None, plot_subset=None,
                     param=None, sensor_name=None, figure_path=None,
-                    write_to_file=True, time_interval=None,
+                    write_to_file=True, averaging_interval=None,
                     met_ref_df=None, deploy_dict=None, sensor_serials=None,
                     ax=None, fig=None, report_fmt=False, return_axs=False,
                     param_class=None, **kwargs):
@@ -264,7 +264,7 @@ def scatter_plotter(df_list, ref_df, stats_df=None, plot_subset=None,
         write_to_file: Boolean
             If true, writes to file and figure is closed. False skips file
             writing and does not close the figure
-        time_interval (str):
+        averaging_interval (str):
             The averaging interval of the sensor and reference datasets, either
             '1-hour' or '24-hour'.
         met_ref_df: Nonetype or Pandas dataframe
@@ -464,7 +464,7 @@ def scatter_plotter(df_list, ref_df, stats_df=None, plot_subset=None,
     if plot_title is True:
         if title_text is None:
             title_text = (fmt_sensor_name + ' vs. ' + ref_name + ' ' +
-                          time_interval + ' ' + fmt_param)
+                          averaging_interval + ' ' + fmt_param)
 
         title_text = '\n'.join(wrap(title_text,
                                     kwargs.get('title_textwrap',
@@ -547,7 +547,7 @@ def scatter_plotter(df_list, ref_df, stats_df=None, plot_subset=None,
                     sensor_stats = stats_df[
                                 stats_df.Sensor_Number == str(sensor_number)]
                     sensor_stats = sensor_stats[
-                        sensor_stats['Averaging Interval'] == time_interval]
+                        sensor_stats['Averaging Interval'] == averaging_interval]
                     sensor_stats = sensor_stats.reset_index(drop=True)
                 else:
                     sensor_stats = regression_stats(
@@ -683,10 +683,10 @@ def scatter_plotter(df_list, ref_df, stats_df=None, plot_subset=None,
 
         # if matplotlib axes object not passed to Scatter_Plotter, the figure
         # created will be for data at the averaging interval specified by
-        # the time_interval variable. In this case, indicate the avg interval
+        # the averaging_interval variable. In this case, indicate the avg interval
         # in the filename
         if unique_ax_obj is True and report_fmt is False:
-            file_path += '_' + time_interval
+            file_path += '_' + averaging_interval
         if filename_suffix != '':
             file_path = file_path + '_' + filename_suffix
         else:

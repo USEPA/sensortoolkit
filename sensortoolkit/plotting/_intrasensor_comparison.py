@@ -23,8 +23,8 @@ sns.set_style('darkgrid')
 
 def compare_sensors(stats_df, metric, fontsize=15, cmap_name='Set1',
                     cmap_norm_range=(0, 1), param='PM25', path=None,
-                    figsize=(12, 4), write_to_file=True,
-                    QC_Cleaning='None', avg_int='Hourly'):
+                    fig_size=(12, 4), write_to_file=True,
+                    QC_Cleaning='None', averaging_interval='Hourly'):
     """Plot all sensor values for passed metric on same figure to compare
     across device types.
 
@@ -47,7 +47,7 @@ def compare_sensors(stats_df, metric, fontsize=15, cmap_name='Set1',
                                                             n_ax)]
 
     # Filter stats_df to correspond to chosen averaging interval and QC
-    stats_df = stats_df.where((stats_df['Averaging Interval'] == avg_int) &
+    stats_df = stats_df.where((stats_df['Averaging Interval'] == averaging_interval) &
                               (stats_df['QC_Cleaning'] == QC_Cleaning)
                               ).dropna()
 
@@ -72,7 +72,7 @@ def compare_sensors(stats_df, metric, fontsize=15, cmap_name='Set1',
     sns.set_context(rc={'patch.linewidth': 0.0, "lines.linewidth": 1.5})
     sensor_names = sorted(stats_df['Sensor Name'].unique().tolist())
 
-    fig, axs = plt.subplots(1, n_ax, figsize=figsize)
+    fig, axs = plt.subplots(1, n_ax, fig_size=fig_size)
 
     wspace = .0
     hspace = .1
@@ -204,7 +204,7 @@ def compare_sensors(stats_df, metric, fontsize=15, cmap_name='Set1',
         if QC_Cleaning == 'Yes, Custom':
             QC_tag = 'CustomQC'
         figure_path = path + metric + '_' + 'comparison' + '_' \
-            + QC_tag + '_' + avg_int + '_' + todays_date
+            + QC_tag + '_' + averaging_interval + '_' + todays_date
         figure_path += '.png'
         plt.savefig(figure_path, dpi=300)
         plt.close()
