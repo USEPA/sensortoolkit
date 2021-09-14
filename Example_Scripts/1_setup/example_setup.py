@@ -23,7 +23,7 @@ sensor_name = 'Example_Make_Model'
 
 # Run the next line of code to create sub-dirs for sensor data, figures, etc.
 sensortoolkit.lib_utils.create_sensor_directories(name=sensor_name,
-                                                  eval_params=['PM25', 'O3'],
+                                                  param=['PM25', 'O3'],
                                                   path=work_path,
                                                   )
 
@@ -45,4 +45,4 @@ IngestionConfig = sensortoolkit.lib_utils.Setup(name=sensor_name,
   ----------------------------------------------------------------------------
 """
 # airnowtech_path = 'path/to/airnowtech-download.csv'
-# sensortoolkit.reference.preprocess_airnowtech(airnowtech_path)
+# sensortoolkit.reference.preprocess_airnowtech(path=airnowtech_path)
