@@ -12,7 +12,7 @@ Last Updated:
 import pandas as pd
 
 
-def get_timestamp_interval(df, warning=False):
+def get_timestamp_interval(df, warning=False, as_timedelta=False):
     """Compute recording interval for dataframe.
 
     Compute time delta between successive timestamps and take the mode of
@@ -53,5 +53,8 @@ def get_timestamp_interval(df, warning=False):
     if warning and delta_std > 0:
         print('Warning, variation in sampling frequency for passed dataframe')
         #interval_str += ' +/- ' + str(delta_std) + ' seconds'
+
+    if as_timedelta:
+        interval_str = pd.to_timedelta(interval_str)
 
     return interval_str
