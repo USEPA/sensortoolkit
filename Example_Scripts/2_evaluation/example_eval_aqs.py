@@ -46,12 +46,12 @@ Eval = sensortoolkit.SensorEvaluation(name='Example_Make_Model',
 #  ----------------------------------------------------------------------------
 
 # Print performance target evaluation results to console
-Eval.print_eval_metrics(avg_interval='1-hour')
-Eval.print_eval_metrics(avg_interval='24-hour')
+Eval.print_eval_metrics(averaging_interval='1-hour')
+Eval.print_eval_metrics(averaging_interval='24-hour')
 
 # Print site testing conditions (concentration range, RH/temp range)
-Eval.print_eval_conditions(avg_interval='1-hour')
-Eval.print_eval_conditions(avg_interval='24-hour')
+Eval.print_eval_conditions(averaging_interval='1-hour')
+Eval.print_eval_conditions(averaging_interval='24-hour')
 
 # Timeseries plots for both 1-hour and 24-hour averaged data
 Eval.plot_timeseries(format_xaxis_weeks=False,
