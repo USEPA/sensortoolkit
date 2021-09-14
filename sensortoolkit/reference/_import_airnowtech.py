@@ -163,7 +163,7 @@ def sort_airnowtech(df):
     return pm_df, gas_df, met_df
 
 
-def write_to_file(df, inpath, outpath):
+def write_to_file(df, path, outpath):
     """Processed dataframes for PM, Gas, and met written to separate monthly
     csv files where the index is the date and time in UTC.
 
@@ -171,7 +171,7 @@ def write_to_file(df, inpath, outpath):
         df (pandas dataframe):
             Processed airnowtech data for one of the following parameter
             classifications (PM, Gases, or Met)
-        inpath (str):
+        path (str):
             The full directory path to the downloded airnowtech dataset.
             Used to determine the date and time that the data were downloaded
             and added to the dataframe as the 'Data_Acquisition_Date_Time'.
@@ -214,7 +214,7 @@ def write_to_file(df, inpath, outpath):
                'W/': 'w/',
                ' And ': ' and '}
 
-    orig_inpath = inpath
+    orig_inpath = path
     orig_outpath = outpath
 
     # Require non-empty dataframe
@@ -229,7 +229,7 @@ def write_to_file(df, inpath, outpath):
 
             # Reassign path name scope since modified when saving files
             outpath = orig_outpath
-            inpath = orig_inpath
+            path = orig_inpath
 
             month = month_period.month
             year = month_period.year
@@ -294,7 +294,7 @@ def write_to_file(df, inpath, outpath):
             month_df['Data_Source'] = 'AirNowTech'
 
             # Get the date and time the file was downloaded
-            file_createtime = pathlib.Path(inpath).stat().st_ctime
+            file_createtime = pathlib.Path(path).stat().st_ctime
             file_createtimef = datetime.datetime.fromtimestamp(
                                 file_createtime).strftime('%Y-%m-%d %H:%M:%S')
             month_df['Data_Acquisition_Date_Time'] = file_createtimef
@@ -352,18 +352,18 @@ def write_to_file(df, inpath, outpath):
     return folder
 
 
-def preprocess_airnowtech(inpath):
+def preprocess_airnowtech(path):
     """Wrapper module for pre-processing datasets downloaded as .csv files
     from airnowtech.org. When downloading data, the table box under "Display
     Settings" should be checked and configured to 'unpivoted' format.
 
     Args:
-        inpath (str):
+        path (str):
             Full path to downloaded AirNowTech dataset.
     Returns:
         None
     """
-    ant_df = ingest_airnowtech(inpath)
+    ant_df = ingest_airnowtech(path)
 
     outpath = pathlib.PureWindowsPath(
                         os.path.abspath(os.path.join(__file__, '../../..')))
@@ -371,14 +371,14 @@ def preprocess_airnowtech(inpath):
                '/airnowtech/processed/')
 
     for df in sort_airnowtech(ant_df):
-        site_folder = write_to_file(df, inpath, outpath)
+        site_folder = write_to_file(df, path, outpath)
 
     # Copy the downloaded dataset to site specific subfolder
     if site_folder is not None:
         dest_inpath = os.path.abspath(
-                            os.path.join(inpath, '..', site_folder))
+                            os.path.join(path, '..', site_folder))
 
         if not os.path.exists(dest_inpath):
             os.makedirs(dest_inpath)
 
-        copy(inpath, dest_inpath)
+        copy(path, dest_inpath)
