@@ -9,51 +9,17 @@ Created:
 Last Updated:
   Mon Aug  9 09:30:03 2021
 """
-import pandas as pd
-import numpy as np
-from sensortoolkit.datetime_utils import interval_averaging
+import io
 import os
 import pathlib
 import datetime
+import pandas as pd
+import numpy as np
+from sensortoolkit.datetime_utils import interval_averaging, get_timestamp_interval
+from sensortoolkit.qc import remove_duplicates
 
-
-def ingest_oaqps(file_path):
-    """Read raw csv data and format timestamps, column headers.
-
-
-    Args:
-        file_path (TYPE): DESCRIPTION.
-
-    Returns:
-        df (TYPE): DESCRIPTION.
-
-    """
-
-    df = pd.read_csv(file_path, header=2)
-
-    df = df[1:-8]
-    df = format_ref_timestamp(df)
-
-    # Formatting changed in Feb 2020 for some headers, rename for consistency
-    # with former column naming scheme
-    rename_dict = {'10M_Wind_Direction': 'WD Ultra 10m',
-                   '10M_Wind_Speed': 'WS Ultra 10m',
-                   '3M_RH': '3m RH',
-                   '3M_Temp': '3m Temp',
-                   'BC_880nm_AE33 LC': 'BC AE33 880nm',
-                   'GRIMM_PM1': 'GRIMM PM1',
-                   'GRIMM_PM10': 'Grimm PM10',
-                   'GRIMM_PM2.5': 'Grimm PM2.5',
-                   'T265_O3': 'O3-API T265'}
-    df = df.rename(columns=rename_dict)
-
-    df = df.set_index(df.DateTime_UTC).drop(columns=['DateTime_UTC'])
-    df = format_headers(df)
-
-    return df
-
-
-def process_oaqps(data_path, lib_path):
+def process_oaqps(data_path, lib_path, formatting='envista',
+                  interval='min'):
     """Loop through list of raw datasets, convert to standard format, save
     processed datasets to file at recorded and 1-hour averaged intervals.
 
@@ -67,28 +33,185 @@ def process_oaqps(data_path, lib_path):
     """
 
     for item in os.listdir(data_path):
-        if not item.endswith('.csv') and not item.startswith('min'):
-            continue
-        print(item)
+        if item.endswith('.csv') and item.startswith(interval):
+            print(item)
 
-        file = pathlib.Path(str(data_path) + '//' + item)
-        df = ingest_oaqps(str(file))
+            file = pathlib.Path(str(data_path) + '//' + item)
+            df = ingest_oaqps(str(file), formatting=formatting)
 
-        # Modify time
-        mtime = datetime.datetime.fromtimestamp(file.stat().st_mtime)
-        df['Data_Acquisition_Date_Time'] = mtime
+            # Modify time
+            mtime = datetime.datetime.fromtimestamp(file.stat().st_mtime)
+            df['Data_Acquisition_Date_Time'] = mtime
 
-        # Shift dataframes to UTC (ahead five hours)
-        df = df.shift(5, freq='H')
+            # Shift dataframes to UTC (ahead five hours)
+            df = df.shift(5, freq='H')
 
-        h_df = interval_averaging(df, freq='H', interval_count=60, thres=0.75)
+            h_df = interval_averaging(df, freq='H', interval_count=60, thres=0.75)
 
-        processed_m_path = (lib_path + '/Data and Figures/reference_Data/'
-                            'oaqps/processed_data/' + item)
-        processed_h_path = (lib_path + '/Data and Figures/reference_Data/'
-                            'oaqps/processed_data/' + item.replace('min', 'H'))
-        df.to_csv(processed_m_path)
-        h_df.to_csv(processed_h_path)
+            processed_m_path = (lib_path + '/Data and Figures/reference_Data/'
+                                'oaqps/processed_data/' + item)
+            processed_h_path = (lib_path + '/Data and Figures/reference_Data/'
+                                'oaqps/processed_data/' + item.replace('min', 'H'))
+            df.to_csv(processed_m_path)
+            h_df.to_csv(processed_h_path)
+
+
+def ingest_oaqps(file_path, formatting=None):
+    """Read raw csv data and format timestamps, column headers.
+
+
+    Args:
+        file_path (TYPE): DESCRIPTION.
+
+    Returns:
+        df (TYPE): DESCRIPTION.
+
+    """
+    if formatting == 'envista':
+        df = from_envista(file_path)
+    if formatting == 'envidas':
+        df = from_envidas(file_path)
+
+    df = format_headers(df, formatting=formatting)
+
+    return df
+
+
+def from_envidas(file_path):
+    """Ingestion scheme for AIRS data provided in Envidas format.
+
+    Example:
+        Head and tail of 1-hour averaged PM data
+                                                   Site:PM
+    0    Date,Time,UV_370nm_AE33 LC : Value,UV_370nm_AE...
+    1    11/1/2020,1:00 AM,1842.83333333333,1,1006.1,1,...
+    2    11/1/2020,2:00 AM,1666.41666666667,1,919.5,1,5...
+    3    11/1/2020,3:00 AM,1546.43333333333,1,856.06666...
+    4    11/1/2020,4:00 AM,1676.45,1,871.583333333333,1...
+    ..                                                 ...
+    716  11/30/2020,8:00 PM,124.397222222222,1,92.84722...
+    717  11/30/2020,9:00 PM,80.2805555555556,1,56.31666...
+    718  11/30/2020,10:00 PM,100.486111111111,1,62.5888...
+    719  11/30/2020,11:00 PM,84.5194444444444,1,52.0944...
+    720  12/1/2020,12:00 AM,78.5888888888889,1,51.00555...
+
+    Returns:
+        None.
+
+    """
+    # Some lines end with comma delim, others do not. Solution recommended by
+    # Scott Boston (https://stackoverflow.com/questions/47519294/pandas-dataframe-read-csv-with-rows-that-have-not-have-comma-at-the-end)
+    with open(file_path) as f:
+        data = f.read() + '\n'  # Add newline str to each line
+        f.close()
+    df = pd.read_csv(io.StringIO(data.replace(',\n', '\n')), header=1)
+
+    rename = {col: col.replace(' : ',
+                                '_').replace(' ',
+                                            '_').replace('Status',
+                                                          'QAQC_Code')
+              for col in df.columns}
+    df = df.rename(columns=rename)
+
+    df['DateTime_UTC'] = pd.to_datetime(df.Date + ' ' + df.Time,
+                                    format = '%m/%d/%Y %I:%M %p')
+    df = df.set_index(df.DateTime_UTC)
+
+    df = df.drop(columns=['Date', 'Time', 'DateTime_UTC'])
+
+    keep = ['UV_370nm_AE33_LC_Value',           # <-- PM Headers
+            'UV_370nm_AE33_LC_QAQC_Code',
+            'BC_880nm_AE33_LC_Value',
+            'BC_880nm_AE33_LC_QAQC_Code',
+            'T640_2_PM25_Value',
+            'T640_2_PM25_QAQC_Code',
+            'T640_2_PM10_Value',
+            'T640_2_PM10_QAQC_Code',
+            '10M_Wind_Speed_Value',             # <-- Met Headers
+            '10M_Wind_Speed_QAQC_Code',
+            '10M_Wind_Direction_Value',
+            '10M_Wind_Direction_QAQC_Code',
+            '3M_Temp_Value',
+            '3M_Temp_QAQC_Code',
+            '3M_RH_Value',
+            '3M_RH_QAQC_Code',
+            'CO_Value',                         # <-- Gas Headers
+            'CO_QAQC_Code',
+            #'NO_Value',
+            #'NO_QAQC_Code'
+            'CAPS_NO2_Value',
+            'CAPS_NO2_QAQC_Code',
+            'T265_O3_Value',
+            'T265_O3_QAQC_Code']
+
+    df = df.drop(columns=[col for col in df.columns if col not in keep])
+
+    # Use Envista naming convention for instrument header names
+    rename_instruments = {'UV_370nm_AE33_LC_Value': 'UV_633_370nm',
+                          'UV_370nm_AE33_LC_QAQC_Code': 'UV_633_370nm_QAQC_Code',
+                          'BC_880nm_AE33_LC_Value': 'BC AE33 880nm',
+                          'BC_880nm_AE33_LC_QAQC_Code': 'BC AE33 880nm_QAQC_Code',
+                          'T640_2_PM25_Value': 'T640_2_PM25',
+                          'T640_2_PM10_Value': 'T640_2_PM10',
+                          '10M_Wind_Speed_Value': 'WS Ultra 10m',
+                          '10M_Wind_Speed_QAQC_Code': 'WS Ultra 10m_QAQC_Code',
+                          '10M_Wind_Direction_Value': 'WD Ultra 10m',
+                          '10M_Wind_Direction_QAQC_Code': 'WD Ultra 10m_QAQC_Code',
+                          '3M_Temp_Value': '3m Temp',
+                          '3M_Temp_QAQC_Code': '3m Temp_QAQC_Code',
+                          '3M_RH_Value': '3m RH',
+                          '3M_RH_QAQC_Code': '3m RH_QAQC_Code',
+                          'CO_Value': 'CO',
+                          'CO_QAQC_Code': 'CO_QAQC_Code',
+                          'CAPS_NO2_Value': 'CAPS NO2',
+                          'CAPS_NO2_QAQC_Code': 'CAPS NO2_QAQC_Code',
+                          'T265_O3_Value': 'O3-API T265',
+                          'T265_O3_QAQC_Code': 'O3-API T265_QAQC_Code'
+                           }
+
+    df = df.rename(columns=rename_instruments)
+
+    b_timestamp, e_timestamp = df.index.min(), df.index.max()
+    interval = get_timestamp_interval(df, as_timedelta=True)
+
+    new_idx = pd.date_range(start=b_timestamp, end=e_timestamp, freq=interval)
+    new_df = pd.DataFrame(index=new_idx)
+    df = new_df.combine_first(df)
+
+    return df
+
+
+def from_envista(file_path):
+    """Ingestion scheme for AIRS data provided in Envista ARM format.
+
+
+    Returns:
+        None.
+
+    """
+    df = pd.read_csv(file_path, header=2)
+    df = df[1:-8]
+
+    df = format_ref_timestamp(df)
+
+    # Formatting changed in Feb 2020 for some headers, rename for consistency
+    # with former column naming scheme
+    rename_dict = {'10M_Wind_Direction': 'WD Ultra 10m',
+                    '10M_Wind_Speed': 'WS Ultra 10m',
+                    '3M_RH': '3m RH',
+                    '3M_Temp': '3m Temp',
+                    'BC_880nm_AE33 LC': 'BC AE33 880nm',
+                    'GRIMM_PM1': 'GRIMM PM1',
+                    'GRIMM_PM10': 'Grimm PM10',
+                    'GRIMM_PM2.5': 'Grimm PM2.5',
+                    'T265_O3': 'O3-API T265'}
+    df = df.rename(columns=rename_dict)
+
+    df = df.set_index(df.DateTime_UTC).drop(columns=['DateTime_UTC'])
+
+
+    return df
+
 
 
 def format_ref_timestamp(df):
@@ -152,7 +275,7 @@ def format_ref_timestamp(df):
     return df
 
 
-def format_headers(df):
+def format_headers(df, formatting='envista'):
 
     ref_dict = {'BC_UV': {'1': {'header_name': 'UV_633_370nm',
                                 'method_name': 'Magee Scientific Aethalometer AE33',
@@ -261,7 +384,12 @@ def format_headers(df):
 
             df[param + '_Value'] = pd.to_numeric(data, errors='coerce')
             df[param + '_Unit'] = principal_method['unit']
-            df = format_qaqc(param, data, df)
+
+            if formatting == 'envidas':
+                df = df.rename(columns={col_name + '_qaqc_code':
+                                            param + '_QAQC_Code'})
+
+            df = format_qaqc(param, data, df, formatting=formatting)
             df[param + '_Param_Code'] = principal_method['param_code']
             df[param + '_Method'] = principal_method['method_name']
             df[param + '_Method_Code'] = principal_method['method_code']
@@ -277,7 +405,13 @@ def format_headers(df):
                     data = df[col_name]
                     df[param + '_Value'] = pd.to_numeric(data, errors='coerce')
                     df[param + '_Unit'] = secondary_method['unit']
-                    df = format_qaqc(param, data, df)
+
+                    if formatting == 'envidas':
+                        df = df.rename(columns={col_name + '_qaqc_code':
+                                                param + '_QAQC_Code'})
+
+
+                    df = format_qaqc(param, data, df, formatting=formatting)
                     df[param + '_Param_Code'] = secondary_method['param_code']
                     df[param + '_Method'] = secondary_method['method_name']
                     df[param + '_Method_Code'] = secondary_method['method_code']
@@ -302,44 +436,55 @@ def format_headers(df):
     df['Site_AQS'] = '37-063-0099'
     df['Site_Lat'] = 35.8895
     df['Site_Lon'] = -78.8746
-    df['Data_Source'] = 'OAQPS/AQAD/AAMG'
-    df['Data_Acquisition_Date_Time'] = ''
+    df['Data_Source'] = 'OAQPS/AQAD/AAMG (via {0})'.format(formatting)
+    df['Data_Acquisition_Date_Time'] = 'Unspecified'
 
     return df
 
 
-def format_qaqc(param, series, df):
-    # Calibration codes indicated in reference data
-    codes = ['NoData',
-             'Zero',    # Gas Calibration: Zero air generator
-             'Span',    # Gas Calibration: Span (cylinder) gas
-             'Spare',
-             'Purge',   # Gas Calibration: Set ambient air, clear lines
-             'Down',
-             'InVld',
-             'OffScan',
-             '<Samp']
+def format_qaqc(param, series=None, df=None, formatting='envista'):
+    if formatting == 'envista':
+        # Calibration codes indicated in reference data
+        codes = ['NoData',
+                 'Zero',    # Gas Calibration: Zero air generator
+                 'Span',    # Gas Calibration: Span (cylinder) gas
+                 'Spare',
+                 'Purge',   # Gas Calibration: Set ambient air, clear lines
+                 'Down',
+                 'InVld',
+                 'OffScan',
+                 '<Samp']
 
-    for code in codes:
+        for code in codes:
 
-        code_idx = series[series==code].index
-        if not code_idx.empty:
-            df.loc[code_idx, param + '_QAQC_Code'] = code
-        else:
-            df[param + '_QAQC_Code'] = 0
+            code_idx = series[series==code].index
+            if not code_idx.empty:
+                df.loc[code_idx, param + '_QAQC_Code'] = code
+            else:
+                df[param + '_QAQC_Code'] = 0
 
-        df[param + '_QAQC_Code'] = df[param + '_QAQC_Code'].fillna(0)
+            df[param + '_QAQC_Code'] = df[param + '_QAQC_Code'].fillna(0)
+
+    if formatting == 'envidas':
+        invalid_idx = df[df[param + '_QAQC_Code'] == 0].index
+        valid_idx = df[df[param + '_QAQC_Code'] == 1].index
+
+        df.loc[invalid_idx, param + '_QAQC_Code'] = -1
+        df.loc[valid_idx, param + '_QAQC_Code'] = 0
+        df.loc[invalid_idx, param + '_QAQC_Code'] = 1
+
 
     return df
 
 
 
 if __name__ == '__main__':
-    lib_path = os.path.abspath(__file__ + '../../../..')
-    data_path = os.path.abspath(lib_path + '/Data and Figures/reference_data/'
-                                'oaqps/raw_data/1-minute')
-    data_path = pathlib.PureWindowsPath(data_path)
-    process_oaqps(data_path)
+       lib_path = os.path.abspath(__file__ + '../../../..')
+       data_path = r'C:\Users\SFREDE01\OneDrive - Environmental Protection Agency (EPA)\Profile\Documents\Public_Sensor_Evaluation\Data and Figures\reference_data\oaqps\raw_data\AIRS - 1120 - 0721\GASES'
+       df = process_oaqps(data_path, lib_path, formatting='envidas',
+                                interval='min')
 
-    file1 = r"C:\Users\SFREDE01\OneDrive - Environmental Protection Agency (EPA)\Profile\Documents\Public_Sensor_Evaluation\Data and Figures\reference_data\oaqps\raw_data\1-hour\H_201906_Met.csv"
-    file2 = r"C:\Users\SFREDE01\OneDrive - Environmental Protection Agency (EPA)\Profile\Documents\Public_Sensor_Evaluation\Data and Figures\reference_data\oaqps\raw_data\1-hour\H_201906_PM.csv"
+    # file = r"C:\Users\SFREDE01\OneDrive - Environmental Protection Agency (EPA)\Profile\Documents\Public_Sensor_Evaluation\Data and Figures\reference_data\oaqps\raw_data\AIRS - 1120 - 0721\PM\min_202011_PM.csv"
+    # df = ingest_oaqps(file, formatting='envidas')
+
+
