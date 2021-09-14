@@ -13,30 +13,32 @@ import os
 import sys
 
 
-def create_sensor_directories(name=None, eval_params=[], path=None):
+def create_sensor_directories(name=None, param=None, path=None):
     """Construct the sensor directory file structure required for conducting
     analysis with the SensorEvaluation library.
 
     Args:
-        name (str):
-            The name assigned to the sensor. Recommend using the sensor's make
-            and model, separated by underscores ('_').
-        eval_params (list of strings):
-            The  parameters measured by the sensor that the user
-            wishes to evaluate. For instance, if a sensor measures both fine
-            particulate matter (PM25) and ozone (O3) and the user intends to
-            evalute the performance device with respecet to both of these
-            pollutants, the user may specify 'eval_params=['PM25', 'O3']' to
-            create necessary subfolders for figures and data structures created
-            by the SensorEvaluation library for each of these evaluation
-            parameters.
-        path (str):
-            The full path to the work directory where the user intends to store
-            datasets, figures, and reports.
+        name (str, optional): The name assigned to the sensor. Recommend using
+            the sensor's make and model, separated by underscores ('_').
+            Defaults to None.
+        param (str or list of strings, optional): The parameter(s) measured by
+            the sensor that the user wishes to evaluate. Defaults to None.
+        path (str, optional): The full path to the work directory where the
+            user intends to store datasets, figures, and reports. Defaults to
+            None.
+
+    Raises:
+        TypeError: Raise if type for param is neither list or string.
 
     Returns:
-        None
+        None.
+
     """
+    if isinstance(param, str):
+        param = [param]
+    if not isinstance(param, list):
+        raise TypeError('Invalid type {0} passed to "param". Expected either a'
+                        ' string or list of strings.'.format(type(param)))
 
     data_fig_path = os.path.join(path, 'Data and Figures')
     report_path = os.path.join(path, 'Reports')
@@ -57,7 +59,6 @@ def create_sensor_directories(name=None, eval_params=[], path=None):
                                                      'processed'],
                                       'aqs': ['raw',
                                               'processed'],
-                                      #'method_codes': None,
                                       'oaqps': ['raw_data',
                                                 'processed_data']},
                    'sensor_data': None}
@@ -96,12 +97,11 @@ def create_sensor_directories(name=None, eval_params=[], path=None):
         os.makedirs(report_path)
         print('/n')
 
-
     # Create Subfolders for Sensor Data and Figures
     subfolders = ['eval_stats', 'figures', 'sensor_data']
 
     print('Creating directories for ' + name + ' and evaluation parameters: '
-          + ', '.join(eval_params))
+          + ', '.join(param))
 
     for subfolder in subfolders:
         subfolder_path = os.path.join(data_fig_path, subfolder)
@@ -117,10 +117,10 @@ def create_sensor_directories(name=None, eval_params=[], path=None):
         # Create sub-subfolders for figures and sensor data folders
         if subfolder == 'figures':
 
-            figure_params = eval_params + ['Met', 'deployment']
+            figure_params = param + ['Met', 'deployment']
             # Create figure subfolders for specified eval params
-            for param in figure_params:
-                param_fig_subfolder = os.path.join(sensor_subfolder, param)
+            for name in figure_params:
+                param_fig_subfolder = os.path.join(sensor_subfolder, name)
 
                 if not os.path.exists(param_fig_subfolder):
                     os.makedirs(param_fig_subfolder)
