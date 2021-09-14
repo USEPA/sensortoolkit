@@ -32,8 +32,9 @@ function. The function accepts the following arguments
   * - ``name``
     - The sensor name. Users are recommended to include the name of the
       sensor make and model in the sensor name, separated by an underscore.
-  * - ``eval_params``
-    - A list of parameters the user intends to evaluate
+  * - ``param``
+    - A string indicating a parameter name or list of parameters the user
+    intends to evaluate (note that parameter names must adhere to the S-DFS parameter naming scheme).
   * - ``path``
     - The path to the directory where the user intends to store data, figures,
       and reports
@@ -47,7 +48,7 @@ folder location ``C:/Users/.../Documents/my_evaluation``:
     work_path = 'C:/Users/.../Documents/my_evaluation'
 
     sensortoolkit.lib_utils.create_sensor_directories(name=sensor_name,
-                                       	              eval_params=['PM25', 'O3'],
+                                       	              param=['PM25', 'O3'],
                                                       path=work_path)
 
 Running the code above will construct the sensor-specific directory structure
@@ -194,7 +195,7 @@ the sensortoolkit Library for more detail) and run the following code:
   work_path = 'C:/Users/.../Documents/my_evaluation'
 
   IngestionConfig = sensortoolkit.lib_utils.Setup(name=sensor_name,
-                                                  work_path)
+                                                  path=work_path)
 
 
 1. Setting the Column Header Index

@@ -8,7 +8,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>Configuring sensortoolkit for Analyzing Sensor Data &mdash; sensortoolkit 0.3.5b4 documentation</title>
+  <title>Configuring sensortoolkit for Analyzing Sensor Data &mdash; sensortoolkit 0.3.6b2 documentation</title>
   
 
   
@@ -67,7 +67,7 @@
             
             
               <div class="version">
-                0.3.5b4
+                0.3.6b2
               </div>
             
           
@@ -297,6 +297,8 @@
 <li class="toctree-l3"><a class="reference internal" href="_autosummary/sensortoolkit.reference._import_oaqps.format_headers.html">sensortoolkit.reference._import_oaqps.format_headers</a></li>
 <li class="toctree-l3"><a class="reference internal" href="_autosummary/sensortoolkit.reference._import_oaqps.format_qaqc.html">sensortoolkit.reference._import_oaqps.format_qaqc</a></li>
 <li class="toctree-l3"><a class="reference internal" href="_autosummary/sensortoolkit.reference._import_oaqps.format_ref_timestamp.html">sensortoolkit.reference._import_oaqps.format_ref_timestamp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="_autosummary/sensortoolkit.reference._import_oaqps.from_envidas.html">sensortoolkit.reference._import_oaqps.from_envidas</a></li>
+<li class="toctree-l3"><a class="reference internal" href="_autosummary/sensortoolkit.reference._import_oaqps.from_envista.html">sensortoolkit.reference._import_oaqps.from_envista</a></li>
 <li class="toctree-l3"><a class="reference internal" href="_autosummary/sensortoolkit.reference._import_oaqps.ingest_oaqps.html">sensortoolkit.reference._import_oaqps.ingest_oaqps</a></li>
 <li class="toctree-l3"><a class="reference internal" href="_autosummary/sensortoolkit.reference._import_oaqps.process_oaqps.html">sensortoolkit.reference._import_oaqps.process_oaqps</a></li>
 </ul>
@@ -427,38 +429,13 @@ folder <code class="docutils literal notranslate"><span class="pre">my_evaluatio
 </div>
 <p>Users can create these folders during the setup process by running the <code class="docutils literal notranslate"><span class="pre">sensortoolkit.lib_utils.create_sensor_directories()</span></code>
 function. The function accepts the following arguments</p>
-<table class="colwidths-given docutils align-default" id="id1">
-<caption><span class="caption-text"><code class="docutils literal notranslate"><span class="pre">sensortoolkit.lib_utils.create_sensor_directories()</span> <span class="pre">attributes</span></code></span><a class="headerlink" href="#id1" title="Permalink to this table">¶</a></caption>
-<colgroup>
-<col style="width: 40%" />
-<col style="width: 60%" />
-</colgroup>
-<thead>
-<tr class="row-odd"><th class="head"><p>Attribute name</p></th>
-<th class="head"><p>Description</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">name</span></code></p></td>
-<td><p>The sensor name. Users are recommended to include the name of the
-sensor make and model in the sensor name, separated by an underscore.</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">eval_params</span></code></p></td>
-<td><p>A list of parameters the user intends to evaluate</p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">path</span></code></p></td>
-<td><p>The path to the directory where the user intends to store data, figures,
-and reports</p></td>
-</tr>
-</tbody>
-</table>
 <p>Below is an example for a sensor that will be evaluated for PM2.5 and O3 at the
 folder location <code class="docutils literal notranslate"><span class="pre">C:/Users/.../Documents/my_evaluation</span></code>:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sensor_name</span> <span class="o">=</span> <span class="s1">&#39;Sensor_Make_Model&#39;</span>
 <span class="n">work_path</span> <span class="o">=</span> <span class="s1">&#39;C:/Users/.../Documents/my_evaluation&#39;</span>
 
 <span class="n">sensortoolkit</span><span class="o">.</span><span class="n">lib_utils</span><span class="o">.</span><span class="n">create_sensor_directories</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">sensor_name</span><span class="p">,</span>
-                                                  <span class="n">eval_params</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;PM25&#39;</span><span class="p">,</span> <span class="s1">&#39;O3&#39;</span><span class="p">],</span>
+                                                  <span class="n">param</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;PM25&#39;</span><span class="p">,</span> <span class="s1">&#39;O3&#39;</span><span class="p">],</span>
                                                   <span class="n">path</span><span class="o">=</span><span class="n">work_path</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -591,7 +568,7 @@ the sensortoolkit Library for more detail) and run the following code:</p>
 <span class="n">work_path</span> <span class="o">=</span> <span class="s1">&#39;C:/Users/.../Documents/my_evaluation&#39;</span>
 
 <span class="n">IngestionConfig</span> <span class="o">=</span> <span class="n">sensortoolkit</span><span class="o">.</span><span class="n">lib_utils</span><span class="o">.</span><span class="n">Setup</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">sensor_name</span><span class="p">,</span>
-                                                <span class="n">work_path</span><span class="p">)</span>
+                                                <span class="n">path</span><span class="o">=</span><span class="n">work_path</span><span class="p">)</span>
 </pre></div>
 </div>
 <section id="setting-the-column-header-index">

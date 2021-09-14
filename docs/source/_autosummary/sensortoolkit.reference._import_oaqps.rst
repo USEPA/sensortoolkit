@@ -18,6 +18,8 @@
       format_headers
       format_qaqc
       format_ref_timestamp
+      from_envidas
+      from_envista
       ingest_oaqps
       process_oaqps
    
