@@ -19,8 +19,8 @@ register_matplotlib_converters()
 sns.set_style('darkgrid')
 
 
-def ref_distrib(ref_df, param=None, rec_interval='1-hour',
-                  fontsize=18, write_to_file=True, figure_path=None,
+def ref_distrib(ref_df, param=None, averaging_interval='1-hour',
+                  font_size=18, write_to_file=True, figure_path=None,
                   filename_suffix=''):
     """Plot the distribution of reference values for the passed parameter.
 
@@ -48,11 +48,11 @@ def ref_distrib(ref_df, param=None, rec_interval='1-hour',
                      label=ref_name +' ' + fmt_param, ax=ax)
 
         # Set axes attributes
-        ax.set_xlabel('Reference ' + rec_interval + ' ' + fmt_param +
-                      ' ' + fmt_param_units, fontsize=fontsize)
-        ax.set_ylabel('Relative Probability', fontsize=fontsize)
-        ax.tick_params(axis='both', labelsize=0.75*fontsize)
-        plt.legend(fontsize=0.85*fontsize)
+        ax.set_xlabel('Reference ' + averaging_interval + ' ' + fmt_param +
+                      ' ' + fmt_param_units, fontsize=font_size)
+        ax.set_ylabel('Relative Probability', fontsize=font_size)
+        ax.tick_params(axis='both', labelsize=0.75*font_size)
+        plt.legend(fontsize=0.85*font_size)
 
         if write_to_file is True:
             todays_date = get_todays_date()
@@ -82,14 +82,14 @@ def met_distrib(met_ref_data, figure_path, sensor_name=None,
     Returns:
 
     """
-    fontsize = 10
-    detail_fontsize = 0.8*fontsize
+    font_size = 10
+    detail_font_size = 0.8*font_size
     n_var = len(met_ref_data.count())  # Number of met variables to plot
     fig, axs = plt.subplots(1, n_var, figsize=(5.15, 2.54))
 
     fill_color = [['#77529A'], ['#b06c8b'], ['#588ded']]
     plt.suptitle('Evaluation Site Meteorological Conditions\n',
-                 fontsize=fontsize)
+                 fontsize=font_size)
 
     fig.subplots_adjust(wspace=.6,
                         hspace=.3,
@@ -109,22 +109,22 @@ def met_distrib(met_ref_data, figure_path, sensor_name=None,
 
         if param == 'RH_Value':
             axs[i].set_xlabel('Relative Humidity (%)',
-                              fontsize=detail_fontsize)
+                              fontsize=detail_font_size)
             axs[i].xaxis.set_major_locator(plt.MultipleLocator(25))
 
         if param == 'Temp_Value':
             axs[i].set_xlabel('Temperature ($\\degree$C)',
-                              fontsize=detail_fontsize)
+                              fontsize=detail_font_size)
             axs[i].xaxis.set_major_locator(plt.MultipleLocator(10))
 
         if param == 'DP_Value':
             axs[i].set_xlabel('Dew Point ($\\degree$C)',
-                              fontsize=detail_fontsize)
+                              fontsize=detail_font_size)
 
         axs[i].set_ylabel('Relative Probability',
-                          fontsize=detail_fontsize)
+                          fontsize=detail_font_size)
 
-        axs[i].tick_params(axis='both', labelsize=detail_fontsize)
+        axs[i].tick_params(axis='both', labelsize=detail_font_size)
 
     if write_to_file is True:
         todays_date = get_todays_date()
