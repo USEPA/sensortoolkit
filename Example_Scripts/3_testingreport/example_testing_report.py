@@ -15,6 +15,11 @@ import sensortoolkit
 work_path = 'path/to/work-directory'
 ref_path = work_path + '/Data and Figures/reference_data/airnowtech/processed'
 
+sensor = sensortoolkit.AirSensor(make='Example_Make',
+                                 model='Model',
+                                 param_headers=['PM25', 'O3'],
+                                 project_path=work_path)
+
 #  ----------------------------------------------------------------------------
 #   Specify testing organization/location details
 #  ----------------------------------------------------------------------------
@@ -37,16 +42,13 @@ testing_loc = {'Site name': '[Insert name of site] ',
 #  ----------------------------------------------------------------------------
 #   Instantiate the PerformanceReport class for the example sensor dataset
 #  ----------------------------------------------------------------------------
-PM25 = sensortoolkit.param.Parameter('PM25')
+pollutant = sensortoolkit.param.Parameter('PM25')
 
 test_report = sensortoolkit.PerformanceReport(
                                     name='Example_Make_Model',
-                                    param=PM25,
+                                    param=pollutant,
                                     path=work_path,
                                     reference_data=ref_path,
-                                    serials={'1': 'SN01',
-                                             '2': 'SN02',
-                                             '3': 'SN03'},
                                     tzone_shift=5,
                                     load_raw_data=False,
                                     write_to_file=True,

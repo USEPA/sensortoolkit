@@ -13,7 +13,6 @@ import sensortoolkit
 
 # full path to where you would like to place data, figures, reports, etc.
 work_path = 'path/to/work-directory'
-sensor_name = 'Example_Make_Model'
 
 """
   ----------------------------------------------------------------------------
@@ -21,21 +20,20 @@ sensor_name = 'Example_Make_Model'
   ----------------------------------------------------------------------------
 """
 
+sensor = sensortoolkit.AirSensor(make='Example_Make',
+                                 model='Model',
+                                 param_headers=['PM25', 'O3'],
+                                 project_path=work_path)
+
 # Run the next line of code to create sub-dirs for sensor data, figures, etc.
-sensortoolkit.lib_utils.create_sensor_directories(name=sensor_name,
-                                                  param=['PM25', 'O3'],
-                                                  path=work_path,
-                                                  )
+sensor.create_directories()
 
 # Copy sensor data into the folder structure
-sensortoolkit.lib_utils.copy_datasets(name=sensor_name,
-                                      path=work_path
-                                      )
+sensor.copy_datasets()
 
 # Run the next line of code to configure the formatting scheme for converting
 # recorded sensor data to a standardized format utilized by SensorEvaluation
-IngestionConfig = sensortoolkit.lib_utils.Setup(name=sensor_name,
-                                                path=work_path)
+sensor.sensor_setup()
 
 """
   ----------------------------------------------------------------------------

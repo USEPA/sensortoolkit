@@ -14,6 +14,11 @@ import sensortoolkit
 # full path to where you would like to place data, figures, reports, etc.
 work_path = 'path/to/work-directory'
 
+sensor = sensortoolkit.AirSensor(make='Example_Make',
+                                 model='Model',
+                                 param_headers=['PM25', 'O3'],
+                                 project_path=work_path)
+
 #  ----------------------------------------------------------------------------
 #   Instantiate the SensorEvaluation class
 #  ----------------------------------------------------------------------------
@@ -25,20 +30,17 @@ AIRS_bbox = {"minLat": "35.88",
 
 sensortoolkit.SensorEvaluation.airnow_key = 'Your-AirNow-Key-Here'
 
-PM25 = sensortoolkit.param.Parameter('PM25')
+pollutant = sensortoolkit.param.Parameter('PM25')
 
 # Mock evaluation using AIRS reference data obtained from the AirNow API
-Eval = sensortoolkit.SensorEvaluation(name='Example_Make_Model',
-                                      param=PM25,
+Eval = sensortoolkit.SensorEvaluation(sensor=sensor,
+                                      param=pollutant,
                                       path=work_path,
                                       reference_data='AirNow',
                                       bbox=AIRS_bbox,
-                                      serials={'1': 'SN01',
-                                               '2': 'SN02',
-                                               '3': 'SN03'},
                                       tzone_shift=5,
-                                      load_raw_data=False,
-                                      write_to_file=False)
+                                      load_raw_data=True,
+                                      write_to_file=True)
 
 #  ----------------------------------------------------------------------------
 #   Testing statisitics and plots for the example evaluation

@@ -14,11 +14,16 @@ import sensortoolkit
 # full path to where you would like to place data, figures, reports, etc.
 work_path = 'path/to/work-directory'
 
+sensor = sensortoolkit.AirSensor(make='Example_Make',
+                                 model='Model',
+                                 param_headers=['PM25', 'O3'],
+                                 project_path=work_path)
+
 #  ----------------------------------------------------------------------------
 #   Instantiate the SensorEvaluation class
 #  ----------------------------------------------------------------------------
 
-PM25 = sensortoolkit.param.Parameter('PM25')
+pollutant = sensortoolkit.param.Parameter('PM25')
 
 # Mock evaluation using Triple Oak AQS site (nearby AIRS) reference data
 # obtained from the AQS API
@@ -29,17 +34,14 @@ triple_oaks_ID = {"state": "37",
 sensortoolkit.SensorEvaluation.aqs_username = 'username_address@email.com'
 sensortoolkit.SensorEvaluation.aqs_key = 'Your-AQS-Key-Here'
 
-Eval = sensortoolkit.SensorEvaluation(name='Example_Make_Model',
-                                      param=PM25,
+Eval = sensortoolkit.SensorEvaluation(sensor=sensor,
+                                      param=pollutant,
                                       path=work_path,
                                       reference_data='AQS',
                                       aqs_id=triple_oaks_ID,
-                                      serials={'1': 'SN01',
-                                               '2': 'SN02',
-                                               '3': 'SN03'},
                                       tzone_shift=5,
-                                      load_raw_data=False,
-                                      write_to_file=False)
+                                      load_raw_data=True,
+                                      write_to_file=True)
 
 #  ----------------------------------------------------------------------------
 #   Testing statisitics and plots for the example evaluation
