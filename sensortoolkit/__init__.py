@@ -42,6 +42,7 @@ import sensortoolkit.plotting as plotting
 import sensortoolkit.reference as reference
 
 # Import front-facing classes
+from .evaluation._airsensor import AirSensor
 from .evaluation._sensor_eval import SensorEvaluation
 from .performancereport._performance_report import PerformanceReport
 
