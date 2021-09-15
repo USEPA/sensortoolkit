@@ -40,15 +40,17 @@ class AirSensor:
         self.make = make
         self.model = model
         self.param_headers = param_headers
+        self.setup_path = None
 
         if self.make is not None and self.model is not None:
             self.name = '_'.join([self.make.replace(' ', '_'),
                                   self.model.replace(' ', '_')])
 
-        self._get_ingest_config()
-
         if self._kwargs.get('project_path'):
             self.project_path = self._kwargs.get('project_path')
+            self.setup_path = rf"{self.project_path}\Data and Figures\sensor_data\{self.name}\{self.name}_setup.json"
+
+        self._get_ingest_config()
 
     @property
     def param_headers(self):
@@ -78,11 +80,10 @@ class AirSensor:
         valid = bool(test_param.classifier)
         return valid
 
-    def _get_ingest_config(self, path=None):
-        if self._kwargs.get('setup_path'):
-            path = self._kwargs.get('setup_path')
-        if path:
-            with open(path) as p:
+    def _get_ingest_config(self):
+
+        if os.path.isfile(self.setup_path):
+            with open(self.setup_path) as p:
                 self.setup_data = json.loads(p.read())
                 self.serials = self.setup_data['serials']
                 p.close()
@@ -93,7 +94,6 @@ class AirSensor:
     @property
     def setup_data(self):
         return self._setup_data
-
 
     @setup_data.setter
     def setup_data(self, config_data):
@@ -107,7 +107,6 @@ class AirSensor:
     @property
     def project_path(self):
         return self._project_path
-
 
     @project_path.setter
     def project_path(self, path):
@@ -143,10 +142,8 @@ class AirSensor:
     def sensor_setup(self):
         setup_config = lib_utils.Setup(name=self.name,
                                        path=self.project_path)
-        config_path = os.path.join(self.project_path, 'Data and Figures',
-                                   'sensor_data', self.name,
-                                   self.name + '_setup.json')
-        self._get_ingest_config(path=config_path)
+
+        self._get_ingest_config()
 
 
 class ReferenceMethod:
@@ -162,9 +159,7 @@ if __name__ == '__main__':
     #                  setup_path=setup_path, project_path=work_path)
 
     test_sensor = AirSensor('test', 'sensor', param_headers=['PM25', 'O3'],
-                            project_path=work_path,
-                            setup_path=setup_path.replace('Example_Make_Model',
-                                                          'test_sensor'))
+                            project_path=work_path)
     # test_sensor.create_directories()
     # test_sensor.copy_datasets()
     # test_sensor.sensor_setup()
