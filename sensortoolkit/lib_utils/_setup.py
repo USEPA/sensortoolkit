@@ -63,6 +63,7 @@ class Setup:
         self.setTimeHeaders()
         self.setParamHeaders()
         self.setDateTimeFormat()
+        self.setSerials()
 
         self.exportSetup()
         return
@@ -119,29 +120,6 @@ class Setup:
                 print(line)
 
         print(len(flier)*'=')
-
-    # def setSensorName(self):
-    #     self.printSelectionBanner('Set Sensor Name', options=[''])
-    #     confirm = 'n'
-    #     while confirm == 'n':
-    #         self.name = input('Enter the name of the sensor: ')
-    #         print('')
-    #         print('Sensor name: ' + self.name)
-    #         confirm = self.validateEntry()
-    #     print('')
-
-    # def setDeploymentPeriod(self):
-    #     self.printSelectionBanner('Set Deployment Start and End',
-    #             options=['..start and End date must be entered as MM/DD/YYYY'])
-    #     confirm = 'n'
-    #     while confirm == 'n':
-    #         self.startdate = input('Enter the start date for the deployment: ')
-    #         self.enddate = input('Enter the end date for the deployment: ')
-    #         print('')
-    #         print('Deployment start: ' + self.startdate)
-    #         print('Deployment end: ' + self.enddate)
-    #         confirm = self.validateEntry()
-    #     print('')
 
     def setHeaderIndex(self, print_banner=True):
         if print_banner:
@@ -389,135 +367,6 @@ class Setup:
         self.pp.pprint(renaming_dict)
         self.enterContinue()
 
-        # confirm = self.validateEntry()
-        # if confirm == 'n':
-        #     valid = False
-        #     while valid is False:
-        #         iloc = input('Enter column number to edit: ')
-        #         if (int(iloc) < 1) or (int(iloc) > n_params):
-        #             print('..invalid entry')
-        #         else:
-        #             valid = True
-
-    # def setColumnHeaders(self, col_type=None, print_banner=True, i=1,
-    #                      column_headers=[], reset=False):
-    #     """If col_type is '', specify all column headers. If col_type is
-    #     'Timestamp', the specified column header names must be in the
-    #     previously entered list of all column header names.
-    #     """
-    #     if print_banner:
-    #         if col_type != '':
-    #             fmt_col_type = " {:s} ".format(col_type)
-    #         else:
-    #             fmt_col_type = ' '
-    #         self.printSelectionBanner('Set' + fmt_col_type + 'Column Headers',
-    #                                   options=[self.end_str, self.del_str])
-
-    #     col_type = col_type.lower()
-
-    #     i = int(i)
-    #     esc = False
-    #     while esc is False:
-    #         val = input('Enter ' + col_type + ' column ' + str(i) +
-    #                     ' header name: ')
-
-    #         # Shortcut method: specify first entry as list of parameter names
-    #         # rather than entering in one by one
-    #         if val.startswith('[') and val.endswith(']'):
-    #             # Since input sets val to string, have to work backwards a bit
-    #             # to recover the list as type list
-    #             column_headers = val[1:-1].replace("'", '').replace(" ",
-    #                                 '').replace('\n', '').split(',')
-    #             val = 'X'
-
-    #         if val == 'X':
-    #             print(column_headers)
-    #             confirm = self.validateEntry()
-    #             esc = True
-    #         elif val == 'D':
-    #             try:
-    #                 column_headers.pop(i-2)
-    #                 i -= 1
-    #                 print('..deleting ' + col_type + ' column ' + str(i) +
-    #                       ' header name')
-    #                 print('..updated column headers list: ',
-    #                       column_headers)
-    #             except IndexError:
-    #                 print('Empty list, no entries to delete')
-    #                 pass
-    #         elif val == '':
-    #             print('..invalid entry')
-    #         else:
-    #             if col_type == 'timestamp' and val not in self.all_col_headers:
-    #                 print('..invalid entry, name not in passed list of '
-    #                       'column headers')
-    #             else:
-    #                 if reset is True:
-    #                     column_headers[i-1] = val
-    #                     reset = False
-    #                 else:
-    #                     column_headers.append(val)
-    #                 i += 1
-
-    #         if esc is True and len(column_headers) == 0:
-    #             print('..warning, ' + col_type + ' column headers list',
-    #                   ' is empty')
-
-    #     if col_type == '':
-    #         self.all_col_headers = column_headers
-    #     else:
-    #         self.timestamp_col_headers = column_headers
-
-    #     if confirm == 'n':
-    #         valid = False
-    #         while valid is False:
-    #             iloc = input('Enter column number to edit: ')
-    #             if (int(iloc) < 1) or (int(iloc) > len(column_headers)):
-    #                 print('..invalid entry')
-    #             else:
-    #                 valid = True
-    #         self.setColumnHeaders(col_type, print_banner=False,
-    #                               i=iloc, column_headers=column_headers,
-    #                               reset=True)
-    #     print('')
-
-    # def setColumnRenaming(self, print_banner=True):
-    #     if print_banner:
-    #         note = ('Note, timestamp columns should be skipped by pressing '
-    #                 'enter. These columns are assigned as the index during '
-    #                 'ingestion, and as a result, timestamp columns are '
-    #                 'redundant and should be dropped.')
-    #         self.printSelectionBanner('Configure Column Renaming Scheme',
-    #                                   options=[self.skip_str, note,
-    #                                            'Choose from the followng list',
-    #                                            self.params])
-    #     self.col_rename_dict = {}
-    #     self.drop_cols = []
-    #     for col in self.all_col_headers:
-    #         invalid = True
-    #         while invalid is True:
-    #             val = input('Enter parameter associated with "' + col + '": ')
-    #             if val == '':
-    #                 self.drop_cols.append(col)
-    #                 print('.."' + col + '" will be dropped')
-    #                 if self.drop_cols == self.all_col_headers:
-    #                     print('..warning, all columns will be dropped')
-    #                 invalid = False
-    #                 continue
-    #             elif val not in self.params:
-    #                 invalid = True
-    #                 print('..invalid entry, parameter name must be in the '
-    #                       'above list')
-    #             else:
-    #                 invalid = False
-    #                 self.col_rename_dict[col] = val
-
-    #     print('Configured renaming scheme:', self.col_rename_dict)
-    #     confirm = self.validateEntry()
-    #     if confirm == 'n':
-    #         self.setColumnRenaming(print_banner=False)
-    #     print('')
-
     def setDateTimeFormat(self):
         cite = ('..format code list: https://docs.python.org/3/library/'
                 'datetime.html#strftime-and-strptime-format-codes')
@@ -549,7 +398,6 @@ class Setup:
         self.pp.pprint(self.time_format_dict)
         self.enterContinue()
 
-
     def setDataType(self):
         self.printSelectionBanner('Select Data Type',
                                   options=[self.data_types])
@@ -569,6 +417,51 @@ class Setup:
                     valid = True
             print('')
 
+    def setSerials(self):
+        self.printSelectionBanner('Configure Sensor Serial Identifiers',
+                                  options=[self.end_str])
+
+        self.serials = {}
+        edit = True
+        col_n = 1
+
+        print('Enter unique serial identifiers for each sensor associated '
+              'with the following datasets:')
+        abbrev_files = []
+        for file in self.file_list:
+            file = file.replace(self.path + '/Data and Figures/sensor_data/' +
+                                self.name + '/raw_data/', '')
+            abbrev_files.append(file)
+            print('..{0}'.format(file))
+
+        while edit:
+            confirm = 'n'
+            while confirm == 'n':
+                serial = input("Enter serial identifier #{0}: ".format(str(col_n)))
+
+                if serial == 'X':
+                    edit = False
+                    break
+
+                elif not any(serial in file for file in abbrev_files):
+                    print('..invalid entry, identifier must be contained in '
+                          'the filenames listed above')
+
+                else:
+                    confirm = self.validateEntry()
+
+            if edit is False:
+                break
+            else:
+                self.serials[str(col_n)] = serial
+                col_n += 1
+
+        print('')
+        print('Configured serial identifiers:')
+        self.pp.pprint(self.serials)
+        print('')
+        self.enterContinue()
+
     def exportSetup(self):
         self.printSelectionBanner('Setup Configuration')
         self.config_dict = self.__dict__.copy()
@@ -587,6 +480,7 @@ class Setup:
         with open(outpath, 'w') as outfile:
             self.config_dict = json.dumps(self.config_dict, indent=4)
             outfile.write(self.config_dict)
+
 
 if __name__ == '__main__':
     # sensor_name = 'Example_Make_Model'
