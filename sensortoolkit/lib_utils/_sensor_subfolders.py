@@ -119,13 +119,13 @@ def create_sensor_directories(name=None, param=None, path=None):
 
             figure_params = param + ['Met', 'deployment']
             # Create figure subfolders for specified eval params
-            for name in figure_params:
-                param_fig_subfolder = os.path.join(sensor_subfolder, name)
+            for fig_folder in figure_params:
+                param_fig_subfolder = os.path.join(sensor_subfolder,
+                                                   fig_folder)
 
                 if not os.path.exists(param_fig_subfolder):
                     os.makedirs(param_fig_subfolder)
                     new_dir = param_fig_subfolder.replace(path, '')
-                    print('....Creating sub-directory:')
                     print('......' + new_dir)
                     new_folders.append(new_dir)
 
@@ -134,10 +134,8 @@ def create_sensor_directories(name=None, param=None, path=None):
             # Create data subfolders for processed, raw data
             for dataset_type in dataset_types:
                 data_subfolder = os.path.join(sensor_subfolder, dataset_type)
-
                 if not os.path.exists(data_subfolder):
                     os.makedirs(data_subfolder)
                     new_dir = data_subfolder.replace(path, '')
-                    print('....Creating sub-directory:')
                     print('......' + new_dir)
                     new_folders.append(new_dir)
