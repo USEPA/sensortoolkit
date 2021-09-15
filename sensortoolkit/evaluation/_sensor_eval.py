@@ -189,20 +189,22 @@ class SensorEvaluation:
     aqs_key = None
     airnow_key = None
 
-    def __init__(self, name, param, path, load_raw_data=False,
-                 reference_data=None, serials=None, tzone_shift=0,
-                 write_to_file=False, **kwargs):
+    def __init__(self, sensor, param, load_raw_data=False, reference_data=None,
+                 tzone_shift=0, write_to_file=False, **kwargs):
 
-        self.name = name
-        self.param = param
+        self.sensor = sensor
+        self.name = sensor.name
+        self.path = sensor.project_path
+        self.serials = sensor.serials
 
         # Private to avoid confusion between SensorEvaluation attribute and
         # paraeter attribute
+        self.param = param
         self._param_name = param.name
-        self.path = path
+
         self.load_raw_data = load_raw_data
         self.write_to_file = write_to_file
-        self.serials = serials
+
         self.tzone_shift = tzone_shift
 
         # Add keyword arguments (testing_loc, testing_org, etc.)
