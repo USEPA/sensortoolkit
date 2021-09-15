@@ -64,6 +64,7 @@ table for each subpackage. Click on module names to view functions within each f
   :recursive:
 
   sensortoolkit.evaluation._sensor_eval
+  sensortoolkit.evaluation._airsensor
 
 ``sensortoolkit.lib_utils``
 ---------------------------
