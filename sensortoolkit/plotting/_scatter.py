@@ -782,11 +782,13 @@ def normalized_met_scatter(df_list, ref_df, avg_df, met_ref_df=None,
             set_ylims = False
 
         lim_tup = met_scatter_lims(met_data=met_ref_df,
+                                   param=param_name,
                                    met_param=met_param_name,
-                                   xlims=xlims, ylims=ylims,
+                                   xlims=xlims,
+                                   ylims=ylims,
                                    serials=sensor_serials,
-                                   eval_param=param_name,
                                    avg_df=avg_df)
+
         if set_xlims:
             xlims = lim_tup[0]
         if set_ylims:
