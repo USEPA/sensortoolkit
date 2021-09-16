@@ -114,9 +114,12 @@ class AirSensor:
             if os.path.isabs(path):
                 self._project_path = path
             else:
-                raise ValueError('Invalid project path, path not absolute.')
+                raise ValueError('Invalid project path, path not absolute: '
+                                 f'{path}')
         else:
-            raise ValueError('Invalid project path, directory not found.')
+            raise ValueError('Invalid project path, directory not found: '
+                             f'{path}')
+
 
     def create_directories(self):
         try:
