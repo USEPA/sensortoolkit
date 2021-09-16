@@ -203,7 +203,7 @@ class Parameter:
         """
         self.format_name = baseline
         if subscript is not None:
-            self.format_name += '_{' + subscript + '}'
+            self.format_name += '$_{' + subscript + '}$'
 
     def __set_ParameterTargets__(self):
         """
