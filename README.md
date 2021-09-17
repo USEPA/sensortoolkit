@@ -1,6 +1,6 @@
 # sensortoolkit (v0.4.2 beta 3) - Air Sensor Data Analysis Library
 
-![Sensors at an Ambient Air Monitoring Site](docs/source/data/_readme_figures_/CSAM_3_crop.jpg){width=1200}
+![Sensors at an Ambient Air Monitoring Site](docs/source/data/_readme_figures/CSAM_3_crop.jpg){width=1200}
 
 **Warning: This code is currently under development and is intended for internal EPA use only. Please do not distribute or share components of this repository with individuals external to EPA.**
 
@@ -74,7 +74,7 @@ documentation. The HTML documentation contain greater detail about implementing 
 
 To open the included HTML documentation, first navigate to the repository folder.  Go to docs -> build -> html. Double click to open the file named `index.html`, which is the main landing page for the documentation. The documentation should open in a browser, and look like the following landing page:
 
-![sensortoolkit Landing Page](docs/source/data/_readme_figures_/toolkit_landing_page.png){width=800}
+![sensortoolkit Landing Page](docs/source/data/_readme_figures/toolkit_landing_page.png){width=800}
 
 Note: Users will need an installation of Python (v3.7 or greater). It’s
 highly recommended that users download an Anaconda distribution of
