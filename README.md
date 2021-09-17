@@ -1,6 +1,6 @@
 # sensortoolkit (v0.4.2 beta 3) - Air Sensor Data Analysis Library
 
-![Sensors at an Ambient Air Monitoring Site](Data%20and%20Figures/figures/_readme_/CSAM_3_crop.jpg){width=1200}
+![Sensors at an Ambient Air Monitoring Site](docs/source/data/_readme_figures_/CSAM_3_crop.jpg){width=1200}
 
 **Warning: This code is currently under development and is intended for internal EPA use only. Please do not distribute or share components of this repository with individuals external to EPA.**
 
@@ -74,7 +74,7 @@ documentation. The HTML documentation contain greater detail about implementing 
 
 To open the included HTML documentation, first navigate to the repository folder.  Go to docs -> build -> html. Double click to open the file named `index.html`, which is the main landing page for the documentation. The documentation should open in a browser, and look like the following landing page:
 
-![sensortoolkit Landing Page](Data%20and%20Figures/figures/_readme_/toolkit_landing_page.png){width=800}
+![sensortoolkit Landing Page](docs/source/data/_readme_figures_/toolkit_landing_page.png){width=800}
 
 Note: Users will need an installation of Python (v3.7 or greater). It’s
 highly recommended that users download an Anaconda distribution of
@@ -90,14 +90,14 @@ starting with how to use Git, Bitbucket has a [tutorial] on how to clone
 repositories that may be helpful. From the terminal, the repository can
 be cloned via the following command
 
-    git clone https://bitbucket.epa.gov/scm/~sfrede01/sensor-evaluation.git
+    git clone https://bitbucket.epa.gov/scm/~sfrede01/sensortoolkit.git
 
 ### 2. Install `sensortoolkit`
 
 First, navigate to the folder location for the cloned repository:
 
 ```
-cd path/to/library
+cd path/to/sensortoolkit
 ```
 
 Next, install the library with pip:
@@ -109,7 +109,7 @@ pip install .
 Users will see something similar to the following be printed to the
 console:
 ```
-Processing c:\users\..\documents\sensor-evaluation
+Processing c:\users\..\documents\sensortoolkit
 Requirement already satisfied: matplotlib in c:\users\sfrede01\anaconda3\lib\site-packages (from sensortoolkit==0.1.0b2) (3.3.4)
 Requirement already satisfied: numpy in c:\users\sfrede01\anaconda3\lib\site-packages (from sensortoolkit==0.1.0b2) (1.20.1)
 Requirement already satisfied: pandas in c:\users\sfrede01\anaconda3\lib\site-packages (from sensortoolkit==0.1.0b2) (1.2.4)
