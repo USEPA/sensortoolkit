@@ -19,7 +19,7 @@ import pandas as pd
 from sensortoolkit.datetime_utils import set_datetime_index
 
 
-def processed_data_search(processed_path, sensor_serials):
+def processed_data_search(processed_path, sensor_serials, **kwargs):
     """Load processed data files at recorded sampling frequency, 1-hour
     averaged, and 24-hour averaged intervals.
 
@@ -45,6 +45,9 @@ def processed_data_search(processed_path, sensor_serials):
       List of pandas dataframe objects, one for each sensor dataset
       containing processed daily (24-hr) averaged time-resolution data.
     """
+    start = kwargs.get('deploy_bdate', None)
+    end = kwargs.get('deploy_edate', None)
+
     full_df_list, hourly_df_list, daily_df_list = [], [], []
 
     # Check if files in processed file directory
@@ -62,6 +65,10 @@ def processed_data_search(processed_path, sensor_serials):
                     idx_fmt = '%Y-%m-%d %H:%M:%S'
                     df = pd.read_csv(processed_path+filename)
                     df = set_datetime_index(df, idx_fmt=idx_fmt)
+                    if start is not None:
+                        df = df.loc[start:, :]
+                    if end is not None:
+                        df = df.loc[:end, :]
                     full_df_list.append(df)
 
                 if filename.endswith(sensor_id + '_hourly.csv'):
@@ -69,6 +76,10 @@ def processed_data_search(processed_path, sensor_serials):
                     idx_fmt = '%Y-%m-%d %H:%M:%S'
                     df = pd.read_csv(processed_path+filename)
                     df = set_datetime_index(df, idx_fmt=idx_fmt)
+                    if start is not None:
+                        df = df.loc[start:, :]
+                    if end is not None:
+                        df = df.loc[:end, :]
                     hourly_df_list.append(df)
 
                 if filename.endswith(sensor_id + '_daily.csv'):
@@ -76,6 +87,10 @@ def processed_data_search(processed_path, sensor_serials):
                     idx_fmt = '%Y-%m-%d'
                     df = pd.read_csv(processed_path+filename)
                     df = set_datetime_index(df, idx_fmt=idx_fmt)
+                    if start is not None:
+                        df = df.loc[start:, :]
+                    if end is not None:
+                        df = df.loc[:end, :]
                     daily_df_list.append(df)
 
         return full_df_list, hourly_df_list, daily_df_list
