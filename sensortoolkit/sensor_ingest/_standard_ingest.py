@@ -39,10 +39,6 @@ def standard_ingest(path, name=None, setup_file_path=None):
             Dataframe containing sensor data in standardized formatting for
             datetime index and header naming scheme.
     """
-    # with open(setup_file_path) as file:
-    #     setup = json.load(file)
-    #     file.close()
-
     setup = ParseSetup(setup_file_path, data_path=path)
 
     idx_list = setup['timestamp_col_headers']
@@ -51,15 +47,18 @@ def standard_ingest(path, name=None, setup_file_path=None):
     if setup['dtype'] in ('.csv', '.txt', '.xlsx'):
         try:
             names = None
+            row_idx = None
             if setup['header_iloc'] is None:
                 names = setup['all_col_headers']
+            if setup['data_row_idx'] is not None:
+                row_idx = setup['data_row_idx']
 
-            if setup['dtype'] in ('.csv', 'txt'):
+            if setup['dtype'] in ('.csv', '.txt'):
                 df = pd.read_csv(path, header=setup['header_iloc'],
-                                 names=names)
+                                 names=names, skiprows=row_idx)
             if setup['dtype'] == '.xlsx':
                 df = pd.read_excel(path, header=setup['header_iloc'],
-                                   names=names)
+                                   names=names, skiprows=row_idx)
 
         except FileNotFoundError as e:
             sys.exit(e)
@@ -102,16 +101,17 @@ def standard_ingest(path, name=None, setup_file_path=None):
 
     df = df.set_index(df['DateTime_UTC'])
     df = df.sort_index(ascending=True)
-    df = df.drop(columns=['DateTime_UTC'])
-    df = df.drop(columns=setup['timestamp_col_headers'])
+
+    setup['timestamp_col_headers'].append('DateTime_UTC')
+    timestamp_cols = set(setup['timestamp_col_headers'])
+    df = df.drop(columns=timestamp_cols)
 
     # Rename parameter header columns
     df = df.rename(columns=setup['col_rename_dict'])
 
     # Drop unused columns
     if len(setup['drop_cols']) > 0:
-        # ignore errors if column not in df (may happen if DateTime_UTC in list
-        # of all header columns, already dropped)
+        # ignore errors if column not in df
         df = df.drop(columns=setup['drop_cols'], errors='ignore')
 
         # Force non numeric values to Nans
@@ -160,7 +160,7 @@ def ParseSetup(setup_file_path, data_path):
                        in setup['time_format_dict'] if col in file_col_list}
 
     file_setup['name'] = setup['name']
-    file_setup['work_path'] = setup['work_path']
+    file_setup['work_path'] = setup['path']
     file_setup['dtype'] = setup['dtype']
     file_setup['header_iloc'] = setup['header_iloc']
     file_setup['all_col_headers'] = file_col_list
@@ -168,5 +168,10 @@ def ParseSetup(setup_file_path, data_path):
     file_setup['drop_cols'] = file_drop_cols
     file_setup['timestamp_col_headers'] = file_idx_list
     file_setup['time_format_dict'] = file_idx_format
+
+    try:
+        file_setup['data_row_idx'] = setup['data_row_idx']
+    except KeyError:
+        file_setup['data_row_idx'] = None
 
     return file_setup
