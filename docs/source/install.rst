@@ -19,7 +19,7 @@ repository can be cloned via the following command
 
 ::
 
-  git clone https://bitbucket.epa.gov/scm/~sfrede01/sensor-evaluation.git
+  git clone https://bitbucket.epa.gov/scm/~sfrede01/sensortoolkit.git
 
 
 Installing ``sensortoolkit``
@@ -29,7 +29,7 @@ First, navigate to the folder location for the cloned repository:
 
 .. code-block:: console
 
-  cd path/to/library
+  cd path/to/sensortoolkit
 
 Next, install the library with pip:
 
@@ -41,7 +41,7 @@ Users will see something similar to the following be printed to the console:
 
 .. code-block:: console
 
-  Processing c:\users\..\documents\sensor-evaluation
+  Processing c:\users\..\documents\sensortoolkit
   Requirement already satisfied: matplotlib in c:\users\sfrede01\anaconda3\lib\site-packages (from sensortoolkit==0.1.0b2) (3.3.4)
   Requirement already satisfied: numpy in c:\users\sfrede01\anaconda3\lib\site-packages (from sensortoolkit==0.1.0b2) (1.20.1)
   Requirement already satisfied: pandas in c:\users\sfrede01\anaconda3\lib\site-packages (from sensortoolkit==0.1.0b2) (1.2.4)
