@@ -44,6 +44,7 @@ class Setup:
         self.dtype = None
         self.header_names = None
         self.header_iloc = None
+        self.data_row_idx = None
         self.all_col_headers = []
         self.timestamp_col_headers = []
         self.drop_cols = []
@@ -200,8 +201,21 @@ class Setup:
 
         print('')
         print('Column Headers:', self.header_names)
-        print('')
         self.enterContinue()
+
+        confirm = 'n'
+        while confirm == 'n':
+            self.data_row_idx = input("Enter the row index that data begin "
+                                      "on: ")
+            try:
+                self.data_row_idx = int(self.data_row_idx)
+                if self.data_row_idx < 0:
+                    raise ValueError
+                confirm = self.validateEntry()
+            except ValueError:
+                print('..invalid entry, enter an integer >= 0')
+
+        print('')
 
     def findDataFiles(self):
         # Create a list of data files to load
@@ -225,12 +239,15 @@ class Setup:
             df = pd.read_csv(file, header=self.header_iloc,
                              names=self.header_names,
                              nrows=kwargs.get('nrows', 1),
+                             skiprows=self.data_row_idx,
                              on_bad_lines='skip'
                              )
         elif self.dtype == '.xlsx':
             df = pd.read_excel(file, header=self.header_iloc,
                                names=self.header_names,
-                               nrows=kwargs.get('nrows', 1))
+                               nrows=kwargs.get('nrows', 1),
+                               skiprows=self.data_row_idx
+                               )
         else:
             raise TypeError('Invalid data type')
 
