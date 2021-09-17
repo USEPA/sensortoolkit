@@ -268,10 +268,12 @@ class SensorEvaluation:
 
         deploy_grps = self.deploy_dict['Deployment Groups']
 
-        self.deploy_bdate = min([pd.to_datetime(deploy_grps[grp]['eval_start'])
-                                 for grp in deploy_grps.keys()])
-        self.deploy_edate = max([pd.to_datetime(deploy_grps[grp]['eval_end'])
-                                 for grp in deploy_grps.keys()])
+        deploy_bdate = min([pd.to_datetime(deploy_grps[grp]['eval_start'])
+                            for grp in deploy_grps.keys()])
+        self.deploy_bdate = self.kwargs.get('deploy_bdate', deploy_bdate)
+        deploy_edate = max([pd.to_datetime(deploy_grps[grp]['eval_end'])
+                            for grp in deploy_grps.keys()])
+        self.deploy_edate = self.kwargs.get('deploy_edate', deploy_edate)
 
         # Averaging intervals for parameters
         self.eval_param_averaging = self.param.averaging
