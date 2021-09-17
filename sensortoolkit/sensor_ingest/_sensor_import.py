@@ -196,8 +196,8 @@ def sensor_import(sensor_name=None, sensor_serials=None, tzone_shift=0,
                 sys.exit(console_out)
 
             # any concatenation would happen here
-            start = kwargs.get('deployment_start', None)
-            end = kwargs.get('deployment_end', None)
+            start = kwargs.get('deploy_bdate', None)
+            end = kwargs.get('deploy_edate', None)
             if start is not None:
                 sensor_df = sensor_df.loc[start:, :]
             if end is not None:
@@ -214,7 +214,9 @@ def sensor_import(sensor_name=None, sensor_serials=None, tzone_shift=0,
                                                          path=processed_path)
 
     else:
-        df_tuple = processed_data_search(processed_path, sensor_serials)
+        df_tuple = processed_data_search(processed_path,
+                                         sensor_serials,
+                                         **kwargs)
         full_df_list, hourly_df_list, daily_df_list = df_tuple
 
     # Compute dewpoint
