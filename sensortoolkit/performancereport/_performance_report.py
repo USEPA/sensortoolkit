@@ -57,17 +57,16 @@ class PerformanceReport(SensorEvaluation):
     # constuct reports
     report_params = ['PM25', 'O3']
 
-    def __init__(self, sensor, param, load_raw_data=False, reference_data=None,
-                 tzone_shift=0, write_to_file=False, figure_search=False,
-                 **kwargs):
+    def __init__(self, sensor, param, reference_data=None, write_to_file=False,
+                 figure_search=False, **kwargs):
 
         # Add keyword arguments (testing_loc, testing_org, etc.)
         self.__dict__.update(**kwargs)
         self.kwargs = kwargs
 
         # Inherit the SensorEvaluation class instance attributes
-        super().__init__(sensor, param, load_raw_data, reference_data,
-                         tzone_shift, write_to_file, **kwargs)
+        super().__init__(sensor, param, reference_data, write_to_file,
+                         **kwargs)
 
         if self._param_name not in self.report_params:
             sys.exit('Reporting template not configured for '
