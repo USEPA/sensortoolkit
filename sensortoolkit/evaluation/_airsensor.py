@@ -22,7 +22,8 @@ from sensortoolkit import datetime_utils
 
 
 class AirSensor:
-    def __init__(self, make, model, param_headers, **kwargs):
+    def __init__(self, make, model, #param_headers,
+                 **kwargs):
         """
 
 
@@ -41,7 +42,7 @@ class AirSensor:
 
         self.make = make
         self.model = model
-        self.param_headers = param_headers
+        # self.param_headers = param_headers
         self._setup_path = None
 
         if self.make is not None and self.model is not None:
@@ -54,44 +55,49 @@ class AirSensor:
 
         self._get_ingest_config()
 
-    @property
-    def param_headers(self):
-        return self._param_headers
+    # @property
+    # def param_headers(self):
+    #     return self._param_headers
 
-    @param_headers.setter
-    def param_headers(self, labels):
-        if isinstance(labels, str):
-            self._param_headers = [labels]
-        elif isinstance(labels, list):
-            self._param_headers = labels
-        else:
-            raise TypeError('Invalid type for "param_headers". Must be either'
-                            ' type str or list of strings.')
+    # @param_headers.setter
+    # def param_headers(self, labels):
+    #     if isinstance(labels, str):
+    #         self._param_headers = [labels]
+    #     elif isinstance(labels, list):
+    #         self._param_headers = labels
+    #     else:
+    #         raise TypeError('Invalid type for "param_headers". Must be either'
+    #                         ' type str or list of strings.')
 
-        for label in self._param_headers:
-            valid_label = self._check_param_headers(label)
-            if not valid_label:
-                sdfs_params= list(Parameter.__param_dict__.keys())
-                raise NameError('Invalid parameter label {0}. Name must be one'
-                                ' of the following: {1}'.format(label,
-                                                                sdfs_params))
+    #     for label in self._param_headers:
+    #         valid_label = self._check_param_headers(label)
+    #         if not valid_label:
+    #             sdfs_params= list(Parameter.__param_dict__.keys())
+    #             raise NameError('Invalid parameter label {0}. Name must be one'
+    #                             ' of the following: {1}'.format(label,
+    #                                                             sdfs_params))
 
-    def _check_param_headers(self, label):
-        test_param = Parameter(label)
+    # def _check_param_headers(self, label):
+    #     test_param = Parameter(label)
 
-        valid = bool(test_param.classifier)
-        return valid
+    #     valid = bool(test_param.classifier)
+    #     return valid
 
     def _get_ingest_config(self):
 
         if os.path.isfile(self._setup_path):
             with open(self._setup_path) as p:
                 self.setup_data = json.loads(p.read())
-                self.serials = self.setup_data['serials']
                 p.close()
+            self.serials = self.setup_data['serials']
+            self.param_headers = self.setup_data['sdfs_header_names']
+            self.create_directories(param_headers=self.param_headers)
+
         elif self._kwargs.get('setup_data'):
             self.setup_data = self._kwargs.get('setup_data')
             self.serials = self.setup_data['serials']
+            self.param_headers = self.setup_data['sdfs_header_names']
+            self.create_directories(param_headers=self.param_headers)
 
     @property
     def setup_data(self):
@@ -123,7 +129,7 @@ class AirSensor:
                              f'{path}')
 
 
-    def create_directories(self):
+    def create_directories(self, param_headers=None):
         try:
             self.project_path
         except AttributeError as error_message:
@@ -131,8 +137,9 @@ class AirSensor:
             return
 
         lib_utils.create_sensor_directories(name=self.name,
-                                            param=self.param_headers,
-                                            path=self.project_path)
+                                            param=param_headers,
+                                            path=self.project_path
+                                            )
 
     def copy_datasets(self):
         try:
@@ -151,7 +158,7 @@ class AirSensor:
         self._get_ingest_config()
 
     # Experimental
-    def _load_data(self, tzone_shift, write_to_file, load_raw_data):
+    def load_data(self, load_raw_data, write_to_file, **kwargs):
         # path to raw sensor data
         self._data_path = '\\'.join((self.project_path, 'Data and Figures',
                                     'sensor_data', self.name,
@@ -164,12 +171,11 @@ class AirSensor:
         df_tuple = sensor_ingest.sensor_import(
                                         sensor_name=self.name,
                                         sensor_serials=self.serials,
-                                        tzone_shift=tzone_shift, # put in kwargs
                                         load_raw_data=load_raw_data,
                                         data_path=self._data_path,
                                         processed_path=self._processed_path,
                                         write_to_file=write_to_file,
-                                        **self._kwargs)
+                                        **kwargs)
         self._set_data(df_tuple)
 
     def _set_data(self, data_obj):
@@ -192,7 +198,6 @@ class AirSensor:
                     self.data[t_interval][serial_id] = df
 
 
-
 class ReferenceMethod:
     def __init__(self):
         pass
@@ -202,13 +207,13 @@ class ReferenceMethod:
 if __name__ == '__main__':
     work_path = r'C:\Users\SFREDE01\OneDrive - Environmental Protection Agency (EPA)\Profile\Documents\test_dir'
 
-    EMM = AirSensor('Example_Make', 'Model', param_headers=['PM25', 'O3'],
+    EMM = AirSensor('Example_Make', 'Model',
                      project_path=work_path)
 
-    # test_sensor = AirSensor('test', 'sensor', param_headers=['PM25', 'O3'],
+    # test_sensor = AirSensor('test', 'sensor',
     #                         project_path=work_path)
     # test_sensor.create_directories()
     # test_sensor.copy_datasets()
     # test_sensor.sensor_setup()
 
-    EMM._load_data(tzone_shift=5, write_to_file=False, load_raw_data=False)
+    EMM.load_data(load_raw_data=False, tzone_shift=5, write_to_file=False)
