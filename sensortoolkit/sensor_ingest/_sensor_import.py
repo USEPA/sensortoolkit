@@ -25,7 +25,7 @@ from sensortoolkit.model import purpleair_us_corr
 from sensortoolkit.qc import purpleair_ab_averages
 
 
-def sensor_import(sensor_name=None, sensor_serials=None, tzone_shift=0,
+def sensor_import(sensor_name=None, sensor_serials=None,
                   load_raw_data=False, data_path=None, processed_path=None,
                   write_to_file=False, **kwargs):
     """Import recorded or processed sensor data.
@@ -157,6 +157,7 @@ def sensor_import(sensor_name=None, sensor_serials=None, tzone_shift=0,
         and must be in either .csv or .txt format).
     """
     valid_extensions = ['.csv', '.txt', '.xlsx']
+    tzone_shift = kwargs.get('tzone_shift', 0)
 
     if load_raw_data is True:
         full_df_list = []
