@@ -212,9 +212,9 @@ class PerformanceReport(SensorEvaluation):
         if create_figure:
             self.plot_sensor_scatter(
                 plot_subset=kwargs.get('plot_subset', ['1']),
-                plot_limits=kwargs.get('plot_limits', (-1, self.plot_cmax)),
-                tick_spacing=kwargs.get('tick_spacing', 5),
-                text_pos=kwargs.get('text_pos', 'upper_left'),
+                # plot_limits=kwargs.get('plot_limits', (-1, self.plot_cmax)),
+                # tick_spacing=kwargs.get('tick_spacing', 5),
+                # text_pos=kwargs.get('text_pos', 'upper_left'),
                 report_fmt=True)
 
         scatter_loc = self.fig_locs['SingleScatter']
@@ -285,8 +285,9 @@ class PerformanceReport(SensorEvaluation):
                     averaging_interval,
                     plot_limits=kwargs.get('plot_limits',
                                            (-1, self.plot_cmax)),
-                    tick_spacing=kwargs.get('tick_spacing', 5),
-                    text_pos=kwargs.get('text_pos', 'upper_left'))
+                    # tick_spacing=kwargs.get('tick_spacing', 5),
+                    # text_pos=kwargs.get('text_pos', 'upper_left')
+                    )
 
             if self.n_sensors <= 3:
                 scatter_loc = self.fig_locs['TripleScatter']
