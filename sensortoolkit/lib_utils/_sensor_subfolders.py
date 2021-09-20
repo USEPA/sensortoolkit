@@ -11,7 +11,7 @@ Last Updated:
 """
 import os
 import sys
-
+from sensortoolkit.param import Parameter
 
 def create_sensor_directories(name=None, param=None, path=None):
     """Construct the sensor directory file structure required for conducting
@@ -36,9 +36,6 @@ def create_sensor_directories(name=None, param=None, path=None):
     """
     if isinstance(param, str):
         param = [param]
-    if not isinstance(param, list):
-        raise TypeError('Invalid type {0} passed to "param". Expected either a'
-                        ' string or list of strings.'.format(type(param)))
 
     data_fig_path = os.path.join(path, 'Data and Figures')
     report_path = os.path.join(path, 'Reports')
@@ -100,8 +97,10 @@ def create_sensor_directories(name=None, param=None, path=None):
     # Create Subfolders for Sensor Data and Figures
     subfolders = ['eval_stats', 'figures', 'sensor_data']
 
-    print('Creating directories for ' + name + ' and evaluation parameters: '
-          + ', '.join(param))
+    console = 'Creating directories for ' + name
+    if param is not None:
+        console += ' and evaluation parameters: ' + ', '.join(param)
+    print(console)
 
     for subfolder in subfolders:
         subfolder_path = os.path.join(data_fig_path, subfolder)
@@ -115,7 +114,11 @@ def create_sensor_directories(name=None, param=None, path=None):
             new_folders.append(new_dir)
 
         # Create sub-subfolders for figures and sensor data folders
-        if subfolder == 'figures':
+        if subfolder == 'figures' and param is not None:
+            # Only create separate folders for pollutants. Met params grouped
+            # into single folder.
+            param = [name for name in param if
+                     Parameter(name).classifier != 'Met']
 
             figure_params = param + ['Met', 'deployment']
             # Create figure subfolders for specified eval params
@@ -126,7 +129,7 @@ def create_sensor_directories(name=None, param=None, path=None):
                 if not os.path.exists(param_fig_subfolder):
                     os.makedirs(param_fig_subfolder)
                     new_dir = param_fig_subfolder.replace(path, '')
-                    print('......' + new_dir)
+                    print('..' + new_dir)
                     new_folders.append(new_dir)
 
         if subfolder == 'sensor_data':
