@@ -294,7 +294,9 @@ class PerformanceReport(SensorEvaluation):
                 fig_height = 5.62  # height of triple scatter figure in inches
             else:
                 # Add a page, place figure on new page
-                scatter_loc = self.fig_locs['MultiScatter']
+                # FIXME: Correct figure position needed for scatter plots with
+                # more than three sensors.
+                scatter_loc = self.fig_locs['TripleScatter']
 
                 # TODO: set correct figure height for figures with mult. rows
                 fig_height = 5.62  # height of triple scatter figure in inches
