@@ -97,10 +97,10 @@ def create_sensor_directories(name=None, param=None, path=None):
     # Create Subfolders for Sensor Data and Figures
     subfolders = ['eval_stats', 'figures', 'sensor_data']
 
-    console = 'Creating directories for ' + name
-    if param is not None:
-        console += ' and evaluation parameters: ' + ', '.join(param)
-    print(console)
+    # console = 'Creating directories for ' + name
+    # if param is not None:
+    #     console += ' and evaluation parameters: ' + ', '.join(param)
+    #print(console)
 
     for subfolder in subfolders:
         subfolder_path = os.path.join(data_fig_path, subfolder)
