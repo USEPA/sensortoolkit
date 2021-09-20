@@ -17,6 +17,8 @@ import os
 import json
 from sensortoolkit.param import Parameter
 from sensortoolkit import lib_utils
+from sensortoolkit import sensor_ingest
+from sensortoolkit import datetime_utils
 
 
 class AirSensor:
@@ -40,7 +42,7 @@ class AirSensor:
         self.make = make
         self.model = model
         self.param_headers = param_headers
-        self.setup_path = None
+        self._setup_path = None
 
         if self.make is not None and self.model is not None:
             self.name = '_'.join([self.make.replace(' ', '_'),
@@ -48,7 +50,7 @@ class AirSensor:
 
         if self._kwargs.get('project_path'):
             self.project_path = self._kwargs.get('project_path')
-            self.setup_path = rf"{self.project_path}\Data and Figures\sensor_data\{self.name}\{self.name}_setup.json"
+            self._setup_path = rf"{self.project_path}\Data and Figures\sensor_data\{self.name}\{self.name}_setup.json"
 
         self._get_ingest_config()
 
@@ -82,8 +84,8 @@ class AirSensor:
 
     def _get_ingest_config(self):
 
-        if os.path.isfile(self.setup_path):
-            with open(self.setup_path) as p:
+        if os.path.isfile(self._setup_path):
+            with open(self._setup_path) as p:
                 self.setup_data = json.loads(p.read())
                 self.serials = self.setup_data['serials']
                 p.close()
@@ -148,21 +150,65 @@ class AirSensor:
 
         self._get_ingest_config()
 
+    # Experimental
+    def _load_data(self, tzone_shift, write_to_file, load_raw_data):
+        # path to raw sensor data
+        self._data_path = '\\'.join((self.project_path, 'Data and Figures',
+                                    'sensor_data', self.name,
+                                    'raw_data', ''))
+        # path to processed sensor data
+        self._processed_path = '\\'.join((self.project_path, 'Data and Figures',
+                                         'sensor_data', self.name,
+                                         'processed_data', ''))
+
+        df_tuple = sensor_ingest.sensor_import(
+                                        sensor_name=self.name,
+                                        sensor_serials=self.serials,
+                                        tzone_shift=tzone_shift, # put in kwargs
+                                        load_raw_data=load_raw_data,
+                                        data_path=self._data_path,
+                                        processed_path=self._processed_path,
+                                        write_to_file=write_to_file,
+                                        **self._kwargs)
+        self._set_data(df_tuple)
+
+    def _set_data(self, data_obj):
+        self.data = {}
+        for dataset_group in data_obj:
+            # Check that the intervals in the datasets are similar
+            t_intervals = [datetime_utils.get_timestamp_interval(df)
+                           for df in dataset_group]
+
+            same_t_interval = all(interval==t_intervals[0] for
+                                  interval in t_intervals)
+
+            if not same_t_interval:
+                print('Warning, timestamp intervals not consistent.')
+                print(t_intervals)
+            else:
+                t_interval = t_intervals[0]
+                self.data[t_interval] = {}
+                for serial_id, df in zip(self.serials.values(), dataset_group):
+                    self.data[t_interval][serial_id] = df
+
+
 
 class ReferenceMethod:
     def __init__(self):
         pass
 
 
+
 if __name__ == '__main__':
     work_path = r'C:\Users\SFREDE01\OneDrive - Environmental Protection Agency (EPA)\Profile\Documents\test_dir'
-    setup_path = rf"{work_path}\Data and Figures\sensor_data\Example_Make_Model\Example_Make_Model_setup.json"
 
-    # EMM = AirSensor('Example_Make', 'Model', param_headers=['PM25', 'O3'],
-    #                  setup_path=setup_path, project_path=work_path)
+    EMM = AirSensor('Example_Make', 'Model', param_headers=['PM25', 'O3'],
+                     project_path=work_path)
 
-    test_sensor = AirSensor('test', 'sensor', param_headers=['PM25', 'O3'],
-                            project_path=work_path)
+    # test_sensor = AirSensor('test', 'sensor', param_headers=['PM25', 'O3'],
+    #                         project_path=work_path)
     # test_sensor.create_directories()
     # test_sensor.copy_datasets()
     # test_sensor.sensor_setup()
+
+    EMM._load_data(tzone_shift=5, write_to_file=False, load_raw_data=False)
