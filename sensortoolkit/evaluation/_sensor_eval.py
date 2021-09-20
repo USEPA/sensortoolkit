@@ -194,14 +194,15 @@ class SensorEvaluation:
 
         self.sensor = sensor
         self.name = sensor.name
-        self.path = sensor.project_path
-        self.serials = sensor.serials
 
         try:
             self.sensor.data
         except AttributeError as e:
-            sys.exit(e + ', use the AirSensor.load_data() method to import'
-                     ' data')
+            sys.exit(f'{e}, use the AirSensor.load_data() method to import'
+                     f' data')
+
+        self.path = sensor.project_path
+        self.serials = sensor.serials
 
         # Private to avoid confusion between SensorEvaluation attribute and
         # paraeter attribute
@@ -219,12 +220,12 @@ class SensorEvaluation:
         self.kwargs = kwargs
 
         # path to sensor figures
-        self.figure_path = '\\'.join((self.path, 'Data and Figures',
-                                      'figures', self.name, ''))
+        self.figure_path = os.path.join(self.path, 'Data and Figures',
+                                        'figures', self.name, '')
 
         # path to evaluation statistics
-        self.stats_path = '\\'.join((self.path, 'Data and Figures',
-                                     'eval_stats', self.name, ''))
+        self.stats_path = os.path.join(self.path, 'Data and Figures',
+                                       'eval_stats', self.name, '')
 
         rec_int = list(self.sensor.data.keys())[0]
         self.full_df_list = [df for df in self.sensor.data[rec_int].values()]
