@@ -516,6 +516,8 @@ def scatter_plotter(df_list, ref_df, stats_df=None, plot_subset=None,
 
             if sensor_number > number_of_sensors:
                 ax.remove()
+                auto_filename_suffix = auto_filename_suffix.replace(
+                         str(Nr*Nc), str(Nr*Nc - 1))
                 continue
 
             # Initialize sensor, reference dataframe objects to None
@@ -556,6 +558,8 @@ def scatter_plotter(df_list, ref_df, stats_df=None, plot_subset=None,
             except IndexError:
                 print('Sensor index', str(sensor_idx), 'not in dataframe list')
                 ax.remove()
+                auto_filename_suffix = auto_filename_suffix.replace(
+                                        str(Nr*Nc), str(Nr*Nc - 1))
                 break
 
             tdelta_interval = sensor_df.index[1] - sensor_df.index[0]
