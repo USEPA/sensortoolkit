@@ -91,7 +91,14 @@ def draw_scatter(ax, xdata, ydata, param_dict, sensor_stats=None,
     # Set keyword arguments to passed values or defaults
     pointsize = kwargs.get('point_size', 20)
     alpha = kwargs.get('point_alpha', 0.7)
-    text_position = kwargs.get('plottext_position', 'upper_left')
+    default_text_pos = 'upper_left'
+    if sensor_stats is not None:
+        slope = sensor_stats.Slope[0]
+        if slope > 2.0:
+            default_text_pos = 'bottom_right'
+        else:
+            default_text_pos = 'upper_left'
+    text_position = kwargs.get('plottext_position', default_text_pos)
     plot_trendline = kwargs.get('show_trendline', True)
     plot_rmse = kwargs.get('show_RMSE', True)
     plot_spearman = kwargs.get('show_spearman', False)
@@ -376,7 +383,7 @@ def scatter_plotter(df_list, ref_df, stats_df=None, plot_subset=None,
     RH_colormap = kwargs.get('show_colorbar', True)
     plot_title = kwargs.get('show_title', True)
     plot_regression = kwargs.get('show_regression', True)
-    tick_spacing = kwargs.get('tick_spacing', 5)
+
     title_text = kwargs.get('title_text', None)
     ref_name = kwargs.get('ref_name', 'Unknown Reference')
     tight_layout = kwargs.get('tight_layout', False)
@@ -434,6 +441,14 @@ def scatter_plotter(df_list, ref_df, stats_df=None, plot_subset=None,
     end = max([df.index.max() for df in df_list])
     max_conc = get_max_conc(param_name, df_list=df_list, ref_df=ref_df,
                        bdate=start, edate=end)
+
+    divisions  = 100
+    default_tick_spacing = 0
+    while divisions > 7:
+        default_tick_spacing += 5
+        divisions = round(1.25*max_conc / default_tick_spacing)
+
+    tick_spacing = kwargs.get('tick_spacing', default_tick_spacing)
 
     xlims = kwargs.get('xlims',
                        (0, tick_spacing*round(1.25*max_conc/tick_spacing)))
@@ -552,7 +567,6 @@ def scatter_plotter(df_list, ref_df, stats_df=None, plot_subset=None,
             if (tdelta_interval) == pd.Timedelta('1 hour'):
                 hourly_df_obj = [sensor_df]
                 hourly_ref_df = ref_df
-
 
             if plot_regression is True:
                 if stats_df is not None:
