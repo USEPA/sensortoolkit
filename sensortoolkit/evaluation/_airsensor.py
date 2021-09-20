@@ -22,15 +22,13 @@ from sensortoolkit import datetime_utils
 
 
 class AirSensor:
-    def __init__(self, make, model, #param_headers,
-                 **kwargs):
+    def __init__(self, make, model, **kwargs):
         """
 
 
         Args:
             make (str): The name of the device manufacturer.
             model (str): The name of the sensor model.
-            param_headers (TYPE): DESCRIPTION.
             **kwargs (TYPE): DESCRIPTION.
 
         Returns:
@@ -42,7 +40,6 @@ class AirSensor:
 
         self.make = make
         self.model = model
-        # self.param_headers = param_headers
         self._setup_path = None
 
         if self.make is not None and self.model is not None:
@@ -54,34 +51,6 @@ class AirSensor:
             self._setup_path = rf"{self.project_path}\Data and Figures\sensor_data\{self.name}\{self.name}_setup.json"
 
         self._get_ingest_config()
-
-    # @property
-    # def param_headers(self):
-    #     return self._param_headers
-
-    # @param_headers.setter
-    # def param_headers(self, labels):
-    #     if isinstance(labels, str):
-    #         self._param_headers = [labels]
-    #     elif isinstance(labels, list):
-    #         self._param_headers = labels
-    #     else:
-    #         raise TypeError('Invalid type for "param_headers". Must be either'
-    #                         ' type str or list of strings.')
-
-    #     for label in self._param_headers:
-    #         valid_label = self._check_param_headers(label)
-    #         if not valid_label:
-    #             sdfs_params= list(Parameter.__param_dict__.keys())
-    #             raise NameError('Invalid parameter label {0}. Name must be one'
-    #                             ' of the following: {1}'.format(label,
-    #                                                             sdfs_params))
-
-    # def _check_param_headers(self, label):
-    #     test_param = Parameter(label)
-
-    #     valid = bool(test_param.classifier)
-    #     return valid
 
     def _get_ingest_config(self):
 
@@ -152,6 +121,13 @@ class AirSensor:
                                 path=self.project_path)
 
     def sensor_setup(self):
+        if hasattr(self, 'setup_data'):
+            print(f'A setup configuration has previously been created for {self.name}')
+            print('Do you wish to continue and overwrite the previously created configuration?')
+            val = lib_utils.validate_entry()
+            if val == 'n':
+                return
+
         setup_config = lib_utils.Setup(name=self.name,
                                        path=self.project_path)
 
@@ -159,6 +135,14 @@ class AirSensor:
 
     # Experimental
     def load_data(self, load_raw_data, write_to_file, **kwargs):
+        try:
+            self.setup_data
+        except AttributeError:
+            print(f'No setup configuration specified for {self.name}.')
+            print("Run the 'AirSensor.sensor_setup()' module before loading"
+                  " sensor data.")
+            return
+
         # path to raw sensor data
         self._data_path = '\\'.join((self.project_path, 'Data and Figures',
                                     'sensor_data', self.name,
