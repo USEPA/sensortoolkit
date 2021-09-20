@@ -189,68 +189,47 @@ class SensorEvaluation:
     aqs_key = None
     airnow_key = None
 
-    def __init__(self, sensor, param, load_raw_data=False, reference_data=None,
-                 tzone_shift=0, write_to_file=False, **kwargs):
+    def __init__(self, sensor, param, reference_data=None, write_to_file=False,
+                 **kwargs):
 
         self.sensor = sensor
         self.name = sensor.name
         self.path = sensor.project_path
         self.serials = sensor.serials
 
+        try:
+            self.sensor.data
+        except AttributeError as e:
+            sys.exit(e + ', use the AirSensor.load_data() method to import'
+                     ' data')
+
         # Private to avoid confusion between SensorEvaluation attribute and
         # paraeter attribute
         self.param = param
         self._param_name = param.name
 
-        self.load_raw_data = load_raw_data
-        self.write_to_file = write_to_file
+        if self._param_name not in self.sensor.param_headers:
+            raise AttributeError(f'{self._param_name} is not in the list of '
+                                 f'parameters measured by {self.name}')
 
-        self.tzone_shift = tzone_shift
+        self.write_to_file = write_to_file
 
         # Add keyword arguments (testing_loc, testing_org, etc.)
         self.__dict__.update(**kwargs)
         self.kwargs = kwargs
 
-        # path to raw sensor data
-        self.data_path = '\\'.join((self.path, 'Data and Figures',
-                                    'sensor_data', self.name,
-                                    'raw_data', ''))
         # path to sensor figures
         self.figure_path = '\\'.join((self.path, 'Data and Figures',
                                       'figures', self.name, ''))
-        # path to processed sensor data
-        self.processed_path = '\\'.join((self.path, 'Data and Figures',
-                                         'sensor_data', self.name,
-                                         'processed_data', ''))
+
         # path to evaluation statistics
         self.stats_path = '\\'.join((self.path, 'Data and Figures',
                                      'eval_stats', self.name, ''))
 
-        # Import sensor data
-        df_tuple = sensortoolkit.sensor_ingest.sensor_import(
-                                        sensor_name=self.name,
-                                        sensor_serials=self.serials,
-                                        tzone_shift=self.tzone_shift,
-                                        load_raw_data=self.load_raw_data,
-                                        data_path=self.data_path,
-                                        processed_path=self.processed_path,
-                                        write_to_file=self.write_to_file,
-                                        **self.kwargs)
-
-        # Unpack the dataframe tuple
-        self.full_df_list, self.hourly_df_list, self.daily_df_list = df_tuple
-
-        # Check whether sensor type dataframes contained passed eval param
-        self.sensor_params = []
-        for df in self.full_df_list:
-            cols = list(df.columns)
-            self.sensor_params.extend(cols)
-        self.sensor_params = set(self.sensor_params)
-
-        # Exit if passed evaluation parameter not in sensor dataframes
-        if self.param.name not in self.sensor_params:
-            sys.exit(self.param.name + ' not measured by '
-                     + self.name)
+        rec_int = list(self.sensor.data.keys())[0]
+        self.full_df_list = [df for df in self.sensor.data[rec_int].values()]
+        self.hourly_df_list = [df for df in self.sensor.data['1-hour'].values()]
+        self.daily_df_list = [df for df in self.sensor.data['1-day'].values()]
 
         # Compute sensor deployment period and concurrent deployment groups
         self.deploy_period_df = sensortoolkit.deploy.deployment_period(
@@ -305,10 +284,6 @@ class SensorEvaluation:
                                                     path=self.path
                                                     )
 
-                # airnow_df = sensortoolkit.reference.save_query_data(
-                #                                     query_tuple,
-                #                                     path=self.path
-                #                                     )
                 if not airnow_df.empty:
                     self.ref_dict[self.param.classifier]['1-hour'] = airnow_df
 
@@ -340,10 +315,6 @@ class SensorEvaluation:
                                              path=self.path
                                              )
 
-                # aqs_df = sensortoolkit.reference.save_query_data(
-                #                                         query_tuple,
-                #                                         path=self.path
-                #                                         )
                 if not aqs_param_df.empty:
                     self.ref_dict[self.param.classifier]['1-hour'] = aqs_param_df
                 if not aqs_met_df.empty:
@@ -353,10 +324,15 @@ class SensorEvaluation:
 
             elif os.path.exists(reference_data):
                 # Load local reference data from file location
+                param_headers = self.sensor.param_headers.copy()
+                for name in ['Temp', 'RH']:
+                    if name not in param_headers:
+                        param_headers.append(name)
+
                 self.ref_dict = sensortoolkit.reference.load_ref_dataframes(
                                         self.hourly_df_list,
                                         reference_data,
-                                        self.sensor_params)
+                                        param_headers)
 
             else:
                 sys.exit(reference_data
