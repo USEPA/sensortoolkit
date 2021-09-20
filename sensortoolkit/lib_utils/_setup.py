@@ -45,6 +45,7 @@ class Setup:
         self.header_names = None
         self.header_iloc = None
         self.data_row_idx = None
+        self.sdfs_header_names = []
         self.all_col_headers = []
         self.timestamp_col_headers = []
         self.drop_cols = []
@@ -339,9 +340,6 @@ class Setup:
         print('\nTimestamp column list:', self.timestamp_col_headers)
         self.enterContinue()
 
-
-        #TODO: Once press X, print list of timestamp columns and ask to confirm before moving on
-
     def setParamHeaders(self, print_banner=True):
         if print_banner:
             txt = 'Choose from the following list of SDFS parameter names'
@@ -362,6 +360,7 @@ class Setup:
                                    'with {2}: '.format(i, n_params, param))
                 if sdfs_param in self.params:
                     valid = True
+                    self.sdfs_header_names.append(sdfs_param)
                 elif sdfs_param == '':
                     valid = True
                     print('..{0} will be dropped'.format(param))
@@ -494,6 +493,8 @@ class Setup:
         print('')
         print('..writing setup configuration to the following path:')
         print(outpath)
+        print('')
+
         with open(outpath, 'w') as outfile:
             self.config_dict = json.dumps(self.config_dict, indent=4)
             outfile.write(self.config_dict)
