@@ -15,3 +15,5 @@ from ._copy_datasets import copy_datasets
 from ._sensor_subfolders import create_sensor_directories
 from ._flatten_list import flatten_list
 from ._setup import Setup
+from ._validate import validate_entry
+
