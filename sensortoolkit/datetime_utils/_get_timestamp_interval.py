@@ -46,7 +46,7 @@ def get_timestamp_interval(df, warning=False, as_timedelta=False):
         # If the interval has a value of one, remove the plural 's'
         if row.value == 1:
             index = index[:-1]
-        interval_str += str(row.value) + ' ' + str(index)
+        interval_str += str(int(row.value)) + '-' + str(index)
         if i < delta_df.size:
             interval_str += ', '
 
