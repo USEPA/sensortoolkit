@@ -97,15 +97,6 @@ class Parameter:
                              'usepa_targets': True
                              },
 
-                    'RH': {'baseline': 'Relative Humidity',
-                           'classifier': 'Met',
-                           'fmt_param': 'Relative Humidity',
-                           'subscript': None,
-                           'units': '(%)',
-                           'averaging': None,
-                           'usepa_targets': False
-                           },
-
                     'SO2': {'baseline': 'SO',
                             'classifier': 'Gases',
                             'fmt_param': '$SO_2$',
@@ -132,6 +123,24 @@ class Parameter:
                              'averaging': None,
                              'usepa_targets': False
                              },
+
+                    'RH': {'baseline': 'Relative Humidity',
+                           'classifier': 'Met',
+                           'fmt_param': 'Relative Humidity',
+                           'subscript': None,
+                           'units': '(%)',
+                           'averaging': None,
+                           'usepa_targets': False
+                           },
+
+                    'Press': {'baseline': 'Pressure',
+                           'classifier': 'Met',
+                           'fmt_param': 'Pressure',
+                           'subscript': None,
+                           'units': 'hPa',
+                           'averaging': None,
+                           'usepa_targets': False
+                           },
 
                     'WD': {'baseline': 'Wind Direction',
                            'classifier': 'Met',
