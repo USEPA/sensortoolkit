@@ -15,7 +15,7 @@ from textwrap import wrap
 import json
 import pandas as pd
 import pprint
-from sensortoolkit.lib_utils import flatten_list
+from sensortoolkit.lib_utils import flatten_list, validate_entry
 
 
 class Setup:
@@ -70,15 +70,15 @@ class Setup:
         self.exportSetup()
         return
 
-    def validateEntry(self):
-        val = ''
-        options = ['y', 'n']
-        while val not in options:
-            val = input('Confirm entry [y/n]: ')
-            if val in options:
-                return val
-            else:
-                print('..invalid entry, select [y/n]')
+    # def validateEntry(self):
+    #     val = ''
+    #     options = ['y', 'n']
+    #     while val not in options:
+    #         val = input('Confirm entry [y/n]: ')
+    #         if val in options:
+    #             return val
+    #         else:
+    #             print('..invalid entry, select [y/n]')
 
     def enterContinue(self):
         end = False
@@ -172,7 +172,7 @@ class Setup:
 
         print('')
         print('Header row index:', str(self.header_iloc))
-        confirm = self.validateEntry()
+        confirm = validate_entry()
         if confirm == 'n':
             self.setHeaderIndex(print_banner=False)
         print('')
@@ -192,7 +192,7 @@ class Setup:
                     edit = False
                     break
 
-                confirm = self.validateEntry()
+                confirm = validate_entry()
 
             if edit is False:
                 break
@@ -212,7 +212,7 @@ class Setup:
                 self.data_row_idx = int(self.data_row_idx)
                 if self.data_row_idx < 0:
                     raise ValueError
-                confirm = self.validateEntry()
+                confirm = validate_entry()
             except ValueError:
                 print('..invalid entry, enter an integer >= 0')
 
@@ -404,7 +404,7 @@ class Setup:
                     invalid = False
                     continue
                 else:
-                    confirm = self.validateEntry()
+                    confirm = validate_entry()
                     if confirm == 'y':
                         invalid = False
                         self.time_format_dict[col] = val
@@ -428,7 +428,7 @@ class Setup:
                 self.dtype = val
                 print('')
                 print('Selected data type:', self.dtype)
-                confirm = self.validateEntry()
+                confirm = validate_entry()
                 if confirm == 'y':
                     valid = True
             print('')
@@ -464,7 +464,7 @@ class Setup:
                           'the filenames listed above')
 
                 else:
-                    confirm = self.validateEntry()
+                    confirm = validate_entry()
 
             if edit is False:
                 break
