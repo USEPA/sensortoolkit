@@ -135,22 +135,25 @@ class AirSensor:
 
     # Experimental
     def load_data(self, load_raw_data, write_to_file, **kwargs):
-        try:
-            self.setup_data
-        except AttributeError:
-            print(f'No setup configuration specified for {self.name}.')
-            print("Run the 'AirSensor.sensor_setup()' module before loading"
-                  " sensor data.")
-            return
+        custom_ingest = kwargs.get('custom_ingest_module', False)
+
+        if not custom_ingest:
+            try:
+                self.setup_data
+            except AttributeError:
+                print(f'No setup configuration specified for {self.name}.')
+                print("Run the 'AirSensor.sensor_setup()' module before loading"
+                      " sensor data.")
+                return
 
         # path to raw sensor data
-        self._data_path = '\\'.join((self.project_path, 'Data and Figures',
+        self._data_path = os.path.join(self.project_path, 'Data and Figures',
                                     'sensor_data', self.name,
-                                    'raw_data', ''))
+                                    'raw_data', '')
         # path to processed sensor data
-        self._processed_path = '\\'.join((self.project_path, 'Data and Figures',
+        self._processed_path = os.path.join(self.project_path, 'Data and Figures',
                                          'sensor_data', self.name,
-                                         'processed_data', ''))
+                                         'processed_data', '')
 
         df_tuple = sensor_ingest.sensor_import(
                                         sensor_name=self.name,
