@@ -94,7 +94,7 @@ def draw_scatter(ax, xdata, ydata, param_dict, sensor_stats=None,
     default_text_pos = 'upper_left'
     if sensor_stats is not None:
         slope = sensor_stats.Slope[0]
-        if slope > 2.0:
+        if slope > 1.8:
             default_text_pos = 'bottom_right'
         else:
             default_text_pos = 'upper_left'
@@ -786,7 +786,9 @@ def normalized_met_scatter(df_list, ref_df, avg_df, met_ref_df=None,
     kwargs.pop('xlims', None)
 
     if met_ref_df[met_param_name + '_Value'].dropna().empty:
-        sys.exit('Reference ' + met_param_name + ' not found in dataframe')
+        print('Reference ' + met_param_name + ' not found in dataframe')
+        plt.close()
+        return
 
     # Set xlim and ylim if not specified
     if xlims is None or ylims is None:
