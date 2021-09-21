@@ -257,6 +257,9 @@ def ref_api_query(query_type=None, param=None, bdate='', edate='',
 
             param_data = data[param_data_cols]
 
+            if param_data[param+ '_Method_POC'].unique().shape[0] > 1:
+                param_data = select_poc(param_data, param)
+
             # Set the data type for columns and reorder column arrangement
             param_data = modify_ref_cols(param_data, param)
 
@@ -280,6 +283,43 @@ def ref_api_query(query_type=None, param=None, bdate='', edate='',
     edate = pd.to_datetime(edate).strftime('%Y-%m-%d')
     return full_query.loc[bdate:edate, :]
 
+
+def select_poc(df, param):
+    """Ask the user for a single POC if multiple codes present in dataset.
+
+    Args:
+        df (TYPE): DESCRIPTION.
+        param (TYPE): DESCRIPTION.
+
+    Returns:
+        df (TYPE): DESCRIPTION.
+
+    """
+    print('')
+    print(f'The following parameter occurance codes (POCs) for '
+         f'{param} were found:')
+    poc_dict = df[param+ '_Method_POC'].value_counts().to_dict()
+    for poc in poc_dict:
+        print(f'..POC: {poc}, number of entries: {poc_dict[poc]}')
+
+    poc_list = list(poc_dict.keys())
+    valid = False
+    while valid is False:
+        keep_poc = input('Enter the POC for data entries you wish to keep: ')
+        try:
+            keep_poc = int(keep_poc)
+
+            if keep_poc not in poc_list:
+                print(f'..invalid entry, enter one of the following: {poc_list}')
+            else:
+                valid = True
+        except ValueError:
+            print('..invalid entry, enter an integer value')
+
+    df = df[df[param+ '_Method_POC']==keep_poc]
+    print('')
+
+    return df
 
 def modify_ref_cols(df, param):
     """Modify the data type of columns in reference data and reorder columns.
