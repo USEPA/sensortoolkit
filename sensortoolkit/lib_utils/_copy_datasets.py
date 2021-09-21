@@ -12,9 +12,11 @@ Last Updated:
 import tkinter as tk
 from tkinter import filedialog
 from distutils.dir_util import copy_tree
+from shutil import copy2
 import os
 import sys
 
+valid_extensions = ['.csv', '.txt', '.xlsx']
 
 def _prompt_directory():
     root = tk.Tk()
@@ -23,8 +25,22 @@ def _prompt_directory():
 
     return path
 
+def _prompt_files():
+    root = tk.Tk()
+    root.withdraw()
+    path = filedialog.askopenfilenames(parent=root)
 
-def copy_datasets(name=None, path=None):
+    return path
+
+def check_extension(file_name):
+    filename_l = file_name.lower()
+    # check the file has one of the listed valid extensions
+    valid_file = any(filename_l.endswith(extension) for
+                     extension in valid_extensions)
+    return valid_file
+
+
+def copy_datasets(name=None, path=None, select='directory'):
     """Prompts the user to select a source directory for datasets and copies
     files to "/Data and Figures.." raw data subdirectory for a sensor.
 
@@ -37,33 +53,45 @@ def copy_datasets(name=None, path=None):
         None.
 
     """
-    print('[File Browser: Select the directory for recorded sensor datasets]')
-    src_dir = _prompt_directory()
+    print(f'[File Browser: Select the {select} for recorded sensor datasets]')
+    print('')
 
     dest_dir = os.path.join(path, 'Data and Figures',
-                            'sensor_data', name,  'raw_data')
+                        'sensor_data', name,  'raw_data')
 
-    print('')
-    print('Source Directory:')
-    print('..{0}'.format(src_dir))
+    if select == 'directory':
+        src_dir = _prompt_directory()
+
+        print('Source Directory:')
+        print('..{0}'.format(src_dir))
+
+        if os.path.normpath(src_dir) == os.path.normpath(dest_dir):
+            sys.exit('Source directory for datasets can not be the same as the '
+                     'destination directory')
+
+        file_list = []
+        for path, folders, files in os.walk(src_dir):
+            for filename in files:
+                valid_file = check_extension(filename)
+                print(filename, valid_file)
+                if valid_file:
+                    file_list.append(filename)
+
+    if select == 'files':
+        files_tup = _prompt_files()
+
+        print('Source Files:')
+        print(files_tup)
+
+        file_list = []
+        for filename in files_tup:
+            valid_file = check_extension(filename)
+            if valid_file:
+                file_list.append(filename)
+
     print('')
     print('Destination Directory:')
     print('..{0}'.format(dest_dir))
-
-    if os.path.normpath(src_dir) == os.path.normpath(dest_dir):
-        sys.exit('Source directory for datasets can not be the same as the '
-                 'destination directory')
-
-    valid_extensions = ['.csv', '.txt', '.xlsx']
-    file_list = []
-    for path, folders, files in os.walk(src_dir):
-        for filename in files:
-            filename_l = filename.lower()
-            # check the file has one of the listed valid extensions
-            valid_file = any(filename_l.endswith(extension) for
-                             extension in valid_extensions)
-            if valid_file:
-                file_list.extend(filename)
 
     if file_list == []:
         sys.exit('Source directory does not contain any files corresponding to'
@@ -76,9 +104,12 @@ def copy_datasets(name=None, path=None):
             end = True
     print('')
 
-    copied_files = copy_tree(src_dir, dest_dir, verbose=1)
-    abbrev_file_list = [file.replace(path, '') for file in copied_files]
+    for filename in file_list:
+        copy2(filename, dest_dir)
+
+    abbrev_file_list = [file.replace(path, '') for file in file_list]
 
     print('Copying the following files:')
     for file in abbrev_file_list:
         print('..' + file)
+
