@@ -2305,12 +2305,12 @@ class PerformanceReport(SensorEvaluation):
 
         ref_source = self.hourly_ref_df.Data_Source.mode()[0]
 
-        NO_MET_DATA = False
-        if self.met_hourly_ref_df.dropna().empty:
+        MET_DATA = True
+        if self.met_hourly_ref_df.select_dtypes(exclude='object').dropna(how='all', axis=1).empty:
             print('')
             warnings.warn('Warning: No Meteorological data for reference'
                           ' source. Met plots will not be added to the report')
-            NO_MET_DATA = True
+            MET_DATA = False
 
         # Set figure positions
         self.FigPositions()
@@ -2331,7 +2331,7 @@ class PerformanceReport(SensorEvaluation):
 
         # Reference dependent details. Only add met plots if reference data
         # come from AirNowTech or another source where met data are provided
-        if NO_MET_DATA:
+        if MET_DATA:
             self.AddMetDistPlot()
             self.AddMetInflPlot()
             self.EditMetCondTable()
