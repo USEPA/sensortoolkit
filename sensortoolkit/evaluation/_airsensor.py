@@ -22,7 +22,7 @@ from sensortoolkit import datetime_utils
 
 
 class AirSensor:
-    def __init__(self, make, model, **kwargs):
+    def __init__(self, make, model, project_path=None, **kwargs):
         """
 
 
@@ -46,11 +46,11 @@ class AirSensor:
             self.name = '_'.join([self.make.replace(' ', '_'),
                                   self.model.replace(' ', '_')])
 
-        if self._kwargs.get('project_path'):
-            self.project_path = self._kwargs.get('project_path')
+        if project_path is not None:
+            self.project_path = project_path
             self._setup_path = rf"{self.project_path}\Data and Figures\sensor_data\{self.name}\{self.name}_setup.json"
 
-        self._get_ingest_config()
+            self._get_ingest_config()
 
     def _get_ingest_config(self):
 
@@ -62,11 +62,11 @@ class AirSensor:
             self.param_headers = self.setup_data['sdfs_header_names']
             self.create_directories(param_headers=self.param_headers)
 
-        elif self._kwargs.get('setup_data'):
-            self.setup_data = self._kwargs.get('setup_data')
-            self.serials = self.setup_data['serials']
-            self.param_headers = self.setup_data['sdfs_header_names']
-            self.create_directories(param_headers=self.param_headers)
+        # elif self._kwargs.get('setup_data'):
+        #     self.setup_data = self._kwargs.get('setup_data')
+        #     self.serials = self.setup_data['serials']
+        #     self.param_headers = self.setup_data['sdfs_header_names']
+        #     self.create_directories(param_headers=self.param_headers)
 
     @property
     def setup_data(self):
@@ -110,7 +110,7 @@ class AirSensor:
                                             path=self.project_path
                                             )
 
-    def copy_datasets(self):
+    def copy_datasets(self, select='directory'):
         try:
             self.project_path
         except AttributeError as error_message:
@@ -118,7 +118,8 @@ class AirSensor:
             return
 
         lib_utils.copy_datasets(name=self.name,
-                                path=self.project_path)
+                                path=self.project_path,
+                                select=select)
 
     def sensor_setup(self):
         if hasattr(self, 'setup_data'):
