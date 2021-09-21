@@ -34,9 +34,14 @@ import sensortoolkit.sensor_ingest
 
 
 class SensorEvaluation:
-    """A class for evaluating the performance of air sensors for use in
-    ambient, outdoor, fixed site, non-regulatory supplemental and informational
-    monitoring applications.
+    """Evaluate air sensor performance for use in NSIM applications.
+
+    A class for conducting analysis for air sensors deployed at ambient,
+    outdoor, fixed monitoring sites using U.S. EPA's performance metrics and
+    targets for sensors measuring PM2.5 or O3. U.S. EPA's testing protocols and
+    performance metrics are intended for use with devices deployed for
+    non-regulatory supplemental and informational monitoring (NSIM)
+    applications.
 
     Args:
         name (str): The make and model of the sensor being evaluated.
