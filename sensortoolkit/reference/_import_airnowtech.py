@@ -352,7 +352,7 @@ def write_to_file(df, path, outpath):
     return folder
 
 
-def preprocess_airnowtech(path):
+def preprocess_airnowtech(file_path, project_path):
     """Wrapper module for pre-processing datasets downloaded as .csv files
     from airnowtech.org. When downloading data, the table box under "Display
     Settings" should be checked and configured to 'unpivoted' format.
@@ -363,22 +363,20 @@ def preprocess_airnowtech(path):
     Returns:
         None
     """
-    ant_df = ingest_airnowtech(path)
+    ant_df = ingest_airnowtech(file_path)
 
-    outpath = pathlib.PureWindowsPath(
-                        os.path.abspath(os.path.join(__file__, '../../..')))
-    outpath = (outpath.as_posix() + '/Data and Figures/reference_data' +
-               '/airnowtech/processed/')
+    outpath = os.path.join(os.path.abspath(project_path), 'Data and Figures',
+                           'reference_data', 'airnowtech', 'processed')
 
     for df in sort_airnowtech(ant_df):
-        site_folder = write_to_file(df, path, outpath)
+        site_folder = write_to_file(df, file_path, outpath)
 
     # Copy the downloaded dataset to site specific subfolder
     if site_folder is not None:
         dest_inpath = os.path.abspath(
-                            os.path.join(path, '..', site_folder))
+                            os.path.join(file_path, '..', site_folder))
 
         if not os.path.exists(dest_inpath):
             os.makedirs(dest_inpath)
 
-        copy(path, dest_inpath)
+        copy(file_path, dest_inpath)
