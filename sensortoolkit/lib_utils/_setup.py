@@ -15,33 +15,32 @@ from textwrap import wrap
 import json
 import pandas as pd
 import pprint
-from sensortoolkit.lib_utils import flatten_list, validate_entry
+from sensortoolkit.lib_utils import flatten_list, validate_entry, enter_continue, copy_datasets
 
 
-class Setup:
-    """Interactive class for handling the sensor data ingestion process.
+class _Setup:
+    """Setup methods for Sensor and Reference data ingestion configuration.
 
-    Users specify various attributes about sensor datasets, including column
-    names for parameter data and timestamp entries. A renaming scheme is then
-    constructed for converting the original naming scheme for columns into
-    a standardized format for parameter names. The formatting for columns with
-    date or time-like entries is then specified. The file type for sensor
-    data is selected from a dictionary of valid data types than can be
-    ingested.
+    Arguments:
+        path
     """
+
     params = ['PM1', 'PM25', 'PM10', 'O3', 'NO2', 'NO', 'NOx',
               'SO2', 'SOx', 'CO', 'CO2', 'Temp', 'RH', 'Press',
               'DP', 'WS', 'WD']
     data_types = ['.csv', '.txt', '.xlsx']
     __banner_w__ = 79
     pp = pprint.PrettyPrinter()
+    pd.set_option('max_colwidth', __banner_w__)
 
-    def __init__(self, name, path=None):
-        self.name = name
+    def __init__(self, path=None):
         if path is None:
             raise AttributeError('Path for working directory not specified')
+
         self.path = path
-        self.dtype = None
+        self.data_rel_path = None
+        self.data_type = None
+        self.file_extension = None
         self.header_names = None
         self.header_iloc = None
         self.data_row_idx = None
@@ -49,11 +48,15 @@ class Setup:
         self.all_col_headers = []
         self.timestamp_col_headers = []
         self.drop_cols = []
-        self.configSensor()
 
-    def configSensor(self):
-        #self.setDeploymentPeriod()
-        self.setDataType()
+    def config(self):
+        # Indicate the dataset file type (.csv, .txt, .xlsx)
+        self.setDataExtension()
+
+        # Ask user for either directory or files to load in, parse datasets
+        # and could make call to copy datasets to transfer to data and figures
+        self.selectDataSets()
+
         self.setHeaderIndex()
 
         if self.header_iloc is None:
@@ -65,28 +68,6 @@ class Setup:
         self.setTimeHeaders()
         self.setParamHeaders()
         self.setDateTimeFormat()
-        self.setSerials()
-
-        self.exportSetup()
-        return
-
-    # def validateEntry(self):
-    #     val = ''
-    #     options = ['y', 'n']
-    #     while val not in options:
-    #         val = input('Confirm entry [y/n]: ')
-    #         if val in options:
-    #             return val
-    #         else:
-    #             print('..invalid entry, select [y/n]')
-
-    def enterContinue(self):
-        end = False
-        while end is False:
-            return_val = input('Press enter to continue.')
-            if return_val == '':
-                end=True
-        print('')
 
     def printSelectionBanner(self, select_type, options=[], notes=[]):
 
@@ -123,6 +104,132 @@ class Setup:
 
         print(len(flier)*'=')
 
+    def setDataExtension(self):
+        self.printSelectionBanner('Select Data Type',
+                                  options=[self.data_types])
+
+        valid = False
+        while valid is False:
+            console_text = (f'Enter the {self.data_type} data type from the '
+                            'list of supported data types: ')
+            console_text = '\n'.join(wrap(console_text,
+                                          width=self.__banner_w__))
+            val = input(console_text)
+            if str(val) not in self.data_types:
+                print('..invalid entry, please enter one of the listed data '
+                      'types')
+            else:
+                self.file_extension = val
+                print('')
+                print('Selected data type:', self.file_extension)
+                confirm = validate_entry()
+                if confirm == 'y':
+                    valid = True
+            print('')
+
+    def selectDataSets(self):
+        select_options = ['directory', 'recursive directory', 'files']
+        self.printSelectionBanner('Select Data Files or Directory',
+                                      options=[select_options])
+
+        valid = False
+        while valid is False:
+            console_text = (f'Enter how to select {self.data_type} datasets '
+                            f'from the list of options above: ')
+            console_text = '\n'.join(wrap(console_text,
+                                          width=self.__banner_w__))
+            val = input(console_text)
+            if str(val) not in select_options:
+                print('..invalid entry, please enter one of the options '
+                      'listed above')
+            else:
+                selection = val
+                print('')
+                print('Select data sets by', selection)
+                confirm = validate_entry()
+                if confirm == 'y':
+                    valid = True
+            print('')
+
+        self.file_list = copy_datasets(data_type=self.data_type,
+                                       path=self.path,
+                                       select=selection,
+                                       file_extension=self.file_extension,
+                                       return_filenames=True,
+                                       **self.dataset_kwargs)
+
+    def loadDataFile(self, file, **kwargs):
+
+        load_table = kwargs.get('load_table', False)
+        if load_table:
+            df = pd.read_table(file,
+                               nrows=kwargs.get('nrows', 1),
+                               header=None)
+
+        elif self.file_extension == '.csv' or self.file_extension == '.txt':
+            df = pd.read_csv(file, header=self.header_iloc,
+                             names=self.header_names,
+                             nrows=kwargs.get('nrows', 1),
+                             skiprows=self.data_row_idx,
+                             on_bad_lines='skip'
+                             )
+        elif self.file_extension == '.xlsx':
+            df = pd.read_excel(file, header=self.header_iloc,
+                               names=self.header_names,
+                               nrows=kwargs.get('nrows', 1),
+                               skiprows=self.data_row_idx
+                               )
+        else:
+            raise TypeError('Invalid data type')
+
+        return df
+
+    def parseDataSets(self, print_banner=True):
+        if print_banner:
+            self.printSelectionBanner('Parsing Datasets',
+                                      options=[])
+            print('')
+
+        self.data_rel_path = f'/Data and Figures/{self.data_type}_data/'
+        if self.data_type == 'sensor':
+            self.data_rel_path += f'{self.name}/raw_data'
+        if self.data_type == 'reference':
+            self.data_rel_path += f'{self.dataset_kwargs["ref_data_source"]}/raw/{self.ref_data_subfolder}/'
+
+        # print(f'The following data files were found at "..{self.data_rel_path}"')
+        # for file in self.file_list:
+        #     print('..{0}'.format(file.replace(self.path, '')))
+
+        # Load data files and populate a dictionary of unique headers that occur.
+        # Top level is ordered by the row index, so if some files have different headers,
+        # there will be multiple entries within the particular row index key.
+        self.col_headers = {}
+        print(f'\nParsing datasets at "..{self.data_rel_path}"')
+
+        for file in self.file_list:
+            df = self.loadDataFile(file)
+            file_col_list = list(df.columns)
+
+            for i, col in enumerate(file_col_list):
+                if 'col_idx_' + str(i) not in self.col_headers:
+                    self.col_headers['col_idx_' + str(i)] = {}
+
+                if col not in self.col_headers['col_idx_' + str(i)]:
+                    self.col_headers['col_idx_' + str(i)][col] = {"SDFS_param": None,
+                                                             "files": [file]}
+                else:
+                    self.col_headers['col_idx_' + str(i)][col]["files"].append(file)
+
+        # Create a nested list of unique column names
+        col_list = [list(self.col_headers[key].keys()) for key in
+                    list(self.col_headers.keys())]
+        self.all_col_headers = flatten_list(col_list)
+
+        for i, cols in enumerate(col_list):
+            print('..Header(s) at column index {0:d}: {1}'.format(i, cols))
+
+        enter_continue()
+
     def setHeaderIndex(self, print_banner=True):
         if print_banner:
             self.printSelectionBanner('Column Header Index',
@@ -131,13 +238,12 @@ class Setup:
                                                'dataset'])
 
         # Load the first dataset (display 10 rows to user)
-        self.findDataFiles()
+        #self.findDataFiles()
         if self.file_list == []:
-            data_path = os.path.normpath(self.path +
-                                         '/Data and Figures/sensor_data/' +
-                                         self.name +'/raw_data')
+            data_path = os.path.normpath(os.path.join(self.path,
+                                                      self.data_ref_path))
             sys.exit('No data files found with type'
-                     ' {0} at {1}'.format(self.dtype, data_path))
+                     ' {0} at {1}'.format(self.file_extension, data_path))
 
         df = self.loadDataFile(self.file_list[0],
                                nrows=10,
@@ -202,7 +308,7 @@ class Setup:
 
         print('')
         print('Column Headers:', self.header_names)
-        self.enterContinue()
+        enter_continue()
 
         confirm = 'n'
         while confirm == 'n':
@@ -217,85 +323,6 @@ class Setup:
                 print('..invalid entry, enter an integer >= 0')
 
         print('')
-
-    def findDataFiles(self):
-        # Create a list of data files to load
-        self.file_list = []
-        self.data_path = (self.path + '/Data and Figures/sensor_data/'
-                          + self.name+ '/raw_data')
-
-        for cwd, folders, files in os.walk(self.data_path):
-            self.file_list.extend([cwd+ '/' + file for file in files if
-                                   file.lower().endswith(self.dtype)])
-
-    def loadDataFile(self, file, **kwargs):
-
-        load_table = kwargs.get('load_table', False)
-        if load_table:
-            df = pd.read_table(file,
-                               nrows=kwargs.get('nrows', 1),
-                               header=None)
-
-        elif self.dtype == '.csv' or self.dtype == '.txt':
-            df = pd.read_csv(file, header=self.header_iloc,
-                             names=self.header_names,
-                             nrows=kwargs.get('nrows', 1),
-                             skiprows=self.data_row_idx,
-                             on_bad_lines='skip'
-                             )
-        elif self.dtype == '.xlsx':
-            df = pd.read_excel(file, header=self.header_iloc,
-                               names=self.header_names,
-                               nrows=kwargs.get('nrows', 1),
-                               skiprows=self.data_row_idx
-                               )
-        else:
-            raise TypeError('Invalid data type')
-
-        return df
-
-    def parseDataSets(self, print_banner=True):
-        if print_banner:
-            self.printSelectionBanner('Parsing Datasets',
-                                      options=[])
-            print('')
-
-        print('The following data files were found at "../Data and Figures/'
-              'sensor_data/"' + self.name + '/raw_data":')
-        for file in self.file_list:
-            print('..{0}'.format(file.replace(self.path, '')))
-
-        # Load data files and populate a dictionary of unique headers that occur.
-        # Top level is ordered by the row index, so if some files have different headers,
-        # there will be multiple entries within the particular row index key.
-        self.col_headers = {}
-        print('\nParsing datasets at "../Data and Figures/sensor_data/"' +
-              self.name + '/raw_data"')
-
-        for file in self.file_list:
-            df = self.loadDataFile(file)
-            file_col_list = list(df.columns)
-
-            for i, col in enumerate(file_col_list):
-                if 'col_idx_' + str(i) not in self.col_headers:
-                    self.col_headers['col_idx_' + str(i)] = {}
-
-                if col not in self.col_headers['col_idx_' + str(i)]:
-                    self.col_headers['col_idx_' + str(i)][col] = {"SDFS_param": None,
-                                                             "files": [file]}
-                else:
-                    self.col_headers['col_idx_' + str(i)][col]["files"].append(file)
-
-        # Create a nested list of unique column names
-        col_list = [list(self.col_headers[key].keys()) for key in
-                    list(self.col_headers.keys())]
-        self.all_col_headers = flatten_list(col_list)
-
-        for i, cols in enumerate(col_list):
-            print('..Header(s) at column index {0:d}: {1}'.format(i, cols))
-
-        self.enterContinue()
-
 
     def setTimeHeaders(self, print_banner=True):
         if print_banner:
@@ -338,7 +365,7 @@ class Setup:
             i += 1
 
         print('\nTimestamp column list:', self.timestamp_col_headers)
-        self.enterContinue()
+        enter_continue()
 
     def setParamHeaders(self, print_banner=True):
         if print_banner:
@@ -381,7 +408,7 @@ class Setup:
         print('')
         print('Configured renaming scheme:')
         self.pp.pprint(renaming_dict)
-        self.enterContinue()
+        enter_continue()
 
     def setDateTimeFormat(self):
         cite = ('..format code list: https://docs.python.org/3/library/'
@@ -412,26 +439,56 @@ class Setup:
         print('')
         print('Configured formatting scheme:')
         self.pp.pprint(self.time_format_dict)
-        self.enterContinue()
+        enter_continue()
 
-    def setDataType(self):
-        self.printSelectionBanner('Select Data Type',
-                                  options=[self.data_types])
+    def exportSetup(self):
+        self.printSelectionBanner('Setup Configuration')
+        self.config_dict = self.__dict__.copy()
+        del self.config_dict['end_str']
+        del self.config_dict['del_str']
+        del self.config_dict['skip_str']
+        del self.config_dict['header_names']
 
-        valid = False
-        while valid is False:
-            val = input('Enter the sensor data type from the list of supported data types: ')
-            if str(val) not in self.data_types:
-                print('..invalid entry, please enter one of the listed data '
-                      'types')
-            else:
-                self.dtype = val
-                print('')
-                print('Selected data type:', self.dtype)
-                confirm = validate_entry()
-                if confirm == 'y':
-                    valid = True
-            print('')
+        outpath = os.path.normpath(self.path + self.data_rel_path)
+
+        if self.data_type == 'sensor':
+            filename = self.name + '_setup.json'
+        if self.data_type == 'reference':
+            filename = 'reference_setup.json'
+
+        outpath = os.path.join(outpath, filename)
+        print('')
+        print('..writing setup configuration to the following path:')
+        print(outpath)
+        print('')
+
+        with open(outpath, 'w') as outfile:
+            self.config_dict = json.dumps(self.config_dict, indent=4)
+            outfile.write(self.config_dict)
+
+
+class SensorSetup(_Setup):
+    """Interactive class for handling the sensor data ingestion process.
+
+    Users specify various attributes about sensor datasets, including column
+    names for parameter data and timestamp entries. A renaming scheme is then
+    constructed for converting the original naming scheme for columns into
+    a standardized format for parameter names. The formatting for columns with
+    date or time-like entries is then specified. The file type for sensor
+    data is selected from a dictionary of valid data types than can be
+    ingested.
+    """
+    def __init__(self, name, path=None):
+
+        super().__init__(path)
+
+        self.name = name
+        self.data_type = 'sensor'
+        self.dataset_kwargs = {'name':self.name}
+
+        self.config()
+        self.setSerials()
+        self.exportSetup()
 
     def setSerials(self):
         self.printSelectionBanner('Configure Sensor Serial Identifiers',
@@ -476,40 +533,116 @@ class Setup:
         print('Configured serial identifiers:')
         self.pp.pprint(self.serials)
         print('')
-        self.enterContinue()
+        enter_continue()
 
-    def exportSetup(self):
-        self.printSelectionBanner('Setup Configuration')
-        self.config_dict = self.__dict__.copy()
-        del self.config_dict['end_str']
-        del self.config_dict['del_str']
-        del self.config_dict['skip_str']
-        del self.config_dict['header_names']
 
-        outpath = (self.path + '\\Data and Figures\\sensor_data\\'
-                   + self.name)
-        filename = self.name + '_setup.json'
-        outpath = os.path.join(outpath, filename)
-        print('')
-        print('..writing setup configuration to the following path:')
-        print(outpath)
-        print('')
+class ReferenceSetup(_Setup):
+    """Interactive class for handling the reference data ingestion process.
 
-        with open(outpath, 'w') as outfile:
-            self.config_dict = json.dumps(self.config_dict, indent=4)
-            outfile.write(self.config_dict)
+    """
 
+    def __init__(self, path):
+
+        super().__init__(path)
+
+        self.data_type = 'reference'
+        self.dataset_kwargs = {'ref_data_source': None}
+        self.agency = None
+        self.site_name = None
+        self.site_aqs = None
+        self.site_lat = None
+        self.site_lon = None
+
+        self.selectDataSource()
+        self.setSiteInfo()
+        self.config()
+        self.exportSetup()
+
+    def selectDataSource(self):
+        # Indicate the service used to acquire the dataset.
+        select_options = ['airnow', 'aqs', 'airnowtech', 'local']
+        self.printSelectionBanner('Select Name of Service for Data Source',
+                                    options=[select_options])
+
+        valid = False
+        while valid is False:
+            console_text= (f'Enter the name of the service from the list of'
+                           f' options above: ')
+            console_text = '\n'.join(wrap(console_text,
+                                          width=self.__banner_w__))
+            val = input(console_text)
+            if str(val) not in select_options:
+                print('..invalid entry, please enter one of the options '
+                      'listed above')
+            else:
+                selection = val
+                print('')
+                print('Data acquired from:', selection)
+                confirm = validate_entry()
+                if confirm == 'y':
+                    valid = True
+                    self.dataset_kwargs['ref_data_source'] = selection
+            print('')
+
+    def setSiteInfo(self):
+        self.printSelectionBanner('Enter Ambient Air Monitoring Site Information',
+                                  options=['..press enter to skip entries'])
+        self.agency = None
+        self.site_name = None
+        self.site_aqs = None
+        self.site_lat = None
+        self.site_lon = None
+
+        site_dict = {
+            'Enter the name of the monitoring site: ': 'site_name',
+            'Enter the name of the Agency overseeing the monitoring site: ': 'agency',
+            'Enter the AQS site ID (if applicable) [format XXXX-XXX-XXX]: ': 'site_aqs',
+            'Enter the site latitude (in decimal coordinates): ': 'site_lat',
+            'Enter the site longitude (in decimal coordinates): ': 'site_lon'
+            }
+
+        for console_statement, attrib in zip(site_dict.keys(), site_dict.values()):
+            valid = False
+            while valid is False:
+
+                console_statement = '\n'.join(wrap(console_statement,
+                                              width=self.__banner_w__))
+                val = input(console_statement)
+
+                if val == '':
+                    print('..skipping')
+                    valid = True
+                    continue
+
+                confirm = validate_entry()
+                if confirm == 'y':
+                    valid = True
+                    self.__dict__.update({attrib: val})
+                print('')
+
+        if self.site_name == None:
+            self.site_name = 'Unspecified Site Name'
+        self.site_name = self.site_name.title()
+        self.fmt_site_name = self.site_name.replace(' ', '_')
+
+        if self.site_aqs == None:
+            self.site_aqs = 'Unspecified Site ID'
+        self.fmt_site_aqs = self.site_aqs.replace('-', '').replace(' ', '_')
+
+        self.dataset_kwargs['site_name'] = self.fmt_site_name
+        self.dataset_kwargs['site_aqs'] = self.fmt_site_aqs
+
+        self.ref_data_subfolder = '_'.join([self.fmt_site_name,
+                                            self.fmt_site_aqs])
 
 if __name__ == '__main__':
-    # sensor_name = 'Example_Make_Model'
-    # work_path = r'C:\Users\SFREDE01\OneDrive - Environmental Protection Agency (EPA)\Profile\Documents\test_dir'
+    sensor_name = 'Example_Make_Model'
+    work_path = r'C:\Users\SFREDE01\OneDrive - Environmental Protection Agency (EPA)\Profile\Documents\test_dir'
 
-    # test = Setup(name=sensor_name,
-    #              path=work_path)
+    # test = SensorSetup(name=sensor_name,
+    #            path=work_path)
 
-    work_path = r"C:\Users\SFREDE01\OneDrive - Environmental Protection Agency (EPA)\Profile\Documents\Public_Sensor_Evaluation"
 
-    sensor_name = 'Vaisala_AQT420'
+    test = ReferenceSetup(path=work_path)
 
-    test = Setup(name=sensor_name,
-                 path=work_path)
+
