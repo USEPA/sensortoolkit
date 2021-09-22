@@ -11,9 +11,9 @@ Last Updated:
 """
 
 from ._version import _get_version
+from ._input_tools import validate_entry, enter_continue
 from ._copy_datasets import copy_datasets
 from ._sensor_subfolders import create_sensor_directories
 from ._flatten_list import flatten_list
-from ._validate import validate_entry
-from ._setup import Setup
-
+from ._setup import SensorSetup
+from ._setup import ReferenceSetup
