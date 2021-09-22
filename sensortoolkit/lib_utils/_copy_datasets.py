@@ -9,38 +9,48 @@ Created:
 Last Updated:
   Tue Aug 31 14:00:34 2021
 """
-import tkinter as tk
-from tkinter import filedialog
-from distutils.dir_util import copy_tree
-from shutil import copy2
 import os
 import sys
+import tkinter as tk
+from tkinter import filedialog
+from shutil import copy2
+from sensortoolkit.lib_utils import enter_continue
 
 valid_extensions = ['.csv', '.txt', '.xlsx']
+
 
 def _prompt_directory():
     root = tk.Tk()
     root.withdraw()
     path = filedialog.askdirectory(parent=root)
-
+    if path == '':
+        raise ValueError('Directory selection terminated by user')
     return path
+
 
 def _prompt_files():
     root = tk.Tk()
     root.withdraw()
     path = filedialog.askopenfilenames(parent=root)
-
+    if path == '':
+        raise ValueError('File selection terminated by user')
     return path
 
-def check_extension(file_name):
+
+def _check_extension(file_name, expect_extension):
     filename_l = file_name.lower()
-    # check the file has one of the listed valid extensions
-    valid_file = any(filename_l.endswith(extension) for
-                     extension in valid_extensions)
+
+    if expect_extension is None:
+        # check the file has one of the listed valid extensions
+        valid_file = any(filename_l.endswith(extension) for
+                         extension in valid_extensions)
+    else:
+        valid_file = bool(filename_l.endswith(expect_extension))
+
     return valid_file
 
 
-def copy_datasets(name=None, path=None, select='directory'):
+def copy_datasets(data_type=None, path=None, select='directory', **kwargs):
     """Prompts the user to select a source directory for datasets and copies
     files to "/Data and Figures.." raw data subdirectory for a sensor.
 
@@ -53,63 +63,97 @@ def copy_datasets(name=None, path=None, select='directory'):
         None.
 
     """
-    print(f'[File Browser: Select the {select} for recorded sensor datasets]')
+    source_file_list = []
+    extension = kwargs.get('file_extension', None)
+
+    statement = (f'[File Browser: Select the {select} for recorded'
+                 f' {data_type} datasets')
+    if extension is not None:
+        statement += f' with file type "{extension}"'
+    statement += ']'
+
+    print(statement)
     print('')
 
-    dest_dir = os.path.join(path, 'Data and Figures',
-                        'sensor_data', name,  'raw_data')
+    if data_type == 'sensor':
+        name = kwargs.get('name')
+        dest_dir = os.path.join(path, 'Data and Figures',
+                                'sensor_data', name,  'raw_data')
+    if data_type == 'reference':
+        data_source = kwargs.get('ref_data_source')
+        site_name = kwargs.get('site_name')
+        site_aqs = kwargs.get('site_aqs')
+        site_subfolder = '_'.join([site_name, site_aqs])
 
-    if select == 'directory':
+        dest_dir = os.path.join(path, 'Data and Figures',
+                                'reference_data', data_source, 'raw',
+                                site_subfolder)
+
+    if 'directory' in select:
         src_dir = _prompt_directory()
 
         print('Source Directory:')
         print('..{0}'.format(src_dir))
 
         if os.path.normpath(src_dir) == os.path.normpath(dest_dir):
-            sys.exit('Source directory for datasets can not be the same as the '
-                     'destination directory')
+            sys.exit('Source directory for datasets can not be the same as the'
+                     ' destination directory')
 
-        file_list = []
-        for path, folders, files in os.walk(src_dir):
-            for filename in files:
-                valid_file = check_extension(filename)
-                print(filename, valid_file)
-                if valid_file:
-                    file_list.append(filename)
+        if select.startswith('recursive'):
+
+            for path, folders, files in os.walk(src_dir):
+                for filename in files:
+                    valid_file = _check_extension(filename, extension)
+                    if valid_file:
+                        source_file_list.append(filename)
+        else:
+            for item in os.listdir(src_dir):
+                if os.path.isfile(os.path.join(src_dir, item)):
+                    valid_file = _check_extension(item, extension)
+                    if valid_file:
+                        source_file_list.append(os.path.join(src_dir, item))
+        print('')
+        print('Source Files:')
+        print(source_file_list)
 
     if select == 'files':
         files_tup = _prompt_files()
 
+        # Assuming all files in the same directory
+        src_dir = os.path.abspath(os.path.join(files_tup[0], '..'))
+
         print('Source Files:')
         print(files_tup)
 
-        file_list = []
         for filename in files_tup:
-            valid_file = check_extension(filename)
+            valid_file = _check_extension(filename, extension)
             if valid_file:
-                file_list.append(filename)
+                source_file_list.append(filename)
 
     print('')
     print('Destination Directory:')
     print('..{0}'.format(dest_dir))
 
-    if file_list == []:
+    if source_file_list == []:
         sys.exit('Source directory does not contain any files corresponding to'
                  ' the following file types: {0}'.format(valid_extensions))
 
-    end = False
-    while end is False:
-        return_val = input('Press enter to continue.')
-        if return_val == '':
-            end = True
-    print('')
+    enter_continue()
 
-    for filename in file_list:
+    os.makedirs(dest_dir, exist_ok=True)
+    for filename in source_file_list:
         copy2(filename, dest_dir)
 
-    abbrev_file_list = [file.replace(path, '') for file in file_list]
+    abbrev_file_list = [file.replace(src_dir, '') for file in source_file_list]
+
+    copy_file_list = [file.replace(src_dir, dest_dir) for file in source_file_list]
 
     print('Copying the following files:')
     for file in abbrev_file_list:
         print('..' + file)
+
+    if 'return_filenames' in kwargs:
+        val = kwargs.get('return_filenames')
+        if val:
+            return copy_file_list
 
