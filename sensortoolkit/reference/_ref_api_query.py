@@ -924,7 +924,7 @@ def save_api_dataset(process_df, raw_df, path, query_type, param_class,
         site_aqs = process_df['Site_AQS'].mode()[0]
         site_aqs = site_aqs.replace('-', '').replace(' ', '')
     except KeyError:
-        site_aqs = 'Unspecified_Site_AQS_ID'
+        site_aqs = 'Unspecified_Site_ID'
 
     folder = '{0}_{1}'.format(site_name, site_aqs)
 
