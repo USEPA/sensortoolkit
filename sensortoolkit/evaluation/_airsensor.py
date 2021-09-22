@@ -62,12 +62,6 @@ class AirSensor:
             self.param_headers = self.setup_data['sdfs_header_names']
             self.create_directories(param_headers=self.param_headers)
 
-        # elif self._kwargs.get('setup_data'):
-        #     self.setup_data = self._kwargs.get('setup_data')
-        #     self.serials = self.setup_data['serials']
-        #     self.param_headers = self.setup_data['sdfs_header_names']
-        #     self.create_directories(param_headers=self.param_headers)
-
     @property
     def setup_data(self):
         return self._setup_data
@@ -117,7 +111,8 @@ class AirSensor:
             print(error_message)
             return
 
-        lib_utils.copy_datasets(name=self.name,
+        lib_utils.copy_datasets(data_type='sensor',
+                                name=self.name,
                                 path=self.project_path,
                                 select=select)
 
@@ -129,8 +124,8 @@ class AirSensor:
             if val == 'n':
                 return
 
-        setup_config = lib_utils.Setup(name=self.name,
-                                       path=self.project_path)
+        setup_config = lib_utils.SensorSetup(name=self.name,
+                                             path=self.project_path)
 
         self._get_ingest_config()
 
@@ -195,13 +190,6 @@ class ReferenceMethod:
 if __name__ == '__main__':
     work_path = r'C:\Users\SFREDE01\OneDrive - Environmental Protection Agency (EPA)\Profile\Documents\test_dir'
 
-    EMM = AirSensor('Example_Make', 'Model',
+    emm = AirSensor('Example_Make', 'Model',
                      project_path=work_path)
-
-    # test_sensor = AirSensor('test', 'sensor',
-    #                         project_path=work_path)
-    # test_sensor.create_directories()
-    # test_sensor.copy_datasets()
-    # test_sensor.sensor_setup()
-
-    EMM.load_data(load_raw_data=False, tzone_shift=5, write_to_file=False)
+    emm.load_data(load_raw_data=False, tzone_shift=5, write_to_file=False)
