@@ -449,12 +449,14 @@ class _Setup:
         del self.config_dict['skip_str']
         del self.config_dict['header_names']
 
-        outpath = os.path.normpath(self.path + self.data_rel_path)
-
         if self.data_type == 'sensor':
             filename = self.name + '_setup.json'
+            sensor_path = os.path.normpath(
+                            os.path.join(self.data_rel_path, '..'))
+            outpath = os.path.normpath(self.path + sensor_path)
         if self.data_type == 'reference':
             filename = 'reference_setup.json'
+            outpath = os.path.normpath(self.path + self.data_rel_path)
 
         outpath = os.path.join(outpath, filename)
         print('')
