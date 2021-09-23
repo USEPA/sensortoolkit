@@ -11,6 +11,7 @@ Last Updated:
 """
 import os
 import sys
+from textwrap import wrap
 import tkinter as tk
 from tkinter import filedialog
 from shutil import copy2
@@ -63,6 +64,7 @@ def copy_datasets(data_type=None, path=None, select='directory', **kwargs):
         None.
 
     """
+    banner_w = 79
     source_file_list = []
     extension = kwargs.get('file_extension', None)
 
@@ -93,7 +95,7 @@ def copy_datasets(data_type=None, path=None, select='directory', **kwargs):
         src_dir = _prompt_directory()
 
         print('Source Directory:')
-        print('..{0}'.format(src_dir))
+        print('..{0}'.format('\n'.join(wrap(src_dir, width=banner_w))))
 
         if os.path.normpath(src_dir) == os.path.normpath(dest_dir):
             sys.exit('Source directory for datasets can not be the same as the'
@@ -114,7 +116,8 @@ def copy_datasets(data_type=None, path=None, select='directory', **kwargs):
                         source_file_list.append(os.path.join(src_dir, item))
         print('')
         print('Source Files:')
-        print(source_file_list)
+        print(['\n'.join(wrap(file, width=banner_w))
+                         for file in source_file_list])
 
     if select == 'files':
         files_tup = _prompt_files()
@@ -123,7 +126,8 @@ def copy_datasets(data_type=None, path=None, select='directory', **kwargs):
         src_dir = os.path.abspath(os.path.join(files_tup[0], '..'))
 
         print('Source Files:')
-        print(files_tup)
+        print(['\n'.join(wrap(file, width=banner_w))
+                         for file in files_tup])
 
         for filename in files_tup:
             valid_file = _check_extension(filename, extension)
@@ -132,7 +136,7 @@ def copy_datasets(data_type=None, path=None, select='directory', **kwargs):
 
     print('')
     print('Destination Directory:')
-    print('..{0}'.format(dest_dir))
+    print('..{0}'.format('\n'.join(wrap(dest_dir, width=banner_w))))
 
     if source_file_list == []:
         sys.exit('Source directory does not contain any files corresponding to'
@@ -150,7 +154,8 @@ def copy_datasets(data_type=None, path=None, select='directory', **kwargs):
 
     print('Copying the following files:')
     for file in abbrev_file_list:
-        print('..' + file)
+        print('..' + '\n'.join(wrap(file, width=banner_w)))
+
 
     if 'return_filenames' in kwargs:
         val = kwargs.get('return_filenames')
