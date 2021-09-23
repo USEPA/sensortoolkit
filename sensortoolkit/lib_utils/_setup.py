@@ -31,7 +31,7 @@ class _Setup:
     data_types = ['.csv', '.txt', '.xlsx']
     __banner_w__ = 79
     pp = pprint.PrettyPrinter()
-    pd.set_option('max_colwidth', __banner_w__)
+    #pd.set_option('max_colwidth', __banner_w__)
 
     def __init__(self, path=None):
         if path is None:
@@ -56,6 +56,7 @@ class _Setup:
         # Ask user for either directory or files to load in, parse datasets
         # and could make call to copy datasets to transfer to data and figures
         self.selectDataSets()
+        self.copyDataSets()
 
         self.setHeaderIndex()
 
@@ -143,20 +144,25 @@ class _Setup:
                 print('..invalid entry, please enter one of the options '
                       'listed above')
             else:
-                selection = val
+                self._dataset_selection = val
                 print('')
-                print('Select data sets by', selection)
+                print('Select data sets by', self._dataset_selection)
                 confirm = validate_entry()
                 if confirm == 'y':
                     valid = True
             print('')
 
+    def copyDataSets(self):
+        self.printSelectionBanner('Copy Data Files to the Project Directory',
+                                  options=[])
+        print('')
         self.file_list = copy_datasets(data_type=self.data_type,
                                        path=self.path,
-                                       select=selection,
+                                       select=self._dataset_selection,
                                        file_extension=self.file_extension,
                                        return_filenames=True,
                                        **self.dataset_kwargs)
+        enter_continue()
 
     def loadDataFile(self, file, **kwargs):
 
@@ -712,11 +718,11 @@ class ReferenceSetup(_Setup):
                     try:
                         val = int(val)
                     except ValueError:
-                        print('..invalid entry, enter either an integer or "None"')
+                        print(f'{indent}..invalid entry, enter either an integer or "None"')
                         # valid is still false, will continue with current attribute
                         continue
-                    if (param_obj.criteria_pollutant) and (val not in method_table['Method Code'].values):
-                        print('..method code not in table of methods, continue with entry?')
+                    if val not in method_table['Method Code'].values:
+                        print(f'{indent}..method code not in table of methods, continue with entry?')
                         custom_method = True
 
                 confirm = validate_entry(indent_statement=2)
