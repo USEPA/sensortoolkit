@@ -660,29 +660,24 @@ class ReferenceSetup(_Setup):
     def setParamRDFSInfo(self, param, sdfs_param):
         entry_dict = {
             f'Enter the units of measure for {param}: ': f'{sdfs_param}' + '_Unit',
-            f'Enter the parameter code for {param}: ': f'{sdfs_param}' + '_Param_Code',
-            f'Enter the reference method name for {param}: ': f'{sdfs_param}' + '_Method',
+            #f'Enter the parameter code for {param}: ': f'{sdfs_param}' + '_Param_Code',
+            f'Enter the method code corresponding to the reference method for {param}: ': f'{sdfs_param}' + '_Method_Code',
             f'Enter the parameter occurance code for the above reference method: ': f'{sdfs_param}' + '_Method_POC'
             }
 
         indent = '  '
         param_obj = Parameter(sdfs_param)
-        if param_obj.criteria_pollutant:
-            criteria_code = param_obj.criteria_pollutant
+        param_code = param_obj.aqs_parameter_code
 
         for console_statement, attrib in zip(entry_dict.keys(), entry_dict.values()):
             valid = False
             while valid is False:
 
-                if attrib == f'{sdfs_param}' + '_Method':
-                    with pd.option_context('display.max_rows', None,
-                                           'display.max_columns', None):
-                        param_code = self.__dict__.get(f'{sdfs_param}' + '_Param_Code')
-                        if int(param_code) == criteria_code:
-
-                            lookup_data = self.criteria_lookup[
-                                self.criteria_lookup['Parameter Code']==criteria_code]
-                            print(lookup_data)
+                if attrib == f'{sdfs_param}' + '_Method_Code':
+                    if param_obj.criteria_pollutant:
+                        method_table = self.displayMethods(param_code,
+                                                           self.criteria_lookup
+                                                           )
 
                 console_statement = '\n'.join(wrap(console_statement,
                                               width=self.__banner_w__))
@@ -697,6 +692,22 @@ class ReferenceSetup(_Setup):
                 if confirm == 'y':
                     valid = True
                     self.__dict__.update({attrib: val})
+
+                    if attrib == f'{sdfs_param}' + '_Method_Code':
+                        name = method_table[
+                            method_table['Method Code']==val]['Collection Description'][0]
+                        self.__dict__.update({f'{sdfs_param}' + '_Method': name})
+
+
+    def displayMethods(self, param_code, lookup_data):
+        with pd.option_context('display.expand_frame_repr', False,
+                                           'display.max_rows', None):
+            table = lookup_data[
+                lookup_data['Parameter Code']==param_code].reset_index(drop=True)
+            print(table[['Method Code',
+                         'Collection Description',
+                         'Method Type']].reset_index(drop=True))
+        return table
 
 if __name__ == '__main__':
     sensor_name = 'Example_Make_Model'
