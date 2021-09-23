@@ -16,7 +16,7 @@ import json
 import pandas as pd
 import pprint
 from sensortoolkit.lib_utils import flatten_list, validate_entry, enter_continue, copy_datasets
-
+from sensortoolkit.param import Parameter
 
 class _Setup:
     """Setup methods for Sensor and Reference data ingestion configuration.
@@ -388,6 +388,8 @@ class _Setup:
                 if sdfs_param in self.params:
                     valid = True
                     self.sdfs_header_names.append(sdfs_param)
+                    if self.data_type == 'reference':
+                        self.setParamRDFSInfo(param, sdfs_param)
                 elif sdfs_param == '':
                     valid = True
                     print('..{0} will be dropped'.format(param))
@@ -542,6 +544,24 @@ class ReferenceSetup(_Setup):
     """Interactive class for handling the reference data ingestion process.
 
     """
+    # Method code lookup tables
+    criteria_methods_path = os.path.abspath(os.path.join(__file__,
+                                  '../../reference/method_codes/methods_criteria.csv'))
+    criteria_lookup = pd.read_csv(criteria_methods_path)
+
+    critera_params = {'CO': 'Carbon monoxide',
+                     'Pb_TSP': 'Lead (TSP) LC',
+                     'Pb_PM10': 'Lead PM10 LC FRM/FEM',
+                     'NO2': 'Nitrogen dioxide (NO2)',
+                     'O3': 'Ozone',
+                     'PM10': 'PM10 Total 0-10um STP',
+                     'PM25': 'PM2.5 - Local Conditions',
+                     'SO2': 'Sulfur dioxide'}
+
+    met_methods_path = os.path.abspath(os.path.join(__file__,
+                                  '../../reference/method_codes/methods_met.csv'))
+    met_lookup = pd.read_csv(met_methods_path)
+
 
     def __init__(self, path):
 
@@ -637,6 +657,47 @@ class ReferenceSetup(_Setup):
         self.ref_data_subfolder = '_'.join([self.fmt_site_name,
                                             self.fmt_site_aqs])
 
+    def setParamRDFSInfo(self, param, sdfs_param):
+        entry_dict = {
+            f'Enter the units of measure for {param}: ': f'{sdfs_param}' + '_Unit',
+            f'Enter the parameter code for {param}: ': f'{sdfs_param}' + '_Param_Code',
+            f'Enter the reference method name for {param}: ': f'{sdfs_param}' + '_Method',
+            f'Enter the parameter occurance code for the above reference method: ': f'{sdfs_param}' + '_Method_POC'
+            }
+
+        indent = '  '
+        param_obj = Parameter(sdfs_param)
+        if param_obj.criteria_pollutant:
+            criteria_code = param_obj.criteria_pollutant
+
+        for console_statement, attrib in zip(entry_dict.keys(), entry_dict.values()):
+            valid = False
+            while valid is False:
+
+                if attrib == f'{sdfs_param}' + '_Method':
+                    with pd.option_context('display.max_rows', None,
+                                           'display.max_columns', None):
+                        param_code = self.__dict__.get(f'{sdfs_param}' + '_Param_Code')
+                        if int(param_code) == criteria_code:
+
+                            lookup_data = self.criteria_lookup[
+                                self.criteria_lookup['Parameter Code']==criteria_code]
+                            print(lookup_data)
+
+                console_statement = '\n'.join(wrap(console_statement,
+                                              width=self.__banner_w__))
+                val = input(f'{indent}{console_statement}')
+
+                if val == '':
+                    print(f'{indent}..skipping')
+                    valid = True
+                    continue
+
+                confirm = validate_entry(indent_statement=2)
+                if confirm == 'y':
+                    valid = True
+                    self.__dict__.update({attrib: val})
+
 if __name__ == '__main__':
     sensor_name = 'Example_Make_Model'
     work_path = r'C:\Users\SFREDE01\OneDrive - Environmental Protection Agency (EPA)\Profile\Documents\test_dir'
@@ -646,5 +707,6 @@ if __name__ == '__main__':
 
 
     test = ReferenceSetup(path=work_path)
+
 
 
