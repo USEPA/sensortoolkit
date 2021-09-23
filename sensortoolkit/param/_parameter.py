@@ -21,7 +21,8 @@ class Parameter:
                             'units': '(ppbv)',
                             'averaging': None,
                             'usepa_targets': False,
-                            'criteria': 42101
+                            'criteria': True,
+                            'aqs_param_code': 42101
                             },
 
                     'DP': {'baseline': 'Dew point',
@@ -31,7 +32,8 @@ class Parameter:
                            'units': '($\\degree$C)',
                            'averaging': None,
                            'usepa_targets': False,
-                           'criteria': False
+                           'criteria': False,
+                           'aqs_param_code': ''
                            },
 
                     'NO': {'baseline': 'NO',
@@ -41,7 +43,8 @@ class Parameter:
                            'units': 'units undef',
                            'averaging': None,
                            'usepa_targets': False,
-                           'criteria': False
+                           'criteria': False,
+                           'aqs_param_code': ''
                            },
 
                     'NO2': {'baseline': 'NO',
@@ -51,7 +54,8 @@ class Parameter:
                             'units': '(ppbv)',
                             'averaging': None,
                             'usepa_targets': False,
-                            'criteria': 42602
+                            'criteria': True,
+                            'aqs_param_code': 42602
                             },
 
                     'NOx': {'baseline': 'NO',
@@ -61,7 +65,8 @@ class Parameter:
                             'units': 'units undef',
                             'averaging': None,
                             'usepa_targets': False,
-                            'criteria': False
+                            'criteria': False,
+                            'aqs_param_code': ''
                             },
 
 
@@ -72,7 +77,8 @@ class Parameter:
                            'units': '(ppbv)',
                            'averaging': ['1-hour'],
                            'usepa_targets': True,
-                           'criteria': 44201
+                           'criteria': True,
+                           'aqs_param_code': 44201
                            },
 
 
@@ -83,7 +89,8 @@ class Parameter:
                             'units': '($\\mu g/m^3$)',
                             'averaging': None,
                             'usepa_targets': False,
-                            'criteria': False
+                            'criteria': False,
+                            'aqs_param_code': ''
                             },
 
                     'PM10': {'baseline': 'PM',
@@ -93,7 +100,8 @@ class Parameter:
                              'units': '($\\mu g/m^3$)',
                              'averaging': None,
                              'usepa_targets': False,
-                             'criteria': 81102
+                             'criteria': True,
+                             'aqs_param_code': 81102
                               },
 
                     'PM25': {'baseline': 'PM',
@@ -103,7 +111,8 @@ class Parameter:
                              'units': '($\\mu g/m^3$)',
                              'averaging': ['1-hour', '24-hour'],
                              'usepa_targets': True,
-                             'criteria': 88101
+                             'criteria': True,
+                             'aqs_param_code': 88101
                              },
 
                     'SO2': {'baseline': 'SO',
@@ -113,7 +122,8 @@ class Parameter:
                             'units': 'units undef',
                             'averaging': None,
                             'usepa_targets': False,
-                            'criteria': 42401
+                            'criteria': True,
+                            'aqs_param_code': 42401
                             },
 
                     'SOx': {'baseline': 'SO',
@@ -123,7 +133,8 @@ class Parameter:
                             'units': 'units undef',
                             'averaging': None,
                             'usepa_targets': False,
-                            'criteria': False
+                            'criteria': False,
+                            'aqs_param_code': ''
                             },
 
                     'Temp': {'baseline': 'Temperature',
@@ -133,7 +144,8 @@ class Parameter:
                              'units': '($\\degree$C)',
                              'averaging': None,
                              'usepa_targets': False,
-                             'criteria': False
+                             'criteria': False,
+                             'aqs_param_code': ''
                              },
 
                     'RH': {'baseline': 'Relative Humidity',
@@ -143,7 +155,8 @@ class Parameter:
                            'units': '(%)',
                            'averaging': None,
                            'usepa_targets': False,
-                           'criteria': False
+                           'criteria': False,
+                           'aqs_param_code': ''
                            },
 
                     'Press': {'baseline': 'Pressure',
@@ -153,7 +166,8 @@ class Parameter:
                            'units': 'hPa',
                            'averaging': None,
                            'usepa_targets': False,
-                           'criteria': False
+                           'criteria': False,
+                           'aqs_param_code': ''
                            },
 
                     'WD': {'baseline': 'Wind Direction',
@@ -163,7 +177,8 @@ class Parameter:
                            'units': 'Angular Degrees',
                            'averaging': None,
                            'usepa_targets': False,
-                           'criteria': False
+                           'criteria': False,
+                           'aqs_param_code': ''
                            },
 
                     'WS': {'baseline': 'Wind Speed',
@@ -173,7 +188,8 @@ class Parameter:
                            'units': 'm/s',
                            'averaging': None,
                            'usepa_targets': False,
-                           'criteria': False
+                           'criteria': False,
+                           'aqs_param_code': ''
                            }
                     }
 
@@ -186,6 +202,7 @@ class Parameter:
         self.units = None
         self.classifier = None
         self.criteria_pollutant = False
+        self.aqs_parameter_code = None
         self.averaging = ['1-hour', '24-hour']  # default averaging
         self.__verbose__ = kwargs.get('verbose', False)
 
@@ -206,6 +223,7 @@ class Parameter:
         self.units = self.__param_dict__[self.name]['units']
         self.classifier = self.__param_dict__[self.name]['classifier']
         self.criteria_pollutant = self.__param_dict__[self.name]['criteria']
+        self.aqs_parameter_code = self.__param_dict__[self.name]['param_code']
         averaging = self.__param_dict__[self.name]['averaging']
         if averaging is not None:
             self.averaging = averaging
