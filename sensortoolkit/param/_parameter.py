@@ -33,7 +33,7 @@ class Parameter:
                            'averaging': None,
                            'usepa_targets': False,
                            'criteria': False,
-                           'aqs_param_code': ''
+                           'aqs_param_code': 62103
                            },
 
                     'NO': {'baseline': 'NO',
@@ -145,7 +145,7 @@ class Parameter:
                              'averaging': None,
                              'usepa_targets': False,
                              'criteria': False,
-                             'aqs_param_code': ''
+                             'aqs_param_code': 62101 # Also 68105
                              },
 
                     'RH': {'baseline': 'Relative Humidity',
@@ -156,19 +156,19 @@ class Parameter:
                            'averaging': None,
                            'usepa_targets': False,
                            'criteria': False,
-                           'aqs_param_code': ''
+                           'aqs_param_code': 62201
                            },
 
                     'Press': {'baseline': 'Pressure',
-                           'classifier': 'Met',
-                           'fmt_param': 'Pressure',
-                           'subscript': None,
-                           'units': 'hPa',
-                           'averaging': None,
-                           'usepa_targets': False,
-                           'criteria': False,
-                           'aqs_param_code': ''
-                           },
+                              'classifier': 'Met',
+                              'fmt_param': 'Pressure',
+                              'subscript': None,
+                              'units': 'hPa',
+                              'averaging': None,
+                              'usepa_targets': False,
+                              'criteria': False,
+                              'aqs_param_code': 68108 # or 64101
+                              },
 
                     'WD': {'baseline': 'Wind Direction',
                            'classifier': 'Met',
@@ -178,7 +178,7 @@ class Parameter:
                            'averaging': None,
                            'usepa_targets': False,
                            'criteria': False,
-                           'aqs_param_code': ''
+                           'aqs_param_code': 61102 # also 61104
                            },
 
                     'WS': {'baseline': 'Wind Speed',
@@ -189,7 +189,7 @@ class Parameter:
                            'averaging': None,
                            'usepa_targets': False,
                            'criteria': False,
-                           'aqs_param_code': ''
+                           'aqs_param_code': 61101 # also 61103
                            }
                     }
 
@@ -223,7 +223,7 @@ class Parameter:
         self.units = self.__param_dict__[self.name]['units']
         self.classifier = self.__param_dict__[self.name]['classifier']
         self.criteria_pollutant = self.__param_dict__[self.name]['criteria']
-        self.aqs_parameter_code = self.__param_dict__[self.name]['param_code']
+        self.aqs_parameter_code = self.__param_dict__[self.name]['aqs_param_code']
         averaging = self.__param_dict__[self.name]['averaging']
         if averaging is not None:
             self.averaging = averaging
