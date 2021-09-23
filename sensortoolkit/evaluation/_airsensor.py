@@ -129,7 +129,6 @@ class AirSensor:
 
         self._get_ingest_config()
 
-    # Experimental
     def load_data(self, load_raw_data, write_to_file, **kwargs):
         custom_ingest = kwargs.get('custom_ingest_module', False)
 
@@ -179,12 +178,6 @@ class AirSensor:
                 self.data[t_interval] = {}
                 for serial_id, df in zip(self.serials.values(), dataset_group):
                     self.data[t_interval][serial_id] = df
-
-
-class ReferenceMethod:
-    def __init__(self):
-        pass
-
 
 
 if __name__ == '__main__':
