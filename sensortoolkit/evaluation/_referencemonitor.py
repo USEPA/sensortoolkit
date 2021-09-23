@@ -74,7 +74,7 @@ class ReferenceMonitor:
             if all([self.site_name == None, self.site_id == None,
                     self.data_source == None]):
                 print('..reference data source and monitoring site information'
-                      ' not specified, run Reference.reference_setup() to continue')
+                      ' not specified, run ReferenceMonitor.reference_setup() to continue')
                 return
 
             if self.data_source == None:
@@ -118,8 +118,7 @@ class ReferenceMonitor:
                 return
 
         setup_config = lib_utils.ReferenceSetup(path=self.project_path)
-
-        self._get_ingest_config()
+        self.setup_data = setup_config.config_dict
 
     @property
     def data_source(self):
