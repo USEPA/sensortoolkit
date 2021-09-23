@@ -12,3 +12,4 @@ Last Updated:
 
 from ._sensor_eval import SensorEvaluation
 from ._airsensor import AirSensor
+from ._referencemonitor import ReferenceMonitor
