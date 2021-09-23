@@ -660,7 +660,7 @@ class ReferenceSetup(_Setup):
     def setParamRDFSInfo(self, param, sdfs_param):
         entry_dict = {
             f'Enter the units of measure for {param}: ': f'{sdfs_param}' + '_Unit',
-            #f'Enter the parameter code for {param}: ': f'{sdfs_param}' + '_Param_Code',
+            f'Enter the parameter code for {param}: ': f'{sdfs_param}' + '_Param_Code',
             f'Enter the method code corresponding to the reference method for {param}: ': f'{sdfs_param}' + '_Method_Code',
             f'Enter the parameter occurance code for the above reference method: ': f'{sdfs_param}' + '_Method_POC'
             }
@@ -668,6 +668,7 @@ class ReferenceSetup(_Setup):
         indent = '  '
         param_obj = Parameter(sdfs_param)
         param_code = param_obj.aqs_parameter_code
+        custom_method = False
 
         for console_statement, attrib in zip(entry_dict.keys(), entry_dict.values()):
             valid = False
@@ -678,25 +679,68 @@ class ReferenceSetup(_Setup):
                         method_table = self.displayMethods(param_code,
                                                            self.criteria_lookup
                                                            )
+                    elif param_obj.classifier == 'Met':
+                        method_table = self.displayMethods(param_code,
+                                                           self.met_lookup
+                                                           )
+
+                if attrib == f'{sdfs_param}' + '_Param_Code':
+                    print('')
+                    print(f'{indent}Is the parameter code for reference measurements {param_code}?')
+                    confirm = validate_entry(indent_statement=2)
+                    if confirm == 'n':
+                        val = input(f'{indent}{console_statement}')
+                        param_obj.aqs_parameter_code = val
+                        param_obj.criteria_pollutant = False
+                        custom_method = True
+                    self.__dict__.update({attrib: val})
+                    valid = True
+                    continue
 
                 console_statement = '\n'.join(wrap(console_statement,
                                               width=self.__banner_w__))
+
                 val = input(f'{indent}{console_statement}')
 
                 if val == '':
                     print(f'{indent}..skipping')
                     valid = True
+                    # set valid true, step to next attribute
                     continue
 
+                if attrib == f'{sdfs_param}' + '_Method_Code':
+                    try:
+                        val = int(val)
+                    except ValueError:
+                        print('..invalid entry, enter either an integer or "None"')
+                        # valid is still false, will continue with current attribute
+                        continue
+                    if (param_obj.criteria_pollutant) and (val not in method_table['Method Code'].values):
+                        print('..method code not in table of methods, continue with entry?')
+                        custom_method = True
+
                 confirm = validate_entry(indent_statement=2)
+
                 if confirm == 'y':
                     valid = True
                     self.__dict__.update({attrib: val})
 
                     if attrib == f'{sdfs_param}' + '_Method_Code':
-                        name = method_table[
-                            method_table['Method Code']==val]['Collection Description'][0]
-                        self.__dict__.update({f'{sdfs_param}' + '_Method': name})
+                        if custom_method:
+                            name = input(f'{indent}Enter the reference method name: ')
+                            if name == '':
+                                print(f'{indent}..skipping')
+                                valid = True
+                                continue
+                            confirm = validate_entry(indent_statement=2)
+                            valid = True
+                            self.__dict__.update({f'{sdfs_param}' + '_Method': name})
+
+                        else:
+                            name = method_table[
+                                method_table['Method Code']==int(val)
+                                    ]['Collection Description'].values[0]
+                            self.__dict__.update({f'{sdfs_param}' + '_Method': name})
 
 
     def displayMethods(self, param_code, lookup_data):
