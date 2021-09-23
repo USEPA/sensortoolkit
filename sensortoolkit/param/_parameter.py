@@ -20,7 +20,8 @@ class Parameter:
                             'subscript': None,
                             'units': '(ppbv)',
                             'averaging': None,
-                            'usepa_targets': False
+                            'usepa_targets': False,
+                            'criteria': 42101
                             },
 
                     'DP': {'baseline': 'Dew point',
@@ -29,7 +30,8 @@ class Parameter:
                            'subscript': None,
                            'units': '($\\degree$C)',
                            'averaging': None,
-                           'usepa_targets': False
+                           'usepa_targets': False,
+                           'criteria': False
                            },
 
                     'NO': {'baseline': 'NO',
@@ -38,7 +40,8 @@ class Parameter:
                            'subscript': None,
                            'units': 'units undef',
                            'averaging': None,
-                           'usepa_targets': False
+                           'usepa_targets': False,
+                           'criteria': False
                            },
 
                     'NO2': {'baseline': 'NO',
@@ -47,7 +50,8 @@ class Parameter:
                             'subscript': '2',
                             'units': '(ppbv)',
                             'averaging': None,
-                            'usepa_targets': False
+                            'usepa_targets': False,
+                            'criteria': 42602
                             },
 
                     'NOx': {'baseline': 'NO',
@@ -56,7 +60,8 @@ class Parameter:
                             'subscript': 'x',
                             'units': 'units undef',
                             'averaging': None,
-                            'usepa_targets': False
+                            'usepa_targets': False,
+                            'criteria': False
                             },
 
 
@@ -66,7 +71,8 @@ class Parameter:
                            'subscript': '3',
                            'units': '(ppbv)',
                            'averaging': ['1-hour'],
-                           'usepa_targets': True
+                           'usepa_targets': True,
+                           'criteria': 44201
                            },
 
 
@@ -76,7 +82,8 @@ class Parameter:
                             'subscript': '1',
                             'units': '($\\mu g/m^3$)',
                             'averaging': None,
-                            'usepa_targets': False
+                            'usepa_targets': False,
+                            'criteria': False
                             },
 
                     'PM10': {'baseline': 'PM',
@@ -85,7 +92,8 @@ class Parameter:
                              'subscript': '10',
                              'units': '($\\mu g/m^3$)',
                              'averaging': None,
-                             'usepa_targets': False
+                             'usepa_targets': False,
+                             'criteria': 81102
                               },
 
                     'PM25': {'baseline': 'PM',
@@ -94,7 +102,8 @@ class Parameter:
                              'subscript': '2.5',
                              'units': '($\\mu g/m^3$)',
                              'averaging': ['1-hour', '24-hour'],
-                             'usepa_targets': True
+                             'usepa_targets': True,
+                             'criteria': 88101
                              },
 
                     'SO2': {'baseline': 'SO',
@@ -103,7 +112,8 @@ class Parameter:
                             'subscript': '2',
                             'units': 'units undef',
                             'averaging': None,
-                            'usepa_targets': False
+                            'usepa_targets': False,
+                            'criteria': 42401
                             },
 
                     'SOx': {'baseline': 'SO',
@@ -112,7 +122,8 @@ class Parameter:
                             'subscript': 'x',
                             'units': 'units undef',
                             'averaging': None,
-                            'usepa_targets': False
+                            'usepa_targets': False,
+                            'criteria': False
                             },
 
                     'Temp': {'baseline': 'Temperature',
@@ -121,7 +132,8 @@ class Parameter:
                              'subscript': None,
                              'units': '($\\degree$C)',
                              'averaging': None,
-                             'usepa_targets': False
+                             'usepa_targets': False,
+                             'criteria': False
                              },
 
                     'RH': {'baseline': 'Relative Humidity',
@@ -130,7 +142,8 @@ class Parameter:
                            'subscript': None,
                            'units': '(%)',
                            'averaging': None,
-                           'usepa_targets': False
+                           'usepa_targets': False,
+                           'criteria': False
                            },
 
                     'Press': {'baseline': 'Pressure',
@@ -139,7 +152,8 @@ class Parameter:
                            'subscript': None,
                            'units': 'hPa',
                            'averaging': None,
-                           'usepa_targets': False
+                           'usepa_targets': False,
+                           'criteria': False
                            },
 
                     'WD': {'baseline': 'Wind Direction',
@@ -148,7 +162,8 @@ class Parameter:
                            'subscript': None,
                            'units': 'Angular Degrees',
                            'averaging': None,
-                           'usepa_targets': False
+                           'usepa_targets': False,
+                           'criteria': False
                            },
 
                     'WS': {'baseline': 'Wind Speed',
@@ -157,7 +172,8 @@ class Parameter:
                            'subscript': None,
                            'units': 'm/s',
                            'averaging': None,
-                           'usepa_targets': False
+                           'usepa_targets': False,
+                           'criteria': False
                            }
                     }
 
@@ -169,6 +185,7 @@ class Parameter:
         self.format_subscript = None
         self.units = None
         self.classifier = None
+        self.criteria_pollutant = False
         self.averaging = ['1-hour', '24-hour']  # default averaging
         self.__verbose__ = kwargs.get('verbose', False)
 
@@ -188,6 +205,7 @@ class Parameter:
         """
         self.units = self.__param_dict__[self.name]['units']
         self.classifier = self.__param_dict__[self.name]['classifier']
+        self.criteria_pollutant = self.__param_dict__[self.name]['criteria']
         averaging = self.__param_dict__[self.name]['averaging']
         if averaging is not None:
             self.averaging = averaging
