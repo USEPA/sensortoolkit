@@ -566,7 +566,10 @@ class PerformanceReport(SensorEvaluation):
                 placeholder_path = os.path.join(__file__,
                                                 '../templates',
                                                 'placeholder_image.png')
-                pic.insert_picture(placeholder_path)
+                try:
+                    pic.insert_picture(placeholder_path)
+                except AttributeError:
+                    pass
 
             else:
                 pic.insert_picture(pic_path)
