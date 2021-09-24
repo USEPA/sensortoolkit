@@ -868,6 +868,7 @@ class SensorEvaluation:
         met_params = ['Temp_Value', 'RH_Value']
 
         sensortoolkit.plotting.met_distrib(self.met_hourly_ref_df[met_params],
+                       self.avg_hrly_df,
                        figure_path=self.figure_path,
                        sensor_name=self.name,
                        write_to_file=self.write_to_file)
