@@ -755,8 +755,8 @@ def normalized_met_scatter(df_list, ref_df, avg_df, met_ref_df=None,
 
     met_param_obj = Parameter(met_param)
     met_param_name = met_param_obj.name
-    fmt_met_param = param_obj.format_name
-    fmt_met_units = param_obj.units
+    fmt_met_param = met_param_obj.format_name
+    fmt_met_units = met_param_obj.units
 
     sns.set_style(kwargs.get('seaborn_style', 'darkgrid'))
 
