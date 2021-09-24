@@ -94,7 +94,7 @@ def draw_scatter(ax, xdata, ydata, param_dict, sensor_stats=None,
     default_text_pos = 'upper_left'
     if sensor_stats is not None:
         slope = sensor_stats.Slope[0]
-        if slope > 1.8:
+        if slope > 1.75:
             default_text_pos = 'bottom_right'
         else:
             default_text_pos = 'upper_left'
@@ -785,10 +785,23 @@ def normalized_met_scatter(df_list, ref_df, avg_df, met_ref_df=None,
     kwargs.pop('ylims', None)
     kwargs.pop('xlims', None)
 
-    if met_ref_df[met_param_name + '_Value'].dropna().empty:
-        print('Reference ' + met_param_name + ' not found in dataframe')
-        plt.close()
-        return
+    data = met_ref_df
+    if data[met_param_name + '_Value'].dropna().empty:
+        print(f'..Met data empty for {met_param_name}, trying sensor measurements')
+
+        try:
+            data = avg_df['mean_' + met_param_name].dropna()
+            data = data.to_frame().rename(columns={'mean_' + met_param_name:
+                                                   met_param_name + '_Value'})
+            sensor_data = True
+        except KeyError:
+            print('..{met_param_name} not measured by sensor, unable to plot '
+                  'distribution')
+            return
+        if data.empty:
+            print('..no intersensor averaged {met_param_name} data, unable to plot '
+                  'distribution')
+            return
 
     # Set xlim and ylim if not specified
     if xlims is None or ylims is None:
@@ -801,7 +814,7 @@ def normalized_met_scatter(df_list, ref_df, avg_df, met_ref_df=None,
         if ylims is not None:
             set_ylims = False
 
-        lim_tup = met_scatter_lims(met_data=met_ref_df,
+        lim_tup = met_scatter_lims(met_data=data,
                                    param=param_name,
                                    met_param=met_param_name,
                                    xlims=xlims,
@@ -835,14 +848,14 @@ def normalized_met_scatter(df_list, ref_df, avg_df, met_ref_df=None,
     fmt_sensor_name = sensor_name.replace('_', ' ')
 
     try:
-        met_ref_name = met_ref_df[met_param_name + '_Method'].dropna().unique()[0]
+        met_ref_name = data[met_param_name + '_Method'].dropna().unique()[0]
     except IndexError:
         met_ref_name = 'Unspecified Reference'
+    except KeyError:
+        met_ref_name = sensor_name
 
     x_label = met_ref_name + ' ' + fmt_met_param + ' ' + fmt_met_units
 
-    #fmt_param_tuple = Format_Param_Name(param_name)
-    #fmt_param, fmt_param_units = fmt_param_tuple
     title = fmt_sensor_name + ' ' + fmt_param + ' Normalized by ' + ref_name
 
     labels = [title]
@@ -871,13 +884,13 @@ def normalized_met_scatter(df_list, ref_df, avg_df, met_ref_df=None,
 
     # If the normalized param is temp or RH, the ref_df will be the met_ref_df
     if any(col.startswith('Temp') or col.startswith('RH') for col in ref_df):
-        met_ref_df = ref_df
+        data = ref_df
 
     # Generate scatter plots for each normalized sensor dataset
     legend_list = ['1:1']
     for i, (df, sensor_n) in enumerate(zip(norm_df_list, sensor_serials)):
         compare_df = pd.DataFrame()
-        compare_df[met_param_name] = met_ref_df[met_param_name + '_Value']
+        compare_df[met_param_name] = data[met_param_name + '_Value']
         compare_df['Normalized_' + param_name] = df['Normalized_' + param_name]
         xdata = compare_df[met_param_name]
         ydata = compare_df['Normalized_'+param_name]
