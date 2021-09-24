@@ -105,7 +105,7 @@ def sensor_timeplot(df_list, ref_df, param=None, sensor_name=None,
     format_xaxis_weeks = kwargs.get('format_xaxis_weeks', False)
     fig_size = kwargs.get('fig_size', (16, 3.5))
     fontsize = kwargs.get('fontsize', 15)
-    legend_fontscale = kwargs.get('legend_fontscale', 0.65)
+    legend_fontscale = kwargs.get('legend_fontscale', 0.72)
     cmap_name = kwargs.get('cmap_name', 'Set1')
     cmap_norm_range = kwargs.get('cmap_normrange', cmap_range)
     show_title = kwargs.get('show_title', True)
