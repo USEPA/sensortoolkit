@@ -241,7 +241,7 @@ def deploy_ref_stats(deploy_dict, ref_df, cal_check_dict=None, param=None,
     if param_name == 'PM25':
         conc_goal = 25  # Concentration goal: 25 ug/m^3 for at least one day
         #cal_check_dict = cal_check_dict['PM cal checks'][ref_name]
-    if param_name == 'O3':
+    elif param_name == 'O3':
         conc_goal = 60  # Concentration goal: 60 ppbv for at least one day
         #cal_check_dict = cal_check_dict['Gas cal checks'][ref_name]
     else:
