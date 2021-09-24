@@ -16,7 +16,8 @@ Last Updated:
 import os
 import json
 from sensortoolkit import lib_utils
-
+from sensortoolkit.reference import ref_api_query
+from sensortoolkit.param import Parameter
 
 class ReferenceMonitor:
     """
@@ -67,6 +68,7 @@ class ReferenceMonitor:
         self.data_source = data_source
         self.site_name = site_name
         self.site_id = site_id
+        self.data = {}
 
         if project_path is not None:
             self.project_path = project_path
@@ -151,6 +153,68 @@ class ReferenceMonitor:
         else:
             raise ValueError('Invalid project path, directory not found: '
                              f'{path}')
+
+    def query_aqs(self, param_list, bdate, edate):
+        """Send a data query to the AQS API.
+
+
+        Args:
+            param_list (TYPE): DESCRIPTION.
+            bdate (TYPE): DESCRIPTION.
+            edate (TYPE): DESCRIPTION.
+
+        Raises:
+            AttributeError: DESCRIPTION.
+
+        Returns:
+            None.
+
+        """
+        if not hasattr(self, 'setup_data'):
+            raise AttributeError('..reference data source and monitoring site '
+                                 'information not specified, run '
+                                 'ReferenceMonitor.reference_setup() to '
+                                 'continue')
+
+        try:
+            site_list = self.setup_data['site_aqs'].split('-')
+            self.aqs_site_id = {'state': site_list[0],
+                                'county': site_list[1],
+                                'site': site_list[2],
+                                }
+
+        except AttributeError:
+            print('Setup configuration does not specify a site AQS ID, run'
+                  'ReferenceMonitor.reference_setup() and enter a site ID')
+
+        if not hasattr(self, 'aqs_key') and hasattr(self, 'aqs_username'):
+            raise AttributeError('Username and key required for API '
+                                 'authentication')
+
+        aqs_param_df = ref_api_query(query_type='aqs',
+                                     param=param_list,
+                                     bdate=bdate,
+                                     edate=edate,
+                                     aqs_id=self.aqs_site_id,
+                                     username=self.aqs_username,
+                                     key=self.aqs_key,
+                                     path=self.path)
+
+        aqs_met_df = ref_api_query(query_type='aqs',
+                                   param=['Temp', 'RH'],
+                                   bdate=bdate,
+                                   edate=edate,
+                                   aqs_id=self.aqs_site_id,
+                                   username=self.aqs_username,
+                                   key=self.aqs_key,
+                                   path=self.path)
+
+        classifier = Parameter(param_list[0]).classifier
+
+        if not aqs_param_df.empty:
+            self.data[classifier]['1-hour'] = aqs_param_df
+        if not aqs_met_df.empty:
+            self.data['Met']['1-hour'] = aqs_met_df
 
 
 if __name__ == '__main__':
