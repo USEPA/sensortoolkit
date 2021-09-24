@@ -17,6 +17,7 @@ import pandas as pd
 import pprint
 from sensortoolkit.lib_utils import flatten_list, validate_entry, enter_continue, copy_datasets
 from sensortoolkit.param import Parameter
+from sensortoolkit.reference import preprocess_airnowtech
 
 class _Setup:
     """Setup methods for Sensor and Reference data ingestion configuration.
@@ -55,6 +56,7 @@ class _Setup:
 
         # Ask user for either directory or files to load in, parse datasets
         # and could make call to copy datasets to transfer to data and figures
+        self.setDataRelPath()
         self.selectDataSets()
         self.copyDataSets()
 
@@ -190,21 +192,18 @@ class _Setup:
 
         return df
 
-    def parseDataSets(self, print_banner=True):
-        if print_banner:
-            self.printSelectionBanner('Parsing Datasets',
-                                      options=[])
-            print('')
-
+    def setDataRelPath(self):
         self.data_rel_path = f'/Data and Figures/{self.data_type}_data/'
         if self.data_type == 'sensor':
             self.data_rel_path += f'{self.name}/raw_data'
         if self.data_type == 'reference':
             self.data_rel_path += f'{self.dataset_kwargs["ref_data_source"]}/raw/{self.ref_data_subfolder}/'
 
-        # print(f'The following data files were found at "..{self.data_rel_path}"')
-        # for file in self.file_list:
-        #     print('..{0}'.format(file.replace(self.path, '')))
+    def parseDataSets(self, print_banner=True):
+        if print_banner:
+            self.printSelectionBanner('Parsing Datasets',
+                                      options=[])
+            print('')
 
         # Load data files and populate a dictionary of unique headers that occur.
         # Top level is ordered by the row index, so if some files have different headers,
@@ -466,6 +465,9 @@ class _Setup:
             filename = 'reference_setup.json'
             outpath = os.path.normpath(self.path + self.data_rel_path)
 
+        if not os.path.isdir(outpath):
+            os.makedirs(outpath)
+
         outpath = os.path.join(outpath, filename)
         print('')
         print('..writing setup configuration to the following path:')
@@ -564,6 +566,8 @@ class ReferenceSetup(_Setup):
                      'PM25': 'PM2.5 - Local Conditions',
                      'SO2': 'Sulfur dioxide'}
 
+    api_services = ['aqs', 'airnow']
+
     met_methods_path = os.path.abspath(os.path.join(__file__,
                                   '../../reference/method_codes/methods_met.csv'))
     met_lookup = pd.read_csv(met_methods_path)
@@ -583,7 +587,15 @@ class ReferenceSetup(_Setup):
 
         self.selectDataSource()
         self.setSiteInfo()
-        self.config()
+
+        if self.dataset_kwargs['ref_data_source'] in self.api_services:
+            self.setDataRelPath()
+        elif self.dataset_kwargs['ref_data_source'] == 'airnowtech':
+            self.setDataRelPath()
+            self.processAirNowTech()
+        else:
+            self.config()
+
         self.exportSetup()
 
     def selectDataSource(self):
@@ -612,6 +624,7 @@ class ReferenceSetup(_Setup):
                     self.dataset_kwargs['ref_data_source'] = selection
             print('')
 
+
     def setSiteInfo(self):
         self.printSelectionBanner('Enter Ambient Air Monitoring Site Information',
                                   options=['..press enter to skip entries'])
@@ -624,7 +637,7 @@ class ReferenceSetup(_Setup):
         site_dict = {
             'Enter the name of the monitoring site: ': 'site_name',
             'Enter the name of the Agency overseeing the monitoring site: ': 'agency',
-            'Enter the AQS site ID (if applicable) [format XXXX-XXX-XXX]: ': 'site_aqs',
+            'Enter the AQS site ID (if applicable) [format XX-XXX-XXXX]: ': 'site_aqs',
             'Enter the site latitude (in decimal coordinates): ': 'site_lat',
             'Enter the site longitude (in decimal coordinates): ': 'site_lon'
             }
@@ -759,9 +772,20 @@ class ReferenceSetup(_Setup):
                          'Method Type']].reset_index(drop=True))
         return table
 
+    def processAirNowTech(self):
+
+        self._dataset_selection = 'files'
+        self.setDataExtension()
+        self.copyDataSets()
+
+        self.printSelectionBanner('Pre-process AirNowTech Datasets',
+                                    options=[])
+        for file in self.file_list:
+            preprocess_airnowtech(file, self.path)
+
 if __name__ == '__main__':
     sensor_name = 'Example_Make_Model'
-    work_path = r'C:\Users\SFREDE01\OneDrive - Environmental Protection Agency (EPA)\Profile\Documents\test_dir'
+    work_path = (r'C:\Users\SFREDE01\OneDrive - Environmental Protection Agency (EPA)\Profile\Documents\sensortoolkit_testing')
 
     # test = SensorSetup(name=sensor_name,
     #            path=work_path)
