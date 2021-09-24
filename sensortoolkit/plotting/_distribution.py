@@ -71,7 +71,7 @@ def ref_distrib(ref_df, param=None, averaging_interval='1-hour',
         print(i, 'not found in passed reference dataframe')
 
 
-def met_distrib(met_ref_data, figure_path, sensor_name=None,
+def met_distrib(met_ref_data, avg_hrly_df, figure_path, sensor_name=None,
                 write_to_file=True):
     """Create distribution plots for meteorological parameters provided in the
     passed met_ref_data dataframe.
@@ -99,29 +99,56 @@ def met_distrib(met_ref_data, figure_path, sensor_name=None,
                         bottom=.17)
 
     for i in range(n_var):
+        sensor_data = False
         param = met_ref_data.columns[i]
-        sns.histplot(met_ref_data[param].dropna(),
+
+        data = met_ref_data[param].dropna()
+
+        if data.empty:
+            param = param.replace('_Value', '')
+            print(f'..Met data empty for {param}, trying sensor measurements')
+
+            try:
+                data = avg_hrly_df['mean_' + param].dropna()
+                sensor_data = True
+            except KeyError:
+                print('..{param} not measured by sensor, unable to plot '
+                      'distribution')
+                continue
+            if data.empty:
+                print('..no intersensor averaged {param} data, unable to plot '
+                      'distribution')
+                continue
+
+        sns.histplot(data,
                      ax=axs[i],
                      bins=15,
+                     stat='percent',
                      kde=True,
                      color=fill_color[i][0],
                      **{'alpha': 0.6})
 
-        if param == 'RH_Value':
-            axs[i].set_xlabel('Relative Humidity (%)',
-                              fontsize=detail_font_size)
+        if param.startwith('RH'):
+            label = 'Relative Humidity (%)'
+            if sensor_data:
+                label += '/n*Sensor Measurements Shown*'
+            axs[i].set_xlabel(label, fontsize=detail_font_size)
             axs[i].xaxis.set_major_locator(plt.MultipleLocator(25))
 
-        if param == 'Temp_Value':
-            axs[i].set_xlabel('Temperature ($\\degree$C)',
-                              fontsize=detail_font_size)
+        if param.startwith('Temp'):
+            label = 'Temperature ($\\degree$C)'
+            if sensor_data:
+                label += '/n*Sensor Measurements Shown*'
+            axs[i].set_xlabel(label, fontsize=detail_font_size)
             axs[i].xaxis.set_major_locator(plt.MultipleLocator(10))
 
-        if param == 'DP_Value':
-            axs[i].set_xlabel('Dew Point ($\\degree$C)',
-                              fontsize=detail_font_size)
+        if param.startwith('DP'):
+            label = 'Dew Point ($\\degree$C)'
+            if sensor_data:
+                label += '/n*Sensor Measurements Shown*'
+            axs[i].set_xlabel(label, fontsize=detail_font_size)
 
-        axs[i].set_ylabel('Relative Probability',
+        axs[i].set_ylabel('Relative Probability (%)',
                           fontsize=detail_font_size)
 
         axs[i].tick_params(axis='both', labelsize=detail_font_size)
