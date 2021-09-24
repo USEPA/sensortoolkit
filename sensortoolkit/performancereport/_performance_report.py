@@ -2232,7 +2232,7 @@ class PerformanceReport(SensorEvaluation):
             Rsqr_min, Rsqr_max = 0.70, 1.0
             Slope_min, Slope_max = 0.65,  1.35
             Intcpt_min, Intcpt_max = -5, 5
-            Uptime_min, Uptime_max = 90, 100
+            Uptime_min, Uptime_max = 75, 100
             RMSE_min, RMSE_max = 0, 7
             nRMSE_min, nRMSE_max = 0, 30
             CV_min, CV_max = 0, 30
