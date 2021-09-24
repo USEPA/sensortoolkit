@@ -128,24 +128,27 @@ def met_distrib(met_ref_data, avg_hrly_df, figure_path, sensor_name=None,
                      color=fill_color[i][0],
                      **{'alpha': 0.6})
 
-        if param.startwith('RH'):
+        if param.startswith('RH'):
             label = 'Relative Humidity (%)'
             if sensor_data:
-                label += '/n*Sensor Measurements Shown*'
+                axs[i].set_title('*Sensor Measurements Shown*',
+                                 fontsize=detail_font_size, y=0.97)
             axs[i].set_xlabel(label, fontsize=detail_font_size)
             axs[i].xaxis.set_major_locator(plt.MultipleLocator(25))
 
-        if param.startwith('Temp'):
+        if param.startswith('Temp'):
             label = 'Temperature ($\\degree$C)'
             if sensor_data:
-                label += '/n*Sensor Measurements Shown*'
+                axs[i].set_title('*Sensor Measurements Shown*',
+                                 fontsize=detail_font_size, y=0.97)
             axs[i].set_xlabel(label, fontsize=detail_font_size)
             axs[i].xaxis.set_major_locator(plt.MultipleLocator(10))
 
-        if param.startwith('DP'):
+        if param.startswith('DP'):
             label = 'Dew Point ($\\degree$C)'
             if sensor_data:
-                label += '/n*Sensor Measurements Shown*'
+                axs[i].set_title('*Sensor Measurements Shown*',
+                                 fontsize=detail_font_size, y=0.97)
             axs[i].set_xlabel(label, fontsize=detail_font_size)
 
         axs[i].set_ylabel('Relative Probability (%)',
