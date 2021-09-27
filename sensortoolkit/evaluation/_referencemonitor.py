@@ -68,7 +68,10 @@ class ReferenceMonitor:
         self.data_source = data_source
         self.site_name = site_name
         self.site_id = site_id
-        self.data = {}
+        self.data = {'PM': {},
+                     'Met': {},
+                     'Gases': {}
+                     }
 
         if project_path is not None:
             self.project_path = project_path
