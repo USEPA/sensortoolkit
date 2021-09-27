@@ -120,7 +120,7 @@ class ReferenceMonitor:
                 return
 
         setup_config = lib_utils.ReferenceSetup(path=self.project_path)
-        self.setup_data = setup_config.config_dict
+        self.setup_data = json.loads(setup_config.config_dict)
 
     @property
     def data_source(self):
@@ -154,7 +154,8 @@ class ReferenceMonitor:
             raise ValueError('Invalid project path, directory not found: '
                              f'{path}')
 
-    def query_aqs(self, param_list, bdate, edate):
+    def query_aqs(self, username, key, param_list, bdate, edate,
+                  site_id=None, query_met_data=True):
         """Send a data query to the AQS API.
 
 
@@ -170,58 +171,81 @@ class ReferenceMonitor:
             None.
 
         """
-        if not hasattr(self, 'setup_data'):
-            raise AttributeError('..reference data source and monitoring site '
-                                 'information not specified, run '
-                                 'ReferenceMonitor.reference_setup() to '
-                                 'continue')
-
-        try:
-            site_list = self.setup_data['site_aqs'].split('-')
-            self.aqs_site_id = {'state': site_list[0],
+        if site_id is None:
+            try:
+                site_list = self.setup_data['site_aqs'].split('-')
+                site_id = {'state': site_list[0],
                                 'county': site_list[1],
                                 'site': site_list[2],
                                 }
+            except AttributeError:
+                print('Setup configuration does not specify a site AQS ID, run'
+                      'ReferenceMonitor.reference_setup() and enter a site ID')
 
-        except AttributeError:
-            print('Setup configuration does not specify a site AQS ID, run'
-                  'ReferenceMonitor.reference_setup() and enter a site ID')
-
-        if not hasattr(self, 'aqs_key') and hasattr(self, 'aqs_username'):
-            raise AttributeError('Username and key required for API '
-                                 'authentication')
-
-        aqs_param_df = ref_api_query(query_type='aqs',
+        aqs_param_df = ref_api_query(query_type='AQS',
                                      param=param_list,
                                      bdate=bdate,
                                      edate=edate,
-                                     aqs_id=self.aqs_site_id,
-                                     username=self.aqs_username,
-                                     key=self.aqs_key,
-                                     path=self.path)
+                                     aqs_id=site_id,
+                                     username=username,
+                                     key=key,
+                                     path=self._project_path)
 
-        aqs_met_df = ref_api_query(query_type='aqs',
-                                   param=['Temp', 'RH'],
-                                   bdate=bdate,
-                                   edate=edate,
-                                   aqs_id=self.aqs_site_id,
-                                   username=self.aqs_username,
-                                   key=self.aqs_key,
-                                   path=self.path)
+        if query_met_data:
+            aqs_met_df = ref_api_query(query_type='AQS',
+                                       param=['Temp', 'RH'],
+                                       bdate=bdate,
+                                       edate=edate,
+                                       aqs_id=site_id,
+                                       username=username,
+                                       key=key,
+                                       path=self._project_path)
 
         classifier = Parameter(param_list[0]).classifier
 
         if not aqs_param_df.empty:
             self.data[classifier]['1-hour'] = aqs_param_df
-        if not aqs_met_df.empty:
+        if (query_met_data) and (not aqs_met_df.empty):
             self.data['Met']['1-hour'] = aqs_met_df
+
+    def query_airnow(self, key, param_list, bdate, edate, bbox=None,
+                  bbox_size=0.01):
+
+
+        if bbox is None:
+            try:
+                site_lat = float(self.setup_data['site_lat'])
+                site_lon = float(self.setup_data['site_lon'])
+
+                AIRS_bbox = {"minLat": str(site_lat - bbox_size),
+                             "maxLat": str(site_lat + bbox_size),
+                             "minLong": str(site_lon - bbox_size),
+                             "maxLong": str(site_lon + bbox_size)}
+            except AttributeError:
+                print('Setup configuration does not specify site latitude '
+                      'and/or longitude, run ReferenceMonitor.reference_setup'
+                      '() and enter a site ID')
+
+
+        airnow_df = ref_api_query(query_type='AirNow',
+                                  param=param_list,
+                                  bdate=bdate,
+                                  edate=edate,
+                                  airnow_bbox=bbox,
+                                  key=key,
+                                  path=self._project_path)
+
+        classifier = Parameter(param_list[0]).classifier
+
+        if not airnow_df.empty:
+            self.data[classifier]['1-hour'] = airnow_df
 
 
 if __name__ == '__main__':
 
     work_path = r'C:\Users\SFREDE01\OneDrive - Environmental Protection Agency (EPA)\Profile\Documents\test_dir'
 
-    ref = ReferenceMonitor(project_path=work_path)
+    #ref = ReferenceMonitor(project_path=work_path)
 
     # ref = ReferenceMonitor(site_name='Test Site',
     #                 site_id=None,
