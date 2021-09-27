@@ -627,7 +627,9 @@ class ReferenceSetup(_Setup):
 
     def setSiteInfo(self):
         self.printSelectionBanner('Enter Ambient Air Monitoring Site Information',
-                                  options=['..press enter to skip entries'])
+                                  options=['..press enter to skip entries'],
+                                  notes=['Site AQS ID required for AQS queries',
+                                         'Site Latitude and Longitude required for AirNow queries'])
         self.agency = None
         self.site_name = None
         self.site_aqs = None
