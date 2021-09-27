@@ -818,7 +818,8 @@ class ReferenceSetup(_Setup):
                 for param in class_params:
                     class_param_cols.extend([col for col in df.columns
                                              if col.startswith(param)])
-                class_param_cols.extend(site_cols)
+                if class_param_cols != []:
+                    class_param_cols.extend(site_cols)
 
                 class_df = df[class_param_cols]
 
@@ -830,7 +831,8 @@ class ReferenceSetup(_Setup):
                     month_df = class_df.loc[year + '-' + month, :]
 
                     # Write to processed folder as csv
-                    filename = 'H_' + year + month + classifier + '.csv'
+                    filename = 'H_' + year + month + '_' + classifier + '.csv'
+                    print(f'..{filename}')
                     month_df.to_csv(os.path.join(process_path, filename))
 
 
