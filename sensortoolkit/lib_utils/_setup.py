@@ -18,6 +18,7 @@ import pprint
 from sensortoolkit.lib_utils import flatten_list, validate_entry, enter_continue, copy_datasets
 from sensortoolkit.param import Parameter
 from sensortoolkit.reference import preprocess_airnowtech
+from sensortoolkit.sensor_ingest import standard_ingest
 
 class _Setup:
     """Setup methods for Sensor and Reference data ingestion configuration.
@@ -468,13 +469,13 @@ class _Setup:
         if not os.path.isdir(outpath):
             os.makedirs(outpath)
 
-        outpath = os.path.join(outpath, filename)
+        self.outpath = os.path.join(outpath, filename)
         print('')
         print('..writing setup configuration to the following path:')
-        print(outpath)
+        print(self.outpath)
         print('')
 
-        with open(outpath, 'w') as outfile:
+        with open(self.outpath, 'w') as outfile:
             self.config_dict = json.dumps(self.config_dict, indent=4)
             outfile.write(self.config_dict)
 
@@ -597,6 +598,9 @@ class ReferenceSetup(_Setup):
             self.config()
 
         self.exportSetup()
+
+        if self.dataset_kwargs['ref_data_source'] == 'local':
+            self.localRefDataIngest()
 
     def selectDataSource(self):
         # Indicate the service used to acquire the dataset.
@@ -784,6 +788,53 @@ class ReferenceSetup(_Setup):
                                     options=[])
         for file in self.file_list:
             preprocess_airnowtech(file, self.path)
+
+    def localRefDataIngest(self):
+        self.printSelectionBanner('Ingest Local Datasets',
+                                    options=[])
+
+        process_path = os.path.normpath(os.path.join(self.outpath,
+                            f'../../../processed/{self.ref_data_subfolder}'))
+
+        if not os.path.isdir(process_path):
+            os.makedirs(process_path)
+
+        parameter_classes = {}
+        for param in self.sdfs_header_names:
+            parameter_classes[param] = Parameter(param).classifier
+
+        for file in self.file_list:
+            df = standard_ingest(file, name=None,
+                                 setup_file_path=self.outpath)
+
+            # Separate dataframe by parameter classifier
+            for classifier in ['PM', 'Gases', 'Met']:
+                class_params = [param for param in parameter_classes
+                                if parameter_classes[param] == classifier]
+
+                class_param_cols = []
+                site_cols = ['Site_Name', 'Agency', 'Site_AQS',
+                             'Site_Lat', 'Site_Lon']
+                for param in class_params:
+                    class_param_cols.extend([col for col in df.columns
+                                             if col.startswith(param)])
+                class_param_cols.extend(site_cols)
+
+                class_df = df[class_param_cols]
+
+                # Save class dataframe in monthly segements
+                for date in pd.date_range(start=class_df.index.min(),
+                              end=class_df.index.max()).to_period('M').unique():
+                    month = str(date.month).zfill(2)
+                    year = str(date.year)
+                    month_df = class_df.loc[year + '-' + month, :]
+
+                    # Write to processed folder as csv
+                    filename = 'H_' + year + month + classifier + '.csv'
+                    month_df.to_csv(os.path.join(process_path, filename))
+
+
+
 
 if __name__ == '__main__':
     sensor_name = 'Example_Make_Model'
