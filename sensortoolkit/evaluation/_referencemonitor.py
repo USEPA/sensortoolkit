@@ -220,10 +220,10 @@ class ReferenceMonitor:
                 site_lat = float(self.setup_data['site_lat'])
                 site_lon = float(self.setup_data['site_lon'])
 
-                AIRS_bbox = {"minLat": str(site_lat - bbox_size),
-                             "maxLat": str(site_lat + bbox_size),
-                             "minLong": str(site_lon - bbox_size),
-                             "maxLong": str(site_lon + bbox_size)}
+                bbox = {"minLat": str(site_lat - bbox_size),
+                        "maxLat": str(site_lat + bbox_size),
+                        "minLong": str(site_lon - bbox_size),
+                        "maxLong": str(site_lon + bbox_size)}
             except AttributeError:
                 print('Setup configuration does not specify site latitude '
                       'and/or longitude, run ReferenceMonitor.reference_setup'
