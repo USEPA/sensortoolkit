@@ -150,7 +150,8 @@ def copy_datasets(data_type=None, path=None, select='directory', **kwargs):
 
     abbrev_file_list = [file.replace(src_dir, '') for file in source_file_list]
 
-    copy_file_list = [file.replace(src_dir, dest_dir) for file in source_file_list]
+    copy_file_list = [os.path.join(dest_dir,
+                      os.path.basename(file)) for file in source_file_list]
 
     print('Copying the following files:')
     for file in abbrev_file_list:
