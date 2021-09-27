@@ -140,8 +140,11 @@ def ref_api_query(query_type=None, param=None, bdate='', edate='',
                                           'SO2': 'SO2'
                                           },
                                }
-
-        api_param = param_to_api_naming[query_type][param]
+        try:
+            api_param = param_to_api_naming[query_type][param]
+        except KeyError:
+            print('Invalid API service name passed to query_type, pass either'
+                  ' "AQS" or "AirNow"')
 
         param_dict[param] = {}
         param_dict[param]['parameter_object'] = param_obj
@@ -174,7 +177,7 @@ def ref_api_query(query_type=None, param=None, bdate='', edate='',
     # Loop over monthly intervals, query API, process datasets, save .csv files
     full_query, raw_full_query = pd.DataFrame(), pd.DataFrame()
     for month in query_months:
-        month_param_list = param_list
+        month_param_list = param_list.copy()
         data_period = list(query_months[month].values())
         time_of_query = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
@@ -192,9 +195,18 @@ def ref_api_query(query_type=None, param=None, bdate='', edate='',
                 continue
 
             # Loop over query params to modify parameter-specific columns
-            for param in param_dict:
+            for param in param_dict.copy():
                 api_param = param_dict[param]['api_name']
                 param_class = param_dict[param]['classifier']
+
+                param_data = query_data[[col for col in query_data.columns
+                                         if col.endswith(api_param)]]
+                param_cols = param_data.columns
+                if param_data.dropna(how='all', axis=1).empty:
+                    print(f'......{param} returned no data')
+                    query_data = query_data.drop(columns=param_cols)
+                    month_param_list.remove(param)
+                    continue
 
                 if param_class == 'Met':
                     lookup_table = met_lookup_table
@@ -205,6 +217,7 @@ def ref_api_query(query_type=None, param=None, bdate='', edate='',
                 query_data, idx = ingest_aqs(query_data, param, api_param,
                                              param_class, time_of_query,
                                              lookup_table)
+
             data = query_data
             data = data.set_index(idx)
 
@@ -219,7 +232,6 @@ def ref_api_query(query_type=None, param=None, bdate='', edate='',
 
             # If query did not return data, continue with next month query
             if query_data.empty:
-
                 continue
 
             # Loop over query params to modify parameter-specific columns
@@ -231,7 +243,7 @@ def ref_api_query(query_type=None, param=None, bdate='', edate='',
 
                 if param_data.empty:
                     month_param_list.remove(param)
-                    print('Dropping {0}'.format(param))
+                    print(f'......{param} returned no data')
                     continue
 
                 # Modify header names, drop unused columns
@@ -946,3 +958,16 @@ def save_api_dataset(process_df, raw_df, path, query_type, param_class,
 
     process_df.to_csv(process_path + '/' + filename)
     raw_df.to_csv(raw_path + '/' + filename)
+
+if __name__ == '__main__':
+
+    path = r'C:\\Users\\SFREDE01\\OneDrive - Environmental Protection Agency (EPA)\\Profile\\Documents\\test_dir'
+
+    triple_oaks_ID = {"state": "37",
+                      "county": "183",
+                      "site": "0021"}
+
+    data = ref_api_query(query_type='AQS', param=['PM25', 'PM10'], bdate='20210101',
+                  edate='20210331',
+                  username='frederick.samuel@epa.gov', key='silverbird29',
+                  aqs_id=triple_oaks_ID, path=path)
