@@ -80,11 +80,11 @@ def load_ref_dataframes(bdate, edate, path, classes):
                                               suffix='_Gases')
 
     ref_dict = {'PM': {'1-hour': pm_ref_df,
-                       '24-hour':  pd.DataFrame()},
+                       '1-day':  pd.DataFrame()},
                 'Gases': {'1-hour': gas_ref_df,
-                          '24-hour':  pd.DataFrame()},
+                          '1-day':  pd.DataFrame()},
                 'Met': {'1-hour': met_ref_df,
-                        '24-hour':  pd.DataFrame()}
+                        '1-day':  pd.DataFrame()}
                 }
 
     return ref_dict
