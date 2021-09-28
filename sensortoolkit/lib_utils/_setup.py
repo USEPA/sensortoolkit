@@ -820,6 +820,8 @@ class ReferenceSetup(_Setup):
                                              if col.startswith(param)])
                 if class_param_cols != []:
                     class_param_cols.extend(site_cols)
+                else:
+                    continue
 
                 class_df = df[class_param_cols]
 
