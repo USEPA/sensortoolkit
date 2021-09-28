@@ -15,8 +15,9 @@ Last Updated:
 """
 import os
 import json
+import pandas as pd
 from sensortoolkit import lib_utils
-from sensortoolkit.reference import ref_api_query
+from sensortoolkit.reference import ref_api_query, load_ref_dataframes
 from sensortoolkit.param import Parameter
 
 class ReferenceMonitor:
@@ -242,6 +243,24 @@ class ReferenceMonitor:
 
         if not airnow_df.empty:
             self.data[classifier]['1-hour'] = airnow_df
+
+    def load_data(self, bdate, edate, param_list, path, met_data=True):
+
+        if met_data is True:
+            for param in ['Temp', 'RH']:
+                if param not in param_list:
+                    param_list.append(param)
+
+        classes = []
+        for param in param_list:
+            if param in Parameter.__param_dict__.keys():
+                classes.append(Parameter(param).classifier)
+        classes = set(classes)
+
+        bdate = pd.to_datetime(bdate)
+        edate = pd.to_datetime(edate)
+
+        self.data = load_ref_dataframes(bdate, edate, path, classes)
 
 
 if __name__ == '__main__':
