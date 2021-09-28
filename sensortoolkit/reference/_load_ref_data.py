@@ -10,10 +10,10 @@ Last Updated:
   Wed Jul 14 12:44:57 2021
 """
 import pandas as pd
-from sensortoolkit.datetime_utils import timeframe_search
+#from sensortoolkit.datetime_utils import timeframe_search
+#from sensortoolkit.param import Parameter
 
-
-def load_ref_dataframes(sensor_df_list, path=None, sensor_params=None):
+def load_ref_dataframes(bdate, edate, path, classes):
     """Load reference data for the parameters measured by the sensors in the
     passed sensor dataframe list and for the timeframe indicated by sensor
     dataset timestamps.
@@ -32,40 +32,33 @@ def load_ref_dataframes(sensor_df_list, path=None, sensor_params=None):
             Dictionary containing reference datasets organized by parameter
             classification (keys).
     """
-
     print("Loading reference dataframes")
 
-    overall_begin, overall_end = timeframe_search(sensor_df_list)
+    #overall_begin, overall_end = timeframe_search(sensor_df_list)
 
-    pm_list = ['PM1', 'PM25', 'PM10']
-    gas_list = ['O3', 'NO2', 'SO2', 'CO', 'NOx']
-    met_list = ['Temp', 'RH', 'Press', 'DP', 'WS', 'WD']
+    # pm_list = [param for param in Parameter.__param_dict__
+    #            if Parameter(param).classifier == 'PM']
+    # gas_list = [param for param in Parameter.__param_dict__
+    #             if Parameter(param).classifier == 'Gases']
+    # met_list = [param for param in Parameter.__param_dict__
+    #             if Parameter(param).classifier == 'Met']
 
     pm_ref_data, gas_ref_data, met_ref_data = False, False, False
 
-    if any(i in sensor_params for i in pm_list):
+    if 'PM' in classes:
         pm_ref_data = True
-    if any(i in sensor_params for i in gas_list):
+    if 'Gases' in classes:
         gas_ref_data = True
-    if any(i in sensor_params for i in met_list):
+    if 'Met' in classes:
         met_ref_data = True
 
-    if pm_ref_data is True:
-        pm_ref_df = pd.DataFrame()
-    if gas_ref_data is True:
-        gas_ref_df = pd.DataFrame()
-    if met_ref_data is True:
-        met_ref_df = pd.DataFrame()
-
-    (pm_ref_df, gas_ref_df, met_ref_df) = (pd.DataFrame(),
-                                           pd.DataFrame(),
+    (pm_ref_df, gas_ref_df, met_ref_df) = (pd.DataFrame(), pd.DataFrame(),
                                            pd.DataFrame())
 
     if not path.endswith('/'):
         path += '/'
 
-    for date in pd.date_range(start=overall_begin,
-                              end=overall_end).to_period('M').unique():
+    for date in pd.date_range(start=bdate, end=edate).to_period('M').unique():
         month = str(date.month).zfill(2)
         year = str(date.year)
 
