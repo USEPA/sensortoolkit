@@ -194,11 +194,12 @@ class SensorEvaluation:
     aqs_key = None
     airnow_key = None
 
-    def __init__(self, sensor, param, reference_data=None, write_to_file=False,
+    def __init__(self, sensor, param, reference, write_to_file=False,
                  **kwargs):
 
         self.sensor = sensor
         self.name = sensor.name
+        self.reference = reference
 
         try:
             self.sensor.data
@@ -264,89 +265,91 @@ class SensorEvaluation:
         self.eval_param_averaging = self.param.averaging
 
         # Retrieve reference data
-        if reference_data is not None:
-            self.ref_dict = {'PM': {'1-hour': pd.DataFrame(),
-                                    '24-hour':  pd.DataFrame()},
-                             'Gases': {'1-hour': pd.DataFrame(),
-                                       '24-hour':  pd.DataFrame()},
-                             'Met': {'1-hour': pd.DataFrame(),
-                                     '24-hour':  pd.DataFrame()}
-                             }
-            if reference_data == 'AirNow':
-                # Call AirNow API
-                bbox = self.kwargs.get('bbox', None)
-                if bbox is None:
-                    console_out = ('Bounding Box required '
-                                   'for AirNow API query')
-                    sys.exit(console_out)
+        self.ref_dict = self.reference.data
 
-                airnow_df = sensortoolkit.reference.ref_api_query(
-                                                    query_type=reference_data,
-                                                    param=self._param_name,
-                                                    bdate=self.deploy_bdate,
-                                                    edate=self.deploy_edate,
-                                                    airnow_bbox=bbox,
-                                                    key=self.airnow_key,
-                                                    path=self.path
-                                                    )
+        # if reference_data is not None:
+        #     self.ref_dict = {'PM': {'1-hour': pd.DataFrame(),
+        #                             '24-hour':  pd.DataFrame()},
+        #                      'Gases': {'1-hour': pd.DataFrame(),
+        #                                '24-hour':  pd.DataFrame()},
+        #                      'Met': {'1-hour': pd.DataFrame(),
+        #                              '24-hour':  pd.DataFrame()}
+        #                      }
+        #     if reference_data == 'AirNow':
+        #         # Call AirNow API
+        #         bbox = self.kwargs.get('bbox', None)
+        #         if bbox is None:
+        #             console_out = ('Bounding Box required '
+        #                            'for AirNow API query')
+        #             sys.exit(console_out)
 
-                if not airnow_df.empty:
-                    self.ref_dict[self.param.classifier]['1-hour'] = airnow_df
+        #         airnow_df = sensortoolkit.reference.ref_api_query(
+        #                                             query_type=reference_data,
+        #                                             param=self._param_name,
+        #                                             bdate=self.deploy_bdate,
+        #                                             edate=self.deploy_edate,
+        #                                             airnow_bbox=bbox,
+        #                                             key=self.airnow_key,
+        #                                             path=self.path
+        #                                             )
 
-            elif reference_data == 'AQS':
-                # Call AQS API
-                aqs_id = self.kwargs.get('aqs_id', None)
-                if aqs_id is None:
-                    sys.exit('AQS Site ID required for AQS API query')
+        #         if not airnow_df.empty:
+        #             self.ref_dict[self.param.classifier]['1-hour'] = airnow_df
 
-                aqs_param_df = sensortoolkit.reference.ref_api_query(
-                                             query_type=reference_data,
-                                             param=self._param_name,
-                                             bdate=self.deploy_bdate,
-                                             edate=self.deploy_edate,
-                                             aqs_id=aqs_id,
-                                             username=self.aqs_username,
-                                             key=self.aqs_key,
-                                             path=self.path
-                                             )
+        #     elif reference_data == 'AQS':
+        #         # Call AQS API
+        #         aqs_id = self.kwargs.get('aqs_id', None)
+        #         if aqs_id is None:
+        #             sys.exit('AQS Site ID required for AQS API query')
 
-                aqs_met_df = sensortoolkit.reference.ref_api_query(
-                                             query_type=reference_data,
-                                             param=['Temp', 'RH'],
-                                             bdate=self.deploy_bdate,
-                                             edate=self.deploy_edate,
-                                             aqs_id=aqs_id,
-                                             username=self.aqs_username,
-                                             key=self.aqs_key,
-                                             path=self.path
-                                             )
+        #         aqs_param_df = sensortoolkit.reference.ref_api_query(
+        #                                      query_type=reference_data,
+        #                                      param=self._param_name,
+        #                                      bdate=self.deploy_bdate,
+        #                                      edate=self.deploy_edate,
+        #                                      aqs_id=aqs_id,
+        #                                      username=self.aqs_username,
+        #                                      key=self.aqs_key,
+        #                                      path=self.path
+        #                                      )
 
-                if not aqs_param_df.empty:
-                    self.ref_dict[self.param.classifier]['1-hour'] = aqs_param_df
-                if not aqs_met_df.empty:
-                    print('Adding met dataframe', aqs_met_df.empty)
-                    self.ref_dict['Met']['1-hour'] = aqs_met_df
-                    #TODO: This also means PerformanceReport cant use AQS met data
+        #         aqs_met_df = sensortoolkit.reference.ref_api_query(
+        #                                      query_type=reference_data,
+        #                                      param=['Temp', 'RH'],
+        #                                      bdate=self.deploy_bdate,
+        #                                      edate=self.deploy_edate,
+        #                                      aqs_id=aqs_id,
+        #                                      username=self.aqs_username,
+        #                                      key=self.aqs_key,
+        #                                      path=self.path
+        #                                      )
 
-            elif os.path.exists(reference_data):
-                # Load local reference data from file location
-                param_headers = self.sensor.param_headers.copy()
-                for name in ['Temp', 'RH']:
-                    if name not in param_headers:
-                        param_headers.append(name)
+        #         if not aqs_param_df.empty:
+        #             self.ref_dict[self.param.classifier]['1-hour'] = aqs_param_df
+        #         if not aqs_met_df.empty:
+        #             print('Adding met dataframe', aqs_met_df.empty)
+        #             self.ref_dict['Met']['1-hour'] = aqs_met_df
+        #             #TODO: This also means PerformanceReport cant use AQS met data
 
-                self.ref_dict = sensortoolkit.reference.load_ref_dataframes(
-                                        self.hourly_df_list,
-                                        reference_data,
-                                        param_headers)
+        #     elif os.path.exists(reference_data):
+        #         # Load local reference data from file location
+        #         param_headers = self.sensor.param_headers.copy()
+        #         for name in ['Temp', 'RH']:
+        #             if name not in param_headers:
+        #                 param_headers.append(name)
 
-            else:
-                sys.exit(reference_data
-                         + ' is not a valid API name or reference'
-                         ' data file path')
-        else:
-            sys.exit('Please specify an API or reference '
-                     'data file path via the "reference_data" variable')
+        #         self.ref_dict = sensortoolkit.reference.load_ref_dataframes(
+        #                                 self.hourly_df_list,
+        #                                 reference_data,
+        #                                 param_headers)
+
+        #     else:
+        #         sys.exit(reference_data
+        #                  + ' is not a valid API name or reference'
+        #                  ' data file path')
+        # else:
+        #     sys.exit('Please specify an API or reference '
+        #              'data file path via the "reference_data" variable')
             # Do not load or download any reference data
 
         # Set reference dataframe based on evaluation parameter classification
