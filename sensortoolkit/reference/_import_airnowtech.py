@@ -90,7 +90,7 @@ def sort_airnowtech(df):
     met_df = pd.DataFrame(index=idx)
 
     # Valid column names for parameters
-    pm_list = ['PM10-85101', 'PM2.5-88101', 'PM2.5-88502']
+    pm_list = ['PM10-81102', 'PM10-85101', 'PM2.5-88101', 'PM2.5-88502']
     gas_list = ['CO', 'O3', 'NO2', 'SO2']
     met_list = ['RHUM', 'TEMP', 'WS', 'WD']
 
@@ -183,8 +183,10 @@ def write_to_file(df, path, outpath):
     """
     folder = None
     # Dictionary for renaming AirNowTech parameter names to common format
-    renaming = {'PM10-85101': 'PM10',
+    renaming = {'PM10-81102': 'PM10',
+                'PM10-85101': 'PM10',
                 'PM2.5-88101': 'PM25',
+                'PM2.5-88502': 'PM25',
                 'O3': 'O3',
                 'CO': 'CO',
                 'NO2': 'NO2',
@@ -237,7 +239,7 @@ def write_to_file(df, path, outpath):
             month_df = df.loc[str(month_period), :]
 
             # Valid column names for parameters
-            pm_list = ['PM10-85101', 'PM2.5-88101']
+            pm_list = ['PM10-81102', 'PM10-85101', 'PM2.5-88101', 'PM2.5-88502']
             gas_list = ['CO', 'O3', 'NO2', 'SO2']
             met_list = ['RHUM', 'TEMP', 'WS', 'WD']
 
