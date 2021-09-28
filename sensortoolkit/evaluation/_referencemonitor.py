@@ -185,6 +185,7 @@ class ReferenceMonitor:
             except AttributeError:
                 print('Setup configuration does not specify a site AQS ID, run'
                       'ReferenceMonitor.reference_setup() and enter a site ID')
+                return
 
         aqs_param_df = ref_api_query(query_type='AQS',
                                      param=param_list,
@@ -229,6 +230,7 @@ class ReferenceMonitor:
                 print('Setup configuration does not specify site latitude '
                       'and/or longitude, run ReferenceMonitor.reference_setup'
                       '() and enter a site ID')
+                return
 
 
         airnow_df = ref_api_query(query_type='AirNow',
@@ -244,7 +246,21 @@ class ReferenceMonitor:
         if not airnow_df.empty:
             self.data[classifier]['1-hour'] = airnow_df
 
-    def load_data(self, bdate, edate, param_list, path, met_data=True):
+    def load_data(self, bdate, edate, param_list, path=None, met_data=True):
+
+        if path is None:
+            try:
+                path = os.path.normpath(
+                    os.path.join(
+                        self.setup_data['path'] +
+                        self.setup_data['data_rel_path'].replace('/raw/',
+                                                                 '/processed/')
+                        )
+                    )
+            except AttributeError:
+                print('Setup configuration does not specify reference data '
+                      'source, run ReferenceMonitor.reference_setup()')
+                return
 
         if met_data is True:
             for param in ['Temp', 'RH']:
