@@ -544,7 +544,8 @@ def query_periods(query_type=None, month_starts=[], month_ends=[]):
     return monthly_periods
 
 
-def query_aqs(param, data_period, aqs_id, username=None, key=None):
+def query_aqs(param, data_period, aqs_id, username=None, key=None,
+              query_type='sampleData', **kwargs):
     """Construct an AQS API query request and parse response.
 
     Args:
@@ -567,6 +568,17 @@ def query_aqs(param, data_period, aqs_id, username=None, key=None):
             Data returned by the API for the specified query parameter and
             time period.
     """
+    get_monitor_info = kwargs.get('get_monitor_info', True)
+    sample_duration = kwargs.get('sample_duration', '1 HOUR')
+
+    query_types = ['sampleData', 'monitors', 'qaBlanks',
+                   'qaCollocatedAssessments', 'qaFlowRateVerifications',
+                   'qaFlowRateAudits', 'qaOnePointQcRawData', 'qaPepAudits',
+                   'transactionsQaAnnualPerformanceEvaluations']
+
+    if query_type not in query_types:
+        raise ValueError(f'Invalid query type: {query_type}')
+
     if type(param) is str:
         param_list = [param]
     elif type(param) is list:
@@ -585,8 +597,7 @@ def query_aqs(param, data_period, aqs_id, username=None, key=None):
     print('..Query start:', begin)
     print('..Query end:', end)
 
-    # API Items
-    urlbase = 'https://aqs.epa.gov/data/api/sampleData/bySite?'
+    urlbase = f'https://aqs.epa.gov/data/api/{query_type}/bySite?'
 
     # Construct query URL
     url = urlbase + 'email=' + str(username)
@@ -598,65 +609,72 @@ def query_aqs(param, data_period, aqs_id, username=None, key=None):
     url += '&county=' + str(aqs_id["county"])
     url += '&site=' + str(aqs_id["site"])
 
-    # Get query response (two queries: first for reference data, second for
-    # site metadata)
-
-    # Query #1: reference concentration data, load to json
+    # Query API for specified query type and load to json
     data = requests.get(url)
-    ref_data_json = json.loads(data.text)
+    json_data = json.loads(data.text)
 
-    # Query #2: site information (site name, operating agency, etc.)
-    site_data = requests.get(url.replace('sampleData', 'monitors'))
-    site_json = json.loads(site_data.text)
-
-    # return site status
-    status = ref_data_json['Header'][0]['status']
+    status = json_data['Header'][0]['status']
     print('..Response status: {0}'.format(status))
-
-    site_data = pd.DataFrame(site_json['Data'])
-
     if status == 'Success':
         # Convert data to pandas dataframe
-        data = pd.DataFrame(ref_data_json['Data'])
+        data = pd.DataFrame(json_data['Data'])
 
-        # Keep 1-hour averaged data
-        data = data[data.sample_duration=='1 HOUR']
-
-        data['Site_AQS'] = (data.state_code.astype(str) + '-' +
-                            data.county_code.astype(str) + '-' +
-                            data.site_number.astype(str))
-
-        site_name = list(i for i in site_data.local_site_name.unique())
-        agency = list(i for i in site_data.monitoring_agency.unique())
-        site_aqs = list(i for i in data.Site_AQS.astype(str).unique())
-        site_lat = list(i for i in site_data.latitude.astype(str).unique())
-        site_lon = list(i for i in site_data.longitude.astype(str).unique())
-
-        print('..Query site(s):')
-        # Since AQS queries are site specific, should only include one site
-        for name, aqs, lat, lon in zip(site_name, site_aqs,
-                                       site_lat, site_lon):
-            print('....Site name:', name)
-            print('......AQS ID:', aqs)
-            print('......Latitude:', "{0:7.4f}".format(float(lat)))
-            print('......Longitude:', "{0:7.4f}".format(float(lon)))
-
-        query_df = pd.DataFrame()
-        for code in param_list:
-            param_df = data[data.parameter_code==code].reset_index(drop=True)
-            param_df = param_df.add_suffix('_' + code)
-            query_df = query_df.combine_first(param_df)
-
-        data = query_df
-
-
-        data['Agency'] = ','.join(agency)
-        data['Site_Name'] = ','.join(site_name)
+        if query_type == 'sampleData':
+            data = parse_sample_data(data, get_monitor_info,
+                                     param_list=param_list,
+                                     data_period=data_period,
+                                     aqs_id=aqs_id, username=username, key=key,
+                                     sample_duration=sample_duration)
 
         return data
 
     elif status == 'No data matched your selection':
         return pd.DataFrame()
+
+
+def parse_sample_data(sample_data, get_monitor_info, param_list, **kwargs):
+    if get_monitor_info:
+        kwargs['param'] = param_list
+        monitorinfo = query_aqs(query_type='monitors', **kwargs)
+
+        site_name = list(i for i in monitorinfo.local_site_name.unique())
+        agency = list(i for i in monitorinfo.monitoring_agency.unique())
+        site_lat = list(i for i in monitorinfo.latitude.astype(str).unique())
+        site_lon = list(i for i in monitorinfo.longitude.astype(str).unique())
+
+    # Keep 1-hour averaged sample_data by default
+    duration = kwargs.get('sample_duration', '1 HOUR')
+    sample_data = sample_data[sample_data.sample_duration == duration]
+
+    sample_data.loc[:, 'Site_AQS'] = (sample_data.state_code.astype(str) + '-'
+                                      + sample_data.county_code.astype(str) +
+                                      '-' + sample_data.site_number.astype(str)
+                                      )
+
+    site_aqs = list(i for i in sample_data.Site_AQS.astype(str).unique())
+
+    print('..Query site(s):')
+    # Since AQS queries are site specific, should only include one site
+    for name, aqs, lat, lon in zip(site_name, site_aqs,
+                                   site_lat, site_lon):
+        print('....Site name:', name)
+        print('......AQS ID:', aqs)
+        print('......Latitude:', "{0:7.4f}".format(float(lat)))
+        print('......Longitude:', "{0:7.4f}".format(float(lon)))
+
+    query_df = pd.DataFrame()
+    for code in param_list:
+        param_df = sample_data[
+            sample_data.parameter_code == code].reset_index(drop=True)
+        param_df = param_df.add_suffix('_' + code)
+        query_df = query_df.combine_first(param_df)
+
+    sample_data = query_df
+
+    sample_data.loc[:, 'Agency'] = ','.join(agency)
+    sample_data.loc[:, 'Site_Name'] = ','.join(site_name)
+
+    return sample_data
 
 
 def ingest_aqs(data, param, api_param, param_classifier,
