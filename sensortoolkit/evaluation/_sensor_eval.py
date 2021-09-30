@@ -410,6 +410,12 @@ class SensorEvaluation:
         try:
             self.ref_name = self.hourly_ref_df[self._param_name + '_Method'
                                                ].dropna().unique()[0]
+            ref_replace = {'Thermo Scientific ': '',
+                   'Dichotomous': 'Dichot'}
+
+            for key, value in zip(ref_replace.keys(), ref_replace.values()):
+                self.ref_name = self.ref_name.replace(key, value)
+
         except IndexError:
             self.ref_name = 'Unknown Reference'
 
