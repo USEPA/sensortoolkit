@@ -750,17 +750,27 @@ def ingest_aqs(data, param, api_param, param_classifier,
 
     api_param = str(api_param)
     data = data.drop(columns=[
-        'state_code_' + api_param, 'county_code_' + api_param,
-        'site_number_' + api_param, 'datum_' + api_param,
-        'parameter_' + api_param, 'date_local_' + api_param,
-        'time_local_' + api_param, 'date_gmt_' + api_param,
-        'time_gmt_' + api_param, 'units_of_measure_code_' + api_param,
-        'sample_duration_' + api_param, 'sample_duration_code_' + api_param,
-        'sample_frequency_' + api_param, 'detection_limit_' + api_param,
-        'uncertainty_' + api_param, 'method_type_' + api_param,
-        'state_' + api_param, 'county_' + api_param,
+        'state_code_' + api_param,  # rolled into Site_AQS column
+        'county_code_' + api_param,  # rolled into Site_AQS column
+        'site_number_' + api_param,  # rolled into Site_AQS column
+        'datum_' + api_param,  # geodetic reference system [METADATA]
+        'parameter_' + api_param,  # parameter code, redundant
+        'date_local_' + api_param,  # local date
+        'time_local_' + api_param,  # local time
+        'date_gmt_' + api_param,  # UTC date (assigned as index)
+        'time_gmt_' + api_param,  # UTC date (assigned as index)
+        'units_of_measure_code_' + api_param,  # code for parameter units
+        'sample_duration_' + api_param,  # The duration for samples
+        'sample_duration_code_' + api_param,  # code assigned to duration
+        'sample_frequency_' + api_param,  # reporting interval for samples
+        'detection_limit_' + api_param,
+        'uncertainty_' + api_param,
+        'method_type_' + api_param,
+        'state_' + api_param,
+        'county_' + api_param,
         'date_of_last_change_' + api_param,
-        'cbsa_code_' + api_param])
+        'cbsa_code_' + api_param
+        ])
 
     if param == 'O3':
         # Convert to concentrations to ppb
