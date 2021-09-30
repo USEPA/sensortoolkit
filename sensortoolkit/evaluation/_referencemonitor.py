@@ -19,6 +19,8 @@ import pandas as pd
 from sensortoolkit import lib_utils
 from sensortoolkit.reference import ref_api_query, load_ref_dataframes
 from sensortoolkit.param import Parameter
+from sensortoolkit.datetime_utils import interval_averaging
+
 
 class ReferenceMonitor:
     """
@@ -70,11 +72,11 @@ class ReferenceMonitor:
         self.site_name = site_name
         self.site_id = site_id
         self.data = {'PM': {'1-hour': pd.DataFrame(),
-                            '1-day':  pd.DataFrame()},
+                            '24-hour':  pd.DataFrame()},
                     'Gases': {'1-hour': pd.DataFrame(),
-                              '1-day':  pd.DataFrame()},
+                              '24-hour':  pd.DataFrame()},
                     'Met': {'1-hour': pd.DataFrame(),
-                            '1-day':  pd.DataFrame()}
+                            '24-hour':  pd.DataFrame()}
                     }
 
         if project_path is not None:
@@ -183,8 +185,8 @@ class ReferenceMonitor:
                 site_list = self.setup_data['site_aqs'].split('-')
                 site_id = {'state': site_list[0],
                                 'county': site_list[1],
-                                'site': site_list[2],
-                                }
+                                'site': site_list[2]
+                            }
             except AttributeError:
                 print('Setup configuration does not specify a site AQS ID, run'
                       'ReferenceMonitor.reference_setup() and enter a site ID')
@@ -199,6 +201,11 @@ class ReferenceMonitor:
                                      key=key,
                                      path=self._project_path)
 
+        aqs_d_param_df = interval_averaging(aqs_param_df,
+                                            freq='D',
+                                            interval_count=24,
+                                            thres=0.75)
+
         if query_met_data:
             aqs_met_df = ref_api_query(query_type='AQS',
                                        param=['Temp', 'RH'],
@@ -209,16 +216,22 @@ class ReferenceMonitor:
                                        key=key,
                                        path=self._project_path)
 
+            aqs_d_met_df = interval_averaging(aqs_met_df,
+                                              freq='D',
+                                              interval_count=24,
+                                              thres=0.75)
+
         classifier = Parameter(param_list[0]).classifier
 
         if not aqs_param_df.empty:
             self.data[classifier]['1-hour'] = aqs_param_df
+            self.data[classifier]['24-hour'] = aqs_d_param_df
         if (query_met_data) and (not aqs_met_df.empty):
             self.data['Met']['1-hour'] = aqs_met_df
+            self.data['Met']['24-hour'] = aqs_d_met_df
 
     def query_airnow(self, key, param_list, bdate, edate, bbox=None,
-                  bbox_size=0.01):
-
+                     bbox_size=0.01):
 
         if bbox is None:
             try:
@@ -244,10 +257,16 @@ class ReferenceMonitor:
                                   key=key,
                                   path=self._project_path)
 
+        airnow_d_df = interval_averaging(airnow_df,
+                                         freq='D',
+                                         interval_count=24,
+                                         thres=0.75)
+
         classifier = Parameter(param_list[0]).classifier
 
         if not airnow_df.empty:
             self.data[classifier]['1-hour'] = airnow_df
+            self.data[classifier]['24-hour'] = airnow_d_df
 
     def load_data(self, bdate, edate, param_list, path=None, met_data=True):
 
