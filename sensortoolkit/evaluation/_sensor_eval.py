@@ -236,7 +236,7 @@ class SensorEvaluation:
         rec_int = list(self.sensor.data.keys())[0]
         self.full_df_list = [df for df in self.sensor.data[rec_int].values()]
         self.hourly_df_list = [df for df in self.sensor.data['1-hour'].values()]
-        self.daily_df_list = [df for df in self.sensor.data['1-day'].values()]
+        self.daily_df_list = [df for df in self.sensor.data['24-hour'].values()]
 
         # Compute sensor deployment period and concurrent deployment groups
         self.deploy_period_df = sensortoolkit.deploy.deployment_period(
@@ -334,30 +334,7 @@ class SensorEvaluation:
         except IndexError:
             self.ref_name = 'Unknown Reference'
 
-        # # Compute 24-hr averaged data
-        # self.pm_daily_ref_df = sensortoolkit.datetime_utils.interval_averaging(
-        #                                                 self.pm_hourly_ref_df,
-        #                                                 freq='D',
-        #                                                 interval_count=24,
-        #                                                 thres=0.75)
-
-        # self.met_daily_ref_df = sensortoolkit.datetime_utils.interval_averaging(
-        #                                                 self.met_hourly_ref_df,
-        #                                                 freq='D',
-        #                                                 interval_count=24,
-        #                                                 thres=0.75)
-
-        # self.gas_daily_ref_df = sensortoolkit.datetime_utils.interval_averaging(
-        #                                         self.gas_hourly_ref_df,
-        #                                         freq='D',
-        #                                         interval_count=24,
-        #                                         thres=0.75)
-
-        # self.ref_dict['PM']['1-day'] = self.pm_daily_ref_df
-        # self.ref_dict['Gases']['1-day'] = self.gas_daily_ref_df
-        # self.ref_dict['Met']['1-day'] = self.met_daily_ref_df
-
-        self.daily_ref_df = self.ref_dict[self.param.classifier]['1-day']
+        self.daily_ref_df = self.ref_dict[self.param.classifier]['24-hour']
 
         # Compute normalized param values
         self.hourly_df_list = sensortoolkit.calculate.normalize(
@@ -541,7 +518,7 @@ class SensorEvaluation:
                 if averaging_interval == '1-hour':
                     sensor_data = self.hourly_df_list
                     ref_data = self.hourly_ref_df
-                if averaging_interval == '1-day':
+                if averaging_interval == '24-hour':
                     sensor_data = self.daily_df_list
                     ref_data = self.daily_ref_df
 
@@ -578,7 +555,7 @@ class SensorEvaluation:
             if '1-hour' in avg_list and averaging_interval == '1-hour':
                 sensor_data = self.hourly_df_list
                 ref_data = self.hourly_ref_df
-            if '1-day' in avg_list and averaging_interval == '1-day':
+            if '24-hour' in avg_list and averaging_interval == '24-hour':
                 sensor_data = self.daily_df_list
                 ref_data = self.daily_ref_df
 
@@ -636,13 +613,13 @@ class SensorEvaluation:
                                     write_to_file=self.write_to_file,
                                     **kwargs)
 
-    def plot_sensor_scatter(self, averaging_interval='1-day',
+    def plot_sensor_scatter(self, averaging_interval='24-hour',
                             plot_subset=None, report_fmt=False, **kwargs):
         """
 
         Args:
             averaging_interval (TYPE, optional): DESCRIPTION. Defaults to
-            '1-day'.
+            '24-hour'.
             plot_subset (TYPE, optional): DESCRIPTION. Defaults to None.
             report_fmt (TYPE, optional): DESCRIPTION. Defaults to False.
             **kwargs (TYPE): DESCRIPTION.
@@ -702,7 +679,7 @@ class SensorEvaluation:
                     sensor_data = self.hourly_df_list
                     ref_data = self.hourly_ref_df
                     met_data = self.met_hourly_ref_df
-                if averaging_interval == '1-day':
+                if averaging_interval == '24-hour':
                     sensor_data = self.daily_df_list
                     ref_data = self.daily_ref_df
                     met_data = self.met_daily_ref_df
@@ -750,11 +727,11 @@ class SensorEvaluation:
         # Create scatter for all sensors in an evaluation at a specified
         # averaging interval
         else:
-            # Assuming avg_list contains either only 1-hour or 1-day
+            # Assuming avg_list contains either only 1-hour or 24-hour
             if '1-hour' in avg_list and averaging_interval == '1-hour':
                 sensor_data = self.hourly_df_list
                 ref_data = self.hourly_ref_df
-            if '1-day' in avg_list and averaging_interval == '1-day':
+            if '24-hour' in avg_list and averaging_interval == '24-hour':
                 sensor_data = self.daily_df_list
                 ref_data = self.daily_ref_df
 
@@ -888,7 +865,7 @@ class SensorEvaluation:
         if averaging_interval == '1-hour':
             sensor_data = self.hourly_df_list
             ref_data = self.met_hourly_ref_df
-        if averaging_interval == '1-day':
+        if averaging_interval == '24-hour':
             sensor_data = self.daily_df_list
             ref_data = self.met_daily_ref_df
         ref_name = ref_data[met_param + '_Method'].unique()[0]
@@ -935,7 +912,7 @@ class SensorEvaluation:
                            sensor_serials=self.serials,
                            **kwargs)
 
-    def print_eval_metrics(self, averaging_interval='1-day'):
+    def print_eval_metrics(self, averaging_interval='24-hour'):
         try:
             self.deploy_dict
         except AttributeError:
@@ -998,7 +975,7 @@ class SensorEvaluation:
                                                           linearity_max),
               5*' ')
 
-    def print_eval_conditions(self, averaging_interval='1-day'):
+    def print_eval_conditions(self, averaging_interval='24-hour'):
         try:
             self.deploy_dict
         except AttributeError:
@@ -1011,7 +988,7 @@ class SensorEvaluation:
         if averaging_interval == '1-hour':
             ref_df = self.hourly_ref_df
             met_ref_df = self.met_hourly_ref_df
-        if averaging_interval == '1-day':
+        if averaging_interval == '24-hour':
             ref_df = self.daily_ref_df
             met_ref_df = self.met_daily_ref_df
 
