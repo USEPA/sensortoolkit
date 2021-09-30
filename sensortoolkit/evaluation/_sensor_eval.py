@@ -267,91 +267,6 @@ class SensorEvaluation:
         # Retrieve reference data
         self.ref_dict = self.reference.data
 
-        # if reference_data is not None:
-        #     self.ref_dict = {'PM': {'1-hour': pd.DataFrame(),
-        #                             '24-hour':  pd.DataFrame()},
-        #                      'Gases': {'1-hour': pd.DataFrame(),
-        #                                '24-hour':  pd.DataFrame()},
-        #                      'Met': {'1-hour': pd.DataFrame(),
-        #                              '24-hour':  pd.DataFrame()}
-        #                      }
-        #     if reference_data == 'AirNow':
-        #         # Call AirNow API
-        #         bbox = self.kwargs.get('bbox', None)
-        #         if bbox is None:
-        #             console_out = ('Bounding Box required '
-        #                            'for AirNow API query')
-        #             sys.exit(console_out)
-
-        #         airnow_df = sensortoolkit.reference.ref_api_query(
-        #                                             query_type=reference_data,
-        #                                             param=self._param_name,
-        #                                             bdate=self.deploy_bdate,
-        #                                             edate=self.deploy_edate,
-        #                                             airnow_bbox=bbox,
-        #                                             key=self.airnow_key,
-        #                                             path=self.path
-        #                                             )
-
-        #         if not airnow_df.empty:
-        #             self.ref_dict[self.param.classifier]['1-hour'] = airnow_df
-
-        #     elif reference_data == 'AQS':
-        #         # Call AQS API
-        #         aqs_id = self.kwargs.get('aqs_id', None)
-        #         if aqs_id is None:
-        #             sys.exit('AQS Site ID required for AQS API query')
-
-        #         aqs_param_df = sensortoolkit.reference.ref_api_query(
-        #                                      query_type=reference_data,
-        #                                      param=self._param_name,
-        #                                      bdate=self.deploy_bdate,
-        #                                      edate=self.deploy_edate,
-        #                                      aqs_id=aqs_id,
-        #                                      username=self.aqs_username,
-        #                                      key=self.aqs_key,
-        #                                      path=self.path
-        #                                      )
-
-        #         aqs_met_df = sensortoolkit.reference.ref_api_query(
-        #                                      query_type=reference_data,
-        #                                      param=['Temp', 'RH'],
-        #                                      bdate=self.deploy_bdate,
-        #                                      edate=self.deploy_edate,
-        #                                      aqs_id=aqs_id,
-        #                                      username=self.aqs_username,
-        #                                      key=self.aqs_key,
-        #                                      path=self.path
-        #                                      )
-
-        #         if not aqs_param_df.empty:
-        #             self.ref_dict[self.param.classifier]['1-hour'] = aqs_param_df
-        #         if not aqs_met_df.empty:
-        #             print('Adding met dataframe', aqs_met_df.empty)
-        #             self.ref_dict['Met']['1-hour'] = aqs_met_df
-        #             #TODO: This also means PerformanceReport cant use AQS met data
-
-        #     elif os.path.exists(reference_data):
-        #         # Load local reference data from file location
-        #         param_headers = self.sensor.param_headers.copy()
-        #         for name in ['Temp', 'RH']:
-        #             if name not in param_headers:
-        #                 param_headers.append(name)
-
-        #         self.ref_dict = sensortoolkit.reference.load_ref_dataframes(
-        #                                 self.hourly_df_list,
-        #                                 reference_data,
-        #                                 param_headers)
-
-        #     else:
-        #         sys.exit(reference_data
-        #                  + ' is not a valid API name or reference'
-        #                  ' data file path')
-        # else:
-        #     sys.exit('Please specify an API or reference '
-        #              'data file path via the "reference_data" variable')
-            # Do not load or download any reference data
-
         # Set reference dataframe based on evaluation parameter classification
         self.hourly_ref_df = self.ref_dict[self.param.classifier]['1-hour']
         hourly_ref_idx = self.hourly_ref_df.index
@@ -419,30 +334,30 @@ class SensorEvaluation:
         except IndexError:
             self.ref_name = 'Unknown Reference'
 
-        # Compute 24-hr averaged data
-        self.pm_daily_ref_df = sensortoolkit.datetime_utils.interval_averaging(
-                                                        self.pm_hourly_ref_df,
-                                                        freq='D',
-                                                        interval_count=24,
-                                                        thres=0.75)
+        # # Compute 24-hr averaged data
+        # self.pm_daily_ref_df = sensortoolkit.datetime_utils.interval_averaging(
+        #                                                 self.pm_hourly_ref_df,
+        #                                                 freq='D',
+        #                                                 interval_count=24,
+        #                                                 thres=0.75)
 
-        self.met_daily_ref_df = sensortoolkit.datetime_utils.interval_averaging(
-                                                        self.met_hourly_ref_df,
-                                                        freq='D',
-                                                        interval_count=24,
-                                                        thres=0.75)
+        # self.met_daily_ref_df = sensortoolkit.datetime_utils.interval_averaging(
+        #                                                 self.met_hourly_ref_df,
+        #                                                 freq='D',
+        #                                                 interval_count=24,
+        #                                                 thres=0.75)
 
-        self.gas_daily_ref_df = sensortoolkit.datetime_utils.interval_averaging(
-                                                self.gas_hourly_ref_df,
-                                                freq='D',
-                                                interval_count=24,
-                                                thres=0.75)
+        # self.gas_daily_ref_df = sensortoolkit.datetime_utils.interval_averaging(
+        #                                         self.gas_hourly_ref_df,
+        #                                         freq='D',
+        #                                         interval_count=24,
+        #                                         thres=0.75)
 
-        self.ref_dict['PM']['24-hour'] = self.pm_daily_ref_df
-        self.ref_dict['Gases']['24-hour'] = self.gas_daily_ref_df
-        self.ref_dict['Met']['24-hour'] = self.met_daily_ref_df
+        # self.ref_dict['PM']['1-day'] = self.pm_daily_ref_df
+        # self.ref_dict['Gases']['1-day'] = self.gas_daily_ref_df
+        # self.ref_dict['Met']['1-day'] = self.met_daily_ref_df
 
-        self.daily_ref_df = self.ref_dict[self.param.classifier]['24-hour']
+        self.daily_ref_df = self.ref_dict[self.param.classifier]['1-day']
 
         # Compute normalized param values
         self.hourly_df_list = sensortoolkit.calculate.normalize(
@@ -626,7 +541,7 @@ class SensorEvaluation:
                 if averaging_interval == '1-hour':
                     sensor_data = self.hourly_df_list
                     ref_data = self.hourly_ref_df
-                if averaging_interval == '24-hour':
+                if averaging_interval == '1-day':
                     sensor_data = self.daily_df_list
                     ref_data = self.daily_ref_df
 
@@ -663,7 +578,7 @@ class SensorEvaluation:
             if '1-hour' in avg_list and averaging_interval == '1-hour':
                 sensor_data = self.hourly_df_list
                 ref_data = self.hourly_ref_df
-            if '24-hour' in avg_list and averaging_interval == '24-hour':
+            if '1-day' in avg_list and averaging_interval == '1-day':
                 sensor_data = self.daily_df_list
                 ref_data = self.daily_ref_df
 
@@ -721,13 +636,13 @@ class SensorEvaluation:
                                     write_to_file=self.write_to_file,
                                     **kwargs)
 
-    def plot_sensor_scatter(self, averaging_interval='24-hour',
+    def plot_sensor_scatter(self, averaging_interval='1-day',
                             plot_subset=None, report_fmt=False, **kwargs):
         """
 
         Args:
             averaging_interval (TYPE, optional): DESCRIPTION. Defaults to
-            '24-hour'.
+            '1-day'.
             plot_subset (TYPE, optional): DESCRIPTION. Defaults to None.
             report_fmt (TYPE, optional): DESCRIPTION. Defaults to False.
             **kwargs (TYPE): DESCRIPTION.
@@ -787,7 +702,7 @@ class SensorEvaluation:
                     sensor_data = self.hourly_df_list
                     ref_data = self.hourly_ref_df
                     met_data = self.met_hourly_ref_df
-                if averaging_interval == '24-hour':
+                if averaging_interval == '1-day':
                     sensor_data = self.daily_df_list
                     ref_data = self.daily_ref_df
                     met_data = self.met_daily_ref_df
@@ -835,11 +750,11 @@ class SensorEvaluation:
         # Create scatter for all sensors in an evaluation at a specified
         # averaging interval
         else:
-            # Assuming avg_list contains either only 1-hour or 24-hour
+            # Assuming avg_list contains either only 1-hour or 1-day
             if '1-hour' in avg_list and averaging_interval == '1-hour':
                 sensor_data = self.hourly_df_list
                 ref_data = self.hourly_ref_df
-            if '24-hour' in avg_list and averaging_interval == '24-hour':
+            if '1-day' in avg_list and averaging_interval == '1-day':
                 sensor_data = self.daily_df_list
                 ref_data = self.daily_ref_df
 
@@ -973,7 +888,7 @@ class SensorEvaluation:
         if averaging_interval == '1-hour':
             sensor_data = self.hourly_df_list
             ref_data = self.met_hourly_ref_df
-        if averaging_interval == '24-hour':
+        if averaging_interval == '1-day':
             sensor_data = self.daily_df_list
             ref_data = self.met_daily_ref_df
         ref_name = ref_data[met_param + '_Method'].unique()[0]
@@ -1020,7 +935,7 @@ class SensorEvaluation:
                            sensor_serials=self.serials,
                            **kwargs)
 
-    def print_eval_metrics(self, averaging_interval='24-hour'):
+    def print_eval_metrics(self, averaging_interval='1-day'):
         try:
             self.deploy_dict
         except AttributeError:
@@ -1083,7 +998,7 @@ class SensorEvaluation:
                                                           linearity_max),
               5*' ')
 
-    def print_eval_conditions(self, averaging_interval='24-hour'):
+    def print_eval_conditions(self, averaging_interval='1-day'):
         try:
             self.deploy_dict
         except AttributeError:
@@ -1096,7 +1011,7 @@ class SensorEvaluation:
         if averaging_interval == '1-hour':
             ref_df = self.hourly_ref_df
             met_ref_df = self.met_hourly_ref_df
-        if averaging_interval == '24-hour':
+        if averaging_interval == '1-day':
             ref_df = self.daily_ref_df
             met_ref_df = self.met_daily_ref_df
 
