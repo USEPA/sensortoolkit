@@ -10,7 +10,7 @@ Last Updated:
   Wed Jul 14 12:44:57 2021
 """
 import pandas as pd
-#from sensortoolkit.datetime_utils import timeframe_search
+from sensortoolkit.datetime_utils import interval_averaging
 #from sensortoolkit.param import Parameter
 
 def load_ref_dataframes(bdate, edate, path, classes):
@@ -34,15 +34,6 @@ def load_ref_dataframes(bdate, edate, path, classes):
     """
     print("Loading reference dataframes")
 
-    #overall_begin, overall_end = timeframe_search(sensor_df_list)
-
-    # pm_list = [param for param in Parameter.__param_dict__
-    #            if Parameter(param).classifier == 'PM']
-    # gas_list = [param for param in Parameter.__param_dict__
-    #             if Parameter(param).classifier == 'Gases']
-    # met_list = [param for param in Parameter.__param_dict__
-    #             if Parameter(param).classifier == 'Met']
-
     pm_ref_data, gas_ref_data, met_ref_data = False, False, False
 
     if 'PM' in classes:
@@ -52,8 +43,13 @@ def load_ref_dataframes(bdate, edate, path, classes):
     if 'Met' in classes:
         met_ref_data = True
 
-    (pm_ref_df, gas_ref_df, met_ref_df) = (pd.DataFrame(), pd.DataFrame(),
-                                           pd.DataFrame())
+    (pm_h_ref_df, gas_h_ref_df, met_h_ref_df) = (pd.DataFrame(),
+                                                 pd.DataFrame(),
+                                                 pd.DataFrame())
+
+    (pm_d_ref_df, gas_d_ref_df, met_d_ref_df) = (pd.DataFrame(),
+                                                 pd.DataFrame(),
+                                                 pd.DataFrame())
 
     if not path.endswith('/'):
         path += '/'
@@ -65,26 +61,44 @@ def load_ref_dataframes(bdate, edate, path, classes):
         print('..{0:s}-{1:s}'.format(year, month))
 
         if pm_ref_data is True:
-            pm_ref_df = import_ref_dataframe(pm_ref_df, path,
-                                             year, month,
-                                             suffix='_PM')
-
+            # Import 1-hr averaged data
+            pm_h_ref_df = import_ref_dataframe(pm_h_ref_df, path,
+                                               year, month,
+                                               suffix='_PM')
         if met_ref_data is True:
-            met_ref_df = import_ref_dataframe(met_ref_df, path,
-                                              year, month,
-                                              suffix='_Met')
-
+            # Import 1-hr averaged data
+            met_h_ref_df = import_ref_dataframe(met_h_ref_df, path,
+                                                year, month,
+                                                suffix='_Met')
         if gas_ref_data is True:
-            gas_ref_df = import_ref_dataframe(gas_ref_df, path,
-                                              year, month,
-                                              suffix='_Gases')
+            # Import 1-hr averaged data
+            gas_h_ref_df = import_ref_dataframe(gas_h_ref_df, path,
+                                                year, month,
+                                                suffix='_Gases')
 
-    ref_dict = {'PM': {'1-hour': pm_ref_df,
-                       '1-day':  pd.DataFrame()},
-                'Gases': {'1-hour': gas_ref_df,
-                          '1-day':  pd.DataFrame()},
-                'Met': {'1-hour': met_ref_df,
-                        '1-day':  pd.DataFrame()}
+    # Compute 24-hr averaged data
+    if pm_ref_data is True:
+        pm_d_ref_df = interval_averaging(pm_h_ref_df,
+                                         freq='D',
+                                         interval_count=24,
+                                         thres=0.75)
+    if met_ref_data is True:
+        met_d_ref_df = interval_averaging(met_h_ref_df,
+                                          freq='D',
+                                          interval_count=24,
+                                          thres=0.75)
+    if gas_ref_data is True:
+        gas_d_ref_df = interval_averaging(gas_h_ref_df,
+                                          freq='D',
+                                          interval_count=24,
+                                          thres=0.75)
+
+    ref_dict = {'PM': {'1-hour': pm_h_ref_df,
+                       '1-day':  pm_d_ref_df},
+                'Gases': {'1-hour': gas_h_ref_df,
+                          '1-day':  gas_d_ref_df},
+                'Met': {'1-hour': met_h_ref_df,
+                        '1-day':  met_d_ref_df}
                 }
 
     return ref_dict
