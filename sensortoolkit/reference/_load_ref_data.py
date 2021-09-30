@@ -11,7 +11,6 @@ Last Updated:
 """
 import pandas as pd
 from sensortoolkit.datetime_utils import interval_averaging
-#from sensortoolkit.param import Parameter
 
 def load_ref_dataframes(bdate, edate, path, classes):
     """Load reference data for the parameters measured by the sensors in the
@@ -94,11 +93,11 @@ def load_ref_dataframes(bdate, edate, path, classes):
                                           thres=0.75)
 
     ref_dict = {'PM': {'1-hour': pm_h_ref_df,
-                       '1-day':  pm_d_ref_df},
+                       '24-hour':  pm_d_ref_df},
                 'Gases': {'1-hour': gas_h_ref_df,
-                          '1-day':  gas_d_ref_df},
+                          '24-hour':  gas_d_ref_df},
                 'Met': {'1-hour': met_h_ref_df,
-                        '1-day':  met_d_ref_df}
+                        '24-hour':  met_d_ref_df}
                 }
 
     return ref_dict
