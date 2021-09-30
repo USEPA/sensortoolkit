@@ -69,10 +69,13 @@ class ReferenceMonitor:
         self.data_source = data_source
         self.site_name = site_name
         self.site_id = site_id
-        self.data = {'PM': {},
-                     'Met': {},
-                     'Gases': {}
-                     }
+        self.data = {'PM': {'1-hour': pd.DataFrame(),
+                            '1-day':  pd.DataFrame()},
+                    'Gases': {'1-hour': pd.DataFrame(),
+                              '1-day':  pd.DataFrame()},
+                    'Met': {'1-hour': pd.DataFrame(),
+                            '1-day':  pd.DataFrame()}
+                    }
 
         if project_path is not None:
             self.project_path = project_path
@@ -276,7 +279,13 @@ class ReferenceMonitor:
         bdate = pd.to_datetime(bdate)
         edate = pd.to_datetime(edate)
 
-        self.data = load_ref_dataframes(bdate, edate, path, classes)
+        data_dict = load_ref_dataframes(bdate, edate, path, classes)
+
+        for classifier in data_dict:
+            for interval in data_dict[classifier]:
+                df = data_dict[classifier][interval]
+                if not df.empty:
+                    self.data[classifier][interval] = df
 
 
 if __name__ == '__main__':
