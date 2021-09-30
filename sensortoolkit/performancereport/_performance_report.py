@@ -57,7 +57,7 @@ class PerformanceReport(SensorEvaluation):
     # constuct reports
     report_params = ['PM25', 'O3']
 
-    def __init__(self, sensor, param, reference_data=None, write_to_file=False,
+    def __init__(self, sensor, param, reference=None, write_to_file=False,
                  figure_search=False, **kwargs):
 
         # Add keyword arguments (testing_loc, testing_org, etc.)
@@ -65,7 +65,7 @@ class PerformanceReport(SensorEvaluation):
         self.kwargs = kwargs
 
         # Inherit the SensorEvaluation class instance attributes
-        super().__init__(sensor, param, reference_data, write_to_file,
+        super().__init__(sensor, param, reference, write_to_file,
                          **kwargs)
 
         if self._param_name not in self.report_params:
