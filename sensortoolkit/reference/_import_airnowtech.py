@@ -374,11 +374,11 @@ def preprocess_airnowtech(file_path, project_path):
         site_folder = write_to_file(df, file_path, outpath)
 
     # Copy the downloaded dataset to site specific subfolder
-    if site_folder is not None:
-        dest_inpath = os.path.abspath(
-                            os.path.join(file_path, '..', site_folder))
+    # if site_folder is not None:
+    #     dest_inpath = os.path.abspath(
+    #                         os.path.join(file_path, '..', site_folder))
 
-        if not os.path.exists(dest_inpath):
-            os.makedirs(dest_inpath)
+    #     if not os.path.exists(dest_inpath):
+    #         os.makedirs(dest_inpath)
 
-        copy(file_path, dest_inpath)
+    #     copy(file_path, dest_inpath)
