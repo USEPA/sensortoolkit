@@ -619,6 +619,9 @@ def query_aqs(param, data_period, aqs_id, username=None, key=None):
         # Convert data to pandas dataframe
         data = pd.DataFrame(ref_data_json['Data'])
 
+        # Keep 1-hour averaged data
+        data = data[data.sample_duration=='1 HOUR']
+
         data['Site_AQS'] = (data.state_code.astype(str) + '-' +
                             data.county_code.astype(str) + '-' +
                             data.site_number.astype(str))
