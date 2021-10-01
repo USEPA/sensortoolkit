@@ -50,7 +50,7 @@ def get_timestamp_interval(df, warning=False, as_timedelta=False):
         if i < delta_df.size:
             interval_str += ', '
     if interval_str == '1-day':
-        interval_str == '24-hour'
+        interval_str = '24-hour'
 
     if warning and delta_std > 0:
         print('Warning, variation in sampling frequency for passed dataframe')
