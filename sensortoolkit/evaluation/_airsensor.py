@@ -130,6 +130,20 @@ class AirSensor:
         self._get_ingest_config()
 
     def load_data(self, load_raw_data, write_to_file, **kwargs):
+        """
+
+
+        Args:
+            load_raw_data (TYPE): DESCRIPTION.
+            write_to_file (TYPE): DESCRIPTION.
+            **kwargs (TYPE):
+                tzone_shift (int): ) An integer value by which to shift the
+                sensor data to UTC. Specifying 0 will not shift the data.
+
+        Returns:
+            None.
+
+        """
         custom_ingest = kwargs.get('custom_ingest_module', False)
 
         if not custom_ingest:
@@ -179,6 +193,7 @@ class AirSensor:
                 for serial_id, df in zip(self.serials.values(), dataset_group):
                     self.data[t_interval][serial_id] = df
 
+        self.recording_interval = list(self.data.keys())[0]
 
 if __name__ == '__main__':
     work_path = r'C:\Users\SFREDE01\OneDrive - Environmental Protection Agency (EPA)\Profile\Documents\test_dir'
