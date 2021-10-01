@@ -511,8 +511,6 @@ class SensorSetup(_Setup):
         edit = True
         col_n = 1
 
-        print('Enter unique serial identifiers for each sensor associated '
-              'with the following datasets:')
         abbrev_files = []
         for file in self.file_list:
             file = file.replace(self.path + '/Data and Figures/sensor_data/' +
@@ -520,7 +518,24 @@ class SensorSetup(_Setup):
             abbrev_files.append(file)
             print('..{0}'.format(file))
 
-        while edit:
+        confirm = 'n'
+        while confirm == 'n':
+            val = input("Enter the number of unique sensors corresponding "
+                        "to the datasets above: ")
+            try:
+                val = int(val)
+            except ValueError:
+                print('..Invalid entry, enter an integer value')
+                continue
+
+            confirm = validate_entry()
+
+        self.number_of_sensors = val
+
+        print('Enter unique serial identifiers for each sensor associated '
+              'with the datasets listed above:')
+
+        while col_n <= self.number_of_sensors:
             confirm = 'n'
             while confirm == 'n':
                 serial = input("Enter serial identifier #{0}: ".format(str(col_n)))
@@ -884,11 +899,11 @@ if __name__ == '__main__':
     sensor_name = 'Example_Make_Model'
     work_path = (r'C:\Users\SFREDE01\OneDrive - Environmental Protection Agency (EPA)\Profile\Documents\sensortoolkit_testing')
 
-    # test = SensorSetup(name=sensor_name,
-    #            path=work_path)
+    test = SensorSetup(name=sensor_name,
+                path=work_path)
 
 
-    test = ReferenceSetup(path=work_path)
+    #test = ReferenceSetup(path=work_path)
 
 
 
