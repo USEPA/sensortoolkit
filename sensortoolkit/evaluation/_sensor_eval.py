@@ -222,10 +222,10 @@ class SensorEvaluation:
         self.stats_path = os.path.join(self.path, 'Data and Figures',
                                        'eval_stats', self.name, '')
 
-        rec_int = list(self.sensor.data.keys())[0]
-        self.full_df_list = [df for df in self.sensor.data[rec_int].values()]
-        self.hourly_df_list = [df for df in self.sensor.data['1-hour'].values()]
-        self.daily_df_list = [df for df in self.sensor.data['24-hour'].values()]
+        rec_int = self.sensor.recording_interval
+        self.full_df_list = list(self.sensor.data[rec_int].values())
+        self.hourly_df_list = list(self.sensor.data['1-hour'].values())
+        self.daily_df_list = list(self.sensor.data['24-hour'].values())
 
         # Compute sensor deployment period and concurrent deployment groups
         self.deploy_period_df = sensortoolkit.deploy.deployment_period(
