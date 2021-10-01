@@ -332,17 +332,7 @@ class SensorEvaluation:
                                             thres=0.75)
 
         # Get the name of the reference monitor
-        try:
-            self.ref_name = self.hourly_ref_df[self._param_name + '_Method'
-                                               ].dropna().unique()[0]
-            ref_replace = {'Thermo Scientific ': '',
-                   'Dichotomous': 'Dichot'}
-
-            for key, value in zip(ref_replace.keys(), ref_replace.values()):
-                self.ref_name = self.ref_name.replace(key, value)
-
-        except IndexError:
-            self.ref_name = 'Unknown Reference'
+        self.ref_name = self.reference.get_method_name(self.param.name)
 
         self.daily_ref_df = self.ref_dict[self.param.classifier]['24-hour']
 
