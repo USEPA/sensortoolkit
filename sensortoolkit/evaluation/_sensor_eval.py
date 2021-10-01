@@ -156,12 +156,6 @@ class SensorEvaluation:
             which all sensors in the testing group reported values), as well as
             the minimum, maximum, and the mean sensor concentration.
 
-    Class attributes:
-        aqs_username (str): Optional. Account username for the AQS API.
-        aqs_key (str): Optional. Account authentication key for the AQS API.
-        airnow_key (str): Optional. Account authentication key for the AirNow
-            API.
-
     Methods:
         add_deploy_dict_stats
         calculate_metrics
@@ -188,11 +182,6 @@ class SensorEvaluation:
             in each 1-hour averaged sensor dataset via sensor vs. FRM/FEM
             reference OLS regression.
     """
-
-    # API Credentials
-    aqs_username = None
-    aqs_key = None
-    airnow_key = None
 
     def __init__(self, sensor, param, reference, write_to_file=False,
                  **kwargs):
@@ -282,6 +271,7 @@ class SensorEvaluation:
         # return a dataframe backfilled with nulls.
         if not self.ref_dict['PM']['1-hour'].empty:
             self.pm_hourly_ref_df = self.ref_dict['PM']['1-hour']
+            self.pm_daily_ref_df = self.ref_dict['PM']['24-hour']
         else:
             cols = ['PM25' + col for col in ref_param_cols]
             cols = cols + site_cols
@@ -293,8 +283,15 @@ class SensorEvaluation:
             for col_name in [col for col in cols if col.endswith('_Method')]:
                 self.pm_hourly_ref_df[col_name] = 'Unknown Reference'
 
+            self.pm_daily_ref_df = sensortoolkit.datetime_utils.interval_averaging(
+                                            self.pm_hourly_ref_df,
+                                            freq='D',
+                                            interval_count=24,
+                                            thres=0.75)
+
         if not self.ref_dict['Gases']['1-hour'].empty:
             self.gas_hourly_ref_df = self.ref_dict['Gases']['1-hour']
+            self.gas_daily_ref_df = self.ref_dict['Gases']['24-hour']
         else:
             cols = ['O3' + col for col in ref_param_cols]
             cols = cols + site_cols
@@ -306,8 +303,15 @@ class SensorEvaluation:
             for col_name in [col for col in cols if col.endswith('_Method')]:
                 self.gas_hourly_ref_df[col_name] = 'Unknown Reference'
 
+            self.gas_daily_ref_df = sensortoolkit.datetime_utils.interval_averaging(
+                                            self.gas_hourly_ref_df,
+                                            freq='D',
+                                            interval_count=24,
+                                            thres=0.75)
+
         if not self.ref_dict['Met']['1-hour'].empty:
             self.met_hourly_ref_df = self.ref_dict['Met']['1-hour']
+            self.met_daily_ref_df = self.ref_dict['Met']['24-hour']
         else:
             cols = [met_param + col for col in ref_param_cols
                     for met_param in ['RH', 'Temp']]
@@ -320,6 +324,12 @@ class SensorEvaluation:
             # Replace null method names with 'Unspecified Reference'
             for col_name in [col for col in cols if col.endswith('_Method')]:
                 self.met_hourly_ref_df[col_name] = 'Unknown Reference'
+
+            self.met_daily_ref_df = sensortoolkit.datetime_utils.interval_averaging(
+                                            self.met_hourly_ref_df,
+                                            freq='D',
+                                            interval_count=24,
+                                            thres=0.75)
 
         # Get the name of the reference monitor
         try:
