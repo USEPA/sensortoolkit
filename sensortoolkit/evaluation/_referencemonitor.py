@@ -163,25 +163,27 @@ class ReferenceMonitor:
             raise ValueError('Invalid project path, directory not found: '
                              f'{path}')
 
-    @property
-    def method_name(self):
-        return self._method_name
-
-    @method_name.setter
-    def method_name(self, param):
+    def get_method_name(self, param):
+        classifier = Parameter(param).classifier
+        if self.data[classifier]['1-hour'].empty:
+            print('No reference data found, load data via ReferenceMontior.load_data()')
+            return
         try:
-            classifier = Parameter(param).classifier
-            self._method_name = self.data[classifier][param + '_Method'
-                                               ].dropna().unique()[0]
+            method_name = self.data[classifier]['1-hour'][param + '_Method'].dropna().unique()[0]
 
             ref_replace = {'Thermo Scientific ': '',
                    'Dichotomous': 'Dichot'}
 
             for key, value in zip(ref_replace.keys(), ref_replace.values()):
-                self.ref_name = self.ref_name.replace(key, value)
+                method_name = method_name.replace(key, value)
 
         except IndexError:
-            self._method_name = 'Unknown Reference'
+            method_name = 'Unknown Reference'
+        except KeyError:
+            method_name = None
+            print(f'No reference monitor found for {param}')
+
+        return method_name
 
 
     def query_aqs(self, username, key, param_list, bdate, edate,
