@@ -656,6 +656,46 @@ class ReferenceSetup(_Setup):
                                               width=self.__banner_w__))
                 val = input(console_statement)
 
+                if attrib == 'site_aqs':
+                    if val == '' and self.dataset_kwargs['ref_data_source'] == 'aqs':
+                        print('..Invalid entry, AQS Site ID must be specified for AQS queries')
+                        continue
+                    elif val != '':
+                        list_val = val.split('-')
+                        if len(list_val) != 3:
+                            print('..Invalid format, enter site ID in the format XX-XXX-XXXX')
+                            continue
+
+                        # length of components in aqs site ID
+                        aqs_fmt = {'State Code': 2,
+                                   'County Code':3,
+                                   'Site Code':4}
+                        invalid_fmt = False
+                        for entry, expect_key, expect_len in zip(list_val, aqs_fmt.keys(), aqs_fmt.values()):
+                            if len(entry) != expect_len:
+                                print(f'..Invalid format for AQS Site ID {expect_key}: {entry}')
+                                print(f'....expected code length {expect_len}')
+                                invalid_fmt = True
+                        if invalid_fmt:
+                            continue
+
+                if attrib == 'site_lat' or attrib == 'site_lon':
+                    if val == '' and self.dataset_kwargs['ref_data_source'] == 'airnow':
+                        print('..Invalid entry, Latitude and Longitude must be specified for AirNow queries')
+                        continue
+                    elif val != '':
+                        try:
+                            cast_val = float(val)
+                        except ValueError:
+                            print('..Invalid entry, value must be numeric')
+                            continue
+                        if attrib == 'site_lat' and (cast_val <-90 or cast_val > 90):
+                            print('..Invalid entry, Latitude must be between -90 and +90 degrees')
+                            continue
+                        if attrib == 'site_lon' and (cast_val <-180 or cast_val > 180):
+                            print('..Invalid entry, Longitude must be between -180 and +180 degrees')
+                            continue
+
                 if val == '':
                     print('..skipping')
                     valid = True
