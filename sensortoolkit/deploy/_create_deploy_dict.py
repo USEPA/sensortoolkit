@@ -84,19 +84,20 @@ def construct_deploy_dict(deploy_df, full_df_list, hourly_df_list,
     """
 
     # Testing organization information
-    testing_org = kwargs.get('testing_org', {'Deployment name': None,
-                                             'Org name': None,
-                                             'Website': {'website name': None,
-                                                         'website link': None},
-                                             'Contact email': None,
-                                             'Contact phone': None})
+    testing_org = kwargs.get('testing_org', {'Deployment name': '[Name of Deployment]',
+                                             'Org name': ['[Organization name line 1]',
+                                                          '[Organization name line 2]'],
+                                             'Website': {'website name': '[Website Name]',
+                                                         'website link': '[Website Link]'},
+                                             'Contact email': '[Contact Email]',
+                                             'Contact phone': '[Contact Phone Number]'})
 
     # Testing location information
-    testing_loc = kwargs.get('testing_loc',  {'Site name': None,
-                                              'Site address': None,
-                                              'Site lat': None,
-                                              'Site long': None,
-                                              'Site AQS ID': None})
+    testing_loc = kwargs.get('testing_loc',  {'Site name': '[Site Name]',
+                                              'Site address': '[Site Address]',
+                                              'Site lat': '[Site Latitude]',
+                                              'Site long': '[Site Longitude]',
+                                              'Site AQS ID': '[Site AQS ID]'})
 
     current_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S %p')
     deploy_dict = {'sensortoolkit Version': _get_version(),
