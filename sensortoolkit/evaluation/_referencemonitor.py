@@ -163,6 +163,27 @@ class ReferenceMonitor:
             raise ValueError('Invalid project path, directory not found: '
                              f'{path}')
 
+    @property
+    def method_name(self):
+        return self._method_name
+
+    @method_name.setter
+    def method_name(self, param):
+        try:
+            classifier = Parameter(param).classifier
+            self._method_name = self.data[classifier][param + '_Method'
+                                               ].dropna().unique()[0]
+
+            ref_replace = {'Thermo Scientific ': '',
+                   'Dichotomous': 'Dichot'}
+
+            for key, value in zip(ref_replace.keys(), ref_replace.values()):
+                self.ref_name = self.ref_name.replace(key, value)
+
+        except IndexError:
+            self._method_name = 'Unknown Reference'
+
+
     def query_aqs(self, username, key, param_list, bdate, edate,
                   site_id=None, query_met_data=True):
         """Send a data query to the AQS API.
@@ -311,9 +332,9 @@ if __name__ == '__main__':
 
     work_path = r'C:\Users\SFREDE01\OneDrive - Environmental Protection Agency (EPA)\Profile\Documents\test_dir'
 
-    #ref = ReferenceMonitor(project_path=work_path)
+    ref = ReferenceMonitor(project_path=work_path)
 
-    # ref = ReferenceMonitor(site_name='Test Site',
-    #                 site_id=None,
-    #                 data_source='local',
-    #                 project_path=work_path)
+    ref = ReferenceMonitor(site_name='Test Site',
+                    site_id=None,
+                    data_source='local',
+                    project_path=work_path)
