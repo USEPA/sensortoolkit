@@ -210,7 +210,7 @@ class _Setup:
         # Top level is ordered by the row index, so if some files have different headers,
         # there will be multiple entries within the particular row index key.
         self.col_headers = {}
-        print(f'\nParsing datasets at "..{self.data_rel_path}"')
+        print(f'Parsing datasets at "..{self.data_rel_path}"')
 
         for file in self.file_list:
             df = self.loadDataFile(file)
@@ -506,6 +506,7 @@ class SensorSetup(_Setup):
     def setSerials(self):
         self.printSelectionBanner('Configure Sensor Serial Identifiers',
                                   options=[self.end_str])
+        print('')
 
         self.serials = {}
         edit = True
