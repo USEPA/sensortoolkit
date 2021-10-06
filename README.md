@@ -66,6 +66,7 @@ where the repository was downloaded. Next, type the following command and hit en
 python opendocs.py
 ```
 The documentation should open in your default browser, and you should see a landing page that looks something like this:
+
 ![sensortoolkit Landing Page](docs/source/data/_readme_figures/toolkit_landing_page.png){width=800}
 
 Note: Users will need an installation of Python (v3.7 or greater). It’s
