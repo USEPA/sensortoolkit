@@ -190,7 +190,7 @@ def interval_averaging(df, freq='H', interval_count=60, thres=0.75):
                                freq=freq, normalize=True)
 
     # Sample object-like data at specified interval by the mode
-    obj_df = obj_df.dropna(how='all', axis=1).dropna()
+    obj_df = obj_df.dropna(how='all', axis=1).fillna('')
 
     if obj_df.empty:
         avg_obj_df = pd.DataFrame(np.nan, index=nan_df_idx,
