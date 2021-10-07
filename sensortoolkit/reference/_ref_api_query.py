@@ -239,6 +239,10 @@ def ref_api_query(query_type=None, param=None, bdate='', edate='',
             for param in param_dict:
                 api_param = param_dict[param]['api_name']
                 param_class = param_dict[param]['classifier']
+
+                if api_param == 'PM25':
+                    api_param = 'PM2.5'
+
                 param_data = query_data[query_data.Param_Name==api_param]
 
                 if param_data.empty:
