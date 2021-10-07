@@ -1,4 +1,4 @@
-﻿sensortoolkit.evaluation.\_sensor\_eval.SensorEvaluation
+sensortoolkit.evaluation.\_sensor\_eval.SensorEvaluation
 ========================================================
 
 .. currentmodule:: sensortoolkit.evaluation._sensor_eval

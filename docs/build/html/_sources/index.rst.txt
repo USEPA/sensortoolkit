@@ -38,7 +38,7 @@ Key Features
 ^^^^^^^^^^^^
 
 **The primary goal of sensortoolkit is to provide a platform for analyzing air sensor
-data regardless of formatting differences across sensor data formatting schemes.** 
+data regardless of formatting differences across sensor data formatting schemes.**
 This goal extends to reference data as well, and interactive setup modules are
 included for interpreting the recorded format for datasets for subsequent Ingestion
 into standardized formatting schemes for sensor and reference data.
@@ -106,9 +106,8 @@ collocated alongside reference instrumentation capable of reporting 1-hour and/o
 .. toctree::
     :hidden:
     :caption: API Documentation
-    :titlesonly:
 
-    api
+    api/index
 
 Indices and tables
 ==================

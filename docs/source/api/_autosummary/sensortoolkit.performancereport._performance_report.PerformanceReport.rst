@@ -1,4 +1,4 @@
-﻿sensortoolkit.performancereport.\_performance\_report.PerformanceReport
+sensortoolkit.performancereport.\_performance\_report.PerformanceReport
 =======================================================================
 
 .. currentmodule:: sensortoolkit.performancereport._performance_report

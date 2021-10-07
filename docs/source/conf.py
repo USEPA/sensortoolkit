@@ -15,19 +15,6 @@ import sys
 
 lib = r'C:\Users\SFREDE01\OneDrive - Environmental Protection Agency (EPA)\Profile\Documents\Public_Sensor_Evaluation\sensortoolkit'
 sys.path.insert(0, os.path.abspath(lib))
-#sys.path.insert(0, os.path.abspath(lib + '/calculate'))
-#sys.path.insert(0, os.path.abspath(lib + '/datetime_utils'))
-#sys.path.insert(0, os.path.abspath(lib + '/deploy'))
-#sys.path.insert(0, os.path.abspath(lib + '/evaluation'))
-#sys.path.insert(0, os.path.abspath(lib + '/lib_utils'))
-#sys.path.insert(0, os.path.abspath(lib + '/model'))
-#sys.path.insert(0, os.path.abspath(lib + '/param'))
-#sys.path.insert(0, os.path.abspath(lib + '/performancereport'))
-#sys.path.insert(0, os.path.abspath(lib + '/plotting'))
-#sys.path.insert(0, os.path.abspath(lib + '/qc'))
-#sys.path.insert(0, os.path.abspath(lib + '/reference'))
-#sys.path.insert(0, os.path.abspath(lib + '/sensor_ingest'))
-
 
 # -- Project information -----------------------------------------------------
 import sensortoolkit

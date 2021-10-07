@@ -67,8 +67,8 @@ Attributes
 .. [#f2] Reference data for particulate matter are commonly analyzed at either 1-hour or 24-hour intervals, but other pollutants that are strongly correlated with diurnal variability such as ozone are typically analyzed at high time resolution such as 1-hour intervals)
 
 
-Performance Targets and Metrics
--------------------------------
+Performance Metrics and Target Values
+-------------------------------------
 
 Each parameter object comes with a subclass ``PerformanceTargets`` that contains
 metric descriptions, target ranges, and target values for conducting performance
