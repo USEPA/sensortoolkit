@@ -2,11 +2,13 @@
 Installation
 ============
 
-Note: Users will need an installation of Python (v3.7 or greater). It’s highly
-recommended that users download an Anaconda distribution of Python. Anaconda is
-a package distribution of Python that includes many widely used libraries as
-well as the Spyder IDE for editing and compiling code. Anaconda is free for
-individuals.
+.. note::
+
+  Users will need an installation of Python (v3.7 or greater). It’s highly
+  recommended that users download an `Anaconda distribution of Python <https://www.anaconda.com/products/individual>`_. Anaconda is
+  a package distribution of Python that includes many widely used libraries as
+  well as the `Spyder IDE <https://www.spyder-ide.org>`_ for editing and compiling code. Anaconda is free for
+  individuals.
 
 Clone the repository on BitBucket:
 ----------------------------------
@@ -31,11 +33,25 @@ First, navigate to the folder location for the cloned repository:
 
   cd path/to/sensortoolkit
 
-Next, install the library with pip:
+Next, sensortoolkit needs to be installed to a target directory where python
+looks for packages whenever the user tells python to import a package name.
+By default, this is the `/site-packages`` directory, and should be located at a
+path that looks something like ``C:\Users\...\Anaconda3\Lib\site-packages``
+(if you have Anaconda installed). The location of this package may be a little
+different depending on how your python installation was configured, although this
+shouldn't matter too much.
+
+Type the following CLI prompt to install sensortoolkit (don't forget the period!):
 
 .. code-block:: console
 
   pip install .
+
+The installation process checks for a number of packages sensortoolkit needs to run (dependencies).
+If you have Anaconda installed, you'll notice that the installation process may indicate
+that a lot of the required libraries are already installed as those packages come with
+the base installation of Anaconda. Pip may need to install `python-pptx`, which is
+used by sensortoolkit to create testing reports as .pptx files.
 
 Users will see something similar to the following be printed to the console:
 
@@ -73,12 +89,6 @@ Users will see something similar to the following be printed to the console:
   Successfully built sensortoolkit
   Installing collected packages: sensortoolkit
   Successfully installed sensortoolkit-0.1.0b2
-
-.. note::
-
-  The above console output indicates that the dependencies for ``sensortoolkit``
-  were previously installed and found on the user's system. Any packages not found
-  during installation will be installed by pip.
 
 ..
   Install package dependencies:

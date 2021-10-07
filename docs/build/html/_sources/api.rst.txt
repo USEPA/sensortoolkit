@@ -65,6 +65,7 @@ table for each subpackage. Click on module names to view functions within each f
 
   sensortoolkit.evaluation._sensor_eval
   sensortoolkit.evaluation._airsensor
+  sensortoolkit.evaluation._referencemonitor
 
 ``sensortoolkit.lib_utils``
 ---------------------------

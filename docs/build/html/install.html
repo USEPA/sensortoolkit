@@ -4,11 +4,10 @@
 <html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8" />
-  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-
+  
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>Installation &mdash; sensortoolkit 0.4.2b3 documentation</title>
+  <title>Installation &mdash; sensortoolkit 0.5.0b3 documentation</title>
   
 
   
@@ -42,7 +41,7 @@
     
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Importing the sensortoolkit Library" href="import_sensortoolkit.html" />
+    <link rel="next" title="Importing sensortoolkit" href="import_sensortoolkit.html" />
     <link rel="prev" title="sensortoolkit - Air Sensor Data Analysis Library" href="index.html" /> 
 </head>
 
@@ -67,7 +66,7 @@
             
             
               <div class="version">
-                0.4.2b3
+                0.5.0b3
               </div>
             
           
@@ -92,16 +91,43 @@
               
             
             
-              <p class="caption"><span class="caption-text">User Guide</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Documentation Overview</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="import_sensortoolkit.html">Importing the sensortoolkit Library</a></li>
-<li class="toctree-l1"><a class="reference internal" href="setup.html">Configuring sensortoolkit for Analyzing Sensor Data</a></li>
-<li class="toctree-l1"><a class="reference internal" href="sensoreval.html">Conducting Analysis with the SensorEvaluation Class</a></li>
-<li class="toctree-l1"><a class="reference internal" href="datastructures.html">Data Structures and Formatting</a></li>
-<li class="toctree-l1"><a class="reference internal" href="performancereport.html">Creating Testing Reports with PerformanceReport</a></li>
+<li class="toctree-l1"><a class="reference internal" href="import_sensortoolkit.html">Importing sensortoolkit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="testingattrib_objects/index.html">Testing Attribute Objects</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="testingattrib_objects/airsensor/index.html">The AirSensor Object</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="testingattrib_objects/airsensor/overview.html">AirSensor Instantiation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="testingattrib_objects/airsensor/setup.html">AirSensor Setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="testingattrib_objects/airsensor/load_data.html">Loading Sensor Data</a></li>
 </ul>
-<p class="caption"><span class="caption-text">API Documentation</span></p>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="testingattrib_objects/referencemonitor/index.html">The ReferenceMonitor Object</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="testingattrib_objects/referencemonitor/overview.html">ReferenceMonitor Instantiation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="testingattrib_objects/referencemonitor/setup.html">ReferenceMonitor Setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="testingattrib_objects/referencemonitor/load_data.html">Loading Reference Data</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="testingattrib_objects/parameter.html">The Parameter Object</a></li>
+<li class="toctree-l2"><a class="reference internal" href="testingattrib_objects/setup_overview.html">Overview of Instantiating Testing Attributes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="evaluation_objects/index.html">Evaluation Objects</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="evaluation_objects/sensoreval.html">Conducting Analysis - The SensorEvaluation Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="evaluation_objects/performancereport.html">Creating Testing Reports - The PerformanceReport Class</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="data_structures/index.html">Data Structures and Formatting</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="data_structures/sensor_data.html">Sensor Data Structures</a></li>
+<li class="toctree-l2"><a class="reference internal" href="data_structures/sdfs.html">Sensor Data Formatting Standard (S-DFS)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="data_structures/reference_data.html">Reference Data Structures</a></li>
+<li class="toctree-l2"><a class="reference internal" href="data_structures/rdfs.html">Reference Data Formatting Standard (R-DFS)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="data_structures/config_structs.html">Configuration Setup JSON</a></li>
+<li class="toctree-l2"><a class="reference internal" href="data_structures/eval_structs.html">Performance Evaluation Data Structures</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Documentation</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="api.html">sensortoolkit Modules</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="_autosummary/sensortoolkit.calculate._aqi.html">sensortoolkit.calculate._aqi</a><ul>
@@ -185,7 +211,10 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="_autosummary/sensortoolkit.evaluation._airsensor.html">sensortoolkit.evaluation._airsensor</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="_autosummary/sensortoolkit.evaluation._airsensor.AirSensor.html">sensortoolkit.evaluation._airsensor.AirSensor</a></li>
-<li class="toctree-l3"><a class="reference internal" href="_autosummary/sensortoolkit.evaluation._airsensor.ReferenceMethod.html">sensortoolkit.evaluation._airsensor.ReferenceMethod</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="_autosummary/sensortoolkit.evaluation._referencemonitor.html">sensortoolkit.evaluation._referencemonitor</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="_autosummary/sensortoolkit.evaluation._referencemonitor.ReferenceMonitor.html">sensortoolkit.evaluation._referencemonitor.ReferenceMonitor</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="_autosummary/sensortoolkit.lib_utils._copy_datasets.html">sensortoolkit.lib_utils._copy_datasets</a><ul>
@@ -319,11 +348,13 @@
 <li class="toctree-l3"><a class="reference internal" href="_autosummary/sensortoolkit.reference._ref_api_query.ingest_aqs.html">sensortoolkit.reference._ref_api_query.ingest_aqs</a></li>
 <li class="toctree-l3"><a class="reference internal" href="_autosummary/sensortoolkit.reference._ref_api_query.modify_ref_cols.html">sensortoolkit.reference._ref_api_query.modify_ref_cols</a></li>
 <li class="toctree-l3"><a class="reference internal" href="_autosummary/sensortoolkit.reference._ref_api_query.modify_ref_method_str.html">sensortoolkit.reference._ref_api_query.modify_ref_method_str</a></li>
+<li class="toctree-l3"><a class="reference internal" href="_autosummary/sensortoolkit.reference._ref_api_query.parse_sample_data.html">sensortoolkit.reference._ref_api_query.parse_sample_data</a></li>
 <li class="toctree-l3"><a class="reference internal" href="_autosummary/sensortoolkit.reference._ref_api_query.query_airnow.html">sensortoolkit.reference._ref_api_query.query_airnow</a></li>
 <li class="toctree-l3"><a class="reference internal" href="_autosummary/sensortoolkit.reference._ref_api_query.query_aqs.html">sensortoolkit.reference._ref_api_query.query_aqs</a></li>
 <li class="toctree-l3"><a class="reference internal" href="_autosummary/sensortoolkit.reference._ref_api_query.query_periods.html">sensortoolkit.reference._ref_api_query.query_periods</a></li>
 <li class="toctree-l3"><a class="reference internal" href="_autosummary/sensortoolkit.reference._ref_api_query.ref_api_query.html">sensortoolkit.reference._ref_api_query.ref_api_query</a></li>
 <li class="toctree-l3"><a class="reference internal" href="_autosummary/sensortoolkit.reference._ref_api_query.save_api_dataset.html">sensortoolkit.reference._ref_api_query.save_api_dataset</a></li>
+<li class="toctree-l3"><a class="reference internal" href="_autosummary/sensortoolkit.reference._ref_api_query.select_poc.html">sensortoolkit.reference._ref_api_query.select_poc</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="_autosummary/sensortoolkit.sensor_ingest._processed_data_loader.html">sensortoolkit.sensor_ingest._processed_data_loader</a><ul>
@@ -340,6 +371,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="_autosummary/sensortoolkit.sensor_ingest._standard_ingest.html">sensortoolkit.sensor_ingest._standard_ingest</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="_autosummary/sensortoolkit.sensor_ingest._standard_ingest.ParseSetup.html">sensortoolkit.sensor_ingest._standard_ingest.ParseSetup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="_autosummary/sensortoolkit.sensor_ingest._standard_ingest.apply_strptime.html">sensortoolkit.sensor_ingest._standard_ingest.apply_strptime</a></li>
 <li class="toctree-l3"><a class="reference internal" href="_autosummary/sensortoolkit.sensor_ingest._standard_ingest.standard_ingest.html">sensortoolkit.sensor_ingest._standard_ingest.standard_ingest</a></li>
 </ul>
 </li>
@@ -412,36 +444,51 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <section id="installation">
+  <div class="section" id="installation">
 <h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h1>
-<p>Note: Users will need an installation of Python (v3.7 or greater). It’s highly
-recommended that users download an Anaconda distribution of Python. Anaconda is
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Users will need an installation of Python (v3.7 or greater). It’s highly
+recommended that users download an <a class="reference external" href="https://www.anaconda.com/products/individual">Anaconda distribution of Python</a>. Anaconda is
 a package distribution of Python that includes many widely used libraries as
-well as the Spyder IDE for editing and compiling code. Anaconda is free for
+well as the <a class="reference external" href="https://www.spyder-ide.org">Spyder IDE</a> for editing and compiling code. Anaconda is free for
 individuals.</p>
-<section id="clone-the-repository-on-bitbucket">
+</div>
+<div class="section" id="clone-the-repository-on-bitbucket">
 <h2>Clone the repository on BitBucket:<a class="headerlink" href="#clone-the-repository-on-bitbucket" title="Permalink to this headline">¶</a></h2>
 <p>There are a couple ways this can be done, either via a program with a UI like
 SourceTree or via a command-line interface. For users just getting starting with how to
 use Git, Bitbucket has a <a class="reference external" href="https://www.atlassian.com/git/tutorials/setting-up-a-repository/git-clone?utm_campaign=learn-git-clone&amp;utm_medium=in-app-help&amp;utm_source=stash">tutorial</a>
 on how to clone repositories that may be helpful. From the terminal, the
 repository can be cloned via the following command</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">bitbucket</span><span class="o">.</span><span class="n">epa</span><span class="o">.</span><span class="n">gov</span><span class="o">/</span><span class="n">scm</span><span class="o">/~</span><span class="n">sfrede01</span><span class="o">/</span><span class="n">sensor</span><span class="o">-</span><span class="n">evaluation</span><span class="o">.</span><span class="n">git</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">bitbucket</span><span class="o">.</span><span class="n">epa</span><span class="o">.</span><span class="n">gov</span><span class="o">/</span><span class="n">scm</span><span class="o">/~</span><span class="n">sfrede01</span><span class="o">/</span><span class="n">sensortoolkit</span><span class="o">.</span><span class="n">git</span>
 </pre></div>
 </div>
-</section>
-<section id="installing-sensortoolkit">
+</div>
+<div class="section" id="installing-sensortoolkit">
 <h2>Installing <code class="docutils literal notranslate"><span class="pre">sensortoolkit</span></code><a class="headerlink" href="#installing-sensortoolkit" title="Permalink to this headline">¶</a></h2>
 <p>First, navigate to the folder location for the cloned repository:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">cd path/to/library</span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">cd path/to/sensortoolkit</span>
 </pre></div>
 </div>
-<p>Next, install the library with pip:</p>
+<p>Next, sensortoolkit needs to be installed to a target directory where python
+looks for packages whenever the user tells python to import a package name.
+By default, this is the <cite>/site-packages`</cite> directory, and should be located at a
+path that looks something like <code class="docutils literal notranslate"><span class="pre">C:\Users\...\Anaconda3\Lib\site-packages</span></code>
+(if you have Anaconda installed). The location of this package may be a little
+different depending on how your python installation was configured, although this
+shouldn’t matter too much.</p>
+<p>Type the following CLI prompt to install sensortoolkit (don’t forget the period!):</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">pip install .</span>
 </pre></div>
 </div>
+<p>The installation process checks for a number of packages sensortoolkit needs to run (dependencies).
+If you have Anaconda installed, you’ll notice that the installation process may indicate
+that a lot of the required libraries are already installed as those packages come with
+the base installation of Anaconda. Pip may need to install <cite>python-pptx</cite>, which is
+used by sensortoolkit to create testing reports as .pptx files.</p>
 <p>Users will see something similar to the following be printed to the console:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">Processing c:\users\..\documents\sensor-evaluation</span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">Processing c:\users\..\documents\sensortoolkit</span>
 <span class="go">Requirement already satisfied: matplotlib in c:\users\sfrede01\anaconda3\lib\site-packages (from sensortoolkit==0.1.0b2) (3.3.4)</span>
 <span class="go">Requirement already satisfied: numpy in c:\users\sfrede01\anaconda3\lib\site-packages (from sensortoolkit==0.1.0b2) (1.20.1)</span>
 <span class="go">Requirement already satisfied: pandas in c:\users\sfrede01\anaconda3\lib\site-packages (from sensortoolkit==0.1.0b2) (1.2.4)</span>
@@ -475,14 +522,8 @@ repository can be cloned via the following command</p>
 <span class="go">Successfully installed sensortoolkit-0.1.0b2</span>
 </pre></div>
 </div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>The above console output indicates that the dependencies for <code class="docutils literal notranslate"><span class="pre">sensortoolkit</span></code>
-were previously installed and found on the user’s system. Any packages not found
-during installation will be installed by pip.</p>
 </div>
-</section>
-</section>
+</div>
 
 
            </div>
@@ -490,7 +531,7 @@ during installation will be installed by pip.</p>
           </div>
           <footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="import_sensortoolkit.html" class="btn btn-neutral float-right" title="Importing the sensortoolkit Library" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="import_sensortoolkit.html" class="btn btn-neutral float-right" title="Importing sensortoolkit" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
         <a href="index.html" class="btn btn-neutral float-left" title="sensortoolkit - Air Sensor Data Analysis Library" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
 

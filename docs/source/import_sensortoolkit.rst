@@ -1,6 +1,5 @@
-===================================
-Importing the sensortoolkit Library
-===================================
+Importing sensortoolkit
+=======================
 
 To create scripts that utilize the `sensortoolkit` library, it’s recommended
 that users develop their code in the integrated development environment (IDE).

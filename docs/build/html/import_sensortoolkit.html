@@ -4,11 +4,10 @@
 <html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8" />
-  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-
+  
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>Importing the sensortoolkit Library &mdash; sensortoolkit 0.4.2b3 documentation</title>
+  <title>Importing sensortoolkit &mdash; sensortoolkit 0.5.0b3 documentation</title>
   
 
   
@@ -42,7 +41,7 @@
     
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Configuring sensortoolkit for Analyzing Sensor Data" href="setup.html" />
+    <link rel="next" title="Testing Attribute Objects" href="testingattrib_objects/index.html" />
     <link rel="prev" title="Installation" href="install.html" /> 
 </head>
 
@@ -67,7 +66,7 @@
             
             
               <div class="version">
-                0.4.2b3
+                0.5.0b3
               </div>
             
           
@@ -92,16 +91,42 @@
               
             
             
-              <p class="caption"><span class="caption-text">User Guide</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Documentation Overview</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Importing the sensortoolkit Library</a></li>
-<li class="toctree-l1"><a class="reference internal" href="setup.html">Configuring sensortoolkit for Analyzing Sensor Data</a></li>
-<li class="toctree-l1"><a class="reference internal" href="sensoreval.html">Conducting Analysis with the SensorEvaluation Class</a></li>
-<li class="toctree-l1"><a class="reference internal" href="datastructures.html">Data Structures and Formatting</a></li>
-<li class="toctree-l1"><a class="reference internal" href="performancereport.html">Creating Testing Reports with PerformanceReport</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Importing sensortoolkit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="testingattrib_objects/index.html">Testing Attribute Objects</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="testingattrib_objects/airsensor/index.html">The AirSensor Object</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="testingattrib_objects/airsensor/overview.html">AirSensor Instantiation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="testingattrib_objects/airsensor/setup.html">AirSensor Setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="testingattrib_objects/airsensor/load_data.html">Loading Sensor Data</a></li>
 </ul>
-<p class="caption"><span class="caption-text">API Documentation</span></p>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="testingattrib_objects/referencemonitor/index.html">The ReferenceMonitor Object</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="testingattrib_objects/referencemonitor/overview.html">ReferenceMonitor Instantiation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="testingattrib_objects/referencemonitor/setup.html">ReferenceMonitor Setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="testingattrib_objects/referencemonitor/load_data.html">Loading Reference Data</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="testingattrib_objects/parameter.html">The Parameter Object</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="evaluation_objects/index.html">Evaluation Objects</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="evaluation_objects/sensoreval.html">Conducting Analysis - The SensorEvaluation Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="evaluation_objects/performancereport.html">Creating Testing Reports - The PerformanceReport Class</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="data_structures/index.html">Data Structures and Formatting</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="data_structures/sensor_data.html">Sensor Data Structures</a></li>
+<li class="toctree-l2"><a class="reference internal" href="data_structures/sdfs.html">Sensor Data Formatting Standard (S-DFS)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="data_structures/reference_data.html">Reference Data Structures</a></li>
+<li class="toctree-l2"><a class="reference internal" href="data_structures/rdfs.html">Reference Data Formatting Standard (R-DFS)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="data_structures/config_structs.html">Configuration Setup JSON</a></li>
+<li class="toctree-l2"><a class="reference internal" href="data_structures/eval_structs.html">Performance Evaluation Data Structures</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Documentation</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="api.html">sensortoolkit Modules</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="_autosummary/sensortoolkit.calculate._aqi.html">sensortoolkit.calculate._aqi</a><ul>
@@ -185,7 +210,10 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="_autosummary/sensortoolkit.evaluation._airsensor.html">sensortoolkit.evaluation._airsensor</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="_autosummary/sensortoolkit.evaluation._airsensor.AirSensor.html">sensortoolkit.evaluation._airsensor.AirSensor</a></li>
-<li class="toctree-l3"><a class="reference internal" href="_autosummary/sensortoolkit.evaluation._airsensor.ReferenceMethod.html">sensortoolkit.evaluation._airsensor.ReferenceMethod</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="_autosummary/sensortoolkit.evaluation._referencemonitor.html">sensortoolkit.evaluation._referencemonitor</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="_autosummary/sensortoolkit.evaluation._referencemonitor.ReferenceMonitor.html">sensortoolkit.evaluation._referencemonitor.ReferenceMonitor</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="_autosummary/sensortoolkit.lib_utils._copy_datasets.html">sensortoolkit.lib_utils._copy_datasets</a><ul>
@@ -319,11 +347,13 @@
 <li class="toctree-l3"><a class="reference internal" href="_autosummary/sensortoolkit.reference._ref_api_query.ingest_aqs.html">sensortoolkit.reference._ref_api_query.ingest_aqs</a></li>
 <li class="toctree-l3"><a class="reference internal" href="_autosummary/sensortoolkit.reference._ref_api_query.modify_ref_cols.html">sensortoolkit.reference._ref_api_query.modify_ref_cols</a></li>
 <li class="toctree-l3"><a class="reference internal" href="_autosummary/sensortoolkit.reference._ref_api_query.modify_ref_method_str.html">sensortoolkit.reference._ref_api_query.modify_ref_method_str</a></li>
+<li class="toctree-l3"><a class="reference internal" href="_autosummary/sensortoolkit.reference._ref_api_query.parse_sample_data.html">sensortoolkit.reference._ref_api_query.parse_sample_data</a></li>
 <li class="toctree-l3"><a class="reference internal" href="_autosummary/sensortoolkit.reference._ref_api_query.query_airnow.html">sensortoolkit.reference._ref_api_query.query_airnow</a></li>
 <li class="toctree-l3"><a class="reference internal" href="_autosummary/sensortoolkit.reference._ref_api_query.query_aqs.html">sensortoolkit.reference._ref_api_query.query_aqs</a></li>
 <li class="toctree-l3"><a class="reference internal" href="_autosummary/sensortoolkit.reference._ref_api_query.query_periods.html">sensortoolkit.reference._ref_api_query.query_periods</a></li>
 <li class="toctree-l3"><a class="reference internal" href="_autosummary/sensortoolkit.reference._ref_api_query.ref_api_query.html">sensortoolkit.reference._ref_api_query.ref_api_query</a></li>
 <li class="toctree-l3"><a class="reference internal" href="_autosummary/sensortoolkit.reference._ref_api_query.save_api_dataset.html">sensortoolkit.reference._ref_api_query.save_api_dataset</a></li>
+<li class="toctree-l3"><a class="reference internal" href="_autosummary/sensortoolkit.reference._ref_api_query.select_poc.html">sensortoolkit.reference._ref_api_query.select_poc</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="_autosummary/sensortoolkit.sensor_ingest._processed_data_loader.html">sensortoolkit.sensor_ingest._processed_data_loader</a><ul>
@@ -340,6 +370,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="_autosummary/sensortoolkit.sensor_ingest._standard_ingest.html">sensortoolkit.sensor_ingest._standard_ingest</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="_autosummary/sensortoolkit.sensor_ingest._standard_ingest.ParseSetup.html">sensortoolkit.sensor_ingest._standard_ingest.ParseSetup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="_autosummary/sensortoolkit.sensor_ingest._standard_ingest.apply_strptime.html">sensortoolkit.sensor_ingest._standard_ingest.apply_strptime</a></li>
 <li class="toctree-l3"><a class="reference internal" href="_autosummary/sensortoolkit.sensor_ingest._standard_ingest.standard_ingest.html">sensortoolkit.sensor_ingest._standard_ingest.standard_ingest</a></li>
 </ul>
 </li>
@@ -393,7 +424,7 @@
     
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
         
-      <li>Importing the sensortoolkit Library</li>
+      <li>Importing sensortoolkit</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -412,8 +443,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <section id="importing-the-sensortoolkit-library">
-<h1>Importing the sensortoolkit Library<a class="headerlink" href="#importing-the-sensortoolkit-library" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="importing-sensortoolkit">
+<h1>Importing sensortoolkit<a class="headerlink" href="#importing-sensortoolkit" title="Permalink to this headline">¶</a></h1>
 <p>To create scripts that utilize the <cite>sensortoolkit</cite> library, it’s recommended
 that users develop their code in the integrated development environment (IDE).
 Anaconda comes with the Spyder IDE, which can be accessed via the Anaconda
@@ -435,9 +466,9 @@ the library version:</p>
 </pre></div>
 </div>
 <p>Console output:</p>
-<p><code class="docutils literal notranslate"><span class="pre">0.4.2b3</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">0.5.0b3</span></code></p>
 </div>
-</section>
+</div>
 
 
            </div>
@@ -445,7 +476,7 @@ the library version:</p>
           </div>
           <footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="setup.html" class="btn btn-neutral float-right" title="Configuring sensortoolkit for Analyzing Sensor Data" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="testingattrib_objects/index.html" class="btn btn-neutral float-right" title="Testing Attribute Objects" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
         <a href="install.html" class="btn btn-neutral float-left" title="Installation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
 

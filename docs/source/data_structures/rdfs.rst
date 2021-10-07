@@ -1,0 +1,7 @@
+Reference Data Formatting Standard (R-DFS)
+------------------------------------------
+
+.. csv-table:: `R-DFS`
+   :file: ../data/R_DFS.csv
+   :header-rows: 1
+   :widths: auto

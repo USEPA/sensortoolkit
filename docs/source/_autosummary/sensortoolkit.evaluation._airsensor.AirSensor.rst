@@ -18,6 +18,7 @@ sensortoolkit.evaluation.\_airsensor.AirSensor
    
       ~AirSensor.copy_datasets
       ~AirSensor.create_directories
+      ~AirSensor.load_data
       ~AirSensor.sensor_setup
    
    
@@ -28,7 +29,6 @@ sensortoolkit.evaluation.\_airsensor.AirSensor
 
    .. autosummary::
    
-      ~AirSensor.param_headers
       ~AirSensor.project_path
       ~AirSensor.setup_data
    
