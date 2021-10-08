@@ -16,19 +16,71 @@
 * [Installation](#install)
 
 ## Overview <a name="overview"></a>
-A Python library for evaluating the performance of air sensors for use in
-ambient, outdoor, fixed site, non-regulatory supplemental and informational
-monitoring applications.
+
+sensortoolkit is a Python library for evaluating air sensor data. The
+library is intended for use with sensors collocated at ambient air
+monitoring sites alongside FRM/FEM monitors for comparison and analysis
+of sensor data against reference-grade data.
+
+<span class="title-ref">sensortoolkit</span> can be used to evaluate
+sensor data for a single or multiple sensors measuring one of the
+following pollutants:
+`PM<sub>1</sub>, PM<sub>2.5</sub>, PM<sub>10</sub>, CO, CO<sub>2</sub>,
+NO, NO<sub>2</sub>, NO<sub>x</sub>, O<sub>3</sub>, SO<sub>2</sub>, SO<sub>x</sub>`.
+
+sensortoolkit is most suitable for individuals who have some prior
+coding experience in python. The library is equipped with an API
+(application programming interface) that allows for ease of navigation
+and customization, making sensortoolkit accessible to individuals with a
+wide range of skillsets (e.g., individuals interested in monitoring
+their own sensor data, students and academic researchers, and industry
+professionals).
 
 In February 2021, EPA released [two reports](https://www.epa.gov/air-sensor-toolbox/air-sensor-performance-targets-and-testing-protocols#reports) detailing recommended performance testing protocols, metrics, and target values for the evaluation of sensors measuring either fine particulate matter (PM<sub>2.5</sub>) or ozone (O<sub>3</sub>). This library provides modules for testing air sensors measuring PM<sub>2.5</sub> and O<sub>3</sub> against FRM/FEM reference measurements collected at an ambient air monitoring site. Included modules utilize the performance metrics and target ranges recommended by EPA.
 
 ## Key features: <a name="key-features"></a>
-* Class-based approach for analyzing sensor data in a consistent, reproduceable manner. Evaluation of sensor performance for fine particulate matter and ozone against EPA's recommended performance metrics and target values.
-* Time averaging of timeseries data to 1-hour and 24-hour intervals with configurable data completeness threshold for computing averages (default 75%).
-* Reference data retrieval from AirNow and AQS APIs (user API accounts and keys must be specified). Ingestion of reference data into a consistent data formatting standard. Import and ingestion of reference data from AirNowTech including multiple parameters and pollutant types. Reference data are sorted by parameter type (particulate matter, gaseous pollutants, and meteorological parameters) and files are saved in monthly increments to .csv files.
-* Modules for visualizing sensor performance at 1-hour and 24-hour intervals: timeseries plots for examining how sensor and reference measurements track with changes in ambient concentrations during the testing period, scatter plots for displaying the accuracy and bias between sensor and reference measurement pairs, etc.
 
-Users must provide an ingestion module for importing recorded sensor data into a data formatting standard developed for this project.
+**The primary goal of `sensortoolkit` is to provide a platform for
+analyzing air sensor data regardless of formatting differences across
+sensor data formatting schemes.** This goal extends to reference data as
+well, and interactive setup modules are included for interpreting the
+recorded format for datasets for subsequent Ingestion into standardized
+formatting schemes for sensor and reference data.
+
+-   Import sensor data via a standardized ingestion process and
+    interactive setup module
+-   Average to 1-hour and/or 24-hour averaging intervals.
+-   Import FRM/FEM reference data from a variety of sources, including
+    ingestion modules for importing data from AirNowTech, and modules
+    for querying either the AQS or AirNow API services.
+-   Submit queries for single or multiple parameters, parse datasets
+    into a consistent reference data format and save unmodified and
+    processed datasets to a data directory.
+- Conduct analysis with the `SensorEvaluation` module  
+-   Compute U.S. EPA’s recommended performance metrics for evaluating
+    `PM<sub>2.5</sub>` and `O<sub>3</sub>` sensors.
+
+-   Visualize sensor performance with various figures and save to file location.  
+    -   Sensor vs. FRM/FEM scatter plots
+    -   Timeseries indicating both sensor and FRM/FEM concentrations
+    -   Performance metric results and comparison against target
+        values/ranges.
+    -   Save performance evaluation results, statistics, and
+        supplemental information detailing the deployment conditions to
+        a deployment JSON file.
+
+-   Create testing reports using U.S. EPA’s base-testing report template
+    (PowerPoint file) with the `PerformanceReport` module.
+-   Additional modules are included for calculating quantities (AQI,
+    `PM<sub>2.5</sub>` NowCast, application of sensor correction
+    equations, the U.S. Wide correction equation for PurpleAir sensors
+    via Barkjohn et al. 2021, etc.) and conducting additional analysis
+    (quality control modules for identifying outliers, invalidation of
+    datapoints, A&B channel cleaning for PurpleAir data via Barkjohn et
+    al. 2021, etc.)
+-   Access to modules utilized by the `SensorEvaluation` and `PerformanceReport` for greater customization
+    in conducting analysis.
+
 
 ## Dependencies: <a name="dependencies"></a>
 * [Python](https://www.python.org/) 3.7, 3.8
