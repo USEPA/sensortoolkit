@@ -224,10 +224,11 @@ class ReferenceMonitor:
                                      key=key,
                                      path=self._project_path)
 
-        aqs_d_param_df = interval_averaging(aqs_param_df,
-                                            freq='D',
-                                            interval_count=24,
-                                            thres=0.75)
+        if not aqs_param_df.empty:
+            aqs_d_param_df = interval_averaging(aqs_param_df,
+                                                freq='D',
+                                                interval_count=24,
+                                                thres=0.75)
 
         if query_met_data:
             aqs_met_df = ref_api_query(query_type='AQS',
@@ -238,11 +239,11 @@ class ReferenceMonitor:
                                        username=username,
                                        key=key,
                                        path=self._project_path)
-
-            aqs_d_met_df = interval_averaging(aqs_met_df,
-                                              freq='D',
-                                              interval_count=24,
-                                              thres=0.75)
+            if not aqs_met_df.empty:
+                aqs_d_met_df = interval_averaging(aqs_met_df,
+                                                  freq='D',
+                                                  interval_count=24,
+                                                  thres=0.75)
 
         classifier = Parameter(param_list[0]).classifier
 
@@ -261,10 +262,10 @@ class ReferenceMonitor:
                 site_lat = float(self.setup_data['site_lat'])
                 site_lon = float(self.setup_data['site_lon'])
 
-                bbox = {"minLat": str(site_lat - bbox_size),
-                        "maxLat": str(site_lat + bbox_size),
-                        "minLong": str(site_lon - bbox_size),
-                        "maxLong": str(site_lon + bbox_size)}
+                bbox = {"minLat": round(float(site_lat - bbox_size), 3),
+                        "maxLat": round(float(site_lat + bbox_size), 3),
+                        "minLong": round(float(site_lon - bbox_size), 3),
+                        "maxLong": round(float(site_lon + bbox_size), 3)}
             except AttributeError:
                 print('Setup configuration does not specify site latitude '
                       'and/or longitude, run ReferenceMonitor.reference_setup'
@@ -280,16 +281,18 @@ class ReferenceMonitor:
                                   key=key,
                                   path=self._project_path)
 
-        airnow_d_df = interval_averaging(airnow_df,
-                                         freq='D',
-                                         interval_count=24,
-                                         thres=0.75)
+        if not airnow_df.empty:
+            airnow_d_df = interval_averaging(airnow_df,
+                                              freq='D',
+                                              interval_count=24,
+                                              thres=0.75)
 
         classifier = Parameter(param_list[0]).classifier
 
         if not airnow_df.empty:
             self.data[classifier]['1-hour'] = airnow_df
             self.data[classifier]['24-hour'] = airnow_d_df
+
 
     def load_data(self, bdate, edate, param_list, path=None, met_data=True):
 
