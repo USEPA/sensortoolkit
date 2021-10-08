@@ -55,8 +55,12 @@ into standardized formatting schemes for sensor and reference data.
       * Performance metric results and comparison against target values/ranges.
       *	Save performance evaluation results, statistics, and supplemental information detailing the deployment conditions to a deployment JSON file.
 -	Create testing reports using U.S. EPA’s base-testing report template (PowerPoint file) with the `PerformanceReport` module.
--	Additional modules are included for calculating quantities (AQI, :raw-html:`PM<sub>2.5</sub>` NowCast, application of sensor correction equations, the U.S. Wide correction equation for PurpleAir sensors via Barkjohn et al. 2021, etc.) and conducting additional analysis (quality control modules for identifying outliers, invalidation of datapoints, A&B channel cleaning for PurpleAir data via Barkjohn et al. 2021, etc.)
+-	Additional modules are included for calculating quantities (AQI, :raw-html:`PM<sub>2.5</sub>` NowCast, application of sensor correction equations, the U.S. Wide correction equation for PurpleAir sensors via Barkjohn et al. 2021 [#f1]_, etc.) and conducting additional analysis (quality control modules for identifying outliers, invalidation of datapoints, A&B channel cleaning for PurpleAir data via Barkjohn et al. 2021 [#f1]_, etc.)
 -	Access to modules utilized by the `SensorEvaluation` and `PerformanceReport` for greater customization in conducting analysis.
+
+.. rubric:: Footnotes
+
+.. [#f1] Barkjohn, K. K., Gantt, B., and Clements, A. L.: Development and application of a United States-wide correction for PM2.5 data collected with the PurpleAir sensor, Atmos. Meas. Tech., 14, 4617–4637, https://doi.org/10.5194/amt-14-4617-2021, 2021.
 
 U.S. EPA's Performance Targets Reports
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -76,7 +80,7 @@ U.S. EPA for evaluating  (:raw-html:`PM<sub>2.5</sub>`) and ozone (:raw-html:`O<
 plotting functions are included for visualizing performance evaluation results, including
 visualization of sensor performance metric values against U.S. EPA's performance targets,
 sensor time series, scatter plots comparing collocated sensor and reference measurements,
-distribution plots for displaying the range of meteorlogical conditions during the
+distribution plots for displaying the range of meteorological conditions during the
 deployment, etc. Tabular statistics and figures can be automatically compiled into
 testing reports recommended by U.S. EPA's performance targets documents for testing
 conducting at ambient air monitoring sites.

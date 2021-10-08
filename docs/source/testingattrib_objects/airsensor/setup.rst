@@ -9,7 +9,7 @@ The ``sensortoolkit.AirSensor.sensor_setup()`` module guides users
 through an interactive process of entering in details regarding the formatting
 of raw sensor datasets. The Setup module creates a ``setup.json``
 configuration file that contains details for describing and converting the recorded sensor
-data format into the `sensortoolkit` Sensor Data Formatting Scheme (S-DFS). This file is
+data format into the `sensortoolkit` `Sensor Data Formatting Scheme (S-DFS) <../../data_structures/sdfs.html>`_. This file is
 passed to a subroutine ``sensortoolkit.sensor_ingest.standard_ingest()`` to import the recorded dataset and convert
 headers and date/time-like columns to S-DFS formatting.
 
@@ -133,35 +133,105 @@ is indicated on the left hand side of the console statement. Below, the example 
 a number of rows of metadata, so the header index containing descriptors for the time column and
 pollutant measurement columns is found on row index #5.
 
-.. code-block:: console
+.. tabbed:: Header Row Index = 0
 
-  ============================= Column Header Index ============================
-  Options
-  -------
-  ..type "None" if no header columns in recorded sensor dataset
-  ==============================================================================
+  .. code-block:: console
+    :emphasize-lines: 11
 
-  The first ten unformatted rows of C:\Users\...\Documents\sensortoolkit_testing
-  \Data and Figures\sensor_data\Example_Make_Model\raw_data\Example_Make_Model_SN01_raw.csv
-  are displayed below:
+    ============================= Column Header Index ============================
+    Options
+    -------
+    ..type "None" if no header columns in recorded sensor dataset
+    ==============================================================================
 
-                                                     0
-  0                   CRADA · AQY-BA-317 (AQY-BA-317A)
-  1                             Instrument Data export
-  2                               8/1/2019 to 9/1/2019
-  3             (UTC-05:00) Eastern Time (US & Canada)
-  4                         Averaging period: 1 minute
-  5  Time,NO2 (ppb),O3 (ppb),PM2.5 (µg/m³),TEMP (°C...
-  6   2019/08/01 07:11:00,,,5.4,24.80,95.3,24.0,Sample
-  7  2019/08/01 07:12:00,5.5,0.0,5.5,24.88,95.1,24....
-  8  2019/08/01 07:13:00,2.0,4.4,5.3,25.00,95.1,24....
-  9  2019/08/01 07:14:00,-0.9,8.8,5.4,25.14,95.2,24...
+    The first ten unformatted rows of C:\Users\...\Documents\sensortoolkit_testing
+    \Data and Figures\sensor_data\Clarity_Node\raw_data\clarity-measurements-2019-07-09_J8.csv
+    are displayed below:
+                                                       0
+    0  nodeId,timeUtc,aqi,pm1MassConcCalib[ug/m3],pm1...
+    1  AYSNHJJ8,2019-07-09T11:59:00.000Z,54,,10,,13.5...
+    2  AYSNHJJ8,2019-07-09T11:56:00.000Z,55,,9.82,,14...
+    3  AYSNHJJ8,2019-07-09T11:53:00.000Z,57,,10.71,,1...
+    4  AYSNHJJ8,2019-07-09T11:51:00.000Z,53,,10.24,,1...
+    5  AYSNHJJ8,2019-07-09T11:48:00.000Z,56,,10.53,,1...
+    6  AYSNHJJ8,2019-07-09T11:46:00.000Z,54,,9.94,,13...
+    7  AYSNHJJ8,2019-07-09T11:43:00.000Z,56,,11.06,,1...
+    8  AYSNHJJ8,2019-07-09T11:40:00.000Z,58,,9.76,,15...
+    9  AYSNHJJ8,2019-07-09T11:38:00.000Z,57,,10,,14.7...
 
-  Enter the row index number for column headers: 5
+    Enter the row index number for column headers: 0
 
-  Header row index: 5
+    Header row index: 0
 
-  Confirm entry [y/n]: y
+    Confirm entry [y/n]: y
+
+.. tabbed:: Header Row Index > 0
+
+  .. code-block:: console
+    :emphasize-lines: 17
+
+    ============================= Column Header Index ============================
+    Options
+    -------
+    ..type "None" if no header columns in recorded sensor dataset
+    ==============================================================================
+
+    The first ten unformatted rows of C:\Users\...\Documents\sensortoolkit_testing
+    \Data and Figures\sensor_data\Example_Make_Model\raw_data\Example_Make_Model_SN01_raw.csv
+    are displayed below:
+
+                                                       0
+    0                   CRADA · AQY-BA-317 (AQY-BA-317A)
+    1                             Instrument Data export
+    2                               8/1/2019 to 9/1/2019
+    3             (UTC-05:00) Eastern Time (US & Canada)
+    4                         Averaging period: 1 minute
+    5  Time,NO2 (ppb),O3 (ppb),PM2.5 (µg/m³),TEMP (°C...
+    6   2019/08/01 07:11:00,,,5.4,24.80,95.3,24.0,Sample
+    7  2019/08/01 07:12:00,5.5,0.0,5.5,24.88,95.1,24....
+    8  2019/08/01 07:13:00,2.0,4.4,5.3,25.00,95.1,24....
+    9  2019/08/01 07:14:00,-0.9,8.8,5.4,25.14,95.2,24...
+
+    Enter the row index number for column headers: 5
+
+    Header row index: 5
+
+    Confirm entry [y/n]: y
+
+.. tabbed:: Header Row Index = None
+
+  Data set does not contain row with header information. The example below indicates
+  a log description followed immediately by rows with comma-delimited data.
+
+  .. code-block:: console
+    :emphasize-lines: 11-12
+
+    ============================= Column Header Index ============================
+    Options
+    -------
+    ..type "None" if no header columns in recorded sensor dataset
+    ==============================================================================
+
+    The first ten unformatted rows of C:\Users\...\Documents\sensortoolkit_testing
+    \Data and Figures\sensor_data\Vaisala_AQT420\raw_data\Vaisala_1_06-12.txt
+    are displayed below:
+                                                       0
+    0  =~=~=~=~=~=~=~=~=~=~=~= PuTTY log 2018.06.12 2...
+    1  2018-06-13T01:23:26,23.0,36.9,1010.7,0.023,0.1...
+    2  2018-06-13T01:24:27,23.0,37.9,1010.6,0.021,0.1...
+    3  2018-06-13T01:25:28,23.0,39.3,1010.6,0.018,0.0...
+    4  2018-06-13T01:26:29,23.0,38.5,1010.6,0.015,0.0...
+    5  2018-06-13T01:27:30,23.0,38.0,1010.5,0.012,0.0...
+    6  2018-06-13T01:28:31,23.1,37.7,1010.5,0.009,0.0...
+    7  2018-06-13T01:29:32,23.1,37.3,1010.5,0.007,0.0...
+    8  2018-06-13T01:30:33,23.1,37.2,1010.5,0.005,0.0...
+    9  2018-06-13T01:31:34,23.1,36.9,1010.5,0.003,0.0...
+
+    Enter the row index number for column headers: None
+
+    Header row index: None
+
+    Confirm entry [y/n]: y
 
 5. Parsing Sensor Datasets
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

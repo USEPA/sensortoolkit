@@ -25,5 +25,5 @@ under NSIM applications are created via the ``sensortoolkit.PerformanceReport`` 
     :caption: Overview of sensortoolkit Evaluation Objects
     :titlesonly:
 
-    sensoreval
+    sensoreval/index
     performancereport

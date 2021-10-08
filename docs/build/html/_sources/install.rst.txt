@@ -4,7 +4,7 @@ Installation
 
 .. note::
 
-  Users will need an installation of Python (v3.7 or greater). It’s highly
+  Users will need an installation of Python (v3.6 or greater). It’s highly
   recommended that users download an `Anaconda distribution of Python <https://www.anaconda.com/products/individual>`_. Anaconda is
   a package distribution of Python that includes many widely used libraries as
   well as the `Spyder IDE <https://www.spyder-ide.org>`_ for editing and compiling code. Anaconda is free for

@@ -10,8 +10,8 @@ alongside the sensortoolkit library:
 .. code-block:: python
 
   sensor_object = sensortoolkit.AirSensor(make='Example_Make',
-                                           model='Model',
-                                           project_path=work_path)
+                                          model='Model',
+                                          project_path=work_path)
 
 .. list-table:: ``sensortoolkit.AirSensor() attributes``
  :widths: 50 75
