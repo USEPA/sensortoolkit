@@ -24,9 +24,8 @@ of sensor data against reference-grade data.
 
 <span class="title-ref">sensortoolkit</span> can be used to evaluate
 sensor data for a single or multiple sensors measuring one of the
-following pollutants:
-`PM<sub>1</sub>, PM<sub>2.5</sub>, PM<sub>10</sub>, CO, CO<sub>2</sub>,
-NO, NO<sub>2</sub>, NO<sub>x</sub>, O<sub>3</sub>, SO<sub>2</sub>, SO<sub>x</sub>`.
+following pollutants: PM<sub>1</sub>, PM<sub>2.5</sub>, PM<sub>10</sub>, CO, CO<sub>2</sub>,
+NO, NO<sub>2</sub>, NO<sub>x</sub>, O<sub>3</sub>, SO<sub>2</sub>, SO<sub>x</sub>.
 
 sensortoolkit is most suitable for individuals who have some prior
 coding experience in python. The library is equipped with an API
@@ -36,7 +35,7 @@ wide range of skillsets (e.g., individuals interested in monitoring
 their own sensor data, students and academic researchers, and industry
 professionals).
 
-In February 2021, EPA released [two reports](https://www.epa.gov/air-sensor-toolbox/air-sensor-performance-targets-and-testing-protocols#reports) detailing recommended performance testing protocols, metrics, and target values for the evaluation of sensors measuring either fine particulate matter (PM<sub>2.5</sub>) or ozone (O<sub>3</sub>). This library provides modules for testing air sensors measuring PM<sub>2.5</sub> and O<sub>3</sub> against FRM/FEM reference measurements collected at an ambient air monitoring site. Included modules utilize the performance metrics and target ranges recommended by EPA.
+In February 2021, EPA released [two reports](https://www.epa.gov/air-sensor-toolbox/air-sensor-performance-targets-and-testing-protocols#reports) detailing recommended performance testing protocols, metrics, and target values for the evaluation of sensors measuring either fine particulate matter (PM<sub>2.5</sub>) or ozone (O<sub>3</sub>). The sensortoolkit library includes numerous modules for computing performance metrics recommended by U.S. EPA for evaluating PM<sub>2.5</sub> and O<sub>3</sub> sensors. Additionally, plotting functions are included for visualizing performance evaluation results, including visualization of sensor performance metric values against U.S. EPA’s performance targets, sensor time series, scatter plots comparing collocated sensor and reference measurements, distribution plots for displaying the range of meteorological conditions during the deployment, etc. Tabular statistics and figures can be automatically compiled into testing reports recommended by U.S. EPA’s performance targets documents for testing conducting at ambient air monitoring sites.
 
 ## Key features: <a name="key-features"></a>
 
@@ -83,15 +82,15 @@ formatting schemes for sensor and reference data.
 
 
 ## Dependencies: <a name="dependencies"></a>
-* [Python](https://www.python.org/) 3.7, 3.8
-* [pandas](https://pypi.org/project/pandas/) >= 0.25.1
+* [Python](https://www.python.org/) >=3.6
+* [pandas](https://pypi.org/project/pandas/) >= 1.3.0
 * [numpy](https://pypi.org/project/numpy/) >= 1.16.5
 * [matplotlib](https://pypi.org/project/matplotlib/) >= 3.1.1
 * [seaborn](https://pypi.org/project/seaborn/) >= 0.9.0
 * [statsmodels](https://pypi.org/project/statsmodels/) >= 0.10.1
 * [pathlib2](https://pypi.org/project/pathlib2/) >= 2.3.5
 * [requests](https://pypi.org/project/requests/) >= 2.25.1
-* [python-pptx](https://pypi.org/project/python-pptx/) 0.6.18
+* [python-pptx](https://pypi.org/project/python-pptx/) >=0.6.18
 
 ## Contact and Resources <a name="contact"></a>
 *Please direct all inquiries to*\
