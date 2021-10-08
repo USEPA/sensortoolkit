@@ -57,7 +57,7 @@ formatting schemes for sensor and reference data.
     processed datasets to a data directory.
 - Conduct analysis with the `SensorEvaluation` module  
 -   Compute U.S. EPA’s recommended performance metrics for evaluating
-    `PM<sub>2.5</sub>` and `O<sub>3</sub>` sensors.
+    PM<sub>2.5</sub> and O<sub>3</sub> sensors.
 
 -   Visualize sensor performance with various figures and save to file location.  
     -   Sensor vs. FRM/FEM scatter plots
@@ -71,12 +71,11 @@ formatting schemes for sensor and reference data.
 -   Create testing reports using U.S. EPA’s base-testing report template
     (PowerPoint file) with the `PerformanceReport` module.
 -   Additional modules are included for calculating quantities (AQI,
-    `PM<sub>2.5</sub>` NowCast, application of sensor correction
+    PM<sub>2.5</sub> NowCast, application of sensor correction
     equations, the U.S. Wide correction equation for PurpleAir sensors
-    via Barkjohn et al. 2021, etc.) and conducting additional analysis
+    via [Barkjohn et al. 2021](https://amt.copernicus.org/articles/14/4617/2021/), etc.) and conducting additional analysis
     (quality control modules for identifying outliers, invalidation of
-    datapoints, A&B channel cleaning for PurpleAir data via Barkjohn et
-    al. 2021, etc.)
+    datapoints, A&B channel cleaning for PurpleAir data via [Barkjohn et al. 2021](https://amt.copernicus.org/articles/14/4617/2021/), etc.)
 -   Access to modules utilized by the `SensorEvaluation` and `PerformanceReport` for greater customization
     in conducting analysis.
 
