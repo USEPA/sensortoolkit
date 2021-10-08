@@ -119,7 +119,7 @@ The documentation should open in your default browser, and you should see a land
 
 ![sensortoolkit Landing Page](docs/source/data/_readme_figures/toolkit_landing_page.png){width=800}
 
-Note: Users will need an installation of Python (v3.7 or greater). It’s
+Note: Users will need an installation of Python (v3.6 or greater). It’s
 highly recommended that users download an Anaconda distribution of
 Python. Anaconda is a package distribution of Python that includes many
 widely used libraries as well as the Spyder IDE for editing and
