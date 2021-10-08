@@ -1,0 +1,782 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>sensortoolkit.datetime_utils._time_averaging &mdash; sensortoolkit 0.5.0b3 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> sensortoolkit
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.5.0b3
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption" role="heading"><span class="caption-text">Documentation Overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../import_sensortoolkit.html">Importing sensortoolkit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../testingattrib_objects/index.html">Testing Attribute Objects</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../testingattrib_objects/airsensor/index.html">The AirSensor Object</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../testingattrib_objects/airsensor/overview.html">AirSensor Instantiation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../testingattrib_objects/airsensor/setup.html">AirSensor Setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../testingattrib_objects/airsensor/load_data.html">Loading Sensor Data</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../testingattrib_objects/referencemonitor/index.html">The ReferenceMonitor Object</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../testingattrib_objects/referencemonitor/overview.html">ReferenceMonitor Instantiation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../testingattrib_objects/referencemonitor/setup.html">ReferenceMonitor Setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../testingattrib_objects/referencemonitor/load_data.html">Loading Reference Data</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../testingattrib_objects/parameter.html">The Parameter Object</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../testingattrib_objects/setup_overview.html">Overview of Instantiating Testing Attributes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../evaluation_objects/index.html">Evaluation Objects</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../evaluation_objects/sensoreval/index.html">Conducting Analysis - The SensorEvaluation Class</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../evaluation_objects/sensoreval/plotting.html">Plotting Methods</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../evaluation_objects/performancereport.html">Creating Testing Reports - The PerformanceReport Class</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../data_structures/index.html">Data Structures and Formatting</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../data_structures/sensor_data.html">Sensor Data Structures</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../data_structures/sdfs.html">Sensor Data Formatting Standard (S-DFS)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../data_structures/reference_data.html">Reference Data Structures</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../data_structures/rdfs.html">Reference Data Formatting Standard (R-DFS)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../data_structures/config_structs.html">Configuration Setup JSON</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../data_structures/eval_structs.html">Performance Evaluation Data Structures</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/index.html">sensortoolkit API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/calculate.html"><code class="docutils literal notranslate"><span class="pre">sensortoolkit.calculate</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.calculate._aqi.html">sensortoolkit.calculate._aqi</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.calculate._aqi.html#resources">Resources</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.calculate._aqi.html#calculation">Calculation</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.calculate._cv.html">sensortoolkit.calculate._cv</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.calculate._cv.cv.html">sensortoolkit.calculate._cv.cv</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.calculate._dewpoint.html">sensortoolkit.calculate._dewpoint</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.calculate._dewpoint.html#calculation">Calculation</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.calculate._intersensor_mean.html">sensortoolkit.calculate._intersensor_mean</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.calculate._intersensor_mean.intersensor_mean.html">sensortoolkit.calculate._intersensor_mean.intersensor_mean</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.calculate._normalize.html">sensortoolkit.calculate._normalize</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.calculate._normalize.normalize.html">sensortoolkit.calculate._normalize.normalize</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.calculate._nowcast_pm25.html">sensortoolkit.calculate._nowcast_pm25</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.calculate._nowcast_pm25.html#module-dependencies">Module Dependencies</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.calculate._nowcast_pm25.html#calculation">Calculation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.calculate._nowcast_pm25.html#resources">Resources</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.calculate._regression_stats.html">sensortoolkit.calculate._regression_stats</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.calculate._regression_stats.html#bias-and-linearity">Bias and linearity</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.calculate._rmse.html">sensortoolkit.calculate._rmse</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.calculate._rmse.rmse.html">sensortoolkit.calculate._rmse.rmse</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.calculate._uptime.html">sensortoolkit.calculate._uptime</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.calculate._uptime.uptime.html">sensortoolkit.calculate._uptime.uptime</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/datetime_utils.html"><code class="docutils literal notranslate"><span class="pre">sensortoolkit.datetime_utils</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.datetime_utils._format_date.html">sensortoolkit.datetime_utils._format_date</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.datetime_utils._format_date.get_todays_date.html">sensortoolkit.datetime_utils._format_date.get_todays_date</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.datetime_utils._get_timestamp_interval.html">sensortoolkit.datetime_utils._get_timestamp_interval</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.datetime_utils._get_timestamp_interval.get_timestamp_interval.html">sensortoolkit.datetime_utils._get_timestamp_interval.get_timestamp_interval</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.datetime_utils._set_datetime_index.html">sensortoolkit.datetime_utils._set_datetime_index</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.datetime_utils._set_datetime_index.set_datetime_index.html">sensortoolkit.datetime_utils._set_datetime_index.set_datetime_index</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.datetime_utils._time_averaging.html">sensortoolkit.datetime_utils._time_averaging</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.datetime_utils._time_averaging.interval_averaging.html">sensortoolkit.datetime_utils._time_averaging.interval_averaging</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.datetime_utils._time_averaging.sensor_averaging.html">sensortoolkit.datetime_utils._time_averaging.sensor_averaging</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.datetime_utils._timeframe_utils.html">sensortoolkit.datetime_utils._timeframe_utils</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.datetime_utils._timeframe_utils.deploy_timestamp_index.html">sensortoolkit.datetime_utils._timeframe_utils.deploy_timestamp_index</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.datetime_utils._timeframe_utils.timeframe_search.html">sensortoolkit.datetime_utils._timeframe_utils.timeframe_search</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/deploy.html"><code class="docutils literal notranslate"><span class="pre">sensortoolkit.deploy</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.deploy._create_deploy_dict.html">sensortoolkit.deploy._create_deploy_dict</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.deploy._create_deploy_dict.construct_deploy_dict.html">sensortoolkit.deploy._create_deploy_dict.construct_deploy_dict</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.deploy._create_deploy_dict.deploy_met_stats.html">sensortoolkit.deploy._create_deploy_dict.deploy_met_stats</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.deploy._create_deploy_dict.deploy_ref_stats.html">sensortoolkit.deploy._create_deploy_dict.deploy_ref_stats</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.deploy._deployment_period.html">sensortoolkit.deploy._deployment_period</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.deploy._deployment_period.deployment_period.html">sensortoolkit.deploy._deployment_period.deployment_period</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.deploy._get_max_conc.html">sensortoolkit.deploy._get_max_conc</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.deploy._get_max_conc.get_max_conc.html">sensortoolkit.deploy._get_max_conc.get_max_conc</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/evaluation.html"><code class="docutils literal notranslate"><span class="pre">sensortoolkit.evaluation</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.evaluation._sensor_eval.html">sensortoolkit.evaluation._sensor_eval</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.evaluation._sensor_eval.SensorEvaluation.html">sensortoolkit.evaluation._sensor_eval.SensorEvaluation</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.evaluation._airsensor.html">sensortoolkit.evaluation._airsensor</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.evaluation._airsensor.AirSensor.html">sensortoolkit.evaluation._airsensor.AirSensor</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.evaluation._referencemonitor.html">sensortoolkit.evaluation._referencemonitor</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.evaluation._referencemonitor.ReferenceMonitor.html">sensortoolkit.evaluation._referencemonitor.ReferenceMonitor</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/lib_utils.html"><code class="docutils literal notranslate"><span class="pre">sensortoolkit.lib_utils</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.lib_utils._copy_datasets.html">sensortoolkit.lib_utils._copy_datasets</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.lib_utils._copy_datasets.copy_datasets.html">sensortoolkit.lib_utils._copy_datasets.copy_datasets</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.lib_utils._flatten_list.html">sensortoolkit.lib_utils._flatten_list</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.lib_utils._flatten_list.flatten_list.html">sensortoolkit.lib_utils._flatten_list.flatten_list</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.lib_utils._sensor_subfolders.html">sensortoolkit.lib_utils._sensor_subfolders</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.lib_utils._sensor_subfolders.create_sensor_directories.html">sensortoolkit.lib_utils._sensor_subfolders.create_sensor_directories</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/model.html"><code class="docutils literal notranslate"><span class="pre">sensortoolkit.model</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.model._apply_correction.html">sensortoolkit.model._apply_correction</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.model._apply_correction.individual_corr.html">sensortoolkit.model._apply_correction.individual_corr</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.model._purpleair_uscorrection.html">sensortoolkit.model._purpleair_uscorrection</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.model._purpleair_uscorrection.purpleair_us_corr.html">sensortoolkit.model._purpleair_uscorrection.purpleair_us_corr</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.model._sensor_ols.html">sensortoolkit.model._sensor_ols</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.model._sensor_ols.sensor_ols.html">sensortoolkit.model._sensor_ols.sensor_ols</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/param.html"><code class="docutils literal notranslate"><span class="pre">sensortoolkit.param</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.param._parameter.html">sensortoolkit.param._parameter</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.param._parameter.Parameter.html">sensortoolkit.param._parameter.Parameter</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.param._targets.html">sensortoolkit.param._targets</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.param._targets.ParameterTargets.html">sensortoolkit.param._targets.ParameterTargets</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/performance_report.html"><code class="docutils literal notranslate"><span class="pre">sensortoolkit.performancereport</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.performancereport._performance_report.html">sensortoolkit.performancereport._performance_report</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.performancereport._performance_report.PerformanceReport.html">sensortoolkit.performancereport._performance_report.PerformanceReport</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/plotting.html"><code class="docutils literal notranslate"><span class="pre">sensortoolkit.plotting</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.plotting._distribution.html">sensortoolkit.plotting._distribution</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.plotting._distribution.met_distrib.html">sensortoolkit.plotting._distribution.met_distrib</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.plotting._distribution.recording_interval_histogram.html">sensortoolkit.plotting._distribution.recording_interval_histogram</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.plotting._distribution.ref_distrib.html">sensortoolkit.plotting._distribution.ref_distrib</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.plotting._errorbars.html">sensortoolkit.plotting._errorbars</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.plotting._errorbars.error_bars.html">sensortoolkit.plotting._errorbars.error_bars</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.plotting._intrasensor_comparison.html">sensortoolkit.plotting._intrasensor_comparison</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.plotting._intrasensor_comparison.compare_sensors.html">sensortoolkit.plotting._intrasensor_comparison.compare_sensors</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.plotting._performance_metrics.html">sensortoolkit.plotting._performance_metrics</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.plotting._performance_metrics.performance_metrics.html">sensortoolkit.plotting._performance_metrics.performance_metrics</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.plotting._plot_formatting.html">sensortoolkit.plotting._plot_formatting</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.plotting._plot_formatting.get_colormap_range.html">sensortoolkit.plotting._plot_formatting.get_colormap_range</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.plotting._plot_formatting.met_scatter_lims.html">sensortoolkit.plotting._plot_formatting.met_scatter_lims</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.plotting._plot_formatting.sensor_subplot_formatting.html">sensortoolkit.plotting._plot_formatting.sensor_subplot_formatting</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.plotting._plot_formatting.set_fontsize.html">sensortoolkit.plotting._plot_formatting.set_fontsize</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.plotting._plot_formatting.subplot_dims.html">sensortoolkit.plotting._plot_formatting.subplot_dims</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.plotting._plot_formatting.wrap_text.html">sensortoolkit.plotting._plot_formatting.wrap_text</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.plotting._scatter.html">sensortoolkit.plotting._scatter</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.plotting._scatter.draw_scatter.html">sensortoolkit.plotting._scatter.draw_scatter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.plotting._scatter.normalized_met_scatter.html">sensortoolkit.plotting._scatter.normalized_met_scatter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.plotting._scatter.scatter_plotter.html">sensortoolkit.plotting._scatter.scatter_plotter</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.plotting._timeseries.html">sensortoolkit.plotting._timeseries</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.plotting._timeseries.deployment_timeline.html">sensortoolkit.plotting._timeseries.deployment_timeline</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.plotting._timeseries.sensor_timeplot.html">sensortoolkit.plotting._timeseries.sensor_timeplot</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qc.html"><code class="docutils literal notranslate"><span class="pre">sensortoolkit.qc</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.qc._duplicate_removal.html">sensortoolkit.qc._duplicate_removal</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.qc._duplicate_removal.remove_duplicates.html">sensortoolkit.qc._duplicate_removal.remove_duplicates</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.qc._interval_downsampling.html">sensortoolkit.qc._interval_downsampling</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.qc._interval_downsampling.apply_downsampling.html">sensortoolkit.qc._interval_downsampling.apply_downsampling</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.qc._interval_downsampling.downsampling_interval.html">sensortoolkit.qc._interval_downsampling.downsampling_interval</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.qc._interval_downsampling.plot_recording_interval.html">sensortoolkit.qc._interval_downsampling.plot_recording_interval</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.qc._interval_downsampling.plot_timedelta_quantiles.html">sensortoolkit.qc._interval_downsampling.plot_timedelta_quantiles</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.qc._interval_downsampling.sensor_timedelta.html">sensortoolkit.qc._interval_downsampling.sensor_timedelta</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.qc._interval_downsampling.timedelta_quantiles.html">sensortoolkit.qc._interval_downsampling.timedelta_quantiles</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.qc._invalidate.html">sensortoolkit.qc._invalidate</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.qc._invalidate.invalidate_period.html">sensortoolkit.qc._invalidate.invalidate_period</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.qc._outlier_detection.html">sensortoolkit.qc._outlier_detection</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.qc._outlier_detection.cooks_outlier_detection.html">sensortoolkit.qc._outlier_detection.cooks_outlier_detection</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.qc._persistent_values.html">sensortoolkit.qc._persistent_values</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.qc._persistent_values.persistent_values.html">sensortoolkit.qc._persistent_values.persistent_values</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.qc._purpleair_abcleaning.html">sensortoolkit.qc._purpleair_abcleaning</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.qc._purpleair_abcleaning.purpleair_ab_averages.html">sensortoolkit.qc._purpleair_abcleaning.purpleair_ab_averages</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/reference.html"><code class="docutils literal notranslate"><span class="pre">sensortoolkit.reference</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._import_airnowtech.html">sensortoolkit.reference._import_airnowtech</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._import_airnowtech.ingest_airnowtech.html">sensortoolkit.reference._import_airnowtech.ingest_airnowtech</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._import_airnowtech.preprocess_airnowtech.html">sensortoolkit.reference._import_airnowtech.preprocess_airnowtech</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._import_airnowtech.sort_airnowtech.html">sensortoolkit.reference._import_airnowtech.sort_airnowtech</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._import_airnowtech.write_to_file.html">sensortoolkit.reference._import_airnowtech.write_to_file</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._import_oaqps.html">sensortoolkit.reference._import_oaqps</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._import_oaqps.format_headers.html">sensortoolkit.reference._import_oaqps.format_headers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._import_oaqps.format_qaqc.html">sensortoolkit.reference._import_oaqps.format_qaqc</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._import_oaqps.format_ref_timestamp.html">sensortoolkit.reference._import_oaqps.format_ref_timestamp</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._import_oaqps.from_envidas.html">sensortoolkit.reference._import_oaqps.from_envidas</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._import_oaqps.from_envista.html">sensortoolkit.reference._import_oaqps.from_envista</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._import_oaqps.ingest_oaqps.html">sensortoolkit.reference._import_oaqps.ingest_oaqps</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._import_oaqps.process_oaqps.html">sensortoolkit.reference._import_oaqps.process_oaqps</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._load_ref_data.html">sensortoolkit.reference._load_ref_data</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._load_ref_data.import_ref_dataframe.html">sensortoolkit.reference._load_ref_data.import_ref_dataframe</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._load_ref_data.load_ref_dataframes.html">sensortoolkit.reference._load_ref_data.load_ref_dataframes</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._ref_api_query.html">sensortoolkit.reference._ref_api_query</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._ref_api_query.date_range_selector.html">sensortoolkit.reference._ref_api_query.date_range_selector</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._ref_api_query.ingest_airnow.html">sensortoolkit.reference._ref_api_query.ingest_airnow</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._ref_api_query.ingest_aqs.html">sensortoolkit.reference._ref_api_query.ingest_aqs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._ref_api_query.modify_ref_cols.html">sensortoolkit.reference._ref_api_query.modify_ref_cols</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._ref_api_query.modify_ref_method_str.html">sensortoolkit.reference._ref_api_query.modify_ref_method_str</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._ref_api_query.parse_sample_data.html">sensortoolkit.reference._ref_api_query.parse_sample_data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._ref_api_query.query_airnow.html">sensortoolkit.reference._ref_api_query.query_airnow</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._ref_api_query.query_aqs.html">sensortoolkit.reference._ref_api_query.query_aqs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._ref_api_query.query_periods.html">sensortoolkit.reference._ref_api_query.query_periods</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._ref_api_query.ref_api_query.html">sensortoolkit.reference._ref_api_query.ref_api_query</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._ref_api_query.save_api_dataset.html">sensortoolkit.reference._ref_api_query.save_api_dataset</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._ref_api_query.select_poc.html">sensortoolkit.reference._ref_api_query.select_poc</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/sensor_ingest.html"><code class="docutils literal notranslate"><span class="pre">sensortoolkit.sensor_ingest</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.sensor_ingest._processed_data_loader.html">sensortoolkit.sensor_ingest._processed_data_loader</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.sensor_ingest._processed_data_loader.processed_data_search.html">sensortoolkit.sensor_ingest._processed_data_loader.processed_data_search</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.sensor_ingest._sensor_import.html">sensortoolkit.sensor_ingest._sensor_import</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.sensor_ingest._sensor_import.ingest_example_make_model.html">sensortoolkit.sensor_ingest._sensor_import.ingest_example_make_model</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.sensor_ingest._sensor_import.ingest_purpleair.html">sensortoolkit.sensor_ingest._sensor_import.ingest_purpleair</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.sensor_ingest._sensor_import.ingest_sensit_ramp.html">sensortoolkit.sensor_ingest._sensor_import.ingest_sensit_ramp</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.sensor_ingest._sensor_import.ingest_wrapper.html">sensortoolkit.sensor_ingest._sensor_import.ingest_wrapper</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.sensor_ingest._sensor_import.sensor_import.html">sensortoolkit.sensor_ingest._sensor_import.sensor_import</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.sensor_ingest._standard_ingest.html">sensortoolkit.sensor_ingest._standard_ingest</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.sensor_ingest._standard_ingest.ParseSetup.html">sensortoolkit.sensor_ingest._standard_ingest.ParseSetup</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.sensor_ingest._standard_ingest.apply_strptime.html">sensortoolkit.sensor_ingest._standard_ingest.apply_strptime</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.sensor_ingest._standard_ingest.standard_ingest.html">sensortoolkit.sensor_ingest._standard_ingest.standard_ingest</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">sensortoolkit</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>sensortoolkit.datetime_utils._time_averaging</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for sensortoolkit.datetime_utils._time_averaging</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">This module calculates 1-hour and 24-hour averaged datasets from sensor and</span>
+<span class="sd">FRM/FEM recorded datasets.</span>
+
+<span class="sd">U.S. EPA&#39;s Performance Targets Reports stipulate that a 75% data completeness</span>
+<span class="sd">requirement for each averaging interval should be imposed. For example, a</span>
+<span class="sd">:math:`PM_{2.5}` sensor recording concentration measurements every hour would</span>
+<span class="sd">require a minimum of 18 valid measurements in order to calculate a valid</span>
+<span class="sd">24-hour averaged concentration [i.e., (18/24) * 100% = 75%].</span>
+
+<span class="sd">U.S. EPA&#39;s Performance Targets Reports calculate averages as</span>
+
+<span class="sd">.. math::</span>
+
+<span class="sd">    x_{kpj} = \\frac{1}{n}\\sum_{i=1}^{n}c_{ij}</span>
+
+<span class="sd">where:</span>
+
+<span class="sd">    :math:`x_{kpj}` = 1-hour or 24-hour averaged measurement k for hour/day p</span>
+<span class="sd">    and instrument j</span>
+
+<span class="sd">    :math:`n` = number of instrument measurements per averaging interval</span>
+
+<span class="sd">    :math:`c_{ij}` = measurement from instrument j for time i of the averaging</span>
+<span class="sd">    interval</span>
+
+<span class="sd">================================================================================</span>
+
+<span class="sd">@Author:</span>
+<span class="sd">  | Samuel Frederick, NSSC Contractor (ORAU)</span>
+<span class="sd">  | U.S. EPA / ORD / CEMM / AMCD / SFSB</span>
+
+<span class="sd">Created:</span>
+<span class="sd">  Wed Oct 21 14:46:27 2020</span>
+<span class="sd">Last Updated:</span>
+<span class="sd">  Tue Jul 13 16:32:44 2021</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">os</span>
+
+
+<div class="viewcode-block" id="sensor_averaging"><a class="viewcode-back" href="../../../api/_autosummary/sensortoolkit.datetime_utils._time_averaging.sensor_averaging.html#sensortoolkit.datetime_utils._time_averaging.sensor_averaging">[docs]</a><span class="k">def</span> <span class="nf">sensor_averaging</span><span class="p">(</span><span class="n">full_df_list</span><span class="p">,</span> <span class="n">sensor_serials</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span>
+                     <span class="n">write_to_file</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Write full (recorded), hourly, and daily averaged datasets to csv.</span>
+
+<span class="sd">    Wrapper function for computing hourly and daily averaged dataframes.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        full_df_list (list):</span>
+<span class="sd">            List of sensor dataframes at original recorded sampling frequency.</span>
+<span class="sd">        sensor_serials (dict):</span>
+<span class="sd">            A dictionary of unique serial identifiers for each sensor in the</span>
+<span class="sd">            testing group.</span>
+<span class="sd">        name (str):</span>
+<span class="sd">            The make and model of the sensor being evaluated.</span>
+<span class="sd">        write_to_file (bool):</span>
+<span class="sd">            If true, datasets will be written to the path for data at original</span>
+<span class="sd">            recorded sampling frequency (files ending in &#39;_full.csv&#39;), 1-hour</span>
+<span class="sd">            averaged datasets (files ending in &#39;_hourly.csv&#39;), and 24-hour</span>
+<span class="sd">            averaged datasets (files ending in &#39;_daily.csv&#39;).</span>
+<span class="sd">        path (str):</span>
+<span class="sd">            The full directory path to processed sensor data for a given sensor</span>
+<span class="sd">            make and model.</span>
+<span class="sd">        **kwargs:</span>
+<span class="sd">            threshold (float): The completeness threshold for averaging</span>
+<span class="sd">            datasets to 1-hour/24-hour intervals. Defaults to 75% (``0.75``).</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        hourly_df_list (list of pandas dataframes): List of sensor data frames</span>
+<span class="sd">            of length N (where N is the number of sensor units in a testing</span>
+<span class="sd">            group). frames indexed by DateTime_UTC at 1-hour averaged sampling</span>
+<span class="sd">            frequency.</span>
+<span class="sd">        daily_df_list (list of pandas dataframes): List of sensor data frames</span>
+<span class="sd">            of length N (where N is the number of sensor units in a testing</span>
+<span class="sd">            group). frames indexed by DateTime_UTC at 24-hour averaged sampling</span>
+<span class="sd">            frequency.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">hourly_df_list</span><span class="p">,</span> <span class="n">daily_df_list</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
+
+    <span class="k">if</span> <span class="n">sensor_serials</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">n_sensors</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">full_df_list</span><span class="p">)</span>
+        <span class="n">sensor_serials</span> <span class="o">=</span> <span class="p">{</span><span class="n">i</span><span class="p">:</span> <span class="s1">&#39;Sensor &#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span>
+                          <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n_sensors</span><span class="p">,</span> <span class="n">n_sensors</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)}</span>
+
+    <span class="c1"># Loop over each recorded sensor dataset and compute hourly, daily averages</span>
+    <span class="k">for</span> <span class="n">full_df</span><span class="p">,</span> <span class="n">sensor_n</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">full_df_list</span><span class="p">,</span> <span class="n">sensor_serials</span><span class="p">):</span>
+        <span class="n">serial_id</span> <span class="o">=</span> <span class="n">sensor_serials</span><span class="p">[</span><span class="n">sensor_n</span><span class="p">]</span>
+
+        <span class="c1"># Compute timedelta between successive timestamps</span>
+        <span class="n">delta</span> <span class="o">=</span> <span class="p">(</span><span class="n">full_df</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="o">-</span> <span class="n">full_df</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span><span class="o">.</span><span class="n">to_frame</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">delta</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">name</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">delta</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;DateTime_UTC&#39;</span>
+        <span class="n">idx_name</span> <span class="o">=</span> <span class="n">delta</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">name</span>
+
+        <span class="c1"># Use mode of timedelta to extrapolate # of datapoints recorded per hr</span>
+        <span class="n">time_delta</span> <span class="o">=</span> <span class="n">delta</span><span class="p">[</span><span class="n">idx_name</span><span class="p">]</span><span class="o">.</span><span class="n">mode</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">hr_count</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_timedelta</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s1">&#39;H&#39;</span><span class="p">)</span> <span class="o">/</span> <span class="n">time_delta</span>
+        <span class="n">day_count</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_timedelta</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s1">&#39;D&#39;</span><span class="p">)</span> <span class="o">/</span> <span class="n">time_delta</span>
+
+        <span class="c1"># Use a 75% threshold</span>
+        <span class="n">hr_thres</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;threshold&#39;</span><span class="p">,</span> <span class="mf">0.75</span><span class="p">)</span>
+        <span class="n">day_thres</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;threshold&#39;</span><span class="p">,</span> <span class="mf">0.75</span><span class="p">)</span>
+
+        <span class="c1"># Print the mode of the sampling interval for recorded sensor data and</span>
+        <span class="c1"># the number of counts within each hour interval.</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;..</span><span class="si">{0:s}</span><span class="s1"> recording interval mode: </span><span class="si">{1:s}</span><span class="s1">, &#39;</span>
+              <span class="s1">&#39;</span><span class="si">{2:4.1f}</span><span class="s1"> counts per hour&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">serial_id</span><span class="p">,</span>
+                                                <span class="nb">str</span><span class="p">(</span><span class="n">time_delta</span><span class="p">),</span>
+                                                <span class="n">hr_count</span><span class="p">,))</span>
+
+        <span class="n">hourly_df</span> <span class="o">=</span> <span class="n">interval_averaging</span><span class="p">(</span><span class="n">full_df</span><span class="p">,</span>
+                                       <span class="n">freq</span><span class="o">=</span><span class="s1">&#39;H&#39;</span><span class="p">,</span>
+                                       <span class="n">interval_count</span><span class="o">=</span><span class="n">hr_count</span><span class="p">,</span>
+                                       <span class="n">thres</span><span class="o">=</span><span class="n">hr_thres</span><span class="p">)</span>
+
+        <span class="n">daily_df</span> <span class="o">=</span> <span class="n">interval_averaging</span><span class="p">(</span><span class="n">full_df</span><span class="p">,</span>
+                                      <span class="n">freq</span><span class="o">=</span><span class="s1">&#39;D&#39;</span><span class="p">,</span>
+                                      <span class="n">interval_count</span><span class="o">=</span><span class="n">day_count</span><span class="p">,</span>
+                                      <span class="n">thres</span><span class="o">=</span><span class="n">day_thres</span><span class="p">)</span>
+
+        <span class="n">hourly_df_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">hourly_df</span><span class="p">)</span>
+        <span class="n">daily_df_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">daily_df</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">write_to_file</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;....writing full, hourly, and daily datasets to .csv files&#39;</span><span class="p">)</span>
+
+            <span class="c1"># check if sensor-specific subfolder exists</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+                <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+
+            <span class="n">full_df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">path</span> <span class="o">+</span> <span class="n">name</span> <span class="o">+</span> <span class="s1">&#39;_&#39;</span> <span class="o">+</span> <span class="n">serial_id</span> <span class="o">+</span> <span class="s1">&#39;_full.csv&#39;</span><span class="p">)</span>
+            <span class="n">hourly_df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">path</span> <span class="o">+</span> <span class="n">name</span> <span class="o">+</span> <span class="s1">&#39;_&#39;</span> <span class="o">+</span> <span class="n">serial_id</span> <span class="o">+</span> <span class="s1">&#39;_hourly.csv&#39;</span><span class="p">)</span>
+            <span class="n">daily_df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">path</span> <span class="o">+</span> <span class="n">name</span> <span class="o">+</span> <span class="s1">&#39;_&#39;</span> <span class="o">+</span> <span class="n">serial_id</span> <span class="o">+</span> <span class="s1">&#39;_daily.csv&#39;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">hourly_df_list</span><span class="p">,</span> <span class="n">daily_df_list</span></div>
+
+
+<div class="viewcode-block" id="interval_averaging"><a class="viewcode-back" href="../../../api/_autosummary/sensortoolkit.datetime_utils._time_averaging.interval_averaging.html#sensortoolkit.datetime_utils._time_averaging.interval_averaging">[docs]</a><span class="k">def</span> <span class="nf">interval_averaging</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="n">interval_count</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span> <span class="n">thres</span><span class="o">=</span><span class="mf">0.75</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Average dataframe to the specified sampling frequency (&#39;freq&#39;).</span>
+
+<span class="sd">    Numeric columns are averaged for for each interval and a completeness</span>
+<span class="sd">    threshold (default 75%) must be met, otherwise averages are null. Columns</span>
+<span class="sd">    of type &#39;object&#39; (i.e. text) are aggregated within each interval by the</span>
+<span class="sd">    mode of unique object values.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        df (pandas dataframe or pandas series):</span>
+<span class="sd">            Dataframe or series for which averages will be computed.</span>
+<span class="sd">        freq (str):</span>
+<span class="sd">            The frequency (averaging interval) to which the dataframe will</span>
+<span class="sd">            be averaged. Defaults to ``H``. Pandas refers to these as</span>
+<span class="sd">            &#39;offset aliases&#39;, and a list is found at the following link:</span>
+<span class="sd">                `&lt;https://pandas.pydata.org/pandas-docs/stable/user_guide/timeseries.html#offset-aliases&gt;`_</span>
+<span class="sd">        interval_count (int):</span>
+<span class="sd">            The number of datapoints expected within the passed dataframe for</span>
+<span class="sd">            the specified averaging interval (&#39;freq&#39;). Defaults to 60 for</span>
+<span class="sd">            1-hour averages. E.g., if computing 1-hour averages (freq=&#39;H&#39;) an</span>
+<span class="sd">            the passed dataframe is for a sensor that recorded measurements at</span>
+<span class="sd">            1-minute sampling frequency, interval_count will equal 60 (expect</span>
+<span class="sd">            60 non-null data points per averaging interval).</span>
+<span class="sd">        thres (float):</span>
+<span class="sd">            Threshold (ranging from 0 to 1) for ratio of the number of</span>
+<span class="sd">            data points recorded within a given averaging interval vs. the</span>
+<span class="sd">            number of expected data points. Defaults to ``0.75`` (i.e., 75%).</span>
+
+<span class="sd">    Return:</span>
+<span class="sd">        avg_df (pandas dataframe):</span>
+<span class="sd">            Dataframe averaged to datetimeindex interval specified by &#39;freq&#39;.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># If series object passed, convert to dataframe</span>
+    <span class="n">data_type</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">data_type</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">pd</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">frame</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">df</span><span class="p">)</span><span class="o">.</span><span class="n">to_frame</span><span class="p">()</span>
+
+    <span class="n">col_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
+    <span class="c1"># Split dataframe in to object-like columns and numeric-like columns</span>
+    <span class="n">obj_df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">select_dtypes</span><span class="p">(</span><span class="n">include</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;object&#39;</span><span class="p">,</span> <span class="s1">&#39;datetime&#39;</span><span class="p">])</span>
+    <span class="n">num_df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">select_dtypes</span><span class="p">(</span><span class="n">exclude</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;object&#39;</span><span class="p">,</span> <span class="s1">&#39;datetime&#39;</span><span class="p">])</span>
+
+    <span class="n">num_df_cols</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">num_df</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
+    <span class="n">obj_df_cols</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">obj_df</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
+
+    <span class="n">num_df</span> <span class="o">=</span> <span class="n">num_df</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">)</span>
+
+    <span class="c1"># index at specified interval for empty dataframes (all NaNs)</span>
+    <span class="n">nan_df_idx</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">date_range</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="n">obj_df</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+                               <span class="n">end</span><span class="o">=</span><span class="n">obj_df</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span>
+                               <span class="n">freq</span><span class="o">=</span><span class="n">freq</span><span class="p">,</span> <span class="n">normalize</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="c1"># Sample object-like data at specified interval by the mode</span>
+    <span class="n">obj_df</span> <span class="o">=</span> <span class="n">obj_df</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">how</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">obj_df</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
+        <span class="n">avg_obj_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">nan_df_idx</span><span class="p">,</span>
+                                  <span class="n">columns</span><span class="o">=</span><span class="n">obj_df_cols</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">avg_obj_df</span> <span class="o">=</span> <span class="n">obj_df</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="n">pd</span><span class="o">.</span><span class="n">Grouper</span><span class="p">(</span><span class="n">freq</span><span class="o">=</span><span class="n">freq</span><span class="p">)]</span>
+                                    <span class="p">)</span><span class="o">.</span><span class="n">agg</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+    <span class="n">dropped_objcols</span> <span class="o">=</span> <span class="p">[</span><span class="n">col</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">obj_df_cols</span> <span class="k">if</span> <span class="n">col</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">avg_obj_df</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">dropped_objcols</span><span class="p">:</span>
+        <span class="n">avg_obj_df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+
+    <span class="k">if</span> <span class="n">num_df</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
+        <span class="n">avg_num_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">nan_df_idx</span><span class="p">,</span>
+                                  <span class="n">columns</span><span class="o">=</span><span class="n">num_df_cols</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+
+        <span class="c1"># Mean param values for each averaging interval</span>
+        <span class="n">mean_df</span> <span class="o">=</span> <span class="n">num_df</span><span class="p">[:]</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span>
+                            <span class="p">[</span><span class="n">pd</span><span class="o">.</span><span class="n">Grouper</span><span class="p">(</span><span class="n">freq</span><span class="o">=</span><span class="n">freq</span><span class="p">)])</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+
+        <span class="c1"># Counts for each param and each averaging interval</span>
+        <span class="n">counts_df</span> <span class="o">=</span> <span class="n">num_df</span><span class="p">[:]</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span>
+                            <span class="p">[</span><span class="n">pd</span><span class="o">.</span><span class="n">Grouper</span><span class="p">(</span><span class="n">freq</span><span class="o">=</span><span class="n">freq</span><span class="p">)])</span><span class="o">.</span><span class="n">count</span><span class="p">()</span><span class="o">.</span><span class="n">add_suffix</span><span class="p">(</span>
+                                                            <span class="s1">&#39;_count&#39;</span> <span class="o">+</span> <span class="n">freq</span><span class="p">)</span>
+
+        <span class="n">avg_num_df</span> <span class="o">=</span> <span class="n">mean_df</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">counts_df</span><span class="p">)</span><span class="o">.</span><span class="n">sort_index</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+        <span class="c1"># List of columns containing count for each averaging interval</span>
+        <span class="n">count_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">avg_num_df</span><span class="o">.</span><span class="n">columns</span><span class="p">[[</span><span class="n">col</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;count&#39;</span> <span class="o">+</span> <span class="n">freq</span><span class="p">)</span>
+                                              <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">avg_num_df</span><span class="o">.</span><span class="n">columns</span><span class="p">]])</span>
+
+        <span class="n">n_thres</span> <span class="o">=</span> <span class="n">interval_count</span><span class="o">*</span><span class="n">thres</span>
+
+        <span class="c1"># Set null param vals for averaging intervals below completeness thres</span>
+        <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">count_list</span><span class="p">:</span>
+            <span class="n">mean_col</span> <span class="o">=</span> <span class="n">col</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;_count&#39;</span> <span class="o">+</span> <span class="n">freq</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+
+            <span class="n">avg_num_df</span><span class="p">[</span><span class="n">mean_col</span><span class="p">]</span> <span class="o">=</span> <span class="n">avg_num_df</span><span class="p">[</span><span class="n">mean_col</span><span class="p">]</span><span class="o">.</span><span class="n">where</span><span class="p">(</span>
+                                        <span class="n">avg_num_df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">n_thres</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>
+
+    <span class="c1"># Rejoin non-numeric columns on averaging interval</span>
+    <span class="n">avg_df</span> <span class="o">=</span> <span class="n">avg_num_df</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">avg_obj_df</span><span class="p">)</span>
+
+    <span class="c1"># Ensure that any columns with all NaNs in passed df are in avg_df</span>
+    <span class="c1"># (Numeric type columns that were dropped)</span>
+    <span class="n">dropped_numcols</span> <span class="o">=</span> <span class="p">[</span><span class="n">col</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">col_list</span> <span class="k">if</span> <span class="n">col</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">avg_df</span><span class="o">.</span><span class="n">columns</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">dropped_numcols</span><span class="p">:</span>
+        <span class="n">avg_df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+
+    <span class="c1"># reorder columns before return</span>
+    <span class="n">avg_df</span> <span class="o">=</span> <span class="n">avg_df</span><span class="p">[</span><span class="n">col_list</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">avg_df</span></div>
+
+
+<span class="c1"># if __name__ == &#39;__main__&#39;:</span>
+<span class="c1">#     d_df = interval_averaging(df, freq=&#39;D&#39;, interval_count=24)</span>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, Samuel Frederick.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

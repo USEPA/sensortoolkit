@@ -1,0 +1,917 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>sensortoolkit.deploy._create_deploy_dict &mdash; sensortoolkit 0.5.0b3 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> sensortoolkit
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.5.0b3
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption" role="heading"><span class="caption-text">Documentation Overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../import_sensortoolkit.html">Importing sensortoolkit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../testingattrib_objects/index.html">Testing Attribute Objects</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../testingattrib_objects/airsensor/index.html">The AirSensor Object</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../testingattrib_objects/airsensor/overview.html">AirSensor Instantiation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../testingattrib_objects/airsensor/setup.html">AirSensor Setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../testingattrib_objects/airsensor/load_data.html">Loading Sensor Data</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../testingattrib_objects/referencemonitor/index.html">The ReferenceMonitor Object</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../testingattrib_objects/referencemonitor/overview.html">ReferenceMonitor Instantiation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../testingattrib_objects/referencemonitor/setup.html">ReferenceMonitor Setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../testingattrib_objects/referencemonitor/load_data.html">Loading Reference Data</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../testingattrib_objects/parameter.html">The Parameter Object</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../testingattrib_objects/setup_overview.html">Overview of Instantiating Testing Attributes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../evaluation_objects/index.html">Evaluation Objects</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../evaluation_objects/sensoreval/index.html">Conducting Analysis - The SensorEvaluation Class</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../evaluation_objects/sensoreval/plotting.html">Plotting Methods</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../evaluation_objects/performancereport.html">Creating Testing Reports - The PerformanceReport Class</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../data_structures/index.html">Data Structures and Formatting</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../data_structures/sensor_data.html">Sensor Data Structures</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../data_structures/sdfs.html">Sensor Data Formatting Standard (S-DFS)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../data_structures/reference_data.html">Reference Data Structures</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../data_structures/rdfs.html">Reference Data Formatting Standard (R-DFS)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../data_structures/config_structs.html">Configuration Setup JSON</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../data_structures/eval_structs.html">Performance Evaluation Data Structures</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/index.html">sensortoolkit API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/calculate.html"><code class="docutils literal notranslate"><span class="pre">sensortoolkit.calculate</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.calculate._aqi.html">sensortoolkit.calculate._aqi</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.calculate._aqi.html#resources">Resources</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.calculate._aqi.html#calculation">Calculation</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.calculate._cv.html">sensortoolkit.calculate._cv</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.calculate._cv.cv.html">sensortoolkit.calculate._cv.cv</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.calculate._dewpoint.html">sensortoolkit.calculate._dewpoint</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.calculate._dewpoint.html#calculation">Calculation</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.calculate._intersensor_mean.html">sensortoolkit.calculate._intersensor_mean</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.calculate._intersensor_mean.intersensor_mean.html">sensortoolkit.calculate._intersensor_mean.intersensor_mean</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.calculate._normalize.html">sensortoolkit.calculate._normalize</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.calculate._normalize.normalize.html">sensortoolkit.calculate._normalize.normalize</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.calculate._nowcast_pm25.html">sensortoolkit.calculate._nowcast_pm25</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.calculate._nowcast_pm25.html#module-dependencies">Module Dependencies</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.calculate._nowcast_pm25.html#calculation">Calculation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.calculate._nowcast_pm25.html#resources">Resources</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.calculate._regression_stats.html">sensortoolkit.calculate._regression_stats</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.calculate._regression_stats.html#bias-and-linearity">Bias and linearity</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.calculate._rmse.html">sensortoolkit.calculate._rmse</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.calculate._rmse.rmse.html">sensortoolkit.calculate._rmse.rmse</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.calculate._uptime.html">sensortoolkit.calculate._uptime</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.calculate._uptime.uptime.html">sensortoolkit.calculate._uptime.uptime</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/datetime_utils.html"><code class="docutils literal notranslate"><span class="pre">sensortoolkit.datetime_utils</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.datetime_utils._format_date.html">sensortoolkit.datetime_utils._format_date</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.datetime_utils._format_date.get_todays_date.html">sensortoolkit.datetime_utils._format_date.get_todays_date</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.datetime_utils._get_timestamp_interval.html">sensortoolkit.datetime_utils._get_timestamp_interval</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.datetime_utils._get_timestamp_interval.get_timestamp_interval.html">sensortoolkit.datetime_utils._get_timestamp_interval.get_timestamp_interval</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.datetime_utils._set_datetime_index.html">sensortoolkit.datetime_utils._set_datetime_index</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.datetime_utils._set_datetime_index.set_datetime_index.html">sensortoolkit.datetime_utils._set_datetime_index.set_datetime_index</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.datetime_utils._time_averaging.html">sensortoolkit.datetime_utils._time_averaging</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.datetime_utils._time_averaging.interval_averaging.html">sensortoolkit.datetime_utils._time_averaging.interval_averaging</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.datetime_utils._time_averaging.sensor_averaging.html">sensortoolkit.datetime_utils._time_averaging.sensor_averaging</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.datetime_utils._timeframe_utils.html">sensortoolkit.datetime_utils._timeframe_utils</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.datetime_utils._timeframe_utils.deploy_timestamp_index.html">sensortoolkit.datetime_utils._timeframe_utils.deploy_timestamp_index</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.datetime_utils._timeframe_utils.timeframe_search.html">sensortoolkit.datetime_utils._timeframe_utils.timeframe_search</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/deploy.html"><code class="docutils literal notranslate"><span class="pre">sensortoolkit.deploy</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.deploy._create_deploy_dict.html">sensortoolkit.deploy._create_deploy_dict</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.deploy._create_deploy_dict.construct_deploy_dict.html">sensortoolkit.deploy._create_deploy_dict.construct_deploy_dict</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.deploy._create_deploy_dict.deploy_met_stats.html">sensortoolkit.deploy._create_deploy_dict.deploy_met_stats</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.deploy._create_deploy_dict.deploy_ref_stats.html">sensortoolkit.deploy._create_deploy_dict.deploy_ref_stats</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.deploy._deployment_period.html">sensortoolkit.deploy._deployment_period</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.deploy._deployment_period.deployment_period.html">sensortoolkit.deploy._deployment_period.deployment_period</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.deploy._get_max_conc.html">sensortoolkit.deploy._get_max_conc</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.deploy._get_max_conc.get_max_conc.html">sensortoolkit.deploy._get_max_conc.get_max_conc</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/evaluation.html"><code class="docutils literal notranslate"><span class="pre">sensortoolkit.evaluation</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.evaluation._sensor_eval.html">sensortoolkit.evaluation._sensor_eval</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.evaluation._sensor_eval.SensorEvaluation.html">sensortoolkit.evaluation._sensor_eval.SensorEvaluation</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.evaluation._airsensor.html">sensortoolkit.evaluation._airsensor</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.evaluation._airsensor.AirSensor.html">sensortoolkit.evaluation._airsensor.AirSensor</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.evaluation._referencemonitor.html">sensortoolkit.evaluation._referencemonitor</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.evaluation._referencemonitor.ReferenceMonitor.html">sensortoolkit.evaluation._referencemonitor.ReferenceMonitor</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/lib_utils.html"><code class="docutils literal notranslate"><span class="pre">sensortoolkit.lib_utils</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.lib_utils._copy_datasets.html">sensortoolkit.lib_utils._copy_datasets</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.lib_utils._copy_datasets.copy_datasets.html">sensortoolkit.lib_utils._copy_datasets.copy_datasets</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.lib_utils._flatten_list.html">sensortoolkit.lib_utils._flatten_list</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.lib_utils._flatten_list.flatten_list.html">sensortoolkit.lib_utils._flatten_list.flatten_list</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.lib_utils._sensor_subfolders.html">sensortoolkit.lib_utils._sensor_subfolders</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.lib_utils._sensor_subfolders.create_sensor_directories.html">sensortoolkit.lib_utils._sensor_subfolders.create_sensor_directories</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/model.html"><code class="docutils literal notranslate"><span class="pre">sensortoolkit.model</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.model._apply_correction.html">sensortoolkit.model._apply_correction</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.model._apply_correction.individual_corr.html">sensortoolkit.model._apply_correction.individual_corr</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.model._purpleair_uscorrection.html">sensortoolkit.model._purpleair_uscorrection</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.model._purpleair_uscorrection.purpleair_us_corr.html">sensortoolkit.model._purpleair_uscorrection.purpleair_us_corr</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.model._sensor_ols.html">sensortoolkit.model._sensor_ols</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.model._sensor_ols.sensor_ols.html">sensortoolkit.model._sensor_ols.sensor_ols</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/param.html"><code class="docutils literal notranslate"><span class="pre">sensortoolkit.param</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.param._parameter.html">sensortoolkit.param._parameter</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.param._parameter.Parameter.html">sensortoolkit.param._parameter.Parameter</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.param._targets.html">sensortoolkit.param._targets</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.param._targets.ParameterTargets.html">sensortoolkit.param._targets.ParameterTargets</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/performance_report.html"><code class="docutils literal notranslate"><span class="pre">sensortoolkit.performancereport</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.performancereport._performance_report.html">sensortoolkit.performancereport._performance_report</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.performancereport._performance_report.PerformanceReport.html">sensortoolkit.performancereport._performance_report.PerformanceReport</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/plotting.html"><code class="docutils literal notranslate"><span class="pre">sensortoolkit.plotting</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.plotting._distribution.html">sensortoolkit.plotting._distribution</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.plotting._distribution.met_distrib.html">sensortoolkit.plotting._distribution.met_distrib</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.plotting._distribution.recording_interval_histogram.html">sensortoolkit.plotting._distribution.recording_interval_histogram</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.plotting._distribution.ref_distrib.html">sensortoolkit.plotting._distribution.ref_distrib</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.plotting._errorbars.html">sensortoolkit.plotting._errorbars</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.plotting._errorbars.error_bars.html">sensortoolkit.plotting._errorbars.error_bars</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.plotting._intrasensor_comparison.html">sensortoolkit.plotting._intrasensor_comparison</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.plotting._intrasensor_comparison.compare_sensors.html">sensortoolkit.plotting._intrasensor_comparison.compare_sensors</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.plotting._performance_metrics.html">sensortoolkit.plotting._performance_metrics</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.plotting._performance_metrics.performance_metrics.html">sensortoolkit.plotting._performance_metrics.performance_metrics</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.plotting._plot_formatting.html">sensortoolkit.plotting._plot_formatting</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.plotting._plot_formatting.get_colormap_range.html">sensortoolkit.plotting._plot_formatting.get_colormap_range</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.plotting._plot_formatting.met_scatter_lims.html">sensortoolkit.plotting._plot_formatting.met_scatter_lims</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.plotting._plot_formatting.sensor_subplot_formatting.html">sensortoolkit.plotting._plot_formatting.sensor_subplot_formatting</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.plotting._plot_formatting.set_fontsize.html">sensortoolkit.plotting._plot_formatting.set_fontsize</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.plotting._plot_formatting.subplot_dims.html">sensortoolkit.plotting._plot_formatting.subplot_dims</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.plotting._plot_formatting.wrap_text.html">sensortoolkit.plotting._plot_formatting.wrap_text</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.plotting._scatter.html">sensortoolkit.plotting._scatter</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.plotting._scatter.draw_scatter.html">sensortoolkit.plotting._scatter.draw_scatter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.plotting._scatter.normalized_met_scatter.html">sensortoolkit.plotting._scatter.normalized_met_scatter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.plotting._scatter.scatter_plotter.html">sensortoolkit.plotting._scatter.scatter_plotter</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.plotting._timeseries.html">sensortoolkit.plotting._timeseries</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.plotting._timeseries.deployment_timeline.html">sensortoolkit.plotting._timeseries.deployment_timeline</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.plotting._timeseries.sensor_timeplot.html">sensortoolkit.plotting._timeseries.sensor_timeplot</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qc.html"><code class="docutils literal notranslate"><span class="pre">sensortoolkit.qc</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.qc._duplicate_removal.html">sensortoolkit.qc._duplicate_removal</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.qc._duplicate_removal.remove_duplicates.html">sensortoolkit.qc._duplicate_removal.remove_duplicates</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.qc._interval_downsampling.html">sensortoolkit.qc._interval_downsampling</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.qc._interval_downsampling.apply_downsampling.html">sensortoolkit.qc._interval_downsampling.apply_downsampling</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.qc._interval_downsampling.downsampling_interval.html">sensortoolkit.qc._interval_downsampling.downsampling_interval</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.qc._interval_downsampling.plot_recording_interval.html">sensortoolkit.qc._interval_downsampling.plot_recording_interval</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.qc._interval_downsampling.plot_timedelta_quantiles.html">sensortoolkit.qc._interval_downsampling.plot_timedelta_quantiles</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.qc._interval_downsampling.sensor_timedelta.html">sensortoolkit.qc._interval_downsampling.sensor_timedelta</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.qc._interval_downsampling.timedelta_quantiles.html">sensortoolkit.qc._interval_downsampling.timedelta_quantiles</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.qc._invalidate.html">sensortoolkit.qc._invalidate</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.qc._invalidate.invalidate_period.html">sensortoolkit.qc._invalidate.invalidate_period</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.qc._outlier_detection.html">sensortoolkit.qc._outlier_detection</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.qc._outlier_detection.cooks_outlier_detection.html">sensortoolkit.qc._outlier_detection.cooks_outlier_detection</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.qc._persistent_values.html">sensortoolkit.qc._persistent_values</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.qc._persistent_values.persistent_values.html">sensortoolkit.qc._persistent_values.persistent_values</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.qc._purpleair_abcleaning.html">sensortoolkit.qc._purpleair_abcleaning</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.qc._purpleair_abcleaning.purpleair_ab_averages.html">sensortoolkit.qc._purpleair_abcleaning.purpleair_ab_averages</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/reference.html"><code class="docutils literal notranslate"><span class="pre">sensortoolkit.reference</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._import_airnowtech.html">sensortoolkit.reference._import_airnowtech</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._import_airnowtech.ingest_airnowtech.html">sensortoolkit.reference._import_airnowtech.ingest_airnowtech</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._import_airnowtech.preprocess_airnowtech.html">sensortoolkit.reference._import_airnowtech.preprocess_airnowtech</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._import_airnowtech.sort_airnowtech.html">sensortoolkit.reference._import_airnowtech.sort_airnowtech</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._import_airnowtech.write_to_file.html">sensortoolkit.reference._import_airnowtech.write_to_file</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._import_oaqps.html">sensortoolkit.reference._import_oaqps</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._import_oaqps.format_headers.html">sensortoolkit.reference._import_oaqps.format_headers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._import_oaqps.format_qaqc.html">sensortoolkit.reference._import_oaqps.format_qaqc</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._import_oaqps.format_ref_timestamp.html">sensortoolkit.reference._import_oaqps.format_ref_timestamp</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._import_oaqps.from_envidas.html">sensortoolkit.reference._import_oaqps.from_envidas</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._import_oaqps.from_envista.html">sensortoolkit.reference._import_oaqps.from_envista</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._import_oaqps.ingest_oaqps.html">sensortoolkit.reference._import_oaqps.ingest_oaqps</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._import_oaqps.process_oaqps.html">sensortoolkit.reference._import_oaqps.process_oaqps</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._load_ref_data.html">sensortoolkit.reference._load_ref_data</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._load_ref_data.import_ref_dataframe.html">sensortoolkit.reference._load_ref_data.import_ref_dataframe</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._load_ref_data.load_ref_dataframes.html">sensortoolkit.reference._load_ref_data.load_ref_dataframes</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._ref_api_query.html">sensortoolkit.reference._ref_api_query</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._ref_api_query.date_range_selector.html">sensortoolkit.reference._ref_api_query.date_range_selector</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._ref_api_query.ingest_airnow.html">sensortoolkit.reference._ref_api_query.ingest_airnow</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._ref_api_query.ingest_aqs.html">sensortoolkit.reference._ref_api_query.ingest_aqs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._ref_api_query.modify_ref_cols.html">sensortoolkit.reference._ref_api_query.modify_ref_cols</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._ref_api_query.modify_ref_method_str.html">sensortoolkit.reference._ref_api_query.modify_ref_method_str</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._ref_api_query.parse_sample_data.html">sensortoolkit.reference._ref_api_query.parse_sample_data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._ref_api_query.query_airnow.html">sensortoolkit.reference._ref_api_query.query_airnow</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._ref_api_query.query_aqs.html">sensortoolkit.reference._ref_api_query.query_aqs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._ref_api_query.query_periods.html">sensortoolkit.reference._ref_api_query.query_periods</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._ref_api_query.ref_api_query.html">sensortoolkit.reference._ref_api_query.ref_api_query</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._ref_api_query.save_api_dataset.html">sensortoolkit.reference._ref_api_query.save_api_dataset</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._ref_api_query.select_poc.html">sensortoolkit.reference._ref_api_query.select_poc</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/sensor_ingest.html"><code class="docutils literal notranslate"><span class="pre">sensortoolkit.sensor_ingest</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.sensor_ingest._processed_data_loader.html">sensortoolkit.sensor_ingest._processed_data_loader</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.sensor_ingest._processed_data_loader.processed_data_search.html">sensortoolkit.sensor_ingest._processed_data_loader.processed_data_search</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.sensor_ingest._sensor_import.html">sensortoolkit.sensor_ingest._sensor_import</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.sensor_ingest._sensor_import.ingest_example_make_model.html">sensortoolkit.sensor_ingest._sensor_import.ingest_example_make_model</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.sensor_ingest._sensor_import.ingest_purpleair.html">sensortoolkit.sensor_ingest._sensor_import.ingest_purpleair</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.sensor_ingest._sensor_import.ingest_sensit_ramp.html">sensortoolkit.sensor_ingest._sensor_import.ingest_sensit_ramp</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.sensor_ingest._sensor_import.ingest_wrapper.html">sensortoolkit.sensor_ingest._sensor_import.ingest_wrapper</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.sensor_ingest._sensor_import.sensor_import.html">sensortoolkit.sensor_ingest._sensor_import.sensor_import</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.sensor_ingest._standard_ingest.html">sensortoolkit.sensor_ingest._standard_ingest</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.sensor_ingest._standard_ingest.ParseSetup.html">sensortoolkit.sensor_ingest._standard_ingest.ParseSetup</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.sensor_ingest._standard_ingest.apply_strptime.html">sensortoolkit.sensor_ingest._standard_ingest.apply_strptime</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.sensor_ingest._standard_ingest.standard_ingest.html">sensortoolkit.sensor_ingest._standard_ingest.standard_ingest</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">sensortoolkit</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>sensortoolkit.deploy._create_deploy_dict</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for sensortoolkit.deploy._create_deploy_dict</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">This module constructs and populates the deployment dictionary data</span>
+<span class="sd">structure ``deploy_dict``. Below is an overview of the deployment dictionary:</span>
+
+<span class="sd">* Testing organization</span>
+<span class="sd">    * Organization name, contact information</span>
+<span class="sd">* Testing Location</span>
+<span class="sd">    * Site name, address, coordinates, and AQS site identifier</span>
+<span class="sd">* Deployment Information and Statistics</span>
+<span class="sd">    * Unique deployment groups</span>
+<span class="sd">        * Description of sensor uptime for each sensor unit</span>
+<span class="sd">    * Evaluation parameter statistics</span>
+<span class="sd">        * Precision</span>
+<span class="sd">        * Error</span>
+<span class="sd">        * Description of reference monitor, measured range during</span>
+<span class="sd">          deployment period at 1-hour and 24-hour averages</span>
+<span class="sd">    * Meteorological conditions</span>
+<span class="sd">        * Description of temperature instrument, measured range during</span>
+<span class="sd">          deployment period at 1-hour and 24-hour averages</span>
+<span class="sd">        * Description of relative humidity instrument, measured range during</span>
+<span class="sd">          deployment period at 1-hour and 24-hour averages</span>
+
+<span class="sd">================================================================================</span>
+
+<span class="sd">@Author:</span>
+<span class="sd">  | Samuel Frederick, NSSC Contractor (ORAU)</span>
+<span class="sd">  | U.S. EPA / ORD / CEMM / AMCD / SFSB</span>
+
+<span class="sd">Created:</span>
+<span class="sd">  Mon Nov  9 10:47:56 2020</span>
+<span class="sd">Last Updated:</span>
+<span class="sd">  Tue Jul 12 13:38:00 2021</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+<span class="kn">from</span> <span class="nn">sensortoolkit.calculate</span> <span class="kn">import</span> <span class="n">uptime</span>
+<span class="kn">from</span> <span class="nn">sensortoolkit.lib_utils</span> <span class="kn">import</span> <span class="n">_get_version</span>
+<span class="kn">from</span> <span class="nn">sensortoolkit.param</span> <span class="kn">import</span> <span class="n">Parameter</span>
+<span class="kn">from</span> <span class="nn">sensortoolkit.datetime_utils</span> <span class="kn">import</span> <span class="p">(</span><span class="n">deploy_timestamp_index</span><span class="p">,</span>
+                                          <span class="n">get_timestamp_interval</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="construct_deploy_dict"><a class="viewcode-back" href="../../../api/_autosummary/sensortoolkit.deploy._create_deploy_dict.construct_deploy_dict.html#sensortoolkit.deploy._create_deploy_dict.construct_deploy_dict">[docs]</a><span class="k">def</span> <span class="nf">construct_deploy_dict</span><span class="p">(</span><span class="n">deploy_df</span><span class="p">,</span> <span class="n">full_df_list</span><span class="p">,</span> <span class="n">hourly_df_list</span><span class="p">,</span>
+                          <span class="n">daily_df_list</span><span class="p">,</span> <span class="n">sensor_name</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Create the deployment dictionary, initialize with sensor group info,</span>
+<span class="sd">    time period of deployment, testing agency and location, and library version</span>
+<span class="sd">    and time at which the dictionary were constructed.</span>
+
+<span class="sd">    Determines which sensors match the beginning and end dates for deployment</span>
+<span class="sd">    (provided a timedelta padding window of 1 day around the begin and end</span>
+<span class="sd">    timestamps). Sensors measuring concurrently are grouped together as a</span>
+<span class="sd">    `deployment group`. Sensors with beginning and end deployment dates that</span>
+<span class="sd">    differ from the identified deployment group are assigned ``True`` for the</span>
+<span class="sd">    ``deploy_dict`` sensor unit entry ``deploy_issues``.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        deploy_df (pandas dataframe):</span>
+<span class="sd">            A data frame containing the start time (`Begin`), end time (`End`),</span>
+<span class="sd">            and total duration of evaluation period for each sensor in a</span>
+<span class="sd">            deployment group.</span>
+<span class="sd">        full_df_list (list):</span>
+<span class="sd">            List of sensor data frames of length N (where N is the number of</span>
+<span class="sd">            sensor units in a testing group). Data frames indexed by</span>
+<span class="sd">            at recorded sampling frequency.</span>
+<span class="sd">        hourly_df_list (list):</span>
+<span class="sd">            List of sensor data frames of length N (where N is the number of</span>
+<span class="sd">            sensor units in a testing group). Data frames indexed by</span>
+<span class="sd">            DateTime_UTC at 1-hour averaged sampling frequency.</span>
+<span class="sd">        daily_df_list (list):</span>
+<span class="sd">            List of sensor data frames of length N (where N is the number of</span>
+<span class="sd">            sensor units in a testing group). Data frames indexed by</span>
+<span class="sd">            DateTime_UTC at 24-hour averaged sampling frequency.</span>
+<span class="sd">        sensor_name (str):</span>
+<span class="sd">            The make and model of the sensor being evaluated.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        deploy_dict:</span>
+<span class="sd">            Dictionary containing separate deployment group start and</span>
+<span class="sd">            end times (based on the latest (max) start timestamp and earliest</span>
+<span class="sd">            (min) end timestamp in group), deployment duration, and sensor</span>
+<span class="sd">            serial IDs for devices within each deployment group.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># Testing organization information</span>
+    <span class="n">testing_org</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;testing_org&#39;</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;Deployment name&#39;</span><span class="p">:</span> <span class="s1">&#39;[Name of Deployment]&#39;</span><span class="p">,</span>
+                                             <span class="s1">&#39;Org name&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;[Organization name line 1]&#39;</span><span class="p">,</span>
+                                                          <span class="s1">&#39;[Organization name line 2]&#39;</span><span class="p">],</span>
+                                             <span class="s1">&#39;Website&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;website name&#39;</span><span class="p">:</span> <span class="s1">&#39;[Website Name]&#39;</span><span class="p">,</span>
+                                                         <span class="s1">&#39;website link&#39;</span><span class="p">:</span> <span class="s1">&#39;[Website Link]&#39;</span><span class="p">},</span>
+                                             <span class="s1">&#39;Contact email&#39;</span><span class="p">:</span> <span class="s1">&#39;[Contact Email]&#39;</span><span class="p">,</span>
+                                             <span class="s1">&#39;Contact phone&#39;</span><span class="p">:</span> <span class="s1">&#39;[Contact Phone Number]&#39;</span><span class="p">})</span>
+
+    <span class="c1"># Testing location information</span>
+    <span class="n">testing_loc</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;testing_loc&#39;</span><span class="p">,</span>  <span class="p">{</span><span class="s1">&#39;Site name&#39;</span><span class="p">:</span> <span class="s1">&#39;[Site Name]&#39;</span><span class="p">,</span>
+                                              <span class="s1">&#39;Site address&#39;</span><span class="p">:</span> <span class="s1">&#39;[Site Address]&#39;</span><span class="p">,</span>
+                                              <span class="s1">&#39;Site lat&#39;</span><span class="p">:</span> <span class="s1">&#39;[Site Latitude]&#39;</span><span class="p">,</span>
+                                              <span class="s1">&#39;Site long&#39;</span><span class="p">:</span> <span class="s1">&#39;[Site Longitude]&#39;</span><span class="p">,</span>
+                                              <span class="s1">&#39;Site AQS ID&#39;</span><span class="p">:</span> <span class="s1">&#39;[Site AQS ID]&#39;</span><span class="p">})</span>
+
+    <span class="n">current_time</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1"> %H:%M:%S %p&#39;</span><span class="p">)</span>
+    <span class="n">deploy_dict</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;sensortoolkit Version&#39;</span><span class="p">:</span> <span class="n">_get_version</span><span class="p">(),</span>
+                   <span class="s1">&#39;Date of Analysis&#39;</span><span class="p">:</span> <span class="n">current_time</span><span class="p">,</span>
+                   <span class="s1">&#39;Sensor Name&#39;</span><span class="p">:</span> <span class="n">sensor_name</span><span class="p">,</span>
+                   <span class="s1">&#39;Sensor Firmware Version&#39;</span><span class="p">:</span> <span class="s1">&#39;Unspecified&#39;</span><span class="p">,</span>
+                   <span class="s1">&#39;Deployment Groups&#39;</span><span class="p">:</span> <span class="p">{},</span>
+                   <span class="s1">&#39;Testing Organization&#39;</span><span class="p">:</span> <span class="n">testing_org</span><span class="p">,</span>
+                   <span class="s1">&#39;Testing Location&#39;</span><span class="p">:</span> <span class="n">testing_loc</span><span class="p">}</span>
+
+    <span class="n">deploy_grp_n</span> <span class="o">=</span> <span class="mi">1</span>
+
+    <span class="k">while</span> <span class="n">deploy_df</span><span class="o">.</span><span class="n">empty</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
+        <span class="n">i</span> <span class="o">=</span> <span class="n">deploy_df</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+        <span class="n">match_begin</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">deploy_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="s1">&#39;Begin&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">deploy_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s1">&#39;Begin&#39;</span><span class="p">]</span>
+                          <span class="p">)</span> <span class="o">&lt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">Timedelta</span><span class="p">(</span><span class="s1">&#39;1 day&#39;</span><span class="p">)</span>
+
+        <span class="n">deploy</span> <span class="o">=</span> <span class="n">deploy_df</span><span class="p">[</span><span class="n">match_begin</span><span class="p">]</span>
+
+        <span class="c1"># Date (YYYY-MM-DD) of deployment group end, calculate mode</span>
+        <span class="n">end_date</span> <span class="o">=</span> <span class="n">deploy</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">&quot;End&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">end_date_mode</span> <span class="o">=</span> <span class="n">end_date</span><span class="o">.</span><span class="n">mode</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+
+        <span class="c1"># Sensors that concluded deployment before end of majority of group</span>
+        <span class="n">deploy</span><span class="p">[</span><span class="s1">&#39;Issues&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">end_date</span> <span class="o">!=</span> <span class="n">end_date_mode</span>
+
+        <span class="n">serials</span> <span class="o">=</span> <span class="p">{</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">):</span> <span class="n">serial</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">serial</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span>
+                   <span class="n">deploy</span><span class="o">.</span><span class="n">Sensor_Number</span><span class="p">,</span> <span class="n">deploy</span><span class="o">.</span><span class="n">Sensor_Serial</span><span class="p">)}</span>
+
+        <span class="n">deployments</span> <span class="o">=</span> <span class="n">deploy_dict</span><span class="p">[</span><span class="s1">&#39;Deployment Groups&#39;</span><span class="p">]</span>
+
+        <span class="n">deployments</span><span class="p">[</span><span class="s1">&#39;Group &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">deploy_grp_n</span><span class="p">)]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">deployments</span><span class="p">[</span><span class="s1">&#39;Group &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">deploy_grp_n</span><span class="p">)][</span><span class="s1">&#39;sensors&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="n">sensor_info</span> <span class="o">=</span> <span class="p">{</span><span class="n">i</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;serial_id&#39;</span><span class="p">:</span> <span class="n">j</span><span class="p">}</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">serials</span><span class="o">.</span><span class="n">keys</span><span class="p">(),</span>
+                                                           <span class="n">serials</span><span class="o">.</span><span class="n">values</span><span class="p">())}</span>
+
+        <span class="n">deployments</span><span class="p">[</span><span class="s1">&#39;Group &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">deploy_grp_n</span><span class="p">)][</span><span class="s1">&#39;sensors&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">sensor_info</span>
+
+        <span class="n">deployments</span><span class="p">[</span><span class="s1">&#39;Group &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">deploy_grp_n</span><span class="p">)][</span><span class="s1">&#39;eval_start&#39;</span><span class="p">]</span> <span class="o">=</span> \
+            <span class="n">deploy</span><span class="o">.</span><span class="n">Begin</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2"> %H:%M:%S&quot;</span><span class="p">)</span>
+        <span class="n">deployments</span><span class="p">[</span><span class="s1">&#39;Group &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">deploy_grp_n</span><span class="p">)][</span><span class="s1">&#39;eval_end&#39;</span><span class="p">]</span> <span class="o">=</span> \
+            <span class="n">deploy</span><span class="o">.</span><span class="n">End</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2"> %H:%M:%S&quot;</span><span class="p">)</span>
+        <span class="n">deployments</span><span class="p">[</span><span class="s1">&#39;Group &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">deploy_grp_n</span><span class="p">)][</span><span class="s1">&#39;eval_duration&#39;</span><span class="p">]</span> <span class="o">=</span> \
+            <span class="nb">str</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">deploy</span><span class="o">.</span><span class="n">Begin</span><span class="o">.</span><span class="n">min</span><span class="p">()</span> <span class="o">-</span> <span class="n">deploy</span><span class="o">.</span><span class="n">End</span><span class="o">.</span><span class="n">max</span><span class="p">()))</span>
+
+        <span class="n">start</span> <span class="o">=</span> <span class="n">deployments</span><span class="p">[</span><span class="s1">&#39;Group &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">deploy_grp_n</span><span class="p">)][</span><span class="s1">&#39;eval_start&#39;</span><span class="p">]</span>
+        <span class="n">end</span> <span class="o">=</span> <span class="n">deployments</span><span class="p">[</span><span class="s1">&#39;Group &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">deploy_grp_n</span><span class="p">)][</span><span class="s1">&#39;eval_end&#39;</span><span class="p">]</span>
+
+        <span class="n">hourly_idx</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span>
+                        <span class="n">pd</span><span class="o">.</span><span class="n">date_range</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">,</span>
+                                      <span class="n">freq</span><span class="o">=</span><span class="s1">&#39;H&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1"> %H:00:00&#39;</span><span class="p">))</span>
+        <span class="n">daily_idx</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span>
+                        <span class="n">pd</span><span class="o">.</span><span class="n">date_range</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">,</span>
+                                      <span class="n">freq</span><span class="o">=</span><span class="s1">&#39;D&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1">&#39;</span><span class="p">))</span>
+
+        <span class="k">for</span> <span class="n">sensor_n</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">sensor_info</span><span class="o">.</span><span class="n">keys</span><span class="p">()):</span>
+            <span class="n">i</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">sensor_n</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
+
+            <span class="n">full_df</span> <span class="o">=</span> <span class="n">full_df_list</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+            <span class="n">hourly_df</span> <span class="o">=</span> <span class="n">hourly_df_list</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+            <span class="n">daily_df</span> <span class="o">=</span> <span class="n">daily_df_list</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+
+            <span class="c1"># Record whether sensor encountered issues during deployment, ended</span>
+            <span class="c1"># deployment early</span>
+            <span class="n">sensor_df</span> <span class="o">=</span> <span class="n">deploy</span><span class="p">[</span><span class="n">deploy</span><span class="o">.</span><span class="n">Sensor_Number</span> <span class="o">==</span> <span class="n">sensor_n</span><span class="p">]</span>
+            <span class="n">sensor_df</span> <span class="o">=</span> <span class="n">sensor_df</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">sensor_info</span><span class="p">[</span><span class="n">sensor_n</span><span class="p">][</span><span class="s1">&#39;deploy_issues&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="nb">bool</span><span class="p">(</span>
+                                                        <span class="n">sensor_df</span><span class="o">.</span><span class="n">Issues</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+
+            <span class="c1"># Compute recording interval for data</span>
+            <span class="n">time_delta</span> <span class="o">=</span> <span class="n">get_timestamp_interval</span><span class="p">(</span><span class="n">full_df</span><span class="p">)</span>
+            <span class="n">sensor_info</span><span class="p">[</span><span class="n">sensor_n</span><span class="p">][</span><span class="s1">&#39;recording_interval&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">time_delta</span>
+
+            <span class="c1"># 1-hr uptime</span>
+            <span class="n">sensor_h_uptime</span> <span class="o">=</span> <span class="n">uptime</span><span class="p">(</span><span class="n">hourly_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">start</span><span class="p">:</span><span class="n">end</span><span class="p">,</span> <span class="p">:],</span>
+                                                <span class="n">key</span><span class="o">=</span><span class="n">sensor_n</span><span class="p">)</span>
+            <span class="n">sensor_info</span><span class="p">[</span><span class="n">sensor_n</span><span class="p">][</span><span class="s1">&#39;uptime_1-hour&#39;</span><span class="p">]</span> <span class="o">=</span> \
+                <span class="n">sensor_h_uptime</span><span class="p">[</span><span class="n">sensor_n</span><span class="p">][</span><span class="s1">&#39;Uptime&#39;</span><span class="p">]</span>
+
+            <span class="c1"># 24-hr uptime</span>
+            <span class="n">sensor_d_uptime</span> <span class="o">=</span> <span class="n">uptime</span><span class="p">(</span><span class="n">daily_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">start</span><span class="p">:</span><span class="n">end</span><span class="p">,</span> <span class="p">:],</span>
+                                                <span class="n">key</span><span class="o">=</span><span class="n">sensor_n</span><span class="p">)</span>
+            <span class="n">sensor_info</span><span class="p">[</span><span class="n">sensor_n</span><span class="p">][</span><span class="s1">&#39;uptime_24-hour&#39;</span><span class="p">]</span> <span class="o">=</span> \
+                <span class="n">sensor_d_uptime</span><span class="p">[</span><span class="n">sensor_n</span><span class="p">][</span><span class="s1">&#39;Uptime&#39;</span><span class="p">]</span>
+
+        <span class="n">deploy_df</span> <span class="o">=</span> <span class="n">deploy_df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">deploy</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">deploy_grp_n</span> <span class="o">+=</span> <span class="mi">1</span>
+
+    <span class="k">return</span> <span class="n">deploy_dict</span></div>
+
+
+<div class="viewcode-block" id="deploy_ref_stats"><a class="viewcode-back" href="../../../api/_autosummary/sensortoolkit.deploy._create_deploy_dict.deploy_ref_stats.html#sensortoolkit.deploy._create_deploy_dict.deploy_ref_stats">[docs]</a><span class="k">def</span> <span class="nf">deploy_ref_stats</span><span class="p">(</span><span class="n">deploy_dict</span><span class="p">,</span> <span class="n">ref_df</span><span class="p">,</span> <span class="n">cal_check_dict</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">param</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                  <span class="n">ref_name</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Add reference monitor statistics to the parameter statistics subfield in</span>
+<span class="sd">    the deployment dictionary.</span>
+
+<span class="sd">    Details added include</span>
+<span class="sd">    ----------------------</span>
+<span class="sd">    1. The FRM/FEM monitor name</span>
+<span class="sd">    2. The minimum concentration recorded at the specified interval</span>
+<span class="sd">       averaging.</span>
+<span class="sd">    3. The maximum concentration recorded at the specified interval</span>
+<span class="sd">       averaging.</span>
+<span class="sd">    4. The number of intervals during which the FRM/FEM exceeds the goal</span>
+<span class="sd">       concentration recommended by the performance targets testing report</span>
+<span class="sd">       for elevated concentrations (goal &gt;= three days).</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        deploy_dict (dict):</span>
+<span class="sd">            Dictionary containing separate deployment group start and end times</span>
+<span class="sd">            (based on the latest (max) start timestamp and earliest (min)</span>
+<span class="sd">            end timestamp in group), deployment duration, and sensor serial IDs</span>
+<span class="sd">            for devices within each deployment group.</span>
+<span class="sd">    	ref_df (pandas dataframe):</span>
+<span class="sd">            Dataframe for reference concentrations at either 1-hour or 24-hour</span>
+<span class="sd">            averaging depending on the performance targets recommeneded</span>
+<span class="sd">            averaging interval.</span>
+<span class="sd">    	cal_check_dict (dict):</span>
+<span class="sd">            Description</span>
+<span class="sd">        param_obj (str):</span>
+<span class="sd">            The evaluation parameter</span>
+<span class="sd">        ref_name (str):</span>
+<span class="sd">            The name of the FRM/FEM monitor (make and model).</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        deploy_dict:</span>
+<span class="sd">            Dictionary containing separate deployment group start and end times</span>
+<span class="sd">            (based on the latest (max) start timestamp and earliest (min)</span>
+<span class="sd">            end timestamp in group), deployment duration, and sensor serial IDs</span>
+<span class="sd">            for devices within each deployment group.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">param_obj</span> <span class="o">=</span> <span class="n">Parameter</span><span class="p">(</span><span class="n">param</span><span class="p">)</span>
+    <span class="n">param_name</span> <span class="o">=</span> <span class="n">param_obj</span><span class="o">.</span><span class="n">name</span>
+    <span class="n">fmt_param</span> <span class="o">=</span> <span class="n">param_obj</span><span class="o">.</span><span class="n">format_name</span>
+    <span class="n">fmt_param_units</span> <span class="o">=</span> <span class="n">param_obj</span><span class="o">.</span><span class="n">units</span>
+
+    <span class="n">date_index</span><span class="p">,</span> <span class="n">avg_suffix</span> <span class="o">=</span> <span class="n">deploy_timestamp_index</span><span class="p">(</span><span class="n">ref_df</span><span class="p">,</span>
+                                                    <span class="n">averaging_suffix</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">param_name</span> <span class="o">==</span> <span class="s1">&#39;PM25&#39;</span><span class="p">:</span>
+        <span class="n">conc_goal</span> <span class="o">=</span> <span class="mi">25</span>  <span class="c1"># Concentration goal: 25 ug/m^3 for at least one day</span>
+        <span class="c1">#cal_check_dict = cal_check_dict[&#39;PM cal checks&#39;][ref_name]</span>
+    <span class="k">elif</span> <span class="n">param_name</span> <span class="o">==</span> <span class="s1">&#39;O3&#39;</span><span class="p">:</span>
+        <span class="n">conc_goal</span> <span class="o">=</span> <span class="mi">60</span>  <span class="c1"># Concentration goal: 60 ppbv for at least one day</span>
+        <span class="c1">#cal_check_dict = cal_check_dict[&#39;Gas cal checks&#39;][ref_name]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">conc_goal</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="c1">#cal_check_dict = None</span>
+
+    <span class="k">for</span> <span class="n">group</span> <span class="ow">in</span> <span class="n">deploy_dict</span><span class="p">[</span><span class="s1">&#39;Deployment Groups&#39;</span><span class="p">]:</span>
+        <span class="n">deploy</span> <span class="o">=</span> <span class="n">deploy_dict</span><span class="p">[</span><span class="s1">&#39;Deployment Groups&#39;</span><span class="p">][</span><span class="n">group</span><span class="p">]</span>
+        <span class="n">start</span> <span class="o">=</span> <span class="n">deploy</span><span class="p">[</span><span class="s1">&#39;eval_start&#39;</span><span class="p">]</span>
+        <span class="n">end</span> <span class="o">=</span> <span class="n">deploy</span><span class="p">[</span><span class="s1">&#39;eval_end&#39;</span><span class="p">]</span>
+
+        <span class="n">ref_data</span> <span class="o">=</span> <span class="n">ref_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">start</span><span class="p">:</span><span class="n">end</span><span class="p">,</span> <span class="n">param_name</span> <span class="o">+</span> <span class="s1">&#39;_Value&#39;</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="n">param_name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">deploy</span><span class="p">:</span>
+            <span class="n">deploy</span><span class="p">[</span><span class="n">param_name</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="n">deploy</span><span class="p">[</span><span class="n">param_name</span><span class="p">][</span><span class="s1">&#39;Reference&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="k">if</span> <span class="s1">&#39;Reference&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">deploy</span><span class="p">[</span><span class="n">param_name</span><span class="p">]:</span>
+            <span class="n">deploy</span><span class="p">[</span><span class="n">param_name</span><span class="p">][</span><span class="s1">&#39;Reference&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="n">stats_loc</span> <span class="o">=</span> <span class="n">deploy</span><span class="p">[</span><span class="n">param_name</span><span class="p">][</span><span class="s1">&#39;Reference&#39;</span><span class="p">]</span>
+
+        <span class="n">stats_loc</span><span class="p">[</span><span class="s1">&#39;reference_name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ref_name</span>
+        <span class="n">stats_loc</span><span class="p">[</span><span class="s1">&#39;conc_min&#39;</span> <span class="o">+</span> <span class="n">avg_suffix</span><span class="p">]</span> <span class="o">=</span> \
+            <span class="nb">float</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{0:.3f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ref_data</span><span class="o">.</span><span class="n">min</span><span class="p">()))</span>
+        <span class="n">stats_loc</span><span class="p">[</span><span class="s1">&#39;conc_max&#39;</span> <span class="o">+</span> <span class="n">avg_suffix</span><span class="p">]</span> <span class="o">=</span> \
+            <span class="nb">float</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{0:.3f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ref_data</span><span class="o">.</span><span class="n">max</span><span class="p">()))</span>
+        <span class="n">stats_loc</span><span class="p">[</span><span class="s1">&#39;n_exceed_conc_goal&#39;</span> <span class="o">+</span> <span class="n">avg_suffix</span><span class="p">]</span> <span class="o">=</span> \
+            <span class="nb">int</span><span class="p">(</span><span class="n">ref_data</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">ref_data</span> <span class="o">&gt;</span> <span class="n">conc_goal</span><span class="p">)</span><span class="o">.</span><span class="n">count</span><span class="p">())</span>
+        <span class="c1">#stats_loc[&#39;cal_check_dates&#39;] = cal_check_dict</span>
+
+        <span class="k">if</span> <span class="n">ref_data</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
+            <span class="n">stats_loc</span><span class="p">[</span><span class="s1">&#39;conc_min&#39;</span> <span class="o">+</span> <span class="n">avg_suffix</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="n">stats_loc</span><span class="p">[</span><span class="s1">&#39;conc_max&#39;</span> <span class="o">+</span> <span class="n">avg_suffix</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="n">stats_loc</span><span class="p">[</span><span class="s1">&#39;n_exceed_conc_goal&#39;</span> <span class="o">+</span> <span class="n">avg_suffix</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">return</span> <span class="n">deploy_dict</span></div>
+
+
+<div class="viewcode-block" id="deploy_met_stats"><a class="viewcode-back" href="../../../api/_autosummary/sensortoolkit.deploy._create_deploy_dict.deploy_met_stats.html#sensortoolkit.deploy._create_deploy_dict.deploy_met_stats">[docs]</a><span class="k">def</span> <span class="nf">deploy_met_stats</span><span class="p">(</span><span class="n">deploy_dict</span><span class="p">,</span> <span class="n">df_list</span><span class="p">,</span> <span class="n">met_ref_df</span><span class="p">,</span>
+                  <span class="n">cal_check_dict</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Add meteorological instrument statistics to the parameter statistics</span>
+<span class="sd">    subfield in the deployment dictionary.</span>
+
+<span class="sd">    Details added include:</span>
+<span class="sd">    ----------------------</span>
+<span class="sd">    1. The name of the instrument collocated nearby sensor deployment location.</span>
+<span class="sd">    2. The minimum value recorded at the specified interval averaging.</span>
+<span class="sd">    3. The maximum value recorded at the specified interval averaging.</span>
+<span class="sd">    4. The number of intervals during which the instrument exceeds the</span>
+<span class="sd">       manufacturer&#39;s recommended target range for instrument performance.</span>
+<span class="sd">       This is provisionally set for RH (exceedence when &lt;=10% or &gt;= 90%) and</span>
+<span class="sd">       Temp (exceedence when &lt;=-20 C or &gt;= 40 C).</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">    	deploy_dict (dict):</span>
+<span class="sd">            Dictionary containing separate deployment group start and end times</span>
+<span class="sd">            (based on the latest (max) start timestamp and earliest (min)</span>
+<span class="sd">            end timestamp in group), deployment duration, and sensor serial IDs</span>
+<span class="sd">            for devices within each deployment group.</span>
+<span class="sd">    	df_list (list):</span>
+<span class="sd">            List of pandas dataframes for sensor measurements at either 1-hr or</span>
+<span class="sd">            24-hr averaging intervals.</span>
+<span class="sd">        met_ref_df (pandas dataframe):</span>
+<span class="sd">            A dataframe containing meteorological parameters recorded at the</span>
+<span class="sd">            testing site during the evaluation period (either 1-hr or 24-hr</span>
+<span class="sd">            averaging intervals).</span>
+<span class="sd">    	cal_check_dict (dict):</span>
+<span class="sd">            Description</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        deploy_dict:</span>
+<span class="sd">            Dictionary containing separate deployment group start and end times</span>
+<span class="sd">            (based on the latest (max) start timestamp and earliest (min)</span>
+<span class="sd">            end timestamp in group), deployment duration, and sensor serial IDs</span>
+<span class="sd">            for devices within each deployment group.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">met_str</span> <span class="o">=</span> <span class="s1">&#39;Meteorological Conditions&#39;</span>
+    <span class="n">date_index</span><span class="p">,</span> <span class="n">avg_suffix</span> <span class="o">=</span> <span class="n">deploy_timestamp_index</span><span class="p">(</span><span class="n">met_ref_df</span><span class="p">,</span>
+                                                    <span class="n">averaging_suffix</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="c1">#cal_check_dict = cal_check_dict[&#39;Met cal checks&#39;]</span>
+    <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;Temp&#39;</span><span class="p">,</span> <span class="s1">&#39;RH&#39;</span><span class="p">]:</span>
+        <span class="n">param_obj</span> <span class="o">=</span> <span class="n">Parameter</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+        <span class="n">param_name</span> <span class="o">=</span> <span class="n">param_obj</span><span class="o">.</span><span class="n">name</span>
+        <span class="n">fmt_param</span> <span class="o">=</span> <span class="n">param_obj</span><span class="o">.</span><span class="n">format_name</span>
+        <span class="n">fmt_param_units</span> <span class="o">=</span> <span class="n">param_obj</span><span class="o">.</span><span class="n">units</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">ref_name</span> <span class="o">=</span> <span class="n">met_ref_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="n">param_name</span> <span class="o">+</span> <span class="s1">&#39;_Method&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span>
+                                            <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">))</span><span class="o">.</span><span class="n">unique</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">except</span> <span class="ne">IndexError</span><span class="p">:</span>
+            <span class="n">ref_name</span> <span class="o">=</span> <span class="s1">&#39;Unknown Reference&#39;</span>
+
+        <span class="k">if</span> <span class="n">param_name</span> <span class="o">==</span> <span class="s1">&#39;Temp&#39;</span><span class="p">:</span>
+            <span class="n">max_criterion</span> <span class="o">=</span> <span class="mi">40</span>  <span class="c1"># provisional criterion for upper lim (deg C)</span>
+            <span class="n">min_criterion</span> <span class="o">=</span> <span class="o">-</span><span class="mi">20</span>  <span class="c1"># provisional criterion for lower lim (deg C)</span>
+        <span class="k">if</span> <span class="n">param_name</span> <span class="o">==</span> <span class="s1">&#39;RH&#39;</span><span class="p">:</span>
+            <span class="n">max_criterion</span> <span class="o">=</span> <span class="mi">90</span>  <span class="c1"># provisional criterion for upper lim (%)</span>
+            <span class="n">min_criterion</span> <span class="o">=</span> <span class="mi">10</span>  <span class="c1"># provisional criterion for lower lim (%)</span>
+
+        <span class="k">for</span> <span class="n">group</span> <span class="ow">in</span> <span class="n">deploy_dict</span><span class="p">[</span><span class="s1">&#39;Deployment Groups&#39;</span><span class="p">]:</span>
+            <span class="n">deploy</span> <span class="o">=</span> <span class="n">deploy_dict</span><span class="p">[</span><span class="s1">&#39;Deployment Groups&#39;</span><span class="p">][</span><span class="n">group</span><span class="p">]</span>
+            <span class="n">start</span> <span class="o">=</span> <span class="n">deploy</span><span class="p">[</span><span class="s1">&#39;eval_start&#39;</span><span class="p">]</span>
+            <span class="n">end</span> <span class="o">=</span> <span class="n">deploy</span><span class="p">[</span><span class="s1">&#39;eval_end&#39;</span><span class="p">]</span>
+
+            <span class="n">ref_data</span> <span class="o">=</span> <span class="n">met_ref_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">start</span><span class="p">:</span><span class="n">end</span><span class="p">,</span>  <span class="n">param_name</span> <span class="o">+</span> <span class="s1">&#39;_Value&#39;</span><span class="p">]</span>
+
+            <span class="n">grp_idx</span> <span class="o">=</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">deploy</span><span class="p">[</span><span class="s1">&#39;sensors&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">keys</span><span class="p">()]</span>
+            <span class="n">data_pairs</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="n">grp_idx</span><span class="p">:</span>
+                <span class="n">df</span> <span class="o">=</span> <span class="n">df_list</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
+                <span class="n">start</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>
+                <span class="n">end</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+                <span class="n">data_pairs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                            <span class="n">met_ref_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">start</span><span class="p">:</span><span class="n">end</span><span class="p">,</span>
+                                           <span class="n">param_name</span> <span class="o">+</span> <span class="s1">&#39;_Value&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span><span class="o">.</span><span class="n">size</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">met_str</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">deploy</span><span class="p">:</span>
+                <span class="n">deploy</span><span class="p">[</span><span class="n">met_str</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+
+            <span class="k">if</span> <span class="n">fmt_param</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">deploy</span><span class="p">[</span><span class="n">met_str</span><span class="p">]:</span>
+                <span class="n">deploy</span><span class="p">[</span><span class="n">met_str</span><span class="p">][</span><span class="n">fmt_param</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+
+            <span class="n">stats_loc</span> <span class="o">=</span> <span class="n">deploy</span><span class="p">[</span><span class="n">met_str</span><span class="p">][</span><span class="n">fmt_param</span><span class="p">]</span>
+
+            <span class="n">stats_loc</span><span class="p">[</span><span class="s1">&#39;instrument_name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ref_name</span>
+            <span class="n">stats_loc</span><span class="p">[</span><span class="s1">&#39;min&#39;</span> <span class="o">+</span> <span class="n">avg_suffix</span><span class="p">]</span> <span class="o">=</span> \
+                <span class="nb">float</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{0:.3f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ref_data</span><span class="o">.</span><span class="n">min</span><span class="p">()))</span>
+            <span class="n">stats_loc</span><span class="p">[</span><span class="s1">&#39;max&#39;</span> <span class="o">+</span> <span class="n">avg_suffix</span><span class="p">]</span> <span class="o">=</span> \
+                <span class="nb">float</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{0:.3f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ref_data</span><span class="o">.</span><span class="n">max</span><span class="p">()))</span>
+            <span class="n">stats_loc</span><span class="p">[</span><span class="s1">&#39;n_exceed_target_criteria&#39;</span> <span class="o">+</span> <span class="n">avg_suffix</span><span class="p">]</span> <span class="o">=</span> \
+                <span class="nb">int</span><span class="p">(</span><span class="n">ref_data</span><span class="o">.</span><span class="n">where</span><span class="p">((</span><span class="n">ref_data</span> <span class="o">&gt;</span> <span class="n">max_criterion</span><span class="p">)</span> <span class="o">|</span>
+                                   <span class="p">(</span><span class="n">ref_data</span> <span class="o">&lt;</span> <span class="n">min_criterion</span><span class="p">))</span><span class="o">.</span><span class="n">count</span><span class="p">())</span>
+            <span class="n">stats_loc</span><span class="p">[</span><span class="s1">&#39;n_measurement_pairs&#39;</span> <span class="o">+</span> <span class="n">avg_suffix</span><span class="p">]</span> <span class="o">=</span> \
+                <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">data_pairs</span><span class="p">)</span>
+
+            <span class="c1">#deploy[met_str][&#39;cal_check_dates&#39;] = cal_check_dict</span>
+
+    <span class="k">return</span> <span class="n">deploy_dict</span></div>
+
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, Samuel Frederick.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

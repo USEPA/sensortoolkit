@@ -1,0 +1,882 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>sensortoolkit.plotting._plot_formatting &mdash; sensortoolkit 0.5.0b3 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> sensortoolkit
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.5.0b3
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption" role="heading"><span class="caption-text">Documentation Overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../import_sensortoolkit.html">Importing sensortoolkit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../testingattrib_objects/index.html">Testing Attribute Objects</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../testingattrib_objects/airsensor/index.html">The AirSensor Object</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../testingattrib_objects/airsensor/overview.html">AirSensor Instantiation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../testingattrib_objects/airsensor/setup.html">AirSensor Setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../testingattrib_objects/airsensor/load_data.html">Loading Sensor Data</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../testingattrib_objects/referencemonitor/index.html">The ReferenceMonitor Object</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../testingattrib_objects/referencemonitor/overview.html">ReferenceMonitor Instantiation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../testingattrib_objects/referencemonitor/setup.html">ReferenceMonitor Setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../testingattrib_objects/referencemonitor/load_data.html">Loading Reference Data</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../testingattrib_objects/parameter.html">The Parameter Object</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../testingattrib_objects/setup_overview.html">Overview of Instantiating Testing Attributes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../evaluation_objects/index.html">Evaluation Objects</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../evaluation_objects/sensoreval/index.html">Conducting Analysis - The SensorEvaluation Class</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../evaluation_objects/sensoreval/plotting.html">Plotting Methods</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../evaluation_objects/performancereport.html">Creating Testing Reports - The PerformanceReport Class</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../data_structures/index.html">Data Structures and Formatting</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../data_structures/sensor_data.html">Sensor Data Structures</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../data_structures/sdfs.html">Sensor Data Formatting Standard (S-DFS)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../data_structures/reference_data.html">Reference Data Structures</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../data_structures/rdfs.html">Reference Data Formatting Standard (R-DFS)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../data_structures/config_structs.html">Configuration Setup JSON</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../data_structures/eval_structs.html">Performance Evaluation Data Structures</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/index.html">sensortoolkit API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/calculate.html"><code class="docutils literal notranslate"><span class="pre">sensortoolkit.calculate</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.calculate._aqi.html">sensortoolkit.calculate._aqi</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.calculate._aqi.html#resources">Resources</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.calculate._aqi.html#calculation">Calculation</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.calculate._cv.html">sensortoolkit.calculate._cv</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.calculate._cv.cv.html">sensortoolkit.calculate._cv.cv</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.calculate._dewpoint.html">sensortoolkit.calculate._dewpoint</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.calculate._dewpoint.html#calculation">Calculation</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.calculate._intersensor_mean.html">sensortoolkit.calculate._intersensor_mean</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.calculate._intersensor_mean.intersensor_mean.html">sensortoolkit.calculate._intersensor_mean.intersensor_mean</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.calculate._normalize.html">sensortoolkit.calculate._normalize</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.calculate._normalize.normalize.html">sensortoolkit.calculate._normalize.normalize</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.calculate._nowcast_pm25.html">sensortoolkit.calculate._nowcast_pm25</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.calculate._nowcast_pm25.html#module-dependencies">Module Dependencies</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.calculate._nowcast_pm25.html#calculation">Calculation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.calculate._nowcast_pm25.html#resources">Resources</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.calculate._regression_stats.html">sensortoolkit.calculate._regression_stats</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.calculate._regression_stats.html#bias-and-linearity">Bias and linearity</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.calculate._rmse.html">sensortoolkit.calculate._rmse</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.calculate._rmse.rmse.html">sensortoolkit.calculate._rmse.rmse</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.calculate._uptime.html">sensortoolkit.calculate._uptime</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.calculate._uptime.uptime.html">sensortoolkit.calculate._uptime.uptime</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/datetime_utils.html"><code class="docutils literal notranslate"><span class="pre">sensortoolkit.datetime_utils</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.datetime_utils._format_date.html">sensortoolkit.datetime_utils._format_date</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.datetime_utils._format_date.get_todays_date.html">sensortoolkit.datetime_utils._format_date.get_todays_date</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.datetime_utils._get_timestamp_interval.html">sensortoolkit.datetime_utils._get_timestamp_interval</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.datetime_utils._get_timestamp_interval.get_timestamp_interval.html">sensortoolkit.datetime_utils._get_timestamp_interval.get_timestamp_interval</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.datetime_utils._set_datetime_index.html">sensortoolkit.datetime_utils._set_datetime_index</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.datetime_utils._set_datetime_index.set_datetime_index.html">sensortoolkit.datetime_utils._set_datetime_index.set_datetime_index</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.datetime_utils._time_averaging.html">sensortoolkit.datetime_utils._time_averaging</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.datetime_utils._time_averaging.interval_averaging.html">sensortoolkit.datetime_utils._time_averaging.interval_averaging</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.datetime_utils._time_averaging.sensor_averaging.html">sensortoolkit.datetime_utils._time_averaging.sensor_averaging</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.datetime_utils._timeframe_utils.html">sensortoolkit.datetime_utils._timeframe_utils</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.datetime_utils._timeframe_utils.deploy_timestamp_index.html">sensortoolkit.datetime_utils._timeframe_utils.deploy_timestamp_index</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.datetime_utils._timeframe_utils.timeframe_search.html">sensortoolkit.datetime_utils._timeframe_utils.timeframe_search</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/deploy.html"><code class="docutils literal notranslate"><span class="pre">sensortoolkit.deploy</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.deploy._create_deploy_dict.html">sensortoolkit.deploy._create_deploy_dict</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.deploy._create_deploy_dict.construct_deploy_dict.html">sensortoolkit.deploy._create_deploy_dict.construct_deploy_dict</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.deploy._create_deploy_dict.deploy_met_stats.html">sensortoolkit.deploy._create_deploy_dict.deploy_met_stats</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.deploy._create_deploy_dict.deploy_ref_stats.html">sensortoolkit.deploy._create_deploy_dict.deploy_ref_stats</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.deploy._deployment_period.html">sensortoolkit.deploy._deployment_period</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.deploy._deployment_period.deployment_period.html">sensortoolkit.deploy._deployment_period.deployment_period</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.deploy._get_max_conc.html">sensortoolkit.deploy._get_max_conc</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.deploy._get_max_conc.get_max_conc.html">sensortoolkit.deploy._get_max_conc.get_max_conc</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/evaluation.html"><code class="docutils literal notranslate"><span class="pre">sensortoolkit.evaluation</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.evaluation._sensor_eval.html">sensortoolkit.evaluation._sensor_eval</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.evaluation._sensor_eval.SensorEvaluation.html">sensortoolkit.evaluation._sensor_eval.SensorEvaluation</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.evaluation._airsensor.html">sensortoolkit.evaluation._airsensor</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.evaluation._airsensor.AirSensor.html">sensortoolkit.evaluation._airsensor.AirSensor</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.evaluation._referencemonitor.html">sensortoolkit.evaluation._referencemonitor</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.evaluation._referencemonitor.ReferenceMonitor.html">sensortoolkit.evaluation._referencemonitor.ReferenceMonitor</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/lib_utils.html"><code class="docutils literal notranslate"><span class="pre">sensortoolkit.lib_utils</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.lib_utils._copy_datasets.html">sensortoolkit.lib_utils._copy_datasets</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.lib_utils._copy_datasets.copy_datasets.html">sensortoolkit.lib_utils._copy_datasets.copy_datasets</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.lib_utils._flatten_list.html">sensortoolkit.lib_utils._flatten_list</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.lib_utils._flatten_list.flatten_list.html">sensortoolkit.lib_utils._flatten_list.flatten_list</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.lib_utils._sensor_subfolders.html">sensortoolkit.lib_utils._sensor_subfolders</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.lib_utils._sensor_subfolders.create_sensor_directories.html">sensortoolkit.lib_utils._sensor_subfolders.create_sensor_directories</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/model.html"><code class="docutils literal notranslate"><span class="pre">sensortoolkit.model</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.model._apply_correction.html">sensortoolkit.model._apply_correction</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.model._apply_correction.individual_corr.html">sensortoolkit.model._apply_correction.individual_corr</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.model._purpleair_uscorrection.html">sensortoolkit.model._purpleair_uscorrection</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.model._purpleair_uscorrection.purpleair_us_corr.html">sensortoolkit.model._purpleair_uscorrection.purpleair_us_corr</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.model._sensor_ols.html">sensortoolkit.model._sensor_ols</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.model._sensor_ols.sensor_ols.html">sensortoolkit.model._sensor_ols.sensor_ols</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/param.html"><code class="docutils literal notranslate"><span class="pre">sensortoolkit.param</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.param._parameter.html">sensortoolkit.param._parameter</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.param._parameter.Parameter.html">sensortoolkit.param._parameter.Parameter</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.param._targets.html">sensortoolkit.param._targets</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.param._targets.ParameterTargets.html">sensortoolkit.param._targets.ParameterTargets</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/performance_report.html"><code class="docutils literal notranslate"><span class="pre">sensortoolkit.performancereport</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.performancereport._performance_report.html">sensortoolkit.performancereport._performance_report</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.performancereport._performance_report.PerformanceReport.html">sensortoolkit.performancereport._performance_report.PerformanceReport</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/plotting.html"><code class="docutils literal notranslate"><span class="pre">sensortoolkit.plotting</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.plotting._distribution.html">sensortoolkit.plotting._distribution</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.plotting._distribution.met_distrib.html">sensortoolkit.plotting._distribution.met_distrib</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.plotting._distribution.recording_interval_histogram.html">sensortoolkit.plotting._distribution.recording_interval_histogram</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.plotting._distribution.ref_distrib.html">sensortoolkit.plotting._distribution.ref_distrib</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.plotting._errorbars.html">sensortoolkit.plotting._errorbars</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.plotting._errorbars.error_bars.html">sensortoolkit.plotting._errorbars.error_bars</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.plotting._intrasensor_comparison.html">sensortoolkit.plotting._intrasensor_comparison</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.plotting._intrasensor_comparison.compare_sensors.html">sensortoolkit.plotting._intrasensor_comparison.compare_sensors</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.plotting._performance_metrics.html">sensortoolkit.plotting._performance_metrics</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.plotting._performance_metrics.performance_metrics.html">sensortoolkit.plotting._performance_metrics.performance_metrics</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.plotting._plot_formatting.html">sensortoolkit.plotting._plot_formatting</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.plotting._plot_formatting.get_colormap_range.html">sensortoolkit.plotting._plot_formatting.get_colormap_range</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.plotting._plot_formatting.met_scatter_lims.html">sensortoolkit.plotting._plot_formatting.met_scatter_lims</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.plotting._plot_formatting.sensor_subplot_formatting.html">sensortoolkit.plotting._plot_formatting.sensor_subplot_formatting</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.plotting._plot_formatting.set_fontsize.html">sensortoolkit.plotting._plot_formatting.set_fontsize</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.plotting._plot_formatting.subplot_dims.html">sensortoolkit.plotting._plot_formatting.subplot_dims</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.plotting._plot_formatting.wrap_text.html">sensortoolkit.plotting._plot_formatting.wrap_text</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.plotting._scatter.html">sensortoolkit.plotting._scatter</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.plotting._scatter.draw_scatter.html">sensortoolkit.plotting._scatter.draw_scatter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.plotting._scatter.normalized_met_scatter.html">sensortoolkit.plotting._scatter.normalized_met_scatter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.plotting._scatter.scatter_plotter.html">sensortoolkit.plotting._scatter.scatter_plotter</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.plotting._timeseries.html">sensortoolkit.plotting._timeseries</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.plotting._timeseries.deployment_timeline.html">sensortoolkit.plotting._timeseries.deployment_timeline</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.plotting._timeseries.sensor_timeplot.html">sensortoolkit.plotting._timeseries.sensor_timeplot</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qc.html"><code class="docutils literal notranslate"><span class="pre">sensortoolkit.qc</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.qc._duplicate_removal.html">sensortoolkit.qc._duplicate_removal</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.qc._duplicate_removal.remove_duplicates.html">sensortoolkit.qc._duplicate_removal.remove_duplicates</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.qc._interval_downsampling.html">sensortoolkit.qc._interval_downsampling</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.qc._interval_downsampling.apply_downsampling.html">sensortoolkit.qc._interval_downsampling.apply_downsampling</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.qc._interval_downsampling.downsampling_interval.html">sensortoolkit.qc._interval_downsampling.downsampling_interval</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.qc._interval_downsampling.plot_recording_interval.html">sensortoolkit.qc._interval_downsampling.plot_recording_interval</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.qc._interval_downsampling.plot_timedelta_quantiles.html">sensortoolkit.qc._interval_downsampling.plot_timedelta_quantiles</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.qc._interval_downsampling.sensor_timedelta.html">sensortoolkit.qc._interval_downsampling.sensor_timedelta</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.qc._interval_downsampling.timedelta_quantiles.html">sensortoolkit.qc._interval_downsampling.timedelta_quantiles</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.qc._invalidate.html">sensortoolkit.qc._invalidate</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.qc._invalidate.invalidate_period.html">sensortoolkit.qc._invalidate.invalidate_period</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.qc._outlier_detection.html">sensortoolkit.qc._outlier_detection</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.qc._outlier_detection.cooks_outlier_detection.html">sensortoolkit.qc._outlier_detection.cooks_outlier_detection</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.qc._persistent_values.html">sensortoolkit.qc._persistent_values</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.qc._persistent_values.persistent_values.html">sensortoolkit.qc._persistent_values.persistent_values</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.qc._purpleair_abcleaning.html">sensortoolkit.qc._purpleair_abcleaning</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.qc._purpleair_abcleaning.purpleair_ab_averages.html">sensortoolkit.qc._purpleair_abcleaning.purpleair_ab_averages</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/reference.html"><code class="docutils literal notranslate"><span class="pre">sensortoolkit.reference</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._import_airnowtech.html">sensortoolkit.reference._import_airnowtech</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._import_airnowtech.ingest_airnowtech.html">sensortoolkit.reference._import_airnowtech.ingest_airnowtech</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._import_airnowtech.preprocess_airnowtech.html">sensortoolkit.reference._import_airnowtech.preprocess_airnowtech</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._import_airnowtech.sort_airnowtech.html">sensortoolkit.reference._import_airnowtech.sort_airnowtech</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._import_airnowtech.write_to_file.html">sensortoolkit.reference._import_airnowtech.write_to_file</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._import_oaqps.html">sensortoolkit.reference._import_oaqps</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._import_oaqps.format_headers.html">sensortoolkit.reference._import_oaqps.format_headers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._import_oaqps.format_qaqc.html">sensortoolkit.reference._import_oaqps.format_qaqc</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._import_oaqps.format_ref_timestamp.html">sensortoolkit.reference._import_oaqps.format_ref_timestamp</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._import_oaqps.from_envidas.html">sensortoolkit.reference._import_oaqps.from_envidas</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._import_oaqps.from_envista.html">sensortoolkit.reference._import_oaqps.from_envista</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._import_oaqps.ingest_oaqps.html">sensortoolkit.reference._import_oaqps.ingest_oaqps</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._import_oaqps.process_oaqps.html">sensortoolkit.reference._import_oaqps.process_oaqps</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._load_ref_data.html">sensortoolkit.reference._load_ref_data</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._load_ref_data.import_ref_dataframe.html">sensortoolkit.reference._load_ref_data.import_ref_dataframe</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._load_ref_data.load_ref_dataframes.html">sensortoolkit.reference._load_ref_data.load_ref_dataframes</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._ref_api_query.html">sensortoolkit.reference._ref_api_query</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._ref_api_query.date_range_selector.html">sensortoolkit.reference._ref_api_query.date_range_selector</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._ref_api_query.ingest_airnow.html">sensortoolkit.reference._ref_api_query.ingest_airnow</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._ref_api_query.ingest_aqs.html">sensortoolkit.reference._ref_api_query.ingest_aqs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._ref_api_query.modify_ref_cols.html">sensortoolkit.reference._ref_api_query.modify_ref_cols</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._ref_api_query.modify_ref_method_str.html">sensortoolkit.reference._ref_api_query.modify_ref_method_str</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._ref_api_query.parse_sample_data.html">sensortoolkit.reference._ref_api_query.parse_sample_data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._ref_api_query.query_airnow.html">sensortoolkit.reference._ref_api_query.query_airnow</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._ref_api_query.query_aqs.html">sensortoolkit.reference._ref_api_query.query_aqs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._ref_api_query.query_periods.html">sensortoolkit.reference._ref_api_query.query_periods</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._ref_api_query.ref_api_query.html">sensortoolkit.reference._ref_api_query.ref_api_query</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._ref_api_query.save_api_dataset.html">sensortoolkit.reference._ref_api_query.save_api_dataset</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._ref_api_query.select_poc.html">sensortoolkit.reference._ref_api_query.select_poc</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/sensor_ingest.html"><code class="docutils literal notranslate"><span class="pre">sensortoolkit.sensor_ingest</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.sensor_ingest._processed_data_loader.html">sensortoolkit.sensor_ingest._processed_data_loader</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.sensor_ingest._processed_data_loader.processed_data_search.html">sensortoolkit.sensor_ingest._processed_data_loader.processed_data_search</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.sensor_ingest._sensor_import.html">sensortoolkit.sensor_ingest._sensor_import</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.sensor_ingest._sensor_import.ingest_example_make_model.html">sensortoolkit.sensor_ingest._sensor_import.ingest_example_make_model</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.sensor_ingest._sensor_import.ingest_purpleair.html">sensortoolkit.sensor_ingest._sensor_import.ingest_purpleair</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.sensor_ingest._sensor_import.ingest_sensit_ramp.html">sensortoolkit.sensor_ingest._sensor_import.ingest_sensit_ramp</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.sensor_ingest._sensor_import.ingest_wrapper.html">sensortoolkit.sensor_ingest._sensor_import.ingest_wrapper</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.sensor_ingest._sensor_import.sensor_import.html">sensortoolkit.sensor_ingest._sensor_import.sensor_import</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.sensor_ingest._standard_ingest.html">sensortoolkit.sensor_ingest._standard_ingest</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.sensor_ingest._standard_ingest.ParseSetup.html">sensortoolkit.sensor_ingest._standard_ingest.ParseSetup</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.sensor_ingest._standard_ingest.apply_strptime.html">sensortoolkit.sensor_ingest._standard_ingest.apply_strptime</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.sensor_ingest._standard_ingest.standard_ingest.html">sensortoolkit.sensor_ingest._standard_ingest.standard_ingest</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">sensortoolkit</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>sensortoolkit.plotting._plot_formatting</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for sensortoolkit.plotting._plot_formatting</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">@Author:</span>
+<span class="sd">    | Samuel Frederick, NSSC Contractor (ORAU)</span>
+<span class="sd">    | U.S. EPA / ORD / CEMM / AMCD / SFSB</span>
+
+<span class="sd">Created:</span>
+<span class="sd">  Mon Jan 27 08:49:12 2020</span>
+<span class="sd">Last Updated:</span>
+<span class="sd">  Wed Jul 28 14:13:57 2021</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">pandas.plotting</span> <span class="kn">import</span> <span class="n">register_matplotlib_converters</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">textwrap</span> <span class="kn">import</span> <span class="n">wrap</span>
+<span class="kn">import</span> <span class="nn">math</span>
+<span class="n">register_matplotlib_converters</span><span class="p">()</span>
+
+
+<div class="viewcode-block" id="set_fontsize"><a class="viewcode-back" href="../../../api/_autosummary/sensortoolkit.plotting._plot_formatting.set_fontsize.html#sensortoolkit.plotting._plot_formatting.set_fontsize">[docs]</a><span class="k">def</span> <span class="nf">set_fontsize</span><span class="p">(</span><span class="n">serials</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Selects fontsize for figures based on the number of sensors present in</span>
+<span class="sd">    the sensor serial ID dictionary.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        serials (dict):</span>
+<span class="sd">            A dictionary of serial identifiers unique to each sensor in the</span>
+<span class="sd">            deployment testing group.</span>
+<span class="sd">    Returns:</span>
+<span class="sd">        fontsize (float):</span>
+<span class="sd">            The fontsize for figures.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">n_sensors</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">serials</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">n_sensors</span> <span class="o">==</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="n">fontsize</span> <span class="o">=</span> <span class="mi">14</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">n_sensors</span> <span class="o">&lt;</span> <span class="mi">7</span> <span class="ow">and</span> <span class="n">n_sensors</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="n">fontsize</span> <span class="o">=</span> <span class="mf">12.75</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">fontsize</span> <span class="o">=</span> <span class="mf">11.7</span>
+
+    <span class="k">return</span> <span class="n">fontsize</span></div>
+
+
+<div class="viewcode-block" id="wrap_text"><a class="viewcode-back" href="../../../api/_autosummary/sensortoolkit.plotting._plot_formatting.wrap_text.html#sensortoolkit.plotting._plot_formatting.wrap_text">[docs]</a><span class="k">def</span> <span class="nf">wrap_text</span><span class="p">(</span><span class="n">labels</span><span class="p">,</span> <span class="n">max_label_len</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Formats plotting text with line breaks based on specified text length.</span>
+
+<span class="sd">    Code modified via Stack Overflow user DavidG code:</span>
+<span class="sd">    https://stackoverflow.com/questions/47057789/matplotlib-wrap-text-in-legend</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        labels (list):</span>
+<span class="sd">            list plotting labels (strings) such as header/title text</span>
+<span class="sd">        max_label_len (int):</span>
+<span class="sd">            The maximum number of characters on a single line. Labels longer</span>
+<span class="sd">            than this will have a newline &#39;\n&#39; inserted at every max_label_len</span>
+<span class="sd">            number of characters.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        labels (list):</span>
+<span class="sd">            Modified list of labels with the newline character &#39;\n&#39; inserted</span>
+<span class="sd">            for labels exceeding the max_label_len.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">labels</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">wrap</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">max_label_len</span><span class="p">))</span> <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="n">labels</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">labels</span></div>
+
+
+<div class="viewcode-block" id="subplot_dims"><a class="viewcode-back" href="../../../api/_autosummary/sensortoolkit.plotting._plot_formatting.subplot_dims.html#sensortoolkit.plotting._plot_formatting.subplot_dims">[docs]</a><span class="k">def</span> <span class="nf">subplot_dims</span><span class="p">(</span><span class="n">n_sensors</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Recommends subplot dimensions based on the nearest perfect square for</span>
+<span class="sd">    number of sensors (except when n%10, n_cols in multiples of 5)</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        n_sensors (int):</span>
+<span class="sd">            The number of sensors in the deployment group.</span>
+<span class="sd">    Returns:</span>
+<span class="sd">        n_rows (int):</span>
+<span class="sd">            The number of subplot rows.</span>
+<span class="sd">        n_cols (int):</span>
+<span class="sd">            The number of subplot columns.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">sqr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">n_sensors</span><span class="p">)</span>
+    <span class="n">n_rows</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">sqr</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">n_sensors</span> <span class="o">%</span> <span class="mi">10</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">n_rows</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">n_sensors</span><span class="o">/</span><span class="mi">5</span><span class="p">)</span>
+    <span class="n">n_cols</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">n_sensors</span> <span class="o">/</span> <span class="n">n_rows</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="p">(</span><span class="n">n_rows</span><span class="p">,</span> <span class="n">n_cols</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="sensor_subplot_formatting"><a class="viewcode-back" href="../../../api/_autosummary/sensortoolkit.plotting._plot_formatting.sensor_subplot_formatting.html#sensortoolkit.plotting._plot_formatting.sensor_subplot_formatting">[docs]</a><span class="k">def</span> <span class="nf">sensor_subplot_formatting</span><span class="p">(</span><span class="n">number_of_sensors</span><span class="p">,</span> <span class="n">param</span><span class="p">,</span> <span class="n">font_size</span><span class="p">,</span>
+                              <span class="n">RH_colormap</span><span class="p">,</span> <span class="n">report_fmt</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Configure subplot parameters that control the spacing of subplots,</span>
+<span class="sd">    number of subplots and dimensions of the Matplotliub axes object array,</span>
+<span class="sd">    color bar formatting, etc.</span>
+
+<span class="sd">    Args:</span>
+
+<span class="sd">    Returns:</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">Nr</span><span class="p">,</span> <span class="n">Nc</span> <span class="o">=</span> <span class="n">subplot_dims</span><span class="p">(</span><span class="n">number_of_sensors</span><span class="p">)</span>
+
+    <span class="n">sensor_plural</span><span class="p">,</span> <span class="n">row_plural</span><span class="p">,</span> <span class="n">column_plural</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span>
+
+    <span class="k">if</span> <span class="n">number_of_sensors</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">sensor_plural</span> <span class="o">=</span> <span class="s1">&#39;s&#39;</span>
+    <span class="k">if</span> <span class="n">Nr</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">row_plural</span> <span class="o">=</span> <span class="s1">&#39;s&#39;</span>
+    <span class="k">if</span> <span class="n">Nc</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">column_plural</span> <span class="o">=</span> <span class="s1">&#39;s&#39;</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;..creating subplot for&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">number_of_sensors</span><span class="p">),</span>
+          <span class="s1">&#39;sensor&#39;</span> <span class="o">+</span> <span class="n">sensor_plural</span><span class="p">,</span> <span class="s1">&#39;with&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">Nr</span><span class="p">),</span>
+          <span class="s1">&#39;row&#39;</span> <span class="o">+</span> <span class="n">row_plural</span><span class="p">,</span>  <span class="s1">&#39;and&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">Nc</span><span class="p">),</span> <span class="s1">&#39;column&#39;</span> <span class="o">+</span> <span class="n">column_plural</span><span class="p">)</span>
+
+    <span class="n">suptitle_xpos</span> <span class="o">=</span> <span class="mf">0.50</span>
+    <span class="k">if</span> <span class="n">number_of_sensors</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>  <span class="c1"># 1x1 subplot</span>
+        <span class="n">suptitle_ypos</span> <span class="o">=</span> <span class="mf">0.98</span>
+        <span class="n">title_text_wrap</span> <span class="o">=</span> <span class="mi">35</span>
+
+        <span class="k">if</span> <span class="n">RH_colormap</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">param</span> <span class="o">==</span> <span class="s1">&#39;O3&#39;</span><span class="p">:</span>
+                <span class="n">font_size</span> <span class="o">=</span> <span class="mi">12</span>
+                <span class="n">fig_size</span> <span class="o">=</span> <span class="p">(</span><span class="mf">4.3</span><span class="p">,</span> <span class="mf">3.91</span><span class="p">)</span>
+                <span class="n">wspace</span> <span class="o">=</span> <span class="mf">.1</span>
+                <span class="n">hspace</span> <span class="o">=</span> <span class="mf">.1</span>
+                <span class="n">left</span> <span class="o">=</span> <span class="mf">0.12</span>
+                <span class="n">right</span> <span class="o">=</span> <span class="mf">0.8</span>
+                <span class="n">top</span> <span class="o">=</span> <span class="mf">0.85</span>
+                <span class="n">bottom</span> <span class="o">=</span> <span class="mf">0.15</span>
+                <span class="n">suptitle_xpos</span> <span class="o">=</span> <span class="mf">0.46</span>
+                <span class="n">suptitle_ypos</span> <span class="o">=</span> <span class="mf">1.01</span>
+                <span class="n">title_text_wrap</span> <span class="o">=</span> <span class="mi">30</span>
+                <span class="n">suptitle_ypos</span> <span class="o">=</span> <span class="mf">0.95</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">fig_size</span> <span class="o">=</span> <span class="p">(</span><span class="mf">4.9</span><span class="p">,</span> <span class="mf">5.5</span><span class="p">)</span>
+                <span class="n">wspace</span> <span class="o">=</span> <span class="mf">.01</span>
+                <span class="n">hspace</span> <span class="o">=</span> <span class="mf">.01</span>
+                <span class="n">left</span> <span class="o">=</span> <span class="mf">0.15</span>
+                <span class="n">right</span> <span class="o">=</span> <span class="mf">0.85</span>
+                <span class="n">top</span> <span class="o">=</span> <span class="mf">0.9</span>
+                <span class="n">bottom</span> <span class="o">=</span> <span class="mf">0.25</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">fig_size</span> <span class="o">=</span> <span class="p">(</span><span class="mf">4.9</span><span class="p">,</span> <span class="mf">5.5</span><span class="p">)</span>
+            <span class="n">wspace</span> <span class="o">=</span> <span class="mf">.01</span>
+            <span class="n">hspace</span> <span class="o">=</span> <span class="mf">.01</span>
+            <span class="n">left</span> <span class="o">=</span> <span class="mf">0.15</span>
+            <span class="n">right</span> <span class="o">=</span> <span class="mf">0.85</span>
+            <span class="n">top</span> <span class="o">=</span> <span class="mf">0.95</span>
+            <span class="n">bottom</span> <span class="o">=</span> <span class="mf">0.1</span>
+        <span class="n">detail_fontsize</span> <span class="o">=</span> <span class="mf">.75</span><span class="o">*</span><span class="n">font_size</span>
+        <span class="n">filename_suffix</span> <span class="o">=</span> <span class="s1">&#39;1_sensor&#39;</span>
+        <span class="n">cbar_padding</span> <span class="o">=</span> <span class="mf">.13</span>
+        <span class="n">cbar_aspect</span> <span class="o">=</span> <span class="mi">20</span>
+
+    <span class="k">elif</span> <span class="n">number_of_sensors</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>  <span class="c1"># 3x1 subplot</span>
+        <span class="n">fig_size</span> <span class="o">=</span> <span class="p">(</span><span class="mf">12.3</span><span class="p">,</span> <span class="mf">5.12</span><span class="p">)</span>
+        <span class="n">suptitle_ypos</span> <span class="o">=</span> <span class="mf">0.99</span>
+        <span class="n">title_text_wrap</span> <span class="o">=</span> <span class="mi">70</span>
+
+        <span class="k">if</span> <span class="n">RH_colormap</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="n">wspace</span> <span class="o">=</span> <span class="mf">.38</span>
+            <span class="n">hspace</span> <span class="o">=</span> <span class="mf">.05</span>
+            <span class="n">left</span> <span class="o">=</span> <span class="mf">0.06</span>
+            <span class="n">right</span> <span class="o">=</span> <span class="mf">0.94</span>
+            <span class="n">top</span> <span class="o">=</span> <span class="mf">0.97</span>
+            <span class="n">bottom</span> <span class="o">=</span> <span class="mf">0.22</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">fig_size</span> <span class="o">=</span> <span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+            <span class="n">wspace</span> <span class="o">=</span> <span class="mf">.4</span>
+            <span class="n">hspace</span> <span class="o">=</span> <span class="mf">.01</span>
+            <span class="n">left</span> <span class="o">=</span> <span class="mf">0.07</span>
+            <span class="n">right</span> <span class="o">=</span> <span class="mf">0.93</span>
+            <span class="n">top</span> <span class="o">=</span> <span class="mf">0.90</span>
+            <span class="n">bottom</span> <span class="o">=</span> <span class="mf">0.1</span>
+        <span class="n">detail_fontsize</span> <span class="o">=</span> <span class="mf">.9</span><span class="o">*</span><span class="n">font_size</span>
+        <span class="n">filename_suffix</span> <span class="o">=</span> <span class="s1">&#39;3_sensors&#39;</span>
+        <span class="n">cbar_padding</span> <span class="o">=</span> <span class="mf">.16</span>
+        <span class="n">cbar_aspect</span> <span class="o">=</span> <span class="mi">20</span>
+
+    <span class="k">elif</span> <span class="n">number_of_sensors</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">):</span>  <span class="c1"># 2x3 subplot</span>
+        <span class="n">fig_size</span> <span class="o">=</span> <span class="p">(</span><span class="mi">13</span><span class="p">,</span> <span class="mi">9</span><span class="p">)</span>
+        <span class="n">suptitle_ypos</span> <span class="o">=</span> <span class="mf">0.97</span>
+        <span class="n">title_text_wrap</span> <span class="o">=</span> <span class="mi">70</span>
+
+        <span class="k">if</span> <span class="n">RH_colormap</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="n">wspace</span> <span class="o">=</span> <span class="mf">.1</span>
+            <span class="n">hspace</span> <span class="o">=</span> <span class="mf">.34</span>
+            <span class="n">left</span> <span class="o">=</span> <span class="mf">0.03</span>
+            <span class="n">right</span> <span class="o">=</span> <span class="mf">0.97</span>
+            <span class="n">top</span> <span class="o">=</span> <span class="mf">0.90</span>
+            <span class="n">bottom</span> <span class="o">=</span> <span class="mf">0.17</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">fig_size</span> <span class="o">=</span> <span class="p">(</span><span class="mi">13</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span>
+            <span class="n">wspace</span> <span class="o">=</span> <span class="mf">.4</span>
+            <span class="n">hspace</span> <span class="o">=</span> <span class="mf">.33</span>
+            <span class="n">left</span> <span class="o">=</span> <span class="mf">0.07</span>
+            <span class="n">right</span> <span class="o">=</span> <span class="mf">0.93</span>
+            <span class="n">top</span> <span class="o">=</span> <span class="mf">0.89</span>
+            <span class="n">bottom</span> <span class="o">=</span> <span class="mf">0.1</span>
+        <span class="n">detail_fontsize</span> <span class="o">=</span> <span class="mf">.85</span><span class="o">*</span><span class="n">font_size</span>
+        <span class="n">filename_suffix</span> <span class="o">=</span> <span class="s1">&#39;6_sensors&#39;</span>
+        <span class="n">cbar_padding</span> <span class="o">=</span> <span class="mf">.08</span>
+        <span class="n">cbar_aspect</span> <span class="o">=</span> <span class="mi">20</span>
+
+    <span class="k">elif</span> <span class="n">number_of_sensors</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">):</span>  <span class="c1"># 2x4 subplot</span>
+        <span class="n">Nr</span> <span class="o">=</span> <span class="mi">2</span>
+        <span class="n">Nc</span> <span class="o">=</span> <span class="mi">4</span>
+        <span class="n">fig_size</span> <span class="o">=</span> <span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mi">9</span><span class="p">)</span>
+        <span class="n">suptitle_ypos</span> <span class="o">=</span> <span class="mf">0.97</span>
+        <span class="n">title_text_wrap</span> <span class="o">=</span> <span class="mi">70</span>
+
+        <span class="k">if</span> <span class="n">RH_colormap</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="n">wspace</span> <span class="o">=</span> <span class="mf">.1</span>
+            <span class="n">hspace</span> <span class="o">=</span> <span class="mf">.34</span>
+            <span class="n">left</span> <span class="o">=</span> <span class="mf">0.03</span>
+            <span class="n">right</span> <span class="o">=</span> <span class="mf">0.97</span>
+            <span class="n">top</span> <span class="o">=</span> <span class="mf">0.90</span>
+            <span class="n">bottom</span> <span class="o">=</span> <span class="mf">0.17</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">fig_size</span> <span class="o">=</span> <span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span>
+            <span class="n">wspace</span> <span class="o">=</span> <span class="mf">.44</span>
+            <span class="n">hspace</span> <span class="o">=</span> <span class="mf">.35</span>
+            <span class="n">left</span> <span class="o">=</span> <span class="mf">0.05</span>
+            <span class="n">right</span> <span class="o">=</span> <span class="mf">0.95</span>
+            <span class="n">top</span> <span class="o">=</span> <span class="mf">0.89</span>
+            <span class="n">bottom</span> <span class="o">=</span> <span class="mf">0.1</span>
+        <span class="n">detail_fontsize</span> <span class="o">=</span> <span class="mf">.85</span><span class="o">*</span><span class="n">font_size</span>
+        <span class="n">filename_suffix</span> <span class="o">=</span> <span class="s1">&#39;8_sensors&#39;</span>
+        <span class="n">cbar_padding</span> <span class="o">=</span> <span class="mf">.08</span>
+        <span class="n">cbar_aspect</span> <span class="o">=</span> <span class="mi">20</span>
+
+    <span class="k">elif</span> <span class="n">number_of_sensors</span> <span class="o">==</span> <span class="mi">9</span><span class="p">:</span>  <span class="c1"># 3x3 subplot</span>
+        <span class="n">Nr</span> <span class="o">=</span> <span class="mi">3</span>
+        <span class="n">Nc</span> <span class="o">=</span> <span class="mi">3</span>
+        <span class="n">fig_size</span> <span class="o">=</span> <span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">11</span><span class="p">)</span>
+        <span class="n">suptitle_ypos</span> <span class="o">=</span> <span class="mf">0.97</span>
+        <span class="n">title_text_wrap</span> <span class="o">=</span> <span class="mi">70</span>
+
+        <span class="k">if</span> <span class="n">RH_colormap</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="n">wspace</span> <span class="o">=</span> <span class="mf">.04</span>
+            <span class="n">hspace</span> <span class="o">=</span> <span class="mf">.4</span>
+            <span class="n">left</span> <span class="o">=</span> <span class="mf">0.01</span>
+            <span class="n">right</span> <span class="o">=</span> <span class="mf">0.99</span>
+            <span class="n">top</span> <span class="o">=</span> <span class="mf">0.92</span>
+            <span class="n">bottom</span> <span class="o">=</span> <span class="mf">0.15</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">fig_size</span> <span class="o">=</span> <span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+            <span class="n">wspace</span> <span class="o">=</span> <span class="mf">.4</span>
+            <span class="n">hspace</span> <span class="o">=</span> <span class="mf">.35</span>
+            <span class="n">left</span> <span class="o">=</span> <span class="mf">0.07</span>
+            <span class="n">right</span> <span class="o">=</span> <span class="mf">0.93</span>
+            <span class="n">top</span> <span class="o">=</span> <span class="mf">0.89</span>
+            <span class="n">bottom</span> <span class="o">=</span> <span class="mf">0.1</span>
+        <span class="n">detail_fontsize</span> <span class="o">=</span> <span class="mf">.85</span><span class="o">*</span><span class="n">font_size</span>
+        <span class="n">filename_suffix</span> <span class="o">=</span> <span class="s1">&#39;9_sensors&#39;</span>
+        <span class="n">cbar_padding</span> <span class="o">=</span> <span class="mf">.06</span>
+        <span class="n">cbar_aspect</span> <span class="o">=</span> <span class="mi">20</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;No formatting presets configured for&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">number_of_sensors</span><span class="p">))</span>
+
+    <span class="k">if</span> <span class="n">report_fmt</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">param</span> <span class="o">==</span> <span class="s1">&#39;PM25&#39;</span><span class="p">:</span>
+            <span class="n">wspace</span> <span class="o">=</span> <span class="mf">.4</span>
+            <span class="n">hspace</span> <span class="o">=</span> <span class="mf">.08</span>
+            <span class="n">left</span> <span class="o">=</span> <span class="mf">0.1</span>
+            <span class="n">right</span> <span class="o">=</span> <span class="mf">0.92</span>
+            <span class="n">top</span> <span class="o">=</span> <span class="mf">0.9</span>
+            <span class="n">bottom</span> <span class="o">=</span> <span class="mf">0.30</span>
+            <span class="n">cbar_padding</span> <span class="o">=</span> <span class="mf">.0</span>
+            <span class="n">cbar_aspect</span> <span class="o">=</span> <span class="mi">20</span>
+        <span class="n">filename_suffix</span> <span class="o">=</span> <span class="s1">&#39;report_fmt&#39;</span>
+
+    <span class="k">return</span> <span class="p">(</span><span class="n">Nr</span><span class="p">,</span> <span class="n">Nc</span><span class="p">,</span> <span class="n">fig_size</span><span class="p">,</span> <span class="n">suptitle_xpos</span><span class="p">,</span> <span class="n">suptitle_ypos</span><span class="p">,</span> <span class="n">title_text_wrap</span><span class="p">,</span>
+            <span class="n">detail_fontsize</span><span class="p">,</span> <span class="n">wspace</span><span class="p">,</span> <span class="n">hspace</span><span class="p">,</span> <span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">,</span> <span class="n">top</span><span class="p">,</span> <span class="n">bottom</span><span class="p">,</span>
+            <span class="n">filename_suffix</span><span class="p">,</span> <span class="n">cbar_padding</span><span class="p">,</span> <span class="n">cbar_aspect</span><span class="p">,</span> <span class="n">font_size</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="get_colormap_range"><a class="viewcode-back" href="../../../api/_autosummary/sensortoolkit.plotting._plot_formatting.get_colormap_range.html#sensortoolkit.plotting._plot_formatting.get_colormap_range">[docs]</a><span class="k">def</span> <span class="nf">get_colormap_range</span><span class="p">(</span><span class="n">df_list</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Set default range for colormap based on number of sensors</span>
+
+<span class="sd">    The range is normalized to between zero and one (0.0, 1.0)</span>
+
+
+<span class="sd">    Args:</span>
+<span class="sd">        df_list (TYPE): Sensor datasets.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        cmap_range (TYPE): Tuple of length 2 containing the lower and upper</span>
+<span class="sd">        bounds for the normalized colormap range.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">df_list</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">4</span><span class="p">:</span>
+        <span class="n">cmap_range</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">cmap_range</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">cmap_range</span></div>
+
+
+<div class="viewcode-block" id="met_scatter_lims"><a class="viewcode-back" href="../../../api/_autosummary/sensortoolkit.plotting._plot_formatting.met_scatter_lims.html#sensortoolkit.plotting._plot_formatting.met_scatter_lims">[docs]</a><span class="k">def</span> <span class="nf">met_scatter_lims</span><span class="p">(</span><span class="n">met_data</span><span class="p">,</span> <span class="n">param</span><span class="p">,</span> <span class="n">met_param</span><span class="p">,</span> <span class="n">xlims</span><span class="p">,</span> <span class="n">ylims</span><span class="p">,</span> <span class="n">serials</span><span class="p">,</span>
+                     <span class="n">avg_df</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Set x and y limits for plots generated by normalized_met_scatter()</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        met_data (TYPE): DESCRIPTION.</span>
+<span class="sd">        param (TYPE): DESCRIPTION.</span>
+<span class="sd">        met_param (TYPE): DESCRIPTION.</span>
+<span class="sd">        xlims (TYPE): DESCRIPTION.</span>
+<span class="sd">        ylims (TYPE): DESCRIPTION.</span>
+<span class="sd">        serials (TYPE): DESCRIPTION.</span>
+<span class="sd">        avg_df (TYPE): DESCRIPTION.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        TYPE: DESCRIPTION.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Automatically generate x-axis limits if none specified</span>
+    <span class="k">if</span> <span class="n">xlims</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">xmax</span> <span class="o">=</span> <span class="n">met_data</span><span class="p">[</span><span class="n">met_param</span> <span class="o">+</span> <span class="s1">&#39;_Value&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+        <span class="n">xmin</span> <span class="o">=</span> <span class="n">met_data</span><span class="p">[</span><span class="n">met_param</span> <span class="o">+</span> <span class="s1">&#39;_Value&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>
+
+        <span class="n">xmax</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">xmax</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">xmin</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">xmin</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">xmin</span><span class="p">,</span> <span class="n">xmax</span> <span class="o">=</span> <span class="n">xlims</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">xlims</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+
+    <span class="c1"># Automatically generate y-axis limits if none specified</span>
+    <span class="k">if</span> <span class="n">ylims</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">ymin</span> <span class="o">=</span> <span class="n">avg_df</span><span class="p">[</span><span class="s1">&#39;mean_Normalized_&#39;</span> <span class="o">+</span> <span class="n">param</span><span class="p">]</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="mf">0.01</span><span class="p">)</span>
+        <span class="n">ymax</span> <span class="o">=</span> <span class="n">avg_df</span><span class="p">[</span><span class="s1">&#39;mean_Normalized_&#39;</span> <span class="o">+</span> <span class="n">param</span><span class="p">]</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="mf">0.99</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">ymax</span> <span class="o">&lt;</span> <span class="mf">5.0</span><span class="p">:</span>
+            <span class="n">rounding_place</span> <span class="o">=</span> <span class="mi">1</span>  <span class="c1"># round to nearest tenths place</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">rounding_place</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>  <span class="c1"># round to nearest tens place</span>
+
+        <span class="n">ymin</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">ymin</span><span class="p">)</span> <span class="o">-</span> <span class="mf">0.1</span><span class="o">*</span><span class="n">ymin</span>
+        <span class="n">ymax</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">ymax</span><span class="p">,</span> <span class="n">rounding_place</span><span class="p">)</span> <span class="o">+</span> <span class="mf">0.1</span><span class="o">*</span><span class="n">ymax</span>
+
+        <span class="k">if</span> <span class="n">ymin</span> <span class="o">==</span> <span class="n">ymax</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">ymin</span><span class="p">,</span> <span class="n">ymax</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">1.1</span>
+        <span class="k">if</span> <span class="n">ymin</span> <span class="o">&lt;</span> <span class="mf">0.1</span> <span class="ow">and</span> <span class="n">ymin</span> <span class="o">&gt;</span> <span class="o">-</span><span class="mf">.1</span><span class="p">:</span>
+            <span class="n">ymin</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.5</span>
+        <span class="k">if</span> <span class="n">ymax</span> <span class="o">&lt;</span> <span class="mf">1.0</span><span class="p">:</span>
+            <span class="n">ymin</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="o">*</span><span class="n">ymax</span>
+            <span class="n">ymax</span> <span class="o">=</span> <span class="mf">1.1</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">ymin</span><span class="p">,</span> <span class="n">ymax</span> <span class="o">=</span> <span class="n">ylims</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">ylims</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="p">(</span><span class="n">xmin</span><span class="p">,</span> <span class="n">xmax</span><span class="p">),</span> <span class="p">(</span><span class="n">ymin</span><span class="p">,</span> <span class="n">ymax</span><span class="p">)</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, Samuel Frederick.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
