@@ -1,5 +1,55 @@
 # -*- coding: utf-8 -*-
 """
+This module computes the average of parameter values across all conurrently
+recorded sensor measurements for each timestamp in the passed list of
+dataframes.
+
+For instance, say you have the following sensor datasets:
+
+>>> sensor_data_a = df_list[0]
+>>> df_list[0]
+                     PM25
+2021-01-01 00:00:00   2.3
+2021-01-01 01:00:00   5.4
+2021-01-01 02:00:00   8.5
+2021-01-01 03:00:00   4.7
+2021-01-01 04:00:00   3.4
+
+>>> sensor_data_b = df_list[1]
+>>> df_list[1]
+                       PM25
+2021-01-01 00:00:00    1.62
+2021-01-01 01:00:00    4.41
+2021-01-01 02:00:00    7.20
+2021-01-01 03:00:00  np.nan
+2021-01-01 04:00:00    2.61
+
+>>> sensor_data_c = df_list[2]
+>>> df_list[2]
+                      PM25
+2021-01-01 00:00:00   2.31
+2021-01-01 01:00:00   6.34
+2021-01-01 02:00:00  10.37
+2021-01-01 03:00:00   5.43
+2021-01-01 04:00:00   3.74
+
+Computing the average for each hour where all sensors are measuring concurrently,
+we find the intersensor average to be:
+
+>>> intersensor_average_df = sensortoolkit.calculate.intersensor_mean(df_list, deploy_dict)
+>>> intersensor_average_df
+                     PM25_avg
+2021-01-01 00:00:00     2.076
+2021-01-01 01:00:00     5.383
+2021-01-01 02:00:00     8.690
+2021-01-01 03:00:00    np.nan
+2021-01-01 04:00:00     3.250
+
+Note that no average is computed for the 3:00 timestamp, as sensor_data_b contains
+a null value for this timestamp. Intersensor averages are only computed for instances
+where all sensors are recording concurrently. 
+================================================================================
+
 @Author:
   | Samuel Frederick, NSSC Contractor (ORAU)
   | U.S. EPA / ORD / CEMM / AMCD / SFSB
