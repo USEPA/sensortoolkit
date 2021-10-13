@@ -1,5 +1,37 @@
 # -*- coding: utf-8 -*-
 """
+This module calculates normalized sensor concentrations.
+
+PM2.5 Performance Targets Report Section 3.1.6.2
+
+Calculation
+-----------
+
+Normalized 1-hour and 24-hour averaged sensor concentrations are derived
+by dividing the 1-hour or 24-hour averaged sensor concentration by the
+paired 1-hour or 24-hour averaged FRM/FEM concentration. This
+equation assumes only one FRM/FEM instrument will be running. If multiple
+FRM/FEM instruments are running, separate testing reports can be generated for
+each.
+
+
+.. math::
+
+    NormC_{ij} = \\frac{x_{ij}}{R_i}
+
+where
+
+    :math:`NormC_{ij}`` = normalized 1-hour or 24-hour averaged sensor
+    concentration for interval i and instrument j
+
+    :math:`x_{ij}` = valid 1-hour or 24-hour averaged sensor concentration
+    for interval i and instrument j
+
+    :math:`R_{i}` = valid 1-hour or 24-hour averaged FRM/FEM concentration for
+    interval i
+
+================================================================================
+
 @Author:
   | Samuel Frederick, NSSC Contractor (ORAU)
   | U.S. EPA / ORD / CEMM / AMCD / SFSB

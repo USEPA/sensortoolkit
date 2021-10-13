@@ -1,8 +1,12 @@
 # -*- coding: utf-8 -*-
 """
+Description.
+
+================================================================================
+
 @Author:
-    | Samuel Frederick, NSSC Contractor (ORAU)
-    | U.S. EPA / ORD / CEMM / AMCD / SFSB
+  | Samuel Frederick, NSSC Contractor (ORAU)
+  | U.S. EPA / ORD / CEMM / AMCD / SFSB
 
 Created:
   Fri Jul 17 08:15:17 2020

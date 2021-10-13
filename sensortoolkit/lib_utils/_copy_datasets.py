@@ -1,8 +1,12 @@
 # -*- coding: utf-8 -*-
 """
+Description.
+
+================================================================================
+
 @Author:
-    | Samuel Frederick, NSSC Contractor (ORAU)
-    | U.S. EPA / ORD / CEMM / AMCD / SFSB
+  | Samuel Frederick, NSSC Contractor (ORAU)
+  | U.S. EPA / ORD / CEMM / AMCD / SFSB
 
 Created:
   Tue Aug 31 14:00:34 2021
@@ -162,4 +166,3 @@ def copy_datasets(data_type=None, path=None, select='directory', **kwargs):
         val = kwargs.get('return_filenames')
         if val:
             return copy_file_list
-

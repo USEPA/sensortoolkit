@@ -9,27 +9,28 @@ is calculated as
 
 .. math::
 
-    RMSE = \\sqrt(\\frac{1}{N\\timesM}\\sum_{j=1}^{M}\\left[
-    \\sum_{d=1}^{N}\\left(x_{dj}-R_{d}\\right)^2\\right])
+    RMSE = \\sqrt{\\frac{1}{N\\times M}\\sum_{j=1}^{M}\\left[
+    \\sum_{d=1}^{N}\\left(x_{dj}-R_{d}\\right)^2\\right]}
 
 where:
     :math:`RMSE` = root mean square error
 
-    N = number of 1-hour/24-hour periods during which all identical instruments
+    :math:`N` = number of 1-hour/24-hour periods during which all identical instruments
     are operating and returning valid averages over the duration of the field
     test
 
-    N = number of identical sensors operated simultaneously during a field test
+    :math:`N` = number of identical sensors operated simultaneously during a field test
 
-    x_{pj} = valid 1-hour/24-hour averaged sensor PM2.5 concentration for
+    :math:`x_{pj}` = valid 1-hour/24-hour averaged sensor PM2.5 concentration for
     averaging interval p and instrument j
 
-    R_{p} = valid 1-hour/24-hour averaged FRM/FEM PM2.5 concentration for
+    :math:`R_{p}` = valid 1-hour/24-hour averaged FRM/FEM PM2.5 concentration for
     averaging interval p
 
 This equation assumes only one FRM/FEM instrument will be running. If multiple
 FRM/FEM instruments are running, separate testing reports can be generated for
 each.
+
 ================================================================================
 
 @Author:

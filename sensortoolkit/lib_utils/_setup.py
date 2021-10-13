@@ -1,8 +1,12 @@
 # -*- coding: utf-8 -*-
 """
+Description.
+
+================================================================================
+
 @Author:
-    | Samuel Frederick, NSSC Contractor (ORAU)
-    | U.S. EPA / ORD / CEMM / AMCD / SFSB
+  | Samuel Frederick, NSSC Contractor (ORAU)
+  | U.S. EPA / ORD / CEMM / AMCD / SFSB
 
 Created:
   Mon Jul 19 08:25:55 2021
@@ -894,17 +898,39 @@ class ReferenceSetup(_Setup):
                     month_df.to_csv(os.path.join(process_path, filename))
 
 
+# Testing out using new method dataset for criteria pollutants
+def displayMethods(param, lookup_data, verbose=False):
 
+        if verbose:
+            expand_frame_repr =  False
+            col_width = 1000
+        else:
+            expand_frame_repr =  True
+            col_width = 65
+        with pd.option_context('display.expand_frame_repr', expand_frame_repr,
+                               'display.max_colwidth', col_width,
+                               'display.max_rows', None,
+                               'display.colheader_justify', 'right'):
+            table = lookup_data[
+                lookup_data['Method Type'].str.startswith(param)
+                            ].reset_index(drop=True)
+
+            if not verbose:
+                table['Make/Model'] = table.Abbrev_Make + ' ' + table.Model
+                print(table[['Make/Model', 'Method Code']
+                            ].reset_index(drop=True))
+            else:
+                print(table[['Make', 'Model', 'Method Code']
+                            ].reset_index(drop=True))
+
+        return table
 
 if __name__ == '__main__':
     sensor_name = 'Example_Make_Model'
     work_path = (r'C:\Users\SFREDE01\OneDrive - Environmental Protection Agency (EPA)\Profile\Documents\sensortoolkit_testing')
 
-    test = SensorSetup(name=sensor_name,
-                path=work_path)
+    # test = SensorSetup(name=sensor_name,
+    #             path=work_path)
 
 
-    #test = ReferenceSetup(path=work_path)
-
-
-
+    test = ReferenceSetup(path=work_path)

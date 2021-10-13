@@ -1,9 +1,13 @@
 # -*- coding: utf-8 -*-
 """
-@Author:
-    | Samuel Frederick, NSSC Contractor (ORAU)
-    | U.S. EPA / ORD / CEMM / AMCD / SFSB
+Description.
 
+================================================================================
+
+@Author:
+  | Samuel Frederick, NSSC Contractor (ORAU)
+  | U.S. EPA / ORD / CEMM / AMCD / SFSB
+  
 Created:
   Mon Aug  9 09:30:03 2021
 Last Updated:
@@ -486,5 +490,3 @@ if __name__ == '__main__':
 
     # file = r"C:\Users\SFREDE01\OneDrive - Environmental Protection Agency (EPA)\Profile\Documents\Public_Sensor_Evaluation\Data and Figures\reference_data\oaqps\raw_data\AIRS - 1120 - 0721\PM\min_202011_PM.csv"
     # df = ingest_oaqps(file, formatting='envidas')
-
-

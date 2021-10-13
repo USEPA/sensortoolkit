@@ -4,7 +4,30 @@ This module computes the average of parameter values across all conurrently
 recorded sensor measurements for each timestamp in the passed list of
 dataframes.
 
-For instance, say you have the following sensor datasets:
+Calculation
+-----------
+
+Intersensor averages are computed via the following equation:
+
+.. math::
+
+    \\bar{x_i} = \\frac{1}{M}\\sum_{j=1}^{M}x_{ij}
+
+where
+
+    :math:`\\bar{x_i}` = intersensor average concentration for time interval `i`
+
+    :math:`M` = Number of sensors deployed concurrently
+
+    :math:`x_{ij}` = Concentration for sensor `j` and time interval `i`. For
+    each resulting average :math:`\\bar{x_i}`, all sensor concentration values
+    must be non-null within the time interval `i`. If one or more sensors
+    recored a null value for the interval `i`, :math:`\\bar{x_i}` will be null.
+
+Example
+-------
+
+Say you have the following sensor datasets for sensor `a`, `b`, and `c`:
 
 >>> sensor_data_a = df_list[0]
 >>> df_list[0]
@@ -45,9 +68,10 @@ we find the intersensor average to be:
 2021-01-01 03:00:00    np.nan
 2021-01-01 04:00:00     3.250
 
-Note that no average is computed for the 3:00 timestamp, as sensor_data_b contains
-a null value for this timestamp. Intersensor averages are only computed for instances
-where all sensors are recording concurrently. 
+Note that no average is computed for the 3:00 timestamp, as the dataset for
+sensor `b` contains a null value for this timestamp. Intersensor averages are
+only computed for instances where all sensors are recording concurrently.
+
 ================================================================================
 
 @Author:
