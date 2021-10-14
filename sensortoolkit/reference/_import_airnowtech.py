@@ -48,9 +48,11 @@ def ingest_airnowtech(path, Clean_QC_Code=False):
     """
 
     # Import csv dataframe, set hourly UTC date and time as index
-    df = pd.read_csv(path, parse_dates={'DateTime_UTC': ['Date (UTC)',
-                                                         'Time (UTC)']},
-                     index_col='DateTime_UTC')
+    df = pd.read_csv(path, parse_dates={'DateTime': ['Date (UTC)',
+                                                     'Time (UTC)']},
+                     index_col='DateTime')
+
+    df = df.tz_localize('UTC')
 
     if Clean_QC_Code is True:
         df = df[df['QC Code'] == 0]
@@ -353,7 +355,7 @@ def write_to_file(df, path, outpath):
                 print('../reference_data/airnowtech/processed/' + folder
                       + '/' + filename)
                 month_df.to_csv(outpath + '/' + filename,
-                                index_label='DateTime_UTC')
+                                index_label='DateTime')
 
     return folder
 
