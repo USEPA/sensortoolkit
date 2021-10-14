@@ -17,7 +17,7 @@ import pandas as pd
 import os
 import sys
 from sensortoolkit.datetime_utils import sensor_averaging
-from sensortoolkit.sensor_ingest import standard_ingest, processed_data_search
+from sensortoolkit.ingest import standard_ingest, processed_data_search
 from sensortoolkit.calculate import dewpoint
 
 # Sensor-specific modules
