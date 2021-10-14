@@ -1,11 +1,10 @@
 # -*- coding: utf-8 -*-
 """
-Error
------
+This module computes the root mean square error for quantifying the error
+between sensor and FRM/FEM measurements.
 
 U.S. EPA's Performance Targets Reports recommend the root mean square error
-(RMSE) for quantifying the error between sensor and FRM/FEM measurements. RMSE
-is calculated as
+(RMSE), where RMSE is calculated as
 
 .. math::
 
