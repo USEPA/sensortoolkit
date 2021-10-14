@@ -7,7 +7,7 @@ Description.
 @Author:
   | Samuel Frederick, NSSC Contractor (ORAU)
   | U.S. EPA / ORD / CEMM / AMCD / SFSB
-  
+
 Created:
   Mon Aug  9 09:30:03 2021
 Last Updated:
@@ -117,11 +117,11 @@ def from_envidas(file_path):
               for col in df.columns}
     df = df.rename(columns=rename)
 
-    df['DateTime_UTC'] = pd.to_datetime(df.Date + ' ' + df.Time,
+    df['DateTime'] = pd.to_datetime(df.Date + ' ' + df.Time,
                                     format = '%m/%d/%Y %I:%M %p')
-    df = df.set_index(df.DateTime_UTC)
+    df = df.set_index(df.DateTime)
 
-    df = df.drop(columns=['Date', 'Time', 'DateTime_UTC'])
+    df = df.drop(columns=['Date', 'Time', 'DateTime'])
 
     keep = ['UV_370nm_AE33_LC_Value',           # <-- PM Headers
             'UV_370nm_AE33_LC_QAQC_Code',
@@ -211,7 +211,7 @@ def from_envista(file_path):
                     'T265_O3': 'O3-API T265'}
     df = df.rename(columns=rename_dict)
 
-    df = df.set_index(df.DateTime_UTC).drop(columns=['DateTime_UTC'])
+    df = df.set_index(df.DateTime).drop(columns=['DateTime'])
 
 
     return df
@@ -271,7 +271,7 @@ def format_ref_timestamp(df):
     if datetime.str.split(expand=True).shape[1] == 2:
         datetime_fmt = '%m/%d/%Y %H:%M'  # MM/DD/YYYY HH:MM (24hr fmt)
 
-    df['DateTime_UTC'] = pd.to_datetime(datetime, format=datetime_fmt)
+    df['DateTime'] = pd.to_datetime(datetime, format=datetime_fmt)
     df.drop(columns=['Date & Time'], inplace=True)
     if split_timestamp:
         df.drop(columns=['DateTime', 'Time'], inplace=True)

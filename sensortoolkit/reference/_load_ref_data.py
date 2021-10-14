@@ -134,8 +134,8 @@ def import_ref_dataframe(df, path, year, month, suffix=None):
     """
     try:
         filename = 'H_' + year + month + suffix + '.csv'
-        load_df = pd.read_csv(path + filename, parse_dates=['DateTime_UTC'],
-                              index_col='DateTime_UTC')
+        load_df = pd.read_csv(path + filename, parse_dates=['DateTime'],
+                              index_col='DateTime')
 
         # Append loaded dataframe based on the first instance of a timestamp
         # index value (i.e., avoid duplicate index values by combining only
