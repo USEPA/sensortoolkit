@@ -5,7 +5,7 @@ here = pathlib.Path(__file__).parent
 readme = (here / 'README.md').read_text()
 
 setup(name='sensortoolkit',
-      version='0.5.0b5',
+      version='0.5.1b2',
       description='Library for evaluating air sensor data',
       long_description=readme,
       long_description_content_type='text/markdown',
@@ -22,19 +22,19 @@ setup(name='sensortoolkit',
                 'sensortoolkit.calculate',
                 'sensortoolkit.datetime_utils',
                 'sensortoolkit.deploy',
-                'sensortoolkit.evaluation',
+                'sensortoolkit.evaluation_objs',
                 'sensortoolkit.lib_utils',
                 'sensortoolkit.model',
                 'sensortoolkit.param',
-                'sensortoolkit.performancereport',
                 'sensortoolkit.plotting',
                 'sensortoolkit.qc',
                 'sensortoolkit.reference',
-                'sensortoolkit.sensor_ingest'
+                'sensortoolkit.ingest',
+                'sensortoolkit.testing_attrib_objs'
                 ]),
-      package_data={'': ["performancereport/templates/O3/Reporting_Template_Base_O3.pptx",
-                         "performancereport/templates/PM25/Reporting_Template_Base_PM25.pptx",
-                         "performancereport/templates/placeholder_image.png",
+      package_data={'': ["evaluation_objs/templates/O3/Reporting_Template_Base_O3.pptx",
+                         "evaluation_objs/templates/PM25/Reporting_Template_Base_PM25.pptx",
+                         "evaluation_objs/templates/placeholder_image.png",
                          "reference/method_codes/methods_criteria.csv",
                          "reference/method_codes/methods_met.csv"
                          ]

@@ -193,65 +193,12 @@ during installation will be installed by pip.
 
 <!--
 ****
-## Data Dictionary <a name="dict"></a>
-
-#### Sensor data <a name="dict-sensor"></a>
-Below is a list of sensor parameters supported by the `SensorEvaluation` class. **Please note that currently, only `PM25` and `O3` are fully supported for all performance evaluation modules in accordance with EPA's [reports](https://www.epa.gov/air-sensor-toolbox/air-sensor-performance-targets-and-testing-protocols#reports) for these pollutants.** Limited functionality is available for all other pollutants.
-
-| Parameter Classification | Parameter Label             | Description                                              | Units                       |
-| ------------------------ | -------------------------- | -------------------------------------------------------- | --------------------------- |
-| Pollutant; PM            | `PM1`                        | Particulate matter < 1 micrometer in aerosol diameter    | Micrograms/cubic meter      |
-| Pollutant; Criteria; PM  | `PM25`                       | Particulate matter < 2.5 micrometers in aerosol diameter | Micrograms/cubic meter      |
-| Pollutant; Criteria; PM  | `PM10`                       | Particulate matter < 10 micrometers in aerosol diameter  | Micrograms/cubic meter      |
-| Pollutant; Criteria; Gas | `O3`                         | Ozone                                                    | Parts per billion by volume |
-| Pollutant; Gas           | `NO`                         | Nitrogen Monoxide                                        |                             |
-| Pollutant; Criteria; Gas | `NO2`                        | Nitrogen Dioxide                                         | Parts per billion by volume |
-| Pollutant; Gas           | `NOx`                        | Nitrogen Oxides                                          |                             |
-| Pollutant; Criteria; Gas | `SO2`                        | Sulfur Dioxide                                           | Parts per billion by volume |
-| Pollutant; Gas           | `SOx`                        | Sulfur Dioxides                                          |                             |
-| Pollutant; Criteria; Gas | `CO`                         | Carbon Monoxide                                          | Parts per million by volume |
-| Pollutant; Gas           | `CO2`                        | Carbon Dioxide                                           |                             |
-| Meteorological           | `RH`                         | Relative Humidity                                        | Percent                     |
-| Meteorological           | `Temp`                       | Temperature                                              | Degrees Celsius             |
-| Meteorological           | `DP`*                       | Dewpoint                                                 | Degrees Celsius             |
-| Meteorological           | `WS`                         | Wind Speed                                               | Meters/second               |
-| Meteorological           | `WD`                         | Wind Direction                                           | Radians                     |
-| Meteorological           | `Press`                      | Pressure                                                 |                             |
-| Metadata                 | `[param name]_QC`         | Parameter QC Code                                        | N/a                         |
-| Metadata; Sensor Siting  | `Sensor_Lat`                | Latitude of sensor                                       | Decimal degrees             |
-| Metadata; Sensor Siting  | `Sensor_Lon`                | Longitude of sensor                                      | Decimal degrees             |
-| Performance evaluation   | `[param name]_Normalized` | Parameter data normalized by corresponding reference     | N/a                         |
-
-
-*If internal Temp and RH are measured, but not DP, DP is calculated via the `Dewpoint()` module and is labeled `DP_calculated`
-#### Reference data <a name="dict-reference"></a>
-Below is a description of reference data formatting expected by the `SensorEvaluation` class. Example values result from `PM25` data queried from the AQS API for the Triple Oak monitoring site. The column naming scheme for parameter data is consistent across queried parameters (columns with the prefix '`PM25`' are replaced by the parameter of interest) and columns formatting is consistent across data sources. Note that the AirNow API does not return QC codes, parameter AQS codes, method names, method AQS codes, or parameter occurrence codes. These columns are set null (i.e., all values set to `numpy.nan`). In addition, AirNowTech does not return method names, site latitude, or site longitude, and these columns are set null if reference data from AirNowTech are selected.
-
-| Column Header                 | Description                                          | Example                                         | Data type        |
-| ----------------------------- | ---------------------------------------------------- | ----------------------------------------------- | ---------------- |
-| `DateTime_UTC`                 | Timestamp, set as index                                            | `8/1/2019 13:00`                                  | `datetime64[ns]` |
-| `PM25_Value`                   | Parameter value                                      | `9`                                               | `float64`          |
-| `PM25_Unit`                    | Parameter units                                      | `Micrograms/cubic meter (LC)`                     | `object`           |
-| `PM25_QAQC_Code`              | Parameter QC code or AQS qualifier                                   | `V - Validated Value.`                            | `float64`          |
-| `PM25_Param_Code`             | Parameter AQS code                                   | `88101`                                           | `float64`          |
-| `PM25_Method`                  | Parameter method (Instrument)                        | `Met One BAM-1022 PM2.5 w/ VSCC or TE-PM2.5C FEM` | `object`           |
-| `PM25_Method_Code`            | Parameter method AQS code                            | `209`                                             | `float64`          |
-| `PM25_Method_POC`             | Parameter Occurance Code (POC)                             | `3`                                               | `float64`          |
-| `Agency`                        | Reporting agency overseeing site                     | `North Carolina Dept Of Environmental Quality`    | `object`           |
-| `Site_Name`                    | Name of monitoring site                              | `Triple Oak`                                      | `object`           |
-| `Site_AQS`                     | Site AQS ID (state, county, site FIPS codes separated by '-') | `37-183-0021`                                     | `object`           |
-| `Site_Lat`                     | Site latitude                                        | `35.8652`                                         | `float64`          |
-| `Site_Lon`                     | Site longitude                                       | `-78.8197`                                       | `float64`          |
-| `Data_Source`                  | Name of API data source                              | `AQS API`                                         | `object`           |
-| `Data_Acquisition_Date_Time` | Date and time of data query, acquisition             | `5/18/2021 8:44`                                  | `datetime64[ns]`           |
-
-Note that AirNow, AirNowTech, and AQS report QC or instrument status codes in different ways. AirNow reports `-999` if instrument failures or other issues occur, AirNowTech reports integer values ranging from 0 (normal operation) to `9` (instrument failure)
-
-****
 
 ## Modules <a name="modules"></a>
 #### `SensorEvaluation.print_eval_metrics()`
-Results are printed to the console at the specified averaging interval for performance evaluation metrics including the coefficient of variation (CV), OLS regression slope and intercept, coefficient of determination (R<sup>2</sup>) and Root Mean Square Error (RMSE).
+Results are printed to the console at the specified averaging interval for performance
+evaluation metrics including the coefficient of variation (CV), OLS regression slope
+and intercept, coefficient of determination (R<sup>2</sup>) and Root Mean Square Error (RMSE).
 
 ##### Parameters
 &nbsp;&nbsp; __averaging_interval : *{'Hourly', 'Daily'}, default 'Daily'*__
@@ -309,13 +256,12 @@ Time series plots for 1-hour averaged and 24-hour averaged sensor and reference 
 # Timeseries plots for 1-hour averaged data
 Eval.plot_timeseries(averaging_interval='1-hour')
 ```
-![Example_Make_Model Performance Evaluation Results](Data%20and%20Figures/figures/Example_Make_Model/PM25/Example_Make_Model_timeseries_PM25_1-hour_210519.png){width=1200}
 
 ```python
 # Timeseries plots for 24-hour averaged data
 Eval.plot_timeseries(averaging_interval='24-hour')
 ```
-![Example_Make_Model Performance Evaluation Results](Data%20and%20Figures/figures/Example_Make_Model/PM25/Example_Make_Model_timeseries_PM25_24-hour_210519.png){width=1200}
+
 
 ****
 
@@ -363,7 +309,6 @@ Computing regression statistics for Example_Make_Model vs T-API T640X at 16.67 L
 Computing regression statistics for Example_Make_Model vs T-API T640X at 16.67 LPM
 Computing regression statistics for Example_Make_Model vs T-API T640X at 16.67 LPM
 ```
-![Example_Make_Model Performance Evaluation Results](Data%20and%20Figures/figures/Example_Make_Model/PM25/Example_Make_Model_vs_T-API%20T640X%20at%2016.67%20LPM_1-hour_3_sensors_210519.png){width=1000}
 
 ****
 
@@ -374,7 +319,6 @@ __Description under construction.__
 ```python
 Eval.plot_metrics()
 ```
-![Example_Make_Model Performance Evaluation Results](Data%20and%20Figures/figures/Example_Make_Model/PM25/Example_Make_Model_regression_boxplot_PM25_210517.png){width=1200}
 
 ****
 
@@ -394,20 +338,5 @@ __Description under construction.__
 ```python
 Eval.plot_met_dist()
 ```
-![Example_Make_Model Performance Evaluation Results](Data%20and%20Figures/figures/Example_Make_Model/Met/Example_Make_Model_met_distplot_pt_formatting_210519.png){width=600}
 
-****
-Formatting stuff
-
-# Level 1 *Level 1* __Level 1__
-## Level 2 *Level 2* __Level 2__
-### Level 3 *Level 3* __Level 3__
-#### Level 4 *Level 4* __Level 4__
-##### Level 5 *Level 5* __Level 5__
-###### Level 6 *Level 6* __Level 6__
-
-Regular text\
-*Italic*\
-__Bold__\
-~~strikethrough~~
 -->
