@@ -1,0 +1,1565 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>sensortoolkit.evaluation._sensor_eval &mdash; sensortoolkit 0.5.0b5 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> sensortoolkit
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.5.0b5
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption" role="heading"><span class="caption-text">Documentation Overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../import_sensortoolkit.html">Importing sensortoolkit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../testingattrib_objects/index.html">Testing Attribute Objects</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../testingattrib_objects/airsensor/index.html">The AirSensor Object</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../testingattrib_objects/airsensor/overview.html">AirSensor Instantiation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../testingattrib_objects/airsensor/setup.html">AirSensor Setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../testingattrib_objects/airsensor/load_data.html">Loading Sensor Data</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../testingattrib_objects/referencemonitor/index.html">The ReferenceMonitor Object</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../testingattrib_objects/referencemonitor/overview.html">ReferenceMonitor Instantiation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../testingattrib_objects/referencemonitor/setup.html">ReferenceMonitor Setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../testingattrib_objects/referencemonitor/load_data.html">Loading Reference Data</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../testingattrib_objects/parameter.html">The Parameter Object</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../testingattrib_objects/setup_overview.html">Overview of Instantiating Testing Attributes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../evaluation_objects/index.html">Evaluation Objects</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../evaluation_objects/sensoreval/index.html">Conducting Analysis - The SensorEvaluation Class</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../evaluation_objects/sensoreval/plotting.html">Plotting Methods</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../evaluation_objects/performancereport.html">Creating Testing Reports - The PerformanceReport Class</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../data_structures/index.html">Data Structures and Formatting</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../data_structures/sensor_data.html">Sensor Data Structures</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../data_structures/sdfs.html">Sensor Data Formatting Standard (S-DFS)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../data_structures/reference_data.html">Reference Data Structures</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../data_structures/rdfs.html">Reference Data Formatting Standard (R-DFS)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../data_structures/config_structs.html">Configuration Setup JSON</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../data_structures/eval_structs.html">Performance Evaluation Data Structures</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/index.html">sensortoolkit API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/calculate.html"><code class="docutils literal notranslate"><span class="pre">sensortoolkit.calculate</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.calculate._aqi.html">sensortoolkit.calculate._aqi</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.calculate._aqi.html#resources">Resources</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.calculate._aqi.html#calculation">Calculation</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.calculate._cv.html">sensortoolkit.calculate._cv</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.calculate._cv.cv.html">sensortoolkit.calculate._cv.cv</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.calculate._dewpoint.html">sensortoolkit.calculate._dewpoint</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.calculate._dewpoint.html#calculation">Calculation</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.calculate._intersensor_mean.html">sensortoolkit.calculate._intersensor_mean</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.calculate._intersensor_mean.html#calculation">Calculation</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.calculate._normalize.html">sensortoolkit.calculate._normalize</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.calculate._normalize.html#calculation">Calculation</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.calculate._nowcast_pm25.html">sensortoolkit.calculate._nowcast_pm25</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.calculate._nowcast_pm25.html#module-dependencies">Module Dependencies</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.calculate._nowcast_pm25.html#calculation">Calculation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.calculate._nowcast_pm25.html#resources">Resources</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.calculate._regression_stats.html">sensortoolkit.calculate._regression_stats</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.calculate._regression_stats.html#bias-and-linearity">Bias and linearity</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.calculate._rmse.html">sensortoolkit.calculate._rmse</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.calculate._rmse.rmse.html">sensortoolkit.calculate._rmse.rmse</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.calculate._uptime.html">sensortoolkit.calculate._uptime</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.calculate._uptime.uptime.html">sensortoolkit.calculate._uptime.uptime</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/datetime_utils.html"><code class="docutils literal notranslate"><span class="pre">sensortoolkit.datetime_utils</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.datetime_utils._format_date.html">sensortoolkit.datetime_utils._format_date</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.datetime_utils._format_date.get_todays_date.html">sensortoolkit.datetime_utils._format_date.get_todays_date</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.datetime_utils._get_timestamp_interval.html">sensortoolkit.datetime_utils._get_timestamp_interval</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.datetime_utils._get_timestamp_interval.get_timestamp_interval.html">sensortoolkit.datetime_utils._get_timestamp_interval.get_timestamp_interval</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.datetime_utils._set_datetime_index.html">sensortoolkit.datetime_utils._set_datetime_index</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.datetime_utils._set_datetime_index.set_datetime_index.html">sensortoolkit.datetime_utils._set_datetime_index.set_datetime_index</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.datetime_utils._time_averaging.html">sensortoolkit.datetime_utils._time_averaging</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.datetime_utils._time_averaging.interval_averaging.html">sensortoolkit.datetime_utils._time_averaging.interval_averaging</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.datetime_utils._time_averaging.sensor_averaging.html">sensortoolkit.datetime_utils._time_averaging.sensor_averaging</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.datetime_utils._timeframe_utils.html">sensortoolkit.datetime_utils._timeframe_utils</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.datetime_utils._timeframe_utils.deploy_timestamp_index.html">sensortoolkit.datetime_utils._timeframe_utils.deploy_timestamp_index</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.datetime_utils._timeframe_utils.timeframe_search.html">sensortoolkit.datetime_utils._timeframe_utils.timeframe_search</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/deploy.html"><code class="docutils literal notranslate"><span class="pre">sensortoolkit.deploy</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.deploy._create_deploy_dict.html">sensortoolkit.deploy._create_deploy_dict</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.deploy._create_deploy_dict.construct_deploy_dict.html">sensortoolkit.deploy._create_deploy_dict.construct_deploy_dict</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.deploy._create_deploy_dict.deploy_met_stats.html">sensortoolkit.deploy._create_deploy_dict.deploy_met_stats</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.deploy._create_deploy_dict.deploy_ref_stats.html">sensortoolkit.deploy._create_deploy_dict.deploy_ref_stats</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.deploy._deployment_period.html">sensortoolkit.deploy._deployment_period</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.deploy._deployment_period.deployment_period.html">sensortoolkit.deploy._deployment_period.deployment_period</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.deploy._get_max_conc.html">sensortoolkit.deploy._get_max_conc</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.deploy._get_max_conc.get_max_conc.html">sensortoolkit.deploy._get_max_conc.get_max_conc</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/evaluation.html"><code class="docutils literal notranslate"><span class="pre">sensortoolkit.evaluation</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.evaluation._sensor_eval.html">sensortoolkit.evaluation._sensor_eval</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.evaluation._sensor_eval.SensorEvaluation.html">sensortoolkit.evaluation._sensor_eval.SensorEvaluation</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.evaluation._airsensor.html">sensortoolkit.evaluation._airsensor</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.evaluation._airsensor.AirSensor.html">sensortoolkit.evaluation._airsensor.AirSensor</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.evaluation._referencemonitor.html">sensortoolkit.evaluation._referencemonitor</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.evaluation._referencemonitor.ReferenceMonitor.html">sensortoolkit.evaluation._referencemonitor.ReferenceMonitor</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/lib_utils.html"><code class="docutils literal notranslate"><span class="pre">sensortoolkit.lib_utils</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.lib_utils._copy_datasets.html">sensortoolkit.lib_utils._copy_datasets</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.lib_utils._copy_datasets.copy_datasets.html">sensortoolkit.lib_utils._copy_datasets.copy_datasets</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.lib_utils._flatten_list.html">sensortoolkit.lib_utils._flatten_list</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.lib_utils._flatten_list.flatten_list.html">sensortoolkit.lib_utils._flatten_list.flatten_list</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.lib_utils._sensor_subfolders.html">sensortoolkit.lib_utils._sensor_subfolders</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.lib_utils._sensor_subfolders.create_sensor_directories.html">sensortoolkit.lib_utils._sensor_subfolders.create_sensor_directories</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/model.html"><code class="docutils literal notranslate"><span class="pre">sensortoolkit.model</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.model._apply_correction.html">sensortoolkit.model._apply_correction</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.model._apply_correction.individual_corr.html">sensortoolkit.model._apply_correction.individual_corr</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.model._purpleair_uscorrection.html">sensortoolkit.model._purpleair_uscorrection</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.model._purpleair_uscorrection.purpleair_us_corr.html">sensortoolkit.model._purpleair_uscorrection.purpleair_us_corr</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.model._sensor_ols.html">sensortoolkit.model._sensor_ols</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.model._sensor_ols.sensor_ols.html">sensortoolkit.model._sensor_ols.sensor_ols</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/param.html"><code class="docutils literal notranslate"><span class="pre">sensortoolkit.param</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.param._parameter.html">sensortoolkit.param._parameter</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.param._parameter.Parameter.html">sensortoolkit.param._parameter.Parameter</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.param._targets.html">sensortoolkit.param._targets</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.param._targets.ParameterTargets.html">sensortoolkit.param._targets.ParameterTargets</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/performance_report.html"><code class="docutils literal notranslate"><span class="pre">sensortoolkit.performancereport</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.performancereport._performance_report.html">sensortoolkit.performancereport._performance_report</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.performancereport._performance_report.PerformanceReport.html">sensortoolkit.performancereport._performance_report.PerformanceReport</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/plotting.html"><code class="docutils literal notranslate"><span class="pre">sensortoolkit.plotting</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.plotting._distribution.html">sensortoolkit.plotting._distribution</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.plotting._distribution.met_distrib.html">sensortoolkit.plotting._distribution.met_distrib</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.plotting._distribution.recording_interval_histogram.html">sensortoolkit.plotting._distribution.recording_interval_histogram</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.plotting._distribution.ref_distrib.html">sensortoolkit.plotting._distribution.ref_distrib</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.plotting._errorbars.html">sensortoolkit.plotting._errorbars</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.plotting._errorbars.error_bars.html">sensortoolkit.plotting._errorbars.error_bars</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.plotting._intrasensor_comparison.html">sensortoolkit.plotting._intrasensor_comparison</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.plotting._intrasensor_comparison.compare_sensors.html">sensortoolkit.plotting._intrasensor_comparison.compare_sensors</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.plotting._performance_metrics.html">sensortoolkit.plotting._performance_metrics</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.plotting._performance_metrics.performance_metrics.html">sensortoolkit.plotting._performance_metrics.performance_metrics</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.plotting._plot_formatting.html">sensortoolkit.plotting._plot_formatting</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.plotting._plot_formatting.get_colormap_range.html">sensortoolkit.plotting._plot_formatting.get_colormap_range</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.plotting._plot_formatting.met_scatter_lims.html">sensortoolkit.plotting._plot_formatting.met_scatter_lims</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.plotting._plot_formatting.sensor_subplot_formatting.html">sensortoolkit.plotting._plot_formatting.sensor_subplot_formatting</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.plotting._plot_formatting.set_fontsize.html">sensortoolkit.plotting._plot_formatting.set_fontsize</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.plotting._plot_formatting.subplot_dims.html">sensortoolkit.plotting._plot_formatting.subplot_dims</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.plotting._plot_formatting.wrap_text.html">sensortoolkit.plotting._plot_formatting.wrap_text</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.plotting._scatter.html">sensortoolkit.plotting._scatter</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.plotting._scatter.draw_scatter.html">sensortoolkit.plotting._scatter.draw_scatter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.plotting._scatter.normalized_met_scatter.html">sensortoolkit.plotting._scatter.normalized_met_scatter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.plotting._scatter.scatter_plotter.html">sensortoolkit.plotting._scatter.scatter_plotter</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.plotting._timeseries.html">sensortoolkit.plotting._timeseries</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.plotting._timeseries.deployment_timeline.html">sensortoolkit.plotting._timeseries.deployment_timeline</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.plotting._timeseries.sensor_timeplot.html">sensortoolkit.plotting._timeseries.sensor_timeplot</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qc.html"><code class="docutils literal notranslate"><span class="pre">sensortoolkit.qc</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.qc._duplicate_removal.html">sensortoolkit.qc._duplicate_removal</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.qc._duplicate_removal.remove_duplicates.html">sensortoolkit.qc._duplicate_removal.remove_duplicates</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.qc._interval_downsampling.html">sensortoolkit.qc._interval_downsampling</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.qc._interval_downsampling.apply_downsampling.html">sensortoolkit.qc._interval_downsampling.apply_downsampling</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.qc._interval_downsampling.downsampling_interval.html">sensortoolkit.qc._interval_downsampling.downsampling_interval</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.qc._interval_downsampling.plot_recording_interval.html">sensortoolkit.qc._interval_downsampling.plot_recording_interval</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.qc._interval_downsampling.plot_timedelta_quantiles.html">sensortoolkit.qc._interval_downsampling.plot_timedelta_quantiles</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.qc._interval_downsampling.sensor_timedelta.html">sensortoolkit.qc._interval_downsampling.sensor_timedelta</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.qc._interval_downsampling.timedelta_quantiles.html">sensortoolkit.qc._interval_downsampling.timedelta_quantiles</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.qc._invalidate.html">sensortoolkit.qc._invalidate</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.qc._invalidate.invalidate_period.html">sensortoolkit.qc._invalidate.invalidate_period</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.qc._outlier_detection.html">sensortoolkit.qc._outlier_detection</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.qc._outlier_detection.cooks_outlier_detection.html">sensortoolkit.qc._outlier_detection.cooks_outlier_detection</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.qc._persistent_values.html">sensortoolkit.qc._persistent_values</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.qc._persistent_values.persistent_values.html">sensortoolkit.qc._persistent_values.persistent_values</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.qc._purpleair_abcleaning.html">sensortoolkit.qc._purpleair_abcleaning</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.qc._purpleair_abcleaning.purpleair_ab_averages.html">sensortoolkit.qc._purpleair_abcleaning.purpleair_ab_averages</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/reference.html"><code class="docutils literal notranslate"><span class="pre">sensortoolkit.reference</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._import_airnowtech.html">sensortoolkit.reference._import_airnowtech</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._import_airnowtech.ingest_airnowtech.html">sensortoolkit.reference._import_airnowtech.ingest_airnowtech</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._import_airnowtech.preprocess_airnowtech.html">sensortoolkit.reference._import_airnowtech.preprocess_airnowtech</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._import_airnowtech.sort_airnowtech.html">sensortoolkit.reference._import_airnowtech.sort_airnowtech</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._import_airnowtech.write_to_file.html">sensortoolkit.reference._import_airnowtech.write_to_file</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._import_oaqps.html">sensortoolkit.reference._import_oaqps</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._import_oaqps.format_headers.html">sensortoolkit.reference._import_oaqps.format_headers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._import_oaqps.format_qaqc.html">sensortoolkit.reference._import_oaqps.format_qaqc</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._import_oaqps.format_ref_timestamp.html">sensortoolkit.reference._import_oaqps.format_ref_timestamp</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._import_oaqps.from_envidas.html">sensortoolkit.reference._import_oaqps.from_envidas</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._import_oaqps.from_envista.html">sensortoolkit.reference._import_oaqps.from_envista</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._import_oaqps.ingest_oaqps.html">sensortoolkit.reference._import_oaqps.ingest_oaqps</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._import_oaqps.process_oaqps.html">sensortoolkit.reference._import_oaqps.process_oaqps</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._load_ref_data.html">sensortoolkit.reference._load_ref_data</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._load_ref_data.import_ref_dataframe.html">sensortoolkit.reference._load_ref_data.import_ref_dataframe</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._load_ref_data.load_ref_dataframes.html">sensortoolkit.reference._load_ref_data.load_ref_dataframes</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._ref_api_query.html">sensortoolkit.reference._ref_api_query</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._ref_api_query.date_range_selector.html">sensortoolkit.reference._ref_api_query.date_range_selector</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._ref_api_query.ingest_airnow.html">sensortoolkit.reference._ref_api_query.ingest_airnow</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._ref_api_query.ingest_aqs.html">sensortoolkit.reference._ref_api_query.ingest_aqs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._ref_api_query.modify_ref_cols.html">sensortoolkit.reference._ref_api_query.modify_ref_cols</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._ref_api_query.modify_ref_method_str.html">sensortoolkit.reference._ref_api_query.modify_ref_method_str</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._ref_api_query.parse_sample_data.html">sensortoolkit.reference._ref_api_query.parse_sample_data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._ref_api_query.query_airnow.html">sensortoolkit.reference._ref_api_query.query_airnow</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._ref_api_query.query_aqs.html">sensortoolkit.reference._ref_api_query.query_aqs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._ref_api_query.query_periods.html">sensortoolkit.reference._ref_api_query.query_periods</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._ref_api_query.ref_api_query.html">sensortoolkit.reference._ref_api_query.ref_api_query</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._ref_api_query.save_api_dataset.html">sensortoolkit.reference._ref_api_query.save_api_dataset</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._ref_api_query.select_poc.html">sensortoolkit.reference._ref_api_query.select_poc</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/sensor_ingest.html"><code class="docutils literal notranslate"><span class="pre">sensortoolkit.sensor_ingest</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.sensor_ingest._processed_data_loader.html">sensortoolkit.sensor_ingest._processed_data_loader</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.sensor_ingest._processed_data_loader.processed_data_search.html">sensortoolkit.sensor_ingest._processed_data_loader.processed_data_search</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.sensor_ingest._sensor_import.html">sensortoolkit.sensor_ingest._sensor_import</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.sensor_ingest._sensor_import.ingest_example_make_model.html">sensortoolkit.sensor_ingest._sensor_import.ingest_example_make_model</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.sensor_ingest._sensor_import.ingest_purpleair.html">sensortoolkit.sensor_ingest._sensor_import.ingest_purpleair</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.sensor_ingest._sensor_import.ingest_sensit_ramp.html">sensortoolkit.sensor_ingest._sensor_import.ingest_sensit_ramp</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.sensor_ingest._sensor_import.ingest_wrapper.html">sensortoolkit.sensor_ingest._sensor_import.ingest_wrapper</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.sensor_ingest._sensor_import.sensor_import.html">sensortoolkit.sensor_ingest._sensor_import.sensor_import</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.sensor_ingest._standard_ingest.html">sensortoolkit.sensor_ingest._standard_ingest</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.sensor_ingest._standard_ingest.ParseSetup.html">sensortoolkit.sensor_ingest._standard_ingest.ParseSetup</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.sensor_ingest._standard_ingest.apply_strptime.html">sensortoolkit.sensor_ingest._standard_ingest.apply_strptime</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.sensor_ingest._standard_ingest.standard_ingest.html">sensortoolkit.sensor_ingest._standard_ingest.standard_ingest</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">sensortoolkit</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>sensortoolkit.evaluation._sensor_eval</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for sensortoolkit.evaluation._sensor_eval</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Top-level analysis module for the ``sensortoolkit`` library. Contains the</span>
+<span class="sd">front-facing ``SensorEvaluation`` class for conducting analysis of sensor data.</span>
+
+<span class="sd">================================================================================</span>
+
+<span class="sd">@Author:</span>
+<span class="sd">    | Samuel Frederick, NSSC Contractor (ORAU)</span>
+<span class="sd">    | U.S. EPA / ORD / CEMM / AMCD / SFSB</span>
+
+<span class="sd">Created:</span>
+<span class="sd">  Fri Jul 31 08:39:37 2020</span>
+<span class="sd">Last Updated:</span>
+<span class="sd">  Wed Jul 7 15:01:00 2021</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">math</span>
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">sensortoolkit.calculate</span>
+<span class="kn">import</span> <span class="nn">sensortoolkit.datetime_utils</span>
+<span class="kn">import</span> <span class="nn">sensortoolkit.deploy</span>
+<span class="kn">import</span> <span class="nn">sensortoolkit.lib_utils</span>
+<span class="kn">import</span> <span class="nn">sensortoolkit.model</span>
+<span class="kn">import</span> <span class="nn">sensortoolkit.param</span>
+<span class="kn">import</span> <span class="nn">sensortoolkit.plotting</span>
+<span class="kn">import</span> <span class="nn">sensortoolkit.qc</span>
+<span class="kn">import</span> <span class="nn">sensortoolkit.reference</span>
+<span class="kn">import</span> <span class="nn">sensortoolkit.sensor_ingest</span>
+
+
+<div class="viewcode-block" id="SensorEvaluation"><a class="viewcode-back" href="../../../api/_autosummary/sensortoolkit.evaluation._sensor_eval.SensorEvaluation.html#sensortoolkit.evaluation._sensor_eval.SensorEvaluation">[docs]</a><span class="k">class</span> <span class="nc">SensorEvaluation</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Evaluate air sensor performance for use in NSIM applications.</span>
+
+<span class="sd">    A class for conducting analysis for air sensors deployed at ambient,</span>
+<span class="sd">    outdoor, fixed monitoring sites using U.S. EPA&#39;s performance metrics and</span>
+<span class="sd">    targets for sensors measuring PM2.5 or O3. U.S. EPA&#39;s testing protocols and</span>
+<span class="sd">    performance metrics are intended for use with devices deployed for</span>
+<span class="sd">    non-regulatory supplemental and informational monitoring (NSIM)</span>
+<span class="sd">    applications.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        sensor (AirSensor object): Description.</span>
+<span class="sd">        param (Parameter object): Description.</span>
+<span class="sd">        reference (ReferenceMethod object): Description.</span>
+<span class="sd">        reference_data (str): The service or folder directory from which</span>
+<span class="sd">            reference data are acquired.</span>
+<span class="sd">        write_to_file (bool): If true, evaluation statistics will be written</span>
+<span class="sd">            to the ``Data and Figures`` and ``eval_stats`` sensor subdirectory.</span>
+<span class="sd">            Figures will also be written to the appropriate figures</span>
+<span class="sd">            subdirectory.</span>
+<span class="sd">        **kwargs: Keyword arguments that may be passed to the function for</span>
+<span class="sd">            particulate use cases. Includes ``testing_org`` (a dictionary of</span>
+<span class="sd">             organization information that is included in deploy_dict),</span>
+<span class="sd">            ``testing_loc`` (a dictionary of testing location information also</span>
+<span class="sd">            included in ``deploy_dict``).</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        figure_path (str): The full directory path to figures for a given</span>
+<span class="sd">            sensor make and model.</span>
+<span class="sd">        stats_path: The full directory path to evaluation statistics for a</span>
+<span class="sd">            given sensor make and model.</span>
+<span class="sd">        full_df_list (:obj:`list` of :obj: `pandas dataframes`): List of sensor</span>
+<span class="sd">            data frames of length N (where N is the number of sensor units in a</span>
+<span class="sd">            testing group). frames indexed by DateTime_UTC at recorded sampling</span>
+<span class="sd">            frequency.</span>
+<span class="sd">        hourly_df_list (list of pandas dataframes): List of sensor data frames</span>
+<span class="sd">            of length N (where N is the number of sensor units in a testing</span>
+<span class="sd">            group). frames indexed by DateTime_UTC at 1-hour averaged sampling</span>
+<span class="sd">            frequency.</span>
+<span class="sd">        daily_df_list (list of pandas dataframes): List of sensor data frames</span>
+<span class="sd">            of length N (where N is the number of sensor units in a testing</span>
+<span class="sd">            group). frames indexed by DateTime_UTC at 24-hour averaged sampling</span>
+<span class="sd">            frequency.</span>
+<span class="sd">        deploy_period_df (pandas dataframe): A data frame containing the start</span>
+<span class="sd">            time (‘Begin’), end time (‘End’), and total duration of evaluation</span>
+<span class="sd">            period for each sensor in a deployment group.</span>
+<span class="sd">        deploy_dict (dict): A dictionary containing descriptive statistics and</span>
+<span class="sd">            textual information about the deployment (testing agency, site,</span>
+<span class="sd">            time period, etc.), sensors tested, and site conditions during the</span>
+<span class="sd">            evaluation.</span>
+<span class="sd">        deploy_bdate (pandas timestamp object): Overall start date of</span>
+<span class="sd">            deployment. Determined by selecting the earliest recorded timestamp</span>
+<span class="sd">            in sensor data frames.</span>
+<span class="sd">        deploy_edate (pandas timestamp object): Overall end date of deployment.</span>
+<span class="sd">            Determined by selecting the latest recorded timestamp in sensor</span>
+<span class="sd">            data frames.</span>
+<span class="sd">        eval_param_averaging (list): A subset of param_averaging_dict, the list</span>
+<span class="sd">            of averaging intervals corresponding to the evaluation parameter.</span>
+<span class="sd">        ref_dict (dict):</span>
+<span class="sd">            Description.</span>
+<span class="sd">        hourly_ref_df (pandas dataframe):</span>
+<span class="sd">            Description.</span>
+<span class="sd">        pm_hourly_ref_df (pandas dataframe):</span>
+<span class="sd">            Description.</span>
+<span class="sd">        gas_hourly_ref_df (pandas dataframe):</span>
+<span class="sd">            Description.</span>
+<span class="sd">        met_hourly_ref_df (pandas dataframe):</span>
+<span class="sd">        ref_name (str): The make and model of the FRM/FEM instrument used as</span>
+<span class="sd">            reference for the selected evaluation parameter. Both AirNowTech</span>
+<span class="sd">            and AQS return the AQS method code, and the AQS Sampling Methods</span>
+<span class="sd">            Reference table is used to determine the instrument name associated</span>
+<span class="sd">            with this code. AirNow does not return method codes or instrument</span>
+<span class="sd">            names. When the name and type of the FRM/FEM instrument are</span>
+<span class="sd">            unknown, ref_name takes the value ‘unknown_reference’.</span>
+<span class="sd">        daily_ref_df (pandas dataframe):</span>
+<span class="sd">            Description.</span>
+<span class="sd">        met_daily_ref_df (pandas dataframe):</span>
+<span class="sd">            Description.</span>
+<span class="sd">        avg_hrly_df (pandas dataframe): Data frame containing the inter-sensor</span>
+<span class="sd">            average for concurrent sensor measurements at 1-hour averaging</span>
+<span class="sd">            intervals.</span>
+<span class="sd">        avg_daily_df (pandas dataframe): Data frame containing the inter-sensor</span>
+<span class="sd">            average for concurrent sensor measurements at 24-hour averaging</span>
+<span class="sd">            intervals.</span>
+<span class="sd">        stats_df (pandas dataframe): Data frame with OLS regression (sensor vs.</span>
+<span class="sd">            FRM/FEM) statistics, including R2, slope, intercept, RMSE, N</span>
+<span class="sd">            (Number of sensor-FRM/FEM data point pairs), as well as the</span>
+<span class="sd">            minimum, maximum, and the mean sensor concentration.</span>
+<span class="sd">        avg_stats_df (pandas dataframe): Data frame with OLS regression (sensor</span>
+<span class="sd">            vs. intersensor average) statistics, including R2, slope,</span>
+<span class="sd">            intercept, RMSE, N (Number of concurrent sensor measurements during</span>
+<span class="sd">            which all sensors in the testing group reported values), as well as</span>
+<span class="sd">            the minimum, maximum, and the mean sensor concentration.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sensor</span><span class="p">,</span> <span class="n">param</span><span class="p">,</span> <span class="n">reference</span><span class="p">,</span> <span class="n">write_to_file</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                 <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">sensor</span> <span class="o">=</span> <span class="n">sensor</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">sensor</span><span class="o">.</span><span class="n">name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">reference</span> <span class="o">=</span> <span class="n">reference</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">sensor</span><span class="o">.</span><span class="n">data</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s1">, use the AirSensor.load_data() method to import&#39;</span>
+                     <span class="sa">f</span><span class="s1">&#39; data&#39;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">path</span> <span class="o">=</span> <span class="n">sensor</span><span class="o">.</span><span class="n">project_path</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">serials</span> <span class="o">=</span> <span class="n">sensor</span><span class="o">.</span><span class="n">serials</span>
+
+        <span class="c1"># Private to avoid confusion between SensorEvaluation attribute and</span>
+        <span class="c1"># paraeter attribute</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">param</span> <span class="o">=</span> <span class="n">param</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_param_name</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">name</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_param_name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">sensor</span><span class="o">.</span><span class="n">param_headers</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_param_name</span><span class="si">}</span><span class="s1"> is not in the list of &#39;</span>
+                                 <span class="sa">f</span><span class="s1">&#39;parameters measured by </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">write_to_file</span> <span class="o">=</span> <span class="n">write_to_file</span>
+
+        <span class="c1"># Add keyword arguments (testing_loc, testing_org, etc.)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span> <span class="o">=</span> <span class="n">kwargs</span>
+
+        <span class="c1"># path to sensor figures</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">figure_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="p">,</span> <span class="s1">&#39;Data and Figures&#39;</span><span class="p">,</span>
+                                        <span class="s1">&#39;figures&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+
+        <span class="c1"># path to evaluation statistics</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stats_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="p">,</span> <span class="s1">&#39;Data and Figures&#39;</span><span class="p">,</span>
+                                       <span class="s1">&#39;eval_stats&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+
+        <span class="n">rec_int</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sensor</span><span class="o">.</span><span class="n">recording_interval</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">full_df_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sensor</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">rec_int</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">hourly_df_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sensor</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;1-hour&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">daily_df_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sensor</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;24-hour&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+
+        <span class="c1"># Compute sensor deployment period and concurrent deployment groups</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">deploy_period_df</span> <span class="o">=</span> <span class="n">sensortoolkit</span><span class="o">.</span><span class="n">deploy</span><span class="o">.</span><span class="n">deployment_period</span><span class="p">(</span>
+                                                        <span class="bp">self</span><span class="o">.</span><span class="n">full_df_list</span><span class="p">,</span>
+                                                        <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+                                                        <span class="bp">self</span><span class="o">.</span><span class="n">serials</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">deploy_dict</span> <span class="o">=</span> <span class="n">sensortoolkit</span><span class="o">.</span><span class="n">deploy</span><span class="o">.</span><span class="n">construct_deploy_dict</span><span class="p">(</span>
+                                                        <span class="bp">self</span><span class="o">.</span><span class="n">deploy_period_df</span><span class="p">,</span>
+                                                        <span class="bp">self</span><span class="o">.</span><span class="n">full_df_list</span><span class="p">,</span>
+                                                        <span class="bp">self</span><span class="o">.</span><span class="n">hourly_df_list</span><span class="p">,</span>
+                                                        <span class="bp">self</span><span class="o">.</span><span class="n">daily_df_list</span><span class="p">,</span>
+                                                        <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+                                                        <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="p">)</span>
+
+        <span class="n">deploy_grps</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">deploy_dict</span><span class="p">[</span><span class="s1">&#39;Deployment Groups&#39;</span><span class="p">]</span>
+
+        <span class="n">deploy_bdate</span> <span class="o">=</span> <span class="nb">min</span><span class="p">([</span><span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">deploy_grps</span><span class="p">[</span><span class="n">grp</span><span class="p">][</span><span class="s1">&#39;eval_start&#39;</span><span class="p">])</span>
+                            <span class="k">for</span> <span class="n">grp</span> <span class="ow">in</span> <span class="n">deploy_grps</span><span class="o">.</span><span class="n">keys</span><span class="p">()])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">deploy_bdate</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;deploy_bdate&#39;</span><span class="p">,</span> <span class="n">deploy_bdate</span><span class="p">)</span>
+        <span class="n">deploy_edate</span> <span class="o">=</span> <span class="nb">max</span><span class="p">([</span><span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">deploy_grps</span><span class="p">[</span><span class="n">grp</span><span class="p">][</span><span class="s1">&#39;eval_end&#39;</span><span class="p">])</span>
+                            <span class="k">for</span> <span class="n">grp</span> <span class="ow">in</span> <span class="n">deploy_grps</span><span class="o">.</span><span class="n">keys</span><span class="p">()])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">deploy_edate</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;deploy_edate&#39;</span><span class="p">,</span> <span class="n">deploy_edate</span><span class="p">)</span>
+
+        <span class="c1"># Averaging intervals for parameters</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">eval_param_averaging</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">averaging</span>
+
+        <span class="c1"># Retrieve reference data</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ref_dict</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">reference</span><span class="o">.</span><span class="n">data</span>
+
+        <span class="c1"># Set reference dataframe based on evaluation parameter classification</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">hourly_ref_df</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ref_dict</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">classifier</span><span class="p">][</span><span class="s1">&#39;1-hour&#39;</span><span class="p">]</span>
+        <span class="n">hourly_ref_idx</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">hourly_ref_df</span><span class="o">.</span><span class="n">index</span>
+
+        <span class="n">ref_param_cols</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;_Value&#39;</span><span class="p">,</span> <span class="s1">&#39;_Unit&#39;</span><span class="p">,</span> <span class="s1">&#39;_QAQC_Code&#39;</span><span class="p">,</span> <span class="s1">&#39;_Param_Code&#39;</span><span class="p">,</span>
+                          <span class="s1">&#39;_Method&#39;</span><span class="p">,</span> <span class="s1">&#39;_Method_Code&#39;</span><span class="p">,</span> <span class="s1">&#39;_Method_POC&#39;</span><span class="p">]</span>
+
+        <span class="n">site_cols</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Agency&#39;</span><span class="p">,</span> <span class="s1">&#39;Site_Name&#39;</span><span class="p">,</span> <span class="s1">&#39;Site_AQS&#39;</span><span class="p">,</span>
+                     <span class="s1">&#39;Site_Lat&#39;</span><span class="p">,</span> <span class="s1">&#39;Site_Lon&#39;</span><span class="p">,</span> <span class="s1">&#39;Data_Source&#39;</span><span class="p">,</span>
+                     <span class="s1">&#39;Data_Acquisition_Date_Time&#39;</span><span class="p">]</span>
+
+        <span class="c1"># Unpack the ref data into dataframes. If no reference data found,</span>
+        <span class="c1"># return a dataframe backfilled with nulls.</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">ref_dict</span><span class="p">[</span><span class="s1">&#39;PM&#39;</span><span class="p">][</span><span class="s1">&#39;1-hour&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">pm_hourly_ref_df</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ref_dict</span><span class="p">[</span><span class="s1">&#39;PM&#39;</span><span class="p">][</span><span class="s1">&#39;1-hour&#39;</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">pm_daily_ref_df</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ref_dict</span><span class="p">[</span><span class="s1">&#39;PM&#39;</span><span class="p">][</span><span class="s1">&#39;24-hour&#39;</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">cols</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;PM25&#39;</span> <span class="o">+</span> <span class="n">col</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">ref_param_cols</span><span class="p">]</span>
+            <span class="n">cols</span> <span class="o">=</span> <span class="n">cols</span> <span class="o">+</span> <span class="n">site_cols</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">pm_hourly_ref_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span>
+                                                 <span class="n">index</span><span class="o">=</span><span class="n">hourly_ref_idx</span><span class="p">,</span>
+                                                 <span class="n">columns</span><span class="o">=</span><span class="n">cols</span><span class="p">,</span>
+                                                 <span class="n">dtype</span><span class="o">=</span><span class="nb">object</span><span class="p">)</span>
+            <span class="c1"># Replace null method names with &#39;Unspecified Reference&#39;</span>
+            <span class="k">for</span> <span class="n">col_name</span> <span class="ow">in</span> <span class="p">[</span><span class="n">col</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">cols</span> <span class="k">if</span> <span class="n">col</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;_Method&#39;</span><span class="p">)]:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">pm_hourly_ref_df</span><span class="p">[</span><span class="n">col_name</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;Unknown Reference&#39;</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">pm_daily_ref_df</span> <span class="o">=</span> <span class="n">sensortoolkit</span><span class="o">.</span><span class="n">datetime_utils</span><span class="o">.</span><span class="n">interval_averaging</span><span class="p">(</span>
+                                            <span class="bp">self</span><span class="o">.</span><span class="n">pm_hourly_ref_df</span><span class="p">,</span>
+                                            <span class="n">freq</span><span class="o">=</span><span class="s1">&#39;D&#39;</span><span class="p">,</span>
+                                            <span class="n">interval_count</span><span class="o">=</span><span class="mi">24</span><span class="p">,</span>
+                                            <span class="n">thres</span><span class="o">=</span><span class="mf">0.75</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">ref_dict</span><span class="p">[</span><span class="s1">&#39;Gases&#39;</span><span class="p">][</span><span class="s1">&#39;1-hour&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">gas_hourly_ref_df</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ref_dict</span><span class="p">[</span><span class="s1">&#39;Gases&#39;</span><span class="p">][</span><span class="s1">&#39;1-hour&#39;</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">gas_daily_ref_df</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ref_dict</span><span class="p">[</span><span class="s1">&#39;Gases&#39;</span><span class="p">][</span><span class="s1">&#39;24-hour&#39;</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">cols</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;O3&#39;</span> <span class="o">+</span> <span class="n">col</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">ref_param_cols</span><span class="p">]</span>
+            <span class="n">cols</span> <span class="o">=</span> <span class="n">cols</span> <span class="o">+</span> <span class="n">site_cols</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">gas_hourly_ref_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span>
+                                                  <span class="n">index</span><span class="o">=</span><span class="n">hourly_ref_idx</span><span class="p">,</span>
+                                                  <span class="n">columns</span><span class="o">=</span><span class="n">cols</span><span class="p">,</span>
+                                                  <span class="n">dtype</span><span class="o">=</span><span class="nb">object</span><span class="p">)</span>
+            <span class="c1"># Replace null method names with &#39;Unspecified Reference&#39;</span>
+            <span class="k">for</span> <span class="n">col_name</span> <span class="ow">in</span> <span class="p">[</span><span class="n">col</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">cols</span> <span class="k">if</span> <span class="n">col</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;_Method&#39;</span><span class="p">)]:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">gas_hourly_ref_df</span><span class="p">[</span><span class="n">col_name</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;Unknown Reference&#39;</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">gas_daily_ref_df</span> <span class="o">=</span> <span class="n">sensortoolkit</span><span class="o">.</span><span class="n">datetime_utils</span><span class="o">.</span><span class="n">interval_averaging</span><span class="p">(</span>
+                                            <span class="bp">self</span><span class="o">.</span><span class="n">gas_hourly_ref_df</span><span class="p">,</span>
+                                            <span class="n">freq</span><span class="o">=</span><span class="s1">&#39;D&#39;</span><span class="p">,</span>
+                                            <span class="n">interval_count</span><span class="o">=</span><span class="mi">24</span><span class="p">,</span>
+                                            <span class="n">thres</span><span class="o">=</span><span class="mf">0.75</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">ref_dict</span><span class="p">[</span><span class="s1">&#39;Met&#39;</span><span class="p">][</span><span class="s1">&#39;1-hour&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">met_hourly_ref_df</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ref_dict</span><span class="p">[</span><span class="s1">&#39;Met&#39;</span><span class="p">][</span><span class="s1">&#39;1-hour&#39;</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">met_daily_ref_df</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ref_dict</span><span class="p">[</span><span class="s1">&#39;Met&#39;</span><span class="p">][</span><span class="s1">&#39;24-hour&#39;</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">cols</span> <span class="o">=</span> <span class="p">[</span><span class="n">met_param</span> <span class="o">+</span> <span class="n">col</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">ref_param_cols</span>
+                    <span class="k">for</span> <span class="n">met_param</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;RH&#39;</span><span class="p">,</span> <span class="s1">&#39;Temp&#39;</span><span class="p">]]</span>
+
+            <span class="n">cols</span> <span class="o">=</span> <span class="n">cols</span> <span class="o">+</span> <span class="n">site_cols</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">met_hourly_ref_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span>
+                                                  <span class="n">index</span><span class="o">=</span><span class="n">hourly_ref_idx</span><span class="p">,</span>
+                                                  <span class="n">columns</span><span class="o">=</span><span class="n">cols</span><span class="p">,</span>
+                                                  <span class="n">dtype</span><span class="o">=</span><span class="nb">object</span><span class="p">)</span>
+            <span class="c1"># Replace null method names with &#39;Unspecified Reference&#39;</span>
+            <span class="k">for</span> <span class="n">col_name</span> <span class="ow">in</span> <span class="p">[</span><span class="n">col</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">cols</span> <span class="k">if</span> <span class="n">col</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;_Method&#39;</span><span class="p">)]:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">met_hourly_ref_df</span><span class="p">[</span><span class="n">col_name</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;Unknown Reference&#39;</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">met_daily_ref_df</span> <span class="o">=</span> <span class="n">sensortoolkit</span><span class="o">.</span><span class="n">datetime_utils</span><span class="o">.</span><span class="n">interval_averaging</span><span class="p">(</span>
+                                            <span class="bp">self</span><span class="o">.</span><span class="n">met_hourly_ref_df</span><span class="p">,</span>
+                                            <span class="n">freq</span><span class="o">=</span><span class="s1">&#39;D&#39;</span><span class="p">,</span>
+                                            <span class="n">interval_count</span><span class="o">=</span><span class="mi">24</span><span class="p">,</span>
+                                            <span class="n">thres</span><span class="o">=</span><span class="mf">0.75</span><span class="p">)</span>
+
+        <span class="c1"># Get the name of the reference monitor</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ref_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">reference</span><span class="o">.</span><span class="n">get_method_name</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">daily_ref_df</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ref_dict</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">classifier</span><span class="p">][</span><span class="s1">&#39;24-hour&#39;</span><span class="p">]</span>
+
+        <span class="c1"># Compute normalized param values</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">hourly_df_list</span> <span class="o">=</span> <span class="n">sensortoolkit</span><span class="o">.</span><span class="n">calculate</span><span class="o">.</span><span class="n">normalize</span><span class="p">(</span>
+                                            <span class="bp">self</span><span class="o">.</span><span class="n">hourly_df_list</span><span class="p">,</span>
+                                            <span class="bp">self</span><span class="o">.</span><span class="n">hourly_ref_df</span><span class="p">,</span>
+                                            <span class="n">param</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_param_name</span><span class="p">,</span>
+                                            <span class="n">ref_name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">ref_name</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">daily_df_list</span> <span class="o">=</span> <span class="n">sensortoolkit</span><span class="o">.</span><span class="n">calculate</span><span class="o">.</span><span class="n">normalize</span><span class="p">(</span>
+                                            <span class="bp">self</span><span class="o">.</span><span class="n">daily_df_list</span><span class="p">,</span>
+                                            <span class="bp">self</span><span class="o">.</span><span class="n">hourly_ref_df</span><span class="p">,</span>
+                                            <span class="n">param</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_param_name</span><span class="p">,</span>
+                                            <span class="n">ref_name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">ref_name</span><span class="p">)</span>
+
+        <span class="c1"># Compute inter-sensor averaged parameter dataframes</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">avg_hrly_df</span> <span class="o">=</span> <span class="n">sensortoolkit</span><span class="o">.</span><span class="n">calculate</span><span class="o">.</span><span class="n">intersensor_mean</span><span class="p">(</span>
+                                            <span class="bp">self</span><span class="o">.</span><span class="n">hourly_df_list</span><span class="p">,</span>
+                                            <span class="bp">self</span><span class="o">.</span><span class="n">deploy_dict</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">avg_daily_df</span> <span class="o">=</span> <span class="n">sensortoolkit</span><span class="o">.</span><span class="n">calculate</span><span class="o">.</span><span class="n">intersensor_mean</span><span class="p">(</span>
+                                            <span class="bp">self</span><span class="o">.</span><span class="n">daily_df_list</span><span class="p">,</span>
+                                            <span class="bp">self</span><span class="o">.</span><span class="n">deploy_dict</span><span class="p">)</span>
+
+<div class="viewcode-block" id="SensorEvaluation.add_deploy_dict_stats"><a class="viewcode-back" href="../../../api/_autosummary/sensortoolkit.evaluation._sensor_eval.SensorEvaluation.html#sensortoolkit.evaluation._sensor_eval.SensorEvaluation.add_deploy_dict_stats">[docs]</a>    <span class="k">def</span> <span class="nf">add_deploy_dict_stats</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Populate deployment dictionary with precision and error performance</span>
+<span class="sd">        targets metrics. Also include details about reference (for selected</span>
+<span class="sd">        evaluation parameter) and monitor statistics for meteorological</span>
+<span class="sd">        parameters (Temp, RH).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Compute inter-sensor precision and error metric values</span>
+        <span class="c1"># CV: 1-hour averaged sensor param</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">deploy_dict</span> <span class="o">=</span> <span class="n">sensortoolkit</span><span class="o">.</span><span class="n">calculate</span><span class="o">.</span><span class="n">cv</span><span class="p">(</span>
+                                            <span class="bp">self</span><span class="o">.</span><span class="n">hourly_df_list</span><span class="p">,</span>
+                                            <span class="bp">self</span><span class="o">.</span><span class="n">deploy_dict</span><span class="p">,</span>
+                                            <span class="n">param</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_param_name</span><span class="p">)</span>
+
+        <span class="c1"># CV: 24-hour averaged sensor param</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">deploy_dict</span> <span class="o">=</span> <span class="n">sensortoolkit</span><span class="o">.</span><span class="n">calculate</span><span class="o">.</span><span class="n">cv</span><span class="p">(</span>
+                                            <span class="bp">self</span><span class="o">.</span><span class="n">daily_df_list</span><span class="p">,</span>
+                                            <span class="bp">self</span><span class="o">.</span><span class="n">deploy_dict</span><span class="p">,</span>
+                                            <span class="n">param</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_param_name</span><span class="p">)</span>
+
+        <span class="c1"># RMSE: 1-hour averaged sensor param</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">deploy_dict</span> <span class="o">=</span> <span class="n">sensortoolkit</span><span class="o">.</span><span class="n">calculate</span><span class="o">.</span><span class="n">rmse</span><span class="p">(</span>
+                                            <span class="bp">self</span><span class="o">.</span><span class="n">hourly_df_list</span><span class="p">,</span>
+                                            <span class="bp">self</span><span class="o">.</span><span class="n">hourly_ref_df</span><span class="p">,</span>
+                                            <span class="bp">self</span><span class="o">.</span><span class="n">deploy_dict</span><span class="p">,</span>
+                                            <span class="n">param</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_param_name</span><span class="p">)</span>
+
+        <span class="c1"># RMSE: 24-hour averaged sensor param</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">deploy_dict</span> <span class="o">=</span> <span class="n">sensortoolkit</span><span class="o">.</span><span class="n">calculate</span><span class="o">.</span><span class="n">rmse</span><span class="p">(</span>
+                                            <span class="bp">self</span><span class="o">.</span><span class="n">daily_df_list</span><span class="p">,</span>
+                                            <span class="bp">self</span><span class="o">.</span><span class="n">daily_ref_df</span><span class="p">,</span>
+                                            <span class="bp">self</span><span class="o">.</span><span class="n">deploy_dict</span><span class="p">,</span>
+                                            <span class="n">param</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_param_name</span><span class="p">)</span>
+
+        <span class="c1"># Reference details for param evaluation (hourly data)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">deploy_dict</span> <span class="o">=</span> <span class="n">sensortoolkit</span><span class="o">.</span><span class="n">deploy</span><span class="o">.</span><span class="n">deploy_ref_stats</span><span class="p">(</span>
+                                            <span class="bp">self</span><span class="o">.</span><span class="n">deploy_dict</span><span class="p">,</span>
+                                            <span class="bp">self</span><span class="o">.</span><span class="n">hourly_ref_df</span><span class="p">,</span>
+                                            <span class="n">param</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_param_name</span><span class="p">,</span>
+                                            <span class="n">ref_name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">ref_name</span><span class="p">)</span>
+
+        <span class="c1"># Reference details for param evaluation (daily data)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">deploy_dict</span> <span class="o">=</span> <span class="n">sensortoolkit</span><span class="o">.</span><span class="n">deploy</span><span class="o">.</span><span class="n">deploy_ref_stats</span><span class="p">(</span>
+                                            <span class="bp">self</span><span class="o">.</span><span class="n">deploy_dict</span><span class="p">,</span>
+                                            <span class="bp">self</span><span class="o">.</span><span class="n">daily_ref_df</span><span class="p">,</span>
+                                            <span class="n">param</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_param_name</span><span class="p">,</span>
+                                            <span class="n">ref_name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">ref_name</span><span class="p">)</span>
+
+        <span class="c1"># Reference details for meteorological data (1-hr averages)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">deploy_dict</span> <span class="o">=</span> <span class="n">sensortoolkit</span><span class="o">.</span><span class="n">deploy</span><span class="o">.</span><span class="n">deploy_met_stats</span><span class="p">(</span>
+                                                <span class="bp">self</span><span class="o">.</span><span class="n">deploy_dict</span><span class="p">,</span>
+                                                <span class="bp">self</span><span class="o">.</span><span class="n">hourly_df_list</span><span class="p">,</span>
+                                                <span class="bp">self</span><span class="o">.</span><span class="n">met_hourly_ref_df</span><span class="p">)</span>
+
+        <span class="c1"># Reference details for meteorological data (24-hr averages)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">deploy_dict</span> <span class="o">=</span> <span class="n">sensortoolkit</span><span class="o">.</span><span class="n">deploy</span><span class="o">.</span><span class="n">deploy_met_stats</span><span class="p">(</span>
+                                                <span class="bp">self</span><span class="o">.</span><span class="n">deploy_dict</span><span class="p">,</span>
+                                                <span class="bp">self</span><span class="o">.</span><span class="n">daily_df_list</span><span class="p">,</span>
+                                                <span class="bp">self</span><span class="o">.</span><span class="n">met_daily_ref_df</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">write_to_file</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+
+            <span class="n">today</span> <span class="o">=</span> <span class="n">sensortoolkit</span><span class="o">.</span><span class="n">datetime_utils</span><span class="o">.</span><span class="n">get_todays_date</span><span class="p">()</span>
+
+            <span class="c1"># check if sensor-specific subfolder exists</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stats_path</span><span class="p">):</span>
+                <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stats_path</span><span class="p">)</span>
+
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stats_path</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">+</span> <span class="s1">&#39;_&#39;</span> <span class="o">+</span>
+                      <span class="bp">self</span><span class="o">.</span><span class="n">_param_name</span> <span class="o">+</span> <span class="s2">&quot;_Evaluation_&quot;</span> <span class="o">+</span> <span class="n">today</span> <span class="o">+</span>
+                      <span class="s2">&quot;.json&quot;</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">outfile</span><span class="p">:</span>
+                <span class="n">deploy_json</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">deploy_dict</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+                <span class="n">outfile</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">deploy_json</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="SensorEvaluation.calculate_metrics"><a class="viewcode-back" href="../../../api/_autosummary/sensortoolkit.evaluation._sensor_eval.SensorEvaluation.html#sensortoolkit.evaluation._sensor_eval.SensorEvaluation.calculate_metrics">[docs]</a>    <span class="k">def</span> <span class="nf">calculate_metrics</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Compute hourly, daily, and inter-sensor statistics dataframes.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">deploy_dict</span><span class="p">[</span><span class="s1">&#39;Deployment Groups&#39;</span><span class="p">][</span><span class="s1">&#39;Group 1&#39;</span><span class="p">][</span><span class="bp">self</span><span class="o">.</span><span class="n">_param_name</span><span class="p">]</span>
+        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Populating deployment dataframe with evaluation statistics&#39;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">add_deploy_dict_stats</span><span class="p">()</span>
+
+        <span class="n">hourly_stats</span> <span class="o">=</span> <span class="n">sensortoolkit</span><span class="o">.</span><span class="n">calculate</span><span class="o">.</span><span class="n">regression_stats</span><span class="p">(</span>
+                                        <span class="n">sensor_df_obj</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">hourly_df_list</span><span class="p">,</span>
+                                        <span class="n">ref_df_obj</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">hourly_ref_df</span><span class="p">,</span>
+                                        <span class="n">deploy_dict</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">deploy_dict</span><span class="p">,</span>
+                                        <span class="n">param</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_param_name</span><span class="p">,</span>
+                                        <span class="n">serials</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">serials</span>
+                                        <span class="p">)</span>
+
+        <span class="n">daily_stats</span> <span class="o">=</span> <span class="n">sensortoolkit</span><span class="o">.</span><span class="n">calculate</span><span class="o">.</span><span class="n">regression_stats</span><span class="p">(</span>
+                                        <span class="n">sensor_df_obj</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">daily_df_list</span><span class="p">,</span>
+                                        <span class="n">ref_df_obj</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">daily_ref_df</span><span class="p">,</span>
+                                        <span class="n">deploy_dict</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">deploy_dict</span><span class="p">,</span>
+                                        <span class="n">param</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_param_name</span><span class="p">,</span>
+                                        <span class="n">serials</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">serials</span>
+                                        <span class="p">)</span>
+
+        <span class="c1"># Combine the statistics dataframes into one</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stats_df</span> <span class="o">=</span> <span class="n">sensortoolkit</span><span class="o">.</span><span class="n">calculate</span><span class="o">.</span><span class="n">join_stats</span><span class="p">(</span>
+                                        <span class="n">hourly_stats</span><span class="p">,</span>
+                                        <span class="n">daily_stats</span><span class="p">,</span>
+                                        <span class="n">stats_path</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">stats_path</span><span class="p">,</span>
+                                        <span class="n">write_to_file</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">write_to_file</span><span class="p">)</span>
+
+        <span class="n">avg_hourly_stats</span> <span class="o">=</span> <span class="n">sensortoolkit</span><span class="o">.</span><span class="n">calculate</span><span class="o">.</span><span class="n">regression_stats</span><span class="p">(</span>
+                                <span class="n">sensor_df_obj</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">hourly_df_list</span><span class="p">,</span>
+                                <span class="n">ref_df_obj</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">hourly_ref_df</span><span class="p">,</span>
+                                <span class="n">deploy_dict</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">deploy_dict</span><span class="p">,</span>
+                                <span class="n">param</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_param_name</span><span class="p">,</span>
+                                <span class="n">serials</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">serials</span>
+                                <span class="p">)</span>
+
+        <span class="n">avg_daily_stats</span> <span class="o">=</span> <span class="n">sensortoolkit</span><span class="o">.</span><span class="n">calculate</span><span class="o">.</span><span class="n">regression_stats</span><span class="p">(</span>
+                                        <span class="n">sensor_df_obj</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">daily_df_list</span><span class="p">,</span>
+                                        <span class="n">ref_df_obj</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">daily_ref_df</span><span class="p">,</span>
+                                        <span class="n">deploy_dict</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">deploy_dict</span><span class="p">,</span>
+                                        <span class="n">param</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_param_name</span><span class="p">,</span>
+                                        <span class="n">serials</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">serials</span>
+                                        <span class="p">)</span>
+
+        <span class="c1"># Combine the statistics dataframes into one</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">avg_stats_df</span> <span class="o">=</span> <span class="n">sensortoolkit</span><span class="o">.</span><span class="n">calculate</span><span class="o">.</span><span class="n">join_stats</span><span class="p">(</span>
+                                        <span class="n">avg_hourly_stats</span><span class="p">,</span>
+                                        <span class="n">avg_daily_stats</span><span class="p">,</span>
+                                        <span class="n">stats_path</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">stats_path</span><span class="p">,</span>
+                                        <span class="n">write_to_file</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">write_to_file</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="SensorEvaluation.plot_timeseries"><a class="viewcode-back" href="../../../api/_autosummary/sensortoolkit.evaluation._sensor_eval.SensorEvaluation.html#sensortoolkit.evaluation._sensor_eval.SensorEvaluation.plot_timeseries">[docs]</a>    <span class="k">def</span> <span class="nf">plot_timeseries</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">report_fmt</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Plot parameter concentrations over time alongside reference.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            report_fmt (TYPE, optional): DESCRIPTION. Defaults to True.</span>
+<span class="sd">            **kwargs (TYPE): DESCRIPTION.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">timestamp_fmt</span> <span class="o">=</span> <span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1"> %H:%M:%S&#39;</span>
+        <span class="n">t_start</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">avg_hrly_df</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">how</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span>
+                   <span class="n">pd</span><span class="o">.</span><span class="n">Timedelta</span><span class="p">(</span><span class="s1">&#39;1D&#39;</span><span class="p">))</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="n">timestamp_fmt</span><span class="p">)</span>
+        <span class="n">t_end</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">avg_hrly_df</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">how</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span>
+                 <span class="n">pd</span><span class="o">.</span><span class="n">Timedelta</span><span class="p">(</span><span class="s1">&#39;1D&#39;</span><span class="p">))</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="n">timestamp_fmt</span><span class="p">)</span>
+
+        <span class="n">avg_list</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">eval_param_averaging</span>
+
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">avg_list</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span> <span class="ow">and</span> <span class="n">report_fmt</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">10.15</span><span class="p">,</span> <span class="mf">4.1</span><span class="p">))</span>
+            <span class="n">fig</span><span class="o">.</span><span class="n">subplots_adjust</span><span class="p">(</span><span class="n">hspace</span><span class="o">=</span><span class="mf">0.7</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">averaging_interval</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">avg_list</span><span class="p">):</span>
+
+                <span class="k">if</span> <span class="n">averaging_interval</span> <span class="o">==</span> <span class="s1">&#39;1-hour&#39;</span><span class="p">:</span>
+                    <span class="n">sensor_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">hourly_df_list</span>
+                    <span class="n">ref_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">hourly_ref_df</span>
+                <span class="k">if</span> <span class="n">averaging_interval</span> <span class="o">==</span> <span class="s1">&#39;24-hour&#39;</span><span class="p">:</span>
+                    <span class="n">sensor_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">daily_df_list</span>
+                    <span class="n">ref_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">daily_ref_df</span>
+
+                <span class="c1"># Prevent Sensor_Timeplot from writing to file on first</span>
+                <span class="c1"># iteration of loop</span>
+                <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="n">write_to_file</span> <span class="o">=</span> <span class="kc">False</span>
+                <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">avg_list</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span>
+                    <span class="n">write_to_file</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">write_to_file</span>
+
+                <span class="n">axs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">sensortoolkit</span><span class="o">.</span><span class="n">plotting</span><span class="o">.</span><span class="n">sensor_timeplot</span><span class="p">(</span>
+                                            <span class="n">sensor_data</span><span class="p">,</span>
+                                            <span class="n">ref_data</span><span class="p">,</span>
+                                            <span class="n">sensor_serials</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">serials</span><span class="p">,</span>
+                                            <span class="n">param</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_param_name</span><span class="p">,</span>
+                                            <span class="n">figure_path</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">figure_path</span><span class="p">,</span>
+                                            <span class="n">sensor_name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+                                            <span class="n">ref_name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">ref_name</span><span class="p">,</span>
+                                            <span class="n">bdate</span><span class="o">=</span><span class="n">t_start</span><span class="p">,</span>
+                                            <span class="n">edate</span><span class="o">=</span><span class="n">t_end</span><span class="p">,</span>
+                                            <span class="n">averaging_interval</span><span class="o">=</span><span class="n">averaging_interval</span><span class="p">,</span>
+                                            <span class="n">report_fmt</span><span class="o">=</span><span class="n">report_fmt</span><span class="p">,</span>
+                                            <span class="n">write_to_file</span><span class="o">=</span><span class="n">write_to_file</span><span class="p">,</span>
+                                            <span class="n">ax</span><span class="o">=</span><span class="n">axs</span><span class="p">[</span><span class="n">i</span><span class="p">],</span>
+                                            <span class="n">fig</span><span class="o">=</span><span class="n">fig</span><span class="p">,</span>
+                                            <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+                <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="n">axs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">get_legend</span><span class="p">()</span><span class="o">.</span><span class="n">remove</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+
+            <span class="n">averaging_interval</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;averaging_interval&#39;</span><span class="p">,</span> <span class="s1">&#39;1-hour&#39;</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="s1">&#39;1-hour&#39;</span> <span class="ow">in</span> <span class="n">avg_list</span> <span class="ow">and</span> <span class="n">averaging_interval</span> <span class="o">==</span> <span class="s1">&#39;1-hour&#39;</span><span class="p">:</span>
+                <span class="n">sensor_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">hourly_df_list</span>
+                <span class="n">ref_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">hourly_ref_df</span>
+            <span class="k">if</span> <span class="s1">&#39;24-hour&#39;</span> <span class="ow">in</span> <span class="n">avg_list</span> <span class="ow">and</span> <span class="n">averaging_interval</span> <span class="o">==</span> <span class="s1">&#39;24-hour&#39;</span><span class="p">:</span>
+                <span class="n">sensor_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">daily_df_list</span>
+                <span class="n">ref_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">daily_ref_df</span>
+
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">sensor_data</span>
+            <span class="k">except</span> <span class="ne">NameError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+
+            <span class="n">sensortoolkit</span><span class="o">.</span><span class="n">plotting</span><span class="o">.</span><span class="n">sensor_timeplot</span><span class="p">(</span>
+                    <span class="n">sensor_data</span><span class="p">,</span>
+                    <span class="n">ref_data</span><span class="p">,</span>
+                    <span class="n">sensor_serials</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">serials</span><span class="p">,</span>
+                    <span class="n">param</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_param_name</span><span class="p">,</span>
+                    <span class="n">figure_path</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">figure_path</span><span class="p">,</span>
+                    <span class="n">sensor_name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+                    <span class="n">ref_name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">ref_name</span><span class="p">,</span>
+                    <span class="n">bdate</span><span class="o">=</span><span class="n">t_start</span><span class="p">,</span>
+                    <span class="n">edate</span><span class="o">=</span><span class="n">t_end</span><span class="p">,</span>
+                    <span class="n">averaging_interval</span><span class="o">=</span><span class="n">averaging_interval</span><span class="p">,</span>
+                    <span class="n">report_fmt</span><span class="o">=</span><span class="n">report_fmt</span><span class="p">,</span>
+                    <span class="n">write_to_file</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">write_to_file</span><span class="p">,</span>
+                    <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="SensorEvaluation.plot_metrics"><a class="viewcode-back" href="../../../api/_autosummary/sensortoolkit.evaluation._sensor_eval.SensorEvaluation.html#sensortoolkit.evaluation._sensor_eval.SensorEvaluation.plot_metrics">[docs]</a>    <span class="k">def</span> <span class="nf">plot_metrics</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Regression dot/boxplots for U.S EPA performance metrics and targets</span>
+<span class="sd">        developed for PM2.5 and O3 sensor evaluations.</span>
+
+
+<span class="sd">        Args:</span>
+<span class="sd">            **kwargs (TYPE): DESCRIPTION.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">deploy_dict</span><span class="p">[</span><span class="s1">&#39;Deployment Groups&#39;</span><span class="p">][</span><span class="s1">&#39;Group 1&#39;</span><span class="p">][</span><span class="bp">self</span><span class="o">.</span><span class="n">_param_name</span><span class="p">]</span>
+        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Populating deployment dataframe with evaluation statistics&#39;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">add_deploy_dict_stats</span><span class="p">()</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">stats_df</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Calculating OLS regression statistics for 1-hr and 24-hr &#39;</span>
+                  <span class="s1">&#39;sensor vs. reference measurements&#39;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">calculate_metrics</span><span class="p">()</span>
+
+        <span class="n">sensortoolkit</span><span class="o">.</span><span class="n">plotting</span><span class="o">.</span><span class="n">performance_metrics</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stats_df</span><span class="p">,</span>
+                                    <span class="bp">self</span><span class="o">.</span><span class="n">deploy_dict</span><span class="p">,</span>
+                                    <span class="n">param</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_param_name</span><span class="p">,</span>
+                                    <span class="n">param_averaging</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">eval_param_averaging</span><span class="p">,</span>
+                                    <span class="n">path</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">figure_path</span><span class="p">,</span>
+                                    <span class="n">sensor_name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+                                    <span class="n">write_to_file</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">write_to_file</span><span class="p">,</span>
+                                    <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="SensorEvaluation.plot_sensor_scatter"><a class="viewcode-back" href="../../../api/_autosummary/sensortoolkit.evaluation._sensor_eval.SensorEvaluation.html#sensortoolkit.evaluation._sensor_eval.SensorEvaluation.plot_sensor_scatter">[docs]</a>    <span class="k">def</span> <span class="nf">plot_sensor_scatter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">averaging_interval</span><span class="o">=</span><span class="s1">&#39;24-hour&#39;</span><span class="p">,</span>
+                            <span class="n">plot_subset</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">report_fmt</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            averaging_interval (TYPE, optional): DESCRIPTION. Defaults to</span>
+<span class="sd">            &#39;24-hour&#39;.</span>
+<span class="sd">            plot_subset (TYPE, optional): DESCRIPTION. Defaults to None.</span>
+<span class="sd">            report_fmt (TYPE, optional): DESCRIPTION. Defaults to False.</span>
+<span class="sd">            **kwargs (TYPE): DESCRIPTION.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">deploy_dict</span><span class="p">[</span><span class="s1">&#39;Deployment Groups&#39;</span><span class="p">][</span><span class="s1">&#39;Group 1&#39;</span><span class="p">][</span><span class="bp">self</span><span class="o">.</span><span class="n">_param_name</span><span class="p">]</span>
+        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Populating deployment dataframe with evaluation statistics&#39;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">add_deploy_dict_stats</span><span class="p">()</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">stats_df</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Calculating OLS regression statistics for 1-hr and 24-hr &#39;</span>
+                  <span class="s1">&#39;sensor vs. reference measurements&#39;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">calculate_metrics</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="n">plot_subset</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">sensor_serials</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">serials</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">subset_serials</span> <span class="o">=</span> <span class="p">{</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">):</span> <span class="n">serial</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">serial</span> <span class="ow">in</span>
+                              <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">serials</span><span class="o">.</span><span class="n">values</span><span class="p">(),</span> <span class="mi">1</span><span class="p">)</span>
+                              <span class="k">if</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="ow">in</span> <span class="n">plot_subset</span><span class="p">}</span>
+            <span class="n">sensor_serials</span> <span class="o">=</span> <span class="n">subset_serials</span>
+
+        <span class="n">avg_list</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">eval_param_averaging</span>
+
+        <span class="k">if</span> <span class="n">averaging_interval</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">avg_list</span><span class="p">:</span>
+            <span class="n">txt</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;Invalid averaging interval, choose from the following: &#39;</span>
+                   <span class="o">+</span> <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">avg_list</span><span class="p">))</span>
+            <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="n">txt</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="n">report_fmt</span> <span class="ow">is</span> <span class="kc">True</span> <span class="ow">and</span> <span class="n">plot_subset</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">):</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_param_name</span> <span class="o">==</span> <span class="s1">&#39;PM25&#39;</span><span class="p">:</span>
+                <span class="c1"># Create a 1x2 subplot, 1-hr scatter on left and 24-hr scatter</span>
+                <span class="c1"># on right for a single sensor unit (performance report page</span>
+                <span class="c1"># 1 plot)</span>
+                <span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mf">5.29</span><span class="p">,</span> <span class="mf">3.17</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_param_name</span> <span class="o">==</span> <span class="s1">&#39;O3&#39;</span><span class="p">:</span>
+                <span class="c1"># Create a 1x1 subplot, 1-hr scatter with vertical colorbar</span>
+                <span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mf">4.3</span><span class="p">,</span> <span class="mf">3.91</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="s1">&#39;Reporting template formatted &#39;</span>
+                         <span class="s1">&#39;figure not specified for &#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_param_name</span><span class="p">)</span>
+
+            <span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">avg_list</span><span class="p">),</span> <span class="n">figsize</span><span class="o">=</span><span class="n">figsize</span><span class="p">)</span>
+            <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;fontsize&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">9</span>
+            <span class="n">fig</span><span class="o">.</span><span class="n">subplots_adjust</span><span class="p">(</span><span class="n">hspace</span><span class="o">=</span><span class="mf">0.7</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">averaging_interval</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">eval_param_averaging</span><span class="p">):</span>
+
+                <span class="k">if</span> <span class="n">averaging_interval</span> <span class="o">==</span> <span class="s1">&#39;1-hour&#39;</span><span class="p">:</span>
+                    <span class="n">sensor_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">hourly_df_list</span>
+                    <span class="n">ref_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">hourly_ref_df</span>
+                    <span class="n">met_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">met_hourly_ref_df</span>
+                <span class="k">if</span> <span class="n">averaging_interval</span> <span class="o">==</span> <span class="s1">&#39;24-hour&#39;</span><span class="p">:</span>
+                    <span class="n">sensor_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">daily_df_list</span>
+                    <span class="n">ref_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">daily_ref_df</span>
+                    <span class="n">met_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">met_daily_ref_df</span>
+
+                <span class="c1"># Prevent sub-routine from writing to file on first</span>
+                <span class="c1"># iteration of loop, also dont draw cbar on first loop</span>
+                <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="n">write_to_file</span> <span class="o">=</span> <span class="kc">False</span>
+                    <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;draw_cbar&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+                <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">eval_param_averaging</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span>
+                    <span class="n">write_to_file</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">write_to_file</span>
+                    <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;draw_cbar&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">axs</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
+                    <span class="n">ax</span> <span class="o">=</span> <span class="n">axs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+                    <span class="n">multiplot</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">ax</span> <span class="o">=</span> <span class="n">axs</span>
+                    <span class="n">multiplot</span> <span class="o">=</span> <span class="kc">False</span>
+
+                <span class="n">ax</span> <span class="o">=</span> <span class="n">sensortoolkit</span><span class="o">.</span><span class="n">plotting</span><span class="o">.</span><span class="n">scatter_plotter</span><span class="p">(</span>
+                                        <span class="n">sensor_data</span><span class="p">,</span>
+                                        <span class="n">ref_data</span><span class="p">,</span>
+                                        <span class="bp">self</span><span class="o">.</span><span class="n">stats_df</span><span class="p">,</span>
+                                        <span class="n">deploy_dict</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">deploy_dict</span><span class="p">,</span>
+                                        <span class="n">met_ref_df</span><span class="o">=</span><span class="n">met_data</span><span class="p">,</span>
+                                        <span class="n">sensor_serials</span><span class="o">=</span><span class="n">sensor_serials</span><span class="p">,</span>
+                                        <span class="n">param</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_param_name</span><span class="p">,</span>
+                                        <span class="n">figure_path</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">figure_path</span><span class="p">,</span>
+                                        <span class="n">sensor_name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+                                        <span class="n">ref_name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">ref_name</span><span class="p">,</span>
+                                        <span class="n">averaging_interval</span><span class="o">=</span><span class="n">averaging_interval</span><span class="p">,</span>
+                                        <span class="n">plot_subset</span><span class="o">=</span><span class="n">plot_subset</span><span class="p">,</span>
+                                        <span class="n">write_to_file</span><span class="o">=</span><span class="n">write_to_file</span><span class="p">,</span>
+                                        <span class="n">report_fmt</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                                        <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span>
+                                        <span class="n">fig</span><span class="o">=</span><span class="n">fig</span><span class="p">,</span>
+                                        <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+                <span class="k">if</span> <span class="n">multiplot</span><span class="p">:</span>
+                    <span class="n">axs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">ax</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">axs</span> <span class="o">=</span> <span class="n">ax</span>
+
+        <span class="c1"># Create scatter for all sensors in an evaluation at a specified</span>
+        <span class="c1"># averaging interval</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># Assuming avg_list contains either only 1-hour or 24-hour</span>
+            <span class="k">if</span> <span class="s1">&#39;1-hour&#39;</span> <span class="ow">in</span> <span class="n">avg_list</span> <span class="ow">and</span> <span class="n">averaging_interval</span> <span class="o">==</span> <span class="s1">&#39;1-hour&#39;</span><span class="p">:</span>
+                <span class="n">sensor_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">hourly_df_list</span>
+                <span class="n">ref_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">hourly_ref_df</span>
+            <span class="k">if</span> <span class="s1">&#39;24-hour&#39;</span> <span class="ow">in</span> <span class="n">avg_list</span> <span class="ow">and</span> <span class="n">averaging_interval</span> <span class="o">==</span> <span class="s1">&#39;24-hour&#39;</span><span class="p">:</span>
+                <span class="n">sensor_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">daily_df_list</span>
+                <span class="n">ref_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">daily_ref_df</span>
+
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">sensor_data</span>
+            <span class="k">except</span> <span class="ne">NameError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+
+            <span class="n">sensortoolkit</span><span class="o">.</span><span class="n">plotting</span><span class="o">.</span><span class="n">scatter_plotter</span><span class="p">(</span>
+                               <span class="n">sensor_data</span><span class="p">,</span>
+                               <span class="n">ref_data</span><span class="p">,</span>
+                               <span class="bp">self</span><span class="o">.</span><span class="n">stats_df</span><span class="p">,</span>
+                               <span class="n">deploy_dict</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">deploy_dict</span><span class="p">,</span>
+                               <span class="n">met_ref_df</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">met_hourly_ref_df</span><span class="p">,</span>
+                               <span class="n">sensor_serials</span><span class="o">=</span><span class="n">sensor_serials</span><span class="p">,</span>
+                               <span class="n">param</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_param_name</span><span class="p">,</span>
+                               <span class="n">figure_path</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">figure_path</span><span class="p">,</span>
+                               <span class="n">sensor_name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+                               <span class="n">ref_name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">ref_name</span><span class="p">,</span>
+                               <span class="n">averaging_interval</span><span class="o">=</span><span class="n">averaging_interval</span><span class="p">,</span>
+                               <span class="n">plot_subset</span><span class="o">=</span><span class="n">plot_subset</span><span class="p">,</span>
+                               <span class="n">report_fmt</span><span class="o">=</span><span class="n">report_fmt</span><span class="p">,</span>
+                               <span class="n">write_to_file</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">write_to_file</span><span class="p">,</span>
+                               <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="SensorEvaluation.plot_met_dist"><a class="viewcode-back" href="../../../api/_autosummary/sensortoolkit.evaluation._sensor_eval.SensorEvaluation.html#sensortoolkit.evaluation._sensor_eval.SensorEvaluation.plot_met_dist">[docs]</a>    <span class="k">def</span> <span class="nf">plot_met_dist</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Relative frequency distribution plots for temperature and relative</span>
+<span class="sd">        humidity recorded by meterological instruments at the collocation site.</span>
+
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">met_params</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Temp_Value&#39;</span><span class="p">,</span> <span class="s1">&#39;RH_Value&#39;</span><span class="p">]</span>
+
+        <span class="n">sensortoolkit</span><span class="o">.</span><span class="n">plotting</span><span class="o">.</span><span class="n">met_distrib</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">met_hourly_ref_df</span><span class="p">[</span><span class="n">met_params</span><span class="p">],</span>
+                       <span class="bp">self</span><span class="o">.</span><span class="n">avg_hrly_df</span><span class="p">,</span>
+                       <span class="n">figure_path</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">figure_path</span><span class="p">,</span>
+                       <span class="n">sensor_name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+                       <span class="n">write_to_file</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">write_to_file</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="SensorEvaluation.plot_met_influence"><a class="viewcode-back" href="../../../api/_autosummary/sensortoolkit.evaluation._sensor_eval.SensorEvaluation.html#sensortoolkit.evaluation._sensor_eval.SensorEvaluation.plot_met_influence">[docs]</a>    <span class="k">def</span> <span class="nf">plot_met_influence</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">met_param</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">report_fmt</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                           <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Normalized Sensor param vs. AIRS RH</span>
+
+
+<span class="sd">        Args:</span>
+<span class="sd">            met_param (TYPE, optional): DESCRIPTION. Defaults to None.</span>
+<span class="sd">            report_fmt (TYPE, optional): DESCRIPTION. Defaults to True.</span>
+<span class="sd">            **kwargs (TYPE): DESCRIPTION.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Reference data header names for met data</span>
+        <span class="n">met_params</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Temp&#39;</span><span class="p">,</span> <span class="s1">&#39;RH&#39;</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="n">report_fmt</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">8.1</span><span class="p">,</span> <span class="mf">3.8</span><span class="p">))</span>
+            <span class="n">fig</span><span class="o">.</span><span class="n">subplots_adjust</span><span class="p">(</span><span class="n">hspace</span><span class="o">=</span><span class="mf">0.7</span><span class="p">)</span>
+            <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;fontsize&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;fontsize&#39;</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+            <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;ylims&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;ylims&#39;</span><span class="p">,</span> <span class="p">(</span><span class="o">-</span><span class="mf">.3</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+
+            <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">met_param</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">met_params</span><span class="p">):</span>
+                <span class="c1"># Prevent writing to file on first iteration of loop</span>
+                <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="n">write_to_file</span> <span class="o">=</span> <span class="kc">False</span>
+                <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                    <span class="n">write_to_file</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">write_to_file</span>
+
+                <span class="n">axs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">sensortoolkit</span><span class="o">.</span><span class="n">plotting</span><span class="o">.</span><span class="n">normalized_met_scatter</span><span class="p">(</span>
+                                          <span class="bp">self</span><span class="o">.</span><span class="n">hourly_df_list</span><span class="p">,</span>
+                                          <span class="bp">self</span><span class="o">.</span><span class="n">hourly_ref_df</span><span class="p">,</span>
+                                          <span class="bp">self</span><span class="o">.</span><span class="n">avg_hrly_df</span><span class="p">,</span>
+                                          <span class="bp">self</span><span class="o">.</span><span class="n">met_hourly_ref_df</span><span class="p">,</span>
+                                          <span class="bp">self</span><span class="o">.</span><span class="n">figure_path</span><span class="p">,</span>
+                                          <span class="n">param</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_param_name</span><span class="p">,</span>
+                                          <span class="n">sensor_serials</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">serials</span><span class="p">,</span>
+                                          <span class="n">sensor_name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+                                          <span class="n">met_param</span><span class="o">=</span><span class="n">met_param</span><span class="p">,</span>
+                                          <span class="n">ref_name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">ref_name</span><span class="p">,</span>
+                                          <span class="n">write_to_file</span><span class="o">=</span><span class="n">write_to_file</span><span class="p">,</span>
+                                          <span class="n">report_fmt</span><span class="o">=</span><span class="n">report_fmt</span><span class="p">,</span>
+                                          <span class="n">fig</span><span class="o">=</span><span class="n">fig</span><span class="p">,</span>
+                                          <span class="n">ax</span><span class="o">=</span><span class="n">axs</span><span class="p">[</span><span class="n">i</span><span class="p">],</span>
+                                          <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="n">axs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">get_legend</span><span class="p">()</span><span class="o">.</span><span class="n">remove</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># Either Temp or RH must be passed to met_param if not using report</span>
+            <span class="c1"># formatting. Report formatted plots dont require a value for</span>
+            <span class="c1"># met_param as both Temp and RH scatter are automatically plotted.</span>
+            <span class="k">if</span> <span class="n">met_param</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">met_params</span><span class="p">:</span>
+                <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="s1">&#39;Invalid parameter name: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">met_param</span><span class="p">))</span>
+
+            <span class="n">sensortoolkit</span><span class="o">.</span><span class="n">plotting</span><span class="o">.</span><span class="n">normalized_met_scatter</span><span class="p">(</span>
+                                      <span class="bp">self</span><span class="o">.</span><span class="n">hourly_df_list</span><span class="p">,</span>
+                                      <span class="bp">self</span><span class="o">.</span><span class="n">hourly_ref_df</span><span class="p">,</span>
+                                      <span class="bp">self</span><span class="o">.</span><span class="n">avg_hrly_df</span><span class="p">,</span>
+                                      <span class="bp">self</span><span class="o">.</span><span class="n">met_hourly_ref_df</span><span class="p">,</span>
+                                      <span class="bp">self</span><span class="o">.</span><span class="n">figure_path</span><span class="p">,</span>
+                                      <span class="n">param</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_param_name</span><span class="p">,</span>
+                                      <span class="n">sensor_serials</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">serials</span><span class="p">,</span>
+                                      <span class="n">sensor_name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+                                      <span class="n">met_param</span><span class="o">=</span><span class="n">met_param</span><span class="p">,</span>
+                                      <span class="n">ref_name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">ref_name</span><span class="p">,</span>
+                                      <span class="n">write_to_file</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">write_to_file</span><span class="p">,</span>
+                                      <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="SensorEvaluation.plot_sensor_met_scatter"><a class="viewcode-back" href="../../../api/_autosummary/sensortoolkit.evaluation._sensor_eval.SensorEvaluation.html#sensortoolkit.evaluation._sensor_eval.SensorEvaluation.plot_sensor_met_scatter">[docs]</a>    <span class="k">def</span> <span class="nf">plot_sensor_met_scatter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">averaging_interval</span><span class="o">=</span><span class="s1">&#39;1-hour&#39;</span><span class="p">,</span>
+                                <span class="n">met_param</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                                <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Creates one of the following scatter plots:</span>
+<span class="sd">            Internal sensor RH vs. Reference monitor RH</span>
+<span class="sd">            Internal sensor Temp vs. Reference monitor Temp</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Data header names for met data</span>
+        <span class="n">met_params</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Temp&#39;</span><span class="p">,</span> <span class="s1">&#39;RH&#39;</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="n">met_param</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">met_params</span><span class="p">:</span>
+            <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="s1">&#39;Invalid parameter name: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">met_param</span><span class="p">))</span>
+
+        <span class="k">if</span> <span class="n">averaging_interval</span> <span class="ow">not</span> <span class="ow">in</span>  <span class="bp">self</span><span class="o">.</span><span class="n">eval_param_averaging</span><span class="p">:</span>
+            <span class="n">txt</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;Invalid averaging interval, choose from the following: &#39;</span>
+                   <span class="o">+</span> <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">eval_param_averaging</span><span class="p">))</span>
+            <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="n">txt</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">averaging_interval</span> <span class="o">==</span> <span class="s1">&#39;1-hour&#39;</span><span class="p">:</span>
+            <span class="n">sensor_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">hourly_df_list</span>
+            <span class="n">ref_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">met_hourly_ref_df</span>
+        <span class="k">if</span> <span class="n">averaging_interval</span> <span class="o">==</span> <span class="s1">&#39;24-hour&#39;</span><span class="p">:</span>
+            <span class="n">sensor_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">daily_df_list</span>
+            <span class="n">ref_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">met_daily_ref_df</span>
+        <span class="n">ref_name</span> <span class="o">=</span> <span class="n">ref_data</span><span class="p">[</span><span class="n">met_param</span> <span class="o">+</span> <span class="s1">&#39;_Method&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+
+        <span class="n">ymin</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">avg_hrly_df</span><span class="p">[</span>
+                                <span class="s1">&#39;mean_&#39;</span> <span class="o">+</span> <span class="n">met_param</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">())</span>
+        <span class="n">ymax</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">avg_hrly_df</span><span class="p">[</span>
+                                <span class="s1">&#39;mean_&#39;</span> <span class="o">+</span> <span class="n">met_param</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+
+        <span class="n">xmin</span><span class="p">,</span> <span class="n">xmax</span> <span class="o">=</span> <span class="n">ymin</span><span class="p">,</span> <span class="n">ymax</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">deploy_dict</span><span class="p">[</span><span class="s1">&#39;Deployment Groups&#39;</span><span class="p">][</span><span class="s1">&#39;Group 1&#39;</span><span class="p">][</span><span class="bp">self</span><span class="o">.</span><span class="n">_param_name</span><span class="p">]</span>
+        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Populating deployment dataframe with evaluation statistics&#39;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">add_deploy_dict_stats</span><span class="p">()</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">stats_df</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Calculating OLS regression statistics for 1-hr and 24-hr &#39;</span>
+                  <span class="s1">&#39;sensor vs. reference measurements&#39;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">calculate_metrics</span><span class="p">()</span>
+
+        <span class="n">fontsize</span> <span class="o">=</span> <span class="n">sensortoolkit</span><span class="o">.</span><span class="n">Set_Fontsize</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">serials</span><span class="p">)</span>
+
+        <span class="c1"># Set keyword argument values to defaults or passed values</span>
+        <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;fontsize&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;fontsize&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="p">)</span>
+        <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;ylims&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;ylims&#39;</span><span class="p">,</span> <span class="p">(</span><span class="n">ymin</span><span class="p">,</span> <span class="n">ymax</span><span class="p">))</span>
+        <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;xlims&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;xlims&#39;</span><span class="p">,</span> <span class="p">(</span><span class="n">xmin</span><span class="p">,</span> <span class="n">xmax</span><span class="p">))</span>
+        <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;param_class&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;Met&#39;</span>
+        <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;tick_spacing&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;tick_spacing&#39;</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+
+        <span class="n">sensortoolkit</span><span class="o">.</span><span class="n">plotting</span><span class="o">.</span><span class="n">scatter_plotter</span><span class="p">(</span>
+                           <span class="n">sensor_data</span><span class="p">,</span>
+                           <span class="n">ref_data</span><span class="p">,</span>
+                           <span class="n">deploy_dict</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">deploy_dict</span><span class="p">,</span>
+                           <span class="n">param</span><span class="o">=</span><span class="n">met_param</span><span class="p">,</span>
+                           <span class="n">sensor_name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+                           <span class="n">ref_name</span><span class="o">=</span><span class="n">ref_name</span><span class="p">,</span>
+                           <span class="n">averaging_interval</span><span class="o">=</span><span class="n">averaging_interval</span><span class="p">,</span>
+                           <span class="n">figure_path</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">figure_path</span><span class="p">,</span>
+                           <span class="n">write_to_file</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">write_to_file</span><span class="p">,</span>
+                           <span class="n">sensor_serials</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">serials</span><span class="p">,</span>
+                           <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="SensorEvaluation.print_eval_metrics"><a class="viewcode-back" href="../../../api/_autosummary/sensortoolkit.evaluation._sensor_eval.SensorEvaluation.html#sensortoolkit.evaluation._sensor_eval.SensorEvaluation.print_eval_metrics">[docs]</a>    <span class="k">def</span> <span class="nf">print_eval_metrics</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">averaging_interval</span><span class="o">=</span><span class="s1">&#39;24-hour&#39;</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Summary of performance evaluation results using</span>
+<span class="sd">        EPA’s recommended performance metrics (‘PM25’ and ‘O3’). The</span>
+<span class="sd">        coefficient of variation, sensor vs. FRM/FEM OLS regression slope,</span>
+<span class="sd">        intercept, and R2, and RMSE are displayed. Regression statistics</span>
+<span class="sd">        are computed for each sensor, and the mean metric value is</span>
+<span class="sd">        presented alongside the range (min to max).</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            averaging_interval (TYPE, optional): DESCRIPTION. Defaults to</span>
+<span class="sd">            &#39;24-hour&#39;.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">deploy_dict</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">create_deploy_dict</span><span class="p">()</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">stats_df</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">calculate_metrics</span><span class="p">()</span>
+
+        <span class="n">param</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_param_name</span>
+
+        <span class="n">deploy_dic</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">deploy_dict</span>
+        <span class="n">deploy_stats</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">stats_df</span><span class="o">.</span><span class="n">where</span><span class="p">(</span>
+                           <span class="bp">self</span><span class="o">.</span><span class="n">stats_df</span><span class="p">[</span><span class="s1">&#39;Averaging Interval&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">averaging_interval</span><span class="p">)</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="mi">88</span><span class="o">*</span><span class="s1">&#39;-&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{:^88s}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">+</span> <span class="s1">&#39; &#39;</span>
+                               <span class="o">+</span> <span class="n">averaging_interval</span> <span class="o">+</span>
+                               <span class="s1">&#39; Performance Evaluation Results&#39;</span><span class="p">))</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{:^88s}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39;Reference Method: &#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">ref_name</span><span class="p">))</span>
+        <span class="nb">print</span><span class="p">(</span><span class="mi">88</span><span class="o">*</span><span class="s1">&#39;-&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{:^6s}</span><span class="s1">|</span><span class="si">{:^24s}</span><span class="s1">|</span><span class="si">{:^24s}</span><span class="s1">|</span><span class="si">{:^24s}</span><span class="s1">|</span><span class="si">{:^6s}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39;CV&#39;</span><span class="p">,</span> <span class="s1">&#39;Slope&#39;</span><span class="p">,</span>
+              <span class="s1">&#39;Intercept&#39;</span><span class="p">,</span> <span class="s1">&#39;R^2&#39;</span><span class="p">,</span> <span class="s1">&#39;RMSE&#39;</span><span class="p">))</span>
+        <span class="nb">print</span><span class="p">(</span><span class="mi">88</span><span class="o">*</span><span class="s1">&#39;-&#39;</span><span class="p">)</span>
+        <span class="n">cv_data</span> <span class="o">=</span> <span class="p">[(</span><span class="n">deploy_dic</span><span class="p">[</span><span class="s1">&#39;Deployment Groups&#39;</span><span class="p">][</span><span class="n">group</span><span class="p">]</span>
+                              <span class="p">[</span><span class="n">param</span><span class="p">][</span><span class="s1">&#39;Precision&#39;</span><span class="p">][</span><span class="s1">&#39;cv_&#39;</span> <span class="o">+</span> <span class="n">averaging_interval</span><span class="p">])</span>
+                   <span class="k">for</span> <span class="n">group</span> <span class="ow">in</span> <span class="n">deploy_dic</span><span class="p">[</span><span class="s1">&#39;Deployment Groups&#39;</span><span class="p">]]</span>
+
+        <span class="n">slope_avg</span> <span class="o">=</span> <span class="n">deploy_stats</span><span class="o">.</span><span class="n">Slope</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+        <span class="n">slope_min</span> <span class="o">=</span> <span class="n">deploy_stats</span><span class="o">.</span><span class="n">Slope</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>
+        <span class="n">slope_max</span> <span class="o">=</span> <span class="n">deploy_stats</span><span class="o">.</span><span class="n">Slope</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+
+        <span class="n">intercept_avg</span> <span class="o">=</span> <span class="n">deploy_stats</span><span class="o">.</span><span class="n">Intercept</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+        <span class="n">intercept_min</span> <span class="o">=</span> <span class="n">deploy_stats</span><span class="o">.</span><span class="n">Intercept</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>
+        <span class="n">intercept__max</span> <span class="o">=</span> <span class="n">deploy_stats</span><span class="o">.</span><span class="n">Intercept</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+
+        <span class="n">linearity_avg</span> <span class="o">=</span> <span class="n">deploy_stats</span><span class="p">[</span><span class="s1">&#39;R$^2$&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+        <span class="n">linearity_min</span> <span class="o">=</span> <span class="n">deploy_stats</span><span class="p">[</span><span class="s1">&#39;R$^2$&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>
+        <span class="n">linearity_max</span> <span class="o">=</span> <span class="n">deploy_stats</span><span class="p">[</span><span class="s1">&#39;R$^2$&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+
+        <span class="n">rmse_data</span> <span class="o">=</span> <span class="p">[(</span><span class="n">deploy_dic</span><span class="p">[</span><span class="s1">&#39;Deployment Groups&#39;</span><span class="p">][</span><span class="n">group</span><span class="p">]</span>
+                      <span class="p">[</span><span class="n">param</span><span class="p">][</span><span class="s1">&#39;Error&#39;</span><span class="p">][</span><span class="s1">&#39;rmse_&#39;</span> <span class="o">+</span> <span class="n">averaging_interval</span><span class="p">])</span>
+                     <span class="k">for</span> <span class="n">group</span> <span class="ow">in</span> <span class="n">deploy_dic</span><span class="p">[</span><span class="s1">&#39;Deployment Groups&#39;</span><span class="p">]]</span>
+
+        <span class="nb">print</span><span class="p">((</span><span class="s1">&#39;</span><span class="si">{:^6.1f}</span><span class="s1">|</span><span class="si">{:^24.2f}</span><span class="s1">|&#39;</span>
+               <span class="s1">&#39;</span><span class="si">{:^24.2f}</span><span class="s1">|</span><span class="si">{:^24.2f}</span><span class="s1">|</span><span class="si">{:^6.1f}</span><span class="s1">&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cv_data</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+                                                      <span class="n">slope_avg</span><span class="p">,</span>
+                                                      <span class="n">intercept_avg</span><span class="p">,</span>
+                                                      <span class="n">linearity_avg</span><span class="p">,</span>
+                                                      <span class="n">rmse_data</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="mi">5</span><span class="o">*</span><span class="s1">&#39; &#39;</span><span class="p">,</span>
+              <span class="p">(</span><span class="s1">&#39;|     (</span><span class="si">{:4.2f}</span><span class="s1"> to </span><span class="si">{:4.2f}</span><span class="s1">)     &#39;</span>
+               <span class="s1">&#39;|    (</span><span class="si">{:4.2f}</span><span class="s1"> to </span><span class="si">{:4.2f}</span><span class="s1">)    &#39;</span>
+               <span class="s1">&#39;|     (</span><span class="si">{:4.2f}</span><span class="s1"> to </span><span class="si">{:4.2f}</span><span class="s1">)     |&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">slope_min</span><span class="p">,</span>
+                                                          <span class="n">slope_max</span><span class="p">,</span>
+                                                          <span class="n">intercept_min</span><span class="p">,</span>
+                                                          <span class="n">intercept__max</span><span class="p">,</span>
+                                                          <span class="n">linearity_min</span><span class="p">,</span>
+                                                          <span class="n">linearity_max</span><span class="p">),</span>
+              <span class="mi">5</span><span class="o">*</span><span class="s1">&#39; &#39;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="SensorEvaluation.print_eval_conditions"><a class="viewcode-back" href="../../../api/_autosummary/sensortoolkit.evaluation._sensor_eval.SensorEvaluation.html#sensortoolkit.evaluation._sensor_eval.SensorEvaluation.print_eval_conditions">[docs]</a>    <span class="k">def</span> <span class="nf">print_eval_conditions</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">averaging_interval</span><span class="o">=</span><span class="s1">&#39;24-hour&#39;</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Testing conditions for the evaluation parameter</span>
+<span class="sd">        and meteorological conditions during the testing period. Values for</span>
+<span class="sd">        the evaluation parameter recorded by the sensor, FRM/FEM</span>
+<span class="sd">        instrument, and temperature and relative humidity values are</span>
+<span class="sd">        displayed by the mean of 1-hour or 24-hour averages during the</span>
+<span class="sd">        testing period. The range (min to max) of each parameter is listed</span>
+<span class="sd">        below the mean in parentheses.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            averaging_interval (TYPE, optional): DESCRIPTION. Defaults to &#39;24-hour&#39;.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">deploy_dict</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">create_deploy_dict</span><span class="p">()</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">stats_df</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">calculate_metrics</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="n">averaging_interval</span> <span class="o">==</span> <span class="s1">&#39;1-hour&#39;</span><span class="p">:</span>
+            <span class="n">ref_df</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">hourly_ref_df</span>
+            <span class="n">met_ref_df</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">met_hourly_ref_df</span>
+        <span class="k">if</span> <span class="n">averaging_interval</span> <span class="o">==</span> <span class="s1">&#39;24-hour&#39;</span><span class="p">:</span>
+            <span class="n">ref_df</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">daily_ref_df</span>
+            <span class="n">met_ref_df</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">met_daily_ref_df</span>
+
+        <span class="n">deploy_dict</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">deploy_dict</span>
+        <span class="n">deploy_stats</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">stats_df</span><span class="o">.</span><span class="n">where</span><span class="p">(</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">stats_df</span><span class="p">[</span><span class="s1">&#39;Averaging Interval&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">averaging_interval</span>
+                            <span class="p">)</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">how</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">n_sensors</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">serials</span><span class="p">)</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="mi">88</span><span class="o">*</span><span class="s1">&#39;-&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{:^88s}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">+</span> <span class="s1">&#39; (&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">n_sensors</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;) &#39;</span>
+                               <span class="o">+</span> <span class="n">averaging_interval</span> <span class="o">+</span> <span class="s1">&#39; Evaluation Conditions&#39;</span><span class="p">))</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="mi">88</span><span class="o">*</span><span class="s1">&#39;-&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{:^14s}</span><span class="s1">|</span><span class="si">{:^14s}</span><span class="s1">|</span><span class="si">{:^14s}</span><span class="s1">|</span><span class="si">{:^14s}</span><span class="s1">|</span><span class="si">{:^14s}</span><span class="s1">|</span><span class="si">{:^14s}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                <span class="s1">&#39;Eval period&#39;</span><span class="p">,</span> <span class="s1">&#39;Duration&#39;</span><span class="p">,</span> <span class="s1">&#39;Sensor &#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_param_name</span><span class="p">,</span>
+                <span class="s1">&#39;Ref &#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_param_name</span><span class="p">,</span> <span class="s1">&#39;Temp&#39;</span><span class="p">,</span> <span class="s1">&#39;RH&#39;</span><span class="p">))</span>
+        <span class="nb">print</span><span class="p">(</span><span class="mi">88</span><span class="o">*</span><span class="s1">&#39;-&#39;</span><span class="p">)</span>
+
+        <span class="n">deploy_loc</span> <span class="o">=</span> <span class="n">deploy_dict</span><span class="p">[</span><span class="s1">&#39;Deployment Groups&#39;</span><span class="p">]</span>
+
+        <span class="n">eval_start</span> <span class="o">=</span> <span class="p">[</span><span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">deploy_loc</span><span class="p">[</span><span class="n">group</span><span class="p">][</span><span class="s1">&#39;eval_start&#39;</span><span class="p">]</span>
+                                     <span class="p">)</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%m-</span><span class="si">%d</span><span class="s1">-%y&#39;</span><span class="p">)</span>
+                      <span class="k">for</span> <span class="n">group</span> <span class="ow">in</span> <span class="n">deploy_loc</span><span class="p">]</span>
+
+        <span class="n">eval_end</span> <span class="o">=</span> <span class="p">[</span><span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">deploy_loc</span><span class="p">[</span><span class="n">group</span><span class="p">][</span><span class="s1">&#39;eval_end&#39;</span><span class="p">]</span>
+                                   <span class="p">)</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%m-</span><span class="si">%d</span><span class="s1">-%y&#39;</span><span class="p">)</span>
+                    <span class="k">for</span> <span class="n">group</span> <span class="ow">in</span> <span class="n">deploy_loc</span><span class="p">]</span>
+
+        <span class="n">eval_duration</span> <span class="o">=</span> <span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">to_timedelta</span><span class="p">(</span>
+                            <span class="n">deploy_loc</span><span class="p">[</span><span class="n">group</span><span class="p">][</span><span class="s1">&#39;eval_duration&#39;</span><span class="p">]</span>
+                                             <span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="s1">&#39;D&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">days</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39; days&#39;</span>
+                         <span class="k">for</span> <span class="n">group</span> <span class="ow">in</span> <span class="n">deploy_dict</span><span class="p">[</span><span class="s1">&#39;Deployment Groups&#39;</span><span class="p">]]</span>
+
+        <span class="n">sensor_min</span> <span class="o">=</span> <span class="nb">format</span><span class="p">(</span><span class="n">deploy_stats</span><span class="o">.</span><span class="n">Sensor_Min</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="s1">&#39;3.1f&#39;</span><span class="p">)</span>
+        <span class="n">sensor_max</span> <span class="o">=</span> <span class="nb">format</span><span class="p">(</span><span class="n">deploy_stats</span><span class="o">.</span><span class="n">Sensor_Max</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span> <span class="s1">&#39;3.1f&#39;</span><span class="p">)</span>
+        <span class="n">sensor_mean</span> <span class="o">=</span> <span class="nb">format</span><span class="p">(</span><span class="n">deploy_stats</span><span class="o">.</span><span class="n">Sensor_Mean</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="s1">&#39;3.1f&#39;</span><span class="p">)</span>
+
+        <span class="n">ref_min</span> <span class="o">=</span> <span class="nb">format</span><span class="p">(</span><span class="n">ref_df</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_param_name</span> <span class="o">+</span> <span class="s1">&#39;_Value&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="s1">&#39;3.1f&#39;</span><span class="p">)</span>
+        <span class="n">ref_max</span> <span class="o">=</span> <span class="nb">format</span><span class="p">(</span><span class="n">ref_df</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_param_name</span> <span class="o">+</span> <span class="s1">&#39;_Value&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span> <span class="s1">&#39;3.1f&#39;</span><span class="p">)</span>
+        <span class="n">ref_mean</span> <span class="o">=</span> <span class="nb">format</span><span class="p">(</span><span class="n">ref_df</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_param_name</span> <span class="o">+</span> <span class="s1">&#39;_Value&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="s1">&#39;3.1f&#39;</span><span class="p">)</span>
+
+        <span class="n">temp_min</span> <span class="o">=</span> <span class="nb">format</span><span class="p">(</span><span class="n">met_ref_df</span><span class="p">[</span><span class="s1">&#39;Temp_Value&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="s1">&#39;2.0f&#39;</span><span class="p">)</span>
+        <span class="n">temp_max</span> <span class="o">=</span> <span class="nb">format</span><span class="p">(</span><span class="n">met_ref_df</span><span class="p">[</span><span class="s1">&#39;Temp_Value&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span> <span class="s1">&#39;2.0f&#39;</span><span class="p">)</span>
+        <span class="n">temp_mean</span> <span class="o">=</span> <span class="nb">format</span><span class="p">(</span><span class="n">met_ref_df</span><span class="p">[</span><span class="s1">&#39;Temp_Value&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="s1">&#39;2.0f&#39;</span><span class="p">)</span>
+
+        <span class="n">rh_min</span> <span class="o">=</span> <span class="nb">format</span><span class="p">(</span><span class="n">met_ref_df</span><span class="p">[</span><span class="s1">&#39;RH_Value&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="s1">&#39;2.0f&#39;</span><span class="p">)</span>
+        <span class="n">rh_max</span> <span class="o">=</span> <span class="nb">format</span><span class="p">(</span><span class="n">met_ref_df</span><span class="p">[</span><span class="s1">&#39;RH_Value&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span> <span class="s1">&#39;2.0f&#39;</span><span class="p">)</span>
+        <span class="n">rh_mean</span> <span class="o">=</span> <span class="nb">format</span><span class="p">(</span><span class="n">met_ref_df</span><span class="p">[</span><span class="s1">&#39;RH_Value&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="s1">&#39;2.0f&#39;</span><span class="p">)</span>
+
+        <span class="nb">print</span><span class="p">((</span><span class="s1">&#39;</span><span class="si">{:^14s}</span><span class="s1">|</span><span class="si">{:^14s}</span><span class="s1">|</span><span class="si">{:^14s}</span><span class="s1">|</span><span class="si">{:^14s}</span><span class="s1">|</span><span class="si">{:^14s}</span><span class="s1">|</span><span class="si">{:^14s}</span><span class="s1">&#39;</span>
+               <span class="p">)</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">eval_start</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="s1">&#39;-&#39;</span><span class="p">,</span>
+                        <span class="n">eval_duration</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+                        <span class="n">sensor_mean</span><span class="p">,</span>
+                        <span class="n">ref_mean</span><span class="p">,</span>
+                        <span class="n">temp_mean</span><span class="p">,</span>
+                        <span class="n">rh_mean</span><span class="p">))</span>
+
+        <span class="nb">print</span><span class="p">((</span><span class="s1">&#39;</span><span class="si">{:^14s}</span><span class="s1">|</span><span class="si">{:^14s}</span><span class="s1">|</span><span class="si">{:^14s}</span><span class="s1">|</span><span class="si">{:^14s}</span><span class="s1">|</span><span class="si">{:^14s}</span><span class="s1">|</span><span class="si">{:^14s}</span><span class="s1">&#39;</span>
+               <span class="p">)</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">eval_end</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+                        <span class="s1">&#39;&#39;</span><span class="p">,</span>
+                        <span class="s1">&#39;(&#39;</span> <span class="o">+</span> <span class="n">sensor_min</span> <span class="o">+</span> <span class="s1">&#39; to &#39;</span> <span class="o">+</span> <span class="n">sensor_max</span> <span class="o">+</span> <span class="s1">&#39;)&#39;</span><span class="p">,</span>
+                        <span class="s1">&#39;(&#39;</span> <span class="o">+</span> <span class="n">ref_min</span> <span class="o">+</span> <span class="s1">&#39; to &#39;</span> <span class="o">+</span> <span class="n">ref_max</span> <span class="o">+</span> <span class="s1">&#39;)&#39;</span><span class="p">,</span>
+                        <span class="s1">&#39;(&#39;</span> <span class="o">+</span> <span class="n">temp_min</span> <span class="o">+</span> <span class="s1">&#39; to &#39;</span> <span class="o">+</span> <span class="n">temp_max</span> <span class="o">+</span> <span class="s1">&#39;)&#39;</span><span class="p">,</span>
+                        <span class="s1">&#39;(&#39;</span> <span class="o">+</span> <span class="n">rh_min</span> <span class="o">+</span> <span class="s1">&#39; to &#39;</span> <span class="o">+</span> <span class="n">rh_max</span> <span class="o">+</span> <span class="s1">&#39;)&#39;</span><span class="p">))</span></div></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, Samuel Frederick.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
