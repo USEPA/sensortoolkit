@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>AirSensor Setup &mdash; sensortoolkit 0.5.1b2 documentation</title>
+  <title>AirSensor Setup &mdash; sensortoolkit 0.5.2b3 documentation</title>
   
 
   
@@ -69,7 +69,7 @@
             
             
               <div class="version">
-                0.5.1b2
+                0.5.2b3
               </div>
             
           
@@ -278,6 +278,17 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.model._sensor_ols.html">sensortoolkit.model._sensor_ols</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.model._sensor_ols.sensor_ols.html">sensortoolkit.model._sensor_ols.sensor_ols</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/param.html"><code class="docutils literal notranslate"><span class="pre">sensortoolkit.param</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.param._parameter.html">sensortoolkit.param._parameter</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.param._parameter.Parameter.html">sensortoolkit.param._parameter.Parameter</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.param._targets.html">sensortoolkit.param._targets</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.param._targets.ParameterTargets.html">sensortoolkit.param._targets.ParameterTargets</a></li>
 </ul>
 </li>
 </ul>
@@ -598,8 +609,8 @@ is indicated on the left hand side of the console statement. Below, the example 
 a number of rows of metadata, so the header index containing descriptors for the time column and
 pollutant measurement columns is found on row index #5.</p>
 <div class="tabbed-set docutils">
-<input checked="checked" id="a230e836-cb3e-4778-89c4-6171061861ed" name="27c21b4a-5cf4-433e-8f67-8cbc00ecaec0" type="radio">
-</input><label class="tabbed-label" for="a230e836-cb3e-4778-89c4-6171061861ed">
+<input checked="checked" id="3b2c6d90-a2c7-4c8f-b078-8f3658d9f918" name="91f69039-45b4-42c8-882e-142607253b2a" type="radio">
+</input><label class="tabbed-label" for="3b2c6d90-a2c7-4c8f-b078-8f3658d9f918">
 Header Row Index = 0</label><div class="tabbed-content docutils">
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">============================= Column Header Index ============================</span>
 <span class="go">Options</span>
@@ -630,8 +641,8 @@ Header Row Index = 0</label><div class="tabbed-content docutils">
 </pre></div>
 </div>
 </div>
-<input id="d1c6d068-06fb-4a30-a890-41738cd0ffcf" name="27c21b4a-5cf4-433e-8f67-8cbc00ecaec0" type="radio">
-</input><label class="tabbed-label" for="d1c6d068-06fb-4a30-a890-41738cd0ffcf">
+<input id="1983218a-ba5b-4793-a36a-f6ce5493790d" name="91f69039-45b4-42c8-882e-142607253b2a" type="radio">
+</input><label class="tabbed-label" for="1983218a-ba5b-4793-a36a-f6ce5493790d">
 Header Row Index &gt; 0</label><div class="tabbed-content docutils">
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">============================= Column Header Index ============================</span>
 <span class="go">Options</span>
@@ -663,8 +674,8 @@ Header Row Index &gt; 0</label><div class="tabbed-content docutils">
 </pre></div>
 </div>
 </div>
-<input id="da1f888f-60f5-4d77-808f-05336f95ae40" name="27c21b4a-5cf4-433e-8f67-8cbc00ecaec0" type="radio">
-</input><label class="tabbed-label" for="da1f888f-60f5-4d77-808f-05336f95ae40">
+<input id="f84829b9-0b06-4619-a470-abf33d22e1d7" name="91f69039-45b4-42c8-882e-142607253b2a" type="radio">
+</input><label class="tabbed-label" for="f84829b9-0b06-4619-a470-abf33d22e1d7">
 Header Row Index = None</label><div class="tabbed-content docutils">
 <p>Select this option if the dataset does not contain a single row with header
 information. The example below indicates a log description followed immediately
@@ -938,8 +949,31 @@ specified via the following:</p>
 </div>
 </div>
 </div>
+<div class="section" id="specifying-the-datetime-index-time-zone">
+<h2>7. Specifying the DateTime Index Time Zone<a class="headerlink" href="#specifying-the-datetime-index-time-zone" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">====================== Specify DateTime Index Time Zone ======================</span>
+<span class="go">Options</span>
+<span class="go">-------</span>
+<span class="go">..press enter to skip columns that will be dropped</span>
+
+<span class="go">Notes</span>
+<span class="go">-----</span>
+<span class="go">For a list of all time zones, type &quot;pytz.all_timezones&quot;</span>
+<span class="go">==============================================================================</span>
+
+<span class="go">Enter time zone for &quot;Time&quot;: EST</span>
+
+<span class="go">Confirm entry [y/n]: y</span>
+
+<span class="go">Configured time zone formatting:</span>
+<span class="go">{&#39;Time&#39;: &#39;%Y/%m/%d %H:%M:%S&#39;, &#39;Time_tz&#39;: &#39;EST&#39;}</span>
+
+<span class="go">Press enter to continue.</span>
+</pre></div>
+</div>
+</div>
 <div class="section" id="configuring-sensor-serial-identifiers">
-<h2>7. Configuring Sensor Serial identifiers<a class="headerlink" href="#configuring-sensor-serial-identifiers" title="Permalink to this headline">¶</a></h2>
+<h2>8. Configuring Sensor Serial identifiers<a class="headerlink" href="#configuring-sensor-serial-identifiers" title="Permalink to this headline">¶</a></h2>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
 <p>Data files pertaining to a particular sensor unit must include the unique
@@ -985,7 +1019,7 @@ are used to locate, group, and import data for each unit.</p>
 </div>
 </div>
 <div class="section" id="saving-the-setup-configuration-to-setup-json">
-<h2>8. Saving the Setup Configuration to <code class="docutils literal notranslate"><span class="pre">setup.json</span></code><a class="headerlink" href="#saving-the-setup-configuration-to-setup-json" title="Permalink to this headline">¶</a></h2>
+<h2>9. Saving the Setup Configuration to <code class="docutils literal notranslate"><span class="pre">setup.json</span></code><a class="headerlink" href="#saving-the-setup-configuration-to-setup-json" title="Permalink to this headline">¶</a></h2>
 <p>Lastly, the Setup module will automatically save the setup configuration
 to a <code class="docutils literal notranslate"><span class="pre">setup.json</span></code> file.</p>
 <p>This file is located at <code class="docutils literal notranslate"><span class="pre">..\Data</span> <span class="pre">and</span> <span class="pre">Figures\sensor_data\Sensor_Make_Model\</span></code>

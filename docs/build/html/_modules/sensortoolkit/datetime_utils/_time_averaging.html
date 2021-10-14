@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>sensortoolkit.datetime_utils._time_averaging &mdash; sensortoolkit 0.5.1b2 documentation</title>
+  <title>sensortoolkit.datetime_utils._time_averaging &mdash; sensortoolkit 0.5.2b3 documentation</title>
   
 
   
@@ -67,7 +67,7 @@
             
             
               <div class="version">
-                0.5.1b2
+                0.5.2b3
               </div>
             
           
@@ -276,6 +276,17 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.model._sensor_ols.html">sensortoolkit.model._sensor_ols</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.model._sensor_ols.sensor_ols.html">sensortoolkit.model._sensor_ols.sensor_ols</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/param.html"><code class="docutils literal notranslate"><span class="pre">sensortoolkit.param</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.param._parameter.html">sensortoolkit.param._parameter</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.param._parameter.Parameter.html">sensortoolkit.param._parameter.Parameter</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.param._targets.html">sensortoolkit.param._targets</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.param._targets.ParameterTargets.html">sensortoolkit.param._targets.ParameterTargets</a></li>
 </ul>
 </li>
 </ul>
@@ -544,11 +555,11 @@
 <span class="sd">    Returns:</span>
 <span class="sd">        hourly_df_list (list of pandas dataframes): List of sensor data frames</span>
 <span class="sd">            of length N (where N is the number of sensor units in a testing</span>
-<span class="sd">            group). frames indexed by DateTime_UTC at 1-hour averaged sampling</span>
+<span class="sd">            group). frames indexed by DateTime at 1-hour averaged sampling</span>
 <span class="sd">            frequency.</span>
 <span class="sd">        daily_df_list (list of pandas dataframes): List of sensor data frames</span>
 <span class="sd">            of length N (where N is the number of sensor units in a testing</span>
-<span class="sd">            group). frames indexed by DateTime_UTC at 24-hour averaged sampling</span>
+<span class="sd">            group). frames indexed by DateTime at 24-hour averaged sampling</span>
 <span class="sd">            frequency.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">hourly_df_list</span><span class="p">,</span> <span class="n">daily_df_list</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
@@ -565,7 +576,7 @@
         <span class="c1"># Compute timedelta between successive timestamps</span>
         <span class="n">delta</span> <span class="o">=</span> <span class="p">(</span><span class="n">full_df</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="o">-</span> <span class="n">full_df</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span><span class="o">.</span><span class="n">to_frame</span><span class="p">()</span>
         <span class="k">if</span> <span class="n">delta</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">name</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">delta</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;DateTime_UTC&#39;</span>
+            <span class="n">delta</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;DateTime&#39;</span>
         <span class="n">idx_name</span> <span class="o">=</span> <span class="n">delta</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">name</span>
 
         <span class="c1"># Use mode of timedelta to extrapolate # of datapoints recorded per hr</span>

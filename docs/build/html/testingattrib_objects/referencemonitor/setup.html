@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>ReferenceMonitor Setup &mdash; sensortoolkit 0.5.1b2 documentation</title>
+  <title>ReferenceMonitor Setup &mdash; sensortoolkit 0.5.2b3 documentation</title>
   
 
   
@@ -69,7 +69,7 @@
             
             
               <div class="version">
-                0.5.1b2
+                0.5.2b3
               </div>
             
           
@@ -278,6 +278,17 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.model._sensor_ols.html">sensortoolkit.model._sensor_ols</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.model._sensor_ols.sensor_ols.html">sensortoolkit.model._sensor_ols.sensor_ols</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/param.html"><code class="docutils literal notranslate"><span class="pre">sensortoolkit.param</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.param._parameter.html">sensortoolkit.param._parameter</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.param._parameter.Parameter.html">sensortoolkit.param._parameter.Parameter</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.param._targets.html">sensortoolkit.param._targets</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.param._targets.ParameterTargets.html">sensortoolkit.param._targets.ParameterTargets</a></li>
 </ul>
 </li>
 </ul>
@@ -507,8 +518,8 @@ to your use case. This will display the setup process corresponding to the selec
 service or data source.</p>
 </div>
 <div class="tabbed-set docutils">
-<input checked="checked" id="944390d3-dd84-4bbe-8562-71b4063673c1" name="a5f0c60d-14f6-4057-84a8-7e7ceefd1b47" type="radio">
-</input><label class="tabbed-label" for="944390d3-dd84-4bbe-8562-71b4063673c1">
+<input checked="checked" id="895e77bd-b255-47b3-a121-2fa634db8a0c" name="bceec5ef-625b-48a9-a701-ce865bfc3691" type="radio">
+</input><label class="tabbed-label" for="895e77bd-b255-47b3-a121-2fa634db8a0c">
 Local</label><div class="tabbed-content docutils">
 <p>The following steps below walk through the setup process. The example below
 describes the setup process for a reference data file acquired locally for
@@ -996,8 +1007,29 @@ or revise the entered formatting scheme.</p>
 <span class="go">Press enter to continue.</span>
 </pre></div>
 </div>
+<p><strong>11. Specifying the DateTime Index Time Zone</strong></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">====================== Specify DateTime Index Time Zone ======================</span>
+<span class="go">Options</span>
+<span class="go">-------</span>
+<span class="go">..press enter to skip columns that will be dropped</span>
+
+<span class="go">Notes</span>
+<span class="go">-----</span>
+<span class="go">For a list of all time zones, type &quot;pytz.all_timezones&quot;</span>
+<span class="go">==============================================================================</span>
+
+<span class="go">Enter time zone for &quot;Date &amp; Time&quot;: EST</span>
+
+<span class="go">Confirm entry [y/n]: y</span>
+
+<span class="go">Configured time zone formatting:</span>
+<span class="go">{&#39;Date &amp; Time&#39;: &#39;%-m/%-d/%Y %-I:%M %p&#39;, &#39;Date &amp; Time_tz&#39;: &#39;EST&#39;}</span>
+
+<span class="go">Press enter to continue.</span>
+</pre></div>
+</div>
 </div></blockquote>
-<p><strong>11. Saving the Setup Configuration to</strong> <code class="docutils literal notranslate"><span class="pre">setup.json</span></code></p>
+<p><strong>12. Saving the Setup Configuration to</strong> <code class="docutils literal notranslate"><span class="pre">setup.json</span></code></p>
 <blockquote>
 <div><p>The Setup module will automatically save the setup configuration
 to a <code class="docutils literal notranslate"><span class="pre">reference_setup.json</span></code> file at the indicated directory location:</p>
@@ -1010,7 +1042,7 @@ to a <code class="docutils literal notranslate"><span class="pre">reference_setu
 </pre></div>
 </div>
 </div></blockquote>
-<p><strong>12. Reference Data Ingestion and Saving Processed Datasets</strong></p>
+<p><strong>13. Reference Data Ingestion and Saving Processed Datasets</strong></p>
 <blockquote>
 <div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">============================ Ingest Local Datasets ===========================</span>
 <span class="go">==============================================================================</span>
@@ -1021,8 +1053,8 @@ to a <code class="docutils literal notranslate"><span class="pre">reference_setu
 </div>
 </div></blockquote>
 </div>
-<input id="3ca4dbca-f509-49f3-a3c1-8b20d954270c" name="a5f0c60d-14f6-4057-84a8-7e7ceefd1b47" type="radio">
-</input><label class="tabbed-label" for="3ca4dbca-f509-49f3-a3c1-8b20d954270c">
+<input id="4d9d08ba-1859-4b3b-aefb-9b4d96f87a14" name="bceec5ef-625b-48a9-a701-ce865bfc3691" type="radio">
+</input><label class="tabbed-label" for="4d9d08ba-1859-4b3b-aefb-9b4d96f87a14">
 AirNowTech</label><div class="tabbed-content docutils">
 <p>The following steps below walk through the setup process. The example below
 describes the setup process for a reference data file downloaded from AirNowTech
@@ -1192,8 +1224,8 @@ to a <code class="docutils literal notranslate"><span class="pre">reference_setu
 </div>
 </div></blockquote>
 </div>
-<input id="7b1329bc-a000-4043-9e49-36a36ee35f1c" name="a5f0c60d-14f6-4057-84a8-7e7ceefd1b47" type="radio">
-</input><label class="tabbed-label" for="7b1329bc-a000-4043-9e49-36a36ee35f1c">
+<input id="1ad3d815-8d82-4906-9727-c35675845bd1" name="bceec5ef-625b-48a9-a701-ce865bfc3691" type="radio">
+</input><label class="tabbed-label" for="1ad3d815-8d82-4906-9727-c35675845bd1">
 AQS</label><div class="tabbed-content docutils">
 <p>The following steps below walk through the setup process. The example below
 describes the setup process for a reference data file downloaded from AQS
@@ -1300,8 +1332,8 @@ to a <code class="docutils literal notranslate"><span class="pre">reference_setu
 </div>
 </div></blockquote>
 </div>
-<input id="9a431092-786f-4496-b515-2efd387cbd35" name="a5f0c60d-14f6-4057-84a8-7e7ceefd1b47" type="radio">
-</input><label class="tabbed-label" for="9a431092-786f-4496-b515-2efd387cbd35">
+<input id="aa041fe8-f285-4268-a5a0-f34b628b2682" name="bceec5ef-625b-48a9-a701-ce865bfc3691" type="radio">
+</input><label class="tabbed-label" for="aa041fe8-f285-4268-a5a0-f34b628b2682">
 AirNow</label><div class="tabbed-content docutils">
 <p>The following steps below walk through the setup process. The example below
 describes the setup process for a reference data file downloaded from AirNow

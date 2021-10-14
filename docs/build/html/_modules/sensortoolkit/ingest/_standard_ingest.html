@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>sensortoolkit.ingest._standard_ingest &mdash; sensortoolkit 0.5.1b2 documentation</title>
+  <title>sensortoolkit.ingest._standard_ingest &mdash; sensortoolkit 0.5.2b3 documentation</title>
   
 
   
@@ -67,7 +67,7 @@
             
             
               <div class="version">
-                0.5.1b2
+                0.5.2b3
               </div>
             
           
@@ -276,6 +276,17 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.model._sensor_ols.html">sensortoolkit.model._sensor_ols</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.model._sensor_ols.sensor_ols.html">sensortoolkit.model._sensor_ols.sensor_ols</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/param.html"><code class="docutils literal notranslate"><span class="pre">sensortoolkit.param</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.param._parameter.html">sensortoolkit.param._parameter</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.param._parameter.Parameter.html">sensortoolkit.param._parameter.Parameter</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.param._targets.html">sensortoolkit.param._targets</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.param._targets.ParameterTargets.html">sensortoolkit.param._targets.ParameterTargets</a></li>
 </ul>
 </li>
 </ul>
@@ -492,6 +503,7 @@
 <span class="kn">import</span> <span class="nn">sys</span>
 <span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
 <span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">pytz</span>
 
 
 <div class="viewcode-block" id="standard_ingest"><a class="viewcode-back" href="../../../api/_autosummary/sensortoolkit.ingest._standard_ingest.standard_ingest.html#sensortoolkit.ingest._standard_ingest.standard_ingest">[docs]</a><span class="k">def</span> <span class="nf">standard_ingest</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">setup_file_path</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
@@ -549,8 +561,21 @@
     <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="n">idx_list</span><span class="p">]</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="p">:]</span>
 
     <span class="c1"># Set Datetime Index</span>
-    <span class="n">df</span><span class="p">[</span><span class="s1">&#39;DateTime_UTC&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">idx_list</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-    <span class="n">time_format</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">idx_format_dict</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+    <span class="n">df</span><span class="p">[</span><span class="s1">&#39;DateTime&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">idx_list</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">time_format</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">val</span> <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">idx_format_dict</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+                           <span class="k">if</span> <span class="ow">not</span> <span class="n">key</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;_tz&#39;</span><span class="p">)])</span>
+    <span class="n">time_zone_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">val</span> <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">idx_format_dict</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+                      <span class="k">if</span> <span class="n">key</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;_tz&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">val</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">]</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">time_zone_list</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Too many time zones specified for datetime index:&#39;</span>
+                         <span class="sa">f</span><span class="s1">&#39; </span><span class="si">{</span><span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">time_zone_list</span><span class="p">)</span><span class="si">}</span><span class="s1">. Only one time zone &#39;</span>
+                         <span class="s1">&#39;should be specified.&#39;</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">time_zone_list</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+       <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;No time zone specified for datetime index. &#39;</span>
+             <span class="s1">&#39;Continuing with tz-naive datetime index.&#39;</span><span class="p">)</span>
+       <span class="n">time_zone</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">time_zone</span> <span class="o">=</span> <span class="n">time_zone_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 
     <span class="c1"># Since non-zero padded timestamp formatting depends on the platform, use</span>
     <span class="c1"># the strptime module to parse timestamps into standard formatting</span>
@@ -558,7 +583,7 @@
         <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;..Non-zero padded formatting encountered in timeseries, &#39;</span>
               <span class="s1">&#39;attempting to conform&#39;</span><span class="p">)</span>
         <span class="n">time_format</span> <span class="o">=</span> <span class="n">time_format</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;%-&#39;</span><span class="p">,</span> <span class="s1">&#39;%&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;%#&#39;</span><span class="p">,</span> <span class="s1">&#39;%&#39;</span><span class="p">)</span>
-        <span class="n">df</span><span class="p">[</span><span class="s1">&#39;DateTime_UTC&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;DateTime_UTC&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span>
+        <span class="n">df</span><span class="p">[</span><span class="s1">&#39;DateTime&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;DateTime&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span>
                                     <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">apply_strptime</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">time_format</span><span class="p">))</span>
 
         <span class="n">time_format</span> <span class="o">=</span> <span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1"> %H:%M:%S&#39;</span>
@@ -570,15 +595,22 @@
     <span class="k">else</span><span class="p">:</span>
         <span class="n">unit</span> <span class="o">=</span> <span class="kc">None</span>
 
-    <span class="c1"># Convert the DateTime_UTC column to time-like data format and set as index</span>
+    <span class="c1"># Convert the DateTime column to time-like data format and set as index</span>
     <span class="c1"># If errors encountered (timestamps cant be parsed), &#39;coerce&#39; will set NaT</span>
-    <span class="n">df</span><span class="p">[</span><span class="s1">&#39;DateTime_UTC&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;DateTime_UTC&#39;</span><span class="p">],</span>
-                                        <span class="nb">format</span><span class="o">=</span><span class="n">time_format</span><span class="p">,</span>
-                                        <span class="n">unit</span><span class="o">=</span><span class="n">unit</span><span class="p">,</span>
-                                        <span class="n">errors</span><span class="o">=</span><span class="s1">&#39;coerce&#39;</span><span class="p">)</span>
+    <span class="n">df</span><span class="p">[</span><span class="s1">&#39;DateTime&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;DateTime&#39;</span><span class="p">],</span>
+                                    <span class="nb">format</span><span class="o">=</span><span class="n">time_format</span><span class="p">,</span>
+                                    <span class="n">unit</span><span class="o">=</span><span class="n">unit</span><span class="p">,</span>
+                                    <span class="n">errors</span><span class="o">=</span><span class="s1">&#39;coerce&#39;</span><span class="p">)</span>
 
-    <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;DateTime_UTC&#39;</span><span class="p">])</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;DateTime&#39;</span><span class="p">])</span>
     <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">sort_index</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">time_zone</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">tz</span> <span class="o">=</span> <span class="n">pytz</span><span class="o">.</span><span class="n">timezone</span><span class="p">(</span><span class="n">time_zone</span><span class="p">)</span>
+        <span class="n">offset</span> <span class="o">=</span> <span class="n">tz</span><span class="o">.</span><span class="n">utcoffset</span><span class="p">(</span><span class="n">tz</span><span class="o">.</span><span class="n">zone</span><span class="p">)</span> <span class="o">/</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_timedelta</span><span class="p">(</span><span class="s1">&#39;1 hour&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;....converting datetime index from </span><span class="si">{</span><span class="n">time_zone</span><span class="si">}</span><span class="s1"> (UTC </span><span class="si">{</span><span class="n">offset</span><span class="si">}</span><span class="s1"> &#39;</span>
+              <span class="s1">&#39;hours) to UTC.&#39;</span><span class="p">)</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">tz_localize</span><span class="p">(</span><span class="n">time_zone</span><span class="p">)</span><span class="o">.</span><span class="n">tz_convert</span><span class="p">(</span><span class="s1">&#39;UTC&#39;</span><span class="p">)</span>
 
     <span class="c1"># Remove rows where coerced errors resulted in NaT values for index</span>
     <span class="n">null_idx</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">isna</span><span class="p">(),</span> <span class="p">:]</span>
@@ -588,7 +620,7 @@
         <span class="nb">print</span><span class="p">(</span><span class="n">null_idx</span><span class="p">)</span>
         <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">dropna</span><span class="p">(),</span> <span class="p">:]</span>
 
-    <span class="n">setup</span><span class="p">[</span><span class="s1">&#39;timestamp_col_headers&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;DateTime_UTC&#39;</span><span class="p">)</span>
+    <span class="n">setup</span><span class="p">[</span><span class="s1">&#39;timestamp_col_headers&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;DateTime&#39;</span><span class="p">)</span>
     <span class="n">timestamp_cols</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">setup</span><span class="p">[</span><span class="s1">&#39;timestamp_col_headers&#39;</span><span class="p">])</span>
     <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="n">timestamp_cols</span><span class="p">)</span>
 
@@ -677,6 +709,9 @@
                      <span class="k">if</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">file_col_list</span><span class="p">]</span>
     <span class="n">file_idx_format</span> <span class="o">=</span> <span class="p">{</span><span class="n">col</span><span class="p">:</span> <span class="n">setup</span><span class="p">[</span><span class="s1">&#39;time_format_dict&#39;</span><span class="p">][</span><span class="n">col</span><span class="p">]</span> <span class="k">for</span> <span class="n">col</span>
                        <span class="ow">in</span> <span class="n">setup</span><span class="p">[</span><span class="s1">&#39;time_format_dict&#39;</span><span class="p">]</span> <span class="k">if</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">file_col_list</span><span class="p">}</span>
+    <span class="n">file_tzone_info</span> <span class="o">=</span> <span class="p">{</span><span class="n">col</span> <span class="o">+</span><span class="s1">&#39;_tz&#39;</span><span class="p">:</span> <span class="n">setup</span><span class="p">[</span><span class="s1">&#39;time_format_dict&#39;</span><span class="p">][</span><span class="n">col</span> <span class="o">+</span> <span class="s1">&#39;_tz&#39;</span><span class="p">]</span> <span class="k">for</span>
+                       <span class="n">col</span> <span class="ow">in</span> <span class="n">file_idx_format</span><span class="o">.</span><span class="n">keys</span><span class="p">()}</span>
+    <span class="n">file_idx_format</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">file_tzone_info</span><span class="p">)</span>
 
 
     <span class="n">col_list</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="s1">&#39;path&#39;</span><span class="p">,</span> <span class="s1">&#39;file_extension&#39;</span><span class="p">,</span>

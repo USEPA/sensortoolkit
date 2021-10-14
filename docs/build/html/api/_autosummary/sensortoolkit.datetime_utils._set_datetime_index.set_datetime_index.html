@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>sensortoolkit.datetime_utils._set_datetime_index.set_datetime_index &mdash; sensortoolkit 0.5.1b2 documentation</title>
+  <title>sensortoolkit.datetime_utils._set_datetime_index.set_datetime_index &mdash; sensortoolkit 0.5.2b3 documentation</title>
   
 
   
@@ -69,7 +69,7 @@
             
             
               <div class="version">
-                0.5.1b2
+                0.5.2b3
               </div>
             
           
@@ -282,6 +282,17 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../param.html"><code class="docutils literal notranslate"><span class="pre">sensortoolkit.param</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="sensortoolkit.param._parameter.html">sensortoolkit.param._parameter</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="sensortoolkit.param._parameter.Parameter.html">sensortoolkit.param._parameter.Parameter</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="sensortoolkit.param._targets.html">sensortoolkit.param._targets</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="sensortoolkit.param._targets.ParameterTargets.html">sensortoolkit.param._targets.ParameterTargets</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../plotting.html"><code class="docutils literal notranslate"><span class="pre">sensortoolkit.plotting</span></code></a><ul>
 <li class="toctree-l3"><a class="reference internal" href="sensortoolkit.plotting._distribution.html">sensortoolkit.plotting._distribution</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="sensortoolkit.plotting._distribution.met_distrib.html">sensortoolkit.plotting._distribution.met_distrib</a></li>
@@ -486,7 +497,7 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="sensortoolkit.datetime_utils._set_datetime_index.set_datetime_index">
 <span class="sig-name descname"><span class="pre">set_datetime_index</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">idx_fmt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/sensortoolkit/datetime_utils/_set_datetime_index.html#set_datetime_index"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sensortoolkit.datetime_utils._set_datetime_index.set_datetime_index" title="Permalink to this definition">¶</a></dt>
-<dd><p>Set the DateTime_UTC timestamp column as the index.</p>
+<dd><p>Set the DateTime timestamp column as the index.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -498,16 +509,16 @@ search for the appropriate formatting.</p></li>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>Modified sensor dataframe with the index assigned as the
-‘DateTime_UTC’ column.</p>
+‘DateTime’ column.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>df (pandas dataframe)</p>
 </dd>
 <dt class="field-even">Raises</dt>
 <dd class="field-even"><ul class="simple">
-<li><p><strong>NameError</strong> – If the column header ‘DateTime_UTC’ is not found in the</p></li>
+<li><p><strong>NameError</strong> – If the column header ‘DateTime’ is not found in the</p></li>
 <li><p><strong>dataframe</strong><strong> (</strong><strong>may occur if the user assigns a label other than</strong> – </p></li>
-<li><p><strong>'DateTime_UTC' to the time-like index during the process of data</strong> – </p></li>
+<li><p><strong>'DateTime' to the time-like index during the process of data</strong> – </p></li>
 <li><p><strong>ingestion.</strong><strong>)</strong> – </p></li>
 </ul>
 </dd>

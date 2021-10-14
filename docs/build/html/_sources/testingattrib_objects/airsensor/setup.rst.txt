@@ -490,7 +490,32 @@ or revise the entered formatting scheme.
     Press enter to continue.
 
 
-7. Configuring Sensor Serial identifiers
+7. Specifying the DateTime Index Time Zone
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. code-block:: console
+
+  ====================== Specify DateTime Index Time Zone ======================
+  Options
+  -------
+  ..press enter to skip columns that will be dropped
+
+  Notes
+  -----
+  For a list of all time zones, type "pytz.all_timezones"
+  ==============================================================================
+
+  Enter time zone for "Time": EST
+
+  Confirm entry [y/n]: y
+
+  Configured time zone formatting:
+  {'Time': '%Y/%m/%d %H:%M:%S', 'Time_tz': 'EST'}
+
+  Press enter to continue.
+
+
+8. Configuring Sensor Serial identifiers
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 .. important::
 
@@ -536,7 +561,7 @@ or revise the entered formatting scheme.
 
   Press enter to continue.
 
-8. Saving the Setup Configuration to ``setup.json``
+9. Saving the Setup Configuration to ``setup.json``
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Lastly, the Setup module will automatically save the setup configuration

@@ -8,7 +8,7 @@ For reference datasets that users have downloaded locally, the setup process wal
 necessary for constructing a data ingestion configuration. This configuration is saved
 to a setup.json configuration file that contains details for describing and converting
 the recorded sensor data format into the sensortoolkit `Reference Data Formatting Scheme (R-DFS) <../../data_structures/sdfs.html>`_.
-  
+
 If users plan to query either the AirNow or AQS API (user accounts required for either service),
 the setup module will walk users through an abbreviated process in order to indicate various site
 parameters that are required for querying these API services.
@@ -541,7 +541,30 @@ module, where the user inputs information via the console.
 
       Press enter to continue.
 
-  **11. Saving the Setup Configuration to** ``setup.json``
+    **11. Specifying the DateTime Index Time Zone**
+
+    .. code-block:: console
+
+      ====================== Specify DateTime Index Time Zone ======================
+      Options
+      -------
+      ..press enter to skip columns that will be dropped
+
+      Notes
+      -----
+      For a list of all time zones, type "pytz.all_timezones"
+      ==============================================================================
+
+      Enter time zone for "Date & Time": EST
+
+      Confirm entry [y/n]: y
+
+      Configured time zone formatting:
+      {'Date & Time': '%-m/%-d/%Y %-I:%M %p', 'Date & Time_tz': 'EST'}
+
+      Press enter to continue.
+
+  **12. Saving the Setup Configuration to** ``setup.json``
 
     The Setup module will automatically save the setup configuration
     to a ``reference_setup.json`` file at the indicated directory location:
@@ -555,7 +578,7 @@ module, where the user inputs information via the console.
       C:\Users\...\Documents\sensortoolkit_testing\Data and Figures\reference_data
       \local\raw\Burdens_Creek_370630099\reference_setup.json
 
-  **12. Reference Data Ingestion and Saving Processed Datasets**
+  **13. Reference Data Ingestion and Saving Processed Datasets**
 
     .. code-block:: console
 

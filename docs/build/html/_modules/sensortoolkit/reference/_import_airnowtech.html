@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>sensortoolkit.reference._import_airnowtech &mdash; sensortoolkit 0.5.1b2 documentation</title>
+  <title>sensortoolkit.reference._import_airnowtech &mdash; sensortoolkit 0.5.2b3 documentation</title>
   
 
   
@@ -67,7 +67,7 @@
             
             
               <div class="version">
-                0.5.1b2
+                0.5.2b3
               </div>
             
           
@@ -276,6 +276,17 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.model._sensor_ols.html">sensortoolkit.model._sensor_ols</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.model._sensor_ols.sensor_ols.html">sensortoolkit.model._sensor_ols.sensor_ols</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/param.html"><code class="docutils literal notranslate"><span class="pre">sensortoolkit.param</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.param._parameter.html">sensortoolkit.param._parameter</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.param._parameter.Parameter.html">sensortoolkit.param._parameter.Parameter</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.param._targets.html">sensortoolkit.param._targets</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.param._targets.ParameterTargets.html">sensortoolkit.param._targets.ParameterTargets</a></li>
 </ul>
 </li>
 </ul>
@@ -522,9 +533,11 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="c1"># Import csv dataframe, set hourly UTC date and time as index</span>
-    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">parse_dates</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;DateTime_UTC&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;Date (UTC)&#39;</span><span class="p">,</span>
-                                                         <span class="s1">&#39;Time (UTC)&#39;</span><span class="p">]},</span>
-                     <span class="n">index_col</span><span class="o">=</span><span class="s1">&#39;DateTime_UTC&#39;</span><span class="p">)</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">parse_dates</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;DateTime&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;Date (UTC)&#39;</span><span class="p">,</span>
+                                                     <span class="s1">&#39;Time (UTC)&#39;</span><span class="p">]},</span>
+                     <span class="n">index_col</span><span class="o">=</span><span class="s1">&#39;DateTime&#39;</span><span class="p">)</span>
+
+    <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">tz_localize</span><span class="p">(</span><span class="s1">&#39;UTC&#39;</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">Clean_QC_Code</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
         <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;QC Code&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">]</span>
@@ -827,7 +840,7 @@
                 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;../reference_data/airnowtech/processed/&#39;</span> <span class="o">+</span> <span class="n">folder</span>
                       <span class="o">+</span> <span class="s1">&#39;/&#39;</span> <span class="o">+</span> <span class="n">filename</span><span class="p">)</span>
                 <span class="n">month_df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">outpath</span> <span class="o">+</span> <span class="s1">&#39;/&#39;</span> <span class="o">+</span> <span class="n">filename</span><span class="p">,</span>
-                                <span class="n">index_label</span><span class="o">=</span><span class="s1">&#39;DateTime_UTC&#39;</span><span class="p">)</span>
+                                <span class="n">index_label</span><span class="o">=</span><span class="s1">&#39;DateTime&#39;</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">folder</span></div>
 

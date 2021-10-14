@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>sensortoolkit.datetime_utils._set_datetime_index &mdash; sensortoolkit 0.5.1b2 documentation</title>
+  <title>sensortoolkit.datetime_utils._set_datetime_index &mdash; sensortoolkit 0.5.2b3 documentation</title>
   
 
   
@@ -67,7 +67,7 @@
             
             
               <div class="version">
-                0.5.1b2
+                0.5.2b3
               </div>
             
           
@@ -280,6 +280,17 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/param.html"><code class="docutils literal notranslate"><span class="pre">sensortoolkit.param</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.param._parameter.html">sensortoolkit.param._parameter</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.param._parameter.Parameter.html">sensortoolkit.param._parameter.Parameter</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.param._targets.html">sensortoolkit.param._targets</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.param._targets.ParameterTargets.html">sensortoolkit.param._targets.ParameterTargets</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../../../api/plotting.html"><code class="docutils literal notranslate"><span class="pre">sensortoolkit.plotting</span></code></a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.plotting._distribution.html">sensortoolkit.plotting._distribution</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.plotting._distribution.met_distrib.html">sensortoolkit.plotting._distribution.met_distrib</a></li>
@@ -474,8 +485,8 @@
   <h1>Source code for sensortoolkit.datetime_utils._set_datetime_index</h1><div class="highlight"><pre>
 <span></span><span class="c1"># -*- coding: utf-8 -*-</span>
 <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">This module contains a method for assigning the ``DateTime_UTC`` column</span>
-<span class="sd">as the pandas dataframe index. </span>
+<span class="sd">This module contains a method for assigning the ``DateTime`` column</span>
+<span class="sd">as the pandas dataframe index.</span>
 
 <span class="sd">================================================================================</span>
 
@@ -491,7 +502,7 @@
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 
 <div class="viewcode-block" id="set_datetime_index"><a class="viewcode-back" href="../../../api/_autosummary/sensortoolkit.datetime_utils._set_datetime_index.set_datetime_index.html#sensortoolkit.datetime_utils._set_datetime_index.set_datetime_index">[docs]</a><span class="k">def</span> <span class="nf">set_datetime_index</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">idx_fmt</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Set the DateTime_UTC timestamp column as the index.</span>
+    <span class="sd">&quot;&quot;&quot;Set the DateTime timestamp column as the index.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        df (pandas dataframe):</span>
@@ -504,22 +515,22 @@
 <span class="sd">    Return:</span>
 <span class="sd">        df (pandas dataframe):</span>
 <span class="sd">            Modified sensor dataframe with the index assigned as the</span>
-<span class="sd">            &#39;DateTime_UTC&#39; column.</span>
+<span class="sd">            &#39;DateTime&#39; column.</span>
 
 <span class="sd">    Raises:</span>
-<span class="sd">        NameError: If the column header &#39;DateTime_UTC&#39; is not found in the</span>
+<span class="sd">        NameError: If the column header &#39;DateTime&#39; is not found in the</span>
 <span class="sd">        dataframe (may occur if the user assigns a label other than</span>
-<span class="sd">        &#39;DateTime_UTC&#39; to the time-like index during the process of data</span>
+<span class="sd">        &#39;DateTime&#39; to the time-like index during the process of data</span>
 <span class="sd">        ingestion.)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">try</span><span class="p">:</span>
 
-        <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;DateTime_UTC&#39;</span><span class="p">],</span> <span class="nb">format</span><span class="o">=</span><span class="n">idx_fmt</span><span class="p">)</span>
-                          <span class="p">)</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;DateTime_UTC&#39;</span><span class="p">})</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;DateTime&#39;</span><span class="p">],</span> <span class="nb">format</span><span class="o">=</span><span class="n">idx_fmt</span><span class="p">)</span>
+                          <span class="p">)</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;DateTime&#39;</span><span class="p">})</span>
     <span class="k">except</span> <span class="ne">NameError</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Error: Sensor timestamp header &quot;DateTime_UTC&quot; not in passed &#39;</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Error: Sensor timestamp header &quot;DateTime&quot; not in passed &#39;</span>
               <span class="s1">&#39;dataframe. Please save processed dataframe with timestamp index&#39;</span>
-              <span class="s1">&#39;header named &quot;DateTime_UTC&quot;&#39;</span><span class="p">)</span>
+              <span class="s1">&#39;header named &quot;DateTime&quot;&#39;</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">df</span></div>
 </pre></div>
 

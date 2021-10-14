@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>sensortoolkit.reference._ref_api_query &mdash; sensortoolkit 0.5.1b2 documentation</title>
+  <title>sensortoolkit.reference._ref_api_query &mdash; sensortoolkit 0.5.2b3 documentation</title>
   
 
   
@@ -67,7 +67,7 @@
             
             
               <div class="version">
-                0.5.1b2
+                0.5.2b3
               </div>
             
           
@@ -276,6 +276,17 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.model._sensor_ols.html">sensortoolkit.model._sensor_ols</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.model._sensor_ols.sensor_ols.html">sensortoolkit.model._sensor_ols.sensor_ols</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/param.html"><code class="docutils literal notranslate"><span class="pre">sensortoolkit.param</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.param._parameter.html">sensortoolkit.param._parameter</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.param._parameter.Parameter.html">sensortoolkit.param._parameter.Parameter</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.param._targets.html">sensortoolkit.param._targets</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.param._targets.ParameterTargets.html">sensortoolkit.param._targets.ParameterTargets</a></li>
 </ul>
 </li>
 </ul>
@@ -772,7 +783,9 @@
         <span class="n">raw_full_query</span> <span class="o">=</span> <span class="n">raw_full_query</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">raw_query</span><span class="p">)</span>
 
 
-    <span class="n">full_query</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;DateTime_UTC&#39;</span>
+    <span class="n">full_query</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;DateTime&#39;</span>
+    <span class="n">full_query</span> <span class="o">=</span> <span class="n">full_query</span><span class="o">.</span><span class="n">tz_localize</span><span class="p">(</span><span class="s1">&#39;UTC&#39;</span><span class="p">)</span>
+
     <span class="n">bdate</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">bdate</span><span class="p">)</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1">&#39;</span><span class="p">)</span>
     <span class="n">edate</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">edate</span><span class="p">)</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1">&#39;</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">full_query</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">bdate</span><span class="p">:</span><span class="n">edate</span><span class="p">,</span> <span class="p">:]</span></div>
@@ -1179,7 +1192,7 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">idx</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;date_gmt_&#39;</span> <span class="o">+</span> <span class="n">api_param</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39; &#39;</span>
                          <span class="o">+</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;time_gmt_&#39;</span> <span class="o">+</span> <span class="n">api_param</span><span class="p">])</span>
-    <span class="n">idx</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;DateTime_UTC&#39;</span>
+    <span class="n">idx</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;DateTime&#39;</span>
 
     <span class="c1"># Method code instrument look up</span>
     <span class="k">if</span> <span class="n">param_classifier</span> <span class="o">==</span> <span class="s1">&#39;Met&#39;</span><span class="p">:</span>
@@ -1332,7 +1345,7 @@
 
 
     <span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">fmt_query_data</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;,&#39;</span><span class="p">,</span>
-                       <span class="n">names</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Site_Lat&#39;</span><span class="p">,</span> <span class="s1">&#39;Site_Lon&#39;</span><span class="p">,</span> <span class="s1">&#39;DateTime_UTC&#39;</span><span class="p">,</span>
+                       <span class="n">names</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Site_Lat&#39;</span><span class="p">,</span> <span class="s1">&#39;Site_Lon&#39;</span><span class="p">,</span> <span class="s1">&#39;DateTime&#39;</span><span class="p">,</span>
                               <span class="s1">&#39;Param_Name&#39;</span><span class="p">,</span> <span class="s1">&#39;Param_NowCast_Value&#39;</span><span class="p">,</span>
                               <span class="s1">&#39;Param_Unit&#39;</span><span class="p">,</span> <span class="s1">&#39;Param_Value&#39;</span><span class="p">,</span> <span class="s1">&#39;Site_Name&#39;</span><span class="p">,</span>
                               <span class="s1">&#39;Agency&#39;</span><span class="p">,</span> <span class="s1">&#39;Site_AQS&#39;</span><span class="p">,</span> <span class="s1">&#39;Site_Full_AQS&#39;</span><span class="p">])</span>
@@ -1387,13 +1400,13 @@
 <span class="sd">        data (TYPE): DESCRIPTION.</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">idx</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">DateTime_UTC</span><span class="p">)</span>
+    <span class="n">idx</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">DateTime</span><span class="p">)</span>
 
     <span class="n">rename</span> <span class="o">=</span> <span class="p">{</span><span class="n">col</span><span class="p">:</span> <span class="n">col</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;Param&#39;</span><span class="p">,</span> <span class="n">param</span><span class="p">)</span>
               <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">columns</span> <span class="k">if</span> <span class="n">col</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;Param&#39;</span><span class="p">)}</span>
     <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="n">rename</span><span class="p">)</span>
 
-    <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;DateTime_UTC&#39;</span><span class="p">,</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;DateTime&#39;</span><span class="p">,</span>
                                 <span class="n">param</span> <span class="o">+</span> <span class="s1">&#39;_Name&#39;</span><span class="p">,</span>
                               <span class="s1">&#39;Site_Full_AQS&#39;</span><span class="p">])</span>
 
