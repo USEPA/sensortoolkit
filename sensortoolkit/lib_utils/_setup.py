@@ -343,7 +343,7 @@ class _Setup:
             self.printSelectionBanner('Specify Timestamp columns',
                                       options=[self.end_str, self.del_str])
         # Create a list of time-like columns, update the col_headers list with the
-        # datetime_utc type corresponding to the specified header name
+        # DateTime type corresponding to the specified header name
         # Enter in the time like columns [LOOP]
         end = False
         i = 1
@@ -371,7 +371,7 @@ class _Setup:
                 header_loc = [row for row in self.col_headers if val in
                               self.col_headers[row].keys()]
                 for key in header_loc:
-                    self.col_headers[key][val]['SDFS_param'] = 'DateTime_UTC'
+                    self.col_headers[key][val]['SDFS_param'] = 'DateTime'
             else:
                 print('..Invalid entry. Choose from the following list:')
                 print(' ', self.all_col_headers)
