@@ -22,7 +22,7 @@ import pprint
 from sensortoolkit.lib_utils import flatten_list, validate_entry, enter_continue, copy_datasets
 from sensortoolkit.param import Parameter
 from sensortoolkit.reference import preprocess_airnowtech
-from sensortoolkit.sensor_ingest import standard_ingest
+from sensortoolkit.ingest import standard_ingest
 
 class _Setup:
     """Setup methods for Sensor and Reference data ingestion configuration.

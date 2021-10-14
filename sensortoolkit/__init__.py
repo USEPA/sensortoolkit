@@ -9,6 +9,13 @@
     | 109 T.W. Alexander Drive, Research Triangle Park, NC  27711
     | Office: 919-541-1363 | Email: clements.andrea@epa.gov
     |
+
+================================================================================
+
+@Author:
+  | Samuel Frederick, NSSC Contractor (ORAU)
+  | U.S. EPA / ORD / CEMM / AMCD / SFSB
+
 """
 
 # Setup modules and package maintenance
@@ -33,7 +40,7 @@ import sensortoolkit.deploy as deploy
 import sensortoolkit.qc as qc
 
 # Modules for importing and ingesting sensor data
-import sensortoolkit.sensor_ingest as sensor_ingest
+import sensortoolkit.ingest as ingest
 
 # Modules for generating figures
 import sensortoolkit.plotting as plotting
@@ -42,9 +49,10 @@ import sensortoolkit.plotting as plotting
 import sensortoolkit.reference as reference
 
 # Import front-facing classes
-from .evaluation._airsensor import AirSensor
-from .evaluation._referencemonitor import ReferenceMonitor
-from .evaluation._sensor_eval import SensorEvaluation
-from .performancereport._performance_report import PerformanceReport
+from .testing_attrib_objs._airsensor import AirSensor
+from .testing_attrib_objs._referencemonitor import ReferenceMonitor
+from .evaluation_objs._sensor_eval import SensorEvaluation
+from .evaluation_objs._performance_report import PerformanceReport
+from .param._parameter import Parameter
 
 __version__ = lib_utils._get_version()
