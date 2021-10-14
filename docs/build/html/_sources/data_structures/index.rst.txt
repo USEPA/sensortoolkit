@@ -2,10 +2,20 @@
 Data Structures and Formatting
 ==============================
 
-The ``SensorEvaluation`` class contains a number of data structures that store
-sensor and reference data, and related statistical metrics. Below is a discussion
-of these data structures, as well as the Sensor Data Formattting Scheme (S-DFS) and
-Reference Data Formatting Scheme (R-DFS) in which sensor and reference data are formatted.
+sensortoolkit's objects, including the testing attribute objects ``AirSensor`` and
+``ReferenceMonitor`` as well as the evaluation objects ``SensorEvaluation`` and ``PerformanceReport``,
+each contain various data attributes (data structures).
+
+The testing attribute objects store measurement
+datasets within the ``AirSensor.data`` and ``ReferenceMonitor.data`` attributes
+for sensor and reference data, respectively.
+
+The evaluation objects ``SensorEvaluation`` and ``PerformanceReport`` construct numerous
+performance evaluation data structures at time of object instantiation
+
+Below is a discussion of data structures for both testing attribute objects and evaluation
+objects. Additionally, the Sensor Data Formattting Scheme (S-DFS) and
+Reference Data Formatting Scheme (R-DFS) are discussed.
 
 More detail regarding the ``SensorEvaluation`` class, including its methods and
 arguments are included in the `API documentation for SensorEvaluation <../html/_autosummary/sensortoolkit._evaluation.sensor_eval.SensorEvaluation.html>`_

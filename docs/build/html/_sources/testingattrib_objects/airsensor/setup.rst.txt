@@ -200,8 +200,9 @@ pollutant measurement columns is found on row index #5.
 
 .. tabbed:: Header Row Index = None
 
-  Data set does not contain row with header information. The example below indicates
-  a log description followed immediately by rows with comma-delimited data.
+  Select this option if the dataset does not contain a single row with header
+  information. The example below indicates a log description followed immediately
+  by rows with comma-delimited data.
 
   .. code-block:: console
     :emphasize-lines: 11-12
@@ -257,16 +258,57 @@ each column index are displayed.
   ==============================================================================
 
   Parsing datasets at "../Data and Figures/sensor_data/"Example_Make_Model/raw_data"
-  ..Column header(s) at row index 0: ['Time']
-  ..Column header(s) at row index 1: ['NO2 (ppb)']
-  ..Column header(s) at row index 2: ['O3 (ppb)']
-  ..Column header(s) at row index 3: ['PM2.5 (µg/m³)']
-  ..Column header(s) at row index 4: ['TEMP (°C)']
-  ..Column header(s) at row index 5: ['RH (%)']
-  ..Column header(s) at row index 6: ['DP (°C)']
-  ..Column header(s) at row index 7: ['Inlet']
+  ..header(s) at column index 0: ['Time']
+  ..header(s) at column index 1: ['NO2 (ppb)']
+  ..header(s) at column index 2: ['O3 (ppb)']
+  ..header(s) at column index 3: ['PM2.5 (µg/m³)']
+  ..header(s) at column index 4: ['TEMP (°C)']
+  ..header(s) at column index 5: ['RH (%)']
+  ..header(s) at column index 6: ['DP (°C)']
+  ..header(s) at column index 7: ['Inlet']
 
   Press enter to continue.
+
+.. tip::
+
+  Occasionally, sensor datasets may have slightly different formatting if one
+  sensor undergoes a firmware update that modifies the recorded format for sensor
+  data.
+
+  Say you have the following sensor datasets for sensors `a` and `b`, where both
+  sensors are the same make and model, however sensor `b` underwent a firmware update
+  that modified the data formatting:
+
+  >>> sensor_dataset_a
+  0                 Time  PM25
+  1  2021/01/01 00:00:00   2.3
+  2  2021/01/01 01:00:00   5.4
+  3  2021/01/01 02:00:00   8.5
+  4  2021/01/01 03:00:00   4.7
+  5  2021/01/01 04:00:00   3.4
+
+  >>> sensor_dataset_b
+  0               time  PM25
+  1  01-01-21 00:00:00   2.3
+  2  01-01-21 01:00:00   5.4
+  3  01-01-21 02:00:00   8.5
+  4  01-01-21 03:00:00   4.7
+  5  01-01-21 04:00:00   3.4
+
+  The timestamp columns ``Time`` and ``time`` have different names (they also
+  have different timestamp formatting, which we will come back to at step 6).
+
+  In this instance, a user would see both timestamp headers indicated in column
+  header position zero:
+
+  .. code-block:: console
+
+    ============================== Parsing Datasets ==============================
+    ==============================================================================
+
+    Parsing datasets at "../Data and Figures/sensor_data/"Example_Make_Model/raw_data"
+    ..header(s) at column index 0: ['Time', 'time']
+
 
 6. Specifying Timestamp Columns
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -293,6 +335,33 @@ mode.
   Timestamp column list: ['Time']
 
   Press enter to continue.
+
+.. tip::
+
+  Continuing with the illustrative example outlined in the tip for step #5 addressing
+  instances with data formatting inconsistencies, users would need to specify all
+  column header names corresponding to time-like data. For the example given for
+  sensor datasets `a` and `b` with different formatting for the timestamp column
+  name, both header names must be specified via the following:
+
+  .. code-block:: console
+
+    ========================== Specify Timestamp columns =========================
+    Options
+    -------
+    ..press X to end adding entries
+    ..press D to delete the previous entry
+    ==============================================================================
+
+    Enter Timestamp column #1: Time
+
+    Enter Timestamp column #2: time
+
+    Enter Timestamp column #3: X
+
+    Timestamp column list: ['Time', 'time']
+
+    Press enter to continue.
 
 5. Specifying the Parameter Renaming Scheme
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -388,6 +457,38 @@ or revise the entered formatting scheme.
     Non-zero padded values (e.g., specifying January as ``1`` rather than
     zero-padded ``01``) should be indicated by either ``%-`` or ``%#`` (e.g.,
     non-zero padded month will be ``%-m`` or ``%#m``).
+
+
+.. tip::
+
+  Continuing with the illustrative example outlined in the tip for steps #5 and #6 that discuss
+  instances with data formatting inconsistencies, users must specify the date/time
+  formatting for each time-like column indicated in step #6. For the example given for
+  sensor datasets `a` and `b` with different formatting for the timestamp column
+  name, timestamp formatting for both the `Time` and `time` columns must be
+  specified via the following:
+
+  .. code-block:: console
+
+    ========================== Specify Timestamp columns =========================
+    Options
+    -------
+    ..press X to end adding entries
+    ..press D to delete the previous entry
+    ==============================================================================
+
+    Enter date/time formatting for "Time": %Y/%m/%d %H:%M:%S
+
+    Enter date/time formatting for "time": %m-%d-%y %H:%M:%S
+
+    Confirm entry [y/n]: y
+
+    Configured formatting scheme:
+    {'Time': '%Y/%m/%d %H:%M:%S',
+     'time': '%m-%d-%y %H:%M:%S'}
+
+    Press enter to continue.
+
 
 7. Configuring Sensor Serial identifiers
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

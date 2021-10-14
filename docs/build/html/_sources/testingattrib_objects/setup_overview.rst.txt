@@ -6,6 +6,15 @@ testing attribute objects including ``AirSensor``, ``ReferenceMonitor``, and ``P
 this section recaps the workflow for how to utilize these sensortoolkit testing attribute objects
 in a python script.
 
+This overview is divided into two sections describing the workflow for different
+use cases. For users starting out fresh with an empty project directory and have
+not run the setup modules for either sensor or reference data configurations,
+please review the `'Initial Instantiation'` section below. For users who may have
+previously conducted an evaluation, walking through the initial workflow including
+creating setup configurations for both sensor and reference datasets, individuals can
+follow an abbreviated workflow, outlined in the `'Instantiating from Previously Configured Objects'`
+section.
+
 Initial Instantiation
 ---------------------
 
@@ -67,7 +76,7 @@ this initial use-case.**
 
   # Create Parameter attribute for pollutant (PM2.5) for which sensor evaluation
   # will be conducted
-  pollutant = sensortoolkit.param.Parameter('PM25')
+  pollutant = sensortoolkit.Parameter('PM25')
 
   # Loading reference object for the first time
   ref = sensortoolkit.ReferenceMonitor(project_path=work_path)
@@ -84,9 +93,18 @@ this initial use-case.**
 Instantiating from Previously Configured Objects
 ------------------------------------------------
 
-Instantiating testing attributes from previously configured ``AirSensor`` and
-``ReferenceMonitor`` objects. **highlighted lines indicate important differences to
-specify when compared to an initial instantiation of the sensor and reference objects**.
+Users may have occasion to revise or reanalyze sensor datasets at a later date following
+an initial round of analysis. If users have previously configured ``AirSensor`` and
+``ReferenceMonitor`` objects for a testing scenario, these configurations will be saved to
+the ``setup.json`` configuration files for both reference and sensor data. In addition,
+processed versions of sensor and reference datasets that have been converted to S-DFS
+and R-DFS formatting, respectively, will be have been saved during the initial analysis
+to the user's ``/Data and Figures`` folder within the project directory.
+
+These previously created data structures allow users to reload previously configured
+``AirSensor`` and ``ReferenceMonitor`` objects via an abbreviated workflow detailed below.
+**Highlighted lines indicate important differences when compared
+to an initial instantiation of the sensor and reference objects**.
 
 .. code-block:: python
   :emphasize-lines: 27, 28, 37, 38, 39
@@ -122,7 +140,7 @@ specify when compared to an initial instantiation of the sensor and reference ob
 
   # Create Parameter attribute for pollutant (PM2.5) for which sensor evaluation
   # will be conducted
-  pollutant = sensortoolkit.param.Parameter('PM25')
+  pollutant = sensortoolkit.Parameter('PM25')
 
   # Loading a pre-configured reference object (must indicate source, site, site id
   # if applicable)
