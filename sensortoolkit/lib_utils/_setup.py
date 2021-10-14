@@ -19,10 +19,13 @@ from textwrap import wrap
 import json
 import pandas as pd
 import pprint
+import pytz
+from pytz.exceptions import UnknownTimeZoneError
 from sensortoolkit.lib_utils import flatten_list, validate_entry, enter_continue, copy_datasets
 from sensortoolkit.param import Parameter
 from sensortoolkit.reference import preprocess_airnowtech
 from sensortoolkit.ingest import standard_ingest
+
 
 class _Setup:
     """Setup methods for Sensor and Reference data ingestion configuration.
@@ -76,6 +79,7 @@ class _Setup:
         self.setTimeHeaders()
         self.setParamHeaders()
         self.setDateTimeFormat()
+        self.setTimeZone()
 
     def printSelectionBanner(self, select_type, options=[], notes=[]):
 
@@ -452,6 +456,43 @@ class _Setup:
         print('Configured formatting scheme:')
         self.pp.pprint(self.time_format_dict)
         enter_continue()
+
+
+    def setTimeZone(self):
+        self.printSelectionBanner('Specify DateTime Index Time Zone',
+                                  options=[self.skip_str],
+                                  notes=['For a list of all time zones, type'
+                                         ' "pytz.all_timezones"'])
+
+        for col in self.timestamp_col_headers:
+            invalid = True
+            while invalid is True:
+                val = input('Enter time zone for "' + col + '": ')
+                if val == '':
+                    # timezone is unspecified
+                    print('..time zone not specified, continuing with tz-naive'
+                          ' DateTime index')
+                    tzone = None
+                    self.time_format_dict[col + '_tz'] = tzone
+                    invalid = False
+                    continue
+                else:
+                    try:
+                        tzone = pytz.timezone(val)
+                    except UnknownTimeZoneError:
+                        print('..invalid time zone')
+                        continue
+
+                    confirm = validate_entry()
+                    if confirm == 'y':
+                        invalid = False
+                        self.time_format_dict[col + '_tz'] = tzone.zone
+
+        print('')
+        print('Configured time zone formatting:')
+        self.pp.pprint(self.time_format_dict)
+        enter_continue()
+
 
     def exportSetup(self):
         self.printSelectionBanner('Setup Configuration')
@@ -929,8 +970,8 @@ if __name__ == '__main__':
     sensor_name = 'Example_Make_Model'
     work_path = (r'C:\Users\SFREDE01\OneDrive - Environmental Protection Agency (EPA)\Profile\Documents\sensortoolkit_testing')
 
-    # test = SensorSetup(name=sensor_name,
-    #             path=work_path)
+    test = SensorSetup(name=sensor_name,
+                path=work_path)
 
 
-    test = ReferenceSetup(path=work_path)
+    #test = ReferenceSetup(path=work_path)
