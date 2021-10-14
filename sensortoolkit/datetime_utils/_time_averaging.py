@@ -70,11 +70,11 @@ def sensor_averaging(full_df_list, sensor_serials=None, name='',
     Returns:
         hourly_df_list (list of pandas dataframes): List of sensor data frames
             of length N (where N is the number of sensor units in a testing
-            group). frames indexed by DateTime_UTC at 1-hour averaged sampling
+            group). frames indexed by DateTime at 1-hour averaged sampling
             frequency.
         daily_df_list (list of pandas dataframes): List of sensor data frames
             of length N (where N is the number of sensor units in a testing
-            group). frames indexed by DateTime_UTC at 24-hour averaged sampling
+            group). frames indexed by DateTime at 24-hour averaged sampling
             frequency.
     """
     hourly_df_list, daily_df_list = [], []
@@ -91,7 +91,7 @@ def sensor_averaging(full_df_list, sensor_serials=None, name='',
         # Compute timedelta between successive timestamps
         delta = (full_df.index[1:] - full_df.index[0:-1]).to_frame()
         if delta.index.name is None:
-            delta.index.name = 'DateTime_UTC'
+            delta.index.name = 'DateTime'
         idx_name = delta.index.name
 
         # Use mode of timedelta to extrapolate # of datapoints recorded per hr

@@ -2,7 +2,7 @@
 """
 This module contains various methods for determining the overall (deployment)
 timeframe during which testing occurred by locating the extrema of recorded
-timestamps across all sensor datasets. 
+timestamps across all sensor datasets.
 
 ================================================================================
 
@@ -90,7 +90,7 @@ def deploy_timestamp_index(df_obj, averaging_suffix=True):
 
     idx_name = delta.index.name
     if idx_name is None:
-        idx_name = 'Datetime_UTC'
+        idx_name = 'DateTime'
         delta.index.name = idx_name
 
     # Use mode of timedelta to extrapolate # of datapoints recorded per hr

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
-This module contains a method for assigning the ``DateTime_UTC`` column
-as the pandas dataframe index. 
+This module contains a method for assigning the ``DateTime`` column
+as the pandas dataframe index.
 
 ================================================================================
 
@@ -17,7 +17,7 @@ Last Updated:
 import pandas as pd
 
 def set_datetime_index(df, idx_fmt=None):
-    """Set the DateTime_UTC timestamp column as the index.
+    """Set the DateTime timestamp column as the index.
 
     Args:
         df (pandas dataframe):
@@ -30,20 +30,20 @@ def set_datetime_index(df, idx_fmt=None):
     Return:
         df (pandas dataframe):
             Modified sensor dataframe with the index assigned as the
-            'DateTime_UTC' column.
+            'DateTime' column.
 
     Raises:
-        NameError: If the column header 'DateTime_UTC' is not found in the
+        NameError: If the column header 'DateTime' is not found in the
         dataframe (may occur if the user assigns a label other than
-        'DateTime_UTC' to the time-like index during the process of data
+        'DateTime' to the time-like index during the process of data
         ingestion.)
     """
     try:
 
-        df = df.set_index(pd.to_datetime(df['DateTime_UTC'], format=idx_fmt)
-                          ).drop(columns={'DateTime_UTC'})
+        df = df.set_index(pd.to_datetime(df['DateTime'], format=idx_fmt)
+                          ).drop(columns={'DateTime'})
     except NameError:
-        print('Error: Sensor timestamp header "DateTime_UTC" not in passed '
+        print('Error: Sensor timestamp header "DateTime" not in passed '
               'dataframe. Please save processed dataframe with timestamp index'
-              'header named "DateTime_UTC"')
+              'header named "DateTime"')
     return df

@@ -66,15 +66,15 @@ class SensorEvaluation:
             given sensor make and model.
         full_df_list (:obj:`list` of :obj: `pandas dataframes`): List of sensor
             data frames of length N (where N is the number of sensor units in a
-            testing group). frames indexed by DateTime_UTC at recorded sampling
+            testing group). frames indexed by DateTime at recorded sampling
             frequency.
         hourly_df_list (list of pandas dataframes): List of sensor data frames
             of length N (where N is the number of sensor units in a testing
-            group). frames indexed by DateTime_UTC at 1-hour averaged sampling
+            group). frames indexed by DateTime at 1-hour averaged sampling
             frequency.
         daily_df_list (list of pandas dataframes): List of sensor data frames
             of length N (where N is the number of sensor units in a testing
-            group). frames indexed by DateTime_UTC at 24-hour averaged sampling
+            group). frames indexed by DateTime at 24-hour averaged sampling
             frequency.
         deploy_period_df (pandas dataframe): A data frame containing the start
             time (‘Begin’), end time (‘End’), and total duration of evaluation

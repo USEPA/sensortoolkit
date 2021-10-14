@@ -119,7 +119,7 @@ def nowcast_pm25(df, column=None):
     idx_name = df_idx.name
     # Use standard index naming scheme
     if idx_name is None:
-        df.index.name = 'DateTime_UTC'
+        df.index.name = 'DateTime'
 
     # Check type of index column, must be datetime formatted
     if not isinstance(df_idx, pd.core.indexes.datetimes.DatetimeIndex):

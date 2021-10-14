@@ -67,11 +67,11 @@ def construct_deploy_dict(deploy_df, full_df_list, hourly_df_list,
         hourly_df_list (list):
             List of sensor data frames of length N (where N is the number of
             sensor units in a testing group). Data frames indexed by
-            DateTime_UTC at 1-hour averaged sampling frequency.
+            DateTime at 1-hour averaged sampling frequency.
         daily_df_list (list):
             List of sensor data frames of length N (where N is the number of
             sensor units in a testing group). Data frames indexed by
-            DateTime_UTC at 24-hour averaged sampling frequency.
+            DateTime at 24-hour averaged sampling frequency.
         sensor_name (str):
             The make and model of the sensor being evaluated.
 
@@ -383,4 +383,3 @@ def deploy_met_stats(deploy_dict, df_list, met_ref_df,
             #deploy[met_str]['cal_check_dates'] = cal_check_dict
 
     return deploy_dict
-
