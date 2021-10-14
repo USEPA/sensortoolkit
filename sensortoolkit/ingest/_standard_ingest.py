@@ -119,7 +119,7 @@ def standard_ingest(path, name=None, setup_file_path=None):
     df = df.set_index(df['DateTime'])
     df = df.sort_index(ascending=True)
 
-    df = df.tz_convert(time_zone)
+    df = df.tz_localize(time_zone)
 
     # Remove rows where coerced errors resulted in NaT values for index
     null_idx = df.loc[df.index.isna(), :]
@@ -218,6 +218,9 @@ def ParseSetup(setup_path, data_path):
                      if col in file_col_list]
     file_idx_format = {col: setup['time_format_dict'][col] for col
                        in setup['time_format_dict'] if col in file_col_list}
+    file_tzone_info = {col +'_tz': setup['time_format_dict'][col + '_tz'] for
+                       col in file_idx_format.keys()}
+    file_idx_format.update(file_tzone_info)
 
 
     col_list = ['name', 'path', 'file_extension',
