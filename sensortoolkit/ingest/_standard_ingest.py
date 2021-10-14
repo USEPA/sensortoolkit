@@ -18,6 +18,7 @@ import pandas as pd
 import sys
 from datetime import datetime
 import os
+import pytz
 
 
 def standard_ingest(path, name=None, setup_file_path=None):
@@ -119,7 +120,12 @@ def standard_ingest(path, name=None, setup_file_path=None):
     df = df.set_index(df['DateTime'])
     df = df.sort_index(ascending=True)
 
-    df = df.tz_localize(time_zone)
+    if time_zone is not None:
+        tz = pytz.timezone(time_zone)
+        offset = tz.utcoffset(tz.zone) / pd.to_timedelta('1 hour')
+        print(f'....converting datetime index from {time_zone} (UTC {offset} '
+              'hours) to UTC.')
+        df = df.tz_localize(time_zone).tz_convert('UTC')
 
     # Remove rows where coerced errors resulted in NaT values for index
     null_idx = df.loc[df.index.isna(), :]
