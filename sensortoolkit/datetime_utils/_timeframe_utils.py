@@ -111,6 +111,8 @@ def deploy_timestamp_index(df_obj, averaging_suffix=True):
                                       freq='D')
         avg_suffix = '_24-hour'
 
+    timestamp_idx = timestamp_idx.tz_localize('UTC')
+
     if averaging_suffix is True:
         return timestamp_idx, avg_suffix
     else:
