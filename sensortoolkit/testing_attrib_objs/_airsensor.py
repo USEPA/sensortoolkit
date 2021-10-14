@@ -137,8 +137,6 @@ class AirSensor:
             load_raw_data (TYPE): DESCRIPTION.
             write_to_file (TYPE): DESCRIPTION.
             **kwargs (TYPE):
-                tzone_shift (int): ) An integer value by which to shift the
-                sensor data to UTC. Specifying 0 will not shift the data.
 
         Returns:
             None.
