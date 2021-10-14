@@ -75,8 +75,21 @@ def standard_ingest(path, name=None, setup_file_path=None):
     df = df.loc[df[idx_list].dropna().index, :]
 
     # Set Datetime Index
-    df['DateTime_UTC'] = df[idx_list].astype(str).apply(''.join, axis=1)
-    time_format = ''.join(idx_format_dict.values())
+    df['DateTime'] = df[idx_list].astype(str).apply(''.join, axis=1)
+    time_format = ''.join([val for key, val in idx_format_dict.items()
+                           if not key.endswith('_tz')])
+    time_zone_list = [val for key, val in idx_format_dict.items()
+                      if key.endswith('_tz') and val is not None]
+    if len(time_zone_list) > 1:
+        raise ValueError(f'Too many time zones specified for datetime index:'
+                         f' {", ".join(time_zone_list)}. Only one time zone '
+                         'should be specified.')
+    elif len(time_zone_list) == 0:
+       print('No time zone specified for datetime index. '
+             'Continuing with tz-naive datetime index.')
+       time_zone = None
+    else:
+        time_zone = time_zone_list[0]
 
     # Since non-zero padded timestamp formatting depends on the platform, use
     # the strptime module to parse timestamps into standard formatting
@@ -84,7 +97,7 @@ def standard_ingest(path, name=None, setup_file_path=None):
         print('..Non-zero padded formatting encountered in timeseries, '
               'attempting to conform')
         time_format = time_format.replace('%-', '%').replace('%#', '%')
-        df['DateTime_UTC'] = df['DateTime_UTC'].apply(
+        df['DateTime'] = df['DateTime'].apply(
                                     lambda x: apply_strptime(x, time_format))
 
         time_format = '%Y-%m-%d %H:%M:%S'
@@ -96,15 +109,17 @@ def standard_ingest(path, name=None, setup_file_path=None):
     else:
         unit = None
 
-    # Convert the DateTime_UTC column to time-like data format and set as index
+    # Convert the DateTime column to time-like data format and set as index
     # If errors encountered (timestamps cant be parsed), 'coerce' will set NaT
-    df['DateTime_UTC'] = pd.to_datetime(df['DateTime_UTC'],
-                                        format=time_format,
-                                        unit=unit,
-                                        errors='coerce')
+    df['DateTime'] = pd.to_datetime(df['DateTime'],
+                                    format=time_format,
+                                    unit=unit,
+                                    errors='coerce')
 
-    df = df.set_index(df['DateTime_UTC'])
+    df = df.set_index(df['DateTime'])
     df = df.sort_index(ascending=True)
+
+    df = df.tz_convert(time_zone)
 
     # Remove rows where coerced errors resulted in NaT values for index
     null_idx = df.loc[df.index.isna(), :]
@@ -114,7 +129,7 @@ def standard_ingest(path, name=None, setup_file_path=None):
         print(null_idx)
         df = df.loc[df.index.dropna(), :]
 
-    setup['timestamp_col_headers'].append('DateTime_UTC')
+    setup['timestamp_col_headers'].append('DateTime')
     timestamp_cols = set(setup['timestamp_col_headers'])
     df = df.drop(columns=timestamp_cols)
 
