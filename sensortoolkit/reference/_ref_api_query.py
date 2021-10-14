@@ -298,7 +298,9 @@ def ref_api_query(query_type=None, param=None, bdate='', edate='',
         raw_full_query = raw_full_query.append(raw_query)
 
 
-    full_query.index.name = 'DateTime_UTC'
+    full_query.index.name = 'DateTime'
+    full_query = full_query.tz_localize('UTC')
+
     bdate = pd.to_datetime(bdate).strftime('%Y-%m-%d')
     edate = pd.to_datetime(edate).strftime('%Y-%m-%d')
     return full_query.loc[bdate:edate, :]
@@ -705,7 +707,7 @@ def ingest_aqs(data, param, api_param, param_classifier,
     """
     idx = pd.to_datetime(data['date_gmt_' + api_param] + ' '
                          + data['time_gmt_' + api_param])
-    idx.name = 'DateTime_UTC'
+    idx.name = 'DateTime'
 
     # Method code instrument look up
     if param_classifier == 'Met':
@@ -858,7 +860,7 @@ def query_airnow(param, data_period, bbox, key=None):
 
 
     data = pd.read_csv(fmt_query_data, sep=',',
-                       names=['Site_Lat', 'Site_Lon', 'DateTime_UTC',
+                       names=['Site_Lat', 'Site_Lon', 'DateTime',
                               'Param_Name', 'Param_NowCast_Value',
                               'Param_Unit', 'Param_Value', 'Site_Name',
                               'Agency', 'Site_AQS', 'Site_Full_AQS'])
@@ -913,13 +915,13 @@ def ingest_airnow(data, param, time_of_query):
         data (TYPE): DESCRIPTION.
 
     """
-    idx = pd.to_datetime(data.DateTime_UTC)
+    idx = pd.to_datetime(data.DateTime)
 
     rename = {col: col.replace('Param', param)
               for col in data.columns if col.startswith('Param')}
     data = data.rename(columns=rename)
 
-    data = data.drop(columns=['DateTime_UTC',
+    data = data.drop(columns=['DateTime',
                                 param + '_Name',
                               'Site_Full_AQS'])
 
