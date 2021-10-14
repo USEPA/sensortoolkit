@@ -29,7 +29,7 @@ objects that require use of the setup.json configuration files created during
 this initial use-case.**
 
 .. code-block:: python
-  :emphasize-lines: 34, 36, 40, 41, 42, 49, 50
+  :emphasize-lines: 34, 36, 40, 41, 48, 49
 
   # -*- coding: utf-8 -*-
   """
@@ -68,11 +68,10 @@ this initial use-case.**
   # Run setup configuration for sensor data, creates setup.json file
   sensor.sensor_setup()
 
-  # Import and loading sensor data for the first time, shift ahead five hours
-  # to UTC. Processed data files will be saved following ingestion.
+  # Import and loading sensor data for the first time, processed data files will
+  # be saved following ingestion.
   sensor.load_data(load_raw_data=True,
-                   write_to_file=True,
-                   tzone_shift=5)
+                   write_to_file=True)
 
   # Create Parameter attribute for pollutant (PM2.5) for which sensor evaluation
   # will be conducted

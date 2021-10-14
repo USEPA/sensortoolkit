@@ -550,11 +550,10 @@ this initial use-case.</strong></p>
 </span><span class="c1"># Run setup configuration for sensor data, creates setup.json file</span>
 <span class="hll"><span class="n">sensor</span><span class="o">.</span><span class="n">sensor_setup</span><span class="p">()</span>
 </span>
-<span class="c1"># Import and loading sensor data for the first time, shift ahead five hours</span>
-<span class="c1"># to UTC. Processed data files will be saved following ingestion.</span>
+<span class="c1"># Import and loading sensor data for the first time, processed data files will</span>
+<span class="c1"># be saved following ingestion.</span>
 <span class="hll"><span class="n">sensor</span><span class="o">.</span><span class="n">load_data</span><span class="p">(</span><span class="n">load_raw_data</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-</span><span class="hll">                 <span class="n">write_to_file</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-</span><span class="hll">                 <span class="n">tzone_shift</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+</span><span class="hll">                 <span class="n">write_to_file</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </span>
 <span class="c1"># Create Parameter attribute for pollutant (PM2.5) for which sensor evaluation</span>
 <span class="c1"># will be conducted</span>
