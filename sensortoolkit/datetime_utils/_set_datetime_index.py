@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 """
-Description.
+This module contains a method for assigning the ``DateTime_UTC`` column
+as the pandas dataframe index. 
 
 ================================================================================
 

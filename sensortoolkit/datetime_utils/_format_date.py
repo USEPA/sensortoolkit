@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 """
-Description.
+This module contains a method for returning a string indicating the current date
+in YYMMDD format.
 
 ================================================================================
 

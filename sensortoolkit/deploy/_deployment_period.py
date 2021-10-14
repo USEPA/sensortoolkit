@@ -1,13 +1,14 @@
 # -*- coding: utf-8 -*-
 """
-Description.
+This module contains a method for detailing the deployment period (start,
+end, and duration) for sensor testing.
 
 ================================================================================
 
 @Author:
   | Samuel Frederick, NSSC Contractor (ORAU)
   | U.S. EPA / ORD / CEMM / AMCD / SFSB
-  
+
 Created:
   Fri Aug 28 08:45:53 2020
 Last Updated:

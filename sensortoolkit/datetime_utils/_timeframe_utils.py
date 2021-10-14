@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 """
-Description.
+This module contains various methods for determining the overall (deployment)
+timeframe during which testing occurred by locating the extrema of recorded
+timestamps across all sensor datasets. 
 
 ================================================================================
 

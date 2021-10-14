@@ -1,13 +1,15 @@
 # -*- coding: utf-8 -*-
 """
-Description.
+This module contains a method for determining the highest concentration recorded
+by passed dataframes within the testing period (including sensor and/or
+reference data).
 
 ================================================================================
 
 @Author:
   | Samuel Frederick, NSSC Contractor (ORAU)
   | U.S. EPA / ORD / CEMM / AMCD / SFSB
-  
+
 Created:
   Wed Sep  8 12:11:43 2021
 Last Updated:

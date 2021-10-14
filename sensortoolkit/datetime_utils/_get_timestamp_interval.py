@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 """
-Description.
+This module contains a method for determining the sampling frequency (interval)
+of passed dataframes with time-like index. 
 
 ================================================================================
 
