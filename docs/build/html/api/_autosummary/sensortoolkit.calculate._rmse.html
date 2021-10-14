@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>sensortoolkit.calculate._rmse &mdash; sensortoolkit 0.5.2b3 documentation</title>
+  <title>sensortoolkit.calculate._rmse &mdash; sensortoolkit 0.5.2b4 documentation</title>
   
 
   
@@ -70,7 +70,7 @@
             
             
               <div class="version">
-                0.5.2b3
+                0.5.2b4
               </div>
             
           
@@ -493,11 +493,10 @@
             
   <div class="section" id="module-sensortoolkit.calculate._rmse">
 <span id="sensortoolkit-calculate-rmse"></span><h1>sensortoolkit.calculate._rmse<a class="headerlink" href="#module-sensortoolkit.calculate._rmse" title="Permalink to this headline">¶</a></h1>
-<div class="admonition error">
-<p class="admonition-title">Error</p>
+<p>This module computes the root mean square error for quantifying the error
+between sensor and FRM/FEM measurements.</p>
 <p>U.S. EPA’s Performance Targets Reports recommend the root mean square error
-(RMSE) for quantifying the error between sensor and FRM/FEM measurements. RMSE
-is calculated as</p>
+(RMSE), where RMSE is calculated as</p>
 <div class="math notranslate nohighlight">
 \[RMSE = \sqrt{\frac{1}{N\times M}\sum_{j=1}^{M}\left[
 \sum_{d=1}^{N}\left(x_{dj}-R_{d}\right)^2\right]}\]</div>
@@ -516,6 +515,7 @@ averaging interval p</p>
 <p>This equation assumes only one FRM/FEM instrument will be running. If multiple
 FRM/FEM instruments are running, separate testing reports can be generated for
 each.</p>
+<hr class="docutils" />
 <dl>
 <dt>&#64;Author:</dt><dd><div class="line-block">
 <div class="line">Samuel Frederick, NSSC Contractor (ORAU)</div>
@@ -527,7 +527,6 @@ each.</p>
 <dt>Last Updated:</dt><dd><p>Wed Sep  8 10:34:51 2021</p>
 </dd>
 </dl>
-</div>
 <p class="rubric">Functions</p>
 <table class="longtable docutils align-default">
 <colgroup>
