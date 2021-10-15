@@ -116,6 +116,29 @@ class _Setup:
 
         print(len(flier)*'=')
 
+
+    def add_param_attrib(self, data, param, attrib_key, attrib_val):
+        """Assign parameter header attribute
+
+        Search through the column index entries, if the parameter name within the
+        column index subdictionary, add the passed attribute key and value.
+
+        Args:
+            data (TYPE): self.col_headers dictionary.
+            param (TYPE): DESCRIPTION.
+            attrib_key (TYPE): DESCRIPTION.
+            attrib_val (TYPE): DESCRIPTION.
+
+        Returns:
+            data (TYPE): DESCRIPTION.
+
+        """
+        for col_idx in data.keys():
+            if param in data[col_idx]:
+                data[col_idx][param][attrib_key] = attrib_val
+        return data
+
+
     def setDataExtension(self):
         self.printSelectionBanner('Select Data Type',
                                   options=[self.data_types])
@@ -365,13 +388,26 @@ class _Setup:
                     continue
 
             elif val in self.all_col_headers:
+                # TODO: depreciate?
                 self.timestamp_col_headers.append(val)
 
-                # Get a list of the row index locations where the column header name is
-                header_loc = [row for row in self.col_headers if val in
-                              self.col_headers[row].keys()]
-                for key in header_loc:
-                    self.col_headers[key][val]['SDFS_param'] = 'DateTime'
+                self.col_headers = self.add_param_attrib(
+                                                self.col_headers,
+                                                val,
+                                                attrib_key='header_class',
+                                                attrib_val='datetime')
+
+                self.col_headers = self.add_param_attrib(
+                                                self.col_headers,
+                                                val,
+                                                attrib_key='SDFS_param',
+                                                attrib_val='DateTime')
+
+                # # Get a list of the row index locations where the column header name is
+                # header_loc = [row for row in self.col_headers if val in
+                #               self.col_headers[row].keys()]
+                # for key in header_loc:
+                #     self.col_headers[key][val]['SDFS_param'] = 'DateTime'
             else:
                 print('..Invalid entry. Choose from the following list:')
                 print(' ', self.all_col_headers)
@@ -404,21 +440,50 @@ class _Setup:
                     self.sdfs_header_names.append(sdfs_param)
                     if self.data_type == 'reference':
                         self.setParamRDFSInfo(param, sdfs_param)
-                    self.checkParamUnits(param, sdfs_param)
+                    unit_transform = self.checkParamUnits(param, sdfs_param)
+
+                    self.col_headers = self.add_param_attrib(
+                                                self.col_headers,
+                                                param,
+                                                attrib_key='unit_transform',
+                                                attrib_val=unit_transform)
+                    drop = False
+
                 elif sdfs_param == '':
                     valid = True
                     print('..{0} will be dropped'.format(param))
                     self.drop_cols.append(param)
+                    drop = True
+
                 else:
                     print('..Invalid entry. Choose from the list above.')
 
             renaming_dict[param] = sdfs_param
 
-            # Get a list of the col index locations where the column header name is
-            header_loc = [col for col in self.col_headers if param in
-                          self.col_headers[col].keys()]
-            for key in header_loc:
-                self.col_headers[key][param]['SDFS_param'] = sdfs_param
+            self.col_headers = self.add_param_attrib(
+                                                self.col_headers,
+                                                param,
+                                                attrib_key='header_class',
+                                                attrib_val='parameter')
+
+            self.col_headers = self.add_param_attrib(
+                                                self.col_headers,
+                                                param,
+                                                attrib_key='sdfs_param',
+                                                attrib_val=sdfs_param)
+
+            self.col_headers = self.add_param_attrib(
+                                                self.col_headers,
+                                                param,
+                                                attrib_key='drop',
+                                                attrib_val=drop)
+
+
+            # # Get a list of the col index locations where the column header name is
+            # header_loc = [col for col in self.col_headers if param in
+            #               self.col_headers[col].keys()]
+            # for key in header_loc:
+            #     self.col_headers[key][param]['SDFS_param'] = sdfs_param
 
         #TODO: Print dictionary with renaming scheme, ask to confirm
         # add something like following code block,
@@ -436,7 +501,10 @@ class _Setup:
             val = input('  Enter the scalar quanitity for converting the '
                         'recorded measurements to the following unit basis: '
                         f'{sdfs_param_units}')
+        else:
+            val = None
 
+        return val
 
     def setDateTimeFormat(self):
         cite = ('..format code list: https://docs.python.org/3/library/'
@@ -499,6 +567,12 @@ class _Setup:
                     if confirm == 'y':
                         invalid = False
                         self.time_format_dict[col + '_tz'] = tzone.zone
+
+                        self.col_headers = self.add_param_attrib(
+                                                self.col_headers,
+                                                col,
+                                                attrib_key='dt_timezone',
+                                                attrib_val=tzone.zone)
 
         print('')
         print('Configured time zone formatting:')
