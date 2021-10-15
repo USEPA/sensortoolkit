@@ -220,19 +220,19 @@ class _Setup:
         self.col_headers = {}
         print(f'Parsing datasets at "..{self.data_rel_path}"')
 
-        for file in self.file_list:
+        for i, file in enumerate(self.file_list):
             df = self.loadDataFile(file)
             file_col_list = list(df.columns)
 
-            for i, col in enumerate(file_col_list):
-                if 'col_idx_' + str(i) not in self.col_headers:
-                    self.col_headers['col_idx_' + str(i)] = {}
+            for j, col in enumerate(file_col_list):
+                if 'col_idx_' + str(j) not in self.col_headers:
+                    self.col_headers['col_idx_' + str(j)] = {}
 
-                if col not in self.col_headers['col_idx_' + str(i)]:
-                    self.col_headers['col_idx_' + str(i)][col] = {"SDFS_param": None,
-                                                             "files": [file]}
+                if col not in self.col_headers['col_idx_' + str(j)]:
+                    self.col_headers['col_idx_' + str(j)][col] = {"SDFS_param": None,
+                                                             "in_file_list_idx": [i]}
                 else:
-                    self.col_headers['col_idx_' + str(i)][col]["files"].append(file)
+                    self.col_headers['col_idx_' + str(j)][col]["in_file_list_idx"].append(i)
 
         # Create a nested list of unique column names
         col_list = [list(self.col_headers[key].keys()) for key in
@@ -404,6 +404,7 @@ class _Setup:
                     self.sdfs_header_names.append(sdfs_param)
                     if self.data_type == 'reference':
                         self.setParamRDFSInfo(param, sdfs_param)
+                    self.checkParamUnits(param, sdfs_param)
                 elif sdfs_param == '':
                     valid = True
                     print('..{0} will be dropped'.format(param))
@@ -425,6 +426,17 @@ class _Setup:
         print('Configured renaming scheme:')
         self.pp.pprint(renaming_dict)
         enter_continue()
+
+    def checkParamUnits(self, param, sdfs_param):
+        sdfs_param_units = Parameter(sdfs_param).units
+        print('')
+        print(f'  Are the units of measure for {param} {sdfs_param_units}?')
+        confirm = validate_entry(indent_statement=2)
+        if confirm == 'n':
+            val = input('  Enter the scalar quanitity for converting the '
+                        'recorded measurements to the following unit basis: '
+                        f'{sdfs_param_units}')
+
 
     def setDateTimeFormat(self):
         cite = ('..format code list: https://docs.python.org/3/library/'
