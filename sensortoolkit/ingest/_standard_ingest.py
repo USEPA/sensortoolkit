@@ -224,7 +224,7 @@ def ParseSetup(setup_path, data_path):
             if data_path in header_file_list:
                 file_col_list.append(header)
 
-                sdfs_param_header = col_config[header]['SDFS_param']
+                sdfs_param_header = col_config[header]['sdfs_param']
                 if sdfs_param_header != '':
                     file_col_renaming_dict[header] = sdfs_param_header
                 else:

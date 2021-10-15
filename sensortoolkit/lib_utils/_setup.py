@@ -252,7 +252,7 @@ class _Setup:
                     self.col_headers['col_idx_' + str(j)] = {}
 
                 if col not in self.col_headers['col_idx_' + str(j)]:
-                    self.col_headers['col_idx_' + str(j)][col] = {"SDFS_param": None,
+                    self.col_headers['col_idx_' + str(j)][col] = {"sdfs_param": None,
                                                              "in_file_list_idx": [i]}
                 else:
                     self.col_headers['col_idx_' + str(j)][col]["in_file_list_idx"].append(i)
@@ -400,7 +400,7 @@ class _Setup:
                 self.col_headers = self.add_param_attrib(
                                                 self.col_headers,
                                                 val,
-                                                attrib_key='SDFS_param',
+                                                attrib_key='sdfs_param',
                                                 attrib_val='DateTime')
 
                 # # Get a list of the row index locations where the column header name is
