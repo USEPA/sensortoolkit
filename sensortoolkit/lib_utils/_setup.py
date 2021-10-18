@@ -387,7 +387,6 @@ class _Setup:
                     continue
 
             elif val in self.all_col_headers:
-                # TODO: depreciate?
                 self.timestamp_col_headers.append(val)
 
                 self.add_param_attrib(val,
@@ -397,6 +396,10 @@ class _Setup:
                 self.add_param_attrib(val,
                                     attrib_key='sdfs_param',
                                     attrib_val='DateTime')
+
+                self.add_param_attrib(val,
+                                attrib_key='drop',
+                                attrib_val=False)
 
                 # # Get a list of the row index locations where the column header name is
                 # header_loc = [row for row in self.col_headers if val in
@@ -575,6 +578,7 @@ class _Setup:
         del self.config_dict['skip_str']
         del self.config_dict['header_names']
         del self.config_dict['timestamp_col_headers']
+        del self.config_dict['time_format_dict']
         del self.config_dict['all_col_headers']
         #del self.config_dict['sdfs_header_names']
 
