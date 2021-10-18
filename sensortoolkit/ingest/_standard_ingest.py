@@ -42,8 +42,11 @@ def standard_ingest(path, name=None, setup_file_path=None):
     """
     setup = ParseSetup(setup_file_path, data_path=path)
 
-    idx_list = setup['timestamp_col_headers']
-    idx_format_dict = setup['time_format_dict']
+    time_fmt = setup['time_format_dict']
+    idx_list = list(setup['time_format_dict'].keys())
+    idx_format_dict = {col: time_fmt[col]['dt_format'] for col in idx_list}
+    idx_tzone = [time_fmt[col]['dt_timezone'] for col in time_fmt if
+                 time_fmt[col]['dt_timezone'] is not None]
 
     if setup['file_extension'] in ('.csv', '.txt', '.xlsx'):
         try:
@@ -77,10 +80,9 @@ def standard_ingest(path, name=None, setup_file_path=None):
 
     # Set Datetime Index
     df['DateTime'] = df[idx_list].astype(str).apply(''.join, axis=1)
-    time_format = ''.join([val for key, val in idx_format_dict.items()
-                           if not key.endswith('_tz')])
-    time_zone_list = [val for key, val in idx_format_dict.items()
-                      if key.endswith('_tz') and val is not None]
+    time_format = ''.join([val for key, val in idx_format_dict.items()])
+    time_zone_list = idx_tzone
+
     if len(time_zone_list) > 1:
         raise ValueError(f'Too many time zones specified for datetime index:'
                          f' {", ".join(time_zone_list)}. Only one time zone '
@@ -135,8 +137,8 @@ def standard_ingest(path, name=None, setup_file_path=None):
         print(null_idx)
         df = df.loc[df.index.dropna(), :]
 
-    setup['timestamp_col_headers'].append('DateTime')
-    timestamp_cols = set(setup['timestamp_col_headers'])
+    idx_list.append('DateTime')
+    timestamp_cols = set(idx_list)
     df = df.drop(columns=timestamp_cols)
 
     # Rename parameter header columns
@@ -206,50 +208,59 @@ def ParseSetup(setup_path, data_path):
         file.close()
 
     file_col_list = []
-    file_col_renaming_dict = {}
     file_drop_cols = []
+    file_col_headers = {}
+    file_dt_headers = {}
+    file_col_renaming = {}
+    file_sdfs_headers = []
 
     file_list = setup['file_list']
 
     # Parse setup.json for data file specific header names
-    for col_entry in setup['col_headers']:
-        col_config = setup['col_headers'][col_entry]
-        col_headers = list(col_config.keys())
+    for col_idx in setup['col_headers']:
+        # config within the ith column index (i ranging from 0 to N-1 where
+        # N is the number of columns in the dataset)
+        col_idx_config = setup['col_headers'][col_idx]
+        col_idx_headers = list(col_idx_config.keys())
 
-        for header in col_headers:
+        # Loop over header configs within the ith column index
+        for header in col_idx_headers:
+            # Create list of data files containing the current header
             header_file_list = [file_list[i] for i in
-                                col_config[header]['in_file_list_idx']]
+                                col_idx_config[header]['in_file_list_idx']]
             header_file_list = [os.path.normpath(path) for path in
                                 header_file_list]
+
+            # Add file dataset info if passed filename contains the current
+            # header
             if data_path in header_file_list:
                 file_col_list.append(header)
 
-                sdfs_param_header = col_config[header]['sdfs_param']
-                if sdfs_param_header != '':
-                    file_col_renaming_dict[header] = sdfs_param_header
+                header_config = col_idx_config[header]
+                file_col_headers[header] = header_config
+
+                if header_config['drop'] is True:
+                        file_drop_cols.append(header)
                 else:
-                    file_drop_cols.append(header)
+                    # Add datetime index column info
+                    if header_config['header_class'] == 'datetime':
+                        file_dt_headers[header] = header_config
+                    # Add parameter column info
+                    if header_config['header_class'] == 'parameter':
+                        sdfs_param = header_config['sdfs_param']
+                        file_col_renaming[header] = header_config['sdfs_param']
+                        file_sdfs_headers.append(sdfs_param)
 
-    # Create a list/dict of timestamp columns specific to loaded dataset
-    file_idx_list = [col for col in setup['timestamp_col_headers']
-                     if col in file_col_list]
-    file_idx_format = {col: setup['time_format_dict'][col] for col
-                       in setup['time_format_dict'] if col in file_col_list}
-    file_tzone_info = {col +'_tz': setup['time_format_dict'][col + '_tz'] for
-                       col in file_idx_format.keys()}
-    file_idx_format.update(file_tzone_info)
-
-
-    col_list = ['name', 'path', 'file_extension',
-                'header_iloc', 'sdfs_header_names']
+    col_list = ['name', 'path', 'file_extension', 'header_iloc']
     file_setup = {col: setup[col] for col in col_list if col in setup}
     file_setup['all_col_headers'] = file_col_list
-    file_setup['col_rename_dict'] = file_col_renaming_dict
+    file_setup['col_rename_dict'] = file_col_renaming
     file_setup['drop_cols'] = file_drop_cols
-    file_setup['timestamp_col_headers'] = file_idx_list
-    file_setup['time_format_dict'] = file_idx_format
+    file_setup['time_format_dict'] = file_dt_headers
+    file_setup['sdfs_header_names'] = file_sdfs_headers
 
-    for param in setup['sdfs_header_names']:
+    # Reference only: add parameter metadata columns
+    for param in file_sdfs_headers:
         param_cols = ['_Unit', '_Param_Code', '_Method_Code', '_Method',
                       '_Method_POC']
 
@@ -258,6 +269,7 @@ def ParseSetup(setup_path, data_path):
             if header in setup:
                 file_setup[header] = setup[header]
 
+    # Reference only: add site metadata columns
     site_cols = ['site_name', 'agency', 'site_aqs', 'site_lat', 'site_lon']
     for col in site_cols:
         if col in setup:
@@ -273,4 +285,10 @@ def ParseSetup(setup_path, data_path):
 
 if __name__ == '__main__':
 
-    df = standard_ingest(path=r"C:\Users\SFREDE01\OneDrive - Environmental Protection Agency (EPA)\Profile\Documents\sensortoolkit_testing\Data and Figures\reference_data\local\raw\Burdens_Creek_370630099\min_201908_PM.csv", setup_file_path=r"C:\Users\SFREDE01\OneDrive - Environmental Protection Agency (EPA)\Profile\Documents\sensortoolkit_testing\Data and Figures\reference_data\local\raw\Burdens_Creek_370630099\reference_setup.json")
+    # Sensor test
+    df = standard_ingest(path=r"C:\Users\SFREDE01\OneDrive - Environmental Protection Agency (EPA)\Profile\Documents\sensortoolkit_testing\Data and Figures\sensor_data\Example_Make_Model\raw_data\Example_Make_Model_SN01_raw.csv",
+                      setup_file_path=r"C:\Users\SFREDE01\OneDrive - Environmental Protection Agency (EPA)\Profile\Documents\sensortoolkit_testing\Data and Figures\sensor_data\Example_Make_Model\Example_Make_Model_setup_revised.json")
+
+    # Reference Test
+    df = standard_ingest(path=r"C:\Users\SFREDE01\OneDrive - Environmental Protection Agency (EPA)\Profile\Documents\sensortoolkit_testing\Data and Figures\reference_data\local\raw\Burdens_Creek_370630099\min_201908_PM.csv",
+                         setup_file_path=r"C:\Users\SFREDE01\OneDrive - Environmental Protection Agency (EPA)\Profile\Documents\sensortoolkit_testing\Data and Figures\reference_data\local\raw\Burdens_Creek_370630099\reference_setup.json")
