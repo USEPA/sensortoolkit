@@ -420,12 +420,12 @@ class _Setup:
                                       notes=[txt, self.params])
         # drop time-like columns and ask user for SDFS parameter associated with
         # remaining cols
-        self.param_col_list = [param for param in self.all_col_headers
+        param_col_list = [param for param in self.all_col_headers
                                if param not in self.timestamp_col_headers]
 
-        n_params = len(self.param_col_list)
+        n_params = len(param_col_list)
         renaming_dict = {}
-        for i, param in enumerate(self.param_col_list, 1):
+        for i, param in enumerate(param_col_list, 1):
             valid = False
             while valid is False:
                 sdfs_param = input('[{0}/{1}] Enter SDFS parameter associated '
@@ -576,7 +576,7 @@ class _Setup:
         del self.config_dict['header_names']
         del self.config_dict['timestamp_col_headers']
         del self.config_dict['all_col_headers']
-        del self.config_dict['sdfs_header_names']
+        #del self.config_dict['sdfs_header_names']
 
         if self.data_type == 'sensor':
             filename = self.name + '_setup.json'
