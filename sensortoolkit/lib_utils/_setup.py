@@ -56,7 +56,7 @@ class _Setup:
         self.sdfs_header_names = []
         self.all_col_headers = []
         self.timestamp_col_headers = []
-        self.drop_cols = []
+        self.col_headers = {}
 
     def config(self):
         # Indicate the dataset file type (.csv, .txt, .xlsx)
@@ -117,7 +117,7 @@ class _Setup:
         print(len(flier)*'=')
 
 
-    def add_param_attrib(self, data, param, attrib_key, attrib_val):
+    def add_param_attrib(self, param, attrib_key, attrib_val):
         """Assign parameter header attribute
 
         Search through the column index entries, if the parameter name within the
@@ -133,10 +133,9 @@ class _Setup:
             data (TYPE): DESCRIPTION.
 
         """
-        for col_idx in data.keys():
-            if param in data[col_idx]:
-                data[col_idx][param][attrib_key] = attrib_val
-        return data
+        for col_idx in self.col_headers.keys():
+            if param in self.col_headers[col_idx]:
+                self.col_headers[col_idx][param][attrib_key] = attrib_val
 
 
     def setDataExtension(self):
@@ -240,7 +239,7 @@ class _Setup:
         # Load data files and populate a dictionary of unique headers that occur.
         # Top level is ordered by the row index, so if some files have different headers,
         # there will be multiple entries within the particular row index key.
-        self.col_headers = {}
+
         print(f'Parsing datasets at "..{self.data_rel_path}"')
 
         for i, file in enumerate(self.file_list):
@@ -391,17 +390,13 @@ class _Setup:
                 # TODO: depreciate?
                 self.timestamp_col_headers.append(val)
 
-                self.col_headers = self.add_param_attrib(
-                                                self.col_headers,
-                                                val,
-                                                attrib_key='header_class',
-                                                attrib_val='datetime')
+                self.add_param_attrib(val,
+                                    attrib_key='header_class',
+                                    attrib_val='datetime')
 
-                self.col_headers = self.add_param_attrib(
-                                                self.col_headers,
-                                                val,
-                                                attrib_key='sdfs_param',
-                                                attrib_val='DateTime')
+                self.add_param_attrib(val,
+                                    attrib_key='sdfs_param',
+                                    attrib_val='DateTime')
 
                 # # Get a list of the row index locations where the column header name is
                 # header_loc = [row for row in self.col_headers if val in
@@ -442,17 +437,14 @@ class _Setup:
                         self.setParamRDFSInfo(param, sdfs_param)
                     unit_transform = self.checkParamUnits(param, sdfs_param)
 
-                    self.col_headers = self.add_param_attrib(
-                                                self.col_headers,
-                                                param,
-                                                attrib_key='unit_transform',
-                                                attrib_val=unit_transform)
+                    self.add_param_attrib(param,
+                                        attrib_key='unit_transform',
+                                        attrib_val=unit_transform)
                     drop = False
 
                 elif sdfs_param == '':
                     valid = True
                     print('..{0} will be dropped'.format(param))
-                    self.drop_cols.append(param)
                     drop = True
 
                 else:
@@ -460,23 +452,17 @@ class _Setup:
 
             renaming_dict[param] = sdfs_param
 
-            self.col_headers = self.add_param_attrib(
-                                                self.col_headers,
-                                                param,
-                                                attrib_key='header_class',
-                                                attrib_val='parameter')
+            self.add_param_attrib(param,
+                                attrib_key='header_class',
+                                attrib_val='parameter')
 
-            self.col_headers = self.add_param_attrib(
-                                                self.col_headers,
-                                                param,
-                                                attrib_key='sdfs_param',
-                                                attrib_val=sdfs_param)
+            self.add_param_attrib(param,
+                                attrib_key='sdfs_param',
+                                attrib_val=sdfs_param)
 
-            self.col_headers = self.add_param_attrib(
-                                                self.col_headers,
-                                                param,
-                                                attrib_key='drop',
-                                                attrib_val=drop)
+            self.add_param_attrib(param,
+                                attrib_key='drop',
+                                attrib_val=drop)
 
 
             # # Get a list of the col index locations where the column header name is
@@ -521,9 +507,9 @@ class _Setup:
             while invalid is True:
                 val = input('Enter date/time formatting for "' + col + '": ')
                 if val == '':
-                    self.drop_cols.append(col)
-                    if self.drop_cols == self.timestamp_col_headers:
-                        print('..warning, all columns will be dropped')
+                    self.add_param_attrib(col,
+                                attrib_key='drop',
+                                attrib_val=True)
                     invalid = False
                     continue
                 else:
@@ -531,6 +517,10 @@ class _Setup:
                     if confirm == 'y':
                         invalid = False
                         self.time_format_dict[col] = val
+
+                        self.add_param_attrib(col,
+                                            attrib_key='dt_format',
+                                            attrib_val=val)
 
         print('')
         print('Configured formatting scheme:')
@@ -568,17 +558,14 @@ class _Setup:
                         invalid = False
                         self.time_format_dict[col + '_tz'] = tzone.zone
 
-                        self.col_headers = self.add_param_attrib(
-                                                self.col_headers,
-                                                col,
-                                                attrib_key='dt_timezone',
-                                                attrib_val=tzone.zone)
+                        self.add_param_attrib(col,
+                                            attrib_key='dt_timezone',
+                                            attrib_val=tzone.zone)
 
         print('')
         print('Configured time zone formatting:')
         self.pp.pprint(self.time_format_dict)
         enter_continue()
-
 
     def exportSetup(self):
         self.printSelectionBanner('Setup Configuration')
@@ -587,6 +574,9 @@ class _Setup:
         del self.config_dict['del_str']
         del self.config_dict['skip_str']
         del self.config_dict['header_names']
+        del self.config_dict['timestamp_col_headers']
+        del self.config_dict['all_col_headers']
+        del self.config_dict['sdfs_header_names']
 
         if self.data_type == 'sensor':
             filename = self.name + '_setup.json'
