@@ -48,7 +48,7 @@ class AirSensor:
 
         if project_path is not None:
             self.project_path = project_path
-            self._setup_path = rf"{self.project_path}\Data and Figures\sensor_data\{self.name}\{self.name}_setup.json"
+            self._setup_path = rf"{self.project_path}\data\sensor_data\{self.name}\{self.name}_setup.json"
 
             self._get_ingest_config()
 
@@ -154,11 +154,11 @@ class AirSensor:
                 return
 
         # path to raw sensor data
-        self._data_path = os.path.join(self.project_path, 'Data and Figures',
+        self._data_path = os.path.join(self.project_path, 'data',
                                     'sensor_data', self.name,
                                     'raw_data', '')
         # path to processed sensor data
-        self._processed_path = os.path.join(self.project_path, 'Data and Figures',
+        self._processed_path = os.path.join(self.project_path, 'data',
                                          'sensor_data', self.name,
                                          'processed_data', '')
 

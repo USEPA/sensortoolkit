@@ -373,7 +373,7 @@ def preprocess_airnowtech(file_path, project_path):
     """
     ant_df = ingest_airnowtech(file_path)
 
-    outpath = os.path.join(os.path.abspath(project_path), 'Data and Figures',
+    outpath = os.path.join(os.path.abspath(project_path), 'data',
                            'reference_data', 'airnowtech', 'processed')
 
     for df in sort_airnowtech(ant_df):

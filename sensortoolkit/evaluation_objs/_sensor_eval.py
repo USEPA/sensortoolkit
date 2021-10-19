@@ -50,7 +50,7 @@ class SensorEvaluation:
         reference_data (str): The service or folder directory from which
             reference data are acquired.
         write_to_file (bool): If true, evaluation statistics will be written
-            to the ``Data and Figures`` and ``eval_stats`` sensor subdirectory.
+            to the ``/data/eval_stats`` sensor subdirectory.
             Figures will also be written to the appropriate figures
             subdirectory.
         **kwargs: Keyword arguments that may be passed to the function for
@@ -161,11 +161,10 @@ class SensorEvaluation:
         self.kwargs = kwargs
 
         # path to sensor figures
-        self.figure_path = os.path.join(self.path, 'Data and Figures',
-                                        'figures', self.name, '')
+        self.figure_path = os.path.join(self.path, 'figures', self.name, '')
 
         # path to evaluation statistics
-        self.stats_path = os.path.join(self.path, 'Data and Figures',
+        self.stats_path = os.path.join(self.path, 'data',
                                        'eval_stats', self.name, '')
 
         rec_int = self.sensor.recording_interval

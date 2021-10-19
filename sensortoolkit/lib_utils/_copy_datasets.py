@@ -57,7 +57,7 @@ def _check_extension(file_name, expect_extension):
 
 def copy_datasets(data_type=None, path=None, select='directory', **kwargs):
     """Prompts the user to select a source directory for datasets and copies
-    files to "/Data and Figures.." raw data subdirectory for a sensor.
+    files to "/data.." raw data subdirectory for a sensor.
 
     Args:
         name (TYPE, optional): The name of the sensor. Defaults to None.
@@ -83,7 +83,7 @@ def copy_datasets(data_type=None, path=None, select='directory', **kwargs):
 
     if data_type == 'sensor':
         name = kwargs.get('name')
-        dest_dir = os.path.join(path, 'Data and Figures',
+        dest_dir = os.path.join(path, 'data',
                                 'sensor_data', name,  'raw_data')
     if data_type == 'reference':
         data_source = kwargs.get('ref_data_source')
@@ -91,7 +91,7 @@ def copy_datasets(data_type=None, path=None, select='directory', **kwargs):
         site_aqs = kwargs.get('site_aqs')
         site_subfolder = '_'.join([site_name, site_aqs])
 
-        dest_dir = os.path.join(path, 'Data and Figures',
+        dest_dir = os.path.join(path, 'data',
                                 'reference_data', data_source, 'raw',
                                 site_subfolder)
 

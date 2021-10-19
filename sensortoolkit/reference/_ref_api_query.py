@@ -982,7 +982,7 @@ def save_api_dataset(process_df, raw_df, path, query_type, param_class,
     folder = '{0}_{1}'.format(site_name, site_aqs)
 
     data_path = os.path.join(path,
-                             'Data and Figures',
+                             'data',
                              'reference_data',
                              query_type.lower())
 

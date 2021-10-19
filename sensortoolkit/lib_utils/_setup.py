@@ -63,7 +63,7 @@ class _Setup:
         self.setDataExtension()
 
         # Ask user for either directory or files to load in, parse datasets
-        # and could make call to copy datasets to transfer to data and figures
+        # and could make call to copy datasets to transfer to 'data' subdir
         self.setDataRelPath()
         self.selectDataSets()
         self.copyDataSets()
@@ -224,7 +224,7 @@ class _Setup:
         return df
 
     def setDataRelPath(self):
-        self.data_rel_path = f'/Data and Figures/{self.data_type}_data/'
+        self.data_rel_path = f'/data/{self.data_type}_data/'
         if self.data_type == 'sensor':
             self.data_rel_path += f'{self.name}/raw_data'
         if self.data_type == 'reference':
@@ -639,7 +639,7 @@ class SensorSetup(_Setup):
 
         abbrev_files = []
         for file in self.file_list:
-            file = file.replace(self.path + '/Data and Figures/sensor_data/' +
+            file = file.replace(self.path + '/data/sensor_data/' +
                                 self.name + '/raw_data/', '')
             abbrev_files.append(file)
             print('..{0}'.format(file))

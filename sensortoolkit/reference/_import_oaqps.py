@@ -52,9 +52,9 @@ def process_oaqps(data_path, lib_path, formatting='envista',
 
             h_df = interval_averaging(df, freq='H', interval_count=60, thres=0.75)
 
-            processed_m_path = (lib_path + '/Data and Figures/reference_Data/'
+            processed_m_path = (lib_path + '/data/reference_Data/'
                                 'oaqps/processed_data/' + item)
-            processed_h_path = (lib_path + '/Data and Figures/reference_Data/'
+            processed_h_path = (lib_path + '/data/reference_Data/'
                                 'oaqps/processed_data/' + item.replace('min', 'H'))
             df.to_csv(processed_m_path)
             h_df.to_csv(processed_h_path)

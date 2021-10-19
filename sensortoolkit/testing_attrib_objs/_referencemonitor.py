@@ -24,7 +24,7 @@ from sensortoolkit.datetime_utils import interval_averaging
 
 class ReferenceMonitor:
     """
-    Object for storing and accessing reference monitor (FRM/FEM) data as well as 
+    Object for storing and accessing reference monitor (FRM/FEM) data as well as
     instrument and monitoring site attributes.
 
     Args:
@@ -106,7 +106,7 @@ class ReferenceMonitor:
             self._ref_data_subfolder = '_'.join([self._fmt_site_name,
                                                 self._fmt_site_id])
 
-            self._ref_parent_path = rf"{self.project_path}\Data and Figures\reference_data\{self.data_source}"
+            self._ref_parent_path = rf"{self.project_path}\data\reference_data\{self.data_source}"
             self._ref_raw_path = rf"{self._ref_parent_path}\raw\{self._ref_data_subfolder}"
             self._setup_path = rf"{self._ref_raw_path}\reference_setup.json"
 

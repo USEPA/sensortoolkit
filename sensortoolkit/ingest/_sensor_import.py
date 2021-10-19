@@ -32,7 +32,7 @@ def sensor_import(sensor_name=None, sensor_serials=None,
 
     If loading recorded datasets (i.e., load_raw_data is True), the method will
     walk through the directory path where recorded sensor datasets should be
-    located (..//Data and Figures//sensor_data//Sensor_Name//raw_data). Users
+    located (..//data//sensor_data//Sensor_Name//raw_data). Users
     must follow the expected naming scheme for files in this location,
     specifying the sensor name and sensor serial identifier for each dataset.
     If multiple files were recorded for each sensor unit, files must be
@@ -54,7 +54,7 @@ def sensor_import(sensor_name=None, sensor_serials=None,
         files. The recorded sensor datasets should be placed at the following
         folder location:
 
-            '..//Data and Figures//sensor_data//Example_Make_Model//raw_data'
+            '..//data//sensor_data//Example_Make_Model//raw_data'
 
         The folder structure should look something like:
 
@@ -135,9 +135,9 @@ def sensor_import(sensor_name=None, sensor_serials=None,
             for a given sensor make and model.
         write_to_file (bool): If true and load_raw_data true, processed files
             will be written to folder location. In addition, subsequent
-            evaluation statistics will be written to the Data and Figures and
-            eval_stats sensor subdirectory. Figures will also be written to the
-            appropriate figures subdirectory.
+            evaluation statistics will be written to the 'data' and
+            'eval_stats' sensor subdirectory. Figures will also be written to
+            the appropriate figures subdirectory.
 
     Returns:
         full_df_list (list):
