@@ -144,6 +144,12 @@ def standard_ingest(path, name=None, setup_file_path=None):
     # Rename parameter header columns
     df = df.rename(columns=setup['col_rename_dict'])
 
+    # Unit scaling
+    for header, scale_factor in setup['file_unit_scaling'].items():
+        sdfs_header = setup['col_rename_dict'][header]
+        print(f'....scaling {header} values by {scale_factor}')
+        df[sdfs_header] = scale_factor * df[sdfs_header]
+
     # Drop unused columns
     if len(setup['drop_cols']) > 0:
         # ignore errors if column not in df
@@ -213,6 +219,7 @@ def ParseSetup(setup_path, data_path):
     file_dt_headers = {}
     file_col_renaming = {}
     file_sdfs_headers = []
+    file_unit_scaling = {}
 
     file_list = setup['file_list']
 
@@ -251,6 +258,10 @@ def ParseSetup(setup_path, data_path):
                         file_col_renaming[header] = header_config['sdfs_param']
                         file_sdfs_headers.append(sdfs_param)
 
+                        if ('unit_transform' in header_config and
+                        header_config['unit_transform'] is not None):
+                            file_unit_scaling[header] = header_config['unit_transform']
+
     col_list = ['name', 'path', 'file_extension', 'header_iloc']
     file_setup = {col: setup[col] for col in col_list if col in setup}
     file_setup['all_col_headers'] = file_col_list
@@ -258,6 +269,7 @@ def ParseSetup(setup_path, data_path):
     file_setup['drop_cols'] = file_drop_cols
     file_setup['time_format_dict'] = file_dt_headers
     file_setup['sdfs_header_names'] = file_sdfs_headers
+    file_setup['file_unit_scaling'] = file_unit_scaling
 
     # Reference only: add parameter metadata columns
     for param in file_sdfs_headers:
@@ -286,9 +298,12 @@ def ParseSetup(setup_path, data_path):
 if __name__ == '__main__':
 
     # Sensor test
+    # setup = ParseSetup(data_path=r"C:\Users\SFREDE01\OneDrive - Environmental Protection Agency (EPA)\Profile\Documents\sensortoolkit_testing\Data and Figures\sensor_data\Example_Make_Model\raw_data\Example_Make_Model_SN01_raw.csv",
+    #                   setup_path=r"C:\Users\SFREDE01\OneDrive - Environmental Protection Agency (EPA)\Profile\Documents\sensortoolkit_testing\Data and Figures\sensor_data\Example_Make_Model\Example_Make_Model_setup.json")
+
     df = standard_ingest(path=r"C:\Users\SFREDE01\OneDrive - Environmental Protection Agency (EPA)\Profile\Documents\sensortoolkit_testing\Data and Figures\sensor_data\Example_Make_Model\raw_data\Example_Make_Model_SN01_raw.csv",
-                      setup_file_path=r"C:\Users\SFREDE01\OneDrive - Environmental Protection Agency (EPA)\Profile\Documents\sensortoolkit_testing\Data and Figures\sensor_data\Example_Make_Model\Example_Make_Model_setup_revised.json")
+                      setup_file_path=r"C:\Users\SFREDE01\OneDrive - Environmental Protection Agency (EPA)\Profile\Documents\sensortoolkit_testing\Data and Figures\sensor_data\Example_Make_Model\Example_Make_Model_setup.json")
 
     # Reference Test
-    df = standard_ingest(path=r"C:\Users\SFREDE01\OneDrive - Environmental Protection Agency (EPA)\Profile\Documents\sensortoolkit_testing\Data and Figures\reference_data\local\raw\Burdens_Creek_370630099\min_201908_PM.csv",
-                         setup_file_path=r"C:\Users\SFREDE01\OneDrive - Environmental Protection Agency (EPA)\Profile\Documents\sensortoolkit_testing\Data and Figures\reference_data\local\raw\Burdens_Creek_370630099\reference_setup.json")
+    # df = standard_ingest(path=r"C:\Users\SFREDE01\OneDrive - Environmental Protection Agency (EPA)\Profile\Documents\sensortoolkit_testing\Data and Figures\reference_data\local\raw\Burdens_Creek_370630099\min_201908_PM.csv",
+    #                      setup_file_path=r"C:\Users\SFREDE01\OneDrive - Environmental Protection Agency (EPA)\Profile\Documents\sensortoolkit_testing\Data and Figures\reference_data\local\raw\Burdens_Creek_370630099\reference_setup.json")
