@@ -5,7 +5,7 @@ here = pathlib.Path(__file__).parent
 readme = (here / 'README.md').read_text()
 
 setup(name='sensortoolkit',
-      version='0.5.3b6',
+      version='0.5.4b1',
       description='Library for evaluating air sensor data',
       long_description=readme,
       long_description_content_type='text/markdown',
