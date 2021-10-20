@@ -223,6 +223,9 @@ def ParseSetup(setup_path, data_path):
 
     file_list = setup['file_list']
 
+    # Either reference or sensor
+    data_type = setup['data_type']
+
     # Parse setup.json for data file specific header names
     for col_idx in setup['col_headers']:
         # config within the ith column index (i ranging from 0 to N-1 where
@@ -255,7 +258,10 @@ def ParseSetup(setup_path, data_path):
                     # Add parameter column info
                     if header_config['header_class'] == 'parameter':
                         sdfs_param = header_config['sdfs_param']
-                        file_col_renaming[header] = header_config['sdfs_param']
+                        if data_type == 'reference':
+                            file_col_renaming[header] = header_config['sdfs_param'] + '_Value'
+                        else:
+                            file_col_renaming[header] = header_config['sdfs_param']
                         file_sdfs_headers.append(sdfs_param)
 
                         if ('unit_transform' in header_config and
