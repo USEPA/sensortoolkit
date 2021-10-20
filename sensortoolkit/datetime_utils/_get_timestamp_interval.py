@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
 This module contains a method for determining the sampling frequency (interval)
-of passed dataframes with time-like index. 
+of passed dataframes with time-like index.
 
 ================================================================================
 
@@ -62,6 +62,6 @@ def get_timestamp_interval(df, warning=False, as_timedelta=False):
         #interval_str += ' +/- ' + str(delta_std) + ' seconds'
 
     if as_timedelta:
-        interval_str = pd.to_timedelta(interval_str)
+        return t_delta
 
     return interval_str
