@@ -2361,7 +2361,7 @@ class PerformanceReport(SensorEvaluation):
         self.rpt_name = 'Base_Testing_Report_' + self._param_name\
                         + '_' + self.name + '_' + self.today + '.pptx'
 
-        save_dir = '\\'.join((self.path, 'Reports',
+        save_dir = '\\'.join((self.path, 'reports',
                               self.name, self._param_name))
         save_path = '\\'.join((save_dir, self.rpt_name))
 
