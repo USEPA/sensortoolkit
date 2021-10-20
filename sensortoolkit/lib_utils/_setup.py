@@ -25,6 +25,7 @@ from sensortoolkit.lib_utils import flatten_list, validate_entry, enter_continue
 from sensortoolkit.param import Parameter
 from sensortoolkit.reference import preprocess_airnowtech
 from sensortoolkit.ingest import standard_ingest
+from sensortoolkit.datetime_utils import interval_averaging, get_timestamp_interval
 
 
 class _Setup:
@@ -1012,6 +1013,16 @@ class ReferenceSetup(_Setup):
                     month = str(date.month).zfill(2)
                     year = str(date.year)
                     month_df = class_df.loc[year + '-' + month, :]
+
+                    samp_freq = get_timestamp_interval(month_df,
+                                                       as_timedelta=True)
+
+                    ONE_HOUR = pd.to_timedelta('60 m')
+                    if samp_freq < ONE_HOUR:
+                        N = ONE_HOUR / samp_freq
+                        month_df = interval_averaging(month_df, freq='H',
+                                                      interval_count=N,
+                                                      thres=0.75)
 
                     # Write to processed folder as csv
                     filename = 'H_' + year + month + '_' + classifier + '.csv'
