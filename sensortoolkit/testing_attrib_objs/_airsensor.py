@@ -194,8 +194,4 @@ class AirSensor:
         self.recording_interval = list(self.data.keys())[0]
 
 if __name__ == '__main__':
-    work_path = r'C:\Users\SFREDE01\OneDrive - Environmental Protection Agency (EPA)\Profile\Documents\test_dir'
-
-    emm = AirSensor('Example_Make', 'Model',
-                     project_path=work_path)
-    emm.load_data(load_raw_data=False, tzone_shift=5, write_to_file=False)
+    work_path = r'C:\Users\SFREDE01\OneDrive - Environmental Protection Agency (EPA)\Profile\Documents\sensortoolkit_testing'
