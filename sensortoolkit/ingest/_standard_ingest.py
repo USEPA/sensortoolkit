@@ -144,6 +144,10 @@ def standard_ingest(path, name=None, setup_file_path=None):
     # Rename parameter header columns
     df = df.rename(columns=setup['col_rename_dict'])
 
+    # Set numeric column types for parameter value columns
+    for col in setup['col_rename_dict'].values():
+        df[col] = pd.to_numeric(df[col], errors='coerce')
+
     # Unit scaling
     for header, scale_factor in setup['file_unit_scaling'].items():
         sdfs_header = setup['col_rename_dict'][header]
@@ -157,21 +161,36 @@ def standard_ingest(path, name=None, setup_file_path=None):
 
     # Reference data columns
     for param in setup['sdfs_header_names']:
-        param_cols = ['_Unit', '_Param_Code', '_Method_Code', '_Method',
-                      '_Method_POC']
-
-        for col in param_cols:
+        param_cols = {'_Unit': 'object',
+                      '_Param_Code': 'int64',
+                      '_Method_Code': 'int64',
+                      '_Method': 'object',
+                      '_Method_POC': 'int64'}
+        for col, col_dtype in param_cols.items():
             header = param + col
             if header in setup:
                 df[header] = setup[header]
+                df[header] = df[header].astype(col_dtype, errors='ignore')
 
-    site_cols = ['site_name', 'agency', 'site_aqs', 'site_lat', 'site_lon']
-    for col in site_cols:
+    # Reorder parameter columns
+    col_order = []
+    for param in setup['sdfs_header_names']:
+        col_order.extend([col for col in df.columns if col.startswith(param)])
+    df = df[col_order]
+
+    site_cols = {'site_name': 'object',
+                 'agency': 'object',
+                 'site_aqs': 'object',
+                 'site_lat': 'float64',
+                 'site_lon': 'float64'}
+    # Site metadata columns
+    for col, col_dtype in site_cols.items():
         if col in setup:
             col_name = col.title()
             if col_name == 'Site_Aqs':
                 col_name = 'Site_AQS'
             df[col_name] = setup[col]
+            df[col_name] = df[col_name].astype(col_dtype, errors='ignore')
 
     return df
 
@@ -306,9 +325,9 @@ if __name__ == '__main__':
     # setup = ParseSetup(data_path=r"C:\Users\SFREDE01\OneDrive - Environmental Protection Agency (EPA)\Profile\Documents\sensortoolkit_testing\Data and Figures\sensor_data\Example_Make_Model\raw_data\Example_Make_Model_SN01_raw.csv",
     #                   setup_path=r"C:\Users\SFREDE01\OneDrive - Environmental Protection Agency (EPA)\Profile\Documents\sensortoolkit_testing\Data and Figures\sensor_data\Example_Make_Model\Example_Make_Model_setup.json")
 
-    df = standard_ingest(path=r"C:\Users\SFREDE01\OneDrive - Environmental Protection Agency (EPA)\Profile\Documents\sensortoolkit_testing\Data and Figures\sensor_data\Example_Make_Model\raw_data\Example_Make_Model_SN01_raw.csv",
-                      setup_file_path=r"C:\Users\SFREDE01\OneDrive - Environmental Protection Agency (EPA)\Profile\Documents\sensortoolkit_testing\Data and Figures\sensor_data\Example_Make_Model\Example_Make_Model_setup.json")
+    # df = standard_ingest(path=r"C:\Users\SFREDE01\OneDrive - Environmental Protection Agency (EPA)\Profile\Documents\sensortoolkit_testing\Data and Figures\sensor_data\Example_Make_Model\raw_data\Example_Make_Model_SN01_raw.csv",
+    #                   setup_file_path=r"C:\Users\SFREDE01\OneDrive - Environmental Protection Agency (EPA)\Profile\Documents\sensortoolkit_testing\Data and Figures\sensor_data\Example_Make_Model\Example_Make_Model_setup.json")
 
     # Reference Test
-    # df = standard_ingest(path=r"C:\Users\SFREDE01\OneDrive - Environmental Protection Agency (EPA)\Profile\Documents\sensortoolkit_testing\Data and Figures\reference_data\local\raw\Burdens_Creek_370630099\min_201908_PM.csv",
-    #                      setup_file_path=r"C:\Users\SFREDE01\OneDrive - Environmental Protection Agency (EPA)\Profile\Documents\sensortoolkit_testing\Data and Figures\reference_data\local\raw\Burdens_Creek_370630099\reference_setup.json")
+    df = standard_ingest(path=r"C:\Users\SFREDE01\OneDrive - Environmental Protection Agency (EPA)\Profile\Documents\sensortoolkit_testing\data\reference_data\local\raw\Burdens_Creek_370630099\min_201908_PM.csv",
+                          setup_file_path=r"C:\Users\SFREDE01\OneDrive - Environmental Protection Agency (EPA)\Profile\Documents\sensortoolkit_testing\data\reference_data\local\raw\Burdens_Creek_370630099\reference_setup.json")
