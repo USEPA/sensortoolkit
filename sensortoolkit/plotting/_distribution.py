@@ -109,7 +109,6 @@ def met_distrib(met_ref_data, avg_hrly_df, figure_path, sensor_name=None,
         data = met_ref_data[param].dropna()
 
         if data.empty:
-            param = param.replace('_Value', '')
             print(f'..Met data empty for {param}, trying sensor measurements')
 
             try:

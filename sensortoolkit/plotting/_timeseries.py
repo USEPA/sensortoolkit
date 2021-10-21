@@ -213,7 +213,7 @@ def sensor_timeplot(df_list, ref_df, param=None, sensor_name=None,
     # Loop through sensor dataframes, check data present, plot data
     for i, df in enumerate(df_list):
         try:
-            param_data = df[param]
+            param_data = df[param + '_Value']
         except KeyError as missing_param:
             print('...Warning', missing_param, 'not found in dataframe'
                   'at index ', str(i))

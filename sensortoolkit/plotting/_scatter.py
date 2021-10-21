@@ -592,7 +592,7 @@ def scatter_plotter(df_list, ref_df, stats_df=None, plot_subset=None,
 
             try:
                 df = pd.DataFrame()
-                df['ydata'] = sensor_df[param_name]
+                df['ydata'] = sensor_df[param_name + '_Value']
                 df['xdata'] = ref_df[param_name + '_Value']
             except KeyError:
                 print(ref_name + ' not in passed reference dataframe.')
@@ -600,28 +600,29 @@ def scatter_plotter(df_list, ref_df, stats_df=None, plot_subset=None,
             # Optional combine of RH data from AIRS and sensor, where the AIRS
             # data is preferred and sensor data used if AIRS RH not available
             if RH_colormap is True:
-                if 'mean_RH' in sensor_df:
-                    sensor_df = sensor_df.rename(columns={'mean_RH': 'RH'})
+                if 'mean_RH_Value' in sensor_df:
+                    sensor_df = sensor_df.rename(columns={'mean_RH_Value':
+                                                          'RH_Value'})
 
                 if ((isinstance(met_ref_df, pd.DataFrame)) and
                    (met_ref_df['RH_Value'].dropna().empty is False)):
-                    if 'RH' not in sensor_df:
-                        sensor_df['RH'] = np.nan
+                    if 'RH_Value' not in sensor_df:
+                        sensor_df['RH_Value'] = np.nan
 
                     # Ref RH data left join with sensor RH data
                     try:
-                        df['RH'] = met_ref_df['RH_Value'].combine_first(
-                          sensor_df['RH'])
+                        df['RH_Value'] = met_ref_df['RH_Value'].combine_first(
+                          sensor_df['RH_Value'])
                     except KeyError as missing_param:
                         print(missing_param,
                               'not found in met reference dataframe')
 
-                    cmap_vals = df['RH']
+                    cmap_vals = df['RH_Value']
                 else:
-                    df['RH'] = sensor_df['RH']
+                    df['RH_Value'] = sensor_df['RH_Value']
                     print('..Reference RH not found, internal sensor RH',
                           'shown in figure')
-                    cmap_vals = df['RH']
+                    cmap_vals = df['RH_Value']
             else:
                 cmap_vals = None
                 palette = None
@@ -794,8 +795,8 @@ def normalized_met_scatter(df_list, ref_df, avg_df, met_ref_df=None,
         print(f'..Met data empty for {met_param_name}, trying sensor measurements')
 
         try:
-            data = avg_df['mean_' + met_param_name].dropna()
-            data = data.to_frame().rename(columns={'mean_' + met_param_name:
+            data = avg_df['mean_' + met_param_name + '_Value'].dropna()
+            data = data.to_frame().rename(columns={'mean_' + met_param_name + '_Value':
                                                    met_param_name + '_Value'})
             sensor_data = True
         except KeyError:
@@ -894,10 +895,10 @@ def normalized_met_scatter(df_list, ref_df, avg_df, met_ref_df=None,
     legend_list = ['1:1']
     for i, (df, sensor_n) in enumerate(zip(norm_df_list, sensor_serials)):
         compare_df = pd.DataFrame()
-        compare_df[met_param_name] = data[met_param_name + '_Value']
-        compare_df['Normalized_' + param_name] = df['Normalized_' + param_name]
-        xdata = compare_df[met_param_name]
-        ydata = compare_df['Normalized_'+param_name]
+        compare_df[met_param_name + '_Value'] = data[met_param_name + '_Value']
+        compare_df['Normalized_' + param_name + '_Value'] = df['Normalized_' + param_name + '_Value']
+        xdata = compare_df[met_param_name + '_Value']
+        ydata = compare_df['Normalized_'+param_name + '_Value']
 
         if ydata.dropna().empty is True:
             continue
@@ -993,14 +994,14 @@ def normalized_met_scatter(df_list, ref_df, avg_df, met_ref_df=None,
     # Error bars --------------------------------------------------------------
     all_sensor_data = pd.DataFrame()
     for i, df in enumerate(norm_df_list, 1):
-        sensor_data = df['Normalized_' + param_name]
-        all_sensor_data[param_name + '_sensor_' + str(i)] = sensor_data
+        sensor_data = df['Normalized_' + param_name  + '_Value']]
+        all_sensor_data[param_name  + '_Value' + '_sensor_' + str(i)] = sensor_data
     ydata = all_sensor_data
 
     if show_errorbars is True:
         error_bars(xdata, ydata, ax, plot_yerror=True,
-                        n_xbins=kwargs.get('errorbar_nbins', 10),
-                        errorbar_c=kwargs.get('errorbar_color', '#151515'))
+                   n_xbins=kwargs.get('errorbar_nbins', 10),
+                   errorbar_c=kwargs.get('errorbar_color', '#151515'))
 
     # Legend position ---------------------------------------------------------
     if show_legend is True:

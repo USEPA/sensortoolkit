@@ -331,8 +331,8 @@ def met_scatter_lims(met_data, param, met_param, xlims, ylims, serials,
 
     # Automatically generate y-axis limits if none specified
     if ylims is None:
-        ymin = avg_df['mean_Normalized_' + param].quantile(0.01)
-        ymax = avg_df['mean_Normalized_' + param].quantile(0.99)
+        ymin = avg_df['mean_Normalized_' + param + '_Value'].quantile(0.01)
+        ymax = avg_df['mean_Normalized_' + param + '_Value'].quantile(0.99)
 
         if ymax < 5.0:
             rounding_place = 1  # round to nearest tenths place
