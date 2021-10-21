@@ -1,4 +1,4 @@
-colcol_list# -*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 """
 This module computes the average of parameter values across all conurrently
 recorded sensor measurements for each timestamp in the passed list of
