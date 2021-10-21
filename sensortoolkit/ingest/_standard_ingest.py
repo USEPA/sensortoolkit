@@ -258,10 +258,9 @@ def ParseSetup(setup_path, data_path):
                     # Add parameter column info
                     if header_config['header_class'] == 'parameter':
                         sdfs_param = header_config['sdfs_param']
-                        if data_type == 'reference':
-                            file_col_renaming[header] = header_config['sdfs_param'] + '_Value'
-                        else:
-                            file_col_renaming[header] = header_config['sdfs_param']
+
+                        file_col_renaming[header] = header_config['sdfs_param'] + '_Value'
+
                         file_sdfs_headers.append(sdfs_param)
 
                         if ('unit_transform' in header_config and
