@@ -1,6 +1,11 @@
 # -*- coding: utf-8 -*-
 """
-Description.
+Interactive module for specifying the setup configuration for both sensor
+and reference data.
+
+Users are asked to supply various details about their
+dataset(s) for the purpose of data ingestion into either the Sensor Data
+Formatting Scheme (S-DFS) or Reference Data Formatting Scheme (R-DFS).
 
 ================================================================================
 
@@ -574,13 +579,16 @@ class _Setup:
     def exportSetup(self):
         self.printSelectionBanner('Setup Configuration')
         self.config_dict = self.__dict__.copy()
-        del self.config_dict['end_str']
-        del self.config_dict['del_str']
-        del self.config_dict['skip_str']
-        del self.config_dict['header_names']
-        del self.config_dict['timestamp_col_headers']
-        del self.config_dict['time_format_dict']
-        del self.config_dict['all_col_headers']
+
+        drop_attribs = ['end_str', 'del_str', 'skip_str', 'header_names',
+                        'timestamp_col_headers', 'time_format_dict',
+                        'all_col_headers']
+        for attrib in drop_attribs:
+            try:
+                del self.config_dict[attrib]
+            except KeyError:
+                pass
+                
         #del self.config_dict['sdfs_header_names']
 
         if self.data_type == 'sensor':
