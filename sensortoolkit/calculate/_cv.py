@@ -134,7 +134,7 @@ def _calculate_cv(cv_df, sensor_numbers, param):
     return cv_df, CV, st_dev, n
 
 
-def cv(df_list, deploy_dict, param='PM25', return_deploy_dict=True):
+def cv(df_list, deploy_dict, param=None, return_deploy_dict=True):
     """Compute CV for set of sensor dataframes and indicated parameter.
 
     Loops over the unique deployment groups and constructs a dataframe of
@@ -171,7 +171,7 @@ def cv(df_list, deploy_dict, param='PM25', return_deploy_dict=True):
         df = df_list[i]
         sensor_number = i + 1
         try:
-            cv_df[str(sensor_number)+'_'+param] = df[param]
+            cv_df[str(sensor_number)+'_'+param] = df[param+ '_Value']
         except KeyError as param_not_found:
             print('Parameter name not found in passed dataframes:',
                   param_not_found)

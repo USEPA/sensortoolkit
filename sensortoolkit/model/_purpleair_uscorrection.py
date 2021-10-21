@@ -40,6 +40,6 @@ def purpleair_us_corr(df, param):
         raise KeyError('Column header "RH" not found in dataframe')
 
     # US Correction for PA data
-    df[param + '_corrected'] = 0.524*df[param] - 0.0852*df['RH'] + 5.72
+    df[param + '_corrected'] = 0.524*df[param + '_Value'] - 0.0852*df['RH'] + 5.72
 
     return df

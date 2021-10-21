@@ -134,7 +134,7 @@ class PerformanceReport(SensorEvaluation):
         # Plotting: determine the max concentration for average of concurrent
         # sensor measurements and also the ref max concentration. Select the
         # upper limit for plots as 1.25x the larger of these values.
-        sensor_avg_cmax = self.avg_hrly_df['mean_' + self._param_name].max()
+        sensor_avg_cmax = self.avg_hrly_df['mean_' + self._param_name + '_Value'].max()
         ref_cmax = self.hourly_ref_df[self._param_name + '_Value'].max()
         self.plot_cmax = 1.25*max(sensor_avg_cmax, ref_cmax)
 

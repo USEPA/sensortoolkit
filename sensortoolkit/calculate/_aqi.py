@@ -82,7 +82,7 @@ def aqi(data):
 
     Args:
         data (float, int, numpy array, or pandas dataframe): PM2.5 concentration
-            value(s), if dataframe, column must be labeled 'PM25'.
+            value(s), if dataframe, column must be labeled 'PM25_Value'.
 
     Returns:
         dataframe:
@@ -91,7 +91,7 @@ def aqi(data):
 
     Raises:
         KeyError: If passed data object is type pandas dataframe and the column
-            header 'PM25' is not found.
+            header 'PM25_Value' is not found.
     """
     breakpoints = {'Good': {'I_h': 50,
                          'I_l': 0,
@@ -129,11 +129,11 @@ def aqi(data):
     # Convert input type to pandas dataframe
     data_type = type(data)
     if data_type is not pd.core.frame.DataFrame:
-        data = pd.Series(data).to_frame(name='PM25')
+        data = pd.Series(data).to_frame(name='PM25_Value')
 
     # Passed datatype is pandas dataframe but expected header not found
-    if 'PM25' not in data:
-        raise KeyError('Column header "PM25" not in passed dataframe.')
+    if 'PM25_Value' not in data:
+        raise KeyError('Column header "PM25_Value" not in passed dataframe.')
 
     for cat in breakpoints:
         conc_max = breakpoints[cat]['C_h']

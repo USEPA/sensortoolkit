@@ -49,7 +49,7 @@ def get_max_conc(param, df_list=None, ref_df=None, bdate=None, edate=None):
         raise TypeError('Get_Max() missing required dataframe objects: '
                         '"df_list" and/or "ref_df"')
 
-    max_list = [df.loc[bdate:edate, param].max() for df in df_list]
+    max_list = [df.loc[bdate:edate, param + '_Value'].max() for df in df_list]
 
     if ref_df is not None:
         ref_max = ref_df.loc[bdate:edate, param + '_Value'].max()

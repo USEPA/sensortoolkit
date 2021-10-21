@@ -75,22 +75,22 @@ def dewpoint(data):
     for i, df in enumerate(data):
 
         # Passed datatype is pandas dataframe but expected header not found
-        if 'Temp' not in df:
-            raise KeyError('Column header "Temp" not in passed dataframe.')
-        if 'RH' not in df:
-            raise KeyError('Column header "RH" not in passed dataframe.')
+        if 'Temp_Value' not in df:
+            raise KeyError('Column header "Temp_Value" not in passed dataframe.')
+        if 'RH_Value' not in df:
+            raise KeyError('Column header "RH_Value" not in passed dataframe.')
 
         beta = 17.625
         lbda = 243.04  # degrees C
 
-        T = df.Temp
-        RH = df.RH
+        T = df.Temp_Value
+        RH = df.RH_Value
 
         numerator = lbda*(np.log(RH/100) + (beta*T)/(lbda+T))
         denominator = beta - (np.log(RH/100) + (beta*T)/(lbda+T))
         DP = numerator / denominator
 
-        df['DP_calculated'] = DP
+        df['DP_internal'] = DP
 
         data[i] = df
 

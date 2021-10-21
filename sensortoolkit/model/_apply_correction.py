@@ -36,7 +36,7 @@ def individual_corr(param=None, df_list=None, stats_df=None):
     """
     for i, (df, m, b) in enumerate(zip(df_list, stats_df.Slope,
                                        stats_df.Intercept)):
-        corr = (df[param] - b) / m
+        corr = (df[param + '_Value'] - b) / m
 
         df[param + '_indiv_corr'] = corr
         df_list[i] = df

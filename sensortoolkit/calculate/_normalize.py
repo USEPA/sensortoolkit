@@ -71,10 +71,10 @@ def normalize(df_list, ref_df, param=None, ref_name=None):
 
     for i, df in enumerate(df_list):
         try:
-            df['Normalized_'+param] = df[param] / ref_df[param + '_Value']
+            df['Normalized_'+param + '_Value'] = df[param + '_Value'] / ref_df[param + '_Value']
         except KeyError as k:
             print('...Warning', k, 'not found in dataframe at index ', str(i))
-            df['Normalized_' + param] = np.nan
+            df['Normalized_' + param + '_Value'] = np.nan
         df_list[i] = df
 
     return df_list

@@ -53,7 +53,7 @@ def cooks_outlier_detection(hourly_df_list, hourly_ref_df, param, serials,
                                                 hourly_df_list)):
         print('Flagged timestamps for', serial)
         xdata = hourly_ref_df[param + '_Value']
-        ydata = sensor_df[param]
+        ydata = sensor_df[param + '_Value']
         df = pd.DataFrame({'x': xdata, 'y': ydata}).dropna()
 
         n_obs = df.shape[0]
@@ -75,11 +75,11 @@ def cooks_outlier_detection(hourly_df_list, hourly_ref_df, param, serials,
         outlier_times = df.index[outliers.index]
 
         # Thresholds for flagging data points
-        abs_diff = abs(sensor_df[param] -
+        abs_diff = abs(sensor_df[param + '_Value'] -
                        hourly_ref_df[param + '_Value'])
         abs_diff_thres = abs_diff.median() + 2*abs_diff.std()
 
-        p_diff = 2*abs_diff / (sensor_df[param] +
+        p_diff = 2*abs_diff / (sensor_df[param + '_Value'] +
                                hourly_ref_df[param + '_Value'])
         p_diff_thres = p_diff.median() + 2*p_diff.std()
 
@@ -95,7 +95,7 @@ def cooks_outlier_detection(hourly_df_list, hourly_ref_df, param, serials,
                 # template
                 sensor_df.loc[time, param + '_QAQC_Code'] = 3
                 if invalidate:
-                    sensor_df.loc[time, param] = np.nan
+                    sensor_df.loc[time, param + '_Value'] = np.nan
                 print('..' + str(time))
                 flag_count += 1
         if flag_count == 0:

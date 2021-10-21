@@ -139,9 +139,9 @@ def regression_stats(sensor_df_obj, ref_df_obj, deploy_dict, param, serials):
     # Loop over dataframes for sensors, compute regression stats
     for i, (df, sensor_num) in enumerate(zip(df_list, sensor_nums)):
 
-        ydata = df[param]
-        if 'mean_' + param in ref_df_obj:
-            xdata = ref_df_obj['mean_' + param]
+        ydata = df[param + '_Value']
+        if 'mean_' + param + '_Value' in ref_df_obj:
+            xdata = ref_df_obj['mean_' + param + '_Value']
             ref_name = 'Intersensor_mean_' + param
         else:
             xdata = ref_df_obj[param + '_Value']
