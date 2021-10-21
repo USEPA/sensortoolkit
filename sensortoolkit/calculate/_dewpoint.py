@@ -60,7 +60,7 @@ def dewpoint(data):
     Returns:
         data:
             Pandas dataframe or list of pandas dataframes with calculated
-            dewpoint (column header ``DP_Calculated``).
+            dewpoint (column header ``DP_Calculated_Value``).
     """
     # Coerce input type to pandas dataframe
     data_type = type(data)
@@ -90,7 +90,7 @@ def dewpoint(data):
         denominator = beta - (np.log(RH/100) + (beta*T)/(lbda+T))
         DP = numerator / denominator
 
-        df['DP_internal'] = DP
+        df['DP_Calculated_Value'] = DP
 
         data[i] = df
 
