@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+colcol_list# -*- coding: utf-8 -*-
 """
 This module computes the average of parameter values across all conurrently
 recorded sensor measurements for each timestamp in the passed list of
@@ -86,6 +86,7 @@ Last Updated:
 import pandas as pd
 import numpy as np
 from sensortoolkit.datetime_utils import deploy_timestamp_index
+from sensortoolkit.param import Parameter
 
 
 def intersensor_mean(df_list, deploy_dict):
@@ -107,12 +108,16 @@ def intersensor_mean(df_list, deploy_dict):
             either 1-hour or 24-hour averaging interval.
     """
     print('Computing mean parameter values across concurrent sensor datasets')
-    # List of unique column headers
-    param_list = []
+    # List of unique column headers for parameter value columns
+    col_list = []
     for df in df_list:
         for item in df.columns.to_list():
-            param_list.append(item)
-    param_list = list(dict.fromkeys(param_list))
+            param_name = item.split('_')[0]
+            if item.endswith('_Value') and Parameter(param_name).is_sdfs():
+                col_list.append(item)
+
+    #col_list = list(dict.fromkeys(col_list))
+    col_list = list(set(col_list))
 
     date_index, avg_suffix = deploy_timestamp_index(df_list,
                                                     averaging_suffix=True)
@@ -135,18 +140,18 @@ def intersensor_mean(df_list, deploy_dict):
                 print('...Excluding sensor', n, 'from intersensor parameter '
                       'average dataframe')
 
-        for param in param_list:
+        for col in col_list:
             combine_df = pd.DataFrame(index=date_index)
 
             for i, df in enumerate(df_list, 1):
                 try:
-                    combine_df[str(i) + '_' + param] = df[param]
+                    combine_df[str(i) + '_' + col] = df[col]
                 except KeyError as k:
                     print('...Warning', k, 'not found in dataframe at index ',
                           str(i-1))
-                    combine_df[str(i) + '_' + param] = np.nan
+                    combine_df[str(i) + '_' + col] = np.nan
 
-            deploy_avg_cols = [i + '_' + param for i in group_sensor_nums]
+            deploy_avg_cols = [i + '_' + col for i in group_sensor_nums]
             deploy_avg = combine_df.loc[start:end, deploy_avg_cols]
 
             deploy_n = deploy_avg.count(axis=1)
@@ -158,6 +163,6 @@ def intersensor_mean(df_list, deploy_dict):
 
             avg_df.loc[start:end, 'deploy_group'] = group
             avg_df.loc[start:end, 'sensor_count'] = deploy_n
-            avg_df.loc[start:end, 'mean_'+param] = deploy_avg
+            avg_df.loc[start:end, 'mean_'+col] = deploy_avg
 
     return avg_df
