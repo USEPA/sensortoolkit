@@ -267,6 +267,17 @@ class Parameter:
                   'for {0}'.format(self.name))
         self.PerformanceTargets = ParameterTargets(self.name)
 
+    def is_sdfs(self):
+        """
+        Indicate whether the passed parameter name is in the catalog of
+        parameter names for the Sensor Data Formatting Scheme.
+
+        Returns:
+            TYPE: DESCRIPTION.
+
+        """
+        return self.name in self.__param_dict__.keys()
+
 
 
 if __name__ == '__main__':
