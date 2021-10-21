@@ -32,6 +32,8 @@ def compare_sensors(stats_df, metric, fontsize=15, cmap_name='Set1',
     """Plot all sensor values for passed metric on same figure to compare
     across device types.
 
+    [CURRENTLY DEPRECIATED]
+
     Args:
 
     Returns:
