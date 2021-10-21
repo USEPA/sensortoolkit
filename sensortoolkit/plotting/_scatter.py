@@ -994,7 +994,7 @@ def normalized_met_scatter(df_list, ref_df, avg_df, met_ref_df=None,
     # Error bars --------------------------------------------------------------
     all_sensor_data = pd.DataFrame()
     for i, df in enumerate(norm_df_list, 1):
-        sensor_data = df['Normalized_' + param_name  + '_Value']]
+        sensor_data = df['Normalized_' + param_name  + '_Value']
         all_sensor_data[param_name  + '_Value' + '_sensor_' + str(i)] = sensor_data
     ydata = all_sensor_data
 
