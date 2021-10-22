@@ -1,8 +1,8 @@
-# sensortoolkit (v0.5.5 beta 3) - Air Sensor Data Analysis Library
+# sensortoolkit (v0.5.5 beta 4) - Air Sensor Data Analysis Library
 
 ![Sensors at an Ambient Air Monitoring Site](docs/_readmefigs_/CSAM_3_crop.jpg){width=1200}
 
-**Warning: This code is currently under development and is intended for internal EPA use only. Please do not distribute or share components of this repository with individuals external to EPA.**
+**Warning: This code is in beta development and has not been cleared for public use. Please do not distribute or share components of this repository with individuals external to EPA.**
 
 *Samuel Frederick, NSSC Contractor (ORAU)*\
 *Office: 919-541-4086 | Email: frederick.samuel@epa.gov*
