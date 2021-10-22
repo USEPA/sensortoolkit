@@ -1,4 +1,4 @@
-# sensortoolkit (v0.5.5 beta 4) - Air Sensor Data Analysis Library
+# sensortoolkit (v0.5.5 beta 5) - Air Sensor Data Analysis Library
 
 ![Sensors at an Ambient Air Monitoring Site](docs/_readmefigs_/CSAM_3_crop.jpg){width=1200}
 
@@ -90,6 +90,9 @@ formatting schemes for sensor and reference data.
 * [pathlib2](https://pypi.org/project/pathlib2/) >= 2.3.5
 * [requests](https://pypi.org/project/requests/) >= 2.25.1
 * [python-pptx](https://pypi.org/project/python-pptx/) >=0.6.18
+* [SciPy](https://pypi.org/project/scipy/)
+* [urllib3](https://pypi.org/project/urllib3/)
+* [pip](https://pypi.org/project/pip/)
 
 ## Contact and Resources <a name="contact"></a>
 *Please direct all inquiries to*\
