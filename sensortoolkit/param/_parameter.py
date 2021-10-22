@@ -313,8 +313,27 @@ class Parameter:
         if self.is_sdfs():
             unit_code = self.__param_dict__[self.name]['aqs_unit_code']
         else:
+
+            validate = False
+            while validate is False:
+                self.classifier = input(f'Enter the parameter classification ("PM", '
+                            '"Gases", or "Met" for {self.name}')
+
+                if self.classifier not in ['PM', 'Gases', 'Met']:
+                    print('..invalid entry, enter "PM", "Gases", or "Met"')
+                    continue
+
+                response = validate_entry()
+                if response == 'y':
+                    validate == True
+
+            options =  unit_data[unit_data.Classification == self.classifier]
             print('Choose from the following unit codes:')
-            print(options)
+            with pd.option_context('display.expand_frame_repr', False,
+                               'display.max_colwidth', 65,
+                               'display.max_rows', None,
+                               'display.colheader_justify', 'right'):
+                print(options)
             validate = False
             while validate is False:
                 val = input('Enter the integer unit code value '
