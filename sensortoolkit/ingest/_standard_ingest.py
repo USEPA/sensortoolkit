@@ -88,9 +88,9 @@ def standard_ingest(path, name=None, setup_file_path=None):
                          f' {", ".join(time_zone_list)}. Only one time zone '
                          'should be specified.')
     elif len(time_zone_list) == 0:
-       print('No time zone specified for datetime index. '
-             'Continuing with tz-naive datetime index.')
-       time_zone = None
+        print('No time zone specified for datetime index. '
+              'Continuing with tz-naive datetime index.')
+        time_zone = None
     else:
         time_zone = time_zone_list[0]
 
