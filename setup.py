@@ -36,7 +36,8 @@ setup(name='sensortoolkit',
                          "evaluation_objs/templates/PM25/Reporting_Template_Base_PM25.pptx",
                          "evaluation_objs/templates/placeholder_image.png",
                          "reference/method_codes/methods_criteria.csv",
-                         "reference/method_codes/methods_met.csv"
+                         "reference/method_codes/methods_met.csv",
+                         "param/units.csv"
                          ]
                     },
       install_requires=['matplotlib',
