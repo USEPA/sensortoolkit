@@ -179,7 +179,7 @@ def performance_metrics(stats_df, deploy_dict, param=None,
         metrics.extend(targets[category].keys())
 
     metric_names = ['R$^2$', 'Slope', 'Intercept', 'RMSE',
-                    'NRMSE', 'CV (%)', 'Standard Deviation']
+                    'NRMSE', 'CV', 'Standard Deviation']
 
     if 'NRMSE' in remove_keys.values():
         metric_names.remove('NRMSE')
@@ -224,7 +224,7 @@ def performance_metrics(stats_df, deploy_dict, param=None,
 
             else:
 
-                if metric_name == 'CV (%)':
+                if metric_name == 'CV':
                     metric_data = cv_vals
                 if metric_name == 'Standard Deviation':
                     metric_data = std_vals
@@ -276,14 +276,15 @@ def performance_metrics(stats_df, deploy_dict, param=None,
                     upper_lim = 10
                 lower_lim = -1*upper_lim
 
-                metric_name = 'Intercept ' + param_obj.units
+                metric_name = rf'{metric_name} ({param_obj.units})'
 
-            if metric_name == 'CV (%)':
+            if metric_name == 'CV':
                 dim_key = 'CV'
                 lower_lim = 0
                 upper_lim = 1.5*data_df[metric_name].max()
                 if upper_lim < 50:
                     upper_lim = 50
+                metric_name = rf'{metric_name} (%)'
 
             if metric_name == 'RMSE':
                 dim_key = 'RMSE'
@@ -292,7 +293,7 @@ def performance_metrics(stats_df, deploy_dict, param=None,
                 if upper_lim < 10:
                     upper_lim = 10
 
-                metric_name = r'RMSE ' + param_obj.units
+                metric_name = rf'{metric_name} ({param_obj.units})'
 
             if metric_name == 'NRMSE':
                 dim_key = 'NRMSE'
@@ -305,7 +306,7 @@ def performance_metrics(stats_df, deploy_dict, param=None,
                 dim_key = 'SD'
                 lower_lim = 0
                 upper_lim = 1.5*data_df[metric_name].max()
-                metric_name = r'Standard Dev. ' + param_obj.units
+                metric_name = rf'{metric_name} ({param_obj.units})'
 
                 if upper_lim < 10:
                     upper_lim = 10

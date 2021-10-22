@@ -533,25 +533,12 @@ def scatter_plotter(df_list, ref_df, stats_df=None, plot_subset=None,
 
             # Choose between serial ID and sensor number labels for legend
             if isinstance(sensor_serials, dict):
-                lbl = list(sensor_serials.values())[sensor_number-1]
-            else:
-                lbl = 'Sensor ' + str(sensor_number)
-
-            param_dict = {'xlabel': ' '.join([ref_name, fmt_param,
-                                              fmt_param_units]),
-                          'ylabel': ' '.join([lbl, fmt_param,
-                                              fmt_param_units])}
-
-            # set appropriate plt axes array index based on # of sensors
-            if isinstance(sensor_serials, dict):
                 lbl = list(sensor_serials.values())[sensor_idx]
             else:
                 lbl = 'Sensor ' + str(sensor_number)
 
-            param_dict = {'xlabel': ' '.join([ref_name, fmt_param,
-                                              fmt_param_units]),
-                          'ylabel': ' '.join([lbl, fmt_param,
-                                              fmt_param_units])}
+            param_dict = {'xlabel': f'{ref_name} {fmt_param} ({fmt_param_units})',
+                          'ylabel': f'{lbl} {fmt_param} ({fmt_param_units})'}
 
             # set appropriate plt axes array index based on # of sensors
             if isinstance(axs, np.ndarray):
@@ -859,7 +846,7 @@ def normalized_met_scatter(df_list, ref_df, avg_df, met_ref_df=None,
     except KeyError:
         met_ref_name = sensor_name
 
-    x_label = met_ref_name + ' ' + fmt_met_param + ' ' + fmt_met_units
+    x_label = f'{met_ref_name} {fmt_met_param} ({fmt_met_units})'
 
     title = fmt_sensor_name + ' ' + fmt_param + ' Normalized by ' + ref_name
 

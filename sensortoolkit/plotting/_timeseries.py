@@ -242,7 +242,7 @@ def sensor_timeplot(df_list, ref_df, param=None, sensor_name=None,
 
     # Configure x- and y-axis attributes (scale, labeling, limits, ticks)
     ax.set_yscale(yscale)
-    ax.set_ylabel(fmt_param + ' ' + fmt_param_units, fontsize=fontsize)
+    ax.set_ylabel(f'{fmt_param} ({fmt_param_units})', fontsize=fontsize)
     ax.set_xlabel('Date', fontsize=fontsize)
 
     ax.set_xlim(pd.to_datetime(bdate), pd.to_datetime(edate))

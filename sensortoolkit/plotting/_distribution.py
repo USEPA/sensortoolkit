@@ -52,8 +52,8 @@ def ref_distrib(ref_df, param=None, averaging_interval='1-hour',
                      label=ref_name +' ' + fmt_param, ax=ax)
 
         # Set axes attributes
-        ax.set_xlabel('Reference ' + averaging_interval + ' ' + fmt_param +
-                      ' ' + fmt_param_units, fontsize=font_size)
+        ax.set_xlabel(f'Reference {averaging_interval} {fmt_param} ({fmt_param_units})',
+                      fontsize=font_size)
         ax.set_ylabel('Relative Probability', fontsize=font_size)
         ax.tick_params(axis='both', labelsize=0.75*font_size)
         plt.legend(fontsize=0.85*font_size)
