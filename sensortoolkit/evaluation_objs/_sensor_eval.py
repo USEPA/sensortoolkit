@@ -597,7 +597,10 @@ class SensorEvaluation:
 
         avg_list = self.eval_param_averaging
 
-        if averaging_interval not in avg_list:
+        # Figuring out averaging intervals is done if report_fmt true, no
+        # need to check for invalid intervals passed (will be ignored in favor
+        # of intervals specified by Parameter.averaging)
+        if not report_fmt and averaging_interval not in avg_list:
             txt = ('Invalid averaging interval, choose from the following: '
                    + ', '.join(avg_list))
             sys.exit(txt)
