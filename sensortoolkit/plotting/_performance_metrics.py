@@ -179,7 +179,7 @@ def performance_metrics(stats_df, deploy_dict, param=None,
         metrics.extend(targets[category].keys())
 
     metric_names = ['R$^2$', 'Slope', 'Intercept', 'RMSE',
-                    'NRMSE', 'CV', 'Standard Deviation']
+                    'NRMSE', 'CV', 'SD']
 
     if 'NRMSE' in remove_keys.values():
         metric_names.remove('NRMSE')
@@ -226,7 +226,7 @@ def performance_metrics(stats_df, deploy_dict, param=None,
 
                 if metric_name == 'CV':
                     metric_data = cv_vals
-                if metric_name == 'Standard Deviation':
+                if metric_name == 'SD':
                     metric_data = std_vals
                 if metric_name == 'RMSE':
                     metric_data = rmse_vals
@@ -302,7 +302,7 @@ def performance_metrics(stats_df, deploy_dict, param=None,
                     upper_lim = 50
                 metric_name = r'NRMSE ($\%$)'
 
-            if metric_name.startswith('Standard Deviation'):
+            if metric_name == 'SD':
                 dim_key = 'SD'
                 lower_lim = 0
                 upper_lim = 1.5*data_df[metric_name].max()
