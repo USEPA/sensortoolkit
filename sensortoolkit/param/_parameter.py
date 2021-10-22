@@ -205,13 +205,16 @@ class Parameter:
         self.format_name = None
         self.format_baseline = None
         self.format_subscript = None
-        self.units = None
         self.classifier = None
         self.criteria_pollutant = False
         self.aqs_parameter_code = None
         self.averaging = ['1-hour', '24-hour']  # default averaging
         self.__verbose__ = kwargs.get('verbose', False)
 
+        unit_info = self._get_units()
+        self.units = unit_info['Label']
+        self.units_description = unit_info['Description']
+        self.units_aqs_code = unit_info['Unit Code']
 
         if self.name in self.__param_dict__:
             self.__Autoset_Param__()
@@ -226,11 +229,6 @@ class Parameter:
             None.
 
         """
-        unit_info = self._get_units()
-        self.units = unit_info['Label']
-        self.units_description = unit_info['Description']
-        self.units_aqs_code = unit_info['Unit Code']
-
         self.classifier = self.__param_dict__[self.name]['classifier']
         self.criteria_pollutant = self.__param_dict__[self.name]['criteria']
         self.aqs_parameter_code = self.__param_dict__[self.name]['aqs_param_code']
@@ -313,43 +311,48 @@ class Parameter:
         if self.is_sdfs():
             unit_code = self.__param_dict__[self.name]['aqs_unit_code']
         else:
-
-            validate = False
-            while validate is False:
-                self.classifier = input(f'Enter the parameter classification ("PM", '
-                            '"Gases", or "Met" for {self.name}')
-
-                if self.classifier not in ['PM', 'Gases', 'Met']:
-                    print('..invalid entry, enter "PM", "Gases", or "Met"')
-                    continue
-
-                response = validate_entry()
-                if response == 'y':
-                    validate == True
-
-            options =  unit_data[unit_data.Classification == self.classifier]
-            print('Choose from the following unit codes:')
-            with pd.option_context('display.expand_frame_repr', False,
-                               'display.max_colwidth', 65,
-                               'display.max_rows', None,
-                               'display.colheader_justify', 'right'):
-                print(options)
-            validate = False
-            while validate is False:
-                val = input('Enter the integer unit code value '
-                            'for the {self.name} unit of measure')
-
-                if val not in options['Unit Code'].values:
-                    print('..invalid entry.')
-                    continue
-
-                response = validate_entry()
-                if response == 'y':
-                    validate == True
+            unit_code = self._get_units(unit_data)
 
         unit_info = options[options['Unit Code'] == unit_code]
 
         return unit_info.to_dict('records')[0]
+
+    def _set_units(self, unit_data):
+
+        validate = False
+        while validate is False:
+            self.classifier = input(f'Enter the parameter classification ("PM", '
+                        '"Gases", or "Met" for {self.name}')
+
+            if self.classifier not in ['PM', 'Gases', 'Met']:
+                print('..invalid entry, enter "PM", "Gases", or "Met"')
+                continue
+
+            response = validate_entry()
+            if response == 'y':
+                validate == True
+
+        options =  unit_data[unit_data.Classification == self.classifier]
+        print('Choose from the following unit codes:')
+        with pd.option_context('display.expand_frame_repr', False,
+                           'display.max_colwidth', 65,
+                           'display.max_rows', None,
+                           'display.colheader_justify', 'right'):
+            print(options)
+        validate = False
+        while validate is False:
+            unit_code = input('Enter the integer unit code value '
+                        'for the {self.name} unit of measure')
+
+            if unit_code not in options['Unit Code'].values:
+                print('..invalid entry.')
+                continue
+
+            response = validate_entry()
+            if response == 'y':
+                validate == True
+
+        return unit_code
 
 
 if __name__ == '__main__':
