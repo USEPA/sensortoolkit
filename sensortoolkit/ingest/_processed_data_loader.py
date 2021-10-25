@@ -28,22 +28,23 @@ def processed_data_search(processed_path, sensor_serials, **kwargs):
     data files are loaded into separate data frame lists.
 
     Args:
-    processed_path (str):
-      Directory path where the processed data files are stored.
-    sensor_serials (dict):
-        A dictionary of sensor serial identifiers for each unit
-        in a testing group
+        processed_path (str):
+            Directory path where the processed data files are stored.
+        sensor_serials (dict):
+            A dictionary of sensor serial identifiers for each unit
+            in a testing group.
 
     Returns:
-    full_df_list (list):
-      List of pandas dataframe objects, one for each sensor dataset
-      containing processed full time-resolution data.
-    hourly_df_list (list):
-      List of pandas dataframe objects, one for each sensor dataset
-      containing processed hourly averaged time-resolution data.
-    daily_df_list (list):
-      List of pandas dataframe objects, one for each sensor dataset
-      containing processed daily (24-hr) averaged time-resolution data.
+        full_df_list (list):
+            List of pandas dataframe objects, one for each sensor dataset
+            containing processed full time-resolution data.
+        hourly_df_list (list):
+            List of pandas dataframe objects, one for each sensor dataset
+            containing processed hourly averaged time-resolution data.
+        daily_df_list (list):
+            List of pandas dataframe objects, one for each sensor dataset
+            containing processed daily (24-hr) averaged time-resolution data.
+
     """
     start = kwargs.get('deploy_bdate', None)
     end = kwargs.get('deploy_edate', None)
