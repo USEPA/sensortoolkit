@@ -36,7 +36,7 @@ def set_fontsize(serials):
 
     if (n_sensors == 1):
         fontsize = 14
-    if (n_sensors < 7 and n_sensors > 1):
+    elif (n_sensors < 7 and n_sensors > 1):
         fontsize = 12.75
     else:
         fontsize = 11.7
@@ -91,8 +91,8 @@ def subplot_dims(n_sensors):
     return (n_rows, n_cols)
 
 
-def sensor_subplot_formatting(number_of_sensors, param, font_size,
-                              RH_colormap, report_fmt=False):
+def sensor_subplot_formatting(number_of_sensors, param_obj, report_fmt,
+                              **kwargs):
     """Configure subplot parameters that control the spacing of subplots,
     number of subplots and dimensions of the Matplotliub axes object array,
     color bar formatting, etc.
@@ -102,6 +102,10 @@ def sensor_subplot_formatting(number_of_sensors, param, font_size,
     Returns:
 
     """
+    RH_colormap = kwargs.get('show_colorbar', True)
+    serials = kwargs.get('sensor_serials', None)
+    param_averaging = param_obj.averaging
+
     Nr, Nc = subplot_dims(number_of_sensors)
 
     sensor_plural, row_plural, column_plural = '', '', ''
@@ -117,13 +121,13 @@ def sensor_subplot_formatting(number_of_sensors, param, font_size,
           'sensor' + sensor_plural, 'with', str(Nr),
           'row' + row_plural,  'and', str(Nc), 'column' + column_plural)
 
-    suptitle_xpos = 0.50
+    # Get default fontsize to fall back on if none specified
+    font_size = set_fontsize(serials)
+
     if number_of_sensors == 1:  # 1x1 subplot
-        suptitle_ypos = 0.98
-        title_text_wrap = 35
 
         if RH_colormap is True:
-            if param == 'O3':
+            if len(param_averaging) == 1:
                 font_size = 12
                 fig_size = (4.3, 3.91)
                 wspace = .1
@@ -133,9 +137,8 @@ def sensor_subplot_formatting(number_of_sensors, param, font_size,
                 top = 0.85
                 bottom = 0.15
                 suptitle_xpos = 0.46
-                suptitle_ypos = 1.01
-                title_text_wrap = 30
                 suptitle_ypos = 0.95
+                title_text_wrap = 30
             else:
                 fig_size = (4.9, 5.5)
                 wspace = .01
@@ -152,17 +155,19 @@ def sensor_subplot_formatting(number_of_sensors, param, font_size,
             right = 0.85
             top = 0.95
             bottom = 0.1
+
+        suptitle_xpos = 0.50
+        suptitle_ypos = 0.98
+        title_text_wrap = 35
         detail_fontsize = .75*font_size
         filename_suffix = '1_sensor'
         cbar_padding = .13
         cbar_aspect = 20
 
     elif number_of_sensors == 3:  # 3x1 subplot
-        fig_size = (12.3, 5.12)
-        suptitle_ypos = 0.99
-        title_text_wrap = 70
 
         if RH_colormap is True:
+            fig_size = (12.3, 5.12)
             wspace = .38
             hspace = .05
             left = 0.06
@@ -177,6 +182,10 @@ def sensor_subplot_formatting(number_of_sensors, param, font_size,
             right = 0.93
             top = 0.90
             bottom = 0.1
+
+        suptitle_xpos = 0.50
+        suptitle_ypos = 0.99
+        title_text_wrap = 70
         detail_fontsize = .9*font_size
         filename_suffix = '3_sensors'
         cbar_padding = .16
@@ -202,6 +211,8 @@ def sensor_subplot_formatting(number_of_sensors, param, font_size,
             right = 0.93
             top = 0.89
             bottom = 0.1
+
+        suptitle_xpos = 0.50
         detail_fontsize = .85*font_size
         filename_suffix = '6_sensors'
         cbar_padding = .08
@@ -229,6 +240,8 @@ def sensor_subplot_formatting(number_of_sensors, param, font_size,
             right = 0.95
             top = 0.89
             bottom = 0.1
+
+        suptitle_xpos = 0.50
         detail_fontsize = .85*font_size
         filename_suffix = '8_sensors'
         cbar_padding = .08
@@ -256,6 +269,8 @@ def sensor_subplot_formatting(number_of_sensors, param, font_size,
             right = 0.93
             top = 0.89
             bottom = 0.1
+
+        suptitle_xpos = 0.50
         detail_fontsize = .85*font_size
         filename_suffix = '9_sensors'
         cbar_padding = .06
@@ -264,7 +279,22 @@ def sensor_subplot_formatting(number_of_sensors, param, font_size,
         print('No formatting presets configured for', str(number_of_sensors))
 
     if report_fmt is True:
-        if param == 'PM25':
+        # Plot 1-hour averaged dataset
+        if len(param_averaging) == 1:
+            font_size = 12
+            fig_size = (4.3, 3.91)
+            wspace = .1
+            hspace = .1
+            left = 0.12
+            right = 0.8
+            top = 0.85
+            bottom = 0.15
+            suptitle_xpos = 0.5
+            suptitle_ypos = 1.01
+            title_text_wrap = 30
+            suptitle_ypos = 0.95
+        # Plot both 1-hour and 24-hour averaged datasets
+        else:
             wspace = .4
             hspace = .08
             left = 0.1
@@ -273,6 +303,8 @@ def sensor_subplot_formatting(number_of_sensors, param, font_size,
             bottom = 0.30
             cbar_padding = .0
             cbar_aspect = 20
+            font_size = 9
+            detail_fontsize = 0.9*font_size
         filename_suffix = 'report_fmt'
 
     return (Nr, Nc, fig_size, suptitle_xpos, suptitle_ypos, title_text_wrap,
