@@ -149,6 +149,9 @@ def sensor_timeplot(df_list, ref_df, param=None, sensor_name=None,
             box_wscale = kwargs.get('box_wscale', 1.02)  # Transform plot width
             box_hscale = kwargs.get('box_hscale', 0.67) # Transform plot height
 
+            # Modify the bounds of the subplot [x_l, x_r, y_u, y_l]
+            kwargs['subplots_adjust'] = (0.05, 0.98, 0.95, 0.50)
+
             title_xpos = 0.5
             legend_pos = kwargs.get('legend_loc', (0.85, -0.55))
             columnspacing = 0.9
