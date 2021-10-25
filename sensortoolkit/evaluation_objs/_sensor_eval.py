@@ -619,7 +619,7 @@ class SensorEvaluation:
                          'figure not specified for ' + self._param_name)
 
             fig, axs = plt.subplots(1, len(avg_list), figsize=figsize)
-            kwargs['fontsize'] = 9
+            #kwargs['fontsize'] = 9
             fig.subplots_adjust(hspace=0.7)
             for i, averaging_interval in enumerate(self.eval_param_averaging):
 
