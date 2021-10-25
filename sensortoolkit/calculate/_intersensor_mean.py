@@ -113,7 +113,8 @@ def intersensor_mean(df_list, deploy_dict):
     for df in df_list:
         for item in df.columns.to_list():
             param_name = item.split('_')[0]
-            if item.endswith('_Value') and Parameter(param_name).is_sdfs():
+            if item.endswith('_Value') and Parameter(param_name,
+                                                     set_units=False).is_sdfs():
                 col_list.append(item)
 
     #col_list = list(dict.fromkeys(col_list))
