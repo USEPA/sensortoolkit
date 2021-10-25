@@ -115,13 +115,20 @@ def sensor_timeplot(df_list, ref_df, param=None, sensor_name=None,
     show_title = kwargs.get('show_title', True)
     filename_suffix = kwargs.get('filename_suffix', '')
 
+    # Format parameter name and sensor name
+    param_obj = Parameter(param)
+    param_name = param_obj.name
+    param_averaging = param_obj.averaging
+    fmt_param = param_obj.format_name
+    fmt_param_units = param_obj.units
+    fmt_sensor_name = sensor_name.replace('_', ' ')
+
     # Performance target reporting template formatting for timeseries plots
-    # Templates for PM2.5 and O3 evaluations
     if report_fmt is True:
 
-        # PM2.5: Figure consists of two plots (1-hr and 24-hr averaged
+        # Figure consists of two plots (1-hr and 24-hr averaged
         # timeseries [plots arranged as 2 rows, 1 column])
-        if 'PM25' in param:
+        if len(param_averaging) == 2:
             fontsize = 10.5
             fig_size = (10.15, 4.1)
             show_title = True
@@ -137,9 +144,9 @@ def sensor_timeplot(df_list, ref_df, param=None, sensor_name=None,
             legend_pos = kwargs.get('legend_loc', (1.11, 1.29))
             columnspacing = 0.9  # Legend column spacing
 
-        # O3: Figure consists of one timeseries plot (1-hr)
+        # Figure consists of one timeseries plot (1-hr)
         # [plot arranged as 1 row, 1 column])
-        elif 'O3' in param:
+        elif len(param_averaging) == 1:
             fontsize = 11
             fig_size = (10.16, 3.8)
             show_title = False
@@ -150,13 +157,12 @@ def sensor_timeplot(df_list, ref_df, param=None, sensor_name=None,
             box_hscale = kwargs.get('box_hscale', 0.67) # Transform plot height
 
             # Modify the bounds of the subplot [x_l, x_r, y_u, y_l]
-            kwargs['subplots_adjust'] = (0.05, 0.98, 0.95, 0.50)
+            kwargs['subplots_adjust'] = (0.05, 0.98, 0.95, 0.5)
 
             title_xpos = 0.5
             legend_pos = kwargs.get('legend_loc', (0.85, -0.55))
             columnspacing = 0.9
 
-        # If report_fmt is requested by the parameter type is not PM2.5 or O3,
         # reassign report_fmt false so that generic formatting is selected.
         else:
             report_fmt = False
@@ -192,13 +198,6 @@ def sensor_timeplot(df_list, ref_df, param=None, sensor_name=None,
         # passed axes object.
         ax = ax
         unique_ax_obj = False
-
-    # Format parameter name and sensor name
-    param_obj = Parameter(param)
-    param_name = param_obj.name
-    fmt_param = param_obj.format_name
-    fmt_param_units = param_obj.units
-    fmt_sensor_name = sensor_name.replace('_', ' ')
 
     if show_title is True:
         title_str = (averaging_interval + " Averaged " + fmt_sensor_name + ' '
