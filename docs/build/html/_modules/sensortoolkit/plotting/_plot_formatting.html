@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>sensortoolkit.plotting._plot_formatting &mdash; sensortoolkit 0.5.2b4 documentation</title>
+  <title>sensortoolkit.plotting._plot_formatting &mdash; sensortoolkit 0.5.6b2 documentation</title>
   
 
   
@@ -67,7 +67,7 @@
             
             
               <div class="version">
-                0.5.2b4
+                0.5.6b2
               </div>
             
           
@@ -259,10 +259,22 @@
 <li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.lib_utils._flatten_list.flatten_list.html">sensortoolkit.lib_utils._flatten_list.flatten_list</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.lib_utils._input_tools.html">sensortoolkit.lib_utils._input_tools</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.lib_utils._input_tools.enter_continue.html">sensortoolkit.lib_utils._input_tools.enter_continue</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.lib_utils._input_tools.validate_entry.html">sensortoolkit.lib_utils._input_tools.validate_entry</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.lib_utils._sensor_subfolders.html">sensortoolkit.lib_utils._sensor_subfolders</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.lib_utils._sensor_subfolders.create_sensor_directories.html">sensortoolkit.lib_utils._sensor_subfolders.create_sensor_directories</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.lib_utils._setup.html">sensortoolkit.lib_utils._setup</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.lib_utils._setup.displayMethods.html">sensortoolkit.lib_utils._setup.displayMethods</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.lib_utils._setup.ReferenceSetup.html">sensortoolkit.lib_utils._setup.ReferenceSetup</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.lib_utils._setup.SensorSetup.html">sensortoolkit.lib_utils._setup.SensorSetup</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.lib_utils._version.html">sensortoolkit.lib_utils._version</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../api/model.html"><code class="docutils literal notranslate"><span class="pre">sensortoolkit.model</span></code></a><ul>
@@ -365,6 +377,10 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../api/reference.html"><code class="docutils literal notranslate"><span class="pre">sensortoolkit.reference</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._airnowtech_to_long.html">sensortoolkit.reference._airnowtech_to_long</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._airnowtech_to_long.airnowtech_wide_to_long.html">sensortoolkit.reference._airnowtech_to_long.airnowtech_wide_to_long</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._import_airnowtech.html">sensortoolkit.reference._import_airnowtech</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._import_airnowtech.ingest_airnowtech.html">sensortoolkit.reference._import_airnowtech.ingest_airnowtech</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._import_airnowtech.preprocess_airnowtech.html">sensortoolkit.reference._import_airnowtech.preprocess_airnowtech</a></li>
@@ -521,7 +537,7 @@
 
     <span class="k">if</span> <span class="p">(</span><span class="n">n_sensors</span> <span class="o">==</span> <span class="mi">1</span><span class="p">):</span>
         <span class="n">fontsize</span> <span class="o">=</span> <span class="mi">14</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">n_sensors</span> <span class="o">&lt;</span> <span class="mi">7</span> <span class="ow">and</span> <span class="n">n_sensors</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">):</span>
+    <span class="k">elif</span> <span class="p">(</span><span class="n">n_sensors</span> <span class="o">&lt;</span> <span class="mi">7</span> <span class="ow">and</span> <span class="n">n_sensors</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">):</span>
         <span class="n">fontsize</span> <span class="o">=</span> <span class="mf">12.75</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">fontsize</span> <span class="o">=</span> <span class="mf">11.7</span>
@@ -576,8 +592,8 @@
     <span class="k">return</span> <span class="p">(</span><span class="n">n_rows</span><span class="p">,</span> <span class="n">n_cols</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="sensor_subplot_formatting"><a class="viewcode-back" href="../../../api/_autosummary/sensortoolkit.plotting._plot_formatting.sensor_subplot_formatting.html#sensortoolkit.plotting._plot_formatting.sensor_subplot_formatting">[docs]</a><span class="k">def</span> <span class="nf">sensor_subplot_formatting</span><span class="p">(</span><span class="n">number_of_sensors</span><span class="p">,</span> <span class="n">param</span><span class="p">,</span> <span class="n">font_size</span><span class="p">,</span>
-                              <span class="n">RH_colormap</span><span class="p">,</span> <span class="n">report_fmt</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<div class="viewcode-block" id="sensor_subplot_formatting"><a class="viewcode-back" href="../../../api/_autosummary/sensortoolkit.plotting._plot_formatting.sensor_subplot_formatting.html#sensortoolkit.plotting._plot_formatting.sensor_subplot_formatting">[docs]</a><span class="k">def</span> <span class="nf">sensor_subplot_formatting</span><span class="p">(</span><span class="n">number_of_sensors</span><span class="p">,</span> <span class="n">param_obj</span><span class="p">,</span> <span class="n">report_fmt</span><span class="p">,</span>
+                              <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Configure subplot parameters that control the spacing of subplots,</span>
 <span class="sd">    number of subplots and dimensions of the Matplotliub axes object array,</span>
 <span class="sd">    color bar formatting, etc.</span>
@@ -587,6 +603,10 @@
 <span class="sd">    Returns:</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">RH_colormap</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;show_colorbar&#39;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+    <span class="n">serials</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;sensor_serials&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+    <span class="n">param_averaging</span> <span class="o">=</span> <span class="n">param_obj</span><span class="o">.</span><span class="n">averaging</span>
+
     <span class="n">Nr</span><span class="p">,</span> <span class="n">Nc</span> <span class="o">=</span> <span class="n">subplot_dims</span><span class="p">(</span><span class="n">number_of_sensors</span><span class="p">)</span>
 
     <span class="n">sensor_plural</span><span class="p">,</span> <span class="n">row_plural</span><span class="p">,</span> <span class="n">column_plural</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span>
@@ -602,13 +622,13 @@
           <span class="s1">&#39;sensor&#39;</span> <span class="o">+</span> <span class="n">sensor_plural</span><span class="p">,</span> <span class="s1">&#39;with&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">Nr</span><span class="p">),</span>
           <span class="s1">&#39;row&#39;</span> <span class="o">+</span> <span class="n">row_plural</span><span class="p">,</span>  <span class="s1">&#39;and&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">Nc</span><span class="p">),</span> <span class="s1">&#39;column&#39;</span> <span class="o">+</span> <span class="n">column_plural</span><span class="p">)</span>
 
-    <span class="n">suptitle_xpos</span> <span class="o">=</span> <span class="mf">0.50</span>
+    <span class="c1"># Get default fontsize to fall back on if none specified</span>
+    <span class="n">font_size</span> <span class="o">=</span> <span class="n">set_fontsize</span><span class="p">(</span><span class="n">serials</span><span class="p">)</span>
+
     <span class="k">if</span> <span class="n">number_of_sensors</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>  <span class="c1"># 1x1 subplot</span>
-        <span class="n">suptitle_ypos</span> <span class="o">=</span> <span class="mf">0.98</span>
-        <span class="n">title_text_wrap</span> <span class="o">=</span> <span class="mi">35</span>
 
         <span class="k">if</span> <span class="n">RH_colormap</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">param</span> <span class="o">==</span> <span class="s1">&#39;O3&#39;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">param_averaging</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
                 <span class="n">font_size</span> <span class="o">=</span> <span class="mi">12</span>
                 <span class="n">fig_size</span> <span class="o">=</span> <span class="p">(</span><span class="mf">4.3</span><span class="p">,</span> <span class="mf">3.91</span><span class="p">)</span>
                 <span class="n">wspace</span> <span class="o">=</span> <span class="mf">.1</span>
@@ -618,9 +638,8 @@
                 <span class="n">top</span> <span class="o">=</span> <span class="mf">0.85</span>
                 <span class="n">bottom</span> <span class="o">=</span> <span class="mf">0.15</span>
                 <span class="n">suptitle_xpos</span> <span class="o">=</span> <span class="mf">0.46</span>
-                <span class="n">suptitle_ypos</span> <span class="o">=</span> <span class="mf">1.01</span>
-                <span class="n">title_text_wrap</span> <span class="o">=</span> <span class="mi">30</span>
                 <span class="n">suptitle_ypos</span> <span class="o">=</span> <span class="mf">0.95</span>
+                <span class="n">title_text_wrap</span> <span class="o">=</span> <span class="mi">30</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">fig_size</span> <span class="o">=</span> <span class="p">(</span><span class="mf">4.9</span><span class="p">,</span> <span class="mf">5.5</span><span class="p">)</span>
                 <span class="n">wspace</span> <span class="o">=</span> <span class="mf">.01</span>
@@ -637,17 +656,19 @@
             <span class="n">right</span> <span class="o">=</span> <span class="mf">0.85</span>
             <span class="n">top</span> <span class="o">=</span> <span class="mf">0.95</span>
             <span class="n">bottom</span> <span class="o">=</span> <span class="mf">0.1</span>
+
+        <span class="n">suptitle_xpos</span> <span class="o">=</span> <span class="mf">0.50</span>
+        <span class="n">suptitle_ypos</span> <span class="o">=</span> <span class="mf">0.98</span>
+        <span class="n">title_text_wrap</span> <span class="o">=</span> <span class="mi">35</span>
         <span class="n">detail_fontsize</span> <span class="o">=</span> <span class="mf">.75</span><span class="o">*</span><span class="n">font_size</span>
         <span class="n">filename_suffix</span> <span class="o">=</span> <span class="s1">&#39;1_sensor&#39;</span>
         <span class="n">cbar_padding</span> <span class="o">=</span> <span class="mf">.13</span>
         <span class="n">cbar_aspect</span> <span class="o">=</span> <span class="mi">20</span>
 
     <span class="k">elif</span> <span class="n">number_of_sensors</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>  <span class="c1"># 3x1 subplot</span>
-        <span class="n">fig_size</span> <span class="o">=</span> <span class="p">(</span><span class="mf">12.3</span><span class="p">,</span> <span class="mf">5.12</span><span class="p">)</span>
-        <span class="n">suptitle_ypos</span> <span class="o">=</span> <span class="mf">0.99</span>
-        <span class="n">title_text_wrap</span> <span class="o">=</span> <span class="mi">70</span>
 
         <span class="k">if</span> <span class="n">RH_colormap</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="n">fig_size</span> <span class="o">=</span> <span class="p">(</span><span class="mf">12.3</span><span class="p">,</span> <span class="mf">5.12</span><span class="p">)</span>
             <span class="n">wspace</span> <span class="o">=</span> <span class="mf">.38</span>
             <span class="n">hspace</span> <span class="o">=</span> <span class="mf">.05</span>
             <span class="n">left</span> <span class="o">=</span> <span class="mf">0.06</span>
@@ -662,6 +683,10 @@
             <span class="n">right</span> <span class="o">=</span> <span class="mf">0.93</span>
             <span class="n">top</span> <span class="o">=</span> <span class="mf">0.90</span>
             <span class="n">bottom</span> <span class="o">=</span> <span class="mf">0.1</span>
+
+        <span class="n">suptitle_xpos</span> <span class="o">=</span> <span class="mf">0.50</span>
+        <span class="n">suptitle_ypos</span> <span class="o">=</span> <span class="mf">0.99</span>
+        <span class="n">title_text_wrap</span> <span class="o">=</span> <span class="mi">70</span>
         <span class="n">detail_fontsize</span> <span class="o">=</span> <span class="mf">.9</span><span class="o">*</span><span class="n">font_size</span>
         <span class="n">filename_suffix</span> <span class="o">=</span> <span class="s1">&#39;3_sensors&#39;</span>
         <span class="n">cbar_padding</span> <span class="o">=</span> <span class="mf">.16</span>
@@ -687,6 +712,8 @@
             <span class="n">right</span> <span class="o">=</span> <span class="mf">0.93</span>
             <span class="n">top</span> <span class="o">=</span> <span class="mf">0.89</span>
             <span class="n">bottom</span> <span class="o">=</span> <span class="mf">0.1</span>
+
+        <span class="n">suptitle_xpos</span> <span class="o">=</span> <span class="mf">0.50</span>
         <span class="n">detail_fontsize</span> <span class="o">=</span> <span class="mf">.85</span><span class="o">*</span><span class="n">font_size</span>
         <span class="n">filename_suffix</span> <span class="o">=</span> <span class="s1">&#39;6_sensors&#39;</span>
         <span class="n">cbar_padding</span> <span class="o">=</span> <span class="mf">.08</span>
@@ -714,6 +741,8 @@
             <span class="n">right</span> <span class="o">=</span> <span class="mf">0.95</span>
             <span class="n">top</span> <span class="o">=</span> <span class="mf">0.89</span>
             <span class="n">bottom</span> <span class="o">=</span> <span class="mf">0.1</span>
+
+        <span class="n">suptitle_xpos</span> <span class="o">=</span> <span class="mf">0.50</span>
         <span class="n">detail_fontsize</span> <span class="o">=</span> <span class="mf">.85</span><span class="o">*</span><span class="n">font_size</span>
         <span class="n">filename_suffix</span> <span class="o">=</span> <span class="s1">&#39;8_sensors&#39;</span>
         <span class="n">cbar_padding</span> <span class="o">=</span> <span class="mf">.08</span>
@@ -741,6 +770,8 @@
             <span class="n">right</span> <span class="o">=</span> <span class="mf">0.93</span>
             <span class="n">top</span> <span class="o">=</span> <span class="mf">0.89</span>
             <span class="n">bottom</span> <span class="o">=</span> <span class="mf">0.1</span>
+
+        <span class="n">suptitle_xpos</span> <span class="o">=</span> <span class="mf">0.50</span>
         <span class="n">detail_fontsize</span> <span class="o">=</span> <span class="mf">.85</span><span class="o">*</span><span class="n">font_size</span>
         <span class="n">filename_suffix</span> <span class="o">=</span> <span class="s1">&#39;9_sensors&#39;</span>
         <span class="n">cbar_padding</span> <span class="o">=</span> <span class="mf">.06</span>
@@ -749,7 +780,22 @@
         <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;No formatting presets configured for&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">number_of_sensors</span><span class="p">))</span>
 
     <span class="k">if</span> <span class="n">report_fmt</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
-        <span class="k">if</span> <span class="n">param</span> <span class="o">==</span> <span class="s1">&#39;PM25&#39;</span><span class="p">:</span>
+        <span class="c1"># Plot 1-hour averaged dataset</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">param_averaging</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">font_size</span> <span class="o">=</span> <span class="mi">12</span>
+            <span class="n">fig_size</span> <span class="o">=</span> <span class="p">(</span><span class="mf">4.3</span><span class="p">,</span> <span class="mf">3.91</span><span class="p">)</span>
+            <span class="n">wspace</span> <span class="o">=</span> <span class="mf">.1</span>
+            <span class="n">hspace</span> <span class="o">=</span> <span class="mf">.1</span>
+            <span class="n">left</span> <span class="o">=</span> <span class="mf">0.12</span>
+            <span class="n">right</span> <span class="o">=</span> <span class="mf">0.8</span>
+            <span class="n">top</span> <span class="o">=</span> <span class="mf">0.85</span>
+            <span class="n">bottom</span> <span class="o">=</span> <span class="mf">0.15</span>
+            <span class="n">suptitle_xpos</span> <span class="o">=</span> <span class="mf">0.5</span>
+            <span class="n">suptitle_ypos</span> <span class="o">=</span> <span class="mf">1.01</span>
+            <span class="n">title_text_wrap</span> <span class="o">=</span> <span class="mi">30</span>
+            <span class="n">suptitle_ypos</span> <span class="o">=</span> <span class="mf">0.95</span>
+        <span class="c1"># Plot both 1-hour and 24-hour averaged datasets</span>
+        <span class="k">else</span><span class="p">:</span>
             <span class="n">wspace</span> <span class="o">=</span> <span class="mf">.4</span>
             <span class="n">hspace</span> <span class="o">=</span> <span class="mf">.08</span>
             <span class="n">left</span> <span class="o">=</span> <span class="mf">0.1</span>
@@ -758,6 +804,8 @@
             <span class="n">bottom</span> <span class="o">=</span> <span class="mf">0.30</span>
             <span class="n">cbar_padding</span> <span class="o">=</span> <span class="mf">.0</span>
             <span class="n">cbar_aspect</span> <span class="o">=</span> <span class="mi">20</span>
+            <span class="n">font_size</span> <span class="o">=</span> <span class="mi">9</span>
+            <span class="n">detail_fontsize</span> <span class="o">=</span> <span class="mf">0.9</span><span class="o">*</span><span class="n">font_size</span>
         <span class="n">filename_suffix</span> <span class="o">=</span> <span class="s1">&#39;report_fmt&#39;</span>
 
     <span class="k">return</span> <span class="p">(</span><span class="n">Nr</span><span class="p">,</span> <span class="n">Nc</span><span class="p">,</span> <span class="n">fig_size</span><span class="p">,</span> <span class="n">suptitle_xpos</span><span class="p">,</span> <span class="n">suptitle_ypos</span><span class="p">,</span> <span class="n">title_text_wrap</span><span class="p">,</span>
@@ -816,8 +864,8 @@
 
     <span class="c1"># Automatically generate y-axis limits if none specified</span>
     <span class="k">if</span> <span class="n">ylims</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">ymin</span> <span class="o">=</span> <span class="n">avg_df</span><span class="p">[</span><span class="s1">&#39;mean_Normalized_&#39;</span> <span class="o">+</span> <span class="n">param</span><span class="p">]</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="mf">0.01</span><span class="p">)</span>
-        <span class="n">ymax</span> <span class="o">=</span> <span class="n">avg_df</span><span class="p">[</span><span class="s1">&#39;mean_Normalized_&#39;</span> <span class="o">+</span> <span class="n">param</span><span class="p">]</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="mf">0.99</span><span class="p">)</span>
+        <span class="n">ymin</span> <span class="o">=</span> <span class="n">avg_df</span><span class="p">[</span><span class="s1">&#39;mean_Normalized_&#39;</span> <span class="o">+</span> <span class="n">param</span> <span class="o">+</span> <span class="s1">&#39;_Value&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="mf">0.01</span><span class="p">)</span>
+        <span class="n">ymax</span> <span class="o">=</span> <span class="n">avg_df</span><span class="p">[</span><span class="s1">&#39;mean_Normalized_&#39;</span> <span class="o">+</span> <span class="n">param</span> <span class="o">+</span> <span class="s1">&#39;_Value&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="mf">0.99</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">ymax</span> <span class="o">&lt;</span> <span class="mf">5.0</span><span class="p">:</span>
             <span class="n">rounding_place</span> <span class="o">=</span> <span class="mi">1</span>  <span class="c1"># round to nearest tenths place</span>

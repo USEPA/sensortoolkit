@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>sensortoolkit.ingest._sensor_import.sensor_import &mdash; sensortoolkit 0.5.2b4 documentation</title>
+  <title>sensortoolkit.ingest._sensor_import.sensor_import &mdash; sensortoolkit 0.5.6b2 documentation</title>
   
 
   
@@ -69,7 +69,7 @@
             
             
               <div class="version">
-                0.5.2b4
+                0.5.6b2
               </div>
             
           
@@ -261,10 +261,22 @@
 <li class="toctree-l4"><a class="reference internal" href="sensortoolkit.lib_utils._flatten_list.flatten_list.html">sensortoolkit.lib_utils._flatten_list.flatten_list</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="sensortoolkit.lib_utils._input_tools.html">sensortoolkit.lib_utils._input_tools</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="sensortoolkit.lib_utils._input_tools.enter_continue.html">sensortoolkit.lib_utils._input_tools.enter_continue</a></li>
+<li class="toctree-l4"><a class="reference internal" href="sensortoolkit.lib_utils._input_tools.validate_entry.html">sensortoolkit.lib_utils._input_tools.validate_entry</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="sensortoolkit.lib_utils._sensor_subfolders.html">sensortoolkit.lib_utils._sensor_subfolders</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="sensortoolkit.lib_utils._sensor_subfolders.create_sensor_directories.html">sensortoolkit.lib_utils._sensor_subfolders.create_sensor_directories</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="sensortoolkit.lib_utils._setup.html">sensortoolkit.lib_utils._setup</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="sensortoolkit.lib_utils._setup.displayMethods.html">sensortoolkit.lib_utils._setup.displayMethods</a></li>
+<li class="toctree-l4"><a class="reference internal" href="sensortoolkit.lib_utils._setup.ReferenceSetup.html">sensortoolkit.lib_utils._setup.ReferenceSetup</a></li>
+<li class="toctree-l4"><a class="reference internal" href="sensortoolkit.lib_utils._setup.SensorSetup.html">sensortoolkit.lib_utils._setup.SensorSetup</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="sensortoolkit.lib_utils._version.html">sensortoolkit.lib_utils._version</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../model.html"><code class="docutils literal notranslate"><span class="pre">sensortoolkit.model</span></code></a><ul>
@@ -367,6 +379,10 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../reference.html"><code class="docutils literal notranslate"><span class="pre">sensortoolkit.reference</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="sensortoolkit.reference._airnowtech_to_long.html">sensortoolkit.reference._airnowtech_to_long</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="sensortoolkit.reference._airnowtech_to_long.airnowtech_wide_to_long.html">sensortoolkit.reference._airnowtech_to_long.airnowtech_wide_to_long</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="sensortoolkit.reference._import_airnowtech.html">sensortoolkit.reference._import_airnowtech</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="sensortoolkit.reference._import_airnowtech.ingest_airnowtech.html">sensortoolkit.reference._import_airnowtech.ingest_airnowtech</a></li>
 <li class="toctree-l4"><a class="reference internal" href="sensortoolkit.reference._import_airnowtech.preprocess_airnowtech.html">sensortoolkit.reference._import_airnowtech.preprocess_airnowtech</a></li>
@@ -500,7 +516,7 @@
 <dd><p>Import recorded or processed sensor data.</p>
 <p>If loading recorded datasets (i.e., load_raw_data is True), the method will
 walk through the directory path where recorded sensor datasets should be
-located (..//Data and Figures//sensor_data//Sensor_Name//raw_data). Users
+located (..//data//sensor_data//Sensor_Name//raw_data). Users
 must follow the expected naming scheme for files in this location,
 specifying the sensor name and sensor serial identifier for each dataset.
 If multiple files were recorded for each sensor unit, files must be
@@ -521,7 +537,7 @@ tested with the following serial identifiers:</p>
 files. The recorded sensor datasets should be placed at the following
 folder location:</p>
 <blockquote>
-<div><p>‘..//Data and Figures//sensor_data//Example_Make_Model//raw_data’</p>
+<div><p>‘..//data//sensor_data//Example_Make_Model//raw_data’</p>
 </div></blockquote>
 <p>The folder structure should look something like:</p>
 <blockquote>
@@ -612,9 +628,9 @@ sensor make and model.</p></li>
 for a given sensor make and model.</p></li>
 <li><p><strong>write_to_file</strong> (<em>bool</em>) – If true and load_raw_data true, processed files
 will be written to folder location. In addition, subsequent
-evaluation statistics will be written to the Data and Figures and
-eval_stats sensor subdirectory. Figures will also be written to the
-appropriate figures subdirectory.</p></li>
+evaluation statistics will be written to the ‘data’ and
+‘eval_stats’ sensor subdirectory. Figures will also be written to
+the appropriate figures subdirectory.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>

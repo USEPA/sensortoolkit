@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>sensortoolkit.calculate._rmse &mdash; sensortoolkit 0.5.2b4 documentation</title>
+  <title>sensortoolkit.calculate._rmse &mdash; sensortoolkit 0.5.6b2 documentation</title>
   
 
   
@@ -67,7 +67,7 @@
             
             
               <div class="version">
-                0.5.2b4
+                0.5.6b2
               </div>
             
           
@@ -259,10 +259,22 @@
 <li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.lib_utils._flatten_list.flatten_list.html">sensortoolkit.lib_utils._flatten_list.flatten_list</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.lib_utils._input_tools.html">sensortoolkit.lib_utils._input_tools</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.lib_utils._input_tools.enter_continue.html">sensortoolkit.lib_utils._input_tools.enter_continue</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.lib_utils._input_tools.validate_entry.html">sensortoolkit.lib_utils._input_tools.validate_entry</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.lib_utils._sensor_subfolders.html">sensortoolkit.lib_utils._sensor_subfolders</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.lib_utils._sensor_subfolders.create_sensor_directories.html">sensortoolkit.lib_utils._sensor_subfolders.create_sensor_directories</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.lib_utils._setup.html">sensortoolkit.lib_utils._setup</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.lib_utils._setup.displayMethods.html">sensortoolkit.lib_utils._setup.displayMethods</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.lib_utils._setup.ReferenceSetup.html">sensortoolkit.lib_utils._setup.ReferenceSetup</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.lib_utils._setup.SensorSetup.html">sensortoolkit.lib_utils._setup.SensorSetup</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.lib_utils._version.html">sensortoolkit.lib_utils._version</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../api/model.html"><code class="docutils literal notranslate"><span class="pre">sensortoolkit.model</span></code></a><ul>
@@ -365,6 +377,10 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../api/reference.html"><code class="docutils literal notranslate"><span class="pre">sensortoolkit.reference</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._airnowtech_to_long.html">sensortoolkit.reference._airnowtech_to_long</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._airnowtech_to_long.airnowtech_wide_to_long.html">sensortoolkit.reference._airnowtech_to_long.airnowtech_wide_to_long</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._import_airnowtech.html">sensortoolkit.reference._import_airnowtech</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._import_airnowtech.ingest_airnowtech.html">sensortoolkit.reference._import_airnowtech.ingest_airnowtech</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._import_airnowtech.preprocess_airnowtech.html">sensortoolkit.reference._import_airnowtech.preprocess_airnowtech</a></li>
@@ -531,7 +547,7 @@
 <span class="kn">from</span> <span class="nn">sensortoolkit.datetime_utils</span> <span class="kn">import</span> <span class="n">deploy_timestamp_index</span>
 
 
-<div class="viewcode-block" id="rmse"><a class="viewcode-back" href="../../../api/_autosummary/sensortoolkit.calculate._rmse.rmse.html#sensortoolkit.calculate._rmse.rmse">[docs]</a><span class="k">def</span> <span class="nf">rmse</span><span class="p">(</span><span class="n">df_list</span><span class="p">,</span> <span class="n">ref_df</span><span class="p">,</span> <span class="n">deploy_dict</span><span class="p">,</span> <span class="n">param</span><span class="o">=</span><span class="s1">&#39;PM25&#39;</span><span class="p">,</span> <span class="n">return_deploy_dict</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<div class="viewcode-block" id="rmse"><a class="viewcode-back" href="../../../api/_autosummary/sensortoolkit.calculate._rmse.rmse.html#sensortoolkit.calculate._rmse.rmse">[docs]</a><span class="k">def</span> <span class="nf">rmse</span><span class="p">(</span><span class="n">df_list</span><span class="p">,</span> <span class="n">ref_df</span><span class="p">,</span> <span class="n">deploy_dict</span><span class="p">,</span> <span class="n">param</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">return_deploy_dict</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Compute the root mean square error for concurrent sensor measurements in</span>
 <span class="sd">    each testing deployment groups.</span>
 
@@ -582,7 +598,7 @@
         <span class="n">rmse_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="n">date_index</span><span class="p">)</span>
 
         <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">df</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">df_list</span><span class="p">,</span> <span class="mi">1</span><span class="p">):</span>
-            <span class="n">rmse_df</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;_&#39;</span> <span class="o">+</span> <span class="n">param</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">param</span><span class="p">]</span>
+            <span class="n">rmse_df</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;_&#39;</span> <span class="o">+</span> <span class="n">param</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">param</span> <span class="o">+</span> <span class="s1">&#39;_Value&#39;</span><span class="p">]</span>
 
         <span class="n">ref_data</span> <span class="o">=</span> <span class="n">ref_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">start</span><span class="p">:</span><span class="n">end</span><span class="p">,</span> <span class="n">param</span> <span class="o">+</span> <span class="s1">&#39;_Value&#39;</span><span class="p">]</span>
 

@@ -25,126 +25,110 @@ the users' project directory in the following relative path:
 .. code-block:: json
 
   {
-      "name": "Example_Make_Model",
-      "work_path": "C:/Users/.../Documents/my_evaluation",
-      "dtype": ".csv",
-      "all_col_headers": [
-          "Time",
-          "NO2 (ppb)",
-          "O3 (ppb)",
-          "PM2.5 (\u00b5g/m\u00b3)",
-          "TEMP (\u00b0C)",
-          "RH (%)",
-          "DP (\u00b0C)",
-          "Inlet"
-      ],
-      "timestamp_col_headers": [
-          "Time"
-      ],
-      "drop_cols": [
-          "Inlet"
-      ],
+      "path": "C:\\Users\\...\\Documents\\sensortoolkit_testing",
+      "data_rel_path": "/data/sensor_data/Example_Make_Model/raw_data",
+      "data_type": "sensor",
+      "file_extension": ".csv",
       "header_iloc": 5,
-      "file_list": [
-          "C:/Users/.../Documents/test_dir/Data and Figures/sensor_data/Example_Make_Model/raw_data/Example_Make_Model_SN01_raw.csv",
-          "C:/Users/.../Documents/test_dir/Data and Figures/sensor_data/Example_Make_Model/raw_data/Example_Make_Model_SN02_raw.csv",
-          "C:/Users/.../Documents/test_dir/Data and Figures/sensor_data/Example_Make_Model/raw_data/Example_Make_Model_SN03_raw.csv"
+      "data_row_idx": null,
+      "sdfs_header_names": [
+          "NO2",
+          "O3",
+          "PM25",
+          "Temp",
+          "RH",
+          "DP"
       ],
-      "data_path": "C:/Users/.../Documents/test_dir/Data and Figures/sensor_data/Example_Make_Model/raw_data",
       "col_headers": {
           "col_idx_0": {
               "Time": {
-                  "SDFS_param": "DateTime",
-                  "files": [
-                      "C:/Users/.../Documents/test_dir/Data and Figures/sensor_data/Example_Make_Model/raw_data/Example_Make_Model_SN01_raw.csv"
-                      "C:/Users/.../Documents/test_dir/Data and Figures/sensor_data/Example_Make_Model/raw_data/Example_Make_Model_SN02_raw.csv",
-                      "C:/Users/.../Documents/test_dir/Data and Figures/sensor_data/Example_Make_Model/raw_data/Example_Make_Model_SN03_raw.csv"
-                  ]
+                  "sdfs_param": "DateTime",
+                  "in_file_list_idx": [0, 1, 2],
+                  "header_class": "datetime",
+                  "drop": false,
+                  "dt_format": "%Y/%m/%d %H:%M:%S",
+                  "dt_timezone": "EST"
               }
           },
           "col_idx_1": {
               "NO2 (ppb)": {
-                  "SDFS_param": "NO2",
-                  "files": [
-                      "C:/Users/.../Documents/test_dir/Data and Figures/sensor_data/Example_Make_Model/raw_data/Example_Make_Model_SN01_raw.csv",
-                      "C:/Users/.../Documents/test_dir/Data and Figures/sensor_data/Example_Make_Model/raw_data/Example_Make_Model_SN02_raw.csv",
-                      "C:/Users/.../Documents/test_dir/Data and Figures/sensor_data/Example_Make_Model/raw_data/Example_Make_Model_SN03_raw.csv"
-                  ]
+                  "sdfs_param": "NO2",
+                  "in_file_list_idx": [0, 1, 2],
+                  "unit_transform": null,
+                  "header_class": "parameter",
+                  "drop": false
               }
           },
           "col_idx_2": {
               "O3 (ppb)": {
-                  "SDFS_param": "O3",
-                  "files": [
-                      "C:/Users/.../Documents/test_dir/Data and Figures/sensor_data/Example_Make_Model/raw_data/Example_Make_Model_SN01_raw.csv",
-                      "C:/Users/.../Documents/test_dir/Data and Figures/sensor_data/Example_Make_Model/raw_data/Example_Make_Model_SN02_raw.csv",
-                      "C:/Users/.../Documents/test_dir/Data and Figures/sensor_data/Example_Make_Model/raw_data/Example_Make_Model_SN03_raw.csv"
-                  ]
+                  "sdfs_param": "O3",
+                  "in_file_list_idx": [0, 1, 2],
+                  "unit_transform": null,
+                  "header_class": "parameter",
+                  "drop": false
               }
           },
           "col_idx_3": {
               "PM2.5 (\u00b5g/m\u00b3)": {
-                  "SDFS_param": "PM25",
-                  "files": [
-                      "C:/Users/.../Documents/test_dir/Data and Figures/sensor_data/Example_Make_Model/raw_data/Example_Make_Model_SN01_raw.csv",
-                      "C:/Users/.../Documents/test_dir/Data and Figures/sensor_data/Example_Make_Model/raw_data/Example_Make_Model_SN02_raw.csv",
-                      "C:/Users/.../Documents/test_dir/Data and Figures/sensor_data/Example_Make_Model/raw_data/Example_Make_Model_SN03_raw.csv"
-                  ]
+                  "sdfs_param": "PM25",
+                  "in_file_list_idx": [0, 1, 2],
+                  "unit_transform": null,
+                  "header_class": "parameter",
+                  "drop": false
               }
           },
           "col_idx_4": {
               "TEMP (\u00b0C)": {
-                  "SDFS_param": "Temp",
-                  "files": [
-                      "C:/Users/.../Documents/test_dir/Data and Figures/sensor_data/Example_Make_Model/raw_data/Example_Make_Model_SN01_raw.csv",
-                      "C:/Users/.../Documents/test_dir/Data and Figures/sensor_data/Example_Make_Model/raw_data/Example_Make_Model_SN02_raw.csv",
-                      "C:/Users/.../Documents/test_dir/Data and Figures/sensor_data/Example_Make_Model/raw_data/Example_Make_Model_SN03_raw.csv"
-                  ]
+                  "sdfs_param": "Temp",
+                  "in_file_list_idx": [0, 1, 2],
+                  "unit_transform": null,
+                  "header_class": "parameter",
+                  "drop": false
               }
           },
           "col_idx_5": {
               "RH (%)": {
-                  "SDFS_param": "RH",
-                  "files": [
-                      "C:/Users/.../Documents/test_dir/Data and Figures/sensor_data/Example_Make_Model/raw_data/Example_Make_Model_SN01_raw.csv",
-                      "C:/Users/.../Documents/test_dir/Data and Figures/sensor_data/Example_Make_Model/raw_data/Example_Make_Model_SN02_raw.csv",
-                      "C:/Users/.../Documents/test_dir/Data and Figures/sensor_data/Example_Make_Model/raw_data/Example_Make_Model_SN03_raw.csv"
-                  ]
+                  "sdfs_param": "RH",
+                  "in_file_list_idx": [0, 1, 2],
+                  "unit_transform": null,
+                  "header_class": "parameter",
+                  "drop": false
               }
           },
           "col_idx_6": {
               "DP (\u00b0C)": {
-                  "SDFS_param": "DP",
-                  "files": [
-                      "C:/Users/.../Documents/test_dir/Data and Figures/sensor_data/Example_Make_Model/raw_data/Example_Make_Model_SN01_raw.csv",
-                      "C:/Users/.../Documents/test_dir/Data and Figures/sensor_data/Example_Make_Model/raw_data/Example_Make_Model_SN02_raw.csv",
-                      "C:/Users/.../Documents/test_dir/Data and Figures/sensor_data/Example_Make_Model/raw_data/Example_Make_Model_SN03_raw.csv"
-                  ]
+                  "sdfs_param": "DP",
+                  "in_file_list_idx": [0, 1, 2],
+                  "unit_transform": null,
+                  "header_class": "parameter",
+                  "drop": false
               }
           },
           "col_idx_7": {
               "Inlet": {
-                  "SDFS_param": "",
-                  "files": [
-                      "C:/Users/.../Documents/test_dir/Data and Figures/sensor_data/Example_Make_Model/raw_data/Example_Make_Model_SN01_raw.csv",
-                      "C:/Users/.../Documents/test_dir/Data and Figures/sensor_data/Example_Make_Model/raw_data/Example_Make_Model_SN02_raw.csv",
-                      "C:/Users/.../Documents/test_dir/Data and Figures/sensor_data/Example_Make_Model/raw_data/Example_Make_Model_SN03_raw.csv"
-                  ]
+                  "sdfs_param": "",
+                  "in_file_list_idx": [0, 1, 2],
+                  "header_class": "parameter",
+                  "drop": true
               }
           }
       },
-      "param_col_list": [
-          "NO2 (ppb)",
-          "O3 (ppb)",
-          "PM2.5 (\u00b5g/m\u00b3)",
-          "TEMP (\u00b0C)",
-          "RH (%)",
-          "DP (\u00b0C)",
-          "Inlet"
+      "name": "Example_Make_Model",
+      "dataset_kwargs": {
+          "name": "Example_Make_Model"
+      },
+      "_dataset_selection": "files",
+      "file_list": [
+          "C:\\Users\\...\\Documents\\sensortoolkit_testing\\data\\sensor_data\\Example_Make_Model\\raw_data\\Example_Make_Model_SN01_raw.csv",
+          "C:\\Users\\...\\Documents\\sensortoolkit_testing\\data\\sensor_data\\Example_Make_Model\\raw_data\\Example_Make_Model_SN02_raw.csv",
+          "C:\\Users\\...\\Documents\\sensortoolkit_testing\\data\\sensor_data\\Example_Make_Model\\raw_data\\Example_Make_Model_SN03_raw.csv"
       ],
-      "time_format_dict": {
-          "Time": "%Y/%m/%d %H:%M:%S"
-      }
+      "serials": {
+          "1": "SN01",
+          "2": "SN02",
+          "3": "SN03"
+      },
+      "number_of_sensors": 3
   }
 
 Reference ``setup.json``
@@ -164,11 +148,10 @@ of code correspond to reference or monitoring site specific attributes that are 
 for creating a processed (R-DFS formatted) version of the reference dataset.
 
 .. code-block:: json
-  :emphasize-lines: 37-44, 133-142
 
   {
-      "path": "C:\\Users\\SFREDE01\\OneDrive - Environmental Protection Agency (EPA)\\Profile\\Documents\\sensortoolkit_testing",
-      "data_rel_path": "/Data and Figures/reference_data/local/raw/Burdens_Creek_370630099/",
+      "path": "C:\\Users\\...\\Documents\\sensortoolkit_testing",
+      "data_rel_path": "/data/reference_data/local/raw/Burdens_Creek_370630099/",
       "data_type": "reference",
       "file_extension": ".csv",
       "header_iloc": 2,
@@ -177,26 +160,53 @@ for creating a processed (R-DFS formatted) version of the reference dataset.
           "PM25",
           "PM10"
       ],
-      "all_col_headers": [
-          "Date & Time",
-          "UV_633_370nm",
-          "BC AE33 880nm",
-          "Grimm PM2.5",
-          "Grimm PM10",
-          "GRIMM PM1",
-          "T640_2_PM25",
-          "T640_2_PM10"
-      ],
-      "timestamp_col_headers": [
-          "Date & Time"
-      ],
-      "drop_cols": [
-          "UV_633_370nm",
-          "BC AE33 880nm",
-          "Grimm PM2.5",
-          "Grimm PM10",
-          "GRIMM PM1"
-      ],
+      "col_headers": {
+          "col_idx_0": {
+              "Date & Time": {
+                  "sdfs_param": "DateTime",
+                  "in_file_list_idx": [0, 1],
+                  "header_class": "datetime",
+                  "drop": false,
+                  "dt_format": "%-m/%-d/%Y %-I:%M %p",
+                  "dt_timezone": "EST"
+              }
+          },
+          "col_idx_1": {
+              "Grimm PM2.5": {
+                  "sdfs_param": "",
+                  "in_file_list_idx": [0, 1],
+                  "header_class": "parameter",
+                  "drop": true
+              }
+          },
+          "col_idx_2": {
+              "Grimm PM10": {
+                  "sdfs_param": "",
+                  "in_file_list_idx": [0, 1],
+                  "header_class": "parameter",
+                  "drop": true
+              }
+          },
+          },
+          "col_idx_3": {
+              "T640_2_PM25": {
+                  "sdfs_param": "PM25",
+                  "in_file_list_idx": [0, 1],
+                  "unit_transform": null,
+                  "header_class": "parameter",
+                  "drop": false
+              }
+          },
+          "col_idx_4": {
+              "T640_2_PM10": {
+                  "sdfs_param": "PM10",
+                  "in_file_list_idx": [0, 1],
+                  "unit_transform": null,
+                  "header_class": "parameter",
+                  "drop": false
+              }
+          }
+      },
       "dataset_kwargs": {
           "ref_data_source": "local",
           "site_name": "Burdens_Creek",
@@ -205,110 +215,24 @@ for creating a processed (R-DFS formatted) version of the reference dataset.
       "agency": "OAQPS",
       "site_name": "Burdens Creek",
       "site_aqs": "37-063-0099",
-      "site_lat": "35.8895",
-      "site_lon": "-78.8746",
+      "site_lat": "35.88",
+      "site_lon": "-78.87",
       "fmt_site_name": "Burdens_Creek",
       "fmt_site_aqs": "370630099",
       "ref_data_subfolder": "Burdens_Creek_370630099",
       "_dataset_selection": "files",
       "file_list": [
-          "C:\\Users\\SFREDE01\\OneDrive - Environmental Protection Agency (EPA)\\Profile\\Documents\\sensortoolkit_testing\\Data and Figures\\reference_data\\local\\raw\\Burdens_Creek_370630099\\min_201908_PM.csv",
-          "C:\\Users\\SFREDE01\\OneDrive - Environmental Protection Agency (EPA)\\Profile\\Documents\\sensortoolkit_testing\\Data and Figures\\reference_data\\local\\raw\\Burdens_Creek_370630099\\min_201909_PM.csv"
+          "C:\\Users\\...\\Documents\\sensortoolkit_testing\\data\\reference_data\\local\\raw\\Burdens_Creek_370630099\\min_201908_PM.csv",
+          "C:\\Users\\...\\Documents\\sensortoolkit_testing\\data\\reference_data\\local\\raw\\Burdens_Creek_370630099\\min_201909_PM.csv"
       ],
-      "col_headers": {
-          "col_idx_0": {
-              "Date & Time": {
-                  "SDFS_param": "DateTime",
-                  "files": [
-                      "C:\\Users\\SFREDE01\\OneDrive - Environmental Protection Agency (EPA)\\Profile\\Documents\\sensortoolkit_testing\\Data and Figures\\reference_data\\local\\raw\\Burdens_Creek_370630099\\min_201908_PM.csv",
-                      "C:\\Users\\SFREDE01\\OneDrive - Environmental Protection Agency (EPA)\\Profile\\Documents\\sensortoolkit_testing\\Data and Figures\\reference_data\\local\\raw\\Burdens_Creek_370630099\\min_201909_PM.csv"
-                  ]
-              }
-          },
-          "col_idx_1": {
-              "UV_633_370nm": {
-                  "SDFS_param": "",
-                  "files": [
-                      "C:\\Users\\SFREDE01\\OneDrive - Environmental Protection Agency (EPA)\\Profile\\Documents\\sensortoolkit_testing\\Data and Figures\\reference_data\\local\\raw\\Burdens_Creek_370630099\\min_201908_PM.csv",
-                      "C:\\Users\\SFREDE01\\OneDrive - Environmental Protection Agency (EPA)\\Profile\\Documents\\sensortoolkit_testing\\Data and Figures\\reference_data\\local\\raw\\Burdens_Creek_370630099\\min_201909_PM.csv"
-                  ]
-              }
-          },
-          "col_idx_2": {
-              "BC AE33 880nm": {
-                  "SDFS_param": "",
-                  "files": [
-                      "C:\\Users\\SFREDE01\\OneDrive - Environmental Protection Agency (EPA)\\Profile\\Documents\\sensortoolkit_testing\\Data and Figures\\reference_data\\local\\raw\\Burdens_Creek_370630099\\min_201908_PM.csv",
-                      "C:\\Users\\SFREDE01\\OneDrive - Environmental Protection Agency (EPA)\\Profile\\Documents\\sensortoolkit_testing\\Data and Figures\\reference_data\\local\\raw\\Burdens_Creek_370630099\\min_201909_PM.csv"
-                  ]
-              }
-          },
-          "col_idx_3": {
-              "Grimm PM2.5": {
-                  "SDFS_param": "",
-                  "files": [
-                      "C:\\Users\\SFREDE01\\OneDrive - Environmental Protection Agency (EPA)\\Profile\\Documents\\sensortoolkit_testing\\Data and Figures\\reference_data\\local\\raw\\Burdens_Creek_370630099\\min_201908_PM.csv",
-                      "C:\\Users\\SFREDE01\\OneDrive - Environmental Protection Agency (EPA)\\Profile\\Documents\\sensortoolkit_testing\\Data and Figures\\reference_data\\local\\raw\\Burdens_Creek_370630099\\min_201909_PM.csv"
-                  ]
-              }
-          },
-          "col_idx_4": {
-              "Grimm PM10": {
-                  "SDFS_param": "",
-                  "files": [
-                      "C:\\Users\\SFREDE01\\OneDrive - Environmental Protection Agency (EPA)\\Profile\\Documents\\sensortoolkit_testing\\Data and Figures\\reference_data\\local\\raw\\Burdens_Creek_370630099\\min_201908_PM.csv",
-                      "C:\\Users\\SFREDE01\\OneDrive - Environmental Protection Agency (EPA)\\Profile\\Documents\\sensortoolkit_testing\\Data and Figures\\reference_data\\local\\raw\\Burdens_Creek_370630099\\min_201909_PM.csv"
-                  ]
-              }
-          },
-          "col_idx_5": {
-              "GRIMM PM1": {
-                  "SDFS_param": "",
-                  "files": [
-                      "C:\\Users\\SFREDE01\\OneDrive - Environmental Protection Agency (EPA)\\Profile\\Documents\\sensortoolkit_testing\\Data and Figures\\reference_data\\local\\raw\\Burdens_Creek_370630099\\min_201908_PM.csv",
-                      "C:\\Users\\SFREDE01\\OneDrive - Environmental Protection Agency (EPA)\\Profile\\Documents\\sensortoolkit_testing\\Data and Figures\\reference_data\\local\\raw\\Burdens_Creek_370630099\\min_201909_PM.csv"
-                  ]
-              }
-          },
-          "col_idx_6": {
-              "T640_2_PM25": {
-                  "SDFS_param": "PM25",
-                  "files": [
-                      "C:\\Users\\SFREDE01\\OneDrive - Environmental Protection Agency (EPA)\\Profile\\Documents\\sensortoolkit_testing\\Data and Figures\\reference_data\\local\\raw\\Burdens_Creek_370630099\\min_201908_PM.csv",
-                      "C:\\Users\\SFREDE01\\OneDrive - Environmental Protection Agency (EPA)\\Profile\\Documents\\sensortoolkit_testing\\Data and Figures\\reference_data\\local\\raw\\Burdens_Creek_370630099\\min_201909_PM.csv"
-                  ]
-              }
-          },
-          "col_idx_7": {
-              "T640_2_PM10": {
-                  "SDFS_param": "PM10",
-                  "files": [
-                      "C:\\Users\\SFREDE01\\OneDrive - Environmental Protection Agency (EPA)\\Profile\\Documents\\sensortoolkit_testing\\Data and Figures\\reference_data\\local\\raw\\Burdens_Creek_370630099\\min_201908_PM.csv",
-                      "C:\\Users\\SFREDE01\\OneDrive - Environmental Protection Agency (EPA)\\Profile\\Documents\\sensortoolkit_testing\\Data and Figures\\reference_data\\local\\raw\\Burdens_Creek_370630099\\min_201909_PM.csv"
-                  ]
-              }
-          }
-      },
-      "param_col_list": [
-          "UV_633_370nm",
-          "BC AE33 880nm",
-          "Grimm PM2.5",
-          "Grimm PM10",
-          "GRIMM PM1",
-          "T640_2_PM25",
-          "T640_2_PM10"
-      ],
-      "PM25_Unit": "ug/m^3",
-      "PM25_Param_Code": "ug/m^3",
+      "PM25_Unit": "Micrograms/cubic meter (LC)",
+      "PM25_Param_Code": "Micrograms/cubic meter (LC)",
       "PM25_Method_Code": 238,
       "PM25_Method": "Teledyne T640X at 16.67 LPM",
       "PM25_Method_POC": "1",
-      "PM10_Unit": "ug/m^3",
-      "PM10_Param_Code": "ug/m^3",
+      "PM10_Unit": "Micrograms/cubic meter (LC)",
+      "PM10_Param_Code": "Micrograms/cubic meter (LC)",
       "PM10_Method_Code": 239,
       "PM10_Method": "Teledyne API T640X at 16.67 LPM",
-      "PM10_Method_POC": "1",
-      "time_format_dict": {
-          "Date & Time": "%-m/%-d/%Y %-I:%M %p"
-      }
+      "PM10_Method_POC": "1"
   }

@@ -53,9 +53,9 @@ Arguments passed to ``SensorEvaluation``
   * - ``reference``
     - A ``sensortoolkit.ReferenceMonitor`` object.
   * - ``write_to_file``
-    - If true, evaluation statistics will be written to the
-      Data and Figures/eval_stats sensor subdirectory and figures will
-      also be written to the appropriate figures subdirectory.
+    - If true, evaluation statistics are saved to
+      ``/data/eval_stats/[name of sensor]`` and figures are
+      written to ``/figures/[name of sensor]``.
 
 Keyword Arguments passed to ``SensorEvaluation``
 """"""""""""""""""""""""""""""""""""""""""""""""
@@ -65,7 +65,7 @@ version of ``SensorEvaluation`` supports two additional keyword arguments for
 specifying information about the testing organization and evaluation location.
 
 ``testing_org``
-"""""""""""""""
+^^^^^^^^^^^^^^
 
 A dictionary containing the information about the testing organization.
 
@@ -97,10 +97,8 @@ A dictionary containing the information about the testing organization.
                  'Contact email': '[Insert email here]',
                  'Contact phone': '[Insert phone number here]'}
 
-# Add note that contact info appear in header and first table
-
 ``testing_loc``
-"""""""""""""""
+^^^^^^^^^^^^^^^
 
 A dictionary containing information about the testing site. If the site is part
 of U.S. EPA's Air Quality System (AQS), the AQS Site ID should be specified.

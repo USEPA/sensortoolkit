@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>sensortoolkit.param._parameter.Parameter &mdash; sensortoolkit 0.5.2b4 documentation</title>
+  <title>sensortoolkit.param._parameter.Parameter &mdash; sensortoolkit 0.5.6b2 documentation</title>
   
 
   
@@ -69,7 +69,7 @@
             
             
               <div class="version">
-                0.5.2b4
+                0.5.6b2
               </div>
             
           
@@ -261,10 +261,22 @@
 <li class="toctree-l4"><a class="reference internal" href="sensortoolkit.lib_utils._flatten_list.flatten_list.html">sensortoolkit.lib_utils._flatten_list.flatten_list</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="sensortoolkit.lib_utils._input_tools.html">sensortoolkit.lib_utils._input_tools</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="sensortoolkit.lib_utils._input_tools.enter_continue.html">sensortoolkit.lib_utils._input_tools.enter_continue</a></li>
+<li class="toctree-l4"><a class="reference internal" href="sensortoolkit.lib_utils._input_tools.validate_entry.html">sensortoolkit.lib_utils._input_tools.validate_entry</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="sensortoolkit.lib_utils._sensor_subfolders.html">sensortoolkit.lib_utils._sensor_subfolders</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="sensortoolkit.lib_utils._sensor_subfolders.create_sensor_directories.html">sensortoolkit.lib_utils._sensor_subfolders.create_sensor_directories</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="sensortoolkit.lib_utils._setup.html">sensortoolkit.lib_utils._setup</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="sensortoolkit.lib_utils._setup.displayMethods.html">sensortoolkit.lib_utils._setup.displayMethods</a></li>
+<li class="toctree-l4"><a class="reference internal" href="sensortoolkit.lib_utils._setup.ReferenceSetup.html">sensortoolkit.lib_utils._setup.ReferenceSetup</a></li>
+<li class="toctree-l4"><a class="reference internal" href="sensortoolkit.lib_utils._setup.SensorSetup.html">sensortoolkit.lib_utils._setup.SensorSetup</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="sensortoolkit.lib_utils._version.html">sensortoolkit.lib_utils._version</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../model.html"><code class="docutils literal notranslate"><span class="pre">sensortoolkit.model</span></code></a><ul>
@@ -367,6 +379,10 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../reference.html"><code class="docutils literal notranslate"><span class="pre">sensortoolkit.reference</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="sensortoolkit.reference._airnowtech_to_long.html">sensortoolkit.reference._airnowtech_to_long</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="sensortoolkit.reference._airnowtech_to_long.airnowtech_wide_to_long.html">sensortoolkit.reference._airnowtech_to_long.airnowtech_wide_to_long</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="sensortoolkit.reference._import_airnowtech.html">sensortoolkit.reference._import_airnowtech</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="sensortoolkit.reference._import_airnowtech.ingest_airnowtech.html">sensortoolkit.reference._import_airnowtech.ingest_airnowtech</a></li>
 <li class="toctree-l4"><a class="reference internal" href="sensortoolkit.reference._import_airnowtech.preprocess_airnowtech.html">sensortoolkit.reference._import_airnowtech.preprocess_airnowtech</a></li>
@@ -496,7 +512,7 @@
 <h1>sensortoolkit.param._parameter.Parameter<a class="headerlink" href="#sensortoolkit-param-parameter-parameter" title="Permalink to this headline">¶</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="sensortoolkit.param._parameter.Parameter">
-<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">Parameter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">param</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/sensortoolkit/param/_parameter.html#Parameter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sensortoolkit.param._parameter.Parameter" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">Parameter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">param</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">set_units</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/sensortoolkit/param/_parameter.html#Parameter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sensortoolkit.param._parameter.Parameter" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p class="rubric">Methods</p>
 <table class="longtable docutils align-default">
@@ -505,7 +521,10 @@
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#sensortoolkit.param._parameter.Parameter.set_ParameterFormatting" title="sensortoolkit.param._parameter.Parameter.set_ParameterFormatting"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_ParameterFormatting</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sensortoolkit.param._parameter.Parameter.is_sdfs" title="sensortoolkit.param._parameter.Parameter.is_sdfs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_sdfs</span></code></a></p></td>
+<td><p>Indicate whether the passed parameter name is in the catalog of parameter names for the Sensor Data Formatting Scheme.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sensortoolkit.param._parameter.Parameter.set_ParameterFormatting" title="sensortoolkit.param._parameter.Parameter.set_ParameterFormatting"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_ParameterFormatting</span></code></a></p></td>
 <td><p><dl class="field-list simple">
 <dt class="field-odd">param baseline</dt>
 <dd class="field-odd"><p>DESCRIPTION. Defaults to None.</p>
@@ -515,6 +534,21 @@
 </tr>
 </tbody>
 </table>
+<dl class="py method">
+<dt class="sig sig-object py" id="sensortoolkit.param._parameter.Parameter.is_sdfs">
+<span class="sig-name descname"><span class="pre">is_sdfs</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/sensortoolkit/param/_parameter.html#Parameter.is_sdfs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sensortoolkit.param._parameter.Parameter.is_sdfs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Indicate whether the passed parameter name is in the catalog of
+parameter names for the Sensor Data Formatting Scheme.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>DESCRIPTION.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>TYPE</p>
+</dd>
+</dl>
+</dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="sensortoolkit.param._parameter.Parameter.set_ParameterFormatting">
 <span class="sig-name descname"><span class="pre">set_ParameterFormatting</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">baseline</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subscript</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/sensortoolkit/param/_parameter.html#Parameter.set_ParameterFormatting"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sensortoolkit.param._parameter.Parameter.set_ParameterFormatting" title="Permalink to this definition">¶</a></dt>

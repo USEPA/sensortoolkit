@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>Configuration Setup JSON &mdash; sensortoolkit 0.5.2b4 documentation</title>
+  <title>Configuration Setup JSON &mdash; sensortoolkit 0.5.6b2 documentation</title>
   
 
   
@@ -69,7 +69,7 @@
             
             
               <div class="version">
-                0.5.2b4
+                0.5.6b2
               </div>
             
           
@@ -261,10 +261,22 @@
 <li class="toctree-l4"><a class="reference internal" href="../api/_autosummary/sensortoolkit.lib_utils._flatten_list.flatten_list.html">sensortoolkit.lib_utils._flatten_list.flatten_list</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="../api/_autosummary/sensortoolkit.lib_utils._input_tools.html">sensortoolkit.lib_utils._input_tools</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api/_autosummary/sensortoolkit.lib_utils._input_tools.enter_continue.html">sensortoolkit.lib_utils._input_tools.enter_continue</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/_autosummary/sensortoolkit.lib_utils._input_tools.validate_entry.html">sensortoolkit.lib_utils._input_tools.validate_entry</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="../api/_autosummary/sensortoolkit.lib_utils._sensor_subfolders.html">sensortoolkit.lib_utils._sensor_subfolders</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../api/_autosummary/sensortoolkit.lib_utils._sensor_subfolders.create_sensor_directories.html">sensortoolkit.lib_utils._sensor_subfolders.create_sensor_directories</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="../api/_autosummary/sensortoolkit.lib_utils._setup.html">sensortoolkit.lib_utils._setup</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api/_autosummary/sensortoolkit.lib_utils._setup.displayMethods.html">sensortoolkit.lib_utils._setup.displayMethods</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/_autosummary/sensortoolkit.lib_utils._setup.ReferenceSetup.html">sensortoolkit.lib_utils._setup.ReferenceSetup</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/_autosummary/sensortoolkit.lib_utils._setup.SensorSetup.html">sensortoolkit.lib_utils._setup.SensorSetup</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../api/_autosummary/sensortoolkit.lib_utils._version.html">sensortoolkit.lib_utils._version</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../api/model.html"><code class="docutils literal notranslate"><span class="pre">sensortoolkit.model</span></code></a><ul>
@@ -367,6 +379,10 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../api/reference.html"><code class="docutils literal notranslate"><span class="pre">sensortoolkit.reference</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../api/_autosummary/sensortoolkit.reference._airnowtech_to_long.html">sensortoolkit.reference._airnowtech_to_long</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api/_autosummary/sensortoolkit.reference._airnowtech_to_long.airnowtech_wide_to_long.html">sensortoolkit.reference._airnowtech_to_long.airnowtech_wide_to_long</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="../api/_autosummary/sensortoolkit.reference._import_airnowtech.html">sensortoolkit.reference._import_airnowtech</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../api/_autosummary/sensortoolkit.reference._import_airnowtech.ingest_airnowtech.html">sensortoolkit.reference._import_airnowtech.ingest_airnowtech</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../api/_autosummary/sensortoolkit.reference._import_airnowtech.preprocess_airnowtech.html">sensortoolkit.reference._import_airnowtech.preprocess_airnowtech</a></li>
@@ -508,126 +524,110 @@ is the name assigned to the sensor via <code class="docutils literal notranslate
 the users’ project directory in the following relative path:
 <code class="docutils literal notranslate"><span class="pre">\Data</span> <span class="pre">and</span> <span class="pre">Figures\sensor_data\[sensor_name]\[sensor_name]_setup.json</span></code></p>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
-    <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Example_Make_Model&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;work_path&quot;</span><span class="p">:</span> <span class="s2">&quot;C:/Users/.../Documents/my_evaluation&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;dtype&quot;</span><span class="p">:</span> <span class="s2">&quot;.csv&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;all_col_headers&quot;</span><span class="p">:</span> <span class="p">[</span>
-        <span class="s2">&quot;Time&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;NO2 (ppb)&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;O3 (ppb)&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;PM2.5 (\u00b5g/m\u00b3)&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;TEMP (\u00b0C)&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;RH (%)&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;DP (\u00b0C)&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;Inlet&quot;</span>
-    <span class="p">],</span>
-    <span class="nt">&quot;timestamp_col_headers&quot;</span><span class="p">:</span> <span class="p">[</span>
-        <span class="s2">&quot;Time&quot;</span>
-    <span class="p">],</span>
-    <span class="nt">&quot;drop_cols&quot;</span><span class="p">:</span> <span class="p">[</span>
-        <span class="s2">&quot;Inlet&quot;</span>
-    <span class="p">],</span>
+    <span class="nt">&quot;path&quot;</span><span class="p">:</span> <span class="s2">&quot;C:\\Users\\...\\Documents\\sensortoolkit_testing&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;data_rel_path&quot;</span><span class="p">:</span> <span class="s2">&quot;/data/sensor_data/Example_Make_Model/raw_data&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;data_type&quot;</span><span class="p">:</span> <span class="s2">&quot;sensor&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;file_extension&quot;</span><span class="p">:</span> <span class="s2">&quot;.csv&quot;</span><span class="p">,</span>
     <span class="nt">&quot;header_iloc&quot;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
-    <span class="nt">&quot;file_list&quot;</span><span class="p">:</span> <span class="p">[</span>
-        <span class="s2">&quot;C:/Users/.../Documents/test_dir/Data and Figures/sensor_data/Example_Make_Model/raw_data/Example_Make_Model_SN01_raw.csv&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;C:/Users/.../Documents/test_dir/Data and Figures/sensor_data/Example_Make_Model/raw_data/Example_Make_Model_SN02_raw.csv&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;C:/Users/.../Documents/test_dir/Data and Figures/sensor_data/Example_Make_Model/raw_data/Example_Make_Model_SN03_raw.csv&quot;</span>
+    <span class="nt">&quot;data_row_idx&quot;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+    <span class="nt">&quot;sdfs_header_names&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="s2">&quot;NO2&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;O3&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;PM25&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Temp&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;RH&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;DP&quot;</span>
     <span class="p">],</span>
-    <span class="nt">&quot;data_path&quot;</span><span class="p">:</span> <span class="s2">&quot;C:/Users/.../Documents/test_dir/Data and Figures/sensor_data/Example_Make_Model/raw_data&quot;</span><span class="p">,</span>
     <span class="nt">&quot;col_headers&quot;</span><span class="p">:</span> <span class="p">{</span>
         <span class="nt">&quot;col_idx_0&quot;</span><span class="p">:</span> <span class="p">{</span>
             <span class="nt">&quot;Time&quot;</span><span class="p">:</span> <span class="p">{</span>
-                <span class="nt">&quot;SDFS_param&quot;</span><span class="p">:</span> <span class="s2">&quot;DateTime&quot;</span><span class="p">,</span>
-                <span class="nt">&quot;files&quot;</span><span class="p">:</span> <span class="p">[</span>
-                    <span class="s2">&quot;C:/Users/.../Documents/test_dir/Data and Figures/sensor_data/Example_Make_Model/raw_data/Example_Make_Model_SN01_raw.csv&quot;</span>
-                    <span class="s2">&quot;C:/Users/.../Documents/test_dir/Data and Figures/sensor_data/Example_Make_Model/raw_data/Example_Make_Model_SN02_raw.csv&quot;</span><span class="p">,</span>
-                    <span class="s2">&quot;C:/Users/.../Documents/test_dir/Data and Figures/sensor_data/Example_Make_Model/raw_data/Example_Make_Model_SN03_raw.csv&quot;</span>
-                <span class="p">]</span>
+                <span class="nt">&quot;sdfs_param&quot;</span><span class="p">:</span> <span class="s2">&quot;DateTime&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;in_file_list_idx&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span>
+                <span class="nt">&quot;header_class&quot;</span><span class="p">:</span> <span class="s2">&quot;datetime&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;drop&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+                <span class="nt">&quot;dt_format&quot;</span><span class="p">:</span> <span class="s2">&quot;%Y/%m/%d %H:%M:%S&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;dt_timezone&quot;</span><span class="p">:</span> <span class="s2">&quot;EST&quot;</span>
             <span class="p">}</span>
         <span class="p">},</span>
         <span class="nt">&quot;col_idx_1&quot;</span><span class="p">:</span> <span class="p">{</span>
             <span class="nt">&quot;NO2 (ppb)&quot;</span><span class="p">:</span> <span class="p">{</span>
-                <span class="nt">&quot;SDFS_param&quot;</span><span class="p">:</span> <span class="s2">&quot;NO2&quot;</span><span class="p">,</span>
-                <span class="nt">&quot;files&quot;</span><span class="p">:</span> <span class="p">[</span>
-                    <span class="s2">&quot;C:/Users/.../Documents/test_dir/Data and Figures/sensor_data/Example_Make_Model/raw_data/Example_Make_Model_SN01_raw.csv&quot;</span><span class="p">,</span>
-                    <span class="s2">&quot;C:/Users/.../Documents/test_dir/Data and Figures/sensor_data/Example_Make_Model/raw_data/Example_Make_Model_SN02_raw.csv&quot;</span><span class="p">,</span>
-                    <span class="s2">&quot;C:/Users/.../Documents/test_dir/Data and Figures/sensor_data/Example_Make_Model/raw_data/Example_Make_Model_SN03_raw.csv&quot;</span>
-                <span class="p">]</span>
+                <span class="nt">&quot;sdfs_param&quot;</span><span class="p">:</span> <span class="s2">&quot;NO2&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;in_file_list_idx&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span>
+                <span class="nt">&quot;unit_transform&quot;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+                <span class="nt">&quot;header_class&quot;</span><span class="p">:</span> <span class="s2">&quot;parameter&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;drop&quot;</span><span class="p">:</span> <span class="kc">false</span>
             <span class="p">}</span>
         <span class="p">},</span>
         <span class="nt">&quot;col_idx_2&quot;</span><span class="p">:</span> <span class="p">{</span>
             <span class="nt">&quot;O3 (ppb)&quot;</span><span class="p">:</span> <span class="p">{</span>
-                <span class="nt">&quot;SDFS_param&quot;</span><span class="p">:</span> <span class="s2">&quot;O3&quot;</span><span class="p">,</span>
-                <span class="nt">&quot;files&quot;</span><span class="p">:</span> <span class="p">[</span>
-                    <span class="s2">&quot;C:/Users/.../Documents/test_dir/Data and Figures/sensor_data/Example_Make_Model/raw_data/Example_Make_Model_SN01_raw.csv&quot;</span><span class="p">,</span>
-                    <span class="s2">&quot;C:/Users/.../Documents/test_dir/Data and Figures/sensor_data/Example_Make_Model/raw_data/Example_Make_Model_SN02_raw.csv&quot;</span><span class="p">,</span>
-                    <span class="s2">&quot;C:/Users/.../Documents/test_dir/Data and Figures/sensor_data/Example_Make_Model/raw_data/Example_Make_Model_SN03_raw.csv&quot;</span>
-                <span class="p">]</span>
+                <span class="nt">&quot;sdfs_param&quot;</span><span class="p">:</span> <span class="s2">&quot;O3&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;in_file_list_idx&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span>
+                <span class="nt">&quot;unit_transform&quot;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+                <span class="nt">&quot;header_class&quot;</span><span class="p">:</span> <span class="s2">&quot;parameter&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;drop&quot;</span><span class="p">:</span> <span class="kc">false</span>
             <span class="p">}</span>
         <span class="p">},</span>
         <span class="nt">&quot;col_idx_3&quot;</span><span class="p">:</span> <span class="p">{</span>
             <span class="nt">&quot;PM2.5 (\u00b5g/m\u00b3)&quot;</span><span class="p">:</span> <span class="p">{</span>
-                <span class="nt">&quot;SDFS_param&quot;</span><span class="p">:</span> <span class="s2">&quot;PM25&quot;</span><span class="p">,</span>
-                <span class="nt">&quot;files&quot;</span><span class="p">:</span> <span class="p">[</span>
-                    <span class="s2">&quot;C:/Users/.../Documents/test_dir/Data and Figures/sensor_data/Example_Make_Model/raw_data/Example_Make_Model_SN01_raw.csv&quot;</span><span class="p">,</span>
-                    <span class="s2">&quot;C:/Users/.../Documents/test_dir/Data and Figures/sensor_data/Example_Make_Model/raw_data/Example_Make_Model_SN02_raw.csv&quot;</span><span class="p">,</span>
-                    <span class="s2">&quot;C:/Users/.../Documents/test_dir/Data and Figures/sensor_data/Example_Make_Model/raw_data/Example_Make_Model_SN03_raw.csv&quot;</span>
-                <span class="p">]</span>
+                <span class="nt">&quot;sdfs_param&quot;</span><span class="p">:</span> <span class="s2">&quot;PM25&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;in_file_list_idx&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span>
+                <span class="nt">&quot;unit_transform&quot;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+                <span class="nt">&quot;header_class&quot;</span><span class="p">:</span> <span class="s2">&quot;parameter&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;drop&quot;</span><span class="p">:</span> <span class="kc">false</span>
             <span class="p">}</span>
         <span class="p">},</span>
         <span class="nt">&quot;col_idx_4&quot;</span><span class="p">:</span> <span class="p">{</span>
             <span class="nt">&quot;TEMP (\u00b0C)&quot;</span><span class="p">:</span> <span class="p">{</span>
-                <span class="nt">&quot;SDFS_param&quot;</span><span class="p">:</span> <span class="s2">&quot;Temp&quot;</span><span class="p">,</span>
-                <span class="nt">&quot;files&quot;</span><span class="p">:</span> <span class="p">[</span>
-                    <span class="s2">&quot;C:/Users/.../Documents/test_dir/Data and Figures/sensor_data/Example_Make_Model/raw_data/Example_Make_Model_SN01_raw.csv&quot;</span><span class="p">,</span>
-                    <span class="s2">&quot;C:/Users/.../Documents/test_dir/Data and Figures/sensor_data/Example_Make_Model/raw_data/Example_Make_Model_SN02_raw.csv&quot;</span><span class="p">,</span>
-                    <span class="s2">&quot;C:/Users/.../Documents/test_dir/Data and Figures/sensor_data/Example_Make_Model/raw_data/Example_Make_Model_SN03_raw.csv&quot;</span>
-                <span class="p">]</span>
+                <span class="nt">&quot;sdfs_param&quot;</span><span class="p">:</span> <span class="s2">&quot;Temp&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;in_file_list_idx&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span>
+                <span class="nt">&quot;unit_transform&quot;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+                <span class="nt">&quot;header_class&quot;</span><span class="p">:</span> <span class="s2">&quot;parameter&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;drop&quot;</span><span class="p">:</span> <span class="kc">false</span>
             <span class="p">}</span>
         <span class="p">},</span>
         <span class="nt">&quot;col_idx_5&quot;</span><span class="p">:</span> <span class="p">{</span>
             <span class="nt">&quot;RH (%)&quot;</span><span class="p">:</span> <span class="p">{</span>
-                <span class="nt">&quot;SDFS_param&quot;</span><span class="p">:</span> <span class="s2">&quot;RH&quot;</span><span class="p">,</span>
-                <span class="nt">&quot;files&quot;</span><span class="p">:</span> <span class="p">[</span>
-                    <span class="s2">&quot;C:/Users/.../Documents/test_dir/Data and Figures/sensor_data/Example_Make_Model/raw_data/Example_Make_Model_SN01_raw.csv&quot;</span><span class="p">,</span>
-                    <span class="s2">&quot;C:/Users/.../Documents/test_dir/Data and Figures/sensor_data/Example_Make_Model/raw_data/Example_Make_Model_SN02_raw.csv&quot;</span><span class="p">,</span>
-                    <span class="s2">&quot;C:/Users/.../Documents/test_dir/Data and Figures/sensor_data/Example_Make_Model/raw_data/Example_Make_Model_SN03_raw.csv&quot;</span>
-                <span class="p">]</span>
+                <span class="nt">&quot;sdfs_param&quot;</span><span class="p">:</span> <span class="s2">&quot;RH&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;in_file_list_idx&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span>
+                <span class="nt">&quot;unit_transform&quot;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+                <span class="nt">&quot;header_class&quot;</span><span class="p">:</span> <span class="s2">&quot;parameter&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;drop&quot;</span><span class="p">:</span> <span class="kc">false</span>
             <span class="p">}</span>
         <span class="p">},</span>
         <span class="nt">&quot;col_idx_6&quot;</span><span class="p">:</span> <span class="p">{</span>
             <span class="nt">&quot;DP (\u00b0C)&quot;</span><span class="p">:</span> <span class="p">{</span>
-                <span class="nt">&quot;SDFS_param&quot;</span><span class="p">:</span> <span class="s2">&quot;DP&quot;</span><span class="p">,</span>
-                <span class="nt">&quot;files&quot;</span><span class="p">:</span> <span class="p">[</span>
-                    <span class="s2">&quot;C:/Users/.../Documents/test_dir/Data and Figures/sensor_data/Example_Make_Model/raw_data/Example_Make_Model_SN01_raw.csv&quot;</span><span class="p">,</span>
-                    <span class="s2">&quot;C:/Users/.../Documents/test_dir/Data and Figures/sensor_data/Example_Make_Model/raw_data/Example_Make_Model_SN02_raw.csv&quot;</span><span class="p">,</span>
-                    <span class="s2">&quot;C:/Users/.../Documents/test_dir/Data and Figures/sensor_data/Example_Make_Model/raw_data/Example_Make_Model_SN03_raw.csv&quot;</span>
-                <span class="p">]</span>
+                <span class="nt">&quot;sdfs_param&quot;</span><span class="p">:</span> <span class="s2">&quot;DP&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;in_file_list_idx&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span>
+                <span class="nt">&quot;unit_transform&quot;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+                <span class="nt">&quot;header_class&quot;</span><span class="p">:</span> <span class="s2">&quot;parameter&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;drop&quot;</span><span class="p">:</span> <span class="kc">false</span>
             <span class="p">}</span>
         <span class="p">},</span>
         <span class="nt">&quot;col_idx_7&quot;</span><span class="p">:</span> <span class="p">{</span>
             <span class="nt">&quot;Inlet&quot;</span><span class="p">:</span> <span class="p">{</span>
-                <span class="nt">&quot;SDFS_param&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
-                <span class="nt">&quot;files&quot;</span><span class="p">:</span> <span class="p">[</span>
-                    <span class="s2">&quot;C:/Users/.../Documents/test_dir/Data and Figures/sensor_data/Example_Make_Model/raw_data/Example_Make_Model_SN01_raw.csv&quot;</span><span class="p">,</span>
-                    <span class="s2">&quot;C:/Users/.../Documents/test_dir/Data and Figures/sensor_data/Example_Make_Model/raw_data/Example_Make_Model_SN02_raw.csv&quot;</span><span class="p">,</span>
-                    <span class="s2">&quot;C:/Users/.../Documents/test_dir/Data and Figures/sensor_data/Example_Make_Model/raw_data/Example_Make_Model_SN03_raw.csv&quot;</span>
-                <span class="p">]</span>
+                <span class="nt">&quot;sdfs_param&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;in_file_list_idx&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span>
+                <span class="nt">&quot;header_class&quot;</span><span class="p">:</span> <span class="s2">&quot;parameter&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;drop&quot;</span><span class="p">:</span> <span class="kc">true</span>
             <span class="p">}</span>
         <span class="p">}</span>
     <span class="p">},</span>
-    <span class="nt">&quot;param_col_list&quot;</span><span class="p">:</span> <span class="p">[</span>
-        <span class="s2">&quot;NO2 (ppb)&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;O3 (ppb)&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;PM2.5 (\u00b5g/m\u00b3)&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;TEMP (\u00b0C)&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;RH (%)&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;DP (\u00b0C)&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;Inlet&quot;</span>
+    <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Example_Make_Model&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;dataset_kwargs&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Example_Make_Model&quot;</span>
+    <span class="p">},</span>
+    <span class="nt">&quot;_dataset_selection&quot;</span><span class="p">:</span> <span class="s2">&quot;files&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;file_list&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="s2">&quot;C:\\Users\\...\\Documents\\sensortoolkit_testing\\data\\sensor_data\\Example_Make_Model\\raw_data\\Example_Make_Model_SN01_raw.csv&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;C:\\Users\\...\\Documents\\sensortoolkit_testing\\data\\sensor_data\\Example_Make_Model\\raw_data\\Example_Make_Model_SN02_raw.csv&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;C:\\Users\\...\\Documents\\sensortoolkit_testing\\data\\sensor_data\\Example_Make_Model\\raw_data\\Example_Make_Model_SN03_raw.csv&quot;</span>
     <span class="p">],</span>
-    <span class="nt">&quot;time_format_dict&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="nt">&quot;Time&quot;</span><span class="p">:</span> <span class="s2">&quot;%Y/%m/%d %H:%M:%S&quot;</span>
-    <span class="p">}</span>
+    <span class="nt">&quot;serials&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;1&quot;</span><span class="p">:</span> <span class="s2">&quot;SN01&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;2&quot;</span><span class="p">:</span> <span class="s2">&quot;SN02&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;3&quot;</span><span class="p">:</span> <span class="s2">&quot;SN03&quot;</span>
+    <span class="p">},</span>
+    <span class="nt">&quot;number_of_sensors&quot;</span><span class="p">:</span> <span class="mi">3</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -646,8 +646,8 @@ reference setup.json files share many similar attributes, however highlighted se
 of code correspond to reference or monitoring site specific attributes that are important
 for creating a processed (R-DFS formatted) version of the reference dataset.</p>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
-    <span class="nt">&quot;path&quot;</span><span class="p">:</span> <span class="s2">&quot;C:\\Users\\SFREDE01\\OneDrive - Environmental Protection Agency (EPA)\\Profile\\Documents\\sensortoolkit_testing&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;data_rel_path&quot;</span><span class="p">:</span> <span class="s2">&quot;/Data and Figures/reference_data/local/raw/Burdens_Creek_370630099/&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;path&quot;</span><span class="p">:</span> <span class="s2">&quot;C:\\Users\\...\\Documents\\sensortoolkit_testing&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;data_rel_path&quot;</span><span class="p">:</span> <span class="s2">&quot;/data/reference_data/local/raw/Burdens_Creek_370630099/&quot;</span><span class="p">,</span>
     <span class="nt">&quot;data_type&quot;</span><span class="p">:</span> <span class="s2">&quot;reference&quot;</span><span class="p">,</span>
     <span class="nt">&quot;file_extension&quot;</span><span class="p">:</span> <span class="s2">&quot;.csv&quot;</span><span class="p">,</span>
     <span class="nt">&quot;header_iloc&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
@@ -656,140 +656,81 @@ for creating a processed (R-DFS formatted) version of the reference dataset.</p>
         <span class="s2">&quot;PM25&quot;</span><span class="p">,</span>
         <span class="s2">&quot;PM10&quot;</span>
     <span class="p">],</span>
-    <span class="nt">&quot;all_col_headers&quot;</span><span class="p">:</span> <span class="p">[</span>
-        <span class="s2">&quot;Date &amp; Time&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;UV_633_370nm&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;BC AE33 880nm&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;Grimm PM2.5&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;Grimm PM10&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;GRIMM PM1&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;T640_2_PM25&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;T640_2_PM10&quot;</span>
-    <span class="p">],</span>
-    <span class="nt">&quot;timestamp_col_headers&quot;</span><span class="p">:</span> <span class="p">[</span>
-        <span class="s2">&quot;Date &amp; Time&quot;</span>
-    <span class="p">],</span>
-    <span class="nt">&quot;drop_cols&quot;</span><span class="p">:</span> <span class="p">[</span>
-        <span class="s2">&quot;UV_633_370nm&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;BC AE33 880nm&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;Grimm PM2.5&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;Grimm PM10&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;GRIMM PM1&quot;</span>
-    <span class="p">],</span>
+    <span class="nt">&quot;col_headers&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;col_idx_0&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;Date &amp; Time&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">&quot;sdfs_param&quot;</span><span class="p">:</span> <span class="s2">&quot;DateTime&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;in_file_list_idx&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+                <span class="nt">&quot;header_class&quot;</span><span class="p">:</span> <span class="s2">&quot;datetime&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;drop&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+                <span class="nt">&quot;dt_format&quot;</span><span class="p">:</span> <span class="s2">&quot;%-m/%-d/%Y %-I:%M %p&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;dt_timezone&quot;</span><span class="p">:</span> <span class="s2">&quot;EST&quot;</span>
+            <span class="p">}</span>
+        <span class="p">},</span>
+        <span class="nt">&quot;col_idx_1&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;Grimm PM2.5&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">&quot;sdfs_param&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;in_file_list_idx&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+                <span class="nt">&quot;header_class&quot;</span><span class="p">:</span> <span class="s2">&quot;parameter&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;drop&quot;</span><span class="p">:</span> <span class="kc">true</span>
+            <span class="p">}</span>
+        <span class="p">},</span>
+        <span class="nt">&quot;col_idx_2&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;Grimm PM10&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">&quot;sdfs_param&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;in_file_list_idx&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+                <span class="nt">&quot;header_class&quot;</span><span class="p">:</span> <span class="s2">&quot;parameter&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;drop&quot;</span><span class="p">:</span> <span class="kc">true</span>
+            <span class="p">}</span>
+        <span class="p">},</span>
+        <span class="p">},</span>
+        <span class="nt">&quot;col_idx_3&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;T640_2_PM25&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">&quot;sdfs_param&quot;</span><span class="p">:</span> <span class="s2">&quot;PM25&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;in_file_list_idx&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+                <span class="nt">&quot;unit_transform&quot;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+                <span class="nt">&quot;header_class&quot;</span><span class="p">:</span> <span class="s2">&quot;parameter&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;drop&quot;</span><span class="p">:</span> <span class="kc">false</span>
+            <span class="p">}</span>
+        <span class="p">},</span>
+        <span class="nt">&quot;col_idx_4&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;T640_2_PM10&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">&quot;sdfs_param&quot;</span><span class="p">:</span> <span class="s2">&quot;PM10&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;in_file_list_idx&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+                <span class="nt">&quot;unit_transform&quot;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+                <span class="nt">&quot;header_class&quot;</span><span class="p">:</span> <span class="s2">&quot;parameter&quot;</span><span class="p">,</span>
+                <span class="nt">&quot;drop&quot;</span><span class="p">:</span> <span class="kc">false</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">},</span>
     <span class="nt">&quot;dataset_kwargs&quot;</span><span class="p">:</span> <span class="p">{</span>
         <span class="nt">&quot;ref_data_source&quot;</span><span class="p">:</span> <span class="s2">&quot;local&quot;</span><span class="p">,</span>
         <span class="nt">&quot;site_name&quot;</span><span class="p">:</span> <span class="s2">&quot;Burdens_Creek&quot;</span><span class="p">,</span>
         <span class="nt">&quot;site_aqs&quot;</span><span class="p">:</span> <span class="s2">&quot;370630099&quot;</span>
     <span class="p">},</span>
-<span class="hll">    <span class="nt">&quot;agency&quot;</span><span class="p">:</span> <span class="s2">&quot;OAQPS&quot;</span><span class="p">,</span>
-</span><span class="hll">    <span class="nt">&quot;site_name&quot;</span><span class="p">:</span> <span class="s2">&quot;Burdens Creek&quot;</span><span class="p">,</span>
-</span><span class="hll">    <span class="nt">&quot;site_aqs&quot;</span><span class="p">:</span> <span class="s2">&quot;37-063-0099&quot;</span><span class="p">,</span>
-</span><span class="hll">    <span class="nt">&quot;site_lat&quot;</span><span class="p">:</span> <span class="s2">&quot;35.8895&quot;</span><span class="p">,</span>
-</span><span class="hll">    <span class="nt">&quot;site_lon&quot;</span><span class="p">:</span> <span class="s2">&quot;-78.8746&quot;</span><span class="p">,</span>
-</span><span class="hll">    <span class="nt">&quot;fmt_site_name&quot;</span><span class="p">:</span> <span class="s2">&quot;Burdens_Creek&quot;</span><span class="p">,</span>
-</span><span class="hll">    <span class="nt">&quot;fmt_site_aqs&quot;</span><span class="p">:</span> <span class="s2">&quot;370630099&quot;</span><span class="p">,</span>
-</span><span class="hll">    <span class="nt">&quot;ref_data_subfolder&quot;</span><span class="p">:</span> <span class="s2">&quot;Burdens_Creek_370630099&quot;</span><span class="p">,</span>
-</span>    <span class="nt">&quot;_dataset_selection&quot;</span><span class="p">:</span> <span class="s2">&quot;files&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;agency&quot;</span><span class="p">:</span> <span class="s2">&quot;OAQPS&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;site_name&quot;</span><span class="p">:</span> <span class="s2">&quot;Burdens Creek&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;site_aqs&quot;</span><span class="p">:</span> <span class="s2">&quot;37-063-0099&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;site_lat&quot;</span><span class="p">:</span> <span class="s2">&quot;35.88&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;site_lon&quot;</span><span class="p">:</span> <span class="s2">&quot;-78.87&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;fmt_site_name&quot;</span><span class="p">:</span> <span class="s2">&quot;Burdens_Creek&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;fmt_site_aqs&quot;</span><span class="p">:</span> <span class="s2">&quot;370630099&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;ref_data_subfolder&quot;</span><span class="p">:</span> <span class="s2">&quot;Burdens_Creek_370630099&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;_dataset_selection&quot;</span><span class="p">:</span> <span class="s2">&quot;files&quot;</span><span class="p">,</span>
     <span class="nt">&quot;file_list&quot;</span><span class="p">:</span> <span class="p">[</span>
-        <span class="s2">&quot;C:\\Users\\SFREDE01\\OneDrive - Environmental Protection Agency (EPA)\\Profile\\Documents\\sensortoolkit_testing\\Data and Figures\\reference_data\\local\\raw\\Burdens_Creek_370630099\\min_201908_PM.csv&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;C:\\Users\\SFREDE01\\OneDrive - Environmental Protection Agency (EPA)\\Profile\\Documents\\sensortoolkit_testing\\Data and Figures\\reference_data\\local\\raw\\Burdens_Creek_370630099\\min_201909_PM.csv&quot;</span>
+        <span class="s2">&quot;C:\\Users\\...\\Documents\\sensortoolkit_testing\\data\\reference_data\\local\\raw\\Burdens_Creek_370630099\\min_201908_PM.csv&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;C:\\Users\\...\\Documents\\sensortoolkit_testing\\data\\reference_data\\local\\raw\\Burdens_Creek_370630099\\min_201909_PM.csv&quot;</span>
     <span class="p">],</span>
-    <span class="nt">&quot;col_headers&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="nt">&quot;col_idx_0&quot;</span><span class="p">:</span> <span class="p">{</span>
-            <span class="nt">&quot;Date &amp; Time&quot;</span><span class="p">:</span> <span class="p">{</span>
-                <span class="nt">&quot;SDFS_param&quot;</span><span class="p">:</span> <span class="s2">&quot;DateTime&quot;</span><span class="p">,</span>
-                <span class="nt">&quot;files&quot;</span><span class="p">:</span> <span class="p">[</span>
-                    <span class="s2">&quot;C:\\Users\\SFREDE01\\OneDrive - Environmental Protection Agency (EPA)\\Profile\\Documents\\sensortoolkit_testing\\Data and Figures\\reference_data\\local\\raw\\Burdens_Creek_370630099\\min_201908_PM.csv&quot;</span><span class="p">,</span>
-                    <span class="s2">&quot;C:\\Users\\SFREDE01\\OneDrive - Environmental Protection Agency (EPA)\\Profile\\Documents\\sensortoolkit_testing\\Data and Figures\\reference_data\\local\\raw\\Burdens_Creek_370630099\\min_201909_PM.csv&quot;</span>
-                <span class="p">]</span>
-            <span class="p">}</span>
-        <span class="p">},</span>
-        <span class="nt">&quot;col_idx_1&quot;</span><span class="p">:</span> <span class="p">{</span>
-            <span class="nt">&quot;UV_633_370nm&quot;</span><span class="p">:</span> <span class="p">{</span>
-                <span class="nt">&quot;SDFS_param&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
-                <span class="nt">&quot;files&quot;</span><span class="p">:</span> <span class="p">[</span>
-                    <span class="s2">&quot;C:\\Users\\SFREDE01\\OneDrive - Environmental Protection Agency (EPA)\\Profile\\Documents\\sensortoolkit_testing\\Data and Figures\\reference_data\\local\\raw\\Burdens_Creek_370630099\\min_201908_PM.csv&quot;</span><span class="p">,</span>
-                    <span class="s2">&quot;C:\\Users\\SFREDE01\\OneDrive - Environmental Protection Agency (EPA)\\Profile\\Documents\\sensortoolkit_testing\\Data and Figures\\reference_data\\local\\raw\\Burdens_Creek_370630099\\min_201909_PM.csv&quot;</span>
-                <span class="p">]</span>
-            <span class="p">}</span>
-        <span class="p">},</span>
-        <span class="nt">&quot;col_idx_2&quot;</span><span class="p">:</span> <span class="p">{</span>
-            <span class="nt">&quot;BC AE33 880nm&quot;</span><span class="p">:</span> <span class="p">{</span>
-                <span class="nt">&quot;SDFS_param&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
-                <span class="nt">&quot;files&quot;</span><span class="p">:</span> <span class="p">[</span>
-                    <span class="s2">&quot;C:\\Users\\SFREDE01\\OneDrive - Environmental Protection Agency (EPA)\\Profile\\Documents\\sensortoolkit_testing\\Data and Figures\\reference_data\\local\\raw\\Burdens_Creek_370630099\\min_201908_PM.csv&quot;</span><span class="p">,</span>
-                    <span class="s2">&quot;C:\\Users\\SFREDE01\\OneDrive - Environmental Protection Agency (EPA)\\Profile\\Documents\\sensortoolkit_testing\\Data and Figures\\reference_data\\local\\raw\\Burdens_Creek_370630099\\min_201909_PM.csv&quot;</span>
-                <span class="p">]</span>
-            <span class="p">}</span>
-        <span class="p">},</span>
-        <span class="nt">&quot;col_idx_3&quot;</span><span class="p">:</span> <span class="p">{</span>
-            <span class="nt">&quot;Grimm PM2.5&quot;</span><span class="p">:</span> <span class="p">{</span>
-                <span class="nt">&quot;SDFS_param&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
-                <span class="nt">&quot;files&quot;</span><span class="p">:</span> <span class="p">[</span>
-                    <span class="s2">&quot;C:\\Users\\SFREDE01\\OneDrive - Environmental Protection Agency (EPA)\\Profile\\Documents\\sensortoolkit_testing\\Data and Figures\\reference_data\\local\\raw\\Burdens_Creek_370630099\\min_201908_PM.csv&quot;</span><span class="p">,</span>
-                    <span class="s2">&quot;C:\\Users\\SFREDE01\\OneDrive - Environmental Protection Agency (EPA)\\Profile\\Documents\\sensortoolkit_testing\\Data and Figures\\reference_data\\local\\raw\\Burdens_Creek_370630099\\min_201909_PM.csv&quot;</span>
-                <span class="p">]</span>
-            <span class="p">}</span>
-        <span class="p">},</span>
-        <span class="nt">&quot;col_idx_4&quot;</span><span class="p">:</span> <span class="p">{</span>
-            <span class="nt">&quot;Grimm PM10&quot;</span><span class="p">:</span> <span class="p">{</span>
-                <span class="nt">&quot;SDFS_param&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
-                <span class="nt">&quot;files&quot;</span><span class="p">:</span> <span class="p">[</span>
-                    <span class="s2">&quot;C:\\Users\\SFREDE01\\OneDrive - Environmental Protection Agency (EPA)\\Profile\\Documents\\sensortoolkit_testing\\Data and Figures\\reference_data\\local\\raw\\Burdens_Creek_370630099\\min_201908_PM.csv&quot;</span><span class="p">,</span>
-                    <span class="s2">&quot;C:\\Users\\SFREDE01\\OneDrive - Environmental Protection Agency (EPA)\\Profile\\Documents\\sensortoolkit_testing\\Data and Figures\\reference_data\\local\\raw\\Burdens_Creek_370630099\\min_201909_PM.csv&quot;</span>
-                <span class="p">]</span>
-            <span class="p">}</span>
-        <span class="p">},</span>
-        <span class="nt">&quot;col_idx_5&quot;</span><span class="p">:</span> <span class="p">{</span>
-            <span class="nt">&quot;GRIMM PM1&quot;</span><span class="p">:</span> <span class="p">{</span>
-                <span class="nt">&quot;SDFS_param&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
-                <span class="nt">&quot;files&quot;</span><span class="p">:</span> <span class="p">[</span>
-                    <span class="s2">&quot;C:\\Users\\SFREDE01\\OneDrive - Environmental Protection Agency (EPA)\\Profile\\Documents\\sensortoolkit_testing\\Data and Figures\\reference_data\\local\\raw\\Burdens_Creek_370630099\\min_201908_PM.csv&quot;</span><span class="p">,</span>
-                    <span class="s2">&quot;C:\\Users\\SFREDE01\\OneDrive - Environmental Protection Agency (EPA)\\Profile\\Documents\\sensortoolkit_testing\\Data and Figures\\reference_data\\local\\raw\\Burdens_Creek_370630099\\min_201909_PM.csv&quot;</span>
-                <span class="p">]</span>
-            <span class="p">}</span>
-        <span class="p">},</span>
-        <span class="nt">&quot;col_idx_6&quot;</span><span class="p">:</span> <span class="p">{</span>
-            <span class="nt">&quot;T640_2_PM25&quot;</span><span class="p">:</span> <span class="p">{</span>
-                <span class="nt">&quot;SDFS_param&quot;</span><span class="p">:</span> <span class="s2">&quot;PM25&quot;</span><span class="p">,</span>
-                <span class="nt">&quot;files&quot;</span><span class="p">:</span> <span class="p">[</span>
-                    <span class="s2">&quot;C:\\Users\\SFREDE01\\OneDrive - Environmental Protection Agency (EPA)\\Profile\\Documents\\sensortoolkit_testing\\Data and Figures\\reference_data\\local\\raw\\Burdens_Creek_370630099\\min_201908_PM.csv&quot;</span><span class="p">,</span>
-                    <span class="s2">&quot;C:\\Users\\SFREDE01\\OneDrive - Environmental Protection Agency (EPA)\\Profile\\Documents\\sensortoolkit_testing\\Data and Figures\\reference_data\\local\\raw\\Burdens_Creek_370630099\\min_201909_PM.csv&quot;</span>
-                <span class="p">]</span>
-            <span class="p">}</span>
-        <span class="p">},</span>
-        <span class="nt">&quot;col_idx_7&quot;</span><span class="p">:</span> <span class="p">{</span>
-            <span class="nt">&quot;T640_2_PM10&quot;</span><span class="p">:</span> <span class="p">{</span>
-                <span class="nt">&quot;SDFS_param&quot;</span><span class="p">:</span> <span class="s2">&quot;PM10&quot;</span><span class="p">,</span>
-                <span class="nt">&quot;files&quot;</span><span class="p">:</span> <span class="p">[</span>
-                    <span class="s2">&quot;C:\\Users\\SFREDE01\\OneDrive - Environmental Protection Agency (EPA)\\Profile\\Documents\\sensortoolkit_testing\\Data and Figures\\reference_data\\local\\raw\\Burdens_Creek_370630099\\min_201908_PM.csv&quot;</span><span class="p">,</span>
-                    <span class="s2">&quot;C:\\Users\\SFREDE01\\OneDrive - Environmental Protection Agency (EPA)\\Profile\\Documents\\sensortoolkit_testing\\Data and Figures\\reference_data\\local\\raw\\Burdens_Creek_370630099\\min_201909_PM.csv&quot;</span>
-                <span class="p">]</span>
-            <span class="p">}</span>
-        <span class="p">}</span>
-    <span class="p">},</span>
-    <span class="nt">&quot;param_col_list&quot;</span><span class="p">:</span> <span class="p">[</span>
-        <span class="s2">&quot;UV_633_370nm&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;BC AE33 880nm&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;Grimm PM2.5&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;Grimm PM10&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;GRIMM PM1&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;T640_2_PM25&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;T640_2_PM10&quot;</span>
-    <span class="p">],</span>
-<span class="hll">    <span class="nt">&quot;PM25_Unit&quot;</span><span class="p">:</span> <span class="s2">&quot;ug/m^3&quot;</span><span class="p">,</span>
-</span><span class="hll">    <span class="nt">&quot;PM25_Param_Code&quot;</span><span class="p">:</span> <span class="s2">&quot;ug/m^3&quot;</span><span class="p">,</span>
-</span><span class="hll">    <span class="nt">&quot;PM25_Method_Code&quot;</span><span class="p">:</span> <span class="mi">238</span><span class="p">,</span>
-</span><span class="hll">    <span class="nt">&quot;PM25_Method&quot;</span><span class="p">:</span> <span class="s2">&quot;Teledyne T640X at 16.67 LPM&quot;</span><span class="p">,</span>
-</span><span class="hll">    <span class="nt">&quot;PM25_Method_POC&quot;</span><span class="p">:</span> <span class="s2">&quot;1&quot;</span><span class="p">,</span>
-</span><span class="hll">    <span class="nt">&quot;PM10_Unit&quot;</span><span class="p">:</span> <span class="s2">&quot;ug/m^3&quot;</span><span class="p">,</span>
-</span><span class="hll">    <span class="nt">&quot;PM10_Param_Code&quot;</span><span class="p">:</span> <span class="s2">&quot;ug/m^3&quot;</span><span class="p">,</span>
-</span><span class="hll">    <span class="nt">&quot;PM10_Method_Code&quot;</span><span class="p">:</span> <span class="mi">239</span><span class="p">,</span>
-</span><span class="hll">    <span class="nt">&quot;PM10_Method&quot;</span><span class="p">:</span> <span class="s2">&quot;Teledyne API T640X at 16.67 LPM&quot;</span><span class="p">,</span>
-</span><span class="hll">    <span class="nt">&quot;PM10_Method_POC&quot;</span><span class="p">:</span> <span class="s2">&quot;1&quot;</span><span class="p">,</span>
-</span>    <span class="nt">&quot;time_format_dict&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="nt">&quot;Date &amp; Time&quot;</span><span class="p">:</span> <span class="s2">&quot;%-m/%-d/%Y %-I:%M %p&quot;</span>
-    <span class="p">}</span>
+    <span class="nt">&quot;PM25_Unit&quot;</span><span class="p">:</span> <span class="s2">&quot;Micrograms/cubic meter (LC)&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;PM25_Param_Code&quot;</span><span class="p">:</span> <span class="s2">&quot;Micrograms/cubic meter (LC)&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;PM25_Method_Code&quot;</span><span class="p">:</span> <span class="mi">238</span><span class="p">,</span>
+    <span class="nt">&quot;PM25_Method&quot;</span><span class="p">:</span> <span class="s2">&quot;Teledyne T640X at 16.67 LPM&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;PM25_Method_POC&quot;</span><span class="p">:</span> <span class="s2">&quot;1&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;PM10_Unit&quot;</span><span class="p">:</span> <span class="s2">&quot;Micrograms/cubic meter (LC)&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;PM10_Param_Code&quot;</span><span class="p">:</span> <span class="s2">&quot;Micrograms/cubic meter (LC)&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;PM10_Method_Code&quot;</span><span class="p">:</span> <span class="mi">239</span><span class="p">,</span>
+    <span class="nt">&quot;PM10_Method&quot;</span><span class="p">:</span> <span class="s2">&quot;Teledyne API T640X at 16.67 LPM&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;PM10_Method_POC&quot;</span><span class="p">:</span> <span class="s2">&quot;1&quot;</span>
 <span class="p">}</span>
 </pre></div>
 </div>

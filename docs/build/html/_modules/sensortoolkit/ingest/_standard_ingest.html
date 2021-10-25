@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>sensortoolkit.ingest._standard_ingest &mdash; sensortoolkit 0.5.2b4 documentation</title>
+  <title>sensortoolkit.ingest._standard_ingest &mdash; sensortoolkit 0.5.6b2 documentation</title>
   
 
   
@@ -67,7 +67,7 @@
             
             
               <div class="version">
-                0.5.2b4
+                0.5.6b2
               </div>
             
           
@@ -259,10 +259,22 @@
 <li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.lib_utils._flatten_list.flatten_list.html">sensortoolkit.lib_utils._flatten_list.flatten_list</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.lib_utils._input_tools.html">sensortoolkit.lib_utils._input_tools</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.lib_utils._input_tools.enter_continue.html">sensortoolkit.lib_utils._input_tools.enter_continue</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.lib_utils._input_tools.validate_entry.html">sensortoolkit.lib_utils._input_tools.validate_entry</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.lib_utils._sensor_subfolders.html">sensortoolkit.lib_utils._sensor_subfolders</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.lib_utils._sensor_subfolders.create_sensor_directories.html">sensortoolkit.lib_utils._sensor_subfolders.create_sensor_directories</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.lib_utils._setup.html">sensortoolkit.lib_utils._setup</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.lib_utils._setup.displayMethods.html">sensortoolkit.lib_utils._setup.displayMethods</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.lib_utils._setup.ReferenceSetup.html">sensortoolkit.lib_utils._setup.ReferenceSetup</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.lib_utils._setup.SensorSetup.html">sensortoolkit.lib_utils._setup.SensorSetup</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.lib_utils._version.html">sensortoolkit.lib_utils._version</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../api/model.html"><code class="docutils literal notranslate"><span class="pre">sensortoolkit.model</span></code></a><ul>
@@ -365,6 +377,10 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../api/reference.html"><code class="docutils literal notranslate"><span class="pre">sensortoolkit.reference</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._airnowtech_to_long.html">sensortoolkit.reference._airnowtech_to_long</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._airnowtech_to_long.airnowtech_wide_to_long.html">sensortoolkit.reference._airnowtech_to_long.airnowtech_wide_to_long</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._import_airnowtech.html">sensortoolkit.reference._import_airnowtech</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._import_airnowtech.ingest_airnowtech.html">sensortoolkit.reference._import_airnowtech.ingest_airnowtech</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._import_airnowtech.preprocess_airnowtech.html">sensortoolkit.reference._import_airnowtech.preprocess_airnowtech</a></li>
@@ -527,8 +543,11 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">setup</span> <span class="o">=</span> <span class="n">ParseSetup</span><span class="p">(</span><span class="n">setup_file_path</span><span class="p">,</span> <span class="n">data_path</span><span class="o">=</span><span class="n">path</span><span class="p">)</span>
 
-    <span class="n">idx_list</span> <span class="o">=</span> <span class="n">setup</span><span class="p">[</span><span class="s1">&#39;timestamp_col_headers&#39;</span><span class="p">]</span>
-    <span class="n">idx_format_dict</span> <span class="o">=</span> <span class="n">setup</span><span class="p">[</span><span class="s1">&#39;time_format_dict&#39;</span><span class="p">]</span>
+    <span class="n">time_fmt</span> <span class="o">=</span> <span class="n">setup</span><span class="p">[</span><span class="s1">&#39;time_format_dict&#39;</span><span class="p">]</span>
+    <span class="n">idx_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">setup</span><span class="p">[</span><span class="s1">&#39;time_format_dict&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+    <span class="n">idx_format_dict</span> <span class="o">=</span> <span class="p">{</span><span class="n">col</span><span class="p">:</span> <span class="n">time_fmt</span><span class="p">[</span><span class="n">col</span><span class="p">][</span><span class="s1">&#39;dt_format&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">idx_list</span><span class="p">}</span>
+    <span class="n">idx_tzone</span> <span class="o">=</span> <span class="p">[</span><span class="n">time_fmt</span><span class="p">[</span><span class="n">col</span><span class="p">][</span><span class="s1">&#39;dt_timezone&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">time_fmt</span> <span class="k">if</span>
+                 <span class="n">time_fmt</span><span class="p">[</span><span class="n">col</span><span class="p">][</span><span class="s1">&#39;dt_timezone&#39;</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">]</span>
 
     <span class="k">if</span> <span class="n">setup</span><span class="p">[</span><span class="s1">&#39;file_extension&#39;</span><span class="p">]</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">&#39;.csv&#39;</span><span class="p">,</span> <span class="s1">&#39;.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;.xlsx&#39;</span><span class="p">):</span>
         <span class="k">try</span><span class="p">:</span>
@@ -562,18 +581,17 @@
 
     <span class="c1"># Set Datetime Index</span>
     <span class="n">df</span><span class="p">[</span><span class="s1">&#39;DateTime&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">idx_list</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-    <span class="n">time_format</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">val</span> <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">idx_format_dict</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
-                           <span class="k">if</span> <span class="ow">not</span> <span class="n">key</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;_tz&#39;</span><span class="p">)])</span>
-    <span class="n">time_zone_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">val</span> <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">idx_format_dict</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
-                      <span class="k">if</span> <span class="n">key</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;_tz&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">val</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">]</span>
+    <span class="n">time_format</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">val</span> <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">idx_format_dict</span><span class="o">.</span><span class="n">items</span><span class="p">()])</span>
+    <span class="n">time_zone_list</span> <span class="o">=</span> <span class="n">idx_tzone</span>
+
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">time_zone_list</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Too many time zones specified for datetime index:&#39;</span>
                          <span class="sa">f</span><span class="s1">&#39; </span><span class="si">{</span><span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">time_zone_list</span><span class="p">)</span><span class="si">}</span><span class="s1">. Only one time zone &#39;</span>
                          <span class="s1">&#39;should be specified.&#39;</span><span class="p">)</span>
     <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">time_zone_list</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-       <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;No time zone specified for datetime index. &#39;</span>
-             <span class="s1">&#39;Continuing with tz-naive datetime index.&#39;</span><span class="p">)</span>
-       <span class="n">time_zone</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;No time zone specified for datetime index. &#39;</span>
+              <span class="s1">&#39;Continuing with tz-naive datetime index.&#39;</span><span class="p">)</span>
+        <span class="n">time_zone</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">time_zone</span> <span class="o">=</span> <span class="n">time_zone_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 
@@ -620,12 +638,22 @@
         <span class="nb">print</span><span class="p">(</span><span class="n">null_idx</span><span class="p">)</span>
         <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">dropna</span><span class="p">(),</span> <span class="p">:]</span>
 
-    <span class="n">setup</span><span class="p">[</span><span class="s1">&#39;timestamp_col_headers&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;DateTime&#39;</span><span class="p">)</span>
-    <span class="n">timestamp_cols</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">setup</span><span class="p">[</span><span class="s1">&#39;timestamp_col_headers&#39;</span><span class="p">])</span>
+    <span class="n">idx_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;DateTime&#39;</span><span class="p">)</span>
+    <span class="n">timestamp_cols</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">idx_list</span><span class="p">)</span>
     <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="n">timestamp_cols</span><span class="p">)</span>
 
     <span class="c1"># Rename parameter header columns</span>
     <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="n">setup</span><span class="p">[</span><span class="s1">&#39;col_rename_dict&#39;</span><span class="p">])</span>
+
+    <span class="c1"># Set numeric column types for parameter value columns</span>
+    <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">setup</span><span class="p">[</span><span class="s1">&#39;col_rename_dict&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+        <span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_numeric</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">],</span> <span class="n">errors</span><span class="o">=</span><span class="s1">&#39;coerce&#39;</span><span class="p">)</span>
+
+    <span class="c1"># Unit scaling</span>
+    <span class="k">for</span> <span class="n">header</span><span class="p">,</span> <span class="n">scale_factor</span> <span class="ow">in</span> <span class="n">setup</span><span class="p">[</span><span class="s1">&#39;file_unit_scaling&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">sdfs_header</span> <span class="o">=</span> <span class="n">setup</span><span class="p">[</span><span class="s1">&#39;col_rename_dict&#39;</span><span class="p">][</span><span class="n">header</span><span class="p">]</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;....scaling </span><span class="si">{</span><span class="n">header</span><span class="si">}</span><span class="s1"> values by </span><span class="si">{</span><span class="n">scale_factor</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">df</span><span class="p">[</span><span class="n">sdfs_header</span><span class="p">]</span> <span class="o">=</span> <span class="n">scale_factor</span> <span class="o">*</span> <span class="n">df</span><span class="p">[</span><span class="n">sdfs_header</span><span class="p">]</span>
 
     <span class="c1"># Drop unused columns</span>
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">setup</span><span class="p">[</span><span class="s1">&#39;drop_cols&#39;</span><span class="p">])</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
@@ -634,21 +662,36 @@
 
     <span class="c1"># Reference data columns</span>
     <span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">setup</span><span class="p">[</span><span class="s1">&#39;sdfs_header_names&#39;</span><span class="p">]:</span>
-        <span class="n">param_cols</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;_Unit&#39;</span><span class="p">,</span> <span class="s1">&#39;_Param_Code&#39;</span><span class="p">,</span> <span class="s1">&#39;_Method_Code&#39;</span><span class="p">,</span> <span class="s1">&#39;_Method&#39;</span><span class="p">,</span>
-                      <span class="s1">&#39;_Method_POC&#39;</span><span class="p">]</span>
-
-        <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">param_cols</span><span class="p">:</span>
+        <span class="n">param_cols</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;_Unit&#39;</span><span class="p">:</span> <span class="s1">&#39;object&#39;</span><span class="p">,</span>
+                      <span class="s1">&#39;_Param_Code&#39;</span><span class="p">:</span> <span class="s1">&#39;int64&#39;</span><span class="p">,</span>
+                      <span class="s1">&#39;_Method_Code&#39;</span><span class="p">:</span> <span class="s1">&#39;int64&#39;</span><span class="p">,</span>
+                      <span class="s1">&#39;_Method&#39;</span><span class="p">:</span> <span class="s1">&#39;object&#39;</span><span class="p">,</span>
+                      <span class="s1">&#39;_Method_POC&#39;</span><span class="p">:</span> <span class="s1">&#39;int64&#39;</span><span class="p">}</span>
+        <span class="k">for</span> <span class="n">col</span><span class="p">,</span> <span class="n">col_dtype</span> <span class="ow">in</span> <span class="n">param_cols</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
             <span class="n">header</span> <span class="o">=</span> <span class="n">param</span> <span class="o">+</span> <span class="n">col</span>
             <span class="k">if</span> <span class="n">header</span> <span class="ow">in</span> <span class="n">setup</span><span class="p">:</span>
                 <span class="n">df</span><span class="p">[</span><span class="n">header</span><span class="p">]</span> <span class="o">=</span> <span class="n">setup</span><span class="p">[</span><span class="n">header</span><span class="p">]</span>
+                <span class="n">df</span><span class="p">[</span><span class="n">header</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">header</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">col_dtype</span><span class="p">,</span> <span class="n">errors</span><span class="o">=</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span>
 
-    <span class="n">site_cols</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;site_name&#39;</span><span class="p">,</span> <span class="s1">&#39;agency&#39;</span><span class="p">,</span> <span class="s1">&#39;site_aqs&#39;</span><span class="p">,</span> <span class="s1">&#39;site_lat&#39;</span><span class="p">,</span> <span class="s1">&#39;site_lon&#39;</span><span class="p">]</span>
-    <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">site_cols</span><span class="p">:</span>
+    <span class="c1"># Reorder parameter columns</span>
+    <span class="n">col_order</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">setup</span><span class="p">[</span><span class="s1">&#39;sdfs_header_names&#39;</span><span class="p">]:</span>
+        <span class="n">col_order</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="n">col</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="k">if</span> <span class="n">col</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="n">param</span><span class="p">)])</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">col_order</span><span class="p">]</span>
+
+    <span class="n">site_cols</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;site_name&#39;</span><span class="p">:</span> <span class="s1">&#39;object&#39;</span><span class="p">,</span>
+                 <span class="s1">&#39;agency&#39;</span><span class="p">:</span> <span class="s1">&#39;object&#39;</span><span class="p">,</span>
+                 <span class="s1">&#39;site_aqs&#39;</span><span class="p">:</span> <span class="s1">&#39;object&#39;</span><span class="p">,</span>
+                 <span class="s1">&#39;site_lat&#39;</span><span class="p">:</span> <span class="s1">&#39;float64&#39;</span><span class="p">,</span>
+                 <span class="s1">&#39;site_lon&#39;</span><span class="p">:</span> <span class="s1">&#39;float64&#39;</span><span class="p">}</span>
+    <span class="c1"># Site metadata columns</span>
+    <span class="k">for</span> <span class="n">col</span><span class="p">,</span> <span class="n">col_dtype</span> <span class="ow">in</span> <span class="n">site_cols</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
         <span class="k">if</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">setup</span><span class="p">:</span>
             <span class="n">col_name</span> <span class="o">=</span> <span class="n">col</span><span class="o">.</span><span class="n">title</span><span class="p">()</span>
             <span class="k">if</span> <span class="n">col_name</span> <span class="o">==</span> <span class="s1">&#39;Site_Aqs&#39;</span><span class="p">:</span>
                 <span class="n">col_name</span> <span class="o">=</span> <span class="s1">&#39;Site_AQS&#39;</span>
             <span class="n">df</span><span class="p">[</span><span class="n">col_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">setup</span><span class="p">[</span><span class="n">col</span><span class="p">]</span>
+            <span class="n">df</span><span class="p">[</span><span class="n">col_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">col_name</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">col_dtype</span><span class="p">,</span> <span class="n">errors</span><span class="o">=</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">df</span></div>
 
@@ -673,8 +716,15 @@
     <span class="k">return</span> <span class="n">dt</span></div>
 
 <div class="viewcode-block" id="ParseSetup"><a class="viewcode-back" href="../../../api/_autosummary/sensortoolkit.ingest._standard_ingest.ParseSetup.html#sensortoolkit.ingest._standard_ingest.ParseSetup">[docs]</a><span class="k">def</span> <span class="nf">ParseSetup</span><span class="p">(</span><span class="n">setup_path</span><span class="p">,</span> <span class="n">data_path</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Construct file-specific setup file from the setup.json generated by the</span>
-<span class="sd">    Setup() module.</span>
+    <span class="sd">&quot;&quot;&quot;Construct file-specific setup file from the setup.json.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        setup_path (str): DESCRIPTION.</span>
+<span class="sd">        data_path (str): DESCRIPTION.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        file_setup (dict): DESCRIPTION.</span>
+
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># Ensure norm path</span>
     <span class="n">data_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">normpath</span><span class="p">(</span><span class="n">data_path</span><span class="p">)</span>
@@ -684,46 +734,70 @@
         <span class="n">file</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 
     <span class="n">file_col_list</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="n">file_col_renaming_dict</span> <span class="o">=</span> <span class="p">{}</span>
     <span class="n">file_drop_cols</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">file_col_headers</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">file_dt_headers</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">file_col_renaming</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">file_sdfs_headers</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">file_unit_scaling</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="n">file_list</span> <span class="o">=</span> <span class="n">setup</span><span class="p">[</span><span class="s1">&#39;file_list&#39;</span><span class="p">]</span>
+
+    <span class="c1"># Either reference or sensor</span>
+    <span class="n">data_type</span> <span class="o">=</span> <span class="n">setup</span><span class="p">[</span><span class="s1">&#39;data_type&#39;</span><span class="p">]</span>
 
     <span class="c1"># Parse setup.json for data file specific header names</span>
-    <span class="k">for</span> <span class="n">col_entry</span> <span class="ow">in</span> <span class="n">setup</span><span class="p">[</span><span class="s1">&#39;col_headers&#39;</span><span class="p">]:</span>
-        <span class="n">col_config</span> <span class="o">=</span> <span class="n">setup</span><span class="p">[</span><span class="s1">&#39;col_headers&#39;</span><span class="p">][</span><span class="n">col_entry</span><span class="p">]</span>
-        <span class="n">col_headers</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">col_config</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+    <span class="k">for</span> <span class="n">col_idx</span> <span class="ow">in</span> <span class="n">setup</span><span class="p">[</span><span class="s1">&#39;col_headers&#39;</span><span class="p">]:</span>
+        <span class="c1"># config within the ith column index (i ranging from 0 to N-1 where</span>
+        <span class="c1"># N is the number of columns in the dataset)</span>
+        <span class="n">col_idx_config</span> <span class="o">=</span> <span class="n">setup</span><span class="p">[</span><span class="s1">&#39;col_headers&#39;</span><span class="p">][</span><span class="n">col_idx</span><span class="p">]</span>
+        <span class="n">col_idx_headers</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">col_idx_config</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
 
-        <span class="k">for</span> <span class="n">header</span> <span class="ow">in</span> <span class="n">col_headers</span><span class="p">:</span>
-            <span class="n">file_list</span> <span class="o">=</span> <span class="n">col_config</span><span class="p">[</span><span class="n">header</span><span class="p">][</span><span class="s1">&#39;files&#39;</span><span class="p">]</span>
-            <span class="n">file_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">normpath</span><span class="p">(</span><span class="n">path</span><span class="p">)</span> <span class="k">for</span> <span class="n">path</span> <span class="ow">in</span> <span class="n">file_list</span><span class="p">]</span>
-            <span class="k">if</span> <span class="n">data_path</span> <span class="ow">in</span> <span class="n">file_list</span><span class="p">:</span>
+        <span class="c1"># Loop over header configs within the ith column index</span>
+        <span class="k">for</span> <span class="n">header</span> <span class="ow">in</span> <span class="n">col_idx_headers</span><span class="p">:</span>
+            <span class="c1"># Create list of data files containing the current header</span>
+            <span class="n">header_file_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">file_list</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span>
+                                <span class="n">col_idx_config</span><span class="p">[</span><span class="n">header</span><span class="p">][</span><span class="s1">&#39;in_file_list_idx&#39;</span><span class="p">]]</span>
+            <span class="n">header_file_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">normpath</span><span class="p">(</span><span class="n">path</span><span class="p">)</span> <span class="k">for</span> <span class="n">path</span> <span class="ow">in</span>
+                                <span class="n">header_file_list</span><span class="p">]</span>
+
+            <span class="c1"># Add file dataset info if passed filename contains the current</span>
+            <span class="c1"># header</span>
+            <span class="k">if</span> <span class="n">data_path</span> <span class="ow">in</span> <span class="n">header_file_list</span><span class="p">:</span>
                 <span class="n">file_col_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">header</span><span class="p">)</span>
 
-                <span class="n">sdfs_param_header</span> <span class="o">=</span> <span class="n">col_config</span><span class="p">[</span><span class="n">header</span><span class="p">][</span><span class="s1">&#39;SDFS_param&#39;</span><span class="p">]</span>
-                <span class="k">if</span> <span class="n">sdfs_param_header</span> <span class="o">!=</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
-                    <span class="n">file_col_renaming_dict</span><span class="p">[</span><span class="n">header</span><span class="p">]</span> <span class="o">=</span> <span class="n">sdfs_param_header</span>
+                <span class="n">header_config</span> <span class="o">=</span> <span class="n">col_idx_config</span><span class="p">[</span><span class="n">header</span><span class="p">]</span>
+                <span class="n">file_col_headers</span><span class="p">[</span><span class="n">header</span><span class="p">]</span> <span class="o">=</span> <span class="n">header_config</span>
+
+                <span class="k">if</span> <span class="n">header_config</span><span class="p">[</span><span class="s1">&#39;drop&#39;</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+                        <span class="n">file_drop_cols</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">header</span><span class="p">)</span>
                 <span class="k">else</span><span class="p">:</span>
-                    <span class="n">file_drop_cols</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">header</span><span class="p">)</span>
+                    <span class="c1"># Add datetime index column info</span>
+                    <span class="k">if</span> <span class="n">header_config</span><span class="p">[</span><span class="s1">&#39;header_class&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;datetime&#39;</span><span class="p">:</span>
+                        <span class="n">file_dt_headers</span><span class="p">[</span><span class="n">header</span><span class="p">]</span> <span class="o">=</span> <span class="n">header_config</span>
+                    <span class="c1"># Add parameter column info</span>
+                    <span class="k">if</span> <span class="n">header_config</span><span class="p">[</span><span class="s1">&#39;header_class&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;parameter&#39;</span><span class="p">:</span>
+                        <span class="n">sdfs_param</span> <span class="o">=</span> <span class="n">header_config</span><span class="p">[</span><span class="s1">&#39;sdfs_param&#39;</span><span class="p">]</span>
 
-    <span class="c1"># Create a list/dict of timestamp columns specific to loaded dataset</span>
-    <span class="n">file_idx_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">col</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">setup</span><span class="p">[</span><span class="s1">&#39;timestamp_col_headers&#39;</span><span class="p">]</span>
-                     <span class="k">if</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">file_col_list</span><span class="p">]</span>
-    <span class="n">file_idx_format</span> <span class="o">=</span> <span class="p">{</span><span class="n">col</span><span class="p">:</span> <span class="n">setup</span><span class="p">[</span><span class="s1">&#39;time_format_dict&#39;</span><span class="p">][</span><span class="n">col</span><span class="p">]</span> <span class="k">for</span> <span class="n">col</span>
-                       <span class="ow">in</span> <span class="n">setup</span><span class="p">[</span><span class="s1">&#39;time_format_dict&#39;</span><span class="p">]</span> <span class="k">if</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">file_col_list</span><span class="p">}</span>
-    <span class="n">file_tzone_info</span> <span class="o">=</span> <span class="p">{</span><span class="n">col</span> <span class="o">+</span><span class="s1">&#39;_tz&#39;</span><span class="p">:</span> <span class="n">setup</span><span class="p">[</span><span class="s1">&#39;time_format_dict&#39;</span><span class="p">][</span><span class="n">col</span> <span class="o">+</span> <span class="s1">&#39;_tz&#39;</span><span class="p">]</span> <span class="k">for</span>
-                       <span class="n">col</span> <span class="ow">in</span> <span class="n">file_idx_format</span><span class="o">.</span><span class="n">keys</span><span class="p">()}</span>
-    <span class="n">file_idx_format</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">file_tzone_info</span><span class="p">)</span>
+                        <span class="n">file_col_renaming</span><span class="p">[</span><span class="n">header</span><span class="p">]</span> <span class="o">=</span> <span class="n">header_config</span><span class="p">[</span><span class="s1">&#39;sdfs_param&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39;_Value&#39;</span>
 
+                        <span class="n">file_sdfs_headers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sdfs_param</span><span class="p">)</span>
 
-    <span class="n">col_list</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="s1">&#39;path&#39;</span><span class="p">,</span> <span class="s1">&#39;file_extension&#39;</span><span class="p">,</span>
-                <span class="s1">&#39;header_iloc&#39;</span><span class="p">,</span> <span class="s1">&#39;sdfs_header_names&#39;</span><span class="p">]</span>
+                        <span class="k">if</span> <span class="p">(</span><span class="s1">&#39;unit_transform&#39;</span> <span class="ow">in</span> <span class="n">header_config</span> <span class="ow">and</span>
+                        <span class="n">header_config</span><span class="p">[</span><span class="s1">&#39;unit_transform&#39;</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">):</span>
+                            <span class="n">file_unit_scaling</span><span class="p">[</span><span class="n">header</span><span class="p">]</span> <span class="o">=</span> <span class="n">header_config</span><span class="p">[</span><span class="s1">&#39;unit_transform&#39;</span><span class="p">]</span>
+
+    <span class="n">col_list</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="s1">&#39;path&#39;</span><span class="p">,</span> <span class="s1">&#39;file_extension&#39;</span><span class="p">,</span> <span class="s1">&#39;header_iloc&#39;</span><span class="p">]</span>
     <span class="n">file_setup</span> <span class="o">=</span> <span class="p">{</span><span class="n">col</span><span class="p">:</span> <span class="n">setup</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">col_list</span> <span class="k">if</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">setup</span><span class="p">}</span>
     <span class="n">file_setup</span><span class="p">[</span><span class="s1">&#39;all_col_headers&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">file_col_list</span>
-    <span class="n">file_setup</span><span class="p">[</span><span class="s1">&#39;col_rename_dict&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">file_col_renaming_dict</span>
+    <span class="n">file_setup</span><span class="p">[</span><span class="s1">&#39;col_rename_dict&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">file_col_renaming</span>
     <span class="n">file_setup</span><span class="p">[</span><span class="s1">&#39;drop_cols&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">file_drop_cols</span>
-    <span class="n">file_setup</span><span class="p">[</span><span class="s1">&#39;timestamp_col_headers&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">file_idx_list</span>
-    <span class="n">file_setup</span><span class="p">[</span><span class="s1">&#39;time_format_dict&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">file_idx_format</span>
+    <span class="n">file_setup</span><span class="p">[</span><span class="s1">&#39;time_format_dict&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">file_dt_headers</span>
+    <span class="n">file_setup</span><span class="p">[</span><span class="s1">&#39;sdfs_header_names&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">file_sdfs_headers</span>
+    <span class="n">file_setup</span><span class="p">[</span><span class="s1">&#39;file_unit_scaling&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">file_unit_scaling</span>
 
-    <span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">setup</span><span class="p">[</span><span class="s1">&#39;sdfs_header_names&#39;</span><span class="p">]:</span>
+    <span class="c1"># Reference only: add parameter metadata columns</span>
+    <span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">file_sdfs_headers</span><span class="p">:</span>
         <span class="n">param_cols</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;_Unit&#39;</span><span class="p">,</span> <span class="s1">&#39;_Param_Code&#39;</span><span class="p">,</span> <span class="s1">&#39;_Method_Code&#39;</span><span class="p">,</span> <span class="s1">&#39;_Method&#39;</span><span class="p">,</span>
                       <span class="s1">&#39;_Method_POC&#39;</span><span class="p">]</span>
 
@@ -732,6 +806,7 @@
             <span class="k">if</span> <span class="n">header</span> <span class="ow">in</span> <span class="n">setup</span><span class="p">:</span>
                 <span class="n">file_setup</span><span class="p">[</span><span class="n">header</span><span class="p">]</span> <span class="o">=</span> <span class="n">setup</span><span class="p">[</span><span class="n">header</span><span class="p">]</span>
 
+    <span class="c1"># Reference only: add site metadata columns</span>
     <span class="n">site_cols</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;site_name&#39;</span><span class="p">,</span> <span class="s1">&#39;agency&#39;</span><span class="p">,</span> <span class="s1">&#39;site_aqs&#39;</span><span class="p">,</span> <span class="s1">&#39;site_lat&#39;</span><span class="p">,</span> <span class="s1">&#39;site_lon&#39;</span><span class="p">]</span>
     <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">site_cols</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">setup</span><span class="p">:</span>
@@ -747,7 +822,16 @@
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
 
-    <span class="n">df</span> <span class="o">=</span> <span class="n">standard_ingest</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;C:\Users\SFREDE01\OneDrive - Environmental Protection Agency (EPA)\Profile\Documents\sensortoolkit_testing\Data and Figures\reference_data\local\raw\Burdens_Creek_370630099\min_201908_PM.csv&quot;</span><span class="p">,</span> <span class="n">setup_file_path</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;C:\Users\SFREDE01\OneDrive - Environmental Protection Agency (EPA)\Profile\Documents\sensortoolkit_testing\Data and Figures\reference_data\local\raw\Burdens_Creek_370630099\reference_setup.json&quot;</span><span class="p">)</span>
+    <span class="c1"># Sensor test</span>
+    <span class="c1"># setup = ParseSetup(data_path=r&quot;C:\Users\SFREDE01\OneDrive - Environmental Protection Agency (EPA)\Profile\Documents\sensortoolkit_testing\Data and Figures\sensor_data\Example_Make_Model\raw_data\Example_Make_Model_SN01_raw.csv&quot;,</span>
+    <span class="c1">#                   setup_path=r&quot;C:\Users\SFREDE01\OneDrive - Environmental Protection Agency (EPA)\Profile\Documents\sensortoolkit_testing\Data and Figures\sensor_data\Example_Make_Model\Example_Make_Model_setup.json&quot;)</span>
+
+    <span class="c1"># df = standard_ingest(path=r&quot;C:\Users\SFREDE01\OneDrive - Environmental Protection Agency (EPA)\Profile\Documents\sensortoolkit_testing\Data and Figures\sensor_data\Example_Make_Model\raw_data\Example_Make_Model_SN01_raw.csv&quot;,</span>
+    <span class="c1">#                   setup_file_path=r&quot;C:\Users\SFREDE01\OneDrive - Environmental Protection Agency (EPA)\Profile\Documents\sensortoolkit_testing\Data and Figures\sensor_data\Example_Make_Model\Example_Make_Model_setup.json&quot;)</span>
+
+    <span class="c1"># Reference Test</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">standard_ingest</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;C:\Users\SFREDE01\OneDrive - Environmental Protection Agency (EPA)\Profile\Documents\sensortoolkit_testing\data\reference_data\local\raw\Burdens_Creek_370630099\min_201908_PM.csv&quot;</span><span class="p">,</span>
+                          <span class="n">setup_file_path</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;C:\Users\SFREDE01\OneDrive - Environmental Protection Agency (EPA)\Profile\Documents\sensortoolkit_testing\data\reference_data\local\raw\Burdens_Creek_370630099\reference_setup.json&quot;</span><span class="p">)</span>
 </pre></div>
 
            </div>

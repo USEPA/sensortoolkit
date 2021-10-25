@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>Loading Reference Data &mdash; sensortoolkit 0.5.2b4 documentation</title>
+  <title>Loading Reference Data &mdash; sensortoolkit 0.5.6b2 documentation</title>
   
 
   
@@ -69,7 +69,7 @@
             
             
               <div class="version">
-                0.5.2b4
+                0.5.6b2
               </div>
             
           
@@ -261,10 +261,22 @@
 <li class="toctree-l4"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.lib_utils._flatten_list.flatten_list.html">sensortoolkit.lib_utils._flatten_list.flatten_list</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.lib_utils._input_tools.html">sensortoolkit.lib_utils._input_tools</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.lib_utils._input_tools.enter_continue.html">sensortoolkit.lib_utils._input_tools.enter_continue</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.lib_utils._input_tools.validate_entry.html">sensortoolkit.lib_utils._input_tools.validate_entry</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.lib_utils._sensor_subfolders.html">sensortoolkit.lib_utils._sensor_subfolders</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.lib_utils._sensor_subfolders.create_sensor_directories.html">sensortoolkit.lib_utils._sensor_subfolders.create_sensor_directories</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.lib_utils._setup.html">sensortoolkit.lib_utils._setup</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.lib_utils._setup.displayMethods.html">sensortoolkit.lib_utils._setup.displayMethods</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.lib_utils._setup.ReferenceSetup.html">sensortoolkit.lib_utils._setup.ReferenceSetup</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.lib_utils._setup.SensorSetup.html">sensortoolkit.lib_utils._setup.SensorSetup</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.lib_utils._version.html">sensortoolkit.lib_utils._version</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../api/model.html"><code class="docutils literal notranslate"><span class="pre">sensortoolkit.model</span></code></a><ul>
@@ -367,6 +379,10 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../api/reference.html"><code class="docutils literal notranslate"><span class="pre">sensortoolkit.reference</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.reference._airnowtech_to_long.html">sensortoolkit.reference._airnowtech_to_long</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.reference._airnowtech_to_long.airnowtech_wide_to_long.html">sensortoolkit.reference._airnowtech_to_long.airnowtech_wide_to_long</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.reference._import_airnowtech.html">sensortoolkit.reference._import_airnowtech</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.reference._import_airnowtech.ingest_airnowtech.html">sensortoolkit.reference._import_airnowtech.ingest_airnowtech</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.reference._import_airnowtech.preprocess_airnowtech.html">sensortoolkit.reference._import_airnowtech.preprocess_airnowtech</a></li>
@@ -493,8 +509,8 @@
   <div class="section" id="loading-reference-data">
 <h1>Loading Reference Data<a class="headerlink" href="#loading-reference-data" title="Permalink to this headline">¶</a></h1>
 <div class="tabbed-set docutils">
-<input checked="checked" id="bde6a5c0-b13c-4770-adc1-2e6f77e992fd" name="c377b645-da82-4112-b7df-38534bd2fb4c" type="radio">
-</input><label class="tabbed-label" for="bde6a5c0-b13c-4770-adc1-2e6f77e992fd">
+<input checked="checked" id="9384d3db-8b9a-4aeb-a048-50705fe14f94" name="e7d2cad2-5900-4a45-8d92-563ffb7cac5e" type="radio">
+</input><label class="tabbed-label" for="9384d3db-8b9a-4aeb-a048-50705fe14f94">
 Local</label><div class="tabbed-content docutils">
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">reference_object</span><span class="o">.</span><span class="n">load_data</span><span class="p">(</span><span class="n">bdate</span><span class="o">=</span><span class="s1">&#39;2019-08-01&#39;</span><span class="p">,</span>
                            <span class="n">edate</span><span class="o">=</span><span class="s1">&#39;2019-09-15&#39;</span><span class="p">,</span>
@@ -511,8 +527,8 @@ Local</label><div class="tabbed-content docutils">
 </pre></div>
 </div>
 </div>
-<input id="7b04d48f-6add-4441-9dc9-d365fceb4ec6" name="c377b645-da82-4112-b7df-38534bd2fb4c" type="radio">
-</input><label class="tabbed-label" for="7b04d48f-6add-4441-9dc9-d365fceb4ec6">
+<input id="c43c9ada-040e-4893-80c5-c1570bc14a84" name="e7d2cad2-5900-4a45-8d92-563ffb7cac5e" type="radio">
+</input><label class="tabbed-label" for="c43c9ada-040e-4893-80c5-c1570bc14a84">
 AirNowTech</label><div class="tabbed-content docutils">
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">reference_object</span><span class="o">.</span><span class="n">load_data</span><span class="p">(</span><span class="n">bdate</span><span class="o">=</span><span class="s1">&#39;2019-08-01&#39;</span><span class="p">,</span>
                            <span class="n">edate</span><span class="o">=</span><span class="s1">&#39;2019-09-15&#39;</span><span class="p">,</span>
@@ -529,8 +545,8 @@ AirNowTech</label><div class="tabbed-content docutils">
 </pre></div>
 </div>
 </div>
-<input id="06774b95-395c-4908-bc9a-489a764bdaa6" name="c377b645-da82-4112-b7df-38534bd2fb4c" type="radio">
-</input><label class="tabbed-label" for="06774b95-395c-4908-bc9a-489a764bdaa6">
+<input id="a36caf8b-faaa-42ee-a048-639c65adca8d" name="e7d2cad2-5900-4a45-8d92-563ffb7cac5e" type="radio">
+</input><label class="tabbed-label" for="a36caf8b-faaa-42ee-a048-639c65adca8d">
 Querying the AQS API</label><div class="tabbed-content docutils">
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">aqs_username</span> <span class="o">=</span> <span class="s1">&#39;usernam@email.com&#39;</span>
 <span class="n">aqs_key</span> <span class="o">=</span> <span class="s1">&#39;NOT-A-REAL-KEY&#39;</span>
@@ -581,8 +597,8 @@ Querying the AQS API</label><div class="tabbed-content docutils">
 </pre></div>
 </div>
 </div>
-<input id="418ef9de-9595-4410-b89e-932040289eb1" name="c377b645-da82-4112-b7df-38534bd2fb4c" type="radio">
-</input><label class="tabbed-label" for="418ef9de-9595-4410-b89e-932040289eb1">
+<input id="74b7a7cd-ccc0-4f41-aae6-e543950cb77b" name="e7d2cad2-5900-4a45-8d92-563ffb7cac5e" type="radio">
+</input><label class="tabbed-label" for="74b7a7cd-ccc0-4f41-aae6-e543950cb77b">
 Querying the AirNow API</label><div class="tabbed-content docutils">
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">airnow_key</span> <span class="o">=</span> <span class="s1">&#39;NOT-A-REAL-KEY&#39;</span>
 <span class="n">ref</span><span class="o">.</span><span class="n">query_airnow</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="n">airnow_key</span><span class="p">,</span>
