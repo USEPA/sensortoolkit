@@ -199,7 +199,7 @@ class Parameter:
                              }
                       }
 
-    def __init__(self, param, **kwargs):
+    def __init__(self, param, set_units=True, **kwargs):
 
         self.name = param
         self.format_name = None
@@ -211,10 +211,11 @@ class Parameter:
         self.averaging = ['1-hour', '24-hour']  # default averaging
         self.__verbose__ = kwargs.get('verbose', False)
 
-        unit_info = self._get_units()
-        self.units = unit_info['Label']
-        self.units_description = unit_info['Description']
-        self.units_aqs_code = unit_info['Unit Code']
+        if set_units:
+            unit_info = self._get_units()
+            self.units = unit_info['Label']
+            self.units_description = unit_info['Description']
+            self.units_aqs_code = unit_info['Unit Code']
 
         if self.name in self.__param_dict__:
             self.__Autoset_Param__()
@@ -311,7 +312,7 @@ class Parameter:
         if self.is_sdfs():
             unit_code = self.__param_dict__[self.name]['aqs_unit_code']
         else:
-            unit_code = self._get_units(unit_data)
+            unit_code = self._set_units(unit_data)
 
         unit_info = options[options['Unit Code'] == unit_code]
 
@@ -322,7 +323,7 @@ class Parameter:
         validate = False
         while validate is False:
             self.classifier = input(f'Enter the parameter classification ("PM", '
-                        '"Gases", or "Met" for {self.name}')
+                        f'"Gases", or "Met" for {self.name}')
 
             if self.classifier not in ['PM', 'Gases', 'Met']:
                 print('..invalid entry, enter "PM", "Gases", or "Met"')
