@@ -423,11 +423,9 @@ def scatter_plotter(df_list, ref_df, stats_df=None, plot_subset=None,
         df_list = [df_list]
 
     number_of_sensors = len(df_list)
-
-    # Get default fontsize to fall back on if none specified
-    font_size = set_fontsize(sensor_serials)
-    fmt_tuple = sensor_subplot_formatting(number_of_sensors, param_name,
-                                          font_size, RH_colormap, report_fmt)
+    kwargs['sensor_serials'] = sensor_serials
+    fmt_tuple = sensor_subplot_formatting(number_of_sensors, param_obj,
+                                          report_fmt, **kwargs)
 
     (Nr, Nc, fig_size, suptitle_xpos, suptitle_ypos, title_textwrap,
      detail_fontsize, wspace, hspace, left, right, top, bottom,
@@ -444,7 +442,7 @@ def scatter_plotter(df_list, ref_df, stats_df=None, plot_subset=None,
     start = min([df.index.min() for df in df_list])
     end = max([df.index.max() for df in df_list])
     max_conc = get_max_conc(param_name, df_list=df_list, ref_df=ref_df,
-                       bdate=start, edate=end)
+                            bdate=start, edate=end)
 
     divisions  = 100
     default_tick_spacing = 0
@@ -489,6 +487,11 @@ def scatter_plotter(df_list, ref_df, stats_df=None, plot_subset=None,
                                     kwargs.get('title_textwrap',
                                                title_textwrap)))
 
+        n_lines = len(title_text.split('\n'))
+        if n_lines > 2:  # shift the figure down a tad if 3 or more lines
+            font_size *= 0.9
+            suptitle_ypos *= 1.03
+
         if unique_ax_obj is True:
             fig.suptitle(title_text, fontsize=font_size,
                          y=kwargs.get('title_yloc', suptitle_ypos),
@@ -497,11 +500,6 @@ def scatter_plotter(df_list, ref_df, stats_df=None, plot_subset=None,
             axs.set_title(title_text, fontsize=font_size,
                           y=kwargs.get('title_yloc', suptitle_ypos),
                           x=kwargs.get('title_xloc', suptitle_xpos))
-
-        n_lines = len(title_text.split('\n'))
-        if n_lines > 2:  # shift the figure down a tad if 3 or more lines
-            font_size *= 0.9
-            suptitle_ypos *= 1.03
 
     for i in range(Nr):
         for j in range(Nc):
@@ -640,11 +638,13 @@ def scatter_plotter(df_list, ref_df, stats_df=None, plot_subset=None,
             ctitle = 'Relative Humidity (%)'
             cbar_orien = 'horizontal'
             cbar_size = 0.3
+            cbar_ypos = 0.6
 
             if number_of_sensors == 1:
                 cbar_size = 0.8
-                if param_name == 'O3':
+                if len(param_obj.averaging) == 1:
                     cbar_orien = 'vertical'
+                    cbar_ypos = 1.01
                     # axes positioning [x0, y0, width, height]
                     caxes_pos = [0.85, 0.15, 0.05, 0.66]
                     ctitle = '\n'.join(wrap(ctitle, 10))
@@ -671,7 +671,7 @@ def scatter_plotter(df_list, ref_df, stats_df=None, plot_subset=None,
                 cbar.ax.set_title(ctitle,
                         fontsize=kwargs.get('colorbar_title_fontsize',
                                             detail_fontsize),
-                        y=kwargs.get('colorbar_title_ypos', 0.6))
+                        y=kwargs.get('colorbar_title_ypos', cbar_ypos))
                 cbar.ax.tick_params(
                         labelsize=kwargs.get('colorbar_tick_labelsize',
                                              detail_fontsize),
