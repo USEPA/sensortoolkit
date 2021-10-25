@@ -198,8 +198,7 @@ def deploy_ref_stats(deploy_dict, ref_df, cal_check_dict=None, param=None,
     """Add reference monitor statistics to the parameter statistics subfield in
     the deployment dictionary.
 
-    Details added include
-    ----------------------
+    Details added include:
     1. The FRM/FEM monitor name
     2. The minimum concentration recorded at the specified interval
        averaging.
@@ -290,7 +289,6 @@ def deploy_met_stats(deploy_dict, df_list, met_ref_df,
     subfield in the deployment dictionary.
 
     Details added include:
-    ----------------------
     1. The name of the instrument collocated nearby sensor deployment location.
     2. The minimum value recorded at the specified interval averaging.
     3. The maximum value recorded at the specified interval averaging.
