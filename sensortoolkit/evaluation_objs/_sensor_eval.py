@@ -606,12 +606,12 @@ class SensorEvaluation:
             sys.exit(txt)
 
         if (report_fmt is True and plot_subset is not None):
-            if self._param_name == 'PM25':
+            if len(avg_list) == 2:
                 # Create a 1x2 subplot, 1-hr scatter on left and 24-hr scatter
                 # on right for a single sensor unit (performance report page
                 # 1 plot)
                 figsize = (5.29, 3.17)
-            elif self._param_name == 'O3':
+            elif len(avg_list) == 1:
                 # Create a 1x1 subplot, 1-hr scatter with vertical colorbar
                 figsize = (4.3, 3.91)
             else:
