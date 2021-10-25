@@ -14,12 +14,12 @@ Created:
 Last Updated:
   Wed Jul 7 15:01:00 2021
 """
-import pandas as pd
-import numpy as np
 import math
 import json
 import sys
 import os
+import pandas as pd
+import numpy as np
 import matplotlib.pyplot as plt
 import sensortoolkit.calculate
 import sensortoolkit.datetime_utils
@@ -138,8 +138,8 @@ class SensorEvaluation:
 
         try:
             self.sensor.data
-        except AttributeError as e:
-            sys.exit(f'{e}, use the AirSensor.load_data() method to import'
+        except AttributeError as error:
+            sys.exit(f'{error}, use the AirSensor.load_data() method to import'
                      f' data')
 
         self.path = sensor.project_path
@@ -198,6 +198,34 @@ class SensorEvaluation:
         # Averaging intervals for parameters
         self.eval_param_averaging = self.param.averaging
 
+        self._assign_refdata_objs()
+
+        # Compute normalized param values
+        self.hourly_df_list = sensortoolkit.calculate.normalize(
+                                            self.hourly_df_list,
+                                            self.hourly_ref_df,
+                                            param=self._param_name,
+                                            ref_name=self.ref_name)
+
+        self.daily_df_list = sensortoolkit.calculate.normalize(
+                                            self.daily_df_list,
+                                            self.hourly_ref_df,
+                                            param=self._param_name,
+                                            ref_name=self.ref_name)
+
+        # Compute inter-sensor averaged parameter dataframes
+        self.avg_hrly_df = sensortoolkit.calculate.intersensor_mean(
+                                            self.hourly_df_list,
+                                            self.deploy_dict)
+
+        self.avg_daily_df = sensortoolkit.calculate.intersensor_mean(
+                                            self.daily_df_list,
+                                            self.deploy_dict)
+
+        self.stats_df = pd.DataFrame()
+        self.avg_stats_df = pd.DataFrame()
+
+    def _assign_refdata_objs(self):
         # Retrieve reference data
         self.ref_dict = self.reference.data
 
@@ -280,28 +308,6 @@ class SensorEvaluation:
         self.ref_name = self.reference.get_method_name(self.param.name)
 
         self.daily_ref_df = self.ref_dict[self.param.classifier]['24-hour']
-
-        # Compute normalized param values
-        self.hourly_df_list = sensortoolkit.calculate.normalize(
-                                            self.hourly_df_list,
-                                            self.hourly_ref_df,
-                                            param=self._param_name,
-                                            ref_name=self.ref_name)
-
-        self.daily_df_list = sensortoolkit.calculate.normalize(
-                                            self.daily_df_list,
-                                            self.hourly_ref_df,
-                                            param=self._param_name,
-                                            ref_name=self.ref_name)
-
-        # Compute inter-sensor averaged parameter dataframes
-        self.avg_hrly_df = sensortoolkit.calculate.intersensor_mean(
-                                            self.hourly_df_list,
-                                            self.deploy_dict)
-
-        self.avg_daily_df = sensortoolkit.calculate.intersensor_mean(
-                                            self.daily_df_list,
-                                            self.deploy_dict)
 
     def add_deploy_dict_stats(self):
         """
@@ -506,8 +512,8 @@ class SensorEvaluation:
 
             try:
                 sensor_data
-            except NameError as e:
-                sys.exit(e)
+            except NameError as error:
+                sys.exit(error)
 
             sensortoolkit.plotting.sensor_timeplot(
                     sensor_data,
@@ -685,8 +691,8 @@ class SensorEvaluation:
 
             try:
                 sensor_data
-            except NameError as e:
-                sys.exit(e)
+            except NameError as error:
+                sys.exit(error)
 
             sensortoolkit.plotting.scatter_plotter(
                                sensor_data,
@@ -737,7 +743,7 @@ class SensorEvaluation:
 
         """
         # Reference data header names for met data
-        met_params = ['Temp', 'RH']
+        valid_met_params = ['Temp', 'RH']
 
         if report_fmt is True:
             fig, axs = plt.subplots(1, 2, figsize=(8.1, 3.8))
@@ -745,7 +751,7 @@ class SensorEvaluation:
             kwargs['fontsize'] = kwargs.get('fontsize', 10)
             kwargs['ylims'] = kwargs.get('ylims', (-.3, 4))
 
-            for i, met_param in enumerate(met_params):
+            for i, m_param in enumerate(valid_met_params):
                 # Prevent writing to file on first iteration of loop
                 if i == 0:
                     write_to_file = False
@@ -761,7 +767,7 @@ class SensorEvaluation:
                                           param=self._param_name,
                                           sensor_serials=self.serials,
                                           sensor_name=self.name,
-                                          met_param=met_param,
+                                          met_param=m_param,
                                           ref_name=self.ref_name,
                                           write_to_file=write_to_file,
                                           report_fmt=report_fmt,
@@ -774,8 +780,8 @@ class SensorEvaluation:
             # Either Temp or RH must be passed to met_param if not using report
             # formatting. Report formatted plots dont require a value for
             # met_param as both Temp and RH scatter are automatically plotted.
-            if met_param not in met_params:
-                sys.exit('Invalid parameter name: ' + str(met_param))
+            if met_param not in valid_met_params:
+                sys.exit(f'Invalid parameter name: {met_param}')
 
             sensortoolkit.plotting.normalized_met_scatter(
                                       self.hourly_df_list,
@@ -838,7 +844,7 @@ class SensorEvaluation:
                   'sensor vs. reference measurements')
             self.calculate_metrics()
 
-        fontsize = sensortoolkit.Set_Fontsize(self.serials)
+        fontsize = sensortoolkit.plotting.set_fontsize(self.serials)
 
         # Set keyword argument values to defaults or passed values
         kwargs['fontsize'] = kwargs.get('fontsize', fontsize)
@@ -881,7 +887,7 @@ class SensorEvaluation:
         try:
             self.deploy_dict
         except AttributeError:
-            self.create_deploy_dict()
+            self.add_deploy_dict_stats()
         try:
             self.stats_df
         except AttributeError:
@@ -959,7 +965,7 @@ class SensorEvaluation:
         try:
             self.deploy_dict
         except AttributeError:
-            self.create_deploy_dict()
+            self.add_deploy_dict_stats()
         try:
             self.stats_df
         except AttributeError:

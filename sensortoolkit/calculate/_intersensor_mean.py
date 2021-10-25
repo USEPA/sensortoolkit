@@ -120,8 +120,7 @@ def intersensor_mean(df_list, deploy_dict):
     #col_list = list(dict.fromkeys(col_list))
     col_list = list(set(col_list))
 
-    date_index, avg_suffix = deploy_timestamp_index(df_list,
-                                                    averaging_suffix=True)
+    date_index = deploy_timestamp_index(df_list, averaging_suffix=False)
 
     # Dataframe to contain intersensor average for each parameter
     avg_df = pd.DataFrame(index=date_index)

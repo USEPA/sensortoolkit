@@ -84,26 +84,28 @@ def construct_deploy_dict(deploy_df, full_df_list, hourly_df_list,
     """
 
     # Testing organization information
-    testing_org = kwargs.get('testing_org', {'Deployment name': '[Name of Deployment]',
-                                             'Org name': ['[Organization name line 1]',
-                                                          '[Organization name line 2]'],
-                                             'Website': {'website name': '[Website Name]',
-                                                         'website link': '[Website Link]'},
-                                             'Contact email': '[Contact Email]',
-                                             'Contact phone': '[Contact Phone Number]'})
+    testing_org = kwargs.get('testing_org',
+                             {'Deployment name': '[Name of Deployment]',
+                              'Org name': ['[Organization name line 1]',
+                                           '[Organization name line 2]'],
+                              'Website': {'website name': '[Website Name]',
+                                          'website link': '[Website Link]'},
+                              'Contact email': '[Contact Email]',
+                              'Contact phone': '[Contact Phone Number]'})
 
     # Testing location information
-    testing_loc = kwargs.get('testing_loc',  {'Site name': '[Site Name]',
-                                              'Site address': '[Site Address]',
-                                              'Site lat': '[Site Latitude]',
-                                              'Site long': '[Site Longitude]',
-                                              'Site AQS ID': '[Site AQS ID]'})
+    testing_loc = kwargs.get('testing_loc',
+                             {'Site name': '[Site Name]',
+                              'Site address': '[Site Address]',
+                              'Site lat': '[Site Latitude]',
+                              'Site long': '[Site Longitude]',
+                              'Site AQS ID': '[Site AQS ID]'})
 
     current_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S %p')
     deploy_dict = {'sensortoolkit Version': _get_version(),
                    'Date of Analysis': current_time,
                    'Sensor Name': sensor_name,
-                   'Sensor Firmware Version': 'Unspecified',
+                   'Sensor Firmware Version': 'Unspecified',  # TODO
                    'Deployment Groups': {},
                    'Testing Organization': testing_org,
                    'Testing Location': testing_loc}
@@ -148,12 +150,12 @@ def construct_deploy_dict(deploy_df, full_df_list, hourly_df_list,
         start = deployments['Group ' + str(deploy_grp_n)]['eval_start']
         end = deployments['Group ' + str(deploy_grp_n)]['eval_end']
 
-        hourly_idx = pd.to_datetime(
-                        pd.date_range(start, end,
-                                      freq='H').strftime('%Y-%m-%d %H:00:00'))
-        daily_idx = pd.to_datetime(
-                        pd.date_range(start, end,
-                                      freq='D').strftime('%Y-%m-%d'))
+        # hourly_idx = pd.to_datetime(
+        #                 pd.date_range(start, end,
+        #                               freq='H').strftime('%Y-%m-%d %H:00:00'))
+        # daily_idx = pd.to_datetime(
+        #                 pd.date_range(start, end,
+        #                               freq='D').strftime('%Y-%m-%d'))
 
         for sensor_n in list(sensor_info.keys()):
             i = int(sensor_n) - 1
@@ -233,8 +235,8 @@ def deploy_ref_stats(deploy_dict, ref_df, cal_check_dict=None, param=None,
     """
     param_obj = Parameter(param)
     param_name = param_obj.name
-    fmt_param = param_obj.format_name
-    fmt_param_units = param_obj.units
+    #fmt_param = param_obj.format_name
+    #fmt_param_units = param_obj.units
 
     date_index, avg_suffix = deploy_timestamp_index(ref_df,
                                                     averaging_suffix=True)
@@ -329,7 +331,7 @@ def deploy_met_stats(deploy_dict, df_list, met_ref_df,
         param_obj = Parameter(name)
         param_name = param_obj.name
         fmt_param = param_obj.format_name
-        fmt_param_units = param_obj.units
+        #fmt_param_units = param_obj.units
 
         try:
             ref_name = met_ref_df.loc[:, param_name + '_Method'].dropna().apply(

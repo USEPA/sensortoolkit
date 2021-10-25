@@ -13,12 +13,12 @@ Created:
 Last Updated:
   Mon Jul 19 14:03:36 2021
 """
-import json
-import pandas as pd
-import sys
-from datetime import datetime
 import os
+import sys
+import json
+from datetime import datetime
 import pytz
+import pandas as pd
 
 
 def standard_ingest(path, name=None, setup_file_path=None):
@@ -40,7 +40,7 @@ def standard_ingest(path, name=None, setup_file_path=None):
             Dataframe containing sensor data in standardized formatting for
             datetime index and header naming scheme.
     """
-    setup = ParseSetup(setup_file_path, data_path=path)
+    setup = parse_setup(setup_file_path, data_path=path)
 
     time_fmt = setup['time_format_dict']
     idx_list = list(setup['time_format_dict'].keys())
@@ -87,7 +87,8 @@ def standard_ingest(path, name=None, setup_file_path=None):
         raise ValueError(f'Too many time zones specified for datetime index:'
                          f' {", ".join(time_zone_list)}. Only one time zone '
                          'should be specified.')
-    elif len(time_zone_list) == 0:
+
+    if len(time_zone_list) == 0:
         print('No time zone specified for datetime index. '
               'Continuing with tz-naive datetime index.')
         time_zone = None
@@ -214,7 +215,7 @@ def apply_strptime(dt, time_format):
         pass
     return dt
 
-def ParseSetup(setup_path, data_path):
+def parse_setup(setup_path, data_path):
     """Construct file-specific setup file from the setup.json.
 
     Args:
@@ -243,7 +244,7 @@ def ParseSetup(setup_path, data_path):
     file_list = setup['file_list']
 
     # Either reference or sensor
-    data_type = setup['data_type']
+    # data_type = setup['data_type']
 
     # Parse setup.json for data file specific header names
     for col_idx in setup['col_headers']:
@@ -269,7 +270,7 @@ def ParseSetup(setup_path, data_path):
                 file_col_headers[header] = header_config
 
                 if header_config['drop'] is True:
-                        file_drop_cols.append(header)
+                    file_drop_cols.append(header)
                 else:
                     # Add datetime index column info
                     if header_config['header_class'] == 'datetime':
@@ -322,7 +323,7 @@ def ParseSetup(setup_path, data_path):
 if __name__ == '__main__':
 
     # Sensor test
-    # setup = ParseSetup(data_path=r"C:\Users\SFREDE01\OneDrive - Environmental Protection Agency (EPA)\Profile\Documents\sensortoolkit_testing\Data and Figures\sensor_data\Example_Make_Model\raw_data\Example_Make_Model_SN01_raw.csv",
+    # setup = parse_setup(data_path=r"C:\Users\SFREDE01\OneDrive - Environmental Protection Agency (EPA)\Profile\Documents\sensortoolkit_testing\Data and Figures\sensor_data\Example_Make_Model\raw_data\Example_Make_Model_SN01_raw.csv",
     #                   setup_path=r"C:\Users\SFREDE01\OneDrive - Environmental Protection Agency (EPA)\Profile\Documents\sensortoolkit_testing\Data and Figures\sensor_data\Example_Make_Model\Example_Make_Model_setup.json")
 
     # df = standard_ingest(path=r"C:\Users\SFREDE01\OneDrive - Environmental Protection Agency (EPA)\Profile\Documents\sensortoolkit_testing\Data and Figures\sensor_data\Example_Make_Model\raw_data\Example_Make_Model_SN01_raw.csv",

@@ -81,7 +81,7 @@ def aqi(data):
     the AQI value and category return null)**
 
     Args:
-        data (float, int, numpy array, or pandas dataframe): PM2.5 concentration
+        data (float, int, numpy array, or pandas dataframe): PM2.5 conc.
             value(s), if dataframe, column must be labeled 'PM25_Value'.
 
     Returns:
@@ -94,37 +94,37 @@ def aqi(data):
             header 'PM25_Value' is not found.
     """
     breakpoints = {'Good': {'I_h': 50,
-                         'I_l': 0,
-                         'C_l': 0.0,
-                         'C_h': 12.05},
-                'Moderate': {'I_h': 100,
-                             'I_l': 51,
-                             'C_l': 12.05,
-                             'C_h': 35.45},
-                'Unhealthly for Sensitive Groups': {'I_h': 150,
-                                                    'I_l': 101,
-                                                    'C_l': 35.45,
-                                                    'C_h': 55.45},
-                'Unhealthly': {'I_h': 200,
-                               'I_l': 151,
-                               'C_l': 55.45,
-                               'C_h': 150.45},
-                'Very Unhealthly': {'I_h': 300,
-                                    'I_l': 201,
-                                    'C_l': 150.45,
-                                    'C_h': 250.45},
-                'Hazardous 1': {'I_h': 400,
-                                'I_l': 301,
-                                'C_l': 250.45,
-                                'C_h': 350.45},
-                'Hazardous 2': {'I_h': 500,
-                                'I_l': 401,
-                                'C_l': 350.45,
-                                'C_h': 500.45},
-                'Hazardous 3': {'I_h': 999,
-                                'I_l': 501,
-                                'C_l': 500.45,
-                                'C_h': 99999.9}}
+                            'I_l': 0,
+                            'C_l': 0.0,
+                            'C_h': 12.05},
+                   'Moderate': {'I_h': 100,
+                                'I_l': 51,
+                                'C_l': 12.05,
+                                'C_h': 35.45},
+                   'Unhealthly for Sensitive Groups': {'I_h': 150,
+                                                       'I_l': 101,
+                                                       'C_l': 35.45,
+                                                       'C_h': 55.45},
+                   'Unhealthly': {'I_h': 200,
+                                  'I_l': 151,
+                                  'C_l': 55.45,
+                                  'C_h': 150.45},
+                   'Very Unhealthly': {'I_h': 300,
+                                       'I_l': 201,
+                                       'C_l': 150.45,
+                                       'C_h': 250.45},
+                   'Hazardous 1': {'I_h': 400,
+                                   'I_l': 301,
+                                   'C_l': 250.45,
+                                   'C_h': 350.45},
+                   'Hazardous 2': {'I_h': 500,
+                                   'I_l': 401,
+                                   'C_l': 350.45,
+                                   'C_h': 500.45},
+                   'Hazardous 3': {'I_h': 999,
+                                   'I_l': 501,
+                                   'C_l': 500.45,
+                                   'C_h': 99999.9}}
 
     # Convert input type to pandas dataframe
     data_type = type(data)
@@ -135,19 +135,19 @@ def aqi(data):
     if 'PM25_Value' not in data:
         raise KeyError('Column header "PM25_Value" not in passed dataframe.')
 
-    for cat in breakpoints:
-        conc_max = breakpoints[cat]['C_h']
-        conc_min = breakpoints[cat]['C_l']
-        index_max = breakpoints[cat]['I_h']
-        index_min = breakpoints[cat]['I_l']
+    for cat, cat_bpoints in breakpoints.items():
+        conc_max = cat_bpoints['C_h']
+        conc_min = cat_bpoints['C_l']
+        index_max = cat_bpoints['I_h']
+        index_min = cat_bpoints['I_l']
 
         cat_conc = data[(data.PM25 >= conc_min) & (data.PM25 < conc_max)].PM25
         cat_idx = cat_conc.index
 
         slope = (index_max - index_min)/(conc_max - conc_min)
-        aqi = round(slope*(cat_conc - conc_min) + index_min)
+        aqi_value = round(slope*(cat_conc - conc_min) + index_min)
 
-        data.loc[cat_idx, 'AQI'] = aqi
+        data.loc[cat_idx, 'AQI'] = aqi_value
         data.loc[cat_idx, 'AQI_Category'] = cat
 
     return data

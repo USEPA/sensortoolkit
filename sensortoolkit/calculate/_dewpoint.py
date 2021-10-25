@@ -62,6 +62,9 @@ def dewpoint(data):
             Pandas dataframe or list of pandas dataframes with calculated
             dewpoint (column header ``DP_Calculated_Value``).
     """
+    BETA = 17.625
+    LBDA = 243.04  # degrees C
+
     # Coerce input type to pandas dataframe
     data_type = type(data)
     if data_type is not pd.core.frame.DataFrame and data_type is not list:
@@ -76,21 +79,19 @@ def dewpoint(data):
 
         # Passed datatype is pandas dataframe but expected header not found
         if 'Temp_Value' not in df:
-            raise KeyError('Column header "Temp_Value" not in passed dataframe.')
+            raise KeyError('Column header "Temp_Value" not in passed '
+                           'dataframe.')
         if 'RH_Value' not in df:
             raise KeyError('Column header "RH_Value" not in passed dataframe.')
 
-        beta = 17.625
-        lbda = 243.04  # degrees C
+        temp = df.Temp_Value
+        rel_hum = df.RH_Value
 
-        T = df.Temp_Value
-        RH = df.RH_Value
+        numerator = LBDA*(np.log(rel_hum/100) + (BETA*temp)/(LBDA+temp))
+        denominator = BETA - (np.log(rel_hum/100) + (BETA*temp)/(LBDA+temp))
+        calc_dp = numerator / denominator
 
-        numerator = lbda*(np.log(RH/100) + (beta*T)/(lbda+T))
-        denominator = beta - (np.log(RH/100) + (beta*T)/(lbda+T))
-        DP = numerator / denominator
-
-        df['DP_Calculated_Value'] = DP
+        df['DP_Calculated_Value'] = calc_dp
 
         data[i] = df
 

@@ -125,13 +125,13 @@ def _calculate_cv(cv_df, sensor_numbers, param):
             continue
 
     # number of concurrent hours with all sensors reporting pollutant values
-    n = total_n_vals / n_sensors
+    n_concurr = total_n_vals / n_sensors
 
     pollutant_avg /= n_sensors
     st_dev = np.sqrt(sum_sqrd_diff/(total_n_vals - 1))
     CV = (st_dev / pollutant_avg)*100  # CV reported in percentage
 
-    return cv_df, CV, st_dev, n
+    return cv_df, CV, st_dev, n_concurr
 
 
 def cv(df_list, deploy_dict, param=None, return_deploy_dict=True):
@@ -209,15 +209,15 @@ def cv(df_list, deploy_dict, param=None, return_deploy_dict=True):
         deploy_cols = [i + '_' + param for i in deploy_sensor_nums]
         deploy_cv_df = cv_df.loc[start:end, deploy_cols]
 
-        deploy_cv_df, CV, st_dev, n = _calculate_cv(deploy_cv_df,
-                                                    serials,
-                                                    param=param)
+        deploy_cv_df, CV, st_dev, n_concurr = _calculate_cv(deploy_cv_df,
+                                                            serials,
+                                                            param=param)
 
         stats_loc['cv' + avg_suffix] = float("{0:.3f}".format(CV))
         stats_loc['std' + avg_suffix] = float("{0:.3f}".format(st_dev))
-        stats_loc['n' + avg_suffix] = int(n)
+        stats_loc['n' + avg_suffix] = int(n_concurr)
 
     if return_deploy_dict is True:
         return deploy_dict
-    else:
-        return CV
+
+    return CV

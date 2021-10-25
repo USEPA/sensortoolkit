@@ -15,10 +15,10 @@ Last Updated:
 """
 import os
 import json
-from sensortoolkit.param import Parameter
 from sensortoolkit import lib_utils
 from sensortoolkit import ingest
 from sensortoolkit import datetime_utils
+#from sensortoolkit.param import Parameter
 
 
 class AirSensor:

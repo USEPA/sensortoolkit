@@ -13,9 +13,9 @@ Created:
 Last Updated:
   Wed Jul 14 10:22:15 2021
 """
-import pandas as pd
 import os
 import sys
+import pandas as pd
 from sensortoolkit.datetime_utils import sensor_averaging
 from sensortoolkit.ingest import standard_ingest, processed_data_search
 from sensortoolkit.calculate import dewpoint
@@ -186,7 +186,7 @@ def sensor_import(sensor_name=None, sensor_serials=None,
             # Check if serial ID not found in any file names.
             if not any(serial in file for file in file_list):
                 console_out = ('Serial ID ' + serial + ' not found in data '
-                               'files:\n' + '\n'.join(files))
+                               'files:\n' + '\n'.join(file_list))
                 print(console_out)
 
             if sensor_df.empty:
@@ -256,13 +256,10 @@ def ingest_wrapper(cwd, sensor_name, serial, data_path):
                                setup_file_path=setup_path)
 
     # Otherwise, use sensor-specific ingestion modules
-#    elif sensor_name == 'Example_Make_Model':
-#        return Ingest_Example_Make_Model(cwd)
+    # if sensor_name == 'Sensit_RAMP':
+    #     return ingest_sensit_ramp(cwd)
 
-    elif sensor_name == 'Sensit_RAMP':
-        return ingest_sensit_ramp(cwd)
-
-    elif sensor_name == 'PurpleAir_PAII':
+    if sensor_name == 'PurpleAir_PAII':
         # assuming Thingspeak API dataset
         return ingest_purpleair(cwd, serial)
 
@@ -274,94 +271,93 @@ def ingest_wrapper(cwd, sensor_name, serial, data_path):
                  + sensor_name)
 
 
-"""Sensor specific ingestion modules-------------------------------------------
-"""
+# Sensor specific ingestion modules
+
+# Depreciate custom ingestion module for example dataset
+# def ingest_example_make_model(cwd):
+#     """Ingestion module for an example sensor dataset.
+
+#     Recorded sensor data are imported and headers are converted into a
+#     standard format for analysis.
+
+#     Args:
+#         cwd (str): The full path to the sensor data file
+
+#     Returns:
+#         df (Pandas DataFrame object): A dataframe containing sensor data that
+#             has been converted into standardized syntax
+#     """
+#     idx_name = 'Time'
+
+#     try:
+#         df = pd.read_csv(cwd, header=5, index_col=idx_name,
+#                          parse_dates=[idx_name])
+#     except FileNotFoundError as e:
+#         sys.exit(e)
+
+#     df.index.name = 'DateTime_UTC'
+
+#     # Force non numeric values to Nans
+#     df = df.apply(lambda x: pd.to_numeric(x, errors='coerce'))
+
+#     # Drop unsed columns and rename others to consistent naming scheme
+#     df = df.drop('Inlet', axis=1)
+#     df = df.rename(columns={'NO2 (ppb)': 'NO2',
+#                             'O3 (ppb)': 'O3',
+#                             'PM2.5 (µg/m³)': 'PM25',
+#                             'TEMP (°C)': 'Temp',
+#                             'RH (%)': 'RH',
+#                             'DP (°C)': 'DP'})
+#     return df
 
 
-def ingest_example_make_model(cwd):
-    """Ingestion module for an example sensor dataset.
+# def ingest_sensit_ramp(cwd):
+#     """Ingestion module for the Sensit RAMP.
 
-    Recorded sensor data are imported and headers are converted into a
-    standard format for analysis.
+#     Args:
+#         cwd (str): The full path to the sensor data file
 
-    Args:
-        cwd (str): The full path to the sensor data file
+#     Returns:
+#         df (Pandas DataFrame object): A dataframe containing sensor data that
+#             has been converted into standardized syntax
+#     """
 
-    Returns:
-        df (Pandas DataFrame object): A dataframe containing sensor data that
-            has been converted into standardized syntax
-    """
-    idx_name = 'Time'
+#     # List of column names
+#     col_list = ['Serial_ID', 'DateTime', 'CO_Header', 'CO',
+#                 'NO_Header', 'NO', 'NO2_Header', 'NO2',
+#                 'O3_Header', 'O3', 'CO2_Header', 'CO2',
+#                 'Temp_Header', 'Temp', 'RH_Header', 'RH',
+#                 'PM1_Header', 'PM1', 'PM25_Header', 'PM25',
+#                 'PM10_Header', 'PM10', 'WD_Header', 'WD',
+#                 'WS_Header', 'WS', 'BATT_Header', 'BATT',
+#                 'CHRG_Header', 'CHRG', 'RUN_Header', 'RUN',
+#                 'SD_Header', 'SD', 'RAW_Header', 'RAW_1',
+#                 'RAW_2', 'RAW_3', 'RAW_4', 'RAW_5', 'RAW_6',
+#                 'RAW_7', 'RAW_8', 'STAT_Header', 'STAT_1',
+#                 'STAT_2', 'STAT_3']
 
-    try:
-        df = pd.read_csv(cwd, header=5, index_col=idx_name,
-                         parse_dates=[idx_name])
-    except FileNotFoundError as e:
-        sys.exit(e)
-
-    df.index.name = 'DateTime_UTC'
-
-    # Force non numeric values to Nans
-    df = df.apply(lambda x: pd.to_numeric(x, errors='coerce'))
-
-    # Drop unsed columns and rename others to consistent naming scheme
-    df = df.drop('Inlet', axis=1)
-    df = df.rename(columns={'NO2 (ppb)': 'NO2',
-                            'O3 (ppb)': 'O3',
-                            'PM2.5 (µg/m³)': 'PM25',
-                            'TEMP (°C)': 'Temp',
-                            'RH (%)': 'RH',
-                            'DP (°C)': 'DP'})
-    return df
+#     # Load sensor datasets, column names not specified in files (header==None)
+#     try:
+#         df = pd.read_csv(cwd, header=None, names=col_list)
+#     except FileNotFoundError as e:
+#         sys.exit(e)
 
 
-def ingest_sensit_ramp(cwd):
-    """Ingestion module for the Sensit RAMP.
+#     # drop the header columns for RAMP datasets
+#     drop_headers = [col for col in df.columns if col.endswith('_Header')]
+#     df = df.drop(columns=drop_headers)
 
-    Args:
-        cwd (str): The full path to the sensor data file
+#     df.Serial_ID = df.Serial_ID.str.replace('XDATE', '')
 
-    Returns:
-        df (Pandas DataFrame object): A dataframe containing sensor data that
-            has been converted into standardized syntax
-    """
+#     # Set the DateTime columns as the timelike index
+#     df = df.set_index(pd.to_datetime(df['DateTime']))
+#     df.index.name = 'DateTime_UTC'
 
-    # List of column names
-    col_list = ['Serial_ID', 'DateTime', 'CO_Header', 'CO',
-                'NO_Header', 'NO', 'NO2_Header', 'NO2',
-                'O3_Header', 'O3', 'CO2_Header', 'CO2',
-                'Temp_Header', 'Temp', 'RH_Header', 'RH',
-                'PM1_Header', 'PM1', 'PM25_Header', 'PM25',
-                'PM10_Header', 'PM10', 'WD_Header', 'WD',
-                'WS_Header', 'WS', 'BATT_Header', 'BATT',
-                'CHRG_Header', 'CHRG', 'RUN_Header', 'RUN',
-                'SD_Header', 'SD', 'RAW_Header', 'RAW_1',
-                'RAW_2', 'RAW_3', 'RAW_4', 'RAW_5', 'RAW_6',
-                'RAW_7', 'RAW_8', 'STAT_Header', 'STAT_1',
-                'STAT_2', 'STAT_3']
+#     # Limit dataset to parameter data (exclude columns not used in analysis)
+#     df = df[['Serial_ID', 'CO', 'NO', 'NO2', 'O3', 'CO2',
+#              'PM1', 'PM25', 'PM10', 'Temp', 'RH', 'WD', 'WS']]
 
-    # Load sensor datasets, column names not specified in files (header==None)
-    try:
-        df = pd.read_csv(cwd, header=None, names=col_list)
-    except FileNotFoundError as e:
-        sys.exit(e)
-
-
-    # drop the header columns for RAMP datasets
-    drop_headers = [col for col in df.columns if col.endswith('_Header')]
-    df = df.drop(columns=drop_headers)
-
-    df.Serial_ID = df.Serial_ID.str.replace('XDATE', '')
-
-    # Set the DateTime columns as the timelike index
-    df = df.set_index(pd.to_datetime(df['DateTime']))
-    df.index.name = 'DateTime_UTC'
-
-    # Limit dataset to parameter data (exclude columns not used in analysis)
-    df = df[['Serial_ID', 'CO', 'NO', 'NO2', 'O3', 'CO2',
-             'PM1', 'PM25', 'PM10', 'Temp', 'RH', 'WD', 'WS']]
-
-    return df
+#     return df
 
 
 def ingest_purpleair(cwd, serial):
@@ -468,7 +464,7 @@ def ingest_purpleair(cwd, serial):
 
         return df
 
-    elif serial + 'B' in cwd:
+    if serial + 'B' in cwd:
         return None
 
 

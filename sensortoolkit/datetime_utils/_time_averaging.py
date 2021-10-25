@@ -36,9 +36,9 @@ Created:
 Last Updated:
   Tue Jul 13 16:32:44 2021
 """
+import os
 import pandas as pd
 import numpy as np
-import os
 
 
 def sensor_averaging(full_df_list, sensor_serials=None, name='',

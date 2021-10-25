@@ -68,9 +68,9 @@ def uptime(dataframe_object, key=None):
         meets_thres = df.count().mode()[0]
         below_thres = df.isna().sum().mode()[0]
         total_hrs = meets_thres + below_thres
-        uptime = (float(meets_thres) / total_hrs)*100
+        uptime_value = (float(meets_thres) / total_hrs)*100
 
-        uptime_dict[key]['Uptime'] = float("{0:.3f}".format(uptime))
+        uptime_dict[key]['Uptime'] = float("{0:.3f}".format(uptime_value))
         uptime_dict[key]['Meets Threshold'] = meets_thres
         uptime_dict[key]['Below Threshold'] = below_thres
         uptime_dict[key]['Total Hours'] = total_hrs
