@@ -18,31 +18,29 @@ import statsmodels.formula.api as smf
 
 def sensor_ols(df, ref_df, y_var=None, x_vars=[]):
     """
-    Summary
-    -------
+
     Generates a statsmodels OLS Regressions Results summary for selected
     x (independent) and y (dependent) variables for sensor data.
 
-    Parameters
-    ----------
-    df:
-        Pandas Dataframe with sensor data
-    ref_df:
-        Pandas Dataframe with reference data
-    y_var:
-        String, name of dependent variable (often sensor concentration values)
-    x_vars:
-        List, column names for independent variables (reference conc.,
-        met params, etc.)
+    Args:
+        df (Pandas Dataframe):
+            Sensor data.
+        ref_df (Pandas Dataframe):
+            Reference data.
+        y_var (str):
+            Name of dependent variable (often sensor concentration 
+            values).
+        x_vars (list):
+            Column names for independent variables (reference conc.,
+            met params, etc.).
 
-    Returns
-    -------
-    results:
-        statsmodels.regression.linear_model.RegressionResults instance. See
-        the link below for more info on attributes:
+    Returns:
+        results:
+            statsmodels.regression.linear_model.RegressionResults instance. See
+            the link below for more info on attributes:
 
-        https://www.statsmodels.org/stable/generated/statsmodels.regression.
-        linear_model.RegressionResults.html
+            https://www.statsmodels.org/stable/generated/statsmodels.regression.
+            linear_model.RegressionResults.html
 
     """
     # Search for reference name based on dependent variable, append to sensor
