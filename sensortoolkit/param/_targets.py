@@ -21,7 +21,7 @@ class ParameterTargets:
 
     def __init__(self, param):
 
-        __target_dict__ = {'PM25':
+        _usepa_targets = {'PM25':
                                {'Bias':
                                     {'Slope': {'description': 'Ordinary least '
                                                'squares regression slope',
@@ -121,16 +121,16 @@ class ParameterTargets:
                                 }
                            }
 
-        self.__metrics__ = {'Bias': {},
-                            'Linearity': {},
-                            'Error': {},
-                            'Precision': {}
-                            }
+        self._metrics = {'Bias': {},
+                         'Linearity': {},
+                         'Error': {},
+                         'Precision': {}
+                         }
 
-        if param in __target_dict__:
-            self.__metrics__ = __target_dict__[param]
+        if param in _usepa_targets:
+            self._metrics = _usepa_targets[param]
 
-        self.metric_categories = list(self.__metrics__.keys())
+        self.metric_categories = list(self._metrics.keys())
 
     def set_PerformanceMetric(self, metric_category, metric_name, **kwargs):
         """
@@ -153,26 +153,25 @@ class ParameterTargets:
         metric_category = metric_category.title()
         #metric_name = metric_name.title()
 
-        if metric_category not in self.__metrics__:
+        if metric_category not in self._metrics:
             raise KeyError('Unspecified metric category: '
                            '{0}. Category must be one of the '
                            'following: {1}'.format(metric_category,
-                                                   list(self.__metrics__.keys())))
+                                                   list(self._metrics.keys())))
 
-        self.__metrics__[metric_category][metric_name] = {}
+        self._metrics[metric_category][metric_name] = {}
 
-        metric_entry = self.__metrics__[metric_category][metric_name]
+        metric_entry = self._metrics[metric_category][metric_name]
         metric_entry['description'] = kwargs.get('description', None)
         metric_entry['bounds'] = kwargs.get('bounds', None)
         metric_entry['goal'] = kwargs.get('goal', None)
         metric_entry['metric_units'] = kwargs.get('metric_units', None)
 
-    def get_PerformanceMetric(self, metric_category, metric_name):
+    def get_PerformanceMetric(self, metric_name):
         """
 
 
         Args:
-            metric_category (TYPE): DESCRIPTION.
             metric_name (TYPE): DESCRIPTION.
 
         Raises:
@@ -184,24 +183,32 @@ class ParameterTargets:
         """
 
         # Ensure title case
-        metric_category = metric_category.title()
-        #metric_name = metric_name.title()
+        # metric_category = metric_category.title()
+        # #metric_name = metric_name.title()
 
-        if metric_category not in self.__metrics__:
-            raise KeyError('Unspecified metric category: '
-                           '{0}. Category must be one of the '
-                           'following: {1}'.format(metric_category,
-                                                   list(self.__metrics__.keys())))
+        # if metric_category not in self._metrics:
+        #     raise KeyError('Unspecified metric category: '
+        #                    '{0}. Category must be one of the '
+        #                    'following: {1}'.format(metric_category,
+        #                                            list(self._metrics.keys())))
 
-        if metric_name not in self.__metrics__[metric_category]:
-            raise KeyError('Unspecified metric name: '
-                           '{0}. Metric name must be one of the '
-                           'following: {1}'.format(metric_name,
-                                list(self.__metrics__[metric_category].keys())))
+        # if metric_name not in self._metrics[metric_category]:
+        #     raise KeyError('Unspecified metric name: '
+        #                    '{0}. Metric name must be one of the '
+        #                    'following: {1}'.format(metric_name,
+        #                         list(self._metrics[metric_category].keys())))
 
-        metric = self.__metrics__[metric_category][metric_name]
+        # metric = self._metrics[metric_category][metric_name]
 
-        return metric
+        for cat, cat_metrics in self._metrics.items():
+            for name, info in cat_metrics.items():
+                if name == metric_name:
+                    return info
+
+        # If metric name not found, raise keyerror indicating the metric is not
+        # in the list of performance metrics
+        raise KeyError(f'Unspecified metric name: {metric_name}. Metric name '
+                       f'must be one of the following: {self._metrics}')
 
     def get_AllMetrics(self):
         """
@@ -211,7 +218,7 @@ class ParameterTargets:
             TYPE: DESCRIPTION.
 
         """
-        return self.__metrics__
+        return self._metrics
 
     def set_MetricCategory(self, metric_category, metric_names=None):
         """
@@ -232,10 +239,10 @@ class ParameterTargets:
         # Ensure title case
         metric_category = metric_category.title()
 
-        if metric_category in self.__metrics__:
+        if metric_category in self._metrics:
             warnings.warn("Warning: Overwriting existing metric category.")
 
-        self.__metrics__[metric_category] = {}
+        self._metrics[metric_category] = {}
 
         if metric_names is not None:
             if type(metric_names) is not dict:
