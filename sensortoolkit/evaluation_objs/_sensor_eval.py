@@ -91,8 +91,6 @@ class SensorEvaluation:
         deploy_edate (pandas timestamp object): Overall end date of deployment.
             Determined by selecting the latest recorded timestamp in sensor
             data frames.
-        eval_param_averaging (list): A subset of param_averaging_dict, the list
-            of averaging intervals corresponding to the evaluation parameter.
         ref_dict (dict):
             Description.
         hourly_ref_df (pandas dataframe):
@@ -196,9 +194,6 @@ class SensorEvaluation:
         deploy_edate = max([pd.to_datetime(deploy_grps[grp]['eval_end'])
                             for grp in deploy_grps.keys()])
         self.deploy_edate = self.kwargs.get('deploy_edate', deploy_edate)
-
-        # Averaging intervals for parameters
-        self.eval_param_averaging = self.param.averaging
 
         self._assign_refdata_objs()
 
@@ -465,7 +460,7 @@ class SensorEvaluation:
         t_end = (self.avg_hrly_df.dropna(how='all', axis=0).index[-1] +
                  pd.Timedelta('1D')).strftime(timestamp_fmt)
 
-        avg_list = self.eval_param_averaging
+        avg_list = self.param.averaging
 
         if len(avg_list) == 2 and report_fmt is True:
             fig, axs = plt.subplots(2, 1, figsize=(10.15, 4.1))
@@ -564,7 +559,7 @@ class SensorEvaluation:
         sensortoolkit.plotting.performance_metrics(self.stats_df,
                                     self.deploy_dict,
                                     param=self._param_name,
-                                    param_averaging=self.eval_param_averaging,
+                                    param_averaging=self.param.averaging,
                                     path=self.figure_path,
                                     sensor_name=self.name,
                                     write_to_file=self.write_to_file,
@@ -607,7 +602,7 @@ class SensorEvaluation:
                               if str(i) in plot_subset}
             sensor_serials = subset_serials
 
-        avg_list = self.eval_param_averaging
+        avg_list = self.param.averaging
 
         # Figuring out averaging intervals is done if report_fmt true, no
         # need to check for invalid intervals passed (will be ignored in favor
@@ -633,7 +628,7 @@ class SensorEvaluation:
             fig, axs = plt.subplots(1, len(avg_list), figsize=figsize)
             #kwargs['fontsize'] = 9
             fig.subplots_adjust(hspace=0.7)
-            for i, averaging_interval in enumerate(self.eval_param_averaging):
+            for i, averaging_interval in enumerate(self.param.averaging):
 
                 if averaging_interval == '1-hour':
                     sensor_data = self.hourly_df_list
@@ -649,7 +644,7 @@ class SensorEvaluation:
                 if i == 0:
                     write_to_file = False
                     kwargs['draw_cbar'] = False
-                if i == len(self.eval_param_averaging) - 1:
+                if i == len(self.param.averaging) - 1:
                     write_to_file = self.write_to_file
                     kwargs['draw_cbar'] = True
 
@@ -821,9 +816,9 @@ class SensorEvaluation:
         if met_param not in met_params:
             sys.exit('Invalid parameter name: ' + str(met_param))
 
-        if averaging_interval not in  self.eval_param_averaging:
+        if averaging_interval not in  self.param.averaging:
             txt = ('Invalid averaging interval, choose from the following: '
-                   + ', '.join(self.eval_param_averaging))
+                   + ', '.join(self.param.averaging))
             sys.exit(txt)
 
         if averaging_interval == '1-hour':
