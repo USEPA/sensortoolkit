@@ -53,10 +53,21 @@ class PerformanceReport(SensorEvaluation):
     specified.
 
     Args:
+        sensor (AirSensor object):
+            Description.
+        param (Parameter object):
+            Description.
+        reference (ReferenceMethod object):
+            Description.
+        write_to_file (TYPE, optional): DESCRIPTION. Defaults to False.
+        figure_search (TYPE, optional): DESCRIPTION. Defaults to False.
+        **kwargs (TYPE): DESCRIPTION.
 
-    Attributes:
+    Returns:
+            None.
 
     """
+
     # Evaluation parameters for which the PerformanceReport class can
     # constuct reports
     report_params = ['PM25', 'O3']
@@ -145,9 +156,14 @@ class PerformanceReport(SensorEvaluation):
         self.n_avg_intervals = len(self.param.averaging)
 
     def FigPositions(self):
-        """
-        Figure positions for reports. Values are in inches, specifying the
-        left and top center location of each figure.
+        """Assign figure positions for reports.
+
+        Values are in inches, specifying the left and top center location of
+        each figure.
+
+        Returns:
+            None.
+
         """
         self.fig_locs = {'SingleScatter': {'left': '',
                                            'top': ''},
@@ -192,6 +208,17 @@ class PerformanceReport(SensorEvaluation):
             self.fig_locs['MetInfl']['top'] = 17.31
 
     def FigureSearch(self, figure_name, subfolder=None):
+        """Indicate whether a figure exists and the full path to the figure.
+
+        Args:
+            figure_name (TYPE): DESCRIPTION.
+            subfolder (TYPE, optional): DESCRIPTION. Defaults to None.
+
+        Returns:
+            TYPE: DESCRIPTION.
+            full_figure_path (TYPE): DESCRIPTION.
+
+        """
         if subfolder is None:
             subfolder = self._param_name
         # Search for figure created today
@@ -203,7 +230,6 @@ class PerformanceReport(SensorEvaluation):
 
     def AddSingleScatterPlot(self, **kwargs):
         """Add sensor vs. reference scatter plots to report.
-
 
         Args:
             **kwargs (dict): Keyword arguments passed to plot_sensor_scatter()
@@ -332,7 +358,6 @@ class PerformanceReport(SensorEvaluation):
     def AddTimeseriesPlot(self, **kwargs):
         """Add timeseries plots to report.
 
-
         Args:
             **kwargs (TYPE): DESCRIPTION.
 
@@ -369,7 +394,6 @@ class PerformanceReport(SensorEvaluation):
     def AddMetricsPlot(self, **kwargs):
         """Add Performance target metric boxplots/dot plots to report.
 
-
         Args:
             **kwargs (TYPE): DESCRIPTION.
 
@@ -405,7 +429,6 @@ class PerformanceReport(SensorEvaluation):
     def AddMetDistPlot(self, **kwargs):
         """Add meteorological distribution (Temp, RH) to report.
 
-
         Args:
             **kwargs (TYPE): DESCRIPTION.
 
@@ -439,10 +462,16 @@ class PerformanceReport(SensorEvaluation):
         self.cursor_sp.addprevious(self.metdist._element)
 
     def AddMetInflPlot(self, **kwargs):
+        """Add normalized meteorological influence scatter (Temp, RH) to report
+
+        Args:
+            **kwargs (TYPE): DESCRIPTION.
+
+        Returns:
+            None.
+
         """
-        Add normalized meteorological influence (temperature,
-        relative humidity) scatter plots to report
-        """
+
         fig_name = self.name + '_normalized_' + self._param_name \
             + '_met_report_fmt'
 
@@ -626,12 +655,16 @@ class PerformanceReport(SensorEvaluation):
                 pic.insert_picture(pic_path)
 
     def EditSiteTable(self):
-        """
-        Add details to testing organzation and site information table.
+        """Add details to testing organzation and site information table.
 
         Table name                  Table ID
         ----------                  --------
         Testing org, site info         18
+
+
+        Returns:
+            None.
+
         """
         # Get pptx table shape for modifying cells
         shape = self.GetShape(slide_idx=0, shape_id=18)
@@ -715,12 +748,15 @@ class PerformanceReport(SensorEvaluation):
                             font_size=11)
 
     def EditSensorTable(self):
-        """
-        Add information to sensor information table
+        """Add information to sensor information table
 
         Table name                  Table ID
         ----------                  --------
         Sensor info             49 (PM2.5), 30 (O3)
+
+        Returns:
+            None.
+
         """
         # Get pptx table shape for modifying cells
         if self.n_avg_intervals == 2:
@@ -830,12 +866,15 @@ class PerformanceReport(SensorEvaluation):
                                 font_name='Calibri', font_size=12)
 
     def EditRefTable(self):
-        """
-        Add details to reference information table
+        """Add details to reference information table
 
         Table name                  Table ID
         ----------                  --------
         Reference info                 51
+
+        Returns:
+            None.
+
         """
         # Get pptx table shape for modifying cells
         shape = self.GetShape(slide_idx=0, shape_id=51)
@@ -850,10 +889,9 @@ class PerformanceReport(SensorEvaluation):
                         font_name='Calibri', font_size=14)
 
     def EditRefConcTable(self):
-        """
-        Add details to tables containing informtaion about reference
-        concentrations. Located in different boxes based on the evaluation
-        parameter type.
+        """Add reference concentration tabular statistics.
+
+        Located in different boxes based on the evaluation parameter type.
 
         Scatter plots box (PM2.5 only)
         Table name                  Table ID
@@ -865,6 +903,10 @@ class PerformanceReport(SensorEvaluation):
         Table name                  Table ID
         ----------                  --------
         Reference conc info          56 (O3)
+
+        Returns:
+            None.
+
         """
         # Get pptx table shape for modifying cells
         if self.n_avg_intervals == 2:
@@ -947,12 +989,15 @@ class PerformanceReport(SensorEvaluation):
                             font_name='Calibri', font_size=9)
 
     def EditMetCondTable(self):
-        """
-        Met conditions box
+        """Add meteorological conditions table.
+
         ---------------------------------------
         Table name                     Table ID
         ----------                     --------
         N outside target criteria   45 (O3), 74 (PM25)
+
+        Returns:
+            None.
 
         """
         # Get pptx table shape for modifying cells
@@ -1028,12 +1073,16 @@ class PerformanceReport(SensorEvaluation):
                             font_name='Calibri', font_size=10)
 
     def EditMetInfTable(self):
-        """
-        Met influence box
+        """Add meteorological influence table.
+
         ------------------------------------
         Table name                  Table ID
         ----------                  --------
         N paired met conc vals   48 (O3), 76 (PM25)
+
+        Returns:
+            None.
+
         """
         # Get pptx table shape for modifying cells
         if self.n_avg_intervals == 2:
@@ -1071,6 +1120,14 @@ class PerformanceReport(SensorEvaluation):
 
     def EditSensorRefTable(self, table):
         """
+
+
+        Args:
+            table (TYPE): DESCRIPTION.
+
+        Returns:
+            None.
+
         """
         if self._param_name == 'PM25':
             span_dict = {'Bias and Linearity': [1, 6],
@@ -1471,6 +1528,16 @@ class PerformanceReport(SensorEvaluation):
             txt = None
 
     def EditErrorTable(self, table):
+        """
+
+
+        Args:
+            table (TYPE): DESCRIPTION.
+
+        Returns:
+            None.
+
+        """
 
         error_stats = (self.deploy_dict['Deployment Groups']
                                        [self.grp_name]
@@ -1609,6 +1676,16 @@ class PerformanceReport(SensorEvaluation):
             txt = None
 
     def EditSensorSensorTable(self, table):
+        """
+
+
+        Args:
+            table (TYPE): DESCRIPTION.
+
+        Returns:
+            None.
+
+        """
 
         grp_stats = (self.deploy_dict['Deployment Groups']
                                      [self.grp_name]
@@ -1783,6 +1860,17 @@ class PerformanceReport(SensorEvaluation):
             txt = None
 
     def SetSpanningCells(self, table, span_dict):
+        """
+
+
+        Args:
+            table (TYPE): DESCRIPTION.
+            span_dict (TYPE): DESCRIPTION.
+
+        Returns:
+            cells (TYPE): DESCRIPTION.
+
+        """
 
         cells = [cell for cell in table.iter_cells()]
 
@@ -1799,6 +1887,11 @@ class PerformanceReport(SensorEvaluation):
 
     def EditTabularStats(self):
         """
+
+
+        Returns:
+            None.
+
         """
         self.n_grps = len(set(self.serial_grp_dict.values()))
         self.n_sensors = len(set(self.serial_grp_dict))
@@ -2260,6 +2353,21 @@ class PerformanceReport(SensorEvaluation):
 
     def FormatText(self, text_obj, alignment='center', font_name='Calibri',
                    font_size=24, bold=False, italic=False):
+        """
+
+
+        Args:
+            text_obj (TYPE): DESCRIPTION.
+            alignment (TYPE, optional): DESCRIPTION. Defaults to 'center'.
+            font_name (TYPE, optional): DESCRIPTION. Defaults to 'Calibri'.
+            font_size (TYPE, optional): DESCRIPTION. Defaults to 24.
+            bold (TYPE, optional): DESCRIPTION. Defaults to False.
+            italic (TYPE, optional): DESCRIPTION. Defaults to False.
+
+        Returns:
+            None.
+
+        """
 
         if alignment == 'center':
             text_obj.alignment = ppt.enum.text.PP_ALIGN.CENTER
@@ -2273,6 +2381,17 @@ class PerformanceReport(SensorEvaluation):
         font_obj.italic = italic
 
     def CheckTargets(self, metric_vals, metric):
+        """
+
+
+        Args:
+            metric_vals (TYPE): DESCRIPTION.
+            metric (TYPE): DESCRIPTION.
+
+        Returns:
+            text (TYPE): DESCRIPTION.
+
+        """
         # Place float / int values (single-valued intersensor stats) into
         # list for parsing
         if type(metric_vals) != list:
@@ -2366,6 +2485,9 @@ class PerformanceReport(SensorEvaluation):
         class instantiation. If a figure filename is not found, sensor data
         are loaded via the SensorEvaluation class and the figure is generated.
 
+        Returns:
+            None.
+
         """
         print('Creating Testing Report for', self.name)
 
@@ -2416,6 +2538,13 @@ class PerformanceReport(SensorEvaluation):
         self.SaveReport()
 
     def SaveReport(self):
+        """
+
+
+        Returns:
+            None.
+
+        """
         print('..Saving report')
         self.rpt_name = 'Base_Testing_Report_' + self._param_name\
                         + '_' + self.name + '_' + self.today + '.pptx'
