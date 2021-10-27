@@ -401,6 +401,20 @@ def scatter_plotter(df_list, ref_df, stats_df=None, plot_subset=None,
 
     # Option to supply df_list indicies in list for subset of sensors to plot
     if plot_subset is not None:
+
+        # Subset by serial ID
+        if all(name in sensor_serials.values() for name in plot_subset):
+            subset_keys = [item[0] for item in sensor_serials.items()
+                           if item[1] in plot_subset]
+            plot_subset = subset_keys
+        # Subset by the integer number associated with the serial ID
+        elif all(name in sensor_serials.keys() for name in plot_subset):
+            pass
+        else:
+            raise ValueError('Invalid list of subset keys. Pass either a list'
+                             ' of serial IDs or a list of the integer indices'
+                             ' associated with each serial ID.')
+
         # limit dataframe list and sensor serials to selected sensors
         df_list = [df for i, df in enumerate(df_list, 1)
                    if str(i) in plot_subset]
@@ -562,18 +576,11 @@ def scatter_plotter(df_list, ref_df, stats_df=None, plot_subset=None,
                 hourly_ref_df = ref_df
 
             if plot_regression is True:
-                if stats_df is not None:
-                    sensor_stats = stats_df[
-                                stats_df.Sensor_Number == str(sensor_number)]
-                    sensor_stats = sensor_stats[
-                        sensor_stats['Averaging Interval'] == averaging_interval]
-                    sensor_stats = sensor_stats.reset_index(drop=True)
-                else:
-                    sensor_stats = regression_stats(sensor_df_obj=sensor_df,
-                                                    ref_df_obj=ref_df,
-                                                    deploy_dict=deploy_dict,
-                                                    param=param,
-                                                    serials=sensor_serials)
+                sensor_stats = regression_stats(sensor_df_obj=sensor_df,
+                                                ref_df_obj=ref_df,
+                                                deploy_dict=deploy_dict,
+                                                param=param,
+                                                serials=sensor_serials)
 
             try:
                 df = pd.DataFrame()
@@ -653,9 +660,9 @@ def scatter_plotter(df_list, ref_df, stats_df=None, plot_subset=None,
                         caxes_pos = [0.25, 0.07, 0.50, 0.03]
                     else:
                         caxes_pos = [0.125, 0.05, 0.75, 0.03]
-            if number_of_sensors == 3:
+            elif number_of_sensors in (2, 3):
                 caxes_pos = [0.37, 0.07, 0.26, 0.03]
-            if number_of_sensors > 3:
+            else:
                 caxes_pos = [0.37, 0.07, 0.26, 0.02]
 
             cbar_pos = kwargs.get('colorbar_axespos', caxes_pos)
