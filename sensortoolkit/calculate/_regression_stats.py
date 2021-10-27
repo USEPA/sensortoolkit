@@ -58,33 +58,29 @@ def regression_stats(sensor_df_obj, ref_df_obj, deploy_dict, param, serials):
         Sensor vs. Inter-sensor average
 
     For each instance, the dependent and independent variables are assigned as
-    {hourly/daily_df_obj vs. hourly/daily_ref_df}; please note that the
-    '..ref_df' object can be either a dataframe containg FRM/FEM concentratons,
-    or a dataframe containing intersensor averages depending on the use case.
-    The 'ref' label refers moreso to the fact that the dataset is used as the
-    independent variable for regressions.
+    **hourly/daily sensor data vs. hourly/daily reference data**; please note
+    the ``ref_df_obj`` object can be either a DataFrame containg FRM/FEM
+    concentratons, or a DataFrame containing intersensor averages depending on
+    the use case. The 'ref' label refers moreso to the fact that the dataset is
+    used as the independent variable for regressions.
 
-    If sensor and reference dataframes are passed at both hourly and daily
-    averaging intervals (i.e., hourly_df_obj, daily_df_obj, hourly_ref_df,
-    daily_ref_df), regression statistics will be computed for both averaging
-    intervals (looping over hourly and then daily regressions) and are returned
-    in the same statistics dataframe.
+    .. note::
+
+      The DataFrames within the ``sensor_df_obj`` and ``ref_df_obj`` arguments
+      should contain data reported at the same sampling frequnecy (e.g., if a
+      sensor DataFrame containing data at 1-hour averaged intervals is passed
+      to the ``sensor_df_obj``, the reference DataFrame passed to
+      ``ref_df_obj`` must also contain data at 1-hour averaged intervals).
 
     Args:
-        hourly_df_obj (pandas dataframe object):
-            Sensor dataframe at 1-hour averaged intervals. Data corresponding
-            to passed parameter name are used as the dependent variable.
-        daily_df_obj (pandas dataframe object):
-            Sensor dataframe at 24-hour averaged intervals. Data corresponding
-            to passed parameter name are used as the dependent variable.
-        hourly_ref_df (pandas dataframe object):
-            Reference dataframe (either FRM/FEM OR Inter-sensor averages) at
-            1-hour averaged intervals. Data corresponding to passed parameter
-            name are used as the independent variable.
-        daily_ref_df (pandas dataframe object):
-            Reference dataframe (either FRM/FEM OR Inter-sensor averages) at
-            24-hour averaged intervals. Data corresponding to passed parameter
-            name are used as the independent variable.
+        sensor_df_obj (pandas DataFrame or list of pandas DataFrames):
+            Either a DataFrame or list of DataFrames containg sensor parmaeter
+            measurements. Data corresponding to passed parameter name are used
+            as the dependent variable.
+        ref_df_obj (pandas DataFrame):
+            Reference DataFrame (either FRM/FEM OR Inter-sensor averages). Data
+            corresponding to passed parameter name are used as the independent
+            variable.
         deploy_dict (dict):
             A dictionary containing descriptive statistics and
             textual information about the deployment (testing agency, site,
@@ -92,29 +88,15 @@ def regression_stats(sensor_df_obj, ref_df_obj, deploy_dict, param, serials):
             evaluation.
         param (str):
             Parameter name for which to compute regression statistics.
-        sensor_name (str):
-            The make and model of the sensor being evaluated.
-        ref_name (str):
-            The name of the dataset assigned as the independent variable. This
-            may either be FRM/FEM concentrations in the case of sensor vs.
-            FRM/FEM regression, or it may be the inter-sensor average in the
-            case of sensor vs. inter-sensor average regression statistics.
         serials (dict):
             A dictionary of sensor serial identifiers for each unit
             in a testing group.
-        path (str):
-            The full directory path to evaluation statistics for a
-            given sensor make and model.
-        write_to_file (str):
-            If true, the statistics dataframe will be saved to the path
-            location.
 
     Returns:
-        stats_df: (pandas dataframe)
-            Statistics dataframe for either sensor vs. FRM/FEM or sensor vs.
-            intersensor mean OLS regression. Results are organized by averaging
-            interval if both 1-hour and 24-hour averaged datasets passed to
-            module.
+        stats_df (pandas DataFrame):
+            Statistics DataFrame for either sensor vs. FRM/FEM or sensor vs.
+            intersensor mean OLS regression.
+
     """
 
     stats_cols = ['Sensor Name', 'Sensor_Number', 'Sensor_Serial',
@@ -252,6 +234,23 @@ def regression_stats(sensor_df_obj, ref_df_obj, deploy_dict, param, serials):
 
 
 def join_stats(hourly_stats, daily_stats, write_to_file=False, stats_path=None):
+    """Combine 1-hour and 24-hour regression statistics DataFrames.
+
+    Args:
+        hourly_stats (pandas DataFrame): DataFrame containing 1-hour averaged
+        sensor vs. reference regression statistics, returned by call to
+        regression_stats().
+        daily_stats (pandas DataFrame): DataFrame containing 24-hour averaged
+        sensor vs. reference regression statistics, returned by call to
+        regression_stats(). .
+        write_to_file (bool, optional): DESCRIPTION. Defaults to False.
+        stats_path (str, optional): DESCRIPTION. Defaults to None.
+
+    Returns:
+        stats_df (pandas DataFrame): DataFrame containing both 1-hour and
+        24-hour averaged statistics.
+
+    """
 
     stats_df = hourly_stats.append(daily_stats)
 
@@ -260,10 +259,10 @@ def join_stats(hourly_stats, daily_stats, write_to_file=False, stats_path=None):
     sensor_name =  stats_df['Sensor Name'].value_counts().keys()[0]
     param =  stats_df['Param'].value_counts().keys()[0]
 
-    # Save the statistics dataframe
+    # Save the statistics DataFrame
     if write_to_file is True:
         if stats_path is None:
-            sys.exit('No directory path specified for saving dataframe')
+            sys.exit('No directory path specified for saving DataFrame')
 
         today = get_todays_date()
         ref_name = ref_name.replace(' ', '_')
@@ -278,6 +277,22 @@ def join_stats(hourly_stats, daily_stats, write_to_file=False, stats_path=None):
 
 
 def check_type(obj, accept_types):
+    """Verify the type of an object is an anticipated type or is contained
+    within a list of accepted types.
+
+    Args:
+        obj (type ambiguous): The object whose type will be assessed.
+        accept_types (list): A list of types to check the passed object
+        against.
+
+    Raises:
+        TypeError: If the object type is not in the list of accepted
+        (anticipated) types.
+
+    Returns:
+        obj_type (type): The type of the object.
+
+    """
 
     obj_type = type(obj)
 
@@ -289,6 +304,19 @@ def check_type(obj, accept_types):
 
 
 def dataframe_to_csv(obj, parent_path, filename, **kwargs):
+    """Save a pandas DataFrame to a comma-separated value file.
+
+    Args:
+        obj (pandas DataFrame): The DataFrame to write to a .csv file.
+        parent_path (str): The path to the folder where the file will be saved.
+        filename (str): The name of the resulting .csv file.
+        **kwargs (dict): Keyword arguments passed to the pandas ``to_csv()``
+        method.
+
+    Returns:
+        None.
+
+    """
     check_type(obj, accept_types=[pd.core.frame.DataFrame])
     filepath = os.path.join(parent_path, filename)
     print('..Saving dataset to the following path: {0}'.format(filepath))
