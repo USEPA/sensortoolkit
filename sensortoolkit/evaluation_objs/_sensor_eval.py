@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
 """
-Top-level analysis module for the ``sensortoolkit`` library. Contains the
-front-facing ``SensorEvaluation`` class for conducting analysis of sensor data.
+Top-level analysis module for the ``sensortoolkit`` library.
+
+Contains the front-facing ``SensorEvaluation`` class for conducting analysis
+of sensor data.
 
 ================================================================================
 
@@ -482,21 +484,21 @@ class SensorEvaluation:
                     write_to_file = self.write_to_file
 
                 axs[i] = sensortoolkit.plotting.sensor_timeplot(
-                                            sensor_data,
-                                            ref_data,
-                                            sensor_serials=self.serials,
-                                            param=self._param_name,
-                                            figure_path=self.figure_path,
-                                            sensor_name=self.name,
-                                            ref_name=self.ref_name,
-                                            bdate=t_start,
-                                            edate=t_end,
-                                            averaging_interval=averaging_interval,
-                                            report_fmt=report_fmt,
-                                            write_to_file=write_to_file,
-                                            ax=axs[i],
-                                            fig=fig,
-                                            **kwargs)
+                                        sensor_data,
+                                        ref_data,
+                                        sensor_serials=self.serials,
+                                        param=self._param_name,
+                                        figure_path=self.figure_path,
+                                        sensor_name=self.name,
+                                        ref_name=self.ref_name,
+                                        bdate=t_start,
+                                        edate=t_end,
+                                        averaging_interval=averaging_interval,
+                                        report_fmt=report_fmt,
+                                        write_to_file=write_to_file,
+                                        ax=axs[i],
+                                        fig=fig,
+                                        **kwargs)
 
                 if i == 0:
                     axs[i].get_legend().remove()
@@ -556,7 +558,8 @@ class SensorEvaluation:
                   'sensor vs. reference measurements')
             self.calculate_metrics()
 
-        sensortoolkit.plotting.performance_metrics(self.stats_df,
+        sensortoolkit.plotting.performance_metrics(
+                                    self.stats_df,
                                     self.deploy_dict,
                                     param=self._param_name,
                                     param_averaging=self.param.averaging,
@@ -626,7 +629,6 @@ class SensorEvaluation:
                          'figure not specified for ' + self._param_name)
 
             fig, axs = plt.subplots(1, len(avg_list), figsize=figsize)
-            #kwargs['fontsize'] = 9
             fig.subplots_adjust(hspace=0.7)
             for i, averaging_interval in enumerate(self.param.averaging):
 
@@ -713,8 +715,8 @@ class SensorEvaluation:
                                **kwargs)
 
     def plot_met_dist(self):
-        """Plot the distribution of temperature and RH recorded by meterological
-        instruments at the collocation site.
+        """Plot the distribution of temperature and RH recorded by
+        meterological instruments at the collocation site.
 
         Returns:
             None.
@@ -723,10 +725,10 @@ class SensorEvaluation:
         met_params = ['Temp_Value', 'RH_Value']
 
         sensortoolkit.plotting.met_distrib(self.met_hourly_ref_df[met_params],
-                       self.avg_hrly_df,
-                       figure_path=self.figure_path,
-                       sensor_name=self.name,
-                       write_to_file=self.write_to_file)
+                                           self.avg_hrly_df,
+                                           figure_path=self.figure_path,
+                                           sensor_name=self.name,
+                                           write_to_file=self.write_to_file)
 
     def plot_met_influence(self, met_param=None, report_fmt=True,
                            **kwargs):
@@ -816,7 +818,7 @@ class SensorEvaluation:
         if met_param not in met_params:
             sys.exit('Invalid parameter name: ' + str(met_param))
 
-        if averaging_interval not in  self.param.averaging:
+        if averaging_interval not in self.param.averaging:
             txt = ('Invalid averaging interval, choose from the following: '
                    + ', '.join(self.param.averaging))
             sys.exit(txt)
@@ -900,7 +902,7 @@ class SensorEvaluation:
 
         deploy_dic = self.deploy_dict
         deploy_stats = self.stats_df.where(
-                           self.stats_df['Averaging Interval'] == averaging_interval)
+            self.stats_df['Averaging Interval'] == averaging_interval)
 
         print(88*'-')
         print('{:^88s}'.format(self.name + ' '
@@ -959,7 +961,8 @@ class SensorEvaluation:
         below the mean in parentheses.
 
         Args:
-            averaging_interval (TYPE, optional): DESCRIPTION. Defaults to '24-hour'.
+            averaging_interval (TYPE, optional): DESCRIPTION. Defaults to
+            '24-hour'.
 
         Returns:
             None.
@@ -983,13 +986,14 @@ class SensorEvaluation:
 
         deploy_dict = self.deploy_dict
         deploy_stats = self.stats_df.where(
-                            self.stats_df['Averaging Interval'] == averaging_interval
-                            ).dropna(how='all', axis=0)
+                    self.stats_df['Averaging Interval'] == averaging_interval
+                    ).dropna(how='all', axis=0)
         n_sensors = len(self.serials)
 
         print(88*'-')
         print('{:^88s}'.format(self.name + ' (' + str(n_sensors) + ') '
-                               + averaging_interval + ' Evaluation Conditions'))
+                               + averaging_interval +
+                               ' Evaluation Conditions'))
 
         print(88*'-')
         print('{:^14s}|{:^14s}|{:^14s}|{:^14s}|{:^14s}|{:^14s}'.format(
