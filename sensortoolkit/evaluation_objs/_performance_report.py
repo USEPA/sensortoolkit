@@ -1583,11 +1583,11 @@ class PerformanceReport(SensorEvaluation):
             nheaderrows = 4
             headercellend = nheaderrows*(datacols + 1)
             span_dict = {'Error': [1, 4],
-                         f'RMSE ({self.param.units})': [6, 7],
-                         'NRMSE (%)': [8, 9]}
+                         f'RMSE\n({self.param.units})': [6, 7],
+                         'NRMSE\n(%)': [8, 9]}
             table_categories = {'1': 'Error'}
             metrics = {'6': f'RMSE\n({self.param.units})',
-                       '8': 'NRMSE (%)'}
+                       '8': 'NRMSE\n(%)'}
             avg_intervals = {'11': '1-Hour',
                              '12': '24-Hour',
                              '13': '1-Hour',
@@ -1596,7 +1596,7 @@ class PerformanceReport(SensorEvaluation):
             rmse_ubound = self.param.PerformanceTargets.get_metric(
                                       metrics['6'].split('\n')[0])['bounds'][1]
             nrmse_ubound = self.param.PerformanceTargets.get_metric(
-                                      metrics['8'].split(' ')[0])['bounds'][1]
+                                      metrics['8'].split('\n')[0])['bounds'][1]
 
             metric_targets = {'15': 'Metric Target Range',
                               '16': '≤  {:2.1f}'.format(rmse_ubound),
@@ -1613,27 +1613,21 @@ class PerformanceReport(SensorEvaluation):
                     metric_vals[key] = ''
 
         if self.n_avg_intervals == 1:
-            datacols = 2
+            datacols = 1
             nheaderrows = 4
             headercellend = nheaderrows*(datacols + 1)
-            span_dict = {'Error': [1, 2]}
+            span_dict = {'Error': [1, 1]}
             table_categories = {'1': 'Error'}
-            metrics = {'4': f'RMSE ({self.param.units})',
-                       '5': 'NRMSE (%)'}
-            avg_intervals = {'7': '1-Hour',
-                             '8': '1-Hour'}
+            metrics = {'3': f'RMSE\n({self.param.units})'}
+            avg_intervals = {'5': '1-Hour'}
 
-            rmse_ubound = self.param.PerformancTargets.get_metric(
-                                      metrics['4'].split('\n')[0])['bounds'][1]
-            nrmse_ubound = self.param.PerformanceTargets.get_metric(
-                                      metrics['5'].split(' ')[0])['bounds'][1]
+            rmse_ubound = self.param.PerformanceTargets.get_metric(
+                                      metrics['3'].split('\n')[0])['bounds'][1]
 
-            metric_targets = {'9': 'Metric Target Range',
-                              '10': '≤ {:2.1f}'.format(rmse_ubound),
-                              '11': '≤ {:3.1f}'.format(nrmse_ubound),
-                              '12': 'Deployment Value'}
-            metric_vals = {'13': format(error_stats['rmse_1-hour'], '3.2f'),
-                           '14': format(error_stats['nrmse_1-hour'], '3.2f')}
+            metric_targets = {'6': 'Metric Target Range',
+                              '7': '≤ {:2.1f}'.format(rmse_ubound),
+                              '8': 'Deployment Value'}
+            metric_vals = {'9': format(error_stats['rmse_1-hour'], '3.2f')}
             for key, value in metric_vals.items():
                 if value == '-999.00':
                     metric_vals[key] = ''
@@ -1692,9 +1686,8 @@ class PerformanceReport(SensorEvaluation):
                     if self.n_avg_intervals == 2:
                         val = float(metric_vals[str(i)])
                         txt = self.CheckTargets(val, metric='RMSE')
-
+                # Metric column 3
                 if self.n_avg_intervals == 2:
-                    # Metric column 3
                     if (i - 1) % datacols == 2:
                         # 1-hr NRMSE
                         val = float(metric_vals[str(i)])
@@ -1702,9 +1695,8 @@ class PerformanceReport(SensorEvaluation):
                     # Metric column 4
                     if (i - 1) % datacols == 3:
                         # 24-hr NRMSE
-                        if self.n_avg_intervals == 2:
-                            val = float(metric_vals[str(i)])
-                            txt = self.CheckTargets(val, metric='NRMSE')
+                        val = float(metric_vals[str(i)])
+                        txt = self.CheckTargets(val, metric='NRMSE')
 
                 # Indicate whether sensors meet performance metric target
                 if txt is not None:
@@ -1749,7 +1741,7 @@ class PerformanceReport(SensorEvaluation):
             table_categories = {'1': 'Precision (between collocated sensors)',
                                 '5': 'Data Quality'}
             metrics = {'10': 'CV\n(%)',
-                       '12': f'Standard Deviation\n({self.param.units})',
+                       '12': f'SD\n({self.param.units})',
                        '14': 'Uptime\n(%)',
                        '16': 'Number of paired\nsensor and '
                              'reference\nconcentration pairs'}
@@ -1796,7 +1788,7 @@ class PerformanceReport(SensorEvaluation):
             table_categories = {'1': 'Precision (between collocated sensors)',
                                 '3': 'Data Quality'}
             metrics = {'6': 'CV\n(%)',
-                       '7': f'Standard Deviation\n({self.param.units})',
+                       '7': f'SD\n({self.param.units})',
                        '8': 'Uptime\n(%)',
                        '9': 'Number of paired\nsensor and '
                             'reference\nconcentration pairs'}
@@ -1831,9 +1823,9 @@ class PerformanceReport(SensorEvaluation):
                 font_obj.color.rgb = ppt.dml.color.RGBColor(0, 0, 0)
             if str(i) in metrics:
                 metric = metrics[str(i)]
-                if metric == 'Standard Deviation\n(μg/m^3)':
+                if metric == 'SD\n(μg/m^3)':
                     lineone = text_obj.add_run()
-                    lineone.text = 'Standard Deviation\n'
+                    lineone.text = 'SD\n'
                     linetwo_baseline_one = text_obj.add_run()
                     linetwo_baseline_one.text = '(μg/m'
                     superscript = text_obj.add_run()
@@ -2185,7 +2177,7 @@ class PerformanceReport(SensorEvaluation):
 
             if self.n_avg_intervals == 1:
                 nrows = 5
-                ncols = 3
+                ncols = 2
                 col_width = ppt.util.Inches(2.4)
                 width = ppt.util.Inches(7.2)
                 height = ppt.util.Inches(3.23)
@@ -2454,7 +2446,7 @@ class PerformanceReport(SensorEvaluation):
             metric_vals = [metric_vals]
 
         if metric != 'Uptime':
-            metric_info = self.param.PerformanceTargets.get_PerformanceMetric(metric)
+            metric_info = self.param.PerformanceTargets.get_metric(metric)
             metric_bounds = metric_info['bounds']
             metric_min, metric_max = metric_bounds
         else:
