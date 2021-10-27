@@ -449,8 +449,9 @@ class SensorEvaluation:
         """Plot parameter concentrations over time alongside reference.
 
         Args:
-            report_fmt (TYPE, optional): DESCRIPTION. Defaults to True.
-            **kwargs (TYPE): DESCRIPTION.
+            report_fmt (bool, optional): If true, format figure for inclusion
+            in a performance report. Defaults to True.
+            **kwargs (TYPE): Plotting keyword arguments.
 
         Returns:
             None.
@@ -551,9 +552,7 @@ class SensorEvaluation:
             print('Populating deployment dataframe with evaluation statistics')
             self.add_deploy_dict_stats()
 
-        try:
-            self.stats_df
-        except AttributeError:
+        if self.stats_df.empty:
             print('Calculating OLS regression statistics for 1-hr and 24-hr '
                   'sensor vs. reference measurements')
             self.calculate_metrics()
@@ -575,8 +574,11 @@ class SensorEvaluation:
         Args:
             averaging_interval (TYPE, optional): DESCRIPTION. Defaults to
             '24-hour'.
-            plot_subset (TYPE, optional): DESCRIPTION. Defaults to None.
-            report_fmt (TYPE, optional): DESCRIPTION. Defaults to False.
+            plot_subset (TYPE, optional): A list of either sensor serial IDs
+            or the keys associated with the serial IDs in the serial
+            dictionary. Defaults to None.
+            report_fmt (TYPE, optional): If true, format figure for inclusion
+            in a performance report. Defaults to True. Defaults to False.
             **kwargs (TYPE): DESCRIPTION.
 
         Returns:
@@ -590,20 +592,10 @@ class SensorEvaluation:
             print('Populating deployment dataframe with evaluation statistics')
             self.add_deploy_dict_stats()
 
-        try:
-            self.stats_df
-        except AttributeError:
+        if self.stats_df.empty:
             print('Calculating OLS regression statistics for 1-hr and 24-hr '
                   'sensor vs. reference measurements')
             self.calculate_metrics()
-
-        if plot_subset is None:
-            sensor_serials = self.serials
-        else:
-            subset_serials = {str(i): serial for i, serial in
-                              enumerate(self.serials.values(), 1)
-                              if str(i) in plot_subset}
-            sensor_serials = subset_serials
 
         avg_list = self.param.averaging
 
@@ -663,7 +655,7 @@ class SensorEvaluation:
                                         self.stats_df,
                                         deploy_dict=self.deploy_dict,
                                         met_ref_df=met_data,
-                                        sensor_serials=sensor_serials,
+                                        sensor_serials=self.serials,
                                         param=self._param_name,
                                         figure_path=self.figure_path,
                                         sensor_name=self.name,
@@ -703,7 +695,7 @@ class SensorEvaluation:
                                self.stats_df,
                                deploy_dict=self.deploy_dict,
                                met_ref_df=self.met_hourly_ref_df,
-                               sensor_serials=sensor_serials,
+                               sensor_serials=self.serials,
                                param=self._param_name,
                                figure_path=self.figure_path,
                                sensor_name=self.name,
@@ -736,8 +728,9 @@ class SensorEvaluation:
 
         Args:
             met_param (TYPE, optional): DESCRIPTION. Defaults to None.
-            report_fmt (TYPE, optional): DESCRIPTION. Defaults to True.
-            **kwargs (TYPE): DESCRIPTION.
+            report_fmt (TYPE, optional): If true, format figure for inclusion
+            in a performance report. Defaults to True. Defaults to True.
+            **kwargs (TYPE): Plotting keyword arguments.
 
         Returns:
             None.
@@ -808,6 +801,11 @@ class SensorEvaluation:
         * Internal sensor RH vs. Reference monitor RH
         * Internal sensor Temp vs. Reference monitor Temp
 
+        Args:
+            averaging_interval (TYPE, optional): DESCRIPTION. Defaults to '1-hour'.
+            met_param (TYPE, optional): DESCRIPTION. Defaults to None.
+            **kwargs (TYPE): Plotting keyword arguments.
+
         Returns:
             None.
 
@@ -875,8 +873,9 @@ class SensorEvaluation:
 
     def print_eval_metrics(self, averaging_interval='24-hour'):
         """Summary of performance evaluation results using
-        EPA’s recommended performance metrics (‘PM25’ and ‘O3’). The
-        coefficient of variation, sensor vs. FRM/FEM OLS regression slope,
+        EPA’s recommended performance metrics (‘PM25’ and ‘O3’).
+
+        The coefficient of variation, sensor vs. FRM/FEM OLS regression slope,
         intercept, and R2, and RMSE are displayed. Regression statistics
         are computed for each sensor, and the mean metric value is
         presented alongside the range (min to max).
@@ -890,12 +889,12 @@ class SensorEvaluation:
 
         """
         try:
-            self.deploy_dict
-        except AttributeError:
+            self.deploy_dict['Deployment Groups']['Group 1'][self._param_name]
+        except KeyError:
+            print('Populating deployment dataframe with evaluation statistics')
             self.add_deploy_dict_stats()
-        try:
-            self.stats_df
-        except AttributeError:
+
+        if self.stats_df.empty:
             self.calculate_metrics()
 
         param = self._param_name
@@ -953,8 +952,9 @@ class SensorEvaluation:
 
     def print_eval_conditions(self, averaging_interval='24-hour'):
         """Testing conditions for the evaluation parameter
-        and meteorological conditions during the testing period. Values for
-        the evaluation parameter recorded by the sensor, FRM/FEM
+        and meteorological conditions during the testing period.
+
+        Values for the evaluation parameter recorded by the sensor, FRM/FEM
         instrument, and temperature and relative humidity values are
         displayed by the mean of 1-hour or 24-hour averages during the
         testing period. The range (min to max) of each parameter is listed
@@ -969,12 +969,12 @@ class SensorEvaluation:
 
         """
         try:
-            self.deploy_dict
-        except AttributeError:
+            self.deploy_dict['Deployment Groups']['Group 1'][self._param_name]
+        except KeyError:
+            print('Populating deployment dataframe with evaluation statistics')
             self.add_deploy_dict_stats()
-        try:
-            self.stats_df
-        except AttributeError:
+
+        if self.stats_df.empty:
             self.calculate_metrics()
 
         if averaging_interval == '1-hour':
