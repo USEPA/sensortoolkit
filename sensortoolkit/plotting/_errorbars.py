@@ -21,16 +21,22 @@ register_matplotlib_converters()
 
 def error_bars(xdata, ydata, ax, n_xbins=8, plot_yerror=True,
                errorbar_color='k'):
-    """
-
+    """Display error bars on a passed matplotlib axes plot instance.
 
     Args:
-        xdata (TYPE): DESCRIPTION.
-        ydata (TYPE): DESCRIPTION.
-        ax (TYPE): DESCRIPTION.
-        n_xbins (TYPE, optional): DESCRIPTION. Defaults to 8.
-        plot_yerror (TYPE, optional): DESCRIPTION. Defaults to True.
-        errorbar_color (TYPE, optional): DESCRIPTION. Defaults to 'k'.
+        xdata (TYPE): Data plotted along the x-axis of the passed axes instance
+        'ax'.
+        ydata (TYPE): Data plotted along the y-axis of the passed axes instance
+        'ax'.
+        ax (matplotlib axes instance): A scatter plot displaying measurement
+        pairs along x and y axes.
+        n_xbins (TYPE, optional): The number of bins along the range of the
+        xdata from which the error bars will be computed. This also equals the
+        number of errorbars. Defaults to 8.
+        plot_yerror (TYPE, optional): Plot error along the y-axis. Defaults to
+        True.
+        errorbar_color (TYPE, optional): The color of the error bars. Defaults
+        to 'k' (black).
 
     Returns:
         None.
