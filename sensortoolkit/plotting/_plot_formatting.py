@@ -164,7 +164,7 @@ def sensor_subplot_formatting(number_of_sensors, param_obj, report_fmt,
         cbar_padding = .13
         cbar_aspect = 20
 
-    elif number_of_sensors == 3:  # 3x1 subplot
+    elif number_of_sensors in (2, 3):  # 3x1 subplot
 
         if RH_colormap is True:
             fig_size = (12.3, 5.12)
@@ -191,7 +191,7 @@ def sensor_subplot_formatting(number_of_sensors, param_obj, report_fmt,
         cbar_padding = .16
         cbar_aspect = 20
 
-    elif number_of_sensors in (5, 6):  # 2x3 subplot
+    elif number_of_sensors in (4, 5, 6):  # 2x3 subplot
         fig_size = (13, 9)
         suptitle_ypos = 0.97
         title_text_wrap = 70
@@ -276,7 +276,8 @@ def sensor_subplot_formatting(number_of_sensors, param_obj, report_fmt,
         cbar_padding = .06
         cbar_aspect = 20
     else:
-        print('No formatting presets configured for', str(number_of_sensors))
+        raise ValueError('No formatting presets configured for',
+                         str(number_of_sensors))
 
     if report_fmt is True:
         # Plot 1-hour averaged dataset
