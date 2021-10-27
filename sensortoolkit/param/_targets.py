@@ -132,7 +132,7 @@ class ParameterTargets:
 
         self.metric_categories = list(self._metrics.keys())
 
-    def set_PerformanceMetric(self, metric_category, metric_name, **kwargs):
+    def set_metric(self, metric_category, metric_name, **kwargs):
         """
 
 
@@ -167,7 +167,7 @@ class ParameterTargets:
         metric_entry['goal'] = kwargs.get('goal', None)
         metric_entry['metric_units'] = kwargs.get('metric_units', None)
 
-    def get_PerformanceMetric(self, metric_name):
+    def get_metric(self, metric_name):
         """
 
 
@@ -210,7 +210,7 @@ class ParameterTargets:
         raise KeyError(f'Unspecified metric name: {metric_name}. Metric name '
                        f'must be one of the following: {self._metrics}')
 
-    def get_AllMetrics(self):
+    def get_all_metrics(self):
         """
 
 
@@ -220,7 +220,7 @@ class ParameterTargets:
         """
         return self._metrics
 
-    def set_MetricCategory(self, metric_category, metric_names=None):
+    def set_metric_category(self, metric_category, metric_names=None):
         """
 
 
@@ -252,6 +252,6 @@ class ParameterTargets:
             for metric_name in metric_names:
                 metric_info = metric_names[metric_name]
                 kwargs = metric_info
-                self.set_PerformanceMetric(metric_category,
+                self.set_metric(metric_category,
                                            metric_name,
                                            **kwargs)
