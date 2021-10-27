@@ -462,7 +462,7 @@ class PerformanceReport(SensorEvaluation):
         self.cursor_sp.addprevious(self.metdist._element)
 
     def AddMetInflPlot(self, **kwargs):
-        """Add normalized meteorological influence scatter (Temp, RH) to report
+        """Add normalized met. influence scatter (Temp, RH) to report.
 
         Args:
             **kwargs (TYPE): DESCRIPTION.
@@ -471,7 +471,6 @@ class PerformanceReport(SensorEvaluation):
             None.
 
         """
-
         fig_name = self.name + '_normalized_' + self._param_name \
             + '_met_report_fmt'
 
@@ -531,7 +530,8 @@ class PerformanceReport(SensorEvaluation):
                     return shape
 
     def EditHeader(self):
-        """
+        """Insert header description (title, contact info, photo, etc.).
+
         Shape name                  Slide number         Shape ID
         ----------                  -----------     -------------------
         Report title                     1          35 (PM2.5),  9 (O3)
@@ -543,6 +543,10 @@ class PerformanceReport(SensorEvaluation):
         Photo placeholder                1           2 (PM2.5),  2 (O3)
         Photo placeholder                2           4 (PM2.5),  3 (O3)
         Photo placeholder                3          14 (PM2.5),  3 (O3)
+
+        Returns:
+            None
+
         """
         # Title location for header
         title_left = 0.98
@@ -655,7 +659,7 @@ class PerformanceReport(SensorEvaluation):
                 pic.insert_picture(pic_path)
 
     def EditSiteTable(self):
-        """Add details to testing organzation and site information table.
+        """Add details to testing organzation and site info table (page 1).
 
         Table name                  Table ID
         ----------                  --------
@@ -748,7 +752,7 @@ class PerformanceReport(SensorEvaluation):
                             font_size=11)
 
     def EditSensorTable(self):
-        """Add information to sensor information table
+        """Add information to sensor information table (page 1).
 
         Table name                  Table ID
         ----------                  --------
@@ -866,7 +870,7 @@ class PerformanceReport(SensorEvaluation):
                                 font_name='Calibri', font_size=12)
 
     def EditRefTable(self):
-        """Add details to reference information table
+        """Add details to reference information table.
 
         Table name                  Table ID
         ----------                  --------
@@ -889,7 +893,7 @@ class PerformanceReport(SensorEvaluation):
                         font_name='Calibri', font_size=14)
 
     def EditRefConcTable(self):
-        """Add reference concentration tabular statistics.
+        """Add reference concentration tabular statistics (page 1).
 
         Located in different boxes based on the evaluation parameter type.
 
@@ -948,7 +952,8 @@ class PerformanceReport(SensorEvaluation):
             try:
                 self.refexceed[grp] = \
                     '{0:d}'.format(
-                       grp_info[grp][self._param_name]['Reference'][exceed_str])
+                       grp_info[grp][self._param_name]['Reference'][exceed_str]
+                       )
 
             # Raise when attributes are 'none' likely due to no data
             except TypeError:
@@ -988,7 +993,7 @@ class PerformanceReport(SensorEvaluation):
                             font_name='Calibri', font_size=9)
 
     def EditMetCondTable(self):
-        """Add meteorological conditions table.
+        """Add meteorological conditions table (page 1).
 
         Table name                     Table ID
         ----------                     --------
@@ -1071,7 +1076,7 @@ class PerformanceReport(SensorEvaluation):
                             font_name='Calibri', font_size=10)
 
     def EditMetInfTable(self):
-        """Add meteorological influence table.
+        """Add meteorological influence table (page 1).
 
         Table name                  Table ID
         ----------                  --------
@@ -1116,7 +1121,7 @@ class PerformanceReport(SensorEvaluation):
                                 font_name='Calibri', font_size=10)
 
     def EditSensorRefTable(self, table):
-        """
+        """Add sensor-reference tabular statistics (page 2).
 
 
         Args:
@@ -1558,7 +1563,7 @@ class PerformanceReport(SensorEvaluation):
             txt = None
 
     def EditErrorTable(self, table):
-        """
+        """Add error tabular statistics (page 2).
 
 
         Args:
@@ -1712,7 +1717,7 @@ class PerformanceReport(SensorEvaluation):
             txt = None
 
     def EditSensorSensorTable(self, table):
-        """
+        """Add intersensor (sensor-sensor) precision tabular stats (page 2).
 
 
         Args:
@@ -1823,6 +1828,8 @@ class PerformanceReport(SensorEvaluation):
                 font_obj.color.rgb = ppt.dml.color.RGBColor(0, 0, 0)
             if str(i) in metrics:
                 metric = metrics[str(i)]
+
+                # TODO: Possibly remove since using unicode chars?
                 if metric == 'SD\n(μg/m^3)':
                     lineone = text_obj.add_run()
                     lineone.text = 'SD\n'
@@ -1908,7 +1915,7 @@ class PerformanceReport(SensorEvaluation):
             txt = None
 
     def SetSpanningCells(self, table, span_dict):
-        """
+        """Merge tabular cells to form cells spanning multiple rows/columns.
 
 
         Args:
@@ -1934,8 +1941,7 @@ class PerformanceReport(SensorEvaluation):
         return cells
 
     def EditTabularStats(self):
-        """
-
+        """Wrapper for constructing tables and adding entries (page 2).
 
         Returns:
             None.
@@ -2116,8 +2122,7 @@ class PerformanceReport(SensorEvaluation):
                     font.size = ppt.util.Pt(15)
 
     def ConstructTable(self, slide, table_type='sensor_reference'):
-        """Function for selecting and constructing statistics tables on report
-        page 2.
+        """Select and construct tables on report page 2.
 
         Presets are set for constructing each table type (number of rows and
         columns, dimensions of tables, shading of cells and fill color, etc.)
@@ -2295,7 +2300,7 @@ class PerformanceReport(SensorEvaluation):
                            shape.left.inches, shape.top.inches))
 
     def SubElement(self, parent, tagname, **kwargs):
-        """Code for editing tabular cell border width.
+        """Modify xml entry to add a new attribute (element).
 
         Reference:
             Based on Steve Canny's code at the following link:
@@ -2308,7 +2313,7 @@ class PerformanceReport(SensorEvaluation):
         return element
 
     def SetCellBorder(self, cell, border_color="ffffff", border_width='20000'):
-        """Code for editing tabular cell border width.
+        """Edit tabular cell boarder width, color.
 
         Reference:
             Based on Steve Canny's code at the following links:
@@ -2401,8 +2406,7 @@ class PerformanceReport(SensorEvaluation):
 
     def FormatText(self, text_obj, alignment='center', font_name='Calibri',
                    font_size=24, bold=False, italic=False):
-        """
-
+        """Set text attributes (font, size, bold, italic, alignment).
 
         Args:
             text_obj (TYPE): DESCRIPTION.
@@ -2429,8 +2433,21 @@ class PerformanceReport(SensorEvaluation):
         font_obj.italic = italic
 
     def CheckTargets(self, metric_vals, metric):
-        """
+        """Evaluate how many sensors met a metric target, return textual
+        depiction.
 
+        For a passed metric name 'metric', determine the number of sensors
+        with metric values within the specified metric target range.
+
+        Example:
+            Say the 'metric' argument is 'CV' and the 'metric_vals' argument is
+            [20.2, 43.6, 26.5] (values are percentages). Given that the target
+            range for 'CV' is from 0% to 30%, two our of three sensors fall
+            within the target range. Textually, this can be represented by
+            a series of three dots, where two dots are closed and one is empty.
+
+            Text returned by CheckTargets():
+                '●●○'
 
         Args:
             metric_vals (TYPE): DESCRIPTION.
@@ -2543,8 +2560,7 @@ class PerformanceReport(SensorEvaluation):
         self.SaveReport()
 
     def SaveReport(self):
-        """
-
+        """Save the report to the `/reports` directory as a pptx file.
 
         Returns:
             None.
