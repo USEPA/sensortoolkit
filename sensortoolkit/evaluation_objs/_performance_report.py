@@ -139,6 +139,12 @@ class PerformanceReport(SensorEvaluation):
         # Shape at backgroud around which to orient other figures
         self.cursor_sp = self.shapes[0]._element
 
+        # The number of unique averaging intervals at which data will be
+        # presented. Either param.averaging == ['1-hour'] (gases,
+        # n_avg_intervals == 1) or param.averaging == ['1-hour', '24-hour']
+        # (PM, n_avg_intervals == 2).
+        self.n_avg_intervals = len(self.param.averaging)
+
         # Initialize figure positions in report
         self.FigPositions()
 
@@ -148,12 +154,6 @@ class PerformanceReport(SensorEvaluation):
         sensor_avg_cmax = self.avg_hrly_df['mean_' + self._param_name + '_Value'].max()
         ref_cmax = self.hourly_ref_df[self._param_name + '_Value'].max()
         self.plot_cmax = 1.25*max(sensor_avg_cmax, ref_cmax)
-
-        # The number of unique averaging intervals at which data will be
-        # presented. Either param.averaging == ['1-hour'] (gases,
-        # n_avg_intervals == 1) or param.averaging == ['1-hour', '24-hour']
-        # (PM, n_avg_intervals == 2).
-        self.n_avg_intervals = len(self.param.averaging)
 
     def FigPositions(self):
         """Assign figure positions for reports.
@@ -899,7 +899,6 @@ class PerformanceReport(SensorEvaluation):
         Reference conc info          75 (PM25)
 
         Time series box (O3 only)
-        ------------------------------------
         Table name                  Table ID
         ----------                  --------
         Reference conc info          56 (O3)
@@ -991,7 +990,6 @@ class PerformanceReport(SensorEvaluation):
     def EditMetCondTable(self):
         """Add meteorological conditions table.
 
-        ---------------------------------------
         Table name                     Table ID
         ----------                     --------
         N outside target criteria   45 (O3), 74 (PM25)
@@ -1075,7 +1073,6 @@ class PerformanceReport(SensorEvaluation):
     def EditMetInfTable(self):
         """Add meteorological influence table.
 
-        ------------------------------------
         Table name                  Table ID
         ----------                  --------
         N paired met conc vals   48 (O3), 76 (PM25)
@@ -1129,19 +1126,19 @@ class PerformanceReport(SensorEvaluation):
             None.
 
         """
-        if self._param_name == 'PM25':
+        if self.n_avg_intervals == 2:
             span_dict = {'Bias and Linearity': [1, 6],
                          'Data Quality': [7, 10],
                          'R^2': [12, 13],
                          'Slope': [14, 15],
-                         'Intercept (b)\n(μg/m^3)': [16, 17],
+                         f'Intercept (b)\n({self.param.units})': [16, 17],
                          'Uptime (%)': [18, 19],
                          'N pairs': [20, 21]}
             table_categories = {'1': 'Bias and Linearity',
                                 '7': 'Data Quality'}
             metrics = {'12': 'R^2',
                        '14': 'Slope',
-                       '16': 'Intercept\n(μg/m^3)',
+                       '16': f'Intercept\n({self.param.units})',
                        '18': 'Uptime\n(%)',
                        '20': 'Number of paired\nsensor and '
                              'FRM/FEM\nconcentration pairs'}
@@ -1155,26 +1152,44 @@ class PerformanceReport(SensorEvaluation):
                              '30': '24-Hour',
                              '31': '1-Hour',
                              '32': '24-Hour'}
+
+            rsqr_lbound = self.param.PerformanceTargets.get_metric(
+                                      metrics['12'])['bounds'][0]
+            slope_goal = self.param.PerformanceTargets.get_metric(
+                                      metrics['14'])['goal']
+            slope_tol = self.param.PerformanceTargets.get_metric(
+                                      metrics['14'])['bounds'][1] - slope_goal
+            intcpt_lbound = self.param.PerformanceTargets.get_metric(
+                                    metrics['16'].split('\n')[0])['bounds'][0]
+            intcpt_ubound = self.param.PerformanceTargets.get_metric(
+                                    metrics['16'].split('\n')[0])['bounds'][1]
+
             metric_targets = {'33': 'Metric Target Range',
-                              '34': '≥ 0.70',
-                              '35': '≥ 0.70',
-                              '36': '1.0 ± 0.35',
-                              '37': '1.0 ± 0.35',
-                              '38': '-5 ≤ b ≤ 5',
-                              '39': '-5 ≤ b ≤ 5',
+                              '34': '≥ {:3.2f}'.format(rsqr_lbound),
+                              '35': '≥ {:3.2f}'.format(rsqr_lbound),
+                              '36': '{:2.1f} ± {:3.2f}'.format(slope_goal,
+                                                               slope_tol),
+                              '37': '{:2.1f} ± {:3.2f}'.format(slope_goal,
+                                                               slope_tol),
+                              '38': '{:1.0f} ≤ b ≤ {:1.0f}'.format(
+                                                              intcpt_lbound,
+                                                              intcpt_ubound),
+                              '39': '{:1.0f} ≤ b ≤ {:1.0f}'.format(
+                                                              intcpt_lbound,
+                                                              intcpt_ubound),
                               '40': '75%*',
                               '41': '75%*',
                               '42': '-',
                               '43': '-'}
 
-        if self._param_name == 'O3':
+        if self.n_avg_intervals == 1:
             span_dict = {'Bias and Linearity': [1, 3],
                          'Data Quality': [4, 5]}
             table_categories = {'1': 'Bias and Linearity',
                                 '4': 'Data Quality'}
             metrics = {'7': 'R^2',
                        '8': 'Slope',
-                       '9': 'Intercept\n(ppbv)',
+                       '9': f'Intercept\n({self.param.units})',
                        '10': 'Uptime\n(%)',
                        '11': 'Number of paired\nsensor and '
                              'reference\nconcentration pairs'}
@@ -1183,10 +1198,25 @@ class PerformanceReport(SensorEvaluation):
                              '15': '1-Hour',
                              '16': '1-Hour',
                              '17': '1-Hour'}
+
+            rsqr_lbound = self.param.PerformanceTargets.get_metric(
+                                      metrics['7'])['bounds'][0]
+            slope_goal = self.param.PerformanceTargets.get_metric(
+                                      metrics['8'])['goal']
+            slope_tol = self.param.PerformanceTargets.get_metric(
+                                      metrics['8'])['bounds'][1] - slope_goal
+            intcpt_lbound = self.param.PerformanceTargets.get_metric(
+                                    metrics['9'].split('\n')[0])['bounds'][0]
+            intcpt_ubound = self.param.PerformanceTargets.get_metric(
+                                    metrics['9'].split('\n')[0])['bounds'][1]
+
             metric_targets = {'18': 'Metric Target Range',
-                              '19': '≥ 0.80',
-                              '20': '1.0 ± 0.20',
-                              '21': '-5 ≤ b ≤ 5',
+                              '19': '≥ {:3.2f}'.format(rsqr_lbound),
+                              '20': '{:2.1f} ± {:3.2f}'.format(slope_goal,
+                                                               slope_tol),
+                              '21': '{:1.0f} ≤ b ≤ {:1.0f}'.format(
+                                                              intcpt_lbound,
+                                                              intcpt_ubound),
                               '22': '75%*',
                               '23': '-'}
 
@@ -1194,13 +1224,13 @@ class PerformanceReport(SensorEvaluation):
 
         cells = self.SetSpanningCells(table, span_dict)
 
-        if self._param_name == 'O3':
+        if self.n_avg_intervals == 1:
             c1_row, c2_row, c3_row, c4_row, c5_row = 0, 0, 0, 0, 0
             h_stats = self.grp_stats.where(
                             self.grp_stats['Averaging Interval'] == '1-hour'
                             ).dropna().reset_index(drop=True)
 
-        if self._param_name == 'PM25':
+        if self.n_avg_intervals == 2:
             (c1_row, c2_row, c3_row, c4_row, c5_row, c6_row, c7_row, c8_row,
              c9_row, c10_row) = (0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
             h_stats = self.grp_stats.where(
@@ -1226,9 +1256,9 @@ class PerformanceReport(SensorEvaluation):
             text_obj = cell.text_frame.paragraphs[0]
 
             n_header_rows = 4
-            if self._param_name == 'O3':
+            if self.n_avg_intervals == 1:
                 datacols = 6
-            if self._param_name == 'PM25':
+            if self.n_avg_intervals == 2:
                 datacols = 11
             datacell0 = datacols*n_header_rows
             datacellend = datacell0 + self.grp_n_sensors*datacols
@@ -1298,11 +1328,11 @@ class PerformanceReport(SensorEvaluation):
                 # Metric column 2
                 if (j-1) % datacols == 0:
                     try:
-                        if self._param_name == 'O3':
+                        if self.n_avg_intervals == 1:
                             # 1-hr slope
                             val = h_stats.loc[c2_row, 'Slope']
                             slope_h_vals.append(val)
-                        if self._param_name == 'PM25':
+                        if self.n_avg_intervals == 2:
                             # 24-hr R^2
                             val = d_stats.loc[c2_row, 'R$^2$']
                             rsqr_d_vals.append(val)
@@ -1315,11 +1345,11 @@ class PerformanceReport(SensorEvaluation):
                 # Metric column 3
                 if (j-2) % datacols == 0:
                     try:
-                        if self._param_name == 'O3':
+                        if self.n_avg_intervals == 1:
                             # 1-hr Intercept
                             val = h_stats.loc[c3_row, 'Intercept']
                             intcpt_h_vals.append(val)
-                        if self._param_name == 'PM25':
+                        if self.n_avg_intervals == 2:
                             # 1-hr Slope
                             val = h_stats.loc[c3_row, 'Slope']
                             slope_h_vals.append(val)
@@ -1332,11 +1362,11 @@ class PerformanceReport(SensorEvaluation):
                 if (j-3) % datacols == 0:
                     # insert Uptime
                     try:
-                        if self._param_name == 'O3':
+                        if self.n_avg_intervals == 1:
                             # 1-hr uptime
                             val = grp_df[c4_row]['uptime_1-hour']
                             self.uptime_h_vals.append(val)
-                        if self._param_name == 'PM25':
+                        if self.n_avg_intervals == 2:
                             # 24-hr Slope
                             val = d_stats.loc[c4_row, 'Slope']
                             slope_d_vals.append(val)
@@ -1349,11 +1379,11 @@ class PerformanceReport(SensorEvaluation):
                 if (j-4) % datacols == 0:
                     # insert N paired sensor/reference values
                     try:
-                        if self._param_name == 'O3':
+                        if self.n_avg_intervals == 1:
                             # 1-hr N
                             val = h_stats.loc[c5_row, 'N']
                             n_h_vals.append(val)
-                        if self._param_name == 'PM25':
+                        if self.n_avg_intervals == 2:
                             # 1-hr Intercept
                             val = h_stats.loc[c5_row, 'Intercept']
                             intcpt_h_vals.append(val)
@@ -1363,7 +1393,7 @@ class PerformanceReport(SensorEvaluation):
                     c5_row += 1
 
                 # Columns 6-10 only in PM2.5 sensor-reference table
-                if self._param_name == 'PM25':
+                if self.n_avg_intervals == 2:
 
                     # Metric column 6
                     if (j-5) % datacols == 0:
@@ -1426,61 +1456,61 @@ class PerformanceReport(SensorEvaluation):
                 # Metric Mean column 1
                 if j % datacols == 0:
                     # Mean 1-hr R^2
-                    if self._param_name == 'O3':
+                    if self.n_avg_intervals == 1:
                         val = np.mean(rsqr_h_vals)
                         txt = self.CheckTargets(rsqr_h_vals, metric='R^2')
                     # Mean 1-hr R^2
-                    if self._param_name == 'PM25':
+                    if self.n_avg_intervals == 2:
                         val = np.mean(rsqr_h_vals)
                         txt = self.CheckTargets(rsqr_h_vals, metric='R^2')
 
                 # Metric Mean column 2
                 if (j - 1) % datacols == 0:
                     # Mean 1-hr Slope
-                    if self._param_name == 'O3':
+                    if self.n_avg_intervals == 1:
                         val = np.mean(slope_h_vals)
                         txt = self.CheckTargets(slope_h_vals, metric='Slope')
                     # Mean 24-hr R^2
-                    if self._param_name == 'PM25':
+                    if self.n_avg_intervals == 2:
                         val = np.mean(rsqr_d_vals)
                         txt = self.CheckTargets(rsqr_d_vals, metric='R^2')
 
                 # Metric Mean column 3
                 if (j - 2) % datacols == 0:
                     # Mean 1-hr Intercept
-                    if self._param_name == 'O3':
+                    if self.n_avg_intervals == 1:
                         val = np.mean(intcpt_h_vals)
                         txt = self.CheckTargets(intcpt_h_vals,
                                                 metric='Intercept')
                     # Mean 1-hr Slope
-                    if self._param_name == 'PM25':
+                    if self.n_avg_intervals == 2:
                         val = np.mean(slope_h_vals)
                         txt = self.CheckTargets(slope_h_vals, metric='Slope')
 
                 # Metric Mean column 4
                 if (j - 3) % datacols == 0:
                     # Mean 1-hr Uptime
-                    if self._param_name == 'O3':
+                    if self.n_avg_intervals == 1:
                         val = np.mean(self.uptime_h_vals)
                         txt = self.CheckTargets(self.uptime_h_vals,
                                                 metric='Uptime')
                     # Mean 24-hr Slope
-                    if self._param_name == 'PM25':
+                    if self.n_avg_intervals == 2:
                         val = np.mean(slope_d_vals)
                         txt = self.CheckTargets(slope_d_vals, metric='Slope')
 
                 # Metric Mean column 5
                 if (j - 4) % datacols == 0:
                     # Mean 1-hr N paired measurements
-                    if self._param_name == 'O3':
+                    if self.n_avg_intervals == 1:
                         val = np.mean(n_h_vals)
                     # Mean 1-hr Intercept
-                    if self._param_name == 'PM25':
+                    if self.n_avg_intervals == 2:
                         val = np.mean(intcpt_h_vals)
                         txt = self.CheckTargets(intcpt_h_vals,
                                                 metric='Intercept')
 
-                if self._param_name == 'PM25':
+                if self.n_avg_intervals == 2:
                     # Metric Mean column 6
                     if (j - 5) % datacols == 0:
                         # Mean 24-hr Intercept
@@ -1548,25 +1578,31 @@ class PerformanceReport(SensorEvaluation):
             if value is None:
                 error_stats[key] = -999
 
-        if self._param_name == 'PM25':
+        if self.n_avg_intervals == 2:
             datacols = 4
             nheaderrows = 4
             headercellend = nheaderrows*(datacols + 1)
             span_dict = {'Error': [1, 4],
-                         'RMSE (μg/m^3)': [6, 7],
+                         f'RMSE ({self.param.units})': [6, 7],
                          'NRMSE (%)': [8, 9]}
             table_categories = {'1': 'Error'}
-            metrics = {'6': 'RMSE\n(μg/m^3)',
+            metrics = {'6': f'RMSE\n({self.param.units})',
                        '8': 'NRMSE (%)'}
             avg_intervals = {'11': '1-Hour',
                              '12': '24-Hour',
                              '13': '1-Hour',
                              '14': '24-Hour'}
+
+            rmse_ubound = self.param.PerformanceTargets.get_metric(
+                                      metrics['6'].split('\n')[0])['bounds'][1]
+            nrmse_ubound = self.param.PerformanceTargets.get_metric(
+                                      metrics['8'].split(' ')[0])['bounds'][1]
+
             metric_targets = {'15': 'Metric Target Range',
-                              '16': '≤ 7',
-                              '17': '≤ 7',
-                              '18': '≤ 30',
-                              '19': '≤ 30',
+                              '16': '≤  {:2.1f}'.format(rmse_ubound),
+                              '17': '≤ {:2.1f}'.format(rmse_ubound),
+                              '18': '≤ {:3.1f}'.format(nrmse_ubound),
+                              '19': '≤ {:3.1f}'.format(nrmse_ubound),
                               '20': 'Deployment Value'}
             metric_vals = {'21': format(error_stats['rmse_1-hour'], '3.2f'),
                            '22': format(error_stats['rmse_24-hour'], '3.2f'),
@@ -1576,19 +1612,25 @@ class PerformanceReport(SensorEvaluation):
                 if value == '-999.00':
                     metric_vals[key] = ''
 
-        if self._param_name == 'O3':
+        if self.n_avg_intervals == 1:
             datacols = 2
             nheaderrows = 4
             headercellend = nheaderrows*(datacols + 1)
             span_dict = {'Error': [1, 2]}
             table_categories = {'1': 'Error'}
-            metrics = {'4': 'RMSE (ppbv)',
+            metrics = {'4': f'RMSE ({self.param.units})',
                        '5': 'NRMSE (%)'}
             avg_intervals = {'7': '1-Hour',
                              '8': '1-Hour'}
+
+            rmse_ubound = self.param.PerformancTargets.get_metric(
+                                      metrics['4'].split('\n')[0])['bounds'][1]
+            nrmse_ubound = self.param.PerformanceTargets.get_metric(
+                                      metrics['5'].split(' ')[0])['bounds'][1]
+
             metric_targets = {'9': 'Metric Target Range',
-                              '10': '≤ 7',
-                              '11': '≤ 30',
+                              '10': '≤ {:2.1f}'.format(rmse_ubound),
+                              '11': '≤ {:3.1f}'.format(nrmse_ubound),
                               '12': 'Deployment Value'}
             metric_vals = {'13': format(error_stats['rmse_1-hour'], '3.2f'),
                            '14': format(error_stats['nrmse_1-hour'], '3.2f')}
@@ -1607,6 +1649,8 @@ class PerformanceReport(SensorEvaluation):
                 font_obj.color.rgb = ppt.dml.color.RGBColor(0, 0, 0)
             if str(i) in metrics:
                 metric = metrics[str(i)]
+
+                # TODO: Possibly remove since using unicode chars?
                 if metric == 'RMSE\n(μg/m^3)':
                     lineone = text_obj.add_run()
                     lineone.text = 'RMSE\n'
@@ -1631,25 +1675,25 @@ class PerformanceReport(SensorEvaluation):
             if i > headercellend:
                 if (i - 1) % datacols == 0:
                     # Mean 1-hr RMSE
-                    if self._param_name == 'O3':
+                    if self.n_avg_intervals == 1:
                         val = float(metric_vals[str(i)])
                         txt = self.CheckTargets(val, metric='RMSE')
                     # Mean 1-hr RMSE
-                    if self._param_name == 'PM25':
+                    if self.n_avg_intervals == 2:
                         val = float(metric_vals[str(i)])
                         txt = self.CheckTargets(val, metric='RMSE')
                 # Metric column 2
                 if (i - 1) % datacols == 1:
                     # 1-hr NRMSE
-                    if self._param_name == 'O3':
+                    if self.n_avg_intervals == 1:
                         val = float(metric_vals[str(i)])
                         txt = self.CheckTargets(val, metric='NRMSE')
                     # 24-hr RMSE
-                    if self._param_name == 'PM25':
+                    if self.n_avg_intervals == 2:
                         val = float(metric_vals[str(i)])
                         txt = self.CheckTargets(val, metric='RMSE')
 
-                if self._param_name == 'PM25':
+                if self.n_avg_intervals == 2:
                     # Metric column 3
                     if (i - 1) % datacols == 2:
                         # 1-hr NRMSE
@@ -1658,7 +1702,7 @@ class PerformanceReport(SensorEvaluation):
                     # Metric column 4
                     if (i - 1) % datacols == 3:
                         # 24-hr NRMSE
-                        if self._param_name == 'PM25':
+                        if self.n_avg_intervals == 2:
                             val = float(metric_vals[str(i)])
                             txt = self.CheckTargets(val, metric='NRMSE')
 
@@ -1692,20 +1736,20 @@ class PerformanceReport(SensorEvaluation):
                                      [self._param_name]
                                      ['Precision'])
 
-        if self._param_name == 'PM25':
+        if self.n_avg_intervals == 2:
             datacols = 8
             nheaderrows = 4
             headercellend = nheaderrows*(datacols + 1)
             span_dict = {'Precision (between collocated sensors)': [1, 4],
                          'Data Quality': [5, 8],
                          'CV\n(%)': [10, 11],
-                         'SD\n(μg/m^3)': [12, 13],
+                         f'SD\n({self.param.units})': [12, 13],
                          'Uptime\n(%)': [14, 15],
                          'Number concurrent sensor values': [16, 17]}
             table_categories = {'1': 'Precision (between collocated sensors)',
                                 '5': 'Data Quality'}
             metrics = {'10': 'CV\n(%)',
-                       '12': 'Standard Deviation\n(μg/m^3)',
+                       '12': f'Standard Deviation\n({self.param.units})',
                        '14': 'Uptime\n(%)',
                        '16': 'Number of paired\nsensor and '
                              'reference\nconcentration pairs'}
@@ -1717,11 +1761,17 @@ class PerformanceReport(SensorEvaluation):
                              '24': '24-Hour',
                              '25': '1-Hour',
                              '26': '24-Hour'}
+
+            cv_ubound = self.param.PerformanceTargets.get_metric(
+                            metrics['10'].split('\n')[0])['bounds'][1]
+            sd_ubound = self.param.PerformanceTargets.get_metric(
+                            metrics['12'].split('\n')[0])['bounds'][1]
+
             metric_targets = {'27': 'Metric Target Range',
-                              '28': '≤ 30',
-                              '29': '≤ 30',
-                              '30': '≤ 5',
-                              '31': '≤ 5',
+                              '28': '≤ {:3.1f}'.format(cv_ubound),
+                              '29': '≤ {:3.1f}'.format(cv_ubound),
+                              '30': '≤ {:2.1f}'.format(sd_ubound),
+                              '31': '≤ {:2.1f}'.format(sd_ubound),
                               '32': '75%*',
                               '33': '75%*',
                               '34': '-',
@@ -1736,7 +1786,7 @@ class PerformanceReport(SensorEvaluation):
                            '43': format(grp_stats['n_1-hour']),
                            '44': format(grp_stats['n_24-hour'])}
 
-        if self._param_name == 'O3':
+        if self.n_avg_intervals == 1:
             datacols = 4
             nheaderrows = 4
             headercellend = nheaderrows*(datacols + 1)
@@ -1746,7 +1796,7 @@ class PerformanceReport(SensorEvaluation):
             table_categories = {'1': 'Precision (between collocated sensors)',
                                 '3': 'Data Quality'}
             metrics = {'6': 'CV\n(%)',
-                       '7': 'Standard Deviation\n(ppbv)',
+                       '7': f'Standard Deviation\n({self.param.units})',
                        '8': 'Uptime\n(%)',
                        '9': 'Number of paired\nsensor and '
                             'reference\nconcentration pairs'}
@@ -1754,9 +1804,15 @@ class PerformanceReport(SensorEvaluation):
                              '12': '1-Hour',
                              '13': '1-Hour',
                              '14': '1-Hour'}
+
+            cv_ubound = self.param.PerformanceTargets.get_metric(
+                            metrics['6'].split('\n')[0])['bounds'][1]
+            sd_ubound = self.param.PerformanceTargets.get_metric(
+                            metrics['7'].split('\n')[0])['bounds'][1]
+
             metric_targets = {'15': 'Metric Target Range',
-                              '16': '≤ 30',
-                              '17': '≤ 5',
+                              '16': '≤ {:3.1f}'.format(cv_ubound),
+                              '17': '≤ {:2.1f}'.format(sd_ubound),
                               '18': '75%*',
                               '19': '-',
                               '20': 'Deployment Value'}
@@ -1800,41 +1856,41 @@ class PerformanceReport(SensorEvaluation):
                 j = i - headercellend
                 if (j - 1) % datacols == 0:
                     # Mean 1-hr CV
-                    if self._param_name == 'O3':
+                    if self.n_avg_intervals == 1:
                         val = float(metric_vals[str(i)])
                         txt = self.CheckTargets(val, metric='CV')
                     # Mean 1-hr CV
-                    if self._param_name == 'PM25':
+                    if self.n_avg_intervals == 2:
                         val = float(metric_vals[str(i)])
                         txt = self.CheckTargets(val, metric='CV')
                 # Metric column 2
                 if (j - 1) % datacols == 1:
                     # 1-hr Std dev
-                    if self._param_name == 'O3':
+                    if self.n_avg_intervals == 1:
                         val = float(metric_vals[str(i)])
                         txt = self.CheckTargets(val, metric='SD')
                     # 24-hr CV
-                    if self._param_name == 'PM25':
+                    if self.n_avg_intervals == 2:
                         val = float(metric_vals[str(i)])
                         txt = self.CheckTargets(val, metric='CV')
                 # Metric column 3
                 if (j - 1) % datacols == 2:
                     # 1-hr Uptime
-                    if self._param_name == 'O3':
+                    if self.n_avg_intervals == 1:
                         val = float(metric_vals[str(i)])
                         txt = self.CheckTargets(val, metric='Uptime')
                     # 1-hr Std dev
-                    if self._param_name == 'PM25':
+                    if self.n_avg_intervals == 2:
                         val = float(metric_vals[str(i)])
                         txt = self.CheckTargets(val, metric='CV')
                 # Metric column 4
                 if (j - 1) % datacols == 3:
                     # 24-hr Std dev
-                    if self._param_name == 'PM25':
+                    if self.n_avg_intervals == 2:
                         val = float(metric_vals[str(i)])
                         txt = self.CheckTargets(val, metric='SD')
 
-                if self._param_name == 'PM25':
+                if self.n_avg_intervals == 2:
                     # Metric column 5
                     if (j - 1) % datacols == 4:
                         # 1-hr uptime
@@ -2404,49 +2460,6 @@ class PerformanceReport(SensorEvaluation):
         else:
             Uptime_min, Uptime_max = 75, 100
             metric_min, metric_max = Uptime_min, Uptime_max
-
-        # Performance target values for PM2.5 base test evaluations
-        # if self._param_name == 'PM25':
-        #     Rsqr_min, Rsqr_max = 0.70, 1.0
-        #     Slope_min, Slope_max = 0.65,  1.35
-        #     Intcpt_min, Intcpt_max = -5, 5
-        #     Uptime_min, Uptime_max = 75, 100
-        #     RMSE_min, RMSE_max = 0, 7
-        #     NRMSE_min, NRMSE_max = 0, 30
-        #     CV_min, CV_max = 0, 30
-        #     SD_min, SD_max = 0, 5
-
-        # # Performance target values for O3 base test evaluations
-        # if self._param_name == 'O3':
-        #     Rsqr_min, Rsqr_max = 0.80, 1.0
-        #     Slope_min, Slope_max = 0.80,  1.20
-        #     Intcpt_min, Intcpt_max = -5, 5
-        #     Uptime_min, Uptime_max = 75, 100
-        #     RMSE_min, RMSE_max = 0, 5
-        #     NRMSE_min, NRMSE_max = 0, 30
-        #     CV_min, CV_max = 0, 30
-        #     SD_min, SD_max = 0, 5
-
-        # if metric == 'Uptime':
-        #     Uptime_min, Uptime_max = 75, 100
-        #     metric_min, metric_max = Uptime_min, Uptime_max
-
-        # if metric == 'R^2':
-        #     metric_min, metric_max = Rsqr_min, Rsqr_max
-        # if metric == 'Slope':
-        #     metric_min, metric_max = Slope_min, Slope_max
-        # if metric == 'Intercept':
-        #     metric_min, metric_max = Intcpt_min, Intcpt_max
-        # if metric == 'Uptime':
-        #     metric_min, metric_max = Uptime_min, Uptime_max
-        # if metric == 'RMSE':
-        #     metric_min, metric_max = RMSE_min, RMSE_max
-        # if metric == 'NRMSE':
-        #     metric_min, metric_max = NRMSE_min, NRMSE_max
-        # if metric == 'CV':
-        #     metric_min, metric_max = CV_min, CV_max
-        # if metric == 'SD':
-        #     metric_min, metric_max = SD_min, SD_max
 
         # Number of sensors meeting target
         n_sensors = len(metric_vals)
