@@ -51,7 +51,7 @@ def performance_metrics(stats_df, deploy_dict, param=None,
 
     param_obj = Parameter(param)
 
-    targets = param_obj.PerformanceTargets.get_AllMetrics()
+    targets = param_obj.PerformanceTargets.get_all_metrics()
 
     if any(metric_info == {} for metric_info in targets.values()):
         sys.exit('Performance metrics and target values not set for ' + param)
