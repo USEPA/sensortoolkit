@@ -32,11 +32,14 @@ def ref_api_query(query_type=None, param=None, bdate='', edate='',
                   aqs_id=None, airnow_bbox=None, username=None, key=None,
                   path=None):
     """Wrapper function for sending an API data query to either the AQS or
-    AirNow API for a specified parameter ('param'). Data returned by queries
-    are parsed into pandas dataframes and processed to convert header labels
-    and column data types into a consistent standard for reference data sets.
+    AirNow API for a specified parameter ('param').
+
+    Data returned by queries are parsed into pandas dataframes and processed
+    to convert header labels and column data types into a consistent standard
+    for reference data sets.
 
     A note on use:
+
         This method is configured to return datasets for parameters with the
         same parameter classification. The R-DFS scheme for formatting reference
         data in sensortoolkit organizes reference data into three primary
@@ -96,13 +99,13 @@ def ref_api_query(query_type=None, param=None, bdate='', edate='',
             Both AQS and AirNow: API authentication key code.
 
     Returns:
-        query_data:
-            Data returned by the API for the specified parameter and time
-            frame. Data have been processed with column headers converted into
-            standard naming scheme and column data types converted into a
-            consistent formatting scheme for reference datasets.
-        raw_data (pandas dataframe):
-            An unmodified version of the dataset returned by the API query.
+        query_data (pandas DataFrame): Data returned by the API for the
+            specified parameter and time frame. Data have been processed with
+            column headers converted into standard naming scheme and column
+            data types converted into a consistent formatting scheme for
+            reference datasets.
+        raw_data (pandas DataFrame): An unmodified version of the dataset
+            returned by the API query.
     """
     if type(param) is str:
         param_list = [param]
@@ -310,11 +313,11 @@ def select_poc(df, param):
     """Ask the user for a single POC if multiple codes present in dataset.
 
     Args:
-        df (TYPE): DESCRIPTION.
-        param (TYPE): DESCRIPTION.
+        df (pandas DataFrame): DESCRIPTION.
+        param (str): The evaluation parameter.
 
     Returns:
-        df (TYPE): DESCRIPTION.
+        df (pandas DataFrame): DESCRIPTION.
 
     """
     print('')
@@ -469,19 +472,23 @@ def date_range_selector(start_date, end_date):
     Returns:
         month_starts (pandas datetimeindex):
             An array of monthly start dates.
+
             Example:
-            DatetimeIndex(['2021-01-01', '2021-02-01',
-                           '2021-03-01', '2021-04-01',
-                           '2021-05-01', '2021-06-01'],
-                            dtype='datetime64[ns]', freq='MS')
+
+            >> DatetimeIndex(['2021-01-01', '2021-02-01',
+                              '2021-03-01', '2021-04-01',
+                              '2021-05-01', '2021-06-01'],
+                               dtype='datetime64[ns]', freq='MS')
 
         month_ends (pandas datetimeindex):
             An array of monthly end dates.
+
             Example:
-            DatetimeIndex(['2021-01-31', '2021-02-28',
-                           '2021-03-31', '2021-04-30',
-                           '2021-05-31', '2021-06-30'],
-                            dtype='datetime64[ns]', freq='M')
+
+            >> DatetimeIndex(['2021-01-31', '2021-02-28',
+                              '2021-03-31', '2021-04-30',
+                              '2021-05-31', '2021-06-30'],
+                               dtype='datetime64[ns]', freq='M')
     """
 
     start_date = pd.to_datetime(start_date)
@@ -545,11 +552,14 @@ def query_periods(query_type=None, month_starts=[], month_ends=[]):
             edate = e_yr + e_mo + e_day
             monthly_periods.update({month_name + year_name: {'bdate': bdate,
                                                              'edate': edate}})
-        if query_type == 'AirNow':
+        elif query_type == 'AirNow':
             bdate = (s_yr + '-' + s_mo + '-' + '0' + s_day + 'T00')
             edate = (e_yr + '-' + e_mo + '-' + e_day + 'T23')
             monthly_periods.update({e_yr + s_mo: {'startDate': bdate,
                                                   'endDate': edate}})
+        else:
+            raise ValueError(f'Invalid value for query_type: {query_type}.'
+                             ' Accepted values include "AQS" and "AirNow"')
 
     return monthly_periods
 
@@ -643,6 +653,19 @@ def query_aqs(param, data_period, aqs_id, username=None, key=None,
 
 
 def parse_sample_data(sample_data, get_monitor_info, param_list, **kwargs):
+    """
+
+
+    Args:
+        sample_data (pandas DataFrame): DESCRIPTION.
+        get_monitor_info (TYPE): DESCRIPTION.
+        param_list (TYPE): DESCRIPTION.
+        **kwargs (TYPE): DESCRIPTION.
+
+    Returns:
+        sample_data (pandas DataFrame): DESCRIPTION.
+
+    """
     if get_monitor_info:
         kwargs['param'] = param_list
         monitorinfo = query_aqs(query_type='monitors', **kwargs)
@@ -689,20 +712,37 @@ def parse_sample_data(sample_data, get_monitor_info, param_list, **kwargs):
 
 def ingest_aqs(data, param, api_param, param_classifier,
                time_of_query, lookup_table):
-    """
-
+    """Convert AQS query data to SDFS formatted datasets.
 
     Args:
-        data (TYPE): DESCRIPTION.
-        param (TYPE): DESCRIPTION.
-        api_param (TYPE): DESCRIPTION.
-        param_classifier (TYPE): DESCRIPTION.
-        time_of_query (TYPE): DESCRIPTION.
-        lookup_table (TYPE): DESCRIPTION.
+        data (pandas DataFrame):
+            Query data received from the AQS API.
+        param (str):
+            The name of the SDFS parameter for which data were queried.
+        api_param (str):
+            The name assigned by the API service associated with the SDFS
+            parameter for which data will be queried.
+        param_classifier (str):
+            A term for sorting the parameter into one of three environmental
+            parameter classifications, either ‘PM’ for particulate matter
+            pollutants, ‘Gases’ for gaseous pollutants, or ‘Met’ for
+            meteorological environmental parameters.
+        time_of_query (str):
+            The time of the API query, expressed as a string with datetime
+            format '%Y-%m-%d %H:%M:%S'.
+        lookup_table (pandas DataFrame):
+            A lookup table of FRM/FEM methods associated with the queried
+            parameter, including the method code for determining the name of
+            the reference instrument if none given. For criteria pollutants,
+            the following lookup table is used
+            ('<https://aqs.epa.gov/aqsweb/documents/codetables/methods_criteria.html>'_).
+            For meteorological parameters, the following lookup table is used
+            (`<https://aqs.epa.gov/aqsweb/documents/codetables/methods_met.html>`_)
 
     Returns:
-        data (TYPE): DESCRIPTION.
-        idx (TYPE): DESCRIPTION.
+        data (pandas DataFrame): SDFS formatted dataset.
+        idx (TYPE): The datetime index (UTC) for the data received from the
+        API query.
 
     """
     idx = pd.to_datetime(data['date_gmt_' + api_param] + ' '
@@ -903,16 +943,19 @@ def query_airnow(param, data_period, bbox, key=None):
 
 
 def ingest_airnow(data, param, time_of_query):
-    """
-
+    """Convert AirNow query data to SDFS formatted datasets.
 
     Args:
-        data (TYPE): DESCRIPTION.
-        param (TYPE): DESCRIPTION.
-        time_of_query (TYPE): DESCRIPTION.
+        data (pandas DataFrame):
+            Query data received from the AirNow API.
+        param (str):
+            The name of the SDFS parameter for which data were queried.
+        time_of_query (str):
+            The time of the API query, expressed as a string with datetime
+            format '%Y-%m-%d %H:%M:%S'.
 
     Returns:
-        data (TYPE): DESCRIPTION.
+        data (TYPE): SDFS formatted dataset.
 
     """
     idx = pd.to_datetime(data.DateTime)
@@ -950,16 +993,29 @@ def ingest_airnow(data, param, time_of_query):
 
 def save_api_dataset(process_df, raw_df, path, query_type, param_class,
                      data_period):
-    """Save monthly datasets.
-
+    """Save processed datasets at regular monthly intervals.
 
     Args:
-        process_df (TYPE): DESCRIPTION.
-        raw_df (TYPE): DESCRIPTION.
-        path (TYPE): DESCRIPTION.
-        query_type (TYPE): DESCRIPTION.
-        param_class (TYPE): DESCRIPTION.
-        data_period (TYPE): DESCRIPTION.
+        process_df (pandas DataFrame):
+            An SDFS formatted dataset for query data returned by the API
+            service.
+        raw_df (pandas DataFrame):
+            A dataset containing unmodified data returned by the API service.
+        path (TYPE):
+            The project path where the ``/data/reference_data`` subdirectory
+            is housed. Data are saved at the refrence data subdirectory
+            structure within this parent directory.
+        query_type (str):
+            The name of the API service used to retreieve query data.
+        param_class (sstr):
+            A term for sorting the parameter into one of three environmental
+            parameter classifications, either ‘PM’ for particulate matter
+            pollutants, ‘Gases’ for gaseous pollutants, or ‘Met’ for
+            meteorological environmental parameters.
+        data_period (list):
+            A list of length 2, containing the start date for the monthly
+            period (index position 0), and end date (index position 1). Each
+            element is a string with date format 'YYYYMMDD'.
 
     Returns:
         None.
