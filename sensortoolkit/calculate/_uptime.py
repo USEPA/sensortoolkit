@@ -38,9 +38,18 @@ def uptime(dataframe_object, key=None):
     Args:
         dataframe_object (pandas dataframe or a list of dataframes):
             Sensor dataframe or list of sensor dataframes
-        key ():
+        key (str):
             A unique identifier corresponding to the dataframe passed (either
             a serial ID, number, or other string).
+
+    Returns:
+        uptime_dict (dict):
+            A dictionary containing entries for each sensor in the testing group
+            and sub-dictionaries for each sensor indicating the uptime, as well
+            as how many hourly periods met or did not meet the completeness
+            threshold and the total number of hours that the sensors were
+            sampling.
+
     """
 
     # Check whether dataframe object is single dataframe or list of dataframes

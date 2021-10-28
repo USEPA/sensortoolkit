@@ -34,6 +34,7 @@ def load_ref_dataframes(bdate, edate, path, classes):
         ref_dict (dict):
             Dictionary containing reference datasets organized by parameter
             classification (keys).
+
     """
     print("Loading reference dataframes")
 
@@ -131,6 +132,7 @@ def import_ref_dataframe(df, path, year, month, suffix=None):
             Modified dataframe with imported data appended to the passed
             dataset. Contains reference data (FRM/FEM) at 1-hour averaged
             intervals.
+            
     """
     try:
         filename = 'H_' + year + month + suffix + '.csv'

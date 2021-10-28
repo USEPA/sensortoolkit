@@ -85,13 +85,14 @@ def aqi(data):
             value(s), if dataframe, column must be labeled 'PM25_Value'.
 
     Returns:
-        dataframe:
+        data (pandas DataFrame):
             A pandas dataframe with PM25 concentrations, AQI
             values, and corresponding AQI category names.
 
     Raises:
         KeyError: If passed data object is type pandas dataframe and the column
             header 'PM25_Value' is not found.
+
     """
     breakpoints = {'Good': {'I_h': 50,
                             'I_l': 0,

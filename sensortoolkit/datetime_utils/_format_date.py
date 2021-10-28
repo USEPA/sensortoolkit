@@ -22,9 +22,11 @@ def get_todays_date():
 
     Args:
         None
+        
     Returns:
         formatted_date (str):
             String for the date in YYMMDD format.
+
     """
     datetime = pd.Timestamp.now()
     formatted_date = datetime.strftime('%y%m%d')

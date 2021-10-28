@@ -68,15 +68,17 @@ def sensor_averaging(full_df_list, sensor_serials=None, name='',
             datasets to 1-hour/24-hour intervals. Defaults to 75% (``0.75``).
 
     Returns:
-        hourly_df_list (list of pandas dataframes): List of sensor data frames
-            of length N (where N is the number of sensor units in a testing
-            group). frames indexed by DateTime at 1-hour averaged sampling
-            frequency.
-        daily_df_list (list of pandas dataframes): List of sensor data frames
-            of length N (where N is the number of sensor units in a testing
-            group). frames indexed by DateTime at 24-hour averaged sampling
-            frequency.
-            
+        (tuple): two-element tuple containing:
+
+            - hourly_df_list (list of pandas DataFrames): List of sensor data
+              frames of length N (where N is the number of sensor units in a
+              testing group). frames indexed by DateTime at 1-hour averaged
+              sampling frequency.
+            - daily_df_list (list of pandas DataFrames): List of sensor data
+              frames of length N (where N is the number of sensor units in a
+              testing group). frames indexed by DateTime at 24-hour averaged
+              sampling frequency.
+
     """
     hourly_df_list, daily_df_list = [], []
 

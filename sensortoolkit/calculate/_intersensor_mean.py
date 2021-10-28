@@ -103,9 +103,10 @@ def intersensor_mean(df_list, deploy_dict):
             time period, etc.), sensors tested, and site conditions during the
             evaluation.
     Returns:
-        avg_df (pandas dataframe):
+        avg_df (pandas DataFrame):
             Dataframe to contain intersensor average for each parameter at
             either 1-hour or 24-hour averaging interval.
+
     """
     print('Computing mean parameter values across concurrent sensor datasets')
     # List of unique column headers for parameter value columns

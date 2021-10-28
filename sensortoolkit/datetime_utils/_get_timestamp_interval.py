@@ -28,9 +28,10 @@ def get_timestamp_interval(df, warning=False, as_timedelta=False):
             A dataframe with time-like index.
 
     Returns:
-        interval_str:
+        interval_str (str):
             A string describing the most common (mode) recording interval
             in the dataframe.
+
     """
     delta = (df.index[1:] - df.index[0:-1]).to_frame()
     idx_name = delta.index.name

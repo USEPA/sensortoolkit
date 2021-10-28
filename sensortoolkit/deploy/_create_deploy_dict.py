@@ -76,7 +76,7 @@ def construct_deploy_dict(deploy_df, full_df_list, hourly_df_list,
             The make and model of the sensor being evaluated.
 
     Returns:
-        deploy_dict:
+        deploy_dict (dict):
             Dictionary containing separate deployment group start and
             end times (based on the latest (max) start timestamp and earliest
             (min) end timestamp in group), deployment duration, and sensor

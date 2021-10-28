@@ -107,10 +107,11 @@ def nowcast_pm25(df, column=None):
         column (str): The name of the column to NowCast.
 
     Returns:
-        nowcasted_df:
+        nowcasted_df (pandas DataFrame):
             Dataframe passed to function with added column for nowcasted values.
             The index is set to time. Data columns include the passed hourly
             PM2.5 data and the corresponding Nowcast values ('nowcast').
+
     """
     if column is None:
         sys.exit('No column header name specified to nowcast')

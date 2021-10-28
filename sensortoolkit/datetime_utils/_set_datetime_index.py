@@ -28,15 +28,16 @@ def set_datetime_index(df, idx_fmt=None):
             search for the appropriate formatting.
 
     Return:
-        df (pandas dataframe):
+        df (pandas DataFrame):
             Modified sensor dataframe with the index assigned as the
             'DateTime' column.
 
     Raises:
         NameError: If the column header 'DateTime' is not found in the
-        dataframe (may occur if the user assigns a label other than
-        'DateTime' to the time-like index during the process of data
-        ingestion.)
+            dataframe (may occur if the user assigns a label other than
+            'DateTime' to the time-like index during the process of data
+            ingestion.)
+
     """
     try:
 

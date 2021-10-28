@@ -211,11 +211,12 @@ class ParameterTargets:
             configured metrics.
 
         Returns:
-            metric (dict): Return a dictionary containing a textual description
-            of the metric (key- 'description'), the target range for the metric
-            (key- 'bounds'), the goal/ideal achievable performance metric value
-            (key- 'goal'), and the units associated with the metric if
-            applicable (key- 'metric_units').
+            metric (dict):
+                Return a dictionary containing a textual description
+                of the metric (key- 'description'), the target range for the
+                metric (key- 'bounds'), the goal/ideal achievable performance
+                metric value (key- 'goal'), and the units associated with the
+                metric if applicable (key- 'metric_units').
 
         """
         # Ensure title case

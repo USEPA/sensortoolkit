@@ -58,9 +58,10 @@ def dewpoint(data):
         data:
             Pandas dataframe or list of pandas dataframes
     Returns:
-        data:
-            Pandas dataframe or list of pandas dataframes with calculated
-            dewpoint (column header ``DP_Calculated_Value``).
+        data (Pandas DataFrame or list of pandas DataFrames):
+            Modified dataframe containing calculated dewpoint (column header
+            ``DP_Calculated_Value``).
+
     """
     BETA = 17.625
     LBDA = 243.04  # degrees C

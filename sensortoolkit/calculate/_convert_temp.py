@@ -17,7 +17,7 @@ def convert_temp(data, from_unit='F', to_unit='C'):
     Can convert from Fahrenheit to Celsius or vice versa.
 
     Args:
-        data (TYPE): DESCRIPTION.
+        data (pandas DataFrame or pandas Series): DESCRIPTION.
         from_unit (TYPE, optional): DESCRIPTION. Defaults to 'F'.
         to_unit (TYPE, optional): DESCRIPTION. Defaults to 'C'.
 
@@ -26,7 +26,7 @@ def convert_temp(data, from_unit='F', to_unit='C'):
         AttributeError: DESCRIPTION.
 
     Returns:
-        converted_data (TYPE): DESCRIPTION.
+        converted_data (pandas DataFrame): DESCRIPTION.
 
     """
     # Convert input type to pandas dataframe

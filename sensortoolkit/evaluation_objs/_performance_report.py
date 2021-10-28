@@ -238,7 +238,7 @@ class PerformanceReport(SensorEvaluation):
             subfolder (TYPE, optional): DESCRIPTION. Defaults to None.
 
         Returns:
-            TYPE: DESCRIPTION.
+            bool: DESCRIPTION.
             full_figure_path (TYPE): DESCRIPTION.
 
         """

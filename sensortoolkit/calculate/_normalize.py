@@ -63,9 +63,10 @@ def normalize(df_list, ref_df, param=None, ref_name=None):
         ref_name (str):
             The make and model of the FRM/FEM monitor.
     Returns
-        df_list (list):
+        df_list (list of pandas DataFrames):
             Modified list of sensor dataframes with a column added for
             normalized parameter values.
+
     """
     print('Computing normalized', param, 'values (by', ref_name + ')')
 

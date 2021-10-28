@@ -99,13 +99,16 @@ def ref_api_query(query_type=None, param=None, bdate='', edate='',
             Both AQS and AirNow: API authentication key code.
 
     Returns:
-        query_data (pandas DataFrame): Data returned by the API for the
-            specified parameter and time frame. Data have been processed with
-            column headers converted into standard naming scheme and column
-            data types converted into a consistent formatting scheme for
-            reference datasets.
-        raw_data (pandas DataFrame): An unmodified version of the dataset
-            returned by the API query.
+        (tuple): two-element tuple containing:
+
+            - query_data (pandas DataFrame): Data returned by the API for the
+              specified parameter and time frame. Data have been processed with
+              column headers converted into standard naming scheme and column
+              data types converted into a consistent formatting scheme for
+              reference datasets.
+            - raw_data (pandas DataFrame): An unmodified version of the dataset
+              returned by the API query.
+
     """
     if type(param) is str:
         param_list = [param]
@@ -470,25 +473,27 @@ def date_range_selector(start_date, end_date):
             format accepted by pandas to_datetime module.
 
     Returns:
-        month_starts (pandas datetimeindex):
-            An array of monthly start dates.
+        (tuple): two-element tuple containing:
 
-            Example:
+            - month_starts (pandas datetimeindex): An array of monthly start
+              dates.
 
-            >> DatetimeIndex(['2021-01-01', '2021-02-01',
-                              '2021-03-01', '2021-04-01',
-                              '2021-05-01', '2021-06-01'],
-                               dtype='datetime64[ns]', freq='MS')
+              Example:
 
-        month_ends (pandas datetimeindex):
-            An array of monthly end dates.
+              >> DatetimeIndex(['2021-01-01', '2021-02-01',
+                                '2021-03-01', '2021-04-01',
+                                '2021-05-01', '2021-06-01'],
+                                 dtype='datetime64[ns]', freq='MS')
 
-            Example:
+            - month_ends (pandas datetimeindex): An array of monthly end dates.
 
-            >> DatetimeIndex(['2021-01-31', '2021-02-28',
-                              '2021-03-31', '2021-04-30',
-                              '2021-05-31', '2021-06-30'],
-                               dtype='datetime64[ns]', freq='M')
+              Example:
+
+              >> DatetimeIndex(['2021-01-31', '2021-02-28',
+                                '2021-03-31', '2021-04-30',
+                                '2021-05-31', '2021-06-30'],
+                                 dtype='datetime64[ns]', freq='M')
+
     """
 
     start_date = pd.to_datetime(start_date)
@@ -532,6 +537,7 @@ def query_periods(query_type=None, month_starts=[], month_ends=[]):
         monthly_periods (dict):
             Dictionary with monthly beginning and end dates formatted to the
             scheme expected by the API to be queried.
+
     """
     monthly_periods = {}
     for start, end in zip(month_starts, month_ends):
@@ -587,6 +593,7 @@ def query_aqs(param, data_period, aqs_id, username=None, key=None,
         data (pandas dataframe):
             Data returned by the API for the specified query parameter and
             time period.
+
     """
     get_monitor_info = kwargs.get('get_monitor_info', True)
     sample_duration = kwargs.get('sample_duration', '1 HOUR')
@@ -740,9 +747,11 @@ def ingest_aqs(data, param, api_param, param_classifier,
             (`<https://aqs.epa.gov/aqsweb/documents/codetables/methods_met.html>`_)
 
     Returns:
-        data (pandas DataFrame): SDFS formatted dataset.
-        idx (TYPE): The datetime index (UTC) for the data received from the
-        API query.
+        (tuple): two-element tuple containing:
+
+            - data (pandas DataFrame): SDFS formatted dataset.
+            - idx (TYPE): The datetime index (UTC) for the data received from
+              the API query.
 
     """
     idx = pd.to_datetime(data['date_gmt_' + api_param] + ' '

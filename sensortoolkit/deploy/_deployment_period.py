@@ -30,7 +30,7 @@ def deployment_period(df_list, sensor_name, sensor_serials):
             A dictionary of sensor serial identifiers for each unit in a
             testing group.
     Returns:
-        deployment_df (pandas dataframe):
+        deployment_df (pandas DataFrame):
             A data frame containing the start time (‘Begin’), end time (‘End’),
             and total duration of evaluation period for each sensor in a
             deployment group.

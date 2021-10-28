@@ -140,21 +140,24 @@ def sensor_import(sensor_name=None, sensor_serials=None,
             the appropriate figures subdirectory.
 
     Returns:
-        full_df_list (list):
-          List of pandas dataframe objects, one for each sensor dataset
-          containing processed full time-resolution data.
-        hourly_df_list (list):
-          List of pandas dataframe objects, one for each sensor dataset
-          containing processed hourly averaged time-resolution data.
-        daily_df_list (list):
-          List of pandas dataframe objects, one for each sensor dataset
-          containing processed daily (24-hr) averaged time-resolution data.
+        (tuple): three-element tuple containing:
+
+            - full_df_list (list): List of pandas dataframe objects, one for
+              each sensor dataset containing processed full time-resolution
+              data.
+            - hourly_df_list (list): List of pandas dataframe objects, one for
+              each sensor dataset containing processed hourly averaged
+              time-resolution data.
+            - daily_df_list (list): List of pandas dataframe objects, one for
+              each sensor dataset containing processed daily (24-hr) averaged
+              time-resolution data.
+
     Raises:
-        System exit: If searching for recorded sensor datasets and no files
-        found with the expected naming scheme or file formatting (files must
-        be ordered chronologically, contain the unique serial identifier
-        corresponding to the sensor unit that recorded the sensor data file,
-        and must be in either .csv or .txt format).
+        AttributeError: If searching for recorded sensor datasets and no files
+            found with the expected naming scheme or file formatting (files must
+            be ordered chronologically, contain the unique serial identifier
+            corresponding to the sensor unit that recorded the sensor data file,
+            and must be in either .csv or .txt format).
     """
     valid_extensions = ['.csv', '.txt', '.xlsx']
     tzone_shift = kwargs.get('tzone_shift', 0)
@@ -194,7 +197,7 @@ def sensor_import(sensor_name=None, sensor_serials=None,
                                ' naming scheme. Files for each sensor must be '
                                'ordered chronologically and contain the sensor'
                                ' serial ID. Files must be either .csv or .txt')
-                sys.exit(console_out)
+                raise AttributeError(console_out)
 
             # any concatenation would happen here
             start = kwargs.get('deploy_bdate', None)
@@ -243,7 +246,7 @@ def ingest_wrapper(cwd, sensor_name, serial, data_path):
             processed and raw data, and the setup.json if configured)
 
     Returns:
-        pandas dataframe object:
+        pandas DataFrame object:
             Sensor dataframe imported and processed via the appropriate
             ingestion module.
     """

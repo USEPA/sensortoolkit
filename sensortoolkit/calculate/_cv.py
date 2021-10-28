@@ -72,18 +72,18 @@ def _calculate_cv(cv_df, sensor_numbers, param):
             Parameter name to evaluate
 
     Returns:
-        cv_df (pandas dataframe):
-            Modified cv_df, dropped rows were not all sensors measuring
-            concurrently, add columns for computing CV.
-        CV (float):
-            The coefficient of variation of concurrent sensor measurements.
-            Calculated as the 100*(standard deviation / mean of all concurrent
-            sensor measurements).
-        st_dev (float):
-            The standard deviation of concurrent sensor measurements.
-        n (int):
-            Number of concurrent hours with all sensors reporting pollutant
-            values.
+        (tuple): four-element tuple containing:
+
+            - cv_df (pandas DataFrame): Modified cv_df, dropped rows were not
+              all sensors measuring concurrently, add columns for computing CV.
+            - CV (float): The coefficient of variation of concurrent sensor
+              measurements. Calculated as the 100*(standard deviation / mean of
+              all concurrent sensor measurements).
+            - st_dev (float): The standard deviation of concurrent sensor
+              measurements.
+            - n_concurr (int): Number of concurrent hours with all sensors
+              reporting pollutant values.
+
     """
     if cv_df.index[1] - cv_df.index[0] == pd.Timedelta('0 days 01:00:00'):
         time_interval = "1-Hour"
@@ -159,7 +159,7 @@ def cv(df_list, deploy_dict, param=None, return_deploy_dict=True):
     Returns:
         If ``return_deploy_dict`` is ``True``, return ``deploy_dict`` with
         updated precision statistics, else return ``CV`` (float).
-        
+
     """
     date_index, avg_suffix = deploy_timestamp_index(df_list,
                                                     averaging_suffix=True)

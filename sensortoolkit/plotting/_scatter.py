@@ -379,6 +379,7 @@ def scatter_plotter(df_list, ref_df, stats_df=None, plot_subset=None,
         If an axis is passed to Scatter_Plotter(), the modified axis with
         plotting detail filled in will be returned. Otherwise, none will be
         returned.
+
     """
     sns.set_style(kwargs.get('seaborn_style', 'darkgrid'))
     palette = kwargs.get('color_palette', 'seismic')
