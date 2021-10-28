@@ -64,7 +64,7 @@ class SensorEvaluation:
         **kwargs:
             Keyword arguments that may be passed to the function for
             particulate use cases. Includes ``testing_org`` (a dictionary of
-             organization information that is included in deploy_dict),
+            organization information that is included in deploy_dict),
             ``testing_loc`` (a dictionary of testing location information also
             included in ``deploy_dict``).
 

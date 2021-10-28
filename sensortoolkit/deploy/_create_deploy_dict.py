@@ -199,14 +199,15 @@ def deploy_ref_stats(deploy_dict, ref_df, cal_check_dict=None, param=None,
     the deployment dictionary.
 
     Details added include:
-    1. The FRM/FEM monitor name
-    2. The minimum concentration recorded at the specified interval
-       averaging.
-    3. The maximum concentration recorded at the specified interval
-       averaging.
-    4. The number of intervals during which the FRM/FEM exceeds the goal
-       concentration recommended by the performance targets testing report
-       for elevated concentrations (goal >= three days).
+
+    * The FRM/FEM monitor name
+    * The minimum concentration recorded at the specified interval
+      averaging.
+    * The maximum concentration recorded at the specified interval
+      averaging.
+    * The number of intervals during which the FRM/FEM exceeds the goal
+      concentration recommended by the performance targets testing report
+      for elevated concentrations (goal >= three days).
 
     Args:
         deploy_dict (dict):
@@ -289,13 +290,14 @@ def deploy_met_stats(deploy_dict, df_list, met_ref_df,
     subfield in the deployment dictionary.
 
     Details added include:
-    1. The name of the instrument collocated nearby sensor deployment location.
-    2. The minimum value recorded at the specified interval averaging.
-    3. The maximum value recorded at the specified interval averaging.
-    4. The number of intervals during which the instrument exceeds the
-       manufacturer's recommended target range for instrument performance.
-       This is provisionally set for RH (exceedence when <=10% or >= 90%) and
-       Temp (exceedence when <=-20 C or >= 40 C).
+
+    * The name of the instrument collocated nearby sensor deployment location.
+    * The minimum value recorded at the specified interval averaging.
+    * The maximum value recorded at the specified interval averaging.
+    * The number of intervals during which the instrument exceeds the
+      manufacturer's recommended target range for instrument performance.
+      This is provisionally set for RH (exceedence when <=10% or >= 90%) and
+      Temp (exceedence when <=-20 C or >= 40 C).
 
     Args:
     	deploy_dict (dict):

@@ -260,7 +260,6 @@ class ParameterTargets:
             console:
 
             >>> param_obj.PerformanceTargets.get_all_metrics()
-
             {'Bias': {}, 'Linearity': {}, 'Error': {}, 'Precision': {}}
 
             We can add a new performance evaluation metric category as well as
@@ -285,7 +284,6 @@ class ParameterTargets:
             metric name.
 
             >>> param_obj.PerformanceTargets.get_all_metrics()
-
             {'Bias': {},
              'Linearity': {},
              'Error': {},

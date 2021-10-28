@@ -48,8 +48,8 @@ class PerformanceReport(SensorEvaluation):
     performance testing protocols, metrics, and target values for the
     evaluation of sensors measuring either fine particulate matter (PM2.5)
     or ozone (O3). More detail about EPA's sensor evaluation research as well
-    as both reports can be found online at EPA's Air Sensor Toolbox:
-        https://www.epa.gov/air-sensor-toolbox
+    as both reports can be found online at EPA's Air Sensor Toolbox
+    (`<https://www.epa.gov/air-sensor-toolbox>`_)
 
     NOTE -
     PerformanceReport is an inherited class of SensorEvaluation. As a result,
@@ -2158,10 +2158,8 @@ class PerformanceReport(SensorEvaluation):
                 Name of the type of table to construct.
 
         Returns:
-            frame:
-                pptx GraphicFrame object that the table is contained within
-            table:
-                pptx table shape formatted for the selected table type
+            frame: pptx GraphicFrame object in which the table is contained.
+            table: pptx table shape formatted for the selected table type.
 
         """
 

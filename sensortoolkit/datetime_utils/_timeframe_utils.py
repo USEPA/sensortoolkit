@@ -26,14 +26,14 @@ def timeframe_search(sensor_df_list):
     sensor datasets
 
     Args:
-        sensor_df_list (list):
-            List of sensor dataframes
+        sensor_df_list (list): List of sensor dataframes
 
     Returns:
         overall_begin (datetime.date):
             Earliest recorded date in the passed sensor dataframe list.
         overall_end (datetime.date):
             Latest recorded date in the passed sensor dataframe list.
+            
     """
     # Determine begin and end timestamp for sensor datasets. Choose earliest
     # begin and latest end timestamp.

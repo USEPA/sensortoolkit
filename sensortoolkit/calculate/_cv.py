@@ -157,10 +157,9 @@ def cv(df_list, deploy_dict, param=None, return_deploy_dict=True):
             all sensors).
 
     Returns:
-        If return_deploy_dict:
-            Returns deploy_dict with updated precision statistics
-        else:
-            Return CV (float)
+        If ``return_deploy_dict`` is ``True``, return ``deploy_dict`` with
+        updated precision statistics, else return ``CV`` (float).
+        
     """
     date_index, avg_suffix = deploy_timestamp_index(df_list,
                                                     averaging_suffix=True)
