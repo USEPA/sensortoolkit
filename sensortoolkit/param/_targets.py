@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 """
-Description.
+This module contains the ParameterTargets class, which is used to access and
+configure performance metrics and target values for parameters that may be
+measured by an air sensor.
 
 ================================================================================
 
@@ -15,12 +17,28 @@ Last Updated:
 """
 import warnings
 
+
 class ParameterTargets:
-    """
+    """Assign and retreive parameter performance metrics and target values for
+    the evaluation of air sensor performance for devices measuring the
+    indicated parameter.
+
+    Preset performance metrics and target values are included for sensors
+    measuring either fine particulate matter (PM2.5) or ozone (O3), where
+    U.S. EPA's recommended performance metrics and target values for devices
+    measuring these pollutants are utilized.
+
+    Args:
+        param (sensortoolkit.Parameter object): The parameter for which air
+        sensor performance is evaluated against using the metrics and target
+        values included in this module.
+
+    Returns:
+        None.
+
     """
 
     def __init__(self, param):
-
         _usepa_targets = {'PM25':
                                {'Bias':
                                     {'Slope': {'description': 'Ordinary least '
@@ -133,22 +151,33 @@ class ParameterTargets:
         self.metric_categories = list(self._metrics.keys())
 
     def set_metric(self, metric_category, metric_name, **kwargs):
-        """
-
+        """Assign a new performance metric to an existing metric category.
 
         Args:
-            metric_category (TYPE): DESCRIPTION.
-            metric_name (TYPE): DESCRIPTION.
-            **kwargs (TYPE): DESCRIPTION.
+            metric_category (str):
+                The name of an existing performance metric category within
+                the dictionary of metric values, accessed via
+                ``get_all_metrics()`` (e.g., 'Bias' or 'Error').
+            metric_name (str):
+                The name of a new performance metric that will be added to
+                the indicated metric category.
+            **kwargs (TYPE):
+                Keyword arguments for specifying metric attributes. Accepted
+                keyword arguments include: 'description' (a textual
+                description of the metric), 'bounds' (the target range for
+                the metric), 'goal' (the goal/ideal achievable performance
+                metric value), and 'metric_units' (the units associated with
+                the metric if applicable).
 
         Raises:
-            KeyError: DESCRIPTION.
+            KeyError: Raise if the passed metric category is not in the list
+            metric categories (keys) indicated by the dictionary of metric
+            values accessed via ``get_all_metrics()``.
 
         Returns:
             None.
 
         """
-
         # Ensure title case
         metric_category = metric_category.title()
         #metric_name = metric_name.title()
@@ -168,37 +197,30 @@ class ParameterTargets:
         metric_entry['metric_units'] = kwargs.get('metric_units', None)
 
     def get_metric(self, metric_name):
-        """
+        """Return details about a single performance metric (description,
+        target range, goal value, metric units).
 
 
         Args:
-            metric_name (TYPE): DESCRIPTION.
+            metric_name (str): The name of the metric to return information
+            about. Must be contained within the list of metrics indicated
+            by ``get_all_metrics()``.
 
         Raises:
-            KeyError: DESCRIPTION.
+            KeyError: Raise if passed metric name is not in the dictionary of
+            configured metrics.
 
         Returns:
-            metric (TYPE): DESCRIPTION.
+            metric (dict): Return a dictionary containing a textual description
+            of the metric (key- 'description'), the target range for the metric
+            (key- 'bounds'), the goal/ideal achievable performance metric value
+            (key- 'goal'), and the units associated with the metric if
+            applicable (key- 'metric_units').
 
         """
-
         # Ensure title case
         # metric_category = metric_category.title()
         # #metric_name = metric_name.title()
-
-        # if metric_category not in self._metrics:
-        #     raise KeyError('Unspecified metric category: '
-        #                    '{0}. Category must be one of the '
-        #                    'following: {1}'.format(metric_category,
-        #                                            list(self._metrics.keys())))
-
-        # if metric_name not in self._metrics[metric_category]:
-        #     raise KeyError('Unspecified metric name: '
-        #                    '{0}. Metric name must be one of the '
-        #                    'following: {1}'.format(metric_name,
-        #                         list(self._metrics[metric_category].keys())))
-
-        # metric = self._metrics[metric_category][metric_name]
 
         for cat, cat_metrics in self._metrics.items():
             for name, info in cat_metrics.items():
@@ -211,31 +233,89 @@ class ParameterTargets:
                        f'must be one of the following: {self._metrics}')
 
     def get_all_metrics(self):
-        """
-
+        """Returns all performance metrics and target values associated with
+        the Parameter object.
 
         Returns:
-            TYPE: DESCRIPTION.
+            dict: A dictionary containing the performance metric categories,
+            metric names, and target values.
 
         """
         return self._metrics
 
     def set_metric_category(self, metric_category, metric_names=None):
-        """
+        """Assign a new metric category. Optionally, users can also add new
+        metrics and associated target values to this new category.
 
+        Example:
+
+            Say we are working with a parameter (pollutant) that is neither
+            PM25 nor O3, so the existing set of performance targets for these
+            sensors (metrics and target values recommended by US EPA) are not
+            utilized. Let's also assume that the name of our parameter object
+            is param_obj. After instantiating the parameter object, we may call
+            the ``get_all_metrics()`` method to display all of the performance
+            metrics and target values for our parameter. Since no preset
+            metrics were specified, we will see the following printed to the
+            console:
+
+            >>> param_obj.PerformanceTargets.get_all_metrics()
+
+            {'Bias': {}, 'Linearity': {}, 'Error': {}, 'Precision': {}}
+
+            We can add a new performance evaluation metric category as well as
+            any metrics and associated target values we may wish to include in
+            the new category using the ``set_metric_category()`` method. For
+            instance, say we wish to add a category 'Data Quality' and a metric
+            within this category called 'Uptime' with a target value of 70%
+            uptime or greater. This new category and metric can be added via
+            the following:
+
+            >>> param_obj.PerformanceTargets.set_metric_category(
+                    metric_category='Data Quality',
+                    metric_names={'Uptime': {'description': 'Measurement uptime',
+                                             'bounds': (70, 100),
+                                             'goal': 100,
+                                             'metric_units': '%'}
+                                  }
+                    )
+
+            If we again call the ``get_all_metrics()`` method, we will see that
+            the dictionary has been updated to include the new category and
+            metric name.
+
+            >>> param_obj.PerformanceTargets.get_all_metrics()
+
+            {'Bias': {},
+             'Linearity': {},
+             'Error': {},
+             'Precision': {},
+             'Data_Quality': {'Uptime': {'description': 'Measurement uptime',
+                                         'bounds': (70, 100),
+                                         'goal': 100,
+                                         'metric_units': '%'}
+                              }
+             }
 
         Args:
-            metric_category (TYPE): DESCRIPTION.
-            metric_names (TYPE, optional): DESCRIPTION. Defaults to None.
+            metric_category (str):
+                The name of the new performance metric category to add.
+            metric_names (dict, optional):
+                A dictionary of metrics (dictionary keys) and a description
+                of each metric (sub-dictionary for each metric containing
+                'description' - a textual description of the metric,
+                'bounds' - the lower and upper bounds of the target range for
+                the specified metric, 'goal' - the goal/ideal achievable
+                performance metric value, and 'metric_units' - the units
+                associated with the metric if applicable). Defaults to None.
 
         Raises:
-            TypeError: DESCRIPTION.
+            TypeError: Raise if the type of metric_names is not a dictionary.
 
         Returns:
             None.
 
         """
-
         # Ensure title case
         metric_category = metric_category.title()
 
@@ -253,5 +333,5 @@ class ParameterTargets:
                 metric_info = metric_names[metric_name]
                 kwargs = metric_info
                 self.set_metric(metric_category,
-                                           metric_name,
-                                           **kwargs)
+                                metric_name,
+                                **kwargs)

@@ -14,7 +14,7 @@ sensor performance evaluation reports.
     enhanced testing, however, currently programmatic creation of reports via
     this module is intendedly strictly for base testing at an ambient, outdoor
     monitoring site.
-    
+
 ================================================================================
 
 @Author:
@@ -66,15 +66,25 @@ class PerformanceReport(SensorEvaluation):
     specified.
 
     Args:
-        sensor (AirSensor object):
-            Description.
-        param (Parameter object):
-            Description.
-        reference (ReferenceMethod object):
-            Description.
-        write_to_file (TYPE, optional): DESCRIPTION. Defaults to False.
-        figure_search (TYPE, optional): DESCRIPTION. Defaults to False.
-        **kwargs (TYPE): DESCRIPTION.
+        sensor (sensortoolkit.AirSensor object):
+            The air sensor object containing datasets with parameter
+            measurements that will be evaluated.
+        param (sensortoolkit.Parameter object):
+            The parameter (measured environmental quantity) object containing
+            parameter-specific attributes as well as metrics and targets for
+            evaluating sensor performance.
+        reference (sensortoolkit.ReferenceMethod object):
+            The FRM/FEM reference instrument object containing datasets with
+            parameter measurements against which air sensor data will be
+            evaluated.
+        write_to_file (TYPE, optional):
+            If true, evaluation statistics will be written to the
+            ``/data/eval_stats`` sensor subdirectory. Figures will also be
+            written to the appropriate figures subdirectory. Defaults to False.
+        figure_search (TYPE, optional):
+            DESCRIPTION. Defaults to False.
+        **kwargs (TYPE):
+            DESCRIPTION.
 
     Returns:
             None.

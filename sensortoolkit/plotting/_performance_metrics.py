@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
-"""
-Description.
+"""This module contains a method for displaying air sensor performance using
+metrics and target values recommended by U.S. EPA for the evaluation of sensors
+measuring either PM2.5 or O3.
+
 
 ================================================================================
 
@@ -29,19 +31,41 @@ def performance_metrics(stats_df, deploy_dict, param=None,
                         param_averaging=None,
                         font_size=12, path=None, sensor_name=None,
                         write_to_file=True, **kwargs):
-    """
-
+    """Display performance metric results via a set of adjacent subplots
+    corresponding to each metric. Results are displayed as either dots (if
+    the number of sensors is less than four) or via boxplots (number of sensors
+    exceeds 3). Target ranges are indicated by gray shaded regions, and target
+    goals are indicated by dark gray lines.
 
     Args:
-        stats_df (pandas dataframe): DESCRIPTION.
-        deploy_dict (dict): DESCRIPTION.
-        param (str, optional): DESCRIPTION. Defaults to None.
-        param_averaging (str, optional): DESCRIPTION. Defaults to None.
-        font_size (int, optional): DESCRIPTION. Defaults to 12.
-        path (str, optional): DESCRIPTION. Defaults to None.
-        sensor_name (str, optional): DESCRIPTION. Defaults to None.
-        write_to_file (bool, optional): DESCRIPTION. Defaults to True.
-        **kwargs (TYPE): DESCRIPTION.
+        stats_df (pandas dataframe):
+            A dataframe containing regression statistics (sensor vs. FRM/FEM
+            reference) at averaging intervals corresponding to the
+            ``param_averaging`` attribute.
+        deploy_dict (dict):
+            A dictionary containing descriptive statistics and textual
+            information about the deployment (testing agency, site, time
+            period, etc.), sensors tested, and site conditions during the
+            evaluation.
+        param (str, optional):
+            Parameter name to evaluate. Defaults to None.
+        param_averaging (str, optional):
+            The measurement averaging intervals commonly utilized for
+            analyzing data corresponding the selected parameter. Defaults
+            to None.
+        font_size (int, optional):
+            The font size for text displayed in the figure. Defaults to 12.
+        path (str, optional):
+            The full directory path to the ``/figures`` subfolder housed
+            within the user's project path. Defaults to None.
+        sensor_name (str, optional):
+            The make and model of the air sensor for which the performance
+            evaluation figure is being generated. Defaults to None.
+        write_to_file (bool, optional):
+            If true, the figure will be written to the /figures/[param] sensor
+            subdirectory (where 'param' is the name of the parameter being
+            evaluated). Defaults to True.
+        **kwargs (TYPE): Plotting keyword arguments.
 
     Returns:
         None.

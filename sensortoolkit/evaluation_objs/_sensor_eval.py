@@ -5,7 +5,7 @@ Top-level analysis module for the ``sensortoolkit`` library.
 Contains the front-facing ``SensorEvaluation`` class for conducting analysis
 of sensor data.
 
-================================================================================
+===============================================================================
 
 @Author:
     | Samuel Frederick, NSSC Contractor (ORAU)
@@ -46,12 +46,17 @@ class SensorEvaluation:
     applications.
 
     Args:
-        sensor (AirSensor object):
-            Description.
-        param (Parameter object):
-            Description.
-        reference (ReferenceMethod object):
-            Description.
+        sensor (sensortoolkit.AirSensor object):
+            The air sensor object containing datasets with parameter
+            measurements that will be evaluated.
+        param (sensortoolkit.Parameter object):
+            The parameter (measured environmental quantity) object containing
+            parameter-specific attributes as well as metrics and targets for
+            evaluating sensor performance.
+        reference (sensortoolkit.ReferenceMethod object):
+            The FRM/FEM reference instrument object containing datasets with
+            parameter measurements against which air sensor data will be
+            evaluated.
         write_to_file (bool):
             If true, evaluation statistics will be written to the
             ``/data/eval_stats`` sensor subdirectory. Figures will also be
@@ -64,6 +69,10 @@ class SensorEvaluation:
             included in ``deploy_dict``).
 
     Attributes:
+        path (str): The project path in which data, figures, and reports
+            relevant to the sensor evaluation are stored.
+        serials (dict): A dictionary of sensor serial identifiers for each
+            unit in the base testing deployment.
         figure_path (str): The full directory path to figures for a given
             sensor make and model.
         stats_path: The full directory path to evaluation statistics for a
@@ -72,15 +81,15 @@ class SensorEvaluation:
             data frames of length N (where N is the number of sensor units in a
             testing group). frames indexed by DateTime at recorded sampling
             frequency.
-        hourly_df_list (list of pandas dataframes): List of sensor data frames
+        hourly_df_list (list of pandas DataFrames): List of sensor data frames
             of length N (where N is the number of sensor units in a testing
             group). frames indexed by DateTime at 1-hour averaged sampling
             frequency.
-        daily_df_list (list of pandas dataframes): List of sensor data frames
+        daily_df_list (list of pandas DataFrames): List of sensor data frames
             of length N (where N is the number of sensor units in a testing
             group). frames indexed by DateTime at 24-hour averaged sampling
             frequency.
-        deploy_period_df (pandas dataframe): A data frame containing the start
+        deploy_period_df (pandas DataFrame): A data frame containing the start
             time (‘Begin’), end time (‘End’), and total duration of evaluation
             period for each sensor in a deployment group.
         deploy_dict (dict): A dictionary containing descriptive statistics and
@@ -95,13 +104,20 @@ class SensorEvaluation:
             data frames.
         ref_dict (dict):
             Description.
-        hourly_ref_df (pandas dataframe):
+        hourly_ref_df (pandas DataFrame):
             Description.
-        pm_hourly_ref_df (pandas dataframe):
+        pm_hourly_ref_df (pandas DataFrame):
             Description.
-        gas_hourly_ref_df (pandas dataframe):
+        pm_daily_ref_df (pandas DataFrame):
             Description.
-        met_hourly_ref_df (pandas dataframe):
+        gas_hourly_ref_df (pandas DataFrame):
+            Description.
+        gas_daily_ref_df (pandas DataFrame):
+            Description.
+        met_hourly_ref_df (pandas DataFrame):
+            Description.
+        met_daily_ref_df (pandas DataFrame):
+            Description.
         ref_name (str): The make and model of the FRM/FEM instrument used as
             reference for the selected evaluation parameter. Both AirNowTech
             and AQS return the AQS method code, and the AQS Sampling Methods
@@ -109,21 +125,21 @@ class SensorEvaluation:
             with this code. AirNow does not return method codes or instrument
             names. When the name and type of the FRM/FEM instrument are
             unknown, ref_name takes the value ‘unknown_reference’.
-        daily_ref_df (pandas dataframe):
+        daily_ref_df (pandas DataFrame):
             Description.
-        met_daily_ref_df (pandas dataframe):
+        met_daily_ref_df (pandas DataFrame):
             Description.
-        avg_hrly_df (pandas dataframe): Data frame containing the inter-sensor
+        avg_hrly_df (pandas DataFrame): Data frame containing the inter-sensor
             average for concurrent sensor measurements at 1-hour averaging
             intervals.
-        avg_daily_df (pandas dataframe): Data frame containing the inter-sensor
+        avg_daily_df (pandas DataFrame): Data frame containing the inter-sensor
             average for concurrent sensor measurements at 24-hour averaging
             intervals.
-        stats_df (pandas dataframe): Data frame with OLS regression (sensor vs.
+        stats_df (pandas DataFrame): Data frame with OLS regression (sensor vs.
             FRM/FEM) statistics, including R2, slope, intercept, RMSE, N
             (Number of sensor-FRM/FEM data point pairs), as well as the
             minimum, maximum, and the mean sensor concentration.
-        avg_stats_df (pandas dataframe): Data frame with OLS regression (sensor
+        avg_stats_df (pandas DataFrame): Data frame with OLS regression (sensor
             vs. intersensor average) statistics, including R2, slope,
             intercept, RMSE, N (Number of concurrent sensor measurements during
             which all sensors in the testing group reported values), as well as
@@ -540,7 +556,7 @@ class SensorEvaluation:
 
 
         Args:
-            **kwargs (TYPE): DESCRIPTION.
+            **kwargs (TYPE): Plotting keyword arguments.
 
         Returns:
             None.
@@ -572,14 +588,15 @@ class SensorEvaluation:
         """
 
         Args:
-            averaging_interval (TYPE, optional): DESCRIPTION. Defaults to
-            '24-hour'.
+            averaging_interval (TYPE, optional): The measurement averaging
+            intervals commonly utilized for analyzing data corresponding the
+            the selected parameter. Defaults to '24-hour'.
             plot_subset (TYPE, optional): A list of either sensor serial IDs
             or the keys associated with the serial IDs in the serial
             dictionary. Defaults to None.
             report_fmt (TYPE, optional): If true, format figure for inclusion
             in a performance report. Defaults to True. Defaults to False.
-            **kwargs (TYPE): DESCRIPTION.
+            **kwargs (TYPE): Plotting keyword arguments.
 
         Returns:
             None.
@@ -802,7 +819,9 @@ class SensorEvaluation:
         * Internal sensor Temp vs. Reference monitor Temp
 
         Args:
-            averaging_interval (TYPE, optional): DESCRIPTION. Defaults to '1-hour'.
+            averaging_interval (TYPE, optional): The measurement averaging
+            intervals commonly utilized for analyzing data corresponding the
+            the selected parameter. Defaults to '1-hour'.
             met_param (TYPE, optional): DESCRIPTION. Defaults to None.
             **kwargs (TYPE): Plotting keyword arguments.
 
@@ -872,7 +891,7 @@ class SensorEvaluation:
                            **kwargs)
 
     def print_eval_metrics(self, averaging_interval='24-hour'):
-        """Summary of performance evaluation results using
+        """Display a summary of performance evaluation results using
         EPA’s recommended performance metrics (‘PM25’ and ‘O3’).
 
         The coefficient of variation, sensor vs. FRM/FEM OLS regression slope,
@@ -881,8 +900,9 @@ class SensorEvaluation:
         presented alongside the range (min to max).
 
         Args:
-            averaging_interval (TYPE, optional): DESCRIPTION. Defaults to
-            '24-hour'.
+            averaging_interval (TYPE, optional): The measurement averaging
+            intervals commonly utilized for analyzing data corresponding the
+            the selected parameter. Defaults to '24-hour'.
 
         Returns:
             None.
@@ -951,8 +971,8 @@ class SensorEvaluation:
               5*' ')
 
     def print_eval_conditions(self, averaging_interval='24-hour'):
-        """Testing conditions for the evaluation parameter
-        and meteorological conditions during the testing period.
+        """Display conditions for the evaluation parameter and meteorological
+        conditions during the testing period.
 
         Values for the evaluation parameter recorded by the sensor, FRM/FEM
         instrument, and temperature and relative humidity values are
@@ -961,8 +981,9 @@ class SensorEvaluation:
         below the mean in parentheses.
 
         Args:
-            averaging_interval (TYPE, optional): DESCRIPTION. Defaults to
-            '24-hour'.
+            averaging_interval (TYPE, optional): The measurement averaging
+            intervals commonly utilized for analyzing data corresponding the
+            the selected parameter. Defaults to '24-hour'.
 
         Returns:
             None.
