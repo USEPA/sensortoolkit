@@ -59,9 +59,8 @@ def wrap_text(labels, max_label_len=10):
             number of characters.
 
     Returns:
-        labels (list):
-            Modified list of labels with the newline character '\n' inserted
-            for labels exceeding the max_label_len.
+        labels (list): Modified list of labels with the newline character '\n'
+        inserted for labels exceeding the max_label_len.
 
     """
     labels = ['\n'.join(wrap(l, max_label_len)) for l in labels]
@@ -77,10 +76,8 @@ def subplot_dims(n_sensors):
         n_sensors (int):
             The number of sensors in the deployment group.
     Returns:
-        n_rows (int):
-            The number of subplot rows.
-        n_cols (int):
-            The number of subplot columns.
+        n_rows (int): The number of subplot rows.
+        n_cols (int): The number of subplot columns.
     """
     sqr = np.sqrt(n_sensors)
     n_rows = math.floor(sqr)
@@ -98,8 +95,32 @@ def sensor_subplot_formatting(number_of_sensors, param_obj, report_fmt,
     color bar formatting, etc.
 
     Args:
+        number_of_sensors (int): DESCRIPTION.
+        param_obj (sensortoolkit.Parameter): DESCRIPTION.
+        report_fmt (bool): DESCRIPTION.
+        **kwargs (dict): DESCRIPTION.
+
+    Raises:
+        ValueError: DESCRIPTION.
 
     Returns:
+        Nr (int): DESCRIPTION.
+        Nc (int): DESCRIPTION.
+        fig_size (tuple): DESCRIPTION.
+        suptitle_xpos (float): DESCRIPTION.
+        suptitle_ypos (float): DESCRIPTION.
+        title_text_wrap (int): DESCRIPTION.
+        detail_fontsize (int or float): DESCRIPTION.
+        wspace (float): DESCRIPTION.
+        hspace (float): DESCRIPTION.
+        left (float): DESCRIPTION.
+        right (float): DESCRIPTION.
+        top (float): DESCRIPTION.
+        bottom (float): DESCRIPTION.
+        filename_suffix (str): DESCRIPTION.
+        cbar_padding (float): DESCRIPTION.
+        cbar_aspect (int or float): DESCRIPTION.
+        font_size (int or float): DESCRIPTION.
 
     """
     RH_colormap = kwargs.get('show_colorbar', True)
