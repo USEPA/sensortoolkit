@@ -76,10 +76,10 @@ def subplot_dims(n_sensors):
         n_sensors (int):
             The number of sensors in the deployment group.
     Returns:
-        (tuple): two-element tuple containing:
+        (tuple): Two-element tuple containing:
 
-            - n_rows (int): The number of subplot rows.
-            - n_cols (int): The number of subplot columns.
+            - **n_rows** (*int*): The number of subplot rows.
+            - **n_cols** (*int*): The number of subplot columns.
 
     """
     sqr = np.sqrt(n_sensors)
@@ -109,32 +109,34 @@ def sensor_subplot_formatting(number_of_sensors, param_obj, report_fmt,
     Returns:
         (tuple): 17-element tuple containing:
 
-            - Nr (int): The number of rows of subplots for the figure instance.
-            - Nc (int): The number of columns of subplots for the figure
+            - **Nr** (*int*): The number of rows of subplots for the figure
               instance.
-            - fig_size (tuple): The size of the figure instance (x_width,
+            - **Nc** (*int*): The number of columns of subplots for the figure
+              instance.
+            - **fig_size** (*tuple*): The size of the figure instance (x_width,
               y_width).
-            - suptitle_xpos (float): The relative x-coordinate position of the
-              figure title.
-            - suptitle_ypos (float): The relative y-coordinate position of the
-              figure title.
-            - title_text_wrap (int): The number of characters to include on a
-              single line of the title before inserting a new line.
-            - detail_fontsize (int or float): DESCRIPTION.
-            - wspace (float): The width (x-distance) between each subplot.
-            - hspace (float): The height (y-distance) between each subplot.
-            - left (float): The left-most (x-min) limits at which the subplots
-              will be drawn.
-            - right (float): The right-most (x-max) limits at which the subplots
-              will be drawn.
-            - top (float): The top-most (y-max) limits at which the subplots
-              will be drawn.
-            - bottom (float): The bottom-most (y-min) limits at which the
+            - **suptitle_xpos** (*float*): The relative x-coordinate position of
+              the figure title.
+            - **suptitle_ypos** (*float*): The relative y-coordinate position of
+              the figure title.
+            - **title_text_wrap** (*int*): The number of characters to include
+              on a single line of the title before inserting a new line.
+            - **detail_fontsize (*int* or *float*): DESCRIPTION.
+            - **wspace** (*float*): The width (x-distance) between each subplot.
+            - **hspace** (*float*): The height (y-distance) between each
+              subplot.
+            - **left** (*float*): The left-most (x-min) limits at which the
               subplots will be drawn.
-            - filename_suffix (str): DESCRIPTION.
-            - cbar_padding (float): DESCRIPTION.
-            - cbar_aspect (int or float): DESCRIPTION.
-            - font_size (int or float): DESCRIPTION.
+            - **right** (*float*): The right-most (x-max) limits at which the
+              subplots will be drawn.
+            - **top** (*float*): The top-most (y-max) limits at which the
+              subplots will be drawn.
+            - **bottom** (*float*): The bottom-most (y-min) limits at which the
+              subplots will be drawn.
+            - **filename_suffix** (*str*): DESCRIPTION.
+            - **cbar_padding** (*float*): DESCRIPTION.
+            - **cbar_aspect** (*int* or *float*): DESCRIPTION.
+            - **font_size** (*int* or *float*): DESCRIPTION.
 
     """
     RH_colormap = kwargs.get('show_colorbar', True)
@@ -384,11 +386,11 @@ def met_scatter_lims(met_data, param, met_param, xlims, ylims, serials,
         avg_df (TYPE): DESCRIPTION.
 
     Returns:
-        (tuple): Four element tuple containing:
-            - xmin (float)
-            - xmax (float)
-            - ymin (float)
-            - ymax (float)
+        (tuple): Four-element tuple containing:
+            - **xmin** (*float*)
+            - **xmax** (*float*)
+            - **ymin** (*float*)
+            - **ymax** (*float*)
 
     """
     # Automatically generate x-axis limits if none specified

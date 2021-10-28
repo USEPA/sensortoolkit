@@ -140,17 +140,17 @@ def sensor_import(sensor_name=None, sensor_serials=None,
             the appropriate figures subdirectory.
 
     Returns:
-        (tuple): three-element tuple containing:
+        (tuple): Three-element tuple containing:
 
-            - full_df_list (list): List of pandas dataframe objects, one for
-              each sensor dataset containing processed full time-resolution
+            - **full_df_list** (*list*): List of pandas dataframe objects, one
+              for each sensor dataset containing processed full time-resolution
               data.
-            - hourly_df_list (list): List of pandas dataframe objects, one for
-              each sensor dataset containing processed hourly averaged
+            - **hourly_df_list** (*list*): List of pandas dataframe objects, one
+              for each sensor dataset containing processed hourly averaged
               time-resolution data.
-            - daily_df_list (list): List of pandas dataframe objects, one for
-              each sensor dataset containing processed daily (24-hr) averaged
-              time-resolution data.
+            - **daily_df_list** (*list*): List of pandas dataframe objects, one
+              for each sensor dataset containing processed daily (24-hr)
+              averaged time-resolution data.
 
     Raises:
         AttributeError: If searching for recorded sensor datasets and no files

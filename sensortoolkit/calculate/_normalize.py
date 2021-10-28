@@ -62,7 +62,8 @@ def normalize(df_list, ref_df, param=None, ref_name=None):
             The evaluation parameter.
         ref_name (str):
             The make and model of the FRM/FEM monitor.
-    Returns
+
+    Returns:
         df_list (list of pandas DataFrames):
             Modified list of sensor dataframes with a column added for
             normalized parameter values.

@@ -68,15 +68,15 @@ def sensor_averaging(full_df_list, sensor_serials=None, name='',
             datasets to 1-hour/24-hour intervals. Defaults to 75% (``0.75``).
 
     Returns:
-        (tuple): two-element tuple containing:
+        (tuple): Two-element tuple containing:
 
-            - hourly_df_list (list of pandas DataFrames): List of sensor data
-              frames of length N (where N is the number of sensor units in a
-              testing group). frames indexed by DateTime at 1-hour averaged
+            - **hourly_df_list** (*list of pandas DataFrames*): List of sensor
+              data frames of length N (where N is the number of sensor units in
+              a testing group). frames indexed by DateTime at 1-hour averaged
               sampling frequency.
-            - daily_df_list (list of pandas DataFrames): List of sensor data
-              frames of length N (where N is the number of sensor units in a
-              testing group). frames indexed by DateTime at 24-hour averaged
+            - **daily_df_list** (*list of pandas DataFrames*): List of sensor
+              data frames of length N (where N is the number of sensor units in
+              a testing group). frames indexed by DateTime at 24-hour averaged
               sampling frequency.
 
     """
@@ -155,7 +155,7 @@ def interval_averaging(df, freq='H', interval_count=60, thres=0.75):
             The frequency (averaging interval) to which the dataframe will
             be averaged. Defaults to ``H``. Pandas refers to these as
             'offset aliases', and a list is found here
-            (<https://pandas.pydata.org/pandas-docs/stable/user_guide/timeseries.html#offset-aliases>`_).
+            (https://pandas.pydata.org/pandas-docs/stable/user_guide/timeseries.html#offset-aliases).
         interval_count (int):
             The number of datapoints expected within the passed dataframe for
             the specified averaging interval ('freq'). Defaults to 60 for

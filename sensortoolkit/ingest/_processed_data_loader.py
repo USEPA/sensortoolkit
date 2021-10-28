@@ -35,17 +35,17 @@ def processed_data_search(processed_path, sensor_serials, **kwargs):
             in a testing group.
 
     Returns:
-        (tuple): three-element tuple containing:
+        (tuple): Three-element tuple containing:
 
-            - full_df_list (list): List of pandas dataframe objects, one for
-              each sensor dataset containing processed full time-resolution
+            - **full_df_list** (*list*): List of pandas dataframe objects, one
+              for each sensor dataset containing processed full time-resolution
               data.
-            - hourly_df_list (list): List of pandas dataframe objects, one for
-              each sensor dataset containing processed hourly averaged
+            - **hourly_df_list** (*list*): List of pandas dataframe objects, one
+              for each sensor dataset containing processed hourly averaged
               time-resolution data.
-            - daily_df_list (list): List of pandas dataframe objects, one for
-              each sensor dataset containing processed daily (24-hr) averaged
-              time-resolution data.
+            - **daily_df_list** (*list*): List of pandas dataframe objects, one
+              for each sensor dataset containing processed daily (24-hr)
+              averaged time-resolution data.
 
     """
     start = kwargs.get('deploy_bdate', None)

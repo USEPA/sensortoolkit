@@ -38,6 +38,7 @@ class _Setup:
 
     Arguments:
         path
+        
     """
 
     params = ['PM1', 'PM25', 'PM10', 'O3', 'NO2', 'NO', 'NOx',
@@ -588,7 +589,7 @@ class _Setup:
                 del self.config_dict[attrib]
             except KeyError:
                 pass
-                
+
         #del self.config_dict['sdfs_header_names']
 
         if self.data_type == 'sensor':

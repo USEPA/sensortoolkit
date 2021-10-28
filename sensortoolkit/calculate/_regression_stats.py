@@ -54,8 +54,9 @@ def regression_stats(sensor_df_obj, ref_df_obj, deploy_dict, param, serials):
     """Compute OLS regression statistics.
 
     Module is used to compute the following regressions:
-        Sensor vs. FRM/FEM
-        Sensor vs. Inter-sensor average
+    
+    - Sensor vs. FRM/FEM
+    - Sensor vs. Inter-sensor average
 
     For each instance, the dependent and independent variables are assigned as
     **hourly/daily sensor data vs. hourly/daily reference data**; please note
@@ -238,17 +239,17 @@ def join_stats(hourly_stats, daily_stats, write_to_file=False, stats_path=None):
 
     Args:
         hourly_stats (pandas DataFrame): DataFrame containing 1-hour averaged
-        sensor vs. reference regression statistics, returned by call to
-        regression_stats().
+            sensor vs. reference regression statistics, returned by call to
+            regression_stats().
         daily_stats (pandas DataFrame): DataFrame containing 24-hour averaged
-        sensor vs. reference regression statistics, returned by call to
-        regression_stats(). .
+            sensor vs. reference regression statistics, returned by call to
+            regression_stats(). .
         write_to_file (bool, optional): DESCRIPTION. Defaults to False.
         stats_path (str, optional): DESCRIPTION. Defaults to None.
 
     Returns:
-        stats_df (pandas DataFrame): DataFrame containing both 1-hour and
-        24-hour averaged statistics.
+        stats_df (pandas DataFrame):
+            DataFrame containing both 1-hour and 24-hour averaged statistics.
 
     """
 
@@ -283,11 +284,11 @@ def check_type(obj, accept_types):
     Args:
         obj (type ambiguous): The object whose type will be assessed.
         accept_types (list): A list of types to check the passed object
-        against.
+            against.
 
     Raises:
         TypeError: If the object type is not in the list of accepted
-        (anticipated) types.
+            (anticipated) types.
 
     Returns:
         obj_type (type): The type of the object.
@@ -311,7 +312,7 @@ def dataframe_to_csv(obj, parent_path, filename, **kwargs):
         parent_path (str): The path to the folder where the file will be saved.
         filename (str): The name of the resulting .csv file.
         **kwargs (dict): Keyword arguments passed to the pandas ``to_csv()``
-        method.
+            method.
 
     Returns:
         None.

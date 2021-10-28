@@ -39,6 +39,7 @@ def standard_ingest(path, name=None, setup_file_path=None):
         df (pandas dataframe):
             Dataframe containing sensor data in standardized formatting for
             datetime index and header naming scheme.
+            
     """
     setup = parse_setup(setup_file_path, data_path=path)
 

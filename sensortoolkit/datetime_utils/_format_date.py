@@ -20,9 +20,6 @@ import pandas as pd
 def get_todays_date():
     """Returns a string for today's date in YYMMDD format.
 
-    Args:
-        None
-        
     Returns:
         formatted_date (str):
             String for the date in YYMMDD format.

@@ -33,6 +33,7 @@ def purpleair_us_corr(df, param):
     Raises:
         KeyError: If passed param name not in dataframe
         KeyError: If 'RH' not in passed dataframe
+        
     """
     if param not in df:
         raise KeyError('Column header "' + param + '" not found in dataframe')

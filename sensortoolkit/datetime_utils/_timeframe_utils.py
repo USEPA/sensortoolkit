@@ -29,12 +29,12 @@ def timeframe_search(sensor_df_list):
         sensor_df_list (list): List of sensor dataframes
 
     Returns:
-        (tuple): two-element tuple containing:
+        (tuple): Two-element tuple containing:
 
-            - overall_begin (datetime.date object): Earliest recorded date in
-            the passed sensor dataframe list.
-            - overall_end (datetime.date object): Latest recorded date in the
-            passed sensor dataframe list.
+            - **overall_begin** (*datetime.date object*): Earliest recorded date
+              in the passed sensor dataframe list.
+            - **overall_end** (*datetime.date object*): Latest recorded date in
+              the passed sensor dataframe list.
 
     """
     # Determine begin and end timestamp for sensor datasets. Choose earliest
@@ -72,11 +72,12 @@ def deploy_timestamp_index(df_obj, averaging_suffix=True):
             interval of the passed dataframe object.
 
     Returns:
-        (tuple): two-element tuple containing:
+        (tuple): Two-element tuple containing:
 
-            - timestamp_idx (pandas datetimeindex): Index at either 1-hour or
-              24-hour averaging intervals spanning the entire evaluation period.
-            - avg_suffix (str): If averaging_suffix is true, return suffix
+            - **timestamp_idx** (*pandas DatetimeIndex*): Index at either 1-hour
+              or 24-hour averaging intervals spanning the entire evaluation
+              period.
+            - **avg_suffix** (*str*): If averaging_suffix is true, return suffix
               indicating the averaging interval of the timestamp index.
 
     """
