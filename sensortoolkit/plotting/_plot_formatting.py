@@ -104,23 +104,41 @@ def sensor_subplot_formatting(number_of_sensors, param_obj, report_fmt,
         ValueError: DESCRIPTION.
 
     Returns:
-        Nr (int): DESCRIPTION.
-        Nc (int): DESCRIPTION.
-        fig_size (tuple): DESCRIPTION.
-        suptitle_xpos (float): DESCRIPTION.
-        suptitle_ypos (float): DESCRIPTION.
-        title_text_wrap (int): DESCRIPTION.
-        detail_fontsize (int or float): DESCRIPTION.
-        wspace (float): DESCRIPTION.
-        hspace (float): DESCRIPTION.
-        left (float): DESCRIPTION.
-        right (float): DESCRIPTION.
-        top (float): DESCRIPTION.
-        bottom (float): DESCRIPTION.
-        filename_suffix (str): DESCRIPTION.
-        cbar_padding (float): DESCRIPTION.
-        cbar_aspect (int or float): DESCRIPTION.
-        font_size (int or float): DESCRIPTION.
+        Nr (int):
+            The number of rows of subplots for the figure instance.
+        Nc (int):
+            The number of columns of subplots for the figure instance.
+        fig_size (tuple):
+            The size of the figure instance (x_width, y_width).
+        suptitle_xpos (float):
+            The relative x-coordinate position of the figure title.
+        suptitle_ypos (float):
+            The relative y-coordinate position of the figure title.
+        title_text_wrap (int):
+            The number of characters to include on a single line of the title
+            before inserting a new line.
+        detail_fontsize (int or float):
+            DESCRIPTION.
+        wspace (float):
+            The width (x-distance) between each subplot.
+        hspace (float):
+           The height (y-distance) between each subplot.
+        left (float):
+            The left-most (x-min) limits at which the subplots will be drawn.
+        right (float):
+            The right-most (x-max) limits at which the subplots will be drawn.
+        top (float):
+            The top-most (y-max) limits at which the subplots will be drawn.
+        bottom (float):
+            The bottom-most (y-min) limits at which the subplots will be drawn.
+        filename_suffix (str):
+            DESCRIPTION.
+        cbar_padding (float):
+            DESCRIPTION.
+        cbar_aspect (int or float):
+            DESCRIPTION.
+        font_size (int or float):
+            DESCRIPTION.
 
     """
     RH_colormap = kwargs.get('show_colorbar', True)
