@@ -33,16 +33,19 @@ class ReferenceMonitor:
         data_source (TYPE, optional):
             The name of the data service that
             reference measurements were acquired from. Defaults to None.
+
             Options:
-                - "airnow": Reference data from the AirNow API
 
-                - "aqs": Reference data from U.S. EPA's Air Quality System
+                - ``airnow``: Reference data from the AirNow API
 
-                - "airnowtech": Reference data from AirNowTech, files
+                - ``aqs``: Reference data from U.S. EPA's Air Quality System
+
+                - ``airnowtech``: Reference data from AirNowTech, files
                   downloaded locally.
 
-                - "local": A catch-all category for datasets stored locally on
+                - ``local``: A catch-all category for datasets stored locally on
                   the user's system.
+
         site_name (TYPE, optional):
             The name of the air monitoring site. Defaults to None.
         site_id (TYPE, optional):
@@ -52,10 +55,10 @@ class ReferenceMonitor:
 
     Raises:
         ValueError: If both the site name and site ID are not None but the
-        data source is None, raise ValueError as the source must be
-        specified to indicate where reference data are located. Also,
-        a ValueError will be raised if the passed data source, site name,
-        and site id do not point to a valid reference data subdirectory.
+            data source is None, raise ValueError as the source must be
+            specified to indicate where reference data are located. Also,
+            a ValueError will be raised if the passed data source, site name,
+            and site id do not point to a valid reference data subdirectory.
 
     Returns:
         None.

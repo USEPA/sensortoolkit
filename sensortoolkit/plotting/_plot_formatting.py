@@ -47,8 +47,8 @@ def set_fontsize(serials):
 def wrap_text(labels, max_label_len=10):
     """Formats plotting text with line breaks based on specified text length.
 
-    Code modified via Stack Overflow user DavidG code:
-    https://stackoverflow.com/questions/47057789/matplotlib-wrap-text-in-legend
+    Code modified via Stack Overflow user DavidG code
+    (https://stackoverflow.com/questions/47057789/matplotlib-wrap-text-in-legend)
 
     Args:
         labels (list):
@@ -59,8 +59,9 @@ def wrap_text(labels, max_label_len=10):
             number of characters.
 
     Returns:
-        labels (list): Modified list of labels with the newline character '\n'
-            inserted for labels exceeding the max_label_len.
+        labels (list):
+            Modified list of labels with the newline character '\n' inserted for
+            labels exceeding the max_label_len.
 
     """
     labels = ['\n'.join(wrap(l, max_label_len)) for l in labels]
@@ -121,7 +122,7 @@ def sensor_subplot_formatting(number_of_sensors, param_obj, report_fmt,
               the figure title.
             - **title_text_wrap** (*int*): The number of characters to include
               on a single line of the title before inserting a new line.
-            - **detail_fontsize (*int* or *float*): DESCRIPTION.
+            - **detail_fontsize** (*int* or *float*): DESCRIPTION.
             - **wspace** (*float*): The width (x-distance) between each subplot.
             - **hspace** (*float*): The height (y-distance) between each
               subplot.

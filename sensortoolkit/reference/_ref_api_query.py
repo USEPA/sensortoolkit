@@ -480,19 +480,23 @@ def date_range_selector(start_date, end_date):
 
               Example:
 
-              >> DatetimeIndex(['2021-01-01', '2021-02-01',
-                                '2021-03-01', '2021-04-01',
-                                '2021-05-01', '2021-06-01'],
-                                 dtype='datetime64[ns]', freq='MS')
+              .. code-block:: python
+
+                DatetimeIndex(['2021-01-01', '2021-02-01',
+                               '2021-03-01', '2021-04-01',
+                               '2021-05-01', '2021-06-01'],
+                               dtype='datetime64[ns]', freq='MS')
 
             - month_ends (pandas datetimeindex): An array of monthly end dates.
 
               Example:
 
-              >> DatetimeIndex(['2021-01-31', '2021-02-28',
-                                '2021-03-31', '2021-04-30',
-                                '2021-05-31', '2021-06-30'],
-                                 dtype='datetime64[ns]', freq='M')
+              .. code-block:: python
+
+                DatetimeIndex(['2021-01-31', '2021-02-28',
+                               '2021-03-31', '2021-04-30',
+                               '2021-05-31', '2021-06-30'],
+                                dtype='datetime64[ns]', freq='M')
 
     """
 

@@ -42,82 +42,92 @@ def sensor_import(sensor_name=None, sensor_serials=None,
 
     Here are two example cases that follow the expected naming scheme:
 
-        Example 1)
-        Import recorded data from one file per sensor
-        ---------------------------------------------
-        Say the sensor name is 'Example_Make_Model' and three sensor units were
-        tested with the following serial identifiers:
+    - **Example 1**:
 
-            sensor_serials = {'1': 'SN01', '2': 'SN02', '3': 'SN03'}
+      *Import recorded data from one file per sensor*:
 
-        Let's also assume that the three units each record separate '.csv'
-        files. The recorded sensor datasets should be placed at the following
-        folder location:
+      Say the sensor name is 'Example_Make_Model' and three sensor units were
+      tested with the following serial identifiers:
 
-            '..//data//sensor_data//Example_Make_Model//raw_data'
+      .. code-block:: python
 
-        The folder structure should look something like:
+        sensor_serials = {'1': 'SN01', '2': 'SN02', '3': 'SN03'}
 
-            path//to//raw_data//
-                Example_Make_Model_SN01.csv
-                Example_Make_Model_SN02.csv
-                Example_Make_Model_SN03.csv
+      Let's also assume that the three units each record separate '.csv'
+      files. The recorded sensor datasets should be placed at the following
+      folder location:
 
-        These files adhere to the expected file naming scheme and data file
-        formatting and will be loaded without issue by the Import method.
+      .. code-block:: console
+
+        '..//data//sensor_data//Example_Make_Model//raw_data'
+
+      The folder structure should look something like:
+
+      .. code-block:: console
+
+        path//to//raw_data//
+            Example_Make_Model_SN01.csv
+            Example_Make_Model_SN02.csv
+            Example_Make_Model_SN03.csv
+
+      These files adhere to the expected file naming scheme and data file
+      formatting and will be loaded without issue by the Import method.
 
 
-        Example 2)
-        Import data from multiple files per sensor within nested subdirectories
-        -----------------------------------------------------------------
-        For simplicity, let's use the same serial identifiers as before. The
-        data will also be located at the same folder path. However, now let's
-        say that instead of one file per sensor, datasets are recorded at daily
-        intervals over the evaluation period and were collected at weekly
-        intervals and organized by unit ID into sub-directories. Let's also say
-        that the data files are recorded as .txt files instead of .csv files.
-        The data sets can be placed into the ..//raw_data folder path, and
-        might look something like:
+    - **Example 2**:
 
-            path//to//raw_data//
-                //2021_01_08_data_collection
-                    //SN01//
-                        Example_Make_Model_SN01_20210101.txt
-                        Example_Make_Model_SN01_20210102.txt
-                        ...
-                        Example_Make_Model_SN01_20210108.txt
-                    //SN02//
-                        Example_Make_Model_SN02_20210101.txt
-                        Example_Make_Model_SN02_20210102.txt
-                        ...
-                        Example_Make_Model_SN02_20210108.txt
-                    //SN03//
-                        Example_Make_Model_SN03_20210101.txt
-                        Example_Make_Model_SN03_20210102.txt
-                        ...
-                        Example_Make_Model_SN03_20210108.txt
-                //2021_01_15_data_collection
-                    //SN01//
-                        Example_Make_Model_SN01_20210109.txt
-                        Example_Make_Model_SN01_20210110.txt
-                        ...
-                        Example_Make_Model_SN01_20210115.txt
-                    //SN02//
-                        Example_Make_Model_SN02_20210109.txt
-                        Example_Make_Model_SN02_20210110.txt
-                        ...
-                        Example_Make_Model_SN02_20210115.txt
-                    //SN03//
-                        Example_Make_Model_SN03_20210109.txt
-                        Example_Make_Model_SN03_20210110.txt
-                        ...
-                        Example_Make_Model_SN03_20210115.txt
-                ...
+      *Import data from multiple files per sensor within nested subdirectories:*
 
-        (Note: if all the files have unique names, one could place all of
-        the .txt files in the //raw_data// directory. This example is simply
-        meant to illustrate that the import method can handle these types of
-        nested folder structures if the appropriate naming scheme is followed).
+      For simplicity, let's use the same serial identifiers as before. The
+      data will also be located at the same folder path. However, now let's
+      say that instead of one file per sensor, datasets are recorded at daily
+      intervals over the evaluation period and were collected at weekly
+      intervals and organized by unit ID into sub-directories. Let's also say
+      that the data files are recorded as .txt files instead of .csv files.
+      The data sets can be placed into the ..//raw_data folder path, and
+      might look something like:
+
+      .. code-block:: console
+
+        path//to//raw_data//
+            //2021_01_08_data_collection
+                //SN01//
+                    Example_Make_Model_SN01_20210101.txt
+                    Example_Make_Model_SN01_20210102.txt
+                    ...
+                    Example_Make_Model_SN01_20210108.txt
+                //SN02//
+                    Example_Make_Model_SN02_20210101.txt
+                    Example_Make_Model_SN02_20210102.txt
+                    ...
+                    Example_Make_Model_SN02_20210108.txt
+                //SN03//
+                    Example_Make_Model_SN03_20210101.txt
+                    Example_Make_Model_SN03_20210102.txt
+                    ...
+                    Example_Make_Model_SN03_20210108.txt
+            //2021_01_15_data_collection
+                //SN01//
+                    Example_Make_Model_SN01_20210109.txt
+                    Example_Make_Model_SN01_20210110.txt
+                    ...
+                    Example_Make_Model_SN01_20210115.txt
+                //SN02//
+                    Example_Make_Model_SN02_20210109.txt
+                    Example_Make_Model_SN02_20210110.txt
+                    ...
+                    Example_Make_Model_SN02_20210115.txt
+                //SN03//
+                    Example_Make_Model_SN03_20210109.txt
+                    Example_Make_Model_SN03_20210110.txt
+                    ...
+                    Example_Make_Model_SN03_20210115.txt
+            ...
+
+      (Note: if all the files have unique names, one could place all of
+      the .txt files in the //raw_data// directory. This example is simply
+      meant to illustrate that the import method can handle these types of
+      nested folder structures if the appropriate naming scheme is followed).
 
     Args:
         sensor_name (str): The make and model of the sensor being evaluated.
@@ -158,6 +168,7 @@ def sensor_import(sensor_name=None, sensor_serials=None,
             be ordered chronologically, contain the unique serial identifier
             corresponding to the sensor unit that recorded the sensor data file,
             and must be in either .csv or .txt format).
+
     """
     valid_extensions = ['.csv', '.txt', '.xlsx']
     tzone_shift = kwargs.get('tzone_shift', 0)

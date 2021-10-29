@@ -283,102 +283,141 @@ def scatter_plotter(df_list, ref_df, stats_df=None, plot_subset=None,
             met data for plotting colormap of relative humidity on scatterplot
             points. If passed, the reference met data takes precedence over
             any existing sensor met data.
-        deploy_dict
-
-        sensor_serials
-
-        ax
-
-        fig
-
-        report_fmt
-
-        return_axs
-
+        deploy_dict:
+            DEFINITION
+        sensor_serials:
+            DEFINITION
+        ax:
+            DEFINITION
+        fig:
+            DEFINITION
+        report_fmt:
+            DEFINITION
+        return_axs:
+            DEFINITION
         param_class: string
             The parameter classification for the passed parameter to plot.
             E.g, if param is PM25, param_class = PM; if param is 03,
             param_class = Gases;if param is Temp, param_class = Met.
 
-        kwargs (args with * are passed to the Draw_Scatter subroutine, the
-        asterisk should not be included when specifying these kwargs)
-        --------
-        color_palette
-            Color palette assigned to relative-humidity colormapped scatter
-            plot points
-        colorbar_axespos
-        colorbar_orientation
-        colorbar_title_fontsize,
-        colorbar_title_ypos,
-        colorbar_tick_labelsize,
-        colorbar_tick_length,
-        colorbar_tick_width
-        draw_cbar
-        fig_wspace
-        fig_hspace
-        fig_left
-        fig_right
-        fig_top
-        fig_bottom
-        filename_suffix
-            Optional string added to end of filename. Defaults to empty string.
-        fontsize
-            The font size for the xlabel, ylabel, and plot text. Passed on to
-            Draw_Scatter() which uses 0.85*font_size for tick labels.
-        *monocolor
-             A single color (specified in hex) for scatter plots.
-             Recommend #2251D0 (nice blue hue).
-        detail_fontsize
-        *point_size
-            The size of the scatterpoint plots
-        *point_alpha
-        *plot_aspect
-        *plottext_alpha
-        *plottext_size
-        *plottext_color
-        *plottext_xloc
-        *plottext_yloc
-        *plottext_xdisplacement
-        *plottext_ydisplacement
-        *plottext_position
-            Determines position of plot text. Can either pass 'upper_left' or
-            'bottom_right'
-        ref_name
-        seaborn_style
-        show_colorbar
-            If true, relative humidity values will be used as a colormap on the
-            scatterplot points.
-        show_title
-            Show the title at the top of the plot. Includes the name of the
-            sensor, the averaging interval, the evaluation parameter, and
-            the name of the reference against which sensor data are compared.
-        show_regression
-            Pass on to underlying Draw_Scatter function. Defaults to
-            True. If false, regression lines on plots will not be generated.
-        *show_trendline
-        *show_RMSE
-        *show_spearman
-        *show_N
-        *show_one_to_one
-        tight_layout
-            Passed to matplotlib's "fig.tight_layout()" for narrow formatting
-        tick_spacing
-        title_text
-        title_textwrap
-        title_xloc
-        title_yloc
-        *trendline_xmax
-        *trendline_color
-        *trendline_alpha
-        xlims
-            The x-limits of the scatter plot
-        ylims
-            The y-limits of the scatter plot
+    Keyword arguments:
+
+        - **color_palette** (*TYPE*):
+          Color palette assigned to relative-humidity colormapped scatter
+          plot points
+        - **colorbar_axespos** (*TYPE*):
+          DEFINITION
+        - **colorbar_orientation** (*TYPE*):
+          DEFINITION
+        - **colorbar_title_fontsize** (*TYPE*):
+          DEFINITION
+        - **colorbar_title_ypos** (*TYPE*):
+          DEFINITION
+        - **colorbar_tick_labelsize** (*TYPE*):
+          DEFINITION
+        - **colorbar_tick_length** (*TYPE*):
+          DEFINITION
+        - **colorbar_tick_width** (*TYPE*):
+          DEFINITION
+        - **draw_cbar** (*TYPE*):
+          DEFINITION
+        - **fig_wspace** (*TYPE*):
+          DEFINITION
+        - **fig_hspace** (*TYPE*):
+          DEFINITION
+        - **fig_left** (*TYPE*):
+          DEFINITION
+        - **fig_right** (*TYPE*):
+          DEFINITION
+        - **fig_top** (*TYPE*):
+          DEFINITION
+        - **fig_bottom** (*TYPE*):
+          DEFINITION
+        - **filename_suffix** (*TYPE*):
+          Optional string added to end of filename. Defaults to empty string.
+        - **fontsize** (*TYPE*):
+          The font size for the xlabel, ylabel, and plot text. Passed on to
+          Draw_Scatter() which uses 0.85*font_size for tick labels.
+        - **monocolor** (*TYPE*, passed to ``Draw_Scatter()``):
+          A single color (specified in hex) for scatter plots.
+          Recommend #2251D0 (nice blue hue).
+        - **detail_fontsize** (*TYPE*):
+          DEFINITION
+        - **point_size** (*TYPE*, passed to ``Draw_Scatter()``):
+          The size of the scatterpoint plots
+        - **point_alpha** (*TYPE*):
+          DEFINITION
+        - **plot_aspect** (*TYPE*, passed to ``Draw_Scatter()``):
+          DEFINITION
+        - **plottext_alpha** (*TYPE*, passed to ``Draw_Scatter()``):
+          DEFINITION
+        - **plottext_size** (*TYPE*, passed to ``Draw_Scatter()``):
+          DEFINITION
+        - **plottext_color** (*TYPE*, passed to ``Draw_Scatter()``):
+          DEFINITION
+        - **plottext_xloc** (*TYPE*, passed to ``Draw_Scatter()``):
+          DEFINITION
+        - **plottext_yloc** (*TYPE*, passed to ``Draw_Scatter()``):
+          DEFINITION
+        - **plottext_xdisplacement** (*TYPE*, passed to ``Draw_Scatter()``):
+          DEFINITION
+        - **plottext_ydisplacement** (*TYPE*, passed to ``Draw_Scatter()``):
+          DEFINITION
+        - **plottext_position** (*TYPE*, passed to ``Draw_Scatter()``):
+           Determines position of plot text. Can either pass 'upper_left' or
+           'bottom_right'
+        - **ref_name** (*TYPE*):
+          DEFINITION
+        - **seaborn_style** (*TYPE*):
+          DEFINITION
+        - **show_colorbar** (*TYPE*):
+          If true, relative humidity values will be used as a colormap on the
+          scatterplot points.
+        - **show_title** (*TYPE*):
+          Show the title at the top of the plot. Includes the name of the
+          sensor, the averaging interval, the evaluation parameter, and
+          the name of the reference against which sensor data are compared.
+        - **show_regression** (*TYPE*):
+          Pass on to underlying Draw_Scatter function. Defaults to
+          True. If false, regression lines on plots will not be generated.
+        - **show_trendline** (*TYPE*):
+          DEFINITION
+        - **show_RMSE** (*TYPE*, passed to ``Draw_Scatter()``):
+          DEFINITION
+        - **show_spearman** (*TYPE*, passed to ``Draw_Scatter()``):
+          DEFINITION
+        - **show_N** (*TYPE*, passed to ``Draw_Scatter()``):
+          DEFINITION
+        - **show_one_to_one** (*TYPE*, passed to ``Draw_Scatter()``):
+          DEFINITION
+        - **tight_layout** (*TYPE*):
+          Passed to matplotlib's ``fig.tight_layout()`` for narrow formatting
+        - **tick_spacing** (*TYPE*):
+          DEFINITION
+        - **title_text** (*TYPE*):
+          DEFINITION
+        - **title_textwrap** (*TYPE*):
+          DEFINITION
+        - **title_xloc** (*TYPE*):
+          DEFINITION
+        - **title_yloc** (*TYPE*):
+          DEFINITION
+        - **trendline_xmax** (*TYPE*, passed to ``Draw_Scatter()``):
+          DEFINITION
+        - **trendline_color** (*TYPE*, passed to ``Draw_Scatter()``):
+          DEFINITION
+        - **trendline_alpha** (*TYPE*, passed to ``Draw_Scatter()``):
+          DEFINITION
+        - **xlims** (*TYPE*):
+          The x-limits of the scatter plot
+        - **ylims** (*TYPE*):
+          The y-limits of the scatter plot
 
     Returns:
-        If an axis is passed to Scatter_Plotter(), the modified axis with
-        plotting detail filled in will be returned. Otherwise, none will be
-        returned.
+        (matplotlib axes instance or None):
+            If an axis is passed to Scatter_Plotter(), the modified axis with
+            plotting detail filled in will be returned. Otherwise, none will be
+            returned.
 
     """
     sns.set_style(kwargs.get('seaborn_style', 'darkgrid'))

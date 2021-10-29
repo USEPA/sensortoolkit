@@ -116,6 +116,8 @@ class SensorEvaluation:
             Description.
         met_hourly_ref_df (pandas DataFrame):
             Description.
+        daily_ref_df (pandas DataFrame):
+            Description.
         met_daily_ref_df (pandas DataFrame):
             Description.
         ref_name (str): The make and model of the FRM/FEM instrument used as
@@ -125,10 +127,6 @@ class SensorEvaluation:
             with this code. AirNow does not return method codes or instrument
             names. When the name and type of the FRM/FEM instrument are
             unknown, ref_name takes the value ‘unknown_reference’.
-        daily_ref_df (pandas DataFrame):
-            Description.
-        met_daily_ref_df (pandas DataFrame):
-            Description.
         avg_hrly_df (pandas DataFrame): Data frame containing the inter-sensor
             average for concurrent sensor measurements at 1-hour averaging
             intervals.
