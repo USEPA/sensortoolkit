@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-"""
-Description.
+"""This module contains a method for computing the ordinary least-squares (OLS)
+regression between collocated sensor and FRM/FEM reference measurements.
 
 ================================================================================
 
@@ -28,7 +28,7 @@ def sensor_ols(df, ref_df, y_var=None, x_vars=[]):
         ref_df (Pandas Dataframe):
             Reference data.
         y_var (str):
-            Name of dependent variable (often sensor concentration 
+            Name of dependent variable (often sensor concentration
             values).
         x_vars (list):
             Column names for independent variables (reference conc.,

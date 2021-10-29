@@ -1,6 +1,11 @@
 # -*- coding: utf-8 -*-
 """
-Description.
+This module contains a method ``error_bars()`` for displaying the y-error in
+measured quantities at regularly spaced intervals (bins) along the x-axis. This
+method can be used in conjunction with the ``normalized_met_scatter()`` plotting 
+method to display the standard error of normalized measurement pairs (dependent
+variable) at regularly spaced intervals across the distribution of
+measured temperature or relative humidity (independent variable).
 
 ================================================================================
 

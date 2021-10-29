@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 """
-Description.
+This module contains methods for parsing setup.json configuration files and
+their use in ingesting comma-separated datasets for both sensor and reference
+data into sensortoolkit's SDFS format.
 
 ================================================================================
 

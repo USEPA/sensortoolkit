@@ -1,6 +1,41 @@
 # -*- coding: utf-8 -*-
 """
-Description.
+This module contains a method ``create_directories()`` for constructing the
+folder structure utilized by sensortoolkit for storing datasets and organizing
+related files. This folder stucture is located at the path to a directory the
+user wishes to store evaluation-related content in. This path is referred to as
+the `project path`. Sensor and reference datasets as well as supplementary 
+statistics are stored in a ``/data`` folder. Figures created by the library are
+stored in a ``/figures`` folder. Testing reports are saved within a ``/reports``
+folder.
+
+Below is the directory structure created by running the ``create_directories()``
+method for an example sensor ``example_sensor`` within the project path
+``.../my_evalution``
+
+.. code-block:: console
+
+    my_evaluation                       <-- Top level directory. Set as ``work_path``.
+    ├───data                            <-- Sensor and reference data, statistics, setup configuration files, etc.
+    │   ├───eval_stats
+    │   │   └───example_sensor
+    │   ├───reference_data              <-- Subdirectories organized by reference data source.
+    │   │   ├───airnow
+    │   │   │   ├───processed
+    │   │   │   └───raw
+    │   │   ├───airnowtech
+    │   │   │   ├───processed
+    │   │   │   └───raw
+    │   │   └───aqs
+    │   │       ├───processed
+    │   │       └───raw
+    │   └───sensor_data                 <-- Subdirectories organized by sensor type.
+    │       └───example_sensor
+    │           ├───processed_data
+    │           └───raw_data
+    ├───figures                         <-- Figures. Subdirectories organized by sensor type.
+    │   └───example_sensor
+    └───reports
 
 ================================================================================
 

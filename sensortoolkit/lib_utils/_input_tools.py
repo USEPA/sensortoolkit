@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 """
-Description.
+This module contains various methods for sensortoolkit functions that make use
+of interactive, user-input components. 
 
 ================================================================================
 

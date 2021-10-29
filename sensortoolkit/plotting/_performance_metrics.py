@@ -3,7 +3,6 @@
 metrics and target values recommended by U.S. EPA for the evaluation of sensors
 measuring either PM2.5 or O3.
 
-
 ================================================================================
 
 @Author:

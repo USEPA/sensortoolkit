@@ -1,6 +1,27 @@
 # -*- coding: utf-8 -*-
 """
-Description.
+This module contains methods for querying reference data APIs, including the
+AirNow and Air Quality System (AQS) API services.
+
+These services are operated by the U.S. EPA, and users should have previously
+registered with either service before submitting queries (authentication tokens
+are required for each service to validate query requests).
+
+Resources:
+
+- **AQS API documentation**: https://aqs.epa.gov/aqsweb/documents/data_api.html
+
+  .. note::
+
+    Information about registering an account with the AQS API can be found under
+    the 'Sign Up' section.
+
+- **AirNow API documentation**: https://docs.airnowapi.org/
+
+  .. note::
+
+    Information about registering an account with the AirNow API can be
+    found at the following link (https://docs.airnowapi.org/account/request/)
 
 ================================================================================
 
@@ -32,13 +53,13 @@ def ref_api_query(query_type=None, param=None, bdate='', edate='',
                   aqs_id=None, airnow_bbox=None, username=None, key=None,
                   path=None):
     """Wrapper function for sending an API data query to either the AQS or
-    AirNow API for a specified parameter ('param').
+    AirNow API for a specified parameter (``param``).
 
     Data returned by queries are parsed into pandas dataframes and processed
     to convert header labels and column data types into a consistent standard
     for reference data sets.
 
-    A note on use:
+    .. note::
 
         This method is configured to return datasets for parameters with the
         same parameter classification. The R-DFS scheme for formatting reference
@@ -52,9 +73,9 @@ def ref_api_query(query_type=None, param=None, bdate='', edate='',
         If users wish to query multiple parameters in one API call, the
         parameters passed to the ref_api_query() function via the ``param``
         argument must be of the same parameter classification. For example,
-        passing ``param=['PM25', 'PM10']`` would result in a valid query
+        passing ``param = ['PM25', 'PM10']`` would result in a valid query
         request, as both PM25 and PM10 have the same classification (PM). If
-        instead, a user passed ``param=['PM25', 'O3']``, this would result
+        instead, a user passed ``param = ['PM25', 'O3']``, this would result
         in the function exiting execution as PM25 and O3 have different
         parameter classifications (PM and Gases).
 
@@ -62,22 +83,21 @@ def ref_api_query(query_type=None, param=None, bdate='', edate='',
         for parameters (e.g., AQS uses the parameter code 88101 for PM2.5 and
         AirNow uses 'PM25'). These naming conventions are each different than
         the parameter naming convention used for this library. The
-        'param_to_api_naming' dictionary provides a lookup dictionary for
-        translating from the parameter naming convention of the
-        SensorEvaluation library to each of the API services, however, the
-        list of associated parameter API names is not comprehensive. Users
-        wishing to query parameters outside those listed below will need to
-        modify this method accordingly.
+        ``param_to_api_naming`` dictionary provides a lookup dictionary for
+        translating from sensortoolkit's SDFS parameter naming convention to
+        each of the API services, however, the list of associated parameter API
+        names is not comprehensive. Users wishing to query parameters outside
+        those listed below will need to modify this method accordingly.
 
-        Please consult the linked documentation for each of these APIs for
-        additional resources.
+        For additional resources, please consult the linked documentation below
+        for each API service:
 
-        AQS Documentation:
-            https://aqs.epa.gov/aqsweb/documents/data_api.html
-        AirNow Documentation:
-            https://docs.airnowapi.org/Data/docs
-        More information about AQS Qualifier codes:
-            https://aqs.epa.gov/aqsweb/documents/codetables/qualifiers.html
+            - **AQS Documentation**:
+              https://aqs.epa.gov/aqsweb/documents/data_api.html
+            - **AirNow Documentation**:
+              https://docs.airnowapi.org/Data/docs
+            - **More information about AQS Qualifier codes**:
+              https://aqs.epa.gov/aqsweb/documents/codetables/qualifiers.html
 
     Args:
         query_type (str):

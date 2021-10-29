@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 """
-Description.
+This module contains a method for applying a linear correction to an individual
+sensor dataset based off the ordinary least-squares regression between
+collocated sensor and FRM/FEM measurements. 
 
 ================================================================================
 
@@ -33,7 +35,7 @@ def individual_corr(param=None, df_list=None, stats_df=None):
         df_list (list):
             List of modified dataframes with column added for corrected
             parameter values.
-            
+
     """
     for i, (df, m, b) in enumerate(zip(df_list, stats_df.Slope,
                                        stats_df.Intercept)):

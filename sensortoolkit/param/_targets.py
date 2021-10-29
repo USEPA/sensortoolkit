@@ -29,12 +29,9 @@ class ParameterTargets:
     measuring these pollutants are utilized.
 
     Args:
-        param (sensortoolkit.Parameter object): The parameter for which air
-        sensor performance is evaluated against using the metrics and target
-        values included in this module.
-
-    Returns:
-        None.
+        param (sensortoolkit.Parameter object):
+            The parameter for which air sensor performance is evaluated against
+            using the metrics and target values included in this module.
 
     """
 
@@ -171,8 +168,8 @@ class ParameterTargets:
 
         Raises:
             KeyError: Raise if the passed metric category is not in the list
-            metric categories (keys) indicated by the dictionary of metric
-            values accessed via ``get_all_metrics()``.
+                metric categories (keys) indicated by the dictionary of metric
+                values accessed via ``get_all_metrics()``.
 
         Returns:
             None.
@@ -200,15 +197,15 @@ class ParameterTargets:
         """Return details about a single performance metric (description,
         target range, goal value, metric units).
 
-
         Args:
-            metric_name (str): The name of the metric to return information
-            about. Must be contained within the list of metrics indicated
-            by ``get_all_metrics()``.
+            metric_name (str):
+                The name of the metric to return information about. Must be
+                contained within the list of metrics indicated by
+                ``get_all_metrics()``.
 
         Raises:
             KeyError: Raise if passed metric name is not in the dictionary of
-            configured metrics.
+                configured metrics.
 
         Returns:
             metric (dict):
@@ -251,14 +248,14 @@ class ParameterTargets:
         Example:
 
             Say we are working with a parameter (pollutant) that is neither
-            PM25 nor O3, so the existing set of performance targets for these
-            sensors (metrics and target values recommended by US EPA) are not
-            utilized. Let's also assume that the name of our parameter object
-            is param_obj. After instantiating the parameter object, we may call
-            the ``get_all_metrics()`` method to display all of the performance
-            metrics and target values for our parameter. Since no preset
-            metrics were specified, we will see the following printed to the
-            console:
+            ``PM25`` nor ``O3``, so the existing set of performance targets for
+            these pollutants (metrics and target values recommended by U.S. EPA)
+            are not utilized. Let's also assume that the name of our parameter
+            object is ``param_obj``. After instantiating the parameter object,
+            we may call the ``get_all_metrics()`` method to display all of the
+            performance metrics and target values for our parameter. Since no
+            preset metrics were specified, we will see the following printed to
+            the console:
 
             >>> param_obj.PerformanceTargets.get_all_metrics()
             {'Bias': {}, 'Linearity': {}, 'Error': {}, 'Precision': {}}

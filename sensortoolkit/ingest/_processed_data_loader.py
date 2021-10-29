@@ -1,6 +1,9 @@
 # -*- coding: utf-8 -*-
 """
-Description.
+This module is used to load previously generated SDFS sensor datasets. Datasets
+are imported for three time intervals, including data at the orginally recorded
+sampling frequency, datasets that have been averaged to 1-hour intervals, and
+datasets that have been averaged to 24-hour intervals.
 
 ================================================================================
 

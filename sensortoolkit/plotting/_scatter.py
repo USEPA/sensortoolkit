@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Description.
+This module contains methods for constructing scatter plot figures.
 
 ================================================================================
 

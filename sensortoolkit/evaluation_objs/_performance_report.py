@@ -86,9 +86,6 @@ class PerformanceReport(SensorEvaluation):
         **kwargs (TYPE):
             DESCRIPTION.
 
-    Returns:
-            None.
-
     """
 
     # Evaluation parameters for which the PerformanceReport class can

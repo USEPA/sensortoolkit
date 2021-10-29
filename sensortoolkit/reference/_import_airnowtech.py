@@ -1,6 +1,15 @@
 # -*- coding: utf-8 -*-
 """
-Description.
+Module for importing raw AirNowTech data (table, unpivoted format) queried at
+month-long intervals at 1-hr recording frequency for PM2.5, PM10, O3, NO2, CO,
+relative humidity, temperature, wind speed, wind direction.
+
+Data are sorted into PM, gas, and met dataframes and a table containing
+all AQS method codes is used to associate the recorded method code for data
+streams with the instrument used to make the measurement.
+
+Processed dataframes for PM, Gas, and met are then written to separate monthly
+csv files where the index is the date and time in UTC.
 
 ================================================================================
 
@@ -20,18 +29,7 @@ import pathlib
 import datetime
 from sensortoolkit.lib_utils import flatten_list
 from shutil import copy
-"""
-Module for importing raw AirNowTech data (table, unpivoted format) queried at
-month-long intervals at 1-hr recording frequency for PM2.5, PM10, O3, NO2, CO,
-relative humidity, temperature, wind speed, wind direction.
 
-Data are sorted into PM, gas, and met dataframes and a table containing
-all AQS method codes is used to associate the recorded method code for data
-streams with the instrument used to make the measurement.
-
-Processed dataframes for PM, Gas, and met are then written to separate monthly
-csv files where the index is the date and time in UTC.
-"""
 
 
 def ingest_airnowtech(path, Clean_QC_Code=False):
@@ -45,7 +43,7 @@ def ingest_airnowtech(path, Clean_QC_Code=False):
         Clean_QC_Code (bool):
             If true, only keep data where the QC code is zero (indicates no
             issues reported).
-            
+
     """
 
     # Import csv dataframe, set hourly UTC date and time as index

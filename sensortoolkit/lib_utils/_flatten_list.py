@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 """
-Description.
+This module contains a method for converting nested lists into a list with a
+single depth.
 
 ================================================================================
 
@@ -24,7 +25,7 @@ def flatten_list(list_of_lists):
     Returns:
         flat_list (list):
             A flattened list, example: ['a', 'b', 'c']
-            
+
     """
     flat_list = []
     for i in list_of_lists:

@@ -87,9 +87,6 @@ class Parameter:
             U.S. EPA's recommended performance metrics and targets for air
             sensors measuring these pollutants.
 
-    Returns:
-        None.
-
     """
     __param_dict__ = {'CO': {'baseline': 'CO',
                              'classifier': 'Gases',

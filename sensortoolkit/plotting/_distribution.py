@@ -1,6 +1,10 @@
 # -*- coding: utf-8 -*-
 """
-Description.
+Plotting methods for graphing the distribution of measured quantities such as
+reference monitor pollutant concentrations (``ref_distrib()``), meteorological
+conditions including temperature and relative humidity (``met_distrib()``),
+and the distribution of recording intervals (i.e., the time difference between
+consecutive timestamps) in sensor datasets (``recording_interval_histogram()``).
 
 ================================================================================
 
@@ -80,6 +84,8 @@ def met_distrib(met_ref_data, avg_hrly_df, figure_path, sensor_name=None,
     """Create distribution plots for meteorological parameters provided in the
     passed met_ref_data dataframe.
 
+    Distributions are displayed as relative frequencies (i.e., percentages of
+    the total distribution of measurements).
 
     Args:
 

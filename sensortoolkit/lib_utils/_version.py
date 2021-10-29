@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
-"""
-Description.
+"""Return the current version of sensortoolkit.
 
 ================================================================================
 

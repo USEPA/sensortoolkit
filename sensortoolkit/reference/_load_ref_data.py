@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 """
-Description.
+This module contains methods for importing reference datasets (i.e., datasets
+containing reference measurements that have been processed into the RDFS format
+following use of the ``sensortoolkit.lib_utils.ReferenceSetup()`` method). 
 
 ================================================================================
 
@@ -132,7 +134,7 @@ def import_ref_dataframe(df, path, year, month, suffix=None):
             Modified dataframe with imported data appended to the passed
             dataset. Contains reference data (FRM/FEM) at 1-hour averaged
             intervals.
-            
+
     """
     try:
         filename = 'H_' + year + month + suffix + '.csv'
