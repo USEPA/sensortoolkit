@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 """
 This module contains methods for configuring various plot formatting presets
-(e.g., configuring the fontize, wrapping long figure titles over multiple lines,
-specifying figure dimensions for formatting figures with multiple subplots, each
-displaying sensor data, etc.).
+(e.g., configuring the fontsize, wrapping long figure titles over multiple
+lines, specifying figure dimensions for formatting figures with multiple
+subplots, each displaying sensor data, etc.).
 
 ================================================================================
 

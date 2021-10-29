@@ -7,7 +7,8 @@ These services are operated by the U.S. EPA, and users should have previously
 registered with either service before submitting queries (authentication tokens
 are required for each service to validate query requests).
 
-Resources:
+Resources
+---------
 
 - **AQS API documentation**: https://aqs.epa.gov/aqsweb/documents/data_api.html
 

@@ -2,9 +2,9 @@
 """
 This module contains a method ``create_directories()`` for constructing the
 folder structure utilized by sensortoolkit for storing datasets and organizing
-related files. This folder stucture is located at the path to a directory the
+related files. This folder structure is located at the path to a directory the
 user wishes to store evaluation-related content in. This path is referred to as
-the `project path`. Sensor and reference datasets as well as supplementary 
+the `project path`. Sensor and reference datasets as well as supplementary
 statistics are stored in a ``/data`` folder. Figures created by the library are
 stored in a ``/figures`` folder. Testing reports are saved within a ``/reports``
 folder.
