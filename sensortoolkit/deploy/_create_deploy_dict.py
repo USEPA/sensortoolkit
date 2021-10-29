@@ -207,7 +207,7 @@ def deploy_ref_stats(deploy_dict, ref_df, cal_check_dict=None, param=None,
       averaging.
     * The number of intervals during which the FRM/FEM exceeds the goal
       concentration recommended by the performance targets testing report
-      for elevated concentrations (goal >= three days).
+      for elevated concentrations (goal :math:`\\geq`` three days).
 
     Args:
         deploy_dict (dict):
@@ -220,7 +220,9 @@ def deploy_ref_stats(deploy_dict, ref_df, cal_check_dict=None, param=None,
             averaging depending on the performance targets recommeneded
             averaging interval.
     	cal_check_dict (dict):
-            Description
+            [Future feature] Dictionary for housing dates and descriptions of QC
+            calibration checks as part of regularly scheduled and cataloged QC
+            procedures.
         param_obj (str):
             The evaluation parameter
         ref_name (str):
@@ -232,6 +234,7 @@ def deploy_ref_stats(deploy_dict, ref_df, cal_check_dict=None, param=None,
             (based on the latest (max) start timestamp and earliest (min)
             end timestamp in group), deployment duration, and sensor serial IDs
             for devices within each deployment group.
+
     """
     param_obj = Parameter(param)
     param_name = param_obj.name
@@ -284,8 +287,7 @@ def deploy_ref_stats(deploy_dict, ref_df, cal_check_dict=None, param=None,
     return deploy_dict
 
 
-def deploy_met_stats(deploy_dict, df_list, met_ref_df,
-                  cal_check_dict=None):
+def deploy_met_stats(deploy_dict, df_list, met_ref_df, cal_check_dict=None):
     """Add meteorological instrument statistics to the parameter statistics
     subfield in the deployment dictionary.
 
@@ -296,8 +298,9 @@ def deploy_met_stats(deploy_dict, df_list, met_ref_df,
     * The maximum value recorded at the specified interval averaging.
     * The number of intervals during which the instrument exceeds the
       manufacturer's recommended target range for instrument performance.
-      This is provisionally set for RH (exceedence when <=10% or >= 90%) and
-      Temp (exceedence when <=-20 C or >= 40 C).
+      This is provisionally set for RH (exceedence when :math:`\\leq` 10% or
+      :math:`\\geq` 90%) and Temp (exceedence when :math:`\\leq` -20 C or
+      :math:`\\geq` 40 C).
 
     Args:
     	deploy_dict (dict):
@@ -313,7 +316,9 @@ def deploy_met_stats(deploy_dict, df_list, met_ref_df,
             testing site during the evaluation period (either 1-hr or 24-hr
             averaging intervals).
     	cal_check_dict (dict):
-            Description
+            [Future feature] Dictionary for housing dates and descriptions of QC
+            calibration checks as part of regularly scheduled and cataloged QC
+            procedures.
 
     Returns:
         deploy_dict:
@@ -321,6 +326,7 @@ def deploy_met_stats(deploy_dict, df_list, met_ref_df,
             (based on the latest (max) start timestamp and earliest (min)
             end timestamp in group), deployment duration, and sensor serial IDs
             for devices within each deployment group.
+
     """
     met_str = 'Meteorological Conditions'
     date_index, avg_suffix = deploy_timestamp_index(met_ref_df,

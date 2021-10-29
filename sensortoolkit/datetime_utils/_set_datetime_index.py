@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
 This module contains a method for assigning the ``DateTime`` column
-as the pandas dataframe index.
+as the pandas DataFrame index.
 
 ================================================================================
 
@@ -17,25 +17,25 @@ Last Updated:
 import pandas as pd
 
 def set_datetime_index(df, idx_fmt=None):
-    """Set the DateTime timestamp column as the index.
+    """Set the ``DateTime`` timestamp column as the index.
 
     Args:
-        df (pandas dataframe):
-            Sensor dataframe for which the index is being assigned
+        df (pandas DataFrame):
+            Sensor DataFrame for which the index is being assigned
         idx_fmt (str):
-            The foramtting for the timestamp index. Explicitly specifying the
-            format speeds up index assignment as pd.to_datetime doesn't have to
-            search for the appropriate formatting.
+            The formatting for the timestamp index. Explicitly specifying the
+            format speeds up index assignment as ``pandas.to_datetime()``
+            doesn't have to search for the appropriate formatting.
 
     Return:
         df (pandas DataFrame):
-            Modified sensor dataframe with the index assigned as the
-            'DateTime' column.
+            Modified sensor DataFrame with the index assigned as the
+            ``DateTime`` column.
 
     Raises:
-        NameError: If the column header 'DateTime' is not found in the
-            dataframe (may occur if the user assigns a label other than
-            'DateTime' to the time-like index during the process of data
+        NameError: If the column header ``DateTime`` is not found in the
+            DataFrame (may occur if the user assigns a label other than
+            ``DateTime`` to the time-like index during the process of data
             ingestion.)
 
     """
@@ -45,6 +45,6 @@ def set_datetime_index(df, idx_fmt=None):
                           ).drop(columns={'DateTime'})
     except NameError:
         print('Error: Sensor timestamp header "DateTime" not in passed '
-              'dataframe. Please save processed dataframe with timestamp index'
+              'DataFrame. Please save processed DataFrame with timestamp index'
               'header named "DateTime"')
     return df

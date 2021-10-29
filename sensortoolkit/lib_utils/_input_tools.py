@@ -19,9 +19,10 @@ def validate_entry(indent_statement=0):
     """Ask the user to confirm an entry by typing 'y' (yes) or 'n' (no).
 
     Args:
-        indent_statement (int, optional): Optional argument for indenting
-        the printed statement (useful for setup module where indenting
-        indicates subsection). Defaults to 0 (no indent).
+        indent_statement (int, optional):
+            Optional argument for indenting the printed statement (useful for
+            setup module where indenting indicates subsection). Defaults to 0
+            (no indent).
 
     Returns:
         val (TYPE): The user's input choice, either 'y' or 'n'.
@@ -45,9 +46,10 @@ def enter_continue(indent_statement=0):
     wish to review a console output or decision before continuing.
 
     Args:
-        indent_statement (TYPE, optional): Optional argument for indenting
-        the printed statement (useful for setup module where indenting
-        indicates subsection). Defaults to 0 (no indent).
+        indent_statement (TYPE, optional):
+            Optional argument for indenting the printed statement (useful for
+            setup module where indenting indicates subsection). Defaults to 0
+            (no indent).
 
     Returns:
         None.

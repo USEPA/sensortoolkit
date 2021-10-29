@@ -36,10 +36,10 @@ def standard_ingest(path, name=None, setup_file_path=None):
             The full path to the setup.json file
 
     Returns:
-        df (pandas dataframe):
+        df (pandas DataFrame):
             Dataframe containing sensor data in standardized formatting for
             datetime index and header naming scheme.
-            
+
     """
     setup = parse_setup(setup_file_path, data_path=path)
 
@@ -197,17 +197,17 @@ def standard_ingest(path, name=None, setup_file_path=None):
     return df
 
 def apply_strptime(dt, time_format):
-    """Wrapper for adding exception catching to datetime.strptime
+    """Wrapper for adding exception catching to ``datetime.strptime``
 
-    If datetime.strptime encounters a value it cannot encode into time-like
+    If ``datetime.strptime`` encounters a value it cannot encode into time-like
     form, the value is ignored.
 
     Args:
-        dt (TYPE): An array of timestamp entries.
-        time_format (TYPE): The expected format for timestamps.
+        dt (pandas Series): An array of timestamp entries.
+        time_format (str): The expected format for timestamps.
 
     Returns:
-        dt (TYPE): A time-casted timestamp value.
+        dt (pandas Series): A time-casted timestamp value.
 
     """
     try:

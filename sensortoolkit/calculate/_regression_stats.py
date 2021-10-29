@@ -54,7 +54,7 @@ def regression_stats(sensor_df_obj, ref_df_obj, deploy_dict, param, serials):
     """Compute OLS regression statistics.
 
     Module is used to compute the following regressions:
-    
+
     - Sensor vs. FRM/FEM
     - Sensor vs. Inter-sensor average
 
@@ -68,14 +68,14 @@ def regression_stats(sensor_df_obj, ref_df_obj, deploy_dict, param, serials):
     .. note::
 
       The DataFrames within the ``sensor_df_obj`` and ``ref_df_obj`` arguments
-      should contain data reported at the same sampling frequnecy (e.g., if a
+      should contain data reported at the same sampling frequency (e.g., if a
       sensor DataFrame containing data at 1-hour averaged intervals is passed
       to the ``sensor_df_obj``, the reference DataFrame passed to
       ``ref_df_obj`` must also contain data at 1-hour averaged intervals).
 
     Args:
         sensor_df_obj (pandas DataFrame or list of pandas DataFrames):
-            Either a DataFrame or list of DataFrames containg sensor parmaeter
+            Either a DataFrame or list of DataFrames containg sensor parameter
             measurements. Data corresponding to passed parameter name are used
             as the dependent variable.
         ref_df_obj (pandas DataFrame):
@@ -243,7 +243,7 @@ def join_stats(hourly_stats, daily_stats, write_to_file=False, stats_path=None):
             regression_stats().
         daily_stats (pandas DataFrame): DataFrame containing 24-hour averaged
             sensor vs. reference regression statistics, returned by call to
-            regression_stats(). .
+            regression_stats().
         write_to_file (bool, optional): DESCRIPTION. Defaults to False.
         stats_path (str, optional): DESCRIPTION. Defaults to None.
 

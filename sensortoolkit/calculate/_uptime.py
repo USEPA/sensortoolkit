@@ -32,8 +32,8 @@ def uptime(dataframe_object, key=None):
     """Compute uptime for either sensor or reference data.
 
     Uptime calculated as the number of non-null data points recorded within the
-    deployment period divided by the total number of data points (null + non-
-    null).
+    deployment period divided by the total number of data points
+    (null + non-null).
 
     Args:
         dataframe_object (pandas dataframe or a list of dataframes):

@@ -32,7 +32,7 @@ def sensor_import(sensor_name=None, sensor_serials=None,
 
     If loading recorded datasets (i.e., load_raw_data is True), the method will
     walk through the directory path where recorded sensor datasets should be
-    located (..//data//sensor_data//Sensor_Name//raw_data). Users
+    located (``..//data//sensor_data//Sensor_Name//raw_data``). Users
     must follow the expected naming scheme for files in this location,
     specifying the sensor name and sensor serial identifier for each dataset.
     If multiple files were recorded for each sensor unit, files must be
@@ -84,7 +84,7 @@ def sensor_import(sensor_name=None, sensor_serials=None,
       intervals over the evaluation period and were collected at weekly
       intervals and organized by unit ID into sub-directories. Let's also say
       that the data files are recorded as .txt files instead of .csv files.
-      The data sets can be placed into the ..//raw_data folder path, and
+      The data sets can be placed into the ``..//raw_data`` folder path, and
       might look something like:
 
       .. code-block:: console
@@ -124,10 +124,12 @@ def sensor_import(sensor_name=None, sensor_serials=None,
                     Example_Make_Model_SN03_20210115.txt
             ...
 
-      (Note: if all the files have unique names, one could place all of
-      the .txt files in the //raw_data// directory. This example is simply
-      meant to illustrate that the import method can handle these types of
-      nested folder structures if the appropriate naming scheme is followed).
+      .. note::
+      
+        If all the files have unique names, one could place all of
+        the .txt files in the ``//raw_data//`` directory. This example is simply
+        meant to illustrate that the import method can handle these types of
+        nested folder structures if the appropriate naming scheme is followed).
 
     Args:
         sensor_name (str): The make and model of the sensor being evaluated.
@@ -386,12 +388,13 @@ def ingest_purpleair(cwd, serial):
     Returns:
         df (Pandas DataFrame object):
             A dataframe containing sensor data that has been converted into
-            standardized syntax.
+            SDFS format.
 
-    NOTE:
-        PurpleAir data formatting vary depending on the source of acquisition
-    and this module is intended *ONLY* for data downloaded from the Thingspeak
-    API.
+    .. important::
+
+      PurpleAir data formatting vary depending on the source of acquisition
+      and this module is intended *ONLY* for data downloaded from the
+      Thingspeak API.
 
     The Import() module expects a single data frame for each sensor (sensor_df)
     for use in analysis. Because the PurpleAir PAII contains two internal PM
@@ -411,6 +414,7 @@ def ingest_purpleair(cwd, serial):
     Finally, the US-wide correction equation developed by Barkjohn et al. 2021
     is computed for the AB averages and added as an additional column to the
     merged dataset.
+
     """
     if serial+'A' in cwd:
         # Load data for both channels A and B

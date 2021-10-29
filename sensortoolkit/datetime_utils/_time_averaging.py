@@ -45,11 +45,11 @@ def sensor_averaging(full_df_list, sensor_serials=None, name='',
                      write_to_file=True, path=None, **kwargs):
     """Write full (recorded), hourly, and daily averaged datasets to csv.
 
-    Wrapper function for computing hourly and daily averaged dataframes.
+    Wrapper function for computing hourly and daily averaged DataFrames.
 
     Args:
         full_df_list (list):
-            List of sensor dataframes at original recorded sampling frequency.
+            List of sensor DataFrames at original recorded sampling frequency.
         sensor_serials (dict):
             A dictionary of unique serial identifiers for each sensor in the
             testing group.
@@ -141,7 +141,7 @@ def sensor_averaging(full_df_list, sensor_serials=None, name='',
 
 
 def interval_averaging(df, freq='H', interval_count=60, thres=0.75):
-    """Average dataframe to the specified sampling frequency ('freq').
+    """Average DataFrame to the specified sampling frequency ('freq').
 
     Numeric columns are averaged for for each interval and a completeness
     threshold (default 75%) must be met, otherwise averages are null. Columns
@@ -149,18 +149,18 @@ def interval_averaging(df, freq='H', interval_count=60, thres=0.75):
     mode of unique object values.
 
     Args:
-        df (pandas dataframe or pandas series):
-            Dataframe or series for which averages will be computed.
+        df (pandas DataFrame or pandas Series):
+            Dataframe or Series for which averages will be computed.
         freq (str):
-            The frequency (averaging interval) to which the dataframe will
+            The frequency (averaging interval) to which the DataFrame will
             be averaged. Defaults to ``H``. Pandas refers to these as
             'offset aliases', and a list is found here
             (https://pandas.pydata.org/pandas-docs/stable/user_guide/timeseries.html#offset-aliases).
         interval_count (int):
-            The number of datapoints expected within the passed dataframe for
+            The number of datapoints expected within the passed DataFrame for
             the specified averaging interval ('freq'). Defaults to 60 for
             1-hour averages. E.g., if computing 1-hour averages (freq='H') an
-            the passed dataframe is for a sensor that recorded measurements at
+            the passed DataFrame is for a sensor that recorded measurements at
             1-minute sampling frequency, interval_count will equal 60 (expect
             60 non-null data points per averaging interval).
         thres (float):
@@ -169,17 +169,17 @@ def interval_averaging(df, freq='H', interval_count=60, thres=0.75):
             number of expected data points. Defaults to ``0.75`` (i.e., 75%).
 
     Return:
-        avg_df (pandas dataframe):
+        avg_df (pandas DataFrame):
             Dataframe averaged to datetimeindex interval specified by 'freq'.
 
     """
-    # If series object passed, convert to dataframe
+    # If Series object passed, convert to DataFrame
     data_type = type(df)
     if data_type is not pd.core.frame.DataFrame:
         df = pd.Series(df).to_frame()
 
     col_list = list(df.columns)
-    # Split dataframe in to object-like columns and numeric-like columns
+    # Split DataFrame in to object-like columns and numeric-like columns
     obj_df = df.select_dtypes(include=['object', 'datetime'])
     num_df = df.select_dtypes(exclude=['object', 'datetime'])
 
@@ -188,7 +188,7 @@ def interval_averaging(df, freq='H', interval_count=60, thres=0.75):
 
     num_df = num_df.dropna(axis=1, how='all')
 
-    # index at specified interval for empty dataframes (all NaNs)
+    # index at specified interval for empty DataFrames (all NaNs)
     nan_df_idx = pd.date_range(start=obj_df.index[0],
                                end=obj_df.index[-1],
                                freq=freq, normalize=True)

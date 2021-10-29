@@ -463,8 +463,9 @@ class SensorEvaluation:
         """Plot parameter concentrations over time alongside reference.
 
         Args:
-            report_fmt (bool, optional): If true, format figure for inclusion
-            in a performance report. Defaults to True.
+            report_fmt (bool, optional):
+                If true, format figure for inclusion in a performance report.
+                Defaults to True.
             **kwargs (TYPE): Plotting keyword arguments.
 
         Returns:
@@ -552,7 +553,6 @@ class SensorEvaluation:
         """Regression dot/boxplots for U.S EPA performance metrics and targets
         developed for PM2.5 and O3 sensor evaluations.
 
-
         Args:
             **kwargs (TYPE): Plotting keyword arguments.
 
@@ -582,24 +582,39 @@ class SensorEvaluation:
                                     **kwargs)
 
     def plot_sensor_scatter(self, averaging_interval='24-hour',
-                            plot_subset=None, report_fmt=False, **kwargs):
-        """
+                            plot_subset=None, **kwargs):
+        """Plot sensor vs. FRM/FEM reference measurement pairs as scatter.
+
+        FRM/FEM reference concentrations are plotted along the x-axis, and
+        sensor concentrations are plotted along the y-axis. Measurement pairs
+        (i.e., concentration values for sensor and reference datasets recorded
+        at matching timestamp entries) are colored by the relative humidity
+        recorded by an independent meteorological instrument at the monitoring
+        site if RH data are located within the ``reference_object.data['Met']``
+        DataFrame.
 
         Args:
-            averaging_interval (TYPE, optional): The measurement averaging
-            intervals commonly utilized for analyzing data corresponding the
-            the selected parameter. Defaults to '24-hour'.
-            plot_subset (TYPE, optional): A list of either sensor serial IDs
-            or the keys associated with the serial IDs in the serial
-            dictionary. Defaults to None.
-            report_fmt (TYPE, optional): If true, format figure for inclusion
-            in a performance report. Defaults to True. Defaults to False.
-            **kwargs (TYPE): Plotting keyword arguments.
+            averaging_interval (TYPE, optional):
+                The measurement averaging intervals commonly utilized for
+                analyzing data corresponding the the selected parameter.
+                Defaults to '24-hour'.
+            plot_subset (TYPE, optional):
+                A list of either sensor serial IDs or the keys associated with
+                the serial IDs in the serial dictionary. Defaults to None.
+
+        Keyword Arguments:
+
+            - **report_fmt** (*dict*):  For displaying scatter plots on the
+              first page of the performance report included alongside U.S. EPA's
+              documents outlining recommended testing protocols, performance
+              metrics, and target values. Defaults to False.
+            - **ADDITONAL ARGS** (*TYPE*): Plotting keyword arguments.
 
         Returns:
             None.
 
         """
+        report_fmt = kwargs.get('report_fmt', False)
 
         try:
             self.deploy_dict['Deployment Groups']['Group 1'][self._param_name]
@@ -691,6 +706,8 @@ class SensorEvaluation:
         # Create scatter for all sensors in an evaluation at a specified
         # averaging interval
         else:
+            report_fmt = False
+
             # Assuming avg_list contains either only 1-hour or 24-hour
             if '1-hour' in avg_list and averaging_interval == '1-hour':
                 sensor_data = self.hourly_df_list
@@ -742,9 +759,11 @@ class SensorEvaluation:
         """Normalized Sensor param vs. AIRS RH
 
         Args:
-            met_param (TYPE, optional): DESCRIPTION. Defaults to None.
-            report_fmt (TYPE, optional): If true, format figure for inclusion
-            in a performance report. Defaults to True. Defaults to True.
+            met_param (TYPE, optional):
+                DESCRIPTION. Defaults to None.
+            report_fmt (TYPE, optional):
+                If true, format figure for inclusion in a performance report.
+                Defaults to True.
             **kwargs (TYPE): Plotting keyword arguments.
 
         Returns:
@@ -817,11 +836,14 @@ class SensorEvaluation:
         * Internal sensor Temp vs. Reference monitor Temp
 
         Args:
-            averaging_interval (TYPE, optional): The measurement averaging
-            intervals commonly utilized for analyzing data corresponding the
-            the selected parameter. Defaults to '1-hour'.
-            met_param (TYPE, optional): DESCRIPTION. Defaults to None.
-            **kwargs (TYPE): Plotting keyword arguments.
+            averaging_interval (TYPE, optional):
+                The measurement averaging intervals commonly utilized for
+                analyzing data corresponding the the selected parameter.
+                Defaults to '1-hour'.
+            met_param (TYPE, optional):
+                DESCRIPTION. Defaults to None.
+            **kwargs (TYPE):
+                Plotting keyword arguments.
 
         Returns:
             None.
@@ -898,9 +920,10 @@ class SensorEvaluation:
         presented alongside the range (min to max).
 
         Args:
-            averaging_interval (TYPE, optional): The measurement averaging
-            intervals commonly utilized for analyzing data corresponding the
-            the selected parameter. Defaults to '24-hour'.
+            averaging_interval (TYPE, optional):
+                The measurement averaging intervals commonly utilized for
+                analyzing data corresponding the the selected parameter.
+                Defaults to '24-hour'.
 
         Returns:
             None.
@@ -979,9 +1002,10 @@ class SensorEvaluation:
         below the mean in parentheses.
 
         Args:
-            averaging_interval (TYPE, optional): The measurement averaging
-            intervals commonly utilized for analyzing data corresponding the
-            the selected parameter. Defaults to '24-hour'.
+            averaging_interval (TYPE, optional):
+                The measurement averaging intervals commonly utilized for
+                analyzing data corresponding the the selected parameter.
+                Defaults to '24-hour'.
 
         Returns:
             None.

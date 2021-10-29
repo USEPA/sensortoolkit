@@ -37,8 +37,9 @@ def get_max_conc(param, df_list=None, ref_df=None, bdate=None, edate=None):
             to None, will use the latest timestamp recorded in datasets.
 
     Returns:
-        max_conc (float): The maximum concentration indicated by the dataframes
-            passed to the function for the specified parameter.
+        max_conc (float):
+            The maximum concentration indicated by the dataframes passed to the
+            function for the specified parameter.
 
     Raises:
         TypeError: If `df_list` and `ref_df` are both ``None`` (i.e., no

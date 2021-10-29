@@ -57,12 +57,14 @@ def _check_extension(file_name, expect_extension):
 
 def copy_datasets(data_type=None, path=None, select='directory', **kwargs):
     """Prompts the user to select a source directory for datasets and copies
-    files to "/data.." raw data subdirectory for a sensor.
+    files to ``/data..`` raw data subdirectory for a sensor.
 
     Args:
-        name (TYPE, optional): The name of the sensor. Defaults to None.
-        path (TYPE, optional): The full path of the work directory in
-        which data will be stored. Defaults to None.
+        name (TYPE, optional):
+            The name of the sensor. Defaults to None.
+        path (TYPE, optional):
+            The full path of the work directory in which data will be stored.
+            Defaults to None.
 
     Returns:
         None.

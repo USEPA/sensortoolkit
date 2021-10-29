@@ -72,7 +72,7 @@ def deploy_timestamp_index(df_obj, averaging_suffix=True):
             interval of the passed dataframe object.
 
     Returns:
-        (tuple): Two-element tuple containing:
+        (tuple): One- or two-element tuple containing:
 
             - **timestamp_idx** (*pandas DatetimeIndex*): Index at either 1-hour
               or 24-hour averaging intervals spanning the entire evaluation
