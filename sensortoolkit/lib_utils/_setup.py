@@ -26,11 +26,13 @@ import pandas as pd
 import pprint
 import pytz
 from pytz.exceptions import UnknownTimeZoneError
-from sensortoolkit.lib_utils import flatten_list, validate_entry, enter_continue, copy_datasets
+from sensortoolkit.lib_utils import (flatten_list, validate_entry,
+                                     enter_continue, copy_datasets)
 from sensortoolkit.param import Parameter
 from sensortoolkit.reference import preprocess_airnowtech
 from sensortoolkit.ingest import standard_ingest
-from sensortoolkit.datetime_utils import interval_averaging, get_timestamp_interval
+from sensortoolkit.datetime_utils import (interval_averaging,
+                                          get_timestamp_interval)
 
 
 class _Setup:
@@ -123,12 +125,11 @@ class _Setup:
 
         print(len(flier)*'=')
 
-
     def add_param_attrib(self, param, attrib_key, attrib_val):
-        """Assign parameter header attribute
+        """Assign parameter header attribute.
 
-        Search through the column index entries, if the parameter name within the
-        column index subdictionary, add the passed attribute key and value.
+        Search through the column index entries, if the parameter name within
+        the column index subdictionary, add the passed attribute key and value.
 
         Args:
             data (TYPE): self.col_headers dictionary.
@@ -171,7 +172,7 @@ class _Setup:
     def selectDataSets(self):
         select_options = ['directory', 'recursive directory', 'files']
         self.printSelectionBanner('Select Data Files or Directory',
-                                      options=[select_options])
+                                  options=[select_options])
 
         valid = False
         while valid is False:
@@ -243,9 +244,10 @@ class _Setup:
                                       options=[])
             print('')
 
-        # Load data files and populate a dictionary of unique headers that occur.
-        # Top level is ordered by the row index, so if some files have different headers,
-        # there will be multiple entries within the particular row index key.
+        # Load data files and populate a dictionary of unique headers that
+        # occur. Top level is ordered by the row index, so if some files have
+        # different headers, there will be multiple entries within the
+        # particular row index key.
 
         print(f'Parsing datasets at "..{self.data_rel_path}"')
 
@@ -281,7 +283,6 @@ class _Setup:
                                                'dataset'])
 
         # Load the first dataset (display 10 rows to user)
-        #self.findDataFiles()
         if self.file_list == []:
             data_path = os.path.normpath(os.path.join(self.path,
                                                       self.data_ref_path))
@@ -336,7 +337,9 @@ class _Setup:
         while edit:
             confirm = 'n'
             while confirm == 'n':
-                col_name = input("Enter Column Header #{0}: ".format(str(col_n)))
+                col_name = input("Enter Column Header #{0}: ".format(str(col_n)
+                                                                     )
+                                 )
                 if col_name == 'X':
                     edit = False
                     break
@@ -371,8 +374,8 @@ class _Setup:
         if print_banner:
             self.printSelectionBanner('Specify Timestamp columns',
                                       options=[self.end_str, self.del_str])
-        # Create a list of time-like columns, update the col_headers list with the
-        # DateTime type corresponding to the specified header name
+        # Create a list of time-like columns, update the col_headers list with
+        # the DateTime type corresponding to the specified header name
         # Enter in the time like columns [LOOP]
         end = False
         i = 1
@@ -397,22 +400,17 @@ class _Setup:
                 self.timestamp_col_headers.append(val)
 
                 self.add_param_attrib(val,
-                                    attrib_key='header_class',
-                                    attrib_val='datetime')
+                                      attrib_key='header_class',
+                                      attrib_val='datetime')
 
                 self.add_param_attrib(val,
-                                    attrib_key='sdfs_param',
-                                    attrib_val='DateTime')
+                                      attrib_key='sdfs_param',
+                                      attrib_val='DateTime')
 
                 self.add_param_attrib(val,
-                                attrib_key='drop',
-                                attrib_val=False)
+                                      attrib_key='drop',
+                                      attrib_val=False)
 
-                # # Get a list of the row index locations where the column header name is
-                # header_loc = [row for row in self.col_headers if val in
-                #               self.col_headers[row].keys()]
-                # for key in header_loc:
-                #     self.col_headers[key][val]['SDFS_param'] = 'DateTime'
             else:
                 print('..Invalid entry. Choose from the following list:')
                 print(' ', self.all_col_headers)
@@ -428,10 +426,10 @@ class _Setup:
             self.printSelectionBanner('Specify Parameter columns',
                                       options=[self.skip_str],
                                       notes=[txt, self.params])
-        # drop time-like columns and ask user for SDFS parameter associated with
-        # remaining cols
+        # drop time-like columns and ask user for SDFS parameter associated
+        # with remaining cols
         param_col_list = [param for param in self.all_col_headers
-                               if param not in self.timestamp_col_headers]
+                          if param not in self.timestamp_col_headers]
 
         n_params = len(param_col_list)
         renaming_dict = {}
@@ -444,12 +442,12 @@ class _Setup:
                     valid = True
                     self.sdfs_header_names.append(sdfs_param)
                     if self.data_type == 'reference':
-                        self.setParamRDFSInfo(param, sdfs_param)
+                        self.setParamMetaCols(param, sdfs_param)
                     unit_transform = self.checkParamUnits(param, sdfs_param)
 
                     self.add_param_attrib(param,
-                                        attrib_key='unit_transform',
-                                        attrib_val=unit_transform)
+                                          attrib_key='unit_transform',
+                                          attrib_val=unit_transform)
                     drop = False
 
                 elif sdfs_param == '':
@@ -463,23 +461,16 @@ class _Setup:
             renaming_dict[param] = sdfs_param
 
             self.add_param_attrib(param,
-                                attrib_key='header_class',
-                                attrib_val='parameter')
+                                  attrib_key='header_class',
+                                  attrib_val='parameter')
 
             self.add_param_attrib(param,
-                                attrib_key='sdfs_param',
-                                attrib_val=sdfs_param)
+                                  attrib_key='sdfs_param',
+                                  attrib_val=sdfs_param)
 
             self.add_param_attrib(param,
-                                attrib_key='drop',
-                                attrib_val=drop)
-
-
-            # # Get a list of the col index locations where the column header name is
-            # header_loc = [col for col in self.col_headers if param in
-            #               self.col_headers[col].keys()]
-            # for key in header_loc:
-            #     self.col_headers[key][param]['SDFS_param'] = sdfs_param
+                                  attrib_key='drop',
+                                  attrib_val=drop)
 
         #TODO: Print dictionary with renaming scheme, ask to confirm
         # add something like following code block,
@@ -518,8 +509,8 @@ class _Setup:
                 val = input('Enter date/time formatting for "' + col + '": ')
                 if val == '':
                     self.add_param_attrib(col,
-                                attrib_key='drop',
-                                attrib_val=True)
+                                          attrib_key='drop',
+                                          attrib_val=True)
                     invalid = False
                     continue
                 else:
@@ -529,8 +520,8 @@ class _Setup:
                         self.time_format_dict[col] = val
 
                         self.add_param_attrib(col,
-                                            attrib_key='dt_format',
-                                            attrib_val=val)
+                                              attrib_key='dt_format',
+                                              attrib_val=val)
 
         print('')
         print('Configured formatting scheme:')
@@ -569,8 +560,8 @@ class _Setup:
                         self.time_format_dict[col + '_tz'] = tzone.zone
 
                         self.add_param_attrib(col,
-                                            attrib_key='dt_timezone',
-                                            attrib_val=tzone.zone)
+                                              attrib_key='dt_timezone',
+                                              attrib_val=tzone.zone)
 
         print('')
         print('Configured time zone formatting:')
@@ -589,8 +580,6 @@ class _Setup:
                 del self.config_dict[attrib]
             except KeyError:
                 pass
-
-        #del self.config_dict['sdfs_header_names']
 
         if self.data_type == 'sensor':
             filename = self.name + '_setup.json'
@@ -625,9 +614,14 @@ class SensorSetup(_Setup):
     date or time-like entries is then specified. The file type for sensor
     data is selected from a dictionary of valid data types than can be
     ingested.
-    """
-    def __init__(self, name, path=None):
 
+    Args:
+        name (TYPE): DESCRIPTION.
+        path (TYPE, optional): DESCRIPTION. Defaults to None.
+
+    """
+
+    def __init__(self, name, path=None):
         super().__init__(path)
 
         self.name = name
@@ -703,27 +697,29 @@ class SensorSetup(_Setup):
 class ReferenceSetup(_Setup):
     """Interactive class for handling the reference data ingestion process.
 
+    Args:
+        path (TYPE): DESCRIPTION.
+
     """
     # Method code lookup tables
     criteria_methods_path = os.path.abspath(os.path.join(__file__,
-                                  '../../reference/method_codes/methods_criteria.csv'))
+                        '../../reference/method_codes/methods_criteria.csv'))
     criteria_lookup = pd.read_csv(criteria_methods_path)
 
     critera_params = {'CO': 'Carbon monoxide',
-                     'Pb_TSP': 'Lead (TSP) LC',
-                     'Pb_PM10': 'Lead PM10 LC FRM/FEM',
-                     'NO2': 'Nitrogen dioxide (NO2)',
-                     'O3': 'Ozone',
-                     'PM10': 'PM10 Total 0-10um STP',
-                     'PM25': 'PM2.5 - Local Conditions',
-                     'SO2': 'Sulfur dioxide'}
+                      'Pb_TSP': 'Lead (TSP) LC',
+                      'Pb_PM10': 'Lead PM10 LC FRM/FEM',
+                      'NO2': 'Nitrogen dioxide (NO2)',
+                      'O3': 'Ozone',
+                      'PM10': 'PM10 Total 0-10um STP',
+                      'PM25': 'PM2.5 - Local Conditions',
+                      'SO2': 'Sulfur dioxide'}
 
     api_services = ['aqs', 'airnow']
 
     met_methods_path = os.path.abspath(os.path.join(__file__,
-                                  '../../reference/method_codes/methods_met.csv'))
+                            '../../reference/method_codes/methods_met.csv'))
     met_lookup = pd.read_csv(met_methods_path)
-
 
     def __init__(self, path):
 
@@ -873,7 +869,7 @@ class ReferenceSetup(_Setup):
         self.ref_data_subfolder = '_'.join([self.fmt_site_name,
                                             self.fmt_site_aqs])
 
-    def setParamRDFSInfo(self, param, sdfs_param):
+    def setParamMetaCols(self, param, sdfs_param):
         entry_dict = {
             f'Enter the units of measure for {param}: ': f'{sdfs_param}' + '_Unit',
             f'Enter the parameter code for {param}: ': f'{sdfs_param}' + '_Param_Code',
