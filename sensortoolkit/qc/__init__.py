@@ -1,5 +1,8 @@
 # -*- coding: utf-8 -*-
-"""
+"""Subpackage description.
+
+===============================================================================
+
 @Author:
     | Samuel Frederick, NSSC Contractor (ORAU)
     | U.S. EPA / ORD / CEMM / AMCD / SFSB
