@@ -13,6 +13,7 @@ Last Updated:
   Wed Sep  8 10:07:09 2021
 """
 
+from ._check_type import check_type
 from ._version import _get_version
 from ._input_tools import validate_entry, enter_continue
 from ._copy_datasets import copy_datasets
@@ -20,4 +21,3 @@ from ._sensor_subfolders import create_sensor_directories
 from ._flatten_list import flatten_list
 from ._setup import SensorSetup
 from ._setup import ReferenceSetup
-from ._check_type import check_type

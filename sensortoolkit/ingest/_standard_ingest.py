@@ -21,7 +21,7 @@ import json
 from datetime import datetime
 import pytz
 import pandas as pd
-from sensortoolkit import Parameter
+from sensortoolkit.param import Parameter
 
 
 def standard_ingest(path, name=None, setup_file_path=None):
