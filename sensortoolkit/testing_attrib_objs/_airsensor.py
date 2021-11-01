@@ -18,23 +18,26 @@ import json
 from sensortoolkit import lib_utils
 from sensortoolkit import ingest
 from sensortoolkit import datetime_utils
-#from sensortoolkit.param import Parameter
 
 
 class AirSensor:
+    """Object for storing and accessing air sensor data and device attributes.
+
+    Args:
+        make (str):
+            The name of the air sensor manufacturer.
+        model (str):
+            The name of the air sensor model.
+        project_path (str):
+            The path to the directory where the user intends to store data,
+            figures, and reports relating to the sensor being testing.
+            Defaults to None.
+        **kwargs (TYPE): DESCRIPTION.
+
+    """
+
     def __init__(self, make, model, project_path=None, **kwargs):
-        """
-        Object for storing and accessing air sensor data and device attributes.
 
-        Args:
-            make (str): The name of the device manufacturer.
-            model (str): The name of the sensor model.
-            **kwargs (TYPE): DESCRIPTION.
-
-        Returns:
-            None.
-
-        """
         self.__dict__.update(**kwargs)
         self._kwargs = kwargs
 
