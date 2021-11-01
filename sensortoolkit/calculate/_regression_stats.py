@@ -48,6 +48,7 @@ import sys
 import numpy as np
 import pandas as pd
 from sensortoolkit.datetime_utils import get_todays_date
+from sensortoolkit.lib_utils import check_type
 
 
 def regression_stats(sensor_df_obj, ref_df_obj, deploy_dict, param, serials):
@@ -275,33 +276,6 @@ def join_stats(hourly_stats, daily_stats, write_to_file=False, stats_path=None):
                          filename=filename)
 
     return stats_df
-
-
-def check_type(obj, accept_types):
-    """Verify the type of an object is an anticipated type or is contained
-    within a list of accepted types.
-
-    Args:
-        obj (type ambiguous): The object whose type will be assessed.
-        accept_types (list): A list of types to check the passed object
-            against.
-
-    Raises:
-        TypeError: If the object type is not in the list of accepted
-            (anticipated) types.
-
-    Returns:
-        obj_type (type): The type of the object.
-
-    """
-
-    obj_type = type(obj)
-
-    if obj_type not in accept_types:
-        raise TypeError('Invalid object type. Received '
-                        'type {0} but expected one of the following '
-                        'types: {1}'.format(obj_type, accept_types))
-    return obj_type
 
 
 def dataframe_to_csv(obj, parent_path, filename, **kwargs):
