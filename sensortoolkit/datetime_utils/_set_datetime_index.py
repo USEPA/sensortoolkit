@@ -21,11 +21,12 @@ def set_datetime_index(df, idx_fmt=None):
 
     Args:
         df (pandas DataFrame):
-            Sensor DataFrame for which the index is being assigned
+            Sensor DataFrame for which the index is being assigned.
         idx_fmt (str):
-            The formatting for the timestamp index. Explicitly specifying the
-            format speeds up index assignment as ``pandas.to_datetime()``
-            doesn't have to search for the appropriate formatting.
+            The formatting for the timestamp index. If none, date/time format
+            will be inferred (slower). Explicitly specifying the format speeds
+            up index assignment as ``pandas.to_datetime()`` doesn't have to
+            search for the appropriate formatting.
 
     Return:
         df (pandas DataFrame):
