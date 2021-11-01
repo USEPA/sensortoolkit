@@ -21,6 +21,7 @@ import json
 from datetime import datetime
 import pytz
 import pandas as pd
+from sensortoolkit import Parameter
 
 
 def standard_ingest(path, name=None, setup_file_path=None):
@@ -175,6 +176,9 @@ def standard_ingest(path, name=None, setup_file_path=None):
             if header in setup:
                 df[header] = setup[header]
                 df[header] = df[header].astype(col_dtype, errors='ignore')
+            # Add unit info based on sensortoolkit.Parameter if not specified
+            elif col == '_Unit':
+                df[header] = Parameter(param).units_description
 
     # Reorder parameter columns
     col_order = []
