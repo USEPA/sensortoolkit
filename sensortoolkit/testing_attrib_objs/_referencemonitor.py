@@ -28,9 +28,11 @@ class ReferenceMonitor:
     instrument and monitoring site attributes.
 
     Args:
-        project_path (TYPE, optional):
-            DESCRIPTION. Defaults to None.
-        data_source (TYPE, optional):
+        project_path (str, optional):
+            The path to the directory where the user intends to store data,
+            figures, and reports relating to the sensor being testing.
+            Defaults to None.
+        data_source (str, optional):
             The name of the data service that
             reference measurements were acquired from. Defaults to None.
 
@@ -46,9 +48,9 @@ class ReferenceMonitor:
                 - ``local``: A catch-all category for datasets stored locally on
                   the user's system.
 
-        site_name (TYPE, optional):
+        site_name (str, optional):
             The name of the air monitoring site. Defaults to None.
-        site_id (TYPE, optional):
+        site_id (str, optional):
             The unique identification number for the air monitoring site.
             Typically the AQS Site ID if applicable. Defaults to None.
         **kwargs (TYPE): Additional keyword arguments.
@@ -59,9 +61,6 @@ class ReferenceMonitor:
             specified to indicate where reference data are located. Also,
             a ValueError will be raised if the passed data source, site name,
             and site id do not point to a valid reference data subdirectory.
-
-    Returns:
-        None.
 
     """
     _data_sources = ['airnow', 'aqs', 'airnowtech', 'local']
@@ -75,7 +74,10 @@ class ReferenceMonitor:
         self._setup_path = None
         self.data_source = data_source
         self.site_name = site_name
-        self.site_id = site_id
+
+        lib_utils.check_type(site_name, accept_types=[int, str])
+        self.site_id = str(site_id)
+
         self.data = {'PM': {'1-hour': pd.DataFrame(),
                             '24-hour':  pd.DataFrame()},
                     'Gases': {'1-hour': pd.DataFrame(),
