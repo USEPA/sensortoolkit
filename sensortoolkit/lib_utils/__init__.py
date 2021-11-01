@@ -1,5 +1,8 @@
 # -*- coding: utf-8 -*-
-"""
+"""Subpackage description.
+
+===============================================================================
+
 @Author:
     | Samuel Frederick, NSSC Contractor (ORAU)
     | U.S. EPA / ORD / CEMM / AMCD / SFSB
@@ -17,3 +20,4 @@ from ._sensor_subfolders import create_sensor_directories
 from ._flatten_list import flatten_list
 from ._setup import SensorSetup
 from ._setup import ReferenceSetup
+from ._check_type import check_type
