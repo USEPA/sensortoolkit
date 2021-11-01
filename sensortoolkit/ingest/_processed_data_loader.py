@@ -19,7 +19,6 @@ Last Updated:
 import os
 import sys
 import pandas as pd
-from sensortoolkit.datetime_utils import set_datetime_index
 
 
 def processed_data_search(processed_path, sensor_serials, **kwargs):
@@ -43,8 +42,8 @@ def processed_data_search(processed_path, sensor_serials, **kwargs):
             - **full_df_list** (*list*): List of pandas dataframe objects, one
               for each sensor dataset containing processed full time-resolution
               data.
-            - **hourly_df_list** (*list*): List of pandas dataframe objects, one
-              for each sensor dataset containing processed hourly averaged
+            - **hourly_df_list** (*list*): List of pandas dataframe objects,
+              one for each sensor dataset containing processed hourly averaged
               time-resolution data.
             - **daily_df_list** (*list*): List of pandas dataframe objects, one
               for each sensor dataset containing processed daily (24-hr)
@@ -68,9 +67,9 @@ def processed_data_search(processed_path, sensor_serials, **kwargs):
 
                 if filename.endswith(sensor_id + '_full.csv'):
                     print('..' + filename)
-                    idx_fmt = '%Y-%m-%d %H:%M:%S'
-                    df = pd.read_csv(processed_path+filename)
-                    df = set_datetime_index(df, idx_fmt=idx_fmt)
+                    # Assert index formatting is ISO8601
+                    df = pd.read_csv(processed_path+filename,
+                                     index_col=0, parse_dates=True)
                     if start is not None:
                         df = df.loc[start:, :]
                     if end is not None:
@@ -79,9 +78,9 @@ def processed_data_search(processed_path, sensor_serials, **kwargs):
 
                 if filename.endswith(sensor_id + '_hourly.csv'):
                     print('..' + filename)
-                    idx_fmt = '%Y-%m-%d %H:%M:%S'
-                    df = pd.read_csv(processed_path+filename)
-                    df = set_datetime_index(df, idx_fmt=idx_fmt)
+                    # Assert index formatting is ISO8601
+                    df = pd.read_csv(processed_path+filename,
+                                     index_col=0, parse_dates=True)
                     if start is not None:
                         df = df.loc[start:, :]
                     if end is not None:
@@ -90,9 +89,9 @@ def processed_data_search(processed_path, sensor_serials, **kwargs):
 
                 if filename.endswith(sensor_id + '_daily.csv'):
                     print('..' + filename)
-                    idx_fmt = '%Y-%m-%d'
-                    df = pd.read_csv(processed_path+filename)
-                    df = set_datetime_index(df, idx_fmt=idx_fmt)
+                    # Assert index formatting is ISO8601
+                    df = pd.read_csv(processed_path+filename,
+                                     index_col=0, parse_dates=True)
                     if start is not None:
                         df = df.loc[start:, :]
                     if end is not None:
