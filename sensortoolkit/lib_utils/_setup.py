@@ -4,8 +4,8 @@ Interactive module for specifying the setup configuration for both sensor
 and reference data.
 
 Users are asked to supply various details about their
-dataset(s) for the purpose of data ingestion into either the Sensor Data
-Formatting Scheme (S-DFS) or Reference Data Formatting Scheme (R-DFS).
+dataset(s) for the purpose of data ingestion into the Sensor Data
+Formatting Scheme (SDFS).
 
 ================================================================================
 
@@ -38,7 +38,7 @@ class _Setup:
 
     Arguments:
         path
-        
+
     """
 
     params = ['PM1', 'PM25', 'PM10', 'O3', 'NO2', 'NO', 'NOx',

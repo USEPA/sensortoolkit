@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 """
 This module contains methods for importing reference datasets (i.e., datasets
-containing reference measurements that have been processed into the RDFS format
-following use of the ``sensortoolkit.lib_utils.ReferenceSetup()`` method). 
+containing reference measurements that have been processed into the SDFS format
+following use of the ``sensortoolkit.lib_utils.ReferenceSetup()`` method).
 
 ================================================================================
 

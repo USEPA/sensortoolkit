@@ -63,8 +63,8 @@ def ref_api_query(query_type=None, param=None, bdate='', edate='',
     .. note::
 
         This method is configured to return datasets for parameters with the
-        same parameter classification. The R-DFS scheme for formatting reference
-        data in sensortoolkit organizes reference data into three primary
+        same parameter classification. sensortoolkit's sensor data formatting
+        schem (SDFS) organizes reference data into three primary
         classifications (datasets containing parameters corresponding to
         particulate matter are given the 'PM' classification, datasets
         containing gaseous parameters are assigned the 'Gases' classification,
