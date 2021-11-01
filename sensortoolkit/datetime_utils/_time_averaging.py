@@ -133,9 +133,27 @@ def sensor_averaging(full_df_list, sensor_serials=None, name='',
             if not os.path.exists(path):
                 os.makedirs(path)
 
-            full_df.to_csv(path + name + '_' + serial_id + '_full.csv')
-            hourly_df.to_csv(path + name + '_' + serial_id + '_hourly.csv')
-            daily_df.to_csv(path + name + '_' + serial_id + '_daily.csv')
+            # Add ISO8601 formatting. Not sure if copy of datasets are needed,
+            # but applying in case applying directly to original versions would
+            # modify datasets in place (converting to ISO8601 changes the
+            # data type of the index from datetime64 to object, so modifying
+            # original may cause issues when trying to utilize index in
+            # date/time fashion).
+            full_cp = full_df.copy()
+            full_cp.index = full_cp.index.to_series().apply(
+                                        pd.Timestamp.isoformat)
+
+            hourly_cp = hourly_df.copy()
+            hourly_cp.index = hourly_cp.index.to_series().apply(
+                                            pd.Timestamp.isoformat)
+
+            daily_cp = daily_df.copy()
+            daily_cp.index = daily_cp.index.to_series().apply(
+                                            pd.Timestamp.isoformat)
+
+            full_cp.to_csv(path + name + '_' + serial_id + '_full.csv')
+            hourly_cp.to_csv(path + name + '_' + serial_id + '_hourly.csv')
+            daily_cp.to_csv(path + name + '_' + serial_id + '_daily.csv')
 
     return hourly_df_list, daily_df_list
 
