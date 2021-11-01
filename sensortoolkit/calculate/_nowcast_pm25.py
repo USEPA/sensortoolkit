@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-This module calculates U.S. EPA's NowCast for fine particulate matter
+This module calculates U.S.EPA's NowCast for fine particulate matter
 (:math:`PM_{2.5}`) for data recorded or averaged to 1-hour measurement
 intervals.
 
@@ -91,7 +91,8 @@ import pandas as pd
 
 
 def nowcast_pm25(df, column=None):
-    """Generate NowCast values for PM2.5 1-hour averages.
+    """Compute NowCast values for fine particulate matter (:math:`PM_{2.5}`)
+    1-hour averages.
 
     **Resources:**
 
