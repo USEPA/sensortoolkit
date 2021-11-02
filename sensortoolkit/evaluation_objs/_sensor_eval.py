@@ -615,6 +615,8 @@ class SensorEvaluation:
 
         """
         report_fmt = kwargs.get('report_fmt', False)
+        # Avoids multiple args passed to same param
+        kwargs.pop('report_fmt', None)
 
         try:
             self.deploy_dict['Deployment Groups']['Group 1'][self._param_name]
