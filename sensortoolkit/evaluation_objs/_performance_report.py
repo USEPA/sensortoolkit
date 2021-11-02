@@ -77,12 +77,15 @@ class PerformanceReport(SensorEvaluation):
             The FRM/FEM reference instrument object containing datasets with
             parameter measurements against which air sensor data will be
             evaluated.
-        write_to_file (TYPE, optional):
+        write_to_file (bool, optional):
             If true, evaluation statistics will be written to the
             ``/data/eval_stats`` sensor subdirectory. Figures will also be
             written to the appropriate figures subdirectory. Defaults to False.
-        figure_search (TYPE, optional):
-            DESCRIPTION. Defaults to False.
+        figure_search (bool, optional):
+            If true, PerformanceReport will search for figures in the
+            ``/figures`` directory before attempting to create new figures.
+            If false, PerformanceReport will create all new figures (may risk
+            overwriting existing figures). Defaults to False.
         **kwargs (TYPE):
             DESCRIPTION.
 
