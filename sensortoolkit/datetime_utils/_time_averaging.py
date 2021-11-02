@@ -191,6 +191,8 @@ def interval_averaging(df, freq='H', interval_count=60, thres=0.75):
             Dataframe averaged to datetimeindex interval specified by 'freq'.
 
     """
+    n_thres = interval_count*thres
+
     # If Series object passed, convert to DataFrame
     data_type = type(df)
     if data_type is not pd.core.frame.DataFrame:
@@ -219,7 +221,7 @@ def interval_averaging(df, freq='H', interval_count=60, thres=0.75):
                                   columns=obj_df_cols)
     else:
         avg_obj_df = obj_df.groupby([pd.Grouper(freq=freq)]
-                                    ).agg(lambda x: x.value_counts().index[0])
+                            ).agg(lambda x: object_grouper(x, n_thres))
 
     dropped_objcols = [col for col in obj_df_cols if col not in avg_obj_df]
     for col in dropped_objcols:
@@ -245,7 +247,6 @@ def interval_averaging(df, freq='H', interval_count=60, thres=0.75):
         count_list = list(avg_num_df.columns[[col.endswith('count' + freq)
                                               for col in avg_num_df.columns]])
 
-        n_thres = interval_count*thres
 
         # Set null param vals for averaging intervals below completeness thres
         for col in count_list:
@@ -267,3 +268,38 @@ def interval_averaging(df, freq='H', interval_count=60, thres=0.75):
     avg_df = avg_df[col_list]
 
     return avg_df
+
+
+def object_grouper(series, number_threshold):
+    """Group columns of type `object` by the mode of values within each
+    averaging interval.
+
+    Args:
+        series (pandas Series):
+            An array of values with type object (typically textual information)
+            alongside an associated datetime index.
+        number_threshold (int or float):
+            The number of counts for the modal value within a given averaging
+            interval required to assign the modal value to the averaging
+            interval. This can be expressed as a completeness threshold
+            (typically 70%) multiplied by the number of expected counts
+            within a given averaging interval.
+
+    Returns:
+        val (str or numpy.nan):
+            The mode of the object-type series within the specified averaging
+            interval. If the number of counts for the modal value is less than
+            the number threshold (70% x expected counts within an averaging
+            interval), return numpy.nan (null).
+
+    """
+    try:
+        counts = series.value_counts().values[0]
+        if counts >= number_threshold:
+            val = series.value_counts().index[0]
+        else:
+            val = np.nan
+    except IndexError:
+        val = np.nan
+
+    return val
