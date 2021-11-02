@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>Reference Data Formatting Standard (R-DFS) &mdash; sensortoolkit 0.5.6b2 documentation</title>
+  <title>Reference Data Formatting Scheme (RDFS) &mdash; sensortoolkit 0.6.0b4 documentation</title>
   
 
   
@@ -43,9 +43,7 @@
 
     
     <link rel="index" title="Index" href="../genindex.html" />
-    <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Configuration Setup JSON" href="config_structs.html" />
-    <link rel="prev" title="Reference Data Structures" href="reference_data.html" /> 
+    <link rel="search" title="Search" href="../search.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -69,7 +67,7 @@
             
             
               <div class="version">
-                0.5.6b2
+                0.6.0b4
               </div>
             
           
@@ -95,7 +93,7 @@
             
             
               <p class="caption" role="heading"><span class="caption-text">Documentation Overview</span></p>
-<ul class="current">
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="../install.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../import_sensortoolkit.html">Importing sensortoolkit</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../testingattrib_objects/index.html">Testing Attribute Objects</a><ul>
@@ -123,15 +121,14 @@
 <li class="toctree-l2"><a class="reference internal" href="../evaluation_objects/performancereport.html">Creating Testing Reports - The PerformanceReport Class</a></li>
 </ul>
 </li>
-<li class="toctree-l1 current"><a class="reference internal" href="index.html">Data Structures and Formatting</a><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="index.html">Data Structures</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="sensor_data.html">Sensor Data Structures</a></li>
-<li class="toctree-l2"><a class="reference internal" href="sdfs.html">Sensor Data Formatting Standard (S-DFS)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="reference_data.html">Reference Data Structures</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Reference Data Formatting Standard (R-DFS)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="config_structs.html">Configuration Setup JSON</a></li>
 <li class="toctree-l2"><a class="reference internal" href="eval_structs.html">Performance Evaluation Data Structures</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../sdfs/index.html">sensortoolkit Data Formatting Scheme (SDFS)</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">API Documentation</span></p>
 <ul>
@@ -193,6 +190,7 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../api/_autosummary/sensortoolkit.datetime_utils._time_averaging.html">sensortoolkit.datetime_utils._time_averaging</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../api/_autosummary/sensortoolkit.datetime_utils._time_averaging.interval_averaging.html">sensortoolkit.datetime_utils._time_averaging.interval_averaging</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/_autosummary/sensortoolkit.datetime_utils._time_averaging.object_grouper.html">sensortoolkit.datetime_utils._time_averaging.object_grouper</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../api/_autosummary/sensortoolkit.datetime_utils._time_averaging.sensor_averaging.html">sensortoolkit.datetime_utils._time_averaging.sensor_averaging</a></li>
 </ul>
 </li>
@@ -237,22 +235,24 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../api/_autosummary/sensortoolkit.ingest._sensor_import.html">sensortoolkit.ingest._sensor_import</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../api/_autosummary/sensortoolkit.ingest._sensor_import.ingest_example_make_model.html">sensortoolkit.ingest._sensor_import.ingest_example_make_model</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../api/_autosummary/sensortoolkit.ingest._sensor_import.ingest_purpleair.html">sensortoolkit.ingest._sensor_import.ingest_purpleair</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../api/_autosummary/sensortoolkit.ingest._sensor_import.ingest_sensit_ramp.html">sensortoolkit.ingest._sensor_import.ingest_sensit_ramp</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../api/_autosummary/sensortoolkit.ingest._sensor_import.ingest_wrapper.html">sensortoolkit.ingest._sensor_import.ingest_wrapper</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../api/_autosummary/sensortoolkit.ingest._sensor_import.sensor_import.html">sensortoolkit.ingest._sensor_import.sensor_import</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../api/_autosummary/sensortoolkit.ingest._standard_ingest.html">sensortoolkit.ingest._standard_ingest</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../api/_autosummary/sensortoolkit.ingest._standard_ingest.ParseSetup.html">sensortoolkit.ingest._standard_ingest.ParseSetup</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../api/_autosummary/sensortoolkit.ingest._standard_ingest.apply_strptime.html">sensortoolkit.ingest._standard_ingest.apply_strptime</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/_autosummary/sensortoolkit.ingest._standard_ingest.parse_setup.html">sensortoolkit.ingest._standard_ingest.parse_setup</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../api/_autosummary/sensortoolkit.ingest._standard_ingest.standard_ingest.html">sensortoolkit.ingest._standard_ingest.standard_ingest</a></li>
 </ul>
 </li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../api/lib_utils.html"><code class="docutils literal notranslate"><span class="pre">sensortoolkit.lib_utils</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../api/_autosummary/sensortoolkit.lib_utils._check_type.html">sensortoolkit.lib_utils._check_type</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api/_autosummary/sensortoolkit.lib_utils._check_type.check_type.html">sensortoolkit.lib_utils._check_type.check_type</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="../api/_autosummary/sensortoolkit.lib_utils._copy_datasets.html">sensortoolkit.lib_utils._copy_datasets</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../api/_autosummary/sensortoolkit.lib_utils._copy_datasets.copy_datasets.html">sensortoolkit.lib_utils._copy_datasets.copy_datasets</a></li>
 </ul>
@@ -296,7 +296,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../api/param.html"><code class="docutils literal notranslate"><span class="pre">sensortoolkit.param</span></code></a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../api/_autosummary/sensortoolkit.param._parameter.html">sensortoolkit.param._parameter</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../api/_autosummary/sensortoolkit.param._parameter.Parameter.html">sensortoolkit.param._parameter.Parameter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/_autosummary/sensortoolkit.param._parameter.html#resources">Resources</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../api/_autosummary/sensortoolkit.param._targets.html">sensortoolkit.param._targets</a><ul>
@@ -406,18 +406,7 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../api/_autosummary/sensortoolkit.reference._ref_api_query.html">sensortoolkit.reference._ref_api_query</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../api/_autosummary/sensortoolkit.reference._ref_api_query.date_range_selector.html">sensortoolkit.reference._ref_api_query.date_range_selector</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../api/_autosummary/sensortoolkit.reference._ref_api_query.ingest_airnow.html">sensortoolkit.reference._ref_api_query.ingest_airnow</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../api/_autosummary/sensortoolkit.reference._ref_api_query.ingest_aqs.html">sensortoolkit.reference._ref_api_query.ingest_aqs</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../api/_autosummary/sensortoolkit.reference._ref_api_query.modify_ref_cols.html">sensortoolkit.reference._ref_api_query.modify_ref_cols</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../api/_autosummary/sensortoolkit.reference._ref_api_query.modify_ref_method_str.html">sensortoolkit.reference._ref_api_query.modify_ref_method_str</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../api/_autosummary/sensortoolkit.reference._ref_api_query.parse_sample_data.html">sensortoolkit.reference._ref_api_query.parse_sample_data</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../api/_autosummary/sensortoolkit.reference._ref_api_query.query_airnow.html">sensortoolkit.reference._ref_api_query.query_airnow</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../api/_autosummary/sensortoolkit.reference._ref_api_query.query_aqs.html">sensortoolkit.reference._ref_api_query.query_aqs</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../api/_autosummary/sensortoolkit.reference._ref_api_query.query_periods.html">sensortoolkit.reference._ref_api_query.query_periods</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../api/_autosummary/sensortoolkit.reference._ref_api_query.ref_api_query.html">sensortoolkit.reference._ref_api_query.ref_api_query</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../api/_autosummary/sensortoolkit.reference._ref_api_query.save_api_dataset.html">sensortoolkit.reference._ref_api_query.save_api_dataset</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../api/_autosummary/sensortoolkit.reference._ref_api_query.select_poc.html">sensortoolkit.reference._ref_api_query.select_poc</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/_autosummary/sensortoolkit.reference._ref_api_query.html#resources">Resources</a></li>
 </ul>
 </li>
 </ul>
@@ -483,9 +472,7 @@
     
       <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
         
-          <li><a href="index.html">Data Structures and Formatting</a> &raquo;</li>
-        
-      <li>Reference Data Formatting Standard (R-DFS)</li>
+      <li>Reference Data Formatting Scheme (RDFS)</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -504,8 +491,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="reference-data-formatting-standard-r-dfs">
-<h1>Reference Data Formatting Standard (R-DFS)<a class="headerlink" href="#reference-data-formatting-standard-r-dfs" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="reference-data-formatting-scheme-rdfs">
+<h1>Reference Data Formatting Scheme (RDFS)<a class="headerlink" href="#reference-data-formatting-scheme-rdfs" title="Permalink to this headline">¶</a></h1>
 <table class="colwidths-auto docutils align-default" id="id1">
 <caption><span class="caption-text"><cite>R-DFS</cite></span><a class="headerlink" href="#id1" title="Permalink to this table">¶</a></caption>
 <thead>
@@ -600,10 +587,6 @@
            
           </div>
           <footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="config_structs.html" class="btn btn-neutral float-right" title="Configuration Setup JSON" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="reference_data.html" class="btn btn-neutral float-left" title="Reference Data Structures" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-    </div>
 
   <hr/>
 

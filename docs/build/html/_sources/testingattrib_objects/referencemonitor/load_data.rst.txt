@@ -1,7 +1,49 @@
 Loading Reference Data
 ======================
 
+Reference data are loaded either via the ``ReferenceMonitor.load_data()`` method,
+or, if users wish to query the AirNow or AQS API, either the ``ReferenceMonitor.query_aqs()``
+or the ``ReferenceMonitor.query_aqs()`` method should be used.
+
+A description and example of each method is detailed below, where information has been
+sorted by the reference data source or API service.
+
 .. tabbed:: Local
+
+  To load reference data from locally acquired files, users should call the
+  ``ReferenceMonitor.load_data()`` method. This method accepts the following arguments:
+
+  .. list-table:: ``ReferenceMonitor.load_data()`` Arguments
+    :widths: 50 75
+    :header-rows: 1
+
+    * - Argument
+      - Description
+    * - ``bdate``
+      - The beginning date ("YYYY-MM-DD" format) for the sensor testing period.
+    * - ``edate``
+      - The ending date ("YYYY-MM-DD" format) for the sensor testing period.
+    * - ``param_list``
+      - A list of SDFS parameters measured by reference monitors at the monitoring
+        site for which data will be loaded.
+    * - ``met_data``
+      - Optional, if true, meteorological data will be loaded in addition to datasets
+        corresponding to parameters passed to ``param_list``. Defaults to true
+        (U.S. EPA's documents for recommended performance testing protocols, metrics,
+        and target values encourage users to report meteorological conditions for
+        sensor performance evaluations and reports).
+
+  .. note::
+
+    The ``ReferenceMonitor.reference_setup()`` method saves SDFS formatted reference
+    datasets in month-long segments (e.g.,
+    ``/data/reference_data/local/processed/Burdens_Creek_370630099/H_201909_PM.csv``
+    corresponds to 1-hour averaged reference data for instruments at the Burdens
+    Creek monitoring site that measured particulate matter during the month of
+    September 2019).
+
+    ``ReferenceMonitor.load_data()`` will load monthly datasets corresponding to
+    the set of months spanning the ``bdate`` and ``edate`` arguments.
 
   .. code-block:: python
 
@@ -20,6 +62,41 @@ Loading Reference Data
     ....H_201909_Met.csv
 
 .. tabbed:: AirNowTech
+
+  To load processed (SDFS formatted) airnowtech datasets, users should call the
+  ``ReferenceMonitor.load_data()`` method. This method accepts the following arguments:
+
+  .. list-table:: ``ReferenceMonitor.load_data()`` Arguments
+    :widths: 50 75
+    :header-rows: 1
+
+    * - Argument
+      - Description
+    * - ``bdate``
+      - The beginning date ("YYYY-MM-DD" format) for the sensor testing period.
+    * - ``edate``
+      - The ending date ("YYYY-MM-DD" format) for the sensor testing period.
+    * - ``param_list``
+      - A list of SDFS parameters measured by reference monitors at the monitoring
+        site for which data will be loaded.
+    * - ``met_data``
+      - Optional, if true, meteorological data will be loaded in addition to datasets
+        corresponding to parameters passed to ``param_list``. Defaults to true
+        (U.S. EPA's documents for recommended performance testing protocols, metrics,
+        and target values encourage users to report meteorological conditions for
+        sensor performance evaluations and reports).
+
+  .. note::
+
+    The ``ReferenceMonitor.reference_setup()`` method saves SDFS formatted reference
+    datasets in month-long segments (e.g.,
+    ``/data/reference_data/airnowtech/processed/Burdens_Creek_370630099/H_201909_PM.csv``
+    corresponds to 1-hour averaged reference data for instruments at the Burdens
+    Creek monitoring site that measured particulate matter during the month of
+    September 2019).
+
+    ``ReferenceMonitor.load_data()`` will load monthly datasets corresponding to
+    the set of months spanning the ``bdate`` and ``edate`` arguments.
 
   .. code-block:: python
 

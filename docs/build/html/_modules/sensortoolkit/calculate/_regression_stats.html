@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>sensortoolkit.calculate._regression_stats &mdash; sensortoolkit 0.5.6b2 documentation</title>
+  <title>sensortoolkit.calculate._regression_stats &mdash; sensortoolkit 0.6.0b4 documentation</title>
   
 
   
@@ -67,7 +67,7 @@
             
             
               <div class="version">
-                0.5.6b2
+                0.6.0b4
               </div>
             
           
@@ -121,15 +121,14 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../evaluation_objects/performancereport.html">Creating Testing Reports - The PerformanceReport Class</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../../../data_structures/index.html">Data Structures and Formatting</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../data_structures/index.html">Data Structures</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../data_structures/sensor_data.html">Sensor Data Structures</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../data_structures/sdfs.html">Sensor Data Formatting Standard (S-DFS)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../data_structures/reference_data.html">Reference Data Structures</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../data_structures/rdfs.html">Reference Data Formatting Standard (R-DFS)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../data_structures/config_structs.html">Configuration Setup JSON</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../data_structures/eval_structs.html">Performance Evaluation Data Structures</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../../../sdfs/index.html">sensortoolkit Data Formatting Scheme (SDFS)</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">API Documentation</span></p>
 <ul>
@@ -191,6 +190,7 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.datetime_utils._time_averaging.html">sensortoolkit.datetime_utils._time_averaging</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.datetime_utils._time_averaging.interval_averaging.html">sensortoolkit.datetime_utils._time_averaging.interval_averaging</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.datetime_utils._time_averaging.object_grouper.html">sensortoolkit.datetime_utils._time_averaging.object_grouper</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.datetime_utils._time_averaging.sensor_averaging.html">sensortoolkit.datetime_utils._time_averaging.sensor_averaging</a></li>
 </ul>
 </li>
@@ -235,22 +235,24 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.ingest._sensor_import.html">sensortoolkit.ingest._sensor_import</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.ingest._sensor_import.ingest_example_make_model.html">sensortoolkit.ingest._sensor_import.ingest_example_make_model</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.ingest._sensor_import.ingest_purpleair.html">sensortoolkit.ingest._sensor_import.ingest_purpleair</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.ingest._sensor_import.ingest_sensit_ramp.html">sensortoolkit.ingest._sensor_import.ingest_sensit_ramp</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.ingest._sensor_import.ingest_wrapper.html">sensortoolkit.ingest._sensor_import.ingest_wrapper</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.ingest._sensor_import.sensor_import.html">sensortoolkit.ingest._sensor_import.sensor_import</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.ingest._standard_ingest.html">sensortoolkit.ingest._standard_ingest</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.ingest._standard_ingest.ParseSetup.html">sensortoolkit.ingest._standard_ingest.ParseSetup</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.ingest._standard_ingest.apply_strptime.html">sensortoolkit.ingest._standard_ingest.apply_strptime</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.ingest._standard_ingest.parse_setup.html">sensortoolkit.ingest._standard_ingest.parse_setup</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.ingest._standard_ingest.standard_ingest.html">sensortoolkit.ingest._standard_ingest.standard_ingest</a></li>
 </ul>
 </li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../api/lib_utils.html"><code class="docutils literal notranslate"><span class="pre">sensortoolkit.lib_utils</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.lib_utils._check_type.html">sensortoolkit.lib_utils._check_type</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.lib_utils._check_type.check_type.html">sensortoolkit.lib_utils._check_type.check_type</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.lib_utils._copy_datasets.html">sensortoolkit.lib_utils._copy_datasets</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.lib_utils._copy_datasets.copy_datasets.html">sensortoolkit.lib_utils._copy_datasets.copy_datasets</a></li>
 </ul>
@@ -294,7 +296,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../api/param.html"><code class="docutils literal notranslate"><span class="pre">sensortoolkit.param</span></code></a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.param._parameter.html">sensortoolkit.param._parameter</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.param._parameter.Parameter.html">sensortoolkit.param._parameter.Parameter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.param._parameter.html#resources">Resources</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.param._targets.html">sensortoolkit.param._targets</a><ul>
@@ -404,18 +406,7 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._ref_api_query.html">sensortoolkit.reference._ref_api_query</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._ref_api_query.date_range_selector.html">sensortoolkit.reference._ref_api_query.date_range_selector</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._ref_api_query.ingest_airnow.html">sensortoolkit.reference._ref_api_query.ingest_airnow</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._ref_api_query.ingest_aqs.html">sensortoolkit.reference._ref_api_query.ingest_aqs</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._ref_api_query.modify_ref_cols.html">sensortoolkit.reference._ref_api_query.modify_ref_cols</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._ref_api_query.modify_ref_method_str.html">sensortoolkit.reference._ref_api_query.modify_ref_method_str</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._ref_api_query.parse_sample_data.html">sensortoolkit.reference._ref_api_query.parse_sample_data</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._ref_api_query.query_airnow.html">sensortoolkit.reference._ref_api_query.query_airnow</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._ref_api_query.query_aqs.html">sensortoolkit.reference._ref_api_query.query_aqs</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._ref_api_query.query_periods.html">sensortoolkit.reference._ref_api_query.query_periods</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._ref_api_query.ref_api_query.html">sensortoolkit.reference._ref_api_query.ref_api_query</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._ref_api_query.save_api_dataset.html">sensortoolkit.reference._ref_api_query.save_api_dataset</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._ref_api_query.select_poc.html">sensortoolkit.reference._ref_api_query.select_poc</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._ref_api_query.html#resources">Resources</a></li>
 </ul>
 </li>
 </ul>
@@ -549,43 +540,42 @@
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">from</span> <span class="nn">sensortoolkit.datetime_utils</span> <span class="kn">import</span> <span class="n">get_todays_date</span>
+<span class="kn">from</span> <span class="nn">sensortoolkit.lib_utils</span> <span class="kn">import</span> <span class="n">check_type</span>
 
 
-<div class="viewcode-block" id="regression_stats"><a class="viewcode-back" href="../../../api/_autosummary/sensortoolkit.calculate._regression_stats.regression_stats.html#sensortoolkit.calculate._regression_stats.regression_stats">[docs]</a><span class="k">def</span> <span class="nf">regression_stats</span><span class="p">(</span><span class="n">sensor_df_obj</span><span class="p">,</span> <span class="n">ref_df_obj</span><span class="p">,</span> <span class="n">deploy_dict</span><span class="p">,</span> <span class="n">param</span><span class="p">,</span> <span class="n">serials</span><span class="p">):</span>
+<div class="viewcode-block" id="regression_stats"><a class="viewcode-back" href="../../../api/_autosummary/sensortoolkit.calculate._regression_stats.regression_stats.html#sensortoolkit.calculate._regression_stats.regression_stats">[docs]</a><span class="k">def</span> <span class="nf">regression_stats</span><span class="p">(</span><span class="n">sensor_df_obj</span><span class="p">,</span> <span class="n">ref_df_obj</span><span class="p">,</span> <span class="n">deploy_dict</span><span class="p">,</span> <span class="n">param</span><span class="p">,</span> <span class="n">serials</span><span class="p">,</span>
+                     <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Compute OLS regression statistics.</span>
 
 <span class="sd">    Module is used to compute the following regressions:</span>
-<span class="sd">        Sensor vs. FRM/FEM</span>
-<span class="sd">        Sensor vs. Inter-sensor average</span>
+
+<span class="sd">    - Sensor vs. FRM/FEM</span>
+<span class="sd">    - Sensor vs. Inter-sensor average</span>
 
 <span class="sd">    For each instance, the dependent and independent variables are assigned as</span>
-<span class="sd">    {hourly/daily_df_obj vs. hourly/daily_ref_df}; please note that the</span>
-<span class="sd">    &#39;..ref_df&#39; object can be either a dataframe containg FRM/FEM concentratons,</span>
-<span class="sd">    or a dataframe containing intersensor averages depending on the use case.</span>
-<span class="sd">    The &#39;ref&#39; label refers moreso to the fact that the dataset is used as the</span>
-<span class="sd">    independent variable for regressions.</span>
+<span class="sd">    **hourly/daily sensor data vs. hourly/daily reference data**; please note</span>
+<span class="sd">    the ``ref_df_obj`` object can be either a DataFrame containg FRM/FEM</span>
+<span class="sd">    concentratons, or a DataFrame containing intersensor averages depending on</span>
+<span class="sd">    the use case. The &#39;ref&#39; label refers moreso to the fact that the dataset is</span>
+<span class="sd">    used as the independent variable for regressions.</span>
 
-<span class="sd">    If sensor and reference dataframes are passed at both hourly and daily</span>
-<span class="sd">    averaging intervals (i.e., hourly_df_obj, daily_df_obj, hourly_ref_df,</span>
-<span class="sd">    daily_ref_df), regression statistics will be computed for both averaging</span>
-<span class="sd">    intervals (looping over hourly and then daily regressions) and are returned</span>
-<span class="sd">    in the same statistics dataframe.</span>
+<span class="sd">    .. note::</span>
+
+<span class="sd">      The DataFrames within the ``sensor_df_obj`` and ``ref_df_obj`` arguments</span>
+<span class="sd">      should contain data reported at the same sampling frequency (e.g., if a</span>
+<span class="sd">      sensor DataFrame containing data at 1-hour averaged intervals is passed</span>
+<span class="sd">      to the ``sensor_df_obj``, the reference DataFrame passed to</span>
+<span class="sd">      ``ref_df_obj`` must also contain data at 1-hour averaged intervals).</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        hourly_df_obj (pandas dataframe object):</span>
-<span class="sd">            Sensor dataframe at 1-hour averaged intervals. Data corresponding</span>
-<span class="sd">            to passed parameter name are used as the dependent variable.</span>
-<span class="sd">        daily_df_obj (pandas dataframe object):</span>
-<span class="sd">            Sensor dataframe at 24-hour averaged intervals. Data corresponding</span>
-<span class="sd">            to passed parameter name are used as the dependent variable.</span>
-<span class="sd">        hourly_ref_df (pandas dataframe object):</span>
-<span class="sd">            Reference dataframe (either FRM/FEM OR Inter-sensor averages) at</span>
-<span class="sd">            1-hour averaged intervals. Data corresponding to passed parameter</span>
-<span class="sd">            name are used as the independent variable.</span>
-<span class="sd">        daily_ref_df (pandas dataframe object):</span>
-<span class="sd">            Reference dataframe (either FRM/FEM OR Inter-sensor averages) at</span>
-<span class="sd">            24-hour averaged intervals. Data corresponding to passed parameter</span>
-<span class="sd">            name are used as the independent variable.</span>
+<span class="sd">        sensor_df_obj (pandas DataFrame or list of pandas DataFrames):</span>
+<span class="sd">            Either a DataFrame or list of DataFrames containg sensor parameter</span>
+<span class="sd">            measurements. Data corresponding to passed parameter name are used</span>
+<span class="sd">            as the dependent variable.</span>
+<span class="sd">        ref_df_obj (pandas DataFrame):</span>
+<span class="sd">            Reference DataFrame (either FRM/FEM OR Inter-sensor averages). Data</span>
+<span class="sd">            corresponding to passed parameter name are used as the independent</span>
+<span class="sd">            variable.</span>
 <span class="sd">        deploy_dict (dict):</span>
 <span class="sd">            A dictionary containing descriptive statistics and</span>
 <span class="sd">            textual information about the deployment (testing agency, site,</span>
@@ -593,29 +583,18 @@
 <span class="sd">            evaluation.</span>
 <span class="sd">        param (str):</span>
 <span class="sd">            Parameter name for which to compute regression statistics.</span>
-<span class="sd">        sensor_name (str):</span>
-<span class="sd">            The make and model of the sensor being evaluated.</span>
-<span class="sd">        ref_name (str):</span>
-<span class="sd">            The name of the dataset assigned as the independent variable. This</span>
-<span class="sd">            may either be FRM/FEM concentrations in the case of sensor vs.</span>
-<span class="sd">            FRM/FEM regression, or it may be the inter-sensor average in the</span>
-<span class="sd">            case of sensor vs. inter-sensor average regression statistics.</span>
 <span class="sd">        serials (dict):</span>
 <span class="sd">            A dictionary of sensor serial identifiers for each unit</span>
 <span class="sd">            in a testing group.</span>
-<span class="sd">        path (str):</span>
-<span class="sd">            The full directory path to evaluation statistics for a</span>
-<span class="sd">            given sensor make and model.</span>
-<span class="sd">        write_to_file (str):</span>
-<span class="sd">            If true, the statistics dataframe will be saved to the path</span>
-<span class="sd">            location.</span>
+<span class="sd">        verbose (bool):</span>
+<span class="sd">            If true, print statements will be displayed in the console output.</span>
+<span class="sd">            Defaults to True.</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        stats_df: (pandas dataframe)</span>
-<span class="sd">            Statistics dataframe for either sensor vs. FRM/FEM or sensor vs.</span>
-<span class="sd">            intersensor mean OLS regression. Results are organized by averaging</span>
-<span class="sd">            interval if both 1-hour and 24-hour averaged datasets passed to</span>
-<span class="sd">            module.</span>
+<span class="sd">        stats_df (pandas DataFrame):</span>
+<span class="sd">            Statistics DataFrame for either sensor vs. FRM/FEM or sensor vs.</span>
+<span class="sd">            intersensor mean OLS regression.</span>
+
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">stats_cols</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Sensor Name&#39;</span><span class="p">,</span> <span class="s1">&#39;Sensor_Number&#39;</span><span class="p">,</span> <span class="s1">&#39;Sensor_Serial&#39;</span><span class="p">,</span>
@@ -668,11 +647,12 @@
         <span class="k">if</span> <span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">==</span> <span class="n">pd</span><span class="o">.</span><span class="n">Timedelta</span><span class="p">(</span><span class="s1">&#39;1 hour&#39;</span><span class="p">):</span>
             <span class="n">avg_int</span> <span class="o">=</span> <span class="s1">&#39;1-hour&#39;</span>
 
-        <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">verbose</span><span class="p">:</span>
             <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Computing </span><span class="si">{0}</span><span class="s1"> regression statistics for </span><span class="si">{1}</span><span class="s1"> vs.&#39;</span>
                   <span class="s1">&#39; </span><span class="si">{2}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">avg_int</span><span class="p">,</span> <span class="n">sensor_name</span><span class="p">,</span> <span class="n">ref_name</span><span class="p">))</span>
 
-        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;..</span><span class="si">{0}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">serials</span><span class="o">.</span><span class="n">values</span><span class="p">())[</span><span class="n">i</span><span class="p">]))</span>
+        <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;..</span><span class="si">{0}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">serials</span><span class="o">.</span><span class="n">values</span><span class="p">())[</span><span class="n">i</span><span class="p">]))</span>
 
         <span class="k">if</span> <span class="n">combine_df</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
             <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;..Warning: Linear regression not possible for sensor &#39;</span>
@@ -753,6 +733,23 @@
 
 
 <div class="viewcode-block" id="join_stats"><a class="viewcode-back" href="../../../api/_autosummary/sensortoolkit.calculate._regression_stats.join_stats.html#sensortoolkit.calculate._regression_stats.join_stats">[docs]</a><span class="k">def</span> <span class="nf">join_stats</span><span class="p">(</span><span class="n">hourly_stats</span><span class="p">,</span> <span class="n">daily_stats</span><span class="p">,</span> <span class="n">write_to_file</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">stats_path</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Combine 1-hour and 24-hour regression statistics DataFrames.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        hourly_stats (pandas DataFrame): DataFrame containing 1-hour averaged</span>
+<span class="sd">            sensor vs. reference regression statistics, returned by call to</span>
+<span class="sd">            regression_stats().</span>
+<span class="sd">        daily_stats (pandas DataFrame): DataFrame containing 24-hour averaged</span>
+<span class="sd">            sensor vs. reference regression statistics, returned by call to</span>
+<span class="sd">            regression_stats().</span>
+<span class="sd">        write_to_file (bool, optional): DESCRIPTION. Defaults to False.</span>
+<span class="sd">        stats_path (str, optional): DESCRIPTION. Defaults to None.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        stats_df (pandas DataFrame):</span>
+<span class="sd">            DataFrame containing both 1-hour and 24-hour averaged statistics.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">stats_df</span> <span class="o">=</span> <span class="n">hourly_stats</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">daily_stats</span><span class="p">)</span>
 
@@ -761,10 +758,10 @@
     <span class="n">sensor_name</span> <span class="o">=</span>  <span class="n">stats_df</span><span class="p">[</span><span class="s1">&#39;Sensor Name&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">keys</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
     <span class="n">param</span> <span class="o">=</span>  <span class="n">stats_df</span><span class="p">[</span><span class="s1">&#39;Param&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">keys</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
 
-    <span class="c1"># Save the statistics dataframe</span>
+    <span class="c1"># Save the statistics DataFrame</span>
     <span class="k">if</span> <span class="n">write_to_file</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">stats_path</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="s1">&#39;No directory path specified for saving dataframe&#39;</span><span class="p">)</span>
+            <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="s1">&#39;No directory path specified for saving DataFrame&#39;</span><span class="p">)</span>
 
         <span class="n">today</span> <span class="o">=</span> <span class="n">get_todays_date</span><span class="p">()</span>
         <span class="n">ref_name</span> <span class="o">=</span> <span class="n">ref_name</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="s1">&#39;_&#39;</span><span class="p">)</span>
@@ -778,18 +775,20 @@
     <span class="k">return</span> <span class="n">stats_df</span></div>
 
 
-<div class="viewcode-block" id="check_type"><a class="viewcode-back" href="../../../api/_autosummary/sensortoolkit.calculate._regression_stats.check_type.html#sensortoolkit.calculate._regression_stats.check_type">[docs]</a><span class="k">def</span> <span class="nf">check_type</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">accept_types</span><span class="p">):</span>
-
-    <span class="n">obj_type</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
-
-    <span class="k">if</span> <span class="n">obj_type</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">accept_types</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;Invalid object type. Received &#39;</span>
-                        <span class="s1">&#39;type </span><span class="si">{0}</span><span class="s1"> but expected one of the following &#39;</span>
-                        <span class="s1">&#39;types: </span><span class="si">{1}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">obj_type</span><span class="p">,</span> <span class="n">accept_types</span><span class="p">))</span>
-    <span class="k">return</span> <span class="n">obj_type</span></div>
-
-
 <div class="viewcode-block" id="dataframe_to_csv"><a class="viewcode-back" href="../../../api/_autosummary/sensortoolkit.calculate._regression_stats.dataframe_to_csv.html#sensortoolkit.calculate._regression_stats.dataframe_to_csv">[docs]</a><span class="k">def</span> <span class="nf">dataframe_to_csv</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">parent_path</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Save a pandas DataFrame to a comma-separated value file.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        obj (pandas DataFrame): The DataFrame to write to a .csv file.</span>
+<span class="sd">        parent_path (str): The path to the folder where the file will be saved.</span>
+<span class="sd">        filename (str): The name of the resulting .csv file.</span>
+<span class="sd">        **kwargs (dict): Keyword arguments passed to the pandas ``to_csv()``</span>
+<span class="sd">            method.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        None.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">check_type</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">accept_types</span><span class="o">=</span><span class="p">[</span><span class="n">pd</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">frame</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">])</span>
     <span class="n">filepath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">parent_path</span><span class="p">,</span> <span class="n">filename</span><span class="p">)</span>
     <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;..Saving dataset to the following path: </span><span class="si">{0}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">filepath</span><span class="p">))</span>

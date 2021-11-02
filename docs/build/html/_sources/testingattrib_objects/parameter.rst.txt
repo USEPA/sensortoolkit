@@ -2,6 +2,13 @@
 The Parameter Object
 ====================
 
+.. role:: raw-html(raw)
+   :format: html
+
+
+This section provides a breif overview of the Parameter object. For more detailed documentation, please see
+`API documentation for sensortoolkit.parameter <../api/_autosummary/sensortoolkit.param._parameter.Parameter.html>`_.
+
 Overview
 --------
 
@@ -40,31 +47,52 @@ Attributes
     - The SDFS name for the parameter
     - ``'PM25'``
   * - ``format_name``
-    - A formatted version of the parameter name (used for figures and reports)
+    - A formatted expression for the parameter used for displaying the
+      name of the parameter on plots
     - ``'PM$_{2.5}$'``
   * - ``format_baseline``
     - For ``format_name``, contains the baseline component of the parameter name.
     - ``'PM'``
   * - ``format_subscript``
-    - For ``format_name``, contains the subscripted component of the parameter name (e.g., '2.5' in PM2.5)
+    - For ``format_name``, contains the subscripted component of the parameter name
     - ``'2.5'``
+  * - ``classifier``
+    - A term for sorting the parameter into one of three environmental
+      parameter classifications, either 'PM' for particulate matter
+      pollutants, 'Gases' for gaseous pollutants, or 'Met' for
+      meteorological environmental parameters
+    - ``'PM'``
   * - ``units``
-    - The units of measure for the parameter. Formatted in LateX syntax for figures.
-    - ``'($\\mu g/m^3$)'``
+    - The units of measure, expressed symbolically in unicode characters
+    - ``'µg/m³'``
+  * - ``units_description``
+    - A textual description of the units of measure
+    - ``'Micrograms per Cubic Meter'``
+  * - ``units_aqs_code``
+    - The AQS unit code, useful for AQS queries [#f1]_.
+    - ``105``
   * - ``criteria_pollutant``
     - Boolean, describes whether the parameter is a criteria pollutant (``True``) or non-criteria (``False``)
     - ``True``
   * - ``aqs_parameter_code``
-    - The AQS Parameter code, useful for AQS queries [#f1]_.
+    - The AQS Parameter code, useful for AQS queries [#f2]_.
     - ``88101``
   * - ``averaging``
-    - The FRM/FEM averaging intervals commonly utilized for analyzing parameter data [#f2]_.
+    - The reference measurement averaging intervals commonly utilized for
+      analyzing parameter data. Common averaging intervals are included
+      in a list [#f3]_.
     - ``['1-hour', '24-hour']``
+  * - ``PerformanceTargets``
+    - Performance metrics, target values and ranges associated with the
+      parameter. Preset values are configured for PM25 and O3 using
+      U.S. EPA's recommended performance metrics and targets.
+    - See "Performance Metrics and Target Values Section"
 
 .. rubric:: Footnotes
 
-.. [#f1] A list of parameter codes is located at https://aqs.epa.gov/aqsweb/documents/codetables/parameters.html
-.. [#f2] Reference data for particulate matter are commonly analyzed at either 1-hour or 24-hour intervals, but other pollutants that are strongly correlated with diurnal variability such as ozone are typically analyzed at high time resolution such as 1-hour intervals)
+.. [#f1] A list of AQS unit codes is located at https://aqs.epa.gov/aqsweb/documents/codetables/units.html
+.. [#f2] A list of AQS parameter codes is located at https://aqs.epa.gov/aqsweb/documents/codetables/parameters.html
+.. [#f3] Reference data for particulate matter are commonly analyzed at either 1-hour or 24-hour intervals, but other pollutants that are strongly correlated with diurnal variability such as ozone are typically analyzed at high time resolution such as 1-hour intervals)
 
 
 Performance Metrics and Target Values
@@ -74,16 +102,16 @@ Each parameter object comes with a subclass ``PerformanceTargets`` that contains
 metric descriptions, target ranges, and target values for conducting performance
 evaluations for sensor data corresponding to the parameter of interest.
 
-For ``PM25`` and ``O3``, U.S. EPA's recommended performance metrics and target
+For :raw-html:`PM<sub>2.5</sub>` and :raw-html:`O<sub>3</sub>`, U.S. EPA's recommended performance metrics and target
 values are included in the pre-configured scheme for these parameters. A full description
 of all metric names and target values/ranges can be accessed for a parameter
 instance via:
 
 .. code-block:: python
 
-  all_metrics = pollutant.PerformanceTargets.get_AllMetrics()
+  all_metrics = pollutant.PerformanceTargets.get_all_metrics()
 
-Continuing with the example for ``PM25``, the ``all_metrics`` variable should
+Continuing with the example for :raw-html:`PM<sub>2.5</sub>`, the ``all_metrics`` variable should
 contain the following information:
 
 .. code-block:: python
@@ -134,16 +162,16 @@ contain the following information:
    }
 
 
-Individual metric target values and ranges can be accessed via the ``get_PerformanceMetric``
+Individual metric target values and ranges can be accessed via the ``get_metric()``
 method. The example below is for accessing the description of the ``Slope`` metric contained within
 the ``Bias`` category:
 
 .. code-block:: python
 
-  metric = pollutant.PerformanceTargets.get_PerformanceMetric(metric_category='Bias',
-                                                              metric_name='Slope')
+  metric = pollutant.PerformanceTargets.get_metric(metric_category='Bias',
+                                                   metric_name='Slope')
 
-Continuing with the example for ``PM25``, the ``metric`` variable should
+Continuing with the example for :raw-html:`PM<sub>2.5</sub>`, the ``metric`` variable should
 contain the following information:
 
 .. code-block:: python
@@ -157,7 +185,8 @@ contain the following information:
 Setting Performance Targets and Metrics
 ---------------------------------------
 
-.. code-block:: python
-
-  pollutant.PerformanceTargets.set_MetricCategory(metric_category, metric_names)
-  pollutant.PerformanceTargets.set_PerformanceMetric(metric_category, metric_name)
+For SDFS parameters that do not have preset performance targets or metrics, users
+can configure custom metric categories via the ``pollutant.PerformanceTargets.set_metric_category()``
+method and target values via the ``pollutant.PerformanceTargets.set_metric()`` method. A detailed description
+and examples for both of these methods is included in the
+`API documentation for sensortoolkit.parameter.PerformanceTargets <../api/_autosummary/sensortoolkit.param._targets.ParameterTargets.html>`_.

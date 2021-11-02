@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>Loading Sensor Data &mdash; sensortoolkit 0.5.6b2 documentation</title>
+  <title>Loading Sensor Data &mdash; sensortoolkit 0.6.0b4 documentation</title>
   
 
   
@@ -69,7 +69,7 @@
             
             
               <div class="version">
-                0.5.6b2
+                0.6.0b4
               </div>
             
           
@@ -123,15 +123,14 @@
 <li class="toctree-l2"><a class="reference internal" href="../../evaluation_objects/performancereport.html">Creating Testing Reports - The PerformanceReport Class</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../../data_structures/index.html">Data Structures and Formatting</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../data_structures/index.html">Data Structures</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../data_structures/sensor_data.html">Sensor Data Structures</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../data_structures/sdfs.html">Sensor Data Formatting Standard (S-DFS)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../data_structures/reference_data.html">Reference Data Structures</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../data_structures/rdfs.html">Reference Data Formatting Standard (R-DFS)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../data_structures/config_structs.html">Configuration Setup JSON</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../data_structures/eval_structs.html">Performance Evaluation Data Structures</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../../sdfs/index.html">sensortoolkit Data Formatting Scheme (SDFS)</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">API Documentation</span></p>
 <ul>
@@ -193,6 +192,7 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.datetime_utils._time_averaging.html">sensortoolkit.datetime_utils._time_averaging</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.datetime_utils._time_averaging.interval_averaging.html">sensortoolkit.datetime_utils._time_averaging.interval_averaging</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.datetime_utils._time_averaging.object_grouper.html">sensortoolkit.datetime_utils._time_averaging.object_grouper</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.datetime_utils._time_averaging.sensor_averaging.html">sensortoolkit.datetime_utils._time_averaging.sensor_averaging</a></li>
 </ul>
 </li>
@@ -237,22 +237,24 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.ingest._sensor_import.html">sensortoolkit.ingest._sensor_import</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.ingest._sensor_import.ingest_example_make_model.html">sensortoolkit.ingest._sensor_import.ingest_example_make_model</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.ingest._sensor_import.ingest_purpleair.html">sensortoolkit.ingest._sensor_import.ingest_purpleair</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.ingest._sensor_import.ingest_sensit_ramp.html">sensortoolkit.ingest._sensor_import.ingest_sensit_ramp</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.ingest._sensor_import.ingest_wrapper.html">sensortoolkit.ingest._sensor_import.ingest_wrapper</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.ingest._sensor_import.sensor_import.html">sensortoolkit.ingest._sensor_import.sensor_import</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.ingest._standard_ingest.html">sensortoolkit.ingest._standard_ingest</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.ingest._standard_ingest.ParseSetup.html">sensortoolkit.ingest._standard_ingest.ParseSetup</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.ingest._standard_ingest.apply_strptime.html">sensortoolkit.ingest._standard_ingest.apply_strptime</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.ingest._standard_ingest.parse_setup.html">sensortoolkit.ingest._standard_ingest.parse_setup</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.ingest._standard_ingest.standard_ingest.html">sensortoolkit.ingest._standard_ingest.standard_ingest</a></li>
 </ul>
 </li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../api/lib_utils.html"><code class="docutils literal notranslate"><span class="pre">sensortoolkit.lib_utils</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.lib_utils._check_type.html">sensortoolkit.lib_utils._check_type</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.lib_utils._check_type.check_type.html">sensortoolkit.lib_utils._check_type.check_type</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.lib_utils._copy_datasets.html">sensortoolkit.lib_utils._copy_datasets</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.lib_utils._copy_datasets.copy_datasets.html">sensortoolkit.lib_utils._copy_datasets.copy_datasets</a></li>
 </ul>
@@ -296,7 +298,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../api/param.html"><code class="docutils literal notranslate"><span class="pre">sensortoolkit.param</span></code></a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.param._parameter.html">sensortoolkit.param._parameter</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.param._parameter.Parameter.html">sensortoolkit.param._parameter.Parameter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.param._parameter.html#resources">Resources</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.param._targets.html">sensortoolkit.param._targets</a><ul>
@@ -406,18 +408,7 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.reference._ref_api_query.html">sensortoolkit.reference._ref_api_query</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.reference._ref_api_query.date_range_selector.html">sensortoolkit.reference._ref_api_query.date_range_selector</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.reference._ref_api_query.ingest_airnow.html">sensortoolkit.reference._ref_api_query.ingest_airnow</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.reference._ref_api_query.ingest_aqs.html">sensortoolkit.reference._ref_api_query.ingest_aqs</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.reference._ref_api_query.modify_ref_cols.html">sensortoolkit.reference._ref_api_query.modify_ref_cols</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.reference._ref_api_query.modify_ref_method_str.html">sensortoolkit.reference._ref_api_query.modify_ref_method_str</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.reference._ref_api_query.parse_sample_data.html">sensortoolkit.reference._ref_api_query.parse_sample_data</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.reference._ref_api_query.query_airnow.html">sensortoolkit.reference._ref_api_query.query_airnow</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.reference._ref_api_query.query_aqs.html">sensortoolkit.reference._ref_api_query.query_aqs</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.reference._ref_api_query.query_periods.html">sensortoolkit.reference._ref_api_query.query_periods</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.reference._ref_api_query.ref_api_query.html">sensortoolkit.reference._ref_api_query.ref_api_query</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.reference._ref_api_query.save_api_dataset.html">sensortoolkit.reference._ref_api_query.save_api_dataset</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.reference._ref_api_query.select_poc.html">sensortoolkit.reference._ref_api_query.select_poc</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.reference._ref_api_query.html#resources">Resources</a></li>
 </ul>
 </li>
 </ul>
@@ -508,8 +499,47 @@
             
   <div class="section" id="loading-sensor-data">
 <h1>Loading Sensor Data<a class="headerlink" href="#loading-sensor-data" title="Permalink to this headline">¶</a></h1>
+<p>Following the use of the setup module for air sensor datasets, sensor data are
+loaded to the <code class="docutils literal notranslate"><span class="pre">AirSensor</span></code> object via the <code class="docutils literal notranslate"><span class="pre">AirSensor.load_data()</span></code> method.
+The procedure for loading sensor data depends slightly on whether the user is loading
+datasets for the first time (i.e., the AirSensor.sensor_setup() module was run
+immediately before this point and the <code class="docutils literal notranslate"><span class="pre">/data/sensor_data/[sensor_name]/processed_data</span></code> directory
+containing SDFS formatted datasets is empty) or whether users have previously loaded sensor
+datasets via the <code class="docutils literal notranslate"><span class="pre">AirSensor.load_data()</span></code> and wish to re-load these datasets for additional
+analysis.</p>
+<p><code class="docutils literal notranslate"><span class="pre">AirSensor.load_data()</span></code> accepts the following boolean arguments:</p>
+<table class="colwidths-given docutils align-default" id="id1">
+<caption><span class="caption-text"><code class="docutils literal notranslate"><span class="pre">AirSensor.load_data()</span></code> Arguments</span><a class="headerlink" href="#id1" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col style="width: 40%" />
+<col style="width: 60%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Argument</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">write_to_file</span></code></p></td>
+<td><p>If true, processed (SDFS formatted) sensor datasets will be saved as comma-separated
+value (csv) files to the <code class="docutils literal notranslate"><span class="pre">/data/sensor_data/[sensor_name]/processed_data</span></code>
+directory. If false, formatted datasets will not be saved to the user’s hard drive.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">load_raw_data</span></code></p></td>
+<td><p>If true, raw data (datasets as originally recorded) in the appropriate subdirectory will be
+loaded and 1-hour and 24-hour averages will be computed. If false,
+processed data will be loaded.</p></td>
+</tr>
+</tbody>
+</table>
 <div class="section" id="initial-import">
 <h2>Initial Import<a class="headerlink" href="#initial-import" title="Permalink to this headline">¶</a></h2>
+<p>To load originally recorded datasets and save processed (SDFS formatted) versions
+of sensor datasets to the appropriate directory location, select <code class="docutils literal notranslate"><span class="pre">load_raw_data</span> <span class="pre">=</span> <span class="pre">True</span></code>
+and <code class="docutils literal notranslate"><span class="pre">write_to_file</span> <span class="pre">=</span> <span class="pre">True</span></code> when calling the <code class="docutils literal notranslate"><span class="pre">AirSensor.load_data()</span></code> method.</p>
+<p>Below is an example for the <cite>evaluation.py</cite> example script loading recorded datasets
+for the <cite>Example_Make_Model</cite> sensor, followed by writing of csv files to the <code class="docutils literal notranslate"><span class="pre">`.../processed_data</span></code>
+directory.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Loading sensor data for the first time</span>
 <span class="n">sensor_object</span><span class="o">.</span><span class="n">load_data</span><span class="p">(</span><span class="n">load_raw_data</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                         <span class="n">write_to_file</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -535,7 +565,7 @@
 <h2>Loading from Processed Data Files<a class="headerlink" href="#loading-from-processed-data-files" title="Permalink to this headline">¶</a></h2>
 <p>If users have previously loaded sensor datasets (i.e., processed sensor data files
 have been created for the sensor), users can save a little bit of time by loading
-the S-DFS formatted processed datasets. This saves some time in that the processing
+the SDFS formatted processed datasets. This saves some time in that the processing
 and averaging that occur on the first import of sensor datasets does not need to
 take place.</p>
 <p>To load processed datasets, ensure that the <code class="docutils literal notranslate"><span class="pre">load_raw_data</span></code> and <code class="docutils literal notranslate"><span class="pre">write_to_file</span></code> arguments

@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>Creating Testing Reports - The PerformanceReport Class &mdash; sensortoolkit 0.5.6b2 documentation</title>
+  <title>Creating Testing Reports - The PerformanceReport Class &mdash; sensortoolkit 0.6.0b4 documentation</title>
   
 
   
@@ -44,7 +44,7 @@
     
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Data Structures and Formatting" href="../data_structures/index.html" />
+    <link rel="next" title="Data Structures" href="../data_structures/index.html" />
     <link rel="prev" title="Plotting Methods" href="sensoreval/plotting.html" /> 
 </head>
 
@@ -69,7 +69,7 @@
             
             
               <div class="version">
-                0.5.6b2
+                0.6.0b4
               </div>
             
           
@@ -123,15 +123,14 @@
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Creating Testing Reports - The PerformanceReport Class</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../data_structures/index.html">Data Structures and Formatting</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="../data_structures/index.html">Data Structures</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../data_structures/sensor_data.html">Sensor Data Structures</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../data_structures/sdfs.html">Sensor Data Formatting Standard (S-DFS)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../data_structures/reference_data.html">Reference Data Structures</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../data_structures/rdfs.html">Reference Data Formatting Standard (R-DFS)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../data_structures/config_structs.html">Configuration Setup JSON</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../data_structures/eval_structs.html">Performance Evaluation Data Structures</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../sdfs/index.html">sensortoolkit Data Formatting Scheme (SDFS)</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">API Documentation</span></p>
 <ul>
@@ -193,6 +192,7 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../api/_autosummary/sensortoolkit.datetime_utils._time_averaging.html">sensortoolkit.datetime_utils._time_averaging</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../api/_autosummary/sensortoolkit.datetime_utils._time_averaging.interval_averaging.html">sensortoolkit.datetime_utils._time_averaging.interval_averaging</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/_autosummary/sensortoolkit.datetime_utils._time_averaging.object_grouper.html">sensortoolkit.datetime_utils._time_averaging.object_grouper</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../api/_autosummary/sensortoolkit.datetime_utils._time_averaging.sensor_averaging.html">sensortoolkit.datetime_utils._time_averaging.sensor_averaging</a></li>
 </ul>
 </li>
@@ -237,22 +237,24 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../api/_autosummary/sensortoolkit.ingest._sensor_import.html">sensortoolkit.ingest._sensor_import</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../api/_autosummary/sensortoolkit.ingest._sensor_import.ingest_example_make_model.html">sensortoolkit.ingest._sensor_import.ingest_example_make_model</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../api/_autosummary/sensortoolkit.ingest._sensor_import.ingest_purpleair.html">sensortoolkit.ingest._sensor_import.ingest_purpleair</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../api/_autosummary/sensortoolkit.ingest._sensor_import.ingest_sensit_ramp.html">sensortoolkit.ingest._sensor_import.ingest_sensit_ramp</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../api/_autosummary/sensortoolkit.ingest._sensor_import.ingest_wrapper.html">sensortoolkit.ingest._sensor_import.ingest_wrapper</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../api/_autosummary/sensortoolkit.ingest._sensor_import.sensor_import.html">sensortoolkit.ingest._sensor_import.sensor_import</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../api/_autosummary/sensortoolkit.ingest._standard_ingest.html">sensortoolkit.ingest._standard_ingest</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../api/_autosummary/sensortoolkit.ingest._standard_ingest.ParseSetup.html">sensortoolkit.ingest._standard_ingest.ParseSetup</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../api/_autosummary/sensortoolkit.ingest._standard_ingest.apply_strptime.html">sensortoolkit.ingest._standard_ingest.apply_strptime</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/_autosummary/sensortoolkit.ingest._standard_ingest.parse_setup.html">sensortoolkit.ingest._standard_ingest.parse_setup</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../api/_autosummary/sensortoolkit.ingest._standard_ingest.standard_ingest.html">sensortoolkit.ingest._standard_ingest.standard_ingest</a></li>
 </ul>
 </li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../api/lib_utils.html"><code class="docutils literal notranslate"><span class="pre">sensortoolkit.lib_utils</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../api/_autosummary/sensortoolkit.lib_utils._check_type.html">sensortoolkit.lib_utils._check_type</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api/_autosummary/sensortoolkit.lib_utils._check_type.check_type.html">sensortoolkit.lib_utils._check_type.check_type</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="../api/_autosummary/sensortoolkit.lib_utils._copy_datasets.html">sensortoolkit.lib_utils._copy_datasets</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../api/_autosummary/sensortoolkit.lib_utils._copy_datasets.copy_datasets.html">sensortoolkit.lib_utils._copy_datasets.copy_datasets</a></li>
 </ul>
@@ -296,7 +298,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../api/param.html"><code class="docutils literal notranslate"><span class="pre">sensortoolkit.param</span></code></a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../api/_autosummary/sensortoolkit.param._parameter.html">sensortoolkit.param._parameter</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../api/_autosummary/sensortoolkit.param._parameter.Parameter.html">sensortoolkit.param._parameter.Parameter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/_autosummary/sensortoolkit.param._parameter.html#resources">Resources</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../api/_autosummary/sensortoolkit.param._targets.html">sensortoolkit.param._targets</a><ul>
@@ -406,18 +408,7 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../api/_autosummary/sensortoolkit.reference._ref_api_query.html">sensortoolkit.reference._ref_api_query</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../api/_autosummary/sensortoolkit.reference._ref_api_query.date_range_selector.html">sensortoolkit.reference._ref_api_query.date_range_selector</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../api/_autosummary/sensortoolkit.reference._ref_api_query.ingest_airnow.html">sensortoolkit.reference._ref_api_query.ingest_airnow</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../api/_autosummary/sensortoolkit.reference._ref_api_query.ingest_aqs.html">sensortoolkit.reference._ref_api_query.ingest_aqs</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../api/_autosummary/sensortoolkit.reference._ref_api_query.modify_ref_cols.html">sensortoolkit.reference._ref_api_query.modify_ref_cols</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../api/_autosummary/sensortoolkit.reference._ref_api_query.modify_ref_method_str.html">sensortoolkit.reference._ref_api_query.modify_ref_method_str</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../api/_autosummary/sensortoolkit.reference._ref_api_query.parse_sample_data.html">sensortoolkit.reference._ref_api_query.parse_sample_data</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../api/_autosummary/sensortoolkit.reference._ref_api_query.query_airnow.html">sensortoolkit.reference._ref_api_query.query_airnow</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../api/_autosummary/sensortoolkit.reference._ref_api_query.query_aqs.html">sensortoolkit.reference._ref_api_query.query_aqs</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../api/_autosummary/sensortoolkit.reference._ref_api_query.query_periods.html">sensortoolkit.reference._ref_api_query.query_periods</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../api/_autosummary/sensortoolkit.reference._ref_api_query.ref_api_query.html">sensortoolkit.reference._ref_api_query.ref_api_query</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../api/_autosummary/sensortoolkit.reference._ref_api_query.save_api_dataset.html">sensortoolkit.reference._ref_api_query.save_api_dataset</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../api/_autosummary/sensortoolkit.reference._ref_api_query.select_poc.html">sensortoolkit.reference._ref_api_query.select_poc</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/_autosummary/sensortoolkit.reference._ref_api_query.html#resources">Resources</a></li>
 </ul>
 </li>
 </ul>
@@ -516,8 +507,8 @@ class, including the dictionaries <code class="docutils literal notranslate"><sp
 dictionaries house information about the testing organization, contact information,
 and site details including the address, coordinates, and site AQS ID if applicable.</p>
 <p>Below is an example of running the <cite>PerformanceReport</cite> class to create a testing
-report for the <code class="docutils literal notranslate"><span class="pre">Example_Make_Model</span></code> sensor evaluating its PM&lt;sub&gt;2.5&lt;/sub&gt; performance.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pollutant</span> <span class="o">=</span> <span class="n">sensortoolkit</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="s1">&#39;PM25&#39;</span><span class="p">)</span>
+report for the <code class="docutils literal notranslate"><span class="pre">Example_Make_Model</span></code> sensor evaluating its <span class="raw-html">PM<sub>2.5</sub></span> performance.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pollutant</span> <span class="o">=</span> <span class="n">sensortoolkit</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="s1">&#39;PM25&#39;</span><span class="p">)</span>
 
 <span class="c1"># Instantiate the PerformanceReport class for the example sensor dataset</span>
 <span class="n">report</span> <span class="o">=</span> <span class="n">sensortoolkit</span><span class="o">.</span><span class="n">PerformanceReport</span><span class="p">(</span><span class="n">sensor_object</span><span class="p">,</span>
@@ -532,61 +523,154 @@ report for the <code class="docutils literal notranslate"><span class="pre">Exam
 <span class="n">report</span><span class="o">.</span><span class="n">CreateReport</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>Console Output:
-<strong>Change this output</strong></p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">Computing normalized O3 values (by Teledyne API Model 265E And T265)</span>
-<span class="go">Computing normalized O3 values (by Teledyne API Model 265E And T265)</span>
+<div class="section" id="arguments-passed-to-performancereport">
+<h2>Arguments passed to <code class="docutils literal notranslate"><span class="pre">PerformanceReport</span></code><a class="headerlink" href="#arguments-passed-to-performancereport" title="Permalink to this headline">¶</a></h2>
+<table class="colwidths-given docutils align-default" id="id1">
+<caption><span class="caption-text"><code class="docutils literal notranslate"><span class="pre">sensortoolkit.PerformanceReport()</span></code> attributes</span><a class="headerlink" href="#id1" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col style="width: 40%" />
+<col style="width: 60%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Attribute name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">sensor</span></code></p></td>
+<td><p>A <code class="docutils literal notranslate"><span class="pre">sensortoolkit.AirSensor</span></code> object.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">param</span></code></p></td>
+<td><p>A <code class="docutils literal notranslate"><span class="pre">sensortoolkit.Parameter</span></code> object.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">reference</span></code></p></td>
+<td><p>A <code class="docutils literal notranslate"><span class="pre">sensortoolkit.ReferenceMonitor</span></code> object.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">write_to_file</span></code></p></td>
+<td><p>If true, evaluation statistics are saved to
+<code class="docutils literal notranslate"><span class="pre">/data/eval_stats/[name</span> <span class="pre">of</span> <span class="pre">sensor]</span></code> and figures are
+written to <code class="docutils literal notranslate"><span class="pre">/figures/[name</span> <span class="pre">of</span> <span class="pre">sensor]</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">figure_search</span></code></p></td>
+<td><p>If true, PerformanceReport will search for figures in the <code class="docutils literal notranslate"><span class="pre">/figures</span></code> directory
+before attempting to create new figures. If false, PerformanceReport will create
+all new figures (may risk overwriting existing figures). Defaults to False.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">**kwargs</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">testing_org</span></code> and <code class="docutils literal notranslate"><span class="pre">testing_loc</span></code>. See <a class="reference external" href="../evaluation_objects/sensoreval/index.html#keyword-arguments-passed-to-sensorevaluation">Keyword arguments passed to sensorevaluation</a>.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="console-output">
+<h2>Console Output<a class="headerlink" href="#console-output" title="Permalink to this headline">¶</a></h2>
+<p>When the above code block is run (including both instantiation of the <code class="docutils literal notranslate"><span class="pre">PerformanceReport</span></code>
+object <code class="docutils literal notranslate"><span class="pre">report</span></code> and running the <code class="docutils literal notranslate"><span class="pre">PerformanceReport.create_report()</span></code> method),
+the following will be printed to the console.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">Computing normalized PM25 values (by T-API T640X at 16.67 LPM)</span>
+<span class="go">Computing normalized PM25 values (by T-API T640X at 16.67 LPM)</span>
 <span class="go">Computing mean parameter values across concurrent sensor datasets</span>
 <span class="go">Computing mean parameter values across concurrent sensor datasets</span>
 <span class="go">Populating deployment dataframe with evaluation statistics</span>
-<span class="go">Computing CV for 1-Hour averaged O3</span>
-<span class="go">..N excluded: 20 out of 756 total.</span>
+<span class="go">Computing CV for 1-Hour averaged PM25</span>
+<span class="go">..N excluded: 20 out of 756 total</span>
 <span class="go">..N concurrent: 736</span>
-<span class="go">..Concurrent Measurement Timeframe: 2019-08-01 13:00:00 - 2019-09-02 00:00:00</span>
-<span class="go">Computing CV for 24-Hour averaged O3</span>
-<span class="go">..N excluded: 2 out of 32 total.</span>
+<span class="go">..Concurrent measurement timeframe: 2019-08-01 13:00:00+00:00 - 2019-09-02 00:00:00+00:00</span>
+<span class="go">Computing CV for 24-Hour averaged PM25</span>
+<span class="go">..N excluded: 2 out of 32 total</span>
 <span class="go">..N concurrent: 30</span>
-<span class="go">..Concurrent Measurement Timeframe: 2019-08-02 00:00:00 - 2019-09-01 00:00:00</span>
-<span class="go">Computing regression statistics for Example_Make_Model vs Teledyne API Model 265E And T265</span>
-<span class="go">Computing regression statistics for Example_Make_Model vs Teledyne API Model 265E And T265</span>
-<span class="go">../Data and Figures/eval_stats/Example_Make_Model/Example_Make_Model_O3_vs_Teledyne_API_Model_265E_And_T265_stats_df_210521.csv</span>
-<span class="go">Computing regression statistics for Example_Make_Model vs Intersensor_mean_O3</span>
-<span class="go">Computing regression statistics for Example_Make_Model vs Intersensor_mean_O3</span>
-<span class="go">../Data and Figures/eval_stats/Example_Make_Model/Example_Make_Model_O3_vs_Intersensor_mean_O3_stats_df_210521.csv</span>
+<span class="go">..Concurrent measurement timeframe: 2019-08-02 00:00:00+00:00 - 2019-09-01 00:00:00+00:00</span>
+<span class="go">Computing 1-hour regression statistics for Example_Make_Model vs. T-API T640X at 16.67 LPM</span>
+<span class="go">..SN01</span>
+<span class="go">..SN02</span>
+<span class="go">..SN03</span>
+<span class="go">Computing 24-hour regression statistics for Example_Make_Model vs. T-API T640X at 16.67 LPM</span>
+<span class="go">..SN01</span>
+<span class="go">..SN02</span>
+<span class="go">..SN03</span>
+<span class="go">..Saving dataset to the following path: C:\Users\...\Documents\sensortoolkit_testing\data\eval_stats\Example_Make_Model\Example_Make_Model_PM25_vs_T-API_T640X_at_16.67_LPM_stats_df_211102.csv</span>
+<span class="go">Computing 1-hour regression statistics for Example_Make_Model vs. T-API T640X at 16.67 LPM</span>
+<span class="go">..SN01</span>
+<span class="go">..SN02</span>
+<span class="go">..SN03</span>
+<span class="go">Computing 24-hour regression statistics for Example_Make_Model vs. T-API T640X at 16.67 LPM</span>
+<span class="go">..SN01</span>
+<span class="go">..SN02</span>
+<span class="go">..SN03</span>
+<span class="go">..Saving dataset to the following path: C:\Users\...\Documents\sensortoolkit_testing\data\eval_stats\Example_Make_Model\Example_Make_Model_PM25_vs_T-API_T640X_at_16.67_LPM_stats_df_211102.csv</span>
 <span class="go">Creating Testing Report for Example_Make_Model</span>
 <span class="go">..Adding figures to report</span>
+<span class="go">..creating subplot for 1 sensor with 1 row and 1 column</span>
+<span class="go">..creating subplot for 1 sensor with 1 row and 1 column</span>
 <span class="go">..Adding tabular data</span>
+<span class="go">Computing normalized PM25 values (by T-API T640X at 16.67 LPM)</span>
+<span class="go">Computing normalized PM25 values (by T-API T640X at 16.67 LPM)</span>
+<span class="go">..creating subplot for 3 sensors with 1 row and 3 columns</span>
+<span class="go">..creating subplot for 3 sensors with 1 row and 3 columns</span>
 <span class="go">..Saving report</span>
-<span class="go">....\Reports\Example_Make_Model\O3\Base_Testing_Report_O3_Example_Make_Model_210521.pptx</span>
+<span class="go">....\reports\Example_Make_Model\PM25\Base_Testing_Report_PM25_Example_Make_Model_211102.pptx</span>
 </pre></div>
 </div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Reports are saved within the <code class="docutils literal notranslate"><span class="pre">/reports</span></code> folder, which is located inside the
+directory pointed to by the project path.</p>
+</div>
 <div class="section" id="example-report">
-<h2>Example Report<a class="headerlink" href="#example-report" title="Permalink to this headline">¶</a></h2>
-<p>Below is an example report (first page only) for the <code class="docutils literal notranslate"><span class="pre">Example_Make_Model</span></code> sensor. The first
-page of the testing report allows testers to insert information about their
-organization including contact information, and testers are also encouraged to
-provide details about the sensor and FRM/FEM instrumentation used for testing.</p>
+<h3>Example Report<a class="headerlink" href="#example-report" title="Permalink to this headline">¶</a></h3>
+<p>Below is an example report for the <code class="docutils literal notranslate"><span class="pre">Example_Make_Model</span></code> sensor.</p>
 <p>Please note that at present, <code class="docutils literal notranslate"><span class="pre">PerformanceReport</span></code> does not populate the FRM/FEM
 Instrumentation table with calibration dates, flowrate verification checks, and
 any description of maintenance activities conducted on the reference instrumentation.
 Users must either insert these details manually by placing information in the
 provided table, or by appending documentation to the end of the report and noting on
 the supplemental information page that addition documentation has been attached.</p>
+<div class="tabbed-set docutils">
+<input checked="checked" id="b1145089-37fa-4820-b08d-4e6ef9b9176e" name="74fad53f-7fe6-4d36-beb6-43021287a5d8" type="radio">
+</input><label class="tabbed-label" for="b1145089-37fa-4820-b08d-4e6ef9b9176e">
+Page 1 - Testing Summary</label><div class="tabbed-content docutils">
+<p>The first page of the testing report allows testers to insert information about their
+organization including contact information, and testers are also encouraged to
+provide details about the sensor and FRM/FEM instrumentation used for testing.</p>
 <p>Various plots generated via the <code class="docutils literal notranslate"><span class="pre">PerformanceReport</span></code> class are displayed below
 information about the deployment. These figures provide indication of the sensor’s
 performance during the testing period, site conditions including temperature and
 relative humidity, and meteorological influences that may be present in sensor data.</p>
-<div class="figure align-center" id="id1">
-<img alt="../_images/performance_report_example_pg1.png" src="../_images/performance_report_example_pg1.png" />
-<p class="caption"><span class="caption-text">Example_Make_Model Base Testing Report (Page 1)</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
-</div>
 <div class="figure align-center" id="id2">
-<img alt="../_images/performance_report_example_pg2.png" src="../_images/performance_report_example_pg2.png" />
-<p class="caption"><span class="caption-text">Example_Make_Model Base Testing Report (Page 2)</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
+<img alt="../_images/performance_report_example_pg1.png" src="../_images/performance_report_example_pg1.png" />
+<p class="caption"><span class="caption-text">Example_Make_Model Base Testing Report (Page 1)</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
 </div>
+</div>
+<input id="d1c3409c-6d4c-4c72-a49e-bc06a1794f43" name="74fad53f-7fe6-4d36-beb6-43021287a5d8" type="radio">
+</input><label class="tabbed-label" for="d1c3409c-6d4c-4c72-a49e-bc06a1794f43">
+Page 2 - Tabular Statistics</label><div class="tabbed-content docutils">
+<p>The second page of the report includes tabular statistics, such as the performance
+metric values characterizing sensor vs. FRM/FEM accuracy (bias and linearity),
+error, and sensor-sensor (intersensor) precision.</p>
 <div class="figure align-center" id="id3">
+<img alt="../_images/performance_report_example_pg2.png" src="../_images/performance_report_example_pg2.png" />
+<p class="caption"><span class="caption-text">Example_Make_Model Base Testing Report (Page 2)</span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
+</div>
+</div>
+<input id="1b1d4745-6737-424d-96ec-7b6936771b21" name="74fad53f-7fe6-4d36-beb6-43021287a5d8" type="radio">
+</input><label class="tabbed-label" for="1b1d4745-6737-424d-96ec-7b6936771b21">
+Page 3 - Sensor vs. FRM/FEM Scatter</label><div class="tabbed-content docutils">
+<p>Scatter plots for each sensor unit vs. FRM/FEM measurement pairs are displayed
+on a third page of the report.</p>
+<div class="figure align-center" id="id4">
 <img alt="../_images/performance_report_example_pg3.png" src="../_images/performance_report_example_pg3.png" />
-<p class="caption"><span class="caption-text">Example_Make_Model Base Testing Report (Page 3)</span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text">Example_Make_Model Base Testing Report (Page 3)</span><a class="headerlink" href="#id4" title="Permalink to this image">¶</a></p>
+</div>
+</div>
+<input id="f65390df-f5a2-4897-bd08-72b660df1318" name="74fad53f-7fe6-4d36-beb6-43021287a5d8" type="radio">
+</input><label class="tabbed-label" for="f65390df-f5a2-4897-bd08-72b660df1318">
+Page 4 - Supplemental Information</label><div class="tabbed-content docutils">
+<div class="figure align-center" id="id5">
+<img alt="../_images/performance_report_example_pg4.png" src="../_images/performance_report_example_pg4.png" />
+<p class="caption"><span class="caption-text">Example_Make_Model Base Testing Report (Page 4)</span><a class="headerlink" href="#id5" title="Permalink to this image">¶</a></p>
+</div>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -597,7 +681,7 @@ relative humidity, and meteorological influences that may be present in sensor d
           </div>
           <footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="../data_structures/index.html" class="btn btn-neutral float-right" title="Data Structures and Formatting" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../data_structures/index.html" class="btn btn-neutral float-right" title="Data Structures" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
         <a href="sensoreval/plotting.html" class="btn btn-neutral float-left" title="Plotting Methods" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
 

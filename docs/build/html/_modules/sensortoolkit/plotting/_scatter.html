@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>sensortoolkit.plotting._scatter &mdash; sensortoolkit 0.5.6b2 documentation</title>
+  <title>sensortoolkit.plotting._scatter &mdash; sensortoolkit 0.6.0b4 documentation</title>
   
 
   
@@ -67,7 +67,7 @@
             
             
               <div class="version">
-                0.5.6b2
+                0.6.0b4
               </div>
             
           
@@ -121,15 +121,14 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../evaluation_objects/performancereport.html">Creating Testing Reports - The PerformanceReport Class</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../../../data_structures/index.html">Data Structures and Formatting</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../data_structures/index.html">Data Structures</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../data_structures/sensor_data.html">Sensor Data Structures</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../data_structures/sdfs.html">Sensor Data Formatting Standard (S-DFS)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../data_structures/reference_data.html">Reference Data Structures</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../data_structures/rdfs.html">Reference Data Formatting Standard (R-DFS)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../data_structures/config_structs.html">Configuration Setup JSON</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../data_structures/eval_structs.html">Performance Evaluation Data Structures</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../../../sdfs/index.html">sensortoolkit Data Formatting Scheme (SDFS)</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">API Documentation</span></p>
 <ul>
@@ -191,6 +190,7 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.datetime_utils._time_averaging.html">sensortoolkit.datetime_utils._time_averaging</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.datetime_utils._time_averaging.interval_averaging.html">sensortoolkit.datetime_utils._time_averaging.interval_averaging</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.datetime_utils._time_averaging.object_grouper.html">sensortoolkit.datetime_utils._time_averaging.object_grouper</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.datetime_utils._time_averaging.sensor_averaging.html">sensortoolkit.datetime_utils._time_averaging.sensor_averaging</a></li>
 </ul>
 </li>
@@ -235,22 +235,24 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.ingest._sensor_import.html">sensortoolkit.ingest._sensor_import</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.ingest._sensor_import.ingest_example_make_model.html">sensortoolkit.ingest._sensor_import.ingest_example_make_model</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.ingest._sensor_import.ingest_purpleair.html">sensortoolkit.ingest._sensor_import.ingest_purpleair</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.ingest._sensor_import.ingest_sensit_ramp.html">sensortoolkit.ingest._sensor_import.ingest_sensit_ramp</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.ingest._sensor_import.ingest_wrapper.html">sensortoolkit.ingest._sensor_import.ingest_wrapper</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.ingest._sensor_import.sensor_import.html">sensortoolkit.ingest._sensor_import.sensor_import</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.ingest._standard_ingest.html">sensortoolkit.ingest._standard_ingest</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.ingest._standard_ingest.ParseSetup.html">sensortoolkit.ingest._standard_ingest.ParseSetup</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.ingest._standard_ingest.apply_strptime.html">sensortoolkit.ingest._standard_ingest.apply_strptime</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.ingest._standard_ingest.parse_setup.html">sensortoolkit.ingest._standard_ingest.parse_setup</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.ingest._standard_ingest.standard_ingest.html">sensortoolkit.ingest._standard_ingest.standard_ingest</a></li>
 </ul>
 </li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../api/lib_utils.html"><code class="docutils literal notranslate"><span class="pre">sensortoolkit.lib_utils</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.lib_utils._check_type.html">sensortoolkit.lib_utils._check_type</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.lib_utils._check_type.check_type.html">sensortoolkit.lib_utils._check_type.check_type</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.lib_utils._copy_datasets.html">sensortoolkit.lib_utils._copy_datasets</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.lib_utils._copy_datasets.copy_datasets.html">sensortoolkit.lib_utils._copy_datasets.copy_datasets</a></li>
 </ul>
@@ -294,7 +296,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../api/param.html"><code class="docutils literal notranslate"><span class="pre">sensortoolkit.param</span></code></a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.param._parameter.html">sensortoolkit.param._parameter</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.param._parameter.Parameter.html">sensortoolkit.param._parameter.Parameter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.param._parameter.html#resources">Resources</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.param._targets.html">sensortoolkit.param._targets</a><ul>
@@ -404,18 +406,7 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._ref_api_query.html">sensortoolkit.reference._ref_api_query</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._ref_api_query.date_range_selector.html">sensortoolkit.reference._ref_api_query.date_range_selector</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._ref_api_query.ingest_airnow.html">sensortoolkit.reference._ref_api_query.ingest_airnow</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._ref_api_query.ingest_aqs.html">sensortoolkit.reference._ref_api_query.ingest_aqs</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._ref_api_query.modify_ref_cols.html">sensortoolkit.reference._ref_api_query.modify_ref_cols</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._ref_api_query.modify_ref_method_str.html">sensortoolkit.reference._ref_api_query.modify_ref_method_str</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._ref_api_query.parse_sample_data.html">sensortoolkit.reference._ref_api_query.parse_sample_data</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._ref_api_query.query_airnow.html">sensortoolkit.reference._ref_api_query.query_airnow</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._ref_api_query.query_aqs.html">sensortoolkit.reference._ref_api_query.query_aqs</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._ref_api_query.query_periods.html">sensortoolkit.reference._ref_api_query.query_periods</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._ref_api_query.ref_api_query.html">sensortoolkit.reference._ref_api_query.ref_api_query</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._ref_api_query.save_api_dataset.html">sensortoolkit.reference._ref_api_query.save_api_dataset</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._ref_api_query.select_poc.html">sensortoolkit.reference._ref_api_query.select_poc</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._ref_api_query.html#resources">Resources</a></li>
 </ul>
 </li>
 </ul>
@@ -501,7 +492,7 @@
   <h1>Source code for sensortoolkit.plotting._scatter</h1><div class="highlight"><pre>
 <span></span><span class="c1"># -*- coding: utf-8 -*-</span>
 <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">Description.</span>
+<span class="sd">This module contains methods for constructing scatter plot figures.</span>
 
 <span class="sd">================================================================================</span>
 
@@ -784,102 +775,142 @@
 <span class="sd">            met data for plotting colormap of relative humidity on scatterplot</span>
 <span class="sd">            points. If passed, the reference met data takes precedence over</span>
 <span class="sd">            any existing sensor met data.</span>
-<span class="sd">        deploy_dict</span>
-
-<span class="sd">        sensor_serials</span>
-
-<span class="sd">        ax</span>
-
-<span class="sd">        fig</span>
-
-<span class="sd">        report_fmt</span>
-
-<span class="sd">        return_axs</span>
-
+<span class="sd">        deploy_dict:</span>
+<span class="sd">            DEFINITION</span>
+<span class="sd">        sensor_serials:</span>
+<span class="sd">            DEFINITION</span>
+<span class="sd">        ax:</span>
+<span class="sd">            DEFINITION</span>
+<span class="sd">        fig:</span>
+<span class="sd">            DEFINITION</span>
+<span class="sd">        report_fmt:</span>
+<span class="sd">            DEFINITION</span>
+<span class="sd">        return_axs:</span>
+<span class="sd">            DEFINITION</span>
 <span class="sd">        param_class: string</span>
 <span class="sd">            The parameter classification for the passed parameter to plot.</span>
 <span class="sd">            E.g, if param is PM25, param_class = PM; if param is 03,</span>
 <span class="sd">            param_class = Gases;if param is Temp, param_class = Met.</span>
 
-<span class="sd">        kwargs (args with * are passed to the Draw_Scatter subroutine, the</span>
-<span class="sd">        asterisk should not be included when specifying these kwargs)</span>
-<span class="sd">        --------</span>
-<span class="sd">        color_palette</span>
-<span class="sd">            Color palette assigned to relative-humidity colormapped scatter</span>
-<span class="sd">            plot points</span>
-<span class="sd">        colorbar_axespos</span>
-<span class="sd">        colorbar_orientation</span>
-<span class="sd">        colorbar_title_fontsize,</span>
-<span class="sd">        colorbar_title_ypos,</span>
-<span class="sd">        colorbar_tick_labelsize,</span>
-<span class="sd">        colorbar_tick_length,</span>
-<span class="sd">        colorbar_tick_width</span>
-<span class="sd">        draw_cbar</span>
-<span class="sd">        fig_wspace</span>
-<span class="sd">        fig_hspace</span>
-<span class="sd">        fig_left</span>
-<span class="sd">        fig_right</span>
-<span class="sd">        fig_top</span>
-<span class="sd">        fig_bottom</span>
-<span class="sd">        filename_suffix</span>
-<span class="sd">            Optional string added to end of filename. Defaults to empty string.</span>
-<span class="sd">        fontsize</span>
-<span class="sd">            The font size for the xlabel, ylabel, and plot text. Passed on to</span>
-<span class="sd">            Draw_Scatter() which uses 0.85*font_size for tick labels.</span>
-<span class="sd">        *monocolor</span>
-<span class="sd">             A single color (specified in hex) for scatter plots.</span>
-<span class="sd">             Recommend #2251D0 (nice blue hue).</span>
-<span class="sd">        detail_fontsize</span>
-<span class="sd">        *point_size</span>
-<span class="sd">            The size of the scatterpoint plots</span>
-<span class="sd">        *point_alpha</span>
-<span class="sd">        *plot_aspect</span>
-<span class="sd">        *plottext_alpha</span>
-<span class="sd">        *plottext_size</span>
-<span class="sd">        *plottext_color</span>
-<span class="sd">        *plottext_xloc</span>
-<span class="sd">        *plottext_yloc</span>
-<span class="sd">        *plottext_xdisplacement</span>
-<span class="sd">        *plottext_ydisplacement</span>
-<span class="sd">        *plottext_position</span>
-<span class="sd">            Determines position of plot text. Can either pass &#39;upper_left&#39; or</span>
-<span class="sd">            &#39;bottom_right&#39;</span>
-<span class="sd">        ref_name</span>
-<span class="sd">        seaborn_style</span>
-<span class="sd">        show_colorbar</span>
-<span class="sd">            If true, relative humidity values will be used as a colormap on the</span>
-<span class="sd">            scatterplot points.</span>
-<span class="sd">        show_title</span>
-<span class="sd">            Show the title at the top of the plot. Includes the name of the</span>
-<span class="sd">            sensor, the averaging interval, the evaluation parameter, and</span>
-<span class="sd">            the name of the reference against which sensor data are compared.</span>
-<span class="sd">        show_regression</span>
-<span class="sd">            Pass on to underlying Draw_Scatter function. Defaults to</span>
-<span class="sd">            True. If false, regression lines on plots will not be generated.</span>
-<span class="sd">        *show_trendline</span>
-<span class="sd">        *show_RMSE</span>
-<span class="sd">        *show_spearman</span>
-<span class="sd">        *show_N</span>
-<span class="sd">        *show_one_to_one</span>
-<span class="sd">        tight_layout</span>
-<span class="sd">            Passed to matplotlib&#39;s &quot;fig.tight_layout()&quot; for narrow formatting</span>
-<span class="sd">        tick_spacing</span>
-<span class="sd">        title_text</span>
-<span class="sd">        title_textwrap</span>
-<span class="sd">        title_xloc</span>
-<span class="sd">        title_yloc</span>
-<span class="sd">        *trendline_xmax</span>
-<span class="sd">        *trendline_color</span>
-<span class="sd">        *trendline_alpha</span>
-<span class="sd">        xlims</span>
-<span class="sd">            The x-limits of the scatter plot</span>
-<span class="sd">        ylims</span>
-<span class="sd">            The y-limits of the scatter plot</span>
+<span class="sd">    Keyword arguments:</span>
+
+<span class="sd">        - **color_palette** (*TYPE*):</span>
+<span class="sd">          Color palette assigned to relative-humidity colormapped scatter</span>
+<span class="sd">          plot points</span>
+<span class="sd">        - **colorbar_axespos** (*TYPE*):</span>
+<span class="sd">          DEFINITION</span>
+<span class="sd">        - **colorbar_orientation** (*TYPE*):</span>
+<span class="sd">          DEFINITION</span>
+<span class="sd">        - **colorbar_title_fontsize** (*TYPE*):</span>
+<span class="sd">          DEFINITION</span>
+<span class="sd">        - **colorbar_title_ypos** (*TYPE*):</span>
+<span class="sd">          DEFINITION</span>
+<span class="sd">        - **colorbar_tick_labelsize** (*TYPE*):</span>
+<span class="sd">          DEFINITION</span>
+<span class="sd">        - **colorbar_tick_length** (*TYPE*):</span>
+<span class="sd">          DEFINITION</span>
+<span class="sd">        - **colorbar_tick_width** (*TYPE*):</span>
+<span class="sd">          DEFINITION</span>
+<span class="sd">        - **draw_cbar** (*TYPE*):</span>
+<span class="sd">          DEFINITION</span>
+<span class="sd">        - **fig_wspace** (*TYPE*):</span>
+<span class="sd">          DEFINITION</span>
+<span class="sd">        - **fig_hspace** (*TYPE*):</span>
+<span class="sd">          DEFINITION</span>
+<span class="sd">        - **fig_left** (*TYPE*):</span>
+<span class="sd">          DEFINITION</span>
+<span class="sd">        - **fig_right** (*TYPE*):</span>
+<span class="sd">          DEFINITION</span>
+<span class="sd">        - **fig_top** (*TYPE*):</span>
+<span class="sd">          DEFINITION</span>
+<span class="sd">        - **fig_bottom** (*TYPE*):</span>
+<span class="sd">          DEFINITION</span>
+<span class="sd">        - **filename_suffix** (*TYPE*):</span>
+<span class="sd">          Optional string added to end of filename. Defaults to empty string.</span>
+<span class="sd">        - **fontsize** (*TYPE*):</span>
+<span class="sd">          The font size for the xlabel, ylabel, and plot text. Passed on to</span>
+<span class="sd">          Draw_Scatter() which uses 0.85*font_size for tick labels.</span>
+<span class="sd">        - **monocolor** (*TYPE*, passed to ``Draw_Scatter()``):</span>
+<span class="sd">          A single color (specified in hex) for scatter plots.</span>
+<span class="sd">          Recommend #2251D0 (nice blue hue).</span>
+<span class="sd">        - **detail_fontsize** (*TYPE*):</span>
+<span class="sd">          DEFINITION</span>
+<span class="sd">        - **point_size** (*TYPE*, passed to ``Draw_Scatter()``):</span>
+<span class="sd">          The size of the scatterpoint plots</span>
+<span class="sd">        - **point_alpha** (*TYPE*):</span>
+<span class="sd">          DEFINITION</span>
+<span class="sd">        - **plot_aspect** (*TYPE*, passed to ``Draw_Scatter()``):</span>
+<span class="sd">          DEFINITION</span>
+<span class="sd">        - **plottext_alpha** (*TYPE*, passed to ``Draw_Scatter()``):</span>
+<span class="sd">          DEFINITION</span>
+<span class="sd">        - **plottext_size** (*TYPE*, passed to ``Draw_Scatter()``):</span>
+<span class="sd">          DEFINITION</span>
+<span class="sd">        - **plottext_color** (*TYPE*, passed to ``Draw_Scatter()``):</span>
+<span class="sd">          DEFINITION</span>
+<span class="sd">        - **plottext_xloc** (*TYPE*, passed to ``Draw_Scatter()``):</span>
+<span class="sd">          DEFINITION</span>
+<span class="sd">        - **plottext_yloc** (*TYPE*, passed to ``Draw_Scatter()``):</span>
+<span class="sd">          DEFINITION</span>
+<span class="sd">        - **plottext_xdisplacement** (*TYPE*, passed to ``Draw_Scatter()``):</span>
+<span class="sd">          DEFINITION</span>
+<span class="sd">        - **plottext_ydisplacement** (*TYPE*, passed to ``Draw_Scatter()``):</span>
+<span class="sd">          DEFINITION</span>
+<span class="sd">        - **plottext_position** (*TYPE*, passed to ``Draw_Scatter()``):</span>
+<span class="sd">           Determines position of plot text. Can either pass &#39;upper_left&#39; or</span>
+<span class="sd">           &#39;bottom_right&#39;</span>
+<span class="sd">        - **ref_name** (*TYPE*):</span>
+<span class="sd">          DEFINITION</span>
+<span class="sd">        - **seaborn_style** (*TYPE*):</span>
+<span class="sd">          DEFINITION</span>
+<span class="sd">        - **show_colorbar** (*TYPE*):</span>
+<span class="sd">          If true, relative humidity values will be used as a colormap on the</span>
+<span class="sd">          scatterplot points.</span>
+<span class="sd">        - **show_title** (*TYPE*):</span>
+<span class="sd">          Show the title at the top of the plot. Includes the name of the</span>
+<span class="sd">          sensor, the averaging interval, the evaluation parameter, and</span>
+<span class="sd">          the name of the reference against which sensor data are compared.</span>
+<span class="sd">        - **show_regression** (*TYPE*):</span>
+<span class="sd">          Pass on to underlying Draw_Scatter function. Defaults to</span>
+<span class="sd">          True. If false, regression lines on plots will not be generated.</span>
+<span class="sd">        - **show_trendline** (*TYPE*):</span>
+<span class="sd">          DEFINITION</span>
+<span class="sd">        - **show_RMSE** (*TYPE*, passed to ``Draw_Scatter()``):</span>
+<span class="sd">          DEFINITION</span>
+<span class="sd">        - **show_spearman** (*TYPE*, passed to ``Draw_Scatter()``):</span>
+<span class="sd">          DEFINITION</span>
+<span class="sd">        - **show_N** (*TYPE*, passed to ``Draw_Scatter()``):</span>
+<span class="sd">          DEFINITION</span>
+<span class="sd">        - **show_one_to_one** (*TYPE*, passed to ``Draw_Scatter()``):</span>
+<span class="sd">          DEFINITION</span>
+<span class="sd">        - **tight_layout** (*TYPE*):</span>
+<span class="sd">          Passed to matplotlib&#39;s ``fig.tight_layout()`` for narrow formatting</span>
+<span class="sd">        - **tick_spacing** (*TYPE*):</span>
+<span class="sd">          DEFINITION</span>
+<span class="sd">        - **title_text** (*TYPE*):</span>
+<span class="sd">          DEFINITION</span>
+<span class="sd">        - **title_textwrap** (*TYPE*):</span>
+<span class="sd">          DEFINITION</span>
+<span class="sd">        - **title_xloc** (*TYPE*):</span>
+<span class="sd">          DEFINITION</span>
+<span class="sd">        - **title_yloc** (*TYPE*):</span>
+<span class="sd">          DEFINITION</span>
+<span class="sd">        - **trendline_xmax** (*TYPE*, passed to ``Draw_Scatter()``):</span>
+<span class="sd">          DEFINITION</span>
+<span class="sd">        - **trendline_color** (*TYPE*, passed to ``Draw_Scatter()``):</span>
+<span class="sd">          DEFINITION</span>
+<span class="sd">        - **trendline_alpha** (*TYPE*, passed to ``Draw_Scatter()``):</span>
+<span class="sd">          DEFINITION</span>
+<span class="sd">        - **xlims** (*TYPE*):</span>
+<span class="sd">          The x-limits of the scatter plot</span>
+<span class="sd">        - **ylims** (*TYPE*):</span>
+<span class="sd">          The y-limits of the scatter plot</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        If an axis is passed to Scatter_Plotter(), the modified axis with</span>
-<span class="sd">        plotting detail filled in will be returned. Otherwise, none will be</span>
-<span class="sd">        returned.</span>
+<span class="sd">        (matplotlib axes instance or None):</span>
+<span class="sd">            If an axis is passed to Scatter_Plotter(), the modified axis with</span>
+<span class="sd">            plotting detail filled in will be returned. Otherwise, none will be</span>
+<span class="sd">            returned.</span>
+
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;seaborn_style&#39;</span><span class="p">,</span> <span class="s1">&#39;darkgrid&#39;</span><span class="p">))</span>
     <span class="n">palette</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;color_palette&#39;</span><span class="p">,</span> <span class="s1">&#39;seismic&#39;</span><span class="p">)</span>
@@ -902,6 +933,20 @@
 
     <span class="c1"># Option to supply df_list indicies in list for subset of sensors to plot</span>
     <span class="k">if</span> <span class="n">plot_subset</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+
+        <span class="c1"># Subset by serial ID</span>
+        <span class="k">if</span> <span class="nb">all</span><span class="p">(</span><span class="n">name</span> <span class="ow">in</span> <span class="n">sensor_serials</span><span class="o">.</span><span class="n">values</span><span class="p">()</span> <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">plot_subset</span><span class="p">):</span>
+            <span class="n">subset_keys</span> <span class="o">=</span> <span class="p">[</span><span class="n">item</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">sensor_serials</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+                           <span class="k">if</span> <span class="n">item</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="ow">in</span> <span class="n">plot_subset</span><span class="p">]</span>
+            <span class="n">plot_subset</span> <span class="o">=</span> <span class="n">subset_keys</span>
+        <span class="c1"># Subset by the integer number associated with the serial ID</span>
+        <span class="k">elif</span> <span class="nb">all</span><span class="p">(</span><span class="n">name</span> <span class="ow">in</span> <span class="n">sensor_serials</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span> <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">plot_subset</span><span class="p">):</span>
+            <span class="k">pass</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Invalid list of subset keys. Pass either a list&#39;</span>
+                             <span class="s1">&#39; of serial IDs or a list of the integer indices&#39;</span>
+                             <span class="s1">&#39; associated with each serial ID.&#39;</span><span class="p">)</span>
+
         <span class="c1"># limit dataframe list and sensor serials to selected sensors</span>
         <span class="n">df_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">df</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">df</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">df_list</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
                    <span class="k">if</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="ow">in</span> <span class="n">plot_subset</span><span class="p">]</span>
@@ -1063,18 +1108,12 @@
                 <span class="n">hourly_ref_df</span> <span class="o">=</span> <span class="n">ref_df</span>
 
             <span class="k">if</span> <span class="n">plot_regression</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
-                <span class="k">if</span> <span class="n">stats_df</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-                    <span class="n">sensor_stats</span> <span class="o">=</span> <span class="n">stats_df</span><span class="p">[</span>
-                                <span class="n">stats_df</span><span class="o">.</span><span class="n">Sensor_Number</span> <span class="o">==</span> <span class="nb">str</span><span class="p">(</span><span class="n">sensor_number</span><span class="p">)]</span>
-                    <span class="n">sensor_stats</span> <span class="o">=</span> <span class="n">sensor_stats</span><span class="p">[</span>
-                        <span class="n">sensor_stats</span><span class="p">[</span><span class="s1">&#39;Averaging Interval&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">averaging_interval</span><span class="p">]</span>
-                    <span class="n">sensor_stats</span> <span class="o">=</span> <span class="n">sensor_stats</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-                <span class="k">else</span><span class="p">:</span>
-                    <span class="n">sensor_stats</span> <span class="o">=</span> <span class="n">regression_stats</span><span class="p">(</span><span class="n">sensor_df_obj</span><span class="o">=</span><span class="n">sensor_df</span><span class="p">,</span>
-                                                    <span class="n">ref_df_obj</span><span class="o">=</span><span class="n">ref_df</span><span class="p">,</span>
-                                                    <span class="n">deploy_dict</span><span class="o">=</span><span class="n">deploy_dict</span><span class="p">,</span>
-                                                    <span class="n">param</span><span class="o">=</span><span class="n">param</span><span class="p">,</span>
-                                                    <span class="n">serials</span><span class="o">=</span><span class="n">sensor_serials</span><span class="p">)</span>
+                <span class="n">sensor_stats</span> <span class="o">=</span> <span class="n">regression_stats</span><span class="p">(</span><span class="n">sensor_df_obj</span><span class="o">=</span><span class="n">sensor_df</span><span class="p">,</span>
+                                                <span class="n">ref_df_obj</span><span class="o">=</span><span class="n">ref_df</span><span class="p">,</span>
+                                                <span class="n">deploy_dict</span><span class="o">=</span><span class="n">deploy_dict</span><span class="p">,</span>
+                                                <span class="n">param</span><span class="o">=</span><span class="n">param</span><span class="p">,</span>
+                                                <span class="n">serials</span><span class="o">=</span><span class="n">sensor_serials</span><span class="p">,</span>
+                                                <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
             <span class="k">try</span><span class="p">:</span>
                 <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
@@ -1154,9 +1193,9 @@
                         <span class="n">caxes_pos</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.07</span><span class="p">,</span> <span class="mf">0.50</span><span class="p">,</span> <span class="mf">0.03</span><span class="p">]</span>
                     <span class="k">else</span><span class="p">:</span>
                         <span class="n">caxes_pos</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.125</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.75</span><span class="p">,</span> <span class="mf">0.03</span><span class="p">]</span>
-            <span class="k">if</span> <span class="n">number_of_sensors</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+            <span class="k">elif</span> <span class="n">number_of_sensors</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">):</span>
                 <span class="n">caxes_pos</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.37</span><span class="p">,</span> <span class="mf">0.07</span><span class="p">,</span> <span class="mf">0.26</span><span class="p">,</span> <span class="mf">0.03</span><span class="p">]</span>
-            <span class="k">if</span> <span class="n">number_of_sensors</span> <span class="o">&gt;</span> <span class="mi">3</span><span class="p">:</span>
+            <span class="k">else</span><span class="p">:</span>
                 <span class="n">caxes_pos</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.37</span><span class="p">,</span> <span class="mf">0.07</span><span class="p">,</span> <span class="mf">0.26</span><span class="p">,</span> <span class="mf">0.02</span><span class="p">]</span>
 
             <span class="n">cbar_pos</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;colorbar_axespos&#39;</span><span class="p">,</span> <span class="n">caxes_pos</span><span class="p">)</span>

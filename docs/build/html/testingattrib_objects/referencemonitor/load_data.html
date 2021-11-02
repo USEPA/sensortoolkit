@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>Loading Reference Data &mdash; sensortoolkit 0.5.6b2 documentation</title>
+  <title>Loading Reference Data &mdash; sensortoolkit 0.6.0b4 documentation</title>
   
 
   
@@ -69,7 +69,7 @@
             
             
               <div class="version">
-                0.5.6b2
+                0.6.0b4
               </div>
             
           
@@ -123,15 +123,14 @@
 <li class="toctree-l2"><a class="reference internal" href="../../evaluation_objects/performancereport.html">Creating Testing Reports - The PerformanceReport Class</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../../data_structures/index.html">Data Structures and Formatting</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../data_structures/index.html">Data Structures</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../data_structures/sensor_data.html">Sensor Data Structures</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../data_structures/sdfs.html">Sensor Data Formatting Standard (S-DFS)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../data_structures/reference_data.html">Reference Data Structures</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../data_structures/rdfs.html">Reference Data Formatting Standard (R-DFS)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../data_structures/config_structs.html">Configuration Setup JSON</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../data_structures/eval_structs.html">Performance Evaluation Data Structures</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../../sdfs/index.html">sensortoolkit Data Formatting Scheme (SDFS)</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">API Documentation</span></p>
 <ul>
@@ -193,6 +192,7 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.datetime_utils._time_averaging.html">sensortoolkit.datetime_utils._time_averaging</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.datetime_utils._time_averaging.interval_averaging.html">sensortoolkit.datetime_utils._time_averaging.interval_averaging</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.datetime_utils._time_averaging.object_grouper.html">sensortoolkit.datetime_utils._time_averaging.object_grouper</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.datetime_utils._time_averaging.sensor_averaging.html">sensortoolkit.datetime_utils._time_averaging.sensor_averaging</a></li>
 </ul>
 </li>
@@ -237,22 +237,24 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.ingest._sensor_import.html">sensortoolkit.ingest._sensor_import</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.ingest._sensor_import.ingest_example_make_model.html">sensortoolkit.ingest._sensor_import.ingest_example_make_model</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.ingest._sensor_import.ingest_purpleair.html">sensortoolkit.ingest._sensor_import.ingest_purpleair</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.ingest._sensor_import.ingest_sensit_ramp.html">sensortoolkit.ingest._sensor_import.ingest_sensit_ramp</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.ingest._sensor_import.ingest_wrapper.html">sensortoolkit.ingest._sensor_import.ingest_wrapper</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.ingest._sensor_import.sensor_import.html">sensortoolkit.ingest._sensor_import.sensor_import</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.ingest._standard_ingest.html">sensortoolkit.ingest._standard_ingest</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.ingest._standard_ingest.ParseSetup.html">sensortoolkit.ingest._standard_ingest.ParseSetup</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.ingest._standard_ingest.apply_strptime.html">sensortoolkit.ingest._standard_ingest.apply_strptime</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.ingest._standard_ingest.parse_setup.html">sensortoolkit.ingest._standard_ingest.parse_setup</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.ingest._standard_ingest.standard_ingest.html">sensortoolkit.ingest._standard_ingest.standard_ingest</a></li>
 </ul>
 </li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../api/lib_utils.html"><code class="docutils literal notranslate"><span class="pre">sensortoolkit.lib_utils</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.lib_utils._check_type.html">sensortoolkit.lib_utils._check_type</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.lib_utils._check_type.check_type.html">sensortoolkit.lib_utils._check_type.check_type</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.lib_utils._copy_datasets.html">sensortoolkit.lib_utils._copy_datasets</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.lib_utils._copy_datasets.copy_datasets.html">sensortoolkit.lib_utils._copy_datasets.copy_datasets</a></li>
 </ul>
@@ -296,7 +298,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../api/param.html"><code class="docutils literal notranslate"><span class="pre">sensortoolkit.param</span></code></a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.param._parameter.html">sensortoolkit.param._parameter</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.param._parameter.Parameter.html">sensortoolkit.param._parameter.Parameter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.param._parameter.html#resources">Resources</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.param._targets.html">sensortoolkit.param._targets</a><ul>
@@ -406,18 +408,7 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.reference._ref_api_query.html">sensortoolkit.reference._ref_api_query</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.reference._ref_api_query.date_range_selector.html">sensortoolkit.reference._ref_api_query.date_range_selector</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.reference._ref_api_query.ingest_airnow.html">sensortoolkit.reference._ref_api_query.ingest_airnow</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.reference._ref_api_query.ingest_aqs.html">sensortoolkit.reference._ref_api_query.ingest_aqs</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.reference._ref_api_query.modify_ref_cols.html">sensortoolkit.reference._ref_api_query.modify_ref_cols</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.reference._ref_api_query.modify_ref_method_str.html">sensortoolkit.reference._ref_api_query.modify_ref_method_str</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.reference._ref_api_query.parse_sample_data.html">sensortoolkit.reference._ref_api_query.parse_sample_data</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.reference._ref_api_query.query_airnow.html">sensortoolkit.reference._ref_api_query.query_airnow</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.reference._ref_api_query.query_aqs.html">sensortoolkit.reference._ref_api_query.query_aqs</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.reference._ref_api_query.query_periods.html">sensortoolkit.reference._ref_api_query.query_periods</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.reference._ref_api_query.ref_api_query.html">sensortoolkit.reference._ref_api_query.ref_api_query</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.reference._ref_api_query.save_api_dataset.html">sensortoolkit.reference._ref_api_query.save_api_dataset</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.reference._ref_api_query.select_poc.html">sensortoolkit.reference._ref_api_query.select_poc</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.reference._ref_api_query.html#resources">Resources</a></li>
 </ul>
 </li>
 </ul>
@@ -508,10 +499,59 @@
             
   <div class="section" id="loading-reference-data">
 <h1>Loading Reference Data<a class="headerlink" href="#loading-reference-data" title="Permalink to this headline">¶</a></h1>
+<p>Reference data are loaded either via the <code class="docutils literal notranslate"><span class="pre">ReferenceMonitor.load_data()</span></code> method,
+or, if users wish to query the AirNow or AQS API, either the <code class="docutils literal notranslate"><span class="pre">ReferenceMonitor.query_aqs()</span></code>
+or the <code class="docutils literal notranslate"><span class="pre">ReferenceMonitor.query_aqs()</span></code> method should be used.</p>
+<p>A description and example of each method is detailed below, where information has been
+sorted by the reference data source or API service.</p>
 <div class="tabbed-set docutils">
-<input checked="checked" id="9384d3db-8b9a-4aeb-a048-50705fe14f94" name="e7d2cad2-5900-4a45-8d92-563ffb7cac5e" type="radio">
-</input><label class="tabbed-label" for="9384d3db-8b9a-4aeb-a048-50705fe14f94">
+<input checked="checked" id="e94b8174-4901-4f7a-a207-fc1a8f338b5e" name="f96889ca-a5ed-4b3b-9b6e-33701333aa68" type="radio">
+</input><label class="tabbed-label" for="e94b8174-4901-4f7a-a207-fc1a8f338b5e">
 Local</label><div class="tabbed-content docutils">
+<p>To load reference data from locally acquired files, users should call the
+<code class="docutils literal notranslate"><span class="pre">ReferenceMonitor.load_data()</span></code> method. This method accepts the following arguments:</p>
+<table class="colwidths-given docutils align-default" id="id1">
+<caption><span class="caption-text"><code class="docutils literal notranslate"><span class="pre">ReferenceMonitor.load_data()</span></code> Arguments</span><a class="headerlink" href="#id1" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col style="width: 40%" />
+<col style="width: 60%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Argument</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">bdate</span></code></p></td>
+<td><p>The beginning date (“YYYY-MM-DD” format) for the sensor testing period.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">edate</span></code></p></td>
+<td><p>The ending date (“YYYY-MM-DD” format) for the sensor testing period.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">param_list</span></code></p></td>
+<td><p>A list of SDFS parameters measured by reference monitors at the monitoring
+site for which data will be loaded.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">met_data</span></code></p></td>
+<td><p>Optional, if true, meteorological data will be loaded in addition to datasets
+corresponding to parameters passed to <code class="docutils literal notranslate"><span class="pre">param_list</span></code>. Defaults to true
+(U.S. EPA’s documents for recommended performance testing protocols, metrics,
+and target values encourage users to report meteorological conditions for
+sensor performance evaluations and reports).</p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">ReferenceMonitor.reference_setup()</span></code> method saves SDFS formatted reference
+datasets in month-long segments (e.g.,
+<code class="docutils literal notranslate"><span class="pre">/data/reference_data/local/processed/Burdens_Creek_370630099/H_201909_PM.csv</span></code>
+corresponds to 1-hour averaged reference data for instruments at the Burdens
+Creek monitoring site that measured particulate matter during the month of
+September 2019).</p>
+<p><code class="docutils literal notranslate"><span class="pre">ReferenceMonitor.load_data()</span></code> will load monthly datasets corresponding to
+the set of months spanning the <code class="docutils literal notranslate"><span class="pre">bdate</span></code> and <code class="docutils literal notranslate"><span class="pre">edate</span></code> arguments.</p>
+</div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">reference_object</span><span class="o">.</span><span class="n">load_data</span><span class="p">(</span><span class="n">bdate</span><span class="o">=</span><span class="s1">&#39;2019-08-01&#39;</span><span class="p">,</span>
                            <span class="n">edate</span><span class="o">=</span><span class="s1">&#39;2019-09-15&#39;</span><span class="p">,</span>
                            <span class="n">param_list</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;PM25&#39;</span><span class="p">])</span>
@@ -527,9 +567,53 @@ Local</label><div class="tabbed-content docutils">
 </pre></div>
 </div>
 </div>
-<input id="c43c9ada-040e-4893-80c5-c1570bc14a84" name="e7d2cad2-5900-4a45-8d92-563ffb7cac5e" type="radio">
-</input><label class="tabbed-label" for="c43c9ada-040e-4893-80c5-c1570bc14a84">
+<input id="8ed110cc-ae06-48d0-8fdc-66b1efbe567d" name="f96889ca-a5ed-4b3b-9b6e-33701333aa68" type="radio">
+</input><label class="tabbed-label" for="8ed110cc-ae06-48d0-8fdc-66b1efbe567d">
 AirNowTech</label><div class="tabbed-content docutils">
+<p>To load processed (SDFS formatted) airnowtech datasets, users should call the
+<code class="docutils literal notranslate"><span class="pre">ReferenceMonitor.load_data()</span></code> method. This method accepts the following arguments:</p>
+<table class="colwidths-given docutils align-default" id="id2">
+<caption><span class="caption-text"><code class="docutils literal notranslate"><span class="pre">ReferenceMonitor.load_data()</span></code> Arguments</span><a class="headerlink" href="#id2" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col style="width: 40%" />
+<col style="width: 60%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Argument</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">bdate</span></code></p></td>
+<td><p>The beginning date (“YYYY-MM-DD” format) for the sensor testing period.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">edate</span></code></p></td>
+<td><p>The ending date (“YYYY-MM-DD” format) for the sensor testing period.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">param_list</span></code></p></td>
+<td><p>A list of SDFS parameters measured by reference monitors at the monitoring
+site for which data will be loaded.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">met_data</span></code></p></td>
+<td><p>Optional, if true, meteorological data will be loaded in addition to datasets
+corresponding to parameters passed to <code class="docutils literal notranslate"><span class="pre">param_list</span></code>. Defaults to true
+(U.S. EPA’s documents for recommended performance testing protocols, metrics,
+and target values encourage users to report meteorological conditions for
+sensor performance evaluations and reports).</p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">ReferenceMonitor.reference_setup()</span></code> method saves SDFS formatted reference
+datasets in month-long segments (e.g.,
+<code class="docutils literal notranslate"><span class="pre">/data/reference_data/airnowtech/processed/Burdens_Creek_370630099/H_201909_PM.csv</span></code>
+corresponds to 1-hour averaged reference data for instruments at the Burdens
+Creek monitoring site that measured particulate matter during the month of
+September 2019).</p>
+<p><code class="docutils literal notranslate"><span class="pre">ReferenceMonitor.load_data()</span></code> will load monthly datasets corresponding to
+the set of months spanning the <code class="docutils literal notranslate"><span class="pre">bdate</span></code> and <code class="docutils literal notranslate"><span class="pre">edate</span></code> arguments.</p>
+</div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">reference_object</span><span class="o">.</span><span class="n">load_data</span><span class="p">(</span><span class="n">bdate</span><span class="o">=</span><span class="s1">&#39;2019-08-01&#39;</span><span class="p">,</span>
                            <span class="n">edate</span><span class="o">=</span><span class="s1">&#39;2019-09-15&#39;</span><span class="p">,</span>
                            <span class="n">param_list</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;PM25&#39;</span><span class="p">])</span>
@@ -545,8 +629,8 @@ AirNowTech</label><div class="tabbed-content docutils">
 </pre></div>
 </div>
 </div>
-<input id="a36caf8b-faaa-42ee-a048-639c65adca8d" name="e7d2cad2-5900-4a45-8d92-563ffb7cac5e" type="radio">
-</input><label class="tabbed-label" for="a36caf8b-faaa-42ee-a048-639c65adca8d">
+<input id="6f143af9-845c-4f9e-90b3-27bb0cfa555b" name="f96889ca-a5ed-4b3b-9b6e-33701333aa68" type="radio">
+</input><label class="tabbed-label" for="6f143af9-845c-4f9e-90b3-27bb0cfa555b">
 Querying the AQS API</label><div class="tabbed-content docutils">
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">aqs_username</span> <span class="o">=</span> <span class="s1">&#39;usernam@email.com&#39;</span>
 <span class="n">aqs_key</span> <span class="o">=</span> <span class="s1">&#39;NOT-A-REAL-KEY&#39;</span>
@@ -597,8 +681,8 @@ Querying the AQS API</label><div class="tabbed-content docutils">
 </pre></div>
 </div>
 </div>
-<input id="74b7a7cd-ccc0-4f41-aae6-e543950cb77b" name="e7d2cad2-5900-4a45-8d92-563ffb7cac5e" type="radio">
-</input><label class="tabbed-label" for="74b7a7cd-ccc0-4f41-aae6-e543950cb77b">
+<input id="d4c81ad0-0f67-4b7f-8d3f-c0b69ffba26e" name="f96889ca-a5ed-4b3b-9b6e-33701333aa68" type="radio">
+</input><label class="tabbed-label" for="d4c81ad0-0f67-4b7f-8d3f-c0b69ffba26e">
 Querying the AirNow API</label><div class="tabbed-content docutils">
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">airnow_key</span> <span class="o">=</span> <span class="s1">&#39;NOT-A-REAL-KEY&#39;</span>
 <span class="n">ref</span><span class="o">.</span><span class="n">query_airnow</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="n">airnow_key</span><span class="p">,</span>

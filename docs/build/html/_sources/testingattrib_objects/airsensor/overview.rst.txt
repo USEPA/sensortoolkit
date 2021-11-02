@@ -29,12 +29,14 @@ alongside the sensortoolkit library:
 
 Constructing the sensortoolkit Directory Structure
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-sensortoolkit utilizes a folder structure within the directory pointed to by the
-``project_path`` for storing datasets and organizing related files. Sensor and
+sensortoolkit utilizes a folder structure for storing datasets and organizing
+related files. This folder structure is located at the path to a directory the
+user wishes to store evaluation-related content in. This path is referred to as
+the `project path` and is the same path the user passes to ``project_path`` when
+creating an instance of the ``sensortoolkit.AirSensor`` object. Sensor and
 reference datasets as well as supplementary statistics are stored in a ``/data``
-folder. Figures created by the library are stored in a ``/figures`` folder. Testing
-reports are saved within a ``/reports`` folder. Users should run the
+folder. Figures created by the library are stored in a ``/figures`` folder.
+Testing reports are saved within a ``/reports`` folder. Users should run the
 following line of code to construct this folder structure at the user’s
 ``project_path``:
 

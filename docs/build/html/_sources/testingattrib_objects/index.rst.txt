@@ -22,24 +22,17 @@ to the measurement data of interest for the evaluation (``sensortoolkit.Paramete
 In addition, both the ``sensortoolkit.AirSensor`` and ``sensortoolkit.ReferenceMonitor``
 objects house sensor and reference data, respectively.
 
-The library organizes datasets and various outputs, such as figures,
-evaluation datasets, and reports into several sub-directories within a project folder
-that user specifies.
-
-.. important::
-  Users have the option of working from within the folder location where the `sensortoolkit`
-  repository was downloaded, storing sensor and reference data in the provided ``/Data and Figures`` directory,
-  or users may wish to organize their work in a separate directory. In either case, various
-  subdirectories and folders must be created to store data, figures, and evaluation
-  statistics.
-
 .. note::
 
-  The following guide assumes that the user intends to place all user-created scripts,
-  datasets, figures, and reports at a folder location ``C:/Users/.../Documents/my_evaluation``. While we name this
-  folder ``my_evaluation``, users are free to assign their directory whatever name suits best.
+  sensortoolkit organizes datasets and various outputs, such as figures,
+  evaluation datasets, and reports into several sub-directories within a project folder
+  that user specifies.
 
-From within the work directory, create a new python file and import the sensortoolkit library.
+  The following guide assumes that the user intends to place all user-created scripts,
+  datasets, figures, and reports at a project folder location ``C:/Users/.../Documents/my_evaluation``. While we name this
+  folder ``my_evaluation``, users are free to assign their project directory whatever name suits best.
+
+From within the project directory, create a new python file and import the sensortoolkit library.
 Create a variable for indicating the project folder path (below, named ``work_path``). This should also be the full directory
 path for the parent directory of the script. Data, figures, and reports will be stored in this
 directory location, so users may wish to create a new or empty folder for evaluations.

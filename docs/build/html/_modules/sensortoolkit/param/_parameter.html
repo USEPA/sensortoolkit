@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>sensortoolkit.param._parameter &mdash; sensortoolkit 0.5.6b2 documentation</title>
+  <title>sensortoolkit.param._parameter &mdash; sensortoolkit 0.6.0b4 documentation</title>
   
 
   
@@ -67,7 +67,7 @@
             
             
               <div class="version">
-                0.5.6b2
+                0.6.0b4
               </div>
             
           
@@ -121,15 +121,14 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../evaluation_objects/performancereport.html">Creating Testing Reports - The PerformanceReport Class</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../../../data_structures/index.html">Data Structures and Formatting</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../data_structures/index.html">Data Structures</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../data_structures/sensor_data.html">Sensor Data Structures</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../data_structures/sdfs.html">Sensor Data Formatting Standard (S-DFS)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../data_structures/reference_data.html">Reference Data Structures</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../data_structures/rdfs.html">Reference Data Formatting Standard (R-DFS)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../data_structures/config_structs.html">Configuration Setup JSON</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../data_structures/eval_structs.html">Performance Evaluation Data Structures</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../../../sdfs/index.html">sensortoolkit Data Formatting Scheme (SDFS)</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">API Documentation</span></p>
 <ul>
@@ -191,6 +190,7 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.datetime_utils._time_averaging.html">sensortoolkit.datetime_utils._time_averaging</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.datetime_utils._time_averaging.interval_averaging.html">sensortoolkit.datetime_utils._time_averaging.interval_averaging</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.datetime_utils._time_averaging.object_grouper.html">sensortoolkit.datetime_utils._time_averaging.object_grouper</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.datetime_utils._time_averaging.sensor_averaging.html">sensortoolkit.datetime_utils._time_averaging.sensor_averaging</a></li>
 </ul>
 </li>
@@ -235,22 +235,24 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.ingest._sensor_import.html">sensortoolkit.ingest._sensor_import</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.ingest._sensor_import.ingest_example_make_model.html">sensortoolkit.ingest._sensor_import.ingest_example_make_model</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.ingest._sensor_import.ingest_purpleair.html">sensortoolkit.ingest._sensor_import.ingest_purpleair</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.ingest._sensor_import.ingest_sensit_ramp.html">sensortoolkit.ingest._sensor_import.ingest_sensit_ramp</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.ingest._sensor_import.ingest_wrapper.html">sensortoolkit.ingest._sensor_import.ingest_wrapper</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.ingest._sensor_import.sensor_import.html">sensortoolkit.ingest._sensor_import.sensor_import</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.ingest._standard_ingest.html">sensortoolkit.ingest._standard_ingest</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.ingest._standard_ingest.ParseSetup.html">sensortoolkit.ingest._standard_ingest.ParseSetup</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.ingest._standard_ingest.apply_strptime.html">sensortoolkit.ingest._standard_ingest.apply_strptime</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.ingest._standard_ingest.parse_setup.html">sensortoolkit.ingest._standard_ingest.parse_setup</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.ingest._standard_ingest.standard_ingest.html">sensortoolkit.ingest._standard_ingest.standard_ingest</a></li>
 </ul>
 </li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../api/lib_utils.html"><code class="docutils literal notranslate"><span class="pre">sensortoolkit.lib_utils</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.lib_utils._check_type.html">sensortoolkit.lib_utils._check_type</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.lib_utils._check_type.check_type.html">sensortoolkit.lib_utils._check_type.check_type</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.lib_utils._copy_datasets.html">sensortoolkit.lib_utils._copy_datasets</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.lib_utils._copy_datasets.copy_datasets.html">sensortoolkit.lib_utils._copy_datasets.copy_datasets</a></li>
 </ul>
@@ -294,7 +296,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../api/param.html"><code class="docutils literal notranslate"><span class="pre">sensortoolkit.param</span></code></a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.param._parameter.html">sensortoolkit.param._parameter</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.param._parameter.Parameter.html">sensortoolkit.param._parameter.Parameter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.param._parameter.html#resources">Resources</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.param._targets.html">sensortoolkit.param._targets</a><ul>
@@ -404,18 +406,7 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._ref_api_query.html">sensortoolkit.reference._ref_api_query</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._ref_api_query.date_range_selector.html">sensortoolkit.reference._ref_api_query.date_range_selector</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._ref_api_query.ingest_airnow.html">sensortoolkit.reference._ref_api_query.ingest_airnow</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._ref_api_query.ingest_aqs.html">sensortoolkit.reference._ref_api_query.ingest_aqs</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._ref_api_query.modify_ref_cols.html">sensortoolkit.reference._ref_api_query.modify_ref_cols</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._ref_api_query.modify_ref_method_str.html">sensortoolkit.reference._ref_api_query.modify_ref_method_str</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._ref_api_query.parse_sample_data.html">sensortoolkit.reference._ref_api_query.parse_sample_data</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._ref_api_query.query_airnow.html">sensortoolkit.reference._ref_api_query.query_airnow</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._ref_api_query.query_aqs.html">sensortoolkit.reference._ref_api_query.query_aqs</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._ref_api_query.query_periods.html">sensortoolkit.reference._ref_api_query.query_periods</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._ref_api_query.ref_api_query.html">sensortoolkit.reference._ref_api_query.ref_api_query</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._ref_api_query.save_api_dataset.html">sensortoolkit.reference._ref_api_query.save_api_dataset</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._ref_api_query.select_poc.html">sensortoolkit.reference._ref_api_query.select_poc</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._ref_api_query.html#resources">Resources</a></li>
 </ul>
 </li>
 </ul>
@@ -500,10 +491,21 @@
             
   <h1>Source code for sensortoolkit.param._parameter</h1><div class="highlight"><pre>
 <span></span><span class="c1"># -*- coding: utf-8 -*-</span>
-<span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">Description.</span>
+<span class="sd">&quot;&quot;&quot;This module contains the parameter object, which is used to keep track of</span>
+<span class="sd">attributes pertaining to the parameter or pollutant for which sensor data are</span>
+<span class="sd">being evaluated.</span>
 
-<span class="sd">================================================================================</span>
+<span class="sd">Resources</span>
+<span class="sd">---------</span>
+
+<span class="sd">1. A list of AQS parameter codes is located at</span>
+<span class="sd">   `&lt;https://aqs.epa.gov/aqsweb/documents/codetables/parameters.html&gt;`_</span>
+
+<span class="sd">2. A list of AQS unit codes is located at</span>
+<span class="sd">   `&lt;https://aqs.epa.gov/aqsweb/documents/codetables/units.html&gt;`_</span>
+
+
+<span class="sd">===============================================================================</span>
 
 <span class="sd">@Author:</span>
 <span class="sd">  | Samuel Frederick, NSSC Contractor (ORAU)</span>
@@ -516,15 +518,70 @@
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">from</span> <span class="nn">._targets</span> <span class="kn">import</span> <span class="n">ParameterTargets</span>
 <span class="kn">from</span> <span class="nn">sensortoolkit.lib_utils</span> <span class="kn">import</span> <span class="n">validate_entry</span>
+<span class="kn">from</span> <span class="nn">._targets</span> <span class="kn">import</span> <span class="n">ParameterTargets</span>
 
 <div class="viewcode-block" id="Parameter"><a class="viewcode-back" href="../../../api/_autosummary/sensortoolkit.param._parameter.Parameter.html#sensortoolkit.param._parameter.Parameter">[docs]</a><span class="k">class</span> <span class="nc">Parameter</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;Object for accessing parameter attributes.</span>
+
+<span class="sd">    Here, parameters are defined as measurable environmental quantities such</span>
+<span class="sd">    as pollutants or meteorological conditions for which air sensors and</span>
+<span class="sd">    reference instrumentation may collect measurements at regular sampling</span>
+<span class="sd">    intervals.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        param (str): DESCRIPTION.</span>
+<span class="sd">        set_units (bool, optional): DESCRIPTION. Defaults to True.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        name (str):</span>
+<span class="sd">            The name of the parameter (e.g., &#39;PM25&#39;).</span>
+<span class="sd">        format_name (str):</span>
+<span class="sd">            A formatted expression for the parameter used for displaying the</span>
+<span class="sd">            name of the parameter on plots (e.g., &#39;PM$_{2.5}$&#39;).</span>
+<span class="sd">        format_baseline (str):</span>
+<span class="sd">            For ``format_name``, contains the baseline component of the</span>
+<span class="sd">            parameter name (e.g., &#39;PM&#39; for fine particulate matter)</span>
+<span class="sd">        format_subscript (str):</span>
+<span class="sd">            For ``format_name``, contains the subscripted component of the</span>
+<span class="sd">            parameter name (e.g., &#39;2.5&#39; for fine particulate matter)</span>
+<span class="sd">        classifier (str):</span>
+<span class="sd">            A term for sorting the parameter into one of three environmental</span>
+<span class="sd">            parameter classifications, either &#39;PM&#39; for particulate matter</span>
+<span class="sd">            pollutants, &#39;Gases&#39; for gaseous pollutants, or &#39;Met&#39; for</span>
+<span class="sd">            meteorological environmental parameters (e.g., &#39;PM25&#39; is assigned</span>
+<span class="sd">            to the &#39;PM&#39; classifier).</span>
+<span class="sd">        criteria_pollutant (bool):</span>
+<span class="sd">            Describes whether the parameter is a criteria pollutant (True) or</span>
+<span class="sd">            non-criteria (False).</span>
+<span class="sd">        aqs_parameter_code (int):</span>
+<span class="sd">            The AQS Parameter code. See resource #1 in the module docstring</span>
+<span class="sd">            for a detailed list of AQS parameter codes.</span>
+<span class="sd">        averaging (list):</span>
+<span class="sd">            The reference measurement averaging intervals commonly utilized for</span>
+<span class="sd">            analyzing parameter data. Common averaging intervals are included</span>
+<span class="sd">            in a list (e.g., fine particulate matter as measured by FRM or</span>
+<span class="sd">            FEM instrumentation may report data at either 1-hour or 24-hour</span>
+<span class="sd">            sampling or averaging intervals, such that averaging would be</span>
+<span class="sd">            [&#39;1-hour&#39;, &#39;24-hour&#39;]).</span>
+<span class="sd">        units (str):</span>
+<span class="sd">            The units of measure, expressed symbolically in unicode characters</span>
+<span class="sd">            (e.g., for fine particulate matter, &#39;µg/m³&#39;).</span>
+<span class="sd">        units_description (str):</span>
+<span class="sd">            A textual description of the units of measure (e.g., for fine</span>
+<span class="sd">            particulate matter,&#39;Micrograms per Cubic Meter&#39;).</span>
+<span class="sd">        units_aqs_code (int):</span>
+<span class="sd">            The AQS unit code. See resource #2 in the module docstring for a</span>
+<span class="sd">            detailed list of AQS parameter codes.</span>
+<span class="sd">        PerformanceTargets (sensortoolkit.ParameterTargets object):</span>
+<span class="sd">            Performance metrics, target values and ranges associated with the</span>
+<span class="sd">            parameter. Preset values are configured for PM25 and O3 using</span>
+<span class="sd">            U.S. EPA&#39;s recommended performance metrics and targets for air</span>
+<span class="sd">            sensors measuring these pollutants.</span>
+
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">__param_dict__</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;CO&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;baseline&#39;</span><span class="p">:</span> <span class="s1">&#39;CO&#39;</span><span class="p">,</span>
                              <span class="s1">&#39;classifier&#39;</span><span class="p">:</span> <span class="s1">&#39;Gases&#39;</span><span class="p">,</span>
-                             <span class="s1">&#39;fmt_param&#39;</span><span class="p">:</span> <span class="s1">&#39;CO&#39;</span><span class="p">,</span>
                              <span class="s1">&#39;subscript&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
                              <span class="s1">&#39;aqs_unit_code&#39;</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span>
                              <span class="s1">&#39;averaging&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
@@ -535,7 +592,6 @@
 
                       <span class="s1">&#39;DP&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;baseline&#39;</span><span class="p">:</span> <span class="s1">&#39;Dew point&#39;</span><span class="p">,</span>
                              <span class="s1">&#39;classifier&#39;</span><span class="p">:</span> <span class="s1">&#39;Met&#39;</span><span class="p">,</span>
-                             <span class="s1">&#39;fmt_param&#39;</span><span class="p">:</span> <span class="s1">&#39;Dew point&#39;</span><span class="p">,</span>
                              <span class="s1">&#39;subscript&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
                              <span class="s1">&#39;aqs_unit_code&#39;</span><span class="p">:</span> <span class="mi">17</span><span class="p">,</span>
                              <span class="s1">&#39;averaging&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
@@ -546,7 +602,6 @@
 
                       <span class="s1">&#39;NO&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;baseline&#39;</span><span class="p">:</span> <span class="s1">&#39;NO&#39;</span><span class="p">,</span>
                              <span class="s1">&#39;classifier&#39;</span><span class="p">:</span> <span class="s1">&#39;Gases&#39;</span><span class="p">,</span>
-                             <span class="s1">&#39;fmt_param&#39;</span><span class="p">:</span> <span class="s1">&#39;NO&#39;</span><span class="p">,</span>
                              <span class="s1">&#39;subscript&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
                              <span class="s1">&#39;averaging&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
                              <span class="s1">&#39;usepa_targets&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
@@ -556,7 +611,6 @@
 
                       <span class="s1">&#39;NO2&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;baseline&#39;</span><span class="p">:</span> <span class="s1">&#39;NO&#39;</span><span class="p">,</span>
                               <span class="s1">&#39;classifier&#39;</span><span class="p">:</span> <span class="s1">&#39;Gases&#39;</span><span class="p">,</span>
-                              <span class="s1">&#39;fmt_param&#39;</span><span class="p">:</span> <span class="s1">&#39;$NO_2$&#39;</span><span class="p">,</span>
                               <span class="s1">&#39;subscript&#39;</span><span class="p">:</span> <span class="s1">&#39;2&#39;</span><span class="p">,</span>
                               <span class="s1">&#39;aqs_unit_code&#39;</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span>
                               <span class="s1">&#39;averaging&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
@@ -567,7 +621,6 @@
 
                       <span class="s1">&#39;NOx&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;baseline&#39;</span><span class="p">:</span> <span class="s1">&#39;NO&#39;</span><span class="p">,</span>
                               <span class="s1">&#39;classifier&#39;</span><span class="p">:</span> <span class="s1">&#39;Gases&#39;</span><span class="p">,</span>
-                              <span class="s1">&#39;fmt_param&#39;</span><span class="p">:</span> <span class="s1">&#39;$NO_x$&#39;</span><span class="p">,</span>
                               <span class="s1">&#39;subscript&#39;</span><span class="p">:</span> <span class="s1">&#39;x&#39;</span><span class="p">,</span>
                               <span class="s1">&#39;aqs_unit_code&#39;</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span>
                               <span class="s1">&#39;averaging&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
@@ -579,7 +632,6 @@
 
                       <span class="s1">&#39;O3&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;baseline&#39;</span><span class="p">:</span> <span class="s1">&#39;O&#39;</span><span class="p">,</span>
                              <span class="s1">&#39;classifier&#39;</span><span class="p">:</span> <span class="s1">&#39;Gases&#39;</span><span class="p">,</span>
-                             <span class="s1">&#39;fmt_param&#39;</span><span class="p">:</span> <span class="s1">&#39;$O_3$&#39;</span><span class="p">,</span>
                              <span class="s1">&#39;subscript&#39;</span><span class="p">:</span> <span class="s1">&#39;3&#39;</span><span class="p">,</span>
                              <span class="s1">&#39;aqs_unit_code&#39;</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span>
                              <span class="s1">&#39;averaging&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;1-hour&#39;</span><span class="p">],</span>
@@ -591,7 +643,6 @@
 
                       <span class="s1">&#39;PM1&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;baseline&#39;</span><span class="p">:</span> <span class="s1">&#39;PM&#39;</span><span class="p">,</span>
                               <span class="s1">&#39;classifier&#39;</span><span class="p">:</span> <span class="s1">&#39;PM&#39;</span><span class="p">,</span>
-                              <span class="s1">&#39;fmt_param&#39;</span><span class="p">:</span> <span class="s1">&#39;PM$_</span><span class="si">{1}</span><span class="s1">$&#39;</span><span class="p">,</span>
                               <span class="s1">&#39;subscript&#39;</span><span class="p">:</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span>
                               <span class="s1">&#39;aqs_unit_code&#39;</span><span class="p">:</span> <span class="mi">105</span><span class="p">,</span>
                               <span class="s1">&#39;averaging&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
@@ -602,7 +653,6 @@
 
                       <span class="s1">&#39;PM10&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;baseline&#39;</span><span class="p">:</span> <span class="s1">&#39;PM&#39;</span><span class="p">,</span>
                                <span class="s1">&#39;classifier&#39;</span><span class="p">:</span> <span class="s1">&#39;PM&#39;</span><span class="p">,</span>
-                               <span class="s1">&#39;fmt_param&#39;</span><span class="p">:</span> <span class="s1">&#39;PM$_</span><span class="si">{10}</span><span class="s1">$&#39;</span><span class="p">,</span>
                                <span class="s1">&#39;subscript&#39;</span><span class="p">:</span> <span class="s1">&#39;10&#39;</span><span class="p">,</span>
                                <span class="s1">&#39;aqs_unit_code&#39;</span><span class="p">:</span> <span class="mi">105</span><span class="p">,</span>
                                <span class="s1">&#39;averaging&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
@@ -613,7 +663,6 @@
 
                       <span class="s1">&#39;PM25&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;baseline&#39;</span><span class="p">:</span> <span class="s1">&#39;PM&#39;</span><span class="p">,</span>
                                <span class="s1">&#39;classifier&#39;</span><span class="p">:</span> <span class="s1">&#39;PM&#39;</span><span class="p">,</span>
-                               <span class="s1">&#39;fmt_param&#39;</span><span class="p">:</span> <span class="s1">&#39;PM$_</span><span class="si">{2.5}</span><span class="s1">$&#39;</span><span class="p">,</span>
                                <span class="s1">&#39;subscript&#39;</span><span class="p">:</span> <span class="s1">&#39;2.5&#39;</span><span class="p">,</span>
                                <span class="s1">&#39;aqs_unit_code&#39;</span><span class="p">:</span> <span class="mi">105</span><span class="p">,</span>
                                <span class="s1">&#39;averaging&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;1-hour&#39;</span><span class="p">,</span> <span class="s1">&#39;24-hour&#39;</span><span class="p">],</span>
@@ -624,7 +673,6 @@
 
                       <span class="s1">&#39;SO2&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;baseline&#39;</span><span class="p">:</span> <span class="s1">&#39;SO&#39;</span><span class="p">,</span>
                               <span class="s1">&#39;classifier&#39;</span><span class="p">:</span> <span class="s1">&#39;Gases&#39;</span><span class="p">,</span>
-                              <span class="s1">&#39;fmt_param&#39;</span><span class="p">:</span> <span class="s1">&#39;$SO_2$&#39;</span><span class="p">,</span>
                               <span class="s1">&#39;subscript&#39;</span><span class="p">:</span> <span class="s1">&#39;2&#39;</span><span class="p">,</span>
                               <span class="s1">&#39;aqs_unit_code&#39;</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span>
                               <span class="s1">&#39;averaging&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
@@ -635,7 +683,6 @@
 
                       <span class="s1">&#39;SOx&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;baseline&#39;</span><span class="p">:</span> <span class="s1">&#39;SO&#39;</span><span class="p">,</span>
                               <span class="s1">&#39;classifier&#39;</span><span class="p">:</span> <span class="s1">&#39;Gases&#39;</span><span class="p">,</span>
-                              <span class="s1">&#39;fmt_param&#39;</span><span class="p">:</span> <span class="s1">&#39;$SO_x$&#39;</span><span class="p">,</span>
                               <span class="s1">&#39;subscript&#39;</span><span class="p">:</span> <span class="s1">&#39;x&#39;</span><span class="p">,</span>
                               <span class="s1">&#39;aqs_unit_code&#39;</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span>
                               <span class="s1">&#39;averaging&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
@@ -646,7 +693,6 @@
 
                       <span class="s1">&#39;Temp&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;baseline&#39;</span><span class="p">:</span> <span class="s1">&#39;Temperature&#39;</span><span class="p">,</span>
                                <span class="s1">&#39;classifier&#39;</span><span class="p">:</span> <span class="s1">&#39;Met&#39;</span><span class="p">,</span>
-                               <span class="s1">&#39;fmt_param&#39;</span><span class="p">:</span> <span class="s1">&#39;Temperature&#39;</span><span class="p">,</span>
                                <span class="s1">&#39;subscript&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
                                <span class="s1">&#39;aqs_unit_code&#39;</span><span class="p">:</span> <span class="mi">17</span><span class="p">,</span>
                                <span class="s1">&#39;averaging&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
@@ -657,7 +703,6 @@
 
                       <span class="s1">&#39;RH&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;baseline&#39;</span><span class="p">:</span> <span class="s1">&#39;Relative Humidity&#39;</span><span class="p">,</span>
                              <span class="s1">&#39;classifier&#39;</span><span class="p">:</span> <span class="s1">&#39;Met&#39;</span><span class="p">,</span>
-                             <span class="s1">&#39;fmt_param&#39;</span><span class="p">:</span> <span class="s1">&#39;Relative Humidity&#39;</span><span class="p">,</span>
                              <span class="s1">&#39;subscript&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
                              <span class="s1">&#39;aqs_unit_code&#39;</span><span class="p">:</span> <span class="mi">19</span><span class="p">,</span>
                              <span class="s1">&#39;averaging&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
@@ -668,7 +713,6 @@
 
                       <span class="s1">&#39;Press&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;baseline&#39;</span><span class="p">:</span> <span class="s1">&#39;Pressure&#39;</span><span class="p">,</span>
                                 <span class="s1">&#39;classifier&#39;</span><span class="p">:</span> <span class="s1">&#39;Met&#39;</span><span class="p">,</span>
-                                <span class="s1">&#39;fmt_param&#39;</span><span class="p">:</span> <span class="s1">&#39;Pressure&#39;</span><span class="p">,</span>
                                 <span class="s1">&#39;subscript&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
                                 <span class="s1">&#39;aqs_unit_code&#39;</span><span class="p">:</span> <span class="mi">128</span><span class="p">,</span>
                                 <span class="s1">&#39;averaging&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
@@ -679,7 +723,6 @@
 
                       <span class="s1">&#39;WD&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;baseline&#39;</span><span class="p">:</span> <span class="s1">&#39;Wind Direction&#39;</span><span class="p">,</span>
                              <span class="s1">&#39;classifier&#39;</span><span class="p">:</span> <span class="s1">&#39;Met&#39;</span><span class="p">,</span>
-                             <span class="s1">&#39;fmt_param&#39;</span><span class="p">:</span> <span class="s1">&#39;Wind Direction&#39;</span><span class="p">,</span>
                              <span class="s1">&#39;subscript&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
                              <span class="s1">&#39;aqs_unit_code&#39;</span><span class="p">:</span> <span class="mi">14</span><span class="p">,</span>
                              <span class="s1">&#39;averaging&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
@@ -690,7 +733,6 @@
 
                       <span class="s1">&#39;WS&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;baseline&#39;</span><span class="p">:</span> <span class="s1">&#39;Wind Speed&#39;</span><span class="p">,</span>
                              <span class="s1">&#39;classifier&#39;</span><span class="p">:</span> <span class="s1">&#39;Met&#39;</span><span class="p">,</span>
-                             <span class="s1">&#39;fmt_param&#39;</span><span class="p">:</span> <span class="s1">&#39;Wind Speed&#39;</span><span class="p">,</span>
                              <span class="s1">&#39;subscript&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
                              <span class="s1">&#39;aqs_unit_code&#39;</span><span class="p">:</span> <span class="mi">11</span><span class="p">,</span>
                              <span class="s1">&#39;averaging&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
@@ -700,7 +742,7 @@
                              <span class="p">}</span>
                       <span class="p">}</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">param</span><span class="p">,</span> <span class="n">set_units</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">param</span><span class="p">,</span> <span class="n">set_units</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">param</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">format_name</span> <span class="o">=</span> <span class="kc">None</span>
@@ -710,7 +752,6 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">criteria_pollutant</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">aqs_parameter_code</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">averaging</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;1-hour&#39;</span><span class="p">,</span> <span class="s1">&#39;24-hour&#39;</span><span class="p">]</span>  <span class="c1"># default averaging</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">__verbose__</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;verbose&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">set_units</span><span class="p">:</span>
             <span class="n">unit_info</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_units</span><span class="p">()</span>
@@ -719,11 +760,11 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">units_aqs_code</span> <span class="o">=</span> <span class="n">unit_info</span><span class="p">[</span><span class="s1">&#39;Unit Code&#39;</span><span class="p">]</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__param_dict__</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">__Autoset_Param__</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_autoset_param</span><span class="p">()</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">__set_ParameterTargets__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_set_parametertargets</span><span class="p">()</span>
 
-    <span class="k">def</span> <span class="nf">__Autoset_Param__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_autoset_param</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Assign attributes for SDFS parameters.</span>
 
 
@@ -739,12 +780,12 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">averaging</span> <span class="o">=</span> <span class="n">averaging</span>
         <span class="n">baseline</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__param_dict__</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">][</span><span class="s1">&#39;baseline&#39;</span><span class="p">]</span>
         <span class="n">subscript</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__param_dict__</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">][</span><span class="s1">&#39;subscript&#39;</span><span class="p">]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">set_ParameterFormatting</span><span class="p">(</span><span class="n">baseline</span><span class="p">,</span> <span class="n">subscript</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_set_parameterformatting</span><span class="p">(</span><span class="n">baseline</span><span class="p">,</span> <span class="n">subscript</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">format_baseline</span> <span class="o">=</span> <span class="n">baseline</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">format_subscript</span> <span class="o">=</span> <span class="n">subscript</span>
 
 
-<div class="viewcode-block" id="Parameter.set_ParameterFormatting"><a class="viewcode-back" href="../../../api/_autosummary/sensortoolkit.param._parameter.Parameter.html#sensortoolkit.param._parameter.Parameter.set_ParameterFormatting">[docs]</a>    <span class="k">def</span> <span class="nf">set_ParameterFormatting</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">baseline</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">subscript</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_set_parameterformatting</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">baseline</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">subscript</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 
 
@@ -758,9 +799,9 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">format_name</span> <span class="o">=</span> <span class="n">baseline</span>
         <span class="k">if</span> <span class="n">subscript</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">format_name</span> <span class="o">+=</span> <span class="s1">&#39;$_{&#39;</span> <span class="o">+</span> <span class="n">subscript</span> <span class="o">+</span> <span class="s1">&#39;}$&#39;</span></div>
+            <span class="bp">self</span><span class="o">.</span><span class="n">format_name</span> <span class="o">+=</span> <span class="s1">&#39;$_{&#39;</span> <span class="o">+</span> <span class="n">subscript</span> <span class="o">+</span> <span class="s1">&#39;}$&#39;</span>
 
-    <span class="k">def</span> <span class="nf">__set_ParameterTargets__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_set_parametertargets</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 
 
@@ -768,38 +809,18 @@
 <span class="sd">            None.</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__verbose__</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;..Initializing performance targets &#39;</span>
-                  <span class="s1">&#39;for </span><span class="si">{0}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">PerformanceTargets</span> <span class="o">=</span> <span class="n">ParameterTargets</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
 
 <div class="viewcode-block" id="Parameter.is_sdfs"><a class="viewcode-back" href="../../../api/_autosummary/sensortoolkit.param._parameter.Parameter.html#sensortoolkit.param._parameter.Parameter.is_sdfs">[docs]</a>    <span class="k">def</span> <span class="nf">is_sdfs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Indicate whether the passed parameter name is in the catalog of</span>
-<span class="sd">        parameter names for the Sensor Data Formatting Scheme.</span>
+        <span class="sd">&quot;&quot;&quot;Indicate whether the passed parameter name is in the catalog of</span>
+<span class="sd">        parameter names for the sensortoolkit Data Formatting Scheme (SDFS).</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            TYPE: DESCRIPTION.</span>
+<span class="sd">            bool:</span>
+<span class="sd">                Return ``True`` if in the catalog, otherwise return ``False``.</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__param_dict__</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span></div>
-
-    <span class="c1"># def format_units(self, to=None):</span>
-    <span class="c1">#     if to == &#39;latex&#39;:</span>
-    <span class="c1">#         return self._format_units_latex()</span>
-
-
-    <span class="c1"># def _format_units_latex(self):</span>
-    <span class="c1">#     replacements = {&#39;Micrograms&#39;: &#39;\\mu g&#39;,</span>
-    <span class="c1">#                             &#39;per&#39;: r&#39;/&#39;,</span>
-    <span class="c1">#                             &#39;cubic meter&#39;: &#39;m^3&#39;}</span>
-
-    <span class="c1">#     self.latex_units = self.units</span>
-    <span class="c1">#     for text, latex in replacements.items():</span>
-    <span class="c1">#         self.latex_units = self.latex_units.replace(text, latex)</span>
-
-    <span class="c1">#     return self.latex_units</span>
-
 
     <span class="k">def</span> <span class="nf">_get_units</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">unit_table_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="vm">__file__</span><span class="p">,</span>
@@ -832,14 +853,14 @@
 
             <span class="n">response</span> <span class="o">=</span> <span class="n">validate_entry</span><span class="p">()</span>
             <span class="k">if</span> <span class="n">response</span> <span class="o">==</span> <span class="s1">&#39;y&#39;</span><span class="p">:</span>
-                <span class="n">validate</span> <span class="o">==</span> <span class="kc">True</span>
+                <span class="n">validate</span> <span class="o">=</span> <span class="kc">True</span>
 
         <span class="n">options</span> <span class="o">=</span>  <span class="n">unit_data</span><span class="p">[</span><span class="n">unit_data</span><span class="o">.</span><span class="n">Classification</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">classifier</span><span class="p">]</span>
         <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Choose from the following unit codes:&#39;</span><span class="p">)</span>
         <span class="k">with</span> <span class="n">pd</span><span class="o">.</span><span class="n">option_context</span><span class="p">(</span><span class="s1">&#39;display.expand_frame_repr&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span>
-                           <span class="s1">&#39;display.max_colwidth&#39;</span><span class="p">,</span> <span class="mi">65</span><span class="p">,</span>
-                           <span class="s1">&#39;display.max_rows&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span>
-                           <span class="s1">&#39;display.colheader_justify&#39;</span><span class="p">,</span> <span class="s1">&#39;right&#39;</span><span class="p">):</span>
+                               <span class="s1">&#39;display.max_colwidth&#39;</span><span class="p">,</span> <span class="mi">65</span><span class="p">,</span>
+                               <span class="s1">&#39;display.max_rows&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span>
+                               <span class="s1">&#39;display.colheader_justify&#39;</span><span class="p">,</span> <span class="s1">&#39;right&#39;</span><span class="p">):</span>
             <span class="nb">print</span><span class="p">(</span><span class="n">options</span><span class="p">)</span>
         <span class="n">validate</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="k">while</span> <span class="n">validate</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
@@ -852,7 +873,7 @@
 
             <span class="n">response</span> <span class="o">=</span> <span class="n">validate_entry</span><span class="p">()</span>
             <span class="k">if</span> <span class="n">response</span> <span class="o">==</span> <span class="s1">&#39;y&#39;</span><span class="p">:</span>
-                <span class="n">validate</span> <span class="o">==</span> <span class="kc">True</span>
+                <span class="n">validate</span> <span class="o">=</span> <span class="kc">True</span>
 
         <span class="k">return</span> <span class="n">unit_code</span></div>
 

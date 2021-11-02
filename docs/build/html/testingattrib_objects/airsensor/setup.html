@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>AirSensor Setup &mdash; sensortoolkit 0.5.6b2 documentation</title>
+  <title>AirSensor Setup &mdash; sensortoolkit 0.6.0b4 documentation</title>
   
 
   
@@ -69,7 +69,7 @@
             
             
               <div class="version">
-                0.5.6b2
+                0.6.0b4
               </div>
             
           
@@ -123,15 +123,14 @@
 <li class="toctree-l2"><a class="reference internal" href="../../evaluation_objects/performancereport.html">Creating Testing Reports - The PerformanceReport Class</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../../data_structures/index.html">Data Structures and Formatting</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../data_structures/index.html">Data Structures</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../data_structures/sensor_data.html">Sensor Data Structures</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../data_structures/sdfs.html">Sensor Data Formatting Standard (S-DFS)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../data_structures/reference_data.html">Reference Data Structures</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../data_structures/rdfs.html">Reference Data Formatting Standard (R-DFS)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../data_structures/config_structs.html">Configuration Setup JSON</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../data_structures/eval_structs.html">Performance Evaluation Data Structures</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../../sdfs/index.html">sensortoolkit Data Formatting Scheme (SDFS)</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">API Documentation</span></p>
 <ul>
@@ -193,6 +192,7 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.datetime_utils._time_averaging.html">sensortoolkit.datetime_utils._time_averaging</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.datetime_utils._time_averaging.interval_averaging.html">sensortoolkit.datetime_utils._time_averaging.interval_averaging</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.datetime_utils._time_averaging.object_grouper.html">sensortoolkit.datetime_utils._time_averaging.object_grouper</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.datetime_utils._time_averaging.sensor_averaging.html">sensortoolkit.datetime_utils._time_averaging.sensor_averaging</a></li>
 </ul>
 </li>
@@ -237,22 +237,24 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.ingest._sensor_import.html">sensortoolkit.ingest._sensor_import</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.ingest._sensor_import.ingest_example_make_model.html">sensortoolkit.ingest._sensor_import.ingest_example_make_model</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.ingest._sensor_import.ingest_purpleair.html">sensortoolkit.ingest._sensor_import.ingest_purpleair</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.ingest._sensor_import.ingest_sensit_ramp.html">sensortoolkit.ingest._sensor_import.ingest_sensit_ramp</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.ingest._sensor_import.ingest_wrapper.html">sensortoolkit.ingest._sensor_import.ingest_wrapper</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.ingest._sensor_import.sensor_import.html">sensortoolkit.ingest._sensor_import.sensor_import</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.ingest._standard_ingest.html">sensortoolkit.ingest._standard_ingest</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.ingest._standard_ingest.ParseSetup.html">sensortoolkit.ingest._standard_ingest.ParseSetup</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.ingest._standard_ingest.apply_strptime.html">sensortoolkit.ingest._standard_ingest.apply_strptime</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.ingest._standard_ingest.parse_setup.html">sensortoolkit.ingest._standard_ingest.parse_setup</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.ingest._standard_ingest.standard_ingest.html">sensortoolkit.ingest._standard_ingest.standard_ingest</a></li>
 </ul>
 </li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../api/lib_utils.html"><code class="docutils literal notranslate"><span class="pre">sensortoolkit.lib_utils</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.lib_utils._check_type.html">sensortoolkit.lib_utils._check_type</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.lib_utils._check_type.check_type.html">sensortoolkit.lib_utils._check_type.check_type</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.lib_utils._copy_datasets.html">sensortoolkit.lib_utils._copy_datasets</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.lib_utils._copy_datasets.copy_datasets.html">sensortoolkit.lib_utils._copy_datasets.copy_datasets</a></li>
 </ul>
@@ -296,7 +298,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../api/param.html"><code class="docutils literal notranslate"><span class="pre">sensortoolkit.param</span></code></a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.param._parameter.html">sensortoolkit.param._parameter</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.param._parameter.Parameter.html">sensortoolkit.param._parameter.Parameter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.param._parameter.html#resources">Resources</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.param._targets.html">sensortoolkit.param._targets</a><ul>
@@ -406,18 +408,7 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.reference._ref_api_query.html">sensortoolkit.reference._ref_api_query</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.reference._ref_api_query.date_range_selector.html">sensortoolkit.reference._ref_api_query.date_range_selector</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.reference._ref_api_query.ingest_airnow.html">sensortoolkit.reference._ref_api_query.ingest_airnow</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.reference._ref_api_query.ingest_aqs.html">sensortoolkit.reference._ref_api_query.ingest_aqs</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.reference._ref_api_query.modify_ref_cols.html">sensortoolkit.reference._ref_api_query.modify_ref_cols</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.reference._ref_api_query.modify_ref_method_str.html">sensortoolkit.reference._ref_api_query.modify_ref_method_str</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.reference._ref_api_query.parse_sample_data.html">sensortoolkit.reference._ref_api_query.parse_sample_data</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.reference._ref_api_query.query_airnow.html">sensortoolkit.reference._ref_api_query.query_airnow</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.reference._ref_api_query.query_aqs.html">sensortoolkit.reference._ref_api_query.query_aqs</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.reference._ref_api_query.query_periods.html">sensortoolkit.reference._ref_api_query.query_periods</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.reference._ref_api_query.ref_api_query.html">sensortoolkit.reference._ref_api_query.ref_api_query</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.reference._ref_api_query.save_api_dataset.html">sensortoolkit.reference._ref_api_query.save_api_dataset</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.reference._ref_api_query.select_poc.html">sensortoolkit.reference._ref_api_query.select_poc</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.reference._ref_api_query.html#resources">Resources</a></li>
 </ul>
 </li>
 </ul>
@@ -515,9 +506,9 @@ scheme for data types, header names, and a sorted datetime index.</p>
 through an interactive process of entering in details regarding the formatting
 of raw sensor datasets. The Setup module creates a <code class="docutils literal notranslate"><span class="pre">setup.json</span></code>
 configuration file that contains details for describing and converting the recorded sensor
-data format into the <cite>sensortoolkit</cite> <a class="reference external" href="../../data_structures/sdfs.html">Sensor Data Formatting Scheme (S-DFS)</a>. This file is
+data format into the <a class="reference external" href="../../sdfs/index.html">sensortoolkit Data Formatting Scheme (SDFS)</a>. This file is
 passed to a subroutine <code class="docutils literal notranslate"><span class="pre">sensortoolkit.sensor_ingest.standard_ingest()</span></code> to import the recorded dataset and convert
-headers and date/time-like columns to S-DFS formatting.</p>
+headers and date/time-like columns to SDFS formatting.</p>
 <p>To run the <code class="docutils literal notranslate"><span class="pre">sensor_setup()</span></code> module, users should first ensure that they have created an
 <code class="docutils literal notranslate"><span class="pre">AirSensor</span></code> object via the directions above and have run the <code class="docutils literal notranslate"><span class="pre">create_directories()</span></code> method if
 the folder structure listed above does not exist in the user’s project directory.</p>
@@ -625,8 +616,8 @@ is indicated on the left hand side of the console statement. Below, the example 
 a number of rows of metadata, so the header index containing descriptors for the time column and
 pollutant measurement columns is found on row index #5.</p>
 <div class="tabbed-set docutils">
-<input checked="checked" id="36987a14-ca77-4c88-a5db-ae79d05c38a3" name="be7ac658-ab9d-4309-bd27-e910d09f94bb" type="radio">
-</input><label class="tabbed-label" for="36987a14-ca77-4c88-a5db-ae79d05c38a3">
+<input checked="checked" id="91daf978-978e-450f-9f00-af702b8cdf9b" name="a39cb33e-915c-482f-ab8f-a19ffa79a53a" type="radio">
+</input><label class="tabbed-label" for="91daf978-978e-450f-9f00-af702b8cdf9b">
 Header Row Index = 0</label><div class="tabbed-content docutils">
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">============================= Column Header Index ============================</span>
 <span class="go">Options</span>
@@ -657,8 +648,8 @@ Header Row Index = 0</label><div class="tabbed-content docutils">
 </pre></div>
 </div>
 </div>
-<input id="b9bd7961-f0bd-4959-b415-34068058e30a" name="be7ac658-ab9d-4309-bd27-e910d09f94bb" type="radio">
-</input><label class="tabbed-label" for="b9bd7961-f0bd-4959-b415-34068058e30a">
+<input id="bf21fbf1-1225-4f29-88eb-66f50fcdb851" name="a39cb33e-915c-482f-ab8f-a19ffa79a53a" type="radio">
+</input><label class="tabbed-label" for="bf21fbf1-1225-4f29-88eb-66f50fcdb851">
 Header Row Index &gt; 0</label><div class="tabbed-content docutils">
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">============================= Column Header Index ============================</span>
 <span class="go">Options</span>
@@ -690,8 +681,8 @@ Header Row Index &gt; 0</label><div class="tabbed-content docutils">
 </pre></div>
 </div>
 </div>
-<input id="81ada98c-6fcf-4431-a12e-2484d68ad5c0" name="be7ac658-ab9d-4309-bd27-e910d09f94bb" type="radio">
-</input><label class="tabbed-label" for="81ada98c-6fcf-4431-a12e-2484d68ad5c0">
+<input id="63cdb219-7407-4124-90d6-e70f5b0f911e" name="a39cb33e-915c-482f-ab8f-a19ffa79a53a" type="radio">
+</input><label class="tabbed-label" for="63cdb219-7407-4124-90d6-e70f5b0f911e">
 Header Row Index = None</label><div class="tabbed-content docutils">
 <p>Select this option if the dataset does not contain a single row with header
 information. The example below indicates a log description followed immediately
@@ -848,9 +839,9 @@ name, both header names must be specified via the following:</p>
 </div>
 </div>
 <div class="section" id="specifying-the-parameter-renaming-scheme">
-<h2>5. Specifying the Parameter Renaming Scheme<a class="headerlink" href="#specifying-the-parameter-renaming-scheme" title="Permalink to this headline">¶</a></h2>
+<h2>7. Specifying the Parameter Renaming Scheme<a class="headerlink" href="#specifying-the-parameter-renaming-scheme" title="Permalink to this headline">¶</a></h2>
 <p>Next, users are prompted to configure the parameter renaming scheme by entering
-in <cite>sensortoolkit</cite>’s Sensor Data Formatting Standard (S-DFS) parameter name
+in the sensortoolkit Data Formatting Standard (SDFS) parameter name
 that corresponds to each parameter header name.</p>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
@@ -898,7 +889,7 @@ from the dataset by pressing enter.</p>
 </div>
 </div>
 <div class="section" id="configuring-timestamp-column-formatting">
-<h2>6. Configuring Timestamp Column Formatting<a class="headerlink" href="#configuring-timestamp-column-formatting" title="Permalink to this headline">¶</a></h2>
+<h2>8. Configuring Timestamp Column Formatting<a class="headerlink" href="#configuring-timestamp-column-formatting" title="Permalink to this headline">¶</a></h2>
 <p>Next, the timestamp column formatting should be specified. Users are encouraged
 to reference <a class="reference external" href="https://strftime.org/">https://strftime.org/</a> for a table of formatting codes. Additional
 info is available in the Python documentation: <a class="reference external" href="https://docs.python.org/3/library/datetime.html#strftime-and-strptime-format-codes">https://docs.python.org/3/library/datetime.html#strftime-and-strptime-format-codes</a>.</p>
@@ -966,7 +957,18 @@ specified via the following:</p>
 </div>
 </div>
 <div class="section" id="specifying-the-datetime-index-time-zone">
-<h2>7. Specifying the DateTime Index Time Zone<a class="headerlink" href="#specifying-the-datetime-index-time-zone" title="Permalink to this headline">¶</a></h2>
+<h2>9. Specifying the DateTime Index Time Zone<a class="headerlink" href="#specifying-the-datetime-index-time-zone" title="Permalink to this headline">¶</a></h2>
+<p>Next, the time zone for the timestamp column should be indicated. <a class="reference external" href="../../sdfs/index.html">SDFS</a>
+formatted datasets indicate timestamps in Coordinated Universal Time (UTC), and during
+dataset ingestion, timestamps are shifted by the UTC offset corresponding to the time zone
+indicated at this step.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">pytz</span></code> package is used for indicating time zone names
+and corresponding UTC offsets, and users can type <code class="docutils literal notranslate"><span class="pre">pytz.all_timezones</span></code> to see a list of
+all timezones in the <code class="docutils literal notranslate"><span class="pre">pytz</span></code> library (word of caution, there are a lot!). When the
+console asks for the time zone corresponding to a particular column, the text you
+enter is checked against the list of valid time zones in the <code class="docutils literal notranslate"><span class="pre">pytz</span></code> package and will
+indicate an invalid entry if the user’s input for the time zone was not a valid
+time zone name.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">====================== Specify DateTime Index Time Zone ======================</span>
 <span class="go">Options</span>
 <span class="go">-------</span>
@@ -989,7 +991,12 @@ specified via the following:</p>
 </div>
 </div>
 <div class="section" id="configuring-sensor-serial-identifiers">
-<h2>8. Configuring Sensor Serial identifiers<a class="headerlink" href="#configuring-sensor-serial-identifiers" title="Permalink to this headline">¶</a></h2>
+<h2>10. Configuring Sensor Serial identifiers<a class="headerlink" href="#configuring-sensor-serial-identifiers" title="Permalink to this headline">¶</a></h2>
+<p>Next, users should indicate unique identifiers corresponding to each air sensor in
+the testing group. It is common for sensors to be labeled by a unique serial identifier,
+either indicated on the housing of the sensor or as a metadata entry for recorded datasets.</p>
+<p>Assigning unique identifiers to sensors helps users to keep track of which sensor dataset
+corresponds to which unit during analysis.</p>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
 <p>Data files pertaining to a particular sensor unit must include the unique
@@ -1035,7 +1042,7 @@ are used to locate, group, and import data for each unit.</p>
 </div>
 </div>
 <div class="section" id="saving-the-setup-configuration-to-setup-json">
-<h2>9. Saving the Setup Configuration to <code class="docutils literal notranslate"><span class="pre">setup.json</span></code><a class="headerlink" href="#saving-the-setup-configuration-to-setup-json" title="Permalink to this headline">¶</a></h2>
+<h2>11. Saving the Setup Configuration to <code class="docutils literal notranslate"><span class="pre">setup.json</span></code><a class="headerlink" href="#saving-the-setup-configuration-to-setup-json" title="Permalink to this headline">¶</a></h2>
 <p>Lastly, the Setup module will automatically save the setup configuration
 to a <code class="docutils literal notranslate"><span class="pre">setup.json</span></code> file.</p>
 <p>This file is located at <code class="docutils literal notranslate"><span class="pre">..\Data</span> <span class="pre">and</span> <span class="pre">Figures\sensor_data\Sensor_Make_Model\</span></code>

@@ -48,12 +48,15 @@ into standardized formatting schemes for sensor and reference data.
 -	Import FRM/FEM reference data from a variety of sources, including ingestion modules for importing data from AirNowTech, and modules for querying either the  AQS or AirNow API services.
 -	Submit queries for single or multiple parameters, parse datasets into a consistent reference data format and save unmodified and processed datasets to a data directory.
 -	Conduct analysis with the `SensorEvaluation` module
+
   *	Compute U.S. EPA’s recommended performance metrics for evaluating :raw-html:`PM<sub>2.5</sub>` and :raw-html:`O<sub>3</sub>` sensors.
   *	Visualize sensor performance with various figures and save to file location.
+
       *	Sensor vs. FRM/FEM scatter plots
       *	Timeseries indicating both sensor and FRM/FEM concentrations
       * Performance metric results and comparison against target values/ranges.
       *	Save performance evaluation results, statistics, and supplemental information detailing the deployment conditions to a deployment JSON file.
+
 -	Create testing reports using U.S. EPA’s base-testing report template (PowerPoint file) with the `PerformanceReport` module.
 -	Additional modules are included for calculating quantities (AQI, :raw-html:`PM<sub>2.5</sub>` NowCast, application of sensor correction equations, the U.S. Wide correction equation for PurpleAir sensors via Barkjohn et al. 2021 [#f1]_, etc.) and conducting additional analysis (quality control modules for identifying outliers, invalidation of datapoints, A&B channel cleaning for PurpleAir data via Barkjohn et al. 2021 [#f1]_, etc.)
 -	Access to modules utilized by the `SensorEvaluation` and `PerformanceReport` for greater customization in conducting analysis.
@@ -106,6 +109,7 @@ collocated alongside reference instrumentation capable of reporting 1-hour and/o
     testingattrib_objects/index
     evaluation_objects/index
     data_structures/index
+    sdfs/index
 
 .. toctree::
     :hidden:

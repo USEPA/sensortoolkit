@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>sensortoolkit.plotting._scatter.scatter_plotter &mdash; sensortoolkit 0.5.6b2 documentation</title>
+  <title>sensortoolkit.plotting._scatter.scatter_plotter &mdash; sensortoolkit 0.6.0b4 documentation</title>
   
 
   
@@ -69,7 +69,7 @@
             
             
               <div class="version">
-                0.5.6b2
+                0.6.0b4
               </div>
             
           
@@ -123,15 +123,14 @@
 <li class="toctree-l2"><a class="reference internal" href="../../evaluation_objects/performancereport.html">Creating Testing Reports - The PerformanceReport Class</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../../data_structures/index.html">Data Structures and Formatting</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../data_structures/index.html">Data Structures</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../data_structures/sensor_data.html">Sensor Data Structures</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../data_structures/sdfs.html">Sensor Data Formatting Standard (S-DFS)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../data_structures/reference_data.html">Reference Data Structures</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../data_structures/rdfs.html">Reference Data Formatting Standard (R-DFS)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../data_structures/config_structs.html">Configuration Setup JSON</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../data_structures/eval_structs.html">Performance Evaluation Data Structures</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../../sdfs/index.html">sensortoolkit Data Formatting Scheme (SDFS)</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">API Documentation</span></p>
 <ul class="current">
@@ -193,6 +192,7 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="sensortoolkit.datetime_utils._time_averaging.html">sensortoolkit.datetime_utils._time_averaging</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="sensortoolkit.datetime_utils._time_averaging.interval_averaging.html">sensortoolkit.datetime_utils._time_averaging.interval_averaging</a></li>
+<li class="toctree-l4"><a class="reference internal" href="sensortoolkit.datetime_utils._time_averaging.object_grouper.html">sensortoolkit.datetime_utils._time_averaging.object_grouper</a></li>
 <li class="toctree-l4"><a class="reference internal" href="sensortoolkit.datetime_utils._time_averaging.sensor_averaging.html">sensortoolkit.datetime_utils._time_averaging.sensor_averaging</a></li>
 </ul>
 </li>
@@ -237,22 +237,24 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="sensortoolkit.ingest._sensor_import.html">sensortoolkit.ingest._sensor_import</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="sensortoolkit.ingest._sensor_import.ingest_example_make_model.html">sensortoolkit.ingest._sensor_import.ingest_example_make_model</a></li>
 <li class="toctree-l4"><a class="reference internal" href="sensortoolkit.ingest._sensor_import.ingest_purpleair.html">sensortoolkit.ingest._sensor_import.ingest_purpleair</a></li>
-<li class="toctree-l4"><a class="reference internal" href="sensortoolkit.ingest._sensor_import.ingest_sensit_ramp.html">sensortoolkit.ingest._sensor_import.ingest_sensit_ramp</a></li>
 <li class="toctree-l4"><a class="reference internal" href="sensortoolkit.ingest._sensor_import.ingest_wrapper.html">sensortoolkit.ingest._sensor_import.ingest_wrapper</a></li>
 <li class="toctree-l4"><a class="reference internal" href="sensortoolkit.ingest._sensor_import.sensor_import.html">sensortoolkit.ingest._sensor_import.sensor_import</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="sensortoolkit.ingest._standard_ingest.html">sensortoolkit.ingest._standard_ingest</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="sensortoolkit.ingest._standard_ingest.ParseSetup.html">sensortoolkit.ingest._standard_ingest.ParseSetup</a></li>
 <li class="toctree-l4"><a class="reference internal" href="sensortoolkit.ingest._standard_ingest.apply_strptime.html">sensortoolkit.ingest._standard_ingest.apply_strptime</a></li>
+<li class="toctree-l4"><a class="reference internal" href="sensortoolkit.ingest._standard_ingest.parse_setup.html">sensortoolkit.ingest._standard_ingest.parse_setup</a></li>
 <li class="toctree-l4"><a class="reference internal" href="sensortoolkit.ingest._standard_ingest.standard_ingest.html">sensortoolkit.ingest._standard_ingest.standard_ingest</a></li>
 </ul>
 </li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../lib_utils.html"><code class="docutils literal notranslate"><span class="pre">sensortoolkit.lib_utils</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="sensortoolkit.lib_utils._check_type.html">sensortoolkit.lib_utils._check_type</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="sensortoolkit.lib_utils._check_type.check_type.html">sensortoolkit.lib_utils._check_type.check_type</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="sensortoolkit.lib_utils._copy_datasets.html">sensortoolkit.lib_utils._copy_datasets</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="sensortoolkit.lib_utils._copy_datasets.copy_datasets.html">sensortoolkit.lib_utils._copy_datasets.copy_datasets</a></li>
 </ul>
@@ -296,7 +298,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../param.html"><code class="docutils literal notranslate"><span class="pre">sensortoolkit.param</span></code></a><ul>
 <li class="toctree-l3"><a class="reference internal" href="sensortoolkit.param._parameter.html">sensortoolkit.param._parameter</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="sensortoolkit.param._parameter.Parameter.html">sensortoolkit.param._parameter.Parameter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="sensortoolkit.param._parameter.html#resources">Resources</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="sensortoolkit.param._targets.html">sensortoolkit.param._targets</a><ul>
@@ -406,18 +408,7 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="sensortoolkit.reference._ref_api_query.html">sensortoolkit.reference._ref_api_query</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="sensortoolkit.reference._ref_api_query.date_range_selector.html">sensortoolkit.reference._ref_api_query.date_range_selector</a></li>
-<li class="toctree-l4"><a class="reference internal" href="sensortoolkit.reference._ref_api_query.ingest_airnow.html">sensortoolkit.reference._ref_api_query.ingest_airnow</a></li>
-<li class="toctree-l4"><a class="reference internal" href="sensortoolkit.reference._ref_api_query.ingest_aqs.html">sensortoolkit.reference._ref_api_query.ingest_aqs</a></li>
-<li class="toctree-l4"><a class="reference internal" href="sensortoolkit.reference._ref_api_query.modify_ref_cols.html">sensortoolkit.reference._ref_api_query.modify_ref_cols</a></li>
-<li class="toctree-l4"><a class="reference internal" href="sensortoolkit.reference._ref_api_query.modify_ref_method_str.html">sensortoolkit.reference._ref_api_query.modify_ref_method_str</a></li>
-<li class="toctree-l4"><a class="reference internal" href="sensortoolkit.reference._ref_api_query.parse_sample_data.html">sensortoolkit.reference._ref_api_query.parse_sample_data</a></li>
-<li class="toctree-l4"><a class="reference internal" href="sensortoolkit.reference._ref_api_query.query_airnow.html">sensortoolkit.reference._ref_api_query.query_airnow</a></li>
-<li class="toctree-l4"><a class="reference internal" href="sensortoolkit.reference._ref_api_query.query_aqs.html">sensortoolkit.reference._ref_api_query.query_aqs</a></li>
-<li class="toctree-l4"><a class="reference internal" href="sensortoolkit.reference._ref_api_query.query_periods.html">sensortoolkit.reference._ref_api_query.query_periods</a></li>
-<li class="toctree-l4"><a class="reference internal" href="sensortoolkit.reference._ref_api_query.ref_api_query.html">sensortoolkit.reference._ref_api_query.ref_api_query</a></li>
-<li class="toctree-l4"><a class="reference internal" href="sensortoolkit.reference._ref_api_query.save_api_dataset.html">sensortoolkit.reference._ref_api_query.save_api_dataset</a></li>
-<li class="toctree-l4"><a class="reference internal" href="sensortoolkit.reference._ref_api_query.select_poc.html">sensortoolkit.reference._ref_api_query.select_poc</a></li>
+<li class="toctree-l4"><a class="reference internal" href="sensortoolkit.reference._ref_api_query.html#resources">Resources</a></li>
 </ul>
 </li>
 </ul>
@@ -548,97 +539,88 @@ Reference dataframe for met data. Used as an alternative to sensor
 met data for plotting colormap of relative humidity on scatterplot
 points. If passed, the reference met data takes precedence over
 any existing sensor met data.</p></li>
-<li><p><strong>deploy_dict</strong> – </p></li>
-<li><p><strong>sensor_serials</strong> – </p></li>
-<li><p><strong>ax</strong> – </p></li>
-<li><p><strong>fig</strong> – </p></li>
-<li><p><strong>report_fmt</strong> – </p></li>
-<li><p><strong>return_axs</strong> – </p></li>
+<li><p><strong>deploy_dict</strong> – DEFINITION</p></li>
+<li><p><strong>sensor_serials</strong> – DEFINITION</p></li>
+<li><p><strong>ax</strong> – DEFINITION</p></li>
+<li><p><strong>fig</strong> – DEFINITION</p></li>
+<li><p><strong>report_fmt</strong> – DEFINITION</p></li>
+<li><p><strong>return_axs</strong> – DEFINITION</p></li>
 <li><p><strong>param_class</strong> – string
 The parameter classification for the passed parameter to plot.
 E.g, if param is PM25, param_class = PM; if param is 03,
 param_class = Gases;if param is Temp, param_class = Met.</p></li>
-<li><p><strong>subroutine</strong> (<em>kwargs</em><em> (</em><em>args with * are passed to the Draw_Scatter</em>) – </p></li>
-<li><p><strong>the</strong> – </p></li>
-<li><p><strong>kwargs</strong><strong>)</strong> (<em>asterisk should not be included when specifying these</em>) – </p></li>
-<li><p><strong>--------</strong> – </p></li>
-<li><p><strong>color_palette</strong> – Color palette assigned to relative-humidity colormapped scatter
-plot points</p></li>
-<li><p><strong>colorbar_axespos</strong> – </p></li>
-<li><p><strong>colorbar_orientation</strong> – </p></li>
-<li><p><strong>colorbar_title_fontsize</strong> – </p></li>
 </ul>
 </dd>
-</dl>
-<p>:param :
-:param colorbar_title_ypos:
-:param :
-:param colorbar_tick_labelsize:
-:param :
-:param colorbar_tick_length:
-:param :
-:param colorbar_tick_width:
-:param draw_cbar:
-:param fig_wspace:
-:param fig_hspace:
-:param fig_left:
-:param fig_right:
-:param fig_top:
-:param fig_bottom:
-:param filename_suffix: Optional string added to end of filename. Defaults to empty string.
-:param fontsize: The font size for the xlabel, ylabel, and plot text. Passed on to</p>
-<blockquote>
-<div><p>Draw_Scatter() which uses 0.85*font_size for tick labels.</p>
-</div></blockquote>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>*monocolor</strong> – A single color (specified in hex) for scatter plots.
+<dt class="field-even">Keyword Arguments</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>color_palette</strong> (<em>-</em>) – Color palette assigned to relative-humidity colormapped scatter
+plot points</p></li>
+<li><p><strong>colorbar_axespos</strong> (<em>-</em>) – DEFINITION</p></li>
+<li><p><strong>colorbar_orientation</strong> (<em>-</em>) – DEFINITION</p></li>
+<li><p><strong>colorbar_title_fontsize</strong> (<em>-</em>) – DEFINITION</p></li>
+<li><p><strong>colorbar_title_ypos</strong> (<em>-</em>) – DEFINITION</p></li>
+<li><p><strong>colorbar_tick_labelsize</strong> (<em>-</em>) – DEFINITION</p></li>
+<li><p><strong>colorbar_tick_length</strong> (<em>-</em>) – DEFINITION</p></li>
+<li><p><strong>colorbar_tick_width</strong> (<em>-</em>) – DEFINITION</p></li>
+<li><p><strong>draw_cbar</strong> (<em>-</em>) – DEFINITION</p></li>
+<li><p><strong>fig_wspace</strong> (<em>-</em>) – DEFINITION</p></li>
+<li><p><strong>fig_hspace</strong> (<em>-</em>) – DEFINITION</p></li>
+<li><p><strong>fig_left</strong> (<em>-</em>) – DEFINITION</p></li>
+<li><p><strong>fig_right</strong> (<em>-</em>) – DEFINITION</p></li>
+<li><p><strong>fig_top</strong> (<em>-</em>) – DEFINITION</p></li>
+<li><p><strong>fig_bottom</strong> (<em>-</em>) – DEFINITION</p></li>
+<li><p><strong>filename_suffix</strong> (<em>-</em>) – Optional string added to end of filename. Defaults to empty string.</p></li>
+<li><p><strong>fontsize</strong> (<em>-</em>) – The font size for the xlabel, ylabel, and plot text. Passed on to
+Draw_Scatter() which uses 0.85*font_size for tick labels.</p></li>
+<li><p><strong>monocolor</strong> (<em>-</em>) – A single color (specified in hex) for scatter plots.
 Recommend #2251D0 (nice blue hue).</p></li>
-<li><p><strong>detail_fontsize</strong> – </p></li>
-<li><p><strong>*point_size</strong> – The size of the scatterpoint plots</p></li>
-<li><p><strong>*point_alpha</strong> – </p></li>
-<li><p><strong>*plot_aspect</strong> – </p></li>
-<li><p><strong>*plottext_alpha</strong> – </p></li>
-<li><p><strong>*plottext_size</strong> – </p></li>
-<li><p><strong>*plottext_color</strong> – </p></li>
-<li><p><strong>*plottext_xloc</strong> – </p></li>
-<li><p><strong>*plottext_yloc</strong> – </p></li>
-<li><p><strong>*plottext_xdisplacement</strong> – </p></li>
-<li><p><strong>*plottext_ydisplacement</strong> – </p></li>
-<li><p><strong>*plottext_position</strong> – Determines position of plot text. Can either pass ‘upper_left’ or
+<li><p><strong>detail_fontsize</strong> (<em>-</em>) – DEFINITION</p></li>
+<li><p><strong>point_size</strong> (<em>-</em>) – The size of the scatterpoint plots</p></li>
+<li><p><strong>point_alpha</strong> (<em>-</em>) – DEFINITION</p></li>
+<li><p><strong>plot_aspect</strong> (<em>-</em>) – DEFINITION</p></li>
+<li><p><strong>plottext_alpha</strong> (<em>-</em>) – DEFINITION</p></li>
+<li><p><strong>plottext_size</strong> (<em>-</em>) – DEFINITION</p></li>
+<li><p><strong>plottext_color</strong> (<em>-</em>) – DEFINITION</p></li>
+<li><p><strong>plottext_xloc</strong> (<em>-</em>) – DEFINITION</p></li>
+<li><p><strong>plottext_yloc</strong> (<em>-</em>) – DEFINITION</p></li>
+<li><p><strong>plottext_xdisplacement</strong> (<em>-</em>) – DEFINITION</p></li>
+<li><p><strong>plottext_ydisplacement</strong> (<em>-</em>) – DEFINITION</p></li>
+<li><p><strong>plottext_position</strong> (<em>-</em>) – Determines position of plot text. Can either pass ‘upper_left’ or
 ‘bottom_right’</p></li>
-<li><p><strong>ref_name</strong> – </p></li>
-<li><p><strong>seaborn_style</strong> – </p></li>
-<li><p><strong>show_colorbar</strong> – If true, relative humidity values will be used as a colormap on the
+<li><p><strong>ref_name</strong> (<em>-</em>) – DEFINITION</p></li>
+<li><p><strong>seaborn_style</strong> (<em>-</em>) – DEFINITION</p></li>
+<li><p><strong>show_colorbar</strong> (<em>-</em>) – If true, relative humidity values will be used as a colormap on the
 scatterplot points.</p></li>
-<li><p><strong>show_title</strong> – Show the title at the top of the plot. Includes the name of the
+<li><p><strong>show_title</strong> (<em>-</em>) – Show the title at the top of the plot. Includes the name of the
 sensor, the averaging interval, the evaluation parameter, and
 the name of the reference against which sensor data are compared.</p></li>
-<li><p><strong>show_regression</strong> – Pass on to underlying Draw_Scatter function. Defaults to
+<li><p><strong>show_regression</strong> (<em>-</em>) – Pass on to underlying Draw_Scatter function. Defaults to
 True. If false, regression lines on plots will not be generated.</p></li>
-<li><p><strong>*show_trendline</strong> – </p></li>
-<li><p><strong>*show_RMSE</strong> – </p></li>
-<li><p><strong>*show_spearman</strong> – </p></li>
-<li><p><strong>*show_N</strong> – </p></li>
-<li><p><strong>*show_one_to_one</strong> – </p></li>
-<li><p><strong>tight_layout</strong> – Passed to matplotlib’s “fig.tight_layout()” for narrow formatting</p></li>
-<li><p><strong>tick_spacing</strong> – </p></li>
-<li><p><strong>title_text</strong> – </p></li>
-<li><p><strong>title_textwrap</strong> – </p></li>
-<li><p><strong>title_xloc</strong> – </p></li>
-<li><p><strong>title_yloc</strong> – </p></li>
-<li><p><strong>*trendline_xmax</strong> – </p></li>
-<li><p><strong>*trendline_color</strong> – </p></li>
-<li><p><strong>*trendline_alpha</strong> – </p></li>
-<li><p><strong>xlims</strong> – The x-limits of the scatter plot</p></li>
-<li><p><strong>ylims</strong> – The y-limits of the scatter plot</p></li>
+<li><p><strong>show_trendline</strong> (<em>-</em>) – DEFINITION</p></li>
+<li><p><strong>show_RMSE</strong> (<em>-</em>) – DEFINITION</p></li>
+<li><p><strong>show_spearman</strong> (<em>-</em>) – DEFINITION</p></li>
+<li><p><strong>show_N</strong> (<em>-</em>) – DEFINITION</p></li>
+<li><p><strong>show_one_to_one</strong> (<em>-</em>) – DEFINITION</p></li>
+<li><p><strong>tight_layout</strong> (<em>-</em>) – Passed to matplotlib’s <code class="docutils literal notranslate"><span class="pre">fig.tight_layout()</span></code> for narrow formatting</p></li>
+<li><p><strong>tick_spacing</strong> (<em>-</em>) – DEFINITION</p></li>
+<li><p><strong>title_text</strong> (<em>-</em>) – DEFINITION</p></li>
+<li><p><strong>title_textwrap</strong> (<em>-</em>) – DEFINITION</p></li>
+<li><p><strong>title_xloc</strong> (<em>-</em>) – DEFINITION</p></li>
+<li><p><strong>title_yloc</strong> (<em>-</em>) – DEFINITION</p></li>
+<li><p><strong>trendline_xmax</strong> (<em>-</em>) – DEFINITION</p></li>
+<li><p><strong>trendline_color</strong> (<em>-</em>) – DEFINITION</p></li>
+<li><p><strong>trendline_alpha</strong> (<em>-</em>) – DEFINITION</p></li>
+<li><p><strong>xlims</strong> (<em>-</em>) – The x-limits of the scatter plot</p></li>
+<li><p><strong>ylims</strong> (<em>-</em>) – The y-limits of the scatter plot</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>If an axis is passed to Scatter_Plotter(), the modified axis with
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>If an axis is passed to Scatter_Plotter(), the modified axis with
 plotting detail filled in will be returned. Otherwise, none will be
 returned.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>(matplotlib axes instance or None)</p>
 </dd>
 </dl>
 </dd></dl>

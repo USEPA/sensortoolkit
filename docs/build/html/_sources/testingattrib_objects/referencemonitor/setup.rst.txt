@@ -7,7 +7,7 @@ the user plans to make use of for conducting evaluations.
 For reference datasets that users have downloaded locally, the setup process walks users through entering in details
 necessary for constructing a data ingestion configuration. This configuration is saved
 to a setup.json configuration file that contains details for describing and converting
-the recorded sensor data format into the sensortoolkit `Reference Data Formatting Scheme (R-DFS) <../../data_structures/sdfs.html>`_.
+the recorded sensor data format into the `sensortoolkit Data Formatting Scheme (SDFS) <../../sdfs/index.html>`_.
 
 If users plan to query either the AirNow or AQS API (user accounts required for either service),
 the setup module will walk users through an abbreviated process in order to indicate various site
@@ -321,7 +321,7 @@ module, where the user inputs information via the console.
   **9. Specifying the Parameter Renaming Scheme and Monitor Information**
 
     Next, users are prompted to configure the parameter renaming scheme by entering
-    in `sensortoolkit`'s Sensor Data Formatting Standard (S-DFS) parameter name
+    in the sensortoolkit Data Formatting Standard (SDFS) parameter name
     that corresponds to each parameter header name.
 
     .. tip::
@@ -542,6 +542,19 @@ module, where the user inputs information via the console.
       Press enter to continue.
 
     **11. Specifying the DateTime Index Time Zone**
+
+    Next, the time zone for the timestamp column should be indicated. `SDFS <../../sdfs/index.html>`_
+    formatted datasets indicate timestamps in Coordinated Universal Time (UTC), and during
+    dataset ingestion, timestamps are shifted by the UTC offset corresponding to the time zone
+    indicated at this step.
+
+    The ``pytz`` package is used for indicating time zone names 
+    and corresponding UTC offsets, and users can type ``pytz.all_timezones`` to see a list of
+    all timezones in the ``pytz`` library (word of caution, there are a lot!). When the
+    console asks for the time zone corresponding to a particular column, the text you
+    enter is checked against the list of valid time zones in the ``pytz`` package and will
+    indicate an invalid entry if the user's input for the time zone was not a valid
+    time zone name.
 
     .. code-block:: console
 

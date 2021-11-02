@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>ReferenceMonitor Setup &mdash; sensortoolkit 0.5.6b2 documentation</title>
+  <title>ReferenceMonitor Setup &mdash; sensortoolkit 0.6.0b4 documentation</title>
   
 
   
@@ -69,7 +69,7 @@
             
             
               <div class="version">
-                0.5.6b2
+                0.6.0b4
               </div>
             
           
@@ -123,15 +123,14 @@
 <li class="toctree-l2"><a class="reference internal" href="../../evaluation_objects/performancereport.html">Creating Testing Reports - The PerformanceReport Class</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../../data_structures/index.html">Data Structures and Formatting</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../data_structures/index.html">Data Structures</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../data_structures/sensor_data.html">Sensor Data Structures</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../data_structures/sdfs.html">Sensor Data Formatting Standard (S-DFS)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../data_structures/reference_data.html">Reference Data Structures</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../data_structures/rdfs.html">Reference Data Formatting Standard (R-DFS)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../data_structures/config_structs.html">Configuration Setup JSON</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../data_structures/eval_structs.html">Performance Evaluation Data Structures</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../../sdfs/index.html">sensortoolkit Data Formatting Scheme (SDFS)</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">API Documentation</span></p>
 <ul>
@@ -193,6 +192,7 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.datetime_utils._time_averaging.html">sensortoolkit.datetime_utils._time_averaging</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.datetime_utils._time_averaging.interval_averaging.html">sensortoolkit.datetime_utils._time_averaging.interval_averaging</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.datetime_utils._time_averaging.object_grouper.html">sensortoolkit.datetime_utils._time_averaging.object_grouper</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.datetime_utils._time_averaging.sensor_averaging.html">sensortoolkit.datetime_utils._time_averaging.sensor_averaging</a></li>
 </ul>
 </li>
@@ -237,22 +237,24 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.ingest._sensor_import.html">sensortoolkit.ingest._sensor_import</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.ingest._sensor_import.ingest_example_make_model.html">sensortoolkit.ingest._sensor_import.ingest_example_make_model</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.ingest._sensor_import.ingest_purpleair.html">sensortoolkit.ingest._sensor_import.ingest_purpleair</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.ingest._sensor_import.ingest_sensit_ramp.html">sensortoolkit.ingest._sensor_import.ingest_sensit_ramp</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.ingest._sensor_import.ingest_wrapper.html">sensortoolkit.ingest._sensor_import.ingest_wrapper</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.ingest._sensor_import.sensor_import.html">sensortoolkit.ingest._sensor_import.sensor_import</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.ingest._standard_ingest.html">sensortoolkit.ingest._standard_ingest</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.ingest._standard_ingest.ParseSetup.html">sensortoolkit.ingest._standard_ingest.ParseSetup</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.ingest._standard_ingest.apply_strptime.html">sensortoolkit.ingest._standard_ingest.apply_strptime</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.ingest._standard_ingest.parse_setup.html">sensortoolkit.ingest._standard_ingest.parse_setup</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.ingest._standard_ingest.standard_ingest.html">sensortoolkit.ingest._standard_ingest.standard_ingest</a></li>
 </ul>
 </li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../api/lib_utils.html"><code class="docutils literal notranslate"><span class="pre">sensortoolkit.lib_utils</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.lib_utils._check_type.html">sensortoolkit.lib_utils._check_type</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.lib_utils._check_type.check_type.html">sensortoolkit.lib_utils._check_type.check_type</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.lib_utils._copy_datasets.html">sensortoolkit.lib_utils._copy_datasets</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.lib_utils._copy_datasets.copy_datasets.html">sensortoolkit.lib_utils._copy_datasets.copy_datasets</a></li>
 </ul>
@@ -296,7 +298,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../api/param.html"><code class="docutils literal notranslate"><span class="pre">sensortoolkit.param</span></code></a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.param._parameter.html">sensortoolkit.param._parameter</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.param._parameter.Parameter.html">sensortoolkit.param._parameter.Parameter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.param._parameter.html#resources">Resources</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.param._targets.html">sensortoolkit.param._targets</a><ul>
@@ -406,18 +408,7 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.reference._ref_api_query.html">sensortoolkit.reference._ref_api_query</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.reference._ref_api_query.date_range_selector.html">sensortoolkit.reference._ref_api_query.date_range_selector</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.reference._ref_api_query.ingest_airnow.html">sensortoolkit.reference._ref_api_query.ingest_airnow</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.reference._ref_api_query.ingest_aqs.html">sensortoolkit.reference._ref_api_query.ingest_aqs</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.reference._ref_api_query.modify_ref_cols.html">sensortoolkit.reference._ref_api_query.modify_ref_cols</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.reference._ref_api_query.modify_ref_method_str.html">sensortoolkit.reference._ref_api_query.modify_ref_method_str</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.reference._ref_api_query.parse_sample_data.html">sensortoolkit.reference._ref_api_query.parse_sample_data</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.reference._ref_api_query.query_airnow.html">sensortoolkit.reference._ref_api_query.query_airnow</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.reference._ref_api_query.query_aqs.html">sensortoolkit.reference._ref_api_query.query_aqs</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.reference._ref_api_query.query_periods.html">sensortoolkit.reference._ref_api_query.query_periods</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.reference._ref_api_query.ref_api_query.html">sensortoolkit.reference._ref_api_query.ref_api_query</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.reference._ref_api_query.save_api_dataset.html">sensortoolkit.reference._ref_api_query.save_api_dataset</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.reference._ref_api_query.select_poc.html">sensortoolkit.reference._ref_api_query.select_poc</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.reference._ref_api_query.html#resources">Resources</a></li>
 </ul>
 </li>
 </ul>
@@ -514,7 +505,7 @@ the user plans to make use of for conducting evaluations.</p>
 <p>For reference datasets that users have downloaded locally, the setup process walks users through entering in details
 necessary for constructing a data ingestion configuration. This configuration is saved
 to a setup.json configuration file that contains details for describing and converting
-the recorded sensor data format into the sensortoolkit <a class="reference external" href="../../data_structures/sdfs.html">Reference Data Formatting Scheme (R-DFS)</a>.</p>
+the recorded sensor data format into the <a class="reference external" href="../../sdfs/index.html">sensortoolkit Data Formatting Scheme (SDFS)</a>.</p>
 <p>If users plan to query either the AirNow or AQS API (user accounts required for either service),
 the setup module will walk users through an abbreviated process in order to indicate various site
 parameters that are required for querying these API services.</p>
@@ -534,8 +525,8 @@ to your use case. This will display the setup process corresponding to the selec
 service or data source.</p>
 </div>
 <div class="tabbed-set docutils">
-<input checked="checked" id="2969bad6-6d43-4ecc-b9b3-5f99bcdaaff5" name="644f8032-455f-497e-9ebf-b70fb9e26f4a" type="radio">
-</input><label class="tabbed-label" for="2969bad6-6d43-4ecc-b9b3-5f99bcdaaff5">
+<input checked="checked" id="aa44ab48-f2e4-4d47-8c15-d9519a53e8b7" name="06130eac-a4c1-47bb-8cff-b98319cd4061" type="radio">
+</input><label class="tabbed-label" for="aa44ab48-f2e4-4d47-8c15-d9519a53e8b7">
 Local</label><div class="tabbed-content docutils">
 <p>The following steps below walk through the setup process. The example below
 describes the setup process for a reference data file acquired locally for
@@ -808,7 +799,7 @@ mode.</p>
 <p><strong>9. Specifying the Parameter Renaming Scheme and Monitor Information</strong></p>
 <blockquote>
 <div><p>Next, users are prompted to configure the parameter renaming scheme by entering
-in <cite>sensortoolkit</cite>’s Sensor Data Formatting Standard (S-DFS) parameter name
+in the sensortoolkit Data Formatting Standard (SDFS) parameter name
 that corresponds to each parameter header name.</p>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
@@ -1024,6 +1015,17 @@ or revise the entered formatting scheme.</p>
 </pre></div>
 </div>
 <p><strong>11. Specifying the DateTime Index Time Zone</strong></p>
+<p>Next, the time zone for the timestamp column should be indicated. <a class="reference external" href="../../sdfs/index.html">SDFS</a>
+formatted datasets indicate timestamps in Coordinated Universal Time (UTC), and during
+dataset ingestion, timestamps are shifted by the UTC offset corresponding to the time zone
+indicated at this step.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">pytz</span></code> package is used for indicating time zone names
+and corresponding UTC offsets, and users can type <code class="docutils literal notranslate"><span class="pre">pytz.all_timezones</span></code> to see a list of
+all timezones in the <code class="docutils literal notranslate"><span class="pre">pytz</span></code> library (word of caution, there are a lot!). When the
+console asks for the time zone corresponding to a particular column, the text you
+enter is checked against the list of valid time zones in the <code class="docutils literal notranslate"><span class="pre">pytz</span></code> package and will
+indicate an invalid entry if the user’s input for the time zone was not a valid
+time zone name.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">====================== Specify DateTime Index Time Zone ======================</span>
 <span class="go">Options</span>
 <span class="go">-------</span>
@@ -1069,8 +1071,8 @@ to a <code class="docutils literal notranslate"><span class="pre">reference_setu
 </div>
 </div></blockquote>
 </div>
-<input id="f9a27e76-8f00-44c0-bcbf-ee2bb45d58e9" name="644f8032-455f-497e-9ebf-b70fb9e26f4a" type="radio">
-</input><label class="tabbed-label" for="f9a27e76-8f00-44c0-bcbf-ee2bb45d58e9">
+<input id="3f5594f1-917d-4722-8b57-5026468c0966" name="06130eac-a4c1-47bb-8cff-b98319cd4061" type="radio">
+</input><label class="tabbed-label" for="3f5594f1-917d-4722-8b57-5026468c0966">
 AirNowTech</label><div class="tabbed-content docutils">
 <p>The following steps below walk through the setup process. The example below
 describes the setup process for a reference data file downloaded from AirNowTech
@@ -1240,8 +1242,8 @@ to a <code class="docutils literal notranslate"><span class="pre">reference_setu
 </div>
 </div></blockquote>
 </div>
-<input id="1b211401-3cd1-4e5e-b75f-c3b814c02ccd" name="644f8032-455f-497e-9ebf-b70fb9e26f4a" type="radio">
-</input><label class="tabbed-label" for="1b211401-3cd1-4e5e-b75f-c3b814c02ccd">
+<input id="46223289-bbff-473f-9a86-abeb93f72dfd" name="06130eac-a4c1-47bb-8cff-b98319cd4061" type="radio">
+</input><label class="tabbed-label" for="46223289-bbff-473f-9a86-abeb93f72dfd">
 AQS</label><div class="tabbed-content docutils">
 <p>The following steps below walk through the setup process. The example below
 describes the setup process for a reference data file downloaded from AQS
@@ -1348,8 +1350,8 @@ to a <code class="docutils literal notranslate"><span class="pre">reference_setu
 </div>
 </div></blockquote>
 </div>
-<input id="35ed16e5-4cad-4950-bb03-dc9c5a3499e2" name="644f8032-455f-497e-9ebf-b70fb9e26f4a" type="radio">
-</input><label class="tabbed-label" for="35ed16e5-4cad-4950-bb03-dc9c5a3499e2">
+<input id="df51ee3e-3989-444d-939f-171922af8e30" name="06130eac-a4c1-47bb-8cff-b98319cd4061" type="radio">
+</input><label class="tabbed-label" for="df51ee3e-3989-444d-939f-171922af8e30">
 AirNow</label><div class="tabbed-content docutils">
 <p>The following steps below walk through the setup process. The example below
 describes the setup process for a reference data file downloaded from AirNow

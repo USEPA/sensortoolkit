@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>sensortoolkit.calculate._cv &mdash; sensortoolkit 0.5.6b2 documentation</title>
+  <title>sensortoolkit.calculate._cv &mdash; sensortoolkit 0.6.0b4 documentation</title>
   
 
   
@@ -67,7 +67,7 @@
             
             
               <div class="version">
-                0.5.6b2
+                0.6.0b4
               </div>
             
           
@@ -121,15 +121,14 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../evaluation_objects/performancereport.html">Creating Testing Reports - The PerformanceReport Class</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../../../data_structures/index.html">Data Structures and Formatting</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../data_structures/index.html">Data Structures</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../data_structures/sensor_data.html">Sensor Data Structures</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../data_structures/sdfs.html">Sensor Data Formatting Standard (S-DFS)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../data_structures/reference_data.html">Reference Data Structures</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../data_structures/rdfs.html">Reference Data Formatting Standard (R-DFS)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../data_structures/config_structs.html">Configuration Setup JSON</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../data_structures/eval_structs.html">Performance Evaluation Data Structures</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../../../sdfs/index.html">sensortoolkit Data Formatting Scheme (SDFS)</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">API Documentation</span></p>
 <ul>
@@ -191,6 +190,7 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.datetime_utils._time_averaging.html">sensortoolkit.datetime_utils._time_averaging</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.datetime_utils._time_averaging.interval_averaging.html">sensortoolkit.datetime_utils._time_averaging.interval_averaging</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.datetime_utils._time_averaging.object_grouper.html">sensortoolkit.datetime_utils._time_averaging.object_grouper</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.datetime_utils._time_averaging.sensor_averaging.html">sensortoolkit.datetime_utils._time_averaging.sensor_averaging</a></li>
 </ul>
 </li>
@@ -235,22 +235,24 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.ingest._sensor_import.html">sensortoolkit.ingest._sensor_import</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.ingest._sensor_import.ingest_example_make_model.html">sensortoolkit.ingest._sensor_import.ingest_example_make_model</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.ingest._sensor_import.ingest_purpleair.html">sensortoolkit.ingest._sensor_import.ingest_purpleair</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.ingest._sensor_import.ingest_sensit_ramp.html">sensortoolkit.ingest._sensor_import.ingest_sensit_ramp</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.ingest._sensor_import.ingest_wrapper.html">sensortoolkit.ingest._sensor_import.ingest_wrapper</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.ingest._sensor_import.sensor_import.html">sensortoolkit.ingest._sensor_import.sensor_import</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.ingest._standard_ingest.html">sensortoolkit.ingest._standard_ingest</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.ingest._standard_ingest.ParseSetup.html">sensortoolkit.ingest._standard_ingest.ParseSetup</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.ingest._standard_ingest.apply_strptime.html">sensortoolkit.ingest._standard_ingest.apply_strptime</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.ingest._standard_ingest.parse_setup.html">sensortoolkit.ingest._standard_ingest.parse_setup</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.ingest._standard_ingest.standard_ingest.html">sensortoolkit.ingest._standard_ingest.standard_ingest</a></li>
 </ul>
 </li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../api/lib_utils.html"><code class="docutils literal notranslate"><span class="pre">sensortoolkit.lib_utils</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.lib_utils._check_type.html">sensortoolkit.lib_utils._check_type</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.lib_utils._check_type.check_type.html">sensortoolkit.lib_utils._check_type.check_type</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.lib_utils._copy_datasets.html">sensortoolkit.lib_utils._copy_datasets</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.lib_utils._copy_datasets.copy_datasets.html">sensortoolkit.lib_utils._copy_datasets.copy_datasets</a></li>
 </ul>
@@ -294,7 +296,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../api/param.html"><code class="docutils literal notranslate"><span class="pre">sensortoolkit.param</span></code></a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.param._parameter.html">sensortoolkit.param._parameter</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.param._parameter.Parameter.html">sensortoolkit.param._parameter.Parameter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.param._parameter.html#resources">Resources</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.param._targets.html">sensortoolkit.param._targets</a><ul>
@@ -404,18 +406,7 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._ref_api_query.html">sensortoolkit.reference._ref_api_query</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._ref_api_query.date_range_selector.html">sensortoolkit.reference._ref_api_query.date_range_selector</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._ref_api_query.ingest_airnow.html">sensortoolkit.reference._ref_api_query.ingest_airnow</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._ref_api_query.ingest_aqs.html">sensortoolkit.reference._ref_api_query.ingest_aqs</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._ref_api_query.modify_ref_cols.html">sensortoolkit.reference._ref_api_query.modify_ref_cols</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._ref_api_query.modify_ref_method_str.html">sensortoolkit.reference._ref_api_query.modify_ref_method_str</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._ref_api_query.parse_sample_data.html">sensortoolkit.reference._ref_api_query.parse_sample_data</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._ref_api_query.query_airnow.html">sensortoolkit.reference._ref_api_query.query_airnow</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._ref_api_query.query_aqs.html">sensortoolkit.reference._ref_api_query.query_aqs</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._ref_api_query.query_periods.html">sensortoolkit.reference._ref_api_query.query_periods</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._ref_api_query.ref_api_query.html">sensortoolkit.reference._ref_api_query.ref_api_query</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._ref_api_query.save_api_dataset.html">sensortoolkit.reference._ref_api_query.save_api_dataset</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._ref_api_query.select_poc.html">sensortoolkit.reference._ref_api_query.select_poc</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.reference._ref_api_query.html#resources">Resources</a></li>
 </ul>
 </li>
 </ul>
@@ -573,18 +564,18 @@
 <span class="sd">            Parameter name to evaluate</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        cv_df (pandas dataframe):</span>
-<span class="sd">            Modified cv_df, dropped rows were not all sensors measuring</span>
-<span class="sd">            concurrently, add columns for computing CV.</span>
-<span class="sd">        CV (float):</span>
-<span class="sd">            The coefficient of variation of concurrent sensor measurements.</span>
-<span class="sd">            Calculated as the 100*(standard deviation / mean of all concurrent</span>
-<span class="sd">            sensor measurements).</span>
-<span class="sd">        st_dev (float):</span>
-<span class="sd">            The standard deviation of concurrent sensor measurements.</span>
-<span class="sd">        n (int):</span>
-<span class="sd">            Number of concurrent hours with all sensors reporting pollutant</span>
-<span class="sd">            values.</span>
+<span class="sd">        (tuple): four-element tuple containing:</span>
+
+<span class="sd">            - cv_df (pandas DataFrame): Modified cv_df, dropped rows were not</span>
+<span class="sd">              all sensors measuring concurrently, add columns for computing CV.</span>
+<span class="sd">            - CV (float): The coefficient of variation of concurrent sensor</span>
+<span class="sd">              measurements. Calculated as the 100*(standard deviation / mean of</span>
+<span class="sd">              all concurrent sensor measurements).</span>
+<span class="sd">            - st_dev (float): The standard deviation of concurrent sensor</span>
+<span class="sd">              measurements.</span>
+<span class="sd">            - n_concurr (int): Number of concurrent hours with all sensors</span>
+<span class="sd">              reporting pollutant values.</span>
+
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">cv_df</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">cv_df</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">pd</span><span class="o">.</span><span class="n">Timedelta</span><span class="p">(</span><span class="s1">&#39;0 days 01:00:00&#39;</span><span class="p">):</span>
         <span class="n">time_interval</span> <span class="o">=</span> <span class="s2">&quot;1-Hour&quot;</span>
@@ -626,13 +617,13 @@
             <span class="k">continue</span>
 
     <span class="c1"># number of concurrent hours with all sensors reporting pollutant values</span>
-    <span class="n">n</span> <span class="o">=</span> <span class="n">total_n_vals</span> <span class="o">/</span> <span class="n">n_sensors</span>
+    <span class="n">n_concurr</span> <span class="o">=</span> <span class="n">total_n_vals</span> <span class="o">/</span> <span class="n">n_sensors</span>
 
     <span class="n">pollutant_avg</span> <span class="o">/=</span> <span class="n">n_sensors</span>
     <span class="n">st_dev</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">sum_sqrd_diff</span><span class="o">/</span><span class="p">(</span><span class="n">total_n_vals</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span>
     <span class="n">CV</span> <span class="o">=</span> <span class="p">(</span><span class="n">st_dev</span> <span class="o">/</span> <span class="n">pollutant_avg</span><span class="p">)</span><span class="o">*</span><span class="mi">100</span>  <span class="c1"># CV reported in percentage</span>
 
-    <span class="k">return</span> <span class="n">cv_df</span><span class="p">,</span> <span class="n">CV</span><span class="p">,</span> <span class="n">st_dev</span><span class="p">,</span> <span class="n">n</span>
+    <span class="k">return</span> <span class="n">cv_df</span><span class="p">,</span> <span class="n">CV</span><span class="p">,</span> <span class="n">st_dev</span><span class="p">,</span> <span class="n">n_concurr</span>
 
 
 <div class="viewcode-block" id="cv"><a class="viewcode-back" href="../../../api/_autosummary/sensortoolkit.calculate._cv.cv.html#sensortoolkit.calculate._cv.cv">[docs]</a><span class="k">def</span> <span class="nf">cv</span><span class="p">(</span><span class="n">df_list</span><span class="p">,</span> <span class="n">deploy_dict</span><span class="p">,</span> <span class="n">param</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">return_deploy_dict</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
@@ -658,10 +649,9 @@
 <span class="sd">            all sensors).</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        If return_deploy_dict:</span>
-<span class="sd">            Returns deploy_dict with updated precision statistics</span>
-<span class="sd">        else:</span>
-<span class="sd">            Return CV (float)</span>
+<span class="sd">        If ``return_deploy_dict`` is ``True``, return ``deploy_dict`` with</span>
+<span class="sd">        updated precision statistics, else return ``CV`` (float).</span>
+
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">date_index</span><span class="p">,</span> <span class="n">avg_suffix</span> <span class="o">=</span> <span class="n">deploy_timestamp_index</span><span class="p">(</span><span class="n">df_list</span><span class="p">,</span>
                                                     <span class="n">averaging_suffix</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -710,18 +700,18 @@
         <span class="n">deploy_cols</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="s1">&#39;_&#39;</span> <span class="o">+</span> <span class="n">param</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">deploy_sensor_nums</span><span class="p">]</span>
         <span class="n">deploy_cv_df</span> <span class="o">=</span> <span class="n">cv_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">start</span><span class="p">:</span><span class="n">end</span><span class="p">,</span> <span class="n">deploy_cols</span><span class="p">]</span>
 
-        <span class="n">deploy_cv_df</span><span class="p">,</span> <span class="n">CV</span><span class="p">,</span> <span class="n">st_dev</span><span class="p">,</span> <span class="n">n</span> <span class="o">=</span> <span class="n">_calculate_cv</span><span class="p">(</span><span class="n">deploy_cv_df</span><span class="p">,</span>
-                                                    <span class="n">serials</span><span class="p">,</span>
-                                                    <span class="n">param</span><span class="o">=</span><span class="n">param</span><span class="p">)</span>
+        <span class="n">deploy_cv_df</span><span class="p">,</span> <span class="n">CV</span><span class="p">,</span> <span class="n">st_dev</span><span class="p">,</span> <span class="n">n_concurr</span> <span class="o">=</span> <span class="n">_calculate_cv</span><span class="p">(</span><span class="n">deploy_cv_df</span><span class="p">,</span>
+                                                            <span class="n">serials</span><span class="p">,</span>
+                                                            <span class="n">param</span><span class="o">=</span><span class="n">param</span><span class="p">)</span>
 
         <span class="n">stats_loc</span><span class="p">[</span><span class="s1">&#39;cv&#39;</span> <span class="o">+</span> <span class="n">avg_suffix</span><span class="p">]</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{0:.3f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">CV</span><span class="p">))</span>
         <span class="n">stats_loc</span><span class="p">[</span><span class="s1">&#39;std&#39;</span> <span class="o">+</span> <span class="n">avg_suffix</span><span class="p">]</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{0:.3f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">st_dev</span><span class="p">))</span>
-        <span class="n">stats_loc</span><span class="p">[</span><span class="s1">&#39;n&#39;</span> <span class="o">+</span> <span class="n">avg_suffix</span><span class="p">]</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+        <span class="n">stats_loc</span><span class="p">[</span><span class="s1">&#39;n&#39;</span> <span class="o">+</span> <span class="n">avg_suffix</span><span class="p">]</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">n_concurr</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">return_deploy_dict</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">deploy_dict</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">CV</span></div>
+
+    <span class="k">return</span> <span class="n">CV</span></div>
 </pre></div>
 
            </div>

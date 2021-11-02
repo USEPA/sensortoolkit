@@ -1,16 +1,42 @@
 Loading Sensor Data
 ===================
 
+Following the use of the setup module for air sensor datasets, sensor data are
+loaded to the ``AirSensor`` object via the ``AirSensor.load_data()`` method.
+The procedure for loading sensor data depends slightly on whether the user is loading
+datasets for the first time (i.e., the AirSensor.sensor_setup() module was run
+immediately before this point and the ``/data/sensor_data/[sensor_name]/processed_data`` directory
+containing SDFS formatted datasets is empty) or whether users have previously loaded sensor
+datasets via the ``AirSensor.load_data()`` and wish to re-load these datasets for additional
+analysis.
+
+``AirSensor.load_data()`` accepts the following boolean arguments:
+
+.. list-table:: ``AirSensor.load_data()`` Arguments
+  :widths: 50 75
+  :header-rows: 1
+
+  * - Argument
+    - Description
+  * - ``write_to_file``
+    - If true, processed (SDFS formatted) sensor datasets will be saved as comma-separated
+      value (csv) files to the ``/data/sensor_data/[sensor_name]/processed_data``
+      directory. If false, formatted datasets will not be saved to the user's hard drive.
+  * - ``load_raw_data``
+    - If true, raw data (datasets as originally recorded) in the appropriate subdirectory will be
+      loaded and 1-hour and 24-hour averages will be computed. If false,
+      processed data will be loaded.
+
 Initial Import
 ^^^^^^^^^^^^^^
-..
-  * - ``tzone_shift``
-    - An integer value by which to shift the sensor data to UTC.
-      Specifying ``0`` will not shift the data.
-  * - ``load_raw_data``
-    - If true, raw data in the appropriate subdirectory will be
-      loaded and 1-hour and 24-hour averages will be computed and saved to a processed
-      data subdirectory for the specified sensor. If false, processed data will be loaded.
+
+To load originally recorded datasets and save processed (SDFS formatted) versions
+of sensor datasets to the appropriate directory location, select ``load_raw_data = True``
+and ``write_to_file = True`` when calling the ``AirSensor.load_data()`` method.
+
+Below is an example for the `evaluation.py` example script loading recorded datasets
+for the `Example_Make_Model` sensor, followed by writing of csv files to the ```.../processed_data``
+directory.
 
 .. code-block:: python
 
@@ -37,9 +63,10 @@ Initial Import
 
 Loading from Processed Data Files
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
 If users have previously loaded sensor datasets (i.e., processed sensor data files
 have been created for the sensor), users can save a little bit of time by loading
-the S-DFS formatted processed datasets. This saves some time in that the processing
+the SDFS formatted processed datasets. This saves some time in that the processing
 and averaging that occur on the first import of sensor datasets does not need to
 take place.
 
