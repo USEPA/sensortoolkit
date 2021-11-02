@@ -58,12 +58,12 @@ def wrap_text(labels, max_label_len=10):
             list plotting labels (strings) such as header/title text
         max_label_len (int):
             The maximum number of characters on a single line. Labels longer
-            than this will have a newline '\n' inserted at every max_label_len
-            number of characters.
+            than this will have a newline character inserted at every
+            max_label_len number of characters.
 
     Returns:
         labels (list):
-            Modified list of labels with the newline character '\n' inserted for
+            Modified list of labels with the newline character inserted for
             labels exceeding the max_label_len.
 
     """
