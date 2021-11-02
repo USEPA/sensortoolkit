@@ -321,7 +321,7 @@ class Parameter:
 
     def is_sdfs(self):
         """Indicate whether the passed parameter name is in the catalog of
-        parameter names for the Sensor Data Formatting Scheme.
+        parameter names for the sensortoolkit Data Formatting Scheme (SDFS).
 
         Returns:
             bool:
