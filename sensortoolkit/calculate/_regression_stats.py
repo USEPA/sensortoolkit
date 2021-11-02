@@ -51,7 +51,8 @@ from sensortoolkit.datetime_utils import get_todays_date
 from sensortoolkit.lib_utils import check_type
 
 
-def regression_stats(sensor_df_obj, ref_df_obj, deploy_dict, param, serials):
+def regression_stats(sensor_df_obj, ref_df_obj, deploy_dict, param, serials,
+                     verbose=True):
     """Compute OLS regression statistics.
 
     Module is used to compute the following regressions:
@@ -93,6 +94,9 @@ def regression_stats(sensor_df_obj, ref_df_obj, deploy_dict, param, serials):
         serials (dict):
             A dictionary of sensor serial identifiers for each unit
             in a testing group.
+        verbose (bool):
+            If true, print statements will be displayed in the console output.
+            Defaults to True.
 
     Returns:
         stats_df (pandas DataFrame):
@@ -151,11 +155,12 @@ def regression_stats(sensor_df_obj, ref_df_obj, deploy_dict, param, serials):
         if (df.index[1] - df.index[0]) == pd.Timedelta('1 hour'):
             avg_int = '1-hour'
 
-        if i == 0:
+        if i == 0 and verbose:
             print('Computing {0} regression statistics for {1} vs.'
                   ' {2}'.format(avg_int, sensor_name, ref_name))
 
-        print('..{0}'.format(list(serials.values())[i]))
+        if verbose:
+            print('..{0}'.format(list(serials.values())[i]))
 
         if combine_df.empty:
             print('..Warning: Linear regression not possible for sensor '
