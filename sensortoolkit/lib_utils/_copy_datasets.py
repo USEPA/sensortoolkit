@@ -2,7 +2,7 @@
 """
 This module contains methods for interactively prompting user input to select
 data files that will be copied from a specified location on the user's system
-to the ``/data` directory located within the project path.
+to the ``/data`` directory located within the project path.
 
 ================================================================================
 
