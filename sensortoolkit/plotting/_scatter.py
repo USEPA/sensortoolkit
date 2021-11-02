@@ -620,7 +620,8 @@ def scatter_plotter(df_list, ref_df, stats_df=None, plot_subset=None,
                                                 ref_df_obj=ref_df,
                                                 deploy_dict=deploy_dict,
                                                 param=param,
-                                                serials=sensor_serials)
+                                                serials=sensor_serials,
+                                                verbose=False)
 
             try:
                 df = pd.DataFrame()
