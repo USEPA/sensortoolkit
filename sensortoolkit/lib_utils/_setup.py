@@ -905,6 +905,8 @@ class ReferenceSetup(_Setup):
                         param_obj.aqs_parameter_code = val
                         param_obj.criteria_pollutant = False
                         custom_method = True
+                    if confirm == 'y':
+                        val = param_code
                     self.__dict__.update({attrib: val})
                     valid = True
                     continue
