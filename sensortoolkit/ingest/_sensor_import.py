@@ -125,7 +125,7 @@ def sensor_import(sensor_name=None, sensor_serials=None,
             ...
 
       .. note::
-      
+
         If all the files have unique names, one could place all of
         the .txt files in the ``//raw_data//`` directory. This example is simply
         meant to illustrate that the import method can handle these types of
@@ -245,7 +245,7 @@ def sensor_import(sensor_name=None, sensor_serials=None,
 
 def ingest_wrapper(cwd, sensor_name, serial, data_path):
     """Wrapper for ingestion modules. Selects the ingestion module to convert
-    sensor-specific data formatting to standardized format for analysis.
+    sensor-specific data formatting to SDFS format for analysis.
 
     Args:
         cwd (str):
@@ -275,7 +275,7 @@ def ingest_wrapper(cwd, sensor_name, serial, data_path):
     # if sensor_name == 'Sensit_RAMP':
     #     return ingest_sensit_ramp(cwd)
 
-    if sensor_name == 'PurpleAir_PAII':
+    if 'purpleair' in sensor_name.lower():
         # assuming Thingspeak API dataset
         return ingest_purpleair(cwd, serial)
 
