@@ -240,31 +240,49 @@ def regression_stats(sensor_df_obj, ref_df_obj, deploy_dict, param, serials,
     return stats_df
 
 
-def join_stats(hourly_stats, daily_stats, write_to_file=False, stats_path=None):
+def join_stats(hourly_stats, daily_stats, write_to_file=False, stats_path=None,
+               stats_type='individual'):
     """Combine 1-hour and 24-hour regression statistics DataFrames.
 
     Args:
-        hourly_stats (pandas DataFrame): DataFrame containing 1-hour averaged
+        hourly_stats (pandas DataFrame):
+            DataFrame containing 1-hour averaged
             sensor vs. reference regression statistics, returned by call to
             regression_stats().
-        daily_stats (pandas DataFrame): DataFrame containing 24-hour averaged
+        daily_stats (pandas DataFrame):
+            DataFrame containing 24-hour averaged
             sensor vs. reference regression statistics, returned by call to
             regression_stats().
-        write_to_file (bool, optional): DESCRIPTION. Defaults to False.
-        stats_path (str, optional): DESCRIPTION. Defaults to None.
+        write_to_file (bool, optional):
+            DESCRIPTION. Defaults to False.
+        stats_path (str, optional):
+            DESCRIPTION. Defaults to None.
+        stats_type (str, optional):
+            The type of regression statistics dataframes that are being joined
+            ('individual' indicates individual sensor vs. reference
+            regression, 'average' indicates sensor vs. intersensor average
+            regression statistics)
 
     Returns:
         stats_df (pandas DataFrame):
             DataFrame containing both 1-hour and 24-hour averaged statistics.
 
     """
+    if stats_type not in ['average', 'individual']:
+        raise ValueError(f'Invalid value {stats_type} passed to stats_type. '
+                         'Choose from either "individual" or "average"')
+
+    if stats_type == 'individual':
+        stats_type = 'stats_df'
+    if stats_type == 'average':
+        stats_type = 'avg_stats_df'
 
     stats_df = hourly_stats.append(daily_stats)
 
-    ref_name = stats_df.Reference[stats_df.Reference!='Metric Average:'
+    ref_name = stats_df.Reference[stats_df.Reference != 'Metric Average:'
                                   ].value_counts().keys()[0]
-    sensor_name =  stats_df['Sensor Name'].value_counts().keys()[0]
-    param =  stats_df['Param'].value_counts().keys()[0]
+    sensor_name = stats_df['Sensor Name'].value_counts().keys()[0]
+    param = stats_df['Param'].value_counts().keys()[0]
 
     # Save the statistics DataFrame
     if write_to_file is True:
@@ -273,8 +291,10 @@ def join_stats(hourly_stats, daily_stats, write_to_file=False, stats_path=None):
 
         today = get_todays_date()
         ref_name = ref_name.replace(' ', '_')
-        filename = (sensor_name + '_' + param + '_vs_' + ref_name +
-                    '_stats_df_' + today + '.csv')
+
+        filename = '_'.join([sensor_name, param, 'vs', ref_name, stats_type,
+                             today])
+        filename += '.csv'
 
         dataframe_to_csv(stats_df,
                          parent_path=stats_path,
