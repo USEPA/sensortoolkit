@@ -75,8 +75,10 @@ class ReferenceMonitor:
         self.data_source = data_source
         self.site_name = site_name
 
-        lib_utils.check_type(site_name, accept_types=[int, str])
-        self.site_id = str(site_id)
+        if site_id is not None:
+            lib_utils.check_type(site_id, accept_types=[int, str])
+            site_id = str(site_id)
+        self.site_id = site_id
 
         self.data = {'PM': {'1-hour': pd.DataFrame(),
                             '24-hour':  pd.DataFrame()},
@@ -197,14 +199,48 @@ class ReferenceMonitor:
                   site_id=None, query_met_data=True):
         """Send a data query to the AQS API.
 
-
         Args:
-            param_list (TYPE): DESCRIPTION.
-            bdate (TYPE): DESCRIPTION.
-            edate (TYPE): DESCRIPTION.
+            username (str):
+                The email account registered with the API service.
+            key (str):
+                The API authentication key code.
+            param_list (list):
+                A list of SDFS parameters measured by reference monitors at
+                the monitoring site for which data will be loaded.
+            bdate (str):
+                The beginning date (“YYYY-MM-DD” format) for the sensor
+                testing period.
+            edate (str):
+                The ending date (“YYYY-MM-DD” format) for the sensor testing
+                period.
+            site_id (dict, optional):
+                The AQS site ID for the air monitoring site from which
+                reference measurements will be returned by the API. The site
+                ID is passed as a dictionary with three key-value pairs:
 
-        Raises:
-            AttributeError: DESCRIPTION.
+                    - ``'state'``: The two digit FIPS code for the state
+                      (leading zero included).
+                    - ``'county'``: The three digit FIPS code for the county
+                      (leading zeros included) located within the state.
+                    - ``'site'``: The four digit AQS site number within the
+                      county (leading zeros included).
+
+                .. note::
+
+                    If site_id is not null, the site ID passed will be used
+                    instead of any previously configured reference monitor
+                    configuration via the
+                    ``sensortoolkit.ReferenceMonitor.reference_setup()``
+                    method.
+
+            query_met_data (bool, optional):
+                If true, meteorological data for temperature and
+                relative humidity measurements will be queried in addition to
+                parameters passed to param_list. Defaults to true (U.S. EPA’s
+                documents for recommended performance testing protocols,
+                metrics, and target values encourage users to report
+                meteorological conditions for sensor performance evaluations
+                and reports).
 
         Returns:
             None.
@@ -263,6 +299,43 @@ class ReferenceMonitor:
 
     def query_airnow(self, key, param_list, bdate, edate, bbox=None,
                      bbox_size=0.01):
+        """Send a data query to the AirNow API.
+
+        Args:
+            key (str):
+                The API authentication key code.
+            param_list (list):
+                A list of SDFS parameters measured by reference monitors at
+                the monitoring site for which data will be loaded.
+            bdate (str):
+                The beginning date (“YYYY-MM-DD” format) for the sensor
+                testing period.
+            edate (str):
+                The ending date (“YYYY-MM-DD” format) for the sensor testing
+                period.
+            bbox (dict, optional):
+                A bounding box of coordinates within which data will be
+                queried. Defaults to None. ``bbox`` accepts four key-value
+                pair entries, where the following keys should be specified:
+
+                - ``'minLat'``: The northern-most latitude for the bounding
+                  box.
+                - ``'maxLat'``: The southern-most latitude for the bounding
+                  box.
+                - ``'minLong'``: The western-most longitude for the bounding
+                  box.
+                - ``'maxLong'``: The eastern-most longitude for the bounding
+                  box.
+
+                Values for each key should be type float.
+
+            bbox_size (float, optional):
+                DESCRIPTION. Defaults to 0.01.
+
+        Returns:
+            None.
+
+        """
 
         if bbox is None:
             try:
@@ -302,7 +375,48 @@ class ReferenceMonitor:
 
 
     def load_data(self, bdate, edate, param_list, path=None, met_data=True):
+        """Load reference data from locally acquired files.
 
+        Args:
+            bdate (str):
+                The beginning date (“YYYY-MM-DD” format) for the sensor
+                testing period.
+            edate (str):
+                The ending date (“YYYY-MM-DD” format) for the sensor testing
+                period.
+            param_list (list):
+                A list of SDFS parameters measured by reference monitors at
+                the monitoring site for which data will be loaded.
+            path (str, optional):
+                Full path to the data directory where processed reference
+                datasets are located. If None (default), will attempt to
+                construct path from an existing setup configuration if the
+                ``sensortoolkit.ReferenceMonitor.reference_setup()`` method
+                was run prior to calling ``load_data()``.
+
+                .. note::
+
+                    If path is not null (i.e., a valid directory path is
+                    passed) and a reference monitor configuration was created
+                    with
+                    ``sensortoolkit.ReferenceMonitor.reference_setup()``
+                    prior to running ``load_data()``, the path will point to
+                    datasets located at the indicated path instead of
+                    datasets pointed to by the path configured by the
+                    ``reference_setup()`` method.
+
+            met_data (bool, optional):
+                If true, meteorological data will be loaded in addition to
+                datasets corresponding to parameters passed to param_list.
+                Defaults to true (U.S. EPA’s documents for recommended
+                performance testing protocols, metrics, and target values
+                encourage users to report meteorological conditions for sensor
+                performance evaluations and reports).
+
+        Returns:
+            None.
+
+        """
         if path is None:
             try:
                 path = os.path.normpath(
