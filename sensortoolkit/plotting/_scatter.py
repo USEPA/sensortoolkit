@@ -234,7 +234,7 @@ def draw_scatter(ax, xdata, ydata, param_dict, sensor_stats=None,
 
     # One-to-one dashed line for reference
     if plot_one_to_one is True:
-        one_to_one = np.linspace(ylims[0], ylims[1], 10*ylims[1])
+        one_to_one = np.linspace(ylims[0], ylims[1], int(10*ylims[1]))
         ax.plot(one_to_one, one_to_one, linestyle='--',
                 color='grey', alpha=0.7)
 
@@ -510,6 +510,9 @@ def scatter_plotter(df_list, ref_df, stats_df=None, plot_subset=None,
                        (0, tick_spacing*round(1.25*max_conc/tick_spacing)))
     ylims = kwargs.get('ylims',
                        (0, tick_spacing*round(1.25*max_conc/tick_spacing)))
+
+    xlims = tuple(float(val) for val in xlims)
+    ylims = tuple(float(val) for val in ylims)
 
     # Remove axes limits from kwargs if specified
     kwargs.pop('xlims', None)
