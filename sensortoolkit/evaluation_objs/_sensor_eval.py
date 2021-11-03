@@ -434,6 +434,7 @@ class SensorEvaluation:
                                         hourly_stats,
                                         daily_stats,
                                         stats_path=self.stats_path,
+                                        stats_type='individual',
                                         write_to_file=self.write_to_file)
 
         avg_hourly_stats = sensortoolkit.calculate.regression_stats(
@@ -457,6 +458,7 @@ class SensorEvaluation:
                                         avg_hourly_stats,
                                         avg_daily_stats,
                                         stats_path=self.stats_path,
+                                        stats_type='average',
                                         write_to_file=self.write_to_file)
 
     def plot_timeseries(self, report_fmt=True, **kwargs):
@@ -871,9 +873,9 @@ class SensorEvaluation:
         ref_name = ref_data[met_param + '_Method'].unique()[0]
 
         ymin = math.floor(self.avg_hrly_df[
-                                'mean_' + met_param].min())
+                                'mean_' + met_param + '_Value'].min())
         ymax = round(self.avg_hrly_df[
-                                'mean_' + met_param].max(), -1)
+                                'mean_' + met_param + '_Value'].max(), -1)
 
         xmin, xmax = ymin, ymax
 
@@ -898,6 +900,7 @@ class SensorEvaluation:
         kwargs['xlims'] = kwargs.get('xlims', (xmin, xmax))
         kwargs['param_class'] = 'Met'
         kwargs['tick_spacing'] = kwargs.get('tick_spacing', 10)
+        kwargs['show_colorbar'] = False
 
         sensortoolkit.plotting.scatter_plotter(
                            sensor_data,
