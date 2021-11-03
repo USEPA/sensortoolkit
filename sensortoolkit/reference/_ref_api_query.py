@@ -345,7 +345,7 @@ def select_poc(df, param):
 
     """
     print('')
-    print(f'The following parameter occurance codes (POCs) for '
+    print(f'The following parameter occurrence codes (POCs) for '
          f'{param} were found:')
     poc_dict = df[param+ '_Method_POC'].value_counts().to_dict()
     for poc in poc_dict:
