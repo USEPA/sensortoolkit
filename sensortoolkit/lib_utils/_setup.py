@@ -960,11 +960,11 @@ class ReferenceSetup(_Setup):
     def displayMethods(self, param_code, lookup_data):
         with pd.option_context('display.expand_frame_repr', False,
                                            'display.max_rows', None):
-            table = lookup_data[
-                lookup_data['Parameter Code']==param_code].reset_index(drop=True)
+            table = lookup_data[lookup_data['Parameter Code']==param_code]
+            print('')
             print(table[['Method Code',
                          'Collection Description',
-                         'Method Type']].reset_index(drop=True))
+                         'Method Type']].to_markdown(index=False))
         return table
 
     def processAirNowTech(self):
