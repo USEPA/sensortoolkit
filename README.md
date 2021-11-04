@@ -81,7 +81,7 @@ formatting schemes for sensor and reference data.
 
 
 ## Dependencies: <a name="dependencies"></a>
-* [Python](https://www.python.org/) >=3.6
+* [Python](https://www.python.org/) >= 3.6
 * [pandas](https://pypi.org/project/pandas/) >= 1.3.0
 * [numpy](https://pypi.org/project/numpy/) >= 1.16.5
 * [matplotlib](https://pypi.org/project/matplotlib/) >= 3.1.1
@@ -89,7 +89,8 @@ formatting schemes for sensor and reference data.
 * [statsmodels](https://pypi.org/project/statsmodels/) >= 0.10.1
 * [pathlib2](https://pypi.org/project/pathlib2/) >= 2.3.5
 * [requests](https://pypi.org/project/requests/) >= 2.25.1
-* [python-pptx](https://pypi.org/project/python-pptx/) >=0.6.18
+* [python-pptx](https://pypi.org/project/python-pptx/) >= 0.6.18
+* [tabulate](https://pypi.org/project/tabulate/) >= 0.8.9
 * [SciPy](https://pypi.org/project/scipy/)
 * [urllib3](https://pypi.org/project/urllib3/)
 * [pip](https://pypi.org/project/pip/)
