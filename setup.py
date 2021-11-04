@@ -48,6 +48,7 @@ setup(name='sensortoolkit',
                         'requests',
                         'scipy',
                         'seaborn',
+                        'tabulate',
                         'statsmodels',
                         'urllib3',
                         'pip'
