@@ -4,7 +4,8 @@
 <html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8" />
-  
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>Creating Testing Reports - The PerformanceReport Class &mdash; sensortoolkit 0.6.0b4 documentation</title>
@@ -495,7 +496,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="creating-testing-reports-the-performancereport-class">
+  <section id="creating-testing-reports-the-performancereport-class">
 <h1>Creating Testing Reports - The PerformanceReport Class<a class="headerlink" href="#creating-testing-reports-the-performancereport-class" title="Permalink to this headline">¶</a></h1>
 <p>Creating testing reports with <code class="docutils literal notranslate"><span class="pre">sensortoolkit.PerformanceReport</span></code> is very similar to using
 the <code class="docutils literal notranslate"><span class="pre">sensortoolkit.SensorEvaluation</span></code> class. Users pass the same attributes to the
@@ -523,7 +524,7 @@ report for the <code class="docutils literal notranslate"><span class="pre">Exam
 <span class="n">report</span><span class="o">.</span><span class="n">CreateReport</span><span class="p">()</span>
 </pre></div>
 </div>
-<div class="section" id="arguments-passed-to-performancereport">
+<section id="arguments-passed-to-performancereport">
 <h2>Arguments passed to <code class="docutils literal notranslate"><span class="pre">PerformanceReport</span></code><a class="headerlink" href="#arguments-passed-to-performancereport" title="Permalink to this headline">¶</a></h2>
 <table class="colwidths-given docutils align-default" id="id1">
 <caption><span class="caption-text"><code class="docutils literal notranslate"><span class="pre">sensortoolkit.PerformanceReport()</span></code> attributes</span><a class="headerlink" href="#id1" title="Permalink to this table">¶</a></caption>
@@ -561,8 +562,8 @@ all new figures (may risk overwriting existing figures). Defaults to False.</p><
 </tr>
 </tbody>
 </table>
-</div>
-<div class="section" id="console-output">
+</section>
+<section id="console-output">
 <h2>Console Output<a class="headerlink" href="#console-output" title="Permalink to this headline">¶</a></h2>
 <p>When the above code block is run (including both instantiation of the <code class="docutils literal notranslate"><span class="pre">PerformanceReport</span></code>
 object <code class="docutils literal notranslate"><span class="pre">report</span></code> and running the <code class="docutils literal notranslate"><span class="pre">PerformanceReport.create_report()</span></code> method),
@@ -616,7 +617,7 @@ the following will be printed to the console.</p>
 <p>Reports are saved within the <code class="docutils literal notranslate"><span class="pre">/reports</span></code> folder, which is located inside the
 directory pointed to by the project path.</p>
 </div>
-<div class="section" id="example-report">
+<section id="example-report">
 <h3>Example Report<a class="headerlink" href="#example-report" title="Permalink to this headline">¶</a></h3>
 <p>Below is an example report for the <code class="docutils literal notranslate"><span class="pre">Example_Make_Model</span></code> sensor.</p>
 <p>Please note that at present, <code class="docutils literal notranslate"><span class="pre">PerformanceReport</span></code> does not populate the FRM/FEM
@@ -626,8 +627,8 @@ Users must either insert these details manually by placing information in the
 provided table, or by appending documentation to the end of the report and noting on
 the supplemental information page that addition documentation has been attached.</p>
 <div class="tabbed-set docutils">
-<input checked="checked" id="b1145089-37fa-4820-b08d-4e6ef9b9176e" name="74fad53f-7fe6-4d36-beb6-43021287a5d8" type="radio">
-</input><label class="tabbed-label" for="b1145089-37fa-4820-b08d-4e6ef9b9176e">
+<input checked="checked" id="3058add8-a4ec-4825-889e-ac6c102d3f7a" name="339171a3-4d2b-486f-9cfa-9129db5dc608" type="radio">
+</input><label class="tabbed-label" for="3058add8-a4ec-4825-889e-ac6c102d3f7a">
 Page 1 - Testing Summary</label><div class="tabbed-content docutils">
 <p>The first page of the testing report allows testers to insert information about their
 organization including contact information, and testers are also encouraged to
@@ -636,44 +637,52 @@ provide details about the sensor and FRM/FEM instrumentation used for testing.</
 information about the deployment. These figures provide indication of the sensor’s
 performance during the testing period, site conditions including temperature and
 relative humidity, and meteorological influences that may be present in sensor data.</p>
-<div class="figure align-center" id="id2">
+<figure class="align-center" id="id2">
 <img alt="../_images/performance_report_example_pg1.png" src="../_images/performance_report_example_pg1.png" />
-<p class="caption"><span class="caption-text">Example_Make_Model Base Testing Report (Page 1)</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
+<figcaption>
+<p><span class="caption-text">Example_Make_Model Base Testing Report (Page 1)</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
 </div>
-</div>
-<input id="d1c3409c-6d4c-4c72-a49e-bc06a1794f43" name="74fad53f-7fe6-4d36-beb6-43021287a5d8" type="radio">
-</input><label class="tabbed-label" for="d1c3409c-6d4c-4c72-a49e-bc06a1794f43">
+<input id="0ebe6909-9533-4dca-973b-9d5395f6d67c" name="339171a3-4d2b-486f-9cfa-9129db5dc608" type="radio">
+</input><label class="tabbed-label" for="0ebe6909-9533-4dca-973b-9d5395f6d67c">
 Page 2 - Tabular Statistics</label><div class="tabbed-content docutils">
 <p>The second page of the report includes tabular statistics, such as the performance
 metric values characterizing sensor vs. FRM/FEM accuracy (bias and linearity),
 error, and sensor-sensor (intersensor) precision.</p>
-<div class="figure align-center" id="id3">
+<figure class="align-center" id="id3">
 <img alt="../_images/performance_report_example_pg2.png" src="../_images/performance_report_example_pg2.png" />
-<p class="caption"><span class="caption-text">Example_Make_Model Base Testing Report (Page 2)</span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
+<figcaption>
+<p><span class="caption-text">Example_Make_Model Base Testing Report (Page 2)</span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
 </div>
-</div>
-<input id="1b1d4745-6737-424d-96ec-7b6936771b21" name="74fad53f-7fe6-4d36-beb6-43021287a5d8" type="radio">
-</input><label class="tabbed-label" for="1b1d4745-6737-424d-96ec-7b6936771b21">
+<input id="4af79f59-ec05-4e1e-9b79-a2b10e188e7b" name="339171a3-4d2b-486f-9cfa-9129db5dc608" type="radio">
+</input><label class="tabbed-label" for="4af79f59-ec05-4e1e-9b79-a2b10e188e7b">
 Page 3 - Sensor vs. FRM/FEM Scatter</label><div class="tabbed-content docutils">
 <p>Scatter plots for each sensor unit vs. FRM/FEM measurement pairs are displayed
 on a third page of the report.</p>
-<div class="figure align-center" id="id4">
+<figure class="align-center" id="id4">
 <img alt="../_images/performance_report_example_pg3.png" src="../_images/performance_report_example_pg3.png" />
-<p class="caption"><span class="caption-text">Example_Make_Model Base Testing Report (Page 3)</span><a class="headerlink" href="#id4" title="Permalink to this image">¶</a></p>
+<figcaption>
+<p><span class="caption-text">Example_Make_Model Base Testing Report (Page 3)</span><a class="headerlink" href="#id4" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
 </div>
-</div>
-<input id="f65390df-f5a2-4897-bd08-72b660df1318" name="74fad53f-7fe6-4d36-beb6-43021287a5d8" type="radio">
-</input><label class="tabbed-label" for="f65390df-f5a2-4897-bd08-72b660df1318">
+<input id="bea25f58-b29f-49f0-8b17-ff20bff9a355" name="339171a3-4d2b-486f-9cfa-9129db5dc608" type="radio">
+</input><label class="tabbed-label" for="bea25f58-b29f-49f0-8b17-ff20bff9a355">
 Page 4 - Supplemental Information</label><div class="tabbed-content docutils">
-<div class="figure align-center" id="id5">
+<figure class="align-center" id="id5">
 <img alt="../_images/performance_report_example_pg4.png" src="../_images/performance_report_example_pg4.png" />
-<p class="caption"><span class="caption-text">Example_Make_Model Base Testing Report (Page 4)</span><a class="headerlink" href="#id5" title="Permalink to this image">¶</a></p>
+<figcaption>
+<p><span class="caption-text">Example_Make_Model Base Testing Report (Page 4)</span><a class="headerlink" href="#id5" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
 </div>
 </div>
-</div>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
 
            </div>

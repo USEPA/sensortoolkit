@@ -732,31 +732,49 @@
     <span class="k">return</span> <span class="n">stats_df</span></div>
 
 
-<div class="viewcode-block" id="join_stats"><a class="viewcode-back" href="../../../api/_autosummary/sensortoolkit.calculate._regression_stats.join_stats.html#sensortoolkit.calculate._regression_stats.join_stats">[docs]</a><span class="k">def</span> <span class="nf">join_stats</span><span class="p">(</span><span class="n">hourly_stats</span><span class="p">,</span> <span class="n">daily_stats</span><span class="p">,</span> <span class="n">write_to_file</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">stats_path</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="join_stats"><a class="viewcode-back" href="../../../api/_autosummary/sensortoolkit.calculate._regression_stats.join_stats.html#sensortoolkit.calculate._regression_stats.join_stats">[docs]</a><span class="k">def</span> <span class="nf">join_stats</span><span class="p">(</span><span class="n">hourly_stats</span><span class="p">,</span> <span class="n">daily_stats</span><span class="p">,</span> <span class="n">write_to_file</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">stats_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+               <span class="n">stats_type</span><span class="o">=</span><span class="s1">&#39;individual&#39;</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Combine 1-hour and 24-hour regression statistics DataFrames.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        hourly_stats (pandas DataFrame): DataFrame containing 1-hour averaged</span>
+<span class="sd">        hourly_stats (pandas DataFrame):</span>
+<span class="sd">            DataFrame containing 1-hour averaged</span>
 <span class="sd">            sensor vs. reference regression statistics, returned by call to</span>
 <span class="sd">            regression_stats().</span>
-<span class="sd">        daily_stats (pandas DataFrame): DataFrame containing 24-hour averaged</span>
+<span class="sd">        daily_stats (pandas DataFrame):</span>
+<span class="sd">            DataFrame containing 24-hour averaged</span>
 <span class="sd">            sensor vs. reference regression statistics, returned by call to</span>
 <span class="sd">            regression_stats().</span>
-<span class="sd">        write_to_file (bool, optional): DESCRIPTION. Defaults to False.</span>
-<span class="sd">        stats_path (str, optional): DESCRIPTION. Defaults to None.</span>
+<span class="sd">        write_to_file (bool, optional):</span>
+<span class="sd">            DESCRIPTION. Defaults to False.</span>
+<span class="sd">        stats_path (str, optional):</span>
+<span class="sd">            DESCRIPTION. Defaults to None.</span>
+<span class="sd">        stats_type (str, optional):</span>
+<span class="sd">            The type of regression statistics dataframes that are being joined</span>
+<span class="sd">            (&#39;individual&#39; indicates individual sensor vs. reference</span>
+<span class="sd">            regression, &#39;average&#39; indicates sensor vs. intersensor average</span>
+<span class="sd">            regression statistics)</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        stats_df (pandas DataFrame):</span>
 <span class="sd">            DataFrame containing both 1-hour and 24-hour averaged statistics.</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">stats_type</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;average&#39;</span><span class="p">,</span> <span class="s1">&#39;individual&#39;</span><span class="p">]:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Invalid value </span><span class="si">{</span><span class="n">stats_type</span><span class="si">}</span><span class="s1"> passed to stats_type. &#39;</span>
+                         <span class="s1">&#39;Choose from either &quot;individual&quot; or &quot;average&quot;&#39;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">stats_type</span> <span class="o">==</span> <span class="s1">&#39;individual&#39;</span><span class="p">:</span>
+        <span class="n">stats_type</span> <span class="o">=</span> <span class="s1">&#39;stats_df&#39;</span>
+    <span class="k">if</span> <span class="n">stats_type</span> <span class="o">==</span> <span class="s1">&#39;average&#39;</span><span class="p">:</span>
+        <span class="n">stats_type</span> <span class="o">=</span> <span class="s1">&#39;avg_stats_df&#39;</span>
 
     <span class="n">stats_df</span> <span class="o">=</span> <span class="n">hourly_stats</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">daily_stats</span><span class="p">)</span>
 
-    <span class="n">ref_name</span> <span class="o">=</span> <span class="n">stats_df</span><span class="o">.</span><span class="n">Reference</span><span class="p">[</span><span class="n">stats_df</span><span class="o">.</span><span class="n">Reference</span><span class="o">!=</span><span class="s1">&#39;Metric Average:&#39;</span>
+    <span class="n">ref_name</span> <span class="o">=</span> <span class="n">stats_df</span><span class="o">.</span><span class="n">Reference</span><span class="p">[</span><span class="n">stats_df</span><span class="o">.</span><span class="n">Reference</span> <span class="o">!=</span> <span class="s1">&#39;Metric Average:&#39;</span>
                                   <span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">keys</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
-    <span class="n">sensor_name</span> <span class="o">=</span>  <span class="n">stats_df</span><span class="p">[</span><span class="s1">&#39;Sensor Name&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">keys</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
-    <span class="n">param</span> <span class="o">=</span>  <span class="n">stats_df</span><span class="p">[</span><span class="s1">&#39;Param&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">keys</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">sensor_name</span> <span class="o">=</span> <span class="n">stats_df</span><span class="p">[</span><span class="s1">&#39;Sensor Name&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">keys</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">param</span> <span class="o">=</span> <span class="n">stats_df</span><span class="p">[</span><span class="s1">&#39;Param&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">keys</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
 
     <span class="c1"># Save the statistics DataFrame</span>
     <span class="k">if</span> <span class="n">write_to_file</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
@@ -765,8 +783,10 @@
 
         <span class="n">today</span> <span class="o">=</span> <span class="n">get_todays_date</span><span class="p">()</span>
         <span class="n">ref_name</span> <span class="o">=</span> <span class="n">ref_name</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="s1">&#39;_&#39;</span><span class="p">)</span>
-        <span class="n">filename</span> <span class="o">=</span> <span class="p">(</span><span class="n">sensor_name</span> <span class="o">+</span> <span class="s1">&#39;_&#39;</span> <span class="o">+</span> <span class="n">param</span> <span class="o">+</span> <span class="s1">&#39;_vs_&#39;</span> <span class="o">+</span> <span class="n">ref_name</span> <span class="o">+</span>
-                    <span class="s1">&#39;_stats_df_&#39;</span> <span class="o">+</span> <span class="n">today</span> <span class="o">+</span> <span class="s1">&#39;.csv&#39;</span><span class="p">)</span>
+
+        <span class="n">filename</span> <span class="o">=</span> <span class="s1">&#39;_&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">sensor_name</span><span class="p">,</span> <span class="n">param</span><span class="p">,</span> <span class="s1">&#39;vs&#39;</span><span class="p">,</span> <span class="n">ref_name</span><span class="p">,</span> <span class="n">stats_type</span><span class="p">,</span>
+                             <span class="n">today</span><span class="p">])</span>
+        <span class="n">filename</span> <span class="o">+=</span> <span class="s1">&#39;.csv&#39;</span>
 
         <span class="n">dataframe_to_csv</span><span class="p">(</span><span class="n">stats_df</span><span class="p">,</span>
                          <span class="n">parent_path</span><span class="o">=</span><span class="n">stats_path</span><span class="p">,</span>

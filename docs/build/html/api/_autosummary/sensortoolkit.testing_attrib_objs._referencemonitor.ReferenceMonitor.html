@@ -4,7 +4,8 @@
 <html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8" />
-  
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>sensortoolkit.testing_attrib_objs._referencemonitor.ReferenceMonitor &mdash; sensortoolkit 0.6.0b4 documentation</title>
@@ -498,7 +499,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="sensortoolkit-testing-attrib-objs-referencemonitor-referencemonitor">
+  <section id="sensortoolkit-testing-attrib-objs-referencemonitor-referencemonitor">
 <h1>sensortoolkit.testing_attrib_objs._referencemonitor.ReferenceMonitor<a class="headerlink" href="#sensortoolkit-testing-attrib-objs-referencemonitor-referencemonitor" title="Permalink to this headline">¶</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="sensortoolkit.testing_attrib_objs._referencemonitor.ReferenceMonitor">
@@ -550,11 +551,11 @@ Typically the AQS Site ID if applicable. Defaults to None.</p></li>
 <tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_method_name</span></code></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">load_data</span></code></p></td>
-<td><p></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="../../data/_autosummary/sensortoolkit.testing_attrib_objs._referencemonitor.ReferenceMonitor.html#sensortoolkit.testing_attrib_objs._referencemonitor.ReferenceMonitor.load_data" title="sensortoolkit.testing_attrib_objs._referencemonitor.ReferenceMonitor.load_data"><code class="xref py py-obj docutils literal notranslate"><span class="pre">load_data</span></code></a></p></td>
+<td><p>Load reference data from locally acquired files.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">query_airnow</span></code></p></td>
-<td><p></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="../../data/_autosummary/sensortoolkit.testing_attrib_objs._referencemonitor.ReferenceMonitor.html#sensortoolkit.testing_attrib_objs._referencemonitor.ReferenceMonitor.query_airnow" title="sensortoolkit.testing_attrib_objs._referencemonitor.ReferenceMonitor.query_airnow"><code class="xref py py-obj docutils literal notranslate"><span class="pre">query_airnow</span></code></a></p></td>
+<td><p>Send a data query to the AirNow API.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="../../data/_autosummary/sensortoolkit.testing_attrib_objs._referencemonitor.ReferenceMonitor.html#sensortoolkit.testing_attrib_objs._referencemonitor.ReferenceMonitor.query_aqs" title="sensortoolkit.testing_attrib_objs._referencemonitor.ReferenceMonitor.query_aqs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">query_aqs</span></code></a></p></td>
 <td><p>Send a data query to the AQS API.</p></td>
@@ -580,29 +581,142 @@ Typically the AQS Site ID if applicable. Defaults to None.</p></li>
 </tbody>
 </table>
 <dl class="py method">
+<dt class="sig sig-object py" id="sensortoolkit.testing_attrib_objs._referencemonitor.ReferenceMonitor.load_data">
+<span class="sig-name descname"><span class="pre">load_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bdate</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">edate</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">param_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">met_data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/sensortoolkit/testing_attrib_objs/_referencemonitor.html#ReferenceMonitor.load_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sensortoolkit.testing_attrib_objs._referencemonitor.ReferenceMonitor.load_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load reference data from locally acquired files.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>bdate</strong> (<em>str</em>) – The beginning date (“YYYY-MM-DD” format) for the sensor
+testing period.</p></li>
+<li><p><strong>edate</strong> (<em>str</em>) – The ending date (“YYYY-MM-DD” format) for the sensor testing
+period.</p></li>
+<li><p><strong>param_list</strong> (<em>list</em>) – A list of SDFS parameters measured by reference monitors at
+the monitoring site for which data will be loaded.</p></li>
+<li><p><strong>path</strong> (<em>str</em><em>, </em><em>optional</em>) – <p>Full path to the data directory where processed reference
+datasets are located. If None (default), will attempt to
+construct path from an existing setup configuration if the
+<code class="docutils literal notranslate"><span class="pre">sensortoolkit.ReferenceMonitor.reference_setup()</span></code> method
+was run prior to calling <code class="docutils literal notranslate"><span class="pre">load_data()</span></code>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If path is not null (i.e., a valid directory path is
+passed) and a reference monitor configuration was created
+with
+<code class="docutils literal notranslate"><span class="pre">sensortoolkit.ReferenceMonitor.reference_setup()</span></code>
+prior to running <code class="docutils literal notranslate"><span class="pre">load_data()</span></code>, the path will point to
+datasets located at the indicated path instead of
+datasets pointed to by the path configured by the
+<code class="docutils literal notranslate"><span class="pre">reference_setup()</span></code> method.</p>
+</div>
+</p></li>
+<li><p><strong>met_data</strong> (<em>bool</em><em>, </em><em>optional</em>) – If true, meteorological data will be loaded in addition to
+datasets corresponding to parameters passed to param_list.
+Defaults to true (U.S. EPA’s documents for recommended
+performance testing protocols, metrics, and target values
+encourage users to report meteorological conditions for sensor
+performance evaluations and reports).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sensortoolkit.testing_attrib_objs._referencemonitor.ReferenceMonitor.query_airnow">
+<span class="sig-name descname"><span class="pre">query_airnow</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">param_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bdate</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">edate</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bbox</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bbox_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.01</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/sensortoolkit/testing_attrib_objs/_referencemonitor.html#ReferenceMonitor.query_airnow"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sensortoolkit.testing_attrib_objs._referencemonitor.ReferenceMonitor.query_airnow" title="Permalink to this definition">¶</a></dt>
+<dd><p>Send a data query to the AirNow API.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>key</strong> (<em>str</em>) – The API authentication key code.</p></li>
+<li><p><strong>param_list</strong> (<em>list</em>) – A list of SDFS parameters measured by reference monitors at
+the monitoring site for which data will be loaded.</p></li>
+<li><p><strong>bdate</strong> (<em>str</em>) – The beginning date (“YYYY-MM-DD” format) for the sensor
+testing period.</p></li>
+<li><p><strong>edate</strong> (<em>str</em>) – The ending date (“YYYY-MM-DD” format) for the sensor testing
+period.</p></li>
+<li><p><strong>bbox</strong> (<em>dict</em><em>, </em><em>optional</em>) – <p>A bounding box of coordinates within which data will be
+queried. Defaults to None. <code class="docutils literal notranslate"><span class="pre">bbox</span></code> accepts four key-value
+pair entries, where the following keys should be specified:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">'minLat'</span></code>: The northern-most latitude for the bounding
+box.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">'maxLat'</span></code>: The southern-most latitude for the bounding
+box.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">'minLong'</span></code>: The western-most longitude for the bounding
+box.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">'maxLong'</span></code>: The eastern-most longitude for the bounding
+box.</p></li>
+</ul>
+<p>Values for each key should be type float.</p>
+</p></li>
+<li><p><strong>bbox_size</strong> (<em>float</em><em>, </em><em>optional</em>) – DESCRIPTION. Defaults to 0.01.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="sensortoolkit.testing_attrib_objs._referencemonitor.ReferenceMonitor.query_aqs">
 <span class="sig-name descname"><span class="pre">query_aqs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">username</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">param_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bdate</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">edate</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">site_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">query_met_data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/sensortoolkit/testing_attrib_objs/_referencemonitor.html#ReferenceMonitor.query_aqs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sensortoolkit.testing_attrib_objs._referencemonitor.ReferenceMonitor.query_aqs" title="Permalink to this definition">¶</a></dt>
 <dd><p>Send a data query to the AQS API.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>param_list</strong> (<em>TYPE</em>) – DESCRIPTION.</p></li>
-<li><p><strong>bdate</strong> (<em>TYPE</em>) – DESCRIPTION.</p></li>
-<li><p><strong>edate</strong> (<em>TYPE</em>) – DESCRIPTION.</p></li>
+<li><p><strong>username</strong> (<em>str</em>) – The email account registered with the API service.</p></li>
+<li><p><strong>key</strong> (<em>str</em>) – The API authentication key code.</p></li>
+<li><p><strong>param_list</strong> (<em>list</em>) – A list of SDFS parameters measured by reference monitors at
+the monitoring site for which data will be loaded.</p></li>
+<li><p><strong>bdate</strong> (<em>str</em>) – The beginning date (“YYYY-MM-DD” format) for the sensor
+testing period.</p></li>
+<li><p><strong>edate</strong> (<em>str</em>) – The ending date (“YYYY-MM-DD” format) for the sensor testing
+period.</p></li>
+<li><p><strong>site_id</strong> (<em>dict</em><em>, </em><em>optional</em>) – <p>The AQS site ID for the air monitoring site from which
+reference measurements will be returned by the API. The site
+ID is passed as a dictionary with three key-value pairs:</p>
+<blockquote>
+<div><ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">'state'</span></code>: The two digit FIPS code for the state
+(leading zero included).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">'county'</span></code>: The three digit FIPS code for the county
+(leading zeros included) located within the state.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">'site'</span></code>: The four digit AQS site number within the
+county (leading zeros included).</p></li>
+</ul>
+</div></blockquote>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If site_id is not null, the site ID passed will be used
+instead of any previously configured reference monitor
+configuration via the
+<code class="docutils literal notranslate"><span class="pre">sensortoolkit.ReferenceMonitor.reference_setup()</span></code>
+method.</p>
+</div>
+</p></li>
+<li><p><strong>query_met_data</strong> (<em>bool</em><em>, </em><em>optional</em>) – If true, meteorological data for temperature and
+relative humidity measurements will be queried in addition to
+parameters passed to param_list. Defaults to true (U.S. EPA’s
+documents for recommended performance testing protocols,
+metrics, and target values encourage users to report
+meteorological conditions for sensor performance evaluations
+and reports).</p></li>
 </ul>
 </dd>
-<dt class="field-even">Raises</dt>
-<dd class="field-even"><p><strong>AttributeError</strong> – DESCRIPTION.</p>
-</dd>
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>None.</p>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None.</p>
 </dd>
 </dl>
 </dd></dl>
 
 </dd></dl>
 
-</div>
+</section>
 
 
            </div>

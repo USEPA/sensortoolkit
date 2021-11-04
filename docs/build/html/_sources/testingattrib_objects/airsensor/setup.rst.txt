@@ -29,6 +29,11 @@ that are waiting on user input. ``sensor_setup()`` is an interactive module, whe
 user inputs information via the console. The following steps below walk through the
 setup process:
 
+.. important::
+
+  A console width of at least 80 characters is recommended to properly format
+  printed statements, banners, and tables within this setup method.
+
 1. Selecting File Data Type
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -144,7 +149,7 @@ pollutant measurement columns is found on row index #5.
     ==============================================================================
 
     The first ten unformatted rows of C:\Users\...\Documents\sensortoolkit_testing
-    \Data and Figures\sensor_data\Clarity_Node\raw_data\clarity-measurements-2019-07-09_J8.csv
+    \data\sensor_data\Clarity_Node\raw_data\clarity-measurements-2019-07-09_J8.csv
     are displayed below:
                                                        0
     0  nodeId,timeUtc,aqi,pm1MassConcCalib[ug/m3],pm1...
@@ -176,7 +181,7 @@ pollutant measurement columns is found on row index #5.
     ==============================================================================
 
     The first ten unformatted rows of C:\Users\...\Documents\sensortoolkit_testing
-    \Data and Figures\sensor_data\Example_Make_Model\raw_data\Example_Make_Model_SN01_raw.csv
+    \data\sensor_data\Example_Make_Model\raw_data\Example_Make_Model_SN01_raw.csv
     are displayed below:
 
                                                        0
@@ -213,7 +218,7 @@ pollutant measurement columns is found on row index #5.
     ==============================================================================
 
     The first ten unformatted rows of C:\Users\...\Documents\sensortoolkit_testing
-    \Data and Figures\sensor_data\Vaisala_AQT420\raw_data\Vaisala_1_06-12.txt
+    \data\sensor_data\Vaisala_AQT420\raw_data\Vaisala_1_06-12.txt
     are displayed below:
                                                        0
     0  =~=~=~=~=~=~=~=~=~=~=~= PuTTY log 2018.06.12 2...
@@ -256,7 +261,7 @@ each column index are displayed.
   ============================== Parsing Datasets ==============================
   ==============================================================================
 
-  Parsing datasets at "../Data and Figures/sensor_data/"Example_Make_Model/raw_data"
+  Parsing datasets at "../data/sensor_data/"Example_Make_Model/raw_data"
   ..header(s) at column index 0: ['Time']
   ..header(s) at column index 1: ['NO2 (ppb)']
   ..header(s) at column index 2: ['O3 (ppb)']
@@ -305,7 +310,7 @@ each column index are displayed.
     ============================== Parsing Datasets ==============================
     ==============================================================================
 
-    Parsing datasets at "../Data and Figures/sensor_data/"Example_Make_Model/raw_data"
+    Parsing datasets at "../data/sensor_data/"Example_Make_Model/raw_data"
     ..header(s) at column index 0: ['Time', 'time']
 
 
@@ -551,11 +556,11 @@ corresponds to which unit during analysis.
   ..press X to end adding entries
   ==============================================================================
 
-  ..C:\Users\...\Documents\sensortoolkit_testing\Data and Figures\sensor_data\
+  ..C:\Users\...\Documents\sensortoolkit_testing\data\sensor_data\
   Example_Make_Model\raw_data\Example_Make_Model_SN01_raw.csv
-  ..C:\Users\...\Documents\sensortoolkit_testing\Data and Figures\sensor_data\
+  ..C:\Users\...\Documents\sensortoolkit_testing\data\sensor_data\
   Example_Make_Model\raw_data\Example_Make_Model_SN02_raw.csv
-  ..C:\Users\...\Documents\sensortoolkit_testing\Data and Figures\sensor_data\
+  ..C:\Users\...\Documents\sensortoolkit_testing\data\sensor_data\
   Example_Make_Model\raw_data\Example_Make_Model_SN03_raw.csv
 
   Enter the number of unique sensors corresponding to the datasets above: 3
@@ -587,8 +592,8 @@ corresponds to which unit during analysis.
 Lastly, the Setup module will automatically save the setup configuration
 to a ``setup.json`` file.
 
-This file is located at ``..\Data and Figures\sensor_data\Sensor_Make_Model\``
-where ``Sensor_Make_Model`` is replaced by the name given to the sensor.
+This file is located at ``..\data\sensor_data\[sensor_name]\``
+where ``[sensor_name]`` is replaced by the name given to the sensor.
 
 .. code-block:: console
 
@@ -596,4 +601,4 @@ where ``Sensor_Make_Model`` is replaced by the name given to the sensor.
   ==============================================================================
 
   ..writing setup configuration to the following path:
-  \Data and Figures\sensor_data\Example_Make_Model\Example_Make_Model_setup.json
+    \data\sensor_data\Example_Make_Model\Example_Make_Model_setup.json

@@ -4,7 +4,8 @@
 <html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8" />
-  
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>Performance Evaluation Data Structures &mdash; sensortoolkit 0.6.0b4 documentation</title>
@@ -496,7 +497,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="performance-evaluation-data-structures">
+  <section id="performance-evaluation-data-structures">
 <h1>Performance Evaluation Data Structures<a class="headerlink" href="#performance-evaluation-data-structures" title="Permalink to this headline">¶</a></h1>
 <p>Various data structures containing tabular statistics and information about
 evaluation conditions can also be constructed. These data structures can be
@@ -507,15 +508,18 @@ constructed by running the following line of code:</p>
 <p>This will constuct the statistics dataframes <code class="docutils literal notranslate"><span class="pre">evaluation.stats_df</span></code> and <code class="docutils literal notranslate"><span class="pre">evaluation.avg_stats_df</span></code> and
 populate the deployment dictionary <code class="docutils literal notranslate"><span class="pre">evaluation.deploy_dict</span></code> with details about the evaluation.
 More detail about each of these data structures is provided below.</p>
-<div class="section" id="statistics-dataframes-evaluation-stats-df-and-evaluation-avg-stats-df">
+<section id="statistics-dataframes-evaluation-stats-df-and-evaluation-avg-stats-df">
 <h2>Statistics Dataframes: <code class="docutils literal notranslate"><span class="pre">evaluation.stats_df</span></code> and <code class="docutils literal notranslate"><span class="pre">evaluation.avg_stats_df</span></code><a class="headerlink" href="#statistics-dataframes-evaluation-stats-df-and-evaluation-avg-stats-df" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="sensor-vs-frm-fem-statisitcs-evaluation-stats-df">
+<section id="sensor-vs-frm-fem-statisitcs-evaluation-stats-df">
 <h3>Sensor vs. FRM/FEM Statisitcs: <code class="docutils literal notranslate"><span class="pre">evaluation.stats_df</span></code><a class="headerlink" href="#sensor-vs-frm-fem-statisitcs-evaluation-stats-df" title="Permalink to this headline">¶</a></h3>
-<p>DataFrame containing statisitics relating the <strong>sensor vs. FRM/FEM</strong> linearity (<span class="math notranslate nohighlight">\(R^2\)</span>),
+<p>DataFrame containing statistics relating the <strong>sensor vs. FRM/FEM</strong> linearity (<span class="math notranslate nohighlight">\(R^2\)</span>),
 bias (<cite>slope</cite> and <cite>intercept</cite>), <cite>RMSE</cite>, N (Number of sensor-FRM/FEM data point pairs), as well
 as the minimum, maximum, and the mean sensor concentration. Data are presented for all
 averaging intervals specified by <code class="docutils literal notranslate"><span class="pre">evaluation.eval_param_averaging</span></code>.</p>
-<p><code class="docutils literal notranslate"><span class="pre">evaluation.stats_df</span></code> is saved as a comma-separated value file at …</p>
+<p><code class="docutils literal notranslate"><span class="pre">evaluation.stats_df</span></code> is saved as a comma-separated value file at
+<code class="docutils literal notranslate"><span class="pre">/data/eval_stats/[sensor_name]/[sensor_name]_[parameter]_vs_[reference_name]_stats_df_YYMMDD.csv</span></code></p>
+<p>where <code class="docutils literal notranslate"><span class="pre">[sensor_name]</span></code> is the name of the sensor, <code class="docutils literal notranslate"><span class="pre">[parameter]</span></code> is the SDFS parameter name,
+<code class="docutils literal notranslate"><span class="pre">[reference_name]</span></code> is the name of the reference monitor, and <code class="docutils literal notranslate"><span class="pre">YYMMDD</span></code> is the date the figure was compiled.</p>
 <p>Below is an example of <code class="docutils literal notranslate"><span class="pre">evaluation.stats_df</span></code> for the <code class="docutils literal notranslate"><span class="pre">Example_Make_Model</span></code> sensor dataset:</p>
 <table class="colwidths-auto docutils align-default" id="id1">
 <caption><span class="caption-text"><cite>stats_df.csv</cite></span><a class="headerlink" href="#id1" title="Permalink to this table">¶</a></caption>
@@ -668,15 +672,18 @@ averaging intervals specified by <code class="docutils literal notranslate"><spa
 </tr>
 </tbody>
 </table>
-</div>
-<div class="section" id="sensor-vs-intersensor-average-statistics-evaluation-avg-stats-df">
+</section>
+<section id="sensor-vs-intersensor-average-statistics-evaluation-avg-stats-df">
 <h3>Sensor vs. Intersensor Average Statistics: <code class="docutils literal notranslate"><span class="pre">evaluation.avg_stats_df</span></code><a class="headerlink" href="#sensor-vs-intersensor-average-statistics-evaluation-avg-stats-df" title="Permalink to this headline">¶</a></h3>
-<p>DataFrame containing statisitics relating the <strong>sensor vs. intersensor average</strong>
+<p>DataFrame containing statistics relating the <strong>sensor vs. intersensor average</strong>
 linearity (<span class="math notranslate nohighlight">\(R^2\)</span>), bias (<cite>slope</cite> and <cite>intercept</cite>), RMSE, N (Number of concurrent
 sensor measurements during which all sensors in the testing group reported values), as well as the
 minimum, maximum, and the mean sensor concentration. Data are presented for all
 averaging intervals specified by <code class="docutils literal notranslate"><span class="pre">evaluation.eval_param_averaging</span></code>.</p>
-<p><code class="docutils literal notranslate"><span class="pre">evaluation.avg_stats_df</span></code> is saved as a comma-separated value file at …</p>
+<p><code class="docutils literal notranslate"><span class="pre">evaluation.avg_stats_df</span></code> is saved as a comma-separated value file at
+<code class="docutils literal notranslate"><span class="pre">/data/eval_stats/[sensor_name]/[sensor_name]_[parameter]_vs_[reference_name]_avg_stats_df_YYMMDD.csv</span></code></p>
+<p>where <code class="docutils literal notranslate"><span class="pre">[sensor_name]</span></code> is the name of the sensor, <code class="docutils literal notranslate"><span class="pre">[parameter]</span></code> is the SDFS parameter name,
+<code class="docutils literal notranslate"><span class="pre">[reference_name]</span></code> is the name of the reference monitor, and <code class="docutils literal notranslate"><span class="pre">YYMMDD</span></code> is the date the figure was compiled.</p>
 <p>Below is an example of <code class="docutils literal notranslate"><span class="pre">evaluation.stats_df</span></code> for the <code class="docutils literal notranslate"><span class="pre">Example_Make_Model</span></code> sensor dataset:</p>
 <table class="colwidths-auto docutils align-default" id="id2">
 <caption><span class="caption-text"><cite>avg_stats_df.csv</cite></span><a class="headerlink" href="#id2" title="Permalink to this table">¶</a></caption>
@@ -829,9 +836,9 @@ averaging intervals specified by <code class="docutils literal notranslate"><spa
 </tr>
 </tbody>
 </table>
-</div>
-</div>
-<div class="section" id="deployment-dictionary-evaluation-deploy-dict">
+</section>
+</section>
+<section id="deployment-dictionary-evaluation-deploy-dict">
 <h2>Deployment Dictionary: <code class="docutils literal notranslate"><span class="pre">evaluation.deploy_dict</span></code><a class="headerlink" href="#deployment-dictionary-evaluation-deploy-dict" title="Permalink to this headline">¶</a></h2>
 <p>The deployment dictionary <code class="docutils literal notranslate"><span class="pre">evaluation.deploy_dict</span></code> contains descriptive statistics and textual information about
 the deployment, including details about the testing agency, deployment site,
@@ -840,20 +847,23 @@ sensors tested, and site conditions during the evaluation.</p>
 testing location. A deployment group is defined as a collection of sensors that are
 collocated and concurrently recording data during a consecutive timeframe.</p>
 <p>Expanding the deployment group field, three subfields are listed detailing sensor
-descriptions (‘sensors’), statistics pertaining to the evaluation parameter (‘PM25’),
+descriptions (<cite>sensors</cite>), statistics pertaining to the evaluation parameter (<cite>PM25</cite>),
 and statistics describing the meteorological site conditions during the deployment
-(‘Meteorological Conditions’). Timestamps for the start, end, and duration of the
+(<cite>Meteorological Conditions</cite>). Timestamps for the start, end, and duration of the
 evaluation are also listed (derived from sensor dataset timestamps).</p>
 <p>The parameter statistics subfield contains categories for sensor-sensor (inter-sensor)
 precision, error relative to FRM/FEM, and reference (FRM/FEM) measurement statistics.
-The example shown below is for a scenario where the evaluation parameter is ‘PM25’
-(PM2.5). Statistics are presented at sampling frequencies indicated for the
+The example shown below is for a scenario where the evaluation parameter is <code class="docutils literal notranslate"><span class="pre">PM25</span></code>
+(<span class="raw-html">PM<sub>2.5</sub></span>). Statistics are presented at sampling frequencies indicated for the
 evaluation parameter via the  eval_param_averaging instance attribute.</p>
 <p>The Meteorological Conditions subfield contains statistics pertaining to
 temperature, relative humidity, and other parameters measured by instruments
 at the testing site. These measurements are independent of air sensor meteorological
 measurements collected by internal sensing components.</p>
-<p>The deployment dictionary <code class="docutils literal notranslate"><span class="pre">evaluation.deploy_dict</span></code> is saved as a JSON file to …</p>
+<p>The deployment dictionary <code class="docutils literal notranslate"><span class="pre">evaluation.deploy_dict</span></code> is saved as a JSON file to
+<code class="docutils literal notranslate"><span class="pre">/data/eval_stats/[sensor_name]/[sensor_name]_[parameter]_Evaluation_YYMMDD.json</span></code></p>
+<p>where <code class="docutils literal notranslate"><span class="pre">[sensor_name]</span></code> is the name of the sensor, <code class="docutils literal notranslate"><span class="pre">[parameter]</span></code> is the SDFS parameter name,
+<code class="docutils literal notranslate"><span class="pre">[reference_name]</span></code> is the name of the reference monitor, and <code class="docutils literal notranslate"><span class="pre">YYMMDD</span></code> is the date the figure was compiled.</p>
 <p>Below is an example of <code class="docutils literal notranslate"><span class="pre">evaluation.deploy_dict</span></code> for the <code class="docutils literal notranslate"><span class="pre">Example_Make_Model</span></code> sensor dataset:</p>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
     <span class="nt">&quot;sensortoolkit Version&quot;</span><span class="p">:</span> <span class="s2">&quot;1.0.0&quot;</span><span class="p">,</span>
@@ -965,14 +975,14 @@ measurements collected by internal sensing components.</p>
 <p class="admonition-title">Note</p>
 <p><code class="docutils literal notranslate"><span class="pre">n_exceed_conc_goal</span></code> (1-hour/24-hour) for the evaluation parameter reference
 is the number of averaging intervals during which the reference concentration
-exceeds the EPA’s recommended elevated concentration value for either PM2.5
-(&gt;25 μg/m3) or O3 (&gt; 60 ppbv) testing.</p>
+exceeds the EPA’s recommended elevated concentration value for either <span class="raw-html">PM<sub>2.5</sub></span>
+(&gt;25 <span class="raw-html">μg/m<sup>3</sup></span>) or <span class="raw-html">O<sub>3</sub></span> (&gt; 60 ppbv) testing.</p>
 <p>This term as it relates to the <code class="docutils literal notranslate"><span class="pre">Meteorological_Conditions</span></code> subcategories for
 temperature and relative humidity indicate the number of intervals during which
 conditions exceeded the manufacturer’s recommended operating range.</p>
 </div>
-</div>
-</div>
+</section>
+</section>
 
 
            </div>

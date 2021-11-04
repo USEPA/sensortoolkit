@@ -4,7 +4,8 @@
 <html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8" />
-  
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>sensortoolkit.calculate._regression_stats.join_stats &mdash; sensortoolkit 0.6.0b4 documentation</title>
@@ -499,11 +500,11 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="sensortoolkit-calculate-regression-stats-join-stats">
+  <section id="sensortoolkit-calculate-regression-stats-join-stats">
 <h1>sensortoolkit.calculate._regression_stats.join_stats<a class="headerlink" href="#sensortoolkit-calculate-regression-stats-join-stats" title="Permalink to this headline">¶</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="sensortoolkit.calculate._regression_stats.join_stats">
-<span class="sig-name descname"><span class="pre">join_stats</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hourly_stats</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">daily_stats</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">write_to_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stats_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/sensortoolkit/calculate/_regression_stats.html#join_stats"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sensortoolkit.calculate._regression_stats.join_stats" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">join_stats</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hourly_stats</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">daily_stats</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">write_to_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stats_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stats_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'individual'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/sensortoolkit/calculate/_regression_stats.html#join_stats"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sensortoolkit.calculate._regression_stats.join_stats" title="Permalink to this definition">¶</a></dt>
 <dd><p>Combine 1-hour and 24-hour regression statistics DataFrames.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -516,6 +517,10 @@ sensor vs. reference regression statistics, returned by call to
 regression_stats().</p></li>
 <li><p><strong>write_to_file</strong> (<em>bool</em><em>, </em><em>optional</em>) – DESCRIPTION. Defaults to False.</p></li>
 <li><p><strong>stats_path</strong> (<em>str</em><em>, </em><em>optional</em>) – DESCRIPTION. Defaults to None.</p></li>
+<li><p><strong>stats_type</strong> (<em>str</em><em>, </em><em>optional</em>) – The type of regression statistics dataframes that are being joined
+(‘individual’ indicates individual sensor vs. reference
+regression, ‘average’ indicates sensor vs. intersensor average
+regression statistics)</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -527,7 +532,7 @@ regression_stats().</p></li>
 </dl>
 </dd></dl>
 
-</div>
+</section>
 
 
            </div>

@@ -1,6 +1,9 @@
 Performance Evaluation Data Structures
 --------------------------------------
 
+.. role:: raw-html(raw)
+   :format: html
+
 Various data structures containing tabular statistics and information about
 evaluation conditions can also be constructed. These data structures can be
 constructed by running the following line of code:
@@ -19,12 +22,16 @@ Statistics Dataframes: ``evaluation.stats_df`` and ``evaluation.avg_stats_df``
 Sensor vs. FRM/FEM Statisitcs: ``evaluation.stats_df``
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
 
-DataFrame containing statisitics relating the **sensor vs. FRM/FEM** linearity (:math:`R^2`),
+DataFrame containing statistics relating the **sensor vs. FRM/FEM** linearity (:math:`R^2`),
 bias (`slope` and `intercept`), `RMSE`, N (Number of sensor-FRM/FEM data point pairs), as well
 as the minimum, maximum, and the mean sensor concentration. Data are presented for all
 averaging intervals specified by ``evaluation.eval_param_averaging``.
 
-``evaluation.stats_df`` is saved as a comma-separated value file at ...
+``evaluation.stats_df`` is saved as a comma-separated value file at
+``/data/eval_stats/[sensor_name]/[sensor_name]_[parameter]_vs_[reference_name]_stats_df_YYMMDD.csv``
+
+where ``[sensor_name]`` is the name of the sensor, ``[parameter]`` is the SDFS parameter name,
+``[reference_name]`` is the name of the reference monitor, and ``YYMMDD`` is the date the figure was compiled.
 
 Below is an example of ``evaluation.stats_df`` for the ``Example_Make_Model`` sensor dataset:
 
@@ -36,13 +43,17 @@ Below is an example of ``evaluation.stats_df`` for the ``Example_Make_Model`` se
 Sensor vs. Intersensor Average Statistics: ``evaluation.avg_stats_df``
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-DataFrame containing statisitics relating the **sensor vs. intersensor average**
+DataFrame containing statistics relating the **sensor vs. intersensor average**
 linearity (:math:`R^2`), bias (`slope` and `intercept`), RMSE, N (Number of concurrent
 sensor measurements during which all sensors in the testing group reported values), as well as the
 minimum, maximum, and the mean sensor concentration. Data are presented for all
 averaging intervals specified by ``evaluation.eval_param_averaging``.
 
-``evaluation.avg_stats_df`` is saved as a comma-separated value file at ...
+``evaluation.avg_stats_df`` is saved as a comma-separated value file at
+``/data/eval_stats/[sensor_name]/[sensor_name]_[parameter]_vs_[reference_name]_avg_stats_df_YYMMDD.csv``
+
+where ``[sensor_name]`` is the name of the sensor, ``[parameter]`` is the SDFS parameter name,
+``[reference_name]`` is the name of the reference monitor, and ``YYMMDD`` is the date the figure was compiled.
 
 Below is an example of ``evaluation.stats_df`` for the ``Example_Make_Model`` sensor dataset:
 
@@ -63,15 +74,15 @@ testing location. A deployment group is defined as a collection of sensors that 
 collocated and concurrently recording data during a consecutive timeframe.
 
 Expanding the deployment group field, three subfields are listed detailing sensor
-descriptions (‘sensors’), statistics pertaining to the evaluation parameter (‘PM25’),
+descriptions (`sensors`), statistics pertaining to the evaluation parameter (`PM25`),
 and statistics describing the meteorological site conditions during the deployment
-(‘Meteorological Conditions’). Timestamps for the start, end, and duration of the
+(`Meteorological Conditions`). Timestamps for the start, end, and duration of the
 evaluation are also listed (derived from sensor dataset timestamps).
 
 The parameter statistics subfield contains categories for sensor-sensor (inter-sensor)
 precision, error relative to FRM/FEM, and reference (FRM/FEM) measurement statistics.
-The example shown below is for a scenario where the evaluation parameter is ‘PM25’
-(PM2.5). Statistics are presented at sampling frequencies indicated for the
+The example shown below is for a scenario where the evaluation parameter is ``PM25``
+(:raw-html:`PM<sub>2.5</sub>`). Statistics are presented at sampling frequencies indicated for the
 evaluation parameter via the  eval_param_averaging instance attribute.
 
 The Meteorological Conditions subfield contains statistics pertaining to
@@ -79,7 +90,11 @@ temperature, relative humidity, and other parameters measured by instruments
 at the testing site. These measurements are independent of air sensor meteorological
 measurements collected by internal sensing components.
 
-The deployment dictionary ``evaluation.deploy_dict`` is saved as a JSON file to ...
+The deployment dictionary ``evaluation.deploy_dict`` is saved as a JSON file to
+``/data/eval_stats/[sensor_name]/[sensor_name]_[parameter]_Evaluation_YYMMDD.json``
+
+where ``[sensor_name]`` is the name of the sensor, ``[parameter]`` is the SDFS parameter name,
+``[reference_name]`` is the name of the reference monitor, and ``YYMMDD`` is the date the figure was compiled.
 
 Below is an example of ``evaluation.deploy_dict`` for the ``Example_Make_Model`` sensor dataset:
 
@@ -193,8 +208,8 @@ Below is an example of ``evaluation.deploy_dict`` for the ``Example_Make_Model``
 .. note::
   ``n_exceed_conc_goal`` (1-hour/24-hour) for the evaluation parameter reference
   is the number of averaging intervals during which the reference concentration
-  exceeds the EPA’s recommended elevated concentration value for either PM2.5
-  (>25 μg/m3) or O3 (> 60 ppbv) testing.
+  exceeds the EPA’s recommended elevated concentration value for either :raw-html:`PM<sub>2.5</sub>`
+  (>25 :raw-html:`μg/m<sup>3</sup>`) or :raw-html:`O<sub>3</sub>` (> 60 ppbv) testing.
 
   This term as it relates to the ``Meteorological_Conditions`` subcategories for
   temperature and relative humidity indicate the number of intervals during which

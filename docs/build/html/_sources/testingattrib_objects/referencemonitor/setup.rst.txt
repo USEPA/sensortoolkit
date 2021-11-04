@@ -1,5 +1,9 @@
 ReferenceMonitor Setup
 ======================
+
+.. role:: raw-html(raw)
+   :format: html
+
 The ``sensortoolkit.ReferenceMonitor.reference_setup()`` module guides users through
 an interactive process of entering in details regarding the reference data configuration
 the user plans to make use of for conducting evaluations.
@@ -30,6 +34,11 @@ module, where the user inputs information via the console.
   use the tabs below to select the reference data service or source corresponding
   to your use case. This will display the setup process corresponding to the selected
   service or data source.
+
+.. important::
+
+  A console width of at least 80 characters is recommended to properly format
+  printed statements, banners, and tables within this setup method.
 
 .. tabbed:: Local
 
@@ -66,7 +75,7 @@ module, where the user inputs information via the console.
 
     .. important::
       Users are strongly recommended to provide a site name and, if applicable, a site AQS ID.
-      These attributes are used to organize reference data within the ``/Data and Figures/reference_data/[data source]/[raw or processed]``
+      These attributes are used to organize reference data within the ``/data/reference_data/[data source]/[raw or processed]``
       subdirectories.
 
       This is particularly important if users are working with data from numerous sites yet share the same data source.
@@ -77,7 +86,7 @@ module, where the user inputs information via the console.
 
         my_evaluation
         |
-        └───Data and Figures
+        └───data
            └───reference_data
                 └───airnowtech
                    ├───raw
@@ -238,7 +247,7 @@ module, where the user inputs information via the console.
       ==============================================================================
 
       The first ten unformatted rows of C:\Users\...\Documents\sensortoolkit_testing
-      \Data and Figures\reference_data\local\raw\Burdens_Creek_370630099\min_201908_PM.csv
+      \data\reference_data\local\raw\Burdens_Creek_370630099\min_201908_PM.csv
       are displayed below:
                                                  0
       0  Station: BURDENS CREEK PM  Periodically: 8/1/2...
@@ -280,7 +289,7 @@ module, where the user inputs information via the console.
       ============================== Parsing Datasets ==============================
       ==============================================================================
 
-      Parsing datasets at "../Data and Figures/reference_data/local/raw/Burdens_Creek_370630099/"
+      Parsing datasets at "../data/reference_data/local/raw/Burdens_Creek_370630099/"
       ..Header(s) at column index 0: ['Date & Time']
       ..Header(s) at column index 1: ['UV_633_370nm']
       ..Header(s) at column index 2: ['BC AE33 880nm']
@@ -321,8 +330,30 @@ module, where the user inputs information via the console.
   **9. Specifying the Parameter Renaming Scheme and Monitor Information**
 
     Next, users are prompted to configure the parameter renaming scheme by entering
-    in the sensortoolkit Data Formatting Standard (SDFS) parameter name
+    in the sensortoolkit Data Formatting Scheme (SDFS) parameter name
     that corresponds to each parameter header name.
+
+    For each SDFS parameter specified, a set of queries will be prompted which
+    ask the user to specify parameter-specific details. Based on the indicated
+    SDFS parameter, a prompt will ask the user whether the reference
+    measurements are associated with a standard `parameter code <https://aqs.epa.gov/aqsweb/documents/codetables/methods_all.html>`_
+    EPA's Air Quality System (AQS) associates with the pollutant or environmental parameter.
+
+    Parameter codes are assigned by AQS for classifying the
+    type of parameter alongside a description of the reference method used to collect measurements.
+    For instance, ``88101`` is the standard parameter code for :raw-html:`PM<sub>2.5</sub>` measurements collected at local
+    conditions via an instrument designated a Federal Reference Method (FRM) or
+    Federal Equivalent Method (FEM) for :raw-html:`PM<sub>2.5</sub>`.
+
+    For the example below, measurements for :raw-html:`PM<sub>2.5</sub>` and :raw-html:`PM<sub>10</sub>` were collected by a
+    Teledyne API T640x FEM for :raw-html:`PM<sub>2.5</sub>` and :raw-html:`PM<sub>10</sub>`. Measurements for these pollutants
+    made with the T640x are categorized under the parameter codes ``88101`` for :raw-html:`PM<sub>2.5</sub>`
+    measurements and ``88102`` for :raw-html:`PM<sub>10</sub>` measurements. A table of FRM/FEM methods
+    is displayed if the user indicates that the parameter code corresponds to the
+    standard AQS code indicated by the console. The user is asked to select the
+    method code (which is AQS code associated with the reference instrument) for
+    each parameter. Below, the highlighted lines indicate the table entries corresponding
+    to the Teledyne API T640x used to collect :raw-html:`PM<sub>2.5</sub>` and :raw-html:`PM<sub>10</sub>` measurement data.
 
     .. tip::
 
@@ -330,6 +361,7 @@ module, where the user inputs information via the console.
       from the dataset by pressing enter.
 
     .. code-block:: console
+      :emphasize-lines: 72, 152
 
       ========================== Specify Parameter columns =========================
       Options
@@ -360,148 +392,163 @@ module, where the user inputs information via the console.
 
       [6/7] Enter SDFS parameter associated with T640_2_PM25: PM25
 
-      Enter the units of measure for T640_2_PM25:ug/m^3
+        Enter the units of measure for T640_2_PM25:Micrograms per cubic meter
 
-      Confirm entry [y/n]: y
+        Confirm entry [y/n]: y
 
-      Is the parameter code for reference measurements 88101?
+        Is the parameter code for reference measurements 88101?
 
-      Confirm entry [y/n]: y
-      Method Code                             Collection Description Method Type
-      0           116               BGI Model PQ200 PM2.5 Sampler w/WINS         FRM
-      1           117              R & P Model 2000 PM2.5 Sampler w/WINS         FRM
-      2           118           R & P Model 2025 PM2.5 Sequential w/WINS         FRM
-      3           119              Andersen RAAS2.5-100 PM2.5 SAM w/WINS         FRM
-      4           120              Andersen RAAS2.5-300 PM2.5 SEQ w/WINS         FRM
-      5           123                          Thermo Env Model 605 CAPS         FRM
-      6           128              Andersen RAAS2.5-2000PM2.5 Aud w/WINS         FRM
-      7           129               R & P Model 2000 PM-2.5 Audit w/WINS         FRM
-      8           135                   URG-MASS100 Single PM2.5 Sampler         FRM
-      9           136               URG-MASS300 Sequential PM2.5 Sampler         FRM
-      10          142               BGI Models PQ200-VSCC or PQ200A-VSCC         FRM
-      11          143         R & P Model 2000 PM-2.5 Air Sampler w/VSCC         FRM
-      12          144       R & P Model 2000 PM-2.5 Audit Sampler w/VSCC         FRM
-      13          145  R & P Model 2025 PM-2.5 Sequential Air Sampler...         FRM
-      14          153           Thermo Electron Model RAAS2.5-100 w/VSCC         FRM
-      15          154     Thermo Electron Model RAAS2.5-200 Audit w/VSCC         FRM
-      16          155  Thermo Electron Model RAAS2.5-300 Sequential w...         FRM
-      17          170               Met One BAM-1020 Mass Monitor w/VSCC         FEM
-      18          177          Thermo Scientific Partisol 2000-D Dichot.         FEM
-      19          179  Thermo Scientific Dichot. Partisol-Plus Model ...         FEM
-      20          181  Thermo Scientific TEOM 1400 FDMS or 1405 8500C...         FEM
-      21          182    Thermo Scientific TEOM 1405-DF Dichotomous FDMS         FEM
-      22          183      Thermo Scientific 5014i or FH62C14-DHS w/VSCC         FEM
-      23          184          Thermo Scientific Model 5030 SHARP w/VSCC         FEM
-      24          195             GRIMM EDM Model 180 with naphion dryer         FEM
-      25          203                    Opsis SM200-Dust Monitor w/VSCC         FEM
-      26          204                Teledyne Model 602 Beta plus w/VSCC         FEM
-      27          209  Met One BAM-1022 Mass Monitor w/ VSCC or TE-PM...         FEM
-      28          219        Tisch Model TE-Wilbur2.5 Low-Volume Sampler         FRM
-      29          221                      Met One E-FRM PM2.5 with WINS         FRM
-      30          235    Met One E-FRM PM2.5 with URG-2000-30EGN cyclone         FEM
-      31          236                           Teledyne T640 at 5.0 LPM         FEM
-      32          238                        Teledyne T640X at 16.67 LPM         FEM
-      33          245                  Met One E-SEQ-FRM PM2.5 with WINS         FRM
-      34          521                      Met One E-FRM PM2.5 with VSCC         FRM
-      35          545                  Met One E-SEQ-FRM PM2.5 with VSCC         FRM
-      36          581               Thermo Scientific 1405-F FDMS w/VSCC         FEM
+        Confirm entry [y/n]: y
 
-      Enter the method code corresponding to the reference method for T640_2_PM25:238
+      |   Method Code | Collection Description                                     | Method Type   |
+      |--------------:|:-----------------------------------------------------------|:--------------|
+      |           116 | BGI Model PQ200 PM2.5 Sampler w/WINS                       | FRM           |
+      |           117 | R & P Model 2000 PM2.5 Sampler w/WINS                      | FRM           |
+      |           118 | R & P Model 2025 PM2.5 Sequential w/WINS                   | FRM           |
+      |           119 | Andersen RAAS2.5-100 PM2.5 SAM w/WINS                      | FRM           |
+      |           120 | Andersen RAAS2.5-300 PM2.5 SEQ w/WINS                      | FRM           |
+      |           123 | Thermo Env Model 605 CAPS                                  | FRM           |
+      |           128 | Andersen RAAS2.5-2000PM2.5 Aud w/WINS                      | FRM           |
+      |           129 | R & P Model 2000 PM-2.5 Audit w/WINS                       | FRM           |
+      |           135 | URG-MASS100 Single PM2.5 Sampler                           | FRM           |
+      |           136 | URG-MASS300 Sequential PM2.5 Sampler                       | FRM           |
+      |           142 | BGI Models PQ200-VSCC or PQ200A-VSCC                       | FRM           |
+      |           143 | R & P Model 2000 PM-2.5 Air Sampler w/VSCC                 | FRM           |
+      |           144 | R & P Model 2000 PM-2.5 Audit Sampler w/VSCC               | FRM           |
+      |           145 | R & P Model 2025 PM-2.5 Sequential Air Sampler w/VSCC      | FRM           |
+      |           153 | Thermo Electron Model RAAS2.5-100 w/VSCC                   | FRM           |
+      |           154 | Thermo Electron Model RAAS2.5-200 Audit w/VSCC             | FRM           |
+      |           155 | Thermo Electron Model RAAS2.5-300 Sequential w/VSCC        | FRM           |
+      |           170 | Met One BAM-1020 Mass Monitor w/VSCC                       | FEM           |
+      |           177 | Thermo Scientific Partisol 2000-D Dichot.                  | FEM           |
+      |           179 | Thermo Scientific Dichot. Partisol-Plus Model 2025-D Seq   | FEM           |
+      |           181 | Thermo Scientific TEOM 1400 FDMS or 1405 8500C FDMS w/VSCC | FEM           |
+      |           182 | Thermo Scientific TEOM 1405-DF Dichotomous FDMS            | FEM           |
+      |           183 | Thermo Scientific 5014i or FH62C14-DHS w/VSCC              | FEM           |
+      |           184 | Thermo Scientific Model 5030 SHARP w/VSCC                  | FEM           |
+      |           195 | GRIMM EDM Model 180 with naphion dryer                     | FEM           |
+      |           203 | Opsis SM200-Dust Monitor w/VSCC                            | FEM           |
+      |           204 | Teledyne Model 602 Beta plus w/VSCC                        | FEM           |
+      |           209 | Met One BAM-1022 Mass Monitor w/ VSCC or TE-PM2.5C         | FEM           |
+      |           219 | Tisch Model TE-Wilbur2.5 Low-Volume Sampler                | FRM           |
+      |           221 | Met One E-FRM PM2.5 with WINS                              | FRM           |
+      |           235 | Met One E-FRM PM2.5 with URG-2000-30EGN cyclone            | FEM           |
+      |           236 | Teledyne T640 at 5.0 LPM                                   | FEM           |
+      |           238 | Teledyne T640X at 16.67 LPM                                | FEM           |
+      |           245 | Met One E-SEQ-FRM PM2.5 with WINS                          | FRM           |
+      |           521 | Met One E-FRM PM2.5 with VSCC                              | FRM           |
+      |           545 | Met One E-SEQ-FRM PM2.5 with VSCC                          | FRM           |
+      |           581 | Thermo Scientific 1405-F FDMS w/VSCC                       | FEM           |
 
-      Confirm entry [y/n]: y
+        Enter the method code corresponding to the reference method for T640_2_PM25:238
 
-      Enter the parameter occurance code for the above reference method:1
+        Confirm entry [y/n]: y
 
-      Confirm entry [y/n]: y
+        Enter the parameter occurance code for the above reference method:1
+
+        Confirm entry [y/n]: y
+
+        Are the units of measure for T640_2_PM25 µg/m³?
+
+        Confirm entry [y/n]: y
 
       [7/7] Enter SDFS parameter associated with T640_2_PM10: PM10
 
-      Enter the units of measure for T640_2_PM10:ug/m^3
+        Enter the units of measure for T640_2_PM10:Micrograms per cubic meter
 
-      Confirm entry [y/n]: y
+        Confirm entry [y/n]: y
 
-      Is the parameter code for reference measurements 81102?
+        Is the parameter code for reference measurements 81102?
 
-      Confirm entry [y/n]: y
-      Method Code                           Collection Description Method Type
-      0             1                                    LO-VOL-SA244E         NaN
-      1             2                                   LO-VOL-GMW9200         NaN
-      2             3                               LO-VOL-WA10-DICHOT         NaN
-      3             4                             LO-VOL-SA246B-DICHOT         NaN
-      4            11                                    DUSTTRAK 8530         NaN
-      5            12                                    DUSTTRAK 8533         NaN
-      6            25                                    MED-VOL-SA254         NaN
-      7            26                                  MED-VOL-GMW9100         NaN
-      8            40                   WEDDING-AUTOMATED-PM10 SAMPLER         NaN
-      9            41                       BAM-102-CONTINUOUS MONITOR         NaN
-      10           51                                     HI-VOL-SA321         NaN
-      11           52                                    HI-VOL-SA321A         NaN
-      12           53                                   HI-VOL-GMW9000         NaN
-      13           54                                       HI-VOL-W10         NaN
-      14           55                     HI-VOL-W10-(W/MAINT.AC.PORT)         NaN
-      15           56                    HI-VOL-SA321G-(321-W/OILSHIM)         NaN
-      16           57                   HI-VOL-SA321AG(321A-W/OILSHIM)         NaN
-      17           58                                    HI-VOL-SA321B         NaN
-      18           59                                    HI-VOL-SA1200         NaN
-      19           62                             HI-VOL-WEDDING-INLET         FRM
-      20           63                               HI-VOL SA/GMW-1200         FRM
-      21           64                              HI-VOL-SA/GMW-321-B         FRM
-      22           65                              HI-VOL-SA/GMW-321-C         FRM
-      23           71                               OREGON-DEQ-MED-VOL         FRM
-      24           73                   LO-VOL-DICHOTOMOUS-SA246B-INLT         FRM
-      25           76                   INSTRMENTL-ANDRSEN-SA246B-INLT         FEM
-      26           79                    INSTRUMENTAL-R&P SA246B-INLET         FEM
-      27           81                   INSTRUMENTAL-WEDDING-AUTOMATIC         FEM
-      28           98                          R&P Model 2000 Partisol         FRM
-      29          122                      INSTRUMENT MET ONE 4 MODELS         FEM
-      30          124                        BGI Inc. Model PQ100 PM10         FRM
-      31          125                        BGI Inc. Model PQ200 PM10         FRM
-      32          126                     R - P Co Partisol Model 2000         FRM
-      33          127                     R - P Co Partisol Model 2025         FRM
-      34          130               Andersen RAAS10-100 Single channel         FRM
-      35          131                    Andersen RAAS10-200 S-Channel         FRM
-      36          132                    Andersen RAAS10-300 M-channel         FRM
-      37          141             Tisch Environ Model-6070 PM10 Hi-Vol         FRM
-      38          150                  T A Series FH 62 C14 Continuous         FEM
-      39          151                  Environnement S.A. Model MP101M         FEM
-      40          156                               Instrument DKK_TOA         FEM
-      41          162                    Hi Vol SSI Ecotech Model 3000         FRM
-      42          193                   OPSIS Model SM200 PM10 Monitor         FEM
-      43          197              Thermo Partisol Model 2000-D Dichot         FEM
-      44          198              Thermo Partisol Model 2025-D Dichot         FEM
-      45          205                                       AP 602 BAM         FEM
-      46          208  Thermo Scientific 1405-DF Dichotomous TEOM FDMS         FEM
-      47          216       Tisch Model TE-Wilbur10 Low-Volume Sampler         FRM
-      48          226                               Met One E-BAM PLUS         FEM
-      49          231                               Met One E-FRM PM10         FRM
-      50          239                  Teledyne API T640X at 16.67 LPM         FEM
-      51          246                                Met One E-SEQ-FRM         FRM
-      52          702                                     INTERIM PM10         NaN
-      53          771                                     INTERIM PM10         NaN
-      54          772                                     INTERIM PM10         NaN
-      55          773                            LO-VOL-DICHOT-INTERIM         NaN
-      56          774                         HI-VOL INTERIM 15 MICRON         NaN
-      57          790                                 Virtual Impactor         NaN
-      58          792                                 Virtual Impactor         NaN
-      59          879  INSTRUMENTAL-R&P SA246B-Inlet (Tx Modification)         NaN
-      60          900                        BGI Inc. frmOMNI at 5 lpm         NaN
+        Confirm entry [y/n]: y
 
-      Enter the method code corresponding to the reference method for T640_2_PM10:239
+      |   Method Code | Collection Description                          | Method Type   |
+      |--------------:|:------------------------------------------------|:--------------|
+      |             1 | LO-VOL-SA244E                                   | nan           |
+      |             2 | LO-VOL-GMW9200                                  | nan           |
+      |             3 | LO-VOL-WA10-DICHOT                              | nan           |
+      |             4 | LO-VOL-SA246B-DICHOT                            | nan           |
+      |            11 | DUSTTRAK 8530                                   | nan           |
+      |            12 | DUSTTRAK 8533                                   | nan           |
+      |            25 | MED-VOL-SA254                                   | nan           |
+      |            26 | MED-VOL-GMW9100                                 | nan           |
+      |            40 | WEDDING-AUTOMATED-PM10 SAMPLER                  | nan           |
+      |            41 | BAM-102-CONTINUOUS MONITOR                      | nan           |
+      |            51 | HI-VOL-SA321                                    | nan           |
+      |            52 | HI-VOL-SA321A                                   | nan           |
+      |            53 | HI-VOL-GMW9000                                  | nan           |
+      |            54 | HI-VOL-W10                                      | nan           |
+      |            55 | HI-VOL-W10-(W/MAINT.AC.PORT)                    | nan           |
+      |            56 | HI-VOL-SA321G-(321-W/OILSHIM)                   | nan           |
+      |            57 | HI-VOL-SA321AG(321A-W/OILSHIM)                  | nan           |
+      |            58 | HI-VOL-SA321B                                   | nan           |
+      |            59 | HI-VOL-SA1200                                   | nan           |
+      |            62 | HI-VOL-WEDDING-INLET                            | FRM           |
+      |            63 | HI-VOL SA/GMW-1200                              | FRM           |
+      |            64 | HI-VOL-SA/GMW-321-B                             | FRM           |
+      |            65 | HI-VOL-SA/GMW-321-C                             | FRM           |
+      |            71 | OREGON-DEQ-MED-VOL                              | FRM           |
+      |            73 | LO-VOL-DICHOTOMOUS-SA246B-INLT                  | FRM           |
+      |            76 | INSTRMENTL-ANDRSEN-SA246B-INLT                  | FEM           |
+      |            79 | INSTRUMENTAL-R&P SA246B-INLET                   | FEM           |
+      |            81 | INSTRUMENTAL-WEDDING-AUTOMATIC                  | FEM           |
+      |            98 | R&P Model 2000 Partisol                         | FRM           |
+      |           122 | INSTRUMENT MET ONE 4 MODELS                     | FEM           |
+      |           124 | BGI Inc. Model PQ100 PM10                       | FRM           |
+      |           125 | BGI Inc. Model PQ200 PM10                       | FRM           |
+      |           126 | R - P Co Partisol Model 2000                    | FRM           |
+      |           127 | R - P Co Partisol Model 2025                    | FRM           |
+      |           130 | Andersen RAAS10-100 Single channel              | FRM           |
+      |           131 | Andersen RAAS10-200 S-Channel                   | FRM           |
+      |           132 | Andersen RAAS10-300 M-channel                   | FRM           |
+      |           141 | Tisch Environ Model-6070 PM10 Hi-Vol            | FRM           |
+      |           150 | T A Series FH 62 C14 Continuous                 | FEM           |
+      |           151 | Environnement S.A. Model MP101M                 | FEM           |
+      |           156 | Instrument DKK_TOA                              | FEM           |
+      |           162 | Hi Vol SSI Ecotech Model 3000                   | FRM           |
+      |           193 | OPSIS Model SM200 PM10 Monitor                  | FEM           |
+      |           197 | Thermo Partisol Model 2000-D Dichot             | FEM           |
+      |           198 | Thermo Partisol Model 2025-D Dichot             | FEM           |
+      |           205 | AP 602 BAM                                      | FEM           |
+      |           208 | Thermo Scientific 1405-DF Dichotomous TEOM FDMS | FEM           |
+      |           216 | Tisch Model TE-Wilbur10 Low-Volume Sampler      | FRM           |
+      |           226 | Met One E-BAM PLUS                              | FEM           |
+      |           231 | Met One E-FRM PM10                              | FRM           |
+      |           239 | Teledyne API T640X at 16.67 LPM                 | FEM           |
+      |           246 | Met One E-SEQ-FRM                               | FRM           |
+      |           702 | INTERIM PM10                                    | nan           |
+      |           771 | INTERIM PM10                                    | nan           |
+      |           772 | INTERIM PM10                                    | nan           |
+      |           773 | LO-VOL-DICHOT-INTERIM                           | nan           |
+      |           774 | HI-VOL INTERIM 15 MICRON                        | nan           |
+      |           790 | Virtual Impactor                                | nan           |
+      |           792 | Virtual Impactor                                | nan           |
+      |           879 | INSTRUMENTAL-R&P SA246B-Inlet (Tx Modification) | nan           |
+      |           900 | BGI Inc. frmOMNI at 5 lpm                       | nan           |
 
-      Confirm entry [y/n]: y
+        Enter the method code corresponding to the reference method for T640_2_PM10:239
 
-      Enter the parameter occurance code for the above reference method:1
+        Confirm entry [y/n]: y
 
-      Confirm entry [y/n]: y
+        Enter the parameter occurance code for the above reference method:1
+
+        Confirm entry [y/n]:
+        ..invalid entry, select [y/n]
+
+        Confirm entry [y/n]: y
+
+        Are the units of measure for T640_2_PM10 µg/m³?
+
+        Confirm entry [y/n]: y
 
       Configured renaming scheme:
       {'BC AE33 880nm': '',
-      'GRIMM PM1': '',
-      'Grimm PM10': '',
-      'Grimm PM2.5': '',
-      'T640_2_PM10': 'PM10',
-      'T640_2_PM25': 'PM25',
-      'UV_633_370nm': ''}
+       'GRIMM PM1': '',
+       'Grimm PM10': '',
+       'Grimm PM2.5': '',
+       'T640_2_PM10': 'PM10',
+       'T640_2_PM25': 'PM25',
+       'UV_633_370nm': ''}
 
       Press enter to continue.
 
@@ -548,7 +595,7 @@ module, where the user inputs information via the console.
     dataset ingestion, timestamps are shifted by the UTC offset corresponding to the time zone
     indicated at this step.
 
-    The ``pytz`` package is used for indicating time zone names 
+    The ``pytz`` package is used for indicating time zone names
     and corresponding UTC offsets, and users can type ``pytz.all_timezones`` to see a list of
     all timezones in the ``pytz`` library (word of caution, there are a lot!). When the
     console asks for the time zone corresponding to a particular column, the text you
@@ -588,10 +635,17 @@ module, where the user inputs information via the console.
       ==============================================================================
 
       ..writing setup configuration to the following path:
-      C:\Users\...\Documents\sensortoolkit_testing\Data and Figures\reference_data
-      \local\raw\Burdens_Creek_370630099\reference_setup.json
+        \data\reference_data\local\raw\Burdens_Creek_370630099\reference_setup.json
 
   **13. Reference Data Ingestion and Saving Processed Datasets**
+
+    As a final step, recorded reference datasets are ingested via the configuration
+    specified and processed version of these datasets that have been converted to
+    SDFS format are saved as comma-separated value files to the
+    ``/data/reference_data/[source]/processed/[site_name]_[site_id]`` directory, where
+    ``[source]`` is the reference data source assigned in step 1, ``[site_name]``
+    is the name of the site assigned by the user in step 2, and ``[site_id]`` is
+    the AQS ID for the site assigned in step 2 (if applicable).
 
     .. code-block:: console
 
@@ -636,7 +690,7 @@ module, where the user inputs information via the console.
 
     .. important::
       Users are strongly recommended to provide a site name and, if applicable, a site AQS ID.
-      These attributes are used to organize reference data within the ``/Data and Figures/reference_data/[data source]/[raw or processed]``
+      These attributes are used to organize reference data within the ``/data/reference_data/[data source]/[raw or processed]``
       subdirectories.
 
       This is particularly important if users are working with data from numerous sites yet share the same data source.
@@ -647,7 +701,7 @@ module, where the user inputs information via the console.
 
         my_evaluation
         |
-        └───Data and Figures
+        └─data
            └───reference_data
                 └───airnowtech
                    ├───raw
@@ -746,7 +800,7 @@ module, where the user inputs information via the console.
       ['C:/Users/.../Documents/Public_Sensor_Evaluation/beta_testing/data/reference/20190901_20190930_PMGasMet.csv']
 
       Destination Directory:
-      ..C:\Users\...\Documents\sensortoolkit_testing\Data and Figures\reference_data\airnowtech\raw\Burdens_Creek_370630099
+      ..C:\Users\...\Documents\sensortoolkit_testing\data\reference_data\airnowtech\raw\Burdens_Creek_370630099
 
       Press enter to continue.
 
@@ -756,6 +810,14 @@ module, where the user inputs information via the console.
       Press enter to continue.
 
   **5. Pre-processing AirNowTech Datasets**
+
+    The local AirNowTech files that the user selected in the previous step are
+    imported and processed versions of these datasets are ingested into the SDFS
+    format via the ``sensortoolkit.reference.preprocess_airnowtech()`` method.
+    Processed datasets are subsequently saved as comma-separated value files to
+    ``/data/reference_data/airnowtech/processed/[site_name]_[site_id]``, where ``[site_name]``
+    is the name of the site assigned by the user in step 2, and ``[site_id]`` is
+    the AQS ID for the site assigned in step 2 (if applicable).
 
     .. code-block:: console
 
@@ -779,7 +841,7 @@ module, where the user inputs information via the console.
       ==============================================================================
 
       ..writing setup configuration to the following path:
-      C:\Users\...\Documents\sensortoolkit_testing\Data and Figures\reference_data\airnowtech\raw\Burdens_Creek_370630099\reference_setup.json
+        \data\reference_data\airnowtech\raw\Burdens_Creek_370630099\reference_setup.json
 
 .. tabbed:: AQS
 
@@ -816,7 +878,7 @@ module, where the user inputs information via the console.
 
     .. important::
       Users are strongly recommended to provide a site name and, if applicable, a site AQS ID.
-      These attributes are used to organize reference data within the ``/Data and Figures/reference_data/[data source]/[raw or processed]``
+      These attributes are used to organize reference data within the ``/data/reference_data/[data source]/[raw or processed]``
       subdirectories.
 
       This is particularly important if users are working with data from numerous sites yet share the same data source.
@@ -827,7 +889,7 @@ module, where the user inputs information via the console.
 
         my_evaluation
         |
-        └───Data and Figures
+        └─data
            └───reference_data
                 └───airnowtech
                    ├───raw
@@ -892,7 +954,7 @@ module, where the user inputs information via the console.
       ==============================================================================
 
       ..writing setup configuration to the following path:
-      C:\Users\...\Documents\sensortoolkit_testing\Data and Figures\reference_data\aqs\raw\Triple_Oak_371830021\reference_setup.json
+        \data\reference_data\aqs\raw\Triple_Oak_371830021\reference_setup.json
 
 .. tabbed:: AirNow
 
@@ -930,7 +992,7 @@ module, where the user inputs information via the console.
 
     .. important::
       Users are strongly recommended to provide a site name and, if applicable, a site AQS ID.
-      These attributes are used to organize reference data within the ``/Data and Figures/reference_data/[data source]/[raw or processed]``
+      These attributes are used to organize reference data within the ``/data/reference_data/[data source]/[raw or processed]``
       subdirectories.
 
       This is particularly important if users are working with data from numerous sites yet share the same data source.
@@ -941,7 +1003,7 @@ module, where the user inputs information via the console.
 
         my_evaluation
         |
-        └───Data and Figures
+        └─data
            └───reference_data
                 └───airnowtech
                    ├───raw
@@ -1006,4 +1068,4 @@ module, where the user inputs information via the console.
       ==============================================================================
 
       ..writing setup configuration to the following path:
-      C:\Users\...\Documents\sensortoolkit_testing\Data and Figures\reference_data\airnow\raw\Burdens_Creek_370630099\reference_setup.json
+        \data\reference_data\airnow\raw\Burdens_Creek_370630099\reference_setup.json

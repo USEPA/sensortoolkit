@@ -567,8 +567,10 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">data_source</span> <span class="o">=</span> <span class="n">data_source</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">site_name</span> <span class="o">=</span> <span class="n">site_name</span>
 
-        <span class="n">lib_utils</span><span class="o">.</span><span class="n">check_type</span><span class="p">(</span><span class="n">site_name</span><span class="p">,</span> <span class="n">accept_types</span><span class="o">=</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">str</span><span class="p">])</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">site_id</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">site_id</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">site_id</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">lib_utils</span><span class="o">.</span><span class="n">check_type</span><span class="p">(</span><span class="n">site_id</span><span class="p">,</span> <span class="n">accept_types</span><span class="o">=</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">str</span><span class="p">])</span>
+            <span class="n">site_id</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">site_id</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">site_id</span> <span class="o">=</span> <span class="n">site_id</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;PM&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;1-hour&#39;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(),</span>
                             <span class="s1">&#39;24-hour&#39;</span><span class="p">:</span>  <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()},</span>
@@ -689,14 +691,48 @@
                   <span class="n">site_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">query_met_data</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Send a data query to the AQS API.</span>
 
-
 <span class="sd">        Args:</span>
-<span class="sd">            param_list (TYPE): DESCRIPTION.</span>
-<span class="sd">            bdate (TYPE): DESCRIPTION.</span>
-<span class="sd">            edate (TYPE): DESCRIPTION.</span>
+<span class="sd">            username (str):</span>
+<span class="sd">                The email account registered with the API service.</span>
+<span class="sd">            key (str):</span>
+<span class="sd">                The API authentication key code.</span>
+<span class="sd">            param_list (list):</span>
+<span class="sd">                A list of SDFS parameters measured by reference monitors at</span>
+<span class="sd">                the monitoring site for which data will be loaded.</span>
+<span class="sd">            bdate (str):</span>
+<span class="sd">                The beginning date (“YYYY-MM-DD” format) for the sensor</span>
+<span class="sd">                testing period.</span>
+<span class="sd">            edate (str):</span>
+<span class="sd">                The ending date (“YYYY-MM-DD” format) for the sensor testing</span>
+<span class="sd">                period.</span>
+<span class="sd">            site_id (dict, optional):</span>
+<span class="sd">                The AQS site ID for the air monitoring site from which</span>
+<span class="sd">                reference measurements will be returned by the API. The site</span>
+<span class="sd">                ID is passed as a dictionary with three key-value pairs:</span>
 
-<span class="sd">        Raises:</span>
-<span class="sd">            AttributeError: DESCRIPTION.</span>
+<span class="sd">                    - ``&#39;state&#39;``: The two digit FIPS code for the state</span>
+<span class="sd">                      (leading zero included).</span>
+<span class="sd">                    - ``&#39;county&#39;``: The three digit FIPS code for the county</span>
+<span class="sd">                      (leading zeros included) located within the state.</span>
+<span class="sd">                    - ``&#39;site&#39;``: The four digit AQS site number within the</span>
+<span class="sd">                      county (leading zeros included).</span>
+
+<span class="sd">                .. note::</span>
+
+<span class="sd">                    If site_id is not null, the site ID passed will be used</span>
+<span class="sd">                    instead of any previously configured reference monitor</span>
+<span class="sd">                    configuration via the</span>
+<span class="sd">                    ``sensortoolkit.ReferenceMonitor.reference_setup()``</span>
+<span class="sd">                    method.</span>
+
+<span class="sd">            query_met_data (bool, optional):</span>
+<span class="sd">                If true, meteorological data for temperature and</span>
+<span class="sd">                relative humidity measurements will be queried in addition to</span>
+<span class="sd">                parameters passed to param_list. Defaults to true (U.S. EPA’s</span>
+<span class="sd">                documents for recommended performance testing protocols,</span>
+<span class="sd">                metrics, and target values encourage users to report</span>
+<span class="sd">                meteorological conditions for sensor performance evaluations</span>
+<span class="sd">                and reports).</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            None.</span>
@@ -753,8 +789,45 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;Met&#39;</span><span class="p">][</span><span class="s1">&#39;1-hour&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">aqs_met_df</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;Met&#39;</span><span class="p">][</span><span class="s1">&#39;24-hour&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">aqs_d_met_df</span></div>
 
-    <span class="k">def</span> <span class="nf">query_airnow</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">param_list</span><span class="p">,</span> <span class="n">bdate</span><span class="p">,</span> <span class="n">edate</span><span class="p">,</span> <span class="n">bbox</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+<div class="viewcode-block" id="ReferenceMonitor.query_airnow"><a class="viewcode-back" href="../../../data/_autosummary/sensortoolkit.testing_attrib_objs._referencemonitor.ReferenceMonitor.html#sensortoolkit.testing_attrib_objs._referencemonitor.ReferenceMonitor.query_airnow">[docs]</a>    <span class="k">def</span> <span class="nf">query_airnow</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">param_list</span><span class="p">,</span> <span class="n">bdate</span><span class="p">,</span> <span class="n">edate</span><span class="p">,</span> <span class="n">bbox</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                      <span class="n">bbox_size</span><span class="o">=</span><span class="mf">0.01</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Send a data query to the AirNow API.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            key (str):</span>
+<span class="sd">                The API authentication key code.</span>
+<span class="sd">            param_list (list):</span>
+<span class="sd">                A list of SDFS parameters measured by reference monitors at</span>
+<span class="sd">                the monitoring site for which data will be loaded.</span>
+<span class="sd">            bdate (str):</span>
+<span class="sd">                The beginning date (“YYYY-MM-DD” format) for the sensor</span>
+<span class="sd">                testing period.</span>
+<span class="sd">            edate (str):</span>
+<span class="sd">                The ending date (“YYYY-MM-DD” format) for the sensor testing</span>
+<span class="sd">                period.</span>
+<span class="sd">            bbox (dict, optional):</span>
+<span class="sd">                A bounding box of coordinates within which data will be</span>
+<span class="sd">                queried. Defaults to None. ``bbox`` accepts four key-value</span>
+<span class="sd">                pair entries, where the following keys should be specified:</span>
+
+<span class="sd">                - ``&#39;minLat&#39;``: The northern-most latitude for the bounding</span>
+<span class="sd">                  box.</span>
+<span class="sd">                - ``&#39;maxLat&#39;``: The southern-most latitude for the bounding</span>
+<span class="sd">                  box.</span>
+<span class="sd">                - ``&#39;minLong&#39;``: The western-most longitude for the bounding</span>
+<span class="sd">                  box.</span>
+<span class="sd">                - ``&#39;maxLong&#39;``: The eastern-most longitude for the bounding</span>
+<span class="sd">                  box.</span>
+
+<span class="sd">                Values for each key should be type float.</span>
+
+<span class="sd">            bbox_size (float, optional):</span>
+<span class="sd">                DESCRIPTION. Defaults to 0.01.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="k">if</span> <span class="n">bbox</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">try</span><span class="p">:</span>
@@ -790,11 +863,52 @@
 
         <span class="k">if</span> <span class="ow">not</span> <span class="n">airnow_df</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">classifier</span><span class="p">][</span><span class="s1">&#39;1-hour&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">airnow_df</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">classifier</span><span class="p">][</span><span class="s1">&#39;24-hour&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">airnow_d_df</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">classifier</span><span class="p">][</span><span class="s1">&#39;24-hour&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">airnow_d_df</span></div>
 
 
-    <span class="k">def</span> <span class="nf">load_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bdate</span><span class="p">,</span> <span class="n">edate</span><span class="p">,</span> <span class="n">param_list</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">met_data</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<div class="viewcode-block" id="ReferenceMonitor.load_data"><a class="viewcode-back" href="../../../data/_autosummary/sensortoolkit.testing_attrib_objs._referencemonitor.ReferenceMonitor.html#sensortoolkit.testing_attrib_objs._referencemonitor.ReferenceMonitor.load_data">[docs]</a>    <span class="k">def</span> <span class="nf">load_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bdate</span><span class="p">,</span> <span class="n">edate</span><span class="p">,</span> <span class="n">param_list</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">met_data</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Load reference data from locally acquired files.</span>
 
+<span class="sd">        Args:</span>
+<span class="sd">            bdate (str):</span>
+<span class="sd">                The beginning date (“YYYY-MM-DD” format) for the sensor</span>
+<span class="sd">                testing period.</span>
+<span class="sd">            edate (str):</span>
+<span class="sd">                The ending date (“YYYY-MM-DD” format) for the sensor testing</span>
+<span class="sd">                period.</span>
+<span class="sd">            param_list (list):</span>
+<span class="sd">                A list of SDFS parameters measured by reference monitors at</span>
+<span class="sd">                the monitoring site for which data will be loaded.</span>
+<span class="sd">            path (str, optional):</span>
+<span class="sd">                Full path to the data directory where processed reference</span>
+<span class="sd">                datasets are located. If None (default), will attempt to</span>
+<span class="sd">                construct path from an existing setup configuration if the</span>
+<span class="sd">                ``sensortoolkit.ReferenceMonitor.reference_setup()`` method</span>
+<span class="sd">                was run prior to calling ``load_data()``.</span>
+
+<span class="sd">                .. note::</span>
+
+<span class="sd">                    If path is not null (i.e., a valid directory path is</span>
+<span class="sd">                    passed) and a reference monitor configuration was created</span>
+<span class="sd">                    with</span>
+<span class="sd">                    ``sensortoolkit.ReferenceMonitor.reference_setup()``</span>
+<span class="sd">                    prior to running ``load_data()``, the path will point to</span>
+<span class="sd">                    datasets located at the indicated path instead of</span>
+<span class="sd">                    datasets pointed to by the path configured by the</span>
+<span class="sd">                    ``reference_setup()`` method.</span>
+
+<span class="sd">            met_data (bool, optional):</span>
+<span class="sd">                If true, meteorological data will be loaded in addition to</span>
+<span class="sd">                datasets corresponding to parameters passed to param_list.</span>
+<span class="sd">                Defaults to true (U.S. EPA’s documents for recommended</span>
+<span class="sd">                performance testing protocols, metrics, and target values</span>
+<span class="sd">                encourage users to report meteorological conditions for sensor</span>
+<span class="sd">                performance evaluations and reports).</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">path</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">try</span><span class="p">:</span>
                 <span class="n">path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">normpath</span><span class="p">(</span>
@@ -829,7 +943,7 @@
             <span class="k">for</span> <span class="n">interval</span> <span class="ow">in</span> <span class="n">data_dict</span><span class="p">[</span><span class="n">classifier</span><span class="p">]:</span>
                 <span class="n">df</span> <span class="o">=</span> <span class="n">data_dict</span><span class="p">[</span><span class="n">classifier</span><span class="p">][</span><span class="n">interval</span><span class="p">]</span>
                 <span class="k">if</span> <span class="ow">not</span> <span class="n">df</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">classifier</span><span class="p">][</span><span class="n">interval</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span></div>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">classifier</span><span class="p">][</span><span class="n">interval</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span></div></div>
 
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>

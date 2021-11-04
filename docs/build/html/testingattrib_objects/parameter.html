@@ -4,7 +4,8 @@
 <html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8" />
-  
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>The Parameter Object &mdash; sensortoolkit 0.6.0b4 documentation</title>
@@ -495,11 +496,11 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="the-parameter-object">
+  <section id="the-parameter-object">
 <h1>The Parameter Object<a class="headerlink" href="#the-parameter-object" title="Permalink to this headline">¶</a></h1>
-<p>This section provides a breif overview of the Parameter object. For more detailed documentation, please see
+<p>This section provides a brief overview of the Parameter object. For more detailed documentation, please see
 <a class="reference external" href="../api/_autosummary/sensortoolkit.param._parameter.Parameter.html">API documentation for sensortoolkit.parameter</a>.</p>
-<div class="section" id="overview">
+<section id="overview">
 <h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
 <p>The parameter object is used to keep track of attributes pertaining to the parameter or
 pollutant for which sensor data are being evaluated. The table below describes in detail
@@ -519,8 +520,8 @@ by specifying the SDFS parameter name <code class="docutils literal notranslate"
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pollutant</span> <span class="o">=</span> <span class="n">sensortoolkit</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="s1">&#39;PM25&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="attributes">
+</section>
+<section id="attributes">
 <h2>Attributes<a class="headerlink" href="#attributes" title="Permalink to this headline">¶</a></h2>
 <table class="colwidths-given docutils align-default" id="id4">
 <caption><span class="caption-text"><code class="docutils literal notranslate"><span class="pre">sensortoolkit.Parameter()</span></code> attributes</span><a class="headerlink" href="#id4" title="Permalink to this table">¶</a></caption>
@@ -606,8 +607,8 @@ U.S. EPA’s recommended performance metrics and targets.</p></td>
 <dd><p>Reference data for particulate matter are commonly analyzed at either 1-hour or 24-hour intervals, but other pollutants that are strongly correlated with diurnal variability such as ozone are typically analyzed at high time resolution such as 1-hour intervals)</p>
 </dd>
 </dl>
-</div>
-<div class="section" id="performance-metrics-and-target-values">
+</section>
+<section id="performance-metrics-and-target-values">
 <h2>Performance Metrics and Target Values<a class="headerlink" href="#performance-metrics-and-target-values" title="Permalink to this headline">¶</a></h2>
 <p>Each parameter object comes with a subclass <code class="docutils literal notranslate"><span class="pre">PerformanceTargets</span></code> that contains
 metric descriptions, target ranges, and target values for conducting performance
@@ -682,16 +683,16 @@ contain the following information:</p>
  <span class="s1">&#39;metric_units&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">}</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="setting-performance-targets-and-metrics">
+</section>
+<section id="setting-performance-targets-and-metrics">
 <h2>Setting Performance Targets and Metrics<a class="headerlink" href="#setting-performance-targets-and-metrics" title="Permalink to this headline">¶</a></h2>
 <p>For SDFS parameters that do not have preset performance targets or metrics, users
 can configure custom metric categories via the <code class="docutils literal notranslate"><span class="pre">pollutant.PerformanceTargets.set_metric_category()</span></code>
 method and target values via the <code class="docutils literal notranslate"><span class="pre">pollutant.PerformanceTargets.set_metric()</span></code> method. A detailed description
 and examples for both of these methods is included in the
 <a class="reference external" href="../api/_autosummary/sensortoolkit.param._targets.ParameterTargets.html">API documentation for sensortoolkit.parameter.PerformanceTargets</a>.</p>
-</div>
-</div>
+</section>
+</section>
 
 
            </div>

@@ -4,7 +4,8 @@
 <html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8" />
-  
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>Plotting Methods &mdash; sensortoolkit 0.6.0b4 documentation</title>
@@ -38,6 +39,7 @@
         <script src="../../_static/jquery.js"></script>
         <script src="../../_static/underscore.js"></script>
         <script src="../../_static/doctools.js"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     
     <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
@@ -497,108 +499,190 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="plotting-methods">
+  <section id="plotting-methods">
 <h1>Plotting Methods<a class="headerlink" href="#plotting-methods" title="Permalink to this headline">¶</a></h1>
+<p>Below is a description of the plotting methods included alongside <code class="docutils literal notranslate"><span class="pre">SensorEvaluation</span></code>.
+Example figures are shown for each plotting method.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This section provides a brief overview of the plotting methods accessed via
+instances of the <code class="docutils literal notranslate"><span class="pre">SensorEvaluation</span></code> class. For more detail on calling these
+methods, click on the link to the API documentation indicated below each
+plotting method header.</p>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Some figure elements may appear difficult to view as formatted on this webpage.
+A larger version of each figure can be displayed in a separate browser tab by
+right-clicking on figures and selecting “Open image in new tab” from the dialog box.</p>
+</div>
 <hr class="docutils" />
-<div class="section" id="sensorevaluation-plot-met-dist">
+<section id="sensorevaluation-plot-met-dist">
 <h2><code class="docutils literal notranslate"><span class="pre">SensorEvaluation.plot_met_dist()</span></code><a class="headerlink" href="#sensorevaluation-plot-met-dist" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="arguments">
-<h3>Arguments<a class="headerlink" href="#arguments" title="Permalink to this headline">¶</a></h3>
-<ul class="simple">
-<li><p>None</p></li>
-</ul>
-</div>
-<div class="section" id="example">
+<p><a class="reference external" href="../../api/_autosummary/sensortoolkit.evaluation_objs._sensor_eval.SensorEvaluation.html#sensortoolkit.evaluation_objs._sensor_eval.SensorEvaluation.plot_met_dist">API Documentation for plot_met_dist()</a></p>
+<section id="description">
+<h3>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a></h3>
+<p>Displays the relative frequency of meteorological measurements recorded during the
+testing period. Temperature (left) and relative humidity (right) measurements are displayed on
+separate subplots. Measurements are grouped into 15 bins, and the frequency of measurements within bin
+is normalized by the total number of measurements (i.e., the relative frequency) is
+displayed as a histogram. Additionally, a polynomial estimating
+the kernel density of measurements is shown for each subplot, and indicates the
+general distribution of measurements over the range of recorded values.</p>
+<p>This method will prioritize plotting meteorological measurements made by
+reference instruments, as sensor measurements are commonly biased warmer and drier than
+ambient conditions if measurements are made by an onboard sensing component within
+the housing of the air sensor. If no meteorological reference measurements are
+available, the method will use sensor measurements, but will display a disclaimer
+above subplots indicating that sensor measurements are shown in the figure.</p>
+</section>
+<section id="example">
 <h3>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h3>
-<div class="figure align-center" id="id11">
+<figure class="align-center">
 <img alt="../../_images/Example_Make_Model_met_distplot_report_fmt_211008.png" src="../../_images/Example_Make_Model_met_distplot_report_fmt_211008.png" />
-<p class="caption"><span class="caption-text">Meteorological distribution of temperature and relative humidity during testing period</span><a class="headerlink" href="#id11" title="Permalink to this image">¶</a></p>
-</div>
-</div>
-</div>
+</figure>
+</section>
+</section>
 <hr class="docutils" />
-<div class="section" id="sensorevaluation-plot-met-influence">
+<section id="sensorevaluation-plot-met-influence">
 <h2><code class="docutils literal notranslate"><span class="pre">SensorEvaluation.plot_met_influence()</span></code><a class="headerlink" href="#sensorevaluation-plot-met-influence" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id1">
-<h3>Arguments<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
-<ul class="simple">
-<li><p>None</p></li>
-</ul>
-</div>
-<div class="section" id="id2">
+<p><a class="reference external" href="../../api/_autosummary/sensortoolkit.evaluation_objs._sensor_eval.SensorEvaluation.html#sensortoolkit.evaluation_objs._sensor_eval.SensorEvaluation.plot_met_influence">API Documentation for plot_met_influence()</a></p>
+<section id="id1">
+<h3>Description<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<p>Displays the influence of meteorological parameters (temperature or relative
+humidity) on sensor measurements. Sensor measurements that have been normalized
+by reference measurement values for the corresponding timestamp and are plotted
+along the y-axis. Meteorological measurements as measured by temperature or
+relative humidity monitors (rather than onboard sensor measurements) are plotted
+along the x-axis. Scatter for each sensor are displayed as separate colors to
+indicate the unique response of each sensor unit.</p>
+<p>The gray 1:1 line indicates ideal agreement between sensor and reference measurements
+over the range of meteorological conditions (i.e., a ratio of 1 would indicate
+that the sensor and reference measure the same concentration value for a given timestamp).
+Scatter below the 1:1 line indicate underestimation bias, and scatter above the 1:1 line
+indicates overestimation bias.</p>
+</section>
+<section id="id2">
 <h3>Example<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
-<div class="figure align-center" id="id12">
+<figure class="align-center">
 <img alt="../../_images/Example_Make_Model_normalized_PM25_met_report_fmt_211008.png" src="../../_images/Example_Make_Model_normalized_PM25_met_report_fmt_211008.png" />
-<p class="caption"><span class="caption-text">Description</span><a class="headerlink" href="#id12" title="Permalink to this image">¶</a></p>
-</div>
-</div>
-</div>
+</figure>
+</section>
+</section>
 <hr class="docutils" />
-<div class="section" id="sensorevaluation-plot-metrics">
+<section id="sensorevaluation-plot-metrics">
 <h2><code class="docutils literal notranslate"><span class="pre">SensorEvaluation.plot_metrics()</span></code><a class="headerlink" href="#sensorevaluation-plot-metrics" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id3">
-<h3>Arguments<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<p><a class="reference external" href="../../api/_autosummary/sensortoolkit.evaluation_objs._sensor_eval.SensorEvaluation.html#sensortoolkit.evaluation_objs._sensor_eval.SensorEvaluation.plot_metrics">API Documentation for plot_metrics()</a></p>
+<section id="id3">
+<h3>Description<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<p>Results for evaluating sensor performance against U.S. EPA’s recommended performance metrics
+and target values are displayed via a set of adjacent subplots corresponding to each metric.</p>
+<p>Results for the following metrics are shown:</p>
 <ul class="simple">
-<li><p>None</p></li>
+<li><p>Linearity:</p>
+<ul>
+<li><p><span class="math notranslate nohighlight">\(R^2\)</span>: The coefficient of determination, which is a measure of linearity between sensor
+and reference measurement pairs.</p></li>
 </ul>
-</div>
-<div class="section" id="id4">
+</li>
+<li><p>Bias:</p>
+<ul>
+<li><p>Slope: The slope of the ordinary least-squares regression between sensor (y-axis) and
+reference (x-axis) measurements.</p></li>
+<li><p>Intercept: The intercept term of the ordinary least-squares regression between sensor (y-axis) and
+reference (x-axis) measurements.</p></li>
+</ul>
+</li>
+<li><p>Error:</p>
+<ul>
+<li><p><span class="math notranslate nohighlight">\(RMSE\)</span>: The root mean square error between sensor and reference measurements.</p></li>
+<li><p><span class="math notranslate nohighlight">\(NRMSE\)</span>: The normalized root mean square error between sensor and reference measurements, where
+RMSE has been normalized by the mean reference concentration during the testing period.</p></li>
+</ul>
+</li>
+<li><p>Precision:</p>
+<ul>
+<li><p><span class="math notranslate nohighlight">\(CV\)</span>: The coefficient of variation of concurrently recorded sensor measurements.</p></li>
+<li><p><span class="math notranslate nohighlight">\(SD\)</span>: The standard deviation of concurrently recorded sensor measurements.</p></li>
+</ul>
+</li>
+</ul>
+<p>Results are shown as either colored dots (if the number of sensors is less than four) or as
+boxplots (if the number of sensors exceeds three). Target ranges are indicated by gray shaded
+regions, and target goals are indicated by dark gray lines. Results are grouped by data
+averaging interval, including 1-hour and 24-hour intervals (note that some pollutants such as
+O3 are analyzed only at 1-hour intervals due to significant diurnal variability, so the
+formatting of the figure will depend on which averaging interval(s) are indicated for the parameter
+via the <code class="docutils literal notranslate"><span class="pre">sensortoolkit.Parameter.averaging</span></code> attribute).</p>
+</section>
+<section id="id4">
 <h3>Example<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
-<div class="figure align-center" id="id13">
+<figure class="align-center">
 <img alt="../../_images/Example_Make_Model_regression_boxplot_PM25_211008.png" src="../../_images/Example_Make_Model_regression_boxplot_PM25_211008.png" />
-<p class="caption"><span class="caption-text">Description</span><a class="headerlink" href="#id13" title="Permalink to this image">¶</a></p>
-</div>
-</div>
-</div>
+</figure>
+</section>
+</section>
 <hr class="docutils" />
-<div class="section" id="sensorevaluation-plot-sensor-met-scatter">
+<section id="sensorevaluation-plot-sensor-met-scatter">
 <h2><code class="docutils literal notranslate"><span class="pre">SensorEvaluation.plot_sensor_met_scatter()</span></code><a class="headerlink" href="#sensorevaluation-plot-sensor-met-scatter" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id5">
-<h3>Arguments<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
-<ul class="simple">
-<li><p>None</p></li>
-</ul>
-</div>
-<div class="section" id="id6">
+<p><a class="reference external" href="../../api/_autosummary/sensortoolkit.evaluation_objs._sensor_eval.SensorEvaluation.html#sensortoolkit.evaluation_objs._sensor_eval.SensorEvaluation.plot_sensor_met_scatter">API Documentation for plot_sensor_met_scatter()</a></p>
+<section id="id5">
+<h3>Description<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<p>If the air sensor being analyzed measures temperature and/or relative humidity and
+sensors are collocated alongside reference instrumentation measuring these meteorological
+parameters, sensor-reference measurement pairs can be displayed as scatter using the
+<code class="docutils literal notranslate"><span class="pre">plot_sensor_met_scatter()</span></code> method.</p>
+<p>Sensor measurements are plotted along the
+y-axis with reference measurements along the x-axis. Statistical quantities are displayed
+for each scatter plot including the ordinary least-squares (OLS) regression equation, <span class="raw-html">R<sup>2</sup></span>,
+RMSE, and N (the number of measurement pairs) . The one-to-one line (indicating ideal agreement between
+sensor and reference measurements) is shown as a dashed gray line.</p>
+</section>
+<section id="id6">
 <h3>Example<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
-<p>Output</p>
-</div>
-</div>
+<figure class="align-center">
+<img alt="../../_images/Example_Make_Model_vs_Philips_Pw976202_1-hour_3_sensors_211103.png" src="../../_images/Example_Make_Model_vs_Philips_Pw976202_1-hour_3_sensors_211103.png" />
+</figure>
+</section>
+</section>
 <hr class="docutils" />
-<div class="section" id="sensorevaluation-plot-sensor-scatter">
+<section id="sensorevaluation-plot-sensor-scatter">
 <h2><code class="docutils literal notranslate"><span class="pre">SensorEvaluation.plot_sensor_scatter()</span></code><a class="headerlink" href="#sensorevaluation-plot-sensor-scatter" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id7">
-<h3>Arguments<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
-<ul class="simple">
-<li><p>None</p></li>
-</ul>
-</div>
-<div class="section" id="id8">
+<p><a class="reference external" href="../../api/_autosummary/sensortoolkit.evaluation_objs._sensor_eval.SensorEvaluation.html#sensortoolkit.evaluation_objs._sensor_eval.SensorEvaluation.plot_sensor_scatter">API Documentation for plot_sensor_scatter()</a></p>
+<section id="id7">
+<h3>Description<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<p>Sensor measurements are plotted along the
+y-axis with reference measurements along the x-axis. Statistical quantities are displayed
+for each scatter plot including the ordinary least-squares (OLS) regression equation, <span class="raw-html">R<sup>2</sup></span>,
+RMSE, and N (the number of measurement pairs) . The one-to-one line (indicating ideal agreement between
+sensor and reference measurements) is shown as a dashed gray line.</p>
+<p>Measurement pairs (i.e., concentration values for sensor and reference datasets recorded
+at matching timestamp entries) are colored by the relative humidity
+recorded by an independent meteorological instrument at the monitoring
+site if RH data are located within the <code class="docutils literal notranslate"><span class="pre">reference_object.data['Met']</span></code> dataset.</p>
+</section>
+<section id="id8">
 <h3>Example<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
-<div class="figure align-center" id="id14">
+<figure class="align-center">
 <img alt="../../_images/Example_Make_Model_vs_T-API_T640X_at_16.67_LPM_1-hour_3_sensors_211008.png" src="../../_images/Example_Make_Model_vs_T-API_T640X_at_16.67_LPM_1-hour_3_sensors_211008.png" />
-<p class="caption"><span class="caption-text">Description</span><a class="headerlink" href="#id14" title="Permalink to this image">¶</a></p>
-</div>
-</div>
-</div>
+</figure>
+</section>
+</section>
 <hr class="docutils" />
-<div class="section" id="sensorevaluation-plot-timeseries">
+<section id="sensorevaluation-plot-timeseries">
 <h2><code class="docutils literal notranslate"><span class="pre">SensorEvaluation.plot_timeseries()</span></code><a class="headerlink" href="#sensorevaluation-plot-timeseries" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id9">
-<h3>Arguments<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
-<ul class="simple">
-<li><p>None</p></li>
-</ul>
-</div>
-<div class="section" id="id10">
+<p><a class="reference external" href="../../api/_autosummary/sensortoolkit.evaluation_objs._sensor_eval.SensorEvaluation.html#sensortoolkit.evaluation_objs._sensor_eval.SensorEvaluation.plot_timeseries">API Documentation for plot_timeseries()</a></p>
+<section id="id9">
+<h3>Description<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="id10">
 <h3>Example<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
-<div class="figure align-center" id="id15">
+<figure class="align-center">
 <img alt="../../_images/Example_Make_Model_timeseries_PM25_report_fmt_211008.png" src="../../_images/Example_Make_Model_timeseries_PM25_report_fmt_211008.png" />
-<p class="caption"><span class="caption-text">Description</span><a class="headerlink" href="#id15" title="Permalink to this image">¶</a></p>
-</div>
-</div>
-</div>
-</div>
+</figure>
+</section>
+</section>
+</section>
 
 
            </div>

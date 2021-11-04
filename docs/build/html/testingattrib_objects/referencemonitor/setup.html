@@ -4,7 +4,8 @@
 <html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8" />
-  
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>ReferenceMonitor Setup &mdash; sensortoolkit 0.6.0b4 documentation</title>
@@ -497,7 +498,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="referencemonitor-setup">
+  <section id="referencemonitor-setup">
 <h1>ReferenceMonitor Setup<a class="headerlink" href="#referencemonitor-setup" title="Permalink to this headline">¶</a></h1>
 <p>The <code class="docutils literal notranslate"><span class="pre">sensortoolkit.ReferenceMonitor.reference_setup()</span></code> module guides users through
 an interactive process of entering in details regarding the reference data configuration
@@ -524,9 +525,14 @@ use the tabs below to select the reference data service or source corresponding
 to your use case. This will display the setup process corresponding to the selected
 service or data source.</p>
 </div>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>A console width of at least 80 characters is recommended to properly format
+printed statements, banners, and tables within this setup method.</p>
+</div>
 <div class="tabbed-set docutils">
-<input checked="checked" id="aa44ab48-f2e4-4d47-8c15-d9519a53e8b7" name="06130eac-a4c1-47bb-8cff-b98319cd4061" type="radio">
-</input><label class="tabbed-label" for="aa44ab48-f2e4-4d47-8c15-d9519a53e8b7">
+<input checked="checked" id="eb8ff2fd-ad55-404a-b3ec-df6050ff3358" name="9f62269c-d111-464c-b110-a735b5a2e62a" type="radio">
+</input><label class="tabbed-label" for="eb8ff2fd-ad55-404a-b3ec-df6050ff3358">
 Local</label><div class="tabbed-content docutils">
 <p>The following steps below walk through the setup process. The example below
 describes the setup process for a reference data file acquired locally for
@@ -559,14 +565,14 @@ can be skipped by pressing the ‘Enter’ key.</p>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
 <p>Users are strongly recommended to provide a site name and, if applicable, a site AQS ID.
-These attributes are used to organize reference data within the <code class="docutils literal notranslate"><span class="pre">/Data</span> <span class="pre">and</span> <span class="pre">Figures/reference_data/[data</span> <span class="pre">source]/[raw</span> <span class="pre">or</span> <span class="pre">processed]</span></code>
+These attributes are used to organize reference data within the <code class="docutils literal notranslate"><span class="pre">/data/reference_data/[data</span> <span class="pre">source]/[raw</span> <span class="pre">or</span> <span class="pre">processed]</span></code>
 subdirectories.</p>
 <p>This is particularly important if users are working with data from numerous sites yet share the same data source.
 For instance, if one is using AirNowTech for reference data at two sites, Site A and Site B,
 the folder structure for processed reference datasets should look something like:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">my_evaluation</span>
 <span class="go">|</span>
-<span class="go">└───Data and Figures</span>
+<span class="go">└───data</span>
 <span class="go">   └───reference_data</span>
 <span class="go">        └───airnowtech</span>
 <span class="go">           ├───raw</span>
@@ -718,7 +724,7 @@ pollutant measurement columns is found on row index #2.</p>
 <span class="go">==============================================================================</span>
 
 <span class="go">The first ten unformatted rows of C:\Users\...\Documents\sensortoolkit_testing</span>
-<span class="go">\Data and Figures\reference_data\local\raw\Burdens_Creek_370630099\min_201908_PM.csv</span>
+<span class="go">\data\reference_data\local\raw\Burdens_Creek_370630099\min_201908_PM.csv</span>
 <span class="go">are displayed below:</span>
 <span class="go">                                           0</span>
 <span class="go">0  Station: BURDENS CREEK PM  Periodically: 8/1/2...</span>
@@ -758,7 +764,7 @@ each column index are displayed.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">============================== Parsing Datasets ==============================</span>
 <span class="go">==============================================================================</span>
 
-<span class="go">Parsing datasets at &quot;../Data and Figures/reference_data/local/raw/Burdens_Creek_370630099/&quot;</span>
+<span class="go">Parsing datasets at &quot;../data/reference_data/local/raw/Burdens_Creek_370630099/&quot;</span>
 <span class="go">..Header(s) at column index 0: [&#39;Date &amp; Time&#39;]</span>
 <span class="go">..Header(s) at column index 1: [&#39;UV_633_370nm&#39;]</span>
 <span class="go">..Header(s) at column index 2: [&#39;BC AE33 880nm&#39;]</span>
@@ -799,8 +805,27 @@ mode.</p>
 <p><strong>9. Specifying the Parameter Renaming Scheme and Monitor Information</strong></p>
 <blockquote>
 <div><p>Next, users are prompted to configure the parameter renaming scheme by entering
-in the sensortoolkit Data Formatting Standard (SDFS) parameter name
+in the sensortoolkit Data Formatting Scheme (SDFS) parameter name
 that corresponds to each parameter header name.</p>
+<p>For each SDFS parameter specified, a set of queries will be prompted which
+ask the user to specify parameter-specific details. Based on the indicated
+SDFS parameter, a prompt will ask the user whether the reference
+measurements are associated with a standard <a class="reference external" href="https://aqs.epa.gov/aqsweb/documents/codetables/methods_all.html">parameter code</a>
+EPA’s Air Quality System (AQS) associates with the pollutant or environmental parameter.</p>
+<p>Parameter codes are assigned by AQS for classifying the
+type of parameter alongside a description of the reference method used to collect measurements.
+For instance, <code class="docutils literal notranslate"><span class="pre">88101</span></code> is the standard parameter code for <span class="raw-html">PM<sub>2.5</sub></span> measurements collected at local
+conditions via an instrument designated a Federal Reference Method (FRM) or
+Federal Equivalent Method (FEM) for <span class="raw-html">PM<sub>2.5</sub></span>.</p>
+<p>For the example below, measurements for <span class="raw-html">PM<sub>2.5</sub></span> and <span class="raw-html">PM<sub>10</sub></span> were collected by a
+Teledyne API T640x FEM for <span class="raw-html">PM<sub>2.5</sub></span> and <span class="raw-html">PM<sub>10</sub></span>. Measurements for these pollutants
+made with the T640x are categorized under the parameter codes <code class="docutils literal notranslate"><span class="pre">88101</span></code> for <span class="raw-html">PM<sub>2.5</sub></span>
+measurements and <code class="docutils literal notranslate"><span class="pre">88102</span></code> for <span class="raw-html">PM<sub>10</sub></span> measurements. A table of FRM/FEM methods
+is displayed if the user indicates that the parameter code corresponds to the
+standard AQS code indicated by the console. The user is asked to select the
+method code (which is AQS code associated with the reference instrument) for
+each parameter. Below, the highlighted lines indicate the table entries corresponding
+to the Teledyne API T640x used to collect <span class="raw-html">PM<sub>2.5</sub></span> and <span class="raw-html">PM<sub>10</sub></span> measurement data.</p>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
 <p>Column names that do not have a corresponding listed parameter should be dropped
@@ -835,148 +860,163 @@ from the dataset by pressing enter.</p>
 
 <span class="go">[6/7] Enter SDFS parameter associated with T640_2_PM25: PM25</span>
 
-<span class="go">Enter the units of measure for T640_2_PM25:ug/m^3</span>
+<span class="go">  Enter the units of measure for T640_2_PM25:Micrograms per cubic meter</span>
 
-<span class="go">Confirm entry [y/n]: y</span>
+<span class="go">  Confirm entry [y/n]: y</span>
 
-<span class="go">Is the parameter code for reference measurements 88101?</span>
+<span class="go">  Is the parameter code for reference measurements 88101?</span>
 
-<span class="go">Confirm entry [y/n]: y</span>
-<span class="go">Method Code                             Collection Description Method Type</span>
-<span class="go">0           116               BGI Model PQ200 PM2.5 Sampler w/WINS         FRM</span>
-<span class="go">1           117              R &amp; P Model 2000 PM2.5 Sampler w/WINS         FRM</span>
-<span class="go">2           118           R &amp; P Model 2025 PM2.5 Sequential w/WINS         FRM</span>
-<span class="go">3           119              Andersen RAAS2.5-100 PM2.5 SAM w/WINS         FRM</span>
-<span class="go">4           120              Andersen RAAS2.5-300 PM2.5 SEQ w/WINS         FRM</span>
-<span class="go">5           123                          Thermo Env Model 605 CAPS         FRM</span>
-<span class="go">6           128              Andersen RAAS2.5-2000PM2.5 Aud w/WINS         FRM</span>
-<span class="go">7           129               R &amp; P Model 2000 PM-2.5 Audit w/WINS         FRM</span>
-<span class="go">8           135                   URG-MASS100 Single PM2.5 Sampler         FRM</span>
-<span class="go">9           136               URG-MASS300 Sequential PM2.5 Sampler         FRM</span>
-<span class="go">10          142               BGI Models PQ200-VSCC or PQ200A-VSCC         FRM</span>
-<span class="go">11          143         R &amp; P Model 2000 PM-2.5 Air Sampler w/VSCC         FRM</span>
-<span class="go">12          144       R &amp; P Model 2000 PM-2.5 Audit Sampler w/VSCC         FRM</span>
-<span class="go">13          145  R &amp; P Model 2025 PM-2.5 Sequential Air Sampler...         FRM</span>
-<span class="go">14          153           Thermo Electron Model RAAS2.5-100 w/VSCC         FRM</span>
-<span class="go">15          154     Thermo Electron Model RAAS2.5-200 Audit w/VSCC         FRM</span>
-<span class="go">16          155  Thermo Electron Model RAAS2.5-300 Sequential w...         FRM</span>
-<span class="go">17          170               Met One BAM-1020 Mass Monitor w/VSCC         FEM</span>
-<span class="go">18          177          Thermo Scientific Partisol 2000-D Dichot.         FEM</span>
-<span class="go">19          179  Thermo Scientific Dichot. Partisol-Plus Model ...         FEM</span>
-<span class="go">20          181  Thermo Scientific TEOM 1400 FDMS or 1405 8500C...         FEM</span>
-<span class="go">21          182    Thermo Scientific TEOM 1405-DF Dichotomous FDMS         FEM</span>
-<span class="go">22          183      Thermo Scientific 5014i or FH62C14-DHS w/VSCC         FEM</span>
-<span class="go">23          184          Thermo Scientific Model 5030 SHARP w/VSCC         FEM</span>
-<span class="go">24          195             GRIMM EDM Model 180 with naphion dryer         FEM</span>
-<span class="go">25          203                    Opsis SM200-Dust Monitor w/VSCC         FEM</span>
-<span class="go">26          204                Teledyne Model 602 Beta plus w/VSCC         FEM</span>
-<span class="go">27          209  Met One BAM-1022 Mass Monitor w/ VSCC or TE-PM...         FEM</span>
-<span class="go">28          219        Tisch Model TE-Wilbur2.5 Low-Volume Sampler         FRM</span>
-<span class="go">29          221                      Met One E-FRM PM2.5 with WINS         FRM</span>
-<span class="go">30          235    Met One E-FRM PM2.5 with URG-2000-30EGN cyclone         FEM</span>
-<span class="go">31          236                           Teledyne T640 at 5.0 LPM         FEM</span>
-<span class="go">32          238                        Teledyne T640X at 16.67 LPM         FEM</span>
-<span class="go">33          245                  Met One E-SEQ-FRM PM2.5 with WINS         FRM</span>
-<span class="go">34          521                      Met One E-FRM PM2.5 with VSCC         FRM</span>
-<span class="go">35          545                  Met One E-SEQ-FRM PM2.5 with VSCC         FRM</span>
-<span class="go">36          581               Thermo Scientific 1405-F FDMS w/VSCC         FEM</span>
+<span class="go">  Confirm entry [y/n]: y</span>
 
-<span class="go">Enter the method code corresponding to the reference method for T640_2_PM25:238</span>
+<span class="go">|   Method Code | Collection Description                                     | Method Type   |</span>
+<span class="go">|--------------:|:-----------------------------------------------------------|:--------------|</span>
+<span class="go">|           116 | BGI Model PQ200 PM2.5 Sampler w/WINS                       | FRM           |</span>
+<span class="go">|           117 | R &amp; P Model 2000 PM2.5 Sampler w/WINS                      | FRM           |</span>
+<span class="go">|           118 | R &amp; P Model 2025 PM2.5 Sequential w/WINS                   | FRM           |</span>
+<span class="go">|           119 | Andersen RAAS2.5-100 PM2.5 SAM w/WINS                      | FRM           |</span>
+<span class="go">|           120 | Andersen RAAS2.5-300 PM2.5 SEQ w/WINS                      | FRM           |</span>
+<span class="go">|           123 | Thermo Env Model 605 CAPS                                  | FRM           |</span>
+<span class="go">|           128 | Andersen RAAS2.5-2000PM2.5 Aud w/WINS                      | FRM           |</span>
+<span class="go">|           129 | R &amp; P Model 2000 PM-2.5 Audit w/WINS                       | FRM           |</span>
+<span class="go">|           135 | URG-MASS100 Single PM2.5 Sampler                           | FRM           |</span>
+<span class="go">|           136 | URG-MASS300 Sequential PM2.5 Sampler                       | FRM           |</span>
+<span class="go">|           142 | BGI Models PQ200-VSCC or PQ200A-VSCC                       | FRM           |</span>
+<span class="go">|           143 | R &amp; P Model 2000 PM-2.5 Air Sampler w/VSCC                 | FRM           |</span>
+<span class="go">|           144 | R &amp; P Model 2000 PM-2.5 Audit Sampler w/VSCC               | FRM           |</span>
+<span class="go">|           145 | R &amp; P Model 2025 PM-2.5 Sequential Air Sampler w/VSCC      | FRM           |</span>
+<span class="go">|           153 | Thermo Electron Model RAAS2.5-100 w/VSCC                   | FRM           |</span>
+<span class="go">|           154 | Thermo Electron Model RAAS2.5-200 Audit w/VSCC             | FRM           |</span>
+<span class="go">|           155 | Thermo Electron Model RAAS2.5-300 Sequential w/VSCC        | FRM           |</span>
+<span class="go">|           170 | Met One BAM-1020 Mass Monitor w/VSCC                       | FEM           |</span>
+<span class="go">|           177 | Thermo Scientific Partisol 2000-D Dichot.                  | FEM           |</span>
+<span class="go">|           179 | Thermo Scientific Dichot. Partisol-Plus Model 2025-D Seq   | FEM           |</span>
+<span class="go">|           181 | Thermo Scientific TEOM 1400 FDMS or 1405 8500C FDMS w/VSCC | FEM           |</span>
+<span class="go">|           182 | Thermo Scientific TEOM 1405-DF Dichotomous FDMS            | FEM           |</span>
+<span class="go">|           183 | Thermo Scientific 5014i or FH62C14-DHS w/VSCC              | FEM           |</span>
+<span class="go">|           184 | Thermo Scientific Model 5030 SHARP w/VSCC                  | FEM           |</span>
+<span class="go">|           195 | GRIMM EDM Model 180 with naphion dryer                     | FEM           |</span>
+<span class="go">|           203 | Opsis SM200-Dust Monitor w/VSCC                            | FEM           |</span>
+<span class="go">|           204 | Teledyne Model 602 Beta plus w/VSCC                        | FEM           |</span>
+<span class="go">|           209 | Met One BAM-1022 Mass Monitor w/ VSCC or TE-PM2.5C         | FEM           |</span>
+<span class="go">|           219 | Tisch Model TE-Wilbur2.5 Low-Volume Sampler                | FRM           |</span>
+<span class="go">|           221 | Met One E-FRM PM2.5 with WINS                              | FRM           |</span>
+<span class="go">|           235 | Met One E-FRM PM2.5 with URG-2000-30EGN cyclone            | FEM           |</span>
+<span class="go">|           236 | Teledyne T640 at 5.0 LPM                                   | FEM           |</span>
+<span class="hll"><span class="go">|           238 | Teledyne T640X at 16.67 LPM                                | FEM           |</span>
+</span><span class="go">|           245 | Met One E-SEQ-FRM PM2.5 with WINS                          | FRM           |</span>
+<span class="go">|           521 | Met One E-FRM PM2.5 with VSCC                              | FRM           |</span>
+<span class="go">|           545 | Met One E-SEQ-FRM PM2.5 with VSCC                          | FRM           |</span>
+<span class="go">|           581 | Thermo Scientific 1405-F FDMS w/VSCC                       | FEM           |</span>
 
-<span class="go">Confirm entry [y/n]: y</span>
+<span class="go">  Enter the method code corresponding to the reference method for T640_2_PM25:238</span>
 
-<span class="go">Enter the parameter occurance code for the above reference method:1</span>
+<span class="go">  Confirm entry [y/n]: y</span>
 
-<span class="go">Confirm entry [y/n]: y</span>
+<span class="go">  Enter the parameter occurance code for the above reference method:1</span>
+
+<span class="go">  Confirm entry [y/n]: y</span>
+
+<span class="go">  Are the units of measure for T640_2_PM25 µg/m³?</span>
+
+<span class="go">  Confirm entry [y/n]: y</span>
 
 <span class="go">[7/7] Enter SDFS parameter associated with T640_2_PM10: PM10</span>
 
-<span class="go">Enter the units of measure for T640_2_PM10:ug/m^3</span>
+<span class="go">  Enter the units of measure for T640_2_PM10:Micrograms per cubic meter</span>
 
-<span class="go">Confirm entry [y/n]: y</span>
+<span class="go">  Confirm entry [y/n]: y</span>
 
-<span class="go">Is the parameter code for reference measurements 81102?</span>
+<span class="go">  Is the parameter code for reference measurements 81102?</span>
 
-<span class="go">Confirm entry [y/n]: y</span>
-<span class="go">Method Code                           Collection Description Method Type</span>
-<span class="go">0             1                                    LO-VOL-SA244E         NaN</span>
-<span class="go">1             2                                   LO-VOL-GMW9200         NaN</span>
-<span class="go">2             3                               LO-VOL-WA10-DICHOT         NaN</span>
-<span class="go">3             4                             LO-VOL-SA246B-DICHOT         NaN</span>
-<span class="go">4            11                                    DUSTTRAK 8530         NaN</span>
-<span class="go">5            12                                    DUSTTRAK 8533         NaN</span>
-<span class="go">6            25                                    MED-VOL-SA254         NaN</span>
-<span class="go">7            26                                  MED-VOL-GMW9100         NaN</span>
-<span class="go">8            40                   WEDDING-AUTOMATED-PM10 SAMPLER         NaN</span>
-<span class="go">9            41                       BAM-102-CONTINUOUS MONITOR         NaN</span>
-<span class="go">10           51                                     HI-VOL-SA321         NaN</span>
-<span class="go">11           52                                    HI-VOL-SA321A         NaN</span>
-<span class="go">12           53                                   HI-VOL-GMW9000         NaN</span>
-<span class="go">13           54                                       HI-VOL-W10         NaN</span>
-<span class="go">14           55                     HI-VOL-W10-(W/MAINT.AC.PORT)         NaN</span>
-<span class="go">15           56                    HI-VOL-SA321G-(321-W/OILSHIM)         NaN</span>
-<span class="go">16           57                   HI-VOL-SA321AG(321A-W/OILSHIM)         NaN</span>
-<span class="go">17           58                                    HI-VOL-SA321B         NaN</span>
-<span class="go">18           59                                    HI-VOL-SA1200         NaN</span>
-<span class="go">19           62                             HI-VOL-WEDDING-INLET         FRM</span>
-<span class="go">20           63                               HI-VOL SA/GMW-1200         FRM</span>
-<span class="go">21           64                              HI-VOL-SA/GMW-321-B         FRM</span>
-<span class="go">22           65                              HI-VOL-SA/GMW-321-C         FRM</span>
-<span class="go">23           71                               OREGON-DEQ-MED-VOL         FRM</span>
-<span class="go">24           73                   LO-VOL-DICHOTOMOUS-SA246B-INLT         FRM</span>
-<span class="go">25           76                   INSTRMENTL-ANDRSEN-SA246B-INLT         FEM</span>
-<span class="go">26           79                    INSTRUMENTAL-R&amp;P SA246B-INLET         FEM</span>
-<span class="go">27           81                   INSTRUMENTAL-WEDDING-AUTOMATIC         FEM</span>
-<span class="go">28           98                          R&amp;P Model 2000 Partisol         FRM</span>
-<span class="go">29          122                      INSTRUMENT MET ONE 4 MODELS         FEM</span>
-<span class="go">30          124                        BGI Inc. Model PQ100 PM10         FRM</span>
-<span class="go">31          125                        BGI Inc. Model PQ200 PM10         FRM</span>
-<span class="go">32          126                     R - P Co Partisol Model 2000         FRM</span>
-<span class="go">33          127                     R - P Co Partisol Model 2025         FRM</span>
-<span class="go">34          130               Andersen RAAS10-100 Single channel         FRM</span>
-<span class="go">35          131                    Andersen RAAS10-200 S-Channel         FRM</span>
-<span class="go">36          132                    Andersen RAAS10-300 M-channel         FRM</span>
-<span class="go">37          141             Tisch Environ Model-6070 PM10 Hi-Vol         FRM</span>
-<span class="go">38          150                  T A Series FH 62 C14 Continuous         FEM</span>
-<span class="go">39          151                  Environnement S.A. Model MP101M         FEM</span>
-<span class="go">40          156                               Instrument DKK_TOA         FEM</span>
-<span class="go">41          162                    Hi Vol SSI Ecotech Model 3000         FRM</span>
-<span class="go">42          193                   OPSIS Model SM200 PM10 Monitor         FEM</span>
-<span class="go">43          197              Thermo Partisol Model 2000-D Dichot         FEM</span>
-<span class="go">44          198              Thermo Partisol Model 2025-D Dichot         FEM</span>
-<span class="go">45          205                                       AP 602 BAM         FEM</span>
-<span class="go">46          208  Thermo Scientific 1405-DF Dichotomous TEOM FDMS         FEM</span>
-<span class="go">47          216       Tisch Model TE-Wilbur10 Low-Volume Sampler         FRM</span>
-<span class="go">48          226                               Met One E-BAM PLUS         FEM</span>
-<span class="go">49          231                               Met One E-FRM PM10         FRM</span>
-<span class="go">50          239                  Teledyne API T640X at 16.67 LPM         FEM</span>
-<span class="go">51          246                                Met One E-SEQ-FRM         FRM</span>
-<span class="go">52          702                                     INTERIM PM10         NaN</span>
-<span class="go">53          771                                     INTERIM PM10         NaN</span>
-<span class="go">54          772                                     INTERIM PM10         NaN</span>
-<span class="go">55          773                            LO-VOL-DICHOT-INTERIM         NaN</span>
-<span class="go">56          774                         HI-VOL INTERIM 15 MICRON         NaN</span>
-<span class="go">57          790                                 Virtual Impactor         NaN</span>
-<span class="go">58          792                                 Virtual Impactor         NaN</span>
-<span class="go">59          879  INSTRUMENTAL-R&amp;P SA246B-Inlet (Tx Modification)         NaN</span>
-<span class="go">60          900                        BGI Inc. frmOMNI at 5 lpm         NaN</span>
+<span class="go">  Confirm entry [y/n]: y</span>
 
-<span class="go">Enter the method code corresponding to the reference method for T640_2_PM10:239</span>
+<span class="go">|   Method Code | Collection Description                          | Method Type   |</span>
+<span class="go">|--------------:|:------------------------------------------------|:--------------|</span>
+<span class="go">|             1 | LO-VOL-SA244E                                   | nan           |</span>
+<span class="go">|             2 | LO-VOL-GMW9200                                  | nan           |</span>
+<span class="go">|             3 | LO-VOL-WA10-DICHOT                              | nan           |</span>
+<span class="go">|             4 | LO-VOL-SA246B-DICHOT                            | nan           |</span>
+<span class="go">|            11 | DUSTTRAK 8530                                   | nan           |</span>
+<span class="go">|            12 | DUSTTRAK 8533                                   | nan           |</span>
+<span class="go">|            25 | MED-VOL-SA254                                   | nan           |</span>
+<span class="go">|            26 | MED-VOL-GMW9100                                 | nan           |</span>
+<span class="go">|            40 | WEDDING-AUTOMATED-PM10 SAMPLER                  | nan           |</span>
+<span class="go">|            41 | BAM-102-CONTINUOUS MONITOR                      | nan           |</span>
+<span class="go">|            51 | HI-VOL-SA321                                    | nan           |</span>
+<span class="go">|            52 | HI-VOL-SA321A                                   | nan           |</span>
+<span class="go">|            53 | HI-VOL-GMW9000                                  | nan           |</span>
+<span class="go">|            54 | HI-VOL-W10                                      | nan           |</span>
+<span class="go">|            55 | HI-VOL-W10-(W/MAINT.AC.PORT)                    | nan           |</span>
+<span class="go">|            56 | HI-VOL-SA321G-(321-W/OILSHIM)                   | nan           |</span>
+<span class="go">|            57 | HI-VOL-SA321AG(321A-W/OILSHIM)                  | nan           |</span>
+<span class="go">|            58 | HI-VOL-SA321B                                   | nan           |</span>
+<span class="go">|            59 | HI-VOL-SA1200                                   | nan           |</span>
+<span class="go">|            62 | HI-VOL-WEDDING-INLET                            | FRM           |</span>
+<span class="go">|            63 | HI-VOL SA/GMW-1200                              | FRM           |</span>
+<span class="go">|            64 | HI-VOL-SA/GMW-321-B                             | FRM           |</span>
+<span class="go">|            65 | HI-VOL-SA/GMW-321-C                             | FRM           |</span>
+<span class="go">|            71 | OREGON-DEQ-MED-VOL                              | FRM           |</span>
+<span class="go">|            73 | LO-VOL-DICHOTOMOUS-SA246B-INLT                  | FRM           |</span>
+<span class="go">|            76 | INSTRMENTL-ANDRSEN-SA246B-INLT                  | FEM           |</span>
+<span class="go">|            79 | INSTRUMENTAL-R&amp;P SA246B-INLET                   | FEM           |</span>
+<span class="go">|            81 | INSTRUMENTAL-WEDDING-AUTOMATIC                  | FEM           |</span>
+<span class="go">|            98 | R&amp;P Model 2000 Partisol                         | FRM           |</span>
+<span class="go">|           122 | INSTRUMENT MET ONE 4 MODELS                     | FEM           |</span>
+<span class="go">|           124 | BGI Inc. Model PQ100 PM10                       | FRM           |</span>
+<span class="go">|           125 | BGI Inc. Model PQ200 PM10                       | FRM           |</span>
+<span class="go">|           126 | R - P Co Partisol Model 2000                    | FRM           |</span>
+<span class="go">|           127 | R - P Co Partisol Model 2025                    | FRM           |</span>
+<span class="go">|           130 | Andersen RAAS10-100 Single channel              | FRM           |</span>
+<span class="go">|           131 | Andersen RAAS10-200 S-Channel                   | FRM           |</span>
+<span class="go">|           132 | Andersen RAAS10-300 M-channel                   | FRM           |</span>
+<span class="go">|           141 | Tisch Environ Model-6070 PM10 Hi-Vol            | FRM           |</span>
+<span class="go">|           150 | T A Series FH 62 C14 Continuous                 | FEM           |</span>
+<span class="go">|           151 | Environnement S.A. Model MP101M                 | FEM           |</span>
+<span class="go">|           156 | Instrument DKK_TOA                              | FEM           |</span>
+<span class="go">|           162 | Hi Vol SSI Ecotech Model 3000                   | FRM           |</span>
+<span class="go">|           193 | OPSIS Model SM200 PM10 Monitor                  | FEM           |</span>
+<span class="go">|           197 | Thermo Partisol Model 2000-D Dichot             | FEM           |</span>
+<span class="go">|           198 | Thermo Partisol Model 2025-D Dichot             | FEM           |</span>
+<span class="go">|           205 | AP 602 BAM                                      | FEM           |</span>
+<span class="go">|           208 | Thermo Scientific 1405-DF Dichotomous TEOM FDMS | FEM           |</span>
+<span class="go">|           216 | Tisch Model TE-Wilbur10 Low-Volume Sampler      | FRM           |</span>
+<span class="go">|           226 | Met One E-BAM PLUS                              | FEM           |</span>
+<span class="go">|           231 | Met One E-FRM PM10                              | FRM           |</span>
+<span class="hll"><span class="go">|           239 | Teledyne API T640X at 16.67 LPM                 | FEM           |</span>
+</span><span class="go">|           246 | Met One E-SEQ-FRM                               | FRM           |</span>
+<span class="go">|           702 | INTERIM PM10                                    | nan           |</span>
+<span class="go">|           771 | INTERIM PM10                                    | nan           |</span>
+<span class="go">|           772 | INTERIM PM10                                    | nan           |</span>
+<span class="go">|           773 | LO-VOL-DICHOT-INTERIM                           | nan           |</span>
+<span class="go">|           774 | HI-VOL INTERIM 15 MICRON                        | nan           |</span>
+<span class="go">|           790 | Virtual Impactor                                | nan           |</span>
+<span class="go">|           792 | Virtual Impactor                                | nan           |</span>
+<span class="go">|           879 | INSTRUMENTAL-R&amp;P SA246B-Inlet (Tx Modification) | nan           |</span>
+<span class="go">|           900 | BGI Inc. frmOMNI at 5 lpm                       | nan           |</span>
 
-<span class="go">Confirm entry [y/n]: y</span>
+<span class="go">  Enter the method code corresponding to the reference method for T640_2_PM10:239</span>
 
-<span class="go">Enter the parameter occurance code for the above reference method:1</span>
+<span class="go">  Confirm entry [y/n]: y</span>
 
-<span class="go">Confirm entry [y/n]: y</span>
+<span class="go">  Enter the parameter occurance code for the above reference method:1</span>
+
+<span class="go">  Confirm entry [y/n]:</span>
+<span class="go">  ..invalid entry, select [y/n]</span>
+
+<span class="go">  Confirm entry [y/n]: y</span>
+
+<span class="go">  Are the units of measure for T640_2_PM10 µg/m³?</span>
+
+<span class="go">  Confirm entry [y/n]: y</span>
 
 <span class="go">Configured renaming scheme:</span>
 <span class="go">{&#39;BC AE33 880nm&#39;: &#39;&#39;,</span>
-<span class="go">&#39;GRIMM PM1&#39;: &#39;&#39;,</span>
-<span class="go">&#39;Grimm PM10&#39;: &#39;&#39;,</span>
-<span class="go">&#39;Grimm PM2.5&#39;: &#39;&#39;,</span>
-<span class="go">&#39;T640_2_PM10&#39;: &#39;PM10&#39;,</span>
-<span class="go">&#39;T640_2_PM25&#39;: &#39;PM25&#39;,</span>
-<span class="go">&#39;UV_633_370nm&#39;: &#39;&#39;}</span>
+<span class="go"> &#39;GRIMM PM1&#39;: &#39;&#39;,</span>
+<span class="go"> &#39;Grimm PM10&#39;: &#39;&#39;,</span>
+<span class="go"> &#39;Grimm PM2.5&#39;: &#39;&#39;,</span>
+<span class="go"> &#39;T640_2_PM10&#39;: &#39;PM10&#39;,</span>
+<span class="go"> &#39;T640_2_PM25&#39;: &#39;PM25&#39;,</span>
+<span class="go"> &#39;UV_633_370nm&#39;: &#39;&#39;}</span>
 
 <span class="go">Press enter to continue.</span>
 </pre></div>
@@ -1055,14 +1095,20 @@ to a <code class="docutils literal notranslate"><span class="pre">reference_setu
 <span class="go">==============================================================================</span>
 
 <span class="go">..writing setup configuration to the following path:</span>
-<span class="go">C:\Users\...\Documents\sensortoolkit_testing\Data and Figures\reference_data</span>
-<span class="go">\local\raw\Burdens_Creek_370630099\reference_setup.json</span>
+<span class="go">  \data\reference_data\local\raw\Burdens_Creek_370630099\reference_setup.json</span>
 </pre></div>
 </div>
 </div></blockquote>
 <p><strong>13. Reference Data Ingestion and Saving Processed Datasets</strong></p>
 <blockquote>
-<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">============================ Ingest Local Datasets ===========================</span>
+<div><p>As a final step, recorded reference datasets are ingested via the configuration
+specified and processed version of these datasets that have been converted to
+SDFS format are saved as comma-separated value files to the
+<code class="docutils literal notranslate"><span class="pre">/data/reference_data/[source]/processed/[site_name]_[site_id]</span></code> directory, where
+<code class="docutils literal notranslate"><span class="pre">[source]</span></code> is the reference data source assigned in step 1, <code class="docutils literal notranslate"><span class="pre">[site_name]</span></code>
+is the name of the site assigned by the user in step 2, and <code class="docutils literal notranslate"><span class="pre">[site_id]</span></code> is
+the AQS ID for the site assigned in step 2 (if applicable).</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">============================ Ingest Local Datasets ===========================</span>
 <span class="go">==============================================================================</span>
 
 <span class="go">..H_201909_PM.csv</span>
@@ -1071,8 +1117,8 @@ to a <code class="docutils literal notranslate"><span class="pre">reference_setu
 </div>
 </div></blockquote>
 </div>
-<input id="3f5594f1-917d-4722-8b57-5026468c0966" name="06130eac-a4c1-47bb-8cff-b98319cd4061" type="radio">
-</input><label class="tabbed-label" for="3f5594f1-917d-4722-8b57-5026468c0966">
+<input id="44a20990-4daa-4cda-8000-57cacb78adbc" name="9f62269c-d111-464c-b110-a735b5a2e62a" type="radio">
+</input><label class="tabbed-label" for="44a20990-4daa-4cda-8000-57cacb78adbc">
 AirNowTech</label><div class="tabbed-content docutils">
 <p>The following steps below walk through the setup process. The example below
 describes the setup process for a reference data file downloaded from AirNowTech
@@ -1105,14 +1151,14 @@ can be skipped by pressing the ‘Enter’ key.</p>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
 <p>Users are strongly recommended to provide a site name and, if applicable, a site AQS ID.
-These attributes are used to organize reference data within the <code class="docutils literal notranslate"><span class="pre">/Data</span> <span class="pre">and</span> <span class="pre">Figures/reference_data/[data</span> <span class="pre">source]/[raw</span> <span class="pre">or</span> <span class="pre">processed]</span></code>
+These attributes are used to organize reference data within the <code class="docutils literal notranslate"><span class="pre">/data/reference_data/[data</span> <span class="pre">source]/[raw</span> <span class="pre">or</span> <span class="pre">processed]</span></code>
 subdirectories.</p>
 <p>This is particularly important if users are working with data from numerous sites yet share the same data source.
 For instance, if one is using AirNowTech for reference data at two sites, Site A and Site B,
 the folder structure for processed reference datasets should look something like:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">my_evaluation</span>
 <span class="go">|</span>
-<span class="go">└───Data and Figures</span>
+<span class="go">└─data</span>
 <span class="go">   └───reference_data</span>
 <span class="go">        └───airnowtech</span>
 <span class="go">           ├───raw</span>
@@ -1205,7 +1251,7 @@ where the copied datasets will be saved.</p>
 <span class="go">[&#39;C:/Users/.../Documents/Public_Sensor_Evaluation/beta_testing/data/reference/20190901_20190930_PMGasMet.csv&#39;]</span>
 
 <span class="go">Destination Directory:</span>
-<span class="go">..C:\Users\...\Documents\sensortoolkit_testing\Data and Figures\reference_data\airnowtech\raw\Burdens_Creek_370630099</span>
+<span class="go">..C:\Users\...\Documents\sensortoolkit_testing\data\reference_data\airnowtech\raw\Burdens_Creek_370630099</span>
 
 <span class="go">Press enter to continue.</span>
 
@@ -1218,7 +1264,14 @@ where the copied datasets will be saved.</p>
 </div></blockquote>
 <p><strong>5. Pre-processing AirNowTech Datasets</strong></p>
 <blockquote>
-<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">======================= Pre-process AirNowTech Datasets ======================</span>
+<div><p>The local AirNowTech files that the user selected in the previous step are
+imported and processed versions of these datasets are ingested into the SDFS
+format via the <code class="docutils literal notranslate"><span class="pre">sensortoolkit.reference.preprocess_airnowtech()</span></code> method.
+Processed datasets are subsequently saved as comma-separated value files to
+<code class="docutils literal notranslate"><span class="pre">/data/reference_data/airnowtech/processed/[site_name]_[site_id]</span></code>, where <code class="docutils literal notranslate"><span class="pre">[site_name]</span></code>
+is the name of the site assigned by the user in step 2, and <code class="docutils literal notranslate"><span class="pre">[site_id]</span></code> is
+the AQS ID for the site assigned in step 2 (if applicable).</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">======================= Pre-process AirNowTech Datasets ======================</span>
 <span class="go">==============================================================================</span>
 <span class="go">Writing AirNowTech dataframes to csv files</span>
 <span class="go">../reference_data/airnowtech/processed/Burdens_Creek_370630099/H_201909_PM.csv</span>
@@ -1237,13 +1290,13 @@ to a <code class="docutils literal notranslate"><span class="pre">reference_setu
 <span class="go">==============================================================================</span>
 
 <span class="go">..writing setup configuration to the following path:</span>
-<span class="go">C:\Users\...\Documents\sensortoolkit_testing\Data and Figures\reference_data\airnowtech\raw\Burdens_Creek_370630099\reference_setup.json</span>
+<span class="go">  \data\reference_data\airnowtech\raw\Burdens_Creek_370630099\reference_setup.json</span>
 </pre></div>
 </div>
 </div></blockquote>
 </div>
-<input id="46223289-bbff-473f-9a86-abeb93f72dfd" name="06130eac-a4c1-47bb-8cff-b98319cd4061" type="radio">
-</input><label class="tabbed-label" for="46223289-bbff-473f-9a86-abeb93f72dfd">
+<input id="b5273174-0a30-4ade-bb78-d4df363e2bd2" name="9f62269c-d111-464c-b110-a735b5a2e62a" type="radio">
+</input><label class="tabbed-label" for="b5273174-0a30-4ade-bb78-d4df363e2bd2">
 AQS</label><div class="tabbed-content docutils">
 <p>The following steps below walk through the setup process. The example below
 describes the setup process for a reference data file downloaded from AQS
@@ -1276,14 +1329,14 @@ can be skipped by pressing the ‘Enter’ key.</p>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
 <p>Users are strongly recommended to provide a site name and, if applicable, a site AQS ID.
-These attributes are used to organize reference data within the <code class="docutils literal notranslate"><span class="pre">/Data</span> <span class="pre">and</span> <span class="pre">Figures/reference_data/[data</span> <span class="pre">source]/[raw</span> <span class="pre">or</span> <span class="pre">processed]</span></code>
+These attributes are used to organize reference data within the <code class="docutils literal notranslate"><span class="pre">/data/reference_data/[data</span> <span class="pre">source]/[raw</span> <span class="pre">or</span> <span class="pre">processed]</span></code>
 subdirectories.</p>
 <p>This is particularly important if users are working with data from numerous sites yet share the same data source.
 For instance, if one is using AirNowTech for reference data at two sites, Site A and Site B,
 the folder structure for processed reference datasets should look something like:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">my_evaluation</span>
 <span class="go">|</span>
-<span class="go">└───Data and Figures</span>
+<span class="go">└─data</span>
 <span class="go">   └───reference_data</span>
 <span class="go">        └───airnowtech</span>
 <span class="go">           ├───raw</span>
@@ -1345,13 +1398,13 @@ to a <code class="docutils literal notranslate"><span class="pre">reference_setu
 <span class="go">==============================================================================</span>
 
 <span class="go">..writing setup configuration to the following path:</span>
-<span class="go">C:\Users\...\Documents\sensortoolkit_testing\Data and Figures\reference_data\aqs\raw\Triple_Oak_371830021\reference_setup.json</span>
+<span class="go">  \data\reference_data\aqs\raw\Triple_Oak_371830021\reference_setup.json</span>
 </pre></div>
 </div>
 </div></blockquote>
 </div>
-<input id="df51ee3e-3989-444d-939f-171922af8e30" name="06130eac-a4c1-47bb-8cff-b98319cd4061" type="radio">
-</input><label class="tabbed-label" for="df51ee3e-3989-444d-939f-171922af8e30">
+<input id="2f88aa58-fac6-48fa-85b0-4aa6983443e9" name="9f62269c-d111-464c-b110-a735b5a2e62a" type="radio">
+</input><label class="tabbed-label" for="2f88aa58-fac6-48fa-85b0-4aa6983443e9">
 AirNow</label><div class="tabbed-content docutils">
 <p>The following steps below walk through the setup process. The example below
 describes the setup process for a reference data file downloaded from AirNow
@@ -1384,14 +1437,14 @@ can be skipped by pressing the ‘Enter’ key.</p>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
 <p>Users are strongly recommended to provide a site name and, if applicable, a site AQS ID.
-These attributes are used to organize reference data within the <code class="docutils literal notranslate"><span class="pre">/Data</span> <span class="pre">and</span> <span class="pre">Figures/reference_data/[data</span> <span class="pre">source]/[raw</span> <span class="pre">or</span> <span class="pre">processed]</span></code>
+These attributes are used to organize reference data within the <code class="docutils literal notranslate"><span class="pre">/data/reference_data/[data</span> <span class="pre">source]/[raw</span> <span class="pre">or</span> <span class="pre">processed]</span></code>
 subdirectories.</p>
 <p>This is particularly important if users are working with data from numerous sites yet share the same data source.
 For instance, if one is using AirNowTech for reference data at two sites, Site A and Site B,
 the folder structure for processed reference datasets should look something like:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">my_evaluation</span>
 <span class="go">|</span>
-<span class="go">└───Data and Figures</span>
+<span class="go">└─data</span>
 <span class="go">   └───reference_data</span>
 <span class="go">        └───airnowtech</span>
 <span class="go">           ├───raw</span>
@@ -1453,13 +1506,13 @@ to a <code class="docutils literal notranslate"><span class="pre">reference_setu
 <span class="go">==============================================================================</span>
 
 <span class="go">..writing setup configuration to the following path:</span>
-<span class="go">C:\Users\...\Documents\sensortoolkit_testing\Data and Figures\reference_data\airnow\raw\Burdens_Creek_370630099\reference_setup.json</span>
+<span class="go">  \data\reference_data\airnow\raw\Burdens_Creek_370630099\reference_setup.json</span>
 </pre></div>
 </div>
 </div></blockquote>
 </div>
 </div>
-</div>
+</section>
 
 
            </div>

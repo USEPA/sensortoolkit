@@ -4,7 +4,8 @@
 <html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8" />
-  
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>AirSensor Setup &mdash; sensortoolkit 0.6.0b4 documentation</title>
@@ -497,7 +498,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="airsensor-setup">
+  <section id="airsensor-setup">
 <h1>AirSensor Setup<a class="headerlink" href="#airsensor-setup" title="Permalink to this headline">¶</a></h1>
 <p>Sensor data are recorded in a wide variety of formatting conventions and data types.
 Data ingestion converts datasets recorded by sensors to a standardized formatting
@@ -521,7 +522,12 @@ the setup module is called via the following line of code:</p>
 that are waiting on user input. <code class="docutils literal notranslate"><span class="pre">sensor_setup()</span></code> is an interactive module, where the
 user inputs information via the console. The following steps below walk through the
 setup process:</p>
-<div class="section" id="selecting-file-data-type">
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>A console width of at least 80 characters is recommended to properly format
+printed statements, banners, and tables within this setup method.</p>
+</div>
+<section id="selecting-file-data-type">
 <h2>1. Selecting File Data Type<a class="headerlink" href="#selecting-file-data-type" title="Permalink to this headline">¶</a></h2>
 <p>First, users specify the data type for recorded sensor data. Accepted data
 types include .csv, .txt, and .xlsx. Future updates to sensortoolkit may
@@ -540,8 +546,8 @@ one of the data types listed in the section banner.</p>
 <span class="go">Confirm entry [y/n]: y</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="selecting-data-files">
+</section>
+<section id="selecting-data-files">
 <h2>2. Selecting Data Files<a class="headerlink" href="#selecting-data-files" title="Permalink to this headline">¶</a></h2>
 <p>Next, the user is asked to select how sensor datasets will be selected for copying
 to the project path that the user specified. Users are presented with three options:
@@ -562,8 +568,8 @@ copies over files that the user manually selects within a directory.</p>
 <span class="go">Confirm entry [y/n]: y</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="copying-data-files">
+</section>
+<section id="copying-data-files">
 <h2>3. Copying Data files<a class="headerlink" href="#copying-data-files" title="Permalink to this headline">¶</a></h2>
 <p>Once the user selects an option for indicating how data files should be located
 and confirms the entry, a subsequent section in the console will prompt the user to
@@ -603,8 +609,8 @@ where the copied datasets will be saved.</p>
 <span class="go">Press enter to continue.</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="selecting-the-column-header-index">
+</section>
+<section id="selecting-the-column-header-index">
 <h2>4. Selecting the Column Header Index<a class="headerlink" href="#selecting-the-column-header-index" title="Permalink to this headline">¶</a></h2>
 <p>Next, users are prompted to enter the row index corresponding to the column headers.
 Sensor datasets may place the header information at the top of the file, and in this
@@ -616,8 +622,8 @@ is indicated on the left hand side of the console statement. Below, the example 
 a number of rows of metadata, so the header index containing descriptors for the time column and
 pollutant measurement columns is found on row index #5.</p>
 <div class="tabbed-set docutils">
-<input checked="checked" id="91daf978-978e-450f-9f00-af702b8cdf9b" name="a39cb33e-915c-482f-ab8f-a19ffa79a53a" type="radio">
-</input><label class="tabbed-label" for="91daf978-978e-450f-9f00-af702b8cdf9b">
+<input checked="checked" id="7826a776-54ef-420f-848d-6e08a1b0e943" name="43346412-b447-475c-a5ab-40619eb0785b" type="radio">
+</input><label class="tabbed-label" for="7826a776-54ef-420f-848d-6e08a1b0e943">
 Header Row Index = 0</label><div class="tabbed-content docutils">
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">============================= Column Header Index ============================</span>
 <span class="go">Options</span>
@@ -626,7 +632,7 @@ Header Row Index = 0</label><div class="tabbed-content docutils">
 <span class="go">==============================================================================</span>
 
 <span class="go">The first ten unformatted rows of C:\Users\...\Documents\sensortoolkit_testing</span>
-<span class="go">\Data and Figures\sensor_data\Clarity_Node\raw_data\clarity-measurements-2019-07-09_J8.csv</span>
+<span class="go">\data\sensor_data\Clarity_Node\raw_data\clarity-measurements-2019-07-09_J8.csv</span>
 <span class="go">are displayed below:</span>
 <span class="go">                                                   0</span>
 <span class="hll"><span class="go">0  nodeId,timeUtc,aqi,pm1MassConcCalib[ug/m3],pm1...</span>
@@ -648,8 +654,8 @@ Header Row Index = 0</label><div class="tabbed-content docutils">
 </pre></div>
 </div>
 </div>
-<input id="bf21fbf1-1225-4f29-88eb-66f50fcdb851" name="a39cb33e-915c-482f-ab8f-a19ffa79a53a" type="radio">
-</input><label class="tabbed-label" for="bf21fbf1-1225-4f29-88eb-66f50fcdb851">
+<input id="cbaebb5f-de0d-4d43-bd9c-9638375ccb6a" name="43346412-b447-475c-a5ab-40619eb0785b" type="radio">
+</input><label class="tabbed-label" for="cbaebb5f-de0d-4d43-bd9c-9638375ccb6a">
 Header Row Index &gt; 0</label><div class="tabbed-content docutils">
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">============================= Column Header Index ============================</span>
 <span class="go">Options</span>
@@ -658,7 +664,7 @@ Header Row Index &gt; 0</label><div class="tabbed-content docutils">
 <span class="go">==============================================================================</span>
 
 <span class="go">The first ten unformatted rows of C:\Users\...\Documents\sensortoolkit_testing</span>
-<span class="go">\Data and Figures\sensor_data\Example_Make_Model\raw_data\Example_Make_Model_SN01_raw.csv</span>
+<span class="go">\data\sensor_data\Example_Make_Model\raw_data\Example_Make_Model_SN01_raw.csv</span>
 <span class="go">are displayed below:</span>
 
 <span class="go">                                                   0</span>
@@ -681,8 +687,8 @@ Header Row Index &gt; 0</label><div class="tabbed-content docutils">
 </pre></div>
 </div>
 </div>
-<input id="63cdb219-7407-4124-90d6-e70f5b0f911e" name="a39cb33e-915c-482f-ab8f-a19ffa79a53a" type="radio">
-</input><label class="tabbed-label" for="63cdb219-7407-4124-90d6-e70f5b0f911e">
+<input id="9f3cd81c-ceca-488d-88cc-e9b0be936248" name="43346412-b447-475c-a5ab-40619eb0785b" type="radio">
+</input><label class="tabbed-label" for="9f3cd81c-ceca-488d-88cc-e9b0be936248">
 Header Row Index = None</label><div class="tabbed-content docutils">
 <p>Select this option if the dataset does not contain a single row with header
 information. The example below indicates a log description followed immediately
@@ -694,7 +700,7 @@ by rows with comma-delimited data.</p>
 <span class="go">==============================================================================</span>
 
 <span class="go">The first ten unformatted rows of C:\Users\...\Documents\sensortoolkit_testing</span>
-<span class="go">\Data and Figures\sensor_data\Vaisala_AQT420\raw_data\Vaisala_1_06-12.txt</span>
+<span class="go">\data\sensor_data\Vaisala_AQT420\raw_data\Vaisala_1_06-12.txt</span>
 <span class="go">are displayed below:</span>
 <span class="go">                                                   0</span>
 <span class="hll"><span class="go">0  =~=~=~=~=~=~=~=~=~=~=~= PuTTY log 2018.06.12 2...</span>
@@ -717,8 +723,8 @@ by rows with comma-delimited data.</p>
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="parsing-sensor-datasets">
+</section>
+<section id="parsing-sensor-datasets">
 <h2>5. Parsing Sensor Datasets<a class="headerlink" href="#parsing-sensor-datasets" title="Permalink to this headline">¶</a></h2>
 <p>If column headers are not included in the sensor datasets (i.e., the column
 header index in step 1 was set to <code class="docutils literal notranslate"><span class="pre">None</span></code>), users will need to manually enter
@@ -736,7 +742,7 @@ each column index are displayed.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">============================== Parsing Datasets ==============================</span>
 <span class="go">==============================================================================</span>
 
-<span class="go">Parsing datasets at &quot;../Data and Figures/sensor_data/&quot;Example_Make_Model/raw_data&quot;</span>
+<span class="go">Parsing datasets at &quot;../data/sensor_data/&quot;Example_Make_Model/raw_data&quot;</span>
 <span class="go">..header(s) at column index 0: [&#39;Time&#39;]</span>
 <span class="go">..header(s) at column index 1: [&#39;NO2 (ppb)&#39;]</span>
 <span class="go">..header(s) at column index 2: [&#39;O3 (ppb)&#39;]</span>
@@ -782,13 +788,13 @@ header position zero:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">============================== Parsing Datasets ==============================</span>
 <span class="go">==============================================================================</span>
 
-<span class="go">Parsing datasets at &quot;../Data and Figures/sensor_data/&quot;Example_Make_Model/raw_data&quot;</span>
+<span class="go">Parsing datasets at &quot;../data/sensor_data/&quot;Example_Make_Model/raw_data&quot;</span>
 <span class="go">..header(s) at column index 0: [&#39;Time&#39;, &#39;time&#39;]</span>
 </pre></div>
 </div>
 </div>
-</div>
-<div class="section" id="specifying-timestamp-columns">
+</section>
+<section id="specifying-timestamp-columns">
 <h2>6. Specifying Timestamp Columns<a class="headerlink" href="#specifying-timestamp-columns" title="Permalink to this headline">¶</a></h2>
 <p>Users must list all time-like columns that will be used for the ‘DateTime’
 index. Typically, this either includes one column as is the case for the
@@ -837,8 +843,8 @@ name, both header names must be specified via the following:</p>
 </pre></div>
 </div>
 </div>
-</div>
-<div class="section" id="specifying-the-parameter-renaming-scheme">
+</section>
+<section id="specifying-the-parameter-renaming-scheme">
 <h2>7. Specifying the Parameter Renaming Scheme<a class="headerlink" href="#specifying-the-parameter-renaming-scheme" title="Permalink to this headline">¶</a></h2>
 <p>Next, users are prompted to configure the parameter renaming scheme by entering
 in the sensortoolkit Data Formatting Standard (SDFS) parameter name
@@ -887,8 +893,8 @@ from the dataset by pressing enter.</p>
 <span class="go">Press enter to continue.</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="configuring-timestamp-column-formatting">
+</section>
+<section id="configuring-timestamp-column-formatting">
 <h2>8. Configuring Timestamp Column Formatting<a class="headerlink" href="#configuring-timestamp-column-formatting" title="Permalink to this headline">¶</a></h2>
 <p>Next, the timestamp column formatting should be specified. Users are encouraged
 to reference <a class="reference external" href="https://strftime.org/">https://strftime.org/</a> for a table of formatting codes. Additional
@@ -955,8 +961,8 @@ specified via the following:</p>
 </pre></div>
 </div>
 </div>
-</div>
-<div class="section" id="specifying-the-datetime-index-time-zone">
+</section>
+<section id="specifying-the-datetime-index-time-zone">
 <h2>9. Specifying the DateTime Index Time Zone<a class="headerlink" href="#specifying-the-datetime-index-time-zone" title="Permalink to this headline">¶</a></h2>
 <p>Next, the time zone for the timestamp column should be indicated. <a class="reference external" href="../../sdfs/index.html">SDFS</a>
 formatted datasets indicate timestamps in Coordinated Universal Time (UTC), and during
@@ -989,8 +995,8 @@ time zone name.</p>
 <span class="go">Press enter to continue.</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="configuring-sensor-serial-identifiers">
+</section>
+<section id="configuring-sensor-serial-identifiers">
 <h2>10. Configuring Sensor Serial identifiers<a class="headerlink" href="#configuring-sensor-serial-identifiers" title="Permalink to this headline">¶</a></h2>
 <p>Next, users should indicate unique identifiers corresponding to each air sensor in
 the testing group. It is common for sensors to be labeled by a unique serial identifier,
@@ -1009,11 +1015,11 @@ are used to locate, group, and import data for each unit.</p>
 <span class="go">..press X to end adding entries</span>
 <span class="go">==============================================================================</span>
 
-<span class="go">..C:\Users\...\Documents\sensortoolkit_testing\Data and Figures\sensor_data\</span>
+<span class="go">..C:\Users\...\Documents\sensortoolkit_testing\data\sensor_data\</span>
 <span class="go">Example_Make_Model\raw_data\Example_Make_Model_SN01_raw.csv</span>
-<span class="go">..C:\Users\...\Documents\sensortoolkit_testing\Data and Figures\sensor_data\</span>
+<span class="go">..C:\Users\...\Documents\sensortoolkit_testing\data\sensor_data\</span>
 <span class="go">Example_Make_Model\raw_data\Example_Make_Model_SN02_raw.csv</span>
-<span class="go">..C:\Users\...\Documents\sensortoolkit_testing\Data and Figures\sensor_data\</span>
+<span class="go">..C:\Users\...\Documents\sensortoolkit_testing\data\sensor_data\</span>
 <span class="go">Example_Make_Model\raw_data\Example_Make_Model_SN03_raw.csv</span>
 
 <span class="go">Enter the number of unique sensors corresponding to the datasets above: 3</span>
@@ -1040,22 +1046,22 @@ are used to locate, group, and import data for each unit.</p>
 <span class="go">Press enter to continue.</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="saving-the-setup-configuration-to-setup-json">
+</section>
+<section id="saving-the-setup-configuration-to-setup-json">
 <h2>11. Saving the Setup Configuration to <code class="docutils literal notranslate"><span class="pre">setup.json</span></code><a class="headerlink" href="#saving-the-setup-configuration-to-setup-json" title="Permalink to this headline">¶</a></h2>
 <p>Lastly, the Setup module will automatically save the setup configuration
 to a <code class="docutils literal notranslate"><span class="pre">setup.json</span></code> file.</p>
-<p>This file is located at <code class="docutils literal notranslate"><span class="pre">..\Data</span> <span class="pre">and</span> <span class="pre">Figures\sensor_data\Sensor_Make_Model\</span></code>
-where <code class="docutils literal notranslate"><span class="pre">Sensor_Make_Model</span></code> is replaced by the name given to the sensor.</p>
+<p>This file is located at <code class="docutils literal notranslate"><span class="pre">..\data\sensor_data\[sensor_name]\</span></code>
+where <code class="docutils literal notranslate"><span class="pre">[sensor_name]</span></code> is replaced by the name given to the sensor.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">============================= Setup Configuration ============================</span>
 <span class="go">==============================================================================</span>
 
 <span class="go">..writing setup configuration to the following path:</span>
-<span class="go">\Data and Figures\sensor_data\Example_Make_Model\Example_Make_Model_setup.json</span>
+<span class="go">  \data\sensor_data\Example_Make_Model\Example_Make_Model_setup.json</span>
 </pre></div>
 </div>
-</div>
-</div>
+</section>
+</section>
 
 
            </div>
