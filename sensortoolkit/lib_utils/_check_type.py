@@ -1,5 +1,11 @@
 # -*- coding: utf-8 -*-
-"""Description
+"""
+This module contains a method for evaluting the type of an object to determine
+whether the type matches a list of accepted or anticipated types.
+
+This module is used by various methods including
+``sensortoolkit.calculate.regression_stats()`` to ensure that arguments passed
+to functions are of an accepted/expected type.
 
 ===============================================================================
 
