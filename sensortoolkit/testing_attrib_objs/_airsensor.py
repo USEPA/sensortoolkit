@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Description.
+This module contains the AirSensor testing attribute object class.
 
 ================================================================================
 

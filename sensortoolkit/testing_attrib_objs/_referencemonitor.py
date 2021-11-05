@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Description.
+This module contains the ReferenceMonitor testing attribute object class.
 
 ================================================================================
 
