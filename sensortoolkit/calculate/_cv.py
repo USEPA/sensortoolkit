@@ -25,21 +25,24 @@ field test, and :math:`SD`, the standard deviation, is defined as
 .. math::
 
     SD = \\sqrt{\\frac{1}{(N\\times M)-1}\\sum_{j=1}^{M}\\left[
-    \\sum_{d=1}^{N}(x_{dj} - \\bar{x_d})^2\\right]}
+    \\sum_{i=1}^{N}(x_{ij} - \\bar{x_i})^2\\right]}
 
 and where:
 
     :math:`M` = number of identical sensors operated simultaneously during a
     field test
 
-    :math:`N` = number of 24-hour periods during which all identical instruments
-    are operating and returning valid averages over the duration of the field
-    test
+    :math:`N` = number of measurement intervals during which all identical
+    instruments are operating and returning valid averages over the duration of
+    the field test
 
-    :math:`x_{dj}` = 24-hour averaged sensor concentration for day d and sensor
-    j
+    :math:`x_{ij}` = Sensor concentration for measurement interval :math:`i` and
+    sensor unit :math:`j`.
 
-    :math:`\\bar{x_d}` = 24-hour averaged sensor concentration for day d
+    :math:`\\bar{x_i}` = Intersensor average sensor concentration for
+    measurement interval :math:`i`. **All sensor units deployed for testing must
+    have recorded non-null values for measurement interval :math:`i` to compute
+    :math:`\\bar{x_i}`.**
 
 ================================================================================
 

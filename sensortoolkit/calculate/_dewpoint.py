@@ -6,9 +6,9 @@ running alonside sensors and FRM/FEM instrumentation at the evaluation site.
 
 .. caution::
 
-    DP should not be calculated using on-board temperature and relative humidity
-    sensor measurements (if applicable), as these measurements may not accurately
-    represent ambient temperature and relative humidity conditions.
+    DP should **not** be calculated using on-board temperature and relative
+    humidity sensor measurements (if applicable), as these measurements may not
+    accurately represent ambient temperature and relative humidity conditions.
 
 Calculation
 -----------
@@ -17,9 +17,9 @@ Dewpoint is estimated via the Magnus Formula,
 
 .. math::
 
-    DP_{d} = \\lambda \\times \\left[ \\frac{\\ln(\\frac{RH_d}{100}) + \\frac{
-    \\beta\\times T_d}{\\lambda + T_d} }{\\beta - \\ln(\\frac{RH_d}{100} -
-    \\frac{\\beta\\times T_d}{\\lambda + T_d})} \\right]
+    DP_{d} = \\lambda \\times \\left[ \\frac{\\ln(\\frac{RH_i}{100}) + \\frac{
+    \\beta\\times T_i}{\\lambda + T_i} }{\\beta - \\ln(\\frac{RH_i}{100} -
+    \\frac{\\beta\\times T_i}{\\lambda + T_i})} \\right]
 
 where
 
@@ -27,11 +27,14 @@ where
 
     :math:`\\lambda` = 243.04
 
-    :math:`DP_d` = valid 24-hour averaged ambient dewpoint for day d (°C)
+    :math:`DP_i` = valid ambient dewpoint for measurement interval
+    :math:`i` (°C).
 
-    :math:`RH_d` = valid 24-hour averaged ambient relative humidity for day d (%)
+    :math:`RH_i` = valid ambient relative humidity for measurement interval
+    :math:`i` (%).
 
-    :math:`T_d` = valid 24-hour averaged ambient temperature for day d (°C)
+    :math:`T_i` = valid ambient temperature for measurement interval
+    :math:`i` (°C).
 
 ================================================================================
 

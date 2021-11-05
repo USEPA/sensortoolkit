@@ -59,16 +59,16 @@ import pandas as pd
 
 
 def aqi(data):
-    """Calculate US EPA's air quality index for PM2.5.
+    """Calculate US EPA's air quality index for fine particulate matter.
 
     Information about EPA's AQI scale here:
         https://aqs.epa.gov/aqsweb/documents/codetables/aqi_breakpoints.html
 
-    EPA defines breakpoints for concentrations with a precision of 0.1 ug/m^3.
+    EPA defines breakpoints for concentrations with a precision of 0.1 µg/m³.
     Since most PM2.5 concentration datasets tend to have higher reporting
-    precision than 0.1 ug/m^3, this introduces some ambiguity regarding how AQI
+    precision than 0.1 µg/m³, this introduces some ambiguity regarding how AQI
     is calculated for concentration values in between breakpoints set at 0.1
-    ug/m^3 precision.
+    µg/m³ precision.
 
     Here, the breakpoints are set so that the concentration values adhere to
     the AQI catagory at the breakpoints by following rounding conventions
@@ -81,8 +81,9 @@ def aqi(data):
     the AQI value and category return null)**
 
     Args:
-        data (float, int, numpy array, or pandas dataframe): PM2.5 conc.
-            value(s), if dataframe, column must be labeled 'PM25_Value'.
+        data (float, int, numpy array, or pandas dataframe):
+            PM2.5 concentration value(s). If dataframe, column must be labeled
+            ``PM25_Value``.
 
     Returns:
         data (pandas DataFrame):
@@ -91,7 +92,7 @@ def aqi(data):
 
     Raises:
         KeyError: If passed data object is type pandas dataframe and the column
-            header 'PM25_Value' is not found.
+            header ``PM25_Value`` is not found.
 
     """
     breakpoints = {'Good': {'I_h': 50,
