@@ -1,19 +1,20 @@
 # -*- coding: utf-8 -*-
 """
 This module contains wrapper methods for importing and loading sensor data.
-These methods call on other methods in parallel modules. For instance,
-recorded sensor datasets are located by the sensor_import() method, which
-subsequently calls methods in the _standard_ingest.py module for converting
-these datasets to SDFS format. sensor_import() can also be used to load
-previously processed (SDFS formatted) sensor datasets by calling methods in the
-_processed_data_loader.py module.
+These methods call on other methods both within this module and in parallel
+modules. For instance, recorded sensor datasets are located by the
+``sensor_import()`` method, which subsequently calls methods in the
+``_standard_ingest.py`` module for converting these datasets to SDFS format.
+``sensor_import()`` can also be used to load previously processed (SDFS
+formatted) sensor datasets by calling methods in the
+``_processed_data_loader.py`` module.
 
 .. important::
 
-  The AirSensor.sensor_setup() method can be used to import sensor data from a
-  wide range of formatting schemes. However, there may be circumstances in which
-  the setup method and underlying generalized ingestion methodology is not able
-  to handle certain sensor datasets.
+  The ``AirSensor.sensor_setup()`` method can be used to import sensor data from
+  a wide range of formatting schemes. However, there may be circumstances in
+  which the setup method and underlying generalized ingestion methodology is not
+  able to handle certain sensor datasets.
 
   The PurpleAir PA-II and its datasets fall into this category, as the sensor
   produces two datasets, one for each internal plantower PMS5003 sensor
@@ -31,11 +32,11 @@ _processed_data_loader.py module.
 
   If users come across a circumstance where the ``standard_ingest()`` method is
   not successfully able to import sensor data, **users are recommended to create
-  a custom ingestion method**, similar to how the ingest_purpleair() method is
-  used to import PurpleAir data from multiple data channels. A reference to the
-  **custom method will need to be added to the** ``ingest_wrapper()`` **method**
-  so that the ingestion method can be called if the name of the sensor matches
-  the device associated with the custom method was created.
+  a custom ingestion method**, similar to how the ``ingest_purpleair()`` method
+  is used to import PurpleAir data from multiple data channels. A reference to
+  the **custom method will need to be added to the** ``ingest_wrapper()``
+  **method** so that the ingestion method can be called if the name of the
+  sensor matches the device associated with the custom method that was created.
 
 ================================================================================
 
