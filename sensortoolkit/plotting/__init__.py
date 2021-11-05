@@ -18,7 +18,6 @@ from ._plot_formatting import (get_colormap_range, met_scatter_lims,
                                subplot_dims, wrap_text)
 from ._distribution import met_distrib, ref_distrib
 from ._errorbars import error_bars
-from ._intrasensor_comparison import compare_sensors
 from ._performance_metrics import performance_metrics
 from ._scatter import scatter_plotter, normalized_met_scatter
 from ._timeseries import sensor_timeplot, deployment_timeline
