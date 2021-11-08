@@ -144,6 +144,17 @@ def downsampling_interval(quant_df, thres_quant=0.99, plot_quantiles=True):
 
 
 def apply_downsampling(df_list, downsampling_interval):
+    """
+
+
+    Args:
+        df_list (TYPE): DESCRIPTION.
+        downsampling_interval (TYPE): DESCRIPTION.
+
+    Returns:
+        df_list (TYPE): DESCRIPTION.
+
+    """
     # Downsample to mean param values for every downsampled interval
     interval = pd.to_timedelta(downsampling_interval, unit='s')
 
