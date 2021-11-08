@@ -234,12 +234,17 @@ class PerformanceReport(SensorEvaluation):
         """Indicate whether a figure exists and the full path to the figure.
 
         Args:
-            figure_name (TYPE): DESCRIPTION.
-            subfolder (TYPE, optional): DESCRIPTION. Defaults to None.
+            figure_name (str):
+                The filename for the figure.
+            subfolder (str, optional):
+                The subdirectory within the figure path where the file is
+                located. Defaults to None.
 
         Returns:
-            bool: DESCRIPTION.
-            full_figure_path (TYPE): DESCRIPTION.
+            (tuple): Two-element tuple containing:
+
+                - *bool*: True if the figure exists, false otherwise.
+                - **full_figure_path** (*str*): The full directory path.
 
         """
         if subfolder is None:
@@ -255,8 +260,9 @@ class PerformanceReport(SensorEvaluation):
         """Add sensor vs. reference scatter plots to report.
 
         Args:
-            **kwargs (dict): Keyword arguments passed to plot_sensor_scatter()
-            subroutine for drawing scatter plots.
+            **kwargs (dict):
+                Keyword arguments passed to ``plot_sensor_scatter()``
+                subroutine for drawing scatter plots.
 
         Returns:
             None.
@@ -296,8 +302,9 @@ class PerformanceReport(SensorEvaluation):
         """Add Sensor vs. reference scatter plots for all sensors.
 
         Args:
-            **kwargs (dict): Keyword arguments passed to plot_sensor_scatter()
-            subroutine for drawing scatter plots.
+            **kwargs (dict):
+                Keyword arguments passed to ``plot_sensor_scatter()``
+                subroutine for drawing scatter plots.
 
         Returns:
             None.
@@ -382,7 +389,9 @@ class PerformanceReport(SensorEvaluation):
         """Add timeseries plots to report.
 
         Args:
-            **kwargs (TYPE): DESCRIPTION.
+            **kwargs (dict):
+                Keyword arguments passed to ``sensor_timeplot()``
+                subroutine for drawing timeseries plots.
 
         Returns:
             None.
@@ -418,7 +427,9 @@ class PerformanceReport(SensorEvaluation):
         """Add Performance target metric boxplots/dot plots to report.
 
         Args:
-            **kwargs (TYPE): DESCRIPTION.
+            **kwargs (dict):
+                Keyword arguments passed to ``performance_metrics()``
+                subroutine for drawing performance metric plots.
 
         Returns:
             None.
@@ -453,7 +464,9 @@ class PerformanceReport(SensorEvaluation):
         """Add meteorological distribution (Temp, RH) to report.
 
         Args:
-            **kwargs (TYPE): DESCRIPTION.
+            **kwargs (TYPE):
+                Keyword arguments passed to ``met_distrib()``
+                subroutine for drawing distribution plots.
 
         Returns:
             None.
@@ -488,7 +501,9 @@ class PerformanceReport(SensorEvaluation):
         """Add normalized met. influence scatter (Temp, RH) to report.
 
         Args:
-            **kwargs (TYPE): DESCRIPTION.
+            **kwargs (dict):
+                Keyword arguments passed to ``normalized_met_scatter()``
+                subroutine for drawing distribution plots.
 
         Returns:
             None.
@@ -527,15 +542,26 @@ class PerformanceReport(SensorEvaluation):
         Allows for editing, modifying the table and its cells.
 
         Return either based on left and top location passed in inches to
-        function (shape_loc=(left, top)), or by passing shape index to function
+        function (shape_loc=(left, top)), or by passing shape index to
+        function.
 
         Args:
-            slide_idx (TYPE): DESCRIPTION.
-            shape_id (TYPE, optional): DESCRIPTION. Defaults to None.
-            shape_loc (TYPE, optional): DESCRIPTION. Defaults to None.
+            slide_idx (int):
+                The index position (beginning at zero) for the slide on which
+                the shape is located.
+            shape_id (int, optional):
+                An integer assigned to the shape by the powerpoint API. If not
+                known, can pass as none, but the shape_loc should be indicated.
+                Defaults to None.
+            shape_loc (Two-element tuple, optional):
+                The x and y position of the top left-hand corner of the shape.
+                The x-position is measured from the left-most part of the slide
+                and the y-position is measured down (positive) from the
+                topmost part of the slide. Defaults to None.
 
         Returns:
-            shape (TYPE): DESCRIPTION.
+            shape (python-pptx.Presentation.slides[slide_idx].shapes.item):
+                The slide shape object located at the location or ID specified.
 
         """
         if shape_loc is not None:
@@ -555,17 +581,19 @@ class PerformanceReport(SensorEvaluation):
     def EditHeader(self):
         """Insert header description (title, contact info, photo, etc.).
 
-        Shape name                  Slide number         Shape ID
-        ----------                  -----------     -------------------
-        Report title                     1          35 (PM2.5),  9 (O3)
-        Report title                     2          21 (PM2.5), 21 (O3)
-        Report title                     3          13 (PM2.5), 15 (O3)
-        Deployment, contact info         1          34 (PM2.5), 33 (O3)
-        Deployment, contact info         2          20 (PM2.5), 22 (O3)
-        Deployment, contact info         3          12 (PM2.5), 16 (O3)
-        Photo placeholder                1           2 (PM2.5),  2 (O3)
-        Photo placeholder                2           4 (PM2.5),  3 (O3)
-        Photo placeholder                3          14 (PM2.5),  3 (O3)
+        ======================== ============ ===================
+        Shape name               Slide Number Shape ID
+        ======================== ============ ===================
+        Report Title             1            35 (PM2.5), 9 (O3)
+        Report Title             2            21 (PM2.5), 21 (O3)
+        Report Title             3            13 (PM2.5), 15 (O3)
+        Deployment, contact info 1            34 (PM2.5), 33 (O3)
+        Deployment, contact info 2            20 (PM2.5), 22 (O3)
+        Deployment, contact info 3            12 (PM2.5), 16 (O3)
+        Photo placeholder        1            2 (PM2.5), 2 (O3)
+        Photo placeholder        2            4 (PM2.5), 3 (O3)
+        Photo placeholder        3            14 (PM2.5), 3 (O3)
+        ======================== ============ ===================
 
         Returns:
             None
@@ -684,9 +712,11 @@ class PerformanceReport(SensorEvaluation):
     def EditSiteTable(self):
         """Add details to testing organzation and site info table (page 1).
 
-        Table name                  Table ID
-        ----------                  --------
-        Testing org, site info         18
+        ====================== =======
+        Table name             TableID
+        ====================== =======
+        Testing org, site info 18
+        ====================== =======
 
 
         Returns:
@@ -777,9 +807,11 @@ class PerformanceReport(SensorEvaluation):
     def EditSensorTable(self):
         """Add information to sensor information table (page 1).
 
-        Table name                  Table ID
-        ----------                  --------
-        Sensor info             49 (PM2.5), 30 (O3)
+        =========== ===================
+        Table name  TableID
+        =========== ===================
+        Sensor info 49 (PM2.5), 30 (O3)
+        =========== ===================
 
         Returns:
             None.
@@ -895,9 +927,11 @@ class PerformanceReport(SensorEvaluation):
     def EditRefTable(self):
         """Add details to reference information table.
 
-        Table name                  Table ID
-        ----------                  --------
-        Reference info                 51
+        ============== =======
+        Table name     TableID
+        ============== =======
+        Reference info 51
+        ============== =======
 
         Returns:
             None.
@@ -920,15 +954,21 @@ class PerformanceReport(SensorEvaluation):
 
         Located in different boxes based on the evaluation parameter type.
 
-        Scatter plots box (PM2.5 only)
-        Table name                  Table ID
-        ----------                  --------
-        Reference conc info          75 (PM25)
+        Scatter plots box (PM2.5 only):
 
-        Time series box (O3 only)
-        Table name                  Table ID
-        ----------                  --------
-        Reference conc info          56 (O3)
+        =================== =======
+        Table name          TableID
+        =================== =======
+        Reference conc info 75
+        =================== =======
+
+        Time series box (O3 only):
+
+        =================== =======
+        Table name          TableID
+        =================== =======
+        Reference conc info 56
+        =================== =======
 
         Returns:
             None.
@@ -1018,9 +1058,11 @@ class PerformanceReport(SensorEvaluation):
     def EditMetCondTable(self):
         """Add meteorological conditions table (page 1).
 
-        Table name                     Table ID
-        ----------                     --------
-        N outside target criteria   45 (O3), 74 (PM25)
+        ========================= ==================
+        Table name                TableID
+        ========================= ==================
+        N outside target criteria 45 (O3), 74 (PM25)
+        ========================= ==================
 
         Returns:
             None.
@@ -1101,9 +1143,11 @@ class PerformanceReport(SensorEvaluation):
     def EditMetInfTable(self):
         """Add meteorological influence table (page 1).
 
-        Table name                  Table ID
-        ----------                  --------
-        N paired met conc vals   48 (O3), 76 (PM25)
+        ====================== ==================
+        Table name             TableID
+        ====================== ==================
+        N paired met conc vals 48 (O3), 76 (PM25)
+        ====================== ==================
 
         Returns:
             None.
