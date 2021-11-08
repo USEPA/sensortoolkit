@@ -51,19 +51,21 @@ class PerformanceReport(SensorEvaluation):
     as both reports can be found online at EPA's Air Sensor Toolbox
     (`<https://www.epa.gov/air-sensor-toolbox>`_)
 
-    NOTE -
-    PerformanceReport is an inherited class of SensorEvaluation. As a result,
-    it inherits all the class and instance attributes of SensorEvaluation,
-    including its numerous variables and data structures. Programmatically,
-    PerformanceReport is intended as a direct extension of SensorEvaluation;
-    users can easily interact with all the attributes and data stuctures for
-    sensor evaluations. However, whereas SensorEvaluation allows analysis of a
-    wide number of pollutants and parameters, PerformanceReport is intended for
-    constructing reports pertaining to sensors measuring either fine
-    particulate matter (PM2.5) or ozone (O3) following U.S. EPA's
-    recommended protocols and testing metrics for evaluating these sensors.
-    Module will exit execution if parameters other than 'PM25' or 'O3' are
-    specified.
+    .. important::
+
+      ``PerformanceReport`` is an inherited class of ``SensorEvaluation``. As a
+      result, it inherits all the class and instance attributes of
+      ``SensorEvaluation``, including its numerous variables and data
+      structures. Programmatically, ``PerformanceReport`` is intended as a
+      direct extension of ``SensorEvaluation``; users can easily interact with
+      all the attributes and data stuctures for sensor evaluations. However,
+      whereas ``SensorEvaluation`` allows analysis of a wide number of
+      pollutants and parameters, ``PerformanceReport`` is presently intended
+      for constructing reports pertaining to sensors measuring either fine
+      particulate matter (PM2.5) or ozone (O3) following U.S. EPA's
+      recommended protocols and testing metrics for evaluating these sensors.
+      Module will exit execution if parameters other than 'PM25' or 'O3' are
+      specified.
 
     Args:
         sensor (sensortoolkit.AirSensor object):
@@ -86,8 +88,10 @@ class PerformanceReport(SensorEvaluation):
             ``/figures`` directory before attempting to create new figures.
             If false, PerformanceReport will create all new figures (may risk
             overwriting existing figures). Defaults to False.
-        **kwargs (TYPE):
-            DESCRIPTION.
+        **kwargs (dict):
+            - fmt_sensor_name
+            - testing_org
+            - testing_loc
 
     """
 
@@ -114,8 +118,7 @@ class PerformanceReport(SensorEvaluation):
 
         # Placeholder method for formatted sensor name, replace '_' with spaces
         self.fmt_sensor_name = self.kwargs.get('fmt_sensor_name',
-                                               self.name.replace('_',
-                                                                        ' '))
+                                               self.name.replace('_', ' '))
 
         self.today = dt.datetime.now().strftime('%y%m%d')
 
@@ -243,7 +246,7 @@ class PerformanceReport(SensorEvaluation):
         Returns:
             (tuple): Two-element tuple containing:
 
-                - *bool*: True if the figure exists, false otherwise.
+                - **bool**: True if the figure exists, false otherwise.
                 - **full_figure_path** (*str*): The full directory path.
 
         """
@@ -257,7 +260,7 @@ class PerformanceReport(SensorEvaluation):
         return os.path.exists(full_figure_path), full_figure_path
 
     def AddSingleScatterPlot(self, **kwargs):
-        """Add sensor vs. reference scatter plots to report.
+        """Add sensor vs reference scatter plots to report.
 
         Args:
             **kwargs (dict):
@@ -299,7 +302,7 @@ class PerformanceReport(SensorEvaluation):
         self.cursor_sp.addprevious(self.scatterplt._element)
 
     def AddMultiScatter(self, **kwargs):
-        """Add Sensor vs. reference scatter plots for all sensors.
+        """Add Sensor vs reference scatter plots for all sensors.
 
         Args:
             **kwargs (dict):
