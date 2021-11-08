@@ -258,7 +258,7 @@ class ReferenceMonitor:
             the API service.
 
         The setup configuration is subsequently saved to a
-        ``reference_setup.json`. Users should then query the AQS API via the
+        ``reference_setup.json``. Users should then query the AQS API via the
         ``ReferenceMonitor.query_aqs()`` method.
 
         **Setup for Querying the AirNow API**
@@ -273,7 +273,7 @@ class ReferenceMonitor:
             collocated to successfully query the API service.
 
         The setup configuration is subsequently saved to a
-        ``reference_setup.json`. Users should then query the AirNow API via the
+        ``reference_setup.json``. Users should then query the AirNow API via the
         ``ReferenceMonitor.query_airnow()`` method.
 
 
@@ -325,7 +325,7 @@ class ReferenceMonitor:
 
     def get_method_name(self, param):
         """Return the name of the reference method (instrument name) for
-         the passed parameter.
+        the passed parameter.
 
 
         Args:
