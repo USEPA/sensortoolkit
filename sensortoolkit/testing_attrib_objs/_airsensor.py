@@ -96,6 +96,21 @@ class AirSensor:
 
 
     def create_directories(self, param_headers=None):
+        """Construct parameter-specific subdirectories in the project path.
+
+        Subdirectories are constructed within the ``/figures/[sensor_name]``
+        path for SDFS parameters measured by the air sensor. Calls the
+        ``sensortoolkit.lib_utils.create_sensor_subdirectories()`` method.
+
+        Args:
+            param_headers (list, optional):
+                A list of SDFS parameters measured by the air sensor. Defaults
+                to None.
+
+        Returns:
+            None.
+
+        """
         try:
             self.project_path
         except AttributeError as error_message:
@@ -108,6 +123,25 @@ class AirSensor:
                                             )
 
     def copy_datasets(self, select='directory'):
+        """Prompts the user to select files or folders where recorded sensor
+        datasets  are located and copies files to the
+        ``../data/sensor_data/[sensor_name]/raw_data`` data subdirectory.
+
+        Args:
+            select (str, optional):
+                The selection scheme for indicating items
+                in the location for sensor datasets within the  file explorer
+                menu. Options include ``directory`` (the user selects a
+                directory and data files within the directory are copied),
+                ``recursive directory`` (the user specifies a parent directory
+                and all files within folders nested in the parent directory are
+                copied over), or ``files`` (the user selects the files that
+                they intend to copy over. Defaults to ``directory``.
+
+        Returns:
+            None.
+
+        """
         try:
             self.project_path
         except AttributeError as error_message:
@@ -120,6 +154,84 @@ class AirSensor:
                                 select=select)
 
     def sensor_setup(self):
+        """Interactive method for configuring sensor data ingestion.
+
+        1. **Selecting File Data Type**:
+
+           Choose the corresponding data file type for recorded sensor
+           datasets from ``'.csv'``, ``'.txt'``, ``'.xlsx'``.
+
+        2. **Selecting Data Files**:
+
+           Choose the selection scheme for pointing to recorded data files from
+           the following options:
+
+           - ``'directory'``, which will locate and copy all of the data files
+             in the specified directory for the indicated data type
+           - ``'recursive directory'``, which will locate and copy all data
+             files within the specified directory and any subdirectories
+             contained within the indicated folder path
+           - ``'files'`` which copies over files that the user manually selects
+             within a directory.
+
+        3. **Copying Data Files**:
+
+           Recorded sensor datasets are copied from the selected file or folder
+           location to the ``../data/sensor_data/[sensor_name]/raw_data``
+           directory path.
+
+        4. **Selecting the Column Header Index**:
+
+           Users indicate the integer index position for the row of header
+           data in sensor datasets.
+
+        5. **Parsing Sensor Datasets**:
+
+           The first few rows of recorded sensor datasets located in the
+           ``../data/sensor_data/[sensor_name]/raw_data`` directory path are
+           imported and the names of column headers are located based on the
+           indicated head index. A list of unique column headers is stored for
+           subsequent reassignment of column header names.
+
+        6. **Specifying Timestamp Columns**:
+
+           Users indicate the column(s) containing date/timestamp information.
+
+        7. **Specifying the Parameter Renaming Scheme**:
+
+           Users indicate the SDFS parameters corresponding to column names
+           discovered in step 5. This creates a parameter renaming dictionary
+           for reassigning the names of header labels.
+
+        8. **Configuring Timestamp Column Formatting**:
+
+           Users indicate the date/time formatting for date/time column(s)
+           indicated in step 6. Formatting should correspond to the
+           ``strftime`` formatting keywords located at https://strftime.org/
+
+        9. **Specifying the DateTime Index Time Zone**:
+
+           Users indicate the time zone associated with the date/time
+           column(s). Timezones should be valid timezone names recognized by
+           the ``pytz`` library.
+
+        10. **Configuring Sensor Serial Identifiers**:
+
+            Users should select unique serial identifiers corresponding to
+            each sensor unit in the testing group. Identifying keywords for
+            each sensor unit should be indicated within the recorded sensor
+            dataset file names.
+
+        11. **Saving the Setup Configuration to ``setup.json``**:
+
+            The setup configuration specified by the user is saved to a
+            ``setup.json`` file for subsequent use by the ingestion module for
+            importing recorded sensor datasets and conversion to SDFS datasets.
+
+        Returns:
+            None.
+
+        """
         if hasattr(self, 'setup_data'):
             print(f'A setup configuration has previously been created for {self.name}')
             print('Do you wish to continue and overwrite the previously created configuration?')
@@ -133,12 +245,18 @@ class AirSensor:
         self._get_ingest_config()
 
     def load_data(self, load_raw_data, write_to_file, **kwargs):
-        """
-
+        """Import sensor datasets and load to the AirSensor.data attribute.
 
         Args:
-            load_raw_data (TYPE): DESCRIPTION.
-            write_to_file (TYPE): DESCRIPTION.
+            load_raw_data (bool):
+                If true, processed (SDFS formatted) sensor datasets will be
+                saved as csv files to the ``/data/sensor_data/[sensor_name]/processed_data``
+                directory. If false, formatted datasets will not be saved to
+                the user’s hard drive.
+            write_to_file (bool): If true, raw data (datasets as originally
+                recorded) in the appropriate subdirectory will be loaded and
+                1-hour and 24-hour averages will be computed. If false,
+                processed data will be loaded.
             **kwargs (TYPE):
 
         Returns:

@@ -130,6 +130,157 @@ class ReferenceMonitor:
                 p.close()
 
     def reference_setup(self):
+        """Interactive method for configuring reference data ingestion.
+
+        **Setup for Local Datasets:**
+
+        1. **Selecting the Reference Data Service or Source**:
+
+           Choose the service or source from which reference data were
+           acquired. Choose from the following options:
+
+           - ``'local'``: Data files aqcuired locally (e.g., local transfer
+             from agency overseeing reference instrumentation at air monitoring
+             site).
+           - ``'airnowtech'``: User has downloaded files from the AirNowTech
+             system and has saved files locally to the user’s system.
+           - ``'aqs'``: User will query EPA's Air Quality System (AQS) API for
+             reference data.
+           - ``'airnow'``: User will query the AirNow API for reference data.
+
+        2. **Adding Monitoring Site Information**:
+
+            Users input information about the ambient monitoring site at
+            which the collocation study was conducted.
+
+        3. **Selecting File Data Type**:
+
+           Choose the corresponding data file type for recorded reference
+           datasets from ``'.csv'``, ``'.txt'``, ``'.xlsx'``.
+
+        4. **Selecting Data Files**:
+
+           Choose the selection scheme for pointing to recorded data files from
+           the following options:
+
+           - ``'directory'``, which will locate and copy all of the data files
+             in the specified directory for the indicated data type
+           - ``'recursive directory'``, which will locate and copy all data
+             files within the specified directory and any subdirectories
+             contained within the indicated folder path
+           - ``'files'`` which copies over files that the user manually selects
+             within a directory.
+
+        5. **Copying Data Files**:
+
+           Recorded reference datasets are copied from the selected file or folder
+           location to the ``../data/reference_data/[reference_source]/[site_name]_[site_id]/raw``
+           directory path.
+
+        6. **Selecting the Column Header Index**:
+
+           Users indicate the integer index position for the row of header
+           data in reference datasets.
+
+        7. **Parsing Reference Datasets**:
+
+           The first few rows of recorded reference datasets located in the
+           ``../data/reference_data/[reference_source]/[site_name]_[site_id]/raw``
+           directory path are imported and the names of column headers are
+           located based on the indicated head index. A list of unique column
+           headers is stored for subsequent reassignment of column header
+           names.
+
+        8. **Specifying Timestamp Columns**:
+
+           Users indicate the column(s) containing date/timestamp information.
+
+        9. **Specifying the Parameter Renaming Scheme and Monitor Information**:
+
+           Users indicate the SDFS parameters corresponding to column names
+           discovered in step 5. This creates a parameter renaming dictionary
+           for reassigning the names of header labels. Details about the
+           reference monitors used to measure the selected SDFS parameters are
+           also indicated at this step.
+
+        10. **Configuring Timestamp Column Formatting**:
+
+            Users indicate the date/time formatting for date/time column(s)
+            indicated in step 6. Formatting should correspond to the
+            ``strftime`` formatting keywords located at https://strftime.org/
+
+        11. **Specifying the DateTime Index Time Zone**:
+
+            Users indicate the time zone associated with the date/time
+            column(s). Timezones should be valid timezone names recognized by
+            the ``pytz`` library.
+
+        12. **Saving the Setup Configuration to** ``setup.json``:
+
+            The setup configuration specified by the user is saved to a
+            ``setup.json`` file for subsequent use by the ingestion module for
+            importing recorded reference datasets and conversion to SDFS datasets.
+
+        13. **Reference Data Ingestion and Saving Processed Datasets**:
+
+            Recorded reference datasets are ingested via the configuration
+            specified and processed version of these datasets that have been
+            converted to SDFS format are saved as comma-separated value files
+            to the ``/data/reference_data/[source]/processed/[site_name]_[site_id]``.
+
+        **Setup for AirNowTech Datsets:**
+
+        Setup process is the same as steps #1-5 for the local data file setup
+        process. Subsequently, these steps are followed by:
+
+        6. **Pre-processing AirNowTech Datasets**:
+
+           Local AirNowTech files that the user selected in the previous step
+           are imported and processed versions of these datasets are ingested
+           into the SDFS format via the
+           ``sensortoolkit.reference.preprocess_airnowtech()`` method.
+           Processed datasets are subsequently saved as comma-separated value
+           files to ``/data/reference_data/airnowtech/processed/[site_name]_[site_id]``
+
+        7. **Saving the Setup Configuration to** ``setup.json``:
+
+            The setup configuration specified by the user is saved to a
+            ``setup.json`` file.
+
+        **Setup for Querying the AQS API**
+
+        Setup process is the same as steps 1 and 2 for the local data file setup
+        process.
+
+        .. important::
+
+            Users must provide a site AQS ID in step 2 to successfully query
+            the API service.
+
+        The setup configuration is subsequently saved to a
+        ``reference_setup.json`. Users should then query the AQS API via the
+        ``ReferenceMonitor.query_aqs()`` method.
+
+        **Setup for Querying the AirNow API**
+
+        Setup process is the same as steps 1 and 2 for the local data file setup
+        process.
+
+        .. important::
+
+            In step 2, users must provide the latitude and longitude
+            coordinates for the monitoring site where air sensors were
+            collocated to successfully query the API service.
+
+        The setup configuration is subsequently saved to a
+        ``reference_setup.json`. Users should then query the AirNow API via the
+        ``ReferenceMonitor.query_airnow()`` method.
+
+
+        Returns:
+            None.
+
+        """
         if hasattr(self, 'setup_data'):
             print(f'A setup configuration has previously been created for {self.setup_data["site_name"]}')
             print('Do you wish to continue and overwrite the previously created configuration?')
@@ -173,6 +324,21 @@ class ReferenceMonitor:
                              f'{path}')
 
     def get_method_name(self, param):
+        """Return the name of the reference method (instrument name) for
+         the passed parameter.
+
+
+        Args:
+            param (str):
+                The parameter for which the reference monitor name will be
+                retrieved.
+
+        Returns:
+            method_name (str):
+                Name of the reference monitor used to collect measurements for
+                the passed parameter.
+
+        """
         classifier = Parameter(param).classifier
         if self.data[classifier]['1-hour'].empty:
             print('No reference data found, load data via ReferenceMontior.load_data()')
