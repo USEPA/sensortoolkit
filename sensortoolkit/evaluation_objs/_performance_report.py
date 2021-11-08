@@ -2205,8 +2205,12 @@ class PerformanceReport(SensorEvaluation):
                 Name of the type of table to construct.
 
         Returns:
-            frame: pptx GraphicFrame object in which the table is contained.
-            table: pptx table shape formatted for the selected table type.
+            (tuple): Two-element tuple containing:
+
+                - **frame** (*pptx GraphicFrame*): Object in which the table
+                  is contained.
+                - **table** (* pptx table shape*): Table shape formatted for
+                  the selected table type.
 
         """
 
@@ -2371,8 +2375,18 @@ class PerformanceReport(SensorEvaluation):
         """Modify xml entry to add a new attribute (element).
 
         Reference:
+
             Based on Steve Canny's code at the following link:
+
             https://groups.google.com/g/python-pptx/c/UTkdemIZICw
+
+        Args:
+            parent (TYPE): DESCRIPTION.
+            tagname (TYPE): DESCRIPTION.
+            **kwargs (TYPE): DESCRIPTION.
+
+        Returns:
+            element (TYPE): DESCRIPTION.
 
         """
         element = ppt.oxml.xmlchemy.OxmlElement(tagname)
@@ -2384,11 +2398,25 @@ class PerformanceReport(SensorEvaluation):
         """Edit tabular cell boarder width, color.
 
         Reference:
-            Based on Steve Canny's code at the following links:
-            https://groups.google.com/g/python-pptx/c/UTkdemIZICw
 
-            https://stackoverflow.com/questions/42610829/
-            python-pptx-changing-table-style-or-adding-borders-to-cells
+            Based on Steve Canny's code at the following links:
+
+            - https://groups.google.com/g/python-pptx/c/UTkdemIZICw
+            - https://stackoverflow.com/questions/42610829/python-pptx-changing-table-style-or-adding-borders-to-cells
+
+
+        Args:
+            cell (pptx table._cell object):
+                The cell object within a pptx.table object that will be edited.
+            border_color (TYPE, optional):
+                Cell border color in hex color code. Defaults to "ffffff"
+                (white).
+            border_width (str, optional):
+                The width of the cell border (in english metric units).
+                Defaults to '20000'.
+
+        Returns:
+            None.
 
         """
         tc = cell._tc
@@ -2413,8 +2441,15 @@ class PerformanceReport(SensorEvaluation):
 
         Reference:
             Code via Martin Packer:
-            https://stackoverflow.com/questions/61329224/how-do-i-add-
-            superscript-subscript-text-to-powerpoint-using-python-pptx
+            https://stackoverflow.com/questions/61329224/how-do-i-add-superscript-subscript-text-to-powerpoint-using-python-pptx
+
+
+        Args:
+            font (pptx text run object):
+                Font object containing various character properies.
+
+        Returns:
+            None.
 
         """
         font._element.set('baseline', '-25000')
@@ -2424,9 +2459,17 @@ class PerformanceReport(SensorEvaluation):
         python-pptx as of v0.6.19)
 
         Reference:
+
             Code via Martin Packer:
-            https://stackoverflow.com/questions/61329224/how-do-i-add-
-            superscript-subscript-text-to-powerpoint-using-python-pptx
+
+            https://stackoverflow.com/questions/61329224/how-do-i-add-superscript-subscript-text-to-powerpoint-using-python-pptx
+
+        Args:
+            font (pptx text run object):
+                Font object containing various character properies.
+
+        Returns:
+            None.
 
         """
         font._element.set('baseline', '30000')
@@ -2435,8 +2478,22 @@ class PerformanceReport(SensorEvaluation):
         """Move the supplemnental info table to the last slide position.
 
         Reference:
+
             Code via github user Amazinzay (Feb 17 2021):
+
             https://github.com/scanny/python-pptx/issues/68
+
+        Args:
+            slides (pptx.slide.Slides):
+                The collection of presentation slide objects.
+            slide (pptx.slide.Slide):
+                The slide object that will be reordered.
+            new_idx (int):
+                The integer position indicating where the slide will be
+                relocated.
+
+        Returns:
+            None.
 
         """
         slides._sldIdLst.insert(new_idx, slides._sldIdLst[slides.index(slide)])
@@ -2453,9 +2510,14 @@ class PerformanceReport(SensorEvaluation):
         module.
 
         Reference:
+
             This code follows the basic outline Steve Canny (scanny) suggests
             in response to this GitHub post:
+
             https://github.com/scanny/python-pptx/issues/64
+
+        Returns:
+            None.
 
         """
         layout = self.rpt.slide_layouts[1]
@@ -2477,12 +2539,19 @@ class PerformanceReport(SensorEvaluation):
         """Set text attributes (font, size, bold, italic, alignment).
 
         Args:
-            text_obj (TYPE): DESCRIPTION.
-            alignment (TYPE, optional): DESCRIPTION. Defaults to 'center'.
-            font_name (TYPE, optional): DESCRIPTION. Defaults to 'Calibri'.
-            font_size (TYPE, optional): DESCRIPTION. Defaults to 24.
-            bold (TYPE, optional): DESCRIPTION. Defaults to False.
-            italic (TYPE, optional): DESCRIPTION. Defaults to False.
+            text_obj (pptx.text.text Subshape):
+                Object containing the text attributes.
+            alignment (str, optional):
+                Text alignment. Options are 'center' or 'left'. Defaults
+                to 'center'.
+            font_name (str, optional):
+                The name of the font typeface. Defaults to 'Calibri'.
+            font_size (int or float, optional):
+                The font size. Defaults to 24.
+            bold (bool, optional):
+                If true, text will be formatted in bold. Defaults to False.
+            italic (bool, optional):
+                If true, text will be formatted in italics. Defaults to False.
 
         Returns:
             None.
@@ -2509,20 +2578,25 @@ class PerformanceReport(SensorEvaluation):
 
         Example:
             Say the 'metric' argument is 'CV' and the 'metric_vals' argument is
-            [20.2, 43.6, 26.5] (values are percentages). Given that the target
-            range for 'CV' is from 0% to 30%, two our of three sensors fall
-            within the target range. Textually, this can be represented by
+            ``[20.2, 43.6, 26.5]`` (values are percentages). Given that the
+            target range for 'CV' is from 0% to 30%, two our of three sensors
+            fall within the target range. Textually, this can be represented by
             a series of three dots, where two dots are closed and one is empty.
 
-            Text returned by CheckTargets():
+            Text returned by ``CheckTargets()``:
+
                 '●●○'
 
         Args:
-            metric_vals (TYPE): DESCRIPTION.
-            metric (TYPE): DESCRIPTION.
+            metric_vals (float, int, or list):
+                Evaluation results for the indicated performance metric.
+            metric (str):
+                The name of the performance metric.
 
         Returns:
-            text (TYPE): DESCRIPTION.
+            text (str):
+                A textual representation of the number of sensors meeting the
+                target range criteria for the performance metric.
 
         """
         # Place float / int values (single-valued intersensor stats) into
