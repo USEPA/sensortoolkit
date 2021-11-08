@@ -40,6 +40,7 @@ def purpleair_ab_averages(df, cleaning=True, a_col_name=None,
     Returns:
         df (pandas dataframe):
             Modified PurpleAir dataframe with computed AB averages
+            
     """
     if cleaning is True:
         # Compute (A-B) difference
