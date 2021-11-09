@@ -64,8 +64,8 @@ class PerformanceReport(SensorEvaluation):
       for constructing reports pertaining to sensors measuring either fine
       particulate matter (PM2.5) or ozone (O3) following U.S. EPA's
       recommended protocols and testing metrics for evaluating these sensors.
-      Module will exit execution if parameters other than 'PM25' or 'O3' are
-      specified.
+      Module will exit execution if parameters other than ``'PM25'`` or
+      ``'O3'`` are specified.
 
     Args:
         sensor (sensortoolkit.AirSensor object):
@@ -467,7 +467,7 @@ class PerformanceReport(SensorEvaluation):
         """Add meteorological distribution (Temp, RH) to report.
 
         Args:
-            **kwargs (TYPE):
+            **kwargs (dict):
                 Keyword arguments passed to ``met_distrib()``
                 subroutine for drawing distribution plots.
 
@@ -1195,7 +1195,8 @@ class PerformanceReport(SensorEvaluation):
 
 
         Args:
-            table (TYPE): DESCRIPTION.
+            table (pptx table object):
+                A table object for sensor vs. reference regression statistics.
 
         Returns:
             None.
@@ -1637,7 +1638,8 @@ class PerformanceReport(SensorEvaluation):
 
 
         Args:
-            table (TYPE): DESCRIPTION.
+            table (pptx table object):
+                A table object for sensor vs. reference error (RMSE, NRMSE).
 
         Returns:
             None.
@@ -1791,7 +1793,8 @@ class PerformanceReport(SensorEvaluation):
 
 
         Args:
-            table (TYPE): DESCRIPTION.
+            table (pptx table object):
+                A table object for intersensor precision statistics.
 
         Returns:
             None.
@@ -1989,11 +1992,46 @@ class PerformanceReport(SensorEvaluation):
 
 
         Args:
-            table (TYPE): DESCRIPTION.
-            span_dict (TYPE): DESCRIPTION.
+            table (pptx.table.Table):
+                pptx table object to modify.
+            span_dict (dict):
+                Dictionary where each entry contains list of
+                consecutive cell indicies in the table that will be spanned.
+
+                Example:
+                    Say you have a table with three rows and two columns for
+                    a total of 4 cells. Let's say we want to make the first
+                    row of cells into a single cell that spans the row. The
+                    cells in the table are accessed by the index position
+                    starting at zero in the top left corner and incrementing
+                    from left to right. The table and the indicies for each
+                    cell can be visualized in the following way:
+
+                    +---+---+---+
+                    | 0 | 1 | 2 |
+                    +---+---+---+
+                    | 3 | 4 | 5 |
+                    +---+---+---+
+
+                    Since we want to span the columns of the first row, we need
+                    to indicate in the span_dict that the starting cell for
+                    spanning the table is the cell at index position zero and the
+                    ending cell for spanning will be the cell at index position
+                    two.
+
+                    >>>span_dict = {'name_of_spanned_cells': [0, 2]}
+
+                    The spanned table will then be returned as:
+
+                    +---+---+---+
+                    |           |
+                    +---+---+---+
+                    |   |   |   |
+                    +---+---+---+
 
         Returns:
-            cells (TYPE): DESCRIPTION.
+            cells (collection of pptx.table.Table.cell objects):
+                Table cells that have been spanned.
 
         """
 
@@ -2200,16 +2238,22 @@ class PerformanceReport(SensorEvaluation):
         Args:
             slide (pptx slide object):
                 The report slide on which the tabular statistics will be
-                placed. This will likely be slide #2 (i.e., self.rpt.slides[1])
-            table_type (str): {'sensor_reference', 'error', 'sensor_sensor'}
-                Name of the type of table to construct.
+                placed. This will likely be slide #2 (i.e.,
+                ``self.rpt.slides[1]``).
+            table_type (str):
+                Name of the type of table to construct. Options include the
+                following:
+
+                    - ``'sensor_reference'``
+                    - ``'error'``
+                    - ``'sensor_sensor'``
 
         Returns:
             (tuple): Two-element tuple containing:
 
                 - **frame** (*pptx GraphicFrame*): Object in which the table
                   is contained.
-                - **table** (* pptx table shape*): Table shape formatted for
+                - **table** (*pptx table shape*): Table shape formatted for
                   the selected table type.
 
         """
@@ -2345,7 +2389,7 @@ class PerformanceReport(SensorEvaluation):
             slide number (int):
                 The number of the slide (starting at 1) for which shape ids and
                 locations will be printed.
-            shape_type (str) {'all', ...?}: # TODO: get type names
+            shape_type (str) {'all', ...?}:
                 The types of shapes on the slide to print out. 'all' will
                 return all shapes regardless of type, however, selecting a
                 particular type (e.g., 'table') will only return shapes on the
@@ -2374,7 +2418,7 @@ class PerformanceReport(SensorEvaluation):
     def SubElement(self, parent, tagname, **kwargs):
         """Modify xml entry to add a new attribute (element).
 
-        Reference:
+        **Reference:**
 
             Based on Steve Canny's code at the following link:
 
@@ -2395,9 +2439,10 @@ class PerformanceReport(SensorEvaluation):
         return element
 
     def SetCellBorder(self, cell, border_color="ffffff", border_width='20000'):
-        """Edit tabular cell boarder width, color.
+        """Edit tabular cell boarder attributes (border width, fill color,
+        etc.).
 
-        Reference:
+        **Reference:**
 
             Based on Steve Canny's code at the following links:
 
@@ -2408,7 +2453,7 @@ class PerformanceReport(SensorEvaluation):
         Args:
             cell (pptx table._cell object):
                 The cell object within a pptx.table object that will be edited.
-            border_color (TYPE, optional):
+            border_color (str, optional):
                 Cell border color in hex color code. Defaults to "ffffff"
                 (white).
             border_width (str, optional):
@@ -2439,8 +2484,10 @@ class PerformanceReport(SensorEvaluation):
         """Workaround for making font object text subscript (not included in
         python-pptx as of v0.6.19)
 
-        Reference:
+        **Reference:**
+
             Code via Martin Packer:
+
             https://stackoverflow.com/questions/61329224/how-do-i-add-superscript-subscript-text-to-powerpoint-using-python-pptx
 
 
@@ -2458,7 +2505,7 @@ class PerformanceReport(SensorEvaluation):
         """Workaround for making font object text superscript (not included in
         python-pptx as of v0.6.19)
 
-        Reference:
+        **Reference:**
 
             Code via Martin Packer:
 
@@ -2475,9 +2522,9 @@ class PerformanceReport(SensorEvaluation):
         font._element.set('baseline', '30000')
 
     def MoveSlide(self, slides, slide, new_idx):
-        """Move the supplemnental info table to the last slide position.
+        """Move the supplemental info table to the last slide position.
 
-        Reference:
+        **Reference:**
 
             Code via github user Amazinzay (Feb 17 2021):
 
@@ -2509,12 +2556,12 @@ class PerformanceReport(SensorEvaluation):
         placeholder from the layout to the slides that are created by the
         module.
 
-        Reference:
+        **Reference:**
 
             This code follows the basic outline Steve Canny (scanny) suggests
             in response to this GitHub post:
 
-            https://github.com/scanny/python-pptx/issues/64
+                https://github.com/scanny/python-pptx/issues/64
 
         Returns:
             None.
@@ -2576,7 +2623,8 @@ class PerformanceReport(SensorEvaluation):
         For a passed metric name 'metric', determine the number of sensors
         with metric values within the specified metric target range.
 
-        Example:
+        **Example:**
+
             Say the 'metric' argument is 'CV' and the 'metric_vals' argument is
             ``[20.2, 43.6, 26.5]`` (values are percentages). Given that the
             target range for 'CV' is from 0% to 30%, two our of three sensors
@@ -2702,7 +2750,7 @@ class PerformanceReport(SensorEvaluation):
         self.SaveReport()
 
     def SaveReport(self):
-        """Save the report to the `/reports` directory as a pptx file.
+        """Save the report to the ``/reports`` directory as a pptx file.
 
         Returns:
             None.
