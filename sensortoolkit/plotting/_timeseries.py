@@ -30,69 +30,89 @@ register_matplotlib_converters()
 
 
 def sensor_timeplot(df_list, ref_df, param=None, sensor_name=None,
-                    figure_path=None, bdate=None, edate=None, write_to_file=True,
-                    sensor_serials=None, ref_name=None, averaging_interval=None,
-                    return_mpl_obj=True, report_fmt=False, ax=None, fig=None,
-                    **kwargs):
+                    figure_path=None, bdate=None, edate=None,
+                    write_to_file=True, sensor_serials=None, ref_name=None,
+                    averaging_interval=None, return_mpl_obj=True,
+                    report_fmt=False, ax=None, fig=None, **kwargs):
     """Generate a timeplot for a specified pollutant alongside FRM/FEM
     concentration values.
 
     Args:
-        df_list: list of dataframes
-            list of Pandas dataframes for evaluated sensors containing 1-hour
-            averaged data.
-        ref_df: Pandas dataframe
-            Reference (regulatory) data, plotted as black line on timeplots
-        param: string
-            Column header name for the pollutant values to be plotted
-        sensor_name: string
+        df_list (list):
+            List of Pandas dataframes containing sensor data.
+        ref_df (pandas DataFrame):
+            Reference dataset.
+        param (str, optional):
+            Column header name for the pollutant values to be plotted. Defaults
+            to None.
+        sensor_name (str, optional):
             Unformatted sensor name, passed to Formatted_Sensor_Name() for
-            including formatted version on plot
-        figure_path: string
-            Path to directory where the figure will be saved
-        color_palette: string
+            including formatted version on plot. Defaults to None.
+        figure_path (str, optional):
+            Path to directory where the figure will be saved. Defaults to None.
+        bdate (str, optional):
+            Date ('yyyy-mm-dd' format) for beginning of timeseries plot.
+            Defaults to None.
+        edate (str, optional):
+            Date ('yyyy-mm-dd' format) for end of timeseries plot.
+            Defaults to None.
+        write_to_file (bool, optional):
+            If true, figure is written to file and interactive plot is closed.
+            Defaults to True.
+        sensor_serials (dict, optional):
+            Optional pass sensor serials dictionary to plot sensor serial IDs
+            in the legend instead of numbered sensors. Defaults to None.
+        ref_name (str, optional):
+            DESCRIPTION. Defaults to None.
+        averaging_interval (str, optional):
+            DESCRIPTION. Defaults to None.
+        return_mpl_obj (bool, optional):
+            DESCRIPTION. Defaults to True.
+        report_fmt (bool, optional):
+            DESCRIPTION. Defaults to False.
+        ax (matplotlib axes object, optional):
+            DESCRIPTION. Defaults to None.
+        fig (matplotlib figure object, optional):
+            DESCRIPTION. Defaults to None.
+
+    Keyword arguments:
+
+        - **color_palette** (*str*):
             Color palette assigned to relative-humidity colormapped scatter
             plot points
-        fontsize: int or float
+        - **fontsize** (*int or float*):
             The font size for the xlabel, ylabel, and plot text. Passed on to
             Draw_Scatter() which uses 0.85*font_size for tick labels.
-        bdate: string
-            date ('yyyy-mm-dd' format) for beginning of timeseries plot
-        edate: string
-            date ('yyyy-mm-dd' format) for end of timeseries plot
-        ylim: tuple of floats/ints
+        - **ylim** (*TYPE*): tuple of floats/ints
             The y-limits of the plot
-        yscale: string
+        - **yscale** (*str*):
             The scaling for the y-axis. Accepted values include 'linear',
             'log', 'symlog', 'logit', etc.
-        write_to_file: bool
-            If true, figure is written to file and interactive plot is closed
-        date_interval: int
+        - **date_interval** (*int*):
             Number of days between x-axis tick marks with mm-dd-yy timestamps
-        title: bool
+        - **title** (*bool*):
             To plot or not to plot (the title), that is the question.
-        sensor_serials: Nonetype or dictionary
-            Optional pass sensor serials dictionary to plot sensor serial IDs
-            in the legend instead of numbered sensors.
-        filename_suffix: string
+        - **filename_suffix** (*str*):
             Optional string added to end of filename. Defaults to empty string.
-        alpha:
+        - **alpha** (*float*):
             Set transparency of sensor and reference timeseries
-        cmap_norm_range:
+        - **cmap_norm_range** (*two-element tuple*):
             Normalized range (0,1) for colormap hue selection. Limiting this
             range to something like (0.1, 0.9) is useful when using colormaps
             with high contrast extrema and a gradual change in hue is desired
             for plots.
-        legend_fontscale:
+        - **legend_fontscale** (*float*):
             Relative scale of fontsize for text in the legend relative to label
             text.
-        format_xaxis_weeks:
+        - **format_xaxis_weeks** (*TYPE*):
             Plot the timeseries x-axis (time) in increments of 1 week.
-        fig_size:
+        - **fig_size** (*two-element tuple*):
             Tuple for setting the figure size.
 
     Returns:
-        if return_mpl_obj is True or report_fmt is True, return ax object.
+        ax (matplotlib axes object):
+            If return_mpl_obj is True or report_fmt is True, return ax object,
+            else return None.
 
     """
     # Determine maximum concentration recorded during timeframe, use to set
@@ -333,7 +353,11 @@ def deployment_timeline(deployment_df, cmap_name='Dark2',
                         date_interval=1, fig_size=(11, 7),
                         write_to_file=True, figure_path=None,
                         tight_layout=False):
-    """
+    """A horizontal bar chart indicating the timeline during which sensors
+    were deployed.
+
+    Sensors are depicted as stacked, colored horizontal bars spanning the
+    beginning and end date of the deployment period.
 
     More details about line 70-82 code on barh rounding at MatPlotLib
     documentation on Fancybox https://matplotlib.org/3.1.1/gallery/
@@ -342,8 +366,18 @@ def deployment_timeline(deployment_df, cmap_name='Dark2',
     Other discrete colormaps: tab10_r, Dark2, Set2_r, tab20b
 
     Args:
+        deployment_df (TYPE): DESCRIPTION.
+        cmap_name (TYPE, optional): DESCRIPTION. Defaults to 'Dark2'.
+        cmap_norm_range (TYPE, optional): DESCRIPTION. Defaults to (.0, .75).
+        fontsize (TYPE, optional): DESCRIPTION. Defaults to 10.
+        date_interval (TYPE, optional): DESCRIPTION. Defaults to 1.
+        fig_size (TYPE, optional): DESCRIPTION. Defaults to (11, 7).
+        write_to_file (TYPE, optional): DESCRIPTION. Defaults to True.
+        figure_path (TYPE, optional): DESCRIPTION. Defaults to None.
+        tight_layout (TYPE, optional): DESCRIPTION. Defaults to False.
 
     Returns:
+        None.
 
     """
     unique_types = sorted(deployment_df['Sensor Name'].unique().tolist())

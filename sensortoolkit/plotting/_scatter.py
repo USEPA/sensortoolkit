@@ -40,57 +40,82 @@ def draw_scatter(ax, xdata, ydata, param_dict, sensor_stats=None,
     matplotlib axes instance
 
     Args:
-        ax: Matplotlib axes instance
+        ax (Matplotlib axes instance):
             The axes object on which the scatter plot is drawn
-        xdata: numpy array or pandas series
+        xdata: numpy array or pandas series):
             The x data (reference data)
-        ydata: numpy array or pandas series
+        ydata: numpy array or pandas series):
             The y data (sensor data)
-        sensor_stats: pandas dataframe
+        param_dict (dict):
+            Dictionary of kwargs to pass to ax.plot
+        sensor_stats (pandas DataFrame):
             Dataframe contain regression statistics for single sensor (subset
             of the full stats_df object)
-        xlim: tuple
+        xlims (tuple):
           The domain of the graph
-        ylim: tuple
+        ylims (tuple):
           The range of the graph
-        fontsize: int
+        fontsize (int):
             Selects the fontsize of regression statistics
-        detail_fontsize:
+        detail_fontsize (int or float):
             Fontsize for axes tick labels
-        param_dict: dict
-            Dictionary of kwargs to pass to ax.plot
-        plot_regression: bool
+        param (str):
+            The name of the parameter for which measurements will be plotted.
+        plot_regression (bool):
             True plots linear regression, regression equation, R^2, and RMSE
-        colormap_vals: Dataframe column or none
+        colormap_vals (Dataframe column or none):
             Data that are used to set the colormap value.
-        colormap_name: string or none
+        colormap_name (string or none):
             The name of the colormap which the scatter plot will be assigned
-        kwargs:
-            monocolor
-            point_size
-            point_alpha
-            plot_aspect
-            plottext_alpha
-            plottext_size
-            plottext_color
-            plottext_xloc
-            plottext_yloc
-            plottext_xdisplacement
-            plottext_ydisplacement
-            plottext_position
-            show_trendline
-            show_RMSE
-            show_spearman
-            show_N
-            show_one_to_one
-            trendline_xmax
-            trendline_color
-            trendline_alpha
+
+    Keyword arguments:
+
+        - **monocolor** (*TYPE*):
+            DESCRIPTION
+        - **point_size** (*TYPE*):
+            DESCRIPTION
+        - **point_alpha** (*TYPE*):
+            DESCRIPTION
+        - **plot_aspect** (*TYPE*):
+            DESCRIPTION
+        - **plottext_alpha** (*TYPE*):
+            DESCRIPTION
+        - **plottext_size** (*TYPE*):
+            DESCRIPTION
+        - **plottext_color** (*TYPE*):
+            DESCRIPTION
+        - **plottext_xloc** (*TYPE*):
+            DESCRIPTION
+        - **plottext_yloc** (*TYPE*):
+            DESCRIPTION
+        - **plottext_xdisplacement** (*TYPE*):
+            DESCRIPTION
+        - **plottext_ydisplacement** (*TYPE*):
+            DESCRIPTION
+        - **plottext_position** (*TYPE*):
+            DESCRIPTION
+        - **show_trendline** (*TYPE*):
+            DESCRIPTION
+        - **show_RMSE** (*TYPE*):
+            DESCRIPTION
+        - **show_spearman** (*TYPE*):
+            DESCRIPTION
+        - **show_N** (*TYPE*):
+            DESCRIPTION
+        - **show_one_to_one** (*TYPE*):
+            DESCRIPTION
+        - **trendline_xmax** (*TYPE*):
+            DESCRIPTION
+        - **trendline_color** (*TYPE*):
+            DESCRIPTION
+        - **trendline_alpha** (*TYPE*):
+            DESCRIPTION
 
     Returns:
         plotobj:
             Matplotlib axes instance with scatter drawn along with additional
             elements specified in the kwargs (text, colormap)
+
     """
     # Set keyword arguments to passed values or defaults
     pointsize = kwargs.get('point_size', 20)
@@ -253,49 +278,49 @@ def scatter_plotter(df_list, ref_df, stats_df=None, plot_subset=None,
     based off passed parameters.
 
     Args:
-        df_list: list
+        df_list (list):
             A list containing the sensor dataframes from which data is plotted
-        ref_df: Pandas Dataframe
+        ref_df (pandas DataFrame):
             Reference dataframe
-        stats_df: Pandas Dataframe
+        stats_df (pandas DataFrame):
             Regression statistics dataframe for the sensor evaluation set
-        plot_subset: Nonetype or list of strings
+        plot_subset (Nonetype or list of strings):
             To plot a subset of evaluated sensors, pass a list of the sensor
             numbers ('1', '2', '3', etc.) as assigned in the sensor serial
             dictionary. For example, plotting a subset for sensors '1', '3',
             and '5' in an evaluation is achieved by passing
             plot_subset=['1', '3', '5'].
-        param: string
+        param (str):
             Column header name for the pollutant values to be plotted
-        sensor_name: string
+        sensor_name (str):
             Unformatted sensor name, passed to Formatted_Sensor_Name() for
             including formatted version on plot
-        figure_path: string
+        figure_path (str):
             Path to directory where the figure will be saved
-        write_to_file: Boolean
+        write_to_file (bool):
             If true, writes to file and figure is closed. False skips file
             writing and does not close the figure
         averaging_interval (str):
             The averaging interval of the sensor and reference datasets, either
             '1-hour' or '24-hour'.
-        met_ref_df: Nonetype or Pandas dataframe
+        met_ref_df (Nonetype or pandas DataFrame):
             Reference dataframe for met data. Used as an alternative to sensor
             met data for plotting colormap of relative humidity on scatterplot
             points. If passed, the reference met data takes precedence over
             any existing sensor met data.
-        deploy_dict:
+        deploy_dict (dict):
             DEFINITION
-        sensor_serials:
+        sensor_serials (dict):
             DEFINITION
-        ax:
+        ax (matplotlib axes instance):
             DEFINITION
-        fig:
+        fig (matplotlib fig instance):
             DEFINITION
-        report_fmt:
+        report_fmt (bool):
             DEFINITION
-        return_axs:
+        return_axs (bool):
             DEFINITION
-        param_class: string
+        param_class (str):
             The parameter classification for the passed parameter to plot.
             E.g, if param is PM25, param_class = PM; if param is 03,
             param_class = Gases;if param is Temp, param_class = Met.
@@ -343,27 +368,27 @@ def scatter_plotter(df_list, ref_df, stats_df=None, plot_subset=None,
           Recommend #2251D0 (nice blue hue).
         - **detail_fontsize** (*TYPE*):
           DEFINITION
-        - **point_size** (*TYPE*, passed to ``Draw_Scatter()``):
+        - **point_size** (*TYPE, passed to Draw_Scatter()*):
           The size of the scatterpoint plots
         - **point_alpha** (*TYPE*):
           DEFINITION
-        - **plot_aspect** (*TYPE*, passed to ``Draw_Scatter()``):
+        - **plot_aspect** (*TYPE, passed to Draw_Scatter()*):
           DEFINITION
-        - **plottext_alpha** (*TYPE*, passed to ``Draw_Scatter()``):
+        - **plottext_alpha** (*TYPE, passed to Draw_Scatter()*):
           DEFINITION
-        - **plottext_size** (*TYPE*, passed to ``Draw_Scatter()``):
+        - **plottext_size** (*TYPE, passed to Draw_Scatter()*):
           DEFINITION
-        - **plottext_color** (*TYPE*, passed to ``Draw_Scatter()``):
+        - **plottext_color** (*TYPE, passed to Draw_Scatter()*):
           DEFINITION
-        - **plottext_xloc** (*TYPE*, passed to ``Draw_Scatter()``):
+        - **plottext_xloc** (*TYPE, passed to Draw_Scatter()*):
           DEFINITION
-        - **plottext_yloc** (*TYPE*, passed to ``Draw_Scatter()``):
+        - **plottext_yloc** (*TYPE, passed to Draw_Scatter()*):
           DEFINITION
-        - **plottext_xdisplacement** (*TYPE*, passed to ``Draw_Scatter()``):
+        - **plottext_xdisplacement** (*TYPE, passed to Draw_Scatter()*):
           DEFINITION
-        - **plottext_ydisplacement** (*TYPE*, passed to ``Draw_Scatter()``):
+        - **plottext_ydisplacement** (*TYPE, passed to Draw_Scatter()*):
           DEFINITION
-        - **plottext_position** (*TYPE*, passed to ``Draw_Scatter()``):
+        - **plottext_position** (*TYPE, passed to Draw_Scatter()*):
            Determines position of plot text. Can either pass 'upper_left' or
            'bottom_right'
         - **ref_name** (*TYPE*):
@@ -382,13 +407,13 @@ def scatter_plotter(df_list, ref_df, stats_df=None, plot_subset=None,
           True. If false, regression lines on plots will not be generated.
         - **show_trendline** (*TYPE*):
           DEFINITION
-        - **show_RMSE** (*TYPE*, passed to ``Draw_Scatter()``):
+        - **show_RMSE** (*TYPE, passed to Draw_Scatter()*):
           DEFINITION
-        - **show_spearman** (*TYPE*, passed to ``Draw_Scatter()``):
+        - **show_spearman** (*TYPE, passed to Draw_Scatter()*):
           DEFINITION
-        - **show_N** (*TYPE*, passed to ``Draw_Scatter()``):
+        - **show_N** (*TYPE, passed to Draw_Scatter()*):
           DEFINITION
-        - **show_one_to_one** (*TYPE*, passed to ``Draw_Scatter()``):
+        - **show_one_to_one** (*TYPE, passed to Draw_Scatter()*):
           DEFINITION
         - **tight_layout** (*TYPE*):
           Passed to matplotlib's ``fig.tight_layout()`` for narrow formatting
@@ -402,11 +427,11 @@ def scatter_plotter(df_list, ref_df, stats_df=None, plot_subset=None,
           DEFINITION
         - **title_yloc** (*TYPE*):
           DEFINITION
-        - **trendline_xmax** (*TYPE*, passed to ``Draw_Scatter()``):
+        - **trendline_xmax** (*TYPE, passed to Draw_Scatter()*):
           DEFINITION
-        - **trendline_color** (*TYPE*, passed to ``Draw_Scatter()``):
+        - **trendline_color** (*TYPE, passed to Draw_Scatter()*):
           DEFINITION
-        - **trendline_alpha** (*TYPE*, passed to ``Draw_Scatter()``):
+        - **trendline_alpha** (*TYPE, passed to Draw_Scatter()*):
           DEFINITION
         - **xlims** (*TYPE*):
           The x-limits of the scatter plot
@@ -415,9 +440,9 @@ def scatter_plotter(df_list, ref_df, stats_df=None, plot_subset=None,
 
     Returns:
         (matplotlib axes instance or None):
-            If an axis is passed to Scatter_Plotter(), the modified axis with
-            plotting detail filled in will be returned. Otherwise, none will be
-            returned.
+            If an axis is passed to ``Scatter_Plotter()``, the modified axis
+            with plotting detail filled in will be returned. Otherwise, none
+            will be returned.
 
     """
     sns.set_style(kwargs.get('seaborn_style', 'darkgrid'))
@@ -787,8 +812,25 @@ def normalized_met_scatter(df_list, ref_df, avg_df, met_ref_df=None,
     temperature or relative humidity.
 
     Args:
+        df_list (TYPE): DESCRIPTION.
+        ref_df (TYPE): DESCRIPTION.
+        avg_df (TYPE): DESCRIPTION.
+        met_ref_df (TYPE, optional): DESCRIPTION. Defaults to None.
+        figure_path (TYPE, optional): DESCRIPTION. Defaults to None.
+        param (TYPE, optional): DESCRIPTION. Defaults to None.
+        met_param (TYPE, optional): DESCRIPTION. Defaults to None.
+        sensor_name (TYPE, optional): DESCRIPTION. Defaults to None.
+        write_to_file (TYPE, optional): DESCRIPTION. Defaults to True.
+        sensor_serials (TYPE, optional): DESCRIPTION. Defaults to None.
+        ref_name (TYPE, optional): DESCRIPTION. Defaults to None.
+        report_fmt (TYPE, optional): DESCRIPTION. Defaults to False.
+        fig (TYPE, optional): DESCRIPTION. Defaults to None.
+        ax (TYPE, optional): DESCRIPTION. Defaults to None.
+        return_mpl_obj (TYPE, optional): DESCRIPTION. Defaults to False.
+        **kwargs (TYPE): DESCRIPTION.
 
     Returns:
+        ax (TYPE): DESCRIPTION.
 
     """
     param_obj = Parameter(param)

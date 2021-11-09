@@ -33,8 +33,16 @@ def ref_distrib(ref_df, param=None, averaging_interval='1-hour',
     """Plot the distribution of reference values for the passed parameter.
 
     Args:
+        ref_df (TYPE): DESCRIPTION.
+        param (TYPE, optional): DESCRIPTION. Defaults to None.
+        averaging_interval (TYPE, optional): DESCRIPTION. Defaults to '1-hour'.
+        font_size (TYPE, optional): DESCRIPTION. Defaults to 18.
+        write_to_file (TYPE, optional): DESCRIPTION. Defaults to True.
+        figure_path (TYPE, optional): DESCRIPTION. Defaults to None.
+        filename_suffix (TYPE, optional): DESCRIPTION. Defaults to ''.
 
     Returns:
+        None.
 
     """
     try:
@@ -88,8 +96,14 @@ def met_distrib(met_ref_data, avg_hrly_df, figure_path, sensor_name=None,
     the total distribution of measurements).
 
     Args:
+        met_ref_data (TYPE): DESCRIPTION.
+        avg_hrly_df (TYPE): DESCRIPTION.
+        figure_path (TYPE): DESCRIPTION.
+        sensor_name (TYPE, optional): DESCRIPTION. Defaults to None.
+        write_to_file (TYPE, optional): DESCRIPTION. Defaults to True.
 
     Returns:
+        None.
 
     """
     font_size = 10
@@ -180,8 +194,14 @@ def recording_interval_histogram(full_df_list, xmin=-10, xmax=120,
     Graphs bar plot of Log(counts) vs. time delta b/w conseq points
 
     Args:
+        full_df_list (TYPE): DESCRIPTION.
+        xmin (TYPE, optional): DESCRIPTION. Defaults to -10.
+        xmax (TYPE, optional): DESCRIPTION. Defaults to 120.
+        bar_width (TYPE, optional): DESCRIPTION. Defaults to 2.
+        bar_alpha (TYPE, optional): DESCRIPTION. Defaults to .4.
 
     Returns:
+        None.
 
     """
     if len(full_df_list) == 3:
