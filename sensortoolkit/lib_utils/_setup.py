@@ -38,8 +38,11 @@ from sensortoolkit.datetime_utils import (interval_averaging,
 class _Setup:
     """Setup methods for Sensor and Reference data ingestion configuration.
 
-    Arguments:
-        path
+    Args:
+        path (str, optional):
+            The path to the directory where the user intends to store data,
+            figures, and reports relating to the sensor being testing.
+            Defaults to None.
 
     """
 
@@ -68,8 +71,9 @@ class _Setup:
         self.col_headers = {}
 
     def config(self):
-        """
+        """Wrapper method for standard configuration setup.
 
+        Utilized by both sensor and reference setup schemes.
 
         Returns:
             None.
@@ -98,13 +102,25 @@ class _Setup:
         self.setTimeZone()
 
     def printSelectionBanner(self, select_type, options=[], notes=[]):
-        """
-
+        """Display a banner indicating the current configuration step.
 
         Args:
-            select_type (TYPE): DESCRIPTION.
-            options (TYPE, optional): DESCRIPTION. Defaults to [].
-            notes (TYPE, optional): DESCRIPTION. Defaults to [].
+            select_type (str): The title of the configuration section.
+            options (list, optional):
+                List of interactive options indicating keyword characters
+                used to modify the state of thge console and
+                a description of what entering that keyword does. Defaults
+                to [].
+
+                Example:
+
+                    >>> options = ['..press X to end adding entries',
+                                   '..press D to delete the previous entry']
+
+            notes (list, optional):
+                A list of strings containing notes or
+                resources that may provide helpful context for the selection
+                input or operation. Defaults to [].
 
         Returns:
             None.
@@ -266,7 +282,7 @@ class _Setup:
         Args:
             file (str):
                 Full path to dataset file.
-            **kwargs (TYPE):
+            **kwargs (dict):
                 - **nrows** (*int*):
                   The number of rows to load for the passed dataset. Defaults
                   to 1.
@@ -332,7 +348,7 @@ class _Setup:
 
     def parseDataSets(self, print_banner=True):
         """Load the  first few rows of recorded sensor datasets located in the
-           ``../data/sensor_data/[sensor_name]/raw_data`` directory path.
+        ``../data/sensor_data/[sensor_name]/raw_data`` directory path.
 
         The names of column headers are located based on the
         indicated head index. A list of unique column headers is stored for
@@ -1092,10 +1108,16 @@ class ReferenceSetup(_Setup):
     def setParamMetaCols(self, param, sdfs_param):
         """
 
+        - Units
+        - Parameter AQS Code
+        - Reference Method Code
+        - Parameter Occurance Code
 
         Args:
-            param (TYPE): DESCRIPTION.
-            sdfs_param (TYPE): DESCRIPTION.
+            param (str):
+                The name of the parameter as it appears in recorded datasets.
+            sdfs_param (str):
+                The corresponding SDFS parameter name.
 
         Returns:
             None.
@@ -1193,11 +1215,16 @@ class ReferenceSetup(_Setup):
 
 
         Args:
-            param_code (TYPE): DESCRIPTION.
-            lookup_data (TYPE): DESCRIPTION.
+            param_code (int):
+                AQS parameter code.
+            lookup_data (pandas DataFrame):
+                AQS method code lookup table containing a list of FRM/FEM
+                reference methods.
 
         Returns:
-            table (TYPE): DESCRIPTION.
+            table (pandas DataFrame):
+                A table containing a listing of reference methods designated
+                FRM/FEMs for the indicated parameter.
 
         """
         with pd.option_context('display.expand_frame_repr', False,
