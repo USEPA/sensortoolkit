@@ -361,10 +361,10 @@ def get_colormap_range(df_list):
 
 
     Args:
-        df_list (TYPE): Sensor datasets.
+        df_list (list): Sensor datasets.
 
     Returns:
-        cmap_range (TYPE): Tuple of length 2 containing the lower and upper
+        cmap_range (tuple): Tuple of length 2 containing the lower and upper
         bounds for the normalized colormap range.
 
     """

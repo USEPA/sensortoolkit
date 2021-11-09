@@ -158,7 +158,7 @@ class ParameterTargets:
             metric_name (str):
                 The name of a new performance metric that will be added to
                 the indicated metric category.
-            **kwargs (TYPE):
+            **kwargs (dict):
                 Keyword arguments for specifying metric attributes. Accepted
                 keyword arguments include: 'description' (a textual
                 description of the metric), 'bounds' (the target range for

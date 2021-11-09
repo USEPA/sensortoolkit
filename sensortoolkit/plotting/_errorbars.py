@@ -2,7 +2,7 @@
 """
 This module contains a method ``error_bars()`` for displaying the y-error in
 measured quantities at regularly spaced intervals (bins) along the x-axis. This
-method can be used in conjunction with the ``normalized_met_scatter()`` plotting 
+method can be used in conjunction with the ``normalized_met_scatter()`` plotting
 method to display the standard error of normalized measurement pairs (dependent
 variable) at regularly spaced intervals across the distribution of
 measured temperature or relative humidity (independent variable).
@@ -29,19 +29,19 @@ def error_bars(xdata, ydata, ax, n_xbins=8, plot_yerror=True,
     """Display error bars on a passed matplotlib axes plot instance.
 
     Args:
-        xdata (TYPE):
+        xdata (pandas Series):
             Data plotted along the x-axis of the passed axes instance 'ax'.
-        ydata (TYPE):
+        ydata (pandas Series):
             Data plotted along the y-axis of the passed axes instance 'ax'.
         ax (matplotlib axes instance):
             A scatter plot displaying measurement pairs along x and y axes.
-        n_xbins (TYPE, optional):
+        n_xbins (int, optional):
             The number of bins along the range of the xdata from which the error
             bars will be computed. This also equals the number of errorbars.
             Defaults to 8.
-        plot_yerror (TYPE, optional):
+        plot_yerror (bool, optional):
             Plot error along the y-axis. Defaults to True.
-        errorbar_color (TYPE, optional):
+        errorbar_color (str, optional):
             The color of the error bars. Defaults to 'k' (black).
 
     Returns:

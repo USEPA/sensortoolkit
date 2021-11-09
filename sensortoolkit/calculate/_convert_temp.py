@@ -18,8 +18,8 @@ def convert_temp(data, from_unit='F', to_unit='C'):
 
     Args:
         data (pandas DataFrame or pandas Series): DESCRIPTION.
-        from_unit (TYPE, optional): DESCRIPTION. Defaults to 'F'.
-        to_unit (TYPE, optional): DESCRIPTION. Defaults to 'C'.
+        from_unit (str, optional): DESCRIPTION. Defaults to 'F'.
+        to_unit (str, optional): DESCRIPTION. Defaults to 'C'.
 
     Raises:
         KeyError: DESCRIPTION.

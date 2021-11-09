@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
 This module contains various methods for sensortoolkit functions that make use
-of interactive, user-input components. 
+of interactive, user-input components.
 
 ================================================================================
 
@@ -26,7 +26,7 @@ def validate_entry(indent_statement=0):
             (no indent).
 
     Returns:
-        val (TYPE): The user's input choice, either 'y' or 'n'.
+        val (str): The user's input choice, either 'y' or 'n'.
 
     """
     val = ''
@@ -47,7 +47,7 @@ def enter_continue(indent_statement=0):
     wish to review a console output or decision before continuing.
 
     Args:
-        indent_statement (TYPE, optional):
+        indent_statement (int, optional):
             Optional argument for indenting the printed statement (useful for
             setup module where indenting indicates subsection). Defaults to 0
             (no indent).

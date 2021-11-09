@@ -690,9 +690,9 @@ def parse_sample_data(sample_data, get_monitor_info, param_list, **kwargs):
 
     Args:
         sample_data (pandas DataFrame): DESCRIPTION.
-        get_monitor_info (TYPE): DESCRIPTION.
-        param_list (TYPE): DESCRIPTION.
-        **kwargs (TYPE): DESCRIPTION.
+        get_monitor_info (bool): DESCRIPTION.
+        param_list (list): DESCRIPTION.
+        **kwargs (dict): DESCRIPTION.
 
     Returns:
         sample_data (pandas DataFrame): DESCRIPTION.
@@ -775,8 +775,8 @@ def ingest_aqs(data, param, api_param, param_classifier,
         (tuple): two-element tuple containing:
 
             - data (pandas DataFrame): SDFS formatted dataset.
-            - idx (TYPE): The datetime index (UTC) for the data received from
-              the API query.
+            - idx (pandas DateTimeIndex): The datetime index (UTC) for the data
+              received from the API query.
 
     """
     idx = pd.to_datetime(data['date_gmt_' + api_param] + ' '
@@ -989,7 +989,7 @@ def ingest_airnow(data, param, time_of_query):
             format '%Y-%m-%d %H:%M:%S'.
 
     Returns:
-        data (TYPE): SDFS formatted dataset.
+        data (pandas DataFrame): SDFS formatted dataset.
 
     """
     idx = pd.to_datetime(data.DateTime)
@@ -1035,7 +1035,7 @@ def save_api_dataset(process_df, raw_df, path, query_type, param_class,
             service.
         raw_df (pandas DataFrame):
             A dataset containing unmodified data returned by the API service.
-        path (TYPE):
+        path (str):
             The project path where the ``/data/reference_data`` subdirectory
             is housed. Data are saved at the refrence data subdirectory
             structure within this parent directory.

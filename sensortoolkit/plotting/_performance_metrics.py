@@ -64,7 +64,7 @@ def performance_metrics(stats_df, deploy_dict, param=None,
             If true, the figure will be written to the /figures/[param] sensor
             subdirectory (where 'param' is the name of the parameter being
             evaluated). Defaults to True.
-        **kwargs (TYPE): Plotting keyword arguments.
+        **kwargs (dict): Plotting keyword arguments.
 
     Returns:
         None.

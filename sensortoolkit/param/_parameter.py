@@ -298,8 +298,8 @@ class Parameter:
 
 
         Args:
-            baseline (TYPE, optional): DESCRIPTION. Defaults to None.
-            subscript (TYPE, optional): DESCRIPTION. Defaults to None.
+            baseline (str, optional): DESCRIPTION. Defaults to None.
+            subscript (str, optional): DESCRIPTION. Defaults to None.
 
         Returns:
             None.

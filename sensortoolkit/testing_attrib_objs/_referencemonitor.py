@@ -53,7 +53,7 @@ class ReferenceMonitor:
         site_id (str, optional):
             The unique identification number for the air monitoring site.
             Typically the AQS Site ID if applicable. Defaults to None.
-        **kwargs (TYPE): Additional keyword arguments.
+        **kwargs (dict): Additional keyword arguments.
 
     Raises:
         ValueError: If both the site name and site ID are not None but the

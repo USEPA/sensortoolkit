@@ -29,7 +29,7 @@ def process_oaqps(data_path, lib_path, formatting='envista',
 
 
     Args:
-        data_path (TYPE): DESCRIPTION.
+        data_path (str): DESCRIPTION.
 
     Returns:
         None.
@@ -65,10 +65,10 @@ def ingest_oaqps(file_path, formatting=None):
 
 
     Args:
-        file_path (TYPE): DESCRIPTION.
+        file_path (str): DESCRIPTION.
 
     Returns:
-        df (TYPE): DESCRIPTION.
+        df (pandas DataFrame): DESCRIPTION.
 
     """
     if formatting == 'envista':
@@ -223,10 +223,10 @@ def format_ref_timestamp(df):
 
 
     Args:
-        df (TYPE): DESCRIPTION.
+        df (pandas DataFrame): DESCRIPTION.
 
     Returns:
-        df (TYPE): DESCRIPTION.
+        df (pandas DataFrame): DESCRIPTION.
 
     """
     split_timestamp = False

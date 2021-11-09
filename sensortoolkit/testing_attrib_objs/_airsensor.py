@@ -32,7 +32,7 @@ class AirSensor:
             The path to the directory where the user intends to store data,
             figures, and reports relating to the sensor being testing.
             Defaults to None.
-        **kwargs (TYPE): DESCRIPTION.
+        **kwargs (dict): DESCRIPTION.
 
     """
 
@@ -257,7 +257,7 @@ class AirSensor:
                 recorded) in the appropriate subdirectory will be loaded and
                 1-hour and 24-hour averages will be computed. If false,
                 processed data will be loaded.
-            **kwargs (TYPE):
+            **kwargs (dict):
 
         Returns:
             None.
