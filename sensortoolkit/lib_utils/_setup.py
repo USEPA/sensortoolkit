@@ -291,7 +291,8 @@ class _Setup:
             TypeError: If data type is not in the list of valid extensions.
 
         Returns:
-            df (pandas DataFrame): DESCRIPTION.
+            df (pandas DataFrame):
+                A DataFrame containing the first few rows of recorded datasets.
 
         """
 
@@ -355,7 +356,10 @@ class _Setup:
         subsequent reassignment of column header names.
 
         Args:
-            print_banner (TYPE, optional): DESCRIPTION. Defaults to True.
+            print_banner (bool, optional):
+                If ``'True'``, a banner indicating the title of the section,
+                user input options, and notes will be printed to the console.
+                Defaults to True.
 
         Returns:
             None.
@@ -401,7 +405,10 @@ class _Setup:
         """Select the integer index position for the row containing headers.
 
         Args:
-            print_banner (TYPE, optional): DESCRIPTION. Defaults to True.
+            print_banner (bool, optional):
+                If ``'True'``, a banner indicating the title of the section,
+                user input options, and notes will be printed to the console.
+                Defaults to True.
 
         Returns:
             None.
@@ -463,7 +470,10 @@ class _Setup:
 
 
         Args:
-            print_banner (TYPE, optional): DESCRIPTION. Defaults to True.
+            print_banner (bool, optional):
+                If ``'True'``, a banner indicating the title of the section,
+                user input options, and notes will be printed to the console.
+                Defaults to True.
 
         Raises:
             ValueError: DESCRIPTION.
@@ -517,9 +527,11 @@ class _Setup:
     def setTimeHeaders(self, print_banner=True):
         """Specify the column(s) containing date/timestamp information.
 
-
         Args:
-            print_banner (TYPE, optional): DESCRIPTION. Defaults to True.
+            print_banner (bool, optional):
+                If ``'True'``, a banner indicating the title of the section,
+                user input options, and notes will be printed to the console.
+                Defaults to True.
 
         Returns:
             None.
@@ -582,7 +594,10 @@ class _Setup:
         of header labels.
 
         Args:
-            print_banner (TYPE, optional): DESCRIPTION. Defaults to True.
+            print_banner (bool, optional):
+                If ``'True'``, a banner indicating the title of the section,
+                user input options, and notes will be printed to the console.
+                Defaults to True.
 
         Returns:
             None.
@@ -647,15 +662,20 @@ class _Setup:
         enter_continue()
 
     def checkParamUnits(self, param, sdfs_param):
-        """
-
+        """Prompt user to indicate whether units for passed parameter are the
+        same as the preset units specified for the corresponding SDFS parameter.
 
         Args:
-            param (TYPE): DESCRIPTION.
-            sdfs_param (TYPE): DESCRIPTION.
+            param (str):
+                The name of the parameter as logged in recorded datasets.
+            sdfs_param (str):
+                The name of the SDFS parameter corresponding to the recorded
+                parameter.
 
         Returns:
-            val (TYPE): DESCRIPTION.
+            val (int, float, or Nonetype): A scalar quantity for converting the
+            concentrations from the unit basis in which data were recorded to
+            the unit basis for the SDFS parameter.
 
         """
         sdfs_param_units = Parameter(sdfs_param).units
@@ -818,8 +838,13 @@ class SensorSetup(_Setup):
     ingested.
 
     Args:
-        name (TYPE): DESCRIPTION.
-        path (TYPE, optional): DESCRIPTION. Defaults to None.
+        name (str):
+            The name assigned to the air sensor. Typically incudes the sensor
+            make (manufacturer) and model.
+        path (str, optional):
+            The path to the directory where the user intends to store data,
+            figures, and reports relating to the sensor being testing.
+            Defaults to None.
 
     """
 
@@ -909,7 +934,10 @@ class ReferenceSetup(_Setup):
     """Interactive class for handling the reference data ingestion process.
 
     Args:
-        path (TYPE): DESCRIPTION.
+        path (str, optional):
+            The path to the directory where the user intends to store data,
+            figures, and reports relating to the sensor being testing.
+            Defaults to None.
 
     """
     # Method code lookup tables
@@ -974,7 +1002,6 @@ class ReferenceSetup(_Setup):
           reference data.
         - ``'airnow'``: User will query the AirNow API for reference data.
 
-
         Returns:
             None.
 
@@ -1006,8 +1033,23 @@ class ReferenceSetup(_Setup):
 
 
     def setSiteInfo(self):
-        """
+        """Prompt user to enter various site attributes.
 
+        The user is prompted to provide the following site attributes:
+        - Site name
+        - Agency overseeing site
+        - Site AQS ID
+        - Site latitude
+        - Site longitude
+
+        .. important
+
+            **The following attrbiutes are required for querying API services:**
+
+            - If the reference data source is ``'aqs'``, an AQS ID must be
+              specified.
+            - If the reference data source is ``'airnow'``, the site latitude
+              and longitude must be specified.
 
         Returns:
             None.
@@ -1106,8 +1148,9 @@ class ReferenceSetup(_Setup):
                                             self.fmt_site_aqs])
 
     def setParamMetaCols(self, param, sdfs_param):
-        """
+        """Prompt user to enter various parameter metadata attributes.
 
+        The user is prompted to enter the following attributes:
         - Units
         - Parameter AQS Code
         - Reference Method Code
@@ -1211,8 +1254,8 @@ class ReferenceSetup(_Setup):
 
 
     def displayMethods(self, param_code, lookup_data):
-        """
-
+        """Helper function for printing an abbreviated dataset of reference
+        methods correponding to the indicated parameter.
 
         Args:
             param_code (int):
@@ -1237,8 +1280,8 @@ class ReferenceSetup(_Setup):
         return table
 
     def processAirNowTech(self):
-        """
-
+        """Wrapper method for calling the ``sensortoolkit.reference.preprocess_airnowtech()``
+        method for converting downloaded AirNowTech datasets to SDFS format.
 
         Returns:
             None.
@@ -1255,8 +1298,14 @@ class ReferenceSetup(_Setup):
             preprocess_airnowtech(file, self.path)
 
     def localRefDataIngest(self):
-        """
+        """Wrapper method for ingesting reference datasets acquired locally.
 
+        Datasets are ingested into SDFS format via the
+        ``sensortoolkit.ingest.standard_ingest()`` method and processed datasets
+        are grouped into one of three parameter classifications (``'PM'``,
+        ``'Gases'``, or ``'Met'``). These datasets are then saved in monthly
+        intervals to the ``../data/reference_data/local/[sitename_siteid]/processed``
+        directory path.
 
         Returns:
             None.
