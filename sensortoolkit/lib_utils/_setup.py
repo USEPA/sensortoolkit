@@ -68,6 +68,13 @@ class _Setup:
         self.col_headers = {}
 
     def config(self):
+        """
+
+
+        Returns:
+            None.
+
+        """
         # Indicate the dataset file type (.csv, .txt, .xlsx)
         self.setDataExtension()
 
@@ -91,7 +98,18 @@ class _Setup:
         self.setTimeZone()
 
     def printSelectionBanner(self, select_type, options=[], notes=[]):
+        """
 
+
+        Args:
+            select_type (TYPE): DESCRIPTION.
+            options (TYPE, optional): DESCRIPTION. Defaults to [].
+            notes (TYPE, optional): DESCRIPTION. Defaults to [].
+
+        Returns:
+            None.
+
+        """
         self.end_str = '..press X to end adding entries'
         self.del_str = '..press D to delete the previous entry'
         self.skip_str = '..press enter to skip columns that will be dropped'
@@ -132,13 +150,15 @@ class _Setup:
         the column index subdictionary, add the passed attribute key and value.
 
         Args:
-            data (TYPE): self.col_headers dictionary.
-            param (TYPE): DESCRIPTION.
-            attrib_key (TYPE): DESCRIPTION.
-            attrib_val (TYPE): DESCRIPTION.
+            param (str):
+                The name of the parameter.
+            attrib_key (str):
+                The key to assign to the subdictionary entry.
+            attrib_val (int, float, or str):
+                The value to assign to the subdictionary entry.
 
         Returns:
-            data (TYPE): DESCRIPTION.
+            None.
 
         """
         for col_idx in self.col_headers.keys():
@@ -147,6 +167,16 @@ class _Setup:
 
 
     def setDataExtension(self):
+        """Select the file data extension for to the datasets that will be
+        loaded.
+
+        Choose the corresponding data file type for recorded
+        datasets from ``'.csv'``, ``'.txt'``, ``'.xlsx'``.
+
+        Returns:
+            None.
+
+        """
         self.printSelectionBanner('Select Data Type',
                                   options=[self.data_types])
 
@@ -170,6 +200,23 @@ class _Setup:
             print('')
 
     def selectDataSets(self):
+        """Choose the selection scheme for pointing to recorded data files.
+
+        Selection options include the following:
+
+        - ``'directory'``, which will locate and copy all of the data files
+          in the specified directory for the indicated data type
+        - ``'recursive directory'``, which will locate and copy all data
+          files within the specified directory and any subdirectories
+          contained within the indicated folder path
+        - ``'files'`` which copies over files that the user manually selects
+          within a directory.
+
+
+        Returns:
+            None.
+
+        """
         select_options = ['directory', 'recursive directory', 'files']
         self.printSelectionBanner('Select Data Files or Directory',
                                   options=[select_options])
@@ -194,6 +241,14 @@ class _Setup:
             print('')
 
     def copyDataSets(self):
+        """Copy recorded datasets from the selected file or folder
+        location to the ``../data/sensor_data/[sensor_name]/raw_data``
+        directory path.
+
+        Returns:
+            None.
+
+        """
         self.printSelectionBanner('Copy Data Files to the Project Directory',
                                   options=[])
         print('')
@@ -206,6 +261,23 @@ class _Setup:
         enter_continue()
 
     def loadDataFile(self, file, **kwargs):
+        """Helper function for loading the first few rows of recorded datasets.
+
+        Args:
+            file (str):
+                Full path to dataset file.
+            **kwargs (TYPE):
+                - **nrows** (*int*):
+                  The number of rows to load for the passed dataset. Defaults
+                  to 1.
+
+        Raises:
+            TypeError: If data type is not in the list of valid extensions.
+
+        Returns:
+            df (pandas DataFrame): DESCRIPTION.
+
+        """
 
         load_table = kwargs.get('load_table', False)
         if load_table:
@@ -232,6 +304,26 @@ class _Setup:
         return df
 
     def setDataRelPath(self):
+        """Assign the relative path for the recorded dataset subdirectory.
+
+        The relative path stems from the project path.
+
+        For sensor data, the relative path to raw (recorded datasets)
+        should appear something like:
+        ``/data/sensor_data/[sensor_name]/raw_data`` where 'sensor_name' is the
+        name given to the air sensor.
+
+        For reference datasets, the relative path to raw (recorded datasets)
+        should appear something like:
+        ``/data/reference_data/[reference_data_source]/raw/[sitename_siteid]``
+        where 'reference_data_source' is the source or api service from which
+        data were acquired, 'sitename' is the name given to the site, and
+        'siteid' is the AQS id for the site (if applicable).
+
+        Returns:
+            None.
+
+        """
         self.data_rel_path = f'/data/{self.data_type}_data/'
         if self.data_type == 'sensor':
             self.data_rel_path += f'{self.name}/raw_data'
@@ -239,6 +331,20 @@ class _Setup:
             self.data_rel_path += f'{self.dataset_kwargs["ref_data_source"]}/raw/{self.ref_data_subfolder}/'
 
     def parseDataSets(self, print_banner=True):
+        """Load the  first few rows of recorded sensor datasets located in the
+           ``../data/sensor_data/[sensor_name]/raw_data`` directory path.
+
+        The names of column headers are located based on the
+        indicated head index. A list of unique column headers is stored for
+        subsequent reassignment of column header names.
+
+        Args:
+            print_banner (TYPE, optional): DESCRIPTION. Defaults to True.
+
+        Returns:
+            None.
+
+        """
         if print_banner:
             self.printSelectionBanner('Parsing Datasets',
                                       options=[])
@@ -276,6 +382,15 @@ class _Setup:
         enter_continue()
 
     def setHeaderIndex(self, print_banner=True):
+        """Select the integer index position for the row containing headers.
+
+        Args:
+            print_banner (TYPE, optional): DESCRIPTION. Defaults to True.
+
+        Returns:
+            None.
+
+        """
         if print_banner:
             self.printSelectionBanner('Column Header Index',
                                       options=['..type "None" if no header '
@@ -328,6 +443,19 @@ class _Setup:
         print('')
 
     def setColumnHeaders(self, print_banner=True):
+        """
+
+
+        Args:
+            print_banner (TYPE, optional): DESCRIPTION. Defaults to True.
+
+        Raises:
+            ValueError: DESCRIPTION.
+
+        Returns:
+            None.
+
+        """
         if print_banner:
             self.printSelectionBanner('Manually Set Column Headers',
                                       options=[self.end_str])
@@ -371,6 +499,16 @@ class _Setup:
         print('')
 
     def setTimeHeaders(self, print_banner=True):
+        """Specify the column(s) containing date/timestamp information.
+
+
+        Args:
+            print_banner (TYPE, optional): DESCRIPTION. Defaults to True.
+
+        Returns:
+            None.
+
+        """
         if print_banner:
             self.printSelectionBanner('Specify Timestamp columns',
                                       options=[self.end_str, self.del_str])
@@ -421,6 +559,19 @@ class _Setup:
         enter_continue()
 
     def setParamHeaders(self, print_banner=True):
+        """Select the SDFS parameters corresponding to column names discovered
+        by ``ParseDataSets()``.
+
+        A parameter renaming dictionary is created for reassigning the names
+        of header labels.
+
+        Args:
+            print_banner (TYPE, optional): DESCRIPTION. Defaults to True.
+
+        Returns:
+            None.
+
+        """
         if print_banner:
             txt = 'Choose from the following list of SDFS parameter names'
             self.printSelectionBanner('Specify Parameter columns',
@@ -480,6 +631,17 @@ class _Setup:
         enter_continue()
 
     def checkParamUnits(self, param, sdfs_param):
+        """
+
+
+        Args:
+            param (TYPE): DESCRIPTION.
+            sdfs_param (TYPE): DESCRIPTION.
+
+        Returns:
+            val (TYPE): DESCRIPTION.
+
+        """
         sdfs_param_units = Parameter(sdfs_param).units
         print('')
         print(f'  Are the units of measure for {param} {sdfs_param_units}?')
@@ -494,6 +656,14 @@ class _Setup:
         return val
 
     def setDateTimeFormat(self):
+        """Configure the date/time formatting for date/time column(s) specified
+        in ``setTimeHeaders()``.
+
+
+        Returns:
+            None.
+
+        """
         cite = ('..format code list: https://docs.python.org/3/library/'
                 'datetime.html#strftime-and-strptime-format-codes')
         epoch = ('..If a timestamp column is formatted as the number of '
@@ -530,6 +700,16 @@ class _Setup:
 
 
     def setTimeZone(self):
+        """Select the time zone associated with the date/time column(s).
+
+        Timezones should be valid timezone names recognized by the ``pytz``
+        library.
+
+
+        Returns:
+            None.
+
+        """
         self.printSelectionBanner('Specify DateTime Index Time Zone',
                                   options=[self.skip_str],
                                   notes=['For a list of all time zones, type'
@@ -569,6 +749,12 @@ class _Setup:
         enter_continue()
 
     def exportSetup(self):
+        """Save the setup configuration to a ``setup.json`` file.
+
+        Returns:
+            None.
+
+        """
         self.printSelectionBanner('Setup Configuration')
         self.config_dict = self.__dict__.copy()
 
@@ -633,6 +819,15 @@ class SensorSetup(_Setup):
         self.exportSetup()
 
     def setSerials(self):
+        """Indicate unique serial identifiers for each sensor unit tested.
+
+        The identifying keyword for each sensor unit should be indicated within
+        the recorded sensor dataset file names.
+
+        Returns:
+            None.
+
+        """
         self.printSelectionBanner('Configure Sensor Serial Identifiers',
                                   options=[self.end_str])
         print('')
@@ -750,6 +945,24 @@ class ReferenceSetup(_Setup):
             self.localRefDataIngest()
 
     def selectDataSource(self):
+        """Select the service/source from which reference data were acquired.
+
+        Choose from the following options:
+
+        - ``'local'``: Data files aqcuired locally (e.g., local transfer
+          from agency overseeing reference instrumentation at air monitoring
+          site).
+        - ``'airnowtech'``: User has downloaded files from the AirNowTech
+          system and has saved files locally to the user’s system.
+        - ``'aqs'``: User will query EPA's Air Quality System (AQS) API for
+          reference data.
+        - ``'airnow'``: User will query the AirNow API for reference data.
+
+
+        Returns:
+            None.
+
+        """
         # Indicate the service used to acquire the dataset.
         select_options = ['airnow', 'aqs', 'airnowtech', 'local']
         self.printSelectionBanner('Select Name of Service for Data Source',
@@ -777,6 +990,13 @@ class ReferenceSetup(_Setup):
 
 
     def setSiteInfo(self):
+        """
+
+
+        Returns:
+            None.
+
+        """
         self.printSelectionBanner('Enter Ambient Air Monitoring Site Information',
                                   options=['..press enter to skip entries'],
                                   notes=['Site AQS ID required for AQS queries',
@@ -870,6 +1090,17 @@ class ReferenceSetup(_Setup):
                                             self.fmt_site_aqs])
 
     def setParamMetaCols(self, param, sdfs_param):
+        """
+
+
+        Args:
+            param (TYPE): DESCRIPTION.
+            sdfs_param (TYPE): DESCRIPTION.
+
+        Returns:
+            None.
+
+        """
         entry_dict = {
             f'Enter the units of measure for {param}: ': f'{sdfs_param}' + '_Unit',
             f'Enter the parameter code for {param}: ': f'{sdfs_param}' + '_Param_Code',
@@ -958,6 +1189,17 @@ class ReferenceSetup(_Setup):
 
 
     def displayMethods(self, param_code, lookup_data):
+        """
+
+
+        Args:
+            param_code (TYPE): DESCRIPTION.
+            lookup_data (TYPE): DESCRIPTION.
+
+        Returns:
+            table (TYPE): DESCRIPTION.
+
+        """
         with pd.option_context('display.expand_frame_repr', False,
                                            'display.max_rows', None):
             table = lookup_data[lookup_data['Parameter Code']==param_code]
@@ -968,6 +1210,13 @@ class ReferenceSetup(_Setup):
         return table
 
     def processAirNowTech(self):
+        """
+
+
+        Returns:
+            None.
+
+        """
 
         self._dataset_selection = 'files'
         self.setDataExtension()
@@ -979,6 +1228,13 @@ class ReferenceSetup(_Setup):
             preprocess_airnowtech(file, self.path)
 
     def localRefDataIngest(self):
+        """
+
+
+        Returns:
+            None.
+
+        """
         self.printSelectionBanner('Ingest Local Datasets',
                                     options=[])
 
@@ -1037,6 +1293,7 @@ class ReferenceSetup(_Setup):
                     month_df.to_csv(os.path.join(process_path, filename))
 
 
+"""
 # Testing out using new method dataset for criteria pollutants
 def displayMethods(param, lookup_data, verbose=False):
 
@@ -1063,6 +1320,7 @@ def displayMethods(param, lookup_data, verbose=False):
                             ].reset_index(drop=True))
 
         return table
+"""
 
 if __name__ == '__main__':
     sensor_name = 'Example_Make_Model'
