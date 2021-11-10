@@ -106,12 +106,12 @@ def sensor_subplot_formatting(number_of_sensors, param_obj, report_fmt,
         param_obj (sensortoolkit.Parameter): DESCRIPTION.
         report_fmt (bool): DESCRIPTION.
 
-    Keyword arguments:
+    **Keyword Arguments:**
 
-        - **show_colorbar** (*bool*):
-          DESCRIPTION. Defaults to True.
-        - **sensor_serials** (*dict*):
-          DESCRIPTION. Defaults to None.
+    :param bool show_colorbar:
+        DESCRIPTION. Defaults to True.
+    :param dict sensor_serials:
+        DESCRIPTION. Defaults to None.
 
     Raises:
         ValueError: DESCRIPTION.

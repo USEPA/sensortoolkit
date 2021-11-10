@@ -75,82 +75,86 @@ def sensor_timeplot(df_list, ref_df, param=None, sensor_name=None,
         fig (matplotlib figure object, optional):
             DESCRIPTION. Defaults to None.
 
-    Keyword arguments:
+    **Keyword Arguments:**
 
-        - **seaborn_style** ('str'):
-          The plotting style based on seaborn's style options. Defaults to
-          'darkgrid'. Values must be a valid seaborn style name.
-        - **date_interval** (*int*):
-          Number of days between x-axis tick marks with 'mm-dd-yy' timestamps.
-        - **yscale** (*str*):
-          The scaling for the y-axis. Accepted values include 'linear',
-          'log', 'symlog', 'logit', etc.
-        - **ylims** (*TYPE*): tuple of floats/ints
-          The y-limits of the plot
-        - **format_xaxis_weeks** (*bool*):
-          Plot the timeseries x-axis (time) in increments of 1 week. Defaults
-          to False.
-        - **fig_size** (*two-element tuple*):
-          Tuple for setting the figure size.
-        - **fontsize** (*int or float*):
-          The font size for the xlabel, ylabel, and plot text. Passed on to
-          Draw_Scatter() which uses 0.85*font_size for tick labels.
-        - **legend_fontscale** (*float*):
-          Relative scale of fontsize for text in the legend relative to label
-          text.
-        - **cmap_name** (*str*):
-          The name of the palette assigned to relative-humidity colormapped
-          scatter plot points
-        - **cmap_normrange** (*two-element tuple*):
-          Normalized range (0,1) for colormap hue selection. Limiting this
-          range to something like (0.1, 0.9) is useful when using colormaps
-          with high contrast extrema and a gradual change in hue is desired
-          for plots.
-        - **show_title** (*bool*):
-          If true, display the title for the figure. Defaults to True.
-        - **filename_suffix** (*str*):
-          Optional string added to end of filename. Defaults to empty string.
-        - **box_xscale** (*TYPE*):
-          DESCRIPTION. Defaults to
-        - **box_yscale** (*TYPE*):
-          DESCRIPTION. Defaults to
-        - **box_wscale** (*TYPE*):
-          DESCRIPTION. Defaults to
-        - **box_hscale** (*TYPE*):
-          DESCRIPTION. Defaults to
-        - **legend_loc** (*TYPE*):
-          DESCRIPTION. Defaults to
-        - **sensor_colors** (*TYPE*):
-          Default set by chosen colormap (cmap_name) and the normalized range
-          for the colormap.
-        - **sensor_linealpha** (*float*):
-          The transparency of the lines indicating sensor measurements. Defaults
-          to 0.70
-        - **sensor_linewidth** (*float*):
-          The width (thickness) of the lines indicating sensor measurements.
-          Defaults to 1.5.
-        - **sensor_linestyle** (*str*):
-          The style of the lines indicating sensor measurements. Passed
-          to matplotlib linestyles. Defaults to '-'.
-        - **ref_linecolor** (*str*):
-          The color of the line indicating reference measurements. Defaults
-          to 'k'.
-        - **ref_linealpha** (*float*):
-          The transparency of the line indicating reference measurements.
-          Defaults to 0.97
-        - **ref_linewidth** (*float*):
-          The width (thickness) of the line indicating reference measurements.
-          Defaults to 1.5
-        - **ref_linestyle** (*str*):
-          The style of the lines indicating reference measurements. Passed
-          to matplotlib linestyles. Defaults to '-'.
-        - **date_format** (*str*):
-          The strftime format in which dates will be displayed along the x-axis
-          if 'format_xaxis_weeks' is False. Defaults to "%m-%d-%y".
-        - **legend_fontsize** (*TYPE*):
-          DESCRIPTION. Defaults to
-        - **subplots_adjust** (*TYPE*):
-          DESCRIPTION. Defaults to
+    :param str seaborn_style:
+        The plotting style based on seaborn's style options. Defaults to
+        'darkgrid'. Values must be a valid seaborn style name.
+    :param int date_interval:
+        Number of days between x-axis tick marks with 'mm-dd-yy' timestamps.
+    :param str yscale:
+        The scaling for the y-axis. Accepted values include 'linear',
+        'log', 'symlog', 'logit', etc.
+    :param ylims:
+        The y-limits of the plot
+    :type ylims: Two-element tuple of floats or ints
+    :param bool format_xaxis_weeks:
+        Plot the timeseries x-axis (time) in increments of 1 week. Defaults
+        to False.
+    :param fig_size:
+        Tuple for setting the figure size.
+    :type fig_size: Two-element tuple of floats or ints
+    :param fontsize int or float:
+        The font size for the xlabel, ylabel, and plot text. Passed on to
+        Draw_Scatter() which uses 0.85*font_size for tick labels.
+    :type fontsize: int or float
+    :param font legend_fontscale:
+        Relative scale of fontsize for text in the legend relative to label
+        text.
+    :param str cmap_name:
+        The name of the palette assigned to relative-humidity colormapped
+        scatter plot points
+    :param cmap_normrange:
+        Normalized range (0,1) for colormap hue selection. Limiting this
+        range to something like (0.1, 0.9) is useful when using colormaps
+        with high contrast extrema and a gradual change in hue is desired
+        for plots.
+    :type cmap_normrange: Two-element tuple
+    :param bool show_title:
+        If true, display the title for the figure. Defaults to True.
+    :param str filename_suffix:
+        Optional string added to end of filename. Defaults to empty string.
+    :param TYPE box_xscale:
+        DESCRIPTION. Defaults to
+    :param TYPE box_yscale:
+        DESCRIPTION. Defaults to
+    :param TYPE box_wscale:
+        DESCRIPTION. Defaults to
+    :param TYPE box_hscale:
+        DESCRIPTION. Defaults to
+    :param TYPE legend_loc:
+        DESCRIPTION. Defaults to
+    :param TYPE sensor_colors:
+        Default set by chosen colormap (cmap_name) and the normalized range
+        for the colormap.
+    :param float sensor_linealpha:
+        The transparency of the lines indicating sensor measurements. Defaults
+        to 0.70
+    :param float sensor_linewidth:
+        The width (thickness) of the lines indicating sensor measurements.
+        Defaults to 1.5.
+    :param str sensor_linestyle:
+        The style of the lines indicating sensor measurements. Passed
+        to matplotlib linestyles. Defaults to '-'.
+    :param str ref_linecolor:
+        The color of the line indicating reference measurements. Defaults
+        to 'k'.
+    :param float ref_linealpha:
+        The transparency of the line indicating reference measurements.
+        Defaults to 0.97
+    :param float ref_linewidth:
+        The width (thickness) of the line indicating reference measurements.
+        Defaults to 1.5
+    :param str ref_linestyle:
+        The style of the lines indicating reference measurements. Passed
+        to matplotlib linestyles. Defaults to '-'.
+    :param str date_format:
+        The strftime format in which dates will be displayed along the x-axis
+        if 'format_xaxis_weeks' is False. Defaults to "%m-%d-%y".
+    :param TYPE legend_fontsize:
+        DESCRIPTION. Defaults to
+    :param TYPE subplots_adjust:
+        DESCRIPTION. Defaults to
 
     Returns:
         ax (matplotlib axes object):
