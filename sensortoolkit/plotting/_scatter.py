@@ -32,9 +32,8 @@ register_matplotlib_converters()
 
 
 def draw_scatter(ax, xdata, ydata, param_dict, sensor_stats=None,
-                 xlims=None, ylims=None, fontsize=None,
-                 detail_fontsize=None, param=None,
-                 plot_regression=True, colormap_vals=None,
+                 xlims=None, ylims=None, fontsize=None, detail_fontsize=None,
+                 param=None, plot_regression=True, colormap_vals=None,
                  colormap_name=None, **kwargs):
     """A helper function to draw scatterplots with linear regressions on passed
     matplotlib axes instance
@@ -70,46 +69,63 @@ def draw_scatter(ax, xdata, ydata, param_dict, sensor_stats=None,
 
     Keyword arguments:
 
-        - **monocolor** (*TYPE*):
-            DESCRIPTION
-        - **point_size** (*TYPE*):
-            DESCRIPTION
-        - **point_alpha** (*TYPE*):
-            DESCRIPTION
-        - **plot_aspect** (*TYPE*):
-            DESCRIPTION
-        - **plottext_alpha** (*TYPE*):
-            DESCRIPTION
-        - **plottext_size** (*TYPE*):
-            DESCRIPTION
-        - **plottext_color** (*TYPE*):
-            DESCRIPTION
-        - **plottext_xloc** (*TYPE*):
-            DESCRIPTION
-        - **plottext_yloc** (*TYPE*):
-            DESCRIPTION
-        - **plottext_xdisplacement** (*TYPE*):
-            DESCRIPTION
-        - **plottext_ydisplacement** (*TYPE*):
-            DESCRIPTION
-        - **plottext_position** (*TYPE*):
-            DESCRIPTION
-        - **show_trendline** (*TYPE*):
-            DESCRIPTION
-        - **show_RMSE** (*TYPE*):
-            DESCRIPTION
-        - **show_spearman** (*TYPE*):
-            DESCRIPTION
-        - **show_N** (*TYPE*):
-            DESCRIPTION
-        - **show_one_to_one** (*TYPE*):
-            DESCRIPTION
-        - **trendline_xmax** (*TYPE*):
-            DESCRIPTION
-        - **trendline_color** (*TYPE*):
-            DESCRIPTION
-        - **trendline_alpha** (*TYPE*):
-            DESCRIPTION
+        - **monocolor** (*str*):
+          A single color (specified in hex) for scatter. Scatter are colored
+          using monocolor if colormap_vals is empty. Defaults to '#0048AD'.
+        - **point_size** (*float*):
+          The size of the scatter points. Defaults to 20.
+        - **point_alpha** (*float*):
+          The transparency of the scatter plots. Defaults to 0.7.
+        - **plot_aspect** (*str*):
+          Aspect ratio for scatter plot dimensions. Defaults to 'equal'.
+        - **plottext_alpha** (*float*):
+          The transparency of the text drawn on scatter plots indicating
+          regression statistics. Defaults to 0.8.
+        - **plottext_size** (*float*):
+          The size of the text drawn on scatter plots indicating
+          regression statistics as a fraction of the passed fontsize. Defaults
+          to 90% the value of the fontsize.
+        - **plottext_color** (*str*):
+          The color of the text drawn on scatter plots indicating
+          regression statistics. Defaults to 'k'.
+        - **plottext_xloc** (*float*):
+          The left-most x-coordinate of the text drawn on scatter plots.
+          Default depends on the value passed to the plottext_postion argument.
+        - **plottext_yloc** (*float*):
+          The top-most y-coordinate of the text drawn on scatter plots.
+          Default depends on the value passed to the plottext_postion argument.
+        - **plottext_xdisplacement** (*float*):
+          The width displacement between text drawn on scatter plots. Defaults
+          to 0.0.
+        - **plottext_ydisplacement** (*float*):
+          The height displacement between rows of text drawn on scatter plots.
+          Defaults to 0.08.
+        - **plottext_position** (*str*):
+          Determines position of plot text. Options include 'upper_left' or
+          'bottom_right'. Defaults to 'upper_left' if the slope of the '
+          regression is greater than  1.75, else default is set to
+          'bottom_right'.
+        - **show_trendline** (*bool*):
+          If true, display the OLS trendline on scatter plots. Defaults to True.
+        - **show_RMSE** (*bool*):
+          If true, display the root mean squared error on scatter plots.
+          Defaults to True.
+        - **show_spearman** (*bool*):
+          If true, display the spearman correlation on scatterplots. Defaults
+          to False.
+        - **show_N** (*bool*):
+          If true, display the number of scatter point pairs displayed on the
+          plot. Defaults to True.
+        - **show_one_to_one** (*bool*):
+          If true, display the one-to-one line indicating ideal agreement
+          between independent and depdendent variable. Defaults to True.
+        - **trendline_xmax** (*float*):
+          The draw distance (based on the passed x-coordinate) of the OLS
+          trendline. Defaults to 120% the maximum of the independent variable.
+        - **trendline_color** (*str*):
+          The color of the trendline. Defaults to 'k' (black).
+        - **trendline_alpha** (*float*):
+          The transparency of the trendline. Defaults to 0.65.
 
     Returns:
         plotobj:
@@ -360,37 +376,48 @@ def scatter_plotter(df_list, ref_df, stats_df=None, plot_subset=None,
           DEFINITION
         - **filename_suffix** (*TYPE*):
           Optional string added to end of filename. Defaults to empty string.
-        - **fontsize** (*TYPE*):
+        - **fontsize** (*TYPE, passed to Draw_Scatter()**):
           The font size for the xlabel, ylabel, and plot text. Passed on to
           Draw_Scatter() which uses 0.85*font_size for tick labels.
-        - **monocolor** (*TYPE*, passed to ``Draw_Scatter()``):
-          A single color (specified in hex) for scatter plots.
-          Recommend #2251D0 (nice blue hue).
+        - **monocolor** (*TYPE, passed to Draw_Scatter()*):
+          A single color (specified in hex) for scatter. Scatter are colored
+          using monocolor if show_colorbar is False. Recommend #2251D0 (nice
+          blue hue).
         - **detail_fontsize** (*TYPE*):
           DEFINITION
-        - **point_size** (*TYPE, passed to Draw_Scatter()*):
-          The size of the scatterpoint plots
-        - **point_alpha** (*TYPE*):
-          DEFINITION
-        - **plot_aspect** (*TYPE, passed to Draw_Scatter()*):
-          DEFINITION
-        - **plottext_alpha** (*TYPE, passed to Draw_Scatter()*):
-          DEFINITION
-        - **plottext_size** (*TYPE, passed to Draw_Scatter()*):
-          DEFINITION
-        - **plottext_color** (*TYPE, passed to Draw_Scatter()*):
-          DEFINITION
-        - **plottext_xloc** (*TYPE, passed to Draw_Scatter()*):
-          DEFINITION
-        - **plottext_yloc** (*TYPE, passed to Draw_Scatter()*):
-          DEFINITION
-        - **plottext_xdisplacement** (*TYPE, passed to Draw_Scatter()*):
-          DEFINITION
-        - **plottext_ydisplacement** (*TYPE, passed to Draw_Scatter()*):
-          DEFINITION
+        - **point_size** (*int or float, passed to Draw_Scatter()*):
+          The size of the scatter points. Defaults to 20.
+        - **point_alpha** (*float*):
+          The transparency of the scatter plots. Defaults to 0.7.
+        - **plot_aspect** (*str, passed to Draw_Scatter()*):
+          Aspect ratio for scatter plot dimensions. Defaults to 'equal'.
+        - **plottext_alpha** (*float, passed to Draw_Scatter()*):
+          The transparency of the text drawn on scatter plots indicating
+          regression statistics. Defaults to 0.8.
+        - **plottext_size** (*float, passed to Draw_Scatter()*):
+          The size of the text drawn on scatter plots indicating
+          regression statistics as a fraction of the passed fontsize. Defaults
+          to 90% the value of the fontsize.
+        - **plottext_color** (*str, passed to Draw_Scatter()*):
+          The color of the text drawn on scatter plots indicating
+          regression statistics. Defaults to 'k'.
+        - **plottext_xloc** (*float, passed to Draw_Scatter()*):
+          The left-most x-coordinate of the text drawn on scatter plots.
+          Default depends on the value passed to the plottext_postion argument.
+        - **plottext_yloc** (*float, passed to Draw_Scatter()*):
+          The top-most y-coordinate of the text drawn on scatter plots.
+          Default depends on the value passed to the plottext_postion argument.
+        - **plottext_xdisplacement** (*float, passed to Draw_Scatter()*):
+          The width displacement between text drawn on scatter plots. Defaults
+          to 0.0.
+        - **plottext_ydisplacement** (*float, passed to Draw_Scatter()*):
+          The height displacement between rows of text drawn on scatter plots.
+          Defaults to 0.08.
         - **plottext_position** (*TYPE, passed to Draw_Scatter()*):
-           Determines position of plot text. Can either pass 'upper_left' or
-           'bottom_right'
+          Determines position of plot text. Options include 'upper_left' or
+          'bottom_right'. Defaults to 'upper_left' if the slope of the '
+          regression is greater than  1.75, else default is set to
+          'bottom_right'.
         - **ref_name** (*TYPE*):
           DEFINITION
         - **seaborn_style** (*TYPE*):
@@ -402,19 +429,23 @@ def scatter_plotter(df_list, ref_df, stats_df=None, plot_subset=None,
           Show the title at the top of the plot. Includes the name of the
           sensor, the averaging interval, the evaluation parameter, and
           the name of the reference against which sensor data are compared.
-        - **show_regression** (*TYPE*):
-          Pass on to underlying Draw_Scatter function. Defaults to
-          True. If false, regression lines on plots will not be generated.
-        - **show_trendline** (*TYPE*):
-          DEFINITION
-        - **show_RMSE** (*TYPE, passed to Draw_Scatter()*):
-          DEFINITION
-        - **show_spearman** (*TYPE, passed to Draw_Scatter()*):
-          DEFINITION
-        - **show_N** (*TYPE, passed to Draw_Scatter()*):
-          DEFINITION
-        - **show_one_to_one** (*TYPE, passed to Draw_Scatter()*):
-          DEFINITION
+        - **show_regression** (*bool*):
+          If true, display the OLS regression equation on scatter plots.
+          Defaults to True.
+        - **show_trendline** (*bool*):
+          If true, display the OLS trendline on scatter plots. Defaults to True.
+        - **show_RMSE** (*bool, passed to Draw_Scatter()*):
+          If true, display the root mean squared error on scatter plots.
+          Defaults to True.
+        - **show_spearman** (*bool, passed to Draw_Scatter()*):
+          If true, display the spearman correlation on scatterplots. Defaults
+          to False.
+        - **show_N** (*bool, passed to Draw_Scatter()*):
+          If true, display the number of scatter point pairs displayed on the
+          plot. Defaults to True.
+        - **show_one_to_one** (*bool, passed to Draw_Scatter()*):
+          If true, display the one-to-one line indicating ideal agreement
+          between independent and depdendent variable. Defaults to True.
         - **tight_layout** (*TYPE*):
           Passed to matplotlib's ``fig.tight_layout()`` for narrow formatting
         - **tick_spacing** (*TYPE*):
@@ -428,15 +459,44 @@ def scatter_plotter(df_list, ref_df, stats_df=None, plot_subset=None,
         - **title_yloc** (*TYPE*):
           DEFINITION
         - **trendline_xmax** (*TYPE, passed to Draw_Scatter()*):
-          DEFINITION
-        - **trendline_color** (*TYPE, passed to Draw_Scatter()*):
-          DEFINITION
-        - **trendline_alpha** (*TYPE, passed to Draw_Scatter()*):
-          DEFINITION
-        - **xlims** (*TYPE*):
-          The x-limits of the scatter plot
-        - **ylims** (*TYPE*):
-          The y-limits of the scatter plot
+          The draw distance (based on the passed x-coordinate) of the OLS
+          trendline. Defaults to 120% the maximum of the independent variable.
+        - **trendline_color** (*str, passed to Draw_Scatter()*):
+          The color of the trendline. Defaults to 'k' (black).
+        - **trendline_alpha** (*float, passed to Draw_Scatter()*):
+          The transparency of the trendline. Defaults to 0.65.
+        - **xlims** (*Two-element tuple of floats*):
+          The x-limits of the scatter plot. Defaults to zero for the lower
+          limit. For the upper limit, the following forumla is used:
+
+          .. math::
+
+          x_{max} = 1.25\\timesC_{max} + (\\Delta_{tick} - 1.25\\timesC_{max}\\%\\Delta_{tick})
+
+          where:
+
+            - :math:`x_{max}` is the upper limit of the x-axis,
+
+            - :math:`C_{max}` is the maximum value for either dependent or
+              independent variable,
+
+            - :math:`\\%` is the modulo operator, and
+
+            - :math:`\\Delta_{tick}` is the spacing between ticks along the
+              x and y-axes (set by the ``tick_spacing`` argument).
+
+          This forumla can be described in the following way:
+          The upper limit is set to 125% the nearest multiple of the tick_spacing
+          argument to the maximum concentration recorded by either independent
+          or dependent variable (e.g., if the max concentration recorded by
+          either sensor or reference is 22.4 ug/m^3 and the tick_spacing is set
+          to divisions of 5 ug/m^3, the x upper limit will be set to 1.25*22.4
+          = 28 -> rounded to the nearest multiple of 5 ug/m^3 becomes 30 ug/m^3.
+
+        - **ylims** (*Two-element tuple of floats*):
+          The y-limits of the scatter plot. Defaults to zero for the lower
+          limit. For the upper limit, the same formula used for the x-limits is
+          used.
 
     Returns:
         (matplotlib axes instance or None):
@@ -827,7 +887,43 @@ def normalized_met_scatter(df_list, ref_df, avg_df, met_ref_df=None,
         fig (TYPE, optional): DESCRIPTION. Defaults to None.
         ax (TYPE, optional): DESCRIPTION. Defaults to None.
         return_mpl_obj (TYPE, optional): DESCRIPTION. Defaults to False.
-        **kwargs (TYPE): DESCRIPTION.
+
+    Keyword arguments:
+
+        - **point_size** (*float or int, passed to Draw_Scatter()*):
+          The size of the scatter points. Defaults to 12
+        - **point_alpha** (*float, passed to Draw_Scatter()*):
+          The transparency of the scatter plots. Defaults to 0.5.
+        - **point_colors** (*list*):
+          DESCRIPTION. Defaults to None.
+        - **xlims** (*Two-element tuple*):
+          DESCRIPTION. Defaults to None.
+        - **ylims** (*Two-element tuple*):
+          DESCRIPTION. Defaults to None.
+        - **cmap_norm_range** (*Two-element tuple*):
+          DESCRIPTION. Defaults to (0, 0.4).
+        - **cmap_name** (*str, passed to Draw_Scatter()*):
+          The name of the colormap which the scatter plot will be assigned.
+          Defaults to 'Set1'.
+        - **fontsize** (*int or float, passed to Draw_Scatter()*):
+          The fontsize of plot titles and labels. Defaults to 12.
+        - **detail_fontsize** (*int or float, passed to Draw_Scatter()*):
+          Fontsize for axes tick labels. Defaults to 10.
+        - **subplot_adjust** (*TYPE*):
+          DESCRIPTION.
+          Defaults to None.
+        - **show_errorbars** (*bool*):
+          Defaults to False.
+        - **show legend** (*bool*):
+          Defaults to True.
+        - **fig_size** (*Two-element tuple*):
+          Defaults to (8, 4).
+        - **errorbar_nbins** (*int*):
+          Defaults to 10.
+        - **errorbar_color** (*str*):
+          Defaults to #151515.
+        - **legend_pos** (*TYPE*):
+          DESCRIPTION.
 
     Returns:
         ax (TYPE): DESCRIPTION.

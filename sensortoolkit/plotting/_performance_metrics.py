@@ -27,9 +27,8 @@ register_matplotlib_converters()
 
 
 def performance_metrics(stats_df, deploy_dict, param=None,
-                        param_averaging=None,
-                        font_size=12, path=None, sensor_name=None,
-                        write_to_file=True, **kwargs):
+                        param_averaging=None,font_size=12, path=None,
+                        sensor_name=None, write_to_file=True, **kwargs):
     """Display performance metric results via a set of adjacent subplots
     corresponding to each metric. Results are displayed as either dots (if
     the number of sensors is less than four) or via boxplots (number of sensors
@@ -64,7 +63,146 @@ def performance_metrics(stats_df, deploy_dict, param=None,
             If true, the figure will be written to the /figures/[param] sensor
             subdirectory (where 'param' is the name of the parameter being
             evaluated). Defaults to True.
-        **kwargs (dict): Plotting keyword arguments.
+
+    Keyword arguments:
+
+        - **fill_color** (*str*):
+          DESCRIPTION
+        - **marker** (*str*):
+          DESCRIPTION
+        - **marker_size** (*int or float*):
+          DESCRIPTION
+        - **marker_line_width** (*int or float*):
+          DESCRIPTION
+        - **mean_marker** (*str*):
+          DESCRIPTION
+        - **figure_width** (*int or float*):
+          DESCRIPTION
+        - **figure_height** (*int or float*):
+          DESCRIPTION
+        - **R^2_ylims** (*two-element tuple of floats*):
+          The y-limits (ymin, ymax) for the metric subplot.
+        - **Slope_ylims** (*two-element tuple of floats*):
+          The y-limits (ymin, ymax) for the metric subplot.
+        - **Intercept_ylims** (*two-element tuple of floats*):
+          The y-limits (ymin, ymax) for the metric subplot.
+        - **CV_ylims** (*two-element tuple of floats*):
+          The y-limits (ymin, ymax) for the metric subplot.
+        - **RMSE_ylims** (*two-element tuple of floats*):
+          The y-limits (ymin, ymax) for the metric subplot.
+        - **NRMSE_ylims** (*two-element tuple of floats*):
+          The y-limits (ymin, ymax) for the metric subplot.
+        - **SD_ylims** (*two-element tuple of floats*):
+          The y-limits (ymin, ymax) for the metric subplot.
+        - **R^2_hline_dims** (*Three-element tuple*):
+          Dimensions for the target goal horizontal line. Tuple containing the
+          y-coordinate of the target value, x-min (leftmost) coordinate for
+          drawing horizontal line, and the x-max (rightmost) coordinate for
+          drawing horizontal line).
+        - **Slope_hline_dims** (*Three-element tuple*):
+          Dimensions for the target goal horizontal line. Tuple containing the
+          y-coordinate of the target value, x-min (leftmost) coordinate for
+          drawing horizontal line, and the x-max (rightmost) coordinate for
+          drawing horizontal line).
+        - **Intercept_hline_dims** (*Three-element tuple*):
+          Dimensions for the target goal horizontal line. Tuple containing the
+          y-coordinate of the target value, x-min (leftmost) coordinate for
+          drawing horizontal line, and the x-max (rightmost) coordinate for
+          drawing horizontal line).
+        - **CV_hline_dims** (*Three-element tuple*):
+          Dimensions for the target goal horizontal line. Tuple containing the
+          y-coordinate of the target value, x-min (leftmost) coordinate for
+          drawing horizontal line, and the x-max (rightmost) coordinate for
+          drawing horizontal line).
+        - **RMSE_hline_dims** (*Three-element tuple*):
+          Dimensions for the target goal horizontal line. Tuple containing the
+          y-coordinate of the target value, x-min (leftmost) coordinate for
+          drawing horizontal line, and the x-max (rightmost) coordinate for
+          drawing horizontal line).
+        - **NRMSE_hline_dims** (*Three-element tuple*):
+          Dimensions for the target goal horizontal line. Tuple containing the
+          y-coordinate of the target value, x-min (leftmost) coordinate for
+          drawing horizontal line, and the x-max (rightmost) coordinate for
+          drawing horizontal line).
+        - **SD_hline_dims** (*Three-element tuple*):
+          Dimensions for the target goal horizontal line. Tuple containing the
+          y-coordinate of the target value, x-min (leftmost) coordinate for
+          drawing horizontal line, and the x-max (rightmost) coordinate for
+          drawing horizontal line).
+        - **R^2_box_dims** (*Four-element tuple*):
+          Dimensions for a box indicating the metric target range. Four element
+          tuple containing the x-min (left-most coordinate of the box), y-min
+          (bottom-most coordinate of the target range box), x-range (the height
+          of the box, or the difference between the x-min coordinate position
+          and the x-max coordinate position), and the y-range (the width of the
+          box, or the difference between the y-min coordinate position and the
+          y-max coordinate position).
+        - **Slope_box_dims** (*Four-element tuple*):
+          Dimensions for a box indicating the metric target range. Four element
+          tuple containing the x-min (left-most coordinate of the box), y-min
+          (bottom-most coordinate of the target range box), x-range (the height
+          of the box, or the difference between the x-min coordinate position
+          and the x-max coordinate position), and the y-range (the width of the
+          box, or the difference between the y-min coordinate position and the
+          y-max coordinate position).
+        - **Intercept_box_dims** (*Four-element tuple*):
+          Dimensions for a box indicating the metric target range. Four element
+          tuple containing the x-min (left-most coordinate of the box), y-min
+          (bottom-most coordinate of the target range box), x-range (the height
+          of the box, or the difference between the x-min coordinate position
+          and the x-max coordinate position), and the y-range (the width of the
+          box, or the difference between the y-min coordinate position and the
+          y-max coordinate position).
+        - **CV_box_dims** (*Four-element tuple*):
+          Dimensions for a box indicating the metric target range. Four element
+          tuple containing the x-min (left-most coordinate of the box), y-min
+          (bottom-most coordinate of the target range box), x-range (the height
+          of the box, or the difference between the x-min coordinate position
+          and the x-max coordinate position), and the y-range (the width of the
+          box, or the difference between the y-min coordinate position and the
+          y-max coordinate position).
+        - **RMSE_box_dims** (*Four-element tuple*):
+          Dimensions for a box indicating the metric target range. Four element
+          tuple containing the x-min (left-most coordinate of the box), y-min
+          (bottom-most coordinate of the target range box), x-range (the height
+          of the box, or the difference between the x-min coordinate position
+          and the x-max coordinate position), and the y-range (the width of the
+          box, or the difference between the y-min coordinate position and the
+          y-max coordinate position).
+        - **NRMSE_box_dims** (*Four-element tuple*):
+          Dimensions for a box indicating the metric target range. Four element
+          tuple containing the x-min (left-most coordinate of the box), y-min
+          (bottom-most coordinate of the target range box), x-range (the height
+          of the box, or the difference between the x-min coordinate position
+          and the x-max coordinate position), and the y-range (the width of the
+          box, or the difference between the y-min coordinate position and the
+          y-max coordinate position).
+        - **SD_box_dims** (*Four-element tuple*):
+          Dimensions for a box indicating the metric target range. Four element
+          tuple containing the x-min (left-most coordinate of the box), y-min
+          (bottom-most coordinate of the target range box), x-range (the height
+          of the box, or the difference between the x-min coordinate position
+          and the x-max coordinate position), and the y-range (the width of the
+          box, or the difference between the y-min coordinate position and the
+          y-max coordinate position).
+        - **hline_color** (*str*):
+          DESCRIPTION
+        - **box_facecolor** (*str*):
+          DESCRIPTION
+        - **font_scale** (*int or str*):
+          DESCRIPTION
+        - **fig_wspace** (*float*):
+          DESCRIPTION
+        - **fig_hspace** (*float*):
+          DESCRIPTION
+        - **fig_left** (*float*):
+          DESCRIPTION
+        - **fig_right** (*float*):
+          DESCRIPTION
+        - **fig_top** (*float*):
+          DESCRIPTION
+        - **fig_bottom** (*float*):
+          DESCRIPTION
 
     Returns:
         None.
