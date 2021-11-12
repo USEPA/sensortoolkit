@@ -1,4 +1,4 @@
-:param # -*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 """This module contains a method for displaying air sensor performance using
 metrics and target values recommended by U.S. EPA for the evaluation of sensors
 measuring either PM2.5 or O3.
