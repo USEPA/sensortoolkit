@@ -325,17 +325,33 @@ def scatter_plotter(df_list, ref_df, stats_df=None, plot_subset=None,
             points. If passed, the reference met data takes precedence over
             any existing sensor met data.
         deploy_dict (dict):
-            DEFINITION
+            A dictionary containing descriptive statistics and textual
+            information about the deployment (testing agency, site, time period,
+            etc.), sensors tested, and site conditions during the evaluation.
         sensor_serials (dict):
-            DEFINITION
-        ax (matplotlib axes instance):
-            DEFINITION
-        fig (matplotlib fig instance):
-            DEFINITION
+            A dictionary of sensor serial identifiers for each unit in the
+            testing deployment.
+        ax (matplotlib.axes._subplots.AxesSubplot, optional):
+            Optional, the Matplotlib Axes object on which plotting elements
+            will be drawn. Useful is the user is iterating over the Axes
+            elements of a Matplotlib figure in a for-loop outside this plotting
+            function. Within the loop, calls to this function can be made to add
+            elements for each axes object. Defaults to None.
+        fig (Matplotlib.figure.Figure, optional):
+            Optional, the Matplotlib figure on which axes object elements are
+            drawn. Useful is the user is iterating over the Axes elements of a
+            Matplotlib figure in a for-loop outside this plotting function.
+            Within the loop, calls to this function can be made to add elements
+            for each axes object. Defaults to None.
         report_fmt (bool):
-            DEFINITION
-        return_axs (bool):
-            DEFINITION
+            If true, select formatting presets for displaying figures on the
+            reporting template for sensor performance evaluations included
+            alongside US EPA's performance targets documents for air sensors.
+        return_axs (bool, optional):
+            If true, will return a Matplotlib axes instance (useful for
+            iteration over subplot axes if this plotting function is called
+            within a for-loop that is iterating over the axes elements in
+            a Matplotlib subplot object). Defaults to False.
         param_class (str):
             The parameter classification for the passed parameter to plot.
             E.g, if param is PM25, param_class = PM; if param is 03,
@@ -884,8 +900,7 @@ def scatter_plotter(df_list, ref_df, stats_df=None, plot_subset=None,
 
 
 def normalized_met_scatter(df_list, ref_df, avg_df, met_ref_df=None,
-                           figure_path=None, param=None,
-                           met_param=None,
+                           figure_path=None, param=None, met_param=None,
                            sensor_name=None, write_to_file=True,
                            sensor_serials=None, ref_name=None,
                            report_fmt=False, fig=None, ax=None,
@@ -894,21 +909,61 @@ def normalized_met_scatter(df_list, ref_df, avg_df, met_ref_df=None,
     temperature or relative humidity.
 
     Args:
-        df_list (TYPE): DESCRIPTION.
-        ref_df (TYPE): DESCRIPTION.
-        avg_df (TYPE): DESCRIPTION.
-        met_ref_df (TYPE, optional): DESCRIPTION. Defaults to None.
-        figure_path (TYPE, optional): DESCRIPTION. Defaults to None.
-        param (TYPE, optional): DESCRIPTION. Defaults to None.
-        met_param (TYPE, optional): DESCRIPTION. Defaults to None.
-        sensor_name (TYPE, optional): DESCRIPTION. Defaults to None.
-        write_to_file (TYPE, optional): DESCRIPTION. Defaults to True.
-        sensor_serials (TYPE, optional): DESCRIPTION. Defaults to None.
-        ref_name (TYPE, optional): DESCRIPTION. Defaults to None.
-        report_fmt (TYPE, optional): DESCRIPTION. Defaults to False.
-        fig (TYPE, optional): DESCRIPTION. Defaults to None.
-        ax (TYPE, optional): DESCRIPTION. Defaults to None.
-        return_mpl_obj (TYPE, optional): DESCRIPTION. Defaults to False.
+        df_list (list):
+            A list containing sensor datasets (1-hour averges) with parameter
+            measurements.
+        ref_df (pandas DataFrame):
+            Reference dataset with collocated monitor measurements for the
+            specified parameter.
+        avg_df (pandas DataFrame):
+            A dataset containing the intersensor average for concurrently
+            recorded sensor measurements for each parameter measured by the
+            air sensor.
+        met_ref_df (pandas DataFrame, optional):
+            Meteorological reference data (1-hour averages) for temperature,
+            relative humidity, and dew point measurements. Defaults to None.
+        figure_path (str, optional):
+            Path to directory where the figure will be saved. Defaults to None.
+        param (str, optional):
+            Column header name for the parameter values to be plotted. Defaults
+            to None.
+        met_param (str, optional):
+            The meteorological parameter plotted along the x-axis of the
+            scatter plot. Defaults to None.
+        sensor_name (str, optional):
+            The name of the air sensor (make, manufacturer). Defaults to None.
+        write_to_file (bool, optional):
+            If true, the figure will be saved as a png image to the
+            ``[project_path]/figures`` subdirectory. Defaults to True.
+        sensor_serials (dict, optional):
+            A dictionary of sensor serial identifiers for each unit in the
+            testing deployment. Defaults to None.
+        ref_name (str, optional):
+            The name of the reference monitor collocated alongside the air
+            sensors that recorded concurrent measurement pairs for the specified
+            parameter. Defaults to None.
+        report_fmt (bool, optional):
+            If true, select formatting presets for displaying figures on the
+            reporting template for sensor performance evaluations included
+            alongside US EPA's performance targets documents for air sensors.
+            Defaults to False.
+        fig (Matplotlib.figure.Figure, optional):
+            Optional, the Matplotlib figure on which axes object elements are
+            drawn. Useful is the user is iterating over the Axes elements of a
+            Matplotlib figure in a for-loop outside this plotting function.
+            Within the loop, calls to this function can be made to add elements
+            for each axes object. Defaults to None.
+        ax (matplotlib.axes._subplots.AxesSubplot, optional):
+            Optional, the Matplotlib Axes object on which plotting elements
+            will be drawn. Useful is the user is iterating over the Axes
+            elements of a Matplotlib figure in a for-loop outside this plotting
+            function. Within the loop, calls to this function can be made to add
+            elements for each axes object. Defaults to None.
+        return_mpl_obj (bool, optional):
+            If true, will return a Matplotlib axes instance (useful for
+            iteration over subplot axes if this plotting function is called
+            within a for-loop that is iterating over the axes elements in
+            a Matplotlib subplot object). Defaults to False.
 
     **Keyword Arguments:**
 
@@ -957,7 +1012,13 @@ def normalized_met_scatter(df_list, ref_df, avg_df, met_ref_df=None,
         DESCRIPTION.
 
     Returns:
-        ax (TYPE): DESCRIPTION.
+        ax (Matplotlib Axes object):
+            The Matplotlib Axes object on which plotting elements
+            will be drawn. Useful is the user is iterating over the Axes
+            elements of a Matplotlib figure in a for-loop outside this plotting
+            function. Within the loop, calls to this function can be made to add
+            elements for each axes object. Returned if ``return_mpl_obj`` is
+            True.
 
     """
     param_obj = Parameter(param)

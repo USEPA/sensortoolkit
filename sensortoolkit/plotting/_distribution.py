@@ -33,13 +33,27 @@ def ref_distrib(ref_df, param=None, averaging_interval='1-hour',
     """Plot the distribution of reference values for the passed parameter.
 
     Args:
-        ref_df (TYPE): DESCRIPTION.
-        param (TYPE, optional): DESCRIPTION. Defaults to None.
-        averaging_interval (TYPE, optional): DESCRIPTION. Defaults to '1-hour'.
-        font_size (TYPE, optional): DESCRIPTION. Defaults to 18.
-        write_to_file (TYPE, optional): DESCRIPTION. Defaults to True.
-        figure_path (TYPE, optional): DESCRIPTION. Defaults to None.
-        filename_suffix (TYPE, optional): DESCRIPTION. Defaults to ''.
+        ref_df (pandas DataFrame):
+            Dataframe containing reference data for the parameter ``'param'``
+            and logged at the specified ``'averaging_interval'`` .
+        param (str, optional):
+            The name of the parameter for which the distribution plot will show
+            the distribution of reference measurements. Defaults to None.
+        averaging_interval (str, optional):
+            The averaging interval for the passed dataframe. Defaults to
+            '1-hour'.
+        font_size (int or float, optional):
+            The font size for the figure. Defaults to 18.
+        write_to_file (bool, optional):
+            If true, the figure will be saved as a png image to the
+            ``[project_path]/figures`` subdirectory. Defaults to True.
+        figure_path (str):
+            The full directory path to the folder where figures are saved.
+            This should be located at ``[project_path]/figures``.
+        filename_suffix (str, optional):
+            Optional suffix that can be added to the end of filenames to ensure
+            previously created files with similar naming are not overwritten.
+            Defaults to ''.
 
     Returns:
         None.
@@ -96,11 +110,20 @@ def met_distrib(met_ref_data, avg_hrly_df, figure_path, sensor_name=None,
     the total distribution of measurements).
 
     Args:
-        met_ref_data (TYPE): DESCRIPTION.
-        avg_hrly_df (TYPE): DESCRIPTION.
-        figure_path (TYPE): DESCRIPTION.
-        sensor_name (TYPE, optional): DESCRIPTION. Defaults to None.
-        write_to_file (TYPE, optional): DESCRIPTION. Defaults to True.
+        met_ref_data (pandas DataFrame):
+            Meteorological reference data (1-hour averages) for temperature,
+            relative humidity, and dew point measurements.
+        avg_hrly_df (pandas DataFrame):
+            Dataframe containing the inter-sensor average value for 1-hour
+            averaged air sensor measurements.
+        figure_path (str):
+            The full directory path to the folder where figures are saved.
+            This should be located at ``[project_path]/figures``.
+        sensor_name (str, optional):
+            The name of the air sensor (make, manufacturer). Defaults to None.
+        write_to_file (bool, optional):
+            If true, the figure will be saved as a png image to the
+            ``[project_path]/figures`` subdirectory. Defaults to True.
 
     Returns:
         None.
@@ -187,23 +210,31 @@ def met_distrib(met_ref_data, avg_hrly_df, figure_path, sensor_name=None,
         plt.close()
 
 
-def recording_interval_histogram(full_df_list, xmin=-10, xmax=120,
-                                 bar_width=2, bar_alpha=.4):
+def recording_interval_histogram(full_df_list, xlims=(-10, 120), bar_width=2,
+                                 bar_alpha=.4):
     """Plot indicating the uneven time delta in sensor data.
 
-    Graphs bar plot of Log(counts) vs. time delta b/w conseq points
+    Graphs bar plot of Log(counts) vs. time delta between consecutive timestamp
+    entries.
 
     Args:
-        full_df_list (TYPE): DESCRIPTION.
-        xmin (TYPE, optional): DESCRIPTION. Defaults to -10.
-        xmax (TYPE, optional): DESCRIPTION. Defaults to 120.
-        bar_width (TYPE, optional): DESCRIPTION. Defaults to 2.
-        bar_alpha (TYPE, optional): DESCRIPTION. Defaults to .4.
+        full_df_list (list):
+            List of pandas DataFrames containing timeseries data at the original
+            recorded sampling frequency.
+        xlims (Two-element tuple, optional):
+            The x-axis limits (in seconds) for displaying the distribution of
+            consecutive intervals between recorded timestamps. Defaults to
+            (-10, 120).
+        bar_width (int or float, optional):
+            The width of bars displayed in the figure. Defaults to 2.
+        bar_alpha (float, optional):
+            The transparency of bars displayed in the figure. Defaults to .4.
 
     Returns:
         None.
 
     """
+    xmin, xmax = xlims
     if len(full_df_list) == 3:
         color_list = ['#1f77b4', '#d62728', '#9467bd']  # blue, red, purple
     else:

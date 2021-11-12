@@ -63,17 +63,32 @@ def sensor_timeplot(df_list, ref_df, param=None, sensor_name=None,
             Optional pass sensor serials dictionary to plot sensor serial IDs
             in the legend instead of numbered sensors. Defaults to None.
         ref_name (str, optional):
-            DESCRIPTION. Defaults to None.
+            The name of the FRM/FEM monitor (make and model). Defaults to None.
         averaging_interval (str, optional):
-            DESCRIPTION. Defaults to None.
+            The measurement averaging intervals commonly utilized for analyzing
+            data corresponding the the selected parameter. Defaults to None.
         return_mpl_obj (bool, optional):
-            DESCRIPTION. Defaults to True.
+            If true, will return a Matplotlib axes instance (useful for
+            iteration over subplot axes if this plotting function is called
+            within a for-loop that is iterating over the axes elements in
+            a Matplotlib subplot object). Defaults to True.
         report_fmt (bool, optional):
-            DESCRIPTION. Defaults to False.
-        ax (matplotlib axes object, optional):
-            DESCRIPTION. Defaults to None.
-        fig (matplotlib figure object, optional):
-            DESCRIPTION. Defaults to None.
+            If true, select formatting presets for displaying figures on the
+            reporting template for sensor performance evaluations included
+            alongside US EPA's performance targets documents for air sensors.
+            Defaults to False.
+        ax (matplotlib.axes._subplots.AxesSubplot, optional):
+            Optional, the Matplotlib Axes object on which plotting elements
+            will be drawn. Useful is the user is iterating over the Axes
+            elements of a Matplotlib figure in a for-loop outside this plotting
+            function. Within the loop, calls to this function can be made to add
+            elements for each axes object. Defaults to None.
+        fig (Matplotlib.figure.Figure, optional):
+            Optional, the Matplotlib figure on which axes object elements are
+            drawn. Useful is the user is iterating over the Axes elements of a
+            Matplotlib figure in a for-loop outside this plotting function.
+            Within the loop, calls to this function can be made to add elements
+            for each axes object. Defaults to None.
 
     **Keyword Arguments:**
 
@@ -413,15 +428,36 @@ def deployment_timeline(deployment_df, cmap_name='Dark2',
     Other discrete colormaps: tab10_r, Dark2, Set2_r, tab20b
 
     Args:
-        deployment_df (TYPE): DESCRIPTION.
-        cmap_name (TYPE, optional): DESCRIPTION. Defaults to 'Dark2'.
-        cmap_norm_range (TYPE, optional): DESCRIPTION. Defaults to (.0, .75).
-        fontsize (TYPE, optional): DESCRIPTION. Defaults to 10.
-        date_interval (TYPE, optional): DESCRIPTION. Defaults to 1.
-        fig_size (TYPE, optional): DESCRIPTION. Defaults to (11, 7).
-        write_to_file (TYPE, optional): DESCRIPTION. Defaults to True.
-        figure_path (TYPE, optional): DESCRIPTION. Defaults to None.
-        tight_layout (TYPE, optional): DESCRIPTION. Defaults to False.
+        deployment_df (pandas DataFrame):
+            Dataframe containing the starting and ending timestamp for the
+            deployment of each air sensor in the testing group.
+        cmap_name (str, optional):
+            The name of the Matplotlib colormap that will be used when drawing
+            plot elements. Defaults to ``'Dark2'``. A full list of colormaps is
+            can be found in the `Matplotlib documentation <https://matplotlib.org/stable/gallery/color/colormap_reference.html>`_
+        cmap_norm_range (Two-element tuple, optional):
+            A two-element tuple containing the normalized range of the colormap
+            values that will be displayed in the figure. The full range of the
+            selected colormap can be selected by passing (0, 1). Hues will
+            be selected at equally spaced intervals within the normalized
+            colormap range specified. Defaults to (.0, .75).
+        fontsize (int or float, optional):
+            The font size for text in figure elements. Defaults to 10.
+        date_interval (int, optional):
+            The interval (in months) at which dates along the x-axis of the
+            figure will be indicated. Defaults to 1 (i.e., one month per tick).
+        fig_size (Two-element tuple, optional):
+            The dimensions (width, height) in inches of the Matplotlib figure to
+            be drawn. Defaults to (11, 7).
+        write_to_file (bool, optional):
+            If true, the figure will be saved as a png image to the
+            ``[project_path]/figures`` subdirectory. Defaults to True.
+        figure_path (str):
+            The full directory path to the folder where figures are saved.
+            This should be located at ``[project_path]/figures``.
+        tight_layout (bool, optional):
+            If True, Matplotlib's ``tight_layout()`` method will be applied to
+            reduce the padding around the subplot. Defaults to False.
 
     Returns:
         None.
