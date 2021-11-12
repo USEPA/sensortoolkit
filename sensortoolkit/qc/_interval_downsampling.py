@@ -24,11 +24,17 @@ def sensor_timedelta(df_list, serials):
     entries.
 
     Args:
-        df_list (TYPE): DESCRIPTION.
-        serials (TYPE): DESCRIPTION.
+        df_list (list):
+            List of sensor dataframes at original, recorded sampling frequency.
+        serials (dict):
+            A dictionary of sensor serial identifiers for each unit in a
+            testing group.
 
     Returns:
-        delta_df (TYPE): DESCRIPTION.
+        delta_df (pandas DataFrame):
+            A dataset containing the intervals in seconds between consecutive
+            timestamps in recorded datasets. Each column corresponds to the
+            time delta intervals for datasets within the passed df_list.
 
     """
     delta_df = pd.DataFrame()
@@ -50,11 +56,17 @@ def sensor_timedelta(df_list, serials):
 
 
 def plot_recording_interval(delta_df):
-    """
+    """Create a plot of the time delta interval vs. row index for recorded
+    datasets.
 
+    This plot indicates whether the recording interval varied in datasets during
+    the duration of measurements.
 
     Args:
-        delta_df (TYPE): DESCRIPTION.
+        delta_df (pandas DataFrame):
+            A dataset containing the intervals in seconds between consecutive
+            timestamps in recorded datasets. Each column corresponds to the
+            time delta intervals for datasets within the passed df_list.
 
     Returns:
         None.
@@ -70,15 +82,23 @@ def plot_recording_interval(delta_df):
 
 
 def timedelta_quantiles(df_list, serials):
-    """
-    Create quantile dataframe for time deltas in the delta_df for each sensor
+    """Create quantile dataframe of time deltas for each dataset the in passed
+    list of datasets (``df_list``).
 
     Args:
-        df_list (TYPE): DESCRIPTION.
-        serials (TYPE): DESCRIPTION.
+        df_list (list):
+            List of sensor dataframes at original, recorded sampling frequency.
+        serials (dict):
+            A dictionary of sensor serial identifiers for each unit in a
+            testing group.
 
     Returns:
-        quant_df (TYPE): DESCRIPTION.
+        quant_df (pandas DataFrame):
+            Dataset containing the time delta interval for measurements
+            (for each dataset in the passed df_list) listed by quantile, ranging
+            from 0 to 1 in 0.001 (0.1%) increments. The 0.5 quantile (50th
+            percentile) corresponds to the median of time delta intervals for
+            each dataset.
 
     """
     delta_df = sensor_timedelta(df_list, serials)
@@ -95,23 +115,48 @@ def timedelta_quantiles(df_list, serials):
 
 
 def downsampling_interval(quant_df, thres_quant=0.99, plot_quantiles=True):
-    """
-    Check if N times the median time delta is greater than the time delta at
-    the 99% quantile for each dataframe.
+    """Check if N times the median time delta is greater than the time delta at
+    a threshold quantile (default is 99%) for each dataframe.
 
-    E.g., if median recording interval is 60 seconds, on the first loop the
-    code will check whether 2*60=120 seconds is greater than the 99th
-    percentile of recording intervals within each dataset. If this is true
-    for all dataframes, exit the loop. Otherwise step the value of 'mult'
-    by one and repeat the loop.
+    Say we have the following scenario where a sensor was configured to record
+    data at 60 second intervals but the recording interval occasionally drifted
+    to shorter or longer intervals:
+    - threshold quantile (``'thres_quant'``)= 0.99 (99th percentile)
+    - threshold recording interval (recording interval at the 99th percentile)
+      = 115 seconds
+    - median recording interval (recording interval at the 50th percentile)
+      = 60 seconds
+
+    On the first iteration of the downsampling_interval() method, the function
+    will check whether 1*60 seconds is greater than the threshold recording
+    interval. Since 60 < 132 seconds, this is not true, so the method will step
+    the multipliying factor up by 1. The second iteration will check whether
+    2*60 seconds is greater than the theshold recording interval. Since this
+    is true (120 > 115 seconds), the loop will exit and indicate that the
+    dataset should be downsampled to 120 second intervals.
 
     Args:
-        quant_df (TYPE): DESCRIPTION.
-        thres_quant (TYPE, optional): DESCRIPTION. Defaults to 0.99.
-        plot_quantiles (TYPE): Defaults to True.
+        quant_df (pandas DataFrame):
+            Dataset containing the time delta interval for measurements
+            (for each dataset in the passed df_list) listed by quantile, ranging
+            from 0 to 1 in 0.001 (0.1%) increments. The 0.5 quantile (50th
+            percentile) corresponds to the median of time delta intervals for
+            each dataset.
+        thres_quant (float, optional):
+            A threshold quantile (normalized between 0 and 1) for the
+            distribution of time deltas in recorded datasets. Downsampling is
+            applied for time delta intervals that are the first multiple of the
+            median time delta that exceeds the time delta corresponding to the
+            threshold quantile. Defaults to 0.99.
+        plot_quantiles (bool):
+            If True, create a figure displaying the distribution of time delta
+            intervals in recorded datasets (relative frequency of recorded
+            time deltas within each quantile interval vs. the time delta of
+            consecutive recorded timestamps). Defaults to True.
 
     Returns:
-        interval (TYPE): DESCRIPTION.
+        interval (int or float):
+            The downsampling interval, in seconds.
 
     """
     mult = 1
@@ -168,13 +213,24 @@ def apply_downsampling(df_list, downsampling_interval):
 
 def plot_timedelta_quantiles(quant_df, interval, thres_quant=0.99):
     """
-    Plot timedelta vs. qunatile, indicate the threshold quantile and
+    Plot timedelta vs. quantile, indicate the threshold quantile and
     downsampling interval by gray dashed lines.
 
     Args:
-        quant_df (TYPE): DESCRIPTION.
-        interval (TYPE): DESCRIPTION.
-        thres_quant (TYPE, optional): DESCRIPTION. Defaults to 0.99.
+        quant_df (pandas DataFrame):
+            Dataset containing the time delta interval for measurements
+            (for each dataset in the passed df_list) listed by quantile, ranging
+            from 0 to 1 in 0.001 (0.1%) increments. The 0.5 quantile (50th
+            percentile) corresponds to the median of time delta intervals for
+            each dataset.
+        interval (int or float):
+            The downsampling interval, in seconds.
+        thres_quant (float, optional):
+            A threshold quantile (normalized between 0 and 1) for the
+            distribution of time deltas in recorded datasets. Downsampling is
+            applied for time delta intervals that are the first multiple of the
+            median time delta that exceeds the time delta corresponding to the
+            threshold quantile. Defaults to 0.99.
 
     Returns:
         None.
