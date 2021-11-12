@@ -32,14 +32,10 @@ class AirSensor:
             The path to the directory where the user intends to store data,
             figures, and reports relating to the sensor being testing.
             Defaults to None.
-        **kwargs (dict): DESCRIPTION.
 
     """
 
-    def __init__(self, make, model, project_path=None, **kwargs):
-
-        self.__dict__.update(**kwargs)
-        self._kwargs = kwargs
+    def __init__(self, make, model, project_path=None):
 
         self.make = make
         self.model = model

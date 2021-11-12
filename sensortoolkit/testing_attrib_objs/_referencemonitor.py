@@ -53,7 +53,6 @@ class ReferenceMonitor:
         site_id (str, optional):
             The unique identification number for the air monitoring site.
             Typically the AQS Site ID if applicable. Defaults to None.
-        **kwargs (dict): Additional keyword arguments.
 
     Raises:
         ValueError: If both the site name and site ID are not None but the
@@ -66,10 +65,7 @@ class ReferenceMonitor:
     _data_sources = ['airnow', 'aqs', 'airnowtech', 'local']
 
     def __init__(self, project_path=None, data_source=None, site_name=None,
-                 site_id=None, **kwargs):
-
-        self.__dict__.update(**kwargs)
-        self._kwargs = kwargs
+                 site_id=None):
 
         self._setup_path = None
         self.data_source = data_source
