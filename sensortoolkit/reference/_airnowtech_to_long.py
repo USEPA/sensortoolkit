@@ -19,8 +19,8 @@ import numpy as np
 def airnowtech_wide_to_long(path):
     """Convert downloaded AirNowTech datasets from wide format to long format.
 
-    When users download datasets from the AirNowTech website
-    (airnowtech.org/data), users may select various options for how the data
+    When users download datasets from the `AirNowTech website <airnowtech.org/data>`_,
+    users may select various options for how the data
     are displayed under the 'Display Settings' menu. Next to the 'Display'
     section within the menu, the checkbox 'Table' should be selected by
     default. Next to the 'Table' checkbox is a dropdown menu with options for
