@@ -56,7 +56,7 @@ def ref_api_query(query_type=None, param=None, bdate='', edate='',
     """Wrapper function for sending an API data query to either the AQS or
     AirNow API for a specified parameter (``param``).
 
-    Data returned by queries are parsed into pandas dataframes and processed
+    Data returned by queries are parsed into pandas DataFrames and processed
     to convert header labels and column data types into a consistent standard
     for reference data sets.
 
@@ -102,7 +102,7 @@ def ref_api_query(query_type=None, param=None, bdate='', edate='',
 
     Args:
         query_type (str):
-            The API service to query (either 'AQS' or 'AirNow').
+            The API service to query (either ``'AQS'`` or ``'AirNow'``).
         param (str):
             The evaluation parameter for which to return API query data.
         bdate (str):
@@ -122,13 +122,13 @@ def ref_api_query(query_type=None, param=None, bdate='', edate='',
     Returns:
         (tuple): two-element tuple containing:
 
-            - query_data (pandas DataFrame): Data returned by the API for the
-              specified parameter and time frame. Data have been processed with
-              column headers converted into standard naming scheme and column
-              data types converted into a consistent formatting scheme for
-              reference datasets.
-            - raw_data (pandas DataFrame): An unmodified version of the dataset
-              returned by the API query.
+            - **query_data** (*pandas DataFrame*): Data returned by the API for
+              the specified parameter and time frame. Data have been processed
+              with column headers converted into standard naming scheme and
+              column data types converted into a consistent formatting scheme
+              for reference datasets.
+            - **raw_data** (*pandas DataFrame*): An unmodified version of the
+              dataset returned by the API query.
 
     """
     if type(param) is str:
@@ -337,11 +337,16 @@ def select_poc(df, param):
     """Ask the user for a single POC if multiple codes present in dataset.
 
     Args:
-        df (pandas DataFrame): DESCRIPTION.
-        param (str): The evaluation parameter.
+        df (pandas DataFrame):
+            Query dataset containing data for a particular parameter. The
+            dataset contains multiple POC entries (i.e., reference data from
+            multiple instruments).
+        param (str):
+            The evaluation parameter.
 
     Returns:
-        df (pandas DataFrame): DESCRIPTION.
+        df (pandas DataFrame):
+            Modified dataset containing measurement data for the indicated POC.
 
     """
     print('')
@@ -373,16 +378,17 @@ def select_poc(df, param):
 def modify_ref_cols(df, param):
     """Modify the data type of columns in reference data and reorder columns.
 
-    Args
-        df (pandas dataframe):
+    Args:
+        df (pandas DataFrame):
             Dataframe resulting from API query.
         param (str):
             The evaluation parameter.
 
     Returns:
-        df (pandas dataframe):
+        df (pandas DataFrame):
             Modified dataframe column data types correected and column ordering
             reorganized.
+
     """
     # Column header suffixes for parameter data
     param_attribs = ['_Value', '_Unit', '_QAQC_Code', '_Param_Code',
@@ -444,14 +450,14 @@ def modify_ref_method_str(df, param):
     long format text to ensure consistency for reference data retreived from
     AQS, AirNow, and AirNowTech, and also to improve legibility.
 
-    Args
-        df (pandas dataframe):
+    Args:
+        df (pandas DataFrame):
             Dataframe resulting from API query.
         param (str):
             The evaluation parameter.
 
     Returns:
-        df (pandas dataframe):
+        df (pandas DataFrame):
             Modified dataframe with method and unit strings corrected.
 
     """
@@ -496,8 +502,8 @@ def date_range_selector(start_date, end_date):
     Returns:
         (tuple): two-element tuple containing:
 
-            - month_starts (pandas datetimeindex): An array of monthly start
-              dates.
+            - **month_starts** (*pandas datetimeindex*): An array of monthly
+              start dates.
 
               Example:
 
@@ -508,7 +514,8 @@ def date_range_selector(start_date, end_date):
                                '2021-05-01', '2021-06-01'],
                                dtype='datetime64[ns]', freq='MS')
 
-            - month_ends (pandas datetimeindex): An array of monthly end dates.
+            - **month_ends** (*pandas DateTimeIndex*): An array of monthly end
+              dates.
 
               Example:
 
@@ -546,10 +553,10 @@ def query_periods(query_type=None, month_starts=[], month_ends=[]):
     dates are formatted a little differently depending on the API to query.
 
     API date formatting:
-        AirNow API: Expects dates in format 'YYYY-MM-DDTHH'
-            Example: '2019-08-01T00'
-        AQS API: Expects dates in format 'YYYYMMDD'
-            Example: '20190801'
+    - AirNow API: Expects dates in format ``'YYYY-MM-DDTHH'``
+        - Example: ``'2019-08-01T00'``
+    - AQS API: Expects dates in format ``'YYYYMMDD'``
+        - Example: ``'20190801'``
 
     Args:
         query_type (str):
@@ -611,11 +618,42 @@ def query_aqs(param, data_period, aqs_id, username=None, key=None,
         aqs_id (str):
             The AQS site ID for the air monitoring site from which reference
             measurements will be returned by the API.
+        username (str):
+            AQS API username assigned to the user during API registration.
         key (str):
             User key for API authentication.
+        query_type (str):
+            The type of data query to request from AQS.
+
+            - Metadata and listings:
+                - ``metadata``
+                - ``list``
+                - ``monitors``
+            - Monitor Data:
+                - ``sampleData``
+                - ``dailyData``
+                - ``quarterlyData``
+                - ``annualData``
+            - Quality Assurance Assessments and Audits:
+                - ``qaAnnualPerformanceEvaluations``
+                - ``qaBlanks``
+                - ``qaCollocatedAssessments``
+                - ``qaFlowRateVerifications``
+                - ``qaFlowRateAudits``
+                - ``qaOnePointQcRawData``
+                - ``qaPepAudits``
+
+    **Keyword Arguments:**
+
+    :param bool get_monitor_info:
+        If True, a secondary AQS query will be submitted for adding
+        reference monitor and site metadata to the dataset returned by
+        this method.
+    :param str sample_duration:
+        The duration of recorded reference data the user wishes to retreive.
 
     Returns:
-        data (pandas dataframe):
+        data (pandas DataFrame):
             Data returned by the API for the specified query parameter and
             time period.
 
@@ -668,7 +706,7 @@ def query_aqs(param, data_period, aqs_id, username=None, key=None,
     status = json_data['Header'][0]['status']
     print('..Response status: {0}'.format(status))
     if status == 'Success':
-        # Convert data to pandas dataframe
+        # Convert data to pandas DataFrame
         data = pd.DataFrame(json_data['Data'])
 
         if query_type == 'sampleData':
@@ -685,17 +723,44 @@ def query_aqs(param, data_period, aqs_id, username=None, key=None,
 
 
 def parse_sample_data(sample_data, get_monitor_info, param_list, **kwargs):
-    """
+    """Helper function for ingesting AQS ``'sampleData'`` queries.
 
+    The parser searches for data matching the specified ``'sample_duration'``
+    (default ``'1 HOUR'``). Metadata columns are added to the passed dataset
+    indicating site and reference monitor attributes.
 
     Args:
-        sample_data (pandas DataFrame): DESCRIPTION.
-        get_monitor_info (bool): DESCRIPTION.
-        param_list (list): DESCRIPTION.
-        **kwargs (dict): DESCRIPTION.
+        sample_data (pandas DataFrame):
+            Data returned by the AQS API for a query with type ``'sampleData'``.
+        get_monitor_info (bool):
+            If True, a secondary AQS query will be submitted for adding
+            reference monitor and site metadata to the dataset returned by
+            this method.
+        param_list (list):
+            A list of parameters for which the user wishes to query the
+            AQS API.
+
+    **Keyword Arguments:**
+
+    :param list data_period:
+        List with two elements, the first is the start date and time for
+        the query and the second is the end date and time for the query.
+        The API is sequentially queried in monthly intervals, so the start
+        date will usually be something like '20210101' and the end
+        date will follow as '20210131'.
+    :param dict aqs_id:
+        The AQS site ID for the air monitoring site from which reference
+        measurements will be returned by the API.
+    :param str username:
+        AQS API username assigned to the user during API registration.
+    :param str key:
+        User key for API authentication.
+    :param str sample_duration:
+        The duration of recorded reference data the user wishes to retreive.
 
     Returns:
-        sample_data (pandas DataFrame): DESCRIPTION.
+        sample_data (pandas DataFrame):
+            Modified API query dataset.
 
     """
     if get_monitor_info:
@@ -774,9 +839,9 @@ def ingest_aqs(data, param, api_param, param_classifier,
     Returns:
         (tuple): two-element tuple containing:
 
-            - data (pandas DataFrame): SDFS formatted dataset.
-            - idx (pandas DateTimeIndex): The datetime index (UTC) for the data
-              received from the API query.
+            - **data** (*pandas DataFrame*): SDFS formatted dataset.
+            - **idx** (*pandas DateTimeIndex*): The datetime index (UTC) for the
+              data received from the API query.
 
     """
     idx = pd.to_datetime(data['date_gmt_' + api_param] + ' '
@@ -888,7 +953,7 @@ def query_airnow(param, data_period, bbox, key=None):
             User key for API authentication.
 
     Returns:
-        data (pandas dataframe):
+        data (pandas DataFrame):
             Data returned by the API for the specified query parameter and
             time period.
     """
