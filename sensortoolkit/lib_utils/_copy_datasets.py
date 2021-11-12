@@ -62,14 +62,66 @@ def copy_datasets(data_type=None, path=None, select='directory', **kwargs):
     files to ``/data..`` raw data subdirectory for a sensor.
 
     Args:
-        name (TYPE, optional):
-            The name of the sensor. Defaults to None.
-        path (TYPE, optional):
+        data_type (str, optional):
+            Indicates the type of device that recorded the datasets the user
+            wishes to copy to the ``[project_path]/data`` directory. Select
+            either ``'sensor'`` to indicate copying of air sensor datasets or
+            ``'reference'`` to indicate copying of reference monitor datasets.
+        path (str, optional):
             The full path of the work directory in which data will be stored.
             Defaults to None.
+        select (str, optional):
+            Selection method for indicating how datasets should be identified
+            within the file explorer menu. Defaults to 'directory'.
+
+            Selection options include the following:
+
+            - ``'directory'``, which will locate and copy all of the data files
+              in the specified directory for the indicated data type
+            - ``'recursive directory'``, which will locate and copy all data
+              files within the specified directory and any subdirectories
+              contained within the indicated folder path
+            - ``'files'`` which copies over files that the user manually
+              selects within a directory.
+
+    **Keyword Arguments:**
+
+    :param str file_extension:
+        The type of data file to select. Choose from ``'.csv'``, ``'.txt'``,
+        ``'.xlsx'``.
+    :param str name:
+        (``data_type = 'sensor'`` only). The name given to the air sensor. Used
+        to locate the air sensor data subdirectory at
+        ``[project_data]/data/sensor_data/[sensor_name]``.
+    :param str ref_data_source:
+        (``data_type = 'reference'`` only). The name of the service or source
+        from which reference data were acquired.
+
+        Choose from the following options:
+
+        - ``'local'``: Data files aqcuired locally (e.g., local transfer
+          from agency overseeing reference instrumentation at air monitoring
+          site).
+        - ``'airnowtech'``: User has downloaded files from the AirNowTech
+          system and has saved files locally to the user’s system.
+
+    :param str site_name:
+        (``data_type = 'reference'`` only). The name of the air monitoring
+        site. Used to locate the reference data subdirectory at
+        ``[project_data]/data/reference_data/[ref_data_source]/[sitename_siteid]``.
+    :param str site_aqs:
+        (``data_type = 'reference'`` only). The AQS  ID for the air monitoring
+        site. Used to locate the reference data subdirectory at
+        ``[project_data]/data/reference_data/[ref_data_source]/[sitename_siteid]``.
+    :param bool return_filenames:
+        If true, a list of full paths for datasets that have been copied into
+        the ``/data`` directory will be returned.
 
     Returns:
-        None.
+        copy_file_list (list):
+            If 'return_filenames' is True, return a list of full paths to data
+            files that have been copied into the ``[project_data]/data``
+            directory.
 
     """
     banner_w = 79
