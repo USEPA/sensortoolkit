@@ -63,9 +63,12 @@ def sensor_averaging(full_df_list, sensor_serials=None, name='',
         path (str):
             The full directory path to processed sensor data for a given sensor
             make and model.
-        **kwargs:
-            threshold (float): The completeness threshold for averaging
-            datasets to 1-hour/24-hour intervals. Defaults to 75% (``0.75``).
+            
+    **Keyword Arguments:**
+
+    :param float threshold:
+        The completeness threshold for averaging datasets to 1-hour or
+        24-hour intervals. Defaults to 75% (``0.75``).
 
     Returns:
         (tuple): Two-element tuple containing:
