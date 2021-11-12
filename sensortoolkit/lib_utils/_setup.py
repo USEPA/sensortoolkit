@@ -466,8 +466,8 @@ class _Setup:
         print('')
 
     def setColumnHeaders(self, print_banner=True):
-        """
-
+        """Manually set column headers if the user indicates ``'None'`` for the
+        row index for the column headers in ``setHeaderIndex()``.
 
         Args:
             print_banner (bool, optional):
@@ -476,7 +476,8 @@ class _Setup:
                 Defaults to True.
 
         Raises:
-            ValueError: DESCRIPTION.
+            ValueError: Raise if the value of the entered index is invalid
+            (less than zero).
 
         Returns:
             None.
