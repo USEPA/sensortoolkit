@@ -41,9 +41,9 @@ def draw_scatter(ax, xdata, ydata, param_dict, sensor_stats=None,
     Args:
         ax (Matplotlib axes instance):
             The axes object on which the scatter plot is drawn
-        xdata: numpy array or pandas series):
+        xdata (numpy array or pandas Series):
             The x data (reference data)
-        ydata: numpy array or pandas series):
+        ydata (numpy array or pandas Series):
             The y data (sensor data)
         param_dict (dict):
             Dictionary of kwargs to pass to ax.plot
@@ -413,7 +413,7 @@ def scatter_plotter(df_list, ref_df, stats_df=None, plot_subset=None,
         Default depends on the value passed to the plottext_postion argument.
     :type plottext_xloc: float, passed to Draw_Scatter()
     :param plottext_yloc:
-       The top-most y-coordinate of the text drawn on scatter plots.
+        The top-most y-coordinate of the text drawn on scatter plots.
         Default depends on the value passed to the plottext_postion argument.
     :type plottext_yloc: float, passed to Draw_Scatter()
     :param plottext_xdisplacement:
@@ -490,7 +490,7 @@ def scatter_plotter(df_list, ref_df, stats_df=None, plot_subset=None,
 
         .. math::
 
-            x_{max} = 1.25\\timesC_{max} + (\\Delta_{tick} - 1.25\\timesC_{max}\\%\\Delta_{tick})
+            x_{max} = 1.25\\times C_{max} + (\\Delta_{tick} - 1.25\\times C_{max}\\%\\Delta_{tick})
 
         where:
 
@@ -515,8 +515,9 @@ def scatter_plotter(df_list, ref_df, stats_df=None, plot_subset=None,
     :type xlims: Two-element tuple of floats
     :param ylims:
         The y-limits of the scatter plot. Defaults to zero for the lower
-        limit. For the upper limit, the same formula used for the x-limits is
-        used.
+        limit. For the default upper y-limit, the value is set equal to the
+        value computed for the x-limit above (i.e., the figure dimensions
+        along both axes are set equal).
     :type ylims: Two-element tuple of floats
 
     Returns:
