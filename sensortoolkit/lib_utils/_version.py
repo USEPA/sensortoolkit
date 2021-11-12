@@ -1,6 +1,12 @@
 # -*- coding: utf-8 -*-
 """Return the current version of sensortoolkit.
 
+Users can verify that the sensortoolkit library is loaded properly by checking
+the library version:
+
+>>> print(sensortoolkit.__version__)
+    "1.0.0"
+
 ================================================================================
 
 @Author:
