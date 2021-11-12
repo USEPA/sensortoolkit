@@ -226,11 +226,21 @@ def parse_setup(setup_path, data_path):
     """Construct file-specific setup file from the setup.json.
 
     Args:
-        setup_path (str): DESCRIPTION.
-        data_path (str): DESCRIPTION.
+        setup_path (str):
+            Path to the setup.json file for ingesting datasets into SDFS format.
+        data_path (str):
+            Full path to the directory where recorded datasets are stored.
+
+            - For sensor data, this path should look like:
+              ``[project_path]/data/sensor_data/[sensor_name]/raw_data``
+            - For reference data, this path should look like:
+              ``[project_path]/data/reference_data/[ref_source]/raw/[sitename_siteid]``
 
     Returns:
-        file_setup (dict): DESCRIPTION.
+        file_setup (dict):
+            Data structure containing file-specific formatting configuration.
+            Passed to ``standard_ingest()`` for ingestion of the dataset
+            corresponding to the file into SDFS format.
 
     """
     # Ensure norm path
