@@ -38,8 +38,15 @@ class Parameter:
     intervals.
 
     Args:
-        param (str): DESCRIPTION.
-        set_units (bool, optional): DESCRIPTION. Defaults to True.
+        param (str):
+            The name of a parameter. Passing an SDFS parameter will initialize
+            a parameter instance with preset parameter attributes. Non-SDFS
+            parameters will require user-input for specifying these attributes.
+        set_units (bool, optional):
+            If true, will attempt to assign units to the parameter. If the
+            parameter name is not recognized as an SDFS parameter and set_units
+            is True, the user will be prompted to enter the units for the
+            parameter instance. Defaults to True.
 
     Attributes:
         name (str):
