@@ -254,9 +254,11 @@ def join_stats(hourly_stats, daily_stats, write_to_file=False, stats_path=None,
             sensor vs. reference regression statistics, returned by call to
             regression_stats().
         write_to_file (bool, optional):
-            DESCRIPTION. Defaults to False.
+            If True, the merged statistics dataframe will be written to a csv
+            file. Defaults to False.
         stats_path (str, optional):
-            DESCRIPTION. Defaults to None.
+            The full path to the statistics directory where the dataset will be
+            saved if ``write_to_file`` is True. Defaults to None.
         stats_type (str, optional):
             The type of regression statistics dataframes that are being joined
             ('individual' indicates individual sensor vs. reference
