@@ -1,78 +1,37 @@
-
-
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8" />
-  
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
-  <title>sensortoolkit.qc._interval_downsampling &mdash; sensortoolkit 0.6.0b4 documentation</title>
-  
-
-  
-  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" type="text/css" />
-
-  
-  
-
-  
-  
-
-  
-
-  
+  <title>sensortoolkit.qc._interval_downsampling &mdash; sensortoolkit 0.6.0b14 documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
         <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
         <script src="../../../_static/jquery.js"></script>
         <script src="../../../_static/underscore.js"></script>
         <script src="../../../_static/doctools.js"></script>
-    
-    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
-
-    
+    <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-          
-
-          
             <a href="../../../index.html" class="icon icon-home"> sensortoolkit
-          
-
-          
           </a>
-
-          
-            
-            
               <div class="version">
-                0.6.0b4
+                0.6.0b14
               </div>
-            
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
@@ -80,18 +39,7 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Documentation Overview</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../install.html">Installation</a></li>
@@ -116,6 +64,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../evaluation_objects/index.html">Evaluation Objects</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../evaluation_objects/sensoreval/index.html">Conducting Analysis - The SensorEvaluation Class</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../evaluation_objects/sensoreval/plotting.html">Plotting Methods</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../evaluation_objects/sensoreval/printing.html">Descriptive Summary Methods</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../evaluation_objects/sensoreval/statistic.html">Statistical Methods</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../evaluation_objects/performancereport.html">Creating Testing Reports - The PerformanceReport Class</a></li>
@@ -271,7 +221,6 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.lib_utils._setup.html">sensortoolkit.lib_utils._setup</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.lib_utils._setup.displayMethods.html">sensortoolkit.lib_utils._setup.displayMethods</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.lib_utils._setup.ReferenceSetup.html">sensortoolkit.lib_utils._setup.ReferenceSetup</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.lib_utils._setup.SensorSetup.html">sensortoolkit.lib_utils._setup.SensorSetup</a></li>
 </ul>
@@ -314,10 +263,6 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.plotting._errorbars.html">sensortoolkit.plotting._errorbars</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.plotting._errorbars.error_bars.html">sensortoolkit.plotting._errorbars.error_bars</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.plotting._intrasensor_comparison.html">sensortoolkit.plotting._intrasensor_comparison</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.plotting._intrasensor_comparison.compare_sensors.html">sensortoolkit.plotting._intrasensor_comparison.compare_sensors</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.plotting._performance_metrics.html">sensortoolkit.plotting._performance_metrics</a><ul>
@@ -426,69 +371,30 @@
 </li>
 </ul>
 
-            
-          
         </div>
-        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../../../index.html">sensortoolkit</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
       <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
-        
           <li><a href="../../index.html">Module code</a> &raquo;</li>
-        
       <li>sensortoolkit.qc._interval_downsampling</li>
-    
-    
       <li class="wy-breadcrumbs-aside">
-        
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
+             
   <h1>Source code for sensortoolkit.qc._interval_downsampling</h1><div class="highlight"><pre>
 <span></span><span class="c1"># -*- coding: utf-8 -*-</span>
 <span class="sd">&quot;&quot;&quot;</span>
@@ -516,11 +422,17 @@
 <span class="sd">    entries.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        df_list (TYPE): DESCRIPTION.</span>
-<span class="sd">        serials (TYPE): DESCRIPTION.</span>
+<span class="sd">        df_list (list):</span>
+<span class="sd">            List of sensor dataframes at original, recorded sampling frequency.</span>
+<span class="sd">        serials (dict):</span>
+<span class="sd">            A dictionary of sensor serial identifiers for each unit in a</span>
+<span class="sd">            testing group.</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        delta_df (TYPE): DESCRIPTION.</span>
+<span class="sd">        delta_df (pandas DataFrame):</span>
+<span class="sd">            A dataset containing the intervals in seconds between consecutive</span>
+<span class="sd">            timestamps in recorded datasets. Each column corresponds to the</span>
+<span class="sd">            time delta intervals for datasets within the passed df_list.</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">delta_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
@@ -542,11 +454,17 @@
 
 
 <div class="viewcode-block" id="plot_recording_interval"><a class="viewcode-back" href="../../../api/_autosummary/sensortoolkit.qc._interval_downsampling.plot_recording_interval.html#sensortoolkit.qc._interval_downsampling.plot_recording_interval">[docs]</a><span class="k">def</span> <span class="nf">plot_recording_interval</span><span class="p">(</span><span class="n">delta_df</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;Create a plot of the time delta interval vs. row index for recorded</span>
+<span class="sd">    datasets.</span>
 
+<span class="sd">    This plot indicates whether the recording interval varied in datasets during</span>
+<span class="sd">    the duration of measurements.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        delta_df (TYPE): DESCRIPTION.</span>
+<span class="sd">        delta_df (pandas DataFrame):</span>
+<span class="sd">            A dataset containing the intervals in seconds between consecutive</span>
+<span class="sd">            timestamps in recorded datasets. Each column corresponds to the</span>
+<span class="sd">            time delta intervals for datasets within the passed df_list.</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        None.</span>
@@ -562,15 +480,23 @@
 
 
 <div class="viewcode-block" id="timedelta_quantiles"><a class="viewcode-back" href="../../../api/_autosummary/sensortoolkit.qc._interval_downsampling.timedelta_quantiles.html#sensortoolkit.qc._interval_downsampling.timedelta_quantiles">[docs]</a><span class="k">def</span> <span class="nf">timedelta_quantiles</span><span class="p">(</span><span class="n">df_list</span><span class="p">,</span> <span class="n">serials</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Create quantile dataframe for time deltas in the delta_df for each sensor</span>
+    <span class="sd">&quot;&quot;&quot;Create quantile dataframe of time deltas for each dataset the in passed</span>
+<span class="sd">    list of datasets (``df_list``).</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        df_list (TYPE): DESCRIPTION.</span>
-<span class="sd">        serials (TYPE): DESCRIPTION.</span>
+<span class="sd">        df_list (list):</span>
+<span class="sd">            List of sensor dataframes at original, recorded sampling frequency.</span>
+<span class="sd">        serials (dict):</span>
+<span class="sd">            A dictionary of sensor serial identifiers for each unit in a</span>
+<span class="sd">            testing group.</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        quant_df (TYPE): DESCRIPTION.</span>
+<span class="sd">        quant_df (pandas DataFrame):</span>
+<span class="sd">            Dataset containing the time delta interval for measurements</span>
+<span class="sd">            (for each dataset in the passed df_list) listed by quantile, ranging</span>
+<span class="sd">            from 0 to 1 in 0.001 (0.1%) increments. The 0.5 quantile (50th</span>
+<span class="sd">            percentile) corresponds to the median of time delta intervals for</span>
+<span class="sd">            each dataset.</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">delta_df</span> <span class="o">=</span> <span class="n">sensor_timedelta</span><span class="p">(</span><span class="n">df_list</span><span class="p">,</span> <span class="n">serials</span><span class="p">)</span>
@@ -587,23 +513,48 @@
 
 
 <div class="viewcode-block" id="downsampling_interval"><a class="viewcode-back" href="../../../api/_autosummary/sensortoolkit.qc._interval_downsampling.downsampling_interval.html#sensortoolkit.qc._interval_downsampling.downsampling_interval">[docs]</a><span class="k">def</span> <span class="nf">downsampling_interval</span><span class="p">(</span><span class="n">quant_df</span><span class="p">,</span> <span class="n">thres_quant</span><span class="o">=</span><span class="mf">0.99</span><span class="p">,</span> <span class="n">plot_quantiles</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Check if N times the median time delta is greater than the time delta at</span>
-<span class="sd">    the 99% quantile for each dataframe.</span>
+    <span class="sd">&quot;&quot;&quot;Check if N times the median time delta is greater than the time delta at</span>
+<span class="sd">    a threshold quantile (default is 99%) for each dataframe.</span>
 
-<span class="sd">    E.g., if median recording interval is 60 seconds, on the first loop the</span>
-<span class="sd">    code will check whether 2*60=120 seconds is greater than the 99th</span>
-<span class="sd">    percentile of recording intervals within each dataset. If this is true</span>
-<span class="sd">    for all dataframes, exit the loop. Otherwise step the value of &#39;mult&#39;</span>
-<span class="sd">    by one and repeat the loop.</span>
+<span class="sd">    Say we have the following scenario where a sensor was configured to record</span>
+<span class="sd">    data at 60 second intervals but the recording interval occasionally drifted</span>
+<span class="sd">    to shorter or longer intervals:</span>
+<span class="sd">    - threshold quantile (``&#39;thres_quant&#39;``)= 0.99 (99th percentile)</span>
+<span class="sd">    - threshold recording interval (recording interval at the 99th percentile)</span>
+<span class="sd">      = 115 seconds</span>
+<span class="sd">    - median recording interval (recording interval at the 50th percentile)</span>
+<span class="sd">      = 60 seconds</span>
+
+<span class="sd">    On the first iteration of the downsampling_interval() method, the function</span>
+<span class="sd">    will check whether 1*60 seconds is greater than the threshold recording</span>
+<span class="sd">    interval. Since 60 &lt; 132 seconds, this is not true, so the method will step</span>
+<span class="sd">    the multipliying factor up by 1. The second iteration will check whether</span>
+<span class="sd">    2*60 seconds is greater than the theshold recording interval. Since this</span>
+<span class="sd">    is true (120 &gt; 115 seconds), the loop will exit and indicate that the</span>
+<span class="sd">    dataset should be downsampled to 120 second intervals.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        quant_df (TYPE): DESCRIPTION.</span>
-<span class="sd">        thres_quant (TYPE, optional): DESCRIPTION. Defaults to 0.99.</span>
-<span class="sd">        plot_quantiles (TYPE): Defaults to True.</span>
+<span class="sd">        quant_df (pandas DataFrame):</span>
+<span class="sd">            Dataset containing the time delta interval for measurements</span>
+<span class="sd">            (for each dataset in the passed df_list) listed by quantile, ranging</span>
+<span class="sd">            from 0 to 1 in 0.001 (0.1%) increments. The 0.5 quantile (50th</span>
+<span class="sd">            percentile) corresponds to the median of time delta intervals for</span>
+<span class="sd">            each dataset.</span>
+<span class="sd">        thres_quant (float, optional):</span>
+<span class="sd">            A threshold quantile (normalized between 0 and 1) for the</span>
+<span class="sd">            distribution of time deltas in recorded datasets. Downsampling is</span>
+<span class="sd">            applied for time delta intervals that are the first multiple of the</span>
+<span class="sd">            median time delta that exceeds the time delta corresponding to the</span>
+<span class="sd">            threshold quantile. Defaults to 0.99.</span>
+<span class="sd">        plot_quantiles (bool):</span>
+<span class="sd">            If True, create a figure displaying the distribution of time delta</span>
+<span class="sd">            intervals in recorded datasets (relative frequency of recorded</span>
+<span class="sd">            time deltas within each quantile interval vs. the time delta of</span>
+<span class="sd">            consecutive recorded timestamps). Defaults to True.</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        interval (TYPE): DESCRIPTION.</span>
+<span class="sd">        interval (int or float):</span>
+<span class="sd">            The downsampling interval, in seconds.</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">mult</span> <span class="o">=</span> <span class="mi">1</span>
@@ -636,6 +587,17 @@
 
 
 <div class="viewcode-block" id="apply_downsampling"><a class="viewcode-back" href="../../../api/_autosummary/sensortoolkit.qc._interval_downsampling.apply_downsampling.html#sensortoolkit.qc._interval_downsampling.apply_downsampling">[docs]</a><span class="k">def</span> <span class="nf">apply_downsampling</span><span class="p">(</span><span class="n">df_list</span><span class="p">,</span> <span class="n">downsampling_interval</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+
+
+<span class="sd">    Args:</span>
+<span class="sd">        df_list (TYPE): DESCRIPTION.</span>
+<span class="sd">        downsampling_interval (TYPE): DESCRIPTION.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        df_list (TYPE): DESCRIPTION.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># Downsample to mean param values for every downsampled interval</span>
     <span class="n">interval</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_timedelta</span><span class="p">(</span><span class="n">downsampling_interval</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s1">&#39;s&#39;</span><span class="p">)</span>
 
@@ -649,13 +611,24 @@
 
 <div class="viewcode-block" id="plot_timedelta_quantiles"><a class="viewcode-back" href="../../../api/_autosummary/sensortoolkit.qc._interval_downsampling.plot_timedelta_quantiles.html#sensortoolkit.qc._interval_downsampling.plot_timedelta_quantiles">[docs]</a><span class="k">def</span> <span class="nf">plot_timedelta_quantiles</span><span class="p">(</span><span class="n">quant_df</span><span class="p">,</span> <span class="n">interval</span><span class="p">,</span> <span class="n">thres_quant</span><span class="o">=</span><span class="mf">0.99</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Plot timedelta vs. qunatile, indicate the threshold quantile and</span>
+<span class="sd">    Plot timedelta vs. quantile, indicate the threshold quantile and</span>
 <span class="sd">    downsampling interval by gray dashed lines.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        quant_df (TYPE): DESCRIPTION.</span>
-<span class="sd">        interval (TYPE): DESCRIPTION.</span>
-<span class="sd">        thres_quant (TYPE, optional): DESCRIPTION. Defaults to 0.99.</span>
+<span class="sd">        quant_df (pandas DataFrame):</span>
+<span class="sd">            Dataset containing the time delta interval for measurements</span>
+<span class="sd">            (for each dataset in the passed df_list) listed by quantile, ranging</span>
+<span class="sd">            from 0 to 1 in 0.001 (0.1%) increments. The 0.5 quantile (50th</span>
+<span class="sd">            percentile) corresponds to the median of time delta intervals for</span>
+<span class="sd">            each dataset.</span>
+<span class="sd">        interval (int or float):</span>
+<span class="sd">            The downsampling interval, in seconds.</span>
+<span class="sd">        thres_quant (float, optional):</span>
+<span class="sd">            A threshold quantile (normalized between 0 and 1) for the</span>
+<span class="sd">            distribution of time deltas in recorded datasets. Downsampling is</span>
+<span class="sd">            applied for time delta intervals that are the first multiple of the</span>
+<span class="sd">            median time delta that exceeds the time delta corresponding to the</span>
+<span class="sd">            threshold quantile. Defaults to 0.99.</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        None.</span>
@@ -690,46 +663,30 @@
 </pre></div>
 
            </div>
-           
           </div>
           <footer>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>
-        &#169; Copyright 2021, Samuel Frederick.
-
-    </p>
+    <p>&#169; Copyright 2021, Samuel Frederick.</p>
   </div>
-    
-    
-    
-    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
 
 </footer>
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>

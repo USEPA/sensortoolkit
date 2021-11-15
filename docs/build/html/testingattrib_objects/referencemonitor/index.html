@@ -1,81 +1,41 @@
-
-
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" />
-  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
-  <title>The ReferenceMonitor Object &mdash; sensortoolkit 0.6.0b4 documentation</title>
-  
-
-  
-  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" type="text/css" />
-
-  
-  
-
-  
-  
-
-  
-
-  
+  <title>The ReferenceMonitor Object &mdash; sensortoolkit 0.6.0b14 documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
         <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
         <script src="../../_static/jquery.js"></script>
         <script src="../../_static/underscore.js"></script>
         <script src="../../_static/doctools.js"></script>
-    
-    <script type="text/javascript" src="../../_static/js/theme.js"></script>
-
-    
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="ReferenceMonitor Instantiation" href="overview.html" />
     <link rel="prev" title="Loading Sensor Data" href="../airsensor/load_data.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-          
-
-          
             <a href="../../index.html" class="icon icon-home"> sensortoolkit
-          
-
-          
           </a>
-
-          
-            
-            
               <div class="version">
-                0.6.0b4
+                0.6.0b14
               </div>
-            
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
@@ -83,18 +43,7 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Documentation Overview</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../../install.html">Installation</a></li>
@@ -119,6 +68,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../../evaluation_objects/index.html">Evaluation Objects</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../evaluation_objects/sensoreval/index.html">Conducting Analysis - The SensorEvaluation Class</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../evaluation_objects/sensoreval/plotting.html">Plotting Methods</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../evaluation_objects/sensoreval/printing.html">Descriptive Summary Methods</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../evaluation_objects/sensoreval/statistic.html">Statistical Methods</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../evaluation_objects/performancereport.html">Creating Testing Reports - The PerformanceReport Class</a></li>
@@ -274,7 +225,6 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.lib_utils._setup.html">sensortoolkit.lib_utils._setup</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.lib_utils._setup.displayMethods.html">sensortoolkit.lib_utils._setup.displayMethods</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.lib_utils._setup.ReferenceSetup.html">sensortoolkit.lib_utils._setup.ReferenceSetup</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.lib_utils._setup.SensorSetup.html">sensortoolkit.lib_utils._setup.SensorSetup</a></li>
 </ul>
@@ -317,10 +267,6 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.plotting._errorbars.html">sensortoolkit.plotting._errorbars</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.plotting._errorbars.error_bars.html">sensortoolkit.plotting._errorbars.error_bars</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.plotting._intrasensor_comparison.html">sensortoolkit.plotting._intrasensor_comparison</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.plotting._intrasensor_comparison.compare_sensors.html">sensortoolkit.plotting._intrasensor_comparison.compare_sensors</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.plotting._performance_metrics.html">sensortoolkit.plotting._performance_metrics</a><ul>
@@ -429,130 +375,214 @@
 </li>
 </ul>
 
-            
-          
         </div>
-        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../../index.html">sensortoolkit</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
       <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
-        
           <li><a href="../index.html">Testing Attribute Objects</a> &raquo;</li>
-        
       <li>The ReferenceMonitor Object</li>
-    
-    
       <li class="wy-breadcrumbs-aside">
-        
-          
             <a href="../../_sources/testingattrib_objects/referencemonitor/index.rst.txt" rel="nofollow"> View page source</a>
-          
-        
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
+             
   <section id="the-referencemonitor-object">
-<h1>The ReferenceMonitor Object<a class="headerlink" href="#the-referencemonitor-object" title="Permalink to this headline">¶</a></h1>
-<div class="toctree-wrapper compound">
+<h1>The ReferenceMonitor Object<a class="headerlink" href="#the-referencemonitor-object" title="Permalink to this headline"></a></h1>
+<style>
+   .gbg {background-color:#c4e5b4;}
+   .rbg {background-color:#E5B4C4;}
+</style><div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="overview.html">ReferenceMonitor Instantiation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="setup.html">ReferenceMonitor Setup</a></li>
 <li class="toctree-l1"><a class="reference internal" href="load_data.html">Loading Reference Data</a></li>
 </ul>
 </div>
+<section id="choosing-a-reference-data-source">
+<h2>Choosing a Reference Data Source<a class="headerlink" href="#choosing-a-reference-data-source" title="Permalink to this headline"></a></h2>
+<p>sensortoolkit allows users to work with reference data from one of four potential sources:</p>
+<ul class="simple">
+<li><p><strong>Local</strong>: Reference datasets that are acquired locally from an air monitoring agency
+overseeing the site at which sensor are collocated alongside reference instrumentation.
+These data files should be located on the user’s computer.</p></li>
+<li><p><a class="reference external" href="https://aqs.epa.gov/aqsweb/documents/data_api.html">AQS</a>: EPA’s Air Quality System is the primary repository for acquiring reference datasets
+for monitors located at monitoring sites managed by state, local, tribal, and federal
+agencies. Datasets in AQS undergo rigorous quality control / quality assurance measures and this
+process may take up to 6 months. In turn, AQS does not contain real-time air quality data.
+Data are acquired via the <code class="docutils literal notranslate"><span class="pre">sensortoolkit.ReferenceMonitor.query_aqs()</span></code> method.</p></li>
+<li><p><a class="reference external" href="https://docs.airnowapi.org/">AirNow</a>: AirNow provides real-time air quality data (up to the most
+recent hour or day) from monitors managed by state, tribal, local, and federal agencies.
+Data from this service have not been validated and verified in the same manner as AQS data
+and should be considered preliminary. Official regulatory monitoring data are available from AQS.
+Data are acquired via the <code class="docutils literal notranslate"><span class="pre">sensortoolkit.ReferenceMonitor.query_airnow()</span></code> method.</p></li>
+<li><p><a class="reference external" href="http://airnowtech.org/">AirNow-Tech</a>: AirNow-Tech provides access to a greater pool of
+parameter data streams (including a wide range of meteorological parameters) and provides
+in-browser tools for visualizing and analyzing reference datasets. Unlike the AQS or AirNow
+API services, reference data from AirNow-Tech must be manually downloaded to the user’s computer
+from the AirNow-Tech website prior to use with sensortoolkit.</p></li>
+</ul>
+<p>If users are not acquiring reference data locally,
+users should carefully consider which reference data service (AQS, AirNow, or AirNow-Tech)
+is appropriate for their intended use. The list of valid query parameters for reference
+measurements varies across services. The table below shows a list of SDFS parameters
+alongside an indication of whether each reference data service provides data for each
+parameter.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p><strong>Meteorological parameters including temperature and relative humidity
+are not available from the AirNow API.</strong></p>
+<p>Numerous sensortoolkit methods including plotting functions and summary statistics
+require the availability of meteorological data (temperature and relative humidity).
+These methods are used by <code class="docutils literal notranslate"><span class="pre">SensorEvaluation</span></code> and <code class="docutils literal notranslate"><span class="pre">PerformanceReport</span></code> to indicate
+meteorological conditions at the testing site and meteorological influences on
+parameter measurements.</p>
+<p>If users choose to make use of the AirNow API for acquiring reference data, please
+note that functionality will be limited for methods requiring the use of meteorological
+datasets.</p>
+</div>
+<table class="colwidths-auto docutils align-center" id="id1">
+<caption><span class="caption-text"><cite>Table of Reference Sources and Parameters</cite></span><a class="headerlink" href="#id1" title="Permalink to this table"></a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p>Parameter Name <br /> (Data Acquisition Method)</p></th>
+<th class="head"><p>AirNow API <br /> (API Query)</p></th>
+<th class="head"><p>AQS API <br /> (API Query)</p></th>
+<th class="head"><p>AirNow-Tech <br /> (Manual Download)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(PM_{1}\)</span> (particulate matter &lt; 1 <br /> micrometer in aerosol diameter)</p></td>
+<td><p><span class="rbg">Not Available</span></p></td>
+<td><p><span class="rbg">Not Available</span></p></td>
+<td><p><span class="rbg">Not Available</span></p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(PM_{2.5}\)</span> (particulate matter &lt; 2.5 <br /> micrometers in aerosol diameter)</p></td>
+<td><p><span class="gbg">Valid</span></p></td>
+<td><p><span class="gbg">Valid</span></p></td>
+<td><p><span class="gbg">Valid</span></p></td>
+</tr>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(PM_{10}\)</span> (particulate matter &lt; 10 <br /> micrometers in aerosol diameter)</p></td>
+<td><p><span class="gbg">Valid</span></p></td>
+<td><p><span class="gbg">Valid</span></p></td>
+<td><p><span class="gbg">Valid</span></p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(O_{3}\)</span>  (Ozone)</p></td>
+<td><p><span class="gbg">Valid</span></p></td>
+<td><p><span class="gbg">Valid</span></p></td>
+<td><p><span class="gbg">Valid</span></p></td>
+</tr>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(NO\)</span> (Nitric Oxide)</p></td>
+<td><p><span class="rbg">Not Available</span></p></td>
+<td><p><span class="gbg">Valid</span></p></td>
+<td><p><span class="gbg">Valid</span></p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(NO_{2}\)</span> (Nitrogen Dioxide)</p></td>
+<td><p><span class="gbg">Valid</span></p></td>
+<td><p><span class="gbg">Valid</span></p></td>
+<td><p><span class="gbg">Valid</span></p></td>
+</tr>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(NO_{x}\)</span> (Nitrogen Oxides)</p></td>
+<td><p><span class="rbg">Not Available</span></p></td>
+<td><p><span class="gbg">Valid</span></p></td>
+<td><p><span class="gbg">Valid</span></p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(SO_{2}\)</span> (Sulfur Dioxide)</p></td>
+<td><p><span class="gbg">Valid</span></p></td>
+<td><p><span class="gbg">Valid</span></p></td>
+<td><p><span class="gbg">Valid</span></p></td>
+</tr>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(SO_{x}\)</span> (Sulfur Dioxides)</p></td>
+<td><p><span class="rbg">Not Available</span></p></td>
+<td><p><span class="rbg">Not Available</span></p></td>
+<td><p><span class="rbg">Not Available</span></p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(CO\)</span> (Carbon Monoxide)</p></td>
+<td><p><span class="gbg">Valid</span></p></td>
+<td><p><span class="gbg">Valid</span></p></td>
+<td><p><span class="gbg">Valid</span></p></td>
+</tr>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(CO_{2}\)</span> (Carbon Dioxide)</p></td>
+<td><p><span class="rbg">Not Available</span></p></td>
+<td><p><span class="gbg">Valid</span></p></td>
+<td><p><span class="rbg">Not Available</span></p></td>
+</tr>
+<tr class="row-odd"><td><p>Relative Humidity</p></td>
+<td><p><span class="rbg">Not Available</span></p></td>
+<td><p><span class="gbg">Valid</span></p></td>
+<td><p><span class="gbg">Valid</span></p></td>
+</tr>
+<tr class="row-even"><td><p>Temperature</p></td>
+<td><p><span class="rbg">Not Available</span></p></td>
+<td><p><span class="gbg">Valid</span></p></td>
+<td><p><span class="gbg">Valid</span></p></td>
+</tr>
+<tr class="row-odd"><td><p>Dew point</p></td>
+<td><p><span class="rbg">Not Available</span></p></td>
+<td><p><span class="gbg">Valid</span></p></td>
+<td><p><span class="gbg">Valid</span></p></td>
+</tr>
+<tr class="row-even"><td><p>Wind Speed</p></td>
+<td><p><span class="rbg">Not Available</span></p></td>
+<td><p><span class="gbg">Valid</span></p></td>
+<td><p><span class="gbg">Valid</span></p></td>
+</tr>
+<tr class="row-odd"><td><p>Wind Direction</p></td>
+<td><p><span class="rbg">Not Available</span></p></td>
+<td><p><span class="gbg">Valid</span></p></td>
+<td><p><span class="gbg">Valid</span></p></td>
+</tr>
+<tr class="row-even"><td><p>Pressure</p></td>
+<td><p><span class="rbg">Not Available</span></p></td>
+<td><p><span class="gbg">Valid</span></p></td>
+<td><p><span class="gbg">Valid</span></p></td>
+</tr>
+</tbody>
+</table>
+</section>
 </section>
 
 
            </div>
-           
           </div>
-          <footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="overview.html" class="btn btn-neutral float-right" title="ReferenceMonitor Instantiation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="../airsensor/load_data.html" class="btn btn-neutral float-left" title="Loading Sensor Data" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="overview.html" class="btn btn-neutral float-right" title="ReferenceMonitor Instantiation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>
-        &#169; Copyright 2021, Samuel Frederick.
-
-    </p>
+    <p>&#169; Copyright 2021, Samuel Frederick.</p>
   </div>
-    
-    
-    
-    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
 
 </footer>
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>

@@ -3,8 +3,8 @@ Creating Testing Reports - The PerformanceReport Class
 ******************************************************
 
 .. role:: raw-html(raw)
-   :format: html
-
+  :format: html
+  
 Creating testing reports with ``sensortoolkit.PerformanceReport`` is very similar to using
 the ``sensortoolkit.SensorEvaluation`` class. Users pass the same attributes to the
 ``PerformanceReport`` class as they do to conduct analysis with ``SensorEvaluation``
@@ -51,13 +51,13 @@ Arguments passed to ``PerformanceReport``
   * - ``reference``
     - A ``sensortoolkit.ReferenceMonitor`` object.
   * - ``write_to_file``
-    - If true, evaluation statistics are saved to
-      ``/data/eval_stats/[name of sensor]`` and figures are
-      written to ``/figures/[name of sensor]``.
+    - If true, evaluation statistics are saved to ``/data/eval_stats/[name of sensor]`` |br|
+      and figures are written to ``/figures/[name of sensor]``.
   * - ``figure_search``
-    - If true, PerformanceReport will search for figures in the ``/figures`` directory
-      before attempting to create new figures. If false, PerformanceReport will create
-      all new figures (may risk overwriting existing figures). Defaults to False.
+    - If true, PerformanceReport will search for figures in the ``/figures`` |br|
+      directory before attempting to create new figures. If false, |br|
+      PerformanceReport will create all new figures (may risk overwriting |br|
+      existing figures). Defaults to False.
   * - ``**kwargs``
     - ``testing_org`` and ``testing_loc``. See `Keyword arguments passed to sensorevaluation <../evaluation_objects/sensoreval/index.html#keyword-arguments-passed-to-sensorevaluation>`_.
 
@@ -173,3 +173,9 @@ the supplemental information page that addition documentation has been attached.
      :align: center
 
      Example_Make_Model Base Testing Report (Page 4)
+
+
+
+.. |br| raw:: html
+
+ <br />

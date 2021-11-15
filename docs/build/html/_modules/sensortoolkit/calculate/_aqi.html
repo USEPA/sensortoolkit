@@ -1,78 +1,37 @@
-
-
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8" />
-  
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
-  <title>sensortoolkit.calculate._aqi &mdash; sensortoolkit 0.6.0b4 documentation</title>
-  
-
-  
-  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" type="text/css" />
-
-  
-  
-
-  
-  
-
-  
-
-  
+  <title>sensortoolkit.calculate._aqi &mdash; sensortoolkit 0.6.0b14 documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
         <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
         <script src="../../../_static/jquery.js"></script>
         <script src="../../../_static/underscore.js"></script>
         <script src="../../../_static/doctools.js"></script>
-    
-    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
-
-    
+    <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-          
-
-          
             <a href="../../../index.html" class="icon icon-home"> sensortoolkit
-          
-
-          
           </a>
-
-          
-            
-            
               <div class="version">
-                0.6.0b4
+                0.6.0b14
               </div>
-            
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
@@ -80,18 +39,7 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Documentation Overview</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../install.html">Installation</a></li>
@@ -116,6 +64,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../evaluation_objects/index.html">Evaluation Objects</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../evaluation_objects/sensoreval/index.html">Conducting Analysis - The SensorEvaluation Class</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../evaluation_objects/sensoreval/plotting.html">Plotting Methods</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../evaluation_objects/sensoreval/printing.html">Descriptive Summary Methods</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../evaluation_objects/sensoreval/statistic.html">Statistical Methods</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../evaluation_objects/performancereport.html">Creating Testing Reports - The PerformanceReport Class</a></li>
@@ -271,7 +221,6 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.lib_utils._setup.html">sensortoolkit.lib_utils._setup</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.lib_utils._setup.displayMethods.html">sensortoolkit.lib_utils._setup.displayMethods</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.lib_utils._setup.ReferenceSetup.html">sensortoolkit.lib_utils._setup.ReferenceSetup</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.lib_utils._setup.SensorSetup.html">sensortoolkit.lib_utils._setup.SensorSetup</a></li>
 </ul>
@@ -314,10 +263,6 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.plotting._errorbars.html">sensortoolkit.plotting._errorbars</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.plotting._errorbars.error_bars.html">sensortoolkit.plotting._errorbars.error_bars</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.plotting._intrasensor_comparison.html">sensortoolkit.plotting._intrasensor_comparison</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.plotting._intrasensor_comparison.compare_sensors.html">sensortoolkit.plotting._intrasensor_comparison.compare_sensors</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.plotting._performance_metrics.html">sensortoolkit.plotting._performance_metrics</a><ul>
@@ -426,69 +371,30 @@
 </li>
 </ul>
 
-            
-          
         </div>
-        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../../../index.html">sensortoolkit</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
       <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
-        
           <li><a href="../../index.html">Module code</a> &raquo;</li>
-        
       <li>sensortoolkit.calculate._aqi</li>
-    
-    
       <li class="wy-breadcrumbs-aside">
-        
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
+             
   <h1>Source code for sensortoolkit.calculate._aqi</h1><div class="highlight"><pre>
 <span></span><span class="c1"># -*- coding: utf-8 -*-</span>
 <span class="sd">&quot;&quot;&quot;</span>
@@ -551,16 +457,16 @@
 
 
 <div class="viewcode-block" id="aqi"><a class="viewcode-back" href="../../../api/_autosummary/sensortoolkit.calculate._aqi.aqi.html#sensortoolkit.calculate._aqi.aqi">[docs]</a><span class="k">def</span> <span class="nf">aqi</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Calculate US EPA&#39;s air quality index for PM2.5.</span>
+    <span class="sd">&quot;&quot;&quot;Calculate US EPA&#39;s air quality index for fine particulate matter.</span>
 
 <span class="sd">    Information about EPA&#39;s AQI scale here:</span>
 <span class="sd">        https://aqs.epa.gov/aqsweb/documents/codetables/aqi_breakpoints.html</span>
 
-<span class="sd">    EPA defines breakpoints for concentrations with a precision of 0.1 ug/m^3.</span>
+<span class="sd">    EPA defines breakpoints for concentrations with a precision of 0.1 µg/m³.</span>
 <span class="sd">    Since most PM2.5 concentration datasets tend to have higher reporting</span>
-<span class="sd">    precision than 0.1 ug/m^3, this introduces some ambiguity regarding how AQI</span>
+<span class="sd">    precision than 0.1 µg/m³, this introduces some ambiguity regarding how AQI</span>
 <span class="sd">    is calculated for concentration values in between breakpoints set at 0.1</span>
-<span class="sd">    ug/m^3 precision.</span>
+<span class="sd">    µg/m³ precision.</span>
 
 <span class="sd">    Here, the breakpoints are set so that the concentration values adhere to</span>
 <span class="sd">    the AQI catagory at the breakpoints by following rounding conventions</span>
@@ -573,8 +479,9 @@
 <span class="sd">    the AQI value and category return null)**</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        data (float, int, numpy array, or pandas dataframe): PM2.5 conc.</span>
-<span class="sd">            value(s), if dataframe, column must be labeled &#39;PM25_Value&#39;.</span>
+<span class="sd">        data (float, int, numpy array, or pandas dataframe):</span>
+<span class="sd">            PM2.5 concentration value(s). If dataframe, column must be labeled</span>
+<span class="sd">            ``PM25_Value``.</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        data (pandas DataFrame):</span>
@@ -583,7 +490,7 @@
 
 <span class="sd">    Raises:</span>
 <span class="sd">        KeyError: If passed data object is type pandas dataframe and the column</span>
-<span class="sd">            header &#39;PM25_Value&#39; is not found.</span>
+<span class="sd">            header ``PM25_Value`` is not found.</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">breakpoints</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;Good&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;I_h&#39;</span><span class="p">:</span> <span class="mi">50</span><span class="p">,</span>
@@ -647,46 +554,30 @@
 </pre></div>
 
            </div>
-           
           </div>
           <footer>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>
-        &#169; Copyright 2021, Samuel Frederick.
-
-    </p>
+    <p>&#169; Copyright 2021, Samuel Frederick.</p>
   </div>
-    
-    
-    
-    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
 
 </footer>
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>

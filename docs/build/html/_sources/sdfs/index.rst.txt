@@ -1,6 +1,9 @@
 sensortoolkit Data Formatting Scheme (SDFS)
 ===========================================
 
+.. role:: raw-html(raw)
+   :format: html
+
 Sensor and reference data are often presented in a wide range of formats. This
 can present challenges when analyzing datasets, as differences in formatting may
 require different scripting approaches. Converting both sensor and reference
@@ -23,17 +26,18 @@ a timestamp is logged for each consecutive measurement.
 
 SDFS datasets for sensor and reference measurements differ slightly, however,
 all SDFS datasets share a common organizational structure. The dataset index,
-named “DateTime”, is a timeseries index containing successive timestamps in
-ISO8601 format. Timestamps and corresponding measurement entries are presented
-in ascending format (i.e., the head of datasets display the oldest entries, and
+named ``DateTime``, is a timeseries index containing successive timestamps in
+`ISO 8601 <https://www.iso.org/iso-8601-date-and-time-format.html>`_ format.
+Timestamps and corresponding measurement entries are presented in ascending
+format (i.e., the head of datasets display the oldest entries, and
 the tail of datasets contain the newest entries).
 
 Quantities that are measured by an air sensor or reference monitor continuously
 and at a configured sampling frequency are referred to as Parameters. These may
 be environmental/meteorological conditions (e.g., temperature, relative
-humidity, wind speed, etc.) or pollutant concentrations (PM2.5, O3, etc.). The
-following naming convention is used for naming columns that are associated with
-parameter quantities or data:
+humidity, wind speed, etc.) or pollutant concentrations (:raw-html:`PM<sub>2.5</sub>`,
+:raw-html:`O<sub>3</sub>`, etc.). The following naming convention is used for
+naming columns that are associated with parameter quantities or data:
 
 .. csv-table:: `Table of SDFS Parameters`
    :file: ../data/S_DFS.csv
@@ -74,7 +78,9 @@ reference datasets:
   * - ``[parameter]_Unit``
     - Parameter units of measure
   * - ``[parameter]_QAQC_Code``
-    - Quality assurance/quality control flags assigned either by the agency overseeing the FRM/FEM instrumentation at the monitoring site or assigned during user analysis
+    - Quality assurance/quality control flags assigned either by the agency |br|
+      overseeing the FRM/FEM instrumentation at the monitoring site or |br|
+      assigned during user analysis
   * - ``[parameter]_Param_Code``
     - Air Quality System (AQS) parameter code
   * - ``[parameter]_Method``
@@ -82,7 +88,8 @@ reference datasets:
   * - ``[parameter]_Method_Code``
     - Air Quality System (AQS) method code for FRM/FEM
   * - ``[parameter]_Method_POC``
-    - Method parameter occurrence code (May be > 1 if multiple FRM/FEM instruments measuring the same parameter at the monitoring site)
+    - Method parameter occurrence code (May be > 1 if multiple FRM/FEM |br|
+      instruments measuring the same parameter at the monitoring site)
 
 In addition to the timestamp index and parameter columns discussed above,
 further columns are included in SDFS datasets detailing information about
@@ -97,7 +104,8 @@ following columns are included for cataloging these siting attributes:
   * - Column name
     - Description
   * - ``Agency``
-    - Agency overseeing the ambient air monitoring site and FRM/FEM instrumentation
+    - Agency overseeing the ambient air monitoring site and FRM/FEM |br|
+      instrumentation
   * - ``Site_Name``
     - Name of the ambient air monitoring site
   * - ``Site_AQS``
@@ -110,3 +118,26 @@ following columns are included for cataloging these siting attributes:
     - The reference data service used to acquire data
   * - ``Data_Acquisition_Timestamp``
     - The date and time that data were downloaded or acquired locally
+
+Example SDFS Datasets
+"""""""""""""""""""""
+
+.. centered:: **Sensor SDFS Dataset**
+
+.. csv-table::
+   :file: ../data/SDFS_sensor_example.csv
+   :header-rows: 1
+   :widths: auto
+
+---------
+
+.. centered:: **Reference SDFS Dataset**
+
+.. csv-table::
+  :file: ../data/SDFS_ref_example.csv
+  :header-rows: 1
+  :widths: auto
+
+.. |br| raw:: html
+
+ <br />

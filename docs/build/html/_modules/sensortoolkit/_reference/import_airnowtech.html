@@ -1,0 +1,817 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>sensortoolkit._reference.import_airnowtech &mdash; sensortoolkit 0.4.2b3 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> sensortoolkit
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.4.2b3
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">User Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../import_sensortoolkit.html">Importing the sensortoolkit Library</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../setup.html">Configuring sensortoolkit for Analyzing Sensor Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../sensoreval.html">Conducting Analysis with the SensorEvaluation Class</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../datastructures.html">Data Structures and Formatting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../performancereport.html">Creating Testing Reports with PerformanceReport</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api.html">sensortoolkit Modules</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../_autosummary/sensortoolkit.calculate._aqi.html">sensortoolkit.calculate._aqi</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/sensortoolkit.calculate._aqi.aqi.html">sensortoolkit.calculate._aqi.aqi</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../_autosummary/sensortoolkit.calculate._cv.html">sensortoolkit.calculate._cv</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/sensortoolkit.calculate._cv.cv.html">sensortoolkit.calculate._cv.cv</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../_autosummary/sensortoolkit.calculate._dewpoint.html">sensortoolkit.calculate._dewpoint</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/sensortoolkit.calculate._dewpoint.dewpoint.html">sensortoolkit.calculate._dewpoint.dewpoint</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../_autosummary/sensortoolkit.calculate._intersensor_mean.html">sensortoolkit.calculate._intersensor_mean</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/sensortoolkit.calculate._intersensor_mean.intersensor_mean.html">sensortoolkit.calculate._intersensor_mean.intersensor_mean</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../_autosummary/sensortoolkit.calculate._normalize.html">sensortoolkit.calculate._normalize</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/sensortoolkit.calculate._normalize.normalize.html">sensortoolkit.calculate._normalize.normalize</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../_autosummary/sensortoolkit.calculate._nowcast_pm25.html">sensortoolkit.calculate._nowcast_pm25</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/sensortoolkit.calculate._nowcast_pm25.nowcast_pm25.html">sensortoolkit.calculate._nowcast_pm25.nowcast_pm25</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../_autosummary/sensortoolkit.calculate._regression_stats.html">sensortoolkit.calculate._regression_stats</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/sensortoolkit.calculate._regression_stats.check_type.html">sensortoolkit.calculate._regression_stats.check_type</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/sensortoolkit.calculate._regression_stats.dataframe_to_csv.html">sensortoolkit.calculate._regression_stats.dataframe_to_csv</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/sensortoolkit.calculate._regression_stats.join_stats.html">sensortoolkit.calculate._regression_stats.join_stats</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/sensortoolkit.calculate._regression_stats.regression_stats.html">sensortoolkit.calculate._regression_stats.regression_stats</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../_autosummary/sensortoolkit.calculate._rmse.html">sensortoolkit.calculate._rmse</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/sensortoolkit.calculate._rmse.rmse.html">sensortoolkit.calculate._rmse.rmse</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../_autosummary/sensortoolkit.calculate._uptime.html">sensortoolkit.calculate._uptime</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/sensortoolkit.calculate._uptime.uptime.html">sensortoolkit.calculate._uptime.uptime</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../_autosummary/sensortoolkit.datetime_utils._format_date.html">sensortoolkit.datetime_utils._format_date</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/sensortoolkit.datetime_utils._format_date.get_todays_date.html">sensortoolkit.datetime_utils._format_date.get_todays_date</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../_autosummary/sensortoolkit.datetime_utils._get_timestamp_interval.html">sensortoolkit.datetime_utils._get_timestamp_interval</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/sensortoolkit.datetime_utils._get_timestamp_interval.get_timestamp_interval.html">sensortoolkit.datetime_utils._get_timestamp_interval.get_timestamp_interval</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../_autosummary/sensortoolkit.datetime_utils._set_datetime_index.html">sensortoolkit.datetime_utils._set_datetime_index</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/sensortoolkit.datetime_utils._set_datetime_index.set_datetime_index.html">sensortoolkit.datetime_utils._set_datetime_index.set_datetime_index</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../_autosummary/sensortoolkit.datetime_utils._time_averaging.html">sensortoolkit.datetime_utils._time_averaging</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/sensortoolkit.datetime_utils._time_averaging.interval_averaging.html">sensortoolkit.datetime_utils._time_averaging.interval_averaging</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/sensortoolkit.datetime_utils._time_averaging.sensor_averaging.html">sensortoolkit.datetime_utils._time_averaging.sensor_averaging</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../_autosummary/sensortoolkit.datetime_utils._timeframe_utils.html">sensortoolkit.datetime_utils._timeframe_utils</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/sensortoolkit.datetime_utils._timeframe_utils.deploy_timestamp_index.html">sensortoolkit.datetime_utils._timeframe_utils.deploy_timestamp_index</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/sensortoolkit.datetime_utils._timeframe_utils.timeframe_search.html">sensortoolkit.datetime_utils._timeframe_utils.timeframe_search</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../_autosummary/sensortoolkit.deploy._create_deploy_dict.html">sensortoolkit.deploy._create_deploy_dict</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/sensortoolkit.deploy._create_deploy_dict.construct_deploy_dict.html">sensortoolkit.deploy._create_deploy_dict.construct_deploy_dict</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/sensortoolkit.deploy._create_deploy_dict.deploy_met_stats.html">sensortoolkit.deploy._create_deploy_dict.deploy_met_stats</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/sensortoolkit.deploy._create_deploy_dict.deploy_ref_stats.html">sensortoolkit.deploy._create_deploy_dict.deploy_ref_stats</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../_autosummary/sensortoolkit.deploy._deployment_period.html">sensortoolkit.deploy._deployment_period</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/sensortoolkit.deploy._deployment_period.deployment_period.html">sensortoolkit.deploy._deployment_period.deployment_period</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../_autosummary/sensortoolkit.deploy._get_max_conc.html">sensortoolkit.deploy._get_max_conc</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/sensortoolkit.deploy._get_max_conc.get_max_conc.html">sensortoolkit.deploy._get_max_conc.get_max_conc</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../_autosummary/sensortoolkit.evaluation._sensor_eval.html">sensortoolkit.evaluation._sensor_eval</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/sensortoolkit.evaluation._sensor_eval.SensorEvaluation.html">sensortoolkit.evaluation._sensor_eval.SensorEvaluation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../_autosummary/sensortoolkit.evaluation._airsensor.html">sensortoolkit.evaluation._airsensor</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/sensortoolkit.evaluation._airsensor.AirSensor.html">sensortoolkit.evaluation._airsensor.AirSensor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/sensortoolkit.evaluation._airsensor.ReferenceMethod.html">sensortoolkit.evaluation._airsensor.ReferenceMethod</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../_autosummary/sensortoolkit.lib_utils._copy_datasets.html">sensortoolkit.lib_utils._copy_datasets</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/sensortoolkit.lib_utils._copy_datasets.copy_datasets.html">sensortoolkit.lib_utils._copy_datasets.copy_datasets</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../_autosummary/sensortoolkit.lib_utils._flatten_list.html">sensortoolkit.lib_utils._flatten_list</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/sensortoolkit.lib_utils._flatten_list.flatten_list.html">sensortoolkit.lib_utils._flatten_list.flatten_list</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../_autosummary/sensortoolkit.lib_utils._sensor_subfolders.html">sensortoolkit.lib_utils._sensor_subfolders</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/sensortoolkit.lib_utils._sensor_subfolders.create_sensor_directories.html">sensortoolkit.lib_utils._sensor_subfolders.create_sensor_directories</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../_autosummary/sensortoolkit.model._apply_correction.html">sensortoolkit.model._apply_correction</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/sensortoolkit.model._apply_correction.individual_corr.html">sensortoolkit.model._apply_correction.individual_corr</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../_autosummary/sensortoolkit.model._purpleair_uscorrection.html">sensortoolkit.model._purpleair_uscorrection</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/sensortoolkit.model._purpleair_uscorrection.purpleair_us_corr.html">sensortoolkit.model._purpleair_uscorrection.purpleair_us_corr</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../_autosummary/sensortoolkit.model._sensor_ols.html">sensortoolkit.model._sensor_ols</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/sensortoolkit.model._sensor_ols.sensor_ols.html">sensortoolkit.model._sensor_ols.sensor_ols</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../_autosummary/sensortoolkit.param._parameter.html">sensortoolkit.param._parameter</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/sensortoolkit.param._parameter.Parameter.html">sensortoolkit.param._parameter.Parameter</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../_autosummary/sensortoolkit.param._targets.html">sensortoolkit.param._targets</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/sensortoolkit.param._targets.ParameterTargets.html">sensortoolkit.param._targets.ParameterTargets</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../_autosummary/sensortoolkit.performancereport._performance_report.html">sensortoolkit.performancereport._performance_report</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/sensortoolkit.performancereport._performance_report.PerformanceReport.html">sensortoolkit.performancereport._performance_report.PerformanceReport</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../_autosummary/sensortoolkit.plotting._distribution.html">sensortoolkit.plotting._distribution</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/sensortoolkit.plotting._distribution.met_distrib.html">sensortoolkit.plotting._distribution.met_distrib</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/sensortoolkit.plotting._distribution.recording_interval_histogram.html">sensortoolkit.plotting._distribution.recording_interval_histogram</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/sensortoolkit.plotting._distribution.ref_distrib.html">sensortoolkit.plotting._distribution.ref_distrib</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../_autosummary/sensortoolkit.plotting._errorbars.html">sensortoolkit.plotting._errorbars</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/sensortoolkit.plotting._errorbars.error_bars.html">sensortoolkit.plotting._errorbars.error_bars</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../_autosummary/sensortoolkit.plotting._intrasensor_comparison.html">sensortoolkit.plotting._intrasensor_comparison</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/sensortoolkit.plotting._intrasensor_comparison.compare_sensors.html">sensortoolkit.plotting._intrasensor_comparison.compare_sensors</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../_autosummary/sensortoolkit.plotting._performance_metrics.html">sensortoolkit.plotting._performance_metrics</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/sensortoolkit.plotting._performance_metrics.performance_metrics.html">sensortoolkit.plotting._performance_metrics.performance_metrics</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../_autosummary/sensortoolkit.plotting._plot_formatting.html">sensortoolkit.plotting._plot_formatting</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/sensortoolkit.plotting._plot_formatting.get_colormap_range.html">sensortoolkit.plotting._plot_formatting.get_colormap_range</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/sensortoolkit.plotting._plot_formatting.met_scatter_lims.html">sensortoolkit.plotting._plot_formatting.met_scatter_lims</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/sensortoolkit.plotting._plot_formatting.sensor_subplot_formatting.html">sensortoolkit.plotting._plot_formatting.sensor_subplot_formatting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/sensortoolkit.plotting._plot_formatting.set_fontsize.html">sensortoolkit.plotting._plot_formatting.set_fontsize</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/sensortoolkit.plotting._plot_formatting.subplot_dims.html">sensortoolkit.plotting._plot_formatting.subplot_dims</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/sensortoolkit.plotting._plot_formatting.wrap_text.html">sensortoolkit.plotting._plot_formatting.wrap_text</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../_autosummary/sensortoolkit.plotting._scatter.html">sensortoolkit.plotting._scatter</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/sensortoolkit.plotting._scatter.draw_scatter.html">sensortoolkit.plotting._scatter.draw_scatter</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/sensortoolkit.plotting._scatter.normalized_met_scatter.html">sensortoolkit.plotting._scatter.normalized_met_scatter</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/sensortoolkit.plotting._scatter.scatter_plotter.html">sensortoolkit.plotting._scatter.scatter_plotter</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../_autosummary/sensortoolkit.plotting._timeseries.html">sensortoolkit.plotting._timeseries</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/sensortoolkit.plotting._timeseries.deployment_timeline.html">sensortoolkit.plotting._timeseries.deployment_timeline</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/sensortoolkit.plotting._timeseries.sensor_timeplot.html">sensortoolkit.plotting._timeseries.sensor_timeplot</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../_autosummary/sensortoolkit.qc._duplicate_removal.html">sensortoolkit.qc._duplicate_removal</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/sensortoolkit.qc._duplicate_removal.remove_duplicates.html">sensortoolkit.qc._duplicate_removal.remove_duplicates</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../_autosummary/sensortoolkit.qc._interval_downsampling.html">sensortoolkit.qc._interval_downsampling</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/sensortoolkit.qc._interval_downsampling.apply_downsampling.html">sensortoolkit.qc._interval_downsampling.apply_downsampling</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/sensortoolkit.qc._interval_downsampling.downsampling_interval.html">sensortoolkit.qc._interval_downsampling.downsampling_interval</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/sensortoolkit.qc._interval_downsampling.plot_recording_interval.html">sensortoolkit.qc._interval_downsampling.plot_recording_interval</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/sensortoolkit.qc._interval_downsampling.plot_timedelta_quantiles.html">sensortoolkit.qc._interval_downsampling.plot_timedelta_quantiles</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/sensortoolkit.qc._interval_downsampling.sensor_timedelta.html">sensortoolkit.qc._interval_downsampling.sensor_timedelta</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/sensortoolkit.qc._interval_downsampling.timedelta_quantiles.html">sensortoolkit.qc._interval_downsampling.timedelta_quantiles</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../_autosummary/sensortoolkit.qc._invalidate.html">sensortoolkit.qc._invalidate</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/sensortoolkit.qc._invalidate.invalidate_period.html">sensortoolkit.qc._invalidate.invalidate_period</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../_autosummary/sensortoolkit.qc._outlier_detection.html">sensortoolkit.qc._outlier_detection</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/sensortoolkit.qc._outlier_detection.cooks_outlier_detection.html">sensortoolkit.qc._outlier_detection.cooks_outlier_detection</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../_autosummary/sensortoolkit.qc._persistent_values.html">sensortoolkit.qc._persistent_values</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/sensortoolkit.qc._persistent_values.persistent_values.html">sensortoolkit.qc._persistent_values.persistent_values</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../_autosummary/sensortoolkit.qc._purpleair_abcleaning.html">sensortoolkit.qc._purpleair_abcleaning</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/sensortoolkit.qc._purpleair_abcleaning.purpleair_ab_averages.html">sensortoolkit.qc._purpleair_abcleaning.purpleair_ab_averages</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../_autosummary/sensortoolkit.reference._import_airnowtech.html">sensortoolkit.reference._import_airnowtech</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/sensortoolkit.reference._import_airnowtech.ingest_airnowtech.html">sensortoolkit.reference._import_airnowtech.ingest_airnowtech</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/sensortoolkit.reference._import_airnowtech.preprocess_airnowtech.html">sensortoolkit.reference._import_airnowtech.preprocess_airnowtech</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/sensortoolkit.reference._import_airnowtech.sort_airnowtech.html">sensortoolkit.reference._import_airnowtech.sort_airnowtech</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/sensortoolkit.reference._import_airnowtech.write_to_file.html">sensortoolkit.reference._import_airnowtech.write_to_file</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../_autosummary/sensortoolkit.reference._import_oaqps.html">sensortoolkit.reference._import_oaqps</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/sensortoolkit.reference._import_oaqps.format_headers.html">sensortoolkit.reference._import_oaqps.format_headers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/sensortoolkit.reference._import_oaqps.format_qaqc.html">sensortoolkit.reference._import_oaqps.format_qaqc</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/sensortoolkit.reference._import_oaqps.format_ref_timestamp.html">sensortoolkit.reference._import_oaqps.format_ref_timestamp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/sensortoolkit.reference._import_oaqps.from_envidas.html">sensortoolkit.reference._import_oaqps.from_envidas</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/sensortoolkit.reference._import_oaqps.from_envista.html">sensortoolkit.reference._import_oaqps.from_envista</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/sensortoolkit.reference._import_oaqps.ingest_oaqps.html">sensortoolkit.reference._import_oaqps.ingest_oaqps</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/sensortoolkit.reference._import_oaqps.process_oaqps.html">sensortoolkit.reference._import_oaqps.process_oaqps</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../_autosummary/sensortoolkit.reference._load_ref_data.html">sensortoolkit.reference._load_ref_data</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/sensortoolkit.reference._load_ref_data.import_ref_dataframe.html">sensortoolkit.reference._load_ref_data.import_ref_dataframe</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/sensortoolkit.reference._load_ref_data.load_ref_dataframes.html">sensortoolkit.reference._load_ref_data.load_ref_dataframes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../_autosummary/sensortoolkit.reference._ref_api_query.html">sensortoolkit.reference._ref_api_query</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/sensortoolkit.reference._ref_api_query.date_range_selector.html">sensortoolkit.reference._ref_api_query.date_range_selector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/sensortoolkit.reference._ref_api_query.ingest_airnow.html">sensortoolkit.reference._ref_api_query.ingest_airnow</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/sensortoolkit.reference._ref_api_query.ingest_aqs.html">sensortoolkit.reference._ref_api_query.ingest_aqs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/sensortoolkit.reference._ref_api_query.modify_ref_cols.html">sensortoolkit.reference._ref_api_query.modify_ref_cols</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/sensortoolkit.reference._ref_api_query.modify_ref_method_str.html">sensortoolkit.reference._ref_api_query.modify_ref_method_str</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/sensortoolkit.reference._ref_api_query.query_airnow.html">sensortoolkit.reference._ref_api_query.query_airnow</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/sensortoolkit.reference._ref_api_query.query_aqs.html">sensortoolkit.reference._ref_api_query.query_aqs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/sensortoolkit.reference._ref_api_query.query_periods.html">sensortoolkit.reference._ref_api_query.query_periods</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/sensortoolkit.reference._ref_api_query.ref_api_query.html">sensortoolkit.reference._ref_api_query.ref_api_query</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/sensortoolkit.reference._ref_api_query.save_api_dataset.html">sensortoolkit.reference._ref_api_query.save_api_dataset</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../_autosummary/sensortoolkit.sensor_ingest._processed_data_loader.html">sensortoolkit.sensor_ingest._processed_data_loader</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/sensortoolkit.sensor_ingest._processed_data_loader.processed_data_search.html">sensortoolkit.sensor_ingest._processed_data_loader.processed_data_search</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../_autosummary/sensortoolkit.sensor_ingest._sensor_import.html">sensortoolkit.sensor_ingest._sensor_import</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/sensortoolkit.sensor_ingest._sensor_import.ingest_example_make_model.html">sensortoolkit.sensor_ingest._sensor_import.ingest_example_make_model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/sensortoolkit.sensor_ingest._sensor_import.ingest_purpleair.html">sensortoolkit.sensor_ingest._sensor_import.ingest_purpleair</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/sensortoolkit.sensor_ingest._sensor_import.ingest_sensit_ramp.html">sensortoolkit.sensor_ingest._sensor_import.ingest_sensit_ramp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/sensortoolkit.sensor_ingest._sensor_import.ingest_wrapper.html">sensortoolkit.sensor_ingest._sensor_import.ingest_wrapper</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/sensortoolkit.sensor_ingest._sensor_import.sensor_import.html">sensortoolkit.sensor_ingest._sensor_import.sensor_import</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../_autosummary/sensortoolkit.sensor_ingest._standard_ingest.html">sensortoolkit.sensor_ingest._standard_ingest</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/sensortoolkit.sensor_ingest._standard_ingest.ParseSetup.html">sensortoolkit.sensor_ingest._standard_ingest.ParseSetup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../_autosummary/sensortoolkit.sensor_ingest._standard_ingest.standard_ingest.html">sensortoolkit.sensor_ingest._standard_ingest.standard_ingest</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">sensortoolkit</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>sensortoolkit._reference.import_airnowtech</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for sensortoolkit._reference.import_airnowtech</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">@Author:</span>
+<span class="sd">  Samuel Frederick, NSSC Contractor (ORAU)</span>
+<span class="sd">  U.S. EPA, Office of Research and Development</span>
+<span class="sd">  Center for Environmental Measurement and Modeling</span>
+<span class="sd">  Air Methods and Characterization Division, Source and Fine Scale Branch</span>
+<span class="sd">  109 T.W Alexander Drive, Research Triangle Park, NC 27711</span>
+<span class="sd">  Office: 919-541-4086 | Email: frederick.samuel@epa.gov</span>
+
+<span class="sd">Created:</span>
+<span class="sd">  Fri Jul 17 08:15:17 2020</span>
+<span class="sd">Last Updated:</span>
+<span class="sd">  Wed Jul 14 11:02:35 2021</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">pathlib</span>
+<span class="kn">import</span> <span class="nn">datetime</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Module for importing raw AirNowTech data (table, unpivoted format) queried at</span>
+<span class="sd">month-long intervals at 1-hr recording frequency for PM2.5, PM10, O3, NO2, CO,</span>
+<span class="sd">relative humidity, temperature, wind speed, wind direction.</span>
+
+<span class="sd">Data are sorted into PM, gas, and met dataframes and a table containing</span>
+<span class="sd">all AQS method codes is used to associate the recorded method code for data</span>
+<span class="sd">streams with the instrument used to make the measurement.</span>
+
+<span class="sd">Processed dataframes for PM, Gas, and met are then written to separate monthly</span>
+<span class="sd">csv files where the index is the date and time in UTC.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+
+<div class="viewcode-block" id="Ingest_AirNowTech"><a class="viewcode-back" href="../../../_autosummary/sensortoolkit._reference.import_airnowtech.Ingest_AirNowTech.html#sensortoolkit._reference.import_airnowtech.Ingest_AirNowTech">[docs]</a><span class="k">def</span> <span class="nf">Ingest_AirNowTech</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">Clean_QC_Code</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Ingest raw AirNowTech data (table, unpivoted format, 1-hr recording</span>
+<span class="sd">    freq) and set index column to Date &amp; Time (UTC).</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        path (str):</span>
+<span class="sd">            Full directory path to downloaded dataset.</span>
+<span class="sd">    Returns:</span>
+<span class="sd">        Clean_QC_Code (bool):</span>
+<span class="sd">            If true, only keep data where the QC code is zero (indicates no</span>
+<span class="sd">            issues reported).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># Import csv dataframe, set hourly UTC date and time as index</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">parse_dates</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;DateTime_UTC&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;Date (UTC)&#39;</span><span class="p">,</span>
+                                                         <span class="s1">&#39;Time (UTC)&#39;</span><span class="p">]},</span>
+                     <span class="n">index_col</span><span class="o">=</span><span class="s1">&#39;DateTime_UTC&#39;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">Clean_QC_Code</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;QC Code&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">]</span>
+
+    <span class="c1"># Regenerate hourly index to fill gaps in dataset</span>
+    <span class="n">hourly_index</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">date_range</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span> <span class="n">freq</span><span class="o">=</span><span class="s1">&#39;H&#39;</span><span class="p">)</span>
+
+    <span class="c1"># Fill gaps in hourly index</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="n">hourly_index</span><span class="p">)</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+
+    <span class="c1"># Change AQS ID column dtype to string and remove decimal place</span>
+    <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Site AQS&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Site AQS&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;\.0&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">regex</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">df</span></div>
+
+
+<div class="viewcode-block" id="Sort_AirNowTech"><a class="viewcode-back" href="../../../_autosummary/sensortoolkit._reference.import_airnowtech.Sort_AirNowTech.html#sensortoolkit._reference.import_airnowtech.Sort_AirNowTech">[docs]</a><span class="k">def</span> <span class="nf">Sort_AirNowTech</span><span class="p">(</span><span class="n">df</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Data are sorted into PM, gas, and met dataframes and a table containing</span>
+<span class="sd">    all AQS method codes is used to associate the recorded method code for data</span>
+<span class="sd">    streams with the instrument used to make the measurement.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        df (pandas dataframe):</span>
+<span class="sd">            Imported airnowtech dataset, may contain data for multilple</span>
+<span class="sd">            parameter classifications (PM, gases, met) if selected when the</span>
+<span class="sd">            data were downloaded.</span>
+<span class="sd">    Returns:</span>
+<span class="sd">        None, writes processed datasets to airnowtech processed data folder</span>
+<span class="sd">        path.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">method_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="vm">__file__</span><span class="p">,</span>
+                                  <span class="s1">&#39;../method_codes/methods_criteria.csv&#39;</span><span class="p">))</span>
+
+    <span class="c1"># Method code lookup dataframe</span>
+    <span class="n">method_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">method_path</span><span class="p">)</span>
+
+    <span class="c1"># Dataframes to be populated</span>
+    <span class="n">idx</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">()</span>
+    <span class="n">gas_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="n">idx</span><span class="p">)</span>
+    <span class="n">pm_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="n">idx</span><span class="p">)</span>
+    <span class="n">met_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="n">idx</span><span class="p">)</span>
+
+    <span class="c1"># Valid column names for parameters</span>
+    <span class="n">pm_list</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;PM10-85101&#39;</span><span class="p">,</span> <span class="s1">&#39;PM2.5-88101&#39;</span><span class="p">,</span> <span class="s1">&#39;PM2.5-88502&#39;</span><span class="p">]</span>
+    <span class="n">gas_list</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;CO&#39;</span><span class="p">,</span> <span class="s1">&#39;O3&#39;</span><span class="p">,</span> <span class="s1">&#39;NO2&#39;</span><span class="p">,</span> <span class="s1">&#39;SO2&#39;</span><span class="p">]</span>
+    <span class="n">met_list</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;RHUM&#39;</span><span class="p">,</span> <span class="s1">&#39;TEMP&#39;</span><span class="p">,</span> <span class="s1">&#39;WS&#39;</span><span class="p">,</span> <span class="s1">&#39;WD&#39;</span><span class="p">]</span>
+
+    <span class="n">site_cols</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;index&#39;</span><span class="p">,</span> <span class="s1">&#39;Agency&#39;</span><span class="p">,</span> <span class="s1">&#39;Site&#39;</span><span class="p">,</span> <span class="s1">&#39;Site AQS&#39;</span><span class="p">]</span>
+    <span class="n">site_df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;index&#39;</span><span class="p">])[</span><span class="n">site_cols</span><span class="p">]</span>
+    <span class="n">site_df</span> <span class="o">=</span> <span class="n">site_df</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="n">site_df</span><span class="p">[</span><span class="s1">&#39;index&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;index&#39;</span><span class="p">])</span>
+    <span class="n">site_df</span> <span class="o">=</span> <span class="n">site_df</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;Site&#39;</span><span class="p">:</span> <span class="s1">&#39;Site_Name&#39;</span><span class="p">,</span>
+                                      <span class="s1">&#39;Site AQS&#39;</span><span class="p">:</span> <span class="s1">&#39;Site_AQS&#39;</span><span class="p">})</span>
+    <span class="n">site_df</span><span class="p">[</span><span class="s1">&#39;Site_AQS&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">site_df</span><span class="p">[</span><span class="s1">&#39;Site_AQS&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span>
+
+    <span class="n">state_id</span> <span class="o">=</span> <span class="n">site_df</span><span class="p">[</span><span class="s1">&#39;Site_AQS&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">slice</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="n">county_id</span> <span class="o">=</span> <span class="n">site_df</span><span class="p">[</span><span class="s1">&#39;Site_AQS&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">slice</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+    <span class="n">site_id</span> <span class="o">=</span> <span class="n">site_df</span><span class="p">[</span><span class="s1">&#39;Site_AQS&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">slice</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">9</span><span class="p">)</span>
+
+    <span class="n">site_df</span><span class="p">[</span><span class="s1">&#39;Site_AQS&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">state_id</span> <span class="o">+</span> <span class="s1">&#39;-&#39;</span> <span class="o">+</span> <span class="n">county_id</span> <span class="o">+</span> <span class="s1">&#39;-&#39;</span> <span class="o">+</span> <span class="n">site_id</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">Param</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span><span class="o">.</span><span class="n">unique</span><span class="p">():</span>
+        <span class="n">param_df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">Param</span> <span class="o">==</span> <span class="n">param</span><span class="p">)</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">)</span>
+
+        <span class="n">hourly_index</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">date_range</span><span class="p">(</span><span class="n">param_df</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">param_df</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span>
+                                     <span class="n">freq</span><span class="o">=</span><span class="s1">&#39;H&#39;</span><span class="p">)</span>
+        <span class="n">param_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="n">hourly_index</span><span class="p">)</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">param_df</span><span class="p">)</span>
+        <span class="n">param_df</span> <span class="o">=</span> <span class="n">param_df</span><span class="p">[[</span><span class="s1">&#39;Param AQS&#39;</span><span class="p">,</span> <span class="s1">&#39;POC&#39;</span><span class="p">,</span> <span class="s1">&#39;Method&#39;</span><span class="p">,</span>
+                             <span class="s1">&#39;Value&#39;</span><span class="p">,</span> <span class="s1">&#39;Unit&#39;</span><span class="p">,</span> <span class="s1">&#39;QC Code&#39;</span><span class="p">]]</span>
+
+        <span class="n">param_df</span> <span class="o">=</span> <span class="n">param_df</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;Param AQS&#39;</span><span class="p">:</span> <span class="n">param</span> <span class="o">+</span> <span class="s1">&#39;_Param_Code&#39;</span><span class="p">,</span>
+                                            <span class="s1">&#39;POC&#39;</span><span class="p">:</span> <span class="n">param</span> <span class="o">+</span> <span class="s1">&#39;_Method_POC&#39;</span><span class="p">,</span>
+                                            <span class="s1">&#39;Method&#39;</span><span class="p">:</span> <span class="n">param</span> <span class="o">+</span> <span class="s1">&#39;_Method_Code&#39;</span><span class="p">,</span>
+                                            <span class="s1">&#39;Value&#39;</span><span class="p">:</span> <span class="n">param</span> <span class="o">+</span> <span class="s1">&#39;_Value&#39;</span><span class="p">,</span>
+                                            <span class="s1">&#39;Unit&#39;</span><span class="p">:</span> <span class="n">param</span> <span class="o">+</span> <span class="s1">&#39;_Unit&#39;</span><span class="p">,</span>
+                                            <span class="s1">&#39;QC Code&#39;</span><span class="p">:</span> <span class="n">param</span> <span class="o">+</span> <span class="s1">&#39;_QAQC_Code&#39;</span><span class="p">})</span>
+
+        <span class="c1"># If multiple instruments present, choose first instrument datastream</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">param_df</span><span class="p">[</span><span class="n">param</span> <span class="o">+</span> <span class="s1">&#39;_Method_POC&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span><span class="o">.</span><span class="n">unique</span><span class="p">())</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">param_df</span> <span class="o">=</span> <span class="n">param_df</span><span class="o">.</span><span class="n">where</span><span class="p">(</span>
+                            <span class="n">param_df</span><span class="p">[</span><span class="n">param</span> <span class="o">+</span> <span class="s1">&#39;_Method_POC&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
+
+        <span class="c1"># Method code(s) listed for parameter data</span>
+        <span class="n">method_list</span> <span class="o">=</span> <span class="n">param_df</span><span class="p">[</span><span class="n">param</span> <span class="o">+</span> <span class="s1">&#39;_Method_Code&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
+        <span class="c1"># Find instrument corresponding to method code in lookup table</span>
+        <span class="k">for</span> <span class="n">method</span> <span class="ow">in</span> <span class="n">method_list</span><span class="p">:</span>
+            <span class="n">method_name</span> <span class="o">=</span> <span class="n">method_df</span><span class="o">.</span><span class="n">where</span><span class="p">(</span>
+                    <span class="n">method_df</span><span class="p">[</span><span class="s1">&#39;Method Code&#39;</span>
+                              <span class="p">]</span> <span class="o">==</span> <span class="n">method</span><span class="p">)</span><span class="o">.</span><span class="n">dropna</span><span class="p">()[</span><span class="s1">&#39;Equivalent Method&#39;</span><span class="p">]</span>
+
+            <span class="c1"># Lots of instruments associated with Method Code 11, for eval.</span>
+            <span class="c1"># purposes likely only assoc with RH values.</span>
+            <span class="k">if</span> <span class="n">method</span> <span class="o">==</span> <span class="mi">11</span><span class="p">:</span>
+                <span class="n">method_name</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="s1">&#39;HYGROTHERMOGRAPH ELEC OR MACH AVG&#39;</span><span class="p">])</span>
+
+        <span class="c1"># If one instrument type used for parameter data stream, record in col</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">method_list</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">method_name</span><span class="o">.</span><span class="n">values</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">):</span>
+            <span class="c1"># Set instrument name via lookup</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="n">param_df</span><span class="o">.</span><span class="n">where</span><span class="p">(</span>
+                    <span class="n">param_df</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="o">==</span> <span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+                                                                   <span class="n">how</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">)</span>
+            <span class="n">data</span><span class="p">[</span><span class="n">param</span> <span class="o">+</span> <span class="s1">&#39;_Method&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">method_name</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">param_df</span> <span class="o">=</span> <span class="n">data</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># No name found in method code lookup table</span>
+            <span class="n">param_df</span><span class="p">[</span><span class="n">param</span> <span class="o">+</span> <span class="s1">&#39;_Method&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+
+        <span class="k">if</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">pm_list</span><span class="p">:</span>
+            <span class="n">pm_df</span> <span class="o">=</span> <span class="n">pm_df</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">param_df</span><span class="p">)</span><span class="o">.</span><span class="n">combine_first</span><span class="p">(</span><span class="n">site_df</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">gas_list</span><span class="p">:</span>
+            <span class="n">gas_df</span> <span class="o">=</span> <span class="n">gas_df</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">param_df</span><span class="p">)</span><span class="o">.</span><span class="n">combine_first</span><span class="p">(</span><span class="n">site_df</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">met_list</span><span class="p">:</span>
+            <span class="n">met_df</span> <span class="o">=</span> <span class="n">met_df</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">param_df</span><span class="p">)</span><span class="o">.</span><span class="n">combine_first</span><span class="p">(</span><span class="n">site_df</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">pm_df</span><span class="p">,</span> <span class="n">gas_df</span><span class="p">,</span> <span class="n">met_df</span></div>
+
+
+<div class="viewcode-block" id="Write_To_File"><a class="viewcode-back" href="../../../_autosummary/sensortoolkit._reference.import_airnowtech.Write_To_File.html#sensortoolkit._reference.import_airnowtech.Write_To_File">[docs]</a><span class="k">def</span> <span class="nf">Write_To_File</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">inpath</span><span class="p">,</span> <span class="n">outpath</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Processed dataframes for PM, Gas, and met written to separate monthly</span>
+<span class="sd">    csv files where the index is the date and time in UTC.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        df (pandas dataframe):</span>
+<span class="sd">            Processed airnowtech data for one of the following parameter</span>
+<span class="sd">            classifications (PM, Gases, or Met)</span>
+<span class="sd">        inpath (str):</span>
+<span class="sd">            The full directory path to the downloded airnowtech dataset.</span>
+<span class="sd">            Used to determine the date and time that the data were downloaded</span>
+<span class="sd">            and added to the dataframe as the &#39;Data_Acquisition_Date_Time&#39;.</span>
+<span class="sd">        outpath (str):</span>
+<span class="sd">            The full directory path where the processed dataframe will be saved</span>
+<span class="sd">    Returns:</span>
+<span class="sd">        None</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Dictionary for renaming AirNowTech parameter names to common format</span>
+    <span class="n">renaming</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;PM10-85101&#39;</span><span class="p">:</span> <span class="s1">&#39;PM10&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;PM2.5-88101&#39;</span><span class="p">:</span> <span class="s1">&#39;PM25&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;O3&#39;</span><span class="p">:</span> <span class="s1">&#39;O3&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;CO&#39;</span><span class="p">:</span> <span class="s1">&#39;CO&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;NO2&#39;</span><span class="p">:</span> <span class="s1">&#39;NO2&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;SO2&#39;</span><span class="p">:</span> <span class="s1">&#39;SO2&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;RHUM&#39;</span><span class="p">:</span> <span class="s1">&#39;RH&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;TEMP&#39;</span><span class="p">:</span> <span class="s1">&#39;Temp&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;WS&#39;</span><span class="p">:</span> <span class="s1">&#39;WS&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;WD&#39;</span><span class="p">:</span> <span class="s1">&#39;WD&#39;</span><span class="p">}</span>
+
+    <span class="c1"># Column names associated with each parameter</span>
+    <span class="n">aqs_attribs</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;_Value&#39;</span><span class="p">,</span> <span class="s1">&#39;_Unit&#39;</span><span class="p">,</span> <span class="s1">&#39;_QAQC_Code&#39;</span><span class="p">,</span> <span class="s1">&#39;_Param_Code&#39;</span><span class="p">,</span>
+                   <span class="s1">&#39;_Method&#39;</span><span class="p">,</span> <span class="s1">&#39;_Method_Code&#39;</span><span class="p">,</span> <span class="s1">&#39;_Method_POC&#39;</span><span class="p">]</span>
+
+    <span class="c1"># Method names are listed in all upper case in the method code lookup</span>
+    <span class="c1"># table, so I use .title() to leave only the first letter of each word</span>
+    <span class="c1"># describing the reference method. These are some exceptions:</span>
+    <span class="n">replace</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;Api&#39;</span><span class="p">:</span> <span class="s1">&#39;API&#39;</span><span class="p">,</span>
+               <span class="s1">&#39;Frm&#39;</span><span class="p">:</span> <span class="s1">&#39;FRM&#39;</span><span class="p">,</span>
+               <span class="s1">&#39;Fem&#39;</span><span class="p">:</span> <span class="s1">&#39;FEM&#39;</span><span class="p">,</span>
+               <span class="s1">&#39;Lpm&#39;</span><span class="p">:</span> <span class="s1">&#39;LPM&#39;</span><span class="p">,</span>
+               <span class="s1">&#39; At &#39;</span><span class="p">:</span> <span class="s1">&#39; at &#39;</span><span class="p">,</span>
+               <span class="s1">&#39;Bam&#39;</span><span class="p">:</span> <span class="s1">&#39;BAM&#39;</span><span class="p">,</span>
+               <span class="s1">&#39;Pm&#39;</span><span class="p">:</span> <span class="s1">&#39;PM&#39;</span><span class="p">,</span>
+               <span class="s1">&#39;Vscc&#39;</span><span class="p">:</span> <span class="s1">&#39;VSCC&#39;</span><span class="p">,</span>
+               <span class="s1">&#39; Te &#39;</span><span class="p">:</span> <span class="s1">&#39; TE &#39;</span><span class="p">,</span>
+               <span class="s1">&#39; Or &#39;</span><span class="p">:</span> <span class="s1">&#39; or &#39;</span><span class="p">,</span>
+               <span class="s1">&#39;W/&#39;</span><span class="p">:</span> <span class="s1">&#39;w/&#39;</span><span class="p">,</span>
+               <span class="s1">&#39; And &#39;</span><span class="p">:</span> <span class="s1">&#39; and &#39;</span><span class="p">}</span>
+
+    <span class="c1"># Require non-empty dataframe</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">df</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Writing AirNowTech dataframes to csv files&#39;</span><span class="p">)</span>
+
+        <span class="n">start_month</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m&#39;</span><span class="p">)</span>
+        <span class="n">end_month</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m&#39;</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">month_period</span> <span class="ow">in</span> <span class="n">pd</span><span class="o">.</span><span class="n">period_range</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="n">start_month</span><span class="p">,</span>
+                                            <span class="n">end</span><span class="o">=</span><span class="n">end_month</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="s1">&#39;M&#39;</span><span class="p">):</span>
+            <span class="n">month</span> <span class="o">=</span> <span class="n">month_period</span><span class="o">.</span><span class="n">month</span>
+            <span class="n">year</span> <span class="o">=</span> <span class="n">month_period</span><span class="o">.</span><span class="n">year</span>
+
+            <span class="n">month_df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">month_period</span><span class="p">),</span> <span class="p">:]</span>
+
+            <span class="c1"># Valid column names for parameters</span>
+            <span class="n">pm_list</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;PM10-85101&#39;</span><span class="p">,</span> <span class="s1">&#39;PM2.5-88101&#39;</span><span class="p">]</span>
+            <span class="n">gas_list</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;CO&#39;</span><span class="p">,</span> <span class="s1">&#39;O3&#39;</span><span class="p">,</span> <span class="s1">&#39;NO2&#39;</span><span class="p">,</span> <span class="s1">&#39;SO2&#39;</span><span class="p">]</span>
+            <span class="n">met_list</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;RHUM&#39;</span><span class="p">,</span> <span class="s1">&#39;TEMP&#39;</span><span class="p">,</span> <span class="s1">&#39;WS&#39;</span><span class="p">,</span> <span class="s1">&#39;WD&#39;</span><span class="p">]</span>
+
+            <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="s1">&#39;_Value&#39;</span> <span class="ow">in</span> <span class="n">month_df</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">pm_list</span><span class="p">):</span>
+                <span class="n">param_type</span> <span class="o">=</span> <span class="s1">&#39;PM&#39;</span>
+
+            <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="s1">&#39;_Value&#39;</span> <span class="ow">in</span> <span class="n">month_df</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">gas_list</span><span class="p">):</span>
+                <span class="n">param_type</span> <span class="o">=</span> <span class="s1">&#39;Gases&#39;</span>
+
+            <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="s1">&#39;_Value&#39;</span> <span class="ow">in</span> <span class="n">month_df</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">met_list</span><span class="p">):</span>
+                <span class="n">param_type</span> <span class="o">=</span> <span class="s1">&#39;Met&#39;</span>
+
+            <span class="n">param_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">([</span><span class="n">param</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span>
+                                   <span class="n">i</span><span class="p">,</span> <span class="n">param</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">month_df</span><span class="o">.</span><span class="n">columns</span><span class="p">)]))</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;Site&#39;</span><span class="p">,</span> <span class="s1">&#39;Agency&#39;</span><span class="p">]:</span>
+                    <span class="n">param_list</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">ValueError</span> <span class="k">as</span> <span class="n">E</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="n">E</span><span class="p">)</span>
+
+            <span class="c1"># Rename column headers with standard naming scheme for parameters</span>
+            <span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">param_list</span><span class="p">:</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">month_df</span> <span class="o">=</span> <span class="n">month_df</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span>
+                                 <span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="n">param</span> <span class="o">+</span> <span class="n">attr</span><span class="p">:</span> <span class="n">renaming</span><span class="p">[</span><span class="n">param</span><span class="p">]</span> <span class="o">+</span> <span class="n">attr</span>
+                                          <span class="k">for</span> <span class="n">attr</span> <span class="ow">in</span> <span class="n">aqs_attribs</span><span class="p">})</span>
+
+                    <span class="c1"># replace naming scheme for units</span>
+                    <span class="n">month_df</span><span class="p">[</span><span class="n">renaming</span><span class="p">[</span><span class="n">param</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39;_Unit&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">month_df</span><span class="p">[</span>
+                                <span class="n">renaming</span><span class="p">[</span><span class="n">param</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39;_Unit&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;PPB&#39;</span><span class="p">,</span>
+                                                         <span class="s1">&#39;Parts per Billion&#39;</span><span class="p">)</span>
+                    <span class="n">month_df</span><span class="p">[</span><span class="n">renaming</span><span class="p">[</span><span class="n">param</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39;_Unit&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">month_df</span><span class="p">[</span>
+                                <span class="n">renaming</span><span class="p">[</span><span class="n">param</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39;_Unit&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;PPM&#39;</span><span class="p">,</span>
+                                                         <span class="s1">&#39;Parts per Million&#39;</span><span class="p">)</span>
+
+                    <span class="n">ref_method</span> <span class="o">=</span> <span class="n">month_df</span><span class="p">[</span><span class="n">renaming</span><span class="p">[</span><span class="n">param</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39;_Method&#39;</span><span class="p">]</span>
+                    <span class="k">if</span> <span class="n">ref_method</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
+                        <span class="n">ref_name</span> <span class="o">=</span> <span class="s1">&#39;Unspecified Reference&#39;</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">ref_name</span> <span class="o">=</span> <span class="n">month_df</span><span class="p">[</span>
+                                    <span class="n">renaming</span><span class="p">[</span><span class="n">param</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39;_Method&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">title</span><span class="p">()</span>
+                    <span class="n">month_df</span><span class="p">[</span><span class="n">renaming</span><span class="p">[</span><span class="n">param</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39;_Method&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ref_name</span>
+
+                    <span class="c1"># Phrases that shouldn&#39;t be lower cased (FRM, FEM, etc.)</span>
+                    <span class="k">for</span> <span class="n">oldstr</span><span class="p">,</span> <span class="n">newstr</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">replace</span><span class="p">,</span> <span class="n">replace</span><span class="o">.</span><span class="n">values</span><span class="p">()):</span>
+                        <span class="n">month_df</span><span class="p">[</span><span class="n">renaming</span><span class="p">[</span><span class="n">param</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39;_Method&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">month_df</span><span class="p">[</span>
+                                <span class="n">renaming</span><span class="p">[</span><span class="n">param</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39;_Method&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span>
+                                                                <span class="n">oldstr</span><span class="p">,</span> <span class="n">newstr</span><span class="p">)</span>
+                <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+                    <span class="k">continue</span>
+
+            <span class="n">month_df</span><span class="p">[</span><span class="s1">&#39;Site_Lat&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+            <span class="n">month_df</span><span class="p">[</span><span class="s1">&#39;Site_Lon&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+            <span class="n">month_df</span><span class="p">[</span><span class="s1">&#39;Data_Source&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;AirNowTech&#39;</span>
+
+            <span class="c1"># Get the date and time the file was downloaded</span>
+            <span class="n">file_createtime</span> <span class="o">=</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="n">inpath</span><span class="p">)</span><span class="o">.</span><span class="n">stat</span><span class="p">()</span><span class="o">.</span><span class="n">st_ctime</span>
+            <span class="n">file_createtimef</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">fromtimestamp</span><span class="p">(</span>
+                                <span class="n">file_createtime</span><span class="p">)</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1"> %H:%M:%S&#39;</span><span class="p">)</span>
+            <span class="n">month_df</span><span class="p">[</span><span class="s1">&#39;Data_Acquisition_Date_Time&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">file_createtimef</span>
+
+            <span class="n">param_cols</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">param_list</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">attr</span> <span class="ow">in</span> <span class="n">aqs_attribs</span><span class="p">:</span>
+                    <span class="n">param_cols</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">renaming</span><span class="p">[</span><span class="n">param</span><span class="p">]</span> <span class="o">+</span> <span class="n">attr</span><span class="p">)</span>
+
+            <span class="n">col_reorder</span> <span class="o">=</span> <span class="p">[</span><span class="n">param_cols</span><span class="p">,</span> <span class="s1">&#39;Agency&#39;</span><span class="p">,</span> <span class="s1">&#39;Site_Name&#39;</span><span class="p">,</span> <span class="s1">&#39;Site_AQS&#39;</span><span class="p">,</span>
+                           <span class="s1">&#39;Site_Lat&#39;</span><span class="p">,</span> <span class="s1">&#39;Site_Lon&#39;</span><span class="p">,</span> <span class="s1">&#39;Data_Source&#39;</span><span class="p">,</span>
+                           <span class="s1">&#39;Data_Acquisition_Date_Time&#39;</span><span class="p">]</span>
+
+            <span class="n">col_reorder_flat</span> <span class="o">=</span> <span class="n">Flatten</span><span class="p">(</span><span class="n">col_reorder</span><span class="p">)</span>
+            <span class="n">month_df</span> <span class="o">=</span> <span class="n">month_df</span><span class="p">[</span><span class="n">col_reorder_flat</span><span class="p">]</span>
+
+            <span class="n">year</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">month_df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">year</span><span class="p">)</span>
+            <span class="n">month</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">month_df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">month</span><span class="p">)</span><span class="o">.</span><span class="n">zfill</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+            <span class="n">tdelta</span> <span class="o">=</span> <span class="n">month_df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">name</span> <span class="o">-</span> <span class="n">month_df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">name</span>
+            <span class="n">interval</span> <span class="o">=</span> <span class="n">tdelta</span><span class="o">.</span><span class="n">resolution_string</span>
+            <span class="n">filename</span> <span class="o">=</span> <span class="p">(</span><span class="n">interval</span> <span class="o">+</span> <span class="s1">&#39;_&#39;</span> <span class="o">+</span> <span class="n">year</span> <span class="o">+</span> <span class="n">month</span> <span class="o">+</span> <span class="s1">&#39;_&#39;</span>
+                        <span class="o">+</span> <span class="n">param_type</span> <span class="o">+</span> <span class="s1">&#39;.csv&#39;</span><span class="p">)</span>
+
+            <span class="c1"># Require at least 12 hours present within dataframe to write to</span>
+            <span class="c1"># file (fixes issue with UTC shifted datasets with ~5 hours shifted</span>
+            <span class="c1"># into the next month)</span>
+            <span class="k">if</span> <span class="n">month_df</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">11</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;../reference_data/airnowtech/processed/&#39;</span> <span class="o">+</span> <span class="n">filename</span><span class="p">)</span>
+                <span class="n">month_df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">outpath</span> <span class="o">+</span> <span class="n">filename</span><span class="p">,</span> <span class="n">index_label</span><span class="o">=</span><span class="s1">&#39;DateTime_UTC&#39;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="PreProcess_AirNowTech"><a class="viewcode-back" href="../../../_autosummary/sensortoolkit._reference.import_airnowtech.PreProcess_AirNowTech.html#sensortoolkit._reference.import_airnowtech.PreProcess_AirNowTech">[docs]</a><span class="k">def</span> <span class="nf">PreProcess_AirNowTech</span><span class="p">(</span><span class="n">inpath</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Wrapper module for pre-processing datasets downloaded as .csv files</span>
+<span class="sd">    from airnowtech.org. When downloading data, the table box under &quot;Display</span>
+<span class="sd">    Settings&quot; should be checked and configured to &#39;unpivoted&#39; format.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        inpath (str):</span>
+<span class="sd">            Full path to downloaded AirNowTech dataset.</span>
+<span class="sd">    Returns:</span>
+<span class="sd">        None</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">ant_df</span> <span class="o">=</span> <span class="n">Ingest_AirNowTech</span><span class="p">(</span><span class="n">inpath</span><span class="p">)</span>
+
+    <span class="n">outpath</span> <span class="o">=</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">PureWindowsPath</span><span class="p">(</span>
+                        <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="vm">__file__</span><span class="p">,</span> <span class="s1">&#39;../../..&#39;</span><span class="p">)))</span>
+    <span class="n">outpath</span> <span class="o">=</span> <span class="p">(</span><span class="n">outpath</span><span class="o">.</span><span class="n">as_posix</span><span class="p">()</span> <span class="o">+</span> <span class="s1">&#39;/Data and Figures/reference_data&#39;</span> <span class="o">+</span>
+               <span class="s1">&#39;/airnowtech/processed/&#39;</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">df</span> <span class="ow">in</span> <span class="n">Sort_AirNowTech</span><span class="p">(</span><span class="n">ant_df</span><span class="p">):</span>
+        <span class="n">Write_To_File</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">inpath</span><span class="p">,</span> <span class="n">outpath</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Flatten"><a class="viewcode-back" href="../../../_autosummary/sensortoolkit._reference.import_airnowtech.Flatten.html#sensortoolkit._reference.import_airnowtech.Flatten">[docs]</a><span class="k">def</span> <span class="nf">Flatten</span><span class="p">(</span><span class="n">list_of_lists</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Function for flattening a nested list of values.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        list_of_lists (list):</span>
+<span class="sd">            A nested list, example: [&#39;a&#39;, [&#39;b&#39;, &#39;c&#39;]]</span>
+<span class="sd">    Returns:</span>
+<span class="sd">        flat_list (list):</span>
+<span class="sd">            A flattened list, example: [&#39;a&#39;, &#39;b&#39;, &#39;c&#39;]</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">flat_list</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">list_of_lists</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+            <span class="n">flat_list</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">Flatten</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">flat_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">flat_list</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, Samuel Frederick.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

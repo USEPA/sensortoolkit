@@ -10,9 +10,13 @@ Both 1-hour and 24-hour averaged data sets are computed for FRM/FEM reference da
 and data sets are organized by parameter classification (either ``PM`` for particulate matter,
 ``Gases`` for gaseous pollutants, or ``Met`` for meteorological parameters).
 
-Reference datasets are access via the ``reference_object.data`` attribute, which stores dataframes
-in a dictionary structure at both 1-hour and 24-hour averaged intervals for each
-parameter classification:
+.. tip::
+  Parameter classifications for each SDFS parameter can be found in the
+  `Table of SDFS Parameters <../sdfs/index.html#id1>`_.
+
+Reference datasets are access via the ``reference_object.data`` attribute, which stores pandas
+DataFrames for each parameter classification in a dictionary structure at both
+1-hour and 24-hour averaged intervals:
 
 .. code-block:: python
 
@@ -23,6 +27,14 @@ parameter classification:
    'Met': {'1-hour': pandas DataFrame object,
            '24-hour': pandas DataFrame object}
   }
+
+Dataset Example
+^^^^^^^^^^^^^^^
+
+The first five rows of data for particulate matter measurements collected at the Burdens Creek
+monitoring site in RTP, NC, averaged to 1-hour intervals, and formatted as an SDFS dataset
+(accessed as ``ref_obj['PM']['1-hour']``) are shown at the following link:
+`Example Reference Dataset <../sdfs/index.html#example-sdfs-datasets>`_
 
 ..
   * ``pm_``: Instruments measuring particulate matter (:math:`PM_{1}`, :math:`PM_{2.5}`, :math:`PM_{10}`)

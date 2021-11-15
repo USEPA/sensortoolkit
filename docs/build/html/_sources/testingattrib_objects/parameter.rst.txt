@@ -47,46 +47,57 @@ Attributes
     - The SDFS name for the parameter
     - ``'PM25'``
   * - ``format_name``
-    - A formatted expression for the parameter used for displaying the
-      name of the parameter on plots
+    - A formatted expression for the parameter used |br|
+      for displaying the name of the parameter on |br|
+      plots.
     - ``'PM$_{2.5}$'``
   * - ``format_baseline``
-    - For ``format_name``, contains the baseline component of the parameter name.
+    - For ``format_name``, contains the baseline |br|
+      component of the parameter name.
     - ``'PM'``
   * - ``format_subscript``
-    - For ``format_name``, contains the subscripted component of the parameter name
+    - For ``format_name``, contains the subscripted |br|
+      component of the parameter name
     - ``'2.5'``
   * - ``classifier``
-    - A term for sorting the parameter into one of three environmental
-      parameter classifications, either 'PM' for particulate matter
-      pollutants, 'Gases' for gaseous pollutants, or 'Met' for
-      meteorological environmental parameters
+    - A term for sorting the parameter into one of |br|
+      three environmental parameter classifications, |br|
+      either 'PM' for particulate matter pollutants, |br|
+      'Gases' for gaseous pollutants, or 'Met' for |br|
+      meteorological environmental parameters.
     - ``'PM'``
   * - ``units``
-    - The units of measure, expressed symbolically in unicode characters
+    - The units of measure, expressed symbolically |br|
+      in Unicode characters.
     - ``'µg/m³'``
   * - ``units_description``
-    - A textual description of the units of measure
+    - A textual description of the units of measure.
     - ``'Micrograms per Cubic Meter'``
   * - ``units_aqs_code``
     - The AQS unit code, useful for AQS queries [#f1]_.
     - ``105``
   * - ``criteria_pollutant``
-    - Boolean, describes whether the parameter is a criteria pollutant (``True``) or non-criteria (``False``)
+    - Boolean, describes whether the parameter is a |br|
+      criteria pollutant (``True``) or non-criteria |br|
+      (``False``).
     - ``True``
   * - ``aqs_parameter_code``
-    - The AQS Parameter code, useful for AQS queries [#f2]_.
+    - The AQS Parameter code, useful for AQS |br|
+      queries [#f2]_.
     - ``88101``
   * - ``averaging``
-    - The reference measurement averaging intervals commonly utilized for
-      analyzing parameter data. Common averaging intervals are included
+    - The reference measurement averaging intervals |br|
+      commonly utilized for analyzing parameter data. |br|
+      Common averaging intervals are included |br|
       in a list [#f3]_.
     - ``['1-hour', '24-hour']``
   * - ``PerformanceTargets``
-    - Performance metrics, target values and ranges associated with the
-      parameter. Preset values are configured for PM25 and O3 using
-      U.S. EPA's recommended performance metrics and targets.
-    - See "Performance Metrics and Target Values Section"
+    - Performance metrics, target values and ranges |br|
+      associated with the parameter. Preset values |br|
+      are configured for PM25 and O3 using |br|
+      U.S. EPA's recommended performance metrics |br|
+      and targets.
+    - See "Performance Metrics |br| and Target Values Section".
 
 .. rubric:: Footnotes
 
@@ -163,13 +174,12 @@ contain the following information:
 
 
 Individual metric target values and ranges can be accessed via the ``get_metric()``
-method. The example below is for accessing the description of the ``Slope`` metric contained within
-the ``Bias`` category:
+method. The example below is for accessing the description of the ``Slope``
+performance metric:
 
 .. code-block:: python
 
-  metric = pollutant.PerformanceTargets.get_metric(metric_category='Bias',
-                                                   metric_name='Slope')
+  metric = pollutant.PerformanceTargets.get_metric(metric_name='Slope')
 
 Continuing with the example for :raw-html:`PM<sub>2.5</sub>`, the ``metric`` variable should
 contain the following information:
@@ -190,3 +200,7 @@ can configure custom metric categories via the ``pollutant.PerformanceTargets.se
 method and target values via the ``pollutant.PerformanceTargets.set_metric()`` method. A detailed description
 and examples for both of these methods is included in the
 `API documentation for sensortoolkit.parameter.PerformanceTargets <../api/_autosummary/sensortoolkit.param._targets.ParameterTargets.html>`_.
+
+.. |br| raw:: html
+
+   <br />

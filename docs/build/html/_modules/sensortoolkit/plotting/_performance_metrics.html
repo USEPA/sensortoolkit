@@ -1,78 +1,37 @@
-
-
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8" />
-  
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
-  <title>sensortoolkit.plotting._performance_metrics &mdash; sensortoolkit 0.6.0b4 documentation</title>
-  
-
-  
-  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" type="text/css" />
-
-  
-  
-
-  
-  
-
-  
-
-  
+  <title>sensortoolkit.plotting._performance_metrics &mdash; sensortoolkit 0.6.0b14 documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
         <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
         <script src="../../../_static/jquery.js"></script>
         <script src="../../../_static/underscore.js"></script>
         <script src="../../../_static/doctools.js"></script>
-    
-    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
-
-    
+    <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-          
-
-          
             <a href="../../../index.html" class="icon icon-home"> sensortoolkit
-          
-
-          
           </a>
-
-          
-            
-            
               <div class="version">
-                0.6.0b4
+                0.6.0b14
               </div>
-            
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
@@ -80,18 +39,7 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Documentation Overview</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../install.html">Installation</a></li>
@@ -116,6 +64,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../evaluation_objects/index.html">Evaluation Objects</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../evaluation_objects/sensoreval/index.html">Conducting Analysis - The SensorEvaluation Class</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../evaluation_objects/sensoreval/plotting.html">Plotting Methods</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../evaluation_objects/sensoreval/printing.html">Descriptive Summary Methods</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../evaluation_objects/sensoreval/statistic.html">Statistical Methods</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../evaluation_objects/performancereport.html">Creating Testing Reports - The PerformanceReport Class</a></li>
@@ -271,7 +221,6 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.lib_utils._setup.html">sensortoolkit.lib_utils._setup</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.lib_utils._setup.displayMethods.html">sensortoolkit.lib_utils._setup.displayMethods</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.lib_utils._setup.ReferenceSetup.html">sensortoolkit.lib_utils._setup.ReferenceSetup</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.lib_utils._setup.SensorSetup.html">sensortoolkit.lib_utils._setup.SensorSetup</a></li>
 </ul>
@@ -314,10 +263,6 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.plotting._errorbars.html">sensortoolkit.plotting._errorbars</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.plotting._errorbars.error_bars.html">sensortoolkit.plotting._errorbars.error_bars</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.plotting._intrasensor_comparison.html">sensortoolkit.plotting._intrasensor_comparison</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.plotting._intrasensor_comparison.compare_sensors.html">sensortoolkit.plotting._intrasensor_comparison.compare_sensors</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.plotting._performance_metrics.html">sensortoolkit.plotting._performance_metrics</a><ul>
@@ -426,69 +371,30 @@
 </li>
 </ul>
 
-            
-          
         </div>
-        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../../../index.html">sensortoolkit</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
       <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
-        
           <li><a href="../../index.html">Module code</a> &raquo;</li>
-        
       <li>sensortoolkit.plotting._performance_metrics</li>
-    
-    
       <li class="wy-breadcrumbs-aside">
-        
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
+             
   <h1>Source code for sensortoolkit.plotting._performance_metrics</h1><div class="highlight"><pre>
 <span></span><span class="c1"># -*- coding: utf-8 -*-</span>
 <span class="sd">&quot;&quot;&quot;This module contains a method for displaying air sensor performance using</span>
@@ -519,9 +425,8 @@
 
 
 <div class="viewcode-block" id="performance_metrics"><a class="viewcode-back" href="../../../api/_autosummary/sensortoolkit.plotting._performance_metrics.performance_metrics.html#sensortoolkit.plotting._performance_metrics.performance_metrics">[docs]</a><span class="k">def</span> <span class="nf">performance_metrics</span><span class="p">(</span><span class="n">stats_df</span><span class="p">,</span> <span class="n">deploy_dict</span><span class="p">,</span> <span class="n">param</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                        <span class="n">param_averaging</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                        <span class="n">font_size</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sensor_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                        <span class="n">write_to_file</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+                        <span class="n">param_averaging</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">font_size</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                        <span class="n">sensor_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">write_to_file</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Display performance metric results via a set of adjacent subplots</span>
 <span class="sd">    corresponding to each metric. Results are displayed as either dots (if</span>
 <span class="sd">    the number of sensors is less than four) or via boxplots (number of sensors</span>
@@ -556,7 +461,172 @@
 <span class="sd">            If true, the figure will be written to the /figures/[param] sensor</span>
 <span class="sd">            subdirectory (where &#39;param&#39; is the name of the parameter being</span>
 <span class="sd">            evaluated). Defaults to True.</span>
-<span class="sd">        **kwargs (TYPE): Plotting keyword arguments.</span>
+
+<span class="sd">    **Keyword Arguments:**</span>
+
+<span class="sd">    :param str fill_color:</span>
+<span class="sd">        DESCRIPTION</span>
+<span class="sd">    :param str marker:</span>
+<span class="sd">        DESCRIPTION</span>
+<span class="sd">    :param marker_size:</span>
+<span class="sd">        DESCRIPTION</span>
+<span class="sd">    :type marker_size: int or float</span>
+<span class="sd">    :param marker_line_width:</span>
+<span class="sd">        DESCRIPTION</span>
+<span class="sd">    :type marker_line_width: int or float</span>
+<span class="sd">    :param str mean_marker:</span>
+<span class="sd">        DESCRIPTION</span>
+<span class="sd">    :param figure_width:</span>
+<span class="sd">        DESCRIPTION</span>
+<span class="sd">    :type figure_width: int or float</span>
+<span class="sd">    :param figure_height:</span>
+<span class="sd">        DESCRIPTION</span>
+<span class="sd">    :type figure_height: int or float</span>
+<span class="sd">    :param R^2_ylims:</span>
+<span class="sd">        The y-limits (ymin, ymax) for the metric subplot.</span>
+<span class="sd">    :type R^2_ylims: Two-element tuple of floats</span>
+<span class="sd">    :param Slope_ylims:</span>
+<span class="sd">        The y-limits (ymin, ymax) for the metric subplot.</span>
+<span class="sd">    :type Slope_ylims: Two-element tuple of floats</span>
+<span class="sd">    :param Intercept_ylims:</span>
+<span class="sd">        The y-limits (ymin, ymax) for the metric subplot.</span>
+<span class="sd">    :type Intercept_ylims: Two-element tuple of floats</span>
+<span class="sd">    :param CV_ylims:</span>
+<span class="sd">        The y-limits (ymin, ymax) for the metric subplot.</span>
+<span class="sd">    :type CV_ylims: Two-element tuple of floats</span>
+<span class="sd">    :param RMSE_ylims:</span>
+<span class="sd">        The y-limits (ymin, ymax) for the metric subplot.</span>
+<span class="sd">    :type RMSE_ylims: Two-element tuple of floats</span>
+<span class="sd">    :param NRMSE_ylims:</span>
+<span class="sd">        The y-limits (ymin, ymax) for the metric subplot.</span>
+<span class="sd">    :type NRMSE_ylims: Two-element tuple of floats</span>
+<span class="sd">    :param SD_ylims:</span>
+<span class="sd">        The y-limits (ymin, ymax) for the metric subplot.</span>
+<span class="sd">    :type SD_ylims: Two-element tuple of floats</span>
+<span class="sd">    :param R^2_hline_dims:</span>
+<span class="sd">        Dimensions for the target goal horizontal line. Tuple containing the</span>
+<span class="sd">        y-coordinate of the target value, x-min (leftmost) coordinate for</span>
+<span class="sd">        drawing horizontal line, and the x-max (rightmost) coordinate for</span>
+<span class="sd">        drawing horizontal line).</span>
+<span class="sd">    :type R^2_hline_dims: Three-element tuple</span>
+<span class="sd">    :param Slope_hline_dims:</span>
+<span class="sd">        Dimensions for the target goal horizontal line. Tuple containing the</span>
+<span class="sd">        y-coordinate of the target value, x-min (leftmost) coordinate for</span>
+<span class="sd">        drawing horizontal line, and the x-max (rightmost) coordinate for</span>
+<span class="sd">        drawing horizontal line).</span>
+<span class="sd">    :type Slope_hline_dims: Three-element tuple</span>
+<span class="sd">    :param Intercept_hline_dims:</span>
+<span class="sd">        Dimensions for the target goal horizontal line. Tuple containing the</span>
+<span class="sd">        y-coordinate of the target value, x-min (leftmost) coordinate for</span>
+<span class="sd">        drawing horizontal line, and the x-max (rightmost) coordinate for</span>
+<span class="sd">        drawing horizontal line).</span>
+<span class="sd">    :type Intercept_hline_dims: Three-element tuple</span>
+<span class="sd">    :param CV_hline_dims:</span>
+<span class="sd">        Dimensions for the target goal horizontal line. Tuple containing the</span>
+<span class="sd">        y-coordinate of the target value, x-min (leftmost) coordinate for</span>
+<span class="sd">        drawing horizontal line, and the x-max (rightmost) coordinate for</span>
+<span class="sd">        drawing horizontal line).</span>
+<span class="sd">    :type CV_hline_dims: Three-element tuple</span>
+<span class="sd">    :param RMSE_hline_dims:</span>
+<span class="sd">        Dimensions for the target goal horizontal line. Tuple containing the</span>
+<span class="sd">        y-coordinate of the target value, x-min (leftmost) coordinate for</span>
+<span class="sd">        drawing horizontal line, and the x-max (rightmost) coordinate for</span>
+<span class="sd">        drawing horizontal line).</span>
+<span class="sd">    :type RMSE_hline_dims: Three-element tuple</span>
+<span class="sd">    :param NRMSE_hline_dims:</span>
+<span class="sd">        Dimensions for the target goal horizontal line. Tuple containing the</span>
+<span class="sd">        y-coordinate of the target value, x-min (leftmost) coordinate for</span>
+<span class="sd">        drawing horizontal line, and the x-max (rightmost) coordinate for</span>
+<span class="sd">        drawing horizontal line).</span>
+<span class="sd">    :type NRMSE_hline_dims: Three-element tuple</span>
+<span class="sd">    :param SD_hline_dims:</span>
+<span class="sd">        Dimensions for the target goal horizontal line. Tuple containing the</span>
+<span class="sd">        y-coordinate of the target value, x-min (leftmost) coordinate for</span>
+<span class="sd">        drawing horizontal line, and the x-max (rightmost) coordinate for</span>
+<span class="sd">        drawing horizontal line).</span>
+<span class="sd">    :type SD_hline_dims: Three-element tuple</span>
+<span class="sd">    :param R^2_box_dims:</span>
+<span class="sd">        Dimensions for a box indicating the metric target range. Four element</span>
+<span class="sd">        tuple containing the x-min (left-most coordinate of the box), y-min</span>
+<span class="sd">        (bottom-most coordinate of the target range box), x-range (the height</span>
+<span class="sd">        of the box, or the difference between the x-min coordinate position</span>
+<span class="sd">        and the x-max coordinate position), and the y-range (the width of the</span>
+<span class="sd">        box, or the difference between the y-min coordinate position and the</span>
+<span class="sd">        y-max coordinate position).</span>
+<span class="sd">    :type R^2_box_dims: Four-element tuple</span>
+<span class="sd">    :param Slope_box_dims:</span>
+<span class="sd">        Dimensions for a box indicating the metric target range. Four element</span>
+<span class="sd">        tuple containing the x-min (left-most coordinate of the box), y-min</span>
+<span class="sd">        (bottom-most coordinate of the target range box), x-range (the height</span>
+<span class="sd">        of the box, or the difference between the x-min coordinate position</span>
+<span class="sd">        and the x-max coordinate position), and the y-range (the width of the</span>
+<span class="sd">        box, or the difference between the y-min coordinate position and the</span>
+<span class="sd">        y-max coordinate position).</span>
+<span class="sd">    :type Slope_box_dims: Four-element tuple</span>
+<span class="sd">    :param Intercept_box_dims:</span>
+<span class="sd">        Dimensions for a box indicating the metric target range. Four element</span>
+<span class="sd">        tuple containing the x-min (left-most coordinate of the box), y-min</span>
+<span class="sd">        (bottom-most coordinate of the target range box), x-range (the height</span>
+<span class="sd">        of the box, or the difference between the x-min coordinate position</span>
+<span class="sd">        and the x-max coordinate position), and the y-range (the width of the</span>
+<span class="sd">        box, or the difference between the y-min coordinate position and the</span>
+<span class="sd">        y-max coordinate position).</span>
+<span class="sd">    :type Intercept_box_dims: Four-element tuple</span>
+<span class="sd">    :param CV_box_dims:</span>
+<span class="sd">        Dimensions for a box indicating the metric target range. Four element</span>
+<span class="sd">        tuple containing the x-min (left-most coordinate of the box), y-min</span>
+<span class="sd">        (bottom-most coordinate of the target range box), x-range (the height</span>
+<span class="sd">        of the box, or the difference between the x-min coordinate position</span>
+<span class="sd">        and the x-max coordinate position), and the y-range (the width of the</span>
+<span class="sd">        box, or the difference between the y-min coordinate position and the</span>
+<span class="sd">        y-max coordinate position).</span>
+<span class="sd">    :type CV_box_dims: Four-element tuple</span>
+<span class="sd">    :param RMSE_box_dims:</span>
+<span class="sd">        Dimensions for a box indicating the metric target range. Four element</span>
+<span class="sd">        tuple containing the x-min (left-most coordinate of the box), y-min</span>
+<span class="sd">        (bottom-most coordinate of the target range box), x-range (the height</span>
+<span class="sd">        of the box, or the difference between the x-min coordinate position</span>
+<span class="sd">        and the x-max coordinate position), and the y-range (the width of the</span>
+<span class="sd">        box, or the difference between the y-min coordinate position and the</span>
+<span class="sd">        y-max coordinate position).</span>
+<span class="sd">    :type RMSE_box_dims: Four-element tuple</span>
+<span class="sd">    :param NRMSE_box_dims:</span>
+<span class="sd">        Dimensions for a box indicating the metric target range. Four element</span>
+<span class="sd">        tuple containing the x-min (left-most coordinate of the box), y-min</span>
+<span class="sd">        (bottom-most coordinate of the target range box), x-range (the height</span>
+<span class="sd">        of the box, or the difference between the x-min coordinate position</span>
+<span class="sd">        and the x-max coordinate position), and the y-range (the width of the</span>
+<span class="sd">        box, or the difference between the y-min coordinate position and the</span>
+<span class="sd">        y-max coordinate position).</span>
+<span class="sd">    :type NRMSE_box_dims: Four-element tuple</span>
+<span class="sd">    :param SD_box_dims:</span>
+<span class="sd">        Dimensions for a box indicating the metric target range. Four element</span>
+<span class="sd">        tuple containing the x-min (left-most coordinate of the box), y-min</span>
+<span class="sd">        (bottom-most coordinate of the target range box), x-range (the height</span>
+<span class="sd">        of the box, or the difference between the x-min coordinate position</span>
+<span class="sd">        and the x-max coordinate position), and the y-range (the width of the</span>
+<span class="sd">        box, or the difference between the y-min coordinate position and the</span>
+<span class="sd">        y-max coordinate position).</span>
+<span class="sd">    :type SD_box_dims: Four-element tuple</span>
+<span class="sd">    :param str hline_color:</span>
+<span class="sd">        DESCRIPTION</span>
+<span class="sd">    :param str box_facecolor:</span>
+<span class="sd">        DESCRIPTION</span>
+<span class="sd">    :param font_scale:</span>
+<span class="sd">        DESCRIPTION</span>
+<span class="sd">    :type font_scale: int or str</span>
+<span class="sd">    :param float fig_wspace:</span>
+<span class="sd">        DESCRIPTION</span>
+<span class="sd">    :param float fig_hspace:</span>
+<span class="sd">        DESCRIPTION</span>
+<span class="sd">    :param float fig_left:</span>
+<span class="sd">        DESCRIPTION</span>
+<span class="sd">    :param float fig_right:</span>
+<span class="sd">        DESCRIPTION</span>
+<span class="sd">    :param float fig_top:</span>
+<span class="sd">        DESCRIPTION</span>
+<span class="sd">    :param float fig_bottom:</span>
+<span class="sd">        DESCRIPTION</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        None.</span>
@@ -875,46 +945,30 @@
 </pre></div>
 
            </div>
-           
           </div>
           <footer>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>
-        &#169; Copyright 2021, Samuel Frederick.
-
-    </p>
+    <p>&#169; Copyright 2021, Samuel Frederick.</p>
   </div>
-    
-    
-    
-    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
 
 </footer>
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>

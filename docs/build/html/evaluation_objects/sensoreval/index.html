@@ -1,82 +1,40 @@
-
-
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" />
-  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
-  <title>Conducting Analysis - The SensorEvaluation Class &mdash; sensortoolkit 0.6.0b4 documentation</title>
-  
-
-  
-  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" type="text/css" />
-
-  
-  
-
-  
-  
-
-  
-
-  
+  <title>Conducting Analysis - The SensorEvaluation Class &mdash; sensortoolkit 0.6.0b14 documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
         <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
         <script src="../../_static/jquery.js"></script>
         <script src="../../_static/underscore.js"></script>
         <script src="../../_static/doctools.js"></script>
-        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    
-    <script type="text/javascript" src="../../_static/js/theme.js"></script>
-
-    
+    <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="Plotting Methods" href="plotting.html" />
     <link rel="prev" title="Evaluation Objects" href="../index.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-          
-
-          
             <a href="../../index.html" class="icon icon-home"> sensortoolkit
-          
-
-          
           </a>
-
-          
-            
-            
               <div class="version">
-                0.6.0b4
+                0.6.0b14
               </div>
-            
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
@@ -84,18 +42,7 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Documentation Overview</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../../install.html">Installation</a></li>
@@ -120,6 +67,8 @@
 <li class="toctree-l1 current"><a class="reference internal" href="../index.html">Evaluation Objects</a><ul class="current">
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Conducting Analysis - The SensorEvaluation Class</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="plotting.html">Plotting Methods</a></li>
+<li class="toctree-l3"><a class="reference internal" href="printing.html">Descriptive Summary Methods</a></li>
+<li class="toctree-l3"><a class="reference internal" href="statistic.html">Statistical Methods</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../performancereport.html">Creating Testing Reports - The PerformanceReport Class</a></li>
@@ -275,7 +224,6 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.lib_utils._setup.html">sensortoolkit.lib_utils._setup</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.lib_utils._setup.displayMethods.html">sensortoolkit.lib_utils._setup.displayMethods</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.lib_utils._setup.ReferenceSetup.html">sensortoolkit.lib_utils._setup.ReferenceSetup</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.lib_utils._setup.SensorSetup.html">sensortoolkit.lib_utils._setup.SensorSetup</a></li>
 </ul>
@@ -318,10 +266,6 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.plotting._errorbars.html">sensortoolkit.plotting._errorbars</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.plotting._errorbars.error_bars.html">sensortoolkit.plotting._errorbars.error_bars</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.plotting._intrasensor_comparison.html">sensortoolkit.plotting._intrasensor_comparison</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.plotting._intrasensor_comparison.compare_sensors.html">sensortoolkit.plotting._intrasensor_comparison.compare_sensors</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.plotting._performance_metrics.html">sensortoolkit.plotting._performance_metrics</a><ul>
@@ -430,75 +374,33 @@
 </li>
 </ul>
 
-            
-          
         </div>
-        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../../index.html">sensortoolkit</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
       <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
-        
           <li><a href="../index.html">Evaluation Objects</a> &raquo;</li>
-        
       <li>Conducting Analysis - The SensorEvaluation Class</li>
-    
-    
       <li class="wy-breadcrumbs-aside">
-        
-          
             <a href="../../_sources/evaluation_objects/sensoreval/index.rst.txt" rel="nofollow"> View page source</a>
-          
-        
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
+             
   <section id="conducting-analysis-the-sensorevaluation-class">
-<h1>Conducting Analysis - The SensorEvaluation Class<a class="headerlink" href="#conducting-analysis-the-sensorevaluation-class" title="Permalink to this headline">¶</a></h1>
+<h1>Conducting Analysis - The SensorEvaluation Class<a class="headerlink" href="#conducting-analysis-the-sensorevaluation-class" title="Permalink to this headline"></a></h1>
 <p><cite>sensortoolkit</cite> contains dozens of individual modules and functions for computing
 statistical metrics and generating figures in accordance with U.S. EPA’s recommended
 <a class="reference external" href="https://www.epa.gov/air-sensor-toolbox/air-sensor-performance-targets-and-testing-protocols">performance metrics and targets</a>.
@@ -510,19 +412,31 @@ a user-friendly and efficient platform for evaluating sensor performance.</p>
 For more detail on the class and its methods, see the
 <a class="reference external" href="../../api/_autosummary/sensortoolkit.evaluation_objs._sensor_eval.SensorEvaluation.html#sensortoolkit.evaluation_objs._sensor_eval.SensorEvaluation">API Documentation for SensorEvaluation()</a></p>
 </div>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>While <code class="docutils literal notranslate"><span class="pre">SensorEvaluation</span></code> has been designed to calculate and utilize EPA’s
+recommended performance metrics and target values for sensors measuring either <span class="raw-html">PM<sub>2.5</sub></span>
+or <span class="raw-html">O<sub>3</sub></span>, <code class="docutils literal notranslate"><span class="pre">SensorEvaluation</span></code> can be used to analyze data
+for any  <a class="reference external" href="../../sdfs/index.html#id1">SDFS parameter</a>. For pollutants other than
+<span class="raw-html">PM<sub>2.5</sub></span> or <span class="raw-html">O<sub>3</sub></span>, users are encouraged
+to make use of the <code class="docutils literal notranslate"><span class="pre">sensortoolkit.Parameter()</span></code>
+<a class="reference external" href="../../testingattrib_objects/parameter.html#setting-performance-targets-and-metrics">methods for setting custom performance targets and metrics</a>.</p>
+</div>
 <section id="a-brief-overview-of-sensorevaluation">
-<h2>A brief overview of <code class="docutils literal notranslate"><span class="pre">SensorEvaluation</span></code><a class="headerlink" href="#a-brief-overview-of-sensorevaluation" title="Permalink to this headline">¶</a></h2>
+<h2>A brief overview of <code class="docutils literal notranslate"><span class="pre">SensorEvaluation</span></code><a class="headerlink" href="#a-brief-overview-of-sensorevaluation" title="Permalink to this headline"></a></h2>
 <ul class="simple">
-<li><p>Computes various quantitites and metrics recommended by U.S. EPA’s performance targets reports
-including precision (standard deviation, coefficient of variation), error (RMSE),
-linarity (<span class="math notranslate nohighlight">\(R^2\)</span>), and bias (OLS regression slope and intercept).</p></li>
+<li><p>Computes various quantities and metrics recommended by U.S. EPA’s performance targets reports
+including precision (SD - standard deviation, CV - coefficient of variation),
+error (root mean squared error - RMSE), linearity (<span class="raw-html">R<sup>2</sup></span>),
+and bias (OLS regression slope and intercept).</p></li>
 <li><p>Contains numerous plotting methods for displaying and saving figures for
 time series, sensor vs. reference scatter, meteorological conditions, etc.</p></li>
 <li><p>Contains methods for printing summary statistics for evaluation conditions and
 performance evaluation results using U.S EPA’s recommended performance metrics.</p></li>
 </ul>
-<p>Below is an example of instantiating the <cite>SensorEvaluation</cite> class for the <code class="docutils literal notranslate"><span class="pre">AirSensor</span></code>,
-<code class="docutils literal notranslate"><span class="pre">ReferenceMonitor</span></code>, and <code class="docutils literal notranslate"><span class="pre">Parameter</span></code> objects discussed in the <cite>sensortoolkit Objects</cite> section.</p>
+<p>Below is an example of instantiating the <code class="docutils literal notranslate"><span class="pre">SensorEvaluation</span></code> class for the <code class="docutils literal notranslate"><span class="pre">AirSensor</span></code>,
+<code class="docutils literal notranslate"><span class="pre">ReferenceMonitor</span></code>, and <code class="docutils literal notranslate"><span class="pre">Parameter</span></code> objects discussed in the
+<a class="reference external" href="../../testingattrib_objects/index.html">Testing Attribute Objects</a> section.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">evaluation</span> <span class="o">=</span> <span class="n">sensortoolkit</span><span class="o">.</span><span class="n">SensorEvaluation</span><span class="p">(</span><span class="n">sensor</span><span class="o">=</span><span class="n">sensor_object</span><span class="p">,</span>
                                             <span class="n">param</span><span class="o">=</span><span class="n">pollutant</span><span class="p">,</span>
                                             <span class="n">reference</span><span class="o">=</span><span class="n">reference_object</span><span class="p">,</span>
@@ -537,9 +451,9 @@ to refer to their class instances as <code class="docutils literal notranslate">
 modules will use the name <code class="docutils literal notranslate"><span class="pre">evaluation</span></code>.</p>
 </div>
 <section id="arguments-passed-to-sensorevaluation">
-<h3>Arguments passed to <code class="docutils literal notranslate"><span class="pre">SensorEvaluation</span></code><a class="headerlink" href="#arguments-passed-to-sensorevaluation" title="Permalink to this headline">¶</a></h3>
+<h3>Arguments passed to <code class="docutils literal notranslate"><span class="pre">SensorEvaluation</span></code><a class="headerlink" href="#arguments-passed-to-sensorevaluation" title="Permalink to this headline"></a></h3>
 <table class="colwidths-given docutils align-default" id="id1">
-<caption><span class="caption-text"><code class="docutils literal notranslate"><span class="pre">sensortoolkit.SensorEvaluation()</span></code> attributes</span><a class="headerlink" href="#id1" title="Permalink to this table">¶</a></caption>
+<caption><span class="caption-text"><code class="docutils literal notranslate"><span class="pre">sensortoolkit.SensorEvaluation()</span></code> attributes</span><a class="headerlink" href="#id1" title="Permalink to this table"></a></caption>
 <colgroup>
 <col style="width: 40%" />
 <col style="width: 60%" />
@@ -570,17 +484,17 @@ written to <code class="docutils literal notranslate"><span class="pre">/figures
 </tbody>
 </table>
 <section id="keyword-arguments-passed-to-sensorevaluation">
-<h4>Keyword Arguments passed to <code class="docutils literal notranslate"><span class="pre">SensorEvaluation</span></code><a class="headerlink" href="#keyword-arguments-passed-to-sensorevaluation" title="Permalink to this headline">¶</a></h4>
+<h4>Keyword Arguments passed to <code class="docutils literal notranslate"><span class="pre">SensorEvaluation</span></code><a class="headerlink" href="#keyword-arguments-passed-to-sensorevaluation" title="Permalink to this headline"></a></h4>
 <p>Additional keyword arguments may be passed to the class. The current
 version of <code class="docutils literal notranslate"><span class="pre">SensorEvaluation</span></code> supports two additional keyword arguments for
 specifying information about the testing organization and evaluation location.</p>
 </section>
 </section>
 <section id="testing-org">
-<h3><code class="docutils literal notranslate"><span class="pre">testing_org</span></code><a class="headerlink" href="#testing-org" title="Permalink to this headline">¶</a></h3>
+<h3><code class="docutils literal notranslate"><span class="pre">testing_org</span></code><a class="headerlink" href="#testing-org" title="Permalink to this headline"></a></h3>
 <p>A dictionary containing the information about the testing organization.</p>
 <table class="colwidths-given docutils align-default" id="id2">
-<caption><span class="caption-text"><code class="docutils literal notranslate"><span class="pre">testing_org</span></code> Attributes</span><a class="headerlink" href="#id2" title="Permalink to this table">¶</a></caption>
+<caption><span class="caption-text"><code class="docutils literal notranslate"><span class="pre">testing_org</span></code> Attributes</span><a class="headerlink" href="#id2" title="Permalink to this table"></a></caption>
 <colgroup>
 <col style="width: 40%" />
 <col style="width: 60%" />
@@ -619,11 +533,11 @@ specifying information about the testing organization and evaluation location.</
 </div>
 </section>
 <section id="testing-loc">
-<h3><code class="docutils literal notranslate"><span class="pre">testing_loc</span></code><a class="headerlink" href="#testing-loc" title="Permalink to this headline">¶</a></h3>
+<h3><code class="docutils literal notranslate"><span class="pre">testing_loc</span></code><a class="headerlink" href="#testing-loc" title="Permalink to this headline"></a></h3>
 <p>A dictionary containing information about the testing site. If the site is part
 of U.S. EPA’s Air Quality System (AQS), the AQS Site ID should be specified.</p>
 <table class="colwidths-given docutils align-default" id="id3">
-<caption><span class="caption-text"><code class="docutils literal notranslate"><span class="pre">testing_org</span></code> Attributes</span><a class="headerlink" href="#id3" title="Permalink to this table">¶</a></caption>
+<caption><span class="caption-text"><code class="docutils literal notranslate"><span class="pre">testing_org</span></code> Attributes</span><a class="headerlink" href="#id3" title="Permalink to this table"></a></caption>
 <colgroup>
 <col style="width: 40%" />
 <col style="width: 60%" />
@@ -658,14 +572,16 @@ of U.S. EPA’s Air Quality System (AQS), the AQS Site ID should be specified.</
 </div>
 </section>
 <section id="sensorevaluation-methods">
-<h3><code class="docutils literal notranslate"><span class="pre">SensorEvaluation</span></code> Methods<a class="headerlink" href="#sensorevaluation-methods" title="Permalink to this headline">¶</a></h3>
-<p><code class="docutils literal notranslate"><span class="pre">SensorEvaluation</span></code> contain a number of methods for generating figures, calculating
+<h3><code class="docutils literal notranslate"><span class="pre">SensorEvaluation</span></code> Methods<a class="headerlink" href="#sensorevaluation-methods" title="Permalink to this headline"></a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">SensorEvaluation</span></code> contain numerous methods for generating figures, calculating
 statistical quantities, and displaying formatted summaries printed to the console
 for either evaluation statistics or testing period site conditions.</p>
 <p>Click on the categories below to learn more about these methods.</p>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="plotting.html">Plotting Methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="printing.html">Descriptive Summary Methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="statistic.html">Statistical Methods</a></li>
 </ul>
 </div>
 </section>
@@ -674,50 +590,33 @@ for either evaluation statistics or testing period site conditions.</p>
 
 
            </div>
-           
           </div>
-          <footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="plotting.html" class="btn btn-neutral float-right" title="Plotting Methods" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="../index.html" class="btn btn-neutral float-left" title="Evaluation Objects" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="plotting.html" class="btn btn-neutral float-right" title="Plotting Methods" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>
-        &#169; Copyright 2021, Samuel Frederick.
-
-    </p>
+    <p>&#169; Copyright 2021, Samuel Frederick.</p>
   </div>
-    
-    
-    
-    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
 
 </footer>
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>

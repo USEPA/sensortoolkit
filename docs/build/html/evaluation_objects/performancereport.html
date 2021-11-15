@@ -1,81 +1,40 @@
-
-
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" />
-  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
-  <title>Creating Testing Reports - The PerformanceReport Class &mdash; sensortoolkit 0.6.0b4 documentation</title>
-  
-
-  
-  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" type="text/css" />
-
-  
-  
-
-  
-  
-
-  
-
-  
+  <title>Creating Testing Reports - The PerformanceReport Class &mdash; sensortoolkit 0.6.0b14 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
-    
-    <script type="text/javascript" src="../_static/js/theme.js"></script>
-
-    
+    <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Data Structures" href="../data_structures/index.html" />
-    <link rel="prev" title="Plotting Methods" href="sensoreval/plotting.html" /> 
+    <link rel="prev" title="Statistical Methods" href="sensoreval/statistic.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-          
-
-          
             <a href="../index.html" class="icon icon-home"> sensortoolkit
-          
-
-          
           </a>
-
-          
-            
-            
               <div class="version">
-                0.6.0b4
+                0.6.0b14
               </div>
-            
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
@@ -83,18 +42,7 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Documentation Overview</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../install.html">Installation</a></li>
@@ -119,6 +67,8 @@
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Evaluation Objects</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="sensoreval/index.html">Conducting Analysis - The SensorEvaluation Class</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="sensoreval/plotting.html">Plotting Methods</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sensoreval/printing.html">Descriptive Summary Methods</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sensoreval/statistic.html">Statistical Methods</a></li>
 </ul>
 </li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Creating Testing Reports - The PerformanceReport Class</a></li>
@@ -274,7 +224,6 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../api/_autosummary/sensortoolkit.lib_utils._setup.html">sensortoolkit.lib_utils._setup</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../api/_autosummary/sensortoolkit.lib_utils._setup.displayMethods.html">sensortoolkit.lib_utils._setup.displayMethods</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../api/_autosummary/sensortoolkit.lib_utils._setup.ReferenceSetup.html">sensortoolkit.lib_utils._setup.ReferenceSetup</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../api/_autosummary/sensortoolkit.lib_utils._setup.SensorSetup.html">sensortoolkit.lib_utils._setup.SensorSetup</a></li>
 </ul>
@@ -317,10 +266,6 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../api/_autosummary/sensortoolkit.plotting._errorbars.html">sensortoolkit.plotting._errorbars</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../api/_autosummary/sensortoolkit.plotting._errorbars.error_bars.html">sensortoolkit.plotting._errorbars.error_bars</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../api/_autosummary/sensortoolkit.plotting._intrasensor_comparison.html">sensortoolkit.plotting._intrasensor_comparison</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../api/_autosummary/sensortoolkit.plotting._intrasensor_comparison.compare_sensors.html">sensortoolkit.plotting._intrasensor_comparison.compare_sensors</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../api/_autosummary/sensortoolkit.plotting._performance_metrics.html">sensortoolkit.plotting._performance_metrics</a><ul>
@@ -429,75 +374,33 @@
 </li>
 </ul>
 
-            
-          
         </div>
-        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../index.html">sensortoolkit</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
       <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-        
           <li><a href="index.html">Evaluation Objects</a> &raquo;</li>
-        
       <li>Creating Testing Reports - The PerformanceReport Class</li>
-    
-    
       <li class="wy-breadcrumbs-aside">
-        
-          
             <a href="../_sources/evaluation_objects/performancereport.rst.txt" rel="nofollow"> View page source</a>
-          
-        
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
+             
   <section id="creating-testing-reports-the-performancereport-class">
-<h1>Creating Testing Reports - The PerformanceReport Class<a class="headerlink" href="#creating-testing-reports-the-performancereport-class" title="Permalink to this headline">¶</a></h1>
+<h1>Creating Testing Reports - The PerformanceReport Class<a class="headerlink" href="#creating-testing-reports-the-performancereport-class" title="Permalink to this headline"></a></h1>
 <p>Creating testing reports with <code class="docutils literal notranslate"><span class="pre">sensortoolkit.PerformanceReport</span></code> is very similar to using
 the <code class="docutils literal notranslate"><span class="pre">sensortoolkit.SensorEvaluation</span></code> class. Users pass the same attributes to the
 <code class="docutils literal notranslate"><span class="pre">PerformanceReport</span></code> class as they do to conduct analysis with <code class="docutils literal notranslate"><span class="pre">SensorEvaluation</span></code>
@@ -525,9 +428,9 @@ report for the <code class="docutils literal notranslate"><span class="pre">Exam
 </pre></div>
 </div>
 <section id="arguments-passed-to-performancereport">
-<h2>Arguments passed to <code class="docutils literal notranslate"><span class="pre">PerformanceReport</span></code><a class="headerlink" href="#arguments-passed-to-performancereport" title="Permalink to this headline">¶</a></h2>
+<h2>Arguments passed to <code class="docutils literal notranslate"><span class="pre">PerformanceReport</span></code><a class="headerlink" href="#arguments-passed-to-performancereport" title="Permalink to this headline"></a></h2>
 <table class="colwidths-given docutils align-default" id="id1">
-<caption><span class="caption-text"><code class="docutils literal notranslate"><span class="pre">sensortoolkit.PerformanceReport()</span></code> attributes</span><a class="headerlink" href="#id1" title="Permalink to this table">¶</a></caption>
+<caption><span class="caption-text"><code class="docutils literal notranslate"><span class="pre">sensortoolkit.PerformanceReport()</span></code> attributes</span><a class="headerlink" href="#id1" title="Permalink to this table"></a></caption>
 <colgroup>
 <col style="width: 40%" />
 <col style="width: 60%" />
@@ -548,14 +451,14 @@ report for the <code class="docutils literal notranslate"><span class="pre">Exam
 <td><p>A <code class="docutils literal notranslate"><span class="pre">sensortoolkit.ReferenceMonitor</span></code> object.</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">write_to_file</span></code></p></td>
-<td><p>If true, evaluation statistics are saved to
-<code class="docutils literal notranslate"><span class="pre">/data/eval_stats/[name</span> <span class="pre">of</span> <span class="pre">sensor]</span></code> and figures are
-written to <code class="docutils literal notranslate"><span class="pre">/figures/[name</span> <span class="pre">of</span> <span class="pre">sensor]</span></code>.</p></td>
+<td><p>If true, evaluation statistics are saved to <code class="docutils literal notranslate"><span class="pre">/data/eval_stats/[name</span> <span class="pre">of</span> <span class="pre">sensor]</span></code> <br />
+and figures are written to <code class="docutils literal notranslate"><span class="pre">/figures/[name</span> <span class="pre">of</span> <span class="pre">sensor]</span></code>.</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">figure_search</span></code></p></td>
-<td><p>If true, PerformanceReport will search for figures in the <code class="docutils literal notranslate"><span class="pre">/figures</span></code> directory
-before attempting to create new figures. If false, PerformanceReport will create
-all new figures (may risk overwriting existing figures). Defaults to False.</p></td>
+<td><p>If true, PerformanceReport will search for figures in the <code class="docutils literal notranslate"><span class="pre">/figures</span></code> <br />
+directory before attempting to create new figures. If false, <br />
+PerformanceReport will create all new figures (may risk overwriting <br />
+existing figures). Defaults to False.</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">**kwargs</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">testing_org</span></code> and <code class="docutils literal notranslate"><span class="pre">testing_loc</span></code>. See <a class="reference external" href="../evaluation_objects/sensoreval/index.html#keyword-arguments-passed-to-sensorevaluation">Keyword arguments passed to sensorevaluation</a>.</p></td>
@@ -564,7 +467,7 @@ all new figures (may risk overwriting existing figures). Defaults to False.</p><
 </table>
 </section>
 <section id="console-output">
-<h2>Console Output<a class="headerlink" href="#console-output" title="Permalink to this headline">¶</a></h2>
+<h2>Console Output<a class="headerlink" href="#console-output" title="Permalink to this headline"></a></h2>
 <p>When the above code block is run (including both instantiation of the <code class="docutils literal notranslate"><span class="pre">PerformanceReport</span></code>
 object <code class="docutils literal notranslate"><span class="pre">report</span></code> and running the <code class="docutils literal notranslate"><span class="pre">PerformanceReport.create_report()</span></code> method),
 the following will be printed to the console.</p>
@@ -618,7 +521,7 @@ the following will be printed to the console.</p>
 directory pointed to by the project path.</p>
 </div>
 <section id="example-report">
-<h3>Example Report<a class="headerlink" href="#example-report" title="Permalink to this headline">¶</a></h3>
+<h3>Example Report<a class="headerlink" href="#example-report" title="Permalink to this headline"></a></h3>
 <p>Below is an example report for the <code class="docutils literal notranslate"><span class="pre">Example_Make_Model</span></code> sensor.</p>
 <p>Please note that at present, <code class="docutils literal notranslate"><span class="pre">PerformanceReport</span></code> does not populate the FRM/FEM
 Instrumentation table with calibration dates, flowrate verification checks, and
@@ -627,8 +530,8 @@ Users must either insert these details manually by placing information in the
 provided table, or by appending documentation to the end of the report and noting on
 the supplemental information page that addition documentation has been attached.</p>
 <div class="tabbed-set docutils">
-<input checked="checked" id="3058add8-a4ec-4825-889e-ac6c102d3f7a" name="339171a3-4d2b-486f-9cfa-9129db5dc608" type="radio">
-</input><label class="tabbed-label" for="3058add8-a4ec-4825-889e-ac6c102d3f7a">
+<input checked="checked" id="ada0cb0e-625a-401d-8591-508fe908aed2" name="ec194d30-31f8-493f-8aa5-20e928e2af57" type="radio">
+</input><label class="tabbed-label" for="ada0cb0e-625a-401d-8591-508fe908aed2">
 Page 1 - Testing Summary</label><div class="tabbed-content docutils">
 <p>The first page of the testing report allows testers to insert information about their
 organization including contact information, and testers are also encouraged to
@@ -640,12 +543,12 @@ relative humidity, and meteorological influences that may be present in sensor d
 <figure class="align-center" id="id2">
 <img alt="../_images/performance_report_example_pg1.png" src="../_images/performance_report_example_pg1.png" />
 <figcaption>
-<p><span class="caption-text">Example_Make_Model Base Testing Report (Page 1)</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
+<p><span class="caption-text">Example_Make_Model Base Testing Report (Page 1)</span><a class="headerlink" href="#id2" title="Permalink to this image"></a></p>
 </figcaption>
 </figure>
 </div>
-<input id="0ebe6909-9533-4dca-973b-9d5395f6d67c" name="339171a3-4d2b-486f-9cfa-9129db5dc608" type="radio">
-</input><label class="tabbed-label" for="0ebe6909-9533-4dca-973b-9d5395f6d67c">
+<input id="56cba013-69b9-4ae9-be47-1df9c10f83e8" name="ec194d30-31f8-493f-8aa5-20e928e2af57" type="radio">
+</input><label class="tabbed-label" for="56cba013-69b9-4ae9-be47-1df9c10f83e8">
 Page 2 - Tabular Statistics</label><div class="tabbed-content docutils">
 <p>The second page of the report includes tabular statistics, such as the performance
 metric values characterizing sensor vs. FRM/FEM accuracy (bias and linearity),
@@ -653,29 +556,29 @@ error, and sensor-sensor (intersensor) precision.</p>
 <figure class="align-center" id="id3">
 <img alt="../_images/performance_report_example_pg2.png" src="../_images/performance_report_example_pg2.png" />
 <figcaption>
-<p><span class="caption-text">Example_Make_Model Base Testing Report (Page 2)</span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
+<p><span class="caption-text">Example_Make_Model Base Testing Report (Page 2)</span><a class="headerlink" href="#id3" title="Permalink to this image"></a></p>
 </figcaption>
 </figure>
 </div>
-<input id="4af79f59-ec05-4e1e-9b79-a2b10e188e7b" name="339171a3-4d2b-486f-9cfa-9129db5dc608" type="radio">
-</input><label class="tabbed-label" for="4af79f59-ec05-4e1e-9b79-a2b10e188e7b">
+<input id="7d8f916b-0f58-4896-9cf7-464afe04b4fb" name="ec194d30-31f8-493f-8aa5-20e928e2af57" type="radio">
+</input><label class="tabbed-label" for="7d8f916b-0f58-4896-9cf7-464afe04b4fb">
 Page 3 - Sensor vs. FRM/FEM Scatter</label><div class="tabbed-content docutils">
 <p>Scatter plots for each sensor unit vs. FRM/FEM measurement pairs are displayed
 on a third page of the report.</p>
 <figure class="align-center" id="id4">
 <img alt="../_images/performance_report_example_pg3.png" src="../_images/performance_report_example_pg3.png" />
 <figcaption>
-<p><span class="caption-text">Example_Make_Model Base Testing Report (Page 3)</span><a class="headerlink" href="#id4" title="Permalink to this image">¶</a></p>
+<p><span class="caption-text">Example_Make_Model Base Testing Report (Page 3)</span><a class="headerlink" href="#id4" title="Permalink to this image"></a></p>
 </figcaption>
 </figure>
 </div>
-<input id="bea25f58-b29f-49f0-8b17-ff20bff9a355" name="339171a3-4d2b-486f-9cfa-9129db5dc608" type="radio">
-</input><label class="tabbed-label" for="bea25f58-b29f-49f0-8b17-ff20bff9a355">
+<input id="33f21391-5102-4ef6-abb4-7ddf9e31103f" name="ec194d30-31f8-493f-8aa5-20e928e2af57" type="radio">
+</input><label class="tabbed-label" for="33f21391-5102-4ef6-abb4-7ddf9e31103f">
 Page 4 - Supplemental Information</label><div class="tabbed-content docutils">
 <figure class="align-center" id="id5">
 <img alt="../_images/performance_report_example_pg4.png" src="../_images/performance_report_example_pg4.png" />
 <figcaption>
-<p><span class="caption-text">Example_Make_Model Base Testing Report (Page 4)</span><a class="headerlink" href="#id5" title="Permalink to this image">¶</a></p>
+<p><span class="caption-text">Example_Make_Model Base Testing Report (Page 4)</span><a class="headerlink" href="#id5" title="Permalink to this image"></a></p>
 </figcaption>
 </figure>
 </div>
@@ -686,50 +589,33 @@ Page 4 - Supplemental Information</label><div class="tabbed-content docutils">
 
 
            </div>
-           
           </div>
-          <footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="sensoreval/statistic.html" class="btn btn-neutral float-left" title="Statistical Methods" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="../data_structures/index.html" class="btn btn-neutral float-right" title="Data Structures" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="sensoreval/plotting.html" class="btn btn-neutral float-left" title="Plotting Methods" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>
-        &#169; Copyright 2021, Samuel Frederick.
-
-    </p>
+    <p>&#169; Copyright 2021, Samuel Frederick.</p>
   </div>
-    
-    
-    
-    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
 
 </footer>
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>

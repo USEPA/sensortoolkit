@@ -1,81 +1,41 @@
-
-
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" />
-  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
-  <title>sensortoolkit.plotting._scatter.scatter_plotter &mdash; sensortoolkit 0.6.0b4 documentation</title>
-  
-
-  
-  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" type="text/css" />
-
-  
-  
-
-  
-  
-
-  
-
-  
+  <title>sensortoolkit.plotting._scatter.scatter_plotter &mdash; sensortoolkit 0.6.0b14 documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
         <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
         <script src="../../_static/jquery.js"></script>
         <script src="../../_static/underscore.js"></script>
         <script src="../../_static/doctools.js"></script>
-    
-    <script type="text/javascript" src="../../_static/js/theme.js"></script>
-
-    
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="sensortoolkit.plotting._timeseries" href="sensortoolkit.plotting._timeseries.html" />
     <link rel="prev" title="sensortoolkit.plotting._scatter.normalized_met_scatter" href="sensortoolkit.plotting._scatter.normalized_met_scatter.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-          
-
-          
             <a href="../../index.html" class="icon icon-home"> sensortoolkit
-          
-
-          
           </a>
-
-          
-            
-            
               <div class="version">
-                0.6.0b4
+                0.6.0b14
               </div>
-            
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
@@ -83,18 +43,7 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Documentation Overview</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../install.html">Installation</a></li>
@@ -119,6 +68,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../../evaluation_objects/index.html">Evaluation Objects</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../evaluation_objects/sensoreval/index.html">Conducting Analysis - The SensorEvaluation Class</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../evaluation_objects/sensoreval/plotting.html">Plotting Methods</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../evaluation_objects/sensoreval/printing.html">Descriptive Summary Methods</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../evaluation_objects/sensoreval/statistic.html">Statistical Methods</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../evaluation_objects/performancereport.html">Creating Testing Reports - The PerformanceReport Class</a></li>
@@ -274,7 +225,6 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="sensortoolkit.lib_utils._setup.html">sensortoolkit.lib_utils._setup</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="sensortoolkit.lib_utils._setup.displayMethods.html">sensortoolkit.lib_utils._setup.displayMethods</a></li>
 <li class="toctree-l4"><a class="reference internal" href="sensortoolkit.lib_utils._setup.ReferenceSetup.html">sensortoolkit.lib_utils._setup.ReferenceSetup</a></li>
 <li class="toctree-l4"><a class="reference internal" href="sensortoolkit.lib_utils._setup.SensorSetup.html">sensortoolkit.lib_utils._setup.SensorSetup</a></li>
 </ul>
@@ -317,10 +267,6 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="sensortoolkit.plotting._errorbars.html">sensortoolkit.plotting._errorbars</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="sensortoolkit.plotting._errorbars.error_bars.html">sensortoolkit.plotting._errorbars.error_bars</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="sensortoolkit.plotting._intrasensor_comparison.html">sensortoolkit.plotting._intrasensor_comparison</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="sensortoolkit.plotting._intrasensor_comparison.compare_sensors.html">sensortoolkit.plotting._intrasensor_comparison.compare_sensors</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="sensortoolkit.plotting._performance_metrics.html">sensortoolkit.plotting._performance_metrics</a><ul>
@@ -429,199 +375,205 @@
 </li>
 </ul>
 
-            
-          
         </div>
-        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../../index.html">sensortoolkit</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
       <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
-        
           <li><a href="../index.html">sensortoolkit API</a> &raquo;</li>
-        
           <li><a href="../plotting.html"><code class="docutils literal notranslate"><span class="pre">sensortoolkit.plotting</span></code></a> &raquo;</li>
-        
           <li><a href="sensortoolkit.plotting._scatter.html">sensortoolkit.plotting._scatter</a> &raquo;</li>
-        
       <li>sensortoolkit.plotting._scatter.scatter_plotter</li>
-    
-    
       <li class="wy-breadcrumbs-aside">
-        
-          
             <a href="../../_sources/api/_autosummary/sensortoolkit.plotting._scatter.scatter_plotter.rst.txt" rel="nofollow"> View page source</a>
-          
-        
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
+             
   <section id="sensortoolkit-plotting-scatter-scatter-plotter">
-<h1>sensortoolkit.plotting._scatter.scatter_plotter<a class="headerlink" href="#sensortoolkit-plotting-scatter-scatter-plotter" title="Permalink to this headline">¶</a></h1>
+<h1>sensortoolkit.plotting._scatter.scatter_plotter<a class="headerlink" href="#sensortoolkit-plotting-scatter-scatter-plotter" title="Permalink to this headline"></a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="sensortoolkit.plotting._scatter.scatter_plotter">
-<span class="sig-name descname"><span class="pre">scatter_plotter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ref_df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stats_df</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot_subset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">param</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sensor_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">figure_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">write_to_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">averaging_interval</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">met_ref_df</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">deploy_dict</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sensor_serials</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fig</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">report_fmt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_axs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">param_class</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/sensortoolkit/plotting/_scatter.html#scatter_plotter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sensortoolkit.plotting._scatter.scatter_plotter" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">scatter_plotter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ref_df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stats_df</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot_subset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">param</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sensor_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">figure_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">write_to_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">averaging_interval</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">met_ref_df</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">deploy_dict</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sensor_serials</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fig</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">report_fmt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_axs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">param_class</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/sensortoolkit/plotting/_scatter.html#scatter_plotter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sensortoolkit.plotting._scatter.scatter_plotter" title="Permalink to this definition"></a></dt>
 <dd><p>Front-end function for creating scatter plots.</p>
 <p>Calls Draw_Scatter for lower-end tasks and sets formatting for plots
 based off passed parameters.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>df_list</strong> – list
-A list containing the sensor dataframes from which data is plotted</p></li>
-<li><p><strong>ref_df</strong> – Pandas Dataframe
-Reference dataframe</p></li>
-<li><p><strong>stats_df</strong> – Pandas Dataframe
-Regression statistics dataframe for the sensor evaluation set</p></li>
-<li><p><strong>plot_subset</strong> – Nonetype or list of strings
-To plot a subset of evaluated sensors, pass a list of the sensor
+<li><p><strong>df_list</strong> (<em>list</em>) – A list containing the sensor dataframes from which data is plotted</p></li>
+<li><p><strong>ref_df</strong> (<em>pandas DataFrame</em>) – Reference dataframe</p></li>
+<li><p><strong>stats_df</strong> (<em>pandas DataFrame</em>) – Regression statistics dataframe for the sensor evaluation set</p></li>
+<li><p><strong>plot_subset</strong> (<em>Nonetype</em><em> or </em><em>list of strings</em>) – To plot a subset of evaluated sensors, pass a list of the sensor
 numbers (‘1’, ‘2’, ‘3’, etc.) as assigned in the sensor serial
 dictionary. For example, plotting a subset for sensors ‘1’, ‘3’,
 and ‘5’ in an evaluation is achieved by passing
 plot_subset=[‘1’, ‘3’, ‘5’].</p></li>
-<li><p><strong>param</strong> – string
-Column header name for the pollutant values to be plotted</p></li>
-<li><p><strong>sensor_name</strong> – string
-Unformatted sensor name, passed to Formatted_Sensor_Name() for
+<li><p><strong>param</strong> (<em>str</em>) – Column header name for the pollutant values to be plotted</p></li>
+<li><p><strong>sensor_name</strong> (<em>str</em>) – Unformatted sensor name, passed to Formatted_Sensor_Name() for
 including formatted version on plot</p></li>
-<li><p><strong>figure_path</strong> – string
-Path to directory where the figure will be saved</p></li>
-<li><p><strong>write_to_file</strong> – Boolean
-If true, writes to file and figure is closed. False skips file
+<li><p><strong>figure_path</strong> (<em>str</em>) – Path to directory where the figure will be saved</p></li>
+<li><p><strong>write_to_file</strong> (<em>bool</em>) – If true, writes to file and figure is closed. False skips file
 writing and does not close the figure</p></li>
 <li><p><strong>averaging_interval</strong> (<em>str</em>) – The averaging interval of the sensor and reference datasets, either
 ‘1-hour’ or ‘24-hour’.</p></li>
-<li><p><strong>met_ref_df</strong> – Nonetype or Pandas dataframe
-Reference dataframe for met data. Used as an alternative to sensor
+<li><p><strong>met_ref_df</strong> (<em>Nonetype</em><em> or </em><em>pandas DataFrame</em>) – Reference dataframe for met data. Used as an alternative to sensor
 met data for plotting colormap of relative humidity on scatterplot
 points. If passed, the reference met data takes precedence over
 any existing sensor met data.</p></li>
-<li><p><strong>deploy_dict</strong> – DEFINITION</p></li>
-<li><p><strong>sensor_serials</strong> – DEFINITION</p></li>
-<li><p><strong>ax</strong> – DEFINITION</p></li>
-<li><p><strong>fig</strong> – DEFINITION</p></li>
-<li><p><strong>report_fmt</strong> – DEFINITION</p></li>
-<li><p><strong>return_axs</strong> – DEFINITION</p></li>
-<li><p><strong>param_class</strong> – string
-The parameter classification for the passed parameter to plot.
+<li><p><strong>deploy_dict</strong> (<em>dict</em>) – A dictionary containing descriptive statistics and textual
+information about the deployment (testing agency, site, time period,
+etc.), sensors tested, and site conditions during the evaluation.</p></li>
+<li><p><strong>sensor_serials</strong> (<em>dict</em>) – A dictionary of sensor serial identifiers for each unit in the
+testing deployment.</p></li>
+<li><p><strong>ax</strong> (<em>matplotlib.axes._subplots.AxesSubplot</em><em>, </em><em>optional</em>) – Optional, the Matplotlib Axes object on which plotting elements
+will be drawn. Useful is the user is iterating over the Axes
+elements of a Matplotlib figure in a for-loop outside this plotting
+function. Within the loop, calls to this function can be made to add
+elements for each axes object. Defaults to None.</p></li>
+<li><p><strong>fig</strong> (<em>Matplotlib.figure.Figure</em><em>, </em><em>optional</em>) – Optional, the Matplotlib figure on which axes object elements are
+drawn. Useful is the user is iterating over the Axes elements of a
+Matplotlib figure in a for-loop outside this plotting function.
+Within the loop, calls to this function can be made to add elements
+for each axes object. Defaults to None.</p></li>
+<li><p><strong>report_fmt</strong> (<em>bool</em>) – If true, select formatting presets for displaying figures on the
+reporting template for sensor performance evaluations included
+alongside US EPA’s performance targets documents for air sensors.</p></li>
+<li><p><strong>return_axs</strong> (<em>bool</em><em>, </em><em>optional</em>) – If true, will return a Matplotlib axes instance (useful for
+iteration over subplot axes if this plotting function is called
+within a for-loop that is iterating over the axes elements in
+a Matplotlib subplot object). Defaults to False.</p></li>
+<li><p><strong>param_class</strong> (<em>str</em>) – The parameter classification for the passed parameter to plot.
 E.g, if param is PM25, param_class = PM; if param is 03,
 param_class = Gases;if param is Temp, param_class = Met.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Keyword Arguments</dt>
-<dd class="field-even"><ul class="simple">
-<li><p><strong>color_palette</strong> (<em>-</em>) – Color palette assigned to relative-humidity colormapped scatter
+</dl>
+<p><strong>Keyword Arguments:</strong></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>color_palette</strong> (<em>str</em>) – Color palette assigned to relative-humidity colormapped scatter
 plot points</p></li>
-<li><p><strong>colorbar_axespos</strong> (<em>-</em>) – DEFINITION</p></li>
-<li><p><strong>colorbar_orientation</strong> (<em>-</em>) – DEFINITION</p></li>
-<li><p><strong>colorbar_title_fontsize</strong> (<em>-</em>) – DEFINITION</p></li>
-<li><p><strong>colorbar_title_ypos</strong> (<em>-</em>) – DEFINITION</p></li>
-<li><p><strong>colorbar_tick_labelsize</strong> (<em>-</em>) – DEFINITION</p></li>
-<li><p><strong>colorbar_tick_length</strong> (<em>-</em>) – DEFINITION</p></li>
-<li><p><strong>colorbar_tick_width</strong> (<em>-</em>) – DEFINITION</p></li>
-<li><p><strong>draw_cbar</strong> (<em>-</em>) – DEFINITION</p></li>
-<li><p><strong>fig_wspace</strong> (<em>-</em>) – DEFINITION</p></li>
-<li><p><strong>fig_hspace</strong> (<em>-</em>) – DEFINITION</p></li>
-<li><p><strong>fig_left</strong> (<em>-</em>) – DEFINITION</p></li>
-<li><p><strong>fig_right</strong> (<em>-</em>) – DEFINITION</p></li>
-<li><p><strong>fig_top</strong> (<em>-</em>) – DEFINITION</p></li>
-<li><p><strong>fig_bottom</strong> (<em>-</em>) – DEFINITION</p></li>
-<li><p><strong>filename_suffix</strong> (<em>-</em>) – Optional string added to end of filename. Defaults to empty string.</p></li>
-<li><p><strong>fontsize</strong> (<em>-</em>) – The font size for the xlabel, ylabel, and plot text. Passed on to
+<li><p><strong>colorbar_axespos</strong> (<em>TYPE</em>) – DEFINITION</p></li>
+<li><p><strong>colorbar_orientation</strong> (<em>str</em>) – DEFINITION</p></li>
+<li><p><strong>colorbar_title_fontsize</strong> (<em>TYPE</em>) – DEFINITION</p></li>
+<li><p><strong>colorbar_title_ypos</strong> (<em>TYPE</em>) – DEFINITION</p></li>
+<li><p><strong>colorbar_tick_labelsize</strong> (<em>TYPE</em>) – DEFINITION</p></li>
+<li><p><strong>colorbar_tick_length</strong> (<em>TYPE</em>) – DEFINITION</p></li>
+<li><p><strong>colorbar_tick_width</strong> (<em>TYPE</em>) – DEFINITION</p></li>
+<li><p><strong>draw_cbar</strong> (<em>TYPE</em>) – DEFINITION</p></li>
+<li><p><strong>fig_wspace</strong> (<em>TYPE</em>) – DEFINITION</p></li>
+<li><p><strong>fig_hspace</strong> (<em>TYPE</em>) – DEFINITION</p></li>
+<li><p><strong>fig_left</strong> (<em>TYPE</em>) – DEFINITION</p></li>
+<li><p><strong>fig_right</strong> (<em>TYPE</em>) – DEFINITION</p></li>
+<li><p><strong>fig_top</strong> (<em>TYPE</em>) – DEFINITION</p></li>
+<li><p><strong>fig_bottom</strong> (<em>TYPE</em>) – DEFINITION</p></li>
+<li><p><strong>filename_suffix</strong> (<em>TYPE</em>) – Optional string added to end of filename. Defaults to empty string.</p></li>
+<li><p><strong>fontsize</strong> (<em>str</em><em>, </em><em>passed to Draw_Scatter</em><em>(</em><em>)</em>) – The font size for the xlabel, ylabel, and plot text. Passed on to
 Draw_Scatter() which uses 0.85*font_size for tick labels.</p></li>
-<li><p><strong>monocolor</strong> (<em>-</em>) – A single color (specified in hex) for scatter plots.
-Recommend #2251D0 (nice blue hue).</p></li>
-<li><p><strong>detail_fontsize</strong> (<em>-</em>) – DEFINITION</p></li>
-<li><p><strong>point_size</strong> (<em>-</em>) – The size of the scatterpoint plots</p></li>
-<li><p><strong>point_alpha</strong> (<em>-</em>) – DEFINITION</p></li>
-<li><p><strong>plot_aspect</strong> (<em>-</em>) – DEFINITION</p></li>
-<li><p><strong>plottext_alpha</strong> (<em>-</em>) – DEFINITION</p></li>
-<li><p><strong>plottext_size</strong> (<em>-</em>) – DEFINITION</p></li>
-<li><p><strong>plottext_color</strong> (<em>-</em>) – DEFINITION</p></li>
-<li><p><strong>plottext_xloc</strong> (<em>-</em>) – DEFINITION</p></li>
-<li><p><strong>plottext_yloc</strong> (<em>-</em>) – DEFINITION</p></li>
-<li><p><strong>plottext_xdisplacement</strong> (<em>-</em>) – DEFINITION</p></li>
-<li><p><strong>plottext_ydisplacement</strong> (<em>-</em>) – DEFINITION</p></li>
-<li><p><strong>plottext_position</strong> (<em>-</em>) – Determines position of plot text. Can either pass ‘upper_left’ or
-‘bottom_right’</p></li>
-<li><p><strong>ref_name</strong> (<em>-</em>) – DEFINITION</p></li>
-<li><p><strong>seaborn_style</strong> (<em>-</em>) – DEFINITION</p></li>
-<li><p><strong>show_colorbar</strong> (<em>-</em>) – If true, relative humidity values will be used as a colormap on the
+<li><p><strong>monocolor</strong> (<em>str</em><em>, </em><em>passed to Draw_Scatter</em><em>(</em><em>)</em>) – A single color (specified in hex) for scatter. Scatter are colored
+using monocolor if show_colorbar is False. Recommend #2251D0 (nice
+blue hue).</p></li>
+<li><p><strong>detail_fontsize</strong> – DEFINITION</p></li>
+<li><p><strong>point_size</strong> (<em>int</em><em> or </em><em>float</em><em>, </em><em>passed to Draw_Scatter</em><em>(</em><em>)</em>) – The size of the scatter points. Defaults to 20.</p></li>
+<li><p><strong>point_alpha</strong> (<em>float</em>) – The transparency of the scatter plots. Defaults to 0.7.</p></li>
+<li><p><strong>plot_aspect</strong> (<em>str</em><em>, </em><em>passed to Draw_Scatter</em><em>(</em><em>)</em>) – Aspect ratio for scatter plot dimensions. Defaults to ‘equal’.</p></li>
+<li><p><strong>plottext_alpha</strong> (<em>float</em><em>, </em><em>passed to Draw_Scatter</em><em>(</em><em>)</em>) – The transparency of the text drawn on scatter plots indicating
+regression statistics. Defaults to 0.8.</p></li>
+<li><p><strong>plottext_size</strong> (<em>float</em><em>, </em><em>passed to Draw_Scatter</em><em>(</em><em>)</em>) – The size of the text drawn on scatter plots indicating
+regression statistics as a fraction of the passed fontsize. Defaults
+to 90% the value of the fontsize.</p></li>
+<li><p><strong>plottext_color</strong> (<em>str</em><em>, </em><em>passed to Draw_Scatter</em><em>(</em><em>)</em>) – The color of the text drawn on scatter plots indicating
+regression statistics. Defaults to ‘k’.</p></li>
+<li><p><strong>plottext_xloc</strong> (<em>float</em><em>, </em><em>passed to Draw_Scatter</em><em>(</em><em>)</em>) – The left-most x-coordinate of the text drawn on scatter plots.
+Default depends on the value passed to the plottext_postion argument.</p></li>
+<li><p><strong>plottext_yloc</strong> (<em>float</em><em>, </em><em>passed to Draw_Scatter</em><em>(</em><em>)</em>) – The top-most y-coordinate of the text drawn on scatter plots.
+Default depends on the value passed to the plottext_postion argument.</p></li>
+<li><p><strong>plottext_xdisplacement</strong> (<em>float</em><em>, </em><em>passed to Draw_Scatter</em><em>(</em><em>)</em>) – The width displacement between text drawn on scatter plots. Defaults
+to 0.0.</p></li>
+<li><p><strong>plottext_ydisplacement</strong> (<em>float</em><em>, </em><em>passed to Draw_Scatter</em><em>(</em><em>)</em>) – The height displacement between rows of text drawn on scatter plots.
+Defaults to 0.08.</p></li>
+<li><p><strong>plottext_position</strong> (<em>TYPE</em><em>, </em><em>passed to Draw_Scatter</em><em>(</em><em>)</em>) – Determines position of plot text. Options include ‘upper_left’ or
+‘bottom_right’. Defaults to ‘upper_left’ if the slope of the ‘
+regression is greater than  1.75, else default is set to
+‘bottom_right’.</p></li>
+<li><p><strong>ref_name</strong> (<em>str</em>) – DEFINITION</p></li>
+<li><p><strong>seaborn_style</strong> (<em>str</em>) – DEFINITION</p></li>
+<li><p><strong>show_colorbar</strong> (<em>bool</em>) – If true, relative humidity values will be used as a colormap on the
 scatterplot points.</p></li>
-<li><p><strong>show_title</strong> (<em>-</em>) – Show the title at the top of the plot. Includes the name of the
+<li><p><strong>show_title</strong> (<em>bool</em>) – Show the title at the top of the plot. Includes the name of the
 sensor, the averaging interval, the evaluation parameter, and
 the name of the reference against which sensor data are compared.</p></li>
-<li><p><strong>show_regression</strong> (<em>-</em>) – Pass on to underlying Draw_Scatter function. Defaults to
-True. If false, regression lines on plots will not be generated.</p></li>
-<li><p><strong>show_trendline</strong> (<em>-</em>) – DEFINITION</p></li>
-<li><p><strong>show_RMSE</strong> (<em>-</em>) – DEFINITION</p></li>
-<li><p><strong>show_spearman</strong> (<em>-</em>) – DEFINITION</p></li>
-<li><p><strong>show_N</strong> (<em>-</em>) – DEFINITION</p></li>
-<li><p><strong>show_one_to_one</strong> (<em>-</em>) – DEFINITION</p></li>
-<li><p><strong>tight_layout</strong> (<em>-</em>) – Passed to matplotlib’s <code class="docutils literal notranslate"><span class="pre">fig.tight_layout()</span></code> for narrow formatting</p></li>
-<li><p><strong>tick_spacing</strong> (<em>-</em>) – DEFINITION</p></li>
-<li><p><strong>title_text</strong> (<em>-</em>) – DEFINITION</p></li>
-<li><p><strong>title_textwrap</strong> (<em>-</em>) – DEFINITION</p></li>
-<li><p><strong>title_xloc</strong> (<em>-</em>) – DEFINITION</p></li>
-<li><p><strong>title_yloc</strong> (<em>-</em>) – DEFINITION</p></li>
-<li><p><strong>trendline_xmax</strong> (<em>-</em>) – DEFINITION</p></li>
-<li><p><strong>trendline_color</strong> (<em>-</em>) – DEFINITION</p></li>
-<li><p><strong>trendline_alpha</strong> (<em>-</em>) – DEFINITION</p></li>
-<li><p><strong>xlims</strong> (<em>-</em>) – The x-limits of the scatter plot</p></li>
-<li><p><strong>ylims</strong> (<em>-</em>) – The y-limits of the scatter plot</p></li>
+<li><p><strong>show_regression</strong> (<em>bool</em>) – If true, display the OLS regression equation on scatter plots.
+Defaults to True.</p></li>
+<li><p><strong>show_trendline</strong> (<em>bool</em>) – If true, display the OLS trendline on scatter plots. Defaults to True.</p></li>
+<li><p><strong>show_RMSE</strong> (<em>bool</em><em>, </em><em>passed to Draw_Scatter</em><em>(</em><em>)</em>) – If true, display the root mean squared error on scatter plots.
+Defaults to True.</p></li>
+<li><p><strong>show_spearman</strong> (<em>bool</em><em>, </em><em>passed to Draw_Scatter</em><em>(</em><em>)</em>) – If true, display the spearman correlation on scatterplots. Defaults
+to False.</p></li>
+<li><p><strong>show_N</strong> (<em>bool</em><em>, </em><em>passed to Draw_Scatter</em><em>(</em><em>)</em>) – If true, display the number of scatter point pairs displayed on the
+plot. Defaults to True.</p></li>
+<li><p><strong>show_one_to_one</strong> (<em>bool</em><em>, </em><em>passed to Draw_Scatter</em><em>(</em><em>)</em>) – If true, display the one-to-one line indicating ideal agreement
+between independent and depdendent variable. Defaults to True.</p></li>
+<li><p><strong>tight_layout</strong> (<em>bool</em>) – Passed to matplotlib’s <code class="docutils literal notranslate"><span class="pre">fig.tight_layout()</span></code> for narrow formatting</p></li>
+<li><p><strong>tick_spacing</strong> (<em>TYPE</em>) – DEFINITION</p></li>
+<li><p><strong>title_text</strong> (<em>TYPE</em>) – DEFINITION</p></li>
+<li><p><strong>title_textwrap</strong> (<em>TYPE</em>) – DEFINITION</p></li>
+<li><p><strong>title_xloc</strong> (<em>TYPE</em>) – DEFINITION</p></li>
+<li><p><strong>title_yloc</strong> (<em>TYPE</em>) – DEFINITION</p></li>
+<li><p><strong>trendline_xmax</strong> (<em>TYPE</em><em>, </em><em>passed to Draw_Scatter</em><em>(</em><em>)</em>) – The draw distance (based on the passed x-coordinate) of the OLS
+trendline. Defaults to 120% the maximum of the independent variable.</p></li>
+<li><p><strong>trendline_color</strong> (<em>str</em><em>, </em><em>passed to Draw_Scatter</em><em>(</em><em>)</em>) – The color of the trendline. Defaults to ‘k’ (black).</p></li>
+<li><p><strong>trendline_alpha</strong> (<em>float</em><em>, </em><em>passed to Draw_Scatter</em><em>(</em><em>)</em>) – The transparency of the trendline. Defaults to 0.65.</p></li>
+<li><p><strong>xlims</strong> (<em>Two-element tuple of floats</em>) – <p>The x-limits of the scatter plot. Defaults to zero for the lower
+limit. For the upper limit, the following forumla is used:</p>
+<div class="math notranslate nohighlight">
+\[x_{max} = 1.25\times C_{max} + (\Delta_{tick} - 1.25\times C_{max}\%\Delta_{tick})\]</div>
+<p>where:</p>
+<blockquote>
+<div><ul>
+<li><p><span class="math notranslate nohighlight">\(x_{max}\)</span> is the upper limit of the x-axis</p></li>
+<li><p><span class="math notranslate nohighlight">\(C_{max}\)</span> is the maximum value for either dependent or
+independent variable</p></li>
+<li><p><span class="math notranslate nohighlight">\(\%\)</span> is the modulo operator</p></li>
+<li><p><span class="math notranslate nohighlight">\(\Delta_{tick}\)</span> is the spacing between ticks along the
+x and y-axes (set by the <code class="docutils literal notranslate"><span class="pre">tick_spacing</span></code> argument)</p></li>
+</ul>
+</div></blockquote>
+<p>This forumla can be described in the following way:
+The upper limit is set to 125% the nearest multiple of the tick_spacing
+argument to the maximum concentration recorded by either independent
+or dependent variable (e.g., if the max concentration recorded by
+either sensor or reference is 22.4 ug/m^3 and the tick_spacing is set
+to divisions of 5 ug/m^3, the x upper limit will be set to 1.25*22.4
+= 28 -&gt; rounded to the nearest multiple of 5 ug/m^3 becomes 30 ug/m^3.</p>
+</p></li>
+<li><p><strong>ylims</strong> (<em>Two-element tuple of floats</em>) – The y-limits of the scatter plot. Defaults to zero for the lower
+limit. For the default upper y-limit, the value is set equal to the
+value computed for the x-limit above (i.e., the figure dimensions
+along both axes are set equal).</p></li>
 </ul>
 </dd>
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>If an axis is passed to Scatter_Plotter(), the modified axis with
-plotting detail filled in will be returned. Otherwise, none will be
-returned.</p>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>If an axis is passed to <code class="docutils literal notranslate"><span class="pre">Scatter_Plotter()</span></code>, the modified axis
+with plotting detail filled in will be returned. Otherwise, none
+will be returned.</p>
 </dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>(matplotlib axes instance or None)</p>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>(matplotlib axes instance or None)</p>
 </dd>
 </dl>
 </dd></dl>
@@ -630,50 +582,33 @@ returned.</p>
 
 
            </div>
-           
           </div>
-          <footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="sensortoolkit.plotting._timeseries.html" class="btn btn-neutral float-right" title="sensortoolkit.plotting._timeseries" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="sensortoolkit.plotting._scatter.normalized_met_scatter.html" class="btn btn-neutral float-left" title="sensortoolkit.plotting._scatter.normalized_met_scatter" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="sensortoolkit.plotting._timeseries.html" class="btn btn-neutral float-right" title="sensortoolkit.plotting._timeseries" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>
-        &#169; Copyright 2021, Samuel Frederick.
-
-    </p>
+    <p>&#169; Copyright 2021, Samuel Frederick.</p>
   </div>
-    
-    
-    
-    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
 
 </footer>
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>

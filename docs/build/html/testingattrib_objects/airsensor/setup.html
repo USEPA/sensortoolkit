@@ -1,81 +1,40 @@
-
-
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" />
-  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
-  <title>AirSensor Setup &mdash; sensortoolkit 0.6.0b4 documentation</title>
-  
-
-  
-  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" type="text/css" />
-
-  
-  
-
-  
-  
-
-  
-
-  
+  <title>AirSensor Setup &mdash; sensortoolkit 0.6.0b14 documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
         <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
         <script src="../../_static/jquery.js"></script>
         <script src="../../_static/underscore.js"></script>
         <script src="../../_static/doctools.js"></script>
-    
-    <script type="text/javascript" src="../../_static/js/theme.js"></script>
-
-    
+    <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="Loading Sensor Data" href="load_data.html" />
     <link rel="prev" title="AirSensor Instantiation" href="overview.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-          
-
-          
             <a href="../../index.html" class="icon icon-home"> sensortoolkit
-          
-
-          
           </a>
-
-          
-            
-            
               <div class="version">
-                0.6.0b4
+                0.6.0b14
               </div>
-            
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
@@ -83,18 +42,7 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Documentation Overview</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../../install.html">Installation</a></li>
@@ -119,6 +67,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../../evaluation_objects/index.html">Evaluation Objects</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../evaluation_objects/sensoreval/index.html">Conducting Analysis - The SensorEvaluation Class</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../evaluation_objects/sensoreval/plotting.html">Plotting Methods</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../evaluation_objects/sensoreval/printing.html">Descriptive Summary Methods</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../evaluation_objects/sensoreval/statistic.html">Statistical Methods</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../evaluation_objects/performancereport.html">Creating Testing Reports - The PerformanceReport Class</a></li>
@@ -274,7 +224,6 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.lib_utils._setup.html">sensortoolkit.lib_utils._setup</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.lib_utils._setup.displayMethods.html">sensortoolkit.lib_utils._setup.displayMethods</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.lib_utils._setup.ReferenceSetup.html">sensortoolkit.lib_utils._setup.ReferenceSetup</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.lib_utils._setup.SensorSetup.html">sensortoolkit.lib_utils._setup.SensorSetup</a></li>
 </ul>
@@ -317,10 +266,6 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.plotting._errorbars.html">sensortoolkit.plotting._errorbars</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.plotting._errorbars.error_bars.html">sensortoolkit.plotting._errorbars.error_bars</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.plotting._intrasensor_comparison.html">sensortoolkit.plotting._intrasensor_comparison</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.plotting._intrasensor_comparison.compare_sensors.html">sensortoolkit.plotting._intrasensor_comparison.compare_sensors</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.plotting._performance_metrics.html">sensortoolkit.plotting._performance_metrics</a><ul>
@@ -429,77 +374,34 @@
 </li>
 </ul>
 
-            
-          
         </div>
-        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../../index.html">sensortoolkit</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
       <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
-        
           <li><a href="../index.html">Testing Attribute Objects</a> &raquo;</li>
-        
           <li><a href="index.html">The AirSensor Object</a> &raquo;</li>
-        
       <li>AirSensor Setup</li>
-    
-    
       <li class="wy-breadcrumbs-aside">
-        
-          
             <a href="../../_sources/testingattrib_objects/airsensor/setup.rst.txt" rel="nofollow"> View page source</a>
-          
-        
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
+             
   <section id="airsensor-setup">
-<h1>AirSensor Setup<a class="headerlink" href="#airsensor-setup" title="Permalink to this headline">¶</a></h1>
+<h1>AirSensor Setup<a class="headerlink" href="#airsensor-setup" title="Permalink to this headline"></a></h1>
 <p>Sensor data are recorded in a wide variety of formatting conventions and data types.
 Data ingestion converts datasets recorded by sensors to a standardized formatting
 scheme for data types, header names, and a sorted datetime index.</p>
@@ -528,7 +430,7 @@ setup process:</p>
 printed statements, banners, and tables within this setup method.</p>
 </div>
 <section id="selecting-file-data-type">
-<h2>1. Selecting File Data Type<a class="headerlink" href="#selecting-file-data-type" title="Permalink to this headline">¶</a></h2>
+<h2>1. Selecting File Data Type<a class="headerlink" href="#selecting-file-data-type" title="Permalink to this headline"></a></h2>
 <p>First, users specify the data type for recorded sensor data. Accepted data
 types include .csv, .txt, and .xlsx. Future updates to sensortoolkit may
 expand this list to include additional supported data types. Users should enter
@@ -548,7 +450,7 @@ one of the data types listed in the section banner.</p>
 </div>
 </section>
 <section id="selecting-data-files">
-<h2>2. Selecting Data Files<a class="headerlink" href="#selecting-data-files" title="Permalink to this headline">¶</a></h2>
+<h2>2. Selecting Data Files<a class="headerlink" href="#selecting-data-files" title="Permalink to this headline"></a></h2>
 <p>Next, the user is asked to select how sensor datasets will be selected for copying
 to the project path that the user specified. Users are presented with three options:
 <code class="docutils literal notranslate"><span class="pre">directory</span></code>, which will locate and copy all of the data files in the specified directory for the
@@ -570,7 +472,7 @@ copies over files that the user manually selects within a directory.</p>
 </div>
 </section>
 <section id="copying-data-files">
-<h2>3. Copying Data files<a class="headerlink" href="#copying-data-files" title="Permalink to this headline">¶</a></h2>
+<h2>3. Copying Data files<a class="headerlink" href="#copying-data-files" title="Permalink to this headline"></a></h2>
 <p>Once the user selects an option for indicating how data files should be located
 and confirms the entry, a subsequent section in the console will prompt the user to
 select the files for the recorded sensor datasets corresponding to the indicated file type.</p>
@@ -611,7 +513,7 @@ where the copied datasets will be saved.</p>
 </div>
 </section>
 <section id="selecting-the-column-header-index">
-<h2>4. Selecting the Column Header Index<a class="headerlink" href="#selecting-the-column-header-index" title="Permalink to this headline">¶</a></h2>
+<h2>4. Selecting the Column Header Index<a class="headerlink" href="#selecting-the-column-header-index" title="Permalink to this headline"></a></h2>
 <p>Next, users are prompted to enter the row index corresponding to the column headers.
 Sensor datasets may place the header information at the top of the file, and in this
 case, the header row index would be <code class="docutils literal notranslate"><span class="pre">0</span></code>. Occasionally, data sets do not include any
@@ -622,8 +524,8 @@ is indicated on the left hand side of the console statement. Below, the example 
 a number of rows of metadata, so the header index containing descriptors for the time column and
 pollutant measurement columns is found on row index #5.</p>
 <div class="tabbed-set docutils">
-<input checked="checked" id="7826a776-54ef-420f-848d-6e08a1b0e943" name="43346412-b447-475c-a5ab-40619eb0785b" type="radio">
-</input><label class="tabbed-label" for="7826a776-54ef-420f-848d-6e08a1b0e943">
+<input checked="checked" id="2d9b5e6f-2a43-4414-b6fe-64782b3b9a80" name="5a6cef6d-5585-4e63-87f1-465586c0faf7" type="radio">
+</input><label class="tabbed-label" for="2d9b5e6f-2a43-4414-b6fe-64782b3b9a80">
 Header Row Index = 0</label><div class="tabbed-content docutils">
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">============================= Column Header Index ============================</span>
 <span class="go">Options</span>
@@ -654,8 +556,8 @@ Header Row Index = 0</label><div class="tabbed-content docutils">
 </pre></div>
 </div>
 </div>
-<input id="cbaebb5f-de0d-4d43-bd9c-9638375ccb6a" name="43346412-b447-475c-a5ab-40619eb0785b" type="radio">
-</input><label class="tabbed-label" for="cbaebb5f-de0d-4d43-bd9c-9638375ccb6a">
+<input id="9adda9bf-4991-4881-8566-92a3f9f05ff8" name="5a6cef6d-5585-4e63-87f1-465586c0faf7" type="radio">
+</input><label class="tabbed-label" for="9adda9bf-4991-4881-8566-92a3f9f05ff8">
 Header Row Index &gt; 0</label><div class="tabbed-content docutils">
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">============================= Column Header Index ============================</span>
 <span class="go">Options</span>
@@ -687,8 +589,8 @@ Header Row Index &gt; 0</label><div class="tabbed-content docutils">
 </pre></div>
 </div>
 </div>
-<input id="9f3cd81c-ceca-488d-88cc-e9b0be936248" name="43346412-b447-475c-a5ab-40619eb0785b" type="radio">
-</input><label class="tabbed-label" for="9f3cd81c-ceca-488d-88cc-e9b0be936248">
+<input id="465d9f2b-b48e-4dfe-a552-46adeef2d844" name="5a6cef6d-5585-4e63-87f1-465586c0faf7" type="radio">
+</input><label class="tabbed-label" for="465d9f2b-b48e-4dfe-a552-46adeef2d844">
 Header Row Index = None</label><div class="tabbed-content docutils">
 <p>Select this option if the dataset does not contain a single row with header
 information. The example below indicates a log description followed immediately
@@ -725,7 +627,7 @@ by rows with comma-delimited data.</p>
 </div>
 </section>
 <section id="parsing-sensor-datasets">
-<h2>5. Parsing Sensor Datasets<a class="headerlink" href="#parsing-sensor-datasets" title="Permalink to this headline">¶</a></h2>
+<h2>5. Parsing Sensor Datasets<a class="headerlink" href="#parsing-sensor-datasets" title="Permalink to this headline"></a></h2>
 <p>If column headers are not included in the sensor datasets (i.e., the column
 header index in step 1 was set to <code class="docutils literal notranslate"><span class="pre">None</span></code>), users will need to manually enter
 the names of column headers for sensor datasets. This will prompt a section labeled
@@ -795,7 +697,7 @@ header position zero:</p>
 </div>
 </section>
 <section id="specifying-timestamp-columns">
-<h2>6. Specifying Timestamp Columns<a class="headerlink" href="#specifying-timestamp-columns" title="Permalink to this headline">¶</a></h2>
+<h2>6. Specifying Timestamp Columns<a class="headerlink" href="#specifying-timestamp-columns" title="Permalink to this headline"></a></h2>
 <p>Users must list all time-like columns that will be used for the ‘DateTime’
 index. Typically, this either includes one column as is the case for the
 example, or two columns (one column for the date and another for the time).</p>
@@ -845,7 +747,7 @@ name, both header names must be specified via the following:</p>
 </div>
 </section>
 <section id="specifying-the-parameter-renaming-scheme">
-<h2>7. Specifying the Parameter Renaming Scheme<a class="headerlink" href="#specifying-the-parameter-renaming-scheme" title="Permalink to this headline">¶</a></h2>
+<h2>7. Specifying the Parameter Renaming Scheme<a class="headerlink" href="#specifying-the-parameter-renaming-scheme" title="Permalink to this headline"></a></h2>
 <p>Next, users are prompted to configure the parameter renaming scheme by entering
 in the sensortoolkit Data Formatting Standard (SDFS) parameter name
 that corresponds to each parameter header name.</p>
@@ -895,7 +797,7 @@ from the dataset by pressing enter.</p>
 </div>
 </section>
 <section id="configuring-timestamp-column-formatting">
-<h2>8. Configuring Timestamp Column Formatting<a class="headerlink" href="#configuring-timestamp-column-formatting" title="Permalink to this headline">¶</a></h2>
+<h2>8. Configuring Timestamp Column Formatting<a class="headerlink" href="#configuring-timestamp-column-formatting" title="Permalink to this headline"></a></h2>
 <p>Next, the timestamp column formatting should be specified. Users are encouraged
 to reference <a class="reference external" href="https://strftime.org/">https://strftime.org/</a> for a table of formatting codes. Additional
 info is available in the Python documentation: <a class="reference external" href="https://docs.python.org/3/library/datetime.html#strftime-and-strptime-format-codes">https://docs.python.org/3/library/datetime.html#strftime-and-strptime-format-codes</a>.</p>
@@ -963,7 +865,7 @@ specified via the following:</p>
 </div>
 </section>
 <section id="specifying-the-datetime-index-time-zone">
-<h2>9. Specifying the DateTime Index Time Zone<a class="headerlink" href="#specifying-the-datetime-index-time-zone" title="Permalink to this headline">¶</a></h2>
+<h2>9. Specifying the DateTime Index Time Zone<a class="headerlink" href="#specifying-the-datetime-index-time-zone" title="Permalink to this headline"></a></h2>
 <p>Next, the time zone for the timestamp column should be indicated. <a class="reference external" href="../../sdfs/index.html">SDFS</a>
 formatted datasets indicate timestamps in Coordinated Universal Time (UTC), and during
 dataset ingestion, timestamps are shifted by the UTC offset corresponding to the time zone
@@ -997,7 +899,7 @@ time zone name.</p>
 </div>
 </section>
 <section id="configuring-sensor-serial-identifiers">
-<h2>10. Configuring Sensor Serial identifiers<a class="headerlink" href="#configuring-sensor-serial-identifiers" title="Permalink to this headline">¶</a></h2>
+<h2>10. Configuring Sensor Serial identifiers<a class="headerlink" href="#configuring-sensor-serial-identifiers" title="Permalink to this headline"></a></h2>
 <p>Next, users should indicate unique identifiers corresponding to each air sensor in
 the testing group. It is common for sensors to be labeled by a unique serial identifier,
 either indicated on the housing of the sensor or as a metadata entry for recorded datasets.</p>
@@ -1048,7 +950,7 @@ are used to locate, group, and import data for each unit.</p>
 </div>
 </section>
 <section id="saving-the-setup-configuration-to-setup-json">
-<h2>11. Saving the Setup Configuration to <code class="docutils literal notranslate"><span class="pre">setup.json</span></code><a class="headerlink" href="#saving-the-setup-configuration-to-setup-json" title="Permalink to this headline">¶</a></h2>
+<h2>11. Saving the Setup Configuration to <code class="docutils literal notranslate"><span class="pre">setup.json</span></code><a class="headerlink" href="#saving-the-setup-configuration-to-setup-json" title="Permalink to this headline"></a></h2>
 <p>Lastly, the Setup module will automatically save the setup configuration
 to a <code class="docutils literal notranslate"><span class="pre">setup.json</span></code> file.</p>
 <p>This file is located at <code class="docutils literal notranslate"><span class="pre">..\data\sensor_data\[sensor_name]\</span></code>
@@ -1065,50 +967,33 @@ where <code class="docutils literal notranslate"><span class="pre">[sensor_name]
 
 
            </div>
-           
           </div>
-          <footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="load_data.html" class="btn btn-neutral float-right" title="Loading Sensor Data" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="overview.html" class="btn btn-neutral float-left" title="AirSensor Instantiation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="load_data.html" class="btn btn-neutral float-right" title="Loading Sensor Data" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>
-        &#169; Copyright 2021, Samuel Frederick.
-
-    </p>
+    <p>&#169; Copyright 2021, Samuel Frederick.</p>
   </div>
-    
-    
-    
-    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
 
 </footer>
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>

@@ -1,81 +1,40 @@
-
-
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" />
-  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
-  <title>sensortoolkit.plotting._timeseries.sensor_timeplot &mdash; sensortoolkit 0.6.0b4 documentation</title>
-  
-
-  
-  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" type="text/css" />
-
-  
-  
-
-  
-  
-
-  
-
-  
+  <title>sensortoolkit.plotting._timeseries.sensor_timeplot &mdash; sensortoolkit 0.6.0b14 documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
         <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
         <script src="../../_static/jquery.js"></script>
         <script src="../../_static/underscore.js"></script>
         <script src="../../_static/doctools.js"></script>
-    
-    <script type="text/javascript" src="../../_static/js/theme.js"></script>
-
-    
+    <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="sensortoolkit.qc" href="../qc.html" />
     <link rel="prev" title="sensortoolkit.plotting._timeseries.deployment_timeline" href="sensortoolkit.plotting._timeseries.deployment_timeline.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-          
-
-          
             <a href="../../index.html" class="icon icon-home"> sensortoolkit
-          
-
-          
           </a>
-
-          
-            
-            
               <div class="version">
-                0.6.0b4
+                0.6.0b14
               </div>
-            
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
@@ -83,18 +42,7 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Documentation Overview</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../install.html">Installation</a></li>
@@ -119,6 +67,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../../evaluation_objects/index.html">Evaluation Objects</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../evaluation_objects/sensoreval/index.html">Conducting Analysis - The SensorEvaluation Class</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../evaluation_objects/sensoreval/plotting.html">Plotting Methods</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../evaluation_objects/sensoreval/printing.html">Descriptive Summary Methods</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../evaluation_objects/sensoreval/statistic.html">Statistical Methods</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../evaluation_objects/performancereport.html">Creating Testing Reports - The PerformanceReport Class</a></li>
@@ -274,7 +224,6 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="sensortoolkit.lib_utils._setup.html">sensortoolkit.lib_utils._setup</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="sensortoolkit.lib_utils._setup.displayMethods.html">sensortoolkit.lib_utils._setup.displayMethods</a></li>
 <li class="toctree-l4"><a class="reference internal" href="sensortoolkit.lib_utils._setup.ReferenceSetup.html">sensortoolkit.lib_utils._setup.ReferenceSetup</a></li>
 <li class="toctree-l4"><a class="reference internal" href="sensortoolkit.lib_utils._setup.SensorSetup.html">sensortoolkit.lib_utils._setup.SensorSetup</a></li>
 </ul>
@@ -317,10 +266,6 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="sensortoolkit.plotting._errorbars.html">sensortoolkit.plotting._errorbars</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="sensortoolkit.plotting._errorbars.error_bars.html">sensortoolkit.plotting._errorbars.error_bars</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="sensortoolkit.plotting._intrasensor_comparison.html">sensortoolkit.plotting._intrasensor_comparison</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="sensortoolkit.plotting._intrasensor_comparison.compare_sensors.html">sensortoolkit.plotting._intrasensor_comparison.compare_sensors</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="sensortoolkit.plotting._performance_metrics.html">sensortoolkit.plotting._performance_metrics</a><ul>
@@ -429,138 +374,140 @@
 </li>
 </ul>
 
-            
-          
         </div>
-        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../../index.html">sensortoolkit</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
       <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
-        
           <li><a href="../index.html">sensortoolkit API</a> &raquo;</li>
-        
           <li><a href="../plotting.html"><code class="docutils literal notranslate"><span class="pre">sensortoolkit.plotting</span></code></a> &raquo;</li>
-        
           <li><a href="sensortoolkit.plotting._timeseries.html">sensortoolkit.plotting._timeseries</a> &raquo;</li>
-        
       <li>sensortoolkit.plotting._timeseries.sensor_timeplot</li>
-    
-    
       <li class="wy-breadcrumbs-aside">
-        
-          
             <a href="../../_sources/api/_autosummary/sensortoolkit.plotting._timeseries.sensor_timeplot.rst.txt" rel="nofollow"> View page source</a>
-          
-        
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
+             
   <section id="sensortoolkit-plotting-timeseries-sensor-timeplot">
-<h1>sensortoolkit.plotting._timeseries.sensor_timeplot<a class="headerlink" href="#sensortoolkit-plotting-timeseries-sensor-timeplot" title="Permalink to this headline">¶</a></h1>
+<h1>sensortoolkit.plotting._timeseries.sensor_timeplot<a class="headerlink" href="#sensortoolkit-plotting-timeseries-sensor-timeplot" title="Permalink to this headline"></a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="sensortoolkit.plotting._timeseries.sensor_timeplot">
-<span class="sig-name descname"><span class="pre">sensor_timeplot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ref_df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">param</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sensor_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">figure_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bdate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">edate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">write_to_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sensor_serials</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ref_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">averaging_interval</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_mpl_obj</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">report_fmt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fig</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/sensortoolkit/plotting/_timeseries.html#sensor_timeplot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sensortoolkit.plotting._timeseries.sensor_timeplot" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">sensor_timeplot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ref_df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">param</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sensor_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">figure_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bdate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">edate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">write_to_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sensor_serials</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ref_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">averaging_interval</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_mpl_obj</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">report_fmt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fig</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/sensortoolkit/plotting/_timeseries.html#sensor_timeplot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sensortoolkit.plotting._timeseries.sensor_timeplot" title="Permalink to this definition"></a></dt>
 <dd><p>Generate a timeplot for a specified pollutant alongside FRM/FEM
 concentration values.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>df_list</strong> – list of dataframes
-list of Pandas dataframes for evaluated sensors containing 1-hour
-averaged data.</p></li>
-<li><p><strong>ref_df</strong> – Pandas dataframe
-Reference (regulatory) data, plotted as black line on timeplots</p></li>
-<li><p><strong>param</strong> – string
-Column header name for the pollutant values to be plotted</p></li>
-<li><p><strong>sensor_name</strong> – string
-Unformatted sensor name, passed to Formatted_Sensor_Name() for
-including formatted version on plot</p></li>
-<li><p><strong>figure_path</strong> – string
-Path to directory where the figure will be saved</p></li>
-<li><p><strong>color_palette</strong> – string
-Color palette assigned to relative-humidity colormapped scatter
-plot points</p></li>
-<li><p><strong>fontsize</strong> – int or float
-The font size for the xlabel, ylabel, and plot text. Passed on to
-Draw_Scatter() which uses 0.85*font_size for tick labels.</p></li>
-<li><p><strong>bdate</strong> – string
-date (‘yyyy-mm-dd’ format) for beginning of timeseries plot</p></li>
-<li><p><strong>edate</strong> – string
-date (‘yyyy-mm-dd’ format) for end of timeseries plot</p></li>
-<li><p><strong>ylim</strong> – tuple of floats/ints
-The y-limits of the plot</p></li>
-<li><p><strong>yscale</strong> – string
-The scaling for the y-axis. Accepted values include ‘linear’,
+<li><p><strong>df_list</strong> (<em>list</em>) – List of Pandas dataframes containing sensor data.</p></li>
+<li><p><strong>ref_df</strong> (<em>pandas DataFrame</em>) – Reference dataset.</p></li>
+<li><p><strong>param</strong> (<em>str</em><em>, </em><em>optional</em>) – Column header name for the pollutant values to be plotted. Defaults
+to None.</p></li>
+<li><p><strong>sensor_name</strong> (<em>str</em><em>, </em><em>optional</em>) – Unformatted sensor name, passed to Formatted_Sensor_Name() for
+including formatted version on plot. Defaults to None.</p></li>
+<li><p><strong>figure_path</strong> (<em>str</em><em>, </em><em>optional</em>) – Path to directory where the figure will be saved. Defaults to None.</p></li>
+<li><p><strong>bdate</strong> (<em>str</em><em>, </em><em>optional</em>) – Date (‘yyyy-mm-dd’ format) for beginning of timeseries plot.
+Defaults to None.</p></li>
+<li><p><strong>edate</strong> (<em>str</em><em>, </em><em>optional</em>) – Date (‘yyyy-mm-dd’ format) for end of timeseries plot.
+Defaults to None.</p></li>
+<li><p><strong>write_to_file</strong> (<em>bool</em><em>, </em><em>optional</em>) – If true, figure is written to file and interactive plot is closed.
+Defaults to True.</p></li>
+<li><p><strong>sensor_serials</strong> (<em>dict</em><em>, </em><em>optional</em>) – Optional pass sensor serials dictionary to plot sensor serial IDs
+in the legend instead of numbered sensors. Defaults to None.</p></li>
+<li><p><strong>ref_name</strong> (<em>str</em><em>, </em><em>optional</em>) – The name of the FRM/FEM monitor (make and model). Defaults to None.</p></li>
+<li><p><strong>averaging_interval</strong> (<em>str</em><em>, </em><em>optional</em>) – The measurement averaging intervals commonly utilized for analyzing
+data corresponding the the selected parameter. Defaults to None.</p></li>
+<li><p><strong>return_mpl_obj</strong> (<em>bool</em><em>, </em><em>optional</em>) – If true, will return a Matplotlib axes instance (useful for
+iteration over subplot axes if this plotting function is called
+within a for-loop that is iterating over the axes elements in
+a Matplotlib subplot object). Defaults to True.</p></li>
+<li><p><strong>report_fmt</strong> (<em>bool</em><em>, </em><em>optional</em>) – If true, select formatting presets for displaying figures on the
+reporting template for sensor performance evaluations included
+alongside US EPA’s performance targets documents for air sensors.
+Defaults to False.</p></li>
+<li><p><strong>ax</strong> (<em>matplotlib.axes._subplots.AxesSubplot</em><em>, </em><em>optional</em>) – Optional, the Matplotlib Axes object on which plotting elements
+will be drawn. Useful is the user is iterating over the Axes
+elements of a Matplotlib figure in a for-loop outside this plotting
+function. Within the loop, calls to this function can be made to add
+elements for each axes object. Defaults to None.</p></li>
+<li><p><strong>fig</strong> (<em>Matplotlib.figure.Figure</em><em>, </em><em>optional</em>) – Optional, the Matplotlib figure on which axes object elements are
+drawn. Useful is the user is iterating over the Axes elements of a
+Matplotlib figure in a for-loop outside this plotting function.
+Within the loop, calls to this function can be made to add elements
+for each axes object. Defaults to None.</p></li>
+</ul>
+</dd>
+</dl>
+<p><strong>Keyword Arguments:</strong></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>seaborn_style</strong> (<em>str</em>) – The plotting style based on seaborn’s style options. Defaults to
+‘darkgrid’. Values must be a valid seaborn style name.</p></li>
+<li><p><strong>date_interval</strong> (<em>int</em>) – Number of days between x-axis tick marks with ‘mm-dd-yy’ timestamps.</p></li>
+<li><p><strong>yscale</strong> (<em>str</em>) – The scaling for the y-axis. Accepted values include ‘linear’,
 ‘log’, ‘symlog’, ‘logit’, etc.</p></li>
-<li><p><strong>write_to_file</strong> – bool
-If true, figure is written to file and interactive plot is closed</p></li>
-<li><p><strong>date_interval</strong> – int
-Number of days between x-axis tick marks with mm-dd-yy timestamps</p></li>
-<li><p><strong>title</strong> – bool
-To plot or not to plot (the title), that is the question.</p></li>
-<li><p><strong>sensor_serials</strong> – Nonetype or dictionary
-Optional pass sensor serials dictionary to plot sensor serial IDs
-in the legend instead of numbered sensors.</p></li>
-<li><p><strong>filename_suffix</strong> – string
-Optional string added to end of filename. Defaults to empty string.</p></li>
-<li><p><strong>alpha</strong> – Set transparency of sensor and reference timeseries</p></li>
-<li><p><strong>cmap_norm_range</strong> – Normalized range (0,1) for colormap hue selection. Limiting this
+<li><p><strong>ylims</strong> (<em>Two-element tuple of floats</em><em> or </em><em>ints</em>) – The y-limits of the plot</p></li>
+<li><p><strong>format_xaxis_weeks</strong> (<em>bool</em>) – Plot the timeseries x-axis (time) in increments of 1 week. Defaults
+to False.</p></li>
+<li><p><strong>fig_size</strong> (<em>Two-element tuple of floats</em><em> or </em><em>ints</em>) – Tuple for setting the figure size.</p></li>
+<li><p><strong>float</strong> (<em>fontsize int or</em>) – The font size for the xlabel, ylabel, and plot text. Passed on to
+Draw_Scatter() which uses 0.85*font_size for tick labels.</p></li>
+<li><p><strong>legend_fontscale</strong> (<em>font</em>) – Relative scale of fontsize for text in the legend relative to label
+text.</p></li>
+<li><p><strong>cmap_name</strong> (<em>str</em>) – The name of the palette assigned to relative-humidity colormapped
+scatter plot points</p></li>
+<li><p><strong>cmap_normrange</strong> (<em>Two-element tuple</em>) – Normalized range (0,1) for colormap hue selection. Limiting this
 range to something like (0.1, 0.9) is useful when using colormaps
 with high contrast extrema and a gradual change in hue is desired
 for plots.</p></li>
-<li><p><strong>legend_fontscale</strong> – Relative scale of fontsize for text in the legend relative to label
-text.</p></li>
-<li><p><strong>format_xaxis_weeks</strong> – Plot the timeseries x-axis (time) in increments of 1 week.</p></li>
-<li><p><strong>fig_size</strong> – Tuple for setting the figure size.</p></li>
+<li><p><strong>show_title</strong> (<em>bool</em>) – If true, display the title for the figure. Defaults to True.</p></li>
+<li><p><strong>filename_suffix</strong> (<em>str</em>) – Optional string added to end of filename. Defaults to empty string.</p></li>
+<li><p><strong>box_xscale</strong> (<em>TYPE</em>) – DESCRIPTION. Defaults to</p></li>
+<li><p><strong>box_yscale</strong> (<em>TYPE</em>) – DESCRIPTION. Defaults to</p></li>
+<li><p><strong>box_wscale</strong> (<em>TYPE</em>) – DESCRIPTION. Defaults to</p></li>
+<li><p><strong>box_hscale</strong> (<em>TYPE</em>) – DESCRIPTION. Defaults to</p></li>
+<li><p><strong>legend_loc</strong> (<em>TYPE</em>) – DESCRIPTION. Defaults to</p></li>
+<li><p><strong>sensor_colors</strong> (<em>TYPE</em>) – Default set by chosen colormap (cmap_name) and the normalized range
+for the colormap.</p></li>
+<li><p><strong>sensor_linealpha</strong> (<em>float</em>) – The transparency of the lines indicating sensor measurements. Defaults
+to 0.70</p></li>
+<li><p><strong>sensor_linewidth</strong> (<em>float</em>) – The width (thickness) of the lines indicating sensor measurements.
+Defaults to 1.5.</p></li>
+<li><p><strong>sensor_linestyle</strong> (<em>str</em>) – The style of the lines indicating sensor measurements. Passed
+to matplotlib linestyles. Defaults to ‘-‘.</p></li>
+<li><p><strong>ref_linecolor</strong> (<em>str</em>) – The color of the line indicating reference measurements. Defaults
+to ‘k’.</p></li>
+<li><p><strong>ref_linealpha</strong> (<em>float</em>) – The transparency of the line indicating reference measurements.
+Defaults to 0.97</p></li>
+<li><p><strong>ref_linewidth</strong> (<em>float</em>) – The width (thickness) of the line indicating reference measurements.
+Defaults to 1.5</p></li>
+<li><p><strong>ref_linestyle</strong> (<em>str</em>) – The style of the lines indicating reference measurements. Passed
+to matplotlib linestyles. Defaults to ‘-‘.</p></li>
+<li><p><strong>date_format</strong> (<em>str</em>) – The strftime format in which dates will be displayed along the x-axis
+if ‘format_xaxis_weeks’ is False. Defaults to “%m-%d-%y”.</p></li>
+<li><p><strong>legend_fontsize</strong> (<em>TYPE</em>) – DESCRIPTION. Defaults to</p></li>
+<li><p><strong>subplots_adjust</strong> (<em>TYPE</em>) – DESCRIPTION. Defaults to</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>if return_mpl_obj is True or report_fmt is True, return ax object.</p>
+<dd class="field-even"><p>If return_mpl_obj is True or report_fmt is True, return ax object,
+else return None.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>ax (matplotlib axes object)</p>
 </dd>
 </dl>
 </dd></dl>
@@ -569,50 +516,33 @@ text.</p></li>
 
 
            </div>
-           
           </div>
-          <footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="../qc.html" class="btn btn-neutral float-right" title="sensortoolkit.qc" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="sensortoolkit.plotting._timeseries.deployment_timeline.html" class="btn btn-neutral float-left" title="sensortoolkit.plotting._timeseries.deployment_timeline" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../qc.html" class="btn btn-neutral float-right" title="sensortoolkit.qc" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>
-        &#169; Copyright 2021, Samuel Frederick.
-
-    </p>
+    <p>&#169; Copyright 2021, Samuel Frederick.</p>
   </div>
-    
-    
-    
-    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
 
 </footer>
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>

@@ -1,12 +1,13 @@
 Sensor Data Structures
 ----------------------
+
 Sensor data are accessed via the ``AirSensor`` object instance. Following
 the `evaluation.py` example, mention of ``sensor_object`` below refers to the ``AirSensor``
 object instantiated under the `Testing Attribute Objects - The AirSensor Object` section.
 
 Accessing Sensor Data
 ^^^^^^^^^^^^^^^^^^^^^
-Sensor datasets are access via the ``sensor_object.data`` attribute, which stores dataframes
+Sensor datasets are access via the ``sensor_object.data`` attribute, which stores `pandas DataFrames <https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html>`_
 in a dictionary structure at recorded sampling frequency, 1-hour averaged intervals, and 24-hour averaged intervals for each
 parameter classification:
 
@@ -33,6 +34,14 @@ parameter classification:
   each unit data sub-dictionary will depend on the configured sampling frequency
   for the sensor. For the example above, the sampling frequency was set to
   1-minute intervals, so the key for the first dataset entry is ``1-minute``.
+
+Dataset Example
+^^^^^^^^^^^^^^^
+
+The first five rows of data for sensor unit ``SN01`` that have been averaged to 1-hour intervals
+and formatted as an SDFS dataset (accessed as ``sensor_obj['SN01']['1-hour']``) are shown at the following link:
+`Example Sensor Dataset <../sdfs/index.html#example-sdfs-datasets>`_
+
 
 ..
   Sensor data files that have been imported and processed into the S-DFS scheme are
@@ -108,4 +117,3 @@ parameter classification:
        :file: ../data/Example_Make_Model_SN01_daily.csv
        :header-rows: 1
        :widths: auto
-`

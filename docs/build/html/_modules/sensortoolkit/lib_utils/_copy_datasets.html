@@ -1,78 +1,37 @@
-
-
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8" />
-  
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
-  <title>sensortoolkit.lib_utils._copy_datasets &mdash; sensortoolkit 0.6.0b4 documentation</title>
-  
-
-  
-  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" type="text/css" />
-
-  
-  
-
-  
-  
-
-  
-
-  
+  <title>sensortoolkit.lib_utils._copy_datasets &mdash; sensortoolkit 0.6.0b14 documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
         <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
         <script src="../../../_static/jquery.js"></script>
         <script src="../../../_static/underscore.js"></script>
         <script src="../../../_static/doctools.js"></script>
-    
-    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
-
-    
+    <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-          
-
-          
             <a href="../../../index.html" class="icon icon-home"> sensortoolkit
-          
-
-          
           </a>
-
-          
-            
-            
               <div class="version">
-                0.6.0b4
+                0.6.0b14
               </div>
-            
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
@@ -80,18 +39,7 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Documentation Overview</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../install.html">Installation</a></li>
@@ -116,6 +64,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../evaluation_objects/index.html">Evaluation Objects</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../evaluation_objects/sensoreval/index.html">Conducting Analysis - The SensorEvaluation Class</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../evaluation_objects/sensoreval/plotting.html">Plotting Methods</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../evaluation_objects/sensoreval/printing.html">Descriptive Summary Methods</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../evaluation_objects/sensoreval/statistic.html">Statistical Methods</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../evaluation_objects/performancereport.html">Creating Testing Reports - The PerformanceReport Class</a></li>
@@ -271,7 +221,6 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.lib_utils._setup.html">sensortoolkit.lib_utils._setup</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.lib_utils._setup.displayMethods.html">sensortoolkit.lib_utils._setup.displayMethods</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.lib_utils._setup.ReferenceSetup.html">sensortoolkit.lib_utils._setup.ReferenceSetup</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.lib_utils._setup.SensorSetup.html">sensortoolkit.lib_utils._setup.SensorSetup</a></li>
 </ul>
@@ -314,10 +263,6 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.plotting._errorbars.html">sensortoolkit.plotting._errorbars</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.plotting._errorbars.error_bars.html">sensortoolkit.plotting._errorbars.error_bars</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.plotting._intrasensor_comparison.html">sensortoolkit.plotting._intrasensor_comparison</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.plotting._intrasensor_comparison.compare_sensors.html">sensortoolkit.plotting._intrasensor_comparison.compare_sensors</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.plotting._performance_metrics.html">sensortoolkit.plotting._performance_metrics</a><ul>
@@ -426,69 +371,30 @@
 </li>
 </ul>
 
-            
-          
         </div>
-        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../../../index.html">sensortoolkit</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
       <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
-        
           <li><a href="../../index.html">Module code</a> &raquo;</li>
-        
       <li>sensortoolkit.lib_utils._copy_datasets</li>
-    
-    
       <li class="wy-breadcrumbs-aside">
-        
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
+             
   <h1>Source code for sensortoolkit.lib_utils._copy_datasets</h1><div class="highlight"><pre>
 <span></span><span class="c1"># -*- coding: utf-8 -*-</span>
 <span class="sd">&quot;&quot;&quot;</span>
@@ -554,14 +460,66 @@
 <span class="sd">    files to ``/data..`` raw data subdirectory for a sensor.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        name (TYPE, optional):</span>
-<span class="sd">            The name of the sensor. Defaults to None.</span>
-<span class="sd">        path (TYPE, optional):</span>
+<span class="sd">        data_type (str, optional):</span>
+<span class="sd">            Indicates the type of device that recorded the datasets the user</span>
+<span class="sd">            wishes to copy to the ``[project_path]/data`` directory. Select</span>
+<span class="sd">            either ``&#39;sensor&#39;`` to indicate copying of air sensor datasets or</span>
+<span class="sd">            ``&#39;reference&#39;`` to indicate copying of reference monitor datasets.</span>
+<span class="sd">        path (str, optional):</span>
 <span class="sd">            The full path of the work directory in which data will be stored.</span>
 <span class="sd">            Defaults to None.</span>
+<span class="sd">        select (str, optional):</span>
+<span class="sd">            Selection method for indicating how datasets should be identified</span>
+<span class="sd">            within the file explorer menu. Defaults to &#39;directory&#39;.</span>
+
+<span class="sd">            Selection options include the following:</span>
+
+<span class="sd">            - ``&#39;directory&#39;``, which will locate and copy all of the data files</span>
+<span class="sd">              in the specified directory for the indicated data type</span>
+<span class="sd">            - ``&#39;recursive directory&#39;``, which will locate and copy all data</span>
+<span class="sd">              files within the specified directory and any subdirectories</span>
+<span class="sd">              contained within the indicated folder path</span>
+<span class="sd">            - ``&#39;files&#39;`` which copies over files that the user manually</span>
+<span class="sd">              selects within a directory.</span>
+
+<span class="sd">    **Keyword Arguments:**</span>
+
+<span class="sd">    :param str file_extension:</span>
+<span class="sd">        The type of data file to select. Choose from ``&#39;.csv&#39;``, ``&#39;.txt&#39;``,</span>
+<span class="sd">        ``&#39;.xlsx&#39;``.</span>
+<span class="sd">    :param str name:</span>
+<span class="sd">        (``data_type = &#39;sensor&#39;`` only). The name given to the air sensor. Used</span>
+<span class="sd">        to locate the air sensor data subdirectory at</span>
+<span class="sd">        ``[project_data]/data/sensor_data/[sensor_name]``.</span>
+<span class="sd">    :param str ref_data_source:</span>
+<span class="sd">        (``data_type = &#39;reference&#39;`` only). The name of the service or source</span>
+<span class="sd">        from which reference data were acquired.</span>
+
+<span class="sd">        Choose from the following options:</span>
+
+<span class="sd">        - ``&#39;local&#39;``: Data files aqcuired locally (e.g., local transfer</span>
+<span class="sd">          from agency overseeing reference instrumentation at air monitoring</span>
+<span class="sd">          site).</span>
+<span class="sd">        - ``&#39;airnowtech&#39;``: User has downloaded files from the AirNowTech</span>
+<span class="sd">          system and has saved files locally to the user’s system.</span>
+
+<span class="sd">    :param str site_name:</span>
+<span class="sd">        (``data_type = &#39;reference&#39;`` only). The name of the air monitoring</span>
+<span class="sd">        site. Used to locate the reference data subdirectory at</span>
+<span class="sd">        ``[project_data]/data/reference_data/[ref_data_source]/[sitename_siteid]``.</span>
+<span class="sd">    :param str site_aqs:</span>
+<span class="sd">        (``data_type = &#39;reference&#39;`` only). The AQS  ID for the air monitoring</span>
+<span class="sd">        site. Used to locate the reference data subdirectory at</span>
+<span class="sd">        ``[project_data]/data/reference_data/[ref_data_source]/[sitename_siteid]``.</span>
+<span class="sd">    :param bool return_filenames:</span>
+<span class="sd">        If true, a list of full paths for datasets that have been copied into</span>
+<span class="sd">        the ``/data`` directory will be returned.</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        None.</span>
+<span class="sd">        copy_file_list (list):</span>
+<span class="sd">            If &#39;return_filenames&#39; is True, return a list of full paths to data</span>
+<span class="sd">            files that have been copied into the ``[project_data]/data``</span>
+<span class="sd">            directory.</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">banner_w</span> <span class="o">=</span> <span class="mi">79</span>
@@ -665,46 +623,30 @@
 </pre></div>
 
            </div>
-           
           </div>
           <footer>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>
-        &#169; Copyright 2021, Samuel Frederick.
-
-    </p>
+    <p>&#169; Copyright 2021, Samuel Frederick.</p>
   </div>
-    
-    
-    
-    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
 
 </footer>
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>

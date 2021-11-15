@@ -35,14 +35,14 @@ testing period. Temperature (left) and relative humidity (right) measurements ar
 separate subplots. Measurements are grouped into 15 bins, and the frequency of measurements within bin
 is normalized by the total number of measurements (i.e., the relative frequency) is
 displayed as a histogram. Additionally, a polynomial estimating
-the kernel density of measurements is shown for each subplot, and indicates the
+the kernel density of measurements is shown for each subplot and indicates the
 general distribution of measurements over the range of recorded values.
 
 This method will prioritize plotting meteorological measurements made by
 reference instruments, as sensor measurements are commonly biased warmer and drier than
 ambient conditions if measurements are made by an onboard sensing component within
 the housing of the air sensor. If no meteorological reference measurements are
-available, the method will use sensor measurements, but will display a disclaimer
+available, the method will use sensor measurements; however, a disclaimer will displayed
 above subplots indicating that sensor measurements are shown in the figure.
 
 Example
@@ -72,7 +72,7 @@ indicate the unique response of each sensor unit.
 The gray 1:1 line indicates ideal agreement between sensor and reference measurements
 over the range of meteorological conditions (i.e., a ratio of 1 would indicate
 that the sensor and reference measure the same concentration value for a given timestamp).
-Scatter below the 1:1 line indicate underestimation bias, and scatter above the 1:1 line
+Scatter below the 1:1 line indicates underestimation bias, and scatter above the 1:1 line
 indicates overestimation bias.
 
 Example
@@ -153,7 +153,7 @@ parameters, sensor-reference measurement pairs can be displayed as scatter using
 Sensor measurements are plotted along the
 y-axis with reference measurements along the x-axis. Statistical quantities are displayed
 for each scatter plot including the ordinary least-squares (OLS) regression equation, :raw-html:`R<sup>2</sup>`,
-RMSE, and N (the number of measurement pairs) . The one-to-one line (indicating ideal agreement between
+RMSE, and N (the number of measurement pairs). The one-to-one line (indicating ideal agreement between
 sensor and reference measurements) is shown as a dashed gray line.
 
 Example
@@ -176,7 +176,7 @@ Description
 Sensor measurements are plotted along the
 y-axis with reference measurements along the x-axis. Statistical quantities are displayed
 for each scatter plot including the ordinary least-squares (OLS) regression equation, :raw-html:`R<sup>2</sup>`,
-RMSE, and N (the number of measurement pairs) . The one-to-one line (indicating ideal agreement between
+RMSE, and N (the number of measurement pairs). The one-to-one line (indicating ideal agreement between
 sensor and reference measurements) is shown as a dashed gray line.
 
 Measurement pairs (i.e., concentration values for sensor and reference datasets recorded
@@ -201,6 +201,11 @@ Example
 Description
 """""""""""
 
+Displays sensor and FRM/FEM reference measurements on a time series plot.
+Sensor measurements are indicated by distinct colors in a discrete color palette.
+FRM/FEM measurements are shown as black lines. The x-axis indicates the date in
+5-day increments (default, although customizable). Measurement values are plotted
+along the y-axis.
 
 Example
 """""""

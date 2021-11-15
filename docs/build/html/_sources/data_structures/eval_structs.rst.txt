@@ -12,18 +12,18 @@ constructed by running the following line of code:
 
   evaluation.calculate_metrics()
 
-This will constuct the statistics dataframes ``evaluation.stats_df`` and ``evaluation.avg_stats_df`` and
+This will construct the statistics dataframes ``evaluation.stats_df`` and ``evaluation.avg_stats_df`` and
 populate the deployment dictionary ``evaluation.deploy_dict`` with details about the evaluation.
 More detail about each of these data structures is provided below.
 
-Statistics Dataframes: ``evaluation.stats_df`` and ``evaluation.avg_stats_df``
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Statistics DataFrames
+^^^^^^^^^^^^^^^^^^^^^
 
-Sensor vs. FRM/FEM Statisitcs: ``evaluation.stats_df``
+Sensor vs. FRM/FEM Statistics: ``evaluation.stats_df``
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
 
-DataFrame containing statistics relating the **sensor vs. FRM/FEM** linearity (:math:`R^2`),
-bias (`slope` and `intercept`), `RMSE`, N (Number of sensor-FRM/FEM data point pairs), as well
+A pandas DataFrame containing statistics for the sensor vs. FRM/FEM linearity (:raw-html:`R<sup>2</sup>`),
+bias (slope and intercept), RMSE, N (number of sensor-FRM/FEM data point pairs), as well
 as the minimum, maximum, and the mean sensor concentration. Data are presented for all
 averaging intervals specified by ``evaluation.eval_param_averaging``.
 
@@ -43,8 +43,8 @@ Below is an example of ``evaluation.stats_df`` for the ``Example_Make_Model`` se
 Sensor vs. Intersensor Average Statistics: ``evaluation.avg_stats_df``
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-DataFrame containing statistics relating the **sensor vs. intersensor average**
-linearity (:math:`R^2`), bias (`slope` and `intercept`), RMSE, N (Number of concurrent
+A pandas DataFrame containing statistics relating the sensor vs. intersensor average
+linearity (:raw-html:`R<sup>2</sup>`), bias (slope and intercept), RMSE, N (number of concurrent
 sensor measurements during which all sensors in the testing group reported values), as well as the
 minimum, maximum, and the mean sensor concentration. Data are presented for all
 averaging intervals specified by ``evaluation.eval_param_averaging``.

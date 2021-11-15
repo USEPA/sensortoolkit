@@ -1,81 +1,40 @@
-
-
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" />
-  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
-  <title>ReferenceMonitor Setup &mdash; sensortoolkit 0.6.0b4 documentation</title>
-  
-
-  
-  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" type="text/css" />
-
-  
-  
-
-  
-  
-
-  
-
-  
+  <title>ReferenceMonitor Setup &mdash; sensortoolkit 0.6.0b14 documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
         <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
         <script src="../../_static/jquery.js"></script>
         <script src="../../_static/underscore.js"></script>
         <script src="../../_static/doctools.js"></script>
-    
-    <script type="text/javascript" src="../../_static/js/theme.js"></script>
-
-    
+    <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="Loading Reference Data" href="load_data.html" />
     <link rel="prev" title="ReferenceMonitor Instantiation" href="overview.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-          
-
-          
             <a href="../../index.html" class="icon icon-home"> sensortoolkit
-          
-
-          
           </a>
-
-          
-            
-            
               <div class="version">
-                0.6.0b4
+                0.6.0b14
               </div>
-            
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
@@ -83,18 +42,7 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Documentation Overview</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../../install.html">Installation</a></li>
@@ -119,6 +67,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../../evaluation_objects/index.html">Evaluation Objects</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../evaluation_objects/sensoreval/index.html">Conducting Analysis - The SensorEvaluation Class</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../evaluation_objects/sensoreval/plotting.html">Plotting Methods</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../evaluation_objects/sensoreval/printing.html">Descriptive Summary Methods</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../evaluation_objects/sensoreval/statistic.html">Statistical Methods</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../evaluation_objects/performancereport.html">Creating Testing Reports - The PerformanceReport Class</a></li>
@@ -274,7 +224,6 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.lib_utils._setup.html">sensortoolkit.lib_utils._setup</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.lib_utils._setup.displayMethods.html">sensortoolkit.lib_utils._setup.displayMethods</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.lib_utils._setup.ReferenceSetup.html">sensortoolkit.lib_utils._setup.ReferenceSetup</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.lib_utils._setup.SensorSetup.html">sensortoolkit.lib_utils._setup.SensorSetup</a></li>
 </ul>
@@ -317,10 +266,6 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.plotting._errorbars.html">sensortoolkit.plotting._errorbars</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.plotting._errorbars.error_bars.html">sensortoolkit.plotting._errorbars.error_bars</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.plotting._intrasensor_comparison.html">sensortoolkit.plotting._intrasensor_comparison</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.plotting._intrasensor_comparison.compare_sensors.html">sensortoolkit.plotting._intrasensor_comparison.compare_sensors</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.plotting._performance_metrics.html">sensortoolkit.plotting._performance_metrics</a><ul>
@@ -429,77 +374,34 @@
 </li>
 </ul>
 
-            
-          
         </div>
-        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../../index.html">sensortoolkit</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
       <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
-        
           <li><a href="../index.html">Testing Attribute Objects</a> &raquo;</li>
-        
           <li><a href="index.html">The ReferenceMonitor Object</a> &raquo;</li>
-        
       <li>ReferenceMonitor Setup</li>
-    
-    
       <li class="wy-breadcrumbs-aside">
-        
-          
             <a href="../../_sources/testingattrib_objects/referencemonitor/setup.rst.txt" rel="nofollow"> View page source</a>
-          
-        
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
+             
   <section id="referencemonitor-setup">
-<h1>ReferenceMonitor Setup<a class="headerlink" href="#referencemonitor-setup" title="Permalink to this headline">¶</a></h1>
+<h1>ReferenceMonitor Setup<a class="headerlink" href="#referencemonitor-setup" title="Permalink to this headline"></a></h1>
 <p>The <code class="docutils literal notranslate"><span class="pre">sensortoolkit.ReferenceMonitor.reference_setup()</span></code> module guides users through
 an interactive process of entering in details regarding the reference data configuration
 the user plans to make use of for conducting evaluations.</p>
@@ -531,8 +433,8 @@ service or data source.</p>
 printed statements, banners, and tables within this setup method.</p>
 </div>
 <div class="tabbed-set docutils">
-<input checked="checked" id="eb8ff2fd-ad55-404a-b3ec-df6050ff3358" name="9f62269c-d111-464c-b110-a735b5a2e62a" type="radio">
-</input><label class="tabbed-label" for="eb8ff2fd-ad55-404a-b3ec-df6050ff3358">
+<input checked="checked" id="ff7957b7-00fd-478c-929e-87c817eb9045" name="364655af-6417-4b3a-8fde-19bc78c2766a" type="radio">
+</input><label class="tabbed-label" for="ff7957b7-00fd-478c-929e-87c817eb9045">
 Local</label><div class="tabbed-content docutils">
 <p>The following steps below walk through the setup process. The example below
 describes the setup process for a reference data file acquired locally for
@@ -660,7 +562,7 @@ copies over files that the user manually selects within a directory.</p>
 <span class="go">[&#39;directory&#39;, &#39;recursive directory&#39;, &#39;files&#39;]</span>
 <span class="go">==============================================================================</span>
 
-<span class="go">Enter how to select reference datasets from the list of options above:files</span>
+<span class="go">Enter how to select reference datasets from the list of options above: files</span>
 
 <span class="go">Select data sets by files</span>
 
@@ -746,7 +648,7 @@ pollutant measurement columns is found on row index #2.</p>
 </pre></div>
 </div>
 </div></blockquote>
-<p><strong>7. Parsing Sensor Datasets</strong></p>
+<p><strong>7. Parsing Reference Datasets</strong></p>
 <blockquote>
 <div><p>If column headers are not included in the reference datasets (i.e., the column
 header index in step 1 was set to <code class="docutils literal notranslate"><span class="pre">None</span></code>), users will need to manually enter
@@ -818,7 +720,7 @@ For instance, <code class="docutils literal notranslate"><span class="pre">88101
 conditions via an instrument designated a Federal Reference Method (FRM) or
 Federal Equivalent Method (FEM) for <span class="raw-html">PM<sub>2.5</sub></span>.</p>
 <p>For the example below, measurements for <span class="raw-html">PM<sub>2.5</sub></span> and <span class="raw-html">PM<sub>10</sub></span> were collected by a
-Teledyne API T640x FEM for <span class="raw-html">PM<sub>2.5</sub></span> and <span class="raw-html">PM<sub>10</sub></span>. Measurements for these pollutants
+Teledyne API T640x, which is designated an FEM for <span class="raw-html">PM<sub>2.5</sub></span> and <span class="raw-html">PM<sub>10</sub></span>. Measurements for these pollutants
 made with the T640x are categorized under the parameter codes <code class="docutils literal notranslate"><span class="pre">88101</span></code> for <span class="raw-html">PM<sub>2.5</sub></span>
 measurements and <code class="docutils literal notranslate"><span class="pre">88102</span></code> for <span class="raw-html">PM<sub>10</sub></span> measurements. A table of FRM/FEM methods
 is displayed if the user indicates that the parameter code corresponds to the
@@ -1061,7 +963,7 @@ dataset ingestion, timestamps are shifted by the UTC offset corresponding to the
 indicated at this step.</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">pytz</span></code> package is used for indicating time zone names
 and corresponding UTC offsets, and users can type <code class="docutils literal notranslate"><span class="pre">pytz.all_timezones</span></code> to see a list of
-all timezones in the <code class="docutils literal notranslate"><span class="pre">pytz</span></code> library (word of caution, there are a lot!). When the
+all time zones in the <code class="docutils literal notranslate"><span class="pre">pytz</span></code> library (word of caution, there are a lot!). When the
 console asks for the time zone corresponding to a particular column, the text you
 enter is checked against the list of valid time zones in the <code class="docutils literal notranslate"><span class="pre">pytz</span></code> package and will
 indicate an invalid entry if the user’s input for the time zone was not a valid
@@ -1117,8 +1019,8 @@ the AQS ID for the site assigned in step 2 (if applicable).</p>
 </div>
 </div></blockquote>
 </div>
-<input id="44a20990-4daa-4cda-8000-57cacb78adbc" name="9f62269c-d111-464c-b110-a735b5a2e62a" type="radio">
-</input><label class="tabbed-label" for="44a20990-4daa-4cda-8000-57cacb78adbc">
+<input id="64e630c8-7fc6-425a-ad42-7f88a116e0b7" name="364655af-6417-4b3a-8fde-19bc78c2766a" type="radio">
+</input><label class="tabbed-label" for="64e630c8-7fc6-425a-ad42-7f88a116e0b7">
 AirNowTech</label><div class="tabbed-content docutils">
 <p>The following steps below walk through the setup process. The example below
 describes the setup process for a reference data file downloaded from AirNowTech
@@ -1232,7 +1134,29 @@ one of the data types listed in the section banner.</p>
 </pre></div>
 </div>
 </div></blockquote>
-<p><strong>4. Copying Data files</strong></p>
+<p><strong>4. Selecting Data Files</strong></p>
+<blockquote>
+<div><p>Next, the user is asked to select how reference datasets will be selected for copying
+to the project path that the user specified. Users are presented with three options:
+<code class="docutils literal notranslate"><span class="pre">directory</span></code>, which will locate and copy all of the data files in the specified directory for the
+indicated data type, <code class="docutils literal notranslate"><span class="pre">recursive</span> <span class="pre">directory</span></code>, which will locate and copy all data files within the
+specified directory and any subdirectories contained within the indicated folder path, and <code class="docutils literal notranslate"><span class="pre">files</span></code> which
+copies over files that the user manually selects within a directory.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">======================= Select Data Files or Directory =======================</span>
+<span class="go">Options</span>
+<span class="go">-------</span>
+<span class="go">[&#39;directory&#39;, &#39;recursive directory&#39;, &#39;files&#39;]</span>
+<span class="go">==============================================================================</span>
+
+<span class="go">Enter how to select reference datasets from the list of options above: files</span>
+
+<span class="go">Select data sets by files</span>
+
+<span class="go">Confirm entry [y/n]: y</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p><strong>5. Copying Data files</strong></p>
 <blockquote>
 <div><p>Once the user selects an option for indicating how data files should be located
 and confirms the entry, a subsequent section in the console will prompt the user to
@@ -1262,7 +1186,7 @@ where the copied datasets will be saved.</p>
 </pre></div>
 </div>
 </div></blockquote>
-<p><strong>5. Pre-processing AirNowTech Datasets</strong></p>
+<p><strong>6. Pre-processing AirNowTech Datasets</strong></p>
 <blockquote>
 <div><p>The local AirNowTech files that the user selected in the previous step are
 imported and processed versions of these datasets are ingested into the SDFS
@@ -1282,7 +1206,7 @@ the AQS ID for the site assigned in step 2 (if applicable).</p>
 </pre></div>
 </div>
 </div></blockquote>
-<p><strong>6. Saving the Setup Configuration to</strong> <code class="docutils literal notranslate"><span class="pre">setup.json</span></code></p>
+<p><strong>7. Saving the Setup Configuration to</strong> <code class="docutils literal notranslate"><span class="pre">setup.json</span></code></p>
 <blockquote>
 <div><p>The Setup module will automatically save the setup configuration
 to a <code class="docutils literal notranslate"><span class="pre">reference_setup.json</span></code> file at the indicated directory location:</p>
@@ -1295,8 +1219,8 @@ to a <code class="docutils literal notranslate"><span class="pre">reference_setu
 </div>
 </div></blockquote>
 </div>
-<input id="b5273174-0a30-4ade-bb78-d4df363e2bd2" name="9f62269c-d111-464c-b110-a735b5a2e62a" type="radio">
-</input><label class="tabbed-label" for="b5273174-0a30-4ade-bb78-d4df363e2bd2">
+<input id="d8bf799e-ce1b-415c-a410-1797bf0c82b2" name="364655af-6417-4b3a-8fde-19bc78c2766a" type="radio">
+</input><label class="tabbed-label" for="d8bf799e-ce1b-415c-a410-1797bf0c82b2">
 AQS</label><div class="tabbed-content docutils">
 <p>The following steps below walk through the setup process. The example below
 describes the setup process for a reference data file downloaded from AQS
@@ -1403,8 +1327,8 @@ to a <code class="docutils literal notranslate"><span class="pre">reference_setu
 </div>
 </div></blockquote>
 </div>
-<input id="2f88aa58-fac6-48fa-85b0-4aa6983443e9" name="9f62269c-d111-464c-b110-a735b5a2e62a" type="radio">
-</input><label class="tabbed-label" for="2f88aa58-fac6-48fa-85b0-4aa6983443e9">
+<input id="db9d54ca-36c9-4b48-935d-9364d39dbbd0" name="364655af-6417-4b3a-8fde-19bc78c2766a" type="radio">
+</input><label class="tabbed-label" for="db9d54ca-36c9-4b48-935d-9364d39dbbd0">
 AirNow</label><div class="tabbed-content docutils">
 <p>The following steps below walk through the setup process. The example below
 describes the setup process for a reference data file downloaded from AirNow
@@ -1516,50 +1440,33 @@ to a <code class="docutils literal notranslate"><span class="pre">reference_setu
 
 
            </div>
-           
           </div>
-          <footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="load_data.html" class="btn btn-neutral float-right" title="Loading Reference Data" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="overview.html" class="btn btn-neutral float-left" title="ReferenceMonitor Instantiation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="load_data.html" class="btn btn-neutral float-right" title="Loading Reference Data" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>
-        &#169; Copyright 2021, Samuel Frederick.
-
-    </p>
+    <p>&#169; Copyright 2021, Samuel Frederick.</p>
   </div>
-    
-    
-    
-    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
 
 </footer>
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>

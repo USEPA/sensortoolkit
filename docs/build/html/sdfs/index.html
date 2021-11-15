@@ -1,82 +1,41 @@
-
-
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" />
-  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
-  <title>sensortoolkit Data Formatting Scheme (SDFS) &mdash; sensortoolkit 0.6.0b4 documentation</title>
-  
-
-  
-  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" type="text/css" />
-
-  
-  
-
-  
-  
-
-  
-
-  
+  <title>sensortoolkit Data Formatting Scheme (SDFS) &mdash; sensortoolkit 0.6.0b14 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
         <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    
-    <script type="text/javascript" src="../_static/js/theme.js"></script>
-
-    
+    <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="sensortoolkit API" href="../api/index.html" />
     <link rel="prev" title="Performance Evaluation Data Structures" href="../data_structures/eval_structs.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-          
-
-          
             <a href="../index.html" class="icon icon-home"> sensortoolkit
-          
-
-          
           </a>
-
-          
-            
-            
               <div class="version">
-                0.6.0b4
+                0.6.0b14
               </div>
-            
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
@@ -84,18 +43,7 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Documentation Overview</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../install.html">Installation</a></li>
@@ -120,6 +68,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../evaluation_objects/index.html">Evaluation Objects</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../evaluation_objects/sensoreval/index.html">Conducting Analysis - The SensorEvaluation Class</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../evaluation_objects/sensoreval/plotting.html">Plotting Methods</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../evaluation_objects/sensoreval/printing.html">Descriptive Summary Methods</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../evaluation_objects/sensoreval/statistic.html">Statistical Methods</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../evaluation_objects/performancereport.html">Creating Testing Reports - The PerformanceReport Class</a></li>
@@ -275,7 +225,6 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../api/_autosummary/sensortoolkit.lib_utils._setup.html">sensortoolkit.lib_utils._setup</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../api/_autosummary/sensortoolkit.lib_utils._setup.displayMethods.html">sensortoolkit.lib_utils._setup.displayMethods</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../api/_autosummary/sensortoolkit.lib_utils._setup.ReferenceSetup.html">sensortoolkit.lib_utils._setup.ReferenceSetup</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../api/_autosummary/sensortoolkit.lib_utils._setup.SensorSetup.html">sensortoolkit.lib_utils._setup.SensorSetup</a></li>
 </ul>
@@ -318,10 +267,6 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../api/_autosummary/sensortoolkit.plotting._errorbars.html">sensortoolkit.plotting._errorbars</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../api/_autosummary/sensortoolkit.plotting._errorbars.error_bars.html">sensortoolkit.plotting._errorbars.error_bars</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../api/_autosummary/sensortoolkit.plotting._intrasensor_comparison.html">sensortoolkit.plotting._intrasensor_comparison</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../api/_autosummary/sensortoolkit.plotting._intrasensor_comparison.compare_sensors.html">sensortoolkit.plotting._intrasensor_comparison.compare_sensors</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../api/_autosummary/sensortoolkit.plotting._performance_metrics.html">sensortoolkit.plotting._performance_metrics</a><ul>
@@ -430,73 +375,32 @@
 </li>
 </ul>
 
-            
-          
         </div>
-        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../index.html">sensortoolkit</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
       <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-        
       <li>sensortoolkit Data Formatting Scheme (SDFS)</li>
-    
-    
       <li class="wy-breadcrumbs-aside">
-        
-          
             <a href="../_sources/sdfs/index.rst.txt" rel="nofollow"> View page source</a>
-          
-        
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
+             
   <section id="sensortoolkit-data-formatting-scheme-sdfs">
-<h1>sensortoolkit Data Formatting Scheme (SDFS)<a class="headerlink" href="#sensortoolkit-data-formatting-scheme-sdfs" title="Permalink to this headline">¶</a></h1>
+<h1>sensortoolkit Data Formatting Scheme (SDFS)<a class="headerlink" href="#sensortoolkit-data-formatting-scheme-sdfs" title="Permalink to this headline"></a></h1>
 <p>Sensor and reference data are often presented in a wide range of formats. This
 can present challenges when analyzing datasets, as differences in formatting may
 require different scripting approaches. Converting both sensor and reference
@@ -517,18 +421,19 @@ Setup for more information on importing and processing reference monitor data.</
 </div>
 <p>SDFS datasets for sensor and reference measurements differ slightly, however,
 all SDFS datasets share a common organizational structure. The dataset index,
-named “DateTime”, is a timeseries index containing successive timestamps in
-ISO8601 format. Timestamps and corresponding measurement entries are presented
-in ascending format (i.e., the head of datasets display the oldest entries, and
+named <code class="docutils literal notranslate"><span class="pre">DateTime</span></code>, is a timeseries index containing successive timestamps in
+<a class="reference external" href="https://www.iso.org/iso-8601-date-and-time-format.html">ISO 8601</a> format.
+Timestamps and corresponding measurement entries are presented in ascending
+format (i.e., the head of datasets display the oldest entries, and
 the tail of datasets contain the newest entries).</p>
 <p>Quantities that are measured by an air sensor or reference monitor continuously
 and at a configured sampling frequency are referred to as Parameters. These may
 be environmental/meteorological conditions (e.g., temperature, relative
-humidity, wind speed, etc.) or pollutant concentrations (PM2.5, O3, etc.). The
-following naming convention is used for naming columns that are associated with
-parameter quantities or data:</p>
+humidity, wind speed, etc.) or pollutant concentrations (<span class="raw-html">PM<sub>2.5</sub></span>,
+<span class="raw-html">O<sub>3</sub></span>, etc.). The following naming convention is used for
+naming columns that are associated with parameter quantities or data:</p>
 <table class="colwidths-auto docutils align-default" id="id1">
-<caption><span class="caption-text"><cite>Table of SDFS Parameters</cite></span><a class="headerlink" href="#id1" title="Permalink to this table">¶</a></caption>
+<caption><span class="caption-text"><cite>Table of SDFS Parameters</cite></span><a class="headerlink" href="#id1" title="Permalink to this table"></a></caption>
 <thead>
 <tr class="row-odd"><th class="head"><p>Parameter Name</p></th>
 <th class="head"><p>SDFS Label</p></th>
@@ -538,19 +443,19 @@ parameter quantities or data:</p>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(PM_{1}\)</span> (particulate matter &lt; 1 micrometer in aerosol diameter)</p></td>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(PM_{1}\)</span> <br /> (particulate matter &lt; 1 <br /> micrometer in aerosol diameter)</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">PM1</span></code></p></td>
 <td><p><span class="math notranslate nohighlight">\(\mu g/m^3\)</span></p></td>
 <td><p>PM</p></td>
 <td></td>
 </tr>
-<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(PM_{2.5}\)</span> (particulate matter &lt; 2.5 micrometers in aerosol diameter)</p></td>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(PM_{2.5}\)</span> <br /> (particulate matter &lt; 2.5 <br /> micrometers in aerosol diameter)</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">PM25</span></code></p></td>
 <td><p><span class="math notranslate nohighlight">\(\mu g/m^3\)</span></p></td>
 <td><p>PM</p></td>
 <td><p>Criteria Pollutant</p></td>
 </tr>
-<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(PM_{10}\)</span>  (particulate matter &lt; 10 micrometers in aerosol diameter)</p></td>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(PM_{10}\)</span> <br /> (particulate matter &lt; 10 <br /> micrometers in aerosol diameter)</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">PM10</span></code></p></td>
 <td><p><span class="math notranslate nohighlight">\(\mu g/m^3\)</span></p></td>
 <td><p>PM</p></td>
@@ -616,7 +521,7 @@ parameter quantities or data:</p>
 <td><p>Met</p></td>
 <td></td>
 </tr>
-<tr class="row-odd"><td><p>Dewpoint</p></td>
+<tr class="row-odd"><td><p>Dew point</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">DP</span></code></p></td>
 <td><p>Degrees Celsius</p></td>
 <td><p>Met</p></td>
@@ -664,7 +569,7 @@ parameter quantities or data:</p>
 <td></td>
 <td><p>Siting Metadata</p></td>
 </tr>
-<tr class="row-odd"><td><p>Parameter data normalized by corresponding reference</p></td>
+<tr class="row-odd"><td><p>Parameter data normalized <br /> by corresponding reference</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">[param</span> <span class="pre">name]_Normalized</span></code></p></td>
 <td><p>N/a</p></td>
 <td><p>Performance evaluation</p></td>
@@ -683,7 +588,7 @@ following way:</p>
 <figure class="align-center" id="id2">
 <img alt="../_images/SDFS_param_org.png" src="../_images/SDFS_param_org.png" />
 <figcaption>
-<p><span class="caption-text">Grouping of parameter columns in SDFS datasets.</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
+<p><span class="caption-text">Grouping of parameter columns in SDFS datasets.</span><a class="headerlink" href="#id2" title="Permalink to this image"></a></p>
 </figcaption>
 </figure>
 <p>A noted previously, reference datasets differ slightly in their presentation.
@@ -693,7 +598,7 @@ quality control flags and a description of the reference method used to collect
 the parameter measurements. Below is a list of parameter columns included in
 reference datasets:</p>
 <table class="colwidths-given docutils align-default" id="id3">
-<caption><span class="caption-text">Parameter columns for SDFS reference datasets</span><a class="headerlink" href="#id3" title="Permalink to this table">¶</a></caption>
+<caption><span class="caption-text">Parameter columns for SDFS reference datasets</span><a class="headerlink" href="#id3" title="Permalink to this table"></a></caption>
 <colgroup>
 <col style="width: 40%" />
 <col style="width: 60%" />
@@ -711,7 +616,9 @@ reference datasets:</p>
 <td><p>Parameter units of measure</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">[parameter]_QAQC_Code</span></code></p></td>
-<td><p>Quality assurance/quality control flags assigned either by the agency overseeing the FRM/FEM instrumentation at the monitoring site or assigned during user analysis</p></td>
+<td><p>Quality assurance/quality control flags assigned either by the agency <br />
+overseeing the FRM/FEM instrumentation at the monitoring site or <br />
+assigned during user analysis</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">[parameter]_Param_Code</span></code></p></td>
 <td><p>Air Quality System (AQS) parameter code</p></td>
@@ -723,7 +630,8 @@ reference datasets:</p>
 <td><p>Air Quality System (AQS) method code for FRM/FEM</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">[parameter]_Method_POC</span></code></p></td>
-<td><p>Method parameter occurrence code (May be &gt; 1 if multiple FRM/FEM instruments measuring the same parameter at the monitoring site)</p></td>
+<td><p>Method parameter occurrence code (May be &gt; 1 if multiple FRM/FEM <br />
+instruments measuring the same parameter at the monitoring site)</p></td>
 </tr>
 </tbody>
 </table>
@@ -733,7 +641,7 @@ the location of the sensor or reference monitor. Measurements are assumed to be
 collected at an ambient, outdoor, fixed site monitoring station, and the
 following columns are included for cataloging these siting attributes:</p>
 <table class="colwidths-given docutils align-default" id="id4">
-<caption><span class="caption-text">Siting metadata columns for SDFS reference datasets</span><a class="headerlink" href="#id4" title="Permalink to this table">¶</a></caption>
+<caption><span class="caption-text">Siting metadata columns for SDFS reference datasets</span><a class="headerlink" href="#id4" title="Permalink to this table"></a></caption>
 <colgroup>
 <col style="width: 40%" />
 <col style="width: 60%" />
@@ -745,7 +653,8 @@ following columns are included for cataloging these siting attributes:</p>
 </thead>
 <tbody>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Agency</span></code></p></td>
-<td><p>Agency overseeing the ambient air monitoring site and FRM/FEM instrumentation</p></td>
+<td><p>Agency overseeing the ambient air monitoring site and FRM/FEM <br />
+instrumentation</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Site_Name</span></code></p></td>
 <td><p>Name of the ambient air monitoring site</p></td>
@@ -767,54 +676,259 @@ following columns are included for cataloging these siting attributes:</p>
 </tr>
 </tbody>
 </table>
+<section id="example-sdfs-datasets">
+<h2>Example SDFS Datasets<a class="headerlink" href="#example-sdfs-datasets" title="Permalink to this headline"></a></h2>
+<p class="centered">
+<strong><strong>Sensor SDFS Dataset</strong></strong></p><table class="colwidths-auto docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>DateTime</p></th>
+<th class="head"><p>PM25_Value</p></th>
+<th class="head"><p>PM25_Unit</p></th>
+<th class="head"><p>O3_Value</p></th>
+<th class="head"><p>O3_Unit</p></th>
+<th class="head"><p>NO2_Value</p></th>
+<th class="head"><p>NO2_Unit</p></th>
+<th class="head"><p>Temp_Value</p></th>
+<th class="head"><p>Temp_Unit</p></th>
+<th class="head"><p>RH_Value</p></th>
+<th class="head"><p>RH_Unit</p></th>
+<th class="head"><p>DP_Value</p></th>
+<th class="head"><p>DP_Unit</p></th>
+<th class="head"><p>DP_Calculated_Value</p></th>
+<th class="head"><p>DP_Calculated_Unit</p></th>
+<th class="head"><p>Normalized_PM25_Value</p></th>
+<th class="head"><p>Normalized_PM25_Units</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>2019-08-01 12:00:00+00:00</p></td>
+<td><p>5.79</p></td>
+<td><p>Micrograms per Cubic Meter</p></td>
+<td><p>10.7</p></td>
+<td><p>Parts per Billion</p></td>
+<td><p>-2.64</p></td>
+<td><p>Parts per Billion</p></td>
+<td><p>26.1</p></td>
+<td><p>Degrees Celsius</p></td>
+<td><p>89.12</p></td>
+<td><p>Percent</p></td>
+<td><p>24.14</p></td>
+<td><p>Degrees Celsius</p></td>
+<td><p>24.16</p></td>
+<td><p>Degrees Celsius</p></td>
+<td><p>0.63</p></td>
+<td><p>None</p></td>
+</tr>
+<tr class="row-odd"><td><p>2019-08-01 13:00:00+00:00</p></td>
+<td><p>7.33</p></td>
+<td><p>Micrograms per Cubic Meter</p></td>
+<td><p>23.89</p></td>
+<td><p>Parts per Billion</p></td>
+<td><p>-12.47</p></td>
+<td><p>Parts per Billion</p></td>
+<td><p>30.53</p></td>
+<td><p>Degrees Celsius</p></td>
+<td><p>70.67</p></td>
+<td><p>Percent</p></td>
+<td><p>24.56</p></td>
+<td><p>Degrees Celsius</p></td>
+<td><p>24.6</p></td>
+<td><p>Degrees Celsius</p></td>
+<td><p>0.81</p></td>
+<td><p>None</p></td>
+</tr>
+<tr class="row-even"><td><p>2019-08-01 14:00:00+00:00</p></td>
+<td><p>8.4</p></td>
+<td><p>Micrograms per Cubic Meter</p></td>
+<td><p>40.13</p></td>
+<td><p>Parts per Billion</p></td>
+<td><p>-17.27</p></td>
+<td><p>Parts per Billion</p></td>
+<td><p>34.25</p></td>
+<td><p>Degrees Celsius</p></td>
+<td><p>59.75</p></td>
+<td><p>Percent</p></td>
+<td><p>25.27</p></td>
+<td><p>Degrees Celsius</p></td>
+<td><p>25.3</p></td>
+<td><p>Degrees Celsius</p></td>
+<td><p>0.83</p></td>
+<td><p>None</p></td>
+</tr>
+<tr class="row-odd"><td><p>2019-08-01 15:00:00+00:00</p></td>
+<td><p>10.05</p></td>
+<td><p>Micrograms per Cubic Meter</p></td>
+<td><p>55.87</p></td>
+<td><p>Parts per Billion</p></td>
+<td><p>-20.84</p></td>
+<td><p>Parts per Billion</p></td>
+<td><p>36.73</p></td>
+<td><p>Degrees Celsius</p></td>
+<td><p>50.22</p></td>
+<td><p>Percent</p></td>
+<td><p>24.67</p></td>
+<td><p>Degrees Celsius</p></td>
+<td><p>24.69</p></td>
+<td><p>Degrees Celsius</p></td>
+<td><p>0.82</p></td>
+<td><p>None</p></td>
+</tr>
+<tr class="row-even"><td><p>2019-08-01 16:00:00+00:00</p></td>
+<td><p>12.03</p></td>
+<td><p>Micrograms per Cubic Meter</p></td>
+<td><p>61.14</p></td>
+<td><p>Parts per Billion</p></td>
+<td><p>-15.42</p></td>
+<td><p>Parts per Billion</p></td>
+<td><p>37.62</p></td>
+<td><p>Degrees Celsius</p></td>
+<td><p>47.04</p></td>
+<td><p>Percent</p></td>
+<td><p>24.4</p></td>
+<td><p>Degrees Celsius</p></td>
+<td><p>24.41</p></td>
+<td><p>Degrees Celsius</p></td>
+<td><p>0.87</p></td>
+<td><p>None</p></td>
+</tr>
+</tbody>
+</table>
+<hr class="docutils" />
+<p class="centered">
+<strong><strong>Reference SDFS Dataset</strong></strong></p><table class="colwidths-auto docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>DateTime</p></th>
+<th class="head"><p>PM25_Value</p></th>
+<th class="head"><p>PM25_Unit</p></th>
+<th class="head"><p>PM25_QAQC_Code</p></th>
+<th class="head"><p>PM25_Param_Code</p></th>
+<th class="head"><p>PM25_Method</p></th>
+<th class="head"><p>PM25_Method_Code</p></th>
+<th class="head"><p>PM25_Method_POC</p></th>
+<th class="head"><p>Agency</p></th>
+<th class="head"><p>Site_Name</p></th>
+<th class="head"><p>Site_AQS</p></th>
+<th class="head"><p>Site_Lat</p></th>
+<th class="head"><p>Site_Lon</p></th>
+<th class="head"><p>Data_Source</p></th>
+<th class="head"><p>Data_Acquisition_Date_Time</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>2019-08-01 05:00:00+00:00</p></td>
+<td><p>9.9</p></td>
+<td><p>Micrograms per Cubic Meter</p></td>
+<td><p>0</p></td>
+<td><p>88101</p></td>
+<td><p>T-API T640X at 16.67 LPM</p></td>
+<td><p>238</p></td>
+<td><p>1</p></td>
+<td><p>OAQPS</p></td>
+<td><p>Burdens Creek</p></td>
+<td><p>37-063-0099</p></td>
+<td><p>35.89</p></td>
+<td><p>-78.87</p></td>
+<td><p>AirNowTech</p></td>
+<td><p>10/21/2021 9:47</p></td>
+</tr>
+<tr class="row-odd"><td><p>2019-08-01 06:00:00+00:00</p></td>
+<td><p>10.4</p></td>
+<td><p>Micrograms per Cubic Meter</p></td>
+<td><p>0</p></td>
+<td><p>88101</p></td>
+<td><p>T-API T640X at 16.67 LPM</p></td>
+<td><p>238</p></td>
+<td><p>1</p></td>
+<td><p>OAQPS</p></td>
+<td><p>Burdens Creek</p></td>
+<td><p>37-063-0099</p></td>
+<td><p>35.89</p></td>
+<td><p>-78.87</p></td>
+<td><p>AirNowTech</p></td>
+<td><p>10/21/2021 9:47</p></td>
+</tr>
+<tr class="row-even"><td><p>2019-08-01 07:00:00+00:00</p></td>
+<td><p>10.4</p></td>
+<td><p>Micrograms per Cubic Meter</p></td>
+<td><p>0</p></td>
+<td><p>88101</p></td>
+<td><p>T-API T640X at 16.67 LPM</p></td>
+<td><p>238</p></td>
+<td><p>1</p></td>
+<td><p>OAQPS</p></td>
+<td><p>Burdens Creek</p></td>
+<td><p>37-063-0099</p></td>
+<td><p>35.89</p></td>
+<td><p>-78.87</p></td>
+<td><p>AirNowTech</p></td>
+<td><p>10/21/2021 9:47</p></td>
+</tr>
+<tr class="row-odd"><td><p>2019-08-01 08:00:00+00:00</p></td>
+<td><p>10.5</p></td>
+<td><p>Micrograms per Cubic Meter</p></td>
+<td><p>0</p></td>
+<td><p>88101</p></td>
+<td><p>T-API T640X at 16.67 LPM</p></td>
+<td><p>238</p></td>
+<td><p>1</p></td>
+<td><p>OAQPS</p></td>
+<td><p>Burdens Creek</p></td>
+<td><p>37-063-0099</p></td>
+<td><p>35.89</p></td>
+<td><p>-78.87</p></td>
+<td><p>AirNowTech</p></td>
+<td><p>10/21/2021 9:47</p></td>
+</tr>
+<tr class="row-even"><td><p>2019-08-01 09:00:00+00:00</p></td>
+<td><p>10.5</p></td>
+<td><p>Micrograms per Cubic Meter</p></td>
+<td><p>0</p></td>
+<td><p>88101</p></td>
+<td><p>T-API T640X at 16.67 LPM</p></td>
+<td><p>238</p></td>
+<td><p>1</p></td>
+<td><p>OAQPS</p></td>
+<td><p>Burdens Creek</p></td>
+<td><p>37-063-0099</p></td>
+<td><p>35.89</p></td>
+<td><p>-78.87</p></td>
+<td><p>AirNowTech</p></td>
+<td><p>10/21/2021 9:47</p></td>
+</tr>
+</tbody>
+</table>
+</section>
 </section>
 
 
            </div>
-           
           </div>
-          <footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="../api/index.html" class="btn btn-neutral float-right" title="sensortoolkit API" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="../data_structures/eval_structs.html" class="btn btn-neutral float-left" title="Performance Evaluation Data Structures" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../api/index.html" class="btn btn-neutral float-right" title="sensortoolkit API" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>
-        &#169; Copyright 2021, Samuel Frederick.
-
-    </p>
+    <p>&#169; Copyright 2021, Samuel Frederick.</p>
   </div>
-    
-    
-    
-    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
 
 </footer>
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>
