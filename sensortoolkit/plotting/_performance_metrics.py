@@ -79,13 +79,13 @@ def performance_metrics(stats_df, deploy_dict, param=None,
     :param str mean_marker:
         DESCRIPTION
     :param figure_width:
-        DESCRIPTION
+        The width of the figure in inches. Defaults to .
     :type figure_width: int or float
     :param figure_height:
-        DESCRIPTION
+        The height of the figure in inches. Defaults to 3.9.
     :type figure_height: int or float
     :param R^2_ylims:
-        The y-limits (ymin, ymax) for the metric subplot.
+        The y-limits (ymin, ymax) for the metric subplot 15.7.
     :type R^2_ylims: Two-element tuple of floats
     :param Slope_ylims:
         The y-limits (ymin, ymax) for the metric subplot.
@@ -211,11 +211,13 @@ def performance_metrics(stats_df, deploy_dict, param=None,
         y-max coordinate position).
     :type SD_box_dims: Four-element tuple
     :param str hline_color:
-        DESCRIPTION
+        Set the color of horizontal lines indicating the target value for metric
+        subplots. Defaults to #8b8b8b (light gray).
     :param str box_facecolor:
-        DESCRIPTION
+        Set the color of boxes indicating the target range for each metric
+        subplot. Defaults to #8b8b8b (light gray).
     :param font_scale:
-        DESCRIPTION
+        Set the size and scale of the font elements in the figure.
     :type font_scale: int or str
     :param float fig_wspace:
         Modify the width of padding between subplots. Passed to

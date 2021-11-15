@@ -57,7 +57,7 @@ def draw_scatter(ax, xdata, ydata, param_dict, sensor_stats=None,
         fontsize (int):
             Selects the fontsize of regression statistics
         detail_fontsize (int or float):
-            Fontsize for axes tick labels
+            Fontsize for axes tick labels and smaller plotting text elements.
         param (str):
             The name of the parameter for which measurements will be plotted.
         plot_regression (bool):
@@ -361,23 +361,27 @@ def scatter_plotter(df_list, ref_df, stats_df=None, plot_subset=None,
 
     :param str color_palette:
         Color palette assigned to relative-humidity colormapped scatter
-        plot points
-    :param TYPE colorbar_axespos:
-        DEFINITION
+        plot points. Defaults to ``'seismic'``.
+    :param colorbar_axespos:
+        Set the position of the colorbar axes object relative to the Matplotlib
+        Figure coordinates. Four element tuple composed of (left-most
+        x-coordinate, bottom-most y-coordinate, width, height) of the colobar
+        axes object.
+    :type colorbar_axespos: Four-element tuple
     :param str colorbar_orientation:
-        DEFINITION
+        DESCRIPTION
     :param TYPE colorbar_title_fontsize:
-        DEFINITION
+        DESCRIPTION
     :param TYPE colorbar_title_ypos:
-        DEFINITION
+        DESCRIPTION
     :param TYPE colorbar_tick_labelsize:
-        DEFINITION
+        DESCRIPTION
     :param TYPE colorbar_tick_length:
-        DEFINITION
+        DESCRIPTION
     :param TYPE colorbar_tick_width:
-        DEFINITION
+        DESCRIPTION
     :param bool draw_cbar:
-        DEFINITION
+        DESCRIPTION
     :param float fig_wspace:
         Modify the width of padding between subplots. Passed to
         ``Matplotlib.subplots.subplots_adjust()`` ``'wspace'`` argument.
@@ -407,8 +411,8 @@ def scatter_plotter(df_list, ref_df, stats_df=None, plot_subset=None,
         using monocolor if show_colorbar is False. Recommend #2251D0 (nice
         blue hue).
     :type monocolor: str, passed to Draw_Scatter()
-    :param detail_fontsize:
-        DEFINITION
+    :param float detail_fontsize:
+        Fontsize for axes tick labels and smaller plotting text elements.
     :param point_size:
         The size of the scatter points. Defaults to 20.
     :type point_size: int or float, passed to Draw_Scatter()
@@ -453,9 +457,11 @@ def scatter_plotter(df_list, ref_df, stats_df=None, plot_subset=None,
         'bottom_right'.
     :type plottext_position: TYPE, passed to Draw_Scatter()
     :param str ref_name:
-        DEFINITION
+        The name of the reference monitor (make, model).
     :param str seaborn_style:
-        DEFINITION
+        Seaborn plotting style for plots. Options include
+        ``['darkgrid', 'whitegrid', 'dark', 'white', 'ticks']``. Defaults to
+        ``'darkgrid'``.
     :param bool show_colorbar:
         If true, relative humidity values will be used as a colormap on the
         scatterplot points.
@@ -487,15 +493,15 @@ def scatter_plotter(df_list, ref_df, stats_df=None, plot_subset=None,
     :param bool tight_layout:
         Passed to matplotlib's ``fig.tight_layout()`` for narrow formatting
     :param TYPE tick_spacing:
-        DEFINITION
-    :param TYPE title_text:
-        DEFINITION
+        DESCRIPTION
+    :param str title_text:
+        DESCRIPTION
     :param TYPE title_textwrap:
-        DEFINITION
-    :param TYPE title_xloc:
-        DEFINITION
-    :param TYPE title_yloc:
-        DEFINITION
+        DESCRIPTION
+    :param float title_xloc:
+        The center horizontal Matplotlib Axes location of the plot title.
+    :param float title_yloc:
+        The center vertical Matplotlib Axes location of the plot title.
     :param trendline_xmax:
         The draw distance (based on the passed x-coordinate) of the OLS
         trendline. Defaults to 120% the maximum of the independent variable.
@@ -1002,7 +1008,8 @@ def normalized_met_scatter(df_list, ref_df, avg_df, met_ref_df=None,
         The fontsize of plot titles and labels. Defaults to 12.
     :type fontsize: int or float, passed to Draw_Scatter()
     :param detail_fontsize:
-        Fontsize for axes tick labels. Defaults to 10.
+        Fontsize for axes tick labels and smaller plotting text elements.
+        Defaults to 10.
     :type detail_fontsize: int or float, passed to Draw_Scatter()
     :param TYPE subplot_adjust:
         DESCRIPTION. Defaults to None.

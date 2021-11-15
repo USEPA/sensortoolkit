@@ -101,7 +101,7 @@ def sensor_timeplot(df_list, ref_df, param=None, sensor_name=None,
         The scaling for the y-axis. Accepted values include 'linear',
         'log', 'symlog', 'logit', etc.
     :param ylims:
-        The y-limits of the plot
+        Set the y-limits of the plot.
     :type ylims: Two-element tuple of floats or ints
     :param bool format_xaxis_weeks:
         Plot the timeseries x-axis (time) in increments of 1 week. Defaults
@@ -154,12 +154,12 @@ def sensor_timeplot(df_list, ref_df, param=None, sensor_name=None,
         The x and y coordinate of center of the legend (relative to the axes
         object coordinates).
     :type legend_loc: Two-element tuple
-    :param TYPE sensor_colors:
-        Default set by chosen colormap (cmap_name) and the normalized range
-        for the colormap.
+    :param list sensor_colors:
+        Set the list of colors for drawing sensor line plots. Default set by
+        chosen colormap (cmap_name) and the normalized range for the colormap.
     :param float sensor_linealpha:
         The transparency of the lines indicating sensor measurements. Defaults
-        to 0.70
+        to 0.70.
     :param float sensor_linewidth:
         The width (thickness) of the lines indicating sensor measurements.
         Defaults to 1.5.
@@ -171,10 +171,10 @@ def sensor_timeplot(df_list, ref_df, param=None, sensor_name=None,
         to 'k'.
     :param float ref_linealpha:
         The transparency of the line indicating reference measurements.
-        Defaults to 0.97
+        Defaults to 0.97.
     :param float ref_linewidth:
         The width (thickness) of the line indicating reference measurements.
-        Defaults to 1.5
+        Defaults to 1.5.
     :param str ref_linestyle:
         The style of the lines indicating reference measurements. Passed
         to matplotlib linestyles. Defaults to '-'.
@@ -187,7 +187,7 @@ def sensor_timeplot(df_list, ref_df, param=None, sensor_name=None,
     :param subplots_adjust:
         Modify the bounds of the subplot [x-min, x-max, y-max, y-min]. If
         unique_ax_obj is True, defaults to (0.05, 0.9, 0.90, 0.15).
-    :type subplots_adjust: Four-element tuple
+    :type subplots_adjust: Four-element tuple.
 
     Returns:
         ax (matplotlib axes object):
