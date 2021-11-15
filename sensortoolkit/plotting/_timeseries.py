@@ -129,16 +129,30 @@ def sensor_timeplot(df_list, ref_df, param=None, sensor_name=None,
         If true, display the title for the figure. Defaults to True.
     :param str filename_suffix:
         Optional string added to end of filename. Defaults to empty string.
-    :param TYPE box_xscale:
-        DESCRIPTION. Defaults to
-    :param TYPE box_yscale:
-        DESCRIPTION. Defaults to
-    :param TYPE box_wscale:
-        DESCRIPTION. Defaults to
-    :param TYPE box_hscale:
-        DESCRIPTION. Defaults to
-    :param TYPE legend_loc:
-        DESCRIPTION. Defaults to
+    :param float box_xscale:
+        Scalar value for translating the x-coordinates of the Matplotlib
+        axes object box in which the plot is drawn. Passed to the
+        ``Matplotlib.Axes.set_position()`` method for adjusting the axes
+        box dimensions relative to the Matplotlib figure coordinates.
+    :param float box_yscale:
+        Scalar value for translating the y-coordinates of the Matplotlib
+        axes object box in which the plot is drawn. Passed to the
+        ``Matplotlib.Axes.set_position()`` method for adjusting the axes
+        box dimensions relative to the Matplotlib figure coordinates.
+    :param float box_wscale:
+        Scalar value for transforming the x-range (width) of the Matplotlib
+        axes object box in which the plot is drawn. Passed to the
+        ``Matplotlib.Axes.set_position()`` method for adjusting the axes
+        box dimensions relative to the Matplotlib figure coordinates.
+    :param float box_hscale:
+        Scalar value for transforming the y-range (height) of the Matplotlib
+        axes object box in which the plot is drawn. Passed to the
+        ``Matplotlib.Axes.set_position()`` method for adjusting the axes
+        box dimensions relative to the Matplotlib figure coordinates.
+    :param legend_loc:
+        The x and y coordinate of center of the legend (relative to the axes
+        object coordinates).
+    :type legend_loc: Two-element tuple
     :param TYPE sensor_colors:
         Default set by chosen colormap (cmap_name) and the normalized range
         for the colormap.
@@ -166,10 +180,13 @@ def sensor_timeplot(df_list, ref_df, param=None, sensor_name=None,
     :param str date_format:
         The strftime format in which dates will be displayed along the x-axis
         if 'format_xaxis_weeks' is False. Defaults to "%m-%d-%y".
-    :param TYPE legend_fontsize:
-        DESCRIPTION. Defaults to
-    :param TYPE subplots_adjust:
-        DESCRIPTION. Defaults to
+    :param float legend_fontsize:
+        Value by which to scale the legend text font size relative to the value
+        of the fontsize argument. Defaults to 0.72.
+    :param subplots_adjust:
+        Modify the bounds of the subplot [x-min, x-max, y-max, y-min]. If
+        unique_ax_obj is True, defaults to (0.05, 0.9, 0.90, 0.15).
+    :type subplots_adjust: Four-element tuple
 
     Returns:
         ax (matplotlib axes object):
