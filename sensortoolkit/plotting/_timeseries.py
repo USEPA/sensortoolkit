@@ -107,8 +107,9 @@ def sensor_timeplot(df_list, ref_df, param=None, sensor_name=None,
         Plot the timeseries x-axis (time) in increments of 1 week. Defaults
         to False.
     :param fig_size:
-        Tuple for setting the figure size.
-    :type fig_size: Two-element tuple of floats or ints
+        The dimensions (width, height) in inches of the Matplotlib figure to
+        be drawn. Defaults to (16, 3.5).
+    :type fig_size: Two-element tuple
     :param fontsize int or float:
         The font size for the xlabel, ylabel, and plot text. Passed on to
         Draw_Scatter() which uses 0.85*font_size for tick labels.

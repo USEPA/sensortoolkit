@@ -218,17 +218,23 @@ def performance_metrics(stats_df, deploy_dict, param=None,
         DESCRIPTION
     :type font_scale: int or str
     :param float fig_wspace:
-        DESCRIPTION
+        Modify the width of padding between subplots. Passed to
+        ``Matplotlib.subplots.subplots_adjust()`` ``'wspace'`` argument.
     :param float fig_hspace:
-        DESCRIPTION
+        Modify the height of padding between subplots. Passed to
+        ``Matplotlib.subplots.subplots_adjust()`` ``'hspace'`` argument.
     :param float fig_left:
-        DESCRIPTION
+        Modify the left-most bounds of the figure. Passed to
+        ``Matplotlib.subplots.subplots_adjust()`` ``'left'`` argument.
     :param float fig_right:
-        DESCRIPTION
+        Modify the right-most bounds of the figure. Passed to
+        ``Matplotlib.subplots.subplots_adjust()`` ``'right'`` argument.
     :param float fig_top:
-        DESCRIPTION
+        Modify the upper-most bounds of the figure. Passed to
+        ``Matplotlib.subplots.subplots_adjust()`` ``'top'`` argument.
     :param float fig_bottom:
-        DESCRIPTION
+        Modify the lower-most bounds of the figure. Passed to
+        ``Matplotlib.subplots.subplots_adjust()`` ``'bottom'`` argument.
 
     Returns:
         None.

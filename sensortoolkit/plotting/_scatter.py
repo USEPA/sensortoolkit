@@ -376,21 +376,27 @@ def scatter_plotter(df_list, ref_df, stats_df=None, plot_subset=None,
         DEFINITION
     :param TYPE colorbar_tick_width:
         DEFINITION
-    :param TYPE draw_cbar:
+    :param bool draw_cbar:
         DEFINITION
-    :param TYPE fig_wspace:
-        DEFINITION
-    :param TYPE fig_hspace:
-        DEFINITION
-    :param TYPE fig_left:
-        DEFINITION
-    :param TYPE fig_right:
-        DEFINITION
-    :param TYPE fig_top:
-        DEFINITION
-    :param TYPE fig_bottom:
-        DEFINITION
-    :param TYPE filename_suffix:
+    :param float fig_wspace:
+        Modify the width of padding between subplots. Passed to
+        ``Matplotlib.subplots.subplots_adjust()`` ``'wspace'`` argument.
+    :param float fig_hspace:
+        Modify the height of padding between subplots. Passed to
+        ``Matplotlib.subplots.subplots_adjust()`` ``'hspace'`` argument.
+    :param float fig_left:
+        Modify the left-most bounds of the figure. Passed to
+        ``Matplotlib.subplots.subplots_adjust()`` ``'left'`` argument.
+    :param float fig_right:
+        Modify the right-most bounds of the figure. Passed to
+        ``Matplotlib.subplots.subplots_adjust()`` ``'right'`` argument.
+    :param float fig_top:
+        Modify the upper-most bounds of the figure. Passed to
+        ``Matplotlib.subplots.subplots_adjust()`` ``'top'`` argument.
+    :param float fig_bottom:
+        Modify the lower-most bounds of the figure. Passed to
+        ``Matplotlib.subplots.subplots_adjust()`` ``'bottom'`` argument.
+    :param str filename_suffix:
         Optional string added to end of filename. Defaults to empty string.
     :param fontsize:
         The font size for the xlabel, ylabel, and plot text. Passed on to
@@ -976,13 +982,17 @@ def normalized_met_scatter(df_list, ref_df, avg_df, met_ref_df=None,
     :param list point_colors:
         DESCRIPTION. Defaults to None.
     :param xlims:
-        DESCRIPTION. Defaults to None.
+        Set the x-limits of the plot. Defaults to None.
     :type xlims: Two-element tuple
     :param ylims:
-        DESCRIPTION. Defaults to None.
+        Set the y-limits of the plot. Defaults to None.
     :type ylims: Two-element tuple
     :param cmap_norm_range:
-        DESCRIPTION. Defaults to (0, 0.4).
+        A two-element tuple containing the normalized range of the colormap
+        values that will be displayed in the figure. The full range of the
+        selected colormap can be selected by passing (0, 1). Hues will
+        be selected at equally spaced intervals within the normalized
+        colormap range specified.  Defaults to (0, 0.4).
     :type cmap_norm_range: Two-element tuple
     :param cmap_name:
         The name of the colormap which the scatter plot will be assigned.
@@ -995,21 +1005,27 @@ def normalized_met_scatter(df_list, ref_df, avg_df, met_ref_df=None,
         Fontsize for axes tick labels. Defaults to 10.
     :type detail_fontsize: int or float, passed to Draw_Scatter()
     :param TYPE subplot_adjust:
-        DESCRIPTION.
-        Defaults to None.
+        DESCRIPTION. Defaults to None.
     :param bool show_errorbars:
-        Defaults to False.
+        If True, display errorbars (standard error) for normalized
+        sensor-reference measurement pairs. Defaults to False.
     :param bool show_legend:
-        Defaults to True.
+        If True, display the figure legend. Defaults to True.
     :param fig_size:
-        Defaults to (8, 4).
+        The dimensions (width, height) in inches of the Matplotlib figure to
+        be drawn. Defaults to (8, 4).
     :type fig_size: Two-element tuple
     :param int errorbar_nbins:
-        Defaults to 10.
+        The number of bins along the x-axis that data for the dependent variable
+        are grouped into and displayed error bars. Defaults to 10 (i.e., 10 error
+        bars equally spaced along the x-axis will be shown indicating the
+        standard error in the dependent variable).
     :param str errorbar_color:
-        Defaults to #151515.
-    :param TYPE legend_pos:
-        DESCRIPTION.
+        The color of the error bars drawn on the plot. Defaults to #151515.
+    :param legend_loc:
+        The x and y coordinate of center of the legend (relative to the axes
+        object coordinates).
+    :type legend_loc: Two-element tuple
 
     Returns:
         ax (Matplotlib Axes object):
@@ -1274,7 +1290,7 @@ def normalized_met_scatter(df_list, ref_df, avg_df, met_ref_df=None,
     # Legend position ---------------------------------------------------------
     if show_legend is True:
         ax.legend(legend_list, fontsize=legend_fontsize, loc=legend_loc,
-                  bbox_to_anchor=kwargs.get('legend_pos', legend_pos),
+                  bbox_to_anchor=kwargs.get('legend_loc', legend_pos),
                   ncol=leg_cols, columnspacing=col_spacing)
 
     # Write plot to file ------------------------------------------------------

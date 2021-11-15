@@ -154,7 +154,9 @@ def sensor_subplot_formatting(number_of_sensors, param_obj, report_fmt,
               subplots will be drawn.
             - **bottom** (*float*): The bottom-most (y-min) limits at which the
               subplots will be drawn.
-            - **filename_suffix** (*str*): DESCRIPTION.
+            - **filename_suffix** (*str*): A string indicating the number of
+              sensors for which subplots are drawn in the figure, added to 
+              filename when saving figure to png.
             - **cbar_padding** (*float*): DESCRIPTION.
             - **cbar_aspect** (*int* or *float*): DESCRIPTION.
             - **font_size** (*int* or *float*): DESCRIPTION.
