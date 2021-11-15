@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>sensortoolkit.qc._persistent_values &mdash; sensortoolkit 0.6.0b14 documentation</title>
+  <title>sensortoolkit.qc._persistent_values &mdash; sensortoolkit 0.6.1b1 documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" type="text/css" />
@@ -30,7 +30,7 @@
             <a href="../../../index.html" class="icon icon-home"> sensortoolkit
           </a>
               <div class="version">
-                0.6.0b14
+                0.6.1b1
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
@@ -398,7 +398,8 @@
   <h1>Source code for sensortoolkit.qc._persistent_values</h1><div class="highlight"><pre>
 <span></span><span class="c1"># -*- coding: utf-8 -*-</span>
 <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">Description.</span>
+<span class="sd">This module contains a method for flagging consecutive data values where the</span>
+<span class="sd">recorded value repeats multiple times.</span>
 
 <span class="sd">================================================================================</span>
 
@@ -423,34 +424,43 @@
 <span class="sd">    If invalidate is true, corresponding values will be set null (np.nan).</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        df (TYPE): DESCRIPTION.</span>
-<span class="sd">        param (TYPE): DESCRIPTION.</span>
-<span class="sd">        tolerance (TYPE, optional): The number of consecutive entries for</span>
-<span class="sd">        repeated/persistent values required to flag a data point. Defaults</span>
-<span class="sd">        to 3.</span>
-<span class="sd">        freq (TYPE, optional): DESCRIPTION. Defaults to &#39;H&#39;.</span>
-<span class="sd">        invalidate (TYPE, optional): DESCRIPTION. Defaults to False.</span>
+<span class="sd">        df (pandas DataFrame):</span>
+<span class="sd">            Dataset containing parameter data to check for repeating values.</span>
+<span class="sd">        param (str):</span>
+<span class="sd">            The name of the parameter to check for repeating values.</span>
+<span class="sd">        tolerance (int, optional):</span>
+<span class="sd">            The number of consecutive entries for repeated/persistent values</span>
+<span class="sd">            required to flag a data point. Defaults to 3.</span>
+<span class="sd">        freq (TYPE, optional):</span>
+<span class="sd">            The sampling frequency or averaging interval of the passed dataset,</span>
+<span class="sd">            expressed as a pandas offset alias (see a list here</span>
+<span class="sd">            https://pandas.pydata.org/pandas-docs/stable/user_guide/timeseries.html#offset-aliases).</span>
+<span class="sd">            Defaults to &#39;H&#39; for 1-hour averaged datasets.</span>
+<span class="sd">        invalidate (bool, optional):</span>
+<span class="sd">            If True, repeated entries will be set null (np.nan). Defaults to</span>
+<span class="sd">            False.</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        df (TYPE): DESCRIPTION.</span>
+<span class="sd">        df (pandas DataFrame):</span>
+<span class="sd">            Modified dataset with flagged entries for repeated data entries.</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">param</span> <span class="o">+</span> <span class="s1">&#39;_QAQC_Code&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">df</span><span class="p">:</span>
         <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="n">param</span> <span class="o">+</span> <span class="s1">&#39;_QAQC_Code&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
 
-    <span class="k">if</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="n">param</span><span class="p">]</span><span class="o">.</span><span class="n">diff</span><span class="p">()</span> <span class="o">==</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="n">param</span> <span class="o">+</span> <span class="s1">&#39;_Value&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">diff</span><span class="p">()</span> <span class="o">==</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
         <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;..not persistant values found for &#39;</span> <span class="o">+</span> <span class="n">param</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">df</span>
 
     <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;..flagging persistant values for &#39;</span> <span class="o">+</span> <span class="n">param</span><span class="p">)</span>
-    <span class="n">data</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">param</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span><span class="o">.</span><span class="n">to_frame</span><span class="p">()</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">param</span> <span class="o">+</span> <span class="s1">&#39;_Value&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span><span class="o">.</span><span class="n">to_frame</span><span class="p">()</span>
 
     <span class="c1"># take the difference between consequtive data points and shift n times</span>
     <span class="c1"># where n is the tolerance</span>
     <span class="n">window_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">tolerance</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">):</span>
         <span class="n">window_df</span><span class="p">[</span><span class="n">param</span> <span class="o">+</span> <span class="s1">&#39;_diff_&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)]</span> <span class="o">=</span> \
-            <span class="n">data</span><span class="p">[</span><span class="n">param</span><span class="p">]</span><span class="o">.</span><span class="n">diff</span><span class="p">()</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="n">freq</span><span class="p">)</span>
+            <span class="n">data</span><span class="p">[</span><span class="n">param</span> <span class="o">+</span> <span class="s1">&#39;_Value&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">diff</span><span class="p">()</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="n">freq</span><span class="p">)</span>
 
     <span class="n">window_df</span><span class="p">[</span><span class="s1">&#39;z_count&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">window_df</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 
@@ -459,7 +469,7 @@
     <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">flag_idx</span><span class="p">,</span> <span class="n">param</span> <span class="o">+</span> <span class="s1">&#39;_QAQC_Code&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>  <span class="c1"># temporary flag</span>
 
     <span class="k">if</span> <span class="n">invalidate</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
-        <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">flag_idx</span><span class="p">,</span> <span class="n">param</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+        <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">flag_idx</span><span class="p">,</span> <span class="n">param</span> <span class="o">+</span> <span class="s1">&#39;_Value&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
 
     <span class="k">return</span> <span class="n">df</span></div>
 </pre></div>

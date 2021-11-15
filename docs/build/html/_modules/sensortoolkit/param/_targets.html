@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>sensortoolkit.param._targets &mdash; sensortoolkit 0.6.0b14 documentation</title>
+  <title>sensortoolkit.param._targets &mdash; sensortoolkit 0.6.1b1 documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" type="text/css" />
@@ -30,7 +30,7 @@
             <a href="../../../index.html" class="icon icon-home"> sensortoolkit
           </a>
               <div class="version">
-                0.6.0b14
+                0.6.1b1
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
@@ -556,13 +556,19 @@
 <span class="sd">            metric_name (str):</span>
 <span class="sd">                The name of a new performance metric that will be added to</span>
 <span class="sd">                the indicated metric category.</span>
-<span class="sd">            **kwargs (dict):</span>
-<span class="sd">                Keyword arguments for specifying metric attributes. Accepted</span>
-<span class="sd">                keyword arguments include: &#39;description&#39; (a textual</span>
-<span class="sd">                description of the metric), &#39;bounds&#39; (the target range for</span>
-<span class="sd">                the metric), &#39;goal&#39; (the goal/ideal achievable performance</span>
-<span class="sd">                metric value), and &#39;metric_units&#39; (the units associated with</span>
-<span class="sd">                the metric if applicable).</span>
+
+<span class="sd">        **Keyword Arguments:**</span>
+
+<span class="sd">        :param str description:</span>
+<span class="sd">            A textual description of the metric.</span>
+<span class="sd">        :param bounds:</span>
+<span class="sd">            The target range (lower bound, upper bound) for the metric.</span>
+<span class="sd">        :type bounds: Two-element tuple</span>
+<span class="sd">        :param goal:</span>
+<span class="sd">            The goal/ideal achievable performance metric value.</span>
+<span class="sd">        :type goal: int or float</span>
+<span class="sd">        :param str metric_units:</span>
+<span class="sd">            The units associated with the metric (if applicable)</span>
 
 <span class="sd">        Raises:</span>
 <span class="sd">            KeyError: Raise if the passed metric category is not in the list</span>

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>sensortoolkit.plotting._timeseries &mdash; sensortoolkit 0.6.0b14 documentation</title>
+  <title>sensortoolkit.plotting._timeseries &mdash; sensortoolkit 0.6.1b1 documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" type="text/css" />
@@ -30,7 +30,7 @@
             <a href="../../../index.html" class="icon icon-home"> sensortoolkit
           </a>
               <div class="version">
-                0.6.0b14
+                0.6.1b1
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
@@ -499,14 +499,15 @@
 <span class="sd">        The scaling for the y-axis. Accepted values include &#39;linear&#39;,</span>
 <span class="sd">        &#39;log&#39;, &#39;symlog&#39;, &#39;logit&#39;, etc.</span>
 <span class="sd">    :param ylims:</span>
-<span class="sd">        The y-limits of the plot</span>
+<span class="sd">        Set the y-limits of the plot.</span>
 <span class="sd">    :type ylims: Two-element tuple of floats or ints</span>
 <span class="sd">    :param bool format_xaxis_weeks:</span>
 <span class="sd">        Plot the timeseries x-axis (time) in increments of 1 week. Defaults</span>
 <span class="sd">        to False.</span>
 <span class="sd">    :param fig_size:</span>
-<span class="sd">        Tuple for setting the figure size.</span>
-<span class="sd">    :type fig_size: Two-element tuple of floats or ints</span>
+<span class="sd">        The dimensions (width, height) in inches of the Matplotlib figure to</span>
+<span class="sd">        be drawn. Defaults to (16, 3.5).</span>
+<span class="sd">    :type fig_size: Two-element tuple</span>
 <span class="sd">    :param fontsize int or float:</span>
 <span class="sd">        The font size for the xlabel, ylabel, and plot text. Passed on to</span>
 <span class="sd">        Draw_Scatter() which uses 0.85*font_size for tick labels.</span>
@@ -515,8 +516,9 @@
 <span class="sd">        Relative scale of fontsize for text in the legend relative to label</span>
 <span class="sd">        text.</span>
 <span class="sd">    :param str cmap_name:</span>
-<span class="sd">        The name of the palette assigned to relative-humidity colormapped</span>
-<span class="sd">        scatter plot points</span>
+<span class="sd">        The name of the Matplotlib colormap that will be used when drawing</span>
+<span class="sd">        plot elements. Defaults to ``&#39;Set1&#39;``. A full list of colormaps is</span>
+<span class="sd">        can be found in the `Matplotlib documentation &lt;https://matplotlib.org/stable/gallery/color/colormap_reference.html&gt;`_</span>
 <span class="sd">    :param cmap_normrange:</span>
 <span class="sd">        Normalized range (0,1) for colormap hue selection. Limiting this</span>
 <span class="sd">        range to something like (0.1, 0.9) is useful when using colormaps</span>
@@ -527,22 +529,36 @@
 <span class="sd">        If true, display the title for the figure. Defaults to True.</span>
 <span class="sd">    :param str filename_suffix:</span>
 <span class="sd">        Optional string added to end of filename. Defaults to empty string.</span>
-<span class="sd">    :param TYPE box_xscale:</span>
-<span class="sd">        DESCRIPTION. Defaults to</span>
-<span class="sd">    :param TYPE box_yscale:</span>
-<span class="sd">        DESCRIPTION. Defaults to</span>
-<span class="sd">    :param TYPE box_wscale:</span>
-<span class="sd">        DESCRIPTION. Defaults to</span>
-<span class="sd">    :param TYPE box_hscale:</span>
-<span class="sd">        DESCRIPTION. Defaults to</span>
-<span class="sd">    :param TYPE legend_loc:</span>
-<span class="sd">        DESCRIPTION. Defaults to</span>
-<span class="sd">    :param TYPE sensor_colors:</span>
-<span class="sd">        Default set by chosen colormap (cmap_name) and the normalized range</span>
-<span class="sd">        for the colormap.</span>
+<span class="sd">    :param float box_xscale:</span>
+<span class="sd">        Scalar value for translating the x-coordinates of the Matplotlib</span>
+<span class="sd">        axes object box in which the plot is drawn. Passed to the</span>
+<span class="sd">        ``Matplotlib.Axes.set_position()`` method for adjusting the axes</span>
+<span class="sd">        box dimensions relative to the Matplotlib figure coordinates.</span>
+<span class="sd">    :param float box_yscale:</span>
+<span class="sd">        Scalar value for translating the y-coordinates of the Matplotlib</span>
+<span class="sd">        axes object box in which the plot is drawn. Passed to the</span>
+<span class="sd">        ``Matplotlib.Axes.set_position()`` method for adjusting the axes</span>
+<span class="sd">        box dimensions relative to the Matplotlib figure coordinates.</span>
+<span class="sd">    :param float box_wscale:</span>
+<span class="sd">        Scalar value for transforming the x-range (width) of the Matplotlib</span>
+<span class="sd">        axes object box in which the plot is drawn. Passed to the</span>
+<span class="sd">        ``Matplotlib.Axes.set_position()`` method for adjusting the axes</span>
+<span class="sd">        box dimensions relative to the Matplotlib figure coordinates.</span>
+<span class="sd">    :param float box_hscale:</span>
+<span class="sd">        Scalar value for transforming the y-range (height) of the Matplotlib</span>
+<span class="sd">        axes object box in which the plot is drawn. Passed to the</span>
+<span class="sd">        ``Matplotlib.Axes.set_position()`` method for adjusting the axes</span>
+<span class="sd">        box dimensions relative to the Matplotlib figure coordinates.</span>
+<span class="sd">    :param legend_loc:</span>
+<span class="sd">        The x and y coordinate of center of the legend (relative to the axes</span>
+<span class="sd">        object coordinates).</span>
+<span class="sd">    :type legend_loc: Two-element tuple</span>
+<span class="sd">    :param list sensor_colors:</span>
+<span class="sd">        Set the list of colors for drawing sensor line plots. Default set by</span>
+<span class="sd">        chosen colormap (cmap_name) and the normalized range for the colormap.</span>
 <span class="sd">    :param float sensor_linealpha:</span>
 <span class="sd">        The transparency of the lines indicating sensor measurements. Defaults</span>
-<span class="sd">        to 0.70</span>
+<span class="sd">        to 0.70.</span>
 <span class="sd">    :param float sensor_linewidth:</span>
 <span class="sd">        The width (thickness) of the lines indicating sensor measurements.</span>
 <span class="sd">        Defaults to 1.5.</span>
@@ -554,20 +570,23 @@
 <span class="sd">        to &#39;k&#39;.</span>
 <span class="sd">    :param float ref_linealpha:</span>
 <span class="sd">        The transparency of the line indicating reference measurements.</span>
-<span class="sd">        Defaults to 0.97</span>
+<span class="sd">        Defaults to 0.97.</span>
 <span class="sd">    :param float ref_linewidth:</span>
 <span class="sd">        The width (thickness) of the line indicating reference measurements.</span>
-<span class="sd">        Defaults to 1.5</span>
+<span class="sd">        Defaults to 1.5.</span>
 <span class="sd">    :param str ref_linestyle:</span>
 <span class="sd">        The style of the lines indicating reference measurements. Passed</span>
 <span class="sd">        to matplotlib linestyles. Defaults to &#39;-&#39;.</span>
 <span class="sd">    :param str date_format:</span>
 <span class="sd">        The strftime format in which dates will be displayed along the x-axis</span>
 <span class="sd">        if &#39;format_xaxis_weeks&#39; is False. Defaults to &quot;%m-%d-%y&quot;.</span>
-<span class="sd">    :param TYPE legend_fontsize:</span>
-<span class="sd">        DESCRIPTION. Defaults to</span>
-<span class="sd">    :param TYPE subplots_adjust:</span>
-<span class="sd">        DESCRIPTION. Defaults to</span>
+<span class="sd">    :param float legend_fontsize:</span>
+<span class="sd">        Value by which to scale the legend text font size relative to the value</span>
+<span class="sd">        of the fontsize argument. Defaults to 0.72.</span>
+<span class="sd">    :param subplots_adjust:</span>
+<span class="sd">        Modify the bounds of the subplot [x-min, x-max, y-max, y-min]. If</span>
+<span class="sd">        unique_ax_obj is True, defaults to (0.05, 0.9, 0.90, 0.15).</span>
+<span class="sd">    :type subplots_adjust: Four-element tuple.</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        ax (matplotlib axes object):</span>

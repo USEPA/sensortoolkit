@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>sensortoolkit.plotting._scatter.draw_scatter &mdash; sensortoolkit 0.6.0b14 documentation</title>
+  <title>sensortoolkit.plotting._scatter.draw_scatter &mdash; sensortoolkit 0.6.1b1 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" type="text/css" />
@@ -33,7 +33,7 @@
             <a href="../../index.html" class="icon icon-home"> sensortoolkit
           </a>
               <div class="version">
-                0.6.0b14
+                0.6.1b1
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
@@ -420,11 +420,14 @@ of the full stats_df object)</p></li>
 <li><p><strong>xlims</strong> (<em>tuple</em>) – The domain of the graph</p></li>
 <li><p><strong>ylims</strong> (<em>tuple</em>) – The range of the graph</p></li>
 <li><p><strong>fontsize</strong> (<em>int</em>) – Selects the fontsize of regression statistics</p></li>
-<li><p><strong>detail_fontsize</strong> (<em>int</em><em> or </em><em>float</em>) – Fontsize for axes tick labels</p></li>
+<li><p><strong>detail_fontsize</strong> (<em>int</em><em> or </em><em>float</em>) – Fontsize for axes tick labels and smaller plotting text elements.</p></li>
 <li><p><strong>param</strong> (<em>str</em>) – The name of the parameter for which measurements will be plotted.</p></li>
 <li><p><strong>plot_regression</strong> (<em>bool</em>) – True plots linear regression, regression equation, R^2, and RMSE</p></li>
 <li><p><strong>colormap_vals</strong> (<em>Dataframe column</em><em> or </em><em>none</em>) – Data that are used to set the colormap value.</p></li>
-<li><p><strong>colormap_name</strong> (<em>string</em><em> or </em><em>none</em>) – The name of the colormap which the scatter plot will be assigned</p></li>
+<li><p><strong>colormap_name</strong> (<em>string</em><em> or </em><em>none</em>) – The name of the colormap which the scatter plot will be assigned
+The name of the Matplotlib colormap that will be used when
+superimposing scatter points with RH values. A full list of colormaps is
+can be found in the <a class="reference external" href="https://matplotlib.org/stable/gallery/color/colormap_reference.html">Matplotlib documentation</a></p></li>
 </ul>
 </dd>
 </dl>

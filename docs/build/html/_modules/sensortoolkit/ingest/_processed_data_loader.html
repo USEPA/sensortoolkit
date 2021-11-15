@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>sensortoolkit.ingest._processed_data_loader &mdash; sensortoolkit 0.6.0b14 documentation</title>
+  <title>sensortoolkit.ingest._processed_data_loader &mdash; sensortoolkit 0.6.1b1 documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" type="text/css" />
@@ -30,7 +30,7 @@
             <a href="../../../index.html" class="icon icon-home"> sensortoolkit
           </a>
               <div class="version">
-                0.6.0b14
+                0.6.1b1
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
@@ -433,6 +433,17 @@
 <span class="sd">        sensor_serials (dict):</span>
 <span class="sd">            A dictionary of sensor serial identifiers for each unit</span>
 <span class="sd">            in a testing group.</span>
+
+<span class="sd">    **Keyword Arguments**</span>
+
+<span class="sd">    :param str deploy_bdate:</span>
+<span class="sd">        The timestamp (date) marking the beginning of the sensor testing period,</span>
+<span class="sd">        formatted as ``&#39;YYYY-MM-DD HH:MM:SS&#39;``. Sensor datasets will be</span>
+<span class="sd">        concatenated to begin at this timestamp.</span>
+<span class="sd">    :param str deploy_edate:</span>
+<span class="sd">        The timestamp (date) marking the end of the sensor testing period,</span>
+<span class="sd">        formatted as ``&#39;YYYY-MM-DD HH:MM:SS&#39;``. Sensor datasets will be</span>
+<span class="sd">        concatenated to end at this timestamp.</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        (tuple): Three-element tuple containing:</span>

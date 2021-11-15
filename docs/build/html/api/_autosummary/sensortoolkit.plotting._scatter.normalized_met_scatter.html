@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>sensortoolkit.plotting._scatter.normalized_met_scatter &mdash; sensortoolkit 0.6.0b14 documentation</title>
+  <title>sensortoolkit.plotting._scatter.normalized_met_scatter &mdash; sensortoolkit 0.6.1b1 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" type="text/css" />
@@ -33,7 +33,7 @@
             <a href="../../index.html" class="icon icon-home"> sensortoolkit
           </a>
               <div class="version">
-                0.6.0b14
+                0.6.1b1
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
@@ -460,22 +460,59 @@ a Matplotlib subplot object). Defaults to False.</p></li>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>point_size</strong> (<em>float</em><em> or </em><em>int</em><em>, </em><em>passed to Draw_Scatter</em><em>(</em><em>)</em>) – The size of the scatter points. Defaults to 12</p></li>
 <li><p><strong>point_alpha</strong> (<em>float</em><em>, </em><em>passed to Draw_Scatter</em><em>(</em><em>)</em>) – The transparency of the scatter plots. Defaults to 0.5.</p></li>
-<li><p><strong>point_colors</strong> (<em>list</em>) – DESCRIPTION. Defaults to None.</p></li>
-<li><p><strong>xlims</strong> (<em>Two-element tuple</em>) – DESCRIPTION. Defaults to None.</p></li>
-<li><p><strong>ylims</strong> (<em>Two-element tuple</em>) – DESCRIPTION. Defaults to None.</p></li>
-<li><p><strong>cmap_norm_range</strong> (<em>Two-element tuple</em>) – DESCRIPTION. Defaults to (0, 0.4).</p></li>
+<li><p><strong>point_colors</strong> (<em>list</em>) – A list of strings indicating colors for each sensor scatter - either
+color hex codes or <a class="reference external" href="https://matplotlib.org/stable/gallery/color/named_colors.html">valid color names recognized by Matplotlib</a>.
+Defaults to None.</p></li>
+<li><p><strong>xlims</strong> (<em>Two-element tuple</em>) – Set the x-limits of the plot. Defaults to None.</p></li>
+<li><p><strong>ylims</strong> (<em>Two-element tuple</em>) – Set the y-limits of the plot. Defaults to None.</p></li>
+<li><p><strong>cmap_norm_range</strong> (<em>Two-element tuple</em>) – A two-element tuple containing the normalized range of the colormap
+values that will be displayed in the figure. The full range of the
+selected colormap can be selected by passing (0, 1). Hues will
+be selected at equally spaced intervals within the normalized
+colormap range specified.  Defaults to (0, 0.4).</p></li>
 <li><p><strong>cmap_name</strong> (<em>str</em><em>, </em><em>passed to Draw_Scatter</em><em>(</em><em>)</em>) – The name of the colormap which the scatter plot will be assigned.
 Defaults to ‘Set1’.</p></li>
 <li><p><strong>fontsize</strong> (<em>int</em><em> or </em><em>float</em><em>, </em><em>passed to Draw_Scatter</em><em>(</em><em>)</em>) – The fontsize of plot titles and labels. Defaults to 12.</p></li>
-<li><p><strong>detail_fontsize</strong> (<em>int</em><em> or </em><em>float</em><em>, </em><em>passed to Draw_Scatter</em><em>(</em><em>)</em>) – Fontsize for axes tick labels. Defaults to 10.</p></li>
-<li><p><strong>subplot_adjust</strong> (<em>TYPE</em>) – DESCRIPTION.
-Defaults to None.</p></li>
-<li><p><strong>show_errorbars</strong> (<em>bool</em>) – Defaults to False.</p></li>
-<li><p><strong>show_legend</strong> (<em>bool</em>) – Defaults to True.</p></li>
-<li><p><strong>fig_size</strong> (<em>Two-element tuple</em>) – Defaults to (8, 4).</p></li>
-<li><p><strong>errorbar_nbins</strong> (<em>int</em>) – Defaults to 10.</p></li>
-<li><p><strong>errorbar_color</strong> (<em>str</em>) – Defaults to #151515.</p></li>
-<li><p><strong>legend_pos</strong> (<em>TYPE</em>) – DESCRIPTION.</p></li>
+<li><p><strong>detail_fontsize</strong> (<em>int</em><em> or </em><em>float</em><em>, </em><em>passed to Draw_Scatter</em><em>(</em><em>)</em>) – Fontsize for axes tick labels and smaller plotting text elements.
+Defaults to 10.</p></li>
+<li><p><strong>subplot_adjust</strong> (<em>Seven-element tuple</em>) – <p>Adjust the dimensions for drawing subplots on the Matplotlib Figure
+object. Passed to <code class="docutils literal notranslate"><span class="pre">Matplotlib.subplots.subplots_adjust()</span></code>. Contains
+the following entries:</p>
+<ul>
+<li><p>top: Modify the upper-most bounds of the figure.</p></li>
+<li><p>bottom: Modify the lower-most bounds of the figure.</p></li>
+<li><p>left: Modify the left-most bounds of the figure.</p></li>
+<li><p>right: Modify the right-most bounds of the figure.</p></li>
+<li><p>hspace: Modify the height of padding between subplots</p></li>
+<li><p>wspace: Modify the width of padding between subplots</p></li>
+<li><p>legend_pos: Two-element tuple containing floats indicating the
+x-axis and y-axis position of the center of the plot legend.</p></li>
+</ul>
+<p>Defaults to None.</p>
+</p></li>
+<li><p><strong>fig_wspace</strong> (<em>float</em>) – Modify the width of padding between subplots. Passed to
+<code class="docutils literal notranslate"><span class="pre">Matplotlib.subplots.subplots_adjust()</span></code> <code class="docutils literal notranslate"><span class="pre">'wspace'</span></code> argument.</p></li>
+<li><p><strong>fig_hspace</strong> (<em>float</em>) – Modify the height of padding between subplots. <code class="docutils literal notranslate"><span class="pre">'hspace'</span></code> argument.</p></li>
+<li><p><strong>fig_left</strong> (<em>float</em>) – Modify the left-most bounds of the figure. Passed to
+<code class="docutils literal notranslate"><span class="pre">Matplotlib.subplots.subplots_adjust()</span></code> <code class="docutils literal notranslate"><span class="pre">'left'</span></code> argument.</p></li>
+<li><p><strong>fig_right</strong> (<em>float</em>) – Modify the right-most bounds of the figure. Passed to
+<code class="docutils literal notranslate"><span class="pre">Matplotlib.subplots.subplots_adjust()</span></code> <code class="docutils literal notranslate"><span class="pre">'right'</span></code> argument.</p></li>
+<li><p><strong>fig_top</strong> (<em>float</em>) – Modify the upper-most bounds of the figure. Passed to
+<code class="docutils literal notranslate"><span class="pre">Matplotlib.subplots.subplots_adjust()</span></code> <code class="docutils literal notranslate"><span class="pre">'top'</span></code> argument.</p></li>
+<li><p><strong>fig_bottom</strong> (<em>float</em>) – Modify the lower-most bounds of the figure. Passed to
+<code class="docutils literal notranslate"><span class="pre">Matplotlib.subplots.subplots_adjust()</span></code> <code class="docutils literal notranslate"><span class="pre">'bottom'</span></code> argument.</p></li>
+<li><p><strong>show_errorbars</strong> (<em>bool</em>) – If True, display errorbars (standard error) for normalized
+sensor-reference measurement pairs. Defaults to False.</p></li>
+<li><p><strong>show_legend</strong> (<em>bool</em>) – If True, display the figure legend. Defaults to True.</p></li>
+<li><p><strong>fig_size</strong> (<em>Two-element tuple</em>) – The dimensions (width, height) in inches of the Matplotlib figure to
+be drawn. Defaults to (8, 4).</p></li>
+<li><p><strong>errorbar_nbins</strong> (<em>int</em>) – The number of bins along the x-axis that data for the dependent variable
+are grouped into and displayed error bars. Defaults to 10 (i.e., 10 error
+bars equally spaced along the x-axis will be shown indicating the
+standard error in the dependent variable).</p></li>
+<li><p><strong>errorbar_color</strong> (<em>str</em>) – The color of the error bars drawn on the plot. Defaults to #151515.</p></li>
+<li><p><strong>legend_loc</strong> (<em>Two-element tuple</em>) – The x and y coordinate of center of the legend (relative to the axes
+object coordinates).</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>

@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>sensortoolkit.plotting._performance_metrics.performance_metrics &mdash; sensortoolkit 0.6.0b14 documentation</title>
+  <title>sensortoolkit.plotting._performance_metrics.performance_metrics &mdash; sensortoolkit 0.6.1b1 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" type="text/css" />
@@ -33,7 +33,7 @@
             <a href="../../index.html" class="icon icon-home"> sensortoolkit
           </a>
               <div class="version">
-                0.6.0b14
+                0.6.1b1
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
@@ -440,14 +440,19 @@ evaluated). Defaults to True.</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>fill_color</strong> (<em>str</em>) – DESCRIPTION</p></li>
-<li><p><strong>marker</strong> (<em>str</em>) – DESCRIPTION</p></li>
-<li><p><strong>marker_size</strong> (<em>int</em><em> or </em><em>float</em>) – DESCRIPTION</p></li>
-<li><p><strong>marker_line_width</strong> (<em>int</em><em> or </em><em>float</em>) – DESCRIPTION</p></li>
-<li><p><strong>mean_marker</strong> (<em>str</em>) – DESCRIPTION</p></li>
-<li><p><strong>figure_width</strong> (<em>int</em><em> or </em><em>float</em>) – DESCRIPTION</p></li>
-<li><p><strong>figure_height</strong> (<em>int</em><em> or </em><em>float</em>) – DESCRIPTION</p></li>
-<li><p><strong>R^2_ylims</strong> (<em>Two-element tuple of floats</em>) – The y-limits (ymin, ymax) for the metric subplot.</p></li>
+<li><p><strong>fill_color</strong> (<em>Two-element tuple</em>) – Tuple with color hex code(s) for the fill color assigned to 1-hour and
+24-hour metric value markers. Defaults to <code class="docutils literal notranslate"><span class="pre">('#80c5c9',</span> <span class="pre">'#4ea1c0')</span></code>,
+which are light and dark teal hues.</p></li>
+<li><p><strong>marker</strong> (<em>str</em>) – The shape of the plotting marker for metric values. Matplotlib maintains
+a <a class="reference external" href="https://matplotlib.org/stable/api/markers_api.html?highlight=marker#module-matplotlib.markers">list of markers</a>.
+Defaults to ‘o’ (circle).</p></li>
+<li><p><strong>marker_size</strong> (<em>int</em><em> or </em><em>float</em>) – Assign the marker size in points. Defaults to 7.</p></li>
+<li><p><strong>marker_border_width</strong> (<em>int</em><em> or </em><em>float</em>) – Set the width of the border surrounding each marker. Defaults to 1.</p></li>
+<li><p><strong>mean_marker</strong> (<em>str</em>) – (# sensors  &gt; 4 only) The marker indicating the mean value of metric
+values. Defaults to <code class="docutils literal notranslate"><span class="pre">'d'</span></code> (diamond marker).</p></li>
+<li><p><strong>figure_width</strong> (<em>int</em><em> or </em><em>float</em>) – The width of the figure in inches. Defaults to .</p></li>
+<li><p><strong>figure_height</strong> (<em>int</em><em> or </em><em>float</em>) – The height of the figure in inches. Defaults to 3.9.</p></li>
+<li><p><strong>R^2_ylims</strong> (<em>Two-element tuple of floats</em>) – The y-limits (ymin, ymax) for the metric subplot 15.7.</p></li>
 <li><p><strong>Slope_ylims</strong> (<em>Two-element tuple of floats</em>) – The y-limits (ymin, ymax) for the metric subplot.</p></li>
 <li><p><strong>Intercept_ylims</strong> (<em>Two-element tuple of floats</em>) – The y-limits (ymin, ymax) for the metric subplot.</p></li>
 <li><p><strong>CV_ylims</strong> (<em>Two-element tuple of floats</em>) – The y-limits (ymin, ymax) for the metric subplot.</p></li>
@@ -531,15 +536,23 @@ of the box, or the difference between the x-min coordinate position
 and the x-max coordinate position), and the y-range (the width of the
 box, or the difference between the y-min coordinate position and the
 y-max coordinate position).</p></li>
-<li><p><strong>hline_color</strong> (<em>str</em>) – DESCRIPTION</p></li>
-<li><p><strong>box_facecolor</strong> (<em>str</em>) – DESCRIPTION</p></li>
-<li><p><strong>font_scale</strong> (<em>int</em><em> or </em><em>str</em>) – DESCRIPTION</p></li>
-<li><p><strong>fig_wspace</strong> (<em>float</em>) – DESCRIPTION</p></li>
-<li><p><strong>fig_hspace</strong> (<em>float</em>) – DESCRIPTION</p></li>
-<li><p><strong>fig_left</strong> (<em>float</em>) – DESCRIPTION</p></li>
-<li><p><strong>fig_right</strong> (<em>float</em>) – DESCRIPTION</p></li>
-<li><p><strong>fig_top</strong> (<em>float</em>) – DESCRIPTION</p></li>
-<li><p><strong>fig_bottom</strong> (<em>float</em>) – DESCRIPTION</p></li>
+<li><p><strong>hline_color</strong> (<em>str</em>) – Set the color of horizontal lines indicating the target value for metric
+subplots. Defaults to #8b8b8b (light gray).</p></li>
+<li><p><strong>box_facecolor</strong> (<em>str</em>) – Set the color of boxes indicating the target range for each metric
+subplot. Defaults to #8b8b8b (light gray).</p></li>
+<li><p><strong>font_scale</strong> (<em>int</em><em> or </em><em>str</em>) – Set the size and scale of the font elements in the figure.</p></li>
+<li><p><strong>fig_wspace</strong> (<em>float</em>) – Modify the width of padding between subplots. Passed to
+<code class="docutils literal notranslate"><span class="pre">Matplotlib.subplots.subplots_adjust()</span></code> <code class="docutils literal notranslate"><span class="pre">'wspace'</span></code> argument.</p></li>
+<li><p><strong>fig_hspace</strong> (<em>float</em>) – Modify the height of padding between subplots. Passed to
+<code class="docutils literal notranslate"><span class="pre">Matplotlib.subplots.subplots_adjust()</span></code> <code class="docutils literal notranslate"><span class="pre">'hspace'</span></code> argument.</p></li>
+<li><p><strong>fig_left</strong> (<em>float</em>) – Modify the left-most bounds of the figure. Passed to
+<code class="docutils literal notranslate"><span class="pre">Matplotlib.subplots.subplots_adjust()</span></code> <code class="docutils literal notranslate"><span class="pre">'left'</span></code> argument.</p></li>
+<li><p><strong>fig_right</strong> (<em>float</em>) – Modify the right-most bounds of the figure. Passed to
+<code class="docutils literal notranslate"><span class="pre">Matplotlib.subplots.subplots_adjust()</span></code> <code class="docutils literal notranslate"><span class="pre">'right'</span></code> argument.</p></li>
+<li><p><strong>fig_top</strong> (<em>float</em>) – Modify the upper-most bounds of the figure. Passed to
+<code class="docutils literal notranslate"><span class="pre">Matplotlib.subplots.subplots_adjust()</span></code> <code class="docutils literal notranslate"><span class="pre">'top'</span></code> argument.</p></li>
+<li><p><strong>fig_bottom</strong> (<em>float</em>) – Modify the lower-most bounds of the figure. Passed to
+<code class="docutils literal notranslate"><span class="pre">Matplotlib.subplots.subplots_adjust()</span></code> <code class="docutils literal notranslate"><span class="pre">'bottom'</span></code> argument.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>

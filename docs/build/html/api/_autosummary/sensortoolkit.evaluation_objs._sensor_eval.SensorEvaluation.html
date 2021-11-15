@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>sensortoolkit.evaluation_objs._sensor_eval.SensorEvaluation &mdash; sensortoolkit 0.6.0b14 documentation</title>
+  <title>sensortoolkit.evaluation_objs._sensor_eval.SensorEvaluation &mdash; sensortoolkit 0.6.1b1 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" type="text/css" />
@@ -18,6 +18,7 @@
         <script src="../../_static/jquery.js"></script>
         <script src="../../_static/underscore.js"></script>
         <script src="../../_static/doctools.js"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -33,7 +34,7 @@
             <a href="../../index.html" class="icon icon-home"> sensortoolkit
           </a>
               <div class="version">
-                0.6.0b14
+                0.6.1b1
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
@@ -577,7 +578,8 @@ data frames.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="sensortoolkit.evaluation_objs._sensor_eval.SensorEvaluation.ref_dict">
 <span class="sig-name descname"><span class="pre">ref_dict</span></span><a class="headerlink" href="#sensortoolkit.evaluation_objs._sensor_eval.SensorEvaluation.ref_dict" title="Permalink to this definition"></a></dt>
-<dd><p>Description.</p>
+<dd><p>A dictionary container for reference data objects at varying
+averaging intervals and parameter classifications.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
 <dd class="field-odd"><p>dict</p>
@@ -588,62 +590,10 @@ data frames.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="sensortoolkit.evaluation_objs._sensor_eval.SensorEvaluation.hourly_ref_df">
 <span class="sig-name descname"><span class="pre">hourly_ref_df</span></span><a class="headerlink" href="#sensortoolkit.evaluation_objs._sensor_eval.SensorEvaluation.hourly_ref_df" title="Permalink to this definition"></a></dt>
-<dd><p>Description.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type</dt>
-<dd class="field-odd"><p>pandas DataFrame</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="sensortoolkit.evaluation_objs._sensor_eval.SensorEvaluation.pm_hourly_ref_df">
-<span class="sig-name descname"><span class="pre">pm_hourly_ref_df</span></span><a class="headerlink" href="#sensortoolkit.evaluation_objs._sensor_eval.SensorEvaluation.pm_hourly_ref_df" title="Permalink to this definition"></a></dt>
-<dd><p>Description.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type</dt>
-<dd class="field-odd"><p>pandas DataFrame</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="sensortoolkit.evaluation_objs._sensor_eval.SensorEvaluation.pm_daily_ref_df">
-<span class="sig-name descname"><span class="pre">pm_daily_ref_df</span></span><a class="headerlink" href="#sensortoolkit.evaluation_objs._sensor_eval.SensorEvaluation.pm_daily_ref_df" title="Permalink to this definition"></a></dt>
-<dd><p>Description.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type</dt>
-<dd class="field-odd"><p>pandas DataFrame</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="sensortoolkit.evaluation_objs._sensor_eval.SensorEvaluation.gas_hourly_ref_df">
-<span class="sig-name descname"><span class="pre">gas_hourly_ref_df</span></span><a class="headerlink" href="#sensortoolkit.evaluation_objs._sensor_eval.SensorEvaluation.gas_hourly_ref_df" title="Permalink to this definition"></a></dt>
-<dd><p>Description.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type</dt>
-<dd class="field-odd"><p>pandas DataFrame</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="sensortoolkit.evaluation_objs._sensor_eval.SensorEvaluation.gas_daily_ref_df">
-<span class="sig-name descname"><span class="pre">gas_daily_ref_df</span></span><a class="headerlink" href="#sensortoolkit.evaluation_objs._sensor_eval.SensorEvaluation.gas_daily_ref_df" title="Permalink to this definition"></a></dt>
-<dd><p>Description.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type</dt>
-<dd class="field-odd"><p>pandas DataFrame</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="sensortoolkit.evaluation_objs._sensor_eval.SensorEvaluation.met_hourly_ref_df">
-<span class="sig-name descname"><span class="pre">met_hourly_ref_df</span></span><a class="headerlink" href="#sensortoolkit.evaluation_objs._sensor_eval.SensorEvaluation.met_hourly_ref_df" title="Permalink to this definition"></a></dt>
-<dd><p>Description.</p>
+<dd><p>Dataset containing reference data at 1-hour averaging intervals
+for methods measuring parameters matching the parameter
+classification of the parameter object passed to the
+<code class="docutils literal notranslate"><span class="pre">SensorEvaluation</span></code> class during instantation.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
 <dd class="field-odd"><p>pandas DataFrame</p>
@@ -654,7 +604,70 @@ data frames.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="sensortoolkit.evaluation_objs._sensor_eval.SensorEvaluation.daily_ref_df">
 <span class="sig-name descname"><span class="pre">daily_ref_df</span></span><a class="headerlink" href="#sensortoolkit.evaluation_objs._sensor_eval.SensorEvaluation.daily_ref_df" title="Permalink to this definition"></a></dt>
-<dd><p>Description.</p>
+<dd><p>Dataset containing reference data at 24-hour averaging intervals
+for methods measuring parameters matching the parameter
+classification of the parameter object passed to the
+<code class="docutils literal notranslate"><span class="pre">SensorEvaluation</span></code> class during instantation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>pandas DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="sensortoolkit.evaluation_objs._sensor_eval.SensorEvaluation.pm_hourly_ref_df">
+<span class="sig-name descname"><span class="pre">pm_hourly_ref_df</span></span><a class="headerlink" href="#sensortoolkit.evaluation_objs._sensor_eval.SensorEvaluation.pm_hourly_ref_df" title="Permalink to this definition"></a></dt>
+<dd><p>Dataset containing reference data at 1-hour averaging intervals
+for methods measuring particulate matter parameters.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>pandas DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="sensortoolkit.evaluation_objs._sensor_eval.SensorEvaluation.pm_daily_ref_df">
+<span class="sig-name descname"><span class="pre">pm_daily_ref_df</span></span><a class="headerlink" href="#sensortoolkit.evaluation_objs._sensor_eval.SensorEvaluation.pm_daily_ref_df" title="Permalink to this definition"></a></dt>
+<dd><p>Dataset containing reference data at 24-hour averaging intervals
+for methods measuring particulate matter parameters.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>pandas DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="sensortoolkit.evaluation_objs._sensor_eval.SensorEvaluation.gas_hourly_ref_df">
+<span class="sig-name descname"><span class="pre">gas_hourly_ref_df</span></span><a class="headerlink" href="#sensortoolkit.evaluation_objs._sensor_eval.SensorEvaluation.gas_hourly_ref_df" title="Permalink to this definition"></a></dt>
+<dd><p>Dataset containing reference data at 1-hour averaging intervals
+for methods measuring gaseous parameters.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>pandas DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="sensortoolkit.evaluation_objs._sensor_eval.SensorEvaluation.gas_daily_ref_df">
+<span class="sig-name descname"><span class="pre">gas_daily_ref_df</span></span><a class="headerlink" href="#sensortoolkit.evaluation_objs._sensor_eval.SensorEvaluation.gas_daily_ref_df" title="Permalink to this definition"></a></dt>
+<dd><p>Dataset containing reference data at 24-hour averaging intervals
+for methods measuring gaseous parameters.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>pandas DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="sensortoolkit.evaluation_objs._sensor_eval.SensorEvaluation.met_hourly_ref_df">
+<span class="sig-name descname"><span class="pre">met_hourly_ref_df</span></span><a class="headerlink" href="#sensortoolkit.evaluation_objs._sensor_eval.SensorEvaluation.met_hourly_ref_df" title="Permalink to this definition"></a></dt>
+<dd><p>Dataset containing reference data at 1-hour averaging intervals
+for methods measuring meteorological parameters.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
 <dd class="field-odd"><p>pandas DataFrame</p>
@@ -665,7 +678,8 @@ data frames.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="sensortoolkit.evaluation_objs._sensor_eval.SensorEvaluation.met_daily_ref_df">
 <span class="sig-name descname"><span class="pre">met_daily_ref_df</span></span><a class="headerlink" href="#sensortoolkit.evaluation_objs._sensor_eval.SensorEvaluation.met_daily_ref_df" title="Permalink to this definition"></a></dt>
-<dd><p>Description.</p>
+<dd><p>Dataset containing reference data at 24-hour averaging intervals
+for methods measuring meteorological parameters.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
 <dd class="field-odd"><p>pandas DataFrame</p>
@@ -762,7 +776,7 @@ the minimum, maximum, and the mean sensor concentration.</p>
 <td><p>Plot the distribution of temperature and RH recorded by meterological instruments at the collocation site.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#sensortoolkit.evaluation_objs._sensor_eval.SensorEvaluation.plot_met_influence" title="sensortoolkit.evaluation_objs._sensor_eval.SensorEvaluation.plot_met_influence"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot_met_influence</span></code></a></p></td>
-<td><p>Normalized Sensor param vs AIRS RH</p></td>
+<td><p>Plot the influence meteorological parameters (temperature or relative humidity) on sensor measurements.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#sensortoolkit.evaluation_objs._sensor_eval.SensorEvaluation.plot_metrics" title="sensortoolkit.evaluation_objs._sensor_eval.SensorEvaluation.plot_metrics"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot_metrics</span></code></a></p></td>
 <td><p>Regression dot/boxplots for U.S EPA performance metrics and targets developed for PM2.5 and O3 sensor evaluations.</p></td>
@@ -774,7 +788,7 @@ the minimum, maximum, and the mean sensor concentration.</p>
 <td><p>Plot sensor vs FRM/FEM reference measurement pairs as scatter.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#sensortoolkit.evaluation_objs._sensor_eval.SensorEvaluation.plot_timeseries" title="sensortoolkit.evaluation_objs._sensor_eval.SensorEvaluation.plot_timeseries"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot_timeseries</span></code></a></p></td>
-<td><p>Plot parameter concentrations over time alongside reference.</p></td>
+<td><p>Plot sensor and FRM/FEM reference measurements over time.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#sensortoolkit.evaluation_objs._sensor_eval.SensorEvaluation.print_eval_conditions" title="sensortoolkit.evaluation_objs._sensor_eval.SensorEvaluation.print_eval_conditions"><code class="xref py py-obj docutils literal notranslate"><span class="pre">print_eval_conditions</span></code></a></p></td>
 <td><p>Display conditions for the evaluation parameter and meteorological conditions during the testing period.</p></td>
@@ -791,6 +805,29 @@ the minimum, maximum, and the mean sensor concentration.</p>
 <p>Add precision and error performance targets metrics, include details
 about reference (for selected evaluation parameter) and monitor
 statistics for meteorological parameters (Temp, RH).</p>
+<p>Calculates:</p>
+<ul class="simple">
+<li><p>CV for 1-hour averaged sensor datasets</p></li>
+<li><p>CV for 24-hour averaged sensor datasets</p></li>
+<li><p>RMSE for 1-hour averaged sensor datasets</p></li>
+<li><p>RMSE for 24-hour averaged sensor datasets</p></li>
+<li><p>Reference monitor concentration range, mean concentration during
+testing period for 1-hour averaged measurements</p></li>
+<li><p>Reference monitor concentration range, mean concentration during
+testing period for 24-hour averaged measurements</p></li>
+<li><p>Meteorological monitor measurement range, mean value for temperature
+and/or relative humidity measurements at 1-hour intervals</p></li>
+<li><p>Meteorological monitor measurement range, mean value for temperature
+and/or relative humidity measurements at 24-hour intervals</p></li>
+</ul>
+<p>Populates:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">SensorEvaluation.deploy_dict</span></code></p></li>
+</ul>
+<p>Writes Files:</p>
+<ul class="simple">
+<li><p>Deployment dictionary</p></li>
+</ul>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>None.</p>
@@ -802,6 +839,32 @@ statistics for meteorological parameters (Temp, RH).</p>
 <dt class="sig sig-object py" id="sensortoolkit.evaluation_objs._sensor_eval.SensorEvaluation.calculate_metrics">
 <span class="sig-name descname"><span class="pre">calculate_metrics</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/sensortoolkit/evaluation_objs/_sensor_eval.html#SensorEvaluation.calculate_metrics"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sensortoolkit.evaluation_objs._sensor_eval.SensorEvaluation.calculate_metrics" title="Permalink to this definition"></a></dt>
 <dd><p>Compute hourly, daily, and inter-sensor statistics dataframes.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><code class="docutils literal notranslate"><span class="pre">calculate_metrics()</span></code> will check whether
+<code class="docutils literal notranslate"><span class="pre">SensorEvaluation.deploy_dict</span></code> has been populated with statistics
+via the <code class="docutils literal notranslate"><span class="pre">add_deploy_dict_stats()</span></code> method and will call this method
+if the dictionary has not been populated yet.</p>
+</div>
+<p>Calculates:</p>
+<ul class="simple">
+<li><p>1-hour averaged sensor vs. reference regression statistics for each
+sensor</p></li>
+<li><p>24-hour averaged sensor vs. reference regression statistics for each
+sensor</p></li>
+<li><p>1-hour averaged sensor vs. intersensor average regression statistics
+for each sensor</p></li>
+<li><p>24-hour averaged sensor vs. intersensor average regression statistics
+for each sensor</p></li>
+</ul>
+<p>Populates:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">SensorEvaluation.stats_df</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SensorEvaluation.avg_stats_df</span></code></p></li>
+</ul>
+<p>Writes Files:</p>
+<p>-<a href="#id1"><span class="problematic" id="id2">`</span></a>Statistics DataFrame - Sensor vs. FRM/FEM
+- Statistics DataFrame - Sensor vs. Intersensor Average</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>None.</p>
@@ -814,6 +877,22 @@ statistics for meteorological parameters (Temp, RH).</p>
 <span class="sig-name descname"><span class="pre">plot_met_dist</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/sensortoolkit/evaluation_objs/_sensor_eval.html#SensorEvaluation.plot_met_dist"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sensortoolkit.evaluation_objs._sensor_eval.SensorEvaluation.plot_met_dist" title="Permalink to this definition"></a></dt>
 <dd><p>Plot the distribution of temperature and RH recorded by
 meterological instruments at the collocation site.</p>
+<p>Displays the relative frequency of meteorological measurements recorded
+during the testing period. Temperature (left) and relative humidity
+(right) measurements are displayed on separate subplots. Measurements
+are grouped into 15 bins, and the frequency of measurements within bin
+is normalized by the total number of measurements (i.e., the relative
+frequency) is displayed as a histogram. Additionally, a polynomial
+estimating the kernel density of measurements is shown for each subplot
+and indicates the general distribution of measurements over the range
+of recorded values.</p>
+<p>This method will prioritize plotting meteorological measurements made
+by reference instruments, as sensor measurements are commonly biased
+warmer and drier than ambient conditions if measurements are made by
+an onboard sensing component within the housing of the air sensor. If
+no meteorological reference measurements are available, the method will
+use sensor measurements; however, a disclaimer will displayed above
+subplots indicating that sensor measurements are shown in the figure.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>None.</p>
@@ -824,14 +903,29 @@ meterological instruments at the collocation site.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="sensortoolkit.evaluation_objs._sensor_eval.SensorEvaluation.plot_met_influence">
 <span class="sig-name descname"><span class="pre">plot_met_influence</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">met_param</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">report_fmt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/sensortoolkit/evaluation_objs/_sensor_eval.html#SensorEvaluation.plot_met_influence"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sensortoolkit.evaluation_objs._sensor_eval.SensorEvaluation.plot_met_influence" title="Permalink to this definition"></a></dt>
-<dd><p>Normalized Sensor param vs AIRS RH</p>
+<dd><p>Plot the influence meteorological parameters (temperature or
+relative humidity) on sensor measurements.</p>
+<p>Sensor measurements that have been normalized by reference measurement
+values for the corresponding timestamp and are plotted along the
+y-axis. Meteorological measurements as measured by temperature or
+relative humidity monitors (rather than onboard sensor measurements)
+are plotted along the x-axis. Scatter for each sensor are displayed as
+separate colors to indicate the unique response of each sensor unit.</p>
+<p>A gray 1:1 line indicates ideal agreement between sensor and reference
+measurements over the range of meteorological conditions (i.e., a ratio
+of 1 would indicate that the sensor and reference measure the same
+concentration value for a given timestamp). Scatter below the 1:1
+line indicates underestimation bias, and scatter above the 1:1 line
+indicates overestimation bias.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>met_param</strong> (<em>TYPE</em><em>, </em><em>optional</em>) – DESCRIPTION. Defaults to None.</p></li>
-<li><p><strong>report_fmt</strong> (<em>TYPE</em><em>, </em><em>optional</em>) – If true, format figure for inclusion in a performance report.
+<li><p><strong>met_param</strong> (<em>str</em><em>, </em><em>optional</em>) – Either <code class="docutils literal notranslate"><span class="pre">'Temp'</span></code> for displaying the influence of temperature
+or <code class="docutils literal notranslate"><span class="pre">'RH'</span></code> for displaying the influence of relative humidity.
+Defaults to None.</p></li>
+<li><p><strong>report_fmt</strong> (<em>bool</em><em>, </em><em>optional</em>) – If true, format figure for inclusion in a performance report.
 Defaults to True.</p></li>
-<li><p><strong>**kwargs</strong> (<em>TYPE</em>) – Plotting keyword arguments.</p></li>
+<li><p><strong>**kwargs</strong> (<em>dict</em>) – Plotting keyword arguments.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -845,9 +939,55 @@ Defaults to True.</p></li>
 <span class="sig-name descname"><span class="pre">plot_metrics</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/sensortoolkit/evaluation_objs/_sensor_eval.html#SensorEvaluation.plot_metrics"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sensortoolkit.evaluation_objs._sensor_eval.SensorEvaluation.plot_metrics" title="Permalink to this definition"></a></dt>
 <dd><p>Regression dot/boxplots for U.S EPA performance metrics and targets
 developed for PM2.5 and O3 sensor evaluations.</p>
+<p>Results for the following metrics are shown:</p>
+<ul class="simple">
+<li><p>Linearity:</p>
+<ul>
+<li><p><span class="math notranslate nohighlight">\(R^2\)</span>: The coefficient of determination, which is a measure
+of linearity between sensor
+and reference measurement pairs.</p></li>
+</ul>
+</li>
+<li><p>Bias:</p>
+<ul>
+<li><p>Slope: The slope of the ordinary least-squares regression between
+sensor (y-axis) and
+reference (x-axis) measurements.</p></li>
+<li><p>Intercept: The intercept term of the ordinary least-squares
+regression between sensor (y-axis) and
+reference (x-axis) measurements.</p></li>
+</ul>
+</li>
+<li><p>Error:</p>
+<ul>
+<li><p><span class="math notranslate nohighlight">\(RMSE\)</span>: The root mean square error between sensor and
+reference measurements.</p></li>
+<li><p><span class="math notranslate nohighlight">\(NRMSE\)</span>: The normalized root mean square error between sensor
+and reference measurements, where RMSE has been normalized by the
+mean reference concentration during the testing period.</p></li>
+</ul>
+</li>
+<li><p>Precision:</p>
+<ul>
+<li><p><span class="math notranslate nohighlight">\(CV\)</span>: The coefficient of variation of concurrently recorded
+sensor measurements.</p></li>
+<li><p><span class="math notranslate nohighlight">\(SD\)</span>: The standard deviation of concurrently recorded sensor
+measurements.</p></li>
+</ul>
+</li>
+</ul>
+<p>Results are shown as either colored dots (if the number of sensors is
+less than four) or as boxplots (if the number of sensors exceeds
+three). Target ranges are indicated by gray shaded regions, and target
+goals are indicated by dark gray lines. Results are grouped by data
+averaging interval, including 1-hour and 24-hour intervals (note that
+some pollutants such as O3 are analyzed only at 1-hour intervals due to
+significant diurnal variability, so the formatting of the figure will
+depend on which averaging interval(s) are indicated for the parameter
+via the <code class="docutils literal notranslate"><span class="pre">sensortoolkit.Parameter.averaging</span></code> attribute).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>**kwargs</strong> (<em>TYPE</em>) – Plotting keyword arguments.</p>
+<dd class="field-odd"><p><strong>**kwargs</strong> (<em>dict</em>) – Plotting keyword arguments.</p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>None.</p>
@@ -863,14 +1003,20 @@ reference monitor measurements.</p>
 <p>Plots generated by this method:
 * Internal sensor RH vs Reference monitor RH
 * Internal sensor Temp vs Reference monitor Temp</p>
+<p>Sensor measurements are plotted along the y-axis with reference
+measurements along the x-axis. Statistical quantities are displayed
+for each scatter plot including the ordinary least-squares (OLS)
+regression equation, R^2, RMSE, and N (the number of measurement
+pairs). The one-to-one line (indicating ideal agreement between
+sensor and reference measurements) is shown as a dashed gray line.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>averaging_interval</strong> (<em>TYPE</em><em>, </em><em>optional</em>) – The measurement averaging intervals commonly utilized for
+<li><p><strong>averaging_interval</strong> (<em>str</em><em>, </em><em>optional</em>) – The measurement averaging intervals commonly utilized for
 analyzing data corresponding the the selected parameter.
 Defaults to ‘1-hour’.</p></li>
-<li><p><strong>met_param</strong> (<em>TYPE</em><em>, </em><em>optional</em>) – DESCRIPTION. Defaults to None.</p></li>
-<li><p><strong>**kwargs</strong> (<em>TYPE</em>) – Plotting keyword arguments.</p></li>
+<li><p><strong>met_param</strong> (<em>str</em><em>, </em><em>optional</em>) – The meteorological parameter to display. Defaults to None.</p></li>
+<li><p><strong>**kwargs</strong> (<em>dict</em>) – Plotting keyword arguments.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -893,24 +1039,29 @@ DataFrame.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>averaging_interval</strong> (<em>TYPE</em><em>, </em><em>optional</em>) – The measurement averaging intervals commonly utilized for
+<li><p><strong>averaging_interval</strong> (<em>str</em><em>, </em><em>optional</em>) – The measurement averaging intervals commonly utilized for
 analyzing data corresponding the the selected parameter.
 Defaults to ‘24-hour’.</p></li>
-<li><p><strong>plot_subset</strong> (<em>TYPE</em><em>, </em><em>optional</em>) – A list of either sensor serial IDs or the keys associated with
+<li><p><strong>plot_subset</strong> (<em>list</em><em>, </em><em>optional</em>) – A list of either sensor serial IDs or the keys associated with
 the serial IDs in the serial dictionary. Defaults to None.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Keyword Arguments</dt>
-<dd class="field-even"><ul class="simple">
-<li><p><strong>report_fmt</strong> (<em>-</em>) – For displaying scatter plots on the
+</dl>
+<p><strong>Keyword Arguments</strong></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>report_fmt</strong> (<em>dict</em>) – For displaying scatter plots on the
 first page of the performance report included alongside U.S. EPA’s
 documents outlining recommended testing protocols, performance
 metrics, and target values. Defaults to False.</p></li>
-<li><p><strong>ARGS</strong> (<em>- ADDITONAL</em>) – Plotting keyword arguments.</p></li>
+<li><p><strong>**kwargs</strong> – <p>Additional keyword arguments passed to the underlying
+<code class="docutils literal notranslate"><span class="pre">sensortoolkit.plotting.scatter_plotter()</span></code> method.</p>
+</p></li>
 </ul>
 </dd>
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>None.</p>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -918,13 +1069,17 @@ metrics, and target values. Defaults to False.</p></li>
 <dl class="py method">
 <dt class="sig sig-object py" id="sensortoolkit.evaluation_objs._sensor_eval.SensorEvaluation.plot_timeseries">
 <span class="sig-name descname"><span class="pre">plot_timeseries</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">report_fmt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/sensortoolkit/evaluation_objs/_sensor_eval.html#SensorEvaluation.plot_timeseries"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sensortoolkit.evaluation_objs._sensor_eval.SensorEvaluation.plot_timeseries" title="Permalink to this definition"></a></dt>
-<dd><p>Plot parameter concentrations over time alongside reference.</p>
+<dd><p>Plot sensor and FRM/FEM reference measurements over time.</p>
+<p>Sensor measurements are indicated by distinct colors in a discrete
+color palette. FRM/FEM measurements are shown as black lines. The
+x-axis indicates the date in 5-day increments (default, although
+customizable). Measurement values are plotted along the y-axis.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>report_fmt</strong> (<em>bool</em><em>, </em><em>optional</em>) – If true, format figure for inclusion in a performance report.
 Defaults to True.</p></li>
-<li><p><strong>**kwargs</strong> (<em>TYPE</em>) – Plotting keyword arguments.</p></li>
+<li><p><strong>**kwargs</strong> (<em>dict</em>) – Plotting keyword arguments.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -945,7 +1100,7 @@ testing period. The range (min to max) of each parameter is listed
 below the mean in parentheses.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>averaging_interval</strong> (<em>TYPE</em><em>, </em><em>optional</em>) – The measurement averaging intervals commonly utilized for
+<dd class="field-odd"><p><strong>averaging_interval</strong> (<em>str</em><em>, </em><em>optional</em>) – The measurement averaging intervals commonly utilized for
 analyzing data corresponding the the selected parameter.
 Defaults to ‘24-hour’.</p>
 </dd>
@@ -966,7 +1121,7 @@ are computed for each sensor, and the mean metric value is
 presented alongside the range (min to max).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>averaging_interval</strong> (<em>TYPE</em><em>, </em><em>optional</em>) – The measurement averaging intervals commonly utilized for
+<dd class="field-odd"><p><strong>averaging_interval</strong> (<em>dict</em><em>, </em><em>optional</em>) – The measurement averaging intervals commonly utilized for
 analyzing data corresponding the the selected parameter.
 Defaults to ‘24-hour’.</p>
 </dd>

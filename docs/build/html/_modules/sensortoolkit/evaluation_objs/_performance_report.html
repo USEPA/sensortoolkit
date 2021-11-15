@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>sensortoolkit.evaluation_objs._performance_report &mdash; sensortoolkit 0.6.0b14 documentation</title>
+  <title>sensortoolkit.evaluation_objs._performance_report &mdash; sensortoolkit 0.6.1b1 documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" type="text/css" />
@@ -30,7 +30,7 @@
             <a href="../../../index.html" class="icon icon-home"> sensortoolkit
           </a>
               <div class="version">
-                0.6.0b14
+                0.6.1b1
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
@@ -2814,7 +2814,8 @@
                            <span class="n">shape</span><span class="o">.</span><span class="n">left</span><span class="o">.</span><span class="n">inches</span><span class="p">,</span> <span class="n">shape</span><span class="o">.</span><span class="n">top</span><span class="o">.</span><span class="n">inches</span><span class="p">))</span></div>
 
 <div class="viewcode-block" id="PerformanceReport.SubElement"><a class="viewcode-back" href="../../../api/_autosummary/sensortoolkit.evaluation_objs._performance_report.PerformanceReport.html#sensortoolkit.evaluation_objs._performance_report.PerformanceReport.SubElement">[docs]</a>    <span class="k">def</span> <span class="nf">SubElement</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">,</span> <span class="n">tagname</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Modify xml entry to add a new attribute (element).</span>
+        <span class="sd">&quot;&quot;&quot;Modify an XML element by adding a sub-element entry and assign</span>
+<span class="sd">        attributes.</span>
 
 <span class="sd">        **Reference:**</span>
 
@@ -2823,17 +2824,25 @@
 <span class="sd">            https://groups.google.com/g/python-pptx/c/UTkdemIZICw</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            parent (TYPE): DESCRIPTION.</span>
-<span class="sd">            tagname (TYPE): DESCRIPTION.</span>
-<span class="sd">            **kwargs (TYPE): DESCRIPTION.</span>
+<span class="sd">            parent (XML element):</span>
+<span class="sd">                An XML element.</span>
+<span class="sd">            tagname (str):</span>
+<span class="sd">                XML tagname for the sub-element to add to the parent attribute.</span>
+<span class="sd">            **kwargs (dict): Attributes to assign to the sub-element.</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            element (TYPE): DESCRIPTION.</span>
+<span class="sd">            element (XML): Updated element with attributes added.</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Create a new sub-element entry for the passed tagname</span>
         <span class="n">element</span> <span class="o">=</span> <span class="n">ppt</span><span class="o">.</span><span class="n">oxml</span><span class="o">.</span><span class="n">xmlchemy</span><span class="o">.</span><span class="n">OxmlElement</span><span class="p">(</span><span class="n">tagname</span><span class="p">)</span>
+
+        <span class="c1"># Add attributes to the new element entry</span>
         <span class="n">element</span><span class="o">.</span><span class="n">attrib</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span>
+
+        <span class="c1"># Join the XML sub-element to the parent element</span>
         <span class="n">parent</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">element</span><span class="p">)</span>
+
         <span class="k">return</span> <span class="n">element</span></div>
 
 <div class="viewcode-block" id="PerformanceReport.SetCellBorder"><a class="viewcode-back" href="../../../api/_autosummary/sensortoolkit.evaluation_objs._performance_report.PerformanceReport.html#sensortoolkit.evaluation_objs._performance_report.PerformanceReport.SetCellBorder">[docs]</a>    <span class="k">def</span> <span class="nf">SetCellBorder</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cell</span><span class="p">,</span> <span class="n">border_color</span><span class="o">=</span><span class="s2">&quot;ffffff&quot;</span><span class="p">,</span> <span class="n">border_width</span><span class="o">=</span><span class="s1">&#39;20000&#39;</span><span class="p">):</span>
@@ -2862,7 +2871,9 @@
 <span class="sd">            None.</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Table cell object</span>
         <span class="n">tc</span> <span class="o">=</span> <span class="n">cell</span><span class="o">.</span><span class="n">_tc</span>
+        <span class="c1"># Table cell properties</span>
         <span class="n">tcPr</span> <span class="o">=</span> <span class="n">tc</span><span class="o">.</span><span class="n">get_or_add_tcPr</span><span class="p">()</span>
         <span class="k">for</span> <span class="n">lines</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;a:lnL&#39;</span><span class="p">,</span> <span class="s1">&#39;a:lnR&#39;</span><span class="p">,</span> <span class="s1">&#39;a:lnT&#39;</span><span class="p">,</span> <span class="s1">&#39;a:lnB&#39;</span><span class="p">]:</span>
             <span class="n">ln</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">SubElement</span><span class="p">(</span><span class="n">tcPr</span><span class="p">,</span> <span class="n">lines</span><span class="p">,</span> <span class="n">w</span><span class="o">=</span><span class="n">border_width</span><span class="p">,</span>

@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>sensortoolkit.ingest._sensor_import.sensor_import &mdash; sensortoolkit 0.6.0b14 documentation</title>
+  <title>sensortoolkit.ingest._sensor_import.sensor_import &mdash; sensortoolkit 0.6.1b1 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" type="text/css" />
@@ -33,7 +33,7 @@
             <a href="../../index.html" class="icon icon-home"> sensortoolkit
           </a>
               <div class="version">
-                0.6.0b14
+                0.6.1b1
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
@@ -502,8 +502,6 @@ nested folder structures if the appropriate naming scheme is followed).</p>
 <li><p><strong>sensor_name</strong> (<em>str</em>) – The make and model of the sensor being evaluated.</p></li>
 <li><p><strong>serials</strong> (<em>dict</em>) – A dictionary of sensor serial identifiers for each unit
 in a testing group</p></li>
-<li><p><strong>tzone_shift</strong> (<em>int</em>) – ) An integer value by which to shift the sensor data
-to UTC. Specifying 0 will not shift the data.</p></li>
 <li><p><strong>load_raw_data</strong> (<em>bool</em>) – If true, raw data in the appropriate subdirectory
 will be loaded and 1-hr and 24-hr averages will be computed and
 saved to a processed data subdirectory for the specified sensor.
@@ -517,6 +515,19 @@ will be written to folder location. In addition, subsequent
 evaluation statistics will be written to the ‘data’ and
 ‘eval_stats’ sensor subdirectory. Figures will also be written to
 the appropriate figures subdirectory.</p></li>
+</ul>
+</dd>
+</dl>
+<p><strong>Keyword Arguments</strong></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>deploy_bdate</strong> (<em>str</em>) – The timestamp (date) marking the beginning of the sensor testing period,
+formatted as <code class="docutils literal notranslate"><span class="pre">'YYYY-MM-DD</span> <span class="pre">HH:MM:SS'</span></code>. Sensor datasets will be
+concatenated to begin at this timestamp.</p></li>
+<li><p><strong>deploy_edate</strong> (<em>str</em>) – The timestamp (date) marking the end of the sensor testing period,
+formatted as <code class="docutils literal notranslate"><span class="pre">'YYYY-MM-DD</span> <span class="pre">HH:MM:SS'</span></code>. Sensor datasets will be
+concatenated to end at this timestamp.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>

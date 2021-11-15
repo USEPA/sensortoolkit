@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>sensortoolkit.plotting._timeseries.sensor_timeplot &mdash; sensortoolkit 0.6.0b14 documentation</title>
+  <title>sensortoolkit.plotting._timeseries.sensor_timeplot &mdash; sensortoolkit 0.6.1b1 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" type="text/css" />
@@ -33,7 +33,7 @@
             <a href="../../index.html" class="icon icon-home"> sensortoolkit
           </a>
               <div class="version">
-                0.6.0b14
+                0.6.1b1
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
@@ -459,31 +459,46 @@ for each axes object. Defaults to None.</p></li>
 <li><p><strong>date_interval</strong> (<em>int</em>) – Number of days between x-axis tick marks with ‘mm-dd-yy’ timestamps.</p></li>
 <li><p><strong>yscale</strong> (<em>str</em>) – The scaling for the y-axis. Accepted values include ‘linear’,
 ‘log’, ‘symlog’, ‘logit’, etc.</p></li>
-<li><p><strong>ylims</strong> (<em>Two-element tuple of floats</em><em> or </em><em>ints</em>) – The y-limits of the plot</p></li>
+<li><p><strong>ylims</strong> (<em>Two-element tuple of floats</em><em> or </em><em>ints</em>) – Set the y-limits of the plot.</p></li>
 <li><p><strong>format_xaxis_weeks</strong> (<em>bool</em>) – Plot the timeseries x-axis (time) in increments of 1 week. Defaults
 to False.</p></li>
-<li><p><strong>fig_size</strong> (<em>Two-element tuple of floats</em><em> or </em><em>ints</em>) – Tuple for setting the figure size.</p></li>
+<li><p><strong>fig_size</strong> (<em>Two-element tuple</em>) – The dimensions (width, height) in inches of the Matplotlib figure to
+be drawn. Defaults to (16, 3.5).</p></li>
 <li><p><strong>float</strong> (<em>fontsize int or</em>) – The font size for the xlabel, ylabel, and plot text. Passed on to
 Draw_Scatter() which uses 0.85*font_size for tick labels.</p></li>
 <li><p><strong>legend_fontscale</strong> (<em>font</em>) – Relative scale of fontsize for text in the legend relative to label
 text.</p></li>
-<li><p><strong>cmap_name</strong> (<em>str</em>) – The name of the palette assigned to relative-humidity colormapped
-scatter plot points</p></li>
+<li><p><strong>cmap_name</strong> (<em>str</em>) – The name of the Matplotlib colormap that will be used when drawing
+plot elements. Defaults to <code class="docutils literal notranslate"><span class="pre">'Set1'</span></code>. A full list of colormaps is
+can be found in the <a class="reference external" href="https://matplotlib.org/stable/gallery/color/colormap_reference.html">Matplotlib documentation</a></p></li>
 <li><p><strong>cmap_normrange</strong> (<em>Two-element tuple</em>) – Normalized range (0,1) for colormap hue selection. Limiting this
 range to something like (0.1, 0.9) is useful when using colormaps
 with high contrast extrema and a gradual change in hue is desired
 for plots.</p></li>
 <li><p><strong>show_title</strong> (<em>bool</em>) – If true, display the title for the figure. Defaults to True.</p></li>
 <li><p><strong>filename_suffix</strong> (<em>str</em>) – Optional string added to end of filename. Defaults to empty string.</p></li>
-<li><p><strong>box_xscale</strong> (<em>TYPE</em>) – DESCRIPTION. Defaults to</p></li>
-<li><p><strong>box_yscale</strong> (<em>TYPE</em>) – DESCRIPTION. Defaults to</p></li>
-<li><p><strong>box_wscale</strong> (<em>TYPE</em>) – DESCRIPTION. Defaults to</p></li>
-<li><p><strong>box_hscale</strong> (<em>TYPE</em>) – DESCRIPTION. Defaults to</p></li>
-<li><p><strong>legend_loc</strong> (<em>TYPE</em>) – DESCRIPTION. Defaults to</p></li>
-<li><p><strong>sensor_colors</strong> (<em>TYPE</em>) – Default set by chosen colormap (cmap_name) and the normalized range
-for the colormap.</p></li>
+<li><p><strong>box_xscale</strong> (<em>float</em>) – Scalar value for translating the x-coordinates of the Matplotlib
+axes object box in which the plot is drawn. Passed to the
+<code class="docutils literal notranslate"><span class="pre">Matplotlib.Axes.set_position()</span></code> method for adjusting the axes
+box dimensions relative to the Matplotlib figure coordinates.</p></li>
+<li><p><strong>box_yscale</strong> (<em>float</em>) – Scalar value for translating the y-coordinates of the Matplotlib
+axes object box in which the plot is drawn. Passed to the
+<code class="docutils literal notranslate"><span class="pre">Matplotlib.Axes.set_position()</span></code> method for adjusting the axes
+box dimensions relative to the Matplotlib figure coordinates.</p></li>
+<li><p><strong>box_wscale</strong> (<em>float</em>) – Scalar value for transforming the x-range (width) of the Matplotlib
+axes object box in which the plot is drawn. Passed to the
+<code class="docutils literal notranslate"><span class="pre">Matplotlib.Axes.set_position()</span></code> method for adjusting the axes
+box dimensions relative to the Matplotlib figure coordinates.</p></li>
+<li><p><strong>box_hscale</strong> (<em>float</em>) – Scalar value for transforming the y-range (height) of the Matplotlib
+axes object box in which the plot is drawn. Passed to the
+<code class="docutils literal notranslate"><span class="pre">Matplotlib.Axes.set_position()</span></code> method for adjusting the axes
+box dimensions relative to the Matplotlib figure coordinates.</p></li>
+<li><p><strong>legend_loc</strong> (<em>Two-element tuple</em>) – The x and y coordinate of center of the legend (relative to the axes
+object coordinates).</p></li>
+<li><p><strong>sensor_colors</strong> (<em>list</em>) – Set the list of colors for drawing sensor line plots. Default set by
+chosen colormap (cmap_name) and the normalized range for the colormap.</p></li>
 <li><p><strong>sensor_linealpha</strong> (<em>float</em>) – The transparency of the lines indicating sensor measurements. Defaults
-to 0.70</p></li>
+to 0.70.</p></li>
 <li><p><strong>sensor_linewidth</strong> (<em>float</em>) – The width (thickness) of the lines indicating sensor measurements.
 Defaults to 1.5.</p></li>
 <li><p><strong>sensor_linestyle</strong> (<em>str</em>) – The style of the lines indicating sensor measurements. Passed
@@ -491,15 +506,17 @@ to matplotlib linestyles. Defaults to ‘-‘.</p></li>
 <li><p><strong>ref_linecolor</strong> (<em>str</em>) – The color of the line indicating reference measurements. Defaults
 to ‘k’.</p></li>
 <li><p><strong>ref_linealpha</strong> (<em>float</em>) – The transparency of the line indicating reference measurements.
-Defaults to 0.97</p></li>
+Defaults to 0.97.</p></li>
 <li><p><strong>ref_linewidth</strong> (<em>float</em>) – The width (thickness) of the line indicating reference measurements.
-Defaults to 1.5</p></li>
+Defaults to 1.5.</p></li>
 <li><p><strong>ref_linestyle</strong> (<em>str</em>) – The style of the lines indicating reference measurements. Passed
 to matplotlib linestyles. Defaults to ‘-‘.</p></li>
 <li><p><strong>date_format</strong> (<em>str</em>) – The strftime format in which dates will be displayed along the x-axis
 if ‘format_xaxis_weeks’ is False. Defaults to “%m-%d-%y”.</p></li>
-<li><p><strong>legend_fontsize</strong> (<em>TYPE</em>) – DESCRIPTION. Defaults to</p></li>
-<li><p><strong>subplots_adjust</strong> (<em>TYPE</em>) – DESCRIPTION. Defaults to</p></li>
+<li><p><strong>legend_fontsize</strong> (<em>float</em>) – Value by which to scale the legend text font size relative to the value
+of the fontsize argument. Defaults to 0.72.</p></li>
+<li><p><strong>subplots_adjust</strong> (<em>Four-element tuple.</em>) – Modify the bounds of the subplot [x-min, x-max, y-max, y-min]. If
+unique_ax_obj is True, defaults to (0.05, 0.9, 0.90, 0.15).</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>

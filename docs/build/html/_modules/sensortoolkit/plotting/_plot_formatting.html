@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>sensortoolkit.plotting._plot_formatting &mdash; sensortoolkit 0.6.0b14 documentation</title>
+  <title>sensortoolkit.plotting._plot_formatting &mdash; sensortoolkit 0.6.1b1 documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" type="text/css" />
@@ -30,7 +30,7 @@
             <a href="../../../index.html" class="icon icon-home"> sensortoolkit
           </a>
               <div class="version">
-                0.6.0b14
+                0.6.1b1
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
@@ -540,7 +540,8 @@
 <span class="sd">              the figure title.</span>
 <span class="sd">            - **title_text_wrap** (*int*): The number of characters to include</span>
 <span class="sd">              on a single line of the title before inserting a new line.</span>
-<span class="sd">            - **detail_fontsize** (*int* or *float*): DESCRIPTION.</span>
+<span class="sd">            - **detail_fontsize** (*int* or *float*): Fontsize for axes tick</span>
+<span class="sd">              labels and smaller plotting text elements..</span>
 <span class="sd">            - **wspace** (*float*): The width (x-distance) between each subplot.</span>
 <span class="sd">            - **hspace** (*float*): The height (y-distance) between each</span>
 <span class="sd">              subplot.</span>
@@ -552,10 +553,15 @@
 <span class="sd">              subplots will be drawn.</span>
 <span class="sd">            - **bottom** (*float*): The bottom-most (y-min) limits at which the</span>
 <span class="sd">              subplots will be drawn.</span>
-<span class="sd">            - **filename_suffix** (*str*): DESCRIPTION.</span>
-<span class="sd">            - **cbar_padding** (*float*): DESCRIPTION.</span>
-<span class="sd">            - **cbar_aspect** (*int* or *float*): DESCRIPTION.</span>
-<span class="sd">            - **font_size** (*int* or *float*): DESCRIPTION.</span>
+<span class="sd">            - **filename_suffix** (*str*): A string indicating the number of</span>
+<span class="sd">              sensors for which subplots are drawn in the figure, added to</span>
+<span class="sd">              filename when saving figure to png.</span>
+<span class="sd">            - **cbar_padding** (*float*): Padding between the colorbar and the</span>
+<span class="sd">              figure subplots.</span>
+<span class="sd">            - **cbar_aspect** (*int* or *float*): The aspect ratio (width /</span>
+<span class="sd">              height) of the colorbar for relative humidity measurements.</span>
+<span class="sd">            - **font_size** (*int* or *float*): The font size for text displayed</span>
+<span class="sd">              in the figure.</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">RH_colormap</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;show_colorbar&#39;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>

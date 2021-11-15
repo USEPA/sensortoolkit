@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>sensortoolkit.lib_utils._setup &mdash; sensortoolkit 0.6.0b14 documentation</title>
+  <title>sensortoolkit.lib_utils._setup &mdash; sensortoolkit 0.6.1b1 documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" type="text/css" />
@@ -30,7 +30,7 @@
             <a href="../../../index.html" class="icon icon-home"> sensortoolkit
           </a>
               <div class="version">
-                0.6.0b14
+                0.6.1b1
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
@@ -680,10 +680,11 @@
 <span class="sd">        Args:</span>
 <span class="sd">            file (str):</span>
 <span class="sd">                Full path to dataset file.</span>
-<span class="sd">            **kwargs (dict):</span>
-<span class="sd">                - **nrows** (*int*):</span>
-<span class="sd">                  The number of rows to load for the passed dataset. Defaults</span>
-<span class="sd">                  to 1.</span>
+
+<span class="sd">        **Keyword Arguments:**</span>
+
+<span class="sd">        :param int nrows:</span>
+<span class="sd">            The number of rows to load for the passed dataset. Defaults to 1.</span>
 
 <span class="sd">        Raises:</span>
 <span class="sd">            TypeError: If data type is not in the list of valid extensions.</span>
@@ -875,7 +876,7 @@
 
 <span class="sd">        Raises:</span>
 <span class="sd">            ValueError: Raise if the value of the entered index is invalid</span>
-<span class="sd">            (less than zero).</span>
+<span class="sd">                (less than zero).</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            None.</span>

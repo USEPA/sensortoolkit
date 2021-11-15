@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>sensortoolkit.qc._interval_downsampling &mdash; sensortoolkit 0.6.0b14 documentation</title>
+  <title>sensortoolkit.qc._interval_downsampling &mdash; sensortoolkit 0.6.1b1 documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" type="text/css" />
@@ -30,7 +30,7 @@
             <a href="../../../index.html" class="icon icon-home"> sensortoolkit
           </a>
               <div class="version">
-                0.6.0b14
+                0.6.1b1
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
@@ -398,7 +398,14 @@
   <h1>Source code for sensortoolkit.qc._interval_downsampling</h1><div class="highlight"><pre>
 <span></span><span class="c1"># -*- coding: utf-8 -*-</span>
 <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">Description.</span>
+<span class="sd">This module contains methods for applying downsampling methods to convert</span>
+<span class="sd">timeseries datasets at unevenly spaced sampling intervals to a uniform, evenly</span>
+<span class="sd">spaced interval (the downsampling interval).</span>
+
+<span class="sd">The downsampling interval is determined based on the variation in the orginally</span>
+<span class="sd">recorded dataset. If, for instance, a sensor was set to record at 60 second</span>
+<span class="sd">intervals but the interval between consecutively recorded timestamps</span>
+<span class="sd">varied from 60 +/- 20 seconds, data may be downsampled to 120 second averages.</span>
 
 <span class="sd">================================================================================</span>
 
@@ -587,15 +594,19 @@
 
 
 <div class="viewcode-block" id="apply_downsampling"><a class="viewcode-back" href="../../../api/_autosummary/sensortoolkit.qc._interval_downsampling.apply_downsampling.html#sensortoolkit.qc._interval_downsampling.apply_downsampling">[docs]</a><span class="k">def</span> <span class="nf">apply_downsampling</span><span class="p">(</span><span class="n">df_list</span><span class="p">,</span> <span class="n">downsampling_interval</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-
+    <span class="sd">&quot;&quot;&quot;Helper function for applying downsampled averaging to datasets for the</span>
+<span class="sd">    passed downsampling interval.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        df_list (TYPE): DESCRIPTION.</span>
-<span class="sd">        downsampling_interval (TYPE): DESCRIPTION.</span>
+<span class="sd">        df_list (list):</span>
+<span class="sd">            List of sensor dataframes at original, recorded sampling frequency.</span>
+<span class="sd">        downsampling_interval (int or float):</span>
+<span class="sd">            The downsampling interval, in seconds.</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        df_list (TYPE): DESCRIPTION.</span>
+<span class="sd">        df_list (list):</span>
+<span class="sd">            Modified list of sensor dataframes with downsampled, uniformly</span>
+<span class="sd">            spaced timestamp intervals.</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># Downsample to mean param values for every downsampled interval</span>

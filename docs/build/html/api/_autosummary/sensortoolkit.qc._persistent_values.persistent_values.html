@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>sensortoolkit.qc._persistent_values.persistent_values &mdash; sensortoolkit 0.6.0b14 documentation</title>
+  <title>sensortoolkit.qc._persistent_values.persistent_values &mdash; sensortoolkit 0.6.1b1 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" type="text/css" />
@@ -33,7 +33,7 @@
             <a href="../../index.html" class="icon icon-home"> sensortoolkit
           </a>
               <div class="version">
-                0.6.0b14
+                0.6.1b1
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
@@ -413,20 +413,23 @@ If invalidate is true, corresponding values will be set null (np.nan).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>df</strong> (<em>TYPE</em>) – DESCRIPTION.</p></li>
-<li><p><strong>param</strong> (<em>TYPE</em>) – DESCRIPTION.</p></li>
-<li><p><strong>tolerance</strong> (<em>TYPE</em><em>, </em><em>optional</em>) – The number of consecutive entries for</p></li>
-<li><p><strong>Defaults</strong> (<em>repeated/persistent values required to flag a data point.</em>) – </p></li>
-<li><p><strong>3.</strong> (<em>to</em>) – </p></li>
-<li><p><strong>freq</strong> (<em>TYPE</em><em>, </em><em>optional</em>) – DESCRIPTION. Defaults to ‘H’.</p></li>
-<li><p><strong>invalidate</strong> (<em>TYPE</em><em>, </em><em>optional</em>) – DESCRIPTION. Defaults to False.</p></li>
+<li><p><strong>df</strong> (<em>pandas DataFrame</em>) – Dataset containing parameter data to check for repeating values.</p></li>
+<li><p><strong>param</strong> (<em>str</em>) – The name of the parameter to check for repeating values.</p></li>
+<li><p><strong>tolerance</strong> (<em>int</em><em>, </em><em>optional</em>) – The number of consecutive entries for repeated/persistent values
+required to flag a data point. Defaults to 3.</p></li>
+<li><p><strong>freq</strong> (<em>TYPE</em><em>, </em><em>optional</em>) – The sampling frequency or averaging interval of the passed dataset,
+expressed as a pandas offset alias (see a list here
+<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/user_guide/timeseries.html#offset-aliases">https://pandas.pydata.org/pandas-docs/stable/user_guide/timeseries.html#offset-aliases</a>).
+Defaults to ‘H’ for 1-hour averaged datasets.</p></li>
+<li><p><strong>invalidate</strong> (<em>bool</em><em>, </em><em>optional</em>) – If True, repeated entries will be set null (np.nan). Defaults to
+False.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>DESCRIPTION.</p>
+<dd class="field-even"><p>Modified dataset with flagged entries for repeated data entries.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>df (TYPE)</p>
+<dd class="field-odd"><p>df (pandas DataFrame)</p>
 </dd>
 </dl>
 </dd></dl>

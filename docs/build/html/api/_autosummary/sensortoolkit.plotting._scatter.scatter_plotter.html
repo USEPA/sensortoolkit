@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>sensortoolkit.plotting._scatter.scatter_plotter &mdash; sensortoolkit 0.6.0b14 documentation</title>
+  <title>sensortoolkit.plotting._scatter.scatter_plotter &mdash; sensortoolkit 0.6.1b1 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" type="text/css" />
@@ -34,7 +34,7 @@
             <a href="../../index.html" class="icon icon-home"> sensortoolkit
           </a>
               <div class="version">
-                0.6.0b14
+                0.6.1b1
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
@@ -466,28 +466,44 @@ param_class = Gases;if param is Temp, param_class = Met.</p></li>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>color_palette</strong> (<em>str</em>) – Color palette assigned to relative-humidity colormapped scatter
-plot points</p></li>
-<li><p><strong>colorbar_axespos</strong> (<em>TYPE</em>) – DEFINITION</p></li>
-<li><p><strong>colorbar_orientation</strong> (<em>str</em>) – DEFINITION</p></li>
-<li><p><strong>colorbar_title_fontsize</strong> (<em>TYPE</em>) – DEFINITION</p></li>
-<li><p><strong>colorbar_title_ypos</strong> (<em>TYPE</em>) – DEFINITION</p></li>
-<li><p><strong>colorbar_tick_labelsize</strong> (<em>TYPE</em>) – DEFINITION</p></li>
-<li><p><strong>colorbar_tick_length</strong> (<em>TYPE</em>) – DEFINITION</p></li>
-<li><p><strong>colorbar_tick_width</strong> (<em>TYPE</em>) – DEFINITION</p></li>
-<li><p><strong>draw_cbar</strong> (<em>TYPE</em>) – DEFINITION</p></li>
-<li><p><strong>fig_wspace</strong> (<em>TYPE</em>) – DEFINITION</p></li>
-<li><p><strong>fig_hspace</strong> (<em>TYPE</em>) – DEFINITION</p></li>
-<li><p><strong>fig_left</strong> (<em>TYPE</em>) – DEFINITION</p></li>
-<li><p><strong>fig_right</strong> (<em>TYPE</em>) – DEFINITION</p></li>
-<li><p><strong>fig_top</strong> (<em>TYPE</em>) – DEFINITION</p></li>
-<li><p><strong>fig_bottom</strong> (<em>TYPE</em>) – DEFINITION</p></li>
-<li><p><strong>filename_suffix</strong> (<em>TYPE</em>) – Optional string added to end of filename. Defaults to empty string.</p></li>
+plot points. Defaults to <code class="docutils literal notranslate"><span class="pre">'seismic'</span></code>.</p></li>
+<li><p><strong>colorbar_axespos</strong> (<em>Four-element tuple</em>) – Set the position of the colorbar axes object relative to the Matplotlib
+Figure coordinates. Four element tuple composed of (left-most
+x-coordinate, bottom-most y-coordinate, width, height) of the colobar
+axes object.</p></li>
+<li><p><strong>colorbar_orientation</strong> (<em>str</em>) – The orientation of the colorbar as drawn on the figure. Either
+‘vertical’ or ‘horizontal’.</p></li>
+<li><p><strong>colorbar_title_fontsize</strong> – The size of the ‘Relative Humidity’ title assigned to the colorbar.
+Defaults to the value of <code class="docutils literal notranslate"><span class="pre">'detail_fontsize'</span></code>.</p></li>
+<li><p><strong>colorbar_title_ypos</strong> – The y-position of the colorbar relative to the Matplotlib Figure
+coordinate dimensions.</p></li>
+<li><p><strong>colorbar_tick_labelsize</strong> (<em>int</em><em> or </em><em>float</em>) – The size of the label (percentage of RH) for the colorbar. Defaults to
+the value of <code class="docutils literal notranslate"><span class="pre">'detail_fontsize'</span></code>.</p></li>
+<li><p><strong>colorbar_tick_length</strong> (<em>int</em><em> or </em><em>float</em>) – The length of the colorbar ticks. Defaults to 4.0.</p></li>
+<li><p><strong>colorbar_tick_width</strong> (<em>float</em>) – The thickness (width) of the colorbar ticks. Defaults to 1.0.</p></li>
+<li><p><strong>draw_cbar</strong> (<em>bool</em>) – If True, relative humidity values will be superimposed on to
+sensor-reference measurement pairs via the specified
+color palette (<code class="docutils literal notranslate"><span class="pre">'color_palette'</span></code>) and a colorbar will be drawn
+alongside the scatter subplots as a legend for colored RH values.</p></li>
+<li><p><strong>fig_wspace</strong> (<em>float</em>) – Modify the width of padding between subplots. Passed to
+<code class="docutils literal notranslate"><span class="pre">Matplotlib.subplots.subplots_adjust()</span></code> <code class="docutils literal notranslate"><span class="pre">'wspace'</span></code> argument.</p></li>
+<li><p><strong>fig_hspace</strong> (<em>float</em>) – Modify the height of padding between subplots. Passed to
+<code class="docutils literal notranslate"><span class="pre">Matplotlib.subplots.subplots_adjust()</span></code> <code class="docutils literal notranslate"><span class="pre">'hspace'</span></code> argument.</p></li>
+<li><p><strong>fig_left</strong> (<em>float</em>) – Modify the left-most bounds of the figure. Passed to
+<code class="docutils literal notranslate"><span class="pre">Matplotlib.subplots.subplots_adjust()</span></code> <code class="docutils literal notranslate"><span class="pre">'left'</span></code> argument.</p></li>
+<li><p><strong>fig_right</strong> (<em>float</em>) – Modify the right-most bounds of the figure. Passed to
+<code class="docutils literal notranslate"><span class="pre">Matplotlib.subplots.subplots_adjust()</span></code> <code class="docutils literal notranslate"><span class="pre">'right'</span></code> argument.</p></li>
+<li><p><strong>fig_top</strong> (<em>float</em>) – Modify the upper-most bounds of the figure. Passed to
+<code class="docutils literal notranslate"><span class="pre">Matplotlib.subplots.subplots_adjust()</span></code> <code class="docutils literal notranslate"><span class="pre">'top'</span></code> argument.</p></li>
+<li><p><strong>fig_bottom</strong> (<em>float</em>) – Modify the lower-most bounds of the figure. Passed to
+<code class="docutils literal notranslate"><span class="pre">Matplotlib.subplots.subplots_adjust()</span></code> <code class="docutils literal notranslate"><span class="pre">'bottom'</span></code> argument.</p></li>
+<li><p><strong>filename_suffix</strong> (<em>str</em>) – Optional string added to end of filename. Defaults to empty string.</p></li>
 <li><p><strong>fontsize</strong> (<em>str</em><em>, </em><em>passed to Draw_Scatter</em><em>(</em><em>)</em>) – The font size for the xlabel, ylabel, and plot text. Passed on to
 Draw_Scatter() which uses 0.85*font_size for tick labels.</p></li>
 <li><p><strong>monocolor</strong> (<em>str</em><em>, </em><em>passed to Draw_Scatter</em><em>(</em><em>)</em>) – A single color (specified in hex) for scatter. Scatter are colored
 using monocolor if show_colorbar is False. Recommend #2251D0 (nice
 blue hue).</p></li>
-<li><p><strong>detail_fontsize</strong> – DEFINITION</p></li>
+<li><p><strong>detail_fontsize</strong> (<em>float</em>) – Fontsize for axes tick labels and smaller plotting text elements.</p></li>
 <li><p><strong>point_size</strong> (<em>int</em><em> or </em><em>float</em><em>, </em><em>passed to Draw_Scatter</em><em>(</em><em>)</em>) – The size of the scatter points. Defaults to 20.</p></li>
 <li><p><strong>point_alpha</strong> (<em>float</em>) – The transparency of the scatter plots. Defaults to 0.7.</p></li>
 <li><p><strong>plot_aspect</strong> (<em>str</em><em>, </em><em>passed to Draw_Scatter</em><em>(</em><em>)</em>) – Aspect ratio for scatter plot dimensions. Defaults to ‘equal’.</p></li>
@@ -510,8 +526,10 @@ Defaults to 0.08.</p></li>
 ‘bottom_right’. Defaults to ‘upper_left’ if the slope of the ‘
 regression is greater than  1.75, else default is set to
 ‘bottom_right’.</p></li>
-<li><p><strong>ref_name</strong> (<em>str</em>) – DEFINITION</p></li>
-<li><p><strong>seaborn_style</strong> (<em>str</em>) – DEFINITION</p></li>
+<li><p><strong>ref_name</strong> (<em>str</em>) – The name of the reference monitor (make, model).</p></li>
+<li><p><strong>seaborn_style</strong> (<em>str</em>) – Seaborn plotting style for plots. Options include
+<code class="docutils literal notranslate"><span class="pre">['darkgrid',</span> <span class="pre">'whitegrid',</span> <span class="pre">'dark',</span> <span class="pre">'white',</span> <span class="pre">'ticks']</span></code>. Defaults to
+<code class="docutils literal notranslate"><span class="pre">'darkgrid'</span></code>.</p></li>
 <li><p><strong>show_colorbar</strong> (<em>bool</em>) – If true, relative humidity values will be used as a colormap on the
 scatterplot points.</p></li>
 <li><p><strong>show_title</strong> (<em>bool</em>) – Show the title at the top of the plot. Includes the name of the
@@ -529,11 +547,13 @@ plot. Defaults to True.</p></li>
 <li><p><strong>show_one_to_one</strong> (<em>bool</em><em>, </em><em>passed to Draw_Scatter</em><em>(</em><em>)</em>) – If true, display the one-to-one line indicating ideal agreement
 between independent and depdendent variable. Defaults to True.</p></li>
 <li><p><strong>tight_layout</strong> (<em>bool</em>) – Passed to matplotlib’s <code class="docutils literal notranslate"><span class="pre">fig.tight_layout()</span></code> for narrow formatting</p></li>
-<li><p><strong>tick_spacing</strong> (<em>TYPE</em>) – DEFINITION</p></li>
-<li><p><strong>title_text</strong> (<em>TYPE</em>) – DEFINITION</p></li>
-<li><p><strong>title_textwrap</strong> (<em>TYPE</em>) – DEFINITION</p></li>
-<li><p><strong>title_xloc</strong> (<em>TYPE</em>) – DEFINITION</p></li>
-<li><p><strong>title_yloc</strong> (<em>TYPE</em>) – DEFINITION</p></li>
+<li><p><strong>tick_spacing</strong> (<em>int</em><em> or </em><em>float</em>) – The spacing (in concentration units) between adjacent tick marks along
+the x and y-axes.</p></li>
+<li><p><strong>title_text</strong> (<em>str</em>) – The title text displayed above the figure subplots.</p></li>
+<li><p><strong>title_textwrap</strong> (<em>int</em>) – The number of characters to include on a single line of the title
+before inserting a new line.</p></li>
+<li><p><strong>title_xloc</strong> (<em>float</em>) – The center horizontal Matplotlib Axes location of the plot title.</p></li>
+<li><p><strong>title_yloc</strong> (<em>float</em>) – The center vertical Matplotlib Axes location of the plot title.</p></li>
 <li><p><strong>trendline_xmax</strong> (<em>TYPE</em><em>, </em><em>passed to Draw_Scatter</em><em>(</em><em>)</em>) – The draw distance (based on the passed x-coordinate) of the OLS
 trendline. Defaults to 120% the maximum of the independent variable.</p></li>
 <li><p><strong>trendline_color</strong> (<em>str</em><em>, </em><em>passed to Draw_Scatter</em><em>(</em><em>)</em>) – The color of the trendline. Defaults to ‘k’ (black).</p></li>
