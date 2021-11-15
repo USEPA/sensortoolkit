@@ -66,6 +66,9 @@ def draw_scatter(ax, xdata, ydata, param_dict, sensor_stats=None,
             Data that are used to set the colormap value.
         colormap_name (string or none):
             The name of the colormap which the scatter plot will be assigned
+            The name of the Matplotlib colormap that will be used when
+            superimposing scatter points with RH values. A full list of colormaps is
+            can be found in the `Matplotlib documentation <https://matplotlib.org/stable/gallery/color/colormap_reference.html>`_
 
     **Keyword Arguments:**
 
@@ -369,19 +372,30 @@ def scatter_plotter(df_list, ref_df, stats_df=None, plot_subset=None,
         axes object.
     :type colorbar_axespos: Four-element tuple
     :param str colorbar_orientation:
-        DESCRIPTION
-    :param TYPE colorbar_title_fontsize:
-        DESCRIPTION
-    :param TYPE colorbar_title_ypos:
-        DESCRIPTION
-    :param TYPE colorbar_tick_labelsize:
-        DESCRIPTION
-    :param TYPE colorbar_tick_length:
-        DESCRIPTION
-    :param TYPE colorbar_tick_width:
-        DESCRIPTION
+        The orientation of the colorbar as drawn on the figure. Either
+        'vertical' or 'horizontal'.
+    :param colorbar_title_fontsize:
+        The size of the 'Relative Humidity' title assigned to the colorbar.
+        Defaults to the value of ``'detail_fontsize'``.
+    :type colorbar_tick_labelsize: int or float
+    :param colorbar_title_ypos:
+        The y-position of the colorbar relative to the Matplotlib Figure
+        coordinate dimensions.
+    :type colorbar_tick_labelsize: int or float
+    :param colorbar_tick_labelsize:
+        The size of the label (percentage of RH) for the colorbar. Defaults to
+        the value of ``'detail_fontsize'``.
+    :type colorbar_tick_labelsize: int or float
+    :param colorbar_tick_length:
+        The length of the colorbar ticks. Defaults to 4.0.
+    :type colorbar_tick_length: int or float
+    :param float colorbar_tick_width:
+        The thickness (width) of the colorbar ticks. Defaults to 1.0.
     :param bool draw_cbar:
-        DESCRIPTION
+        If True, relative humidity values will be superimposed on to
+        sensor-reference measurement pairs via the specified
+        color palette (``'color_palette'``) and a colorbar will be drawn
+        alongside the scatter subplots as a legend for colored RH values.
     :param float fig_wspace:
         Modify the width of padding between subplots. Passed to
         ``Matplotlib.subplots.subplots_adjust()`` ``'wspace'`` argument.
@@ -492,12 +506,15 @@ def scatter_plotter(df_list, ref_df, stats_df=None, plot_subset=None,
     :type show_one_to_one: bool, passed to Draw_Scatter()
     :param bool tight_layout:
         Passed to matplotlib's ``fig.tight_layout()`` for narrow formatting
-    :param TYPE tick_spacing:
-        DESCRIPTION
+    :param tick_spacing:
+        The spacing (in concentration units) between adjacent tick marks along
+        the x and y-axes.
+    :type tick_spacing: int or float
     :param str title_text:
-        DESCRIPTION
-    :param TYPE title_textwrap:
-        DESCRIPTION
+        The title text displayed above the figure subplots.
+    :param int title_textwrap:
+        The number of characters to include on a single line of the title
+        before inserting a new line.
     :param float title_xloc:
         The center horizontal Matplotlib Axes location of the plot title.
     :param float title_yloc:
@@ -861,8 +878,8 @@ def scatter_plotter(df_list, ref_df, stats_df=None, plot_subset=None,
                 cbar.ax.tick_params(
                         labelsize=kwargs.get('colorbar_tick_labelsize',
                                              detail_fontsize),
-                        length=kwargs.get('colorbar_tick_length', 4),
-                        width=kwargs.get('colorbar_tick_width', 1))
+                        length=kwargs.get('colorbar_tick_length', 4.0),
+                        width=kwargs.get('colorbar_tick_width', 1.0))
 
         # Error when all passed x or y data are empty. Do not write to file.
         except TypeError:
@@ -986,7 +1003,9 @@ def normalized_met_scatter(df_list, ref_df, avg_df, met_ref_df=None,
         The transparency of the scatter plots. Defaults to 0.5.
     :type point_alpha: float, passed to Draw_Scatter()
     :param list point_colors:
-        DESCRIPTION. Defaults to None.
+        A list of strings indicating colors for each sensor scatter - either
+        color hex codes or `valid color names recognized by Matplotlib <https://matplotlib.org/stable/gallery/color/named_colors.html>`_.
+        Defaults to None.
     :param xlims:
         Set the x-limits of the plot. Defaults to None.
     :type xlims: Two-element tuple
@@ -1011,8 +1030,40 @@ def normalized_met_scatter(df_list, ref_df, avg_df, met_ref_df=None,
         Fontsize for axes tick labels and smaller plotting text elements.
         Defaults to 10.
     :type detail_fontsize: int or float, passed to Draw_Scatter()
-    :param TYPE subplot_adjust:
-        DESCRIPTION. Defaults to None.
+    :param subplot_adjust:
+        Adjust the dimensions for drawing subplots on the Matplotlib Figure
+        object. Passed to ``Matplotlib.subplots.subplots_adjust()``. Contains
+        the following entries:
+
+        - top: Modify the upper-most bounds of the figure.
+        - bottom: Modify the lower-most bounds of the figure.
+        - left: Modify the left-most bounds of the figure.
+        - right: Modify the right-most bounds of the figure.
+        - hspace: Modify the height of padding between subplots
+        - wspace: Modify the width of padding between subplots
+        - legend_pos: Two-element tuple containing floats indicating the
+          x-axis and y-axis position of the center of the plot legend.
+
+        Defaults to None.
+
+    :param float fig_wspace:
+        Modify the width of padding between subplots. Passed to
+        ``Matplotlib.subplots.subplots_adjust()`` ``'wspace'`` argument.
+    :param float fig_hspace:
+        Modify the height of padding between subplots. ``'hspace'`` argument.
+    :param float fig_left:
+        Modify the left-most bounds of the figure. Passed to
+        ``Matplotlib.subplots.subplots_adjust()`` ``'left'`` argument.
+    :param float fig_right:
+        Modify the right-most bounds of the figure. Passed to
+        ``Matplotlib.subplots.subplots_adjust()`` ``'right'`` argument.
+    :param float fig_top:
+        Modify the upper-most bounds of the figure. Passed to
+        ``Matplotlib.subplots.subplots_adjust()`` ``'top'`` argument.
+    :param float fig_bottom:
+        Modify the lower-most bounds of the figure. Passed to
+        ``Matplotlib.subplots.subplots_adjust()`` ``'bottom'`` argument.
+    :type subplot_adjust: Seven-element tuple
     :param bool show_errorbars:
         If True, display errorbars (standard error) for normalized
         sensor-reference measurement pairs. Defaults to False.

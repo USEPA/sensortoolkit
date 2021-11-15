@@ -171,8 +171,6 @@ def sensor_import(sensor_name=None, sensor_serials=None,
         sensor_name (str): The make and model of the sensor being evaluated.
         serials (dict): A dictionary of sensor serial identifiers for each unit
             in a testing group
-        tzone_shift (int): ) An integer value by which to shift the sensor data
-            to UTC. Specifying 0 will not shift the data.
         load_raw_data (bool): If true, raw data in the appropriate subdirectory
             will be loaded and 1-hr and 24-hr averages will be computed and
             saved to a processed data subdirectory for the specified sensor.
@@ -186,6 +184,17 @@ def sensor_import(sensor_name=None, sensor_serials=None,
             evaluation statistics will be written to the 'data' and
             'eval_stats' sensor subdirectory. Figures will also be written to
             the appropriate figures subdirectory.
+
+    **Keyword Arguments**
+
+    :param str deploy_bdate:
+        The timestamp (date) marking the beginning of the sensor testing period,
+        formatted as ``'YYYY-MM-DD HH:MM:SS'``. Sensor datasets will be
+        concatenated to begin at this timestamp.
+    :param str deploy_edate:
+        The timestamp (date) marking the end of the sensor testing period,
+        formatted as ``'YYYY-MM-DD HH:MM:SS'``. Sensor datasets will be
+        concatenated to end at this timestamp.
 
     Returns:
         (tuple): Three-element tuple containing:
@@ -209,7 +218,6 @@ def sensor_import(sensor_name=None, sensor_serials=None,
 
     """
     valid_extensions = ['.csv', '.txt', '.xlsx']
-    tzone_shift = kwargs.get('tzone_shift', 0)
 
     if load_raw_data is True:
         full_df_list = []
@@ -255,8 +263,6 @@ def sensor_import(sensor_name=None, sensor_serials=None,
                 sensor_df = sensor_df.loc[start:, :]
             if end is not None:
                 sensor_df = sensor_df.loc[:end, :]
-
-            sensor_df = sensor_df.shift(tzone_shift, freq='H')
 
             full_df_list.append(sensor_df)
 

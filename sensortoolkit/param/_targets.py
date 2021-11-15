@@ -158,13 +158,19 @@ class ParameterTargets:
             metric_name (str):
                 The name of a new performance metric that will be added to
                 the indicated metric category.
-            **kwargs (dict):
-                Keyword arguments for specifying metric attributes. Accepted
-                keyword arguments include: 'description' (a textual
-                description of the metric), 'bounds' (the target range for
-                the metric), 'goal' (the goal/ideal achievable performance
-                metric value), and 'metric_units' (the units associated with
-                the metric if applicable).
+
+        **Keyword Arguments:**
+
+        :param str description:
+            A textual description of the metric.
+        :param bounds:
+            The target range (lower bound, upper bound) for the metric.
+        :type bounds: Two-element tuple
+        :param goal:
+            The goal/ideal achievable performance metric value.
+        :type goal: int or float
+        :param str metric_units:
+            The units associated with the metric (if applicable)
 
         Raises:
             KeyError: Raise if the passed metric category is not in the list

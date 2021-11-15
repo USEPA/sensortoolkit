@@ -1,6 +1,9 @@
 # -*- coding: utf-8 -*-
 """
-Description.
+This module contains a method for identifiying and removing duplicated timestamp
+entries in datasets. Since SDFS datasets utilize a pandas DatetimeIndex,
+duplicated timestamp entries may cause indexing issues when accessing and
+assigning values for duplicate timestamps (e.g., computing averages).
 
 ================================================================================
 
@@ -28,6 +31,7 @@ def remove_duplicates(full_df, aggregate_by='mean'):
         full_df (pandas dataframe):
             Modified sensor dataframe at recorded sampling frequency with
             duplicated timestamps removed.
+            
     """
     # Average duplicate entries, remove duplicated timestamps
     dup_data = full_df[full_df.index.duplicated() == True]

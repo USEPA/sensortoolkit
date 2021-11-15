@@ -66,18 +66,24 @@ def performance_metrics(stats_df, deploy_dict, param=None,
 
     **Keyword Arguments:**
 
-    :param str fill_color:
-        DESCRIPTION
+    :param fill_color:
+        Tuple with color hex code(s) for the fill color assigned to 1-hour and
+        24-hour metric value markers. Defaults to ``('#80c5c9', '#4ea1c0')``,
+        which are light and dark teal hues.
+    :type fill_color: Two-element tuple
     :param str marker:
-        DESCRIPTION
+        The shape of the plotting marker for metric values. Matplotlib maintains
+        a `list of markers <https://matplotlib.org/stable/api/markers_api.html?highlight=marker#module-matplotlib.markers>`_.
+        Defaults to 'o' (circle).
     :param marker_size:
-        DESCRIPTION
+        Assign the marker size in points. Defaults to 7.
     :type marker_size: int or float
-    :param marker_line_width:
-        DESCRIPTION
-    :type marker_line_width: int or float
+    :param marker_border_width:
+        Set the width of the border surrounding each marker. Defaults to 1.
+    :type marker_border_width: int or float
     :param str mean_marker:
-        DESCRIPTION
+        (# sensors  > 4 only) The marker indicating the mean value of metric
+        values. Defaults to ``'d'`` (diamond marker).
     :param figure_width:
         The width of the figure in inches. Defaults to .
     :type figure_width: int or float
@@ -360,12 +366,12 @@ def performance_metrics(stats_df, deploy_dict, param=None,
 
     # Boxplot fill colors
     default_fill = ['#80c5c9', '#4ea1c0']
-    fill_color = kwargs.get('fill_color', default_fill)
+    fill_color = kwargs.get('fill_colors', default_fill)
 
     # Marker properties
     marker = kwargs.get('marker', 'o')
     marker_size = kwargs.get('marker_size', 7)
-    marker_line_width = kwargs.get('marker_line_width', 1)
+    marker_border_width = kwargs.get('marker_border_width', 1)
     mean_marker = kwargs.get('mean_marker', 'd')
 
     # List of metrics to plot
@@ -414,7 +420,7 @@ def performance_metrics(stats_df, deploy_dict, param=None,
                                   ax=axs[ax_idx],
                                   palette=fill_color,
                                   marker=marker,
-                                  linewidth=marker_line_width,
+                                  linewidth=marker_border_width,
                                   size=marker_size)
 
             else:
@@ -439,7 +445,7 @@ def performance_metrics(stats_df, deploy_dict, param=None,
                               palette=fill_color,
                               s=marker_size,
                               marker=marker,
-                              linewidth=marker_line_width,
+                              linewidth=marker_border_width,
                               jitter=False)
 
             boxes = []

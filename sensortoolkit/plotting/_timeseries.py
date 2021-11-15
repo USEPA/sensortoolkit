@@ -118,8 +118,9 @@ def sensor_timeplot(df_list, ref_df, param=None, sensor_name=None,
         Relative scale of fontsize for text in the legend relative to label
         text.
     :param str cmap_name:
-        The name of the palette assigned to relative-humidity colormapped
-        scatter plot points
+        The name of the Matplotlib colormap that will be used when drawing
+        plot elements. Defaults to ``'Set1'``. A full list of colormaps is
+        can be found in the `Matplotlib documentation <https://matplotlib.org/stable/gallery/color/colormap_reference.html>`_
     :param cmap_normrange:
         Normalized range (0,1) for colormap hue selection. Limiting this
         range to something like (0.1, 0.9) is useful when using colormaps

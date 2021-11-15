@@ -103,23 +103,36 @@ class SensorEvaluation:
             Determined by selecting the latest recorded timestamp in sensor
             data frames.
         ref_dict (dict):
-            Description.
+            A dictionary container for reference data objects at varying
+            averaging intervals and parameter classifications.
         hourly_ref_df (pandas DataFrame):
-            Description.
-        pm_hourly_ref_df (pandas DataFrame):
-            Description.
-        pm_daily_ref_df (pandas DataFrame):
-            Description.
-        gas_hourly_ref_df (pandas DataFrame):
-            Description.
-        gas_daily_ref_df (pandas DataFrame):
-            Description.
-        met_hourly_ref_df (pandas DataFrame):
-            Description.
+            Dataset containing reference data at 1-hour averaging intervals
+            for methods measuring parameters matching the parameter
+            classification of the parameter object passed to the
+            ``SensorEvaluation`` class during instantation.
         daily_ref_df (pandas DataFrame):
-            Description.
+            Dataset containing reference data at 24-hour averaging intervals
+            for methods measuring parameters matching the parameter
+            classification of the parameter object passed to the
+            ``SensorEvaluation`` class during instantation.
+        pm_hourly_ref_df (pandas DataFrame):
+            Dataset containing reference data at 1-hour averaging intervals
+            for methods measuring particulate matter parameters.
+        pm_daily_ref_df (pandas DataFrame):
+            Dataset containing reference data at 24-hour averaging intervals
+            for methods measuring particulate matter parameters.
+        gas_hourly_ref_df (pandas DataFrame):
+            Dataset containing reference data at 1-hour averaging intervals
+            for methods measuring gaseous parameters.
+        gas_daily_ref_df (pandas DataFrame):
+            Dataset containing reference data at 24-hour averaging intervals
+            for methods measuring gaseous parameters.
+        met_hourly_ref_df (pandas DataFrame):
+            Dataset containing reference data at 1-hour averaging intervals
+            for methods measuring meteorological parameters.
         met_daily_ref_df (pandas DataFrame):
-            Description.
+            Dataset containing reference data at 24-hour averaging intervals
+            for methods measuring meteorological parameters.
         ref_name (str): The make and model of the FRM/FEM instrument used as
             reference for the selected evaluation parameter. Both AirNowTech
             and AQS return the AQS method code, and the AQS Sampling Methods
@@ -329,6 +342,29 @@ class SensorEvaluation:
         about reference (for selected evaluation parameter) and monitor
         statistics for meteorological parameters (Temp, RH).
 
+        Calculates:
+
+        - CV for 1-hour averaged sensor datasets
+        - CV for 24-hour averaged sensor datasets
+        - RMSE for 1-hour averaged sensor datasets
+        - RMSE for 24-hour averaged sensor datasets
+        - Reference monitor concentration range, mean concentration during
+          testing period for 1-hour averaged measurements
+        - Reference monitor concentration range, mean concentration during
+          testing period for 24-hour averaged measurements
+        - Meteorological monitor measurement range, mean value for temperature
+          and/or relative humidity measurements at 1-hour intervals
+        - Meteorological monitor measurement range, mean value for temperature
+          and/or relative humidity measurements at 24-hour intervals
+
+        Populates:
+
+        - ``SensorEvaluation.deploy_dict``
+
+        Writes Files:
+
+        - Deployment dictionary
+
         Returns:
             None.
 
@@ -403,6 +439,34 @@ class SensorEvaluation:
     def calculate_metrics(self):
         """Compute hourly, daily, and inter-sensor statistics dataframes.
 
+        .. note::
+
+          ``calculate_metrics()`` will check whether
+          ``SensorEvaluation.deploy_dict`` has been populated with statistics
+          via the ``add_deploy_dict_stats()`` method and will call this method
+          if the dictionary has not been populated yet.
+
+        Calculates:
+
+        - 1-hour averaged sensor vs. reference regression statistics for each
+          sensor
+        - 24-hour averaged sensor vs. reference regression statistics for each
+          sensor
+        - 1-hour averaged sensor vs. intersensor average regression statistics
+          for each sensor
+        - 24-hour averaged sensor vs. intersensor average regression statistics
+          for each sensor
+
+        Populates:
+
+        - ``SensorEvaluation.stats_df``
+        - ``SensorEvaluation.avg_stats_df``
+
+        Writes Files:
+
+        -`Statistics DataFrame - Sensor vs. FRM/FEM
+        - Statistics DataFrame - Sensor vs. Intersensor Average
+
         Returns:
             None.
 
@@ -462,13 +526,18 @@ class SensorEvaluation:
                                         write_to_file=self.write_to_file)
 
     def plot_timeseries(self, report_fmt=True, **kwargs):
-        """Plot parameter concentrations over time alongside reference.
+        """Plot sensor and FRM/FEM reference measurements over time.
+
+        Sensor measurements are indicated by distinct colors in a discrete
+        color palette. FRM/FEM measurements are shown as black lines. The
+        x-axis indicates the date in 5-day increments (default, although
+        customizable). Measurement values are plotted along the y-axis.
 
         Args:
             report_fmt (bool, optional):
                 If true, format figure for inclusion in a performance report.
                 Defaults to True.
-            **kwargs (TYPE): Plotting keyword arguments.
+            **kwargs (dict): Plotting keyword arguments.
 
         Returns:
             None.
@@ -555,8 +624,50 @@ class SensorEvaluation:
         """Regression dot/boxplots for U.S EPA performance metrics and targets
         developed for PM2.5 and O3 sensor evaluations.
 
+        Results for the following metrics are shown:
+
+        - Linearity:
+
+          - :math:`R^2`: The coefficient of determination, which is a measure
+            of linearity between sensor
+            and reference measurement pairs.
+
+        - Bias:
+
+          - Slope: The slope of the ordinary least-squares regression between
+            sensor (y-axis) and
+            reference (x-axis) measurements.
+          - Intercept: The intercept term of the ordinary least-squares
+            regression between sensor (y-axis) and
+            reference (x-axis) measurements.
+
+        - Error:
+
+          - :math:`RMSE`: The root mean square error between sensor and
+            reference measurements.
+          - :math:`NRMSE`: The normalized root mean square error between sensor
+            and reference measurements, where RMSE has been normalized by the
+            mean reference concentration during the testing period.
+
+        - Precision:
+
+          - :math:`CV`: The coefficient of variation of concurrently recorded
+            sensor measurements.
+          - :math:`SD`: The standard deviation of concurrently recorded sensor
+            measurements.
+
+        Results are shown as either colored dots (if the number of sensors is
+        less than four) or as boxplots (if the number of sensors exceeds
+        three). Target ranges are indicated by gray shaded regions, and target
+        goals are indicated by dark gray lines. Results are grouped by data
+        averaging interval, including 1-hour and 24-hour intervals (note that
+        some pollutants such as O3 are analyzed only at 1-hour intervals due to
+        significant diurnal variability, so the formatting of the figure will
+        depend on which averaging interval(s) are indicated for the parameter
+        via the ``sensortoolkit.Parameter.averaging`` attribute).
+
         Args:
-            **kwargs (TYPE): Plotting keyword arguments.
+            **kwargs (dict): Plotting keyword arguments.
 
         Returns:
             None.
@@ -596,21 +707,24 @@ class SensorEvaluation:
         DataFrame.
 
         Args:
-            averaging_interval (TYPE, optional):
+            averaging_interval (str, optional):
                 The measurement averaging intervals commonly utilized for
                 analyzing data corresponding the the selected parameter.
                 Defaults to '24-hour'.
-            plot_subset (TYPE, optional):
+            plot_subset (list, optional):
                 A list of either sensor serial IDs or the keys associated with
                 the serial IDs in the serial dictionary. Defaults to None.
 
-        Keyword Arguments:
+        **Keyword Arguments**
 
-            - **report_fmt** (*dict*):  For displaying scatter plots on the
-              first page of the performance report included alongside U.S. EPA's
-              documents outlining recommended testing protocols, performance
-              metrics, and target values. Defaults to False.
-            - **ADDITONAL ARGS** (*TYPE*): Plotting keyword arguments.
+        :param dict report_fmt:
+            For displaying scatter plots on the
+            first page of the performance report included alongside U.S. EPA's
+            documents outlining recommended testing protocols, performance
+            metrics, and target values. Defaults to False.
+        :param **kwargs:
+            Additional keyword arguments passed to the underlying
+            ``sensortoolkit.plotting.scatter_plotter()`` method.
 
         Returns:
             None.
@@ -746,6 +860,24 @@ class SensorEvaluation:
         """Plot the distribution of temperature and RH recorded by
         meterological instruments at the collocation site.
 
+        Displays the relative frequency of meteorological measurements recorded
+        during the testing period. Temperature (left) and relative humidity
+        (right) measurements are displayed on separate subplots. Measurements
+        are grouped into 15 bins, and the frequency of measurements within bin
+        is normalized by the total number of measurements (i.e., the relative
+        frequency) is displayed as a histogram. Additionally, a polynomial
+        estimating the kernel density of measurements is shown for each subplot
+        and indicates the general distribution of measurements over the range
+        of recorded values.
+
+        This method will prioritize plotting meteorological measurements made
+        by reference instruments, as sensor measurements are commonly biased
+        warmer and drier than ambient conditions if measurements are made by
+        an onboard sensing component within the housing of the air sensor. If
+        no meteorological reference measurements are available, the method will
+        use sensor measurements; however, a disclaimer will displayed above
+        subplots indicating that sensor measurements are shown in the figure.
+
         Returns:
             None.
 
@@ -760,15 +892,32 @@ class SensorEvaluation:
 
     def plot_met_influence(self, met_param=None, report_fmt=True,
                            **kwargs):
-        """Normalized Sensor param vs AIRS RH
+        """Plot the influence meteorological parameters (temperature or
+        relative humidity) on sensor measurements.
+
+        Sensor measurements that have been normalized by reference measurement
+        values for the corresponding timestamp and are plotted along the
+        y-axis. Meteorological measurements as measured by temperature or
+        relative humidity monitors (rather than onboard sensor measurements)
+        are plotted along the x-axis. Scatter for each sensor are displayed as
+        separate colors to indicate the unique response of each sensor unit.
+
+        A gray 1:1 line indicates ideal agreement between sensor and reference
+        measurements over the range of meteorological conditions (i.e., a ratio
+        of 1 would indicate that the sensor and reference measure the same
+        concentration value for a given timestamp). Scatter below the 1:1
+        line indicates underestimation bias, and scatter above the 1:1 line
+        indicates overestimation bias.
 
         Args:
-            met_param (TYPE, optional):
-                DESCRIPTION. Defaults to None.
-            report_fmt (TYPE, optional):
+            met_param (str, optional):
+                Either ``'Temp'`` for displaying the influence of temperature
+                or ``'RH'`` for displaying the influence of relative humidity.
+                Defaults to None.
+            report_fmt (bool, optional):
                 If true, format figure for inclusion in a performance report.
                 Defaults to True.
-            **kwargs (TYPE): Plotting keyword arguments.
+            **kwargs (dict): Plotting keyword arguments.
 
         Returns:
             None.
@@ -839,14 +988,22 @@ class SensorEvaluation:
         * Internal sensor RH vs Reference monitor RH
         * Internal sensor Temp vs Reference monitor Temp
 
+
+        Sensor measurements are plotted along the y-axis with reference
+        measurements along the x-axis. Statistical quantities are displayed
+        for each scatter plot including the ordinary least-squares (OLS)
+        regression equation, R^2, RMSE, and N (the number of measurement
+        pairs). The one-to-one line (indicating ideal agreement between
+        sensor and reference measurements) is shown as a dashed gray line.
+
         Args:
-            averaging_interval (TYPE, optional):
+            averaging_interval (str, optional):
                 The measurement averaging intervals commonly utilized for
                 analyzing data corresponding the the selected parameter.
                 Defaults to '1-hour'.
-            met_param (TYPE, optional):
-                DESCRIPTION. Defaults to None.
-            **kwargs (TYPE):
+            met_param (str, optional):
+                The meteorological parameter to display. Defaults to None.
+            **kwargs (dict):
                 Plotting keyword arguments.
 
         Returns:
@@ -925,7 +1082,7 @@ class SensorEvaluation:
         presented alongside the range (min to max).
 
         Args:
-            averaging_interval (TYPE, optional):
+            averaging_interval (dict, optional):
                 The measurement averaging intervals commonly utilized for
                 analyzing data corresponding the the selected parameter.
                 Defaults to '24-hour'.
@@ -1007,7 +1164,7 @@ class SensorEvaluation:
         below the mean in parentheses.
 
         Args:
-            averaging_interval (TYPE, optional):
+            averaging_interval (str, optional):
                 The measurement averaging intervals commonly utilized for
                 analyzing data corresponding the the selected parameter.
                 Defaults to '24-hour'.

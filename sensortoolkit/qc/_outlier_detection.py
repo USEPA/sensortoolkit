@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 """
-Description.
+This module contains a method for detecting potential outliers in sensor
+datasets by computing the Cook's distance for measurements in 1-hour averaged
+sensor measurements relative to reference measurements.
 
 ================================================================================
 
@@ -33,19 +35,28 @@ def cooks_outlier_detection(hourly_df_list, hourly_ref_df, param, serials,
     If the AD and PD for the potential outlier data point exceed these
     thresholds, a QA/QC code is assigned to the corresponding time stamp.
 
-    If ‘invalidate’ is true, sensor evaluation parameter data points that
+    If ``‘invalidate’`` is true, sensor evaluation parameter data points that
     are identified by Cook’s distance as potential outliers and exceed the
     AD and PD thresholds are set to null.
 
     Args:
-        hourly_df_list (TYPE): DESCRIPTION.
-        hourly_ref_df (TYPE): DESCRIPTION.
-        param (TYPE): DESCRIPTION.
-        serials (TYPE): DESCRIPTION.
-        invalidate (TYPE, optional): DESCRIPTION. Defaults to False.
+        hourly_df_list (list):
+            List of sensor datasets at 1-hour averaged intervals.
+        hourly_ref_df (pandas DataFrame):
+            Reference dataframe at 1-hour averaged intervals for the passed
+            parameter.
+        param (str):
+            Column header name for the parameter values.
+        serials (dict):
+            A dictionary of unique serial identifiers for each sensor in the
+            testing group.
+        invalidate (bool, optional):
+            If True, outlier entries will be set null (np.nan). Defaults to
+            False.
 
     Returns:
-        hourly_df_list (TYPE): DESCRIPTION.
+        hourly_df_list (list):
+            A list of modified sensor datasets.
 
     """
 
@@ -59,6 +70,7 @@ def cooks_outlier_detection(hourly_df_list, hourly_ref_df, param, serials,
         n_obs = df.shape[0]
         thres = (4 / n_obs)
 
+        # Compute OLS regression for sensor vs. reference
         x = df['x']
         y = df['y']
         x = sm.add_constant(x)
@@ -84,7 +96,8 @@ def cooks_outlier_detection(hourly_df_list, hourly_ref_df, param, serials,
         p_diff_thres = p_diff.median() + 2*p_diff.std()
 
         # Create a column for flagging data points
-        sensor_df.loc[:, param + '_QAQC_Code'] = np.nan
+        if param + '_QAQC_Code' not in sensor_df:
+            sensor_df.loc[:, param + '_QAQC_Code'] = np.nan
         # Ensure that outlier times exceeding cooks thres. justify flagging
         # by exceeding thresholds for abs diff and percent diff
         flag_count = 0

@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 """
-Description.
+This module contains a method for invalidating (set null or empty) a period of
+data recorded at consecutive timestamps for a specified time frame and 
+parameter.
 
 ================================================================================
 
@@ -25,15 +27,22 @@ def invalidate_period(df, param, bdate, edate):
     # TODO: Come back to flagging number scheme
 
     Args:
-        df (TYPE): DESCRIPTION.
-        param (TYPE): DESCRIPTION.
-        bdate (TYPE): DESCRIPTION.
-        edate (TYPE): DESCRIPTION.
+        df (pandas DataFrame):
+            Dataset containing timeseries data that will be invalidated.
+        param (str):
+            The name of the parmeter to invalidate.
+        bdate (str):
+            The beginning timestamp for data invalidation in
+            'YYYY-MM-DD HH:MM:SS' format.
+        edate (str):
+            The ending timestamp for data invalidation in 'YYYY-MM-DD HH:MM:SS'
+            format.
 
     Returns:
-        df (TYPE): DESCRIPTION.
+        df (pandas DataFrame):
+            Modified dataset with invalidated data.
 
     """
-    df.loc[bdate:edate, param] = np.nan
+    df.loc[bdate:edate, param + '_Value'] = np.nan
     df.loc[bdate:edate, param + '_QAQC_Code'] = 2  # temporary flag
     return df

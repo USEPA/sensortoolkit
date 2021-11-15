@@ -282,10 +282,11 @@ class _Setup:
         Args:
             file (str):
                 Full path to dataset file.
-            **kwargs (dict):
-                - **nrows** (*int*):
-                  The number of rows to load for the passed dataset. Defaults
-                  to 1.
+
+        **Keyword Arguments:**
+
+        :param int nrows:
+            The number of rows to load for the passed dataset. Defaults to 1.
 
         Raises:
             TypeError: If data type is not in the list of valid extensions.
@@ -477,7 +478,7 @@ class _Setup:
 
         Raises:
             ValueError: Raise if the value of the entered index is invalid
-            (less than zero).
+                (less than zero).
 
         Returns:
             None.

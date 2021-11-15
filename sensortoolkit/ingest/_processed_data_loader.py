@@ -36,6 +36,17 @@ def processed_data_search(processed_path, sensor_serials, **kwargs):
             A dictionary of sensor serial identifiers for each unit
             in a testing group.
 
+    **Keyword Arguments**
+
+    :param str deploy_bdate:
+        The timestamp (date) marking the beginning of the sensor testing period,
+        formatted as ``'YYYY-MM-DD HH:MM:SS'``. Sensor datasets will be
+        concatenated to begin at this timestamp.
+    :param str deploy_edate:
+        The timestamp (date) marking the end of the sensor testing period,
+        formatted as ``'YYYY-MM-DD HH:MM:SS'``. Sensor datasets will be
+        concatenated to end at this timestamp.
+
     Returns:
         (tuple): Three-element tuple containing:
 

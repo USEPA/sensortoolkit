@@ -75,12 +75,22 @@ def construct_deploy_dict(deploy_df, full_df_list, hourly_df_list,
         sensor_name (str):
             The make and model of the sensor being evaluated.
 
+    **Keyword Arguments**
+
+    :param dict testing_org:
+        A dictionary containing the information about the testing organization.
+    :param dict testing_loc:
+        A dictionary containing information about the testing site. If the site
+        is part of U.S. EPA’s Air Quality System (AQS), the AQS Site ID should
+        be specified.
+
     Returns:
         deploy_dict (dict):
             Dictionary containing separate deployment group start and
             end times (based on the latest (max) start timestamp and earliest
             (min) end timestamp in group), deployment duration, and sensor
             serial IDs for devices within each deployment group.
+            
     """
 
     # Testing organization information

@@ -1,6 +1,13 @@
 # -*- coding: utf-8 -*-
 """
-Description.
+This module contains methods for applying downsampling methods to convert
+timeseries datasets at unevenly spaced sampling intervals to a uniform, evenly
+spaced interval (the downsampling interval).
+
+The downsampling interval is determined based on the variation in the orginally
+recorded dataset. If, for instance, a sensor was set to record at 60 second
+intervals but the interval between consecutively recorded timestamps
+varied from 60 +/- 20 seconds, data may be downsampled to 120 second averages.
 
 ================================================================================
 
@@ -189,15 +196,19 @@ def downsampling_interval(quant_df, thres_quant=0.99, plot_quantiles=True):
 
 
 def apply_downsampling(df_list, downsampling_interval):
-    """
-
+    """Helper function for applying downsampled averaging to datasets for the
+    passed downsampling interval.
 
     Args:
-        df_list (TYPE): DESCRIPTION.
-        downsampling_interval (TYPE): DESCRIPTION.
+        df_list (list):
+            List of sensor dataframes at original, recorded sampling frequency.
+        downsampling_interval (int or float):
+            The downsampling interval, in seconds.
 
     Returns:
-        df_list (TYPE): DESCRIPTION.
+        df_list (list):
+            Modified list of sensor dataframes with downsampled, uniformly
+            spaced timestamp intervals.
 
     """
     # Downsample to mean param values for every downsampled interval

@@ -2416,7 +2416,8 @@ class PerformanceReport(SensorEvaluation):
                            shape.left.inches, shape.top.inches))
 
     def SubElement(self, parent, tagname, **kwargs):
-        """Modify xml entry to add a new attribute (element).
+        """Modify an XML element by adding a sub-element entry and assign
+        attributes.
 
         **Reference:**
 
@@ -2425,17 +2426,25 @@ class PerformanceReport(SensorEvaluation):
             https://groups.google.com/g/python-pptx/c/UTkdemIZICw
 
         Args:
-            parent (TYPE): DESCRIPTION.
-            tagname (TYPE): DESCRIPTION.
-            **kwargs (TYPE): DESCRIPTION.
+            parent (XML element):
+                An XML element.
+            tagname (str):
+                XML tagname for the sub-element to add to the parent attribute.
+            **kwargs (dict): Attributes to assign to the sub-element.
 
         Returns:
-            element (TYPE): DESCRIPTION.
+            element (XML): Updated element with attributes added.
 
         """
+        # Create a new sub-element entry for the passed tagname
         element = ppt.oxml.xmlchemy.OxmlElement(tagname)
+
+        # Add attributes to the new element entry
         element.attrib.update(kwargs)
+
+        # Join the XML sub-element to the parent element
         parent.append(element)
+
         return element
 
     def SetCellBorder(self, cell, border_color="ffffff", border_width='20000'):
@@ -2464,7 +2473,9 @@ class PerformanceReport(SensorEvaluation):
             None.
 
         """
+        # Table cell object
         tc = cell._tc
+        # Table cell properties
         tcPr = tc.get_or_add_tcPr()
         for lines in ['a:lnL', 'a:lnR', 'a:lnT', 'a:lnB']:
             ln = self.SubElement(tcPr, lines, w=border_width,

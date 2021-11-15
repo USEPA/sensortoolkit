@@ -142,7 +142,8 @@ def sensor_subplot_formatting(number_of_sensors, param_obj, report_fmt,
               the figure title.
             - **title_text_wrap** (*int*): The number of characters to include
               on a single line of the title before inserting a new line.
-            - **detail_fontsize** (*int* or *float*): DESCRIPTION.
+            - **detail_fontsize** (*int* or *float*): Fontsize for axes tick
+              labels and smaller plotting text elements..
             - **wspace** (*float*): The width (x-distance) between each subplot.
             - **hspace** (*float*): The height (y-distance) between each
               subplot.
@@ -155,11 +156,14 @@ def sensor_subplot_formatting(number_of_sensors, param_obj, report_fmt,
             - **bottom** (*float*): The bottom-most (y-min) limits at which the
               subplots will be drawn.
             - **filename_suffix** (*str*): A string indicating the number of
-              sensors for which subplots are drawn in the figure, added to 
+              sensors for which subplots are drawn in the figure, added to
               filename when saving figure to png.
-            - **cbar_padding** (*float*): DESCRIPTION.
-            - **cbar_aspect** (*int* or *float*): DESCRIPTION.
-            - **font_size** (*int* or *float*): DESCRIPTION.
+            - **cbar_padding** (*float*): Padding between the colorbar and the
+              figure subplots.
+            - **cbar_aspect** (*int* or *float*): The aspect ratio (width /
+              height) of the colorbar for relative humidity measurements.
+            - **font_size** (*int* or *float*): The font size for text displayed
+              in the figure.
 
     """
     RH_colormap = kwargs.get('show_colorbar', True)
