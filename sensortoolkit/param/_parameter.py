@@ -272,6 +272,9 @@ class Parameter:
             unit_info = self._get_units()
             self.units = unit_info['Label']
             self.units_description = unit_info['Description']
+            if isinstance(unit_info['Context'], str):
+                print(unit_info['Context'])
+                self.units_description += f" ({unit_info['Context']})"
             self.units_aqs_code = unit_info['Unit Code']
 
         if self.name in self.__param_dict__:
