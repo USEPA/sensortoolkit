@@ -96,6 +96,7 @@ def dewpoint(data):
         calc_dp = numerator / denominator
 
         df['DP_Calculated_Value'] = calc_dp
+        df['DP_Calculated_Unit'] = 'Degrees Celsius'
 
         data[i] = df
 
