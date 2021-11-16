@@ -88,7 +88,7 @@ Last Updated:
 import sys
 import numpy as np
 import pandas as pd
-
+from sensortoolkit.calculate import aqi
 
 def nowcast_pm25(df, column=None):
     """Compute NowCast values for fine particulate matter (:math:`PM_{2.5}`)
@@ -124,7 +124,7 @@ def nowcast_pm25(df, column=None):
         df.index.name = 'DateTime'
 
     # Check type of index column, must be datetime formatted
-    if not isinstance(df_idx, pd.core.indexes.datetimes.DatetimeIndex):
+    if type(df_idx) != pd.core.indexes.datetimes.DatetimeIndex:
         sys.exit('Index must be data type '
                  'pandas.core.indexes.datetimes.DatetimeIndex')
 
@@ -187,9 +187,16 @@ def nowcast_pm25(df, column=None):
     df['nowcast'] = df.num / df.denom
     df.nowcast = df.nowcast.where(df.row_3hr_nan_count < 2)
 
-    nowcast_df = df[['nowcast']].rename(columns={'nowcast':
-                                                 column + '_nowcast'})
+    # Compute NowCast AQI
+    df = aqi(df, column='nowcast')
+
+    nowcast_df = df[['nowcast', 'AQI', 'AQI_Category']]
+    nowcast_df = nowcast_df.rename(
+                    columns={'nowcast': column + '_nowcast',
+                             'AQI': column + '_nowcast_aqi',
+                             'AQI_Category': column + '_nowcast_aqi_category'})
 
     nowcasted_df = passed_df.join(nowcast_df)
 
     return nowcasted_df
+
