@@ -58,7 +58,7 @@ Last Updated:
 import pandas as pd
 
 
-def aqi(data):
+def aqi(data, column=None):
     """Calculate US EPA's air quality index for fine particulate matter.
 
     Information about EPA's AQI scale here:
@@ -84,6 +84,10 @@ def aqi(data):
         data (float, int, numpy array, or pandas dataframe):
             PM2.5 concentration value(s). If dataframe, column must be labeled
             ``PM25_Value``.
+        column (str, optional):
+            If the passed data object is type pandas DataFrame, the name of the
+            column in the dataset corresponding to fine particulate matter
+            concentration data.
 
     Returns:
         data (pandas DataFrame):
@@ -91,8 +95,8 @@ def aqi(data):
             values, and corresponding AQI category names.
 
     Raises:
-        KeyError: If passed data object is type pandas dataframe and the column
-            header ``PM25_Value`` is not found.
+        KeyError: If passed data object is type pandas dataframe and the
+            column argument is null.
 
     """
     breakpoints = {'Good': {'I_h': 50,
@@ -131,11 +135,12 @@ def aqi(data):
     # Convert input type to pandas dataframe
     data_type = type(data)
     if data_type is not pd.core.frame.DataFrame:
-        data = pd.Series(data).to_frame(name='PM25_Value')
+        column = 'PM25_Value'
+        data = pd.Series(data).to_frame(name=column)
 
     # Passed datatype is pandas dataframe but expected header not found
-    if 'PM25_Value' not in data:
-        raise KeyError('Column header "PM25_Value" not in passed dataframe.')
+    if column is None and data_type is pd.core.frame.DataFrame:
+        raise AttributeError('Column header for fine PM data not specified')
 
     for cat, cat_bpoints in breakpoints.items():
         conc_max = cat_bpoints['C_h']
@@ -143,7 +148,8 @@ def aqi(data):
         index_max = cat_bpoints['I_h']
         index_min = cat_bpoints['I_l']
 
-        cat_conc = data[(data.PM25 >= conc_min) & (data.PM25 < conc_max)].PM25
+        cat_conc = data[(data[column] >= conc_min) &
+                        (data[column] < conc_max)][column]
         cat_idx = cat_conc.index
 
         slope = (index_max - index_min)/(conc_max - conc_min)
