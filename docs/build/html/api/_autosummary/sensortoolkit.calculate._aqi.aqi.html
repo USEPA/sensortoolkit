@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>sensortoolkit.calculate._aqi.aqi &mdash; sensortoolkit 0.6.1b1 documentation</title>
+  <title>sensortoolkit.calculate._aqi.aqi &mdash; sensortoolkit 0.6.1b2 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" type="text/css" />
@@ -33,7 +33,7 @@
             <a href="../../index.html" class="icon icon-home"> sensortoolkit
           </a>
               <div class="version">
-                0.6.1b1
+                0.6.1b2
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
@@ -338,16 +338,6 @@
 <li class="toctree-l4"><a class="reference internal" href="sensortoolkit.reference._import_airnowtech.write_to_file.html">sensortoolkit.reference._import_airnowtech.write_to_file</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="sensortoolkit.reference._import_oaqps.html">sensortoolkit.reference._import_oaqps</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="sensortoolkit.reference._import_oaqps.format_headers.html">sensortoolkit.reference._import_oaqps.format_headers</a></li>
-<li class="toctree-l4"><a class="reference internal" href="sensortoolkit.reference._import_oaqps.format_qaqc.html">sensortoolkit.reference._import_oaqps.format_qaqc</a></li>
-<li class="toctree-l4"><a class="reference internal" href="sensortoolkit.reference._import_oaqps.format_ref_timestamp.html">sensortoolkit.reference._import_oaqps.format_ref_timestamp</a></li>
-<li class="toctree-l4"><a class="reference internal" href="sensortoolkit.reference._import_oaqps.from_envidas.html">sensortoolkit.reference._import_oaqps.from_envidas</a></li>
-<li class="toctree-l4"><a class="reference internal" href="sensortoolkit.reference._import_oaqps.from_envista.html">sensortoolkit.reference._import_oaqps.from_envista</a></li>
-<li class="toctree-l4"><a class="reference internal" href="sensortoolkit.reference._import_oaqps.ingest_oaqps.html">sensortoolkit.reference._import_oaqps.ingest_oaqps</a></li>
-<li class="toctree-l4"><a class="reference internal" href="sensortoolkit.reference._import_oaqps.process_oaqps.html">sensortoolkit.reference._import_oaqps.process_oaqps</a></li>
-</ul>
-</li>
 <li class="toctree-l3"><a class="reference internal" href="sensortoolkit.reference._load_ref_data.html">sensortoolkit.reference._load_ref_data</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="sensortoolkit.reference._load_ref_data.import_ref_dataframe.html">sensortoolkit.reference._load_ref_data.import_ref_dataframe</a></li>
 <li class="toctree-l4"><a class="reference internal" href="sensortoolkit.reference._load_ref_data.load_ref_dataframes.html">sensortoolkit.reference._load_ref_data.load_ref_dataframes</a></li>
@@ -405,7 +395,7 @@
 <h1>sensortoolkit.calculate._aqi.aqi<a class="headerlink" href="#sensortoolkit-calculate-aqi-aqi" title="Permalink to this headline"></a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="sensortoolkit.calculate._aqi.aqi">
-<span class="sig-name descname"><span class="pre">aqi</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/sensortoolkit/calculate/_aqi.html#aqi"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sensortoolkit.calculate._aqi.aqi" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">aqi</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">column</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/sensortoolkit/calculate/_aqi.html#aqi"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sensortoolkit.calculate._aqi.aqi" title="Permalink to this definition"></a></dt>
 <dd><p>Calculate US EPA’s air quality index for fine particulate matter.</p>
 <dl class="simple">
 <dt>Information about EPA’s AQI scale here:</dt><dd><p><a class="reference external" href="https://aqs.epa.gov/aqsweb/documents/codetables/aqi_breakpoints.html">https://aqs.epa.gov/aqsweb/documents/codetables/aqi_breakpoints.html</a></p>
@@ -426,8 +416,13 @@ set as upper category AQI value).</p>
 the AQI value and category return null)</strong></p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>data</strong> (<em>float</em><em>, </em><em>int</em><em>, </em><em>numpy array</em><em>, or </em><em>pandas dataframe</em>) – PM2.5 concentration value(s). If dataframe, column must be labeled
-<code class="docutils literal notranslate"><span class="pre">PM25_Value</span></code>.</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>float</em><em>, </em><em>int</em><em>, </em><em>numpy array</em><em>, or </em><em>pandas dataframe</em>) – PM2.5 concentration value(s). If dataframe, column must be labeled
+<code class="docutils literal notranslate"><span class="pre">PM25_Value</span></code>.</p></li>
+<li><p><strong>column</strong> (<em>str</em><em>, </em><em>optional</em>) – If the passed data object is type pandas DataFrame, the name of the
+column in the dataset corresponding to fine particulate matter
+concentration data.</p></li>
+</ul>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>A pandas dataframe with PM25 concentrations, AQI
@@ -437,8 +432,8 @@ values, and corresponding AQI category names.</p>
 <dd class="field-odd"><p>data (pandas DataFrame)</p>
 </dd>
 <dt class="field-even">Raises</dt>
-<dd class="field-even"><p><strong>KeyError</strong> – If passed data object is type pandas dataframe and the column
-    header <code class="docutils literal notranslate"><span class="pre">PM25_Value</span></code> is not found.</p>
+<dd class="field-even"><p><strong>KeyError</strong> – If passed data object is type pandas dataframe and the
+    column argument is null.</p>
 </dd>
 </dl>
 </dd></dl>
