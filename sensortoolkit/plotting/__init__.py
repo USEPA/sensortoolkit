@@ -1,5 +1,10 @@
 # -*- coding: utf-8 -*-
-"""Subpackage description.
+"""
+The ``sensortoolkit.plotting`` subpackage contains modules for creating various
+plots, including timeseries figures displaying sensor and reference measurements,
+scatter plotting functions for comparing measurement pairs such as sensor and
+reference concentrations, figures for displaying the distribution of meteorological
+conditions during the testing period, etc.
 
 ===============================================================================
 

@@ -1,5 +1,8 @@
 # -*- coding: utf-8 -*-
-"""Subpackage description.
+"""
+The ``sensortoolkit.lib_utils`` subpackage contains general utilities that are
+accessed by various methods that contain interactive components or assist in
+configuring the project workspace. 
 
 ===============================================================================
 

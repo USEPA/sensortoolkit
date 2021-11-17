@@ -1,5 +1,10 @@
 # -*- coding: utf-8 -*-
-"""Subpackage description.
+"""
+The ``sensortoolkit.datetime_utils`` subpackage contains various modules for
+working with pandas DataFrame objects with timeseries index of type
+``pandas.DatetimeIndex``. Modules are included for setting the timestamp index,
+averaging recorded datasets to longer averaging intervals (e.g., 1-hour,
+24-hours), etc.
 
 ===============================================================================
 

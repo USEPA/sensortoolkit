@@ -1,5 +1,9 @@
 # -*- coding: utf-8 -*-
-"""Subpackage description.
+"""
+The ``sensortoolkit.reference`` subpackage contains various modules for the
+ingestion and import of reference datasets. Methods are also included for
+querying reference data API services such as EPA's Air Quality System (AQS) and
+the AirNow API.
 
 ===============================================================================
 
@@ -12,11 +16,7 @@ Created:
 Last Updated:
   Wed Sep  8 12:33:10 2021
 """
-
-from ._import_airnowtech import preprocess_airnowtech
 from ._airnowtech_to_long import airnowtech_wide_to_long
-#from ._import_oaqps import process_oaqps
+from ._import_airnowtech import preprocess_airnowtech
 from ._load_ref_data import load_ref_dataframes
-from ._ref_api_query import (ref_api_query, query_airnow,
-                             query_aqs, #save_query_data
-                             )
+from ._ref_api_query import (ref_api_query, query_airnow, query_aqs)

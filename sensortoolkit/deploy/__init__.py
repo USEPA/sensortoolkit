@@ -1,4 +1,7 @@
-"""Subpackage description.
+"""
+The ``sensortoolkit.deploy`` subpackage contains modules for creating and
+populating the deployment dictionary data structure and other deployment-related
+methods for characterizing the deployment conditions and duration.
 
 ===============================================================================
 

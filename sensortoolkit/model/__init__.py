@@ -1,5 +1,11 @@
 # -*- coding: utf-8 -*-
-"""Subpackage description.
+"""
+The ``sensortoolkit.model`` subpackage contains modules for applying or creating
+correction methods for sensor data. Methods include the U.S.-Wide Correction
+Equation developed by Barkjohn et al. 2021 [#f1]_ for the PurpleAir PA-II and
+modules for calculating or applying a general linear correction equation based
+on the ordinary least-squares regression between sensor (dependent variable) and
+reference (independent variable) measurements.
 
 ===============================================================================
 

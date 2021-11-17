@@ -1,5 +1,11 @@
 # -*- coding: utf-8 -*-
 """
+The ``sensortoolkit.evaluation_objs`` subpackage contains modules defining
+the ``sensortoolkit.SensorEvaluation`` and ``sensortoolkit.PerformanceReport``
+evaluation objects.
+
+================================================================================
+
 @Author:
     | Samuel Frederick, NSSC Contractor (ORAU)
     | U.S. EPA / ORD / CEMM / AMCD / SFSB

@@ -1,5 +1,11 @@
 # -*- coding: utf-8 -*-
-"""Subpackage description.
+"""
+The ``sensortoolkit.qc`` subpackage contains various modules for quality control
+(QC) methods, including the identification and removal of duplicated timestamp
+entries, downsampling of irregularly spaced data, invalidation of data points,
+detection and removal of persistent or constant values, and the method of cleaning
+A and B channel data for PurpleAir PA-II measurements developed by Barkjohn et
+al. 2021.
 
 ===============================================================================
 

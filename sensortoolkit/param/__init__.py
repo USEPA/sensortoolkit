@@ -1,5 +1,8 @@
 # -*- coding: utf-8 -*-
-"""Subpackage description.
+"""
+The ``sensortoolkit.param`` subpackage contains modules for defining the
+``sensortoolkit.Parameter`` object and the ``sensortoolkit.Parameter.PerformanceTargets``
+sub-object attribute.
 
 ===============================================================================
 

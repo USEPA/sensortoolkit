@@ -1,5 +1,8 @@
 # -*- coding: utf-8 -*-
-"""Subpackage description.
+"""
+The ``sensortoolkit.ingest`` subpackage contains modules and methods for the
+import and ingestion of sensor and reference datasets into the SDFS format as
+well as a method for loading previously processed datasets. 
 
 ===============================================================================
 
