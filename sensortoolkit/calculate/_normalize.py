@@ -2,7 +2,8 @@
 """
 This module calculates normalized sensor concentrations.
 
-PM2.5 Performance Targets Report Section 3.1.6.2
+..
+    PM2.5 Performance Targets Report Section 3.1.6.2
 
 Calculation
 -----------

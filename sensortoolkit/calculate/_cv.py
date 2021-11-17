@@ -40,9 +40,9 @@ and where:
     sensor unit :math:`j`.
 
     :math:`\\bar{x_i}` = Intersensor average sensor concentration for
-    measurement interval :math:`i`. **All sensor units deployed for testing must
-    have recorded non-null values for measurement interval :math:`i` to compute
-    :math:`\\bar{x_i}`.**
+    measurement interval :math:`i`. **All sensor units deployed for testing**
+    **must have recorded non-null values for measurement interval** :math:`i`
+    **to compute** :math:`\\bar{x_i}`.
 
 ================================================================================
 

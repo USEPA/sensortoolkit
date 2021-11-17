@@ -42,7 +42,7 @@ where
     :math:`I_{Lo}` = the AQI value corresponding to :math:`BP_{Lo}`
 
 More detail about the AQI calculation, as well as a detailed description, are
-included in the `Technical Assistant Document` listed above.
+included in the `Technical Assistance Document` listed above.
 
 ================================================================================
 
