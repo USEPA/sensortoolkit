@@ -1,6 +1,9 @@
 # -*- coding: utf-8 -*-
 """
-Description.
+Method for converting datasets downloaded from the AirNow-Tech website from
+wide format (data are organized by row for each day and by column for each
+hour of the day) to long format (data are organized by row for consecutive
+timestamps).
 
 ===============================================================================
 
@@ -48,11 +51,17 @@ def airnowtech_wide_to_long(path):
             Full path to the downloaded  airnowtech dataset in pivoted (wide)
             format.
 
+    Raises:
+        ValueError: If the shape of the passed dataset does not correspond to
+            an expected width (ncols = 28 for abbreviated wide datasets,
+            ncols = 36 for full wide datasets). This likely occurs if an
+            unpivoted (long format) AirNow-Tech dataset is passed to the
+            function, which has a width of 16 columns.
+
     Returns:
         data (pandas DataFrame):
             An unpivoted, long format version of the passed dataset. Should be
             passed to ``sensortoolkit.reference.preprocess_airnowtech()`` for
-            ingestion to SDFS formatted dataset.
 
     """
     unpivot_cols = ['Agency', 'Site', 'Site AQS', 'Param',
@@ -70,7 +79,7 @@ def airnowtech_wide_to_long(path):
         full = True
         dt_fmt = '%m/%d/%Y %H:%M:%S'
     else:
-        raise ValueError('Invalid dataframe shape')
+        raise ValueError(f'Invalid dataframe shape: {shape}')
 
     if full is False:
         df = pd.read_csv(path, names=['Site/Site AQS/Param/POC', 'Date (LST)',
@@ -106,11 +115,11 @@ def airnowtech_wide_to_long(path):
         melt = pd.melt(param_data, id_vars='Date (LST)', value_vars=value_cols)
 
         # Add formatted timestamp, set as index
-        melt['timestamp'] = (melt['Date (LST)'] + ' ' +
+        melt['DateTime'] = (melt['Date (LST)'] + ' ' +
                              melt['variable'].str.zfill(2) + ':00:00')
-        melt['timestamp'] = pd.to_datetime(melt['timestamp'],
+        melt['DateTime'] = pd.to_datetime(melt['DateTime'],
                                            format=dt_fmt)
-        melt = melt.set_index(melt['timestamp'])
+        melt = melt.set_index(melt['DateTime'])
         melt = melt.sort_index()
 
         # Loop over each day and assign the indicated site, poc to long fmt df
@@ -129,13 +138,13 @@ def airnowtech_wide_to_long(path):
                 melt.loc[row.Index, 'Agency'] = row.Agency
 
         # Drop timestamp columns (keep timestamp index)
-        melt = melt.drop(columns=['Date (LST)', 'variable', 'timestamp'])
+        melt = melt.drop(columns=['Date (LST)', 'variable', 'DateTime'])
 
         # reset name of the value column to indicate parameter values
         param = param_id.split(' ')[0]
         melt = melt.rename(columns={'value': 'Value'})
 
-        data = data.combine_first(melt)
+        data = data.append(melt)
 
     # Rearrange column order to match unpivoted column order
     rearr_cols = []
@@ -144,15 +153,22 @@ def airnowtech_wide_to_long(path):
             rearr_cols.append(col)
     data = data[rearr_cols]
 
+    # TODO: Ask for timezone or retrieve from setup method?
+
     return data
+
 
 
 if __name__ == '__main__':
 
     # abbreviated
-    path = r"C:\Users\SFREDE01\OneDrive - Environmental Protection Agency (EPA)\Profile\Documents\ant_pivoted_abbrev.csv"
+    path = r"C:\Users\SFREDE01\OneDrive - Environmental Protection Agency (EPA)\Profile\Documents\kitchen_sink_pivoted_abbrev.csv"
 
     # full
-    path = r"C:\Users\SFREDE01\OneDrive - Environmental Protection Agency (EPA)\Profile\Documents\ant_pivoted_full.csv"
+    #path = r"C:\Users\SFREDE01\OneDrive - Environmental Protection Agency (EPA)\Profile\Documents\kitchen_sink_pivoted_full.csv"
+
+    # long format dataset
+    #path = r"C:\Users\SFREDE01\OneDrive - Environmental Protection Agency (EPA)\Profile\Documents\kitchen_sink_unpivoted.csv"
 
     df = airnowtech_wide_to_long(path)
+
