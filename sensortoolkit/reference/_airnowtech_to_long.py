@@ -18,6 +18,10 @@ Last Updated:
 """
 import pandas as pd
 import numpy as np
+import pytz
+from pytz.exceptions import UnknownTimeZoneError
+from sensortoolkit.lib_utils import validate_entry
+
 
 def airnowtech_wide_to_long(path):
     """Convert downloaded AirNowTech datasets from wide format to long format.
@@ -173,7 +177,26 @@ def airnowtech_wide_to_long(path):
 
     data['QC Code'] = ''
 
-    # TODO: Ask for timezone or retrieve from setup method?
+    invalid = True
+    while invalid is True:
+        val = input('AirNow-Tech data are reported in LST. Enter the time zone '
+                    'name corresponding \nto the LST timestamps: ')
+
+        try:
+            time_zone = pytz.timezone(val)
+        except UnknownTimeZoneError:
+            print(f'..invalid time zone "{val}"')
+            continue
+
+        confirm = validate_entry()
+        if confirm == 'y':
+            invalid = False
+
+    offset = time_zone.utcoffset(time_zone.zone) / pd.to_timedelta('1 hour')
+    print('')
+    print(f'..converting datetime index from {time_zone} (UTC {offset} '
+          'hours) to UTC.')
+    data = data.tz_localize(val).tz_convert('UTC')
 
     return data
 
@@ -191,4 +214,3 @@ if __name__ == '__main__':
     #path = r"C:\Users\SFREDE01\OneDrive - Environmental Protection Agency (EPA)\Profile\Documents\kitchen_sink_unpivoted.csv"
 
     df = airnowtech_wide_to_long(path)
-
