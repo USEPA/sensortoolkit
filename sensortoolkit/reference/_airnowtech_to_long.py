@@ -64,9 +64,20 @@ def airnowtech_wide_to_long(path):
             passed to ``sensortoolkit.reference.preprocess_airnowtech()`` for
 
     """
-    unpivot_cols = ['Agency', 'Site', 'Site AQS', 'Param',
-                    'Param AQS', 'POC', 'Method', 'Duration',
-                    'Date (LST)', 'Time (LST)', 'Offset', 'Value', 'Unit']
+    unpivot_cols = {'Agency': str,
+                    'Site': str,
+                    'Site AQS': str,
+                    'Param': str,
+                    'Param AQS': int,
+                    'POC': int,
+                    'Method': str,
+                    'Duration': str,
+                    'Date (LST)': str,
+                    'Time (LST)': str,
+                    'Offset': str,
+                    'Value': float,
+                    'Unit': str,
+                    'QC Code': str}
 
     df = pd.read_csv(path)
 
@@ -136,6 +147,12 @@ def airnowtech_wide_to_long(path):
                 melt.loc[row.Index, 'Method'] = row.Method
                 melt.loc[row.Index, 'Duration'] = row.Duration
                 melt.loc[row.Index, 'Agency'] = row.Agency
+            else:
+                melt.loc[row.Index, 'Param AQS'] = np.nan
+                melt.loc[row.Index, 'Unit'] = np.nan
+                melt.loc[row.Index, 'Method'] = np.nan
+                melt.loc[row.Index, 'Duration'] = np.nan
+                melt.loc[row.Index, 'Agency'] = np.nan
 
         # Drop timestamp columns (keep timestamp index)
         melt = melt.drop(columns=['Date (LST)', 'variable', 'DateTime'])
@@ -148,10 +165,13 @@ def airnowtech_wide_to_long(path):
 
     # Rearrange column order to match unpivoted column order
     rearr_cols = []
-    for col in unpivot_cols:
+    for col, dtype in unpivot_cols.items():
         if col in data:
             rearr_cols.append(col)
+            data[col] = data[col].astype(dtype, errors='ignore')
     data = data[rearr_cols]
+
+    data['QC Code'] = ''
 
     # TODO: Ask for timezone or retrieve from setup method?
 
