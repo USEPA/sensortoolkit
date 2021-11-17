@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>sensortoolkit.reference._airnowtech_to_long &mdash; sensortoolkit 0.6.1b2 documentation</title>
+  <title>sensortoolkit.reference._airnowtech_to_long &mdash; sensortoolkit 0.6.1b4 documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" type="text/css" />
@@ -30,7 +30,7 @@
             <a href="../../../index.html" class="icon icon-home"> sensortoolkit
           </a>
               <div class="version">
-                0.6.1b2
+                0.6.1b4
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
@@ -388,7 +388,10 @@
   <h1>Source code for sensortoolkit.reference._airnowtech_to_long</h1><div class="highlight"><pre>
 <span></span><span class="c1"># -*- coding: utf-8 -*-</span>
 <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">Description.</span>
+<span class="sd">Method for converting datasets downloaded from the AirNow-Tech website from</span>
+<span class="sd">wide format (data are organized by row for each day and by column for each</span>
+<span class="sd">hour of the day) to long format (data are organized by row for consecutive</span>
+<span class="sd">timestamps).</span>
 
 <span class="sd">===============================================================================</span>
 
@@ -403,6 +406,10 @@
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pytz</span>
+<span class="kn">from</span> <span class="nn">pytz.exceptions</span> <span class="kn">import</span> <span class="n">UnknownTimeZoneError</span>
+<span class="kn">from</span> <span class="nn">sensortoolkit.lib_utils</span> <span class="kn">import</span> <span class="n">validate_entry</span>
+
 
 <div class="viewcode-block" id="airnowtech_wide_to_long"><a class="viewcode-back" href="../../../api/_autosummary/sensortoolkit.reference._airnowtech_to_long.airnowtech_wide_to_long.html#sensortoolkit.reference._airnowtech_to_long.airnowtech_wide_to_long">[docs]</a><span class="k">def</span> <span class="nf">airnowtech_wide_to_long</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Convert downloaded AirNowTech datasets from wide format to long format.</span>
@@ -436,16 +443,33 @@
 <span class="sd">            Full path to the downloaded  airnowtech dataset in pivoted (wide)</span>
 <span class="sd">            format.</span>
 
+<span class="sd">    Raises:</span>
+<span class="sd">        ValueError: If the shape of the passed dataset does not correspond to</span>
+<span class="sd">            an expected width (ncols = 28 for abbreviated wide datasets,</span>
+<span class="sd">            ncols = 36 for full wide datasets). This likely occurs if an</span>
+<span class="sd">            unpivoted (long format) AirNow-Tech dataset is passed to the</span>
+<span class="sd">            function, which has a width of 16 columns.</span>
+
 <span class="sd">    Returns:</span>
 <span class="sd">        data (pandas DataFrame):</span>
 <span class="sd">            An unpivoted, long format version of the passed dataset. Should be</span>
 <span class="sd">            passed to ``sensortoolkit.reference.preprocess_airnowtech()`` for</span>
-<span class="sd">            ingestion to SDFS formatted dataset.</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">unpivot_cols</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Agency&#39;</span><span class="p">,</span> <span class="s1">&#39;Site&#39;</span><span class="p">,</span> <span class="s1">&#39;Site AQS&#39;</span><span class="p">,</span> <span class="s1">&#39;Param&#39;</span><span class="p">,</span>
-                    <span class="s1">&#39;Param AQS&#39;</span><span class="p">,</span> <span class="s1">&#39;POC&#39;</span><span class="p">,</span> <span class="s1">&#39;Method&#39;</span><span class="p">,</span> <span class="s1">&#39;Duration&#39;</span><span class="p">,</span>
-                    <span class="s1">&#39;Date (LST)&#39;</span><span class="p">,</span> <span class="s1">&#39;Time (LST)&#39;</span><span class="p">,</span> <span class="s1">&#39;Offset&#39;</span><span class="p">,</span> <span class="s1">&#39;Value&#39;</span><span class="p">,</span> <span class="s1">&#39;Unit&#39;</span><span class="p">]</span>
+    <span class="n">unpivot_cols</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;Agency&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+                    <span class="s1">&#39;Site&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+                    <span class="s1">&#39;Site AQS&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+                    <span class="s1">&#39;Param&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+                    <span class="s1">&#39;Param AQS&#39;</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+                    <span class="s1">&#39;POC&#39;</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+                    <span class="s1">&#39;Method&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+                    <span class="s1">&#39;Duration&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+                    <span class="s1">&#39;Date (LST)&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+                    <span class="s1">&#39;Time (LST)&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+                    <span class="s1">&#39;Offset&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+                    <span class="s1">&#39;Value&#39;</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+                    <span class="s1">&#39;Unit&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+                    <span class="s1">&#39;QC Code&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">}</span>
 
     <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
 
@@ -458,7 +482,7 @@
         <span class="n">full</span> <span class="o">=</span> <span class="kc">True</span>
         <span class="n">dt_fmt</span> <span class="o">=</span> <span class="s1">&#39;%m/</span><span class="si">%d</span><span class="s1">/%Y %H:%M:%S&#39;</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Invalid dataframe shape&#39;</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Invalid dataframe shape: </span><span class="si">{</span><span class="n">shape</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">full</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
         <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">names</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Site/Site AQS/Param/POC&#39;</span><span class="p">,</span> <span class="s1">&#39;Date (LST)&#39;</span><span class="p">,</span>
@@ -494,11 +518,11 @@
         <span class="n">melt</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">melt</span><span class="p">(</span><span class="n">param_data</span><span class="p">,</span> <span class="n">id_vars</span><span class="o">=</span><span class="s1">&#39;Date (LST)&#39;</span><span class="p">,</span> <span class="n">value_vars</span><span class="o">=</span><span class="n">value_cols</span><span class="p">)</span>
 
         <span class="c1"># Add formatted timestamp, set as index</span>
-        <span class="n">melt</span><span class="p">[</span><span class="s1">&#39;timestamp&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">melt</span><span class="p">[</span><span class="s1">&#39;Date (LST)&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39; &#39;</span> <span class="o">+</span>
+        <span class="n">melt</span><span class="p">[</span><span class="s1">&#39;DateTime&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">melt</span><span class="p">[</span><span class="s1">&#39;Date (LST)&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39; &#39;</span> <span class="o">+</span>
                              <span class="n">melt</span><span class="p">[</span><span class="s1">&#39;variable&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">zfill</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;:00:00&#39;</span><span class="p">)</span>
-        <span class="n">melt</span><span class="p">[</span><span class="s1">&#39;timestamp&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">melt</span><span class="p">[</span><span class="s1">&#39;timestamp&#39;</span><span class="p">],</span>
+        <span class="n">melt</span><span class="p">[</span><span class="s1">&#39;DateTime&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">melt</span><span class="p">[</span><span class="s1">&#39;DateTime&#39;</span><span class="p">],</span>
                                            <span class="nb">format</span><span class="o">=</span><span class="n">dt_fmt</span><span class="p">)</span>
-        <span class="n">melt</span> <span class="o">=</span> <span class="n">melt</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="n">melt</span><span class="p">[</span><span class="s1">&#39;timestamp&#39;</span><span class="p">])</span>
+        <span class="n">melt</span> <span class="o">=</span> <span class="n">melt</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="n">melt</span><span class="p">[</span><span class="s1">&#39;DateTime&#39;</span><span class="p">])</span>
         <span class="n">melt</span> <span class="o">=</span> <span class="n">melt</span><span class="o">.</span><span class="n">sort_index</span><span class="p">()</span>
 
         <span class="c1"># Loop over each day and assign the indicated site, poc to long fmt df</span>
@@ -515,33 +539,67 @@
                 <span class="n">melt</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">row</span><span class="o">.</span><span class="n">Index</span><span class="p">,</span> <span class="s1">&#39;Method&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">row</span><span class="o">.</span><span class="n">Method</span>
                 <span class="n">melt</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">row</span><span class="o">.</span><span class="n">Index</span><span class="p">,</span> <span class="s1">&#39;Duration&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">row</span><span class="o">.</span><span class="n">Duration</span>
                 <span class="n">melt</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">row</span><span class="o">.</span><span class="n">Index</span><span class="p">,</span> <span class="s1">&#39;Agency&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">row</span><span class="o">.</span><span class="n">Agency</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">melt</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">row</span><span class="o">.</span><span class="n">Index</span><span class="p">,</span> <span class="s1">&#39;Param AQS&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+                <span class="n">melt</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">row</span><span class="o">.</span><span class="n">Index</span><span class="p">,</span> <span class="s1">&#39;Unit&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+                <span class="n">melt</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">row</span><span class="o">.</span><span class="n">Index</span><span class="p">,</span> <span class="s1">&#39;Method&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+                <span class="n">melt</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">row</span><span class="o">.</span><span class="n">Index</span><span class="p">,</span> <span class="s1">&#39;Duration&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+                <span class="n">melt</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">row</span><span class="o">.</span><span class="n">Index</span><span class="p">,</span> <span class="s1">&#39;Agency&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
 
         <span class="c1"># Drop timestamp columns (keep timestamp index)</span>
-        <span class="n">melt</span> <span class="o">=</span> <span class="n">melt</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Date (LST)&#39;</span><span class="p">,</span> <span class="s1">&#39;variable&#39;</span><span class="p">,</span> <span class="s1">&#39;timestamp&#39;</span><span class="p">])</span>
+        <span class="n">melt</span> <span class="o">=</span> <span class="n">melt</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Date (LST)&#39;</span><span class="p">,</span> <span class="s1">&#39;variable&#39;</span><span class="p">,</span> <span class="s1">&#39;DateTime&#39;</span><span class="p">])</span>
 
         <span class="c1"># reset name of the value column to indicate parameter values</span>
         <span class="n">param</span> <span class="o">=</span> <span class="n">param_id</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
         <span class="n">melt</span> <span class="o">=</span> <span class="n">melt</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="s1">&#39;Value&#39;</span><span class="p">})</span>
 
-        <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">combine_first</span><span class="p">(</span><span class="n">melt</span><span class="p">)</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">melt</span><span class="p">)</span>
 
     <span class="c1"># Rearrange column order to match unpivoted column order</span>
     <span class="n">rearr_cols</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">unpivot_cols</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">col</span><span class="p">,</span> <span class="n">dtype</span> <span class="ow">in</span> <span class="n">unpivot_cols</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
         <span class="k">if</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
             <span class="n">rearr_cols</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">col</span><span class="p">)</span>
+            <span class="n">data</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">dtype</span><span class="p">,</span> <span class="n">errors</span><span class="o">=</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span>
     <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">rearr_cols</span><span class="p">]</span>
 
+    <span class="n">data</span><span class="p">[</span><span class="s1">&#39;QC Code&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+
+    <span class="n">invalid</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="k">while</span> <span class="n">invalid</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="n">val</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s1">&#39;AirNow-Tech data are reported in LST. Enter the time zone &#39;</span>
+                    <span class="s1">&#39;name corresponding </span><span class="se">\n</span><span class="s1">to the LST timestamps: &#39;</span><span class="p">)</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">time_zone</span> <span class="o">=</span> <span class="n">pytz</span><span class="o">.</span><span class="n">timezone</span><span class="p">(</span><span class="n">val</span><span class="p">)</span>
+        <span class="k">except</span> <span class="n">UnknownTimeZoneError</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;..invalid time zone &quot;</span><span class="si">{</span><span class="n">val</span><span class="si">}</span><span class="s1">&quot;&#39;</span><span class="p">)</span>
+            <span class="k">continue</span>
+
+        <span class="n">confirm</span> <span class="o">=</span> <span class="n">validate_entry</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">confirm</span> <span class="o">==</span> <span class="s1">&#39;y&#39;</span><span class="p">:</span>
+            <span class="n">invalid</span> <span class="o">=</span> <span class="kc">False</span>
+
+    <span class="n">offset</span> <span class="o">=</span> <span class="n">time_zone</span><span class="o">.</span><span class="n">utcoffset</span><span class="p">(</span><span class="n">time_zone</span><span class="o">.</span><span class="n">zone</span><span class="p">)</span> <span class="o">/</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_timedelta</span><span class="p">(</span><span class="s1">&#39;1 hour&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;..converting datetime index from </span><span class="si">{</span><span class="n">time_zone</span><span class="si">}</span><span class="s1"> (UTC </span><span class="si">{</span><span class="n">offset</span><span class="si">}</span><span class="s1"> &#39;</span>
+          <span class="s1">&#39;hours) to UTC.&#39;</span><span class="p">)</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">tz_localize</span><span class="p">(</span><span class="n">val</span><span class="p">)</span><span class="o">.</span><span class="n">tz_convert</span><span class="p">(</span><span class="s1">&#39;UTC&#39;</span><span class="p">)</span>
+
     <span class="k">return</span> <span class="n">data</span></div>
+
 
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
 
     <span class="c1"># abbreviated</span>
-    <span class="n">path</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;C:\Users\SFREDE01\OneDrive - Environmental Protection Agency (EPA)\Profile\Documents\ant_pivoted_abbrev.csv&quot;</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;C:\Users\SFREDE01\OneDrive - Environmental Protection Agency (EPA)\Profile\Documents\kitchen_sink_pivoted_abbrev.csv&quot;</span>
 
     <span class="c1"># full</span>
-    <span class="n">path</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;C:\Users\SFREDE01\OneDrive - Environmental Protection Agency (EPA)\Profile\Documents\ant_pivoted_full.csv&quot;</span>
+    <span class="c1">#path = r&quot;C:\Users\SFREDE01\OneDrive - Environmental Protection Agency (EPA)\Profile\Documents\kitchen_sink_pivoted_full.csv&quot;</span>
+
+    <span class="c1"># long format dataset</span>
+    <span class="c1">#path = r&quot;C:\Users\SFREDE01\OneDrive - Environmental Protection Agency (EPA)\Profile\Documents\kitchen_sink_unpivoted.csv&quot;</span>
 
     <span class="n">df</span> <span class="o">=</span> <span class="n">airnowtech_wide_to_long</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
 </pre></div>

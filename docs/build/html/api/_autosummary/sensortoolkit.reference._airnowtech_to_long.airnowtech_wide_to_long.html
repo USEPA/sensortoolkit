@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>sensortoolkit.reference._airnowtech_to_long.airnowtech_wide_to_long &mdash; sensortoolkit 0.6.1b2 documentation</title>
+  <title>sensortoolkit.reference._airnowtech_to_long.airnowtech_wide_to_long &mdash; sensortoolkit 0.6.1b4 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" type="text/css" />
@@ -33,7 +33,7 @@
             <a href="../../index.html" class="icon icon-home"> sensortoolkit
           </a>
               <div class="version">
-                0.6.1b2
+                0.6.1b4
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
@@ -423,13 +423,19 @@ considered to be logged in LST.</strong></p>
 <dd class="field-odd"><p><strong>path</strong> (<em>str</em>) – Full path to the downloaded  airnowtech dataset in pivoted (wide)
 format.</p>
 </dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>An unpivoted, long format version of the passed dataset. Should be
-passed to <code class="docutils literal notranslate"><span class="pre">sensortoolkit.reference.preprocess_airnowtech()</span></code> for
-ingestion to SDFS formatted dataset.</p>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>ValueError</strong> – If the shape of the passed dataset does not correspond to
+    an expected width (ncols = 28 for abbreviated wide datasets,
+    ncols = 36 for full wide datasets). This likely occurs if an
+    unpivoted (long format) AirNow-Tech dataset is passed to the
+    function, which has a width of 16 columns.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>data (pandas DataFrame)</p>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>An unpivoted, long format version of the passed dataset. Should be
+passed to <code class="docutils literal notranslate"><span class="pre">sensortoolkit.reference.preprocess_airnowtech()</span></code> for</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>data (pandas DataFrame)</p>
 </dd>
 </dl>
 </dd></dl>

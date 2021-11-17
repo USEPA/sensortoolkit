@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>sensortoolkit.qc._interval_downsampling.downsampling_interval &mdash; sensortoolkit 0.6.1b2 documentation</title>
+  <title>sensortoolkit.qc._interval_downsampling.downsampling_interval &mdash; sensortoolkit 0.6.1b4 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" type="text/css" />
@@ -33,7 +33,7 @@
             <a href="../../index.html" class="icon icon-home"> sensortoolkit
           </a>
               <div class="version">
-                0.6.1b2
+                0.6.1b4
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
@@ -400,13 +400,11 @@
 a threshold quantile (default is 99%) for each dataframe.</p>
 <p>Say we have the following scenario where a sensor was configured to record
 data at 60 second intervals but the recording interval occasionally drifted
-to shorter or longer intervals:
-- threshold quantile (<code class="docutils literal notranslate"><span class="pre">'thres_quant'</span></code>)= 0.99 (99th percentile)
-- threshold recording interval (recording interval at the 99th percentile)</p>
-<blockquote>
-<div><p>= 115 seconds</p>
-</div></blockquote>
+to shorter or longer intervals:</p>
 <ul class="simple">
+<li><p>threshold quantile (<code class="docutils literal notranslate"><span class="pre">'thres_quant'</span></code>) = 0.99 (99th percentile)</p></li>
+<li><p>threshold recording interval (recording interval at the 99th percentile)
+= 115 seconds</p></li>
 <li><p>median recording interval (recording interval at the 50th percentile)
 = 60 seconds</p></li>
 </ul>

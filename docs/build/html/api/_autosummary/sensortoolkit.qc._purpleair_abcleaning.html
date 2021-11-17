@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>sensortoolkit.qc._purpleair_abcleaning &mdash; sensortoolkit 0.6.1b2 documentation</title>
+  <title>sensortoolkit.qc._purpleair_abcleaning &mdash; sensortoolkit 0.6.1b4 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" type="text/css" />
@@ -33,7 +33,7 @@
             <a href="../../index.html" class="icon icon-home"> sensortoolkit
           </a>
               <div class="version">
-                0.6.1b2
+                0.6.1b4
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
@@ -392,7 +392,22 @@
              
   <section id="module-sensortoolkit.qc._purpleair_abcleaning">
 <span id="sensortoolkit-qc-purpleair-abcleaning"></span><h1>sensortoolkit.qc._purpleair_abcleaning<a class="headerlink" href="#module-sensortoolkit.qc._purpleair_abcleaning" title="Permalink to this headline"></a></h1>
-<p>Description.</p>
+<p>This module contains a method for averaging the dual PMS5003 PM2.5 data channels
+for PurpleAir PA-II and PA-II-SD sensors. This method of data averaging was
+developed by Barkjohn et al. 2021 <a class="footnote-reference brackets" href="#f1" id="id1">1</a>, and is discussed in detail in the
+publication section 3.2.3 “Comparison of A and B channels”. Briefly, quality
+control (QC) criteria are applied during data averaging, whereby the absolute
+and percent difference between concurrent (nearest neighbor by logged timestamp)
+A and B channel measurement pairs are calculated. If both of these QC criteria
+do not exceed respective thesholds, the A and B channels are averaged. Otherwise,
+occasions where the A and B channel differ by a margin greater than the QC
+criteria thresholds are set null.</p>
+<p class="rubric">Footnotes</p>
+<dl class="footnote brackets">
+<dt class="label" id="f1"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dd><p>Barkjohn, K. K., Gantt, B., and Clements, A. L.: Development and application of a United States-wide correction for PM2.5 data collected with the PurpleAir sensor, Atmos. Meas. Tech., 14, 4617–4637, <a class="reference external" href="https://doi.org/10.5194/amt-14-4617-2021">https://doi.org/10.5194/amt-14-4617-2021</a>, 2021.</p>
+</dd>
+</dl>
 <hr class="docutils" />
 <dl>
 <dt>&#64;Author:</dt><dd><div class="line-block">

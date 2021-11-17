@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>sensortoolkit.reference._ref_api_query.query_periods &mdash; sensortoolkit 0.6.1b2 documentation</title>
+  <title>sensortoolkit.reference._ref_api_query.query_periods &mdash; sensortoolkit 0.6.1b4 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" type="text/css" />
@@ -33,7 +33,7 @@
             <a href="../../index.html" class="icon icon-home"> sensortoolkit
           </a>
               <div class="version">
-                0.6.1b2
+                0.6.1b4
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
@@ -398,14 +398,15 @@
 <span class="sig-name descname"><span class="pre">query_periods</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">query_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">month_starts</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">month_ends</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/sensortoolkit/reference/_ref_api_query.html#query_periods"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sensortoolkit.reference._ref_api_query.query_periods" title="Permalink to this definition"></a></dt>
 <dd><p>Generate a dictionary with consecutive monthly intervals to query where
 dates are formatted a little differently depending on the API to query.</p>
-<p>API date formatting:
-- AirNow API: Expects dates in format <code class="docutils literal notranslate"><span class="pre">'YYYY-MM-DDTHH'</span></code></p>
-<blockquote>
-<div><ul class="simple">
+<p>API date formatting:</p>
+<ul class="simple">
+<li><dl class="simple">
+<dt>AirNow API: Expects dates in format <code class="docutils literal notranslate"><span class="pre">'YYYY-MM-DDTHH'</span></code></dt><dd><ul>
 <li><p>Example: <code class="docutils literal notranslate"><span class="pre">'2019-08-01T00'</span></code></p></li>
 </ul>
-</div></blockquote>
-<ul class="simple">
+</dd>
+</dl>
+</li>
 <li><dl class="simple">
 <dt>AQS API: Expects dates in format <code class="docutils literal notranslate"><span class="pre">'YYYYMMDD'</span></code></dt><dd><ul>
 <li><p>Example: <code class="docutils literal notranslate"><span class="pre">'20190801'</span></code></p></li>
