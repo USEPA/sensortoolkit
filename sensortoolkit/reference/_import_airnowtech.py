@@ -27,9 +27,9 @@ import numpy as np
 import os
 import pathlib
 import datetime
-from sensortoolkit.lib_utils import flatten_list
 from shutil import copy
-
+from sensortoolkit.reference import airnowtech_wide_to_long
+from sensortoolkit.lib_utils import flatten_list
 
 
 def ingest_airnowtech(path, Clean_QC_Code=False):
@@ -45,13 +45,16 @@ def ingest_airnowtech(path, Clean_QC_Code=False):
             issues reported).
 
     """
+    try:
+        # Check if dataset is in wide format, convert to long format first.
+        df = airnowtech_wide_to_long(path)
+    except ValueError:
+        # Import csv dataframe, set hourly UTC date and time as index
+        df = pd.read_csv(path, parse_dates={'DateTime': ['Date (UTC)',
+                                                         'Time (UTC)']},
+                         index_col='DateTime')
 
-    # Import csv dataframe, set hourly UTC date and time as index
-    df = pd.read_csv(path, parse_dates={'DateTime': ['Date (UTC)',
-                                                     'Time (UTC)']},
-                     index_col='DateTime')
-
-    df = df.tz_localize('UTC')
+        df = df.tz_localize('UTC')
 
     if Clean_QC_Code is True:
         df = df[df['QC Code'] == 0]
