@@ -114,9 +114,9 @@ def sort_airnowtech(df):
     site_id = site_df['Site_AQS'].str.slice(5, 9)
 
     site_df['Site_AQS'] = (state_id + '-' + county_id + '-' + site_id)
-
     for param in df.Param.dropna().unique():
-        param_df = df.where(df.Param == param).dropna(axis=0, how='all')
+
+        param_df = df[df.Param == param]
 
         hourly_index = pd.date_range(param_df.index[0], param_df.index[-1],
                                      freq='H')
@@ -133,8 +133,8 @@ def sort_airnowtech(df):
 
         # If multiple instruments present, choose first instrument datastream
         if len(param_df[param + '_Method_POC'].dropna().unique()) > 1:
-            param_df = param_df.where(
-                            param_df[param + '_Method_POC'] == 1).dropna()
+            param_df = param_df[param_df[param + '_Method_POC'] == 1]
+            print(f'..Multiple POCs for {param} found. Retaining data for POC 1.')
 
         # Method code(s) listed for parameter data
         method_list = param_df[param + '_Method_Code'].dropna().unique()
