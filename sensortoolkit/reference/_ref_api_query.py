@@ -553,6 +553,7 @@ def query_periods(query_type=None, month_starts=[], month_ends=[]):
     dates are formatted a little differently depending on the API to query.
 
     API date formatting:
+    
     - AirNow API: Expects dates in format ``'YYYY-MM-DDTHH'``
         - Example: ``'2019-08-01T00'``
     - AQS API: Expects dates in format ``'YYYYMMDD'``

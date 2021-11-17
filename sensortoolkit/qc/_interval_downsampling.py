@@ -128,7 +128,8 @@ def downsampling_interval(quant_df, thres_quant=0.99, plot_quantiles=True):
     Say we have the following scenario where a sensor was configured to record
     data at 60 second intervals but the recording interval occasionally drifted
     to shorter or longer intervals:
-    - threshold quantile (``'thres_quant'``)= 0.99 (99th percentile)
+    
+    - threshold quantile (``'thres_quant'``) = 0.99 (99th percentile)
     - threshold recording interval (recording interval at the 99th percentile)
       = 115 seconds
     - median recording interval (recording interval at the 50th percentile)

@@ -464,7 +464,7 @@ class SensorEvaluation:
 
         Writes Files:
 
-        -`Statistics DataFrame - Sensor vs. FRM/FEM
+        - Statistics DataFrame - Sensor vs. FRM/FEM
         - Statistics DataFrame - Sensor vs. Intersensor Average
 
         Returns:
