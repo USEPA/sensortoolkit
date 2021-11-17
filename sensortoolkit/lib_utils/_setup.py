@@ -52,7 +52,6 @@ class _Setup:
     data_types = ['.csv', '.txt', '.xlsx']
     __banner_w__ = 79
     pp = pprint.PrettyPrinter()
-    #pd.set_option('max_colwidth', __banner_w__)
 
     def __init__(self, path=None):
         if path is None:
@@ -149,11 +148,11 @@ class _Setup:
                 print(line)
 
         if notes != []:
-            if options!= []:
+            if options != []:
                 print('')
             print('Notes\n-----')
             notes = ['\n'.join(wrap(str(l),
-                                 width=self.__banner_w__)) for l in notes]
+                               width=self.__banner_w__)) for l in notes]
             for line in notes:
                 print(line)
 
