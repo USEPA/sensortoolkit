@@ -1,6 +1,19 @@
 # -*- coding: utf-8 -*-
 """
-Description.
+This module contains a method for averaging the dual PMS5003 PM2.5 data channels
+for PurpleAir PA-II and PA-II-SD sensors. This method of data averaging was
+developed by Barkjohn et al. 2021 [#f1]_, and is discussed in detail in the
+publication section 3.2.3 "Comparison of A and B channels". Briefly, quality
+control (QC) criteria are applied during data averaging, whereby the absolute
+and percent difference between concurrent (nearest neighbor by logged timestamp)
+A and B channel measurement pairs are calculated. If both of these QC criteria
+do not exceed respective thesholds, the A and B channels are averaged. Otherwise,
+occasions where the A and B channel differ by a margin greater than the QC
+criteria thresholds are set null.
+
+.. rubric:: Footnotes
+
+.. [#f1] Barkjohn, K. K., Gantt, B., and Clements, A. L.: Development and application of a United States-wide correction for PM2.5 data collected with the PurpleAir sensor, Atmos. Meas. Tech., 14, 4617–4637, https://doi.org/10.5194/amt-14-4617-2021, 2021.
 
 ================================================================================
 
@@ -40,7 +53,7 @@ def purpleair_ab_averages(df, cleaning=True, a_col_name=None,
     Returns:
         df (pandas dataframe):
             Modified PurpleAir dataframe with computed AB averages
-            
+
     """
     if cleaning is True:
         # Compute (A-B) difference
