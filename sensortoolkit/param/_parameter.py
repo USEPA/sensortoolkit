@@ -95,6 +95,7 @@ class Parameter:
             targets for air sensors measuring these pollutants.
 
     """
+    # TODO: move to an sdfs parameter json file
     __param_dict__ = {'CO': {'baseline': 'CO',
                              'classifier': 'Gases',
                              'subscript': None,
@@ -267,7 +268,13 @@ class Parameter:
         self.classifier = None
         self.criteria_pollutant = False
         self.aqs_parameter_code = None
+        self.units_aqs_code = None
         self.averaging = ['1-hour', '24-hour']  # default averaging
+
+        if self.name in self.__param_dict__:
+            self._autoset_param()
+        # TODO: Manual configuration for parameter info
+        # Format baseline, subscript, classifier, parameter code, averaging, etc.
 
         if set_units:
             unit_info = self._get_units()
@@ -276,9 +283,6 @@ class Parameter:
             if isinstance(unit_info['Context'], str):
                 self.units_description += f" ({unit_info['Context']})"
             self.units_aqs_code = unit_info['Unit Code']
-
-        if self.name in self.__param_dict__:
-            self._autoset_param()
 
         self._set_parametertargets()
 
@@ -293,6 +297,7 @@ class Parameter:
                                           'aqs_param_code': self.aqs_parameter_code
                                           }
 
+            # TODO: write updated param_dict to json file
 
     def _autoset_param(self):
         """Assign attributes for SDFS parameters.
@@ -359,9 +364,10 @@ class Parameter:
         unit_data = pd.read_csv(unit_table_path)
 
         # Dataset values where the SDFS column contains the specified parameter
-        options = unit_data[unit_data.SDFS.str.contains(self.name) == True]
+        #options = unit_data[unit_data.SDFS.str.contains(self.name) == True]
 
         if self.is_sdfs():
+            options = unit_data[unit_data.Classification == self.classifier]
             unit_code = self.__param_dict__[self.name]['aqs_unit_code']
         else:
             # return unit code int and reassign options dataset
