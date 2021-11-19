@@ -78,7 +78,7 @@ def normalize(df_list, ref_df, param=None, ref_name=None):
         except KeyError as k:
             print('...Warning', k, 'not found in dataframe at index ', str(i))
             df['Normalized_' + param + '_Value'] = np.nan
-        df['Normalized_' + param + '_Value'] = 'Unitless'
+        df['Normalized_' + param + '_Unit'] = 'Unitless'
         df_list[i] = df
 
     return df_list
