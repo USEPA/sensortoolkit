@@ -63,7 +63,7 @@ def sensor_averaging(full_df_list, sensor_serials=None, name='',
         path (str):
             The full directory path to processed sensor data for a given sensor
             make and model.
-            
+
     **Keyword Arguments:**
 
     :param float threshold:
@@ -201,10 +201,17 @@ def interval_averaging(df, freq='H', interval_count=60, thres=0.75):
     if data_type is not pd.core.frame.DataFrame:
         df = pd.Series(df).to_frame()
 
-    col_list = list(df.columns)
+    # List of unique column names with the column order preserved
+    col_list = list(dict.fromkeys(df.columns))
+
     # Split DataFrame in to object-like columns and numeric-like columns
     obj_df = df.select_dtypes(include=['object', 'datetime'])
     num_df = df.select_dtypes(exclude=['object', 'datetime'])
+
+    # Merge object columns by using the instance in the first non-null instance
+    obj_df = column_merger(obj_df, by='first')
+    # Merge numeric columns with same name by mean
+    num_df = column_merger(num_df, by='mean')
 
     num_df_cols = list(num_df.columns)
     obj_df_cols = list(obj_df.columns)
@@ -249,7 +256,6 @@ def interval_averaging(df, freq='H', interval_count=60, thres=0.75):
         # List of columns containing count for each averaging interval
         count_list = list(avg_num_df.columns[[col.endswith('count' + freq)
                                               for col in avg_num_df.columns]])
-
 
         # Set null param vals for averaging intervals below completeness thres
         for col in count_list:
@@ -304,5 +310,43 @@ def object_grouper(series, number_threshold):
             val = np.nan
     except IndexError:
         val = np.nan
-
     return val
+
+
+def column_merger(df, by='first'):
+    """Group duplicated column names if detected in passed dataset.
+
+
+    Args:
+        df (pandas DataFrame):
+            Dataset containing columns with the same name.
+        by (str, optional):
+            Method for how to keep entries from duplicated columns. Either
+            ``'first'`` (keep the first non-null entries, good for
+            columns of dtype object - i.e., strings) or ``'mean'`` (compute
+            the mean of entries for duplicated columns (good for numeric type
+            columns). Defaults to 'first'.
+
+    Returns:
+        df (pandas DataFrame):
+            Modified dataset with duplicated column entries merged.
+
+    """
+
+    col_counts = {col: list(df.columns).count(col) for col in df.columns
+                  if list(df.columns).count(col) > 1}
+
+    if col_counts != {}:
+        print('....duplicate column names found in dataset:')
+        for col_name, occurrences in col_counts.items():
+            print(f'......column name: "{col_name}", occurrences: {occurrences}')
+        if by == 'first':
+            grouped_df = df.groupby(level=0, axis=1).first()
+        if by == 'mean':
+            grouped_df = df.groupby(level=0, axis=1).mean()
+
+        print(f'....duplicate column occurrences grouped by {by}')
+
+        df = grouped_df
+
+    return df
