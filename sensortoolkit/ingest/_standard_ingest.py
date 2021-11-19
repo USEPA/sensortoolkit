@@ -87,10 +87,15 @@ def standard_ingest(path, name=None, setup_file_path=None):
     time_format = ''.join([val for key, val in idx_format_dict.items()])
     time_zone_list = idx_tzone
 
-    if len(time_zone_list) > 1:
-        raise ValueError(f'Too many time zones specified for datetime index:'
-                         f' {", ".join(time_zone_list)}. Only one time zone '
-                         'should be specified.')
+    if len(idx_list) > 1 and len(time_zone_list) > 1:
+        # Multiple time-like columns but the specified time zone for each does
+        # not match
+        if len(set(time_zone_list)) > 1:
+            raise ValueError(f'Too many time zones specified for datetime index:'
+                             f' {", ".join(time_zone_list)}. Only one time zone '
+                             'should be specified.')
+        else:
+            time_zone = time_zone_list[0]
 
     if len(time_zone_list) == 0:
         print('No time zone specified for datetime index. '
