@@ -282,6 +282,18 @@ class Parameter:
 
         self._set_parametertargets()
 
+        if param not in self.__param_dict__:
+            self.__param_dict__[param] = {'baseline': self.name,
+                                          'classifier': self.classifier,
+                                          'subscript': self.format_subscript,
+                                          'aqs_unit_code': self.units_aqs_code,
+                                          'averaging': self.averaging,
+                                          'usepa_targets': False,
+                                          'criteria': False,
+                                          'aqs_param_code': self.aqs_parameter_code
+                                          }
+
+
     def _autoset_param(self):
         """Assign attributes for SDFS parameters.
 
@@ -352,8 +364,8 @@ class Parameter:
         if self.is_sdfs():
             unit_code = self.__param_dict__[self.name]['aqs_unit_code']
         else:
-            unit_code = self._set_units(unit_data)
-
+            # return unit code int and reassign options dataset
+            unit_code, options = self._set_units(unit_data)
         unit_info = options[options['Unit Code'] == unit_code]
 
         return unit_info.to_dict('records')[0]
@@ -363,7 +375,7 @@ class Parameter:
         validate = False
         while validate is False:
             self.classifier = input(f'Enter the parameter classification ("PM", '
-                        f'"Gases", or "Met" for {self.name}')
+                        f'"Gases", or "Met") for {self.name}: ')
 
             if self.classifier not in ['PM', 'Gases', 'Met']:
                 print('..invalid entry, enter "PM", "Gases", or "Met"')
@@ -374,26 +386,37 @@ class Parameter:
                 validate = True
 
         options =  unit_data[unit_data.Classification == self.classifier]
+
+        print('')
         print('Choose from the following unit codes:')
         with pd.option_context('display.expand_frame_repr', False,
-                               'display.max_colwidth', 65,
-                               'display.max_rows', None,
-                               'display.colheader_justify', 'right'):
-            print(options)
+                               'display.max_rows', None):
+            print('')
+            print(options[['Unit Code', 'Description', 'Label', 'Conditions',
+                           'Context']].to_markdown(index=False))
+
+            # Could also include "SDFS" and "Classification" if space allows
+
         validate = False
         while validate is False:
             unit_code = input('Enter the integer unit code value '
-                        'for the {self.name} unit of measure')
+                        f'for the {self.name} unit of measure: ')
+
+            try:
+                unit_code = int(unit_code)
+            except ValueError:
+                print('..invalid entry, expected integer value')
+                continue
 
             if unit_code not in options['Unit Code'].values:
-                print('..invalid entry.')
+                print('..invalid entry, unit code not in listed values')
                 continue
 
             response = validate_entry()
             if response == 'y':
                 validate = True
 
-        return unit_code
+        return unit_code, options
 
 
 if __name__ == '__main__':
