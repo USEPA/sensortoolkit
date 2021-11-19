@@ -167,7 +167,7 @@ def copy_datasets(data_type=None, path=None, select='directory', **kwargs):
                 for filename in files:
                     valid_file = _check_extension(filename, extension)
                     if valid_file:
-                        source_file_list.append(filename)
+                        source_file_list.append(os.path.join(path, filename))
         else:
             for item in os.listdir(src_dir):
                 if os.path.isfile(os.path.join(src_dir, item)):
