@@ -50,22 +50,22 @@ class Parameter:
 
     Attributes:
         name (str):
-            The name of the parameter (e.g., 'PM25').
+            The name of the parameter (e.g., ``'PM25'``).
         format_name (str):
             A formatted expression for the parameter used for displaying the
-            name of the parameter on plots (e.g., 'PM$_{2.5}$').
+            name of the parameter on plots (e.g., ``'PM$_{2.5}$'``).
         format_baseline (str):
             For ``format_name``, contains the baseline component of the
-            parameter name (e.g., 'PM' for fine particulate matter)
+            parameter name (e.g., ``'PM'`` for fine particulate matter)
         format_subscript (str):
             For ``format_name``, contains the subscripted component of the
-            parameter name (e.g., '2.5' for fine particulate matter)
+            parameter name (e.g., ``'2.5'`` for fine particulate matter)
         classifier (str):
             A term for sorting the parameter into one of three environmental
             parameter classifications, either 'PM' for particulate matter
             pollutants, 'Gases' for gaseous pollutants, or 'Met' for
-            meteorological environmental parameters (e.g., 'PM25' is assigned
-            to the 'PM' classifier).
+            meteorological environmental parameters (e.g., ``'PM25'`` is
+            assigned to the 'PM' classifier).
         criteria_pollutant (bool):
             Describes whether the parameter is a criteria pollutant (True) or
             non-criteria (False).
@@ -78,21 +78,21 @@ class Parameter:
             in a list (e.g., fine particulate matter as measured by FRM or
             FEM instrumentation may report data at either 1-hour or 24-hour
             sampling or averaging intervals, such that averaging would be
-            ['1-hour', '24-hour']).
+            ``['1-hour', '24-hour']``).
         units (str):
             The units of measure, expressed symbolically in unicode characters
-            (e.g., for fine particulate matter, 'µg/m³').
+            (e.g., for fine particulate matter, ``'µg/m³'``).
         units_description (str):
             A textual description of the units of measure (e.g., for fine
-            particulate matter,'Micrograms per Cubic Meter').
+            particulate matter, 'Micrograms per Cubic Meter').
         units_aqs_code (int):
             The AQS unit code. See resource #2 in the module docstring for a
             detailed list of AQS parameter codes.
         PerformanceTargets (sensortoolkit.ParameterTargets object):
             Performance metrics, target values and ranges associated with the
-            parameter. Preset values are configured for PM25 and O3 using
-            U.S. EPA's recommended performance metrics and targets for air
-            sensors measuring these pollutants.
+            parameter. Preset values are configured for :math:`PM_{2.5}` and
+            :math:`O_3` using U.S. EPA's recommended performance metrics and
+            targets for air sensors measuring these pollutants.
 
     """
     __param_dict__ = {'CO': {'baseline': 'CO',
@@ -118,6 +118,7 @@ class Parameter:
                       'NO': {'baseline': 'NO',
                              'classifier': 'Gases',
                              'subscript': None,
+                             'aqs_unit_code': 8,
                              'averaging': None,
                              'usepa_targets': False,
                              'criteria': False,
@@ -229,7 +230,7 @@ class Parameter:
                       'Press': {'baseline': 'Pressure',
                                 'classifier': 'Met',
                                 'subscript': None,
-                                'aqs_unit_code': 128,
+                                'aqs_unit_code': 129,
                                 'averaging': None,
                                 'usepa_targets': False,
                                 'criteria': False,
@@ -273,7 +274,6 @@ class Parameter:
             self.units = unit_info['Label']
             self.units_description = unit_info['Description']
             if isinstance(unit_info['Context'], str):
-                print(unit_info['Context'])
                 self.units_description += f" ({unit_info['Context']})"
             self.units_aqs_code = unit_info['Unit Code']
 
