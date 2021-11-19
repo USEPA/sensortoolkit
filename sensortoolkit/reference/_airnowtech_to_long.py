@@ -16,6 +16,7 @@ Created:
 Last Updated:
   Tue Oct 12 08:25:24 2021
 """
+import datetime
 import pandas as pd
 import numpy as np
 import pytz
@@ -192,7 +193,9 @@ def airnowtech_wide_to_long(path):
         if confirm == 'y':
             invalid = False
 
-    offset = time_zone.utcoffset(time_zone.zone) / pd.to_timedelta('1 hour')
+
+    dt = datetime.datetime.utcnow()
+    offset = time_zone.utcoffset(dt) / pd.to_timedelta('1 hour')
     print('')
     print(f'..converting datetime index from {time_zone} (UTC {offset} '
           'hours) to UTC.')

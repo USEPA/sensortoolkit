@@ -137,8 +137,9 @@ def standard_ingest(path, name=None, setup_file_path=None):
     df = df.sort_index(ascending=True)
 
     if time_zone is not None:
+        dt = datetime.utcnow()
         tz = pytz.timezone(time_zone)
-        offset = tz.utcoffset(tz.zone) / pd.to_timedelta('1 hour')
+        offset = tz.utcoffset(dt) / pd.to_timedelta('1 hour')
         print(f'....converting datetime index from {time_zone} (UTC {offset} '
               'hours) to UTC.')
         df = df.tz_localize(time_zone).tz_convert('UTC')
@@ -166,7 +167,7 @@ def standard_ingest(path, name=None, setup_file_path=None):
     for header, scale_factor in setup['file_unit_scaling'].items():
         sdfs_header = setup['col_rename_dict'][header]
         print(f'....scaling {header} values by {scale_factor}')
-        df[sdfs_header] = scale_factor * df[sdfs_header]
+        df[sdfs_header] = float(scale_factor) * df[sdfs_header]
 
     # Drop unused columns
     if len(setup['drop_cols']) > 0:
