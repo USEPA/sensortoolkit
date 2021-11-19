@@ -218,7 +218,7 @@ class AirSensor:
             each sensor unit should be indicated within the recorded sensor
             dataset file names.
 
-        11. **Saving the Setup Configuration to ``setup.json``**:
+        11. **Saving the Setup Configuration to** ``setup.json``:
 
             The setup configuration specified by the user is saved to a
             ``setup.json`` file for subsequent use by the ingestion module for
@@ -241,7 +241,7 @@ class AirSensor:
         self._get_ingest_config()
 
     def load_data(self, load_raw_data, write_to_file, **kwargs):
-        """Import sensor datasets and load to the AirSensor.data attribute.
+        """Import sensor datasets and load to the ``AirSensor.data`` attribute.
 
         Args:
             load_raw_data (bool):
@@ -249,10 +249,11 @@ class AirSensor:
                 saved as csv files to the ``/data/sensor_data/[sensor_name]/processed_data``
                 directory. If false, formatted datasets will not be saved to
                 the user’s hard drive.
-            write_to_file (bool): If true, raw data (datasets as originally
-                recorded) in the appropriate subdirectory will be loaded and
-                1-hour and 24-hour averages will be computed. If false,
-                processed data will be loaded.
+            write_to_file (bool):
+                If true, raw data (datasets as originally recorded) in the
+                appropriate subdirectory will be loaded and 1-hour and 24-hour
+                averages will be computed. If false, processed data will be
+                loaded.
             **kwargs (dict):
 
         Returns:

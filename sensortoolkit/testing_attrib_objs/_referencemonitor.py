@@ -55,7 +55,8 @@ class ReferenceMonitor:
             Typically the AQS Site ID if applicable. Defaults to None.
 
     Raises:
-        ValueError: If both the site name and site ID are not None but the
+        ValueError:
+            If both the site name and site ID are not None but the
             data source is None, raise ValueError as the source must be
             specified to indicate where reference data are located. Also,
             a ValueError will be raised if the passed data source, site name,
