@@ -151,7 +151,7 @@ def create_sensor_directories(name=None, param=None, path=None):
                 # Only create separate folders for pollutants. Met params
                 # grouped into single folder.
                 param = [name for name in param if
-                         Parameter(name).classifier != 'Met']
+                         Parameter(name, set_units=False).classifier != 'Met']
 
                 figure_params = param + ['Met', 'deployment']
                 # Create figure subfolders for specified eval params
