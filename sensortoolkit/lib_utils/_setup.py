@@ -46,9 +46,7 @@ class _Setup:
 
     """
 
-    params = ['PM1', 'PM25', 'PM10', 'O3', 'NO2', 'NO', 'NOx',
-              'SO2', 'SOx', 'CO', 'CO2', 'Temp', 'RH', 'Press',
-              'DP', 'WS', 'WD']
+    params = sorted(list(Parameter.__param_dict__.keys()))
     data_types = ['.csv', '.txt', '.xlsx']
     __banner_w__ = 79
     pp = pprint.PrettyPrinter()
@@ -679,6 +677,25 @@ class _Setup:
             the unit basis for the SDFS parameter.
 
         """
+        # preset_sdfs = Parameter(sdfs_param, set_units=False).is_sdfs()
+
+        # # Check if the SDFS parameter has a preset configuration. If true,
+        # # retrieve unit info from preset param definition.
+        # if preset_sdfs:
+        #     sdfs_param_units = Parameter(sdfs_param).units
+        #     print('')
+        #     print(f'  Are the units of measure for {param} {sdfs_param_units}?')
+        #     confirm = validate_entry(indent_statement=2)
+        #     if confirm == 'n':
+        #         val = input('  Enter the scalar quanitity for converting the '
+        #                     'recorded measurements to the following unit basis: '
+        #                     f'{sdfs_param_units}')
+        #     else:
+        #         val = None
+        # # Otherwise ask for parameter units
+        # else:
+        #     param = Parameter(sdfs_param)
+        #     val = None
         sdfs_param_units = Parameter(sdfs_param).units
         print('')
         print(f'  Are the units of measure for {param} {sdfs_param_units}?')
@@ -687,8 +704,6 @@ class _Setup:
             val = input('  Enter the scalar quanitity for converting the '
                         'recorded measurements to the following unit basis: '
                         f'{sdfs_param_units}')
-        else:
-            val = None
 
         return val
 
