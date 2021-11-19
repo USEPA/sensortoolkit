@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>sensortoolkit.datetime_utils._time_averaging &mdash; sensortoolkit 0.6.1b4 documentation</title>
+  <title>sensortoolkit.datetime_utils._time_averaging &mdash; sensortoolkit 0.6.2b1 documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" type="text/css" />
@@ -30,7 +30,7 @@
             <a href="../../../index.html" class="icon icon-home"> sensortoolkit
           </a>
               <div class="version">
-                0.6.1b4
+                0.6.2b1
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
@@ -139,6 +139,7 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.datetime_utils._time_averaging.html">sensortoolkit.datetime_utils._time_averaging</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.datetime_utils._time_averaging.column_merger.html">sensortoolkit.datetime_utils._time_averaging.column_merger</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.datetime_utils._time_averaging.interval_averaging.html">sensortoolkit.datetime_utils._time_averaging.interval_averaging</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.datetime_utils._time_averaging.object_grouper.html">sensortoolkit.datetime_utils._time_averaging.object_grouper</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.datetime_utils._time_averaging.sensor_averaging.html">sensortoolkit.datetime_utils._time_averaging.sensor_averaging</a></li>
@@ -451,7 +452,7 @@
 <span class="sd">        path (str):</span>
 <span class="sd">            The full directory path to processed sensor data for a given sensor</span>
 <span class="sd">            make and model.</span>
-<span class="sd">            </span>
+
 <span class="sd">    **Keyword Arguments:**</span>
 
 <span class="sd">    :param float threshold:</span>
@@ -589,10 +590,17 @@
     <span class="k">if</span> <span class="n">data_type</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">pd</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">frame</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
         <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">df</span><span class="p">)</span><span class="o">.</span><span class="n">to_frame</span><span class="p">()</span>
 
-    <span class="n">col_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
+    <span class="c1"># List of unique column names with the column order preserved</span>
+    <span class="n">col_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">dict</span><span class="o">.</span><span class="n">fromkeys</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">))</span>
+
     <span class="c1"># Split DataFrame in to object-like columns and numeric-like columns</span>
     <span class="n">obj_df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">select_dtypes</span><span class="p">(</span><span class="n">include</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;object&#39;</span><span class="p">,</span> <span class="s1">&#39;datetime&#39;</span><span class="p">])</span>
     <span class="n">num_df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">select_dtypes</span><span class="p">(</span><span class="n">exclude</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;object&#39;</span><span class="p">,</span> <span class="s1">&#39;datetime&#39;</span><span class="p">])</span>
+
+    <span class="c1"># Merge object columns by using the instance in the first non-null instance</span>
+    <span class="n">obj_df</span> <span class="o">=</span> <span class="n">column_merger</span><span class="p">(</span><span class="n">obj_df</span><span class="p">,</span> <span class="n">by</span><span class="o">=</span><span class="s1">&#39;first&#39;</span><span class="p">)</span>
+    <span class="c1"># Merge numeric columns with same name by mean</span>
+    <span class="n">num_df</span> <span class="o">=</span> <span class="n">column_merger</span><span class="p">(</span><span class="n">num_df</span><span class="p">,</span> <span class="n">by</span><span class="o">=</span><span class="s1">&#39;mean&#39;</span><span class="p">)</span>
 
     <span class="n">num_df_cols</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">num_df</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
     <span class="n">obj_df_cols</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">obj_df</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
@@ -637,7 +645,6 @@
         <span class="c1"># List of columns containing count for each averaging interval</span>
         <span class="n">count_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">avg_num_df</span><span class="o">.</span><span class="n">columns</span><span class="p">[[</span><span class="n">col</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;count&#39;</span> <span class="o">+</span> <span class="n">freq</span><span class="p">)</span>
                                               <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">avg_num_df</span><span class="o">.</span><span class="n">columns</span><span class="p">]])</span>
-
 
         <span class="c1"># Set null param vals for averaging intervals below completeness thres</span>
         <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">count_list</span><span class="p">:</span>
@@ -692,8 +699,46 @@
             <span class="n">val</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
     <span class="k">except</span> <span class="ne">IndexError</span><span class="p">:</span>
         <span class="n">val</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
-
     <span class="k">return</span> <span class="n">val</span></div>
+
+
+<div class="viewcode-block" id="column_merger"><a class="viewcode-back" href="../../../api/_autosummary/sensortoolkit.datetime_utils._time_averaging.column_merger.html#sensortoolkit.datetime_utils._time_averaging.column_merger">[docs]</a><span class="k">def</span> <span class="nf">column_merger</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">by</span><span class="o">=</span><span class="s1">&#39;first&#39;</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Group duplicated column names if detected in passed dataset.</span>
+
+
+<span class="sd">    Args:</span>
+<span class="sd">        df (pandas DataFrame):</span>
+<span class="sd">            Dataset containing columns with the same name.</span>
+<span class="sd">        by (str, optional):</span>
+<span class="sd">            Method for how to keep entries from duplicated columns. Either</span>
+<span class="sd">            ``&#39;first&#39;`` (keep the first non-null entries, good for</span>
+<span class="sd">            columns of dtype object - i.e., strings) or ``&#39;mean&#39;`` (compute</span>
+<span class="sd">            the mean of entries for duplicated columns (good for numeric type</span>
+<span class="sd">            columns). Defaults to &#39;first&#39;.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        df (pandas DataFrame):</span>
+<span class="sd">            Modified dataset with duplicated column entries merged.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">col_counts</span> <span class="o">=</span> <span class="p">{</span><span class="n">col</span><span class="p">:</span> <span class="nb">list</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="n">col</span><span class="p">)</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span>
+                  <span class="k">if</span> <span class="nb">list</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="n">col</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">}</span>
+
+    <span class="k">if</span> <span class="n">col_counts</span> <span class="o">!=</span> <span class="p">{}:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;....duplicate column names found in dataset:&#39;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">col_name</span><span class="p">,</span> <span class="n">occurrences</span> <span class="ow">in</span> <span class="n">col_counts</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;......column name: &quot;</span><span class="si">{</span><span class="n">col_name</span><span class="si">}</span><span class="s1">&quot;, occurrences: </span><span class="si">{</span><span class="n">occurrences</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">by</span> <span class="o">==</span> <span class="s1">&#39;first&#39;</span><span class="p">:</span>
+            <span class="n">grouped_df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">first</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">by</span> <span class="o">==</span> <span class="s1">&#39;mean&#39;</span><span class="p">:</span>
+            <span class="n">grouped_df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;....duplicate column occurrences grouped by </span><span class="si">{</span><span class="n">by</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+        <span class="n">df</span> <span class="o">=</span> <span class="n">grouped_df</span>
+
+    <span class="k">return</span> <span class="n">df</span></div>
 </pre></div>
 
            </div>

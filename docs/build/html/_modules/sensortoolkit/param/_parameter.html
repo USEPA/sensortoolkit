@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>sensortoolkit.param._parameter &mdash; sensortoolkit 0.6.1b4 documentation</title>
+  <title>sensortoolkit.param._parameter &mdash; sensortoolkit 0.6.2b1 documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" type="text/css" />
@@ -30,7 +30,7 @@
             <a href="../../../index.html" class="icon icon-home"> sensortoolkit
           </a>
               <div class="version">
-                0.6.1b4
+                0.6.2b1
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
@@ -139,6 +139,7 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.datetime_utils._time_averaging.html">sensortoolkit.datetime_utils._time_averaging</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.datetime_utils._time_averaging.column_merger.html">sensortoolkit.datetime_utils._time_averaging.column_merger</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.datetime_utils._time_averaging.interval_averaging.html">sensortoolkit.datetime_utils._time_averaging.interval_averaging</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.datetime_utils._time_averaging.object_grouper.html">sensortoolkit.datetime_utils._time_averaging.object_grouper</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.datetime_utils._time_averaging.sensor_averaging.html">sensortoolkit.datetime_utils._time_averaging.sensor_averaging</a></li>
@@ -438,22 +439,22 @@
 
 <span class="sd">    Attributes:</span>
 <span class="sd">        name (str):</span>
-<span class="sd">            The name of the parameter (e.g., &#39;PM25&#39;).</span>
+<span class="sd">            The name of the parameter (e.g., ``&#39;PM25&#39;``).</span>
 <span class="sd">        format_name (str):</span>
 <span class="sd">            A formatted expression for the parameter used for displaying the</span>
-<span class="sd">            name of the parameter on plots (e.g., &#39;PM$_{2.5}$&#39;).</span>
+<span class="sd">            name of the parameter on plots (e.g., ``&#39;PM$_{2.5}$&#39;``).</span>
 <span class="sd">        format_baseline (str):</span>
 <span class="sd">            For ``format_name``, contains the baseline component of the</span>
-<span class="sd">            parameter name (e.g., &#39;PM&#39; for fine particulate matter)</span>
+<span class="sd">            parameter name (e.g., ``&#39;PM&#39;`` for fine particulate matter)</span>
 <span class="sd">        format_subscript (str):</span>
 <span class="sd">            For ``format_name``, contains the subscripted component of the</span>
-<span class="sd">            parameter name (e.g., &#39;2.5&#39; for fine particulate matter)</span>
+<span class="sd">            parameter name (e.g., ``&#39;2.5&#39;`` for fine particulate matter)</span>
 <span class="sd">        classifier (str):</span>
 <span class="sd">            A term for sorting the parameter into one of three environmental</span>
 <span class="sd">            parameter classifications, either &#39;PM&#39; for particulate matter</span>
 <span class="sd">            pollutants, &#39;Gases&#39; for gaseous pollutants, or &#39;Met&#39; for</span>
-<span class="sd">            meteorological environmental parameters (e.g., &#39;PM25&#39; is assigned</span>
-<span class="sd">            to the &#39;PM&#39; classifier).</span>
+<span class="sd">            meteorological environmental parameters (e.g., ``&#39;PM25&#39;`` is</span>
+<span class="sd">            assigned to the &#39;PM&#39; classifier).</span>
 <span class="sd">        criteria_pollutant (bool):</span>
 <span class="sd">            Describes whether the parameter is a criteria pollutant (True) or</span>
 <span class="sd">            non-criteria (False).</span>
@@ -466,23 +467,24 @@
 <span class="sd">            in a list (e.g., fine particulate matter as measured by FRM or</span>
 <span class="sd">            FEM instrumentation may report data at either 1-hour or 24-hour</span>
 <span class="sd">            sampling or averaging intervals, such that averaging would be</span>
-<span class="sd">            [&#39;1-hour&#39;, &#39;24-hour&#39;]).</span>
+<span class="sd">            ``[&#39;1-hour&#39;, &#39;24-hour&#39;]``).</span>
 <span class="sd">        units (str):</span>
 <span class="sd">            The units of measure, expressed symbolically in unicode characters</span>
-<span class="sd">            (e.g., for fine particulate matter, &#39;µg/m³&#39;).</span>
+<span class="sd">            (e.g., for fine particulate matter, ``&#39;µg/m³&#39;``).</span>
 <span class="sd">        units_description (str):</span>
 <span class="sd">            A textual description of the units of measure (e.g., for fine</span>
-<span class="sd">            particulate matter,&#39;Micrograms per Cubic Meter&#39;).</span>
+<span class="sd">            particulate matter, &#39;Micrograms per Cubic Meter&#39;).</span>
 <span class="sd">        units_aqs_code (int):</span>
 <span class="sd">            The AQS unit code. See resource #2 in the module docstring for a</span>
 <span class="sd">            detailed list of AQS parameter codes.</span>
 <span class="sd">        PerformanceTargets (sensortoolkit.ParameterTargets object):</span>
 <span class="sd">            Performance metrics, target values and ranges associated with the</span>
-<span class="sd">            parameter. Preset values are configured for PM25 and O3 using</span>
-<span class="sd">            U.S. EPA&#39;s recommended performance metrics and targets for air</span>
-<span class="sd">            sensors measuring these pollutants.</span>
+<span class="sd">            parameter. Preset values are configured for :math:`PM_{2.5}` and</span>
+<span class="sd">            :math:`O_3` using U.S. EPA&#39;s recommended performance metrics and</span>
+<span class="sd">            targets for air sensors measuring these pollutants.</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># TODO: move to an sdfs parameter json file</span>
     <span class="n">__param_dict__</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;CO&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;baseline&#39;</span><span class="p">:</span> <span class="s1">&#39;CO&#39;</span><span class="p">,</span>
                              <span class="s1">&#39;classifier&#39;</span><span class="p">:</span> <span class="s1">&#39;Gases&#39;</span><span class="p">,</span>
                              <span class="s1">&#39;subscript&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
@@ -506,6 +508,7 @@
                       <span class="s1">&#39;NO&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;baseline&#39;</span><span class="p">:</span> <span class="s1">&#39;NO&#39;</span><span class="p">,</span>
                              <span class="s1">&#39;classifier&#39;</span><span class="p">:</span> <span class="s1">&#39;Gases&#39;</span><span class="p">,</span>
                              <span class="s1">&#39;subscript&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+                             <span class="s1">&#39;aqs_unit_code&#39;</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span>
                              <span class="s1">&#39;averaging&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
                              <span class="s1">&#39;usepa_targets&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
                              <span class="s1">&#39;criteria&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
@@ -617,7 +620,7 @@
                       <span class="s1">&#39;Press&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;baseline&#39;</span><span class="p">:</span> <span class="s1">&#39;Pressure&#39;</span><span class="p">,</span>
                                 <span class="s1">&#39;classifier&#39;</span><span class="p">:</span> <span class="s1">&#39;Met&#39;</span><span class="p">,</span>
                                 <span class="s1">&#39;subscript&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
-                                <span class="s1">&#39;aqs_unit_code&#39;</span><span class="p">:</span> <span class="mi">128</span><span class="p">,</span>
+                                <span class="s1">&#39;aqs_unit_code&#39;</span><span class="p">:</span> <span class="mi">129</span><span class="p">,</span>
                                 <span class="s1">&#39;averaging&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
                                 <span class="s1">&#39;usepa_targets&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
                                 <span class="s1">&#39;criteria&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
@@ -654,21 +657,36 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">classifier</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">criteria_pollutant</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">aqs_parameter_code</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">units_aqs_code</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">averaging</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;1-hour&#39;</span><span class="p">,</span> <span class="s1">&#39;24-hour&#39;</span><span class="p">]</span>  <span class="c1"># default averaging</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__param_dict__</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_autoset_param</span><span class="p">()</span>
+        <span class="c1"># TODO: Manual configuration for parameter info</span>
+        <span class="c1"># Format baseline, subscript, classifier, parameter code, averaging, etc.</span>
 
         <span class="k">if</span> <span class="n">set_units</span><span class="p">:</span>
             <span class="n">unit_info</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_units</span><span class="p">()</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">units</span> <span class="o">=</span> <span class="n">unit_info</span><span class="p">[</span><span class="s1">&#39;Label&#39;</span><span class="p">]</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">units_description</span> <span class="o">=</span> <span class="n">unit_info</span><span class="p">[</span><span class="s1">&#39;Description&#39;</span><span class="p">]</span>
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">unit_info</span><span class="p">[</span><span class="s1">&#39;Context&#39;</span><span class="p">],</span> <span class="nb">str</span><span class="p">):</span>
-                <span class="nb">print</span><span class="p">(</span><span class="n">unit_info</span><span class="p">[</span><span class="s1">&#39;Context&#39;</span><span class="p">])</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">units_description</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot; (</span><span class="si">{</span><span class="n">unit_info</span><span class="p">[</span><span class="s1">&#39;Context&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">)&quot;</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">units_aqs_code</span> <span class="o">=</span> <span class="n">unit_info</span><span class="p">[</span><span class="s1">&#39;Unit Code&#39;</span><span class="p">]</span>
 
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__param_dict__</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_autoset_param</span><span class="p">()</span>
-
         <span class="bp">self</span><span class="o">.</span><span class="n">_set_parametertargets</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="n">param</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__param_dict__</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__param_dict__</span><span class="p">[</span><span class="n">param</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;baseline&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+                                          <span class="s1">&#39;classifier&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">classifier</span><span class="p">,</span>
+                                          <span class="s1">&#39;subscript&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">format_subscript</span><span class="p">,</span>
+                                          <span class="s1">&#39;aqs_unit_code&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">units_aqs_code</span><span class="p">,</span>
+                                          <span class="s1">&#39;averaging&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">averaging</span><span class="p">,</span>
+                                          <span class="s1">&#39;usepa_targets&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+                                          <span class="s1">&#39;criteria&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+                                          <span class="s1">&#39;aqs_param_code&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">aqs_parameter_code</span>
+                                          <span class="p">}</span>
+
+            <span class="c1"># TODO: write updated param_dict to json file</span>
 
     <span class="k">def</span> <span class="nf">_autoset_param</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Assign attributes for SDFS parameters.</span>
@@ -735,13 +753,14 @@
         <span class="n">unit_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">unit_table_path</span><span class="p">)</span>
 
         <span class="c1"># Dataset values where the SDFS column contains the specified parameter</span>
-        <span class="n">options</span> <span class="o">=</span> <span class="n">unit_data</span><span class="p">[</span><span class="n">unit_data</span><span class="o">.</span><span class="n">SDFS</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span> <span class="o">==</span> <span class="kc">True</span><span class="p">]</span>
+        <span class="c1">#options = unit_data[unit_data.SDFS.str.contains(self.name) == True]</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_sdfs</span><span class="p">():</span>
+            <span class="n">options</span> <span class="o">=</span> <span class="n">unit_data</span><span class="p">[</span><span class="n">unit_data</span><span class="o">.</span><span class="n">Classification</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">classifier</span><span class="p">]</span>
             <span class="n">unit_code</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__param_dict__</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">][</span><span class="s1">&#39;aqs_unit_code&#39;</span><span class="p">]</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">unit_code</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_set_units</span><span class="p">(</span><span class="n">unit_data</span><span class="p">)</span>
-
+            <span class="c1"># return unit code int and reassign options dataset</span>
+            <span class="n">unit_code</span><span class="p">,</span> <span class="n">options</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_set_units</span><span class="p">(</span><span class="n">unit_data</span><span class="p">)</span>
         <span class="n">unit_info</span> <span class="o">=</span> <span class="n">options</span><span class="p">[</span><span class="n">options</span><span class="p">[</span><span class="s1">&#39;Unit Code&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">unit_code</span><span class="p">]</span>
 
         <span class="k">return</span> <span class="n">unit_info</span><span class="o">.</span><span class="n">to_dict</span><span class="p">(</span><span class="s1">&#39;records&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
@@ -751,7 +770,7 @@
         <span class="n">validate</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="k">while</span> <span class="n">validate</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">classifier</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Enter the parameter classification (&quot;PM&quot;, &#39;</span>
-                        <span class="sa">f</span><span class="s1">&#39;&quot;Gases&quot;, or &quot;Met&quot; for </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+                        <span class="sa">f</span><span class="s1">&#39;&quot;Gases&quot;, or &quot;Met&quot;) for </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s1">: &#39;</span><span class="p">)</span>
 
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">classifier</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;PM&#39;</span><span class="p">,</span> <span class="s1">&#39;Gases&#39;</span><span class="p">,</span> <span class="s1">&#39;Met&#39;</span><span class="p">]:</span>
                 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;..invalid entry, enter &quot;PM&quot;, &quot;Gases&quot;, or &quot;Met&quot;&#39;</span><span class="p">)</span>
@@ -762,26 +781,37 @@
                 <span class="n">validate</span> <span class="o">=</span> <span class="kc">True</span>
 
         <span class="n">options</span> <span class="o">=</span>  <span class="n">unit_data</span><span class="p">[</span><span class="n">unit_data</span><span class="o">.</span><span class="n">Classification</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">classifier</span><span class="p">]</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
         <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Choose from the following unit codes:&#39;</span><span class="p">)</span>
         <span class="k">with</span> <span class="n">pd</span><span class="o">.</span><span class="n">option_context</span><span class="p">(</span><span class="s1">&#39;display.expand_frame_repr&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span>
-                               <span class="s1">&#39;display.max_colwidth&#39;</span><span class="p">,</span> <span class="mi">65</span><span class="p">,</span>
-                               <span class="s1">&#39;display.max_rows&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span>
-                               <span class="s1">&#39;display.colheader_justify&#39;</span><span class="p">,</span> <span class="s1">&#39;right&#39;</span><span class="p">):</span>
-            <span class="nb">print</span><span class="p">(</span><span class="n">options</span><span class="p">)</span>
+                               <span class="s1">&#39;display.max_rows&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">):</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">options</span><span class="p">[[</span><span class="s1">&#39;Unit Code&#39;</span><span class="p">,</span> <span class="s1">&#39;Description&#39;</span><span class="p">,</span> <span class="s1">&#39;Label&#39;</span><span class="p">,</span> <span class="s1">&#39;Conditions&#39;</span><span class="p">,</span>
+                           <span class="s1">&#39;Context&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">to_markdown</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+
+            <span class="c1"># Could also include &quot;SDFS&quot; and &quot;Classification&quot; if space allows</span>
+
         <span class="n">validate</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="k">while</span> <span class="n">validate</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
             <span class="n">unit_code</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s1">&#39;Enter the integer unit code value &#39;</span>
-                        <span class="s1">&#39;for the </span><span class="si">{self.name}</span><span class="s1"> unit of measure&#39;</span><span class="p">)</span>
+                        <span class="sa">f</span><span class="s1">&#39;for the </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s1"> unit of measure: &#39;</span><span class="p">)</span>
+
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">unit_code</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">unit_code</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;..invalid entry, expected integer value&#39;</span><span class="p">)</span>
+                <span class="k">continue</span>
 
             <span class="k">if</span> <span class="n">unit_code</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">options</span><span class="p">[</span><span class="s1">&#39;Unit Code&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">:</span>
-                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;..invalid entry.&#39;</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;..invalid entry, unit code not in listed values&#39;</span><span class="p">)</span>
                 <span class="k">continue</span>
 
             <span class="n">response</span> <span class="o">=</span> <span class="n">validate_entry</span><span class="p">()</span>
             <span class="k">if</span> <span class="n">response</span> <span class="o">==</span> <span class="s1">&#39;y&#39;</span><span class="p">:</span>
                 <span class="n">validate</span> <span class="o">=</span> <span class="kc">True</span>
 
-        <span class="k">return</span> <span class="n">unit_code</span></div>
+        <span class="k">return</span> <span class="n">unit_code</span><span class="p">,</span> <span class="n">options</span></div>
 
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>

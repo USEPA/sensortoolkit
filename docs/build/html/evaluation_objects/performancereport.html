@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Creating Testing Reports - The PerformanceReport Class &mdash; sensortoolkit 0.6.1b4 documentation</title>
+  <title>Creating Testing Reports - The PerformanceReport Class &mdash; sensortoolkit 0.6.2b1 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" type="text/css" />
@@ -33,7 +33,7 @@
             <a href="../index.html" class="icon icon-home"> sensortoolkit
           </a>
               <div class="version">
-                0.6.1b4
+                0.6.2b1
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
@@ -142,6 +142,7 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../api/_autosummary/sensortoolkit.datetime_utils._time_averaging.html">sensortoolkit.datetime_utils._time_averaging</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api/_autosummary/sensortoolkit.datetime_utils._time_averaging.column_merger.html">sensortoolkit.datetime_utils._time_averaging.column_merger</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../api/_autosummary/sensortoolkit.datetime_utils._time_averaging.interval_averaging.html">sensortoolkit.datetime_utils._time_averaging.interval_averaging</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../api/_autosummary/sensortoolkit.datetime_utils._time_averaging.object_grouper.html">sensortoolkit.datetime_utils._time_averaging.object_grouper</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../api/_autosummary/sensortoolkit.datetime_utils._time_averaging.sensor_averaging.html">sensortoolkit.datetime_utils._time_averaging.sensor_averaging</a></li>
@@ -520,8 +521,8 @@ Users must either insert these details manually by placing information in the
 provided table, or by appending documentation to the end of the report and noting on
 the supplemental information page that addition documentation has been attached.</p>
 <div class="tabbed-set docutils">
-<input checked="checked" id="da713c5e-f532-4427-b8e7-1d0d1b54ba1a" name="3a55766f-91aa-48db-bc43-fa77e9242d98" type="radio">
-</input><label class="tabbed-label" for="da713c5e-f532-4427-b8e7-1d0d1b54ba1a">
+<input checked="checked" id="6612ae43-7ba9-4aa8-8789-7adc17dca750" name="b6c86c70-db44-4ead-b6b7-92128ff6a9d5" type="radio">
+</input><label class="tabbed-label" for="6612ae43-7ba9-4aa8-8789-7adc17dca750">
 Page 1 - Testing Summary</label><div class="tabbed-content docutils">
 <p>The first page of the testing report allows testers to insert information about their
 organization including contact information, and testers are also encouraged to
@@ -537,8 +538,8 @@ relative humidity, and meteorological influences that may be present in sensor d
 </figcaption>
 </figure>
 </div>
-<input id="4ab8ea1a-a89c-4b56-96c1-188952a6dca5" name="3a55766f-91aa-48db-bc43-fa77e9242d98" type="radio">
-</input><label class="tabbed-label" for="4ab8ea1a-a89c-4b56-96c1-188952a6dca5">
+<input id="c7b86e84-0c67-4456-bfa6-9a4a368347e8" name="b6c86c70-db44-4ead-b6b7-92128ff6a9d5" type="radio">
+</input><label class="tabbed-label" for="c7b86e84-0c67-4456-bfa6-9a4a368347e8">
 Page 2 - Tabular Statistics</label><div class="tabbed-content docutils">
 <p>The second page of the report includes tabular statistics, such as the performance
 metric values characterizing sensor vs. FRM/FEM accuracy (bias and linearity),
@@ -550,8 +551,8 @@ error, and sensor-sensor (intersensor) precision.</p>
 </figcaption>
 </figure>
 </div>
-<input id="f122e08b-0f10-443e-9d04-a22c47741fb4" name="3a55766f-91aa-48db-bc43-fa77e9242d98" type="radio">
-</input><label class="tabbed-label" for="f122e08b-0f10-443e-9d04-a22c47741fb4">
+<input id="78f05eec-e76f-42d8-80cc-1fca15d5dfc6" name="b6c86c70-db44-4ead-b6b7-92128ff6a9d5" type="radio">
+</input><label class="tabbed-label" for="78f05eec-e76f-42d8-80cc-1fca15d5dfc6">
 Page 3 - Sensor vs. FRM/FEM Scatter</label><div class="tabbed-content docutils">
 <p>Scatter plots for each sensor unit vs. FRM/FEM measurement pairs are displayed
 on a third page of the report.</p>
@@ -562,8 +563,8 @@ on a third page of the report.</p>
 </figcaption>
 </figure>
 </div>
-<input id="362671e3-c830-4734-95b4-31c43a579f2f" name="3a55766f-91aa-48db-bc43-fa77e9242d98" type="radio">
-</input><label class="tabbed-label" for="362671e3-c830-4734-95b4-31c43a579f2f">
+<input id="034d9007-b46d-48b5-b8ec-d9dd398e17a8" name="b6c86c70-db44-4ead-b6b7-92128ff6a9d5" type="radio">
+</input><label class="tabbed-label" for="034d9007-b46d-48b5-b8ec-d9dd398e17a8">
 Page 4 - Supplemental Information</label><div class="tabbed-content docutils">
 <figure class="align-center" id="id5">
 <img alt="The fourth page of the performance report. This page includes a table listing various documents, reports, and observations that testers may wish to attached to the report. Entries are provided to indicate whether a particular type of documentation has been attached and a description of the URL or file path to the documentation." src="../_images/performance_report_example_pg4.png" />

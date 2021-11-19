@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>sensortoolkit.testing_attrib_objs._airsensor.AirSensor &mdash; sensortoolkit 0.6.1b4 documentation</title>
+  <title>sensortoolkit.testing_attrib_objs._airsensor.AirSensor &mdash; sensortoolkit 0.6.2b1 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" type="text/css" />
@@ -33,7 +33,7 @@
             <a href="../../index.html" class="icon icon-home"> sensortoolkit
           </a>
               <div class="version">
-                0.6.1b4
+                0.6.2b1
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
@@ -142,6 +142,7 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="sensortoolkit.datetime_utils._time_averaging.html">sensortoolkit.datetime_utils._time_averaging</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="sensortoolkit.datetime_utils._time_averaging.column_merger.html">sensortoolkit.datetime_utils._time_averaging.column_merger</a></li>
 <li class="toctree-l4"><a class="reference internal" href="sensortoolkit.datetime_utils._time_averaging.interval_averaging.html">sensortoolkit.datetime_utils._time_averaging.interval_averaging</a></li>
 <li class="toctree-l4"><a class="reference internal" href="sensortoolkit.datetime_utils._time_averaging.object_grouper.html">sensortoolkit.datetime_utils._time_averaging.object_grouper</a></li>
 <li class="toctree-l4"><a class="reference internal" href="sensortoolkit.datetime_utils._time_averaging.sensor_averaging.html">sensortoolkit.datetime_utils._time_averaging.sensor_averaging</a></li>
@@ -423,7 +424,7 @@ Defaults to None.</p></li>
 <td><p>Construct parameter-specific subdirectories in the project path.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#sensortoolkit.testing_attrib_objs._airsensor.AirSensor.load_data" title="sensortoolkit.testing_attrib_objs._airsensor.AirSensor.load_data"><code class="xref py py-obj docutils literal notranslate"><span class="pre">load_data</span></code></a></p></td>
-<td><p>Import sensor datasets and load to the AirSensor.data attribute.</p></td>
+<td><p>Import sensor datasets and load to the <code class="docutils literal notranslate"><span class="pre">AirSensor.data</span></code> attribute.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#sensortoolkit.testing_attrib_objs._airsensor.AirSensor.sensor_setup" title="sensortoolkit.testing_attrib_objs._airsensor.AirSensor.sensor_setup"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sensor_setup</span></code></a></p></td>
 <td><p>Interactive method for configuring sensor data ingestion.</p></td>
@@ -489,7 +490,7 @@ to None.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="sensortoolkit.testing_attrib_objs._airsensor.AirSensor.load_data">
 <span class="sig-name descname"><span class="pre">load_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">load_raw_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">write_to_file</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/sensortoolkit/testing_attrib_objs/_airsensor.html#AirSensor.load_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sensortoolkit.testing_attrib_objs._airsensor.AirSensor.load_data" title="Permalink to this definition"></a></dt>
-<dd><p>Import sensor datasets and load to the AirSensor.data attribute.</p>
+<dd><p>Import sensor datasets and load to the <code class="docutils literal notranslate"><span class="pre">AirSensor.data</span></code> attribute.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -497,10 +498,10 @@ to None.</p>
 saved as csv files to the <code class="docutils literal notranslate"><span class="pre">/data/sensor_data/[sensor_name]/processed_data</span></code>
 directory. If false, formatted datasets will not be saved to
 the user’s hard drive.</p></li>
-<li><p><strong>write_to_file</strong> (<em>bool</em>) – If true, raw data (datasets as originally
-recorded) in the appropriate subdirectory will be loaded and
-1-hour and 24-hour averages will be computed. If false,
-processed data will be loaded.</p></li>
+<li><p><strong>write_to_file</strong> (<em>bool</em>) – If true, raw data (datasets as originally recorded) in the
+appropriate subdirectory will be loaded and 1-hour and 24-hour
+averages will be computed. If false, processed data will be
+loaded.</p></li>
 <li><p><strong>**kwargs</strong> (<em>dict</em>) – </p></li>
 </ul>
 </dd>
@@ -572,7 +573,7 @@ each sensor unit in the testing group. Identifying keywords for
 each sensor unit should be indicated within the recorded sensor
 dataset file names.</p>
 </li>
-<li><p><strong>Saving the Setup Configuration to ``setup.json``</strong>:</p>
+<li><p><strong>Saving the Setup Configuration to</strong> <code class="docutils literal notranslate"><span class="pre">setup.json</span></code>:</p>
 <p>The setup configuration specified by the user is saved to a
 <code class="docutils literal notranslate"><span class="pre">setup.json</span></code> file for subsequent use by the ingestion module for
 importing recorded sensor datasets and conversion to SDFS datasets.</p>

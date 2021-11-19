@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>sensortoolkit.param._parameter.Parameter &mdash; sensortoolkit 0.6.1b4 documentation</title>
+  <title>sensortoolkit.param._parameter.Parameter &mdash; sensortoolkit 0.6.2b1 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" type="text/css" />
@@ -18,6 +18,7 @@
         <script src="../../_static/jquery.js"></script>
         <script src="../../_static/underscore.js"></script>
         <script src="../../_static/doctools.js"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -33,7 +34,7 @@
             <a href="../../index.html" class="icon icon-home"> sensortoolkit
           </a>
               <div class="version">
-                0.6.1b4
+                0.6.2b1
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
@@ -142,6 +143,7 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="sensortoolkit.datetime_utils._time_averaging.html">sensortoolkit.datetime_utils._time_averaging</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="sensortoolkit.datetime_utils._time_averaging.column_merger.html">sensortoolkit.datetime_utils._time_averaging.column_merger</a></li>
 <li class="toctree-l4"><a class="reference internal" href="sensortoolkit.datetime_utils._time_averaging.interval_averaging.html">sensortoolkit.datetime_utils._time_averaging.interval_averaging</a></li>
 <li class="toctree-l4"><a class="reference internal" href="sensortoolkit.datetime_utils._time_averaging.object_grouper.html">sensortoolkit.datetime_utils._time_averaging.object_grouper</a></li>
 <li class="toctree-l4"><a class="reference internal" href="sensortoolkit.datetime_utils._time_averaging.sensor_averaging.html">sensortoolkit.datetime_utils._time_averaging.sensor_averaging</a></li>
@@ -418,7 +420,7 @@ parameter instance. Defaults to True.</p></li>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="sensortoolkit.param._parameter.Parameter.name">
 <span class="sig-name descname"><span class="pre">name</span></span><a class="headerlink" href="#sensortoolkit.param._parameter.Parameter.name" title="Permalink to this definition"></a></dt>
-<dd><p>The name of the parameter (e.g., ‘PM25’).</p>
+<dd><p>The name of the parameter (e.g., <code class="docutils literal notranslate"><span class="pre">'PM25'</span></code>).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
 <dd class="field-odd"><p>str</p>
@@ -430,7 +432,7 @@ parameter instance. Defaults to True.</p></li>
 <dt class="sig sig-object py" id="sensortoolkit.param._parameter.Parameter.format_name">
 <span class="sig-name descname"><span class="pre">format_name</span></span><a class="headerlink" href="#sensortoolkit.param._parameter.Parameter.format_name" title="Permalink to this definition"></a></dt>
 <dd><p>A formatted expression for the parameter used for displaying the
-name of the parameter on plots (e.g., ‘PM$_{2.5}$’).</p>
+name of the parameter on plots (e.g., <code class="docutils literal notranslate"><span class="pre">'PM$_{2.5}$'</span></code>).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
 <dd class="field-odd"><p>str</p>
@@ -442,7 +444,7 @@ name of the parameter on plots (e.g., ‘PM$_{2.5}$’).</p>
 <dt class="sig sig-object py" id="sensortoolkit.param._parameter.Parameter.format_baseline">
 <span class="sig-name descname"><span class="pre">format_baseline</span></span><a class="headerlink" href="#sensortoolkit.param._parameter.Parameter.format_baseline" title="Permalink to this definition"></a></dt>
 <dd><p>For <code class="docutils literal notranslate"><span class="pre">format_name</span></code>, contains the baseline component of the
-parameter name (e.g., ‘PM’ for fine particulate matter)</p>
+parameter name (e.g., <code class="docutils literal notranslate"><span class="pre">'PM'</span></code> for fine particulate matter)</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
 <dd class="field-odd"><p>str</p>
@@ -454,7 +456,7 @@ parameter name (e.g., ‘PM’ for fine particulate matter)</p>
 <dt class="sig sig-object py" id="sensortoolkit.param._parameter.Parameter.format_subscript">
 <span class="sig-name descname"><span class="pre">format_subscript</span></span><a class="headerlink" href="#sensortoolkit.param._parameter.Parameter.format_subscript" title="Permalink to this definition"></a></dt>
 <dd><p>For <code class="docutils literal notranslate"><span class="pre">format_name</span></code>, contains the subscripted component of the
-parameter name (e.g., ‘2.5’ for fine particulate matter)</p>
+parameter name (e.g., <code class="docutils literal notranslate"><span class="pre">'2.5'</span></code> for fine particulate matter)</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
 <dd class="field-odd"><p>str</p>
@@ -468,8 +470,8 @@ parameter name (e.g., ‘2.5’ for fine particulate matter)</p>
 <dd><p>A term for sorting the parameter into one of three environmental
 parameter classifications, either ‘PM’ for particulate matter
 pollutants, ‘Gases’ for gaseous pollutants, or ‘Met’ for
-meteorological environmental parameters (e.g., ‘PM25’ is assigned
-to the ‘PM’ classifier).</p>
+meteorological environmental parameters (e.g., <code class="docutils literal notranslate"><span class="pre">'PM25'</span></code> is
+assigned to the ‘PM’ classifier).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
 <dd class="field-odd"><p>str</p>
@@ -509,7 +511,7 @@ analyzing parameter data. Common averaging intervals are included
 in a list (e.g., fine particulate matter as measured by FRM or
 FEM instrumentation may report data at either 1-hour or 24-hour
 sampling or averaging intervals, such that averaging would be
-[‘1-hour’, ‘24-hour’]).</p>
+<code class="docutils literal notranslate"><span class="pre">['1-hour',</span> <span class="pre">'24-hour']</span></code>).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
 <dd class="field-odd"><p>list</p>
@@ -521,7 +523,7 @@ sampling or averaging intervals, such that averaging would be
 <dt class="sig sig-object py" id="sensortoolkit.param._parameter.Parameter.units">
 <span class="sig-name descname"><span class="pre">units</span></span><a class="headerlink" href="#sensortoolkit.param._parameter.Parameter.units" title="Permalink to this definition"></a></dt>
 <dd><p>The units of measure, expressed symbolically in unicode characters
-(e.g., for fine particulate matter, ‘µg/m³’).</p>
+(e.g., for fine particulate matter, <code class="docutils literal notranslate"><span class="pre">'µg/m³'</span></code>).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
 <dd class="field-odd"><p>str</p>
@@ -533,7 +535,7 @@ sampling or averaging intervals, such that averaging would be
 <dt class="sig sig-object py" id="sensortoolkit.param._parameter.Parameter.units_description">
 <span class="sig-name descname"><span class="pre">units_description</span></span><a class="headerlink" href="#sensortoolkit.param._parameter.Parameter.units_description" title="Permalink to this definition"></a></dt>
 <dd><p>A textual description of the units of measure (e.g., for fine
-particulate matter,’Micrograms per Cubic Meter’).</p>
+particulate matter, ‘Micrograms per Cubic Meter’).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
 <dd class="field-odd"><p>str</p>
@@ -557,9 +559,9 @@ detailed list of AQS parameter codes.</p>
 <dt class="sig sig-object py" id="sensortoolkit.param._parameter.Parameter.PerformanceTargets">
 <span class="sig-name descname"><span class="pre">PerformanceTargets</span></span><a class="headerlink" href="#sensortoolkit.param._parameter.Parameter.PerformanceTargets" title="Permalink to this definition"></a></dt>
 <dd><p>Performance metrics, target values and ranges associated with the
-parameter. Preset values are configured for PM25 and O3 using
-U.S. EPA’s recommended performance metrics and targets for air
-sensors measuring these pollutants.</p>
+parameter. Preset values are configured for <span class="math notranslate nohighlight">\(PM_{2.5}\)</span> and
+<span class="math notranslate nohighlight">\(O_3\)</span> using U.S. EPA’s recommended performance metrics and
+targets for air sensors measuring these pollutants.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
 <dd class="field-odd"><p>sensortoolkit.ParameterTargets object</p>

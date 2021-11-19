@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>sensortoolkit.datetime_utils._time_averaging &mdash; sensortoolkit 0.6.1b4 documentation</title>
+  <title>sensortoolkit.datetime_utils._time_averaging &mdash; sensortoolkit 0.6.2b1 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" type="text/css" />
@@ -22,7 +22,7 @@
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="sensortoolkit.datetime_utils._time_averaging.interval_averaging" href="sensortoolkit.datetime_utils._time_averaging.interval_averaging.html" />
+    <link rel="next" title="sensortoolkit.datetime_utils._time_averaging.column_merger" href="sensortoolkit.datetime_utils._time_averaging.column_merger.html" />
     <link rel="prev" title="sensortoolkit.datetime_utils._set_datetime_index.set_datetime_index" href="sensortoolkit.datetime_utils._set_datetime_index.set_datetime_index.html" /> 
 </head>
 
@@ -34,7 +34,7 @@
             <a href="../../index.html" class="icon icon-home"> sensortoolkit
           </a>
               <div class="version">
-                0.6.1b4
+                0.6.2b1
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
@@ -143,6 +143,7 @@
 </ul>
 </li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">sensortoolkit.datetime_utils._time_averaging</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="sensortoolkit.datetime_utils._time_averaging.column_merger.html">sensortoolkit.datetime_utils._time_averaging.column_merger</a></li>
 <li class="toctree-l4"><a class="reference internal" href="sensortoolkit.datetime_utils._time_averaging.interval_averaging.html">sensortoolkit.datetime_utils._time_averaging.interval_averaging</a></li>
 <li class="toctree-l4"><a class="reference internal" href="sensortoolkit.datetime_utils._time_averaging.object_grouper.html">sensortoolkit.datetime_utils._time_averaging.object_grouper</a></li>
 <li class="toctree-l4"><a class="reference internal" href="sensortoolkit.datetime_utils._time_averaging.sensor_averaging.html">sensortoolkit.datetime_utils._time_averaging.sensor_averaging</a></li>
@@ -430,13 +431,16 @@ interval</p>
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="sensortoolkit.datetime_utils._time_averaging.interval_averaging.html#sensortoolkit.datetime_utils._time_averaging.interval_averaging" title="sensortoolkit.datetime_utils._time_averaging.interval_averaging"><code class="xref py py-obj docutils literal notranslate"><span class="pre">interval_averaging</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="sensortoolkit.datetime_utils._time_averaging.column_merger.html#sensortoolkit.datetime_utils._time_averaging.column_merger" title="sensortoolkit.datetime_utils._time_averaging.column_merger"><code class="xref py py-obj docutils literal notranslate"><span class="pre">column_merger</span></code></a></p></td>
+<td><p>Group duplicated column names if detected in passed dataset.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="sensortoolkit.datetime_utils._time_averaging.interval_averaging.html#sensortoolkit.datetime_utils._time_averaging.interval_averaging" title="sensortoolkit.datetime_utils._time_averaging.interval_averaging"><code class="xref py py-obj docutils literal notranslate"><span class="pre">interval_averaging</span></code></a></p></td>
 <td><p>Average DataFrame to the specified sampling frequency ('freq').</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="sensortoolkit.datetime_utils._time_averaging.object_grouper.html#sensortoolkit.datetime_utils._time_averaging.object_grouper" title="sensortoolkit.datetime_utils._time_averaging.object_grouper"><code class="xref py py-obj docutils literal notranslate"><span class="pre">object_grouper</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="sensortoolkit.datetime_utils._time_averaging.object_grouper.html#sensortoolkit.datetime_utils._time_averaging.object_grouper" title="sensortoolkit.datetime_utils._time_averaging.object_grouper"><code class="xref py py-obj docutils literal notranslate"><span class="pre">object_grouper</span></code></a></p></td>
 <td><p>Group columns of type <cite>object</cite> by the mode of values within each averaging interval.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="sensortoolkit.datetime_utils._time_averaging.sensor_averaging.html#sensortoolkit.datetime_utils._time_averaging.sensor_averaging" title="sensortoolkit.datetime_utils._time_averaging.sensor_averaging"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sensor_averaging</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="sensortoolkit.datetime_utils._time_averaging.sensor_averaging.html#sensortoolkit.datetime_utils._time_averaging.sensor_averaging" title="sensortoolkit.datetime_utils._time_averaging.sensor_averaging"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sensor_averaging</span></code></a></p></td>
 <td><p>Write full (recorded), hourly, and daily averaged datasets to csv.</p></td>
 </tr>
 </tbody>
@@ -448,7 +452,7 @@ interval</p>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="sensortoolkit.datetime_utils._set_datetime_index.set_datetime_index.html" class="btn btn-neutral float-left" title="sensortoolkit.datetime_utils._set_datetime_index.set_datetime_index" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="sensortoolkit.datetime_utils._time_averaging.interval_averaging.html" class="btn btn-neutral float-right" title="sensortoolkit.datetime_utils._time_averaging.interval_averaging" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="sensortoolkit.datetime_utils._time_averaging.column_merger.html" class="btn btn-neutral float-right" title="sensortoolkit.datetime_utils._time_averaging.column_merger" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
