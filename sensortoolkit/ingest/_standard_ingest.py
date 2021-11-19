@@ -118,11 +118,20 @@ def standard_ingest(path, name=None, setup_file_path=None):
         unit = None
 
     # Convert the DateTime column to time-like data format and set as index
-    # If errors encountered (timestamps cant be parsed), 'coerce' will set NaT
-    df['DateTime'] = pd.to_datetime(df['DateTime'],
-                                    format=time_format,
-                                    unit=unit,
-                                    errors='coerce')
+    # If errors encountered (timestamps cant be parsed), 'raise' will invoke
+    # ValueError and prompt parsing with pandas inferring timestamp format
+    try:
+        df['DateTime'] = pd.to_datetime(df['DateTime'],
+                                        format=time_format,
+                                        unit=unit,
+                                        errors='raise')
+    except ValueError:
+        print('\n..timestamp formatting inconsistent with specified format, \n'
+              'falling back by inferring timestamp format\n')
+        df['DateTime'] = pd.to_datetime(df['Timestamp UTC'],
+                                        infer_datetime_format=True,
+                                        errors='coerce')
+
 
     df = df.set_index(df['DateTime'])
     df = df.sort_index(ascending=True)
@@ -183,7 +192,8 @@ def standard_ingest(path, name=None, setup_file_path=None):
     # Reorder parameter columns
     col_order = []
     for param in setup['sdfs_header_names']:
-        col_order.extend([col for col in df.columns if col.startswith(param)])
+        col_order.extend([col for col in df.columns
+                          if col.split('_')[0] == param])
     df = df[col_order]
 
     site_cols = {'site_name': 'object',
