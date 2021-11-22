@@ -24,8 +24,8 @@ of sensor data against reference-grade data.
 
 <span class="title-ref">sensortoolkit</span> can be used to evaluate
 sensor data for a single or multiple sensors measuring one of the
-following pollutants: PM<sub>1</sub>, PM<sub>2.5</sub>, PM<sub>10</sub>, CO, CO<sub>2</sub>,
-NO, NO<sub>2</sub>, NO<sub>x</sub>, O<sub>3</sub>, SO<sub>2</sub>, SO<sub>x</sub>.
+following pollutants: PM<sub>1</sub>, PM<sub>2.5</sub> [criteria], PM<sub>10</sub> [criteria], CO [criteria],
+NO, NO<sub>2</sub> [criteria], NO<sub>x</sub>, O<sub>3</sub> [criteria], SO<sub>2</sub> [criteria], SO<sub>x</sub>.
 
 sensortoolkit is most suitable for individuals who have some prior
 coding experience in python. The library is equipped with an API
