@@ -42,14 +42,14 @@ this initial use-case.**
   Following the use of this script, the following should be contained within
   the user's project directory:
 
-      - `/Data and Figures` and `/Reports` directories (as well as the subfolder
-        structure within the directories)
-      - sensor datasets located at `/Data and Figures/sensor_data/[sensor_name]`
+      - `/data`, `/figures`, and `/reports` directories (as well as the
+        subfolder structure within the directories)
+      - sensor datasets located at `/data/sensor_data/[sensor_name]`
           - raw (i.e., recorded, unmodified)
           - processed (i.e., converted to SDFS)
           - [sensor_name]_setup.json for importing, ingesting, and saving processed
             datasets in SDFS format.
-      - reference datasets located at `/Data and Figures/reference_data/[data_type]/[site_name_site_id]`
+      - reference datasets located at `/data/reference_data/[data_type]/[site_name_site_id]`
           - raw (i.e., recorded, unmodified)
           - processed (i.e., converted to SDFS)
           - reference_setup.json for importing, ingesting, and saving processed
@@ -88,7 +88,7 @@ this initial use-case.**
                 param_list=['PM25'],
                 met_data=True)
 
-  # Run SensorEvaluation or PeformanceReport here...
+  # Run SensorEvaluation or PerformanceReport here...
 
 Instantiating from Previously Configured Objects
 ------------------------------------------------
@@ -99,7 +99,7 @@ an initial round of analysis. If users have previously configured ``AirSensor`` 
 the ``setup.json`` configuration files for both reference and sensor data. In addition,
 processed versions of sensor and reference datasets that have been converted to SDFS
 formatting will be have been saved during the initial analysis
-to the user's ``/Data and Figures`` folder within the project directory.
+to the user's ``/data`` folder within the project directory.
 
 These previously created data structures allow users to reload previously configured
 ``AirSensor`` and ``ReferenceMonitor`` objects via an abbreviated workflow detailed below.

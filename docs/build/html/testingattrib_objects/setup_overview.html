@@ -426,14 +426,14 @@ this initial use-case.</strong></p>
 <span class="sd">Following the use of this script, the following should be contained within</span>
 <span class="sd">the user&#39;s project directory:</span>
 
-<span class="sd">    - `/Data and Figures` and `/Reports` directories (as well as the subfolder</span>
-<span class="sd">      structure within the directories)</span>
-<span class="sd">    - sensor datasets located at `/Data and Figures/sensor_data/[sensor_name]`</span>
+<span class="sd">    - `/data`, `/figures`, and `/reports` directories (as well as the</span>
+<span class="sd">      subfolder structure within the directories)</span>
+<span class="sd">    - sensor datasets located at `/data/sensor_data/[sensor_name]`</span>
 <span class="sd">        - raw (i.e., recorded, unmodified)</span>
 <span class="sd">        - processed (i.e., converted to SDFS)</span>
 <span class="sd">        - [sensor_name]_setup.json for importing, ingesting, and saving processed</span>
 <span class="sd">          datasets in SDFS format.</span>
-<span class="sd">    - reference datasets located at `/Data and Figures/reference_data/[data_type]/[site_name_site_id]`</span>
+<span class="sd">    - reference datasets located at `/data/reference_data/[data_type]/[site_name_site_id]`</span>
 <span class="sd">        - raw (i.e., recorded, unmodified)</span>
 <span class="sd">        - processed (i.e., converted to SDFS)</span>
 <span class="sd">        - reference_setup.json for importing, ingesting, and saving processed</span>
@@ -472,7 +472,7 @@ this initial use-case.</strong></p>
               <span class="n">param_list</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;PM25&#39;</span><span class="p">],</span>
               <span class="n">met_data</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
-<span class="c1"># Run SensorEvaluation or PeformanceReport here...</span>
+<span class="c1"># Run SensorEvaluation or PerformanceReport here...</span>
 </pre></div>
 </div>
 </section>
@@ -484,7 +484,7 @@ an initial round of analysis. If users have previously configured <code class="d
 the <code class="docutils literal notranslate"><span class="pre">setup.json</span></code> configuration files for both reference and sensor data. In addition,
 processed versions of sensor and reference datasets that have been converted to SDFS
 formatting will be have been saved during the initial analysis
-to the user’s <code class="docutils literal notranslate"><span class="pre">/Data</span> <span class="pre">and</span> <span class="pre">Figures</span></code> folder within the project directory.</p>
+to the user’s <code class="docutils literal notranslate"><span class="pre">/data</span></code> folder within the project directory.</p>
 <p>These previously created data structures allow users to reload previously configured
 <code class="docutils literal notranslate"><span class="pre">AirSensor</span></code> and <code class="docutils literal notranslate"><span class="pre">ReferenceMonitor</span></code> objects via an abbreviated workflow detailed below.
 <strong>Highlighted lines indicate important differences when compared
