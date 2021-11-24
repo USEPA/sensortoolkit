@@ -2,7 +2,7 @@
 """
 This module contains methods for applying correction equations specific to the
 PurpleAir PA-II sensor. These correction methods apply published equations
-by authors whose work is cited in the docstring of the function pertaining to 
+by authors whose work is cited in the docstring of the function pertaining to
 each correction equation.
 
 ================================================================================
@@ -38,12 +38,7 @@ def purpleair_us_corr(df, param):
         KeyError: If 'RH' not in passed dataframe
 
     """
-    if param not in df:
-        raise KeyError('Column header "' + param + '" not found in dataframe')
-    if 'RH' not in df:
-        raise KeyError('Column header "RH" not found in dataframe')
-
     # US Correction for PA data
-    df[param + '_corrected'] = 0.524*df[param + '_Value'] - 0.0852*df['RH'] + 5.72
+    df[param + '_corrected'] = 0.524*df[param + '_Value'] - 0.0852*df['RH_Value'] + 5.72
 
     return df
