@@ -295,23 +295,28 @@ class _Setup:
         """
 
         load_table = kwargs.get('load_table', False)
+        encoding = kwargs.get('encoding', None)
+
         if load_table:
             df = pd.read_table(file,
                                nrows=kwargs.get('nrows', 1),
-                               header=None)
+                               header=None,
+                               encoding=encoding)
 
         elif self.file_extension == '.csv' or self.file_extension == '.txt':
             df = pd.read_csv(file, header=self.header_iloc,
                              names=self.header_names,
                              nrows=kwargs.get('nrows', 1),
                              skiprows=self.data_row_idx,
-                             on_bad_lines='skip'
+                             on_bad_lines='skip',
+                             encoding=encoding
                              )
         elif self.file_extension == '.xlsx':
             df = pd.read_excel(file, header=self.header_iloc,
                                names=self.header_names,
                                nrows=kwargs.get('nrows', 1),
-                               skiprows=self.data_row_idx
+                               skiprows=self.data_row_idx,
+                               encoding=encoding
                                )
         else:
             raise TypeError('Invalid data type')
@@ -375,8 +380,18 @@ class _Setup:
 
         print(f'Parsing datasets at "..{self.data_rel_path}"')
 
+
+
+
         for i, file in enumerate(self.file_list):
-            df = self.loadDataFile(file)
+            # Try loading with utf-8 encoding, if error raised, try utf-16
+            try:
+                df = self.loadDataFile(file)
+            except UnicodeDecodeError:
+                print('[WARNING]: Reading dataset with uft-8 encoding '
+                      'unsuccessful, trying utf-16')
+                df = self.loadDataFile(file,
+                                       encoding='utf-16')
             file_col_list = list(df.columns)
 
             for j, col in enumerate(file_col_list):
@@ -425,9 +440,18 @@ class _Setup:
             sys.exit('No data files found with type'
                      ' {0} at {1}'.format(self.file_extension, data_path))
 
-        df = self.loadDataFile(self.file_list[0],
-                               nrows=10,
-                               load_table=True)
+        # First try loading with utf-8 encoding, if error raised, try utf-16
+        try:
+            df = self.loadDataFile(self.file_list[0],
+                                   nrows=10,
+                                   load_table=True)
+        except UnicodeDecodeError:
+            print('\n[WARNING]: Reading dataset with uft-8 encoding '
+                  'unsuccessful, trying utf-16')
+            df = self.loadDataFile(self.file_list[0],
+                                   nrows=10,
+                                   load_table=True,
+                                   encoding='utf-16')
 
         filename = self.file_list[0].split('/')[-1]
         print('')
@@ -496,6 +520,19 @@ class _Setup:
                 if col_name == 'X':
                     edit = False
                     break
+
+                # Shortcut method for copying and pasting list of columns into
+                # first entry
+                col_list = col_name.replace('\n', '').replace(' ', '').replace('"', '').split(',')
+                if len(col_list) > 1:
+                    # Assign only if list of strings passed
+                    if '[' in col_list[0] and ']' in col_list[-1]:
+                        col_list[0] = col_list[0].replace('[', '')
+                        col_list[-1] = col_list[-1].replace(']', '')
+                        print('..assigning column names based on passed list')
+                        self.header_names = col_list
+                        edit = False
+                        break
 
                 confirm = validate_entry()
 
@@ -696,6 +733,7 @@ class _Setup:
         # else:
         #     param = Parameter(sdfs_param)
         #     val = None
+        val = None
         sdfs_param_units = Parameter(sdfs_param).units
         print('')
         print(f'  Are the units of measure for {param} {sdfs_param_units}?')
