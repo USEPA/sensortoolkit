@@ -83,6 +83,7 @@ def sensor_averaging(full_df_list, sensor_serials=None, name='',
               sampling frequency.
 
     """
+    print('Averaging datasets to 1-hour and 24-hour intervals:')
     hourly_df_list, daily_df_list = [], []
 
     if sensor_serials is None:
