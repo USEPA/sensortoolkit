@@ -90,7 +90,7 @@ def purpleair_ab_averages(df, cleaning=True, a_col_name=None,
         AB_avgs[invalid] = np.nan
 
         # Assign cleaned AB averaged data to dataframe
-        df['PM25'] = AB_avgs
+        df['PM25_Value'] = AB_avgs
 
         #df = QC_flags(df, a_col_name, b_col_name)
 
@@ -101,6 +101,6 @@ def purpleair_ab_averages(df, cleaning=True, a_col_name=None,
         AB_avgs = df['PM25_AB_raw']
 
         # Assign AB averaged data to dataframe
-        df['PM25'] = AB_avgs
+        df['PM25_value'] = AB_avgs
 
     return df
