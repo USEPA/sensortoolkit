@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>sensortoolkit.model._purpleair_uscorrection &mdash; sensortoolkit 0.6.2b1 documentation</title>
+  <title>sensortoolkit.model._purpleair_uscorrection &mdash; sensortoolkit 0.6.3b1 documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" type="text/css" />
@@ -30,7 +30,7 @@
             <a href="../../../index.html" class="icon icon-home"> sensortoolkit
           </a>
               <div class="version">
-                0.6.2b1
+                0.6.3b1
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
@@ -391,7 +391,7 @@
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">This module contains methods for applying correction equations specific to the</span>
 <span class="sd">PurpleAir PA-II sensor. These correction methods apply published equations</span>
-<span class="sd">by authors whose work is cited in the docstring of the function pertaining to </span>
+<span class="sd">by authors whose work is cited in the docstring of the function pertaining to</span>
 <span class="sd">each correction equation.</span>
 
 <span class="sd">================================================================================</span>
@@ -427,13 +427,8 @@
 <span class="sd">        KeyError: If &#39;RH&#39; not in passed dataframe</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="n">param</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">df</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="s1">&#39;Column header &quot;&#39;</span> <span class="o">+</span> <span class="n">param</span> <span class="o">+</span> <span class="s1">&#39;&quot; not found in dataframe&#39;</span><span class="p">)</span>
-    <span class="k">if</span> <span class="s1">&#39;RH&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">df</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="s1">&#39;Column header &quot;RH&quot; not found in dataframe&#39;</span><span class="p">)</span>
-
     <span class="c1"># US Correction for PA data</span>
-    <span class="n">df</span><span class="p">[</span><span class="n">param</span> <span class="o">+</span> <span class="s1">&#39;_corrected&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.524</span><span class="o">*</span><span class="n">df</span><span class="p">[</span><span class="n">param</span> <span class="o">+</span> <span class="s1">&#39;_Value&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="mf">0.0852</span><span class="o">*</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;RH&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="mf">5.72</span>
+    <span class="n">df</span><span class="p">[</span><span class="n">param</span> <span class="o">+</span> <span class="s1">&#39;_corrected&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.524</span><span class="o">*</span><span class="n">df</span><span class="p">[</span><span class="n">param</span> <span class="o">+</span> <span class="s1">&#39;_Value&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="mf">0.0852</span><span class="o">*</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;RH_Value&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="mf">5.72</span>
 
     <span class="k">return</span> <span class="n">df</span></div>
 </pre></div>

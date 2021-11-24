@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>sensortoolkit.ingest._sensor_import &mdash; sensortoolkit 0.6.2b1 documentation</title>
+  <title>sensortoolkit.ingest._sensor_import &mdash; sensortoolkit 0.6.3b1 documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" type="text/css" />
@@ -30,7 +30,7 @@
             <a href="../../../index.html" class="icon icon-home"> sensortoolkit
           </a>
               <div class="version">
-                0.6.2b1
+                0.6.3b1
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
@@ -584,6 +584,10 @@
 <span class="sd">        The timestamp (date) marking the end of the sensor testing period,</span>
 <span class="sd">        formatted as ``&#39;YYYY-MM-DD HH:MM:SS&#39;``. Sensor datasets will be</span>
 <span class="sd">        concatenated to end at this timestamp.</span>
+<span class="sd">    :param bool custom_ingest_module:</span>
+<span class="sd">        If True, ``ingest_wrapper()`` will attempt to import sensor data using</span>
+<span class="sd">        a custom written ingestion module instead of the ``standard_ingest()``</span>
+<span class="sd">        method.</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        (tuple): Three-element tuple containing:</span>
@@ -607,6 +611,7 @@
 
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">valid_extensions</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;.csv&#39;</span><span class="p">,</span> <span class="s1">&#39;.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;.xlsx&#39;</span><span class="p">]</span>
+    <span class="n">custom_ingest</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;custom_ingest_module&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">load_raw_data</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
         <span class="n">full_df_list</span> <span class="o">=</span> <span class="p">[]</span>
@@ -628,7 +633,7 @@
                         <span class="n">cwd</span> <span class="o">=</span> <span class="s1">&#39;//&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">path</span><span class="p">,</span> <span class="n">filename</span><span class="p">])</span>
                         <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;....&#39;</span> <span class="o">+</span> <span class="n">filename</span><span class="p">)</span>
                         <span class="n">df</span> <span class="o">=</span> <span class="n">ingest_wrapper</span><span class="p">(</span><span class="n">cwd</span><span class="p">,</span> <span class="n">sensor_name</span><span class="p">,</span> <span class="n">serial</span><span class="p">,</span>
-                                            <span class="n">data_path</span><span class="p">)</span>
+                                            <span class="n">data_path</span><span class="p">,</span> <span class="n">custom_ingest</span><span class="p">)</span>
                         <span class="n">sensor_df</span> <span class="o">=</span> <span class="n">sensor_df</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
                 <span class="n">file_list</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">files</span><span class="p">)</span>
 
@@ -674,7 +679,7 @@
     <span class="k">return</span> <span class="n">full_df_list</span><span class="p">,</span> <span class="n">hourly_df_list</span><span class="p">,</span> <span class="n">daily_df_list</span></div>
 
 
-<div class="viewcode-block" id="ingest_wrapper"><a class="viewcode-back" href="../../../api/_autosummary/sensortoolkit.ingest._sensor_import.ingest_wrapper.html#sensortoolkit.ingest._sensor_import.ingest_wrapper">[docs]</a><span class="k">def</span> <span class="nf">ingest_wrapper</span><span class="p">(</span><span class="n">cwd</span><span class="p">,</span> <span class="n">sensor_name</span><span class="p">,</span> <span class="n">serial</span><span class="p">,</span> <span class="n">data_path</span><span class="p">):</span>
+<div class="viewcode-block" id="ingest_wrapper"><a class="viewcode-back" href="../../../api/_autosummary/sensortoolkit.ingest._sensor_import.ingest_wrapper.html#sensortoolkit.ingest._sensor_import.ingest_wrapper">[docs]</a><span class="k">def</span> <span class="nf">ingest_wrapper</span><span class="p">(</span><span class="n">cwd</span><span class="p">,</span> <span class="n">sensor_name</span><span class="p">,</span> <span class="n">serial</span><span class="p">,</span> <span class="n">data_path</span><span class="p">,</span> <span class="n">custom_ingest</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Wrapper for ingestion modules. Selects the ingestion module to convert</span>
 <span class="sd">    sensor-specific data formatting to SDFS format for analysis.</span>
 
@@ -688,6 +693,10 @@
 <span class="sd">        data_path (str):</span>
 <span class="sd">            full path to sensor data top directory (contains subdirs for</span>
 <span class="sd">            processed and raw data, and the setup.json if configured)</span>
+<span class="sd">        custom_ingest_module (bool):</span>
+<span class="sd">            If True, ``ingest_wrapper()`` will attempt to import sensor data</span>
+<span class="sd">            using a custom written ingestion module instead of the</span>
+<span class="sd">            ``standard_ingest()`` method.</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        pandas DataFrame object:</span>
@@ -698,24 +707,21 @@
     <span class="n">setup_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">data_path</span> <span class="o">+</span> <span class="s1">&#39;../&#39;</span> <span class="o">+</span> <span class="n">sensor_name</span>
                                  <span class="o">+</span> <span class="s1">&#39;_setup.json&#39;</span><span class="p">)</span>
 
-    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">setup_path</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">setup_path</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">custom_ingest</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">standard_ingest</span><span class="p">(</span><span class="n">cwd</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">sensor_name</span><span class="p">,</span>
                                <span class="n">setup_file_path</span><span class="o">=</span><span class="n">setup_path</span><span class="p">)</span>
-
-    <span class="c1"># Otherwise, use sensor-specific ingestion modules</span>
-    <span class="c1"># if sensor_name == &#39;Sensit_RAMP&#39;:</span>
-    <span class="c1">#     return ingest_sensit_ramp(cwd)</span>
-
-    <span class="k">if</span> <span class="s1">&#39;purpleair&#39;</span> <span class="ow">in</span> <span class="n">sensor_name</span><span class="o">.</span><span class="n">lower</span><span class="p">():</span>
-        <span class="c1"># assuming Thingspeak API dataset</span>
-        <span class="k">return</span> <span class="n">ingest_purpleair</span><span class="p">(</span><span class="n">cwd</span><span class="p">,</span> <span class="n">serial</span><span class="p">)</span>
-
-<span class="c1">#    if sensor_name == &#39;Your_Sensor_Model_Here&#39;:</span>
-<span class="c1">#        return Custom_Ingest_Module_For_Your_Sensor(cwd)</span>
-
     <span class="k">else</span><span class="p">:</span>
-        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="s1">&#39;No sensor specific import module specified for &#39;</span>
-                 <span class="o">+</span> <span class="n">sensor_name</span><span class="p">)</span></div>
+        <span class="c1"># Otherwise, use sensor-specific ingestion modules</span>
+        <span class="k">if</span> <span class="s1">&#39;purpleair&#39;</span> <span class="ow">in</span> <span class="n">sensor_name</span><span class="o">.</span><span class="n">lower</span><span class="p">():</span>
+            <span class="c1"># assuming Thingspeak API dataset</span>
+            <span class="k">return</span> <span class="n">ingest_purpleair</span><span class="p">(</span><span class="n">cwd</span><span class="p">,</span> <span class="n">serial</span><span class="p">)</span>
+
+    <span class="c1">#    if sensor_name == &#39;Your_Sensor_Model_Here&#39;:</span>
+    <span class="c1">#        return Custom_Ingest_Module_For_Your_Sensor(cwd)</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="s1">&#39;No sensor specific import module specified for &#39;</span>
+                     <span class="o">+</span> <span class="n">sensor_name</span><span class="p">)</span></div>
 
 
 <span class="c1"># Sensor specific ingestion modules</span>
@@ -900,8 +906,11 @@
                            <span class="n">direction</span><span class="o">=</span><span class="s1">&#39;nearest&#39;</span><span class="p">)</span>
         <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;DateTime_UTC&#39;</span><span class="p">,</span> <span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
+        <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;Temp&#39;</span><span class="p">:</span> <span class="s1">&#39;Temp_Value&#39;</span><span class="p">,</span>
+                                <span class="s1">&#39;RH&#39;</span><span class="p">:</span> <span class="s1">&#39;RH_Value&#39;</span><span class="p">,</span>
+                                <span class="s1">&#39;Press&#39;</span><span class="p">:</span> <span class="s1">&#39;Press_Value&#39;</span><span class="p">})</span>
         <span class="c1"># Convert Temp from F to C</span>
-        <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Temp&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Temp&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="mi">32</span><span class="p">)</span> <span class="o">/</span> <span class="mf">1.8</span>
+        <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Temp_Value&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Temp_Value&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="mi">32</span><span class="p">)</span> <span class="o">/</span> <span class="mf">1.8</span>
 
         <span class="c1"># Merge concentrations for A and B channels</span>
         <span class="n">df</span> <span class="o">=</span> <span class="n">purpleair_ab_averages</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">cleaning</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>

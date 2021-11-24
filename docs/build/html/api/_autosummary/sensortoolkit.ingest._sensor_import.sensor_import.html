@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>sensortoolkit.ingest._sensor_import.sensor_import &mdash; sensortoolkit 0.6.2b1 documentation</title>
+  <title>sensortoolkit.ingest._sensor_import.sensor_import &mdash; sensortoolkit 0.6.3b1 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" type="text/css" />
@@ -33,7 +33,7 @@
             <a href="../../index.html" class="icon icon-home"> sensortoolkit
           </a>
               <div class="version">
-                0.6.2b1
+                0.6.3b1
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
@@ -519,6 +519,9 @@ concatenated to begin at this timestamp.</p></li>
 <li><p><strong>deploy_edate</strong> (<em>str</em>) – The timestamp (date) marking the end of the sensor testing period,
 formatted as <code class="docutils literal notranslate"><span class="pre">'YYYY-MM-DD</span> <span class="pre">HH:MM:SS'</span></code>. Sensor datasets will be
 concatenated to end at this timestamp.</p></li>
+<li><p><strong>custom_ingest_module</strong> (<em>bool</em>) – If True, <code class="docutils literal notranslate"><span class="pre">ingest_wrapper()</span></code> will attempt to import sensor data using
+a custom written ingestion module instead of the <code class="docutils literal notranslate"><span class="pre">standard_ingest()</span></code>
+method.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
