@@ -133,7 +133,7 @@ def standard_ingest(path, name=None, setup_file_path=None):
     except ValueError:
         print('\n..timestamp formatting inconsistent with specified format, \n'
               'falling back by inferring timestamp format\n')
-        df['DateTime'] = pd.to_datetime(df['Timestamp UTC'],
+        df['DateTime'] = pd.to_datetime(df['DateTime'],
                                         infer_datetime_format=True,
                                         errors='coerce')
 
