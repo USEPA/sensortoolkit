@@ -195,6 +195,10 @@ def sensor_import(sensor_name=None, sensor_serials=None,
         The timestamp (date) marking the end of the sensor testing period,
         formatted as ``'YYYY-MM-DD HH:MM:SS'``. Sensor datasets will be
         concatenated to end at this timestamp.
+    :param bool custom_ingest_module:
+        If True, ``ingest_wrapper()`` will attempt to import sensor data using
+        a custom written ingestion module instead of the ``standard_ingest()``
+        method.
 
     Returns:
         (tuple): Three-element tuple containing:
@@ -218,6 +222,7 @@ def sensor_import(sensor_name=None, sensor_serials=None,
 
     """
     valid_extensions = ['.csv', '.txt', '.xlsx']
+    custom_ingest = kwargs.get('custom_ingest_module', False)
 
     if load_raw_data is True:
         full_df_list = []
@@ -239,7 +244,7 @@ def sensor_import(sensor_name=None, sensor_serials=None,
                         cwd = '//'.join([path, filename])
                         print('....' + filename)
                         df = ingest_wrapper(cwd, sensor_name, serial,
-                                            data_path)
+                                            data_path, custom_ingest)
                         sensor_df = sensor_df.append(df)
                 file_list.extend(files)
 
@@ -285,7 +290,7 @@ def sensor_import(sensor_name=None, sensor_serials=None,
     return full_df_list, hourly_df_list, daily_df_list
 
 
-def ingest_wrapper(cwd, sensor_name, serial, data_path):
+def ingest_wrapper(cwd, sensor_name, serial, data_path, custom_ingest):
     """Wrapper for ingestion modules. Selects the ingestion module to convert
     sensor-specific data formatting to SDFS format for analysis.
 
@@ -299,6 +304,10 @@ def ingest_wrapper(cwd, sensor_name, serial, data_path):
         data_path (str):
             full path to sensor data top directory (contains subdirs for
             processed and raw data, and the setup.json if configured)
+        custom_ingest_module (bool):
+            If True, ``ingest_wrapper()`` will attempt to import sensor data
+            using a custom written ingestion module instead of the
+            ``standard_ingest()`` method.
 
     Returns:
         pandas DataFrame object:
@@ -309,24 +318,21 @@ def ingest_wrapper(cwd, sensor_name, serial, data_path):
     setup_path = os.path.abspath(data_path + '../' + sensor_name
                                  + '_setup.json')
 
-    if os.path.exists(setup_path):
+    if os.path.exists(setup_path) and not custom_ingest:
         return standard_ingest(cwd, name=sensor_name,
                                setup_file_path=setup_path)
-
-    # Otherwise, use sensor-specific ingestion modules
-    # if sensor_name == 'Sensit_RAMP':
-    #     return ingest_sensit_ramp(cwd)
-
-    if 'purpleair' in sensor_name.lower():
-        # assuming Thingspeak API dataset
-        return ingest_purpleair(cwd, serial)
-
-#    if sensor_name == 'Your_Sensor_Model_Here':
-#        return Custom_Ingest_Module_For_Your_Sensor(cwd)
-
     else:
-        sys.exit('No sensor specific import module specified for '
-                 + sensor_name)
+        # Otherwise, use sensor-specific ingestion modules
+        if 'purpleair' in sensor_name.lower():
+            # assuming Thingspeak API dataset
+            return ingest_purpleair(cwd, serial)
+
+    #    if sensor_name == 'Your_Sensor_Model_Here':
+    #        return Custom_Ingest_Module_For_Your_Sensor(cwd)
+
+        else:
+            sys.exit('No sensor specific import module specified for '
+                     + sensor_name)
 
 
 # Sensor specific ingestion modules
@@ -511,8 +517,11 @@ def ingest_purpleair(cwd, serial):
                            direction='nearest')
         df = df.set_index('DateTime_UTC', drop=True)
 
+        df = df.rename(columns={'Temp': 'Temp_Value',
+                                'RH': 'RH_Value',
+                                'Press': 'Press_Value'})
         # Convert Temp from F to C
-        df['Temp'] = (df['Temp'] - 32) / 1.8
+        df['Temp_Value'] = (df['Temp_Value'] - 32) / 1.8
 
         # Merge concentrations for A and B channels
         df = purpleair_ab_averages(df, cleaning=True,
