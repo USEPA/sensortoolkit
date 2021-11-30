@@ -83,6 +83,7 @@ def load_ref_dataframes(bdate, edate, path, classes):
                                                 suffix='_Gases')
 
     # Compute 24-hr averaged data
+    print('Computing 24-hour averaged reference datasets')
     if pm_ref_data is True:
         pm_d_ref_df = interval_averaging(pm_h_ref_df,
                                          freq='D',
