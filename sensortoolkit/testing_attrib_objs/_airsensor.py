@@ -15,6 +15,7 @@ Last Updated:
 """
 import os
 import json
+import pandas as pd
 from sensortoolkit import lib_utils
 from sensortoolkit import ingest
 from sensortoolkit import datetime_utils
@@ -40,6 +41,10 @@ class AirSensor:
         self.make = make
         self.model = model
         self._setup_path = None
+        self.bdate = None
+        self.edate = None
+        self.data = {}
+        self.recording_interval = None
 
         if self.make is not None and self.model is not None:
             self.name = '_'.join([self.make.replace(' ', '_'),
@@ -291,7 +296,6 @@ class AirSensor:
         self._set_data(df_tuple)
 
     def _set_data(self, data_obj):
-        self.data = {}
         for dataset_group in data_obj:
             # Check that the intervals in the datasets are similar
             t_intervals = [datetime_utils.get_timestamp_interval(df)
@@ -310,6 +314,12 @@ class AirSensor:
                     self.data[t_interval][serial_id] = df
 
         self.recording_interval = list(self.data.keys())[0]
+
+        eval_bdate, eval_edate = datetime_utils.timeframe_search(
+                                            self.data['1-hour'].values())
+        self.bdate = pd.to_datetime(eval_bdate)
+        self.edate = pd.to_datetime(eval_edate)
+
 
 if __name__ == '__main__':
     work_path = r'C:\Users\SFREDE01\OneDrive - Environmental Protection Agency (EPA)\Profile\Documents\sensortoolkit_testing'
