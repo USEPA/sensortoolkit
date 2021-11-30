@@ -56,10 +56,6 @@ from sensortoolkit.datetime_utils import sensor_averaging
 from sensortoolkit.ingest import standard_ingest, processed_data_search
 from sensortoolkit.calculate import dewpoint
 
-# Sensor-specific modules
-from sensortoolkit.model import purpleair_us_corr
-from sensortoolkit.qc import purpleair_ab_averages
-
 
 def sensor_import(sensor_name=None, sensor_serials=None,
                   load_raw_data=False, data_path=None, processed_path=None,
@@ -187,11 +183,11 @@ def sensor_import(sensor_name=None, sensor_serials=None,
 
     **Keyword Arguments**
 
-    :param str deploy_bdate:
+    :param str bdate:
         The timestamp (date) marking the beginning of the sensor testing period,
         formatted as ``'YYYY-MM-DD HH:MM:SS'``. Sensor datasets will be
         concatenated to begin at this timestamp.
-    :param str deploy_edate:
+    :param str edate:
         The timestamp (date) marking the end of the sensor testing period,
         formatted as ``'YYYY-MM-DD HH:MM:SS'``. Sensor datasets will be
         concatenated to end at this timestamp.
@@ -223,6 +219,8 @@ def sensor_import(sensor_name=None, sensor_serials=None,
     """
     valid_extensions = ['.csv', '.txt', '.xlsx']
     custom_ingest = kwargs.get('custom_ingest_module', False)
+    start = kwargs.get('bdate', None)
+    end = kwargs.get('edate', None)
 
     if load_raw_data is True:
         full_df_list = []
@@ -261,13 +259,7 @@ def sensor_import(sensor_name=None, sensor_serials=None,
                                ' serial ID. Files must be either .csv or .txt')
                 raise AttributeError(console_out)
 
-            # any concatenation would happen here
-            start = kwargs.get('deploy_bdate', None)
-            end = kwargs.get('deploy_edate', None)
-            if start is not None:
-                sensor_df = sensor_df.loc[start:, :]
-            if end is not None:
-                sensor_df = sensor_df.loc[:end, :]
+            sensor_df = concat_dataset(data=sensor_df, bdate=start, edate=end)
 
             full_df_list.append(sensor_df)
 
@@ -283,12 +275,38 @@ def sensor_import(sensor_name=None, sensor_serials=None,
                                          **kwargs)
         full_df_list, hourly_df_list, daily_df_list = df_tuple
 
+        full_df_list = [concat_dataset(df, start, end)
+                        for df in full_df_list]
+        hourly_df_list = [concat_dataset(df, start, end)
+                          for df in hourly_df_list]
+        daily_df_list = [concat_dataset(df, start, end)
+                         for df in daily_df_list]
+
     # Compute dewpoint
     full_df_list = dewpoint(full_df_list)
     hourly_df_list = dewpoint(hourly_df_list)
 
     return full_df_list, hourly_df_list, daily_df_list
 
+
+def concat_dataset(data, bdate, edate):
+    """Concatenate pandas DataFrame with DateTimeIndex to the specified time
+    period (bdate, edate).
+
+    Args:
+        data (pandas DataFrame): Air sensor dataset to concatenate.
+        bdate (str): The beginning timestamp for the concatenated dataset.
+        edate (str): The ending timestamp for the concatenated dataset.
+
+    Returns:
+        data (pandas DataFrame): The concatenated sensor dataset.
+
+    """
+    if bdate is not None:
+        data = data.loc[bdate:, :]
+    if edate is not None:
+        data = data.loc[:edate, :]
+    return data
 
 def ingest_wrapper(cwd, sensor_name, serial, data_path, custom_ingest):
     """Wrapper for ingestion modules. Selects the ingestion module to convert
@@ -359,7 +377,7 @@ def ingest_wrapper(cwd, sensor_name, serial, data_path, custom_ingest):
 #     except FileNotFoundError as e:
 #         sys.exit(e)
 
-#     df.index.name = 'DateTime_UTC'
+#     df.index.name = 'DateTime'
 
 #     # Force non numeric values to Nans
 #     df = df.apply(lambda x: pd.to_numeric(x, errors='coerce'))
@@ -415,7 +433,7 @@ def ingest_wrapper(cwd, sensor_name, serial, data_path, custom_ingest):
 
 #     # Set the DateTime columns as the timelike index
 #     df = df.set_index(pd.to_datetime(df['DateTime']))
-#     df.index.name = 'DateTime_UTC'
+#     df.index.name = 'DateTime'
 
 #     # Limit dataset to parameter data (exclude columns not used in analysis)
 #     df = df[['Serial_ID', 'CO', 'NO', 'NO2', 'O3', 'CO2',
@@ -477,7 +495,7 @@ def ingest_purpleair(cwd, serial):
 
             df = df.rename(columns={'monitor-id': 'Sensor_id',
                                     ' channel-id': 'Channel',
-                                    ' created-at': 'DateTime_UTC',
+                                    ' created-at': 'DateTime',
                                     ' entry-id': 'Entry',
                                     ' PM1.0 (ATM)': 'PM1_ATM',
                                     ' PM2.5 (ATM)': 'PM25_ATM',
@@ -492,17 +510,18 @@ def ingest_purpleair(cwd, serial):
                                     ' Pressure': 'Press',
                                     ' Unused': 'Unused'})
 
-            df.DateTime_UTC = df.DateTime_UTC.str.replace(
+            df.DateTime = df.DateTime.str.replace(
                                 'T', ' ').str.replace('Z', '').str.lstrip(' ')
 
             timestamp_fmt = '%Y-%m-%d %H:%M:%S'
-            df = df.set_index(pd.to_datetime(df['DateTime_UTC'],
+            df = df.set_index(pd.to_datetime(df['DateTime'],
                                              format=timestamp_fmt)
                               ).sort_index()
+            df = df.tz_localize('UTC')
 
             df = df.drop(['Sensor_id',
                           'Channel',
-                          'DateTime_UTC',
+                          'DateTime',
                           'Entry'], axis=1)
 
             if channel == 'A':
@@ -511,25 +530,17 @@ def ingest_purpleair(cwd, serial):
                 df_B = df.drop(['Mem', 'Adc', 'Unused'], axis=1)
 
         # Merge the channel dataframes
-        df = pd.merge_asof(df_A, df_B, on='DateTime_UTC',
+        df = pd.merge_asof(df_A, df_B, on='DateTime',
                            suffixes=['_a', '_b'], #left_index=True,
                            tolerance=pd.Timedelta('5s'),
                            direction='nearest')
-        df = df.set_index('DateTime_UTC', drop=True)
+        df = df.set_index('DateTime', drop=True)
 
         df = df.rename(columns={'Temp': 'Temp_Value',
                                 'RH': 'RH_Value',
                                 'Press': 'Press_Value'})
         # Convert Temp from F to C
         df['Temp_Value'] = (df['Temp_Value'] - 32) / 1.8
-
-        # Merge concentrations for A and B channels
-        df = purpleair_ab_averages(df, cleaning=True,
-                                   a_col_name='PM25_ATM_a',
-                                   b_col_name='PM25_ATM_b')
-
-        # US Correction
-        df = purpleair_us_corr(df, param='PM25')
 
         return df
 
@@ -559,10 +570,10 @@ def ingest_purpleair(cwd, serial):
 #    # can be accomplished via some code that looks something like:
 #    # df['timestamp_column'] = df['column_A'] + df['column_B']
 #
-#    # Reset the index name to datetime_UTC. If the timestamp is not in UTC,
+#    # Reset the index name to DateTime. If the timestamp is not in UTC,
 #    # you can use something like df.shift(N, freq='H') where N is the number of
 #    # hours you want to shift by.
-#    df.index.name = 'DateTime_UTC'  # Don't change this line
+#    df.index.name = 'DateTime'  # Don't change this line
 #
 #    # Force non numeric values to Nans
 #    # Optional, however this may remove some useful data like QC flags or
