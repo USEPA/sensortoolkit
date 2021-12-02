@@ -1343,7 +1343,7 @@ def normalized_met_scatter(df_list, ref_df, avg_df, met_ref_df=None,
     if show_errorbars is True:
         error_bars(xdata, ydata, ax, plot_yerror=True,
                    n_xbins=kwargs.get('errorbar_nbins', 10),
-                   errorbar_c=kwargs.get('errorbar_color', '#151515'))
+                   errorbar_color=kwargs.get('errorbar_color', '#151515'))
 
     # Legend position ---------------------------------------------------------
     if show_legend is True:
