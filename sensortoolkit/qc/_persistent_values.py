@@ -51,7 +51,7 @@ def persistent_values(df, param, tolerance=3, freq='H', invalidate=False):
         df.loc[:, param + '_QAQC_Code'] = np.nan
 
     if df[df[param + '_Value'].diff() == 0].empty:
-        print('..not persistant values found for ' + param)
+        print('..no persistant values found for ' + param)
         return df
 
     print('..flagging persistant values for ' + param)
@@ -61,16 +61,19 @@ def persistent_values(df, param, tolerance=3, freq='H', invalidate=False):
     # where n is the tolerance
     window_df = pd.DataFrame()
     for i in np.arange(1, tolerance + 1, 1, dtype=int):
-        window_df[param + '_diff_' + str(i)] = \
-            data[param + '_Value'].diff().shift(i, freq=freq)
+        window_df[param + '_diff_' + str(i)] = data[param + '_Value'].diff()
 
     window_df['z_count'] = (window_df == 0).astype(int).sum(axis=1)
 
     flag_idx = window_df[window_df.z_count == tolerance].index
 
-    df.loc[flag_idx, param + '_QAQC_Code'] = 1  # temporary flag
+    flag_idx = df.index.intersection(flag_idx)
+
+    df.loc[flag_idx, param + '_QAQC_Code'] = 'persist'  # temporary flag
 
     if invalidate is True:
         df.loc[flag_idx, param + '_Value'] = np.nan
 
     return df
+
+
