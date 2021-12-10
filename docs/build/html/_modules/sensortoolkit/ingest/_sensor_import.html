@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>sensortoolkit.ingest._sensor_import &mdash; sensortoolkit 0.6.3b1 documentation</title>
+  <title>sensortoolkit.ingest._sensor_import &mdash; sensortoolkit 0.6.3b2 documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" type="text/css" />
@@ -30,7 +30,7 @@
             <a href="../../../index.html" class="icon icon-home"> sensortoolkit
           </a>
               <div class="version">
-                0.6.3b1
+                0.6.3b2
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
@@ -186,6 +186,7 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.ingest._sensor_import.html">sensortoolkit.ingest._sensor_import</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.ingest._sensor_import.concat_dataset.html">sensortoolkit.ingest._sensor_import.concat_dataset</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.ingest._sensor_import.ingest_purpleair.html">sensortoolkit.ingest._sensor_import.ingest_purpleair</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.ingest._sensor_import.ingest_wrapper.html">sensortoolkit.ingest._sensor_import.ingest_wrapper</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../api/_autosummary/sensortoolkit.ingest._sensor_import.sensor_import.html">sensortoolkit.ingest._sensor_import.sensor_import</a></li>
@@ -445,10 +446,6 @@
 <span class="kn">from</span> <span class="nn">sensortoolkit.ingest</span> <span class="kn">import</span> <span class="n">standard_ingest</span><span class="p">,</span> <span class="n">processed_data_search</span>
 <span class="kn">from</span> <span class="nn">sensortoolkit.calculate</span> <span class="kn">import</span> <span class="n">dewpoint</span>
 
-<span class="c1"># Sensor-specific modules</span>
-<span class="kn">from</span> <span class="nn">sensortoolkit.model</span> <span class="kn">import</span> <span class="n">purpleair_us_corr</span>
-<span class="kn">from</span> <span class="nn">sensortoolkit.qc</span> <span class="kn">import</span> <span class="n">purpleair_ab_averages</span>
-
 
 <div class="viewcode-block" id="sensor_import"><a class="viewcode-back" href="../../../api/_autosummary/sensortoolkit.ingest._sensor_import.sensor_import.html#sensortoolkit.ingest._sensor_import.sensor_import">[docs]</a><span class="k">def</span> <span class="nf">sensor_import</span><span class="p">(</span><span class="n">sensor_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sensor_serials</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                   <span class="n">load_raw_data</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">data_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">processed_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
@@ -576,11 +573,11 @@
 
 <span class="sd">    **Keyword Arguments**</span>
 
-<span class="sd">    :param str deploy_bdate:</span>
+<span class="sd">    :param str bdate:</span>
 <span class="sd">        The timestamp (date) marking the beginning of the sensor testing period,</span>
 <span class="sd">        formatted as ``&#39;YYYY-MM-DD HH:MM:SS&#39;``. Sensor datasets will be</span>
 <span class="sd">        concatenated to begin at this timestamp.</span>
-<span class="sd">    :param str deploy_edate:</span>
+<span class="sd">    :param str edate:</span>
 <span class="sd">        The timestamp (date) marking the end of the sensor testing period,</span>
 <span class="sd">        formatted as ``&#39;YYYY-MM-DD HH:MM:SS&#39;``. Sensor datasets will be</span>
 <span class="sd">        concatenated to end at this timestamp.</span>
@@ -612,6 +609,8 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">valid_extensions</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;.csv&#39;</span><span class="p">,</span> <span class="s1">&#39;.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;.xlsx&#39;</span><span class="p">]</span>
     <span class="n">custom_ingest</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;custom_ingest_module&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+    <span class="n">start</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;bdate&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+    <span class="n">end</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;edate&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">load_raw_data</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
         <span class="n">full_df_list</span> <span class="o">=</span> <span class="p">[]</span>
@@ -650,13 +649,7 @@
                                <span class="s1">&#39; serial ID. Files must be either .csv or .txt&#39;</span><span class="p">)</span>
                 <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span><span class="n">console_out</span><span class="p">)</span>
 
-            <span class="c1"># any concatenation would happen here</span>
-            <span class="n">start</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;deploy_bdate&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
-            <span class="n">end</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;deploy_edate&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">start</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="n">sensor_df</span> <span class="o">=</span> <span class="n">sensor_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">start</span><span class="p">:,</span> <span class="p">:]</span>
-            <span class="k">if</span> <span class="n">end</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="n">sensor_df</span> <span class="o">=</span> <span class="n">sensor_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:</span><span class="n">end</span><span class="p">,</span> <span class="p">:]</span>
+            <span class="n">sensor_df</span> <span class="o">=</span> <span class="n">concat_dataset</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">sensor_df</span><span class="p">,</span> <span class="n">bdate</span><span class="o">=</span><span class="n">start</span><span class="p">,</span> <span class="n">edate</span><span class="o">=</span><span class="n">end</span><span class="p">)</span>
 
             <span class="n">full_df_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sensor_df</span><span class="p">)</span>
 
@@ -672,12 +665,38 @@
                                          <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
         <span class="n">full_df_list</span><span class="p">,</span> <span class="n">hourly_df_list</span><span class="p">,</span> <span class="n">daily_df_list</span> <span class="o">=</span> <span class="n">df_tuple</span>
 
+        <span class="n">full_df_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">concat_dataset</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">)</span>
+                        <span class="k">for</span> <span class="n">df</span> <span class="ow">in</span> <span class="n">full_df_list</span><span class="p">]</span>
+        <span class="n">hourly_df_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">concat_dataset</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">)</span>
+                          <span class="k">for</span> <span class="n">df</span> <span class="ow">in</span> <span class="n">hourly_df_list</span><span class="p">]</span>
+        <span class="n">daily_df_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">concat_dataset</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">)</span>
+                         <span class="k">for</span> <span class="n">df</span> <span class="ow">in</span> <span class="n">daily_df_list</span><span class="p">]</span>
+
     <span class="c1"># Compute dewpoint</span>
     <span class="n">full_df_list</span> <span class="o">=</span> <span class="n">dewpoint</span><span class="p">(</span><span class="n">full_df_list</span><span class="p">)</span>
     <span class="n">hourly_df_list</span> <span class="o">=</span> <span class="n">dewpoint</span><span class="p">(</span><span class="n">hourly_df_list</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">full_df_list</span><span class="p">,</span> <span class="n">hourly_df_list</span><span class="p">,</span> <span class="n">daily_df_list</span></div>
 
+
+<div class="viewcode-block" id="concat_dataset"><a class="viewcode-back" href="../../../api/_autosummary/sensortoolkit.ingest._sensor_import.concat_dataset.html#sensortoolkit.ingest._sensor_import.concat_dataset">[docs]</a><span class="k">def</span> <span class="nf">concat_dataset</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">bdate</span><span class="p">,</span> <span class="n">edate</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Concatenate pandas DataFrame with DateTimeIndex to the specified time</span>
+<span class="sd">    period (bdate, edate).</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        data (pandas DataFrame): Air sensor dataset to concatenate.</span>
+<span class="sd">        bdate (str): The beginning timestamp for the concatenated dataset.</span>
+<span class="sd">        edate (str): The ending timestamp for the concatenated dataset.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        data (pandas DataFrame): The concatenated sensor dataset.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">bdate</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">bdate</span><span class="p">:,</span> <span class="p">:]</span>
+    <span class="k">if</span> <span class="n">edate</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[:</span><span class="n">edate</span><span class="p">,</span> <span class="p">:]</span>
+    <span class="k">return</span> <span class="n">data</span></div>
 
 <div class="viewcode-block" id="ingest_wrapper"><a class="viewcode-back" href="../../../api/_autosummary/sensortoolkit.ingest._sensor_import.ingest_wrapper.html#sensortoolkit.ingest._sensor_import.ingest_wrapper">[docs]</a><span class="k">def</span> <span class="nf">ingest_wrapper</span><span class="p">(</span><span class="n">cwd</span><span class="p">,</span> <span class="n">sensor_name</span><span class="p">,</span> <span class="n">serial</span><span class="p">,</span> <span class="n">data_path</span><span class="p">,</span> <span class="n">custom_ingest</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Wrapper for ingestion modules. Selects the ingestion module to convert</span>
@@ -748,7 +767,7 @@
 <span class="c1">#     except FileNotFoundError as e:</span>
 <span class="c1">#         sys.exit(e)</span>
 
-<span class="c1">#     df.index.name = &#39;DateTime_UTC&#39;</span>
+<span class="c1">#     df.index.name = &#39;DateTime&#39;</span>
 
 <span class="c1">#     # Force non numeric values to Nans</span>
 <span class="c1">#     df = df.apply(lambda x: pd.to_numeric(x, errors=&#39;coerce&#39;))</span>
@@ -804,7 +823,7 @@
 
 <span class="c1">#     # Set the DateTime columns as the timelike index</span>
 <span class="c1">#     df = df.set_index(pd.to_datetime(df[&#39;DateTime&#39;]))</span>
-<span class="c1">#     df.index.name = &#39;DateTime_UTC&#39;</span>
+<span class="c1">#     df.index.name = &#39;DateTime&#39;</span>
 
 <span class="c1">#     # Limit dataset to parameter data (exclude columns not used in analysis)</span>
 <span class="c1">#     df = df[[&#39;Serial_ID&#39;, &#39;CO&#39;, &#39;NO&#39;, &#39;NO2&#39;, &#39;O3&#39;, &#39;CO2&#39;,</span>
@@ -866,7 +885,7 @@
 
             <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;monitor-id&#39;</span><span class="p">:</span> <span class="s1">&#39;Sensor_id&#39;</span><span class="p">,</span>
                                     <span class="s1">&#39; channel-id&#39;</span><span class="p">:</span> <span class="s1">&#39;Channel&#39;</span><span class="p">,</span>
-                                    <span class="s1">&#39; created-at&#39;</span><span class="p">:</span> <span class="s1">&#39;DateTime_UTC&#39;</span><span class="p">,</span>
+                                    <span class="s1">&#39; created-at&#39;</span><span class="p">:</span> <span class="s1">&#39;DateTime&#39;</span><span class="p">,</span>
                                     <span class="s1">&#39; entry-id&#39;</span><span class="p">:</span> <span class="s1">&#39;Entry&#39;</span><span class="p">,</span>
                                     <span class="s1">&#39; PM1.0 (ATM)&#39;</span><span class="p">:</span> <span class="s1">&#39;PM1_ATM&#39;</span><span class="p">,</span>
                                     <span class="s1">&#39; PM2.5 (ATM)&#39;</span><span class="p">:</span> <span class="s1">&#39;PM25_ATM&#39;</span><span class="p">,</span>
@@ -881,17 +900,18 @@
                                     <span class="s1">&#39; Pressure&#39;</span><span class="p">:</span> <span class="s1">&#39;Press&#39;</span><span class="p">,</span>
                                     <span class="s1">&#39; Unused&#39;</span><span class="p">:</span> <span class="s1">&#39;Unused&#39;</span><span class="p">})</span>
 
-            <span class="n">df</span><span class="o">.</span><span class="n">DateTime_UTC</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">DateTime_UTC</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span>
+            <span class="n">df</span><span class="o">.</span><span class="n">DateTime</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">DateTime</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span>
                                 <span class="s1">&#39;T&#39;</span><span class="p">,</span> <span class="s1">&#39; &#39;</span><span class="p">)</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;Z&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">lstrip</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">)</span>
 
             <span class="n">timestamp_fmt</span> <span class="o">=</span> <span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1"> %H:%M:%S&#39;</span>
-            <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;DateTime_UTC&#39;</span><span class="p">],</span>
+            <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;DateTime&#39;</span><span class="p">],</span>
                                              <span class="nb">format</span><span class="o">=</span><span class="n">timestamp_fmt</span><span class="p">)</span>
                               <span class="p">)</span><span class="o">.</span><span class="n">sort_index</span><span class="p">()</span>
+            <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">tz_localize</span><span class="p">(</span><span class="s1">&#39;UTC&#39;</span><span class="p">)</span>
 
             <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s1">&#39;Sensor_id&#39;</span><span class="p">,</span>
                           <span class="s1">&#39;Channel&#39;</span><span class="p">,</span>
-                          <span class="s1">&#39;DateTime_UTC&#39;</span><span class="p">,</span>
+                          <span class="s1">&#39;DateTime&#39;</span><span class="p">,</span>
                           <span class="s1">&#39;Entry&#39;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 
             <span class="k">if</span> <span class="n">channel</span> <span class="o">==</span> <span class="s1">&#39;A&#39;</span><span class="p">:</span>
@@ -900,25 +920,17 @@
                 <span class="n">df_B</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s1">&#39;Mem&#39;</span><span class="p">,</span> <span class="s1">&#39;Adc&#39;</span><span class="p">,</span> <span class="s1">&#39;Unused&#39;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 
         <span class="c1"># Merge the channel dataframes</span>
-        <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge_asof</span><span class="p">(</span><span class="n">df_A</span><span class="p">,</span> <span class="n">df_B</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s1">&#39;DateTime_UTC&#39;</span><span class="p">,</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge_asof</span><span class="p">(</span><span class="n">df_A</span><span class="p">,</span> <span class="n">df_B</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s1">&#39;DateTime&#39;</span><span class="p">,</span>
                            <span class="n">suffixes</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;_a&#39;</span><span class="p">,</span> <span class="s1">&#39;_b&#39;</span><span class="p">],</span> <span class="c1">#left_index=True,</span>
                            <span class="n">tolerance</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">Timedelta</span><span class="p">(</span><span class="s1">&#39;5s&#39;</span><span class="p">),</span>
                            <span class="n">direction</span><span class="o">=</span><span class="s1">&#39;nearest&#39;</span><span class="p">)</span>
-        <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;DateTime_UTC&#39;</span><span class="p">,</span> <span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;DateTime&#39;</span><span class="p">,</span> <span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
         <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;Temp&#39;</span><span class="p">:</span> <span class="s1">&#39;Temp_Value&#39;</span><span class="p">,</span>
                                 <span class="s1">&#39;RH&#39;</span><span class="p">:</span> <span class="s1">&#39;RH_Value&#39;</span><span class="p">,</span>
                                 <span class="s1">&#39;Press&#39;</span><span class="p">:</span> <span class="s1">&#39;Press_Value&#39;</span><span class="p">})</span>
         <span class="c1"># Convert Temp from F to C</span>
         <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Temp_Value&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Temp_Value&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="mi">32</span><span class="p">)</span> <span class="o">/</span> <span class="mf">1.8</span>
-
-        <span class="c1"># Merge concentrations for A and B channels</span>
-        <span class="n">df</span> <span class="o">=</span> <span class="n">purpleair_ab_averages</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">cleaning</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                                   <span class="n">a_col_name</span><span class="o">=</span><span class="s1">&#39;PM25_ATM_a&#39;</span><span class="p">,</span>
-                                   <span class="n">b_col_name</span><span class="o">=</span><span class="s1">&#39;PM25_ATM_b&#39;</span><span class="p">)</span>
-
-        <span class="c1"># US Correction</span>
-        <span class="n">df</span> <span class="o">=</span> <span class="n">purpleair_us_corr</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">param</span><span class="o">=</span><span class="s1">&#39;PM25&#39;</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="n">df</span>
 
@@ -948,10 +960,10 @@
 <span class="c1">#    # can be accomplished via some code that looks something like:</span>
 <span class="c1">#    # df[&#39;timestamp_column&#39;] = df[&#39;column_A&#39;] + df[&#39;column_B&#39;]</span>
 <span class="c1">#</span>
-<span class="c1">#    # Reset the index name to datetime_UTC. If the timestamp is not in UTC,</span>
+<span class="c1">#    # Reset the index name to DateTime. If the timestamp is not in UTC,</span>
 <span class="c1">#    # you can use something like df.shift(N, freq=&#39;H&#39;) where N is the number of</span>
 <span class="c1">#    # hours you want to shift by.</span>
-<span class="c1">#    df.index.name = &#39;DateTime_UTC&#39;  # Don&#39;t change this line</span>
+<span class="c1">#    df.index.name = &#39;DateTime&#39;  # Don&#39;t change this line</span>
 <span class="c1">#</span>
 <span class="c1">#    # Force non numeric values to Nans</span>
 <span class="c1">#    # Optional, however this may remove some useful data like QC flags or</span>
