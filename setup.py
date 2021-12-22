@@ -5,7 +5,7 @@ here = pathlib.Path(__file__).parent
 readme = (here / 'README.md').read_text()
 
 setup(name='sensortoolkit',
-      version='0.6.3b2',
+      version='0.6.4b1',
       description='Library for evaluating air sensor data',
       long_description=readme,
       long_description_content_type='text/markdown',
@@ -37,7 +37,8 @@ setup(name='sensortoolkit',
                          "evaluation_objs/templates/placeholder_image.png",
                          "reference/method_codes/methods_criteria.csv",
                          "reference/method_codes/methods_met.csv",
-                         "param/units.csv"
+                         "param/units.csv",
+                         "param/param_info.json"
                          ]
                     },
       install_requires=['matplotlib',
