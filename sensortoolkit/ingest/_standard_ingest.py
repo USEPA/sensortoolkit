@@ -148,6 +148,8 @@ def standard_ingest(path, name=None, setup_file_path=None):
         print(f'....converting datetime index from {time_zone} (UTC {offset} '
               'hours) to UTC.')
         df = df.tz_localize(time_zone).tz_convert('UTC')
+        # Experimental inclusion of metadata attributes dictionary
+        df.attrs['local_tzone'] = time_zone
 
     # Remove rows where coerced errors resulted in NaT values for index
     null_idx = df.loc[df.index.isna(), :]
