@@ -122,10 +122,16 @@ def sensor_averaging(full_df_list, sensor_serials=None, name='',
                                        interval_count=hr_count,
                                        thres=hr_thres)
 
+        if full_df.attrs != {} and hourly_df.attrs == {}:
+            hourly_df.attrs = full_df.attrs
+
         daily_df = interval_averaging(full_df,
                                       freq='D',
                                       interval_count=day_count,
                                       thres=day_thres)
+
+        if full_df.attrs != {} and daily_df.attrs == {}:
+            daily_df.attrs = full_df.attrs
 
         hourly_df_list.append(hourly_df)
         daily_df_list.append(daily_df)

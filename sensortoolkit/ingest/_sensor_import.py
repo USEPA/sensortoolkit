@@ -243,7 +243,12 @@ def sensor_import(sensor_name=None, sensor_serials=None,
                         print('....' + filename)
                         df = ingest_wrapper(cwd, sensor_name, serial,
                                             data_path, custom_ingest)
+
                         sensor_df = sensor_df.append(df)
+
+                        if df.attrs != {} and sensor_df.attrs == {}:
+                            sensor_df.attrs = df.attrs
+
                 file_list.extend(files)
 
             # Check if serial ID not found in any file names.
