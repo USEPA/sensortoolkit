@@ -10,13 +10,22 @@
     | Office: 919-541-1363 | Email: clements.andrea@epa.gov
     |
 
-================================================================================
+===============================================================================
 
 @Author:
   | Samuel Frederick, NSSC Contractor (ORAU)
   | U.S. EPA / ORD / CEMM / AMCD / SFSB
 
 """
+_param_dict = {}
+from json import load
+from pathlib import Path
+with open(f'{Path(__file__).parent}/param/param_info.json', 'r') as file:
+    data = load(file)
+    for key, val in data.items():
+        _param_dict[key] = val
+del data, file, key, val
+del Path, load
 
 # Setup modules and package maintenance
 import sensortoolkit.lib_utils as lib_utils
@@ -47,6 +56,7 @@ import sensortoolkit.plotting as plotting
 
 # Modules for importing, loading, and retrieving reference data
 import sensortoolkit.reference as reference
+
 
 # Import front-facing classes
 from .testing_attrib_objs._airsensor import AirSensor
