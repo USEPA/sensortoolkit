@@ -29,6 +29,7 @@ valid_extensions = ['.csv', '.txt', '.xlsx']
 def _prompt_directory():
     root = tk.Tk()
     root.withdraw()
+    root.wm_attributes('-topmost', 1)
     path = filedialog.askdirectory(parent=root)
     if path == '':
         raise ValueError('Directory selection terminated by user')
@@ -38,6 +39,7 @@ def _prompt_directory():
 def _prompt_files():
     root = tk.Tk()
     root.withdraw()
+    root.wm_attributes('-topmost', 1)
     path = filedialog.askopenfilenames(parent=root)
     if path == '':
         raise ValueError('File selection terminated by user')
