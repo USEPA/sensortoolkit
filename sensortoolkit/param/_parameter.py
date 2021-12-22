@@ -28,6 +28,7 @@ import os
 import pandas as pd
 from sensortoolkit.lib_utils import validate_entry
 from ._targets import ParameterTargets
+from sensortoolkit import _param_dict
 
 class Parameter:
     """Object for accessing parameter attributes.
@@ -95,186 +96,22 @@ class Parameter:
             targets for air sensors measuring these pollutants.
 
     """
-    # TODO: move to an sdfs parameter json file
-    __param_dict__ = {'CO': {'baseline': 'CO',
-                             'classifier': 'Gases',
-                             'subscript': None,
-                             'aqs_unit_code': 8,
-                             'averaging': None,
-                             'usepa_targets': False,
-                             'criteria': True,
-                             'aqs_param_code': 42101
-                             },
+    __param_dict__ = _param_dict
 
-                      'DP': {'baseline': 'Dew point',
-                             'classifier': 'Met',
-                             'subscript': None,
-                             'aqs_unit_code': 17,
-                             'averaging': None,
-                             'usepa_targets': False,
-                             'criteria': False,
-                             'aqs_param_code': 62103
-                             },
-
-                      'NO': {'baseline': 'NO',
-                             'classifier': 'Gases',
-                             'subscript': None,
-                             'aqs_unit_code': 8,
-                             'averaging': None,
-                             'usepa_targets': False,
-                             'criteria': False,
-                             'aqs_param_code': 42601
-                             },
-
-                      'NO2': {'baseline': 'NO',
-                              'classifier': 'Gases',
-                              'subscript': '2',
-                              'aqs_unit_code': 8,
-                              'averaging': None,
-                              'usepa_targets': False,
-                              'criteria': True,
-                              'aqs_param_code': 42602
-                              },
-
-                      'NOx': {'baseline': 'NO',
-                              'classifier': 'Gases',
-                              'subscript': 'x',
-                              'aqs_unit_code': 8,
-                              'averaging': None,
-                              'usepa_targets': False,
-                              'criteria': False,
-                              'aqs_param_code': 42603
-                              },
-
-
-                      'O3': {'baseline': 'O',
-                             'classifier': 'Gases',
-                             'subscript': '3',
-                             'aqs_unit_code': 8,
-                             'averaging': ['1-hour'],
-                             'usepa_targets': True,
-                             'criteria': True,
-                             'aqs_param_code': 44201
-                             },
-
-
-                      'PM1': {'baseline': 'PM',
-                              'classifier': 'PM',
-                              'subscript': '1',
-                              'aqs_unit_code': 105,
-                              'averaging': None,
-                              'usepa_targets': False,
-                              'criteria': False,
-                              'aqs_param_code': ''
-                              },
-
-                      'PM10': {'baseline': 'PM',
-                               'classifier': 'PM',
-                               'subscript': '10',
-                               'aqs_unit_code': 105,
-                               'averaging': None,
-                               'usepa_targets': False,
-                               'criteria': True,
-                               'aqs_param_code': 81102
-                               },
-
-                      'PM25': {'baseline': 'PM',
-                               'classifier': 'PM',
-                               'subscript': '2.5',
-                               'aqs_unit_code': 105,
-                               'averaging': ['1-hour', '24-hour'],
-                               'usepa_targets': True,
-                               'criteria': True,
-                               'aqs_param_code': 88101
-                               },
-
-                      'SO2': {'baseline': 'SO',
-                              'classifier': 'Gases',
-                              'subscript': '2',
-                              'aqs_unit_code': 8,
-                              'averaging': None,
-                              'usepa_targets': False,
-                              'criteria': True,
-                              'aqs_param_code': 42401
-                              },
-
-                      'SOx': {'baseline': 'SO',
-                              'classifier': 'Gases',
-                              'subscript': 'x',
-                              'aqs_unit_code': 8,
-                              'averaging': None,
-                              'usepa_targets': False,
-                              'criteria': False,
-                              'aqs_param_code': ''
-                              },
-
-                      'Temp': {'baseline': 'Temperature',
-                               'classifier': 'Met',
-                               'subscript': None,
-                               'aqs_unit_code': 17,
-                               'averaging': None,
-                               'usepa_targets': False,
-                               'criteria': False,
-                               'aqs_param_code': 62101  # Also 68105
-                               },
-
-                      'RH': {'baseline': 'Relative Humidity',
-                             'classifier': 'Met',
-                             'subscript': None,
-                             'aqs_unit_code': 19,
-                             'averaging': None,
-                             'usepa_targets': False,
-                             'criteria': False,
-                             'aqs_param_code': 62201
-                             },
-
-                      'Press': {'baseline': 'Pressure',
-                                'classifier': 'Met',
-                                'subscript': None,
-                                'aqs_unit_code': 129,
-                                'averaging': None,
-                                'usepa_targets': False,
-                                'criteria': False,
-                                'aqs_param_code': 68108  # or 64101
-                                },
-
-                      'WD': {'baseline': 'Wind Direction',
-                             'classifier': 'Met',
-                             'subscript': None,
-                             'aqs_unit_code': 14,
-                             'averaging': None,
-                             'usepa_targets': False,
-                             'criteria': False,
-                             'aqs_param_code': 61102  # also 61104
-                             },
-
-                      'WS': {'baseline': 'Wind Speed',
-                             'classifier': 'Met',
-                             'subscript': None,
-                             'aqs_unit_code': 11,
-                             'averaging': None,
-                             'usepa_targets': False,
-                             'criteria': False,
-                             'aqs_param_code': 61101  # also 61103
-                             }
-                      }
-
-    def __init__(self, param, set_units=True):
+    def __init__(self, param, set_units=True, **kwargs):
 
         self.name = param
-        self.format_name = None
-        self.format_baseline = None
-        self.format_subscript = None
-        self.classifier = None
-        self.criteria_pollutant = False
-        self.aqs_parameter_code = None
-        self.units_aqs_code = None
-        self.averaging = ['1-hour', '24-hour']  # default averaging
+        self.format_name = kwargs.get('format_name', None)
+        self.format_baseline = kwargs.get('format_baseline', None)
+        self.format_subscript = kwargs.get('format_subscript', None)
+        self.classifier = kwargs.get('classifier', None)
+        self.criteria_pollutant =kwargs.get('criteria_pollutant', False)
+        self.aqs_parameter_code = kwargs.get('aqs_parameter_code', None)
+        self.units_aqs_code = kwargs.get('units_aqs_code', None)
+        self.averaging = kwargs.get('averaging', ['1-hour', '24-hour'])
 
         if self.name in self.__param_dict__:
             self._autoset_param()
-        # TODO: Manual configuration for parameter info
-        # Format baseline, subscript, classifier, parameter code, averaging, etc.
 
         if set_units:
             unit_info = self._get_units()
@@ -293,11 +130,16 @@ class Parameter:
                                           'aqs_unit_code': self.units_aqs_code,
                                           'averaging': self.averaging,
                                           'usepa_targets': False,
-                                          'criteria': False,
-                                          'aqs_param_code': self.aqs_parameter_code
+                                          'criteria': self.criteria_pollutant,
+                                          'aqs_param_code': self.aqs_parameter_code,
+                                          'custom': True
                                           }
 
+            #print(self.__param_dict__[param])
             # TODO: write updated param_dict to json file
+            # with open('param_info.json', 'w') as file:
+            #     j_data = json.dumps(self.__param_dict__)
+            #     file.write(j_data)
 
     def _autoset_param(self):
         """Assign attributes for SDFS parameters.
@@ -355,7 +197,11 @@ class Parameter:
                 Return ``True`` if in the catalog, otherwise return ``False``.
 
         """
-        return self.name in self.__param_dict__.keys()
+        if self.name in self.__param_dict__.keys():
+            sdfs = not bool(self.__param_dict__[self.name]['custom'])
+        else:
+            sdfs = False
+        return sdfs
 
     def _get_units(self):
         unit_table_path = os.path.abspath(os.path.join(__file__,
@@ -372,18 +218,26 @@ class Parameter:
         else:
             # return unit code int and reassign options dataset
             unit_code, options = self._set_units(unit_data)
-        unit_info = options[options['Unit Code'] == unit_code]
 
-        return unit_info.to_dict('records')[0]
+        if options is not None:
+            unit_info = options[options['Unit Code'] == unit_code]
+            unit_info = unit_info.to_dict('records')[0]
+        else:
+            unit_info = {'Label': None,
+                         'Description': None,
+                         'Context': None,
+                         'Unit Code': None}
+        return unit_info
+
 
     def _set_units(self, unit_data):
 
         validate = False
         while validate is False:
             self.classifier = input(f'Enter the parameter classification ("PM", '
-                        f'"Gases", or "Met") for {self.name}: ')
+                        f'"Gases", "Met", or "Ancillary") for {self.name}: ')
 
-            if self.classifier not in ['PM', 'Gases', 'Met']:
+            if self.classifier not in ['PM', 'Gases', 'Met', 'Ancillary']:
                 print('..invalid entry, enter "PM", "Gases", or "Met"')
                 continue
 
@@ -391,36 +245,40 @@ class Parameter:
             if response == 'y':
                 validate = True
 
-        options =  unit_data[unit_data.Classification == self.classifier]
+        if self.classifier != 'Ancillary':
+            options =  unit_data[unit_data.Classification == self.classifier]
 
-        print('')
-        print('Choose from the following unit codes:')
-        with pd.option_context('display.expand_frame_repr', False,
-                               'display.max_rows', None):
             print('')
-            print(options[['Unit Code', 'Description', 'Label', 'Conditions',
-                           'Context']].to_markdown(index=False))
+            print('Choose from the following unit codes:')
+            with pd.option_context('display.expand_frame_repr', False,
+                                   'display.max_rows', None):
+                print('')
+                print(options[['Unit Code', 'Description', 'Label', 'Conditions',
+                               'Context']].to_markdown(index=False))
 
-            # Could also include "SDFS" and "Classification" if space allows
+                # Could also include "SDFS" and "Classification" if space allows
 
-        validate = False
-        while validate is False:
-            unit_code = input('Enter the integer unit code value '
-                        f'for the {self.name} unit of measure: ')
+            validate = False
+            while validate is False:
+                unit_code = input('Enter the integer unit code value '
+                            f'for the {self.name} unit of measure: ')
 
-            try:
-                unit_code = int(unit_code)
-            except ValueError:
-                print('..invalid entry, expected integer value')
-                continue
+                try:
+                    unit_code = int(unit_code)
+                except ValueError:
+                    print('..invalid entry, expected integer value')
+                    continue
 
-            if unit_code not in options['Unit Code'].values:
-                print('..invalid entry, unit code not in listed values')
-                continue
+                if unit_code not in options['Unit Code'].values:
+                    print('..invalid entry, unit code not in listed values')
+                    continue
 
-            response = validate_entry()
-            if response == 'y':
-                validate = True
+                response = validate_entry()
+                if response == 'y':
+                    validate = True
+        else:
+            unit_code = None
+            options = None
 
         return unit_code, options
 
