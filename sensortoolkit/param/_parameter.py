@@ -25,7 +25,9 @@ Last Updated:
   Wed Sep  1 15:47:14 2021
 """
 import os
+import json
 import pandas as pd
+import pathlib
 from sensortoolkit.lib_utils import validate_entry
 from ._targets import ParameterTargets
 from sensortoolkit import _param_dict
@@ -110,6 +112,8 @@ class Parameter:
         self.units_aqs_code = kwargs.get('units_aqs_code', None)
         self.averaging = kwargs.get('averaging', ['1-hour', '24-hour'])
 
+        save_custom_param = kwargs.get('save_custom_param', False)
+
         if self.name in self.__param_dict__:
             self._autoset_param()
 
@@ -120,6 +124,8 @@ class Parameter:
             if isinstance(unit_info['Context'], str):
                 self.units_description += f" ({unit_info['Context']})"
             self.units_aqs_code = unit_info['Unit Code']
+        else:
+            unit_info = {}
 
         self._set_parametertargets()
 
@@ -132,14 +138,16 @@ class Parameter:
                                           'usepa_targets': False,
                                           'criteria': self.criteria_pollutant,
                                           'aqs_param_code': self.aqs_parameter_code,
-                                          'custom': True
+                                          'custom': True,
+                                          'unit_info': unit_info
                                           }
+        if save_custom_param:
+            file_path = pathlib.Path(__file__)
+            parent_path = file_path.parent.absolute()
+            with open(f'{parent_path}/param_info.json', 'w') as file:
+                print(f'Updating param_info.json with custom parameter {self.name}')
+                json.dump(self.__param_dict__, file, indent=4, ensure_ascii=True)
 
-            #print(self.__param_dict__[param])
-            # TODO: write updated param_dict to json file
-            # with open('param_info.json', 'w') as file:
-            #     j_data = json.dumps(self.__param_dict__)
-            #     file.write(j_data)
 
     def _autoset_param(self):
         """Assign attributes for SDFS parameters.
@@ -207,26 +215,14 @@ class Parameter:
         unit_table_path = os.path.abspath(os.path.join(__file__,
                                                        "../units.csv"))
 
-        unit_data = pd.read_csv(unit_table_path)
-
-        # Dataset values where the SDFS column contains the specified parameter
-        #options = unit_data[unit_data.SDFS.str.contains(self.name) == True]
-
-        if self.is_sdfs():
-            options = unit_data[unit_data.Classification == self.classifier]
-            unit_code = self.__param_dict__[self.name]['aqs_unit_code']
+        # Preset options
+        if self.name in self.__param_dict__:
+            unit_info = self.__param_dict__[self.name]['unit_info']
         else:
-            # return unit code int and reassign options dataset
-            unit_code, options = self._set_units(unit_data)
+            # Use table of AQS units for setting custom parameter units
+            unit_data = pd.read_csv(unit_table_path)
+            unit_info = self._set_units(unit_data)
 
-        if options is not None:
-            unit_info = options[options['Unit Code'] == unit_code]
-            unit_info = unit_info.to_dict('records')[0]
-        else:
-            unit_info = {'Label': None,
-                         'Description': None,
-                         'Context': None,
-                         'Unit Code': None}
         return unit_info
 
 
@@ -245,6 +241,7 @@ class Parameter:
             if response == 'y':
                 validate = True
 
+        # Set units using table options for params with classif. PM, Gases, or Met
         if self.classifier != 'Ancillary':
             options =  unit_data[unit_data.Classification == self.classifier]
 
@@ -255,7 +252,6 @@ class Parameter:
                 print('')
                 print(options[['Unit Code', 'Description', 'Label', 'Conditions',
                                'Context']].to_markdown(index=False))
-
                 # Could also include "SDFS" and "Classification" if space allows
 
             validate = False
@@ -276,11 +272,16 @@ class Parameter:
                 response = validate_entry()
                 if response == 'y':
                     validate = True
-        else:
-            unit_code = None
-            options = None
 
-        return unit_code, options
+                unit_info = options[options['Unit Code'] == unit_code]
+                unit_info = unit_info.to_dict('records')[0]
+        else:
+            unit_info = {'Label': None,
+                         'Description': None,
+                         'Context': None,
+                         'Unit Code': None}
+
+        return unit_info
 
 
 if __name__ == '__main__':
