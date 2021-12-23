@@ -16,7 +16,7 @@ Last Updated:
 """
 
 
-def validate_entry(indent_statement=0):
+def validate_entry(statement='Confirm entry', indent_statement=0):
     """Ask the user to confirm an entry by typing 'y' (yes) or 'n' (no).
 
     Args:
@@ -33,7 +33,7 @@ def validate_entry(indent_statement=0):
     indent = ' '*indent_statement
     options = ['y', 'n']
     while val not in options:
-        val = input(f'{indent}Confirm entry [y/n]: ')
+        val = input(f'{indent}{statement} [y/n]: ')
         if val in options:
             return val
         else:
