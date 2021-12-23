@@ -7,7 +7,7 @@ Users are asked to supply various details about their
 dataset(s) for the purpose of data ingestion into the Sensor Data
 Formatting Scheme (SDFS).
 
-================================================================================
+===============================================================================
 
 @Author:
   | Samuel Frederick, NSSC Contractor (ORAU)
@@ -33,6 +33,7 @@ from sensortoolkit.reference import preprocess_airnowtech
 from sensortoolkit.ingest import standard_ingest
 from sensortoolkit.datetime_utils import (interval_averaging,
                                           get_timestamp_interval)
+from sensortoolkit import _param_dict
 
 
 class _Setup:
@@ -46,7 +47,11 @@ class _Setup:
 
     """
 
-    params = sorted(list(Parameter.__param_dict__.keys()))
+    #params = sorted(list(Parameter.__param_dict__.keys()))
+
+    sdfs_params = [key for key in _param_dict if not _param_dict[key]['custom']]
+    custom_params = [key for key in _param_dict if _param_dict[key]['custom']]
+
     data_types = ['.csv', '.txt', '.xlsx']
     __banner_w__ = 79
     pp = pprint.PrettyPrinter()
@@ -639,11 +644,19 @@ class _Setup:
             None.
 
         """
+        param_types = {'S': 'The header corresponds to an SDFS Parameter',
+             'C': 'The header corresponds to an existing custom Parameter',
+             'N': 'Create a new custom Parameter for the header',
+             '': '(enter key) Skip the current header and drop from SDFS datasets'}
+        pretty_params = pprint.pformat(param_types)
+
+
         if print_banner:
-            txt = 'Choose from the following list of SDFS parameter names'
+            #txt = 'Choose from the following list of SDFS parameter names'
             self.printSelectionBanner('Specify Parameter columns',
                                       options=[self.skip_str],
-                                      notes=[txt, self.params])
+                                      #notes=[txt, self.params]
+                                      )
         # drop time-like columns and ask user for SDFS parameter associated
         # with remaining cols
         param_col_list = [param for param in self.all_col_headers
@@ -651,42 +664,81 @@ class _Setup:
 
         n_params = len(param_col_list)
         renaming_dict = {}
-        for i, param in enumerate(param_col_list, 1):
+        for i, rec_header in enumerate(param_col_list, 1):
             valid = False
             while valid is False:
-                sdfs_param = input('[{0}/{1}] Enter SDFS parameter associated '
-                                   'with {2}: '.format(i, n_params, param))
-                if sdfs_param in self.params:
-                    valid = True
-                    self.sdfs_header_names.append(sdfs_param)
-                    if self.data_type == 'reference':
-                        self.setParamMetaCols(param, sdfs_param)
-                    unit_transform = self.checkParamUnits(param, sdfs_param)
+                print(f'\n[{i}/{n_params}]')
+                print('-----')
 
-                    self.add_param_attrib(param,
-                                          attrib_key='unit_transform',
-                                          attrib_val=unit_transform)
+                header_type = input('Enter the character indicating the type of'
+                   f' parameter \n{pretty_params}\n\nHeader name "{rec_header}": ')
+
+                if header_type == 'S':
+                    set_header = input(f'{self.sdfs_params}\nFrom the list '
+                            'above, select the SDFS parameter associated with '
+                            f'{rec_header}: ')
+
+                    if set_header in self.sdfs_params:
+                        valid = True
+                        self.sdfs_header_names.append(set_header)
+                        if self.data_type == 'reference':
+                            self.setParamMetaCols(rec_header, set_header)
+                        unit_transform = self.checkParamUnits(rec_header, set_header)
+
+                        self.add_param_attrib(rec_header,
+                                              attrib_key='unit_transform',
+                                              attrib_val=unit_transform)
+                        drop = False
+
+                    else:
+                        print('..Invalid entry')
+
+                if header_type == 'C':
+                    if self.custom_params != []:
+
+                        set_header = input('Enter custom parameter associated with '
+                                           f'{rec_header}: ')
+                        print(self.custom_params)
+                        if set_header in self.sdfs_params:
+                            valid = True
+                            drop = False
+                    else:
+                        print('No custom Parameters previously configured')
+
+                if header_type == 'N':
+                    set_header = input('Enter new custom parameter associated with '
+                                       f'{rec_header}: ')
+                    response = validate_entry(statement=f'Do you wish to save {set_header} to the catalog of sensortoolkit.Parameter attributes?')
+
+                    if response == 'y':
+                        save_param = True
+                    else:
+                        save_param = False
+                    print('')
+                    Parameter(set_header, save_custom_param=save_param)
+                    valid = True
                     drop = False
 
-                elif sdfs_param == '':
+                if header_type == '':
                     valid = True
-                    print('..{0} will be dropped'.format(param))
+                    print('..{0} will be dropped'.format(rec_header))
                     drop = True
+                    set_header = ''
 
-                else:
-                    print('..Invalid entry. Choose from the list above.')
+                if header_type not in param_types.keys():
+                    print('..Invalid parameter header type')
 
-            renaming_dict[param] = sdfs_param
+            renaming_dict[rec_header] = set_header
 
-            self.add_param_attrib(param,
+            self.add_param_attrib(rec_header,
                                   attrib_key='header_class',
                                   attrib_val='parameter')
 
-            self.add_param_attrib(param,
+            self.add_param_attrib(rec_header,
                                   attrib_key='sdfs_param',
-                                  attrib_val=sdfs_param)
+                                  attrib_val=set_header)
 
-            self.add_param_attrib(param,
+            self.add_param_attrib(rec_header,
                                   attrib_key='drop',
                                   attrib_val=drop)
 
