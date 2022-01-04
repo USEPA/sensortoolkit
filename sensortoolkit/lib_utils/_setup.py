@@ -384,10 +384,6 @@ class _Setup:
         # particular row index key.
 
         print(f'Parsing datasets at "..{self.data_rel_path}"')
-
-
-
-
         for i, file in enumerate(self.file_list):
             # Try loading with utf-8 encoding, if error raised, try utf-16
             try:
@@ -519,16 +515,17 @@ class _Setup:
         while edit:
             confirm = 'n'
             while confirm == 'n':
-                col_name = input("Enter Column Header #{0}: ".format(str(col_n)
-                                                                     )
-                                 )
+                col_name = input("Enter Column Header #{0}: ".format(str(col_n)))
                 if col_name == 'X':
                     edit = False
                     break
 
                 # Shortcut method for copying and pasting list of columns into
                 # first entry
-                col_list = col_name.replace('\n', '').replace(' ', '').replace('"', '').split(',')
+                replace_strs = ['\n', ' ', '"']
+                for char in replace_strs:
+                    col_name = col_name.replace(char, '')
+                col_list = col_name.split(',')
                 if len(col_list) > 1:
                     # Assign only if list of strings passed
                     if '[' in col_list[0] and ']' in col_list[-1]:
@@ -702,6 +699,8 @@ class _Setup:
                         if set_header in self.sdfs_params:
                             valid = True
                             drop = False
+                        else:
+                            print('..Invalid entry')
                     else:
                         print('No custom Parameters previously configured')
 
@@ -766,25 +765,6 @@ class _Setup:
             the unit basis for the SDFS parameter.
 
         """
-        # preset_sdfs = Parameter(sdfs_param, set_units=False).is_sdfs()
-
-        # # Check if the SDFS parameter has a preset configuration. If true,
-        # # retrieve unit info from preset param definition.
-        # if preset_sdfs:
-        #     sdfs_param_units = Parameter(sdfs_param).units
-        #     print('')
-        #     print(f'  Are the units of measure for {param} {sdfs_param_units}?')
-        #     confirm = validate_entry(indent_statement=2)
-        #     if confirm == 'n':
-        #         val = input('  Enter the scalar quanitity for converting the '
-        #                     'recorded measurements to the following unit basis: '
-        #                     f'{sdfs_param_units}')
-        #     else:
-        #         val = None
-        # # Otherwise ask for parameter units
-        # else:
-        #     param = Parameter(sdfs_param)
-        #     val = None
         val = None
         sdfs_param_units = Parameter(sdfs_param).units
         print('')
