@@ -194,8 +194,11 @@ def standard_ingest(path, name=None, setup_file_path=None):
                 df[header] = setup[header]
                 df[header] = df[header].astype(col_dtype, errors='ignore')
             # Add unit info based on sensortoolkit.Parameter if not specified
-            elif col == '_Unit':
-                df[header] = Parameter(param).units_description
+            else:
+                param_obj = Parameter(param, set_units=False)
+                if col == '_Unit' and param_obj.is_sdfs():
+                    param_obj = Parameter(param, set_units=True)
+                    df[header] = param_obj.units_description
 
     # Reorder parameter columns
     col_order = []
