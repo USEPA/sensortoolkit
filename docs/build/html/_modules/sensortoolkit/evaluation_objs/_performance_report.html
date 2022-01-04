@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>sensortoolkit.evaluation_objs._performance_report &mdash; sensortoolkit 0.6.3b2 documentation</title>
+  <title>sensortoolkit.evaluation_objs._performance_report &mdash; sensortoolkit 0.6.4b1 documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" type="text/css" />
@@ -30,7 +30,7 @@
             <a href="../../../index.html" class="icon icon-home"> sensortoolkit
           </a>
               <div class="version">
-                0.6.3b2
+                0.6.4b1
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
@@ -675,6 +675,7 @@
                 <span class="n">create_figure</span> <span class="o">=</span> <span class="kc">True</span>
 
         <span class="k">if</span> <span class="n">create_figure</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">write_to_file</span> <span class="o">=</span> <span class="kc">True</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">plot_sensor_scatter</span><span class="p">(</span>
                 <span class="n">plot_subset</span><span class="o">=</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;plot_subset&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;1&#39;</span><span class="p">]),</span>
                 <span class="c1"># plot_limits=kwargs.get(&#39;plot_limits&#39;, (-1, self.plot_cmax)),</span>
@@ -753,6 +754,7 @@
                     <span class="n">create_figure</span> <span class="o">=</span> <span class="kc">True</span>
 
             <span class="k">if</span> <span class="n">create_figure</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">write_to_file</span> <span class="o">=</span> <span class="kc">True</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">plot_sensor_scatter</span><span class="p">(</span>
                     <span class="n">averaging_interval</span><span class="p">,</span>
                     <span class="n">plot_limits</span><span class="o">=</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;plot_limits&#39;</span><span class="p">,</span>
@@ -805,6 +807,7 @@
                 <span class="n">create_figure</span> <span class="o">=</span> <span class="kc">True</span>
 
         <span class="k">if</span> <span class="n">create_figure</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">write_to_file</span> <span class="o">=</span> <span class="kc">True</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">plot_timeseries</span><span class="p">(</span><span class="n">report_fmt</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
         <span class="n">timeseries_loc</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fig_locs</span><span class="p">[</span><span class="s1">&#39;Timeseries&#39;</span><span class="p">]</span>
@@ -842,6 +845,7 @@
                 <span class="n">create_figure</span> <span class="o">=</span> <span class="kc">True</span>
 
         <span class="k">if</span> <span class="n">create_figure</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">write_to_file</span> <span class="o">=</span> <span class="kc">True</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">plot_metrics</span><span class="p">()</span>
 
         <span class="n">metricplt_loc</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fig_locs</span><span class="p">[</span><span class="s1">&#39;MetricPlot&#39;</span><span class="p">]</span>
@@ -879,6 +883,7 @@
                 <span class="n">create_figure</span> <span class="o">=</span> <span class="kc">True</span>
 
         <span class="k">if</span> <span class="n">create_figure</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">write_to_file</span> <span class="o">=</span> <span class="kc">True</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">plot_met_dist</span><span class="p">()</span>
 
         <span class="n">metdist_loc</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fig_locs</span><span class="p">[</span><span class="s1">&#39;MetDist&#39;</span><span class="p">]</span>
@@ -917,6 +922,7 @@
                 <span class="n">create_figure</span> <span class="o">=</span> <span class="kc">True</span>
 
         <span class="k">if</span> <span class="n">create_figure</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">write_to_file</span> <span class="o">=</span> <span class="kc">True</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">plot_met_influence</span><span class="p">(</span><span class="n">report_fmt</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                                     <span class="n">plot_error_bars</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 

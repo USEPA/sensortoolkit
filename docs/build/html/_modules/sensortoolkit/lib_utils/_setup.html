@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>sensortoolkit.lib_utils._setup &mdash; sensortoolkit 0.6.3b2 documentation</title>
+  <title>sensortoolkit.lib_utils._setup &mdash; sensortoolkit 0.6.4b1 documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" type="text/css" />
@@ -30,7 +30,7 @@
             <a href="../../../index.html" class="icon icon-home"> sensortoolkit
           </a>
               <div class="version">
-                0.6.3b2
+                0.6.4b1
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
@@ -397,7 +397,7 @@
 <span class="sd">dataset(s) for the purpose of data ingestion into the Sensor Data</span>
 <span class="sd">Formatting Scheme (SDFS).</span>
 
-<span class="sd">================================================================================</span>
+<span class="sd">===============================================================================</span>
 
 <span class="sd">@Author:</span>
 <span class="sd">  | Samuel Frederick, NSSC Contractor (ORAU)</span>
@@ -423,6 +423,7 @@
 <span class="kn">from</span> <span class="nn">sensortoolkit.ingest</span> <span class="kn">import</span> <span class="n">standard_ingest</span>
 <span class="kn">from</span> <span class="nn">sensortoolkit.datetime_utils</span> <span class="kn">import</span> <span class="p">(</span><span class="n">interval_averaging</span><span class="p">,</span>
                                           <span class="n">get_timestamp_interval</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">sensortoolkit</span> <span class="kn">import</span> <span class="n">_param_dict</span>
 
 
 <span class="k">class</span> <span class="nc">_Setup</span><span class="p">:</span>
@@ -436,7 +437,11 @@
 
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="n">params</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">Parameter</span><span class="o">.</span><span class="n">__param_dict__</span><span class="o">.</span><span class="n">keys</span><span class="p">()))</span>
+    <span class="c1">#params = sorted(list(Parameter.__param_dict__.keys()))</span>
+
+    <span class="n">sdfs_params</span> <span class="o">=</span> <span class="p">[</span><span class="n">key</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">_param_dict</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">_param_dict</span><span class="p">[</span><span class="n">key</span><span class="p">][</span><span class="s1">&#39;custom&#39;</span><span class="p">]]</span>
+    <span class="n">custom_params</span> <span class="o">=</span> <span class="p">[</span><span class="n">key</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">_param_dict</span> <span class="k">if</span> <span class="n">_param_dict</span><span class="p">[</span><span class="n">key</span><span class="p">][</span><span class="s1">&#39;custom&#39;</span><span class="p">]]</span>
+
     <span class="n">data_types</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;.csv&#39;</span><span class="p">,</span> <span class="s1">&#39;.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;.xlsx&#39;</span><span class="p">]</span>
     <span class="n">__banner_w__</span> <span class="o">=</span> <span class="mi">79</span>
     <span class="n">pp</span> <span class="o">=</span> <span class="n">pprint</span><span class="o">.</span><span class="n">PrettyPrinter</span><span class="p">()</span>
@@ -769,10 +774,6 @@
         <span class="c1"># particular row index key.</span>
 
         <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Parsing datasets at &quot;..</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">data_rel_path</span><span class="si">}</span><span class="s1">&quot;&#39;</span><span class="p">)</span>
-
-
-
-
         <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">file</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">file_list</span><span class="p">):</span>
             <span class="c1"># Try loading with utf-8 encoding, if error raised, try utf-16</span>
             <span class="k">try</span><span class="p">:</span>
@@ -904,16 +905,17 @@
         <span class="k">while</span> <span class="n">edit</span><span class="p">:</span>
             <span class="n">confirm</span> <span class="o">=</span> <span class="s1">&#39;n&#39;</span>
             <span class="k">while</span> <span class="n">confirm</span> <span class="o">==</span> <span class="s1">&#39;n&#39;</span><span class="p">:</span>
-                <span class="n">col_name</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;Enter Column Header #</span><span class="si">{0}</span><span class="s2">: &quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">col_n</span><span class="p">)</span>
-                                                                     <span class="p">)</span>
-                                 <span class="p">)</span>
+                <span class="n">col_name</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;Enter Column Header #</span><span class="si">{0}</span><span class="s2">: &quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">col_n</span><span class="p">)))</span>
                 <span class="k">if</span> <span class="n">col_name</span> <span class="o">==</span> <span class="s1">&#39;X&#39;</span><span class="p">:</span>
                     <span class="n">edit</span> <span class="o">=</span> <span class="kc">False</span>
                     <span class="k">break</span>
 
                 <span class="c1"># Shortcut method for copying and pasting list of columns into</span>
                 <span class="c1"># first entry</span>
-                <span class="n">col_list</span> <span class="o">=</span> <span class="n">col_name</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;&quot;&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)</span>
+                <span class="n">replace_strs</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="s1">&#39;&quot;&#39;</span><span class="p">]</span>
+                <span class="k">for</span> <span class="n">char</span> <span class="ow">in</span> <span class="n">replace_strs</span><span class="p">:</span>
+                    <span class="n">col_name</span> <span class="o">=</span> <span class="n">col_name</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">char</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+                <span class="n">col_list</span> <span class="o">=</span> <span class="n">col_name</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)</span>
                 <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">col_list</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
                     <span class="c1"># Assign only if list of strings passed</span>
                     <span class="k">if</span> <span class="s1">&#39;[&#39;</span> <span class="ow">in</span> <span class="n">col_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">and</span> <span class="s1">&#39;]&#39;</span> <span class="ow">in</span> <span class="n">col_list</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
@@ -1029,11 +1031,19 @@
 <span class="sd">            None.</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">param_types</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;S&#39;</span><span class="p">:</span> <span class="s1">&#39;The header corresponds to an SDFS Parameter&#39;</span><span class="p">,</span>
+             <span class="s1">&#39;C&#39;</span><span class="p">:</span> <span class="s1">&#39;The header corresponds to an existing custom Parameter&#39;</span><span class="p">,</span>
+             <span class="s1">&#39;N&#39;</span><span class="p">:</span> <span class="s1">&#39;Create a new custom Parameter for the header&#39;</span><span class="p">,</span>
+             <span class="s1">&#39;&#39;</span><span class="p">:</span> <span class="s1">&#39;(enter key) Skip the current header and drop from SDFS datasets&#39;</span><span class="p">}</span>
+        <span class="n">pretty_params</span> <span class="o">=</span> <span class="n">pprint</span><span class="o">.</span><span class="n">pformat</span><span class="p">(</span><span class="n">param_types</span><span class="p">)</span>
+
+
         <span class="k">if</span> <span class="n">print_banner</span><span class="p">:</span>
-            <span class="n">txt</span> <span class="o">=</span> <span class="s1">&#39;Choose from the following list of SDFS parameter names&#39;</span>
+            <span class="c1">#txt = &#39;Choose from the following list of SDFS parameter names&#39;</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">printSelectionBanner</span><span class="p">(</span><span class="s1">&#39;Specify Parameter columns&#39;</span><span class="p">,</span>
                                       <span class="n">options</span><span class="o">=</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">skip_str</span><span class="p">],</span>
-                                      <span class="n">notes</span><span class="o">=</span><span class="p">[</span><span class="n">txt</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">])</span>
+                                      <span class="c1">#notes=[txt, self.params]</span>
+                                      <span class="p">)</span>
         <span class="c1"># drop time-like columns and ask user for SDFS parameter associated</span>
         <span class="c1"># with remaining cols</span>
         <span class="n">param_col_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">param</span> <span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">all_col_headers</span>
@@ -1041,42 +1051,83 @@
 
         <span class="n">n_params</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">param_col_list</span><span class="p">)</span>
         <span class="n">renaming_dict</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">param</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">param_col_list</span><span class="p">,</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">rec_header</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">param_col_list</span><span class="p">,</span> <span class="mi">1</span><span class="p">):</span>
             <span class="n">valid</span> <span class="o">=</span> <span class="kc">False</span>
             <span class="k">while</span> <span class="n">valid</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
-                <span class="n">sdfs_param</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s1">&#39;[</span><span class="si">{0}</span><span class="s1">/</span><span class="si">{1}</span><span class="s1">] Enter SDFS parameter associated &#39;</span>
-                                   <span class="s1">&#39;with </span><span class="si">{2}</span><span class="s1">: &#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">n_params</span><span class="p">,</span> <span class="n">param</span><span class="p">))</span>
-                <span class="k">if</span> <span class="n">sdfs_param</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="p">:</span>
-                    <span class="n">valid</span> <span class="o">=</span> <span class="kc">True</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">sdfs_header_names</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sdfs_param</span><span class="p">)</span>
-                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_type</span> <span class="o">==</span> <span class="s1">&#39;reference&#39;</span><span class="p">:</span>
-                        <span class="bp">self</span><span class="o">.</span><span class="n">setParamMetaCols</span><span class="p">(</span><span class="n">param</span><span class="p">,</span> <span class="n">sdfs_param</span><span class="p">)</span>
-                    <span class="n">unit_transform</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">checkParamUnits</span><span class="p">(</span><span class="n">param</span><span class="p">,</span> <span class="n">sdfs_param</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">[</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s1">/</span><span class="si">{</span><span class="n">n_params</span><span class="si">}</span><span class="s1">]&#39;</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;-----&#39;</span><span class="p">)</span>
 
-                    <span class="bp">self</span><span class="o">.</span><span class="n">add_param_attrib</span><span class="p">(</span><span class="n">param</span><span class="p">,</span>
-                                          <span class="n">attrib_key</span><span class="o">=</span><span class="s1">&#39;unit_transform&#39;</span><span class="p">,</span>
-                                          <span class="n">attrib_val</span><span class="o">=</span><span class="n">unit_transform</span><span class="p">)</span>
+                <span class="n">header_type</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s1">&#39;Enter the character indicating the type of&#39;</span>
+                   <span class="sa">f</span><span class="s1">&#39; parameter </span><span class="se">\n</span><span class="si">{</span><span class="n">pretty_params</span><span class="si">}</span><span class="se">\n\n</span><span class="s1">Header name &quot;</span><span class="si">{</span><span class="n">rec_header</span><span class="si">}</span><span class="s1">&quot;: &#39;</span><span class="p">)</span>
+
+                <span class="k">if</span> <span class="n">header_type</span> <span class="o">==</span> <span class="s1">&#39;S&#39;</span><span class="p">:</span>
+                    <span class="n">set_header</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">sdfs_params</span><span class="si">}</span><span class="se">\n</span><span class="s1">From the list &#39;</span>
+                            <span class="s1">&#39;above, select the SDFS parameter associated with &#39;</span>
+                            <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">rec_header</span><span class="si">}</span><span class="s1">: &#39;</span><span class="p">)</span>
+
+                    <span class="k">if</span> <span class="n">set_header</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">sdfs_params</span><span class="p">:</span>
+                        <span class="n">valid</span> <span class="o">=</span> <span class="kc">True</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">sdfs_header_names</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">set_header</span><span class="p">)</span>
+                        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_type</span> <span class="o">==</span> <span class="s1">&#39;reference&#39;</span><span class="p">:</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">setParamMetaCols</span><span class="p">(</span><span class="n">rec_header</span><span class="p">,</span> <span class="n">set_header</span><span class="p">)</span>
+                        <span class="n">unit_transform</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">checkParamUnits</span><span class="p">(</span><span class="n">rec_header</span><span class="p">,</span> <span class="n">set_header</span><span class="p">)</span>
+
+                        <span class="bp">self</span><span class="o">.</span><span class="n">add_param_attrib</span><span class="p">(</span><span class="n">rec_header</span><span class="p">,</span>
+                                              <span class="n">attrib_key</span><span class="o">=</span><span class="s1">&#39;unit_transform&#39;</span><span class="p">,</span>
+                                              <span class="n">attrib_val</span><span class="o">=</span><span class="n">unit_transform</span><span class="p">)</span>
+                        <span class="n">drop</span> <span class="o">=</span> <span class="kc">False</span>
+
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;..Invalid entry&#39;</span><span class="p">)</span>
+
+                <span class="k">if</span> <span class="n">header_type</span> <span class="o">==</span> <span class="s1">&#39;C&#39;</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">custom_params</span> <span class="o">!=</span> <span class="p">[]:</span>
+
+                        <span class="n">set_header</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s1">&#39;Enter custom parameter associated with &#39;</span>
+                                           <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">rec_header</span><span class="si">}</span><span class="s1">: &#39;</span><span class="p">)</span>
+                        <span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">custom_params</span><span class="p">)</span>
+                        <span class="k">if</span> <span class="n">set_header</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">sdfs_params</span><span class="p">:</span>
+                            <span class="n">valid</span> <span class="o">=</span> <span class="kc">True</span>
+                            <span class="n">drop</span> <span class="o">=</span> <span class="kc">False</span>
+                        <span class="k">else</span><span class="p">:</span>
+                            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;..Invalid entry&#39;</span><span class="p">)</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;No custom Parameters previously configured&#39;</span><span class="p">)</span>
+
+                <span class="k">if</span> <span class="n">header_type</span> <span class="o">==</span> <span class="s1">&#39;N&#39;</span><span class="p">:</span>
+                    <span class="n">set_header</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s1">&#39;Enter new custom parameter associated with &#39;</span>
+                                       <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">rec_header</span><span class="si">}</span><span class="s1">: &#39;</span><span class="p">)</span>
+                    <span class="n">response</span> <span class="o">=</span> <span class="n">validate_entry</span><span class="p">(</span><span class="n">statement</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;Do you wish to save </span><span class="si">{</span><span class="n">set_header</span><span class="si">}</span><span class="s1"> to the catalog of sensortoolkit.Parameter attributes?&#39;</span><span class="p">)</span>
+
+                    <span class="k">if</span> <span class="n">response</span> <span class="o">==</span> <span class="s1">&#39;y&#39;</span><span class="p">:</span>
+                        <span class="n">save_param</span> <span class="o">=</span> <span class="kc">True</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">save_param</span> <span class="o">=</span> <span class="kc">False</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+                    <span class="n">Parameter</span><span class="p">(</span><span class="n">set_header</span><span class="p">,</span> <span class="n">save_custom_param</span><span class="o">=</span><span class="n">save_param</span><span class="p">)</span>
+                    <span class="n">valid</span> <span class="o">=</span> <span class="kc">True</span>
                     <span class="n">drop</span> <span class="o">=</span> <span class="kc">False</span>
 
-                <span class="k">elif</span> <span class="n">sdfs_param</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">header_type</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
                     <span class="n">valid</span> <span class="o">=</span> <span class="kc">True</span>
-                    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;..</span><span class="si">{0}</span><span class="s1"> will be dropped&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">param</span><span class="p">))</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;..</span><span class="si">{0}</span><span class="s1"> will be dropped&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">rec_header</span><span class="p">))</span>
                     <span class="n">drop</span> <span class="o">=</span> <span class="kc">True</span>
+                    <span class="n">set_header</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
 
-                <span class="k">else</span><span class="p">:</span>
-                    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;..Invalid entry. Choose from the list above.&#39;</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">header_type</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">param_types</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;..Invalid parameter header type&#39;</span><span class="p">)</span>
 
-            <span class="n">renaming_dict</span><span class="p">[</span><span class="n">param</span><span class="p">]</span> <span class="o">=</span> <span class="n">sdfs_param</span>
+            <span class="n">renaming_dict</span><span class="p">[</span><span class="n">rec_header</span><span class="p">]</span> <span class="o">=</span> <span class="n">set_header</span>
 
-            <span class="bp">self</span><span class="o">.</span><span class="n">add_param_attrib</span><span class="p">(</span><span class="n">param</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">add_param_attrib</span><span class="p">(</span><span class="n">rec_header</span><span class="p">,</span>
                                   <span class="n">attrib_key</span><span class="o">=</span><span class="s1">&#39;header_class&#39;</span><span class="p">,</span>
                                   <span class="n">attrib_val</span><span class="o">=</span><span class="s1">&#39;parameter&#39;</span><span class="p">)</span>
 
-            <span class="bp">self</span><span class="o">.</span><span class="n">add_param_attrib</span><span class="p">(</span><span class="n">param</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">add_param_attrib</span><span class="p">(</span><span class="n">rec_header</span><span class="p">,</span>
                                   <span class="n">attrib_key</span><span class="o">=</span><span class="s1">&#39;sdfs_param&#39;</span><span class="p">,</span>
-                                  <span class="n">attrib_val</span><span class="o">=</span><span class="n">sdfs_param</span><span class="p">)</span>
+                                  <span class="n">attrib_val</span><span class="o">=</span><span class="n">set_header</span><span class="p">)</span>
 
-            <span class="bp">self</span><span class="o">.</span><span class="n">add_param_attrib</span><span class="p">(</span><span class="n">param</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">add_param_attrib</span><span class="p">(</span><span class="n">rec_header</span><span class="p">,</span>
                                   <span class="n">attrib_key</span><span class="o">=</span><span class="s1">&#39;drop&#39;</span><span class="p">,</span>
                                   <span class="n">attrib_val</span><span class="o">=</span><span class="n">drop</span><span class="p">)</span>
 
@@ -1104,25 +1155,6 @@
 <span class="sd">            the unit basis for the SDFS parameter.</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="c1"># preset_sdfs = Parameter(sdfs_param, set_units=False).is_sdfs()</span>
-
-        <span class="c1"># # Check if the SDFS parameter has a preset configuration. If true,</span>
-        <span class="c1"># # retrieve unit info from preset param definition.</span>
-        <span class="c1"># if preset_sdfs:</span>
-        <span class="c1">#     sdfs_param_units = Parameter(sdfs_param).units</span>
-        <span class="c1">#     print(&#39;&#39;)</span>
-        <span class="c1">#     print(f&#39;  Are the units of measure for {param} {sdfs_param_units}?&#39;)</span>
-        <span class="c1">#     confirm = validate_entry(indent_statement=2)</span>
-        <span class="c1">#     if confirm == &#39;n&#39;:</span>
-        <span class="c1">#         val = input(&#39;  Enter the scalar quanitity for converting the &#39;</span>
-        <span class="c1">#                     &#39;recorded measurements to the following unit basis: &#39;</span>
-        <span class="c1">#                     f&#39;{sdfs_param_units}&#39;)</span>
-        <span class="c1">#     else:</span>
-        <span class="c1">#         val = None</span>
-        <span class="c1"># # Otherwise ask for parameter units</span>
-        <span class="c1"># else:</span>
-        <span class="c1">#     param = Parameter(sdfs_param)</span>
-        <span class="c1">#     val = None</span>
         <span class="n">val</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="n">sdfs_param_units</span> <span class="o">=</span> <span class="n">Parameter</span><span class="p">(</span><span class="n">sdfs_param</span><span class="p">)</span><span class="o">.</span><span class="n">units</span>
         <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
