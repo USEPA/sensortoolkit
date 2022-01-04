@@ -139,15 +139,16 @@ def regression_stats(sensor_df_obj, ref_df_obj, deploy_dict, param, serials,
 
         # Locate the union of non-nan sensor (y) and reference (x) data
         # False if either is nan and true if both are finite
-        idx = np.isfinite(xdata) & np.isfinite(ydata)
+        # idx = np.isfinite(xdata) & np.isfinite(ydata)
 
-        X = pd.Series(xdata)
-        Y = pd.Series(ydata)
+        # X = pd.Series(xdata)
+        # Y = pd.Series(ydata)
 
         combine_df = pd.DataFrame()
         combine_df['ref_data'] = xdata
         combine_df['sensor_data'] = ydata
         combine_df = combine_df.dropna()
+
 
         # Determine the averaging interval for the supplied dataset
         if (df.index[1] - df.index[0]) == pd.Timedelta('1 days'):
@@ -180,10 +181,10 @@ def regression_stats(sensor_df_obj, ref_df_obj, deploy_dict, param, serials,
 
             else:
                 # Compute linear regress. for the union of finite x and y data
-                fit = np.polyfit(xdata[idx], ydata[idx], 1)
+                fit = np.polyfit(combine_df.ref_data, combine_df.sensor_data, 1)
                 slope = fit[0]
                 intercept = fit[1]
-                pearson_coeff = X.corr(Y, method='pearson')
+                pearson_coeff = combine_df.ref_data.corr(combine_df.sensor_data, method='pearson')
                 r_square = pearson_coeff*pearson_coeff
 
                 sensor_val = combine_df.sensor_data
