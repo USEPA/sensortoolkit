@@ -285,6 +285,7 @@ class PerformanceReport(SensorEvaluation):
                 create_figure = True
 
         if create_figure:
+            self.write_to_file = True
             self.plot_sensor_scatter(
                 plot_subset=kwargs.get('plot_subset', ['1']),
                 # plot_limits=kwargs.get('plot_limits', (-1, self.plot_cmax)),
@@ -363,6 +364,7 @@ class PerformanceReport(SensorEvaluation):
                     create_figure = True
 
             if create_figure:
+                self.write_to_file = True
                 self.plot_sensor_scatter(
                     averaging_interval,
                     plot_limits=kwargs.get('plot_limits',
@@ -415,6 +417,7 @@ class PerformanceReport(SensorEvaluation):
                 create_figure = True
 
         if create_figure:
+            self.write_to_file = True
             self.plot_timeseries(report_fmt=True)
 
         timeseries_loc = self.fig_locs['Timeseries']
@@ -452,6 +455,7 @@ class PerformanceReport(SensorEvaluation):
                 create_figure = True
 
         if create_figure:
+            self.write_to_file = True
             self.plot_metrics()
 
         metricplt_loc = self.fig_locs['MetricPlot']
@@ -489,6 +493,7 @@ class PerformanceReport(SensorEvaluation):
                 create_figure = True
 
         if create_figure:
+            self.write_to_file = True
             self.plot_met_dist()
 
         metdist_loc = self.fig_locs['MetDist']
@@ -527,6 +532,7 @@ class PerformanceReport(SensorEvaluation):
                 create_figure = True
 
         if create_figure:
+            self.write_to_file = True
             self.plot_met_influence(report_fmt=True,
                                     plot_error_bars=False)
 
