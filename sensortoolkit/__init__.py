@@ -125,7 +125,7 @@ from .param._parameter import Parameter
 
 __version__ = lib_utils._get_version()
 
-from os import getcwd
+import os as _os
 
 class _presets:
     """A simple class for setting package-wide attributes.
@@ -135,12 +135,12 @@ class _presets:
         data, and results pertaining to an evaluation.
 
     """
-    _project_path = getcwd()
+    _project_path = _os.getcwd()
 
     def __init__(self):
         pass
 
-    def set_project_path(self):
+    def set_project_path(self, project_path=None):
         """Configure the path to the directory where evaluation scripts, data
         and results are stored.
 
@@ -148,15 +148,18 @@ class _presets:
             None.
 
         """
+        if project_path is None:
+            banner_w = 79
+            src_dir = lib_utils._prompt_directory()
 
-        banner_w = 79
-        src_dir = lib_utils._prompt_directory()
+            print('Project Path:')
+            print('..{0}'.format(src_dir))
 
-        print('Project Path:')
-        print('..{0}'.format(src_dir))
+            self._project_path = src_dir
 
-        self._project_path = src_dir
+        elif _os.path.isdir(project_path):
+            self._project_path = project_path
+        else:
+            raise ValueError('Directory path does not exist')
 
 presets = _presets()
-
-del getcwd
