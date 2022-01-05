@@ -90,7 +90,7 @@ def construct_deploy_dict(deploy_df, full_df_list, hourly_df_list,
             end times (based on the latest (max) start timestamp and earliest
             (min) end timestamp in group), deployment duration, and sensor
             serial IDs for devices within each deployment group.
-            
+
     """
 
     # Testing organization information
@@ -151,21 +151,19 @@ def construct_deploy_dict(deploy_df, full_df_list, hourly_df_list,
         deployments['Group ' + str(deploy_grp_n)]['sensors'] = sensor_info
 
         deployments['Group ' + str(deploy_grp_n)]['eval_start'] = \
-            deploy.Begin.min().strftime("%Y-%m-%d %H:%M:%S")
+            deploy.Begin.min().strftime("%Y-%m-%dT%H:%M:%S%z")
         deployments['Group ' + str(deploy_grp_n)]['eval_end'] = \
-            deploy.End.max().strftime("%Y-%m-%d %H:%M:%S")
+            deploy.End.max().strftime("%Y-%m-%dT%H:%M:%S%z")
         deployments['Group ' + str(deploy_grp_n)]['eval_duration'] = \
             str(abs(deploy.Begin.min() - deploy.End.max()))
 
         start = deployments['Group ' + str(deploy_grp_n)]['eval_start']
         end = deployments['Group ' + str(deploy_grp_n)]['eval_end']
 
-        # hourly_idx = pd.to_datetime(
-        #                 pd.date_range(start, end,
-        #                               freq='H').strftime('%Y-%m-%d %H:00:00'))
-        # daily_idx = pd.to_datetime(
-        #                 pd.date_range(start, end,
-        #                               freq='D').strftime('%Y-%m-%d'))
+        # round timestamp down to nearest hour
+        start = pd.to_datetime(start).floor(freq='H')
+        # round timestamp up to nearest hour
+        end = pd.to_datetime(end).ceil(freq='H')
 
         for sensor_n in list(sensor_info.keys()):
             i = int(sensor_n) - 1
@@ -186,16 +184,12 @@ def construct_deploy_dict(deploy_df, full_df_list, hourly_df_list,
             sensor_info[sensor_n]['recording_interval'] = time_delta
 
             # 1-hr uptime
-            sensor_h_uptime = uptime(hourly_df.loc[start:end, :],
-                                                key=sensor_n)
-            sensor_info[sensor_n]['uptime_1-hour'] = \
-                sensor_h_uptime[sensor_n]['Uptime']
+            sensor_h_uptime = uptime(hourly_df.loc[start:end, :],  key=sensor_n)
+            sensor_info[sensor_n]['uptime_1-hour'] = sensor_h_uptime[sensor_n]['Uptime']
 
             # 24-hr uptime
-            sensor_d_uptime = uptime(daily_df.loc[start:end, :],
-                                                key=sensor_n)
-            sensor_info[sensor_n]['uptime_24-hour'] = \
-                sensor_d_uptime[sensor_n]['Uptime']
+            sensor_d_uptime = uptime(daily_df.loc[start:end, :], key=sensor_n)
+            sensor_info[sensor_n]['uptime_24-hour'] = sensor_d_uptime[sensor_n]['Uptime']
 
         deploy_df = deploy_df.drop(deploy.index, axis=0)
         deploy_grp_n += 1
