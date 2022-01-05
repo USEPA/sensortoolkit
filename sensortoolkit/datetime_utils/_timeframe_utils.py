@@ -44,8 +44,8 @@ def timeframe_search(sensor_df_list):
 
     for df in sensor_df_list:
 
-        begin_time = df.index.min().date()
-        end_time = df.index.max().date()
+        begin_time = df.index.min()
+        end_time = df.index.max()
 
         begin_times.append(begin_time)
         end_times.append(end_time)
@@ -115,7 +115,7 @@ def deploy_timestamp_index(df_obj, averaging_suffix=True):
                                       freq='D')
         avg_suffix = '_24-hour'
 
-    timestamp_idx = timestamp_idx.tz_localize('UTC')
+    #timestamp_idx = timestamp_idx.tz_localize('UTC')
 
     if averaging_suffix is True:
         return timestamp_idx, avg_suffix
