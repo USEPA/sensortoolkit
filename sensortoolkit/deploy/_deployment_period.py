@@ -44,7 +44,7 @@ def deployment_period(df_list, sensor_name, sensor_serials):
     sensor_serial_keys = list(sensor_serials.keys())
     for i, df in enumerate(df_list):
 
-        df = df.dropna(how='all', axis=0).tz_localize(None)
+        df = df.dropna(how='all', axis=0)#.tz_localize(None)
 
         begin_time = df.index[0]
         end_time = df.index[-1]
