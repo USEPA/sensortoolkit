@@ -26,7 +26,7 @@ Last Updated:
   Tue Nov 24 16:58:00 2020
 """
 import pandas as pd
-
+from sensortoolkit.datetime_utils import get_timestamp_interval
 
 def uptime(dataframe_object, key=None):
     """Compute uptime for either sensor or reference data.
@@ -51,37 +51,36 @@ def uptime(dataframe_object, key=None):
             sampling.
 
     """
-
+    print('Calculating uptime')
     # Check whether dataframe object is single dataframe or list of dataframes
     if isinstance(dataframe_object, pd.core.frame.DataFrame):
         df_list = [dataframe_object]
     else:
         df_list = dataframe_object
 
-    # Check if any of the above ref column names are in the passed dataframe(s)
-    ref_data = bool(any(header.endswith('_Value') for header in df_list[0]))
-
     uptime_dict = {}
 
     # Compute uptime ratio for each sensor dataframe and parameter
-    for sensor_number, df in enumerate(df_list, 1):
-        if ref_data is True:
-            if key is None:
-                key = 'ref'
-        else:
-            if key is None:
-                key = str(sensor_number)
+    for n, df in enumerate(df_list, 1):
+        if key is None:
+            key = str(n)
 
         uptime_dict.update({key: {}})
 
         meets_thres = df.count().mode()[0]
         below_thres = df.isna().sum().mode()[0]
-        total_hrs = meets_thres + below_thres
-        uptime_value = (float(meets_thres) / total_hrs)*100
+
+        dt = get_timestamp_interval(df,as_timedelta=True)
+        expected = pd.date_range(df.index.min(), df.index.max(), freq=dt).shape[0]
+
+        uptime_value = (float(meets_thres) / expected)*100
+
+        print(f'..non-null count: {meets_thres}, expected count: {expected}, '
+              f'uptime: {uptime_value:0.2f}%')
 
         uptime_dict[key]['Uptime'] = float("{0:.3f}".format(uptime_value))
         uptime_dict[key]['Meets Threshold'] = meets_thres
         uptime_dict[key]['Below Threshold'] = below_thres
-        uptime_dict[key]['Total Hours'] = total_hrs
+        uptime_dict[key]['Total Hours'] = expected
 
     return uptime_dict
