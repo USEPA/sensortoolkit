@@ -192,8 +192,8 @@ def cv(df_list, deploy_dict, param=None, return_deploy_dict=True):
 
         stats_loc = deploy[param]['Precision']
 
-        start = deploy['eval_start']
-        end = deploy['eval_end']
+        start = date_index.min().floor(freq='H')
+        end = date_index.max().ceil(freq='H')
 
         serials = {str(i): deploy['sensors'][str(i)]['serial_id'] for
                    i in list(deploy['sensors'].keys())}
