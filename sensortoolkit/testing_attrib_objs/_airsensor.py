@@ -19,7 +19,9 @@ import pandas as pd
 from sensortoolkit import lib_utils
 from sensortoolkit import ingest
 from sensortoolkit import datetime_utils
+from sensortoolkit import presets as _presets
 
+default_proj_path = _presets._project_path
 
 class AirSensor:
     """Object for storing and accessing air sensor data and device attributes.
@@ -36,7 +38,7 @@ class AirSensor:
 
     """
 
-    def __init__(self, make, model, project_path=None):
+    def __init__(self, make, model):
 
         self.make = make
         self.model = model
@@ -45,16 +47,21 @@ class AirSensor:
         self.edate = None
         self.data = {}
         self.recording_interval = None
+        self.project_path = _presets._project_path
 
         if self.make is not None and self.model is not None:
             self.name = '_'.join([self.make.replace(' ', '_'),
                                   self.model.replace(' ', '_')])
 
-        if project_path is not None:
-            self.project_path = project_path
-            self._setup_path = rf"{self.project_path}\data\sensor_data\{self.name}\{self.name}_setup.json"
+        if self.project_path == default_proj_path:
+            print('..Warning, project path has not been specified. Use the '
+                  'sensortoolkit.presets.set_project_path() method to assign '
+                  'a directory path.')
+            return
 
-            self._get_ingest_config()
+        self._setup_path = rf"{self.project_path}\data\sensor_data\{self.name}\{self.name}_setup.json"
+
+        self._get_ingest_config()
 
     def _get_ingest_config(self):
 

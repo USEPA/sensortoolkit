@@ -20,7 +20,9 @@ from sensortoolkit import lib_utils
 from sensortoolkit.reference import ref_api_query, load_ref_dataframes
 from sensortoolkit.param import Parameter
 from sensortoolkit.datetime_utils import interval_averaging
+from sensortoolkit import presets as _presets
 
+default_proj_path = _presets._project_path
 
 class ReferenceMonitor:
     """
@@ -65,8 +67,7 @@ class ReferenceMonitor:
     """
     _data_sources = ['airnow', 'aqs', 'airnowtech', 'local']
 
-    def __init__(self, project_path=None, data_source=None, site_name=None,
-                 site_id=None):
+    def __init__(self, data_source=None, site_name=None, site_id=None):
 
         self._setup_path = None
         self.data_source = data_source
@@ -85,39 +86,44 @@ class ReferenceMonitor:
                             '24-hour':  pd.DataFrame()}
                     }
 
-        if project_path is not None:
-            self.project_path = project_path
+        self.project_path = _presets._project_path
 
-            if all([self.site_name == None, self.site_id == None,
-                    self.data_source == None]):
-                print('..reference data source and monitoring site information'
-                      ' not specified, run ReferenceMonitor.reference_setup() to continue')
-                return
+        if self.project_path == default_proj_path:
+            print('..Warning, project path has not been specified. Use the '
+                  'sensortoolkit.presets.set_project_path() method to assign '
+                  'a directory path.')
+            return
 
-            if self.data_source == None:
-                raise ValueError('No reference data source specified, choose'
-                                 f' from the following sources: {self._data_sources}')
+        if all([self.site_name == None, self.site_id == None,
+                self.data_source == None]):
+            print('..reference data source and monitoring site information'
+                  ' not specified, run ReferenceMonitor.reference_setup() to continue')
+            return
 
-            if self.site_name == None:
-                self.site_name = 'Unspecified Site Name'
-            self.site_name = self.site_name.title()
-            self._fmt_site_name = self.site_name.replace(' ', '_')
+        if self.data_source == None:
+            raise ValueError('No reference data source specified, choose'
+                             f' from the following sources: {self._data_sources}')
 
-            if self.site_id == None:
-                self.site_id = 'Unspecified Site ID'
-            self._fmt_site_id = self.site_id.replace('-', '').replace(' ', '_')
+        if self.site_name == None:
+            self.site_name = 'Unspecified Site Name'
+        self.site_name = self.site_name.title()
+        self._fmt_site_name = self.site_name.replace(' ', '_')
 
-            self._ref_data_subfolder = '_'.join([self._fmt_site_name,
-                                                self._fmt_site_id])
+        if self.site_id == None:
+            self.site_id = 'Unspecified Site ID'
+        self._fmt_site_id = self.site_id.replace('-', '').replace(' ', '_')
 
-            self._ref_parent_path = rf"{self.project_path}\data\reference_data\{self.data_source}"
-            self._ref_raw_path = rf"{self._ref_parent_path}\raw\{self._ref_data_subfolder}"
-            self._setup_path = rf"{self._ref_raw_path}\reference_setup.json"
+        self._ref_data_subfolder = '_'.join([self._fmt_site_name,
+                                            self._fmt_site_id])
 
-            if not os.path.isdir(os.path.normpath(self._ref_raw_path)):
-                raise ValueError(f'No reference data folder with the path {self._ref_raw_path}')
+        self._ref_parent_path = rf"{self.project_path}\data\reference_data\{self.data_source}"
+        self._ref_raw_path = rf"{self._ref_parent_path}\raw\{self._ref_data_subfolder}"
+        self._setup_path = rf"{self._ref_raw_path}\reference_setup.json"
 
-            self._get_ingest_config()
+        if not os.path.isdir(os.path.normpath(self._ref_raw_path)):
+            raise ValueError(f'No reference data folder with the path {self._ref_raw_path}')
+
+        self._get_ingest_config()
 
     def _get_ingest_config(self):
 
