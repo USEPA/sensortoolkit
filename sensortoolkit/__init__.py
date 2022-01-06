@@ -116,15 +116,6 @@ import sensortoolkit.plotting as plotting
 import sensortoolkit.reference as reference
 
 
-# Import front-facing classes
-from .testing_attrib_objs._airsensor import AirSensor
-from .testing_attrib_objs._referencemonitor import ReferenceMonitor
-from .evaluation_objs._sensor_eval import SensorEvaluation
-from .evaluation_objs._performance_report import PerformanceReport
-from .param._parameter import Parameter
-
-__version__ = lib_utils._get_version()
-
 import os as _os
 
 class _presets:
@@ -134,11 +125,34 @@ class _presets:
         _project_path: The directory where the user intends to store scripts,
         data, and results pertaining to an evaluation.
 
+        test_org: Dictionary with information about the testing organization
+        such as the name and contact information for the group.
+
+        test_loc: Dictionary with information about the testing location such
+        as site name, address, lat/lon coordinates.
+
     """
     _project_path = _os.getcwd()
+    _org_keys = ['Deployment name', 'Org name', 'Website',
+                 'Contact email', 'Contact phone']
+    _loc_keys = ['Site name', 'Site address', 'Site lat',
+                 'Site long', 'Site AQS ID']
 
     def __init__(self):
-        pass
+        # Testing organization information
+        self.test_org = {'Deployment name': '',
+                         'Org name': '',
+                         'Website': {'website name': '',
+                                     'website link': ''},
+                         'Contact email': '',
+                         'Contact phone': ''}
+
+        # Testing location information
+        self.test_loc = {'Site name': '',
+                         'Site address': '',
+                         'Site lat': '',
+                         'Site long': '',
+                         'Site AQS ID': ''}
 
     def set_project_path(self, project_path=None):
         """Configure the path to the directory where evaluation scripts, data
@@ -162,4 +176,14 @@ class _presets:
         else:
             raise ValueError('Directory path does not exist')
 
+
 presets = _presets()
+
+# Import front-facing classes
+from .testing_attrib_objs._airsensor import AirSensor
+from .testing_attrib_objs._referencemonitor import ReferenceMonitor
+from .evaluation_objs._sensor_eval import SensorEvaluation
+from .evaluation_objs._performance_report import PerformanceReport
+from .param._parameter import Parameter
+
+__version__ = lib_utils._get_version()
