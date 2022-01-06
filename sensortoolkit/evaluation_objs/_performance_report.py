@@ -1398,7 +1398,8 @@ class PerformanceReport(SensorEvaluation):
                     try:
                         # 1-hr R^2
                         val = h_stats.loc[c1_row, 'R$^2$']
-                        text_obj.text = format(val, '3.2f')
+                        fmt_precision = '3.2f'
+                        text_obj.text = format(val, fmt_precision)
                         rsqr_h_vals.append(val)
                     except KeyError:  # Condition for empty grp stats
                         pass
@@ -1410,13 +1411,15 @@ class PerformanceReport(SensorEvaluation):
                         if self.n_avg_intervals == 1:
                             # 1-hr slope
                             val = h_stats.loc[c2_row, 'Slope']
+                            fmt_precision = '3.2f'
                             slope_h_vals.append(val)
                         if self.n_avg_intervals == 2:
                             # 24-hr R^2
                             val = d_stats.loc[c2_row, 'R$^2$']
+                            fmt_precision = '3.2f'
                             rsqr_d_vals.append(val)
 
-                        text_obj.text = format(val, '3.2f')
+                        text_obj.text = format(val, fmt_precision)
                     except KeyError:  # Condition for empty grp stats
                         pass
                     c2_row += 1
@@ -1427,12 +1430,14 @@ class PerformanceReport(SensorEvaluation):
                         if self.n_avg_intervals == 1:
                             # 1-hr Intercept
                             val = h_stats.loc[c3_row, 'Intercept']
+                            fmt_precision = '3.2f'
                             intcpt_h_vals.append(val)
                         if self.n_avg_intervals == 2:
                             # 1-hr Slope
                             val = h_stats.loc[c3_row, 'Slope']
+                            fmt_precision = '3.2f'
                             slope_h_vals.append(val)
-                        text_obj.text = format(val, '3.2f')
+                        text_obj.text = format(val, fmt_precision)
                     except KeyError:  # Condition for empty grp stats
                         pass
                     c3_row += 1
@@ -1444,12 +1449,14 @@ class PerformanceReport(SensorEvaluation):
                         if self.n_avg_intervals == 1:
                             # 1-hr uptime
                             val = grp_df[c4_row]['uptime_1-hour']
+                            fmt_precision = '3.1f'
                             self.uptime_h_vals.append(val)
                         if self.n_avg_intervals == 2:
                             # 24-hr Slope
                             val = d_stats.loc[c4_row, 'Slope']
+                            fmt_precision = '3.2f'
                             slope_d_vals.append(val)
-                        text_obj.text = format(val, '3.2f')
+                        text_obj.text = format(val, fmt_precision)
                     except KeyError:  # Condition for empty grp stats
                         pass
                     c4_row += 1
@@ -1461,12 +1468,14 @@ class PerformanceReport(SensorEvaluation):
                         if self.n_avg_intervals == 1:
                             # 1-hr N
                             val = h_stats.loc[c5_row, 'N']
+                            fmt_precision = '.0f'
                             n_h_vals.append(val)
                         if self.n_avg_intervals == 2:
                             # 1-hr Intercept
                             val = h_stats.loc[c5_row, 'Intercept']
                             intcpt_h_vals.append(val)
-                        text_obj.text = format(val, '3.2f')
+                            fmt_precision = '3.2f'
+                        text_obj.text = format(val, fmt_precision)
                     except KeyError:  # Condition for empty grp stats
                         pass
                     c5_row += 1
@@ -1480,7 +1489,8 @@ class PerformanceReport(SensorEvaluation):
                             # 24-hr Intercept
                             val = d_stats.loc[c6_row, 'Intercept']
                             intcpt_d_vals.append(val)
-                            text_obj.text = format(val, '3.2f')
+                            fmt_precision = '3.2f'
+                            text_obj.text = format(val, fmt_precision)
                         except KeyError:  # Condition for empty grp stats
                             pass
                         c6_row += 1
@@ -1491,7 +1501,8 @@ class PerformanceReport(SensorEvaluation):
                             # 1-hr Uptime
                             val = grp_df[c7_row]['uptime_1-hour']
                             self.uptime_h_vals.append(val)
-                            text_obj.text = format(val, '3.2f')
+                            fmt_precision = '3.1f'
+                            text_obj.text = format(val, fmt_precision)
                         except KeyError:  # Condition for empty grp stats
                             pass
                         c7_row += 1
@@ -1502,7 +1513,8 @@ class PerformanceReport(SensorEvaluation):
                             # 24-hr Uptime
                             val = grp_df[c8_row]['uptime_24-hour']
                             self.uptime_d_vals.append(val)
-                            text_obj.text = format(val, '3.2f')
+                            fmt_precision = '3.1f'
+                            text_obj.text = format(val, fmt_precision)
                         except KeyError:  # Condition for empty grp stats
                             pass
                         c8_row += 1
@@ -1513,7 +1525,8 @@ class PerformanceReport(SensorEvaluation):
                             # 1-hr N
                             val = h_stats.loc[c9_row, 'N']
                             n_h_vals.append(val)
-                            text_obj.text = format(val, '3.2f')
+                            fmt_precision = '.0f'
+                            text_obj.text = format(val, fmt_precision)
                         except KeyError:  # Condition for empty grp stats
                             pass
                         c9_row += 1
@@ -1524,7 +1537,8 @@ class PerformanceReport(SensorEvaluation):
                             # 24-hr N
                             val = d_stats.loc[c10_row, 'N']
                             n_d_vals.append(val)
-                            text_obj.text = format(val, '3.2f')
+                            fmt_precision = '.0f'
+                            text_obj.text = format(val, fmt_precision)
                         except KeyError:  # Condition for empty grp stats
                             pass
                         c10_row += 1
@@ -1684,10 +1698,10 @@ class PerformanceReport(SensorEvaluation):
                               '18': '≤ {:3.1f}'.format(nrmse_ubound),
                               '19': '≤ {:3.1f}'.format(nrmse_ubound),
                               '20': 'Deployment Value'}
-            metric_vals = {'21': format(error_stats['rmse_1-hour'], '3.2f'),
-                           '22': format(error_stats['rmse_24-hour'], '3.2f'),
-                           '23': format(error_stats['nrmse_1-hour'], '3.2f'),
-                           '24': format(error_stats['nrmse_24-hour'], '3.2f')}
+            metric_vals = {'21': format(error_stats['rmse_1-hour'], '3.1f'),
+                           '22': format(error_stats['rmse_24-hour'], '3.1f'),
+                           '23': format(error_stats['nrmse_1-hour'], '3.1f'),
+                           '24': format(error_stats['nrmse_24-hour'], '3.1f')}
             for key, value in metric_vals.items():
                 if value == '-999.00':
                     metric_vals[key] = ''
@@ -1707,7 +1721,7 @@ class PerformanceReport(SensorEvaluation):
             metric_targets = {'6': 'Metric Target Range',
                               '7': '≤ {:2.1f}'.format(rmse_ubound),
                               '8': 'Deployment Value'}
-            metric_vals = {'9': format(error_stats['rmse_1-hour'], '3.2f')}
+            metric_vals = {'9': format(error_stats['rmse_1-hour'], '3.1f')}
             for key, value in metric_vals.items():
                 if value == '-999.00':
                     metric_vals[key] = ''
@@ -1824,8 +1838,7 @@ class PerformanceReport(SensorEvaluation):
             metrics = {'10': 'CV\n(%)',
                        '12': f'SD\n({self.param.units})',
                        '14': 'Uptime\n(%)',
-                       '16': 'Number of paired\nsensor and '
-                             'reference\nconcentration pairs'}
+                       '16': 'Number of concurrent\nsensor concentration pairs'}
             avg_intervals = {'19': '1-Hour',
                              '20': '24-Hour',
                              '21': '1-Hour',
@@ -1850,14 +1863,14 @@ class PerformanceReport(SensorEvaluation):
                               '34': '-',
                               '35': '-',
                               '36': 'Deployment Value'}
-            metric_vals = {'37': format(grp_stats['cv_1-hour'], '3.2f'),
-                           '38': format(grp_stats['cv_24-hour'], '3.2f'),
-                           '39': format(grp_stats['std_1-hour'], '3.2f'),
-                           '40': format(grp_stats['std_24-hour'], '3.2f'),
-                           '41': format(np.mean(self.uptime_h_vals), '3.2f'),
-                           '42': format(np.mean(self.uptime_d_vals), '3.2f'),
-                           '43': format(grp_stats['n_1-hour']),
-                           '44': format(grp_stats['n_24-hour'])}
+            metric_vals = {'37': format(grp_stats['cv_1-hour'], '3.1f'),
+                           '38': format(grp_stats['cv_24-hour'], '3.1f'),
+                           '39': format(grp_stats['std_1-hour'], '3.1f'),
+                           '40': format(grp_stats['std_24-hour'], '3.1f'),
+                           '41': format(np.mean(self.uptime_h_vals), '3.1f'),
+                           '42': format(np.mean(self.uptime_d_vals), '3.1f'),
+                           '43': format(grp_stats['n_1-hour'], '.0f'),
+                           '44': format(grp_stats['n_24-hour'], '.0f')}
 
         if self.n_avg_intervals == 1:
             datacols = 4
@@ -1889,10 +1902,10 @@ class PerformanceReport(SensorEvaluation):
                               '18': '75%*',
                               '19': '-',
                               '20': 'Deployment Value'}
-            metric_vals = {'21': format(grp_stats['cv_1-hour']),
-                           '22': format(grp_stats['std_1-hour']),
-                           '23': format(np.mean(self.uptime_h_vals), '3.2f'),
-                           '24': format(grp_stats['n_1-hour'])}
+            metric_vals = {'21': format(grp_stats['cv_1-hour'], '3.1f'),
+                           '22': format(grp_stats['std_1-hour'], '3.1f'),
+                           '23': format(np.mean(self.uptime_h_vals), '3.1f'),
+                           '24': format(grp_stats['n_1-hour'], '.0f')}
 
         cells = self.SetSpanningCells(table, span_dict)
 
