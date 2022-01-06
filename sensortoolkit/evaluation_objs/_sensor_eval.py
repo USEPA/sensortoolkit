@@ -33,7 +33,7 @@ import sensortoolkit.plotting
 import sensortoolkit.qc
 import sensortoolkit.reference
 import sensortoolkit.ingest
-
+from sensortoolkit import presets as _presets
 
 class SensorEvaluation:
     """Evaluate air sensor performance for use in NSIM applications.
@@ -185,7 +185,10 @@ class SensorEvaluation:
 
         self.write_to_file = write_to_file
 
-        # Add keyword arguments (testing_loc, testing_org, etc.)
+        self.testing_loc = _presets.test_loc
+        self.testing_org = _presets.test_org
+
+        # Add keyword arguments
         self.__dict__.update(**kwargs)
         self.kwargs = kwargs
 

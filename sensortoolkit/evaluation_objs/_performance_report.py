@@ -34,6 +34,7 @@ import os
 import sys
 import warnings
 from sensortoolkit.evaluation_objs import SensorEvaluation
+from sensortoolkit import presets as _presets
 
 
 class PerformanceReport(SensorEvaluation):
@@ -129,12 +130,8 @@ class PerformanceReport(SensorEvaluation):
                         '../templates', self._param_name, self.template_name))
 
         # Details about testing and deployment site
-        self.testing_org = self.kwargs.get('testing_org',
-                                           self.deploy_dict[
-                                                   'Testing Organization'])
-        self.testing_loc = self.kwargs.get('testing_loc',
-                                           self.deploy_dict[
-                                                   'Testing Location'])
+        self.testing_loc = _presets.test_loc
+        self.testing_org = _presets.test_org
 
         # Populate deployment dictionary with performance metric results
         self.calculate_metrics()
