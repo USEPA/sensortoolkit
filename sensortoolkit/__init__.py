@@ -132,7 +132,8 @@ class _presets:
         as site name, address, lat/lon coordinates.
 
     """
-    _project_path = _os.getcwd()
+    #_project_path = _os.getcwd()
+    _project_path = _os.path.dirname(_os.path.abspath(__file__))
     _org_keys = ['Deployment name', 'Org name', 'Website',
                  'Contact email', 'Contact phone']
     _loc_keys = ['Site name', 'Site address', 'Site lat',
