@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>sensortoolkit.evaluation_objs._sensor_eval &mdash; sensortoolkit 0.6.4b1 documentation</title>
+  <title>sensortoolkit.evaluation_objs._sensor_eval &mdash; sensortoolkit 0.7.0b1 documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" type="text/css" />
@@ -30,7 +30,7 @@
             <a href="../../../index.html" class="icon icon-home"> sensortoolkit
           </a>
               <div class="version">
-                0.6.4b1
+                0.7.0b1
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
@@ -423,7 +423,7 @@
 <span class="kn">import</span> <span class="nn">sensortoolkit.qc</span>
 <span class="kn">import</span> <span class="nn">sensortoolkit.reference</span>
 <span class="kn">import</span> <span class="nn">sensortoolkit.ingest</span>
-
+<span class="kn">from</span> <span class="nn">sensortoolkit</span> <span class="kn">import</span> <span class="n">presets</span> <span class="k">as</span> <span class="n">_presets</span>
 
 <div class="viewcode-block" id="SensorEvaluation"><a class="viewcode-back" href="../../../api/_autosummary/sensortoolkit.evaluation_objs._sensor_eval.SensorEvaluation.html#sensortoolkit.evaluation_objs._sensor_eval.SensorEvaluation">[docs]</a><span class="k">class</span> <span class="nc">SensorEvaluation</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Evaluate air sensor performance for use in NSIM applications.</span>
@@ -575,7 +575,10 @@
 
         <span class="bp">self</span><span class="o">.</span><span class="n">write_to_file</span> <span class="o">=</span> <span class="n">write_to_file</span>
 
-        <span class="c1"># Add keyword arguments (testing_loc, testing_org, etc.)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">testing_loc</span> <span class="o">=</span> <span class="n">_presets</span><span class="o">.</span><span class="n">test_loc</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">testing_org</span> <span class="o">=</span> <span class="n">_presets</span><span class="o">.</span><span class="n">test_org</span>
+
+        <span class="c1"># Add keyword arguments</span>
         <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span> <span class="o">=</span> <span class="n">kwargs</span>
 

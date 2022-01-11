@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>sensortoolkit.evaluation_objs._performance_report &mdash; sensortoolkit 0.6.4b1 documentation</title>
+  <title>sensortoolkit.evaluation_objs._performance_report &mdash; sensortoolkit 0.7.0b1 documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" type="text/css" />
@@ -30,7 +30,7 @@
             <a href="../../../index.html" class="icon icon-home"> sensortoolkit
           </a>
               <div class="version">
-                0.6.4b1
+                0.7.0b1
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
@@ -424,6 +424,7 @@
 <span class="kn">import</span> <span class="nn">sys</span>
 <span class="kn">import</span> <span class="nn">warnings</span>
 <span class="kn">from</span> <span class="nn">sensortoolkit.evaluation_objs</span> <span class="kn">import</span> <span class="n">SensorEvaluation</span>
+<span class="kn">from</span> <span class="nn">sensortoolkit</span> <span class="kn">import</span> <span class="n">presets</span> <span class="k">as</span> <span class="n">_presets</span>
 
 
 <div class="viewcode-block" id="PerformanceReport"><a class="viewcode-back" href="../../../api/_autosummary/sensortoolkit.evaluation_objs._performance_report.PerformanceReport.html#sensortoolkit.evaluation_objs._performance_report.PerformanceReport">[docs]</a><span class="k">class</span> <span class="nc">PerformanceReport</span><span class="p">(</span><span class="n">SensorEvaluation</span><span class="p">):</span>
@@ -519,12 +520,8 @@
                         <span class="s1">&#39;../templates&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_param_name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">template_name</span><span class="p">))</span>
 
         <span class="c1"># Details about testing and deployment site</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">testing_org</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;testing_org&#39;</span><span class="p">,</span>
-                                           <span class="bp">self</span><span class="o">.</span><span class="n">deploy_dict</span><span class="p">[</span>
-                                                   <span class="s1">&#39;Testing Organization&#39;</span><span class="p">])</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">testing_loc</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;testing_loc&#39;</span><span class="p">,</span>
-                                           <span class="bp">self</span><span class="o">.</span><span class="n">deploy_dict</span><span class="p">[</span>
-                                                   <span class="s1">&#39;Testing Location&#39;</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">testing_loc</span> <span class="o">=</span> <span class="n">_presets</span><span class="o">.</span><span class="n">test_loc</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">testing_org</span> <span class="o">=</span> <span class="n">_presets</span><span class="o">.</span><span class="n">test_org</span>
 
         <span class="c1"># Populate deployment dictionary with performance metric results</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">calculate_metrics</span><span class="p">()</span>
@@ -1791,7 +1788,8 @@
                     <span class="k">try</span><span class="p">:</span>
                         <span class="c1"># 1-hr R^2</span>
                         <span class="n">val</span> <span class="o">=</span> <span class="n">h_stats</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">c1_row</span><span class="p">,</span> <span class="s1">&#39;R$^2$&#39;</span><span class="p">]</span>
-                        <span class="n">text_obj</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="nb">format</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="s1">&#39;3.2f&#39;</span><span class="p">)</span>
+                        <span class="n">fmt_precision</span> <span class="o">=</span> <span class="s1">&#39;3.2f&#39;</span>
+                        <span class="n">text_obj</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="nb">format</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="n">fmt_precision</span><span class="p">)</span>
                         <span class="n">rsqr_h_vals</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">val</span><span class="p">)</span>
                     <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>  <span class="c1"># Condition for empty grp stats</span>
                         <span class="k">pass</span>
@@ -1803,13 +1801,15 @@
                         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_avg_intervals</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
                             <span class="c1"># 1-hr slope</span>
                             <span class="n">val</span> <span class="o">=</span> <span class="n">h_stats</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">c2_row</span><span class="p">,</span> <span class="s1">&#39;Slope&#39;</span><span class="p">]</span>
+                            <span class="n">fmt_precision</span> <span class="o">=</span> <span class="s1">&#39;3.2f&#39;</span>
                             <span class="n">slope_h_vals</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">val</span><span class="p">)</span>
                         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_avg_intervals</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
                             <span class="c1"># 24-hr R^2</span>
                             <span class="n">val</span> <span class="o">=</span> <span class="n">d_stats</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">c2_row</span><span class="p">,</span> <span class="s1">&#39;R$^2$&#39;</span><span class="p">]</span>
+                            <span class="n">fmt_precision</span> <span class="o">=</span> <span class="s1">&#39;3.2f&#39;</span>
                             <span class="n">rsqr_d_vals</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">val</span><span class="p">)</span>
 
-                        <span class="n">text_obj</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="nb">format</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="s1">&#39;3.2f&#39;</span><span class="p">)</span>
+                        <span class="n">text_obj</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="nb">format</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="n">fmt_precision</span><span class="p">)</span>
                     <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>  <span class="c1"># Condition for empty grp stats</span>
                         <span class="k">pass</span>
                     <span class="n">c2_row</span> <span class="o">+=</span> <span class="mi">1</span>
@@ -1820,12 +1820,14 @@
                         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_avg_intervals</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
                             <span class="c1"># 1-hr Intercept</span>
                             <span class="n">val</span> <span class="o">=</span> <span class="n">h_stats</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">c3_row</span><span class="p">,</span> <span class="s1">&#39;Intercept&#39;</span><span class="p">]</span>
+                            <span class="n">fmt_precision</span> <span class="o">=</span> <span class="s1">&#39;3.2f&#39;</span>
                             <span class="n">intcpt_h_vals</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">val</span><span class="p">)</span>
                         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_avg_intervals</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
                             <span class="c1"># 1-hr Slope</span>
                             <span class="n">val</span> <span class="o">=</span> <span class="n">h_stats</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">c3_row</span><span class="p">,</span> <span class="s1">&#39;Slope&#39;</span><span class="p">]</span>
+                            <span class="n">fmt_precision</span> <span class="o">=</span> <span class="s1">&#39;3.2f&#39;</span>
                             <span class="n">slope_h_vals</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">val</span><span class="p">)</span>
-                        <span class="n">text_obj</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="nb">format</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="s1">&#39;3.2f&#39;</span><span class="p">)</span>
+                        <span class="n">text_obj</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="nb">format</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="n">fmt_precision</span><span class="p">)</span>
                     <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>  <span class="c1"># Condition for empty grp stats</span>
                         <span class="k">pass</span>
                     <span class="n">c3_row</span> <span class="o">+=</span> <span class="mi">1</span>
@@ -1837,12 +1839,14 @@
                         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_avg_intervals</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
                             <span class="c1"># 1-hr uptime</span>
                             <span class="n">val</span> <span class="o">=</span> <span class="n">grp_df</span><span class="p">[</span><span class="n">c4_row</span><span class="p">][</span><span class="s1">&#39;uptime_1-hour&#39;</span><span class="p">]</span>
+                            <span class="n">fmt_precision</span> <span class="o">=</span> <span class="s1">&#39;.0f&#39;</span>
                             <span class="bp">self</span><span class="o">.</span><span class="n">uptime_h_vals</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">val</span><span class="p">)</span>
                         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_avg_intervals</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
                             <span class="c1"># 24-hr Slope</span>
                             <span class="n">val</span> <span class="o">=</span> <span class="n">d_stats</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">c4_row</span><span class="p">,</span> <span class="s1">&#39;Slope&#39;</span><span class="p">]</span>
+                            <span class="n">fmt_precision</span> <span class="o">=</span> <span class="s1">&#39;3.2f&#39;</span>
                             <span class="n">slope_d_vals</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">val</span><span class="p">)</span>
-                        <span class="n">text_obj</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="nb">format</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="s1">&#39;3.2f&#39;</span><span class="p">)</span>
+                        <span class="n">text_obj</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="nb">format</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="n">fmt_precision</span><span class="p">)</span>
                     <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>  <span class="c1"># Condition for empty grp stats</span>
                         <span class="k">pass</span>
                     <span class="n">c4_row</span> <span class="o">+=</span> <span class="mi">1</span>
@@ -1854,12 +1858,14 @@
                         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_avg_intervals</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
                             <span class="c1"># 1-hr N</span>
                             <span class="n">val</span> <span class="o">=</span> <span class="n">h_stats</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">c5_row</span><span class="p">,</span> <span class="s1">&#39;N&#39;</span><span class="p">]</span>
+                            <span class="n">fmt_precision</span> <span class="o">=</span> <span class="s1">&#39;.0f&#39;</span>
                             <span class="n">n_h_vals</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">val</span><span class="p">)</span>
                         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_avg_intervals</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
                             <span class="c1"># 1-hr Intercept</span>
                             <span class="n">val</span> <span class="o">=</span> <span class="n">h_stats</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">c5_row</span><span class="p">,</span> <span class="s1">&#39;Intercept&#39;</span><span class="p">]</span>
                             <span class="n">intcpt_h_vals</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">val</span><span class="p">)</span>
-                        <span class="n">text_obj</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="nb">format</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="s1">&#39;3.2f&#39;</span><span class="p">)</span>
+                            <span class="n">fmt_precision</span> <span class="o">=</span> <span class="s1">&#39;3.2f&#39;</span>
+                        <span class="n">text_obj</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="nb">format</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="n">fmt_precision</span><span class="p">)</span>
                     <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>  <span class="c1"># Condition for empty grp stats</span>
                         <span class="k">pass</span>
                     <span class="n">c5_row</span> <span class="o">+=</span> <span class="mi">1</span>
@@ -1873,7 +1879,8 @@
                             <span class="c1"># 24-hr Intercept</span>
                             <span class="n">val</span> <span class="o">=</span> <span class="n">d_stats</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">c6_row</span><span class="p">,</span> <span class="s1">&#39;Intercept&#39;</span><span class="p">]</span>
                             <span class="n">intcpt_d_vals</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">val</span><span class="p">)</span>
-                            <span class="n">text_obj</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="nb">format</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="s1">&#39;3.2f&#39;</span><span class="p">)</span>
+                            <span class="n">fmt_precision</span> <span class="o">=</span> <span class="s1">&#39;3.2f&#39;</span>
+                            <span class="n">text_obj</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="nb">format</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="n">fmt_precision</span><span class="p">)</span>
                         <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>  <span class="c1"># Condition for empty grp stats</span>
                             <span class="k">pass</span>
                         <span class="n">c6_row</span> <span class="o">+=</span> <span class="mi">1</span>
@@ -1884,7 +1891,8 @@
                             <span class="c1"># 1-hr Uptime</span>
                             <span class="n">val</span> <span class="o">=</span> <span class="n">grp_df</span><span class="p">[</span><span class="n">c7_row</span><span class="p">][</span><span class="s1">&#39;uptime_1-hour&#39;</span><span class="p">]</span>
                             <span class="bp">self</span><span class="o">.</span><span class="n">uptime_h_vals</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">val</span><span class="p">)</span>
-                            <span class="n">text_obj</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="nb">format</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="s1">&#39;3.2f&#39;</span><span class="p">)</span>
+                            <span class="n">fmt_precision</span> <span class="o">=</span> <span class="s1">&#39;.0f&#39;</span>
+                            <span class="n">text_obj</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="nb">format</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="n">fmt_precision</span><span class="p">)</span>
                         <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>  <span class="c1"># Condition for empty grp stats</span>
                             <span class="k">pass</span>
                         <span class="n">c7_row</span> <span class="o">+=</span> <span class="mi">1</span>
@@ -1895,7 +1903,8 @@
                             <span class="c1"># 24-hr Uptime</span>
                             <span class="n">val</span> <span class="o">=</span> <span class="n">grp_df</span><span class="p">[</span><span class="n">c8_row</span><span class="p">][</span><span class="s1">&#39;uptime_24-hour&#39;</span><span class="p">]</span>
                             <span class="bp">self</span><span class="o">.</span><span class="n">uptime_d_vals</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">val</span><span class="p">)</span>
-                            <span class="n">text_obj</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="nb">format</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="s1">&#39;3.2f&#39;</span><span class="p">)</span>
+                            <span class="n">fmt_precision</span> <span class="o">=</span> <span class="s1">&#39;.0f&#39;</span>
+                            <span class="n">text_obj</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="nb">format</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="n">fmt_precision</span><span class="p">)</span>
                         <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>  <span class="c1"># Condition for empty grp stats</span>
                             <span class="k">pass</span>
                         <span class="n">c8_row</span> <span class="o">+=</span> <span class="mi">1</span>
@@ -1906,7 +1915,8 @@
                             <span class="c1"># 1-hr N</span>
                             <span class="n">val</span> <span class="o">=</span> <span class="n">h_stats</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">c9_row</span><span class="p">,</span> <span class="s1">&#39;N&#39;</span><span class="p">]</span>
                             <span class="n">n_h_vals</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">val</span><span class="p">)</span>
-                            <span class="n">text_obj</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="nb">format</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="s1">&#39;3.2f&#39;</span><span class="p">)</span>
+                            <span class="n">fmt_precision</span> <span class="o">=</span> <span class="s1">&#39;.0f&#39;</span>
+                            <span class="n">text_obj</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="nb">format</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="n">fmt_precision</span><span class="p">)</span>
                         <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>  <span class="c1"># Condition for empty grp stats</span>
                             <span class="k">pass</span>
                         <span class="n">c9_row</span> <span class="o">+=</span> <span class="mi">1</span>
@@ -1917,7 +1927,8 @@
                             <span class="c1"># 24-hr N</span>
                             <span class="n">val</span> <span class="o">=</span> <span class="n">d_stats</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">c10_row</span><span class="p">,</span> <span class="s1">&#39;N&#39;</span><span class="p">]</span>
                             <span class="n">n_d_vals</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">val</span><span class="p">)</span>
-                            <span class="n">text_obj</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="nb">format</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="s1">&#39;3.2f&#39;</span><span class="p">)</span>
+                            <span class="n">fmt_precision</span> <span class="o">=</span> <span class="s1">&#39;.0f&#39;</span>
+                            <span class="n">text_obj</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="nb">format</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="n">fmt_precision</span><span class="p">)</span>
                         <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>  <span class="c1"># Condition for empty grp stats</span>
                             <span class="k">pass</span>
                         <span class="n">c10_row</span> <span class="o">+=</span> <span class="mi">1</span>
@@ -1931,10 +1942,12 @@
                     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_avg_intervals</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
                         <span class="n">val</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">rsqr_h_vals</span><span class="p">)</span>
                         <span class="n">txt</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">CheckTargets</span><span class="p">(</span><span class="n">rsqr_h_vals</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="s1">&#39;R^2&#39;</span><span class="p">)</span>
+                        <span class="n">fmt_precision</span> <span class="o">=</span> <span class="s1">&#39;3.2f&#39;</span>
                     <span class="c1"># Mean 1-hr R^2</span>
                     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_avg_intervals</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
                         <span class="n">val</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">rsqr_h_vals</span><span class="p">)</span>
                         <span class="n">txt</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">CheckTargets</span><span class="p">(</span><span class="n">rsqr_h_vals</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="s1">&#39;R^2&#39;</span><span class="p">)</span>
+                        <span class="n">fmt_precision</span> <span class="o">=</span> <span class="s1">&#39;3.2f&#39;</span>
 
                 <span class="c1"># Metric Mean column 2</span>
                 <span class="k">if</span> <span class="p">(</span><span class="n">j</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="n">datacols</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
@@ -1942,10 +1955,12 @@
                     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_avg_intervals</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
                         <span class="n">val</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">slope_h_vals</span><span class="p">)</span>
                         <span class="n">txt</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">CheckTargets</span><span class="p">(</span><span class="n">slope_h_vals</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="s1">&#39;Slope&#39;</span><span class="p">)</span>
+                        <span class="n">fmt_precision</span> <span class="o">=</span> <span class="s1">&#39;3.2f&#39;</span>
                     <span class="c1"># Mean 24-hr R^2</span>
                     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_avg_intervals</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
                         <span class="n">val</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">rsqr_d_vals</span><span class="p">)</span>
                         <span class="n">txt</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">CheckTargets</span><span class="p">(</span><span class="n">rsqr_d_vals</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="s1">&#39;R^2&#39;</span><span class="p">)</span>
+                        <span class="n">fmt_precision</span> <span class="o">=</span> <span class="s1">&#39;3.2f&#39;</span>
 
                 <span class="c1"># Metric Mean column 3</span>
                 <span class="k">if</span> <span class="p">(</span><span class="n">j</span> <span class="o">-</span> <span class="mi">2</span><span class="p">)</span> <span class="o">%</span> <span class="n">datacols</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
@@ -1954,10 +1969,12 @@
                         <span class="n">val</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">intcpt_h_vals</span><span class="p">)</span>
                         <span class="n">txt</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">CheckTargets</span><span class="p">(</span><span class="n">intcpt_h_vals</span><span class="p">,</span>
                                                 <span class="n">metric</span><span class="o">=</span><span class="s1">&#39;Intercept&#39;</span><span class="p">)</span>
+                        <span class="n">fmt_precision</span> <span class="o">=</span> <span class="s1">&#39;3.2f&#39;</span>
                     <span class="c1"># Mean 1-hr Slope</span>
                     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_avg_intervals</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
                         <span class="n">val</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">slope_h_vals</span><span class="p">)</span>
                         <span class="n">txt</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">CheckTargets</span><span class="p">(</span><span class="n">slope_h_vals</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="s1">&#39;Slope&#39;</span><span class="p">)</span>
+                        <span class="n">fmt_precision</span> <span class="o">=</span> <span class="s1">&#39;3.2f&#39;</span>
 
                 <span class="c1"># Metric Mean column 4</span>
                 <span class="k">if</span> <span class="p">(</span><span class="n">j</span> <span class="o">-</span> <span class="mi">3</span><span class="p">)</span> <span class="o">%</span> <span class="n">datacols</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
@@ -1966,10 +1983,12 @@
                         <span class="n">val</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">uptime_h_vals</span><span class="p">)</span>
                         <span class="n">txt</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">CheckTargets</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">uptime_h_vals</span><span class="p">,</span>
                                                 <span class="n">metric</span><span class="o">=</span><span class="s1">&#39;Uptime&#39;</span><span class="p">)</span>
+                        <span class="n">fmt_precision</span> <span class="o">=</span> <span class="s1">&#39;3.2f&#39;</span>
                     <span class="c1"># Mean 24-hr Slope</span>
                     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_avg_intervals</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
                         <span class="n">val</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">slope_d_vals</span><span class="p">)</span>
                         <span class="n">txt</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">CheckTargets</span><span class="p">(</span><span class="n">slope_d_vals</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="s1">&#39;Slope&#39;</span><span class="p">)</span>
+                        <span class="n">fmt_precision</span> <span class="o">=</span> <span class="s1">&#39;3.2f&#39;</span>
 
                 <span class="c1"># Metric Mean column 5</span>
                 <span class="k">if</span> <span class="p">(</span><span class="n">j</span> <span class="o">-</span> <span class="mi">4</span><span class="p">)</span> <span class="o">%</span> <span class="n">datacols</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
@@ -1981,6 +2000,7 @@
                         <span class="n">val</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">intcpt_h_vals</span><span class="p">)</span>
                         <span class="n">txt</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">CheckTargets</span><span class="p">(</span><span class="n">intcpt_h_vals</span><span class="p">,</span>
                                                 <span class="n">metric</span><span class="o">=</span><span class="s1">&#39;Intercept&#39;</span><span class="p">)</span>
+                        <span class="n">fmt_precision</span> <span class="o">=</span> <span class="s1">&#39;3.2f&#39;</span>
 
                 <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_avg_intervals</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
                     <span class="c1"># Metric Mean column 6</span>
@@ -1989,6 +2009,7 @@
                         <span class="n">val</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">intcpt_d_vals</span><span class="p">)</span>
                         <span class="n">txt</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">CheckTargets</span><span class="p">(</span><span class="n">intcpt_d_vals</span><span class="p">,</span>
                                                 <span class="n">metric</span><span class="o">=</span><span class="s1">&#39;Intercept&#39;</span><span class="p">)</span>
+                        <span class="n">fmt_precision</span> <span class="o">=</span> <span class="s1">&#39;3.2f&#39;</span>
 
                     <span class="c1"># Metric Mean column 7</span>
                     <span class="k">if</span> <span class="p">(</span><span class="n">j</span> <span class="o">-</span> <span class="mi">6</span><span class="p">)</span> <span class="o">%</span> <span class="n">datacols</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
@@ -1996,6 +2017,7 @@
                         <span class="n">val</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">uptime_h_vals</span><span class="p">)</span>
                         <span class="n">txt</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">CheckTargets</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">uptime_h_vals</span><span class="p">,</span>
                                                 <span class="n">metric</span><span class="o">=</span><span class="s1">&#39;Uptime&#39;</span><span class="p">)</span>
+                        <span class="n">fmt_precision</span> <span class="o">=</span> <span class="s1">&#39;.0f&#39;</span>
 
                     <span class="c1"># Metric Mean column 8</span>
                     <span class="k">if</span> <span class="p">(</span><span class="n">j</span> <span class="o">-</span> <span class="mi">7</span><span class="p">)</span> <span class="o">%</span> <span class="n">datacols</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
@@ -2003,16 +2025,19 @@
                         <span class="n">val</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">uptime_d_vals</span><span class="p">)</span>
                         <span class="n">txt</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">CheckTargets</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">uptime_d_vals</span><span class="p">,</span>
                                                 <span class="n">metric</span><span class="o">=</span><span class="s1">&#39;Uptime&#39;</span><span class="p">)</span>
+                        <span class="n">fmt_precision</span> <span class="o">=</span> <span class="s1">&#39;.0f&#39;</span>
 
                     <span class="c1"># Metric Mean column 9</span>
                     <span class="k">if</span> <span class="p">(</span><span class="n">j</span> <span class="o">-</span> <span class="mi">8</span><span class="p">)</span> <span class="o">%</span> <span class="n">datacols</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
                         <span class="c1"># Mean 1-hr N paired measurements</span>
                         <span class="n">val</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">n_h_vals</span><span class="p">)</span>
+                        <span class="n">fmt_precision</span> <span class="o">=</span> <span class="s1">&#39;.0f&#39;</span>
 
                     <span class="c1"># Metric Mean column 10</span>
                     <span class="k">if</span> <span class="p">(</span><span class="n">j</span> <span class="o">-</span> <span class="mi">9</span><span class="p">)</span> <span class="o">%</span> <span class="n">datacols</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
                         <span class="c1"># Mean 24-hr N paired measurements</span>
                         <span class="n">val</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">n_d_vals</span><span class="p">)</span>
+                        <span class="n">fmt_precision</span> <span class="o">=</span> <span class="s1">&#39;.0f&#39;</span>
 
                 <span class="c1"># Indicate number of sensors meeting performance metric target</span>
                 <span class="k">if</span> <span class="n">txt</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
@@ -2022,7 +2047,7 @@
                     <span class="bp">self</span><span class="o">.</span><span class="n">FormatText</span><span class="p">(</span><span class="n">trgt_cell_text</span><span class="p">,</span> <span class="n">alignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span>
                                     <span class="n">font_name</span><span class="o">=</span><span class="s1">&#39;Calibri Light&#39;</span><span class="p">,</span> <span class="n">font_size</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
 
-                <span class="n">text_obj</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="nb">format</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="s1">&#39;3.2f&#39;</span><span class="p">)</span>
+                <span class="n">text_obj</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="nb">format</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="n">fmt_precision</span><span class="p">)</span>
 
             <span class="c1"># Configure text formatting</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">FormatText</span><span class="p">(</span><span class="n">text_obj</span><span class="p">,</span> <span class="n">alignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span>
@@ -2077,10 +2102,10 @@
                               <span class="s1">&#39;18&#39;</span><span class="p">:</span> <span class="s1">&#39;≤ </span><span class="si">{:3.1f}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">nrmse_ubound</span><span class="p">),</span>
                               <span class="s1">&#39;19&#39;</span><span class="p">:</span> <span class="s1">&#39;≤ </span><span class="si">{:3.1f}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">nrmse_ubound</span><span class="p">),</span>
                               <span class="s1">&#39;20&#39;</span><span class="p">:</span> <span class="s1">&#39;Deployment Value&#39;</span><span class="p">}</span>
-            <span class="n">metric_vals</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;21&#39;</span><span class="p">:</span> <span class="nb">format</span><span class="p">(</span><span class="n">error_stats</span><span class="p">[</span><span class="s1">&#39;rmse_1-hour&#39;</span><span class="p">],</span> <span class="s1">&#39;3.2f&#39;</span><span class="p">),</span>
-                           <span class="s1">&#39;22&#39;</span><span class="p">:</span> <span class="nb">format</span><span class="p">(</span><span class="n">error_stats</span><span class="p">[</span><span class="s1">&#39;rmse_24-hour&#39;</span><span class="p">],</span> <span class="s1">&#39;3.2f&#39;</span><span class="p">),</span>
-                           <span class="s1">&#39;23&#39;</span><span class="p">:</span> <span class="nb">format</span><span class="p">(</span><span class="n">error_stats</span><span class="p">[</span><span class="s1">&#39;nrmse_1-hour&#39;</span><span class="p">],</span> <span class="s1">&#39;3.2f&#39;</span><span class="p">),</span>
-                           <span class="s1">&#39;24&#39;</span><span class="p">:</span> <span class="nb">format</span><span class="p">(</span><span class="n">error_stats</span><span class="p">[</span><span class="s1">&#39;nrmse_24-hour&#39;</span><span class="p">],</span> <span class="s1">&#39;3.2f&#39;</span><span class="p">)}</span>
+            <span class="n">metric_vals</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;21&#39;</span><span class="p">:</span> <span class="nb">format</span><span class="p">(</span><span class="n">error_stats</span><span class="p">[</span><span class="s1">&#39;rmse_1-hour&#39;</span><span class="p">],</span> <span class="s1">&#39;3.1f&#39;</span><span class="p">),</span>
+                           <span class="s1">&#39;22&#39;</span><span class="p">:</span> <span class="nb">format</span><span class="p">(</span><span class="n">error_stats</span><span class="p">[</span><span class="s1">&#39;rmse_24-hour&#39;</span><span class="p">],</span> <span class="s1">&#39;3.1f&#39;</span><span class="p">),</span>
+                           <span class="s1">&#39;23&#39;</span><span class="p">:</span> <span class="nb">format</span><span class="p">(</span><span class="n">error_stats</span><span class="p">[</span><span class="s1">&#39;nrmse_1-hour&#39;</span><span class="p">],</span> <span class="s1">&#39;3.1f&#39;</span><span class="p">),</span>
+                           <span class="s1">&#39;24&#39;</span><span class="p">:</span> <span class="nb">format</span><span class="p">(</span><span class="n">error_stats</span><span class="p">[</span><span class="s1">&#39;nrmse_24-hour&#39;</span><span class="p">],</span> <span class="s1">&#39;3.1f&#39;</span><span class="p">)}</span>
             <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">metric_vals</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
                 <span class="k">if</span> <span class="n">value</span> <span class="o">==</span> <span class="s1">&#39;-999.00&#39;</span><span class="p">:</span>
                     <span class="n">metric_vals</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
@@ -2100,7 +2125,7 @@
             <span class="n">metric_targets</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;6&#39;</span><span class="p">:</span> <span class="s1">&#39;Metric Target Range&#39;</span><span class="p">,</span>
                               <span class="s1">&#39;7&#39;</span><span class="p">:</span> <span class="s1">&#39;≤ </span><span class="si">{:2.1f}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">rmse_ubound</span><span class="p">),</span>
                               <span class="s1">&#39;8&#39;</span><span class="p">:</span> <span class="s1">&#39;Deployment Value&#39;</span><span class="p">}</span>
-            <span class="n">metric_vals</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;9&#39;</span><span class="p">:</span> <span class="nb">format</span><span class="p">(</span><span class="n">error_stats</span><span class="p">[</span><span class="s1">&#39;rmse_1-hour&#39;</span><span class="p">],</span> <span class="s1">&#39;3.2f&#39;</span><span class="p">)}</span>
+            <span class="n">metric_vals</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;9&#39;</span><span class="p">:</span> <span class="nb">format</span><span class="p">(</span><span class="n">error_stats</span><span class="p">[</span><span class="s1">&#39;rmse_1-hour&#39;</span><span class="p">],</span> <span class="s1">&#39;3.1f&#39;</span><span class="p">)}</span>
             <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">metric_vals</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
                 <span class="k">if</span> <span class="n">value</span> <span class="o">==</span> <span class="s1">&#39;-999.00&#39;</span><span class="p">:</span>
                     <span class="n">metric_vals</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
@@ -2217,8 +2242,7 @@
             <span class="n">metrics</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;10&#39;</span><span class="p">:</span> <span class="s1">&#39;CV</span><span class="se">\n</span><span class="s1">(%)&#39;</span><span class="p">,</span>
                        <span class="s1">&#39;12&#39;</span><span class="p">:</span> <span class="sa">f</span><span class="s1">&#39;SD</span><span class="se">\n</span><span class="s1">(</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">units</span><span class="si">}</span><span class="s1">)&#39;</span><span class="p">,</span>
                        <span class="s1">&#39;14&#39;</span><span class="p">:</span> <span class="s1">&#39;Uptime</span><span class="se">\n</span><span class="s1">(%)&#39;</span><span class="p">,</span>
-                       <span class="s1">&#39;16&#39;</span><span class="p">:</span> <span class="s1">&#39;Number of paired</span><span class="se">\n</span><span class="s1">sensor and &#39;</span>
-                             <span class="s1">&#39;reference</span><span class="se">\n</span><span class="s1">concentration pairs&#39;</span><span class="p">}</span>
+                       <span class="s1">&#39;16&#39;</span><span class="p">:</span> <span class="s1">&#39;Number of concurrent</span><span class="se">\n</span><span class="s1">sensor concentration pairs&#39;</span><span class="p">}</span>
             <span class="n">avg_intervals</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;19&#39;</span><span class="p">:</span> <span class="s1">&#39;1-Hour&#39;</span><span class="p">,</span>
                              <span class="s1">&#39;20&#39;</span><span class="p">:</span> <span class="s1">&#39;24-Hour&#39;</span><span class="p">,</span>
                              <span class="s1">&#39;21&#39;</span><span class="p">:</span> <span class="s1">&#39;1-Hour&#39;</span><span class="p">,</span>
@@ -2243,14 +2267,14 @@
                               <span class="s1">&#39;34&#39;</span><span class="p">:</span> <span class="s1">&#39;-&#39;</span><span class="p">,</span>
                               <span class="s1">&#39;35&#39;</span><span class="p">:</span> <span class="s1">&#39;-&#39;</span><span class="p">,</span>
                               <span class="s1">&#39;36&#39;</span><span class="p">:</span> <span class="s1">&#39;Deployment Value&#39;</span><span class="p">}</span>
-            <span class="n">metric_vals</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;37&#39;</span><span class="p">:</span> <span class="nb">format</span><span class="p">(</span><span class="n">grp_stats</span><span class="p">[</span><span class="s1">&#39;cv_1-hour&#39;</span><span class="p">],</span> <span class="s1">&#39;3.2f&#39;</span><span class="p">),</span>
-                           <span class="s1">&#39;38&#39;</span><span class="p">:</span> <span class="nb">format</span><span class="p">(</span><span class="n">grp_stats</span><span class="p">[</span><span class="s1">&#39;cv_24-hour&#39;</span><span class="p">],</span> <span class="s1">&#39;3.2f&#39;</span><span class="p">),</span>
-                           <span class="s1">&#39;39&#39;</span><span class="p">:</span> <span class="nb">format</span><span class="p">(</span><span class="n">grp_stats</span><span class="p">[</span><span class="s1">&#39;std_1-hour&#39;</span><span class="p">],</span> <span class="s1">&#39;3.2f&#39;</span><span class="p">),</span>
-                           <span class="s1">&#39;40&#39;</span><span class="p">:</span> <span class="nb">format</span><span class="p">(</span><span class="n">grp_stats</span><span class="p">[</span><span class="s1">&#39;std_24-hour&#39;</span><span class="p">],</span> <span class="s1">&#39;3.2f&#39;</span><span class="p">),</span>
-                           <span class="s1">&#39;41&#39;</span><span class="p">:</span> <span class="nb">format</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">uptime_h_vals</span><span class="p">),</span> <span class="s1">&#39;3.2f&#39;</span><span class="p">),</span>
-                           <span class="s1">&#39;42&#39;</span><span class="p">:</span> <span class="nb">format</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">uptime_d_vals</span><span class="p">),</span> <span class="s1">&#39;3.2f&#39;</span><span class="p">),</span>
-                           <span class="s1">&#39;43&#39;</span><span class="p">:</span> <span class="nb">format</span><span class="p">(</span><span class="n">grp_stats</span><span class="p">[</span><span class="s1">&#39;n_1-hour&#39;</span><span class="p">]),</span>
-                           <span class="s1">&#39;44&#39;</span><span class="p">:</span> <span class="nb">format</span><span class="p">(</span><span class="n">grp_stats</span><span class="p">[</span><span class="s1">&#39;n_24-hour&#39;</span><span class="p">])}</span>
+            <span class="n">metric_vals</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;37&#39;</span><span class="p">:</span> <span class="nb">format</span><span class="p">(</span><span class="n">grp_stats</span><span class="p">[</span><span class="s1">&#39;cv_1-hour&#39;</span><span class="p">],</span> <span class="s1">&#39;3.1f&#39;</span><span class="p">),</span>
+                           <span class="s1">&#39;38&#39;</span><span class="p">:</span> <span class="nb">format</span><span class="p">(</span><span class="n">grp_stats</span><span class="p">[</span><span class="s1">&#39;cv_24-hour&#39;</span><span class="p">],</span> <span class="s1">&#39;3.1f&#39;</span><span class="p">),</span>
+                           <span class="s1">&#39;39&#39;</span><span class="p">:</span> <span class="nb">format</span><span class="p">(</span><span class="n">grp_stats</span><span class="p">[</span><span class="s1">&#39;std_1-hour&#39;</span><span class="p">],</span> <span class="s1">&#39;3.1f&#39;</span><span class="p">),</span>
+                           <span class="s1">&#39;40&#39;</span><span class="p">:</span> <span class="nb">format</span><span class="p">(</span><span class="n">grp_stats</span><span class="p">[</span><span class="s1">&#39;std_24-hour&#39;</span><span class="p">],</span> <span class="s1">&#39;3.1f&#39;</span><span class="p">),</span>
+                           <span class="s1">&#39;41&#39;</span><span class="p">:</span> <span class="nb">format</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">uptime_h_vals</span><span class="p">),</span> <span class="s1">&#39;.0f&#39;</span><span class="p">),</span>
+                           <span class="s1">&#39;42&#39;</span><span class="p">:</span> <span class="nb">format</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">uptime_d_vals</span><span class="p">),</span> <span class="s1">&#39;.0f&#39;</span><span class="p">),</span>
+                           <span class="s1">&#39;43&#39;</span><span class="p">:</span> <span class="nb">format</span><span class="p">(</span><span class="n">grp_stats</span><span class="p">[</span><span class="s1">&#39;n_1-hour&#39;</span><span class="p">],</span> <span class="s1">&#39;.0f&#39;</span><span class="p">),</span>
+                           <span class="s1">&#39;44&#39;</span><span class="p">:</span> <span class="nb">format</span><span class="p">(</span><span class="n">grp_stats</span><span class="p">[</span><span class="s1">&#39;n_24-hour&#39;</span><span class="p">],</span> <span class="s1">&#39;.0f&#39;</span><span class="p">)}</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_avg_intervals</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
             <span class="n">datacols</span> <span class="o">=</span> <span class="mi">4</span>
@@ -2282,10 +2306,10 @@
                               <span class="s1">&#39;18&#39;</span><span class="p">:</span> <span class="s1">&#39;75%*&#39;</span><span class="p">,</span>
                               <span class="s1">&#39;19&#39;</span><span class="p">:</span> <span class="s1">&#39;-&#39;</span><span class="p">,</span>
                               <span class="s1">&#39;20&#39;</span><span class="p">:</span> <span class="s1">&#39;Deployment Value&#39;</span><span class="p">}</span>
-            <span class="n">metric_vals</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;21&#39;</span><span class="p">:</span> <span class="nb">format</span><span class="p">(</span><span class="n">grp_stats</span><span class="p">[</span><span class="s1">&#39;cv_1-hour&#39;</span><span class="p">]),</span>
-                           <span class="s1">&#39;22&#39;</span><span class="p">:</span> <span class="nb">format</span><span class="p">(</span><span class="n">grp_stats</span><span class="p">[</span><span class="s1">&#39;std_1-hour&#39;</span><span class="p">]),</span>
-                           <span class="s1">&#39;23&#39;</span><span class="p">:</span> <span class="nb">format</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">uptime_h_vals</span><span class="p">),</span> <span class="s1">&#39;3.2f&#39;</span><span class="p">),</span>
-                           <span class="s1">&#39;24&#39;</span><span class="p">:</span> <span class="nb">format</span><span class="p">(</span><span class="n">grp_stats</span><span class="p">[</span><span class="s1">&#39;n_1-hour&#39;</span><span class="p">])}</span>
+            <span class="n">metric_vals</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;21&#39;</span><span class="p">:</span> <span class="nb">format</span><span class="p">(</span><span class="n">grp_stats</span><span class="p">[</span><span class="s1">&#39;cv_1-hour&#39;</span><span class="p">],</span> <span class="s1">&#39;3.1f&#39;</span><span class="p">),</span>
+                           <span class="s1">&#39;22&#39;</span><span class="p">:</span> <span class="nb">format</span><span class="p">(</span><span class="n">grp_stats</span><span class="p">[</span><span class="s1">&#39;std_1-hour&#39;</span><span class="p">],</span> <span class="s1">&#39;3.1f&#39;</span><span class="p">),</span>
+                           <span class="s1">&#39;23&#39;</span><span class="p">:</span> <span class="nb">format</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">uptime_h_vals</span><span class="p">),</span> <span class="s1">&#39;.0f&#39;</span><span class="p">),</span>
+                           <span class="s1">&#39;24&#39;</span><span class="p">:</span> <span class="nb">format</span><span class="p">(</span><span class="n">grp_stats</span><span class="p">[</span><span class="s1">&#39;n_1-hour&#39;</span><span class="p">],</span> <span class="s1">&#39;.0f&#39;</span><span class="p">)}</span>
 
         <span class="n">cells</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">SetSpanningCells</span><span class="p">(</span><span class="n">table</span><span class="p">,</span> <span class="n">span_dict</span><span class="p">)</span>
 

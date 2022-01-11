@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>sensortoolkit.calculate._cv &mdash; sensortoolkit 0.6.4b1 documentation</title>
+  <title>sensortoolkit.calculate._cv &mdash; sensortoolkit 0.7.0b1 documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" type="text/css" />
@@ -30,7 +30,7 @@
             <a href="../../../index.html" class="icon icon-home"> sensortoolkit
           </a>
               <div class="version">
-                0.6.4b1
+                0.7.0b1
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
@@ -582,8 +582,8 @@
 
         <span class="n">stats_loc</span> <span class="o">=</span> <span class="n">deploy</span><span class="p">[</span><span class="n">param</span><span class="p">][</span><span class="s1">&#39;Precision&#39;</span><span class="p">]</span>
 
-        <span class="n">start</span> <span class="o">=</span> <span class="n">deploy</span><span class="p">[</span><span class="s1">&#39;eval_start&#39;</span><span class="p">]</span>
-        <span class="n">end</span> <span class="o">=</span> <span class="n">deploy</span><span class="p">[</span><span class="s1">&#39;eval_end&#39;</span><span class="p">]</span>
+        <span class="n">start</span> <span class="o">=</span> <span class="n">date_index</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">freq</span><span class="o">=</span><span class="s1">&#39;H&#39;</span><span class="p">)</span>
+        <span class="n">end</span> <span class="o">=</span> <span class="n">date_index</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">freq</span><span class="o">=</span><span class="s1">&#39;H&#39;</span><span class="p">)</span>
 
         <span class="n">serials</span> <span class="o">=</span> <span class="p">{</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">):</span> <span class="n">deploy</span><span class="p">[</span><span class="s1">&#39;sensors&#39;</span><span class="p">][</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)][</span><span class="s1">&#39;serial_id&#39;</span><span class="p">]</span> <span class="k">for</span>
                    <span class="n">i</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">deploy</span><span class="p">[</span><span class="s1">&#39;sensors&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">keys</span><span class="p">())}</span>
