@@ -1449,7 +1449,7 @@ class PerformanceReport(SensorEvaluation):
                         if self.n_avg_intervals == 1:
                             # 1-hr uptime
                             val = grp_df[c4_row]['uptime_1-hour']
-                            fmt_precision = '3.1f'
+                            fmt_precision = '.0f'
                             self.uptime_h_vals.append(val)
                         if self.n_avg_intervals == 2:
                             # 24-hr Slope
@@ -1501,7 +1501,7 @@ class PerformanceReport(SensorEvaluation):
                             # 1-hr Uptime
                             val = grp_df[c7_row]['uptime_1-hour']
                             self.uptime_h_vals.append(val)
-                            fmt_precision = '3.1f'
+                            fmt_precision = '.0f'
                             text_obj.text = format(val, fmt_precision)
                         except KeyError:  # Condition for empty grp stats
                             pass
@@ -1513,7 +1513,7 @@ class PerformanceReport(SensorEvaluation):
                             # 24-hr Uptime
                             val = grp_df[c8_row]['uptime_24-hour']
                             self.uptime_d_vals.append(val)
-                            fmt_precision = '3.1f'
+                            fmt_precision = '.0f'
                             text_obj.text = format(val, fmt_precision)
                         except KeyError:  # Condition for empty grp stats
                             pass
@@ -1552,10 +1552,12 @@ class PerformanceReport(SensorEvaluation):
                     if self.n_avg_intervals == 1:
                         val = np.mean(rsqr_h_vals)
                         txt = self.CheckTargets(rsqr_h_vals, metric='R^2')
+                        fmt_precision = '3.2f'
                     # Mean 1-hr R^2
                     if self.n_avg_intervals == 2:
                         val = np.mean(rsqr_h_vals)
                         txt = self.CheckTargets(rsqr_h_vals, metric='R^2')
+                        fmt_precision = '3.2f'
 
                 # Metric Mean column 2
                 if (j - 1) % datacols == 0:
@@ -1563,10 +1565,12 @@ class PerformanceReport(SensorEvaluation):
                     if self.n_avg_intervals == 1:
                         val = np.mean(slope_h_vals)
                         txt = self.CheckTargets(slope_h_vals, metric='Slope')
+                        fmt_precision = '3.2f'
                     # Mean 24-hr R^2
                     if self.n_avg_intervals == 2:
                         val = np.mean(rsqr_d_vals)
                         txt = self.CheckTargets(rsqr_d_vals, metric='R^2')
+                        fmt_precision = '3.2f'
 
                 # Metric Mean column 3
                 if (j - 2) % datacols == 0:
@@ -1575,10 +1579,12 @@ class PerformanceReport(SensorEvaluation):
                         val = np.mean(intcpt_h_vals)
                         txt = self.CheckTargets(intcpt_h_vals,
                                                 metric='Intercept')
+                        fmt_precision = '3.2f'
                     # Mean 1-hr Slope
                     if self.n_avg_intervals == 2:
                         val = np.mean(slope_h_vals)
                         txt = self.CheckTargets(slope_h_vals, metric='Slope')
+                        fmt_precision = '3.2f'
 
                 # Metric Mean column 4
                 if (j - 3) % datacols == 0:
@@ -1587,10 +1593,12 @@ class PerformanceReport(SensorEvaluation):
                         val = np.mean(self.uptime_h_vals)
                         txt = self.CheckTargets(self.uptime_h_vals,
                                                 metric='Uptime')
+                        fmt_precision = '3.2f'
                     # Mean 24-hr Slope
                     if self.n_avg_intervals == 2:
                         val = np.mean(slope_d_vals)
                         txt = self.CheckTargets(slope_d_vals, metric='Slope')
+                        fmt_precision = '3.2f'
 
                 # Metric Mean column 5
                 if (j - 4) % datacols == 0:
@@ -1602,6 +1610,7 @@ class PerformanceReport(SensorEvaluation):
                         val = np.mean(intcpt_h_vals)
                         txt = self.CheckTargets(intcpt_h_vals,
                                                 metric='Intercept')
+                        fmt_precision = '3.2f'
 
                 if self.n_avg_intervals == 2:
                     # Metric Mean column 6
@@ -1610,6 +1619,7 @@ class PerformanceReport(SensorEvaluation):
                         val = np.mean(intcpt_d_vals)
                         txt = self.CheckTargets(intcpt_d_vals,
                                                 metric='Intercept')
+                        fmt_precision = '3.2f'
 
                     # Metric Mean column 7
                     if (j - 6) % datacols == 0:
@@ -1617,6 +1627,7 @@ class PerformanceReport(SensorEvaluation):
                         val = np.mean(self.uptime_h_vals)
                         txt = self.CheckTargets(self.uptime_h_vals,
                                                 metric='Uptime')
+                        fmt_precision = '.0f'
 
                     # Metric Mean column 8
                     if (j - 7) % datacols == 0:
@@ -1624,16 +1635,19 @@ class PerformanceReport(SensorEvaluation):
                         val = np.mean(self.uptime_d_vals)
                         txt = self.CheckTargets(self.uptime_d_vals,
                                                 metric='Uptime')
+                        fmt_precision = '.0f'
 
                     # Metric Mean column 9
                     if (j - 8) % datacols == 0:
                         # Mean 1-hr N paired measurements
                         val = np.mean(n_h_vals)
+                        fmt_precision = '.0f'
 
                     # Metric Mean column 10
                     if (j - 9) % datacols == 0:
                         # Mean 24-hr N paired measurements
                         val = np.mean(n_d_vals)
+                        fmt_precision = '.0f'
 
                 # Indicate number of sensors meeting performance metric target
                 if txt is not None:
@@ -1643,7 +1657,7 @@ class PerformanceReport(SensorEvaluation):
                     self.FormatText(trgt_cell_text, alignment='center',
                                     font_name='Calibri Light', font_size=12)
 
-                text_obj.text = format(val, '3.2f')
+                text_obj.text = format(val, fmt_precision)
 
             # Configure text formatting
             self.FormatText(text_obj, alignment='center',
@@ -1867,8 +1881,8 @@ class PerformanceReport(SensorEvaluation):
                            '38': format(grp_stats['cv_24-hour'], '3.1f'),
                            '39': format(grp_stats['std_1-hour'], '3.1f'),
                            '40': format(grp_stats['std_24-hour'], '3.1f'),
-                           '41': format(np.mean(self.uptime_h_vals), '3.1f'),
-                           '42': format(np.mean(self.uptime_d_vals), '3.1f'),
+                           '41': format(np.mean(self.uptime_h_vals), '.0f'),
+                           '42': format(np.mean(self.uptime_d_vals), '.0f'),
                            '43': format(grp_stats['n_1-hour'], '.0f'),
                            '44': format(grp_stats['n_24-hour'], '.0f')}
 
@@ -1904,7 +1918,7 @@ class PerformanceReport(SensorEvaluation):
                               '20': 'Deployment Value'}
             metric_vals = {'21': format(grp_stats['cv_1-hour'], '3.1f'),
                            '22': format(grp_stats['std_1-hour'], '3.1f'),
-                           '23': format(np.mean(self.uptime_h_vals), '3.1f'),
+                           '23': format(np.mean(self.uptime_h_vals), '.0f'),
                            '24': format(grp_stats['n_1-hour'], '.0f')}
 
         cells = self.SetSpanningCells(table, span_dict)
