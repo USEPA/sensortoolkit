@@ -21,6 +21,7 @@ import json
 from datetime import datetime
 import pytz
 import pandas as pd
+from pandas.errors import EmptyDataError
 from sensortoolkit.param import Parameter
 
 
@@ -65,14 +66,18 @@ def standard_ingest(path, name=None, setup_file_path=None):
             if setup['file_extension'] in ('.csv', '.txt'):
                 df = pd.read_csv(path, header=setup['header_iloc'],
                                  names=names, skiprows=row_idx,
-                                 encoding=encoding_pred)
+                                 encoding=encoding_pred, on_bad_lines='warn')
             if setup['file_extension'] == '.xlsx':
                 df = pd.read_excel(path, header=setup['header_iloc'],
                                    names=names, skiprows=row_idx,
-                                   encoding=encoding_pred)
+                                   encoding=encoding_pred, on_bad_lines='warn')
 
         except FileNotFoundError as e:
             sys.exit(e)
+        except EmptyDataError as e:
+            print(f'{e} (likely empty file)')
+            print(path)
+            return pd.DataFrame()
     else:
         # Put other pandas read functions here
         sys.exit('Invalid data type. Must be either .csv, .txt, or .xlsx')
