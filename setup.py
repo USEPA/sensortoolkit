@@ -5,7 +5,7 @@ here = pathlib.Path(__file__).parent
 readme = (here / 'README.md').read_text()
 
 setup(name='sensortoolkit',
-      version='0.7.0b1',
+      version='0.7.1b1',
       description='Library for evaluating air sensor data',
       long_description=readme,
       long_description_content_type='text/markdown',
@@ -17,6 +17,7 @@ setup(name='sensortoolkit',
         'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',
         'Programming Language :: Python :: 3.8',
+        'Programming Language :: Python :: 3.9',
         ],
       packages=find_packages(include=['sensortoolkit',
                 'sensortoolkit.calculate',
