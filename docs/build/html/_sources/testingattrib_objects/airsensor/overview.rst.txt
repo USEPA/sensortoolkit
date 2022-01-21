@@ -10,8 +10,7 @@ alongside the sensortoolkit library:
 .. code-block:: python
 
   sensor_object = sensortoolkit.AirSensor(make='Example_Make',
-                                          model='Model',
-                                          project_path=work_path)
+                                          model='Model')
 
 .. list-table:: ``sensortoolkit.AirSensor() attributes``
  :widths: 50 75
@@ -25,17 +24,13 @@ alongside the sensortoolkit library:
  * - ``model``
    - The name of the sensor model. Users are recommended to replace spaces with |br|
      underscores.
- * - ``project_path``
-   - The path to the directory where the user intends to store data, figures, |br|
-     and reports relating to the sensor being testing.
 
 Constructing the sensortoolkit Directory Structure
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 sensortoolkit utilizes a folder structure for storing datasets and organizing
 related files. This folder structure is located at the path to a directory the
 user wishes to store evaluation-related content in. This path is referred to as
-the `project path` and is the same path the user passes to ``project_path`` when
-creating an instance of the ``sensortoolkit.AirSensor`` object. Sensor and
+the `project path` and is set by using the ``sensortoolkit.presets.set_project_path()`` method. Sensor and
 reference datasets as well as supplementary statistics are stored in a ``/data``
 folder. Figures created by the library are stored in a ``/figures`` folder.
 Testing reports are saved within a ``/reports`` folder. Users should run the

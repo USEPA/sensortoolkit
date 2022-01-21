@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>sensortoolkit.ingest._standard_ingest &mdash; sensortoolkit 0.7.0b1 documentation</title>
+  <title>sensortoolkit.ingest._standard_ingest &mdash; sensortoolkit 0.7.1b1 documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" type="text/css" />
@@ -30,7 +30,7 @@
             <a href="../../../index.html" class="icon icon-home"> sensortoolkit
           </a>
               <div class="version">
-                0.7.0b1
+                0.7.1b1
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
@@ -411,6 +411,7 @@
 <span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
 <span class="kn">import</span> <span class="nn">pytz</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">pandas.errors</span> <span class="kn">import</span> <span class="n">EmptyDataError</span>
 <span class="kn">from</span> <span class="nn">sensortoolkit.param</span> <span class="kn">import</span> <span class="n">Parameter</span>
 
 
@@ -441,6 +442,7 @@
     <span class="n">idx_format_dict</span> <span class="o">=</span> <span class="p">{</span><span class="n">col</span><span class="p">:</span> <span class="n">time_fmt</span><span class="p">[</span><span class="n">col</span><span class="p">][</span><span class="s1">&#39;dt_format&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">idx_list</span><span class="p">}</span>
     <span class="n">idx_tzone</span> <span class="o">=</span> <span class="p">[</span><span class="n">time_fmt</span><span class="p">[</span><span class="n">col</span><span class="p">][</span><span class="s1">&#39;dt_timezone&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">time_fmt</span> <span class="k">if</span>
                  <span class="n">time_fmt</span><span class="p">[</span><span class="n">col</span><span class="p">][</span><span class="s1">&#39;dt_timezone&#39;</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">]</span>
+    <span class="n">encoding_pred</span> <span class="o">=</span> <span class="n">setup</span><span class="p">[</span><span class="s1">&#39;encoding_prediction&#39;</span><span class="p">]</span>
 
     <span class="k">if</span> <span class="n">setup</span><span class="p">[</span><span class="s1">&#39;file_extension&#39;</span><span class="p">]</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">&#39;.csv&#39;</span><span class="p">,</span> <span class="s1">&#39;.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;.xlsx&#39;</span><span class="p">):</span>
         <span class="k">try</span><span class="p">:</span>
@@ -453,13 +455,19 @@
 
             <span class="k">if</span> <span class="n">setup</span><span class="p">[</span><span class="s1">&#39;file_extension&#39;</span><span class="p">]</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">&#39;.csv&#39;</span><span class="p">,</span> <span class="s1">&#39;.txt&#39;</span><span class="p">):</span>
                 <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="n">setup</span><span class="p">[</span><span class="s1">&#39;header_iloc&#39;</span><span class="p">],</span>
-                                 <span class="n">names</span><span class="o">=</span><span class="n">names</span><span class="p">,</span> <span class="n">skiprows</span><span class="o">=</span><span class="n">row_idx</span><span class="p">)</span>
+                                 <span class="n">names</span><span class="o">=</span><span class="n">names</span><span class="p">,</span> <span class="n">skiprows</span><span class="o">=</span><span class="n">row_idx</span><span class="p">,</span>
+                                 <span class="n">encoding</span><span class="o">=</span><span class="n">encoding_pred</span><span class="p">,</span> <span class="n">on_bad_lines</span><span class="o">=</span><span class="s1">&#39;warn&#39;</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">setup</span><span class="p">[</span><span class="s1">&#39;file_extension&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;.xlsx&#39;</span><span class="p">:</span>
                 <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="n">setup</span><span class="p">[</span><span class="s1">&#39;header_iloc&#39;</span><span class="p">],</span>
-                                   <span class="n">names</span><span class="o">=</span><span class="n">names</span><span class="p">,</span> <span class="n">skiprows</span><span class="o">=</span><span class="n">row_idx</span><span class="p">)</span>
+                                   <span class="n">names</span><span class="o">=</span><span class="n">names</span><span class="p">,</span> <span class="n">skiprows</span><span class="o">=</span><span class="n">row_idx</span><span class="p">,</span>
+                                   <span class="n">encoding</span><span class="o">=</span><span class="n">encoding_pred</span><span class="p">,</span> <span class="n">on_bad_lines</span><span class="o">=</span><span class="s1">&#39;warn&#39;</span><span class="p">)</span>
 
         <span class="k">except</span> <span class="ne">FileNotFoundError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
             <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+        <span class="k">except</span> <span class="n">EmptyDataError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s1"> (likely empty file)&#39;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="c1"># Put other pandas read functions here</span>
         <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="s1">&#39;Invalid data type. Must be either .csv, .txt, or .xlsx&#39;</span><span class="p">)</span>
@@ -601,7 +609,8 @@
                  <span class="s1">&#39;agency&#39;</span><span class="p">:</span> <span class="s1">&#39;object&#39;</span><span class="p">,</span>
                  <span class="s1">&#39;site_aqs&#39;</span><span class="p">:</span> <span class="s1">&#39;object&#39;</span><span class="p">,</span>
                  <span class="s1">&#39;site_lat&#39;</span><span class="p">:</span> <span class="s1">&#39;float64&#39;</span><span class="p">,</span>
-                 <span class="s1">&#39;site_lon&#39;</span><span class="p">:</span> <span class="s1">&#39;float64&#39;</span><span class="p">}</span>
+                 <span class="s1">&#39;site_lon&#39;</span><span class="p">:</span> <span class="s1">&#39;float64&#39;</span><span class="p">,</span>
+                 <span class="s1">&#39;data_source&#39;</span><span class="p">:</span> <span class="s1">&#39;object&#39;</span><span class="p">}</span>
     <span class="c1"># Site metadata columns</span>
     <span class="k">for</span> <span class="n">col</span><span class="p">,</span> <span class="n">col_dtype</span> <span class="ow">in</span> <span class="n">site_cols</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
         <span class="k">if</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">setup</span><span class="p">:</span>
@@ -669,8 +678,8 @@
     <span class="n">file_sdfs_headers</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">file_unit_scaling</span> <span class="o">=</span> <span class="p">{}</span>
 
-    <span class="n">file_list</span> <span class="o">=</span> <span class="n">setup</span><span class="p">[</span><span class="s1">&#39;file_list&#39;</span><span class="p">]</span>
-
+    <span class="n">file_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">normpath</span><span class="p">(</span><span class="n">file</span><span class="p">)</span> <span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="n">setup</span><span class="p">[</span><span class="s1">&#39;file_list&#39;</span><span class="p">]]</span>
+    <span class="n">file_idx</span> <span class="o">=</span> <span class="n">file_list</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">normpath</span><span class="p">(</span><span class="n">data_path</span><span class="p">))</span>
     <span class="c1"># Either reference or sensor</span>
     <span class="c1"># data_type = setup[&#39;data_type&#39;]</span>
 
@@ -744,6 +753,18 @@
         <span class="n">file_setup</span><span class="p">[</span><span class="s1">&#39;data_row_idx&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">setup</span><span class="p">[</span><span class="s1">&#39;data_row_idx&#39;</span><span class="p">]</span>
     <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
         <span class="n">file_setup</span><span class="p">[</span><span class="s1">&#39;data_row_idx&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">file_setup</span><span class="p">[</span><span class="s1">&#39;data_source&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">setup</span><span class="p">[</span><span class="s1">&#39;dataset_kwargs&#39;</span><span class="p">][</span><span class="s1">&#39;ref_data_source&#39;</span><span class="p">]</span>
+    <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+        <span class="k">pass</span>
+
+    <span class="c1"># default encoding prediction</span>
+    <span class="n">file_setup</span><span class="p">[</span><span class="s1">&#39;encoding_prediction&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;utf-8&#39;</span>
+    <span class="c1"># pass on any predictions indicated by chardet in setup</span>
+    <span class="k">if</span> <span class="s1">&#39;encoding_predictions&#39;</span> <span class="ow">in</span> <span class="n">setup</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">file_idx</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">key</span><span class="p">)</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">setup</span><span class="p">[</span><span class="s1">&#39;encoding_predictions&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">keys</span><span class="p">()):</span>
+            <span class="n">file_setup</span><span class="p">[</span><span class="s1">&#39;encoding_prediction&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">setup</span><span class="p">[</span><span class="s1">&#39;encoding_predictions&#39;</span><span class="p">][</span><span class="nb">str</span><span class="p">(</span><span class="n">file_idx</span><span class="p">)]</span>
 
     <span class="k">return</span> <span class="n">file_setup</span></div>
 

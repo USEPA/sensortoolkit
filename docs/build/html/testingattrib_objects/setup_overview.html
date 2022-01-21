@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Overview of Instantiating Testing Attributes &mdash; sensortoolkit 0.7.0b1 documentation</title>
+  <title>Overview of Instantiating Testing Attributes &mdash; sensortoolkit 0.7.1b1 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" type="text/css" />
@@ -33,7 +33,7 @@
             <a href="../index.html" class="icon icon-home"> sensortoolkit
           </a>
               <div class="version">
-                0.7.0b1
+                0.7.1b1
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
@@ -443,35 +443,34 @@ this initial use-case.</strong></p>
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="kn">import</span> <span class="nn">sensortoolkit</span>
 
-<span class="n">work_path</span> <span class="o">=</span> <span class="p">(</span><span class="sa">r</span><span class="s1">&#39;C:\Users\...\Documents\sensortoolkit_testing&#39;</span><span class="p">)</span>
+<span class="n">sensortoolkit</span><span class="o">.</span><span class="n">presets</span><span class="o">.</span><span class="n">set_project_path</span><span class="p">(</span><span class="s1">&#39;C:/Users/.../Documents/my_evaluation&#39;</span><span class="p">)</span>
 
 <span class="c1"># AirSensor object instantiation</span>
-<span class="n">sensor</span> <span class="o">=</span> <span class="n">sensortoolkit</span><span class="o">.</span><span class="n">AirSensor</span><span class="p">(</span><span class="n">make</span><span class="o">=</span><span class="s1">&#39;Example_Make&#39;</span><span class="p">,</span>
-                                 <span class="n">model</span><span class="o">=</span><span class="s1">&#39;Model&#39;</span><span class="p">,</span>
-                                 <span class="n">project_path</span><span class="o">=</span><span class="n">work_path</span><span class="p">)</span>
+<span class="n">sensor_object</span> <span class="o">=</span> <span class="n">sensortoolkit</span><span class="o">.</span><span class="n">AirSensor</span><span class="p">(</span><span class="n">make</span><span class="o">=</span><span class="s1">&#39;Example_Make&#39;</span><span class="p">,</span>
+                                        <span class="n">model</span><span class="o">=</span><span class="s1">&#39;Model&#39;</span><span class="p">)</span>
 <span class="c1"># Create Data and Figures directory, subdirectories</span>
-<span class="hll"><span class="n">sensor</span><span class="o">.</span><span class="n">create_directories</span><span class="p">()</span>
-</span><span class="c1"># Run setup configuration for sensor data, creates setup.json file</span>
-<span class="hll"><span class="n">sensor</span><span class="o">.</span><span class="n">sensor_setup</span><span class="p">()</span>
-</span>
-<span class="c1"># Import and loading sensor data for the first time, processed data files will</span>
+<span class="n">sensor_object</span><span class="o">.</span><span class="n">create_directories</span><span class="p">()</span>
+<span class="hll"><span class="c1"># Run setup configuration for sensor data, creates setup.json file</span>
+</span><span class="n">sensor_object</span><span class="o">.</span><span class="n">sensor_setup</span><span class="p">()</span>
+<span class="hll">
+</span><span class="c1"># Import and loading sensor data for the first time, processed data files will</span>
 <span class="c1"># be saved following ingestion.</span>
-<span class="hll"><span class="n">sensor</span><span class="o">.</span><span class="n">load_data</span><span class="p">(</span><span class="n">load_raw_data</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-</span><span class="hll">                 <span class="n">write_to_file</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-</span>
-<span class="c1"># Create Parameter attribute for pollutant (PM2.5) for which sensor evaluation</span>
+<span class="n">sensor_object</span><span class="o">.</span><span class="n">load_data</span><span class="p">(</span><span class="n">load_raw_data</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="hll">                        <span class="n">write_to_file</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span><span class="hll">
+</span><span class="c1"># Create Parameter attribute for pollutant (PM2.5) for which sensor evaluation</span>
 <span class="c1"># will be conducted</span>
 <span class="n">pollutant</span> <span class="o">=</span> <span class="n">sensortoolkit</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="s1">&#39;PM25&#39;</span><span class="p">)</span>
 
 <span class="c1"># Loading reference object for the first time</span>
-<span class="hll"><span class="n">ref</span> <span class="o">=</span> <span class="n">sensortoolkit</span><span class="o">.</span><span class="n">ReferenceMonitor</span><span class="p">(</span><span class="n">project_path</span><span class="o">=</span><span class="n">work_path</span><span class="p">)</span>
-</span><span class="hll"><span class="n">ref</span><span class="o">.</span><span class="n">reference_setup</span><span class="p">()</span>
-</span>
-<span class="c1"># Load reference data for the evaluation timeframe</span>
-<span class="n">ref</span><span class="o">.</span><span class="n">load_data</span><span class="p">(</span><span class="n">bdate</span><span class="o">=</span><span class="s1">&#39;2019-08-01&#39;</span><span class="p">,</span>
-              <span class="n">edate</span><span class="o">=</span><span class="s1">&#39;2019-09-15&#39;</span><span class="p">,</span>
-              <span class="n">param_list</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;PM25&#39;</span><span class="p">],</span>
-              <span class="n">met_data</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">reference_object</span> <span class="o">=</span> <span class="n">sensortoolkit</span><span class="o">.</span><span class="n">ReferenceMonitor</span><span class="p">()</span>
+<span class="hll"><span class="n">reference_object</span><span class="o">.</span><span class="n">reference_setup</span><span class="p">()</span>
+</span><span class="hll">
+</span><span class="c1"># Load reference data for the evaluation timeframe</span>
+<span class="n">reference_object</span><span class="o">.</span><span class="n">load_data</span><span class="p">(</span><span class="n">bdate</span><span class="o">=</span><span class="s1">&#39;2019-08-01&#39;</span><span class="p">,</span>
+                           <span class="n">edate</span><span class="o">=</span><span class="s1">&#39;2019-09-15&#39;</span><span class="p">,</span>
+                           <span class="n">param_list</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;PM25&#39;</span><span class="p">],</span>
+                           <span class="n">met_data</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
 <span class="c1"># Run SensorEvaluation or PerformanceReport here...</span>
 </pre></div>
@@ -507,33 +506,31 @@ to an initial instantiation of the sensor and reference objects</strong>.</p>
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="kn">import</span> <span class="nn">sensortoolkit</span>
 
-<span class="n">work_path</span> <span class="o">=</span> <span class="p">(</span><span class="sa">r</span><span class="s1">&#39;C:\Users\...\Documents\sensortoolkit_testing&#39;</span><span class="p">)</span>
+<span class="n">sensortoolkit</span><span class="o">.</span><span class="n">presets</span><span class="o">.</span><span class="n">set_project_path</span><span class="p">(</span><span class="s1">&#39;C:/Users/.../Documents/my_evaluation&#39;</span><span class="p">)</span>
 
 <span class="c1"># AirSensor object instantiation</span>
 <span class="n">sensor_object</span> <span class="o">=</span> <span class="n">sensortoolkit</span><span class="o">.</span><span class="n">AirSensor</span><span class="p">(</span><span class="n">make</span><span class="o">=</span><span class="s1">&#39;Example_Make&#39;</span><span class="p">,</span>
-                               <span class="n">model</span><span class="o">=</span><span class="s1">&#39;Model&#39;</span><span class="p">,</span>
-                               <span class="n">project_path</span><span class="o">=</span><span class="n">work_path</span><span class="p">)</span>
+                                        <span class="n">model</span><span class="o">=</span><span class="s1">&#39;Model&#39;</span><span class="p">)</span>
 
 <span class="c1"># Load sensor data from processed datasets</span>
-<span class="hll"><span class="n">sensor_object</span><span class="o">.</span><span class="n">load_data</span><span class="p">(</span><span class="n">load_raw_data</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-</span><span class="hll">                        <span class="n">write_to_file</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-</span>
-<span class="c1"># Create Parameter attribute for pollutant (PM2.5) for which sensor evaluation</span>
+<span class="n">sensor_object</span><span class="o">.</span><span class="n">load_data</span><span class="p">(</span><span class="n">load_raw_data</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<span class="hll">                        <span class="n">write_to_file</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</span><span class="hll">
+</span><span class="c1"># Create Parameter attribute for pollutant (PM2.5) for which sensor evaluation</span>
 <span class="c1"># will be conducted</span>
 <span class="n">pollutant</span> <span class="o">=</span> <span class="n">sensortoolkit</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="s1">&#39;PM25&#39;</span><span class="p">)</span>
 
 <span class="c1"># Loading a pre-configured reference object (must indicate source, site, site id</span>
 <span class="c1"># if applicable)</span>
-<span class="n">ref</span> <span class="o">=</span> <span class="n">sensortoolkit</span><span class="o">.</span><span class="n">ReferenceMonitor</span><span class="p">(</span><span class="n">project_path</span><span class="o">=</span><span class="n">work_path</span><span class="p">,</span>
-<span class="hll">                                     <span class="n">data_source</span><span class="o">=</span><span class="s1">&#39;airnowtech&#39;</span><span class="p">,</span>
-</span><span class="hll">                                     <span class="n">site_name</span><span class="o">=</span><span class="s1">&#39;Burdens Creek&#39;</span><span class="p">,</span>
-</span><span class="hll">                                     <span class="n">site_id</span><span class="o">=</span><span class="s1">&#39;370630099&#39;</span><span class="p">)</span>
-</span>
-<span class="c1"># Load reference data for the evaluation timeframe</span>
-<span class="n">ref</span><span class="o">.</span><span class="n">load_data</span><span class="p">(</span><span class="n">bdate</span><span class="o">=</span><span class="s1">&#39;2019-08-01&#39;</span><span class="p">,</span>
-            <span class="n">edate</span><span class="o">=</span><span class="s1">&#39;2019-09-15&#39;</span><span class="p">,</span>
-            <span class="n">param_list</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;PM25&#39;</span><span class="p">],</span>
-            <span class="n">met_data</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">reference_object</span> <span class="o">=</span> <span class="n">sensortoolkit</span><span class="o">.</span><span class="n">ReferenceMonitor</span><span class="p">(</span><span class="n">data_source</span><span class="o">=</span><span class="s1">&#39;airnowtech&#39;</span><span class="p">,</span>
+                                                  <span class="n">site_name</span><span class="o">=</span><span class="s1">&#39;Burdens Creek&#39;</span><span class="p">,</span>
+<span class="hll">                                                  <span class="n">site_id</span><span class="o">=</span><span class="s1">&#39;370630099&#39;</span><span class="p">)</span>
+</span><span class="hll">
+</span><span class="hll"><span class="c1"># Load reference data for the evaluation timeframe</span>
+</span><span class="n">reference_object</span><span class="o">.</span><span class="n">load_data</span><span class="p">(</span><span class="n">bdate</span><span class="o">=</span><span class="s1">&#39;2019-08-01&#39;</span><span class="p">,</span>
+                           <span class="n">edate</span><span class="o">=</span><span class="s1">&#39;2019-09-15&#39;</span><span class="p">,</span>
+                           <span class="n">param_list</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;PM25&#39;</span><span class="p">],</span>
+                           <span class="n">met_data</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
 <span class="c1"># Run SensorEvaluation or PeformanceReport here...</span>
 </pre></div>

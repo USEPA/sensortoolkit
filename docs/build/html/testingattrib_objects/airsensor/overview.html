@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AirSensor Instantiation &mdash; sensortoolkit 0.7.0b1 documentation</title>
+  <title>AirSensor Instantiation &mdash; sensortoolkit 0.7.1b1 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" type="text/css" />
@@ -33,7 +33,7 @@
             <a href="../../index.html" class="icon icon-home"> sensortoolkit
           </a>
               <div class="version">
-                0.7.0b1
+                0.7.1b1
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
@@ -401,8 +401,7 @@ specifying the make and model of the sensor. Below is an example of instantiatin
 AirSensor object within the <cite>example.py</cite> script for the example sensor dataset included
 alongside the sensortoolkit library:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sensor_object</span> <span class="o">=</span> <span class="n">sensortoolkit</span><span class="o">.</span><span class="n">AirSensor</span><span class="p">(</span><span class="n">make</span><span class="o">=</span><span class="s1">&#39;Example_Make&#39;</span><span class="p">,</span>
-                                        <span class="n">model</span><span class="o">=</span><span class="s1">&#39;Model&#39;</span><span class="p">,</span>
-                                        <span class="n">project_path</span><span class="o">=</span><span class="n">work_path</span><span class="p">)</span>
+                                        <span class="n">model</span><span class="o">=</span><span class="s1">&#39;Model&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <table class="colwidths-given docutils align-default" id="id1">
@@ -425,10 +424,6 @@ replace spaces with underscores.</p></td>
 <td><p>The name of the sensor model. Users are recommended to replace spaces with <br />
 underscores.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">project_path</span></code></p></td>
-<td><p>The path to the directory where the user intends to store data, figures, <br />
-and reports relating to the sensor being testing.</p></td>
-</tr>
 </tbody>
 </table>
 <section id="constructing-the-sensortoolkit-directory-structure">
@@ -436,8 +431,7 @@ and reports relating to the sensor being testing.</p></td>
 <p>sensortoolkit utilizes a folder structure for storing datasets and organizing
 related files. This folder structure is located at the path to a directory the
 user wishes to store evaluation-related content in. This path is referred to as
-the <cite>project path</cite> and is the same path the user passes to <code class="docutils literal notranslate"><span class="pre">project_path</span></code> when
-creating an instance of the <code class="docutils literal notranslate"><span class="pre">sensortoolkit.AirSensor</span></code> object. Sensor and
+the <cite>project path</cite> and is set by using the <code class="docutils literal notranslate"><span class="pre">sensortoolkit.presets.set_project_path()</span></code> method. Sensor and
 reference datasets as well as supplementary statistics are stored in a <code class="docutils literal notranslate"><span class="pre">/data</span></code>
 folder. Figures created by the library are stored in a <code class="docutils literal notranslate"><span class="pre">/figures</span></code> folder.
 Testing reports are saved within a <code class="docutils literal notranslate"><span class="pre">/reports</span></code> folder. Users should run the
