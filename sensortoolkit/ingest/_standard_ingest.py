@@ -51,6 +51,7 @@ def standard_ingest(path, name=None, setup_file_path=None):
     idx_format_dict = {col: time_fmt[col]['dt_format'] for col in idx_list}
     idx_tzone = [time_fmt[col]['dt_timezone'] for col in time_fmt if
                  time_fmt[col]['dt_timezone'] is not None]
+    encoding_pred = setup['encoding_prediction']
 
     if setup['file_extension'] in ('.csv', '.txt', '.xlsx'):
         try:
@@ -63,10 +64,12 @@ def standard_ingest(path, name=None, setup_file_path=None):
 
             if setup['file_extension'] in ('.csv', '.txt'):
                 df = pd.read_csv(path, header=setup['header_iloc'],
-                                 names=names, skiprows=row_idx)
+                                 names=names, skiprows=row_idx,
+                                 encoding=encoding_pred)
             if setup['file_extension'] == '.xlsx':
                 df = pd.read_excel(path, header=setup['header_iloc'],
-                                   names=names, skiprows=row_idx)
+                                   names=names, skiprows=row_idx,
+                                   encoding=encoding_pred)
 
         except FileNotFoundError as e:
             sys.exit(e)
@@ -211,7 +214,8 @@ def standard_ingest(path, name=None, setup_file_path=None):
                  'agency': 'object',
                  'site_aqs': 'object',
                  'site_lat': 'float64',
-                 'site_lon': 'float64'}
+                 'site_lon': 'float64',
+                 'data_source': 'object'}
     # Site metadata columns
     for col, col_dtype in site_cols.items():
         if col in setup:
@@ -279,8 +283,8 @@ def parse_setup(setup_path, data_path):
     file_sdfs_headers = []
     file_unit_scaling = {}
 
-    file_list = setup['file_list']
-
+    file_list = [os.path.normpath(file) for file in setup['file_list']]
+    file_idx = file_list.index(os.path.normpath(data_path))
     # Either reference or sensor
     # data_type = setup['data_type']
 
@@ -354,6 +358,18 @@ def parse_setup(setup_path, data_path):
         file_setup['data_row_idx'] = setup['data_row_idx']
     except KeyError:
         file_setup['data_row_idx'] = None
+
+    try:
+        file_setup['data_source'] = setup['dataset_kwargs']['ref_data_source']
+    except KeyError:
+        pass
+
+    # default encoding prediction
+    file_setup['encoding_prediction'] = 'utf-8'
+    # pass on any predictions indicated by chardet in setup
+    if 'encoding_predictions' in setup:
+        if file_idx in list(int(key) for key in setup['encoding_predictions'].keys()):
+            file_setup['encoding_prediction'] = setup['encoding_predictions'][str(file_idx)]
 
     return file_setup
 
