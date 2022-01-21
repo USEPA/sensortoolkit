@@ -62,11 +62,7 @@ class SensorEvaluation:
             ``/data/eval_stats`` sensor subdirectory. Figures will also be
             written to the appropriate figures subdirectory.
         **kwargs:
-            Keyword arguments that may be passed to the function for
-            particulate use cases. Includes ``testing_org`` (a dictionary of
-            organization information that is included in deploy_dict),
-            ``testing_loc`` (a dictionary of testing location information also
-            included in ``deploy_dict``).
+            Keyword arguments (currently unused).
 
     Attributes:
         path (str): The project path in which data, figures, and reports

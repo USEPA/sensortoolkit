@@ -91,8 +91,6 @@ class PerformanceReport(SensorEvaluation):
             overwriting existing figures). Defaults to False.
         **kwargs (dict):
             - fmt_sensor_name
-            - testing_org
-            - testing_loc
 
     """
 
@@ -100,7 +98,7 @@ class PerformanceReport(SensorEvaluation):
     # constuct reports
     report_params = ['PM25', 'O3']
 
-    def __init__(self, sensor, param, reference=None, write_to_file=False,
+    def __init__(self, sensor, param, reference, write_to_file=False,
                  figure_search=False, **kwargs):
 
         # Add keyword arguments (testing_loc, testing_org, etc.)
@@ -139,7 +137,7 @@ class PerformanceReport(SensorEvaluation):
         # Sampling timeframe
         self.tframe = {grp:
                        self.deploy_dict['Deployment Groups'][grp]['eval_start']
-                       + ' - ' +
+                       + ' to ' +
                        self.deploy_dict['Deployment Groups'][grp]['eval_end']
                        for grp in list(
                                self.deploy_dict['Deployment Groups'].keys())
