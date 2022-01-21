@@ -250,6 +250,7 @@ def ref_api_query(query_type=None, param=None, bdate='', edate='',
                                              lookup_table)
 
             data = query_data
+            data = data.loc[idx.index, :]
             data = data.set_index(idx)
 
         # AirNow Specific query data tasks ------------------------------------
@@ -354,7 +355,9 @@ def select_poc(df, param):
          f'{param} were found:')
     poc_dict = df[param+ '_Method_POC'].value_counts().to_dict()
     for poc in poc_dict:
-        print(f'..POC: {poc}, number of entries: {poc_dict[poc]}')
+        poc_sample_count = df[df[param+ '_Method_POC']==poc][param + '_Value'].count()
+
+        print(f'..POC: {poc}, number of entries: {poc_sample_count}')
 
     poc_list = list(poc_dict.keys())
     valid = False
@@ -553,7 +556,7 @@ def query_periods(query_type=None, month_starts=[], month_ends=[]):
     dates are formatted a little differently depending on the API to query.
 
     API date formatting:
-    
+
     - AirNow API: Expects dates in format ``'YYYY-MM-DDTHH'``
         - Example: ``'2019-08-01T00'``
     - AQS API: Expects dates in format ``'YYYYMMDD'``
@@ -849,6 +852,8 @@ def ingest_aqs(data, param, api_param, param_classifier,
                          + data['time_gmt_' + api_param])
     idx.name = 'DateTime'
 
+    idx = idx.dropna()
+
     # Method code instrument look up
     if param_classifier == 'Met':
         row = lookup_table.where(
@@ -1125,7 +1130,8 @@ def save_api_dataset(process_df, raw_df, path, query_type, param_class,
     # site data
     try:
         site_name = process_df['Site_Name'].mode()[0]
-        site_name = site_name.replace(' ', '_')
+        site_list = site_name.title().split(None)
+        site_name = '_'.join(site_list)
     except KeyError:
         site_name = 'Unspecified_Site_Name'
 
@@ -1160,11 +1166,11 @@ if __name__ == '__main__':
 
     path = r'C:\\Users\\SFREDE01\\OneDrive - Environmental Protection Agency (EPA)\\Profile\\Documents\\test_dir'
 
-    triple_oaks_ID = {"state": "37",
-                      "county": "183",
-                      "site": "0021"}
+    aqs_id = {"state": "08",
+            "county": "031",
+            "site": "0026"}
 
-    data = ref_api_query(query_type='AQS', param=['PM25', 'PM10'], bdate='20210101',
-                  edate='20210331',
+    data = ref_api_query(query_type='AQS', param=['Temp', 'RH'],
+                         bdate='20191101', edate='20200131',
                   username='frederick.samuel@epa.gov', key='silverbird29',
-                  aqs_id=triple_oaks_ID, path=path)
+                  aqs_id=aqs_id, path=path)
