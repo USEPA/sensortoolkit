@@ -272,7 +272,8 @@ def sensor_import(sensor_name=None, sensor_serials=None,
                                                          sensor_serials,
                                                          sensor_name,
                                                          write_to_file,
-                                                         path=processed_path)
+                                                         path=processed_path,
+                                                         **kwargs)
 
     else:
         df_tuple = processed_data_search(processed_path,
