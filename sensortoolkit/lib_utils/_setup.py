@@ -24,6 +24,7 @@ from textwrap import wrap
 import json
 import pandas as pd
 import pprint
+import chardet
 import pytz
 from pytz.exceptions import UnknownTimeZoneError
 from sensortoolkit.lib_utils import (flatten_list, validate_entry,
@@ -384,15 +385,35 @@ class _Setup:
         # particular row index key.
 
         print(f'Parsing datasets at "..{self.data_rel_path}"')
+        print('')
+        self.encoding_predictions = {}
         for i, file in enumerate(self.file_list):
             # Try loading with utf-8 encoding, if error raised, try utf-16
             try:
                 df = self.loadDataFile(file)
             except UnicodeDecodeError:
-                print('[WARNING]: Reading dataset with uft-8 encoding '
-                      'unsuccessful, trying utf-16')
-                df = self.loadDataFile(file,
-                                       encoding='utf-16')
+                print('[WARNING]: Reading the following dataset with uft-8 encoding '
+                      'unsuccessful')
+                print(file.replace(self.data_rel_path, ''))
+                print('..Attempting to guess encoding')
+
+                with open(file, 'rb') as f:
+                    data = f.read(10000)
+                prediction = chardet.detect(data)
+                print('..encoding prediction:')
+                print(f'....{prediction}')
+                print('')
+
+                try:
+                    df = self.loadDataFile(file, encoding=prediction['encoding'])
+                except UnicodeError as e:
+                    print('Error encountered in file:', file)
+                    print(e)
+                    self.encoding_predictions[str(i)] = prediction['encoding']
+                except UnicodeDecodeError as e:
+                    print(e)
+                    print(f'Encoding prediction {prediction["encoding"]} unsuccessful for {file}')
+
             file_col_list = list(df.columns)
 
             for j, col in enumerate(file_col_list):
