@@ -23,6 +23,7 @@ import sys
 from textwrap import wrap
 import json
 import pandas as pd
+from pandas.errors import EmptyDataError
 import pprint
 import chardet
 import pytz
@@ -413,6 +414,11 @@ class _Setup:
                 except UnicodeDecodeError as e:
                     print(e)
                     print(f'Encoding prediction {prediction["encoding"]} unsuccessful for {file}')
+
+            except EmptyDataError as e:
+                print(f'[Warning] {e}:')
+                print(f'  {file}')
+                print('')
 
             file_col_list = list(df.columns)
 
