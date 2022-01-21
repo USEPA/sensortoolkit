@@ -31,10 +31,6 @@ class AirSensor:
             The name of the air sensor manufacturer.
         model (str):
             The name of the air sensor model.
-        project_path (str):
-            The path to the directory where the user intends to store data,
-            figures, and reports relating to the sensor being testing.
-            Defaults to None.
 
     """
 

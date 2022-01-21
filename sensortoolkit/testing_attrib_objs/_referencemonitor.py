@@ -30,10 +30,6 @@ class ReferenceMonitor:
     instrument and monitoring site attributes.
 
     Args:
-        project_path (str, optional):
-            The path to the directory where the user intends to store data,
-            figures, and reports relating to the sensor being testing.
-            Defaults to None.
         data_source (str, optional):
             The name of the data service that
             reference measurements were acquired from. Defaults to None.
