@@ -17,6 +17,7 @@ Last Updated:
 """
 
 from ._aqi import aqi
+from ._convert_temp import convert_temp
 from ._cv import cv
 from ._rmse import rmse
 from ._dewpoint import dewpoint
