@@ -797,10 +797,22 @@ class _Setup:
         print('')
         print(f'  Are the units of measure for {param} {sdfs_param_units}?')
         confirm = validate_entry(indent_statement=2)
+        print('')
         if confirm == 'n':
-            val = input('  Enter the scalar quanitity for converting the '
-                        'recorded measurements to the following unit basis: '
-                        f'{sdfs_param_units}')
+            if param == 'Temp' or 'DP':
+                print(f'  Are the units of measure for {param} Fahrenheit?')
+                temp_confirm = validate_entry(indent_statement=2)
+                if temp_confirm == 'y':
+                    print('')
+                    print(f'  {param} will be converted from Fahrenheit to Celsius')
+                    val = 'f_c'
+                else:
+                    print('  Temperature must be in either degree Fahrenheit or Celsius')
+
+            else:
+                val = input('  Enter the scalar quanitity for converting the '
+                            'recorded measurements to the following unit basis: '
+                            f'{sdfs_param_units}')
 
         return val
 
