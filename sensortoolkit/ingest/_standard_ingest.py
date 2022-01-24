@@ -23,6 +23,7 @@ import pytz
 import pandas as pd
 from pandas.errors import EmptyDataError
 from sensortoolkit.param import Parameter
+from sensortoolkit.calculate import convert_temp
 
 
 def standard_ingest(path, name=None, setup_file_path=None):
@@ -179,10 +180,27 @@ def standard_ingest(path, name=None, setup_file_path=None):
         df[col] = pd.to_numeric(df[col], errors='coerce')
 
     # Unit scaling
-    for header, scale_factor in setup['file_unit_scaling'].items():
-        sdfs_header = setup['col_rename_dict'][header]
-        print(f'....scaling {header} values by {scale_factor}')
-        df[sdfs_header] = float(scale_factor) * df[sdfs_header]
+    print(setup['file_unit_scaling'])
+    for header, conversion in setup['file_unit_scaling'].items():
+        # Use a specific equation indicated by the conversion string
+        if isinstance(conversion, str):
+
+            if conversion == 'f_c':
+                sdfs_header = setup['col_rename_dict'][header]
+                converted_data = convert_temp(df[sdfs_header],
+                                              from_unit='F',
+                                              to_unit='C')
+                df[sdfs_header] = converted_data
+
+            # Other non-scalar conversions could go here
+
+        # Use a scalar conversion factor
+        if isinstance(conversion, (int, float)):
+
+            scale_factor = conversion
+            sdfs_header = setup['col_rename_dict'][header]
+            print(f'....scaling {header} values by {scale_factor}')
+            df[sdfs_header] = float(scale_factor) * df[sdfs_header]
 
     # Drop unused columns
     if len(setup['drop_cols']) > 0:
