@@ -29,23 +29,23 @@ def convert_temp(data, from_unit='F', to_unit='C'):
         converted_data (pandas DataFrame): DESCRIPTION.
 
     """
-    # Convert input type to pandas dataframe
-    data_type = type(data)
-    if data_type is not pd.core.frame.DataFrame:
-        data = pd.Series(data).to_frame(name='Temp')
+    # # Convert input type to pandas dataframe
+    # data_type = type(data)
+    # if data_type is not pd.core.frame.DataFrame:
+    #     data = pd.Series(data).to_frame(name='Temp_Value')
 
-    # Passed datatype is pandas dataframe but expected header not found
-    if 'Temp' not in data:
-        raise KeyError('Column header "Temp" not in passed dataframe.')
+    # # Passed datatype is pandas dataframe but expected header not found
+    # if 'Temp_Value' not in data:
+    #     raise KeyError('Column header "Temp_Value" not in passed dataframe.')
 
     f_to_c = lambda x: (x - 32.0) / 1.8
     c_to_f = lambda x: 1.8*(x) + 32.0
 
     if from_unit == 'F' and to_unit == 'C':
-        print('..converting from Fahrenheit to Celsius')
+        print('....converting from Fahrenheit to Celsius')
         converted_data = f_to_c(data)
     elif from_unit == 'C' and to_unit == 'F':
-        print('..converting from Celsius to Fahrenheit')
+        print('....converting from Celsius to Fahrenheit')
         converted_data = c_to_f(data)
     else:
         raise AttributeError('Invalid conversion. Arguments for "from_unit"'
