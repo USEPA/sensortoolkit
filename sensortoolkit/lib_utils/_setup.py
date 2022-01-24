@@ -1338,9 +1338,16 @@ class ReferenceSetup(_Setup):
                 val = input(f'{indent}{console_statement}')
 
                 if val == '':
+                    # set valid true, step to next attribute
                     print(f'{indent}..skipping')
                     valid = True
-                    # set valid true, step to next attribute
+
+                    if attrib == f'{sdfs_param}' + '_Method_Code':
+                        name = 'Unknown Reference'
+                        self.__dict__.update({f'{sdfs_param}' + '_Method': name})
+                    else:
+                        self.__dict__.update({attrib: None})
+
                     continue
 
                 if attrib == f'{sdfs_param}' + '_Method_Code':
