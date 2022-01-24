@@ -2,6 +2,8 @@
 
 ![Sensors at an Ambient Air Monitoring Site](docs/_readmefigs_/CSAM_3_crop.jpg){width=1200}
 
+*Sensors at an ambient air monitoring site. Photo Credit - South Coast AQMD AQ-SPEC Program*
+
 **Warning: This code is in beta development and has not been cleared for public use. Please do not distribute or share components of this repository with individuals external to EPA.**
 
 *Samuel Frederick, NSSC Contractor (ORAU)*\
