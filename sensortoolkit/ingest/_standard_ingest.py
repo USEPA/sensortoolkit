@@ -180,7 +180,6 @@ def standard_ingest(path, name=None, setup_file_path=None):
         df[col] = pd.to_numeric(df[col], errors='coerce')
 
     # Unit scaling
-    print(setup['file_unit_scaling'])
     for header, conversion in setup['file_unit_scaling'].items():
         # Use a specific equation indicated by the conversion string
         if isinstance(conversion, str):
