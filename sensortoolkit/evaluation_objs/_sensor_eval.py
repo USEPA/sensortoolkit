@@ -550,6 +550,9 @@ class SensorEvaluation:
 
         avg_list = self.param.averaging
 
+        param = kwargs.get('param', self._param_name)
+        kwargs.pop('param', None)
+
         if len(avg_list) == 2 and report_fmt is True:
             fig, axs = plt.subplots(2, 1, figsize=(10.15, 4.1))
             fig.subplots_adjust(hspace=0.7)
@@ -557,11 +560,12 @@ class SensorEvaluation:
 
                 if averaging_interval == '1-hour':
                     sensor_data = self.hourly_df_list
-                    ref_data = self.hourly_ref_df
                 if averaging_interval == '24-hour':
                     sensor_data = self.daily_df_list
-                    ref_data = self.daily_ref_df
 
+                ref_data = self.ref_dict[sensortoolkit.Parameter(param).classifier][averaging_interval]
+                ref_name = ref_data[f'{param}_Method'].unique()[0]
+                print(ref_name)
                 # Prevent Sensor_Timeplot from writing to file on first
                 # iteration of loop
                 if i == 0:
@@ -573,10 +577,10 @@ class SensorEvaluation:
                                         sensor_data,
                                         ref_data,
                                         sensor_serials=self.serials,
-                                        param=self._param_name,
+                                        param=param,
                                         figure_path=self.figure_path,
                                         sensor_name=self.name,
-                                        ref_name=self.ref_name,
+                                        ref_name=ref_name,
                                         bdate=t_start,
                                         edate=t_end,
                                         averaging_interval=averaging_interval,
@@ -591,13 +595,15 @@ class SensorEvaluation:
         else:
 
             averaging_interval = kwargs.get('averaging_interval', '1-hour')
+            kwargs.pop('averaging_interval', None)
 
             if '1-hour' in avg_list and averaging_interval == '1-hour':
                 sensor_data = self.hourly_df_list
-                ref_data = self.hourly_ref_df
             if '24-hour' in avg_list and averaging_interval == '24-hour':
                 sensor_data = self.daily_df_list
-                ref_data = self.daily_ref_df
+
+            ref_data = self.ref_dict[sensortoolkit.Parameter(param).classifier][averaging_interval]
+            ref_name = ref_data[f'{param}_Method'].unique()[0]
 
             try:
                 sensor_data
@@ -608,10 +614,10 @@ class SensorEvaluation:
                     sensor_data,
                     ref_data,
                     sensor_serials=self.serials,
-                    param=self._param_name,
+                    param=param,
                     figure_path=self.figure_path,
                     sensor_name=self.name,
-                    ref_name=self.ref_name,
+                    ref_name=ref_name,
                     bdate=t_start,
                     edate=t_end,
                     averaging_interval=averaging_interval,
