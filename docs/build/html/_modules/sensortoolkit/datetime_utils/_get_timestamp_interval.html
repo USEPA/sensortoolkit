@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>sensortoolkit.datetime_utils._get_timestamp_interval &mdash; sensortoolkit 0.7.1b1 documentation</title>
+  <title>sensortoolkit.datetime_utils._get_timestamp_interval &mdash; sensortoolkit 0.7.3b1 documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" type="text/css" />
@@ -30,7 +30,7 @@
             <a href="../../../index.html" class="icon icon-home"> sensortoolkit
           </a>
               <div class="version">
-                0.7.1b1
+                0.7.3b1
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
@@ -423,7 +423,10 @@
 <span class="sd">            in the dataframe.</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">delta</span> <span class="o">=</span> <span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="o">-</span> <span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span><span class="o">.</span><span class="n">to_frame</span><span class="p">()</span>
+    <span class="c1"># Only count the duration between consecutive, non-repeating timestamps</span>
+    <span class="n">idx</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">()</span>
+
+    <span class="n">delta</span> <span class="o">=</span> <span class="p">(</span><span class="n">idx</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="o">-</span> <span class="n">idx</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span><span class="o">.</span><span class="n">to_frame</span><span class="p">()</span>
     <span class="n">idx_name</span> <span class="o">=</span> <span class="n">delta</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">name</span>
     <span class="n">t_delta</span> <span class="o">=</span> <span class="n">delta</span><span class="p">[</span><span class="n">idx_name</span><span class="p">]</span><span class="o">.</span><span class="n">mode</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
 
@@ -465,7 +468,7 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2021, Samuel Frederick.</p>
+    <p>&#169; Copyright 2022, United States Environmental Protection Agency.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

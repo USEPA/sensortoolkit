@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>sensortoolkit.lib_utils._setup &mdash; sensortoolkit 0.7.1b1 documentation</title>
+  <title>sensortoolkit.lib_utils._setup &mdash; sensortoolkit 0.7.3b1 documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" type="text/css" />
@@ -30,7 +30,7 @@
             <a href="../../../index.html" class="icon icon-home"> sensortoolkit
           </a>
               <div class="version">
-                0.7.1b1
+                0.7.3b1
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
@@ -415,7 +415,7 @@
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">from</span> <span class="nn">pandas.errors</span> <span class="kn">import</span> <span class="n">EmptyDataError</span>
 <span class="kn">import</span> <span class="nn">pprint</span>
-<span class="kn">import</span> <span class="nn">chardet</span>
+<span class="kn">import</span> <span class="nn">charset_normalizer</span>
 <span class="kn">import</span> <span class="nn">pytz</span>
 <span class="kn">from</span> <span class="nn">pytz.exceptions</span> <span class="kn">import</span> <span class="n">UnknownTimeZoneError</span>
 <span class="kn">from</span> <span class="nn">sensortoolkit.lib_utils</span> <span class="kn">import</span> <span class="p">(</span><span class="n">flatten_list</span><span class="p">,</span> <span class="n">validate_entry</span><span class="p">,</span>
@@ -779,7 +779,7 @@
         <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">encoding_predictions</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">file</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">file_list</span><span class="p">):</span>
-            <span class="c1"># Try loading with utf-8 encoding, if error raised, try utf-16</span>
+            <span class="c1"># Try loading with utf-8 encoding, if error raised, predict encoding</span>
             <span class="k">try</span><span class="p">:</span>
                 <span class="n">df</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">loadDataFile</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
             <span class="k">except</span> <span class="ne">UnicodeDecodeError</span><span class="p">:</span>
@@ -790,21 +790,23 @@
 
                 <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
                     <span class="n">data</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">10000</span><span class="p">)</span>
-                <span class="n">prediction</span> <span class="o">=</span> <span class="n">chardet</span><span class="o">.</span><span class="n">detect</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+                <span class="n">prediction</span> <span class="o">=</span> <span class="n">charset_normalizer</span><span class="o">.</span><span class="n">detect</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
                 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;..encoding prediction:&#39;</span><span class="p">)</span>
                 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;....</span><span class="si">{</span><span class="n">prediction</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
                 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
 
                 <span class="k">try</span><span class="p">:</span>
                     <span class="n">df</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">loadDataFile</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="n">prediction</span><span class="p">[</span><span class="s1">&#39;encoding&#39;</span><span class="p">])</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">encoding_predictions</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)]</span> <span class="o">=</span> <span class="n">prediction</span><span class="p">[</span><span class="s1">&#39;encoding&#39;</span><span class="p">]</span>
                 <span class="k">except</span> <span class="ne">UnicodeError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
                     <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Error encountered in file:&#39;</span><span class="p">,</span> <span class="n">file</span><span class="p">)</span>
                     <span class="nb">print</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">encoding_predictions</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)]</span> <span class="o">=</span> <span class="n">prediction</span><span class="p">[</span><span class="s1">&#39;encoding&#39;</span><span class="p">]</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Encoding prediction </span><span class="si">{</span><span class="n">prediction</span><span class="p">[</span><span class="s2">&quot;encoding&quot;</span><span class="p">]</span><span class="si">}</span><span class="s1"> unsuccessful for </span><span class="si">{</span><span class="n">file</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+                    <span class="c1">#self.encoding_predictions[str(i)] = prediction[&#39;encoding&#39;]</span>
                 <span class="k">except</span> <span class="ne">UnicodeDecodeError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Error encountered in file:&#39;</span><span class="p">,</span> <span class="n">file</span><span class="p">)</span>
                     <span class="nb">print</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
                     <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Encoding prediction </span><span class="si">{</span><span class="n">prediction</span><span class="p">[</span><span class="s2">&quot;encoding&quot;</span><span class="p">]</span><span class="si">}</span><span class="s1"> unsuccessful for </span><span class="si">{</span><span class="n">file</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-
             <span class="k">except</span> <span class="n">EmptyDataError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
                 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;[Warning] </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s1">:&#39;</span><span class="p">)</span>
                 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;  </span><span class="si">{</span><span class="n">file</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
@@ -859,19 +861,45 @@
                      <span class="s1">&#39; </span><span class="si">{0}</span><span class="s1"> at </span><span class="si">{1}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">file_extension</span><span class="p">,</span> <span class="n">data_path</span><span class="p">))</span>
 
         <span class="c1"># First try loading with utf-8 encoding, if error raised, try utf-16</span>
+        <span class="n">file</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">file_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
         <span class="k">try</span><span class="p">:</span>
-            <span class="n">df</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">loadDataFile</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">file_list</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+            <span class="n">df</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">loadDataFile</span><span class="p">(</span><span class="n">file</span><span class="p">,</span>
                                    <span class="n">nrows</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
                                    <span class="n">load_table</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="k">except</span> <span class="ne">UnicodeDecodeError</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">[WARNING]: Reading dataset with uft-8 encoding &#39;</span>
-                  <span class="s1">&#39;unsuccessful, trying utf-16&#39;</span><span class="p">)</span>
-            <span class="n">df</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">loadDataFile</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">file_list</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
-                                   <span class="n">nrows</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
-                                   <span class="n">load_table</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                                   <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-16&#39;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;[WARNING]: Reading the following dataset with uft-8 encoding &#39;</span>
+                  <span class="s1">&#39;unsuccessful&#39;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">file</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data_rel_path</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">))</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;..Attempting to guess encoding&#39;</span><span class="p">)</span>
 
-        <span class="n">filename</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">file_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                <span class="n">data</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">10000</span><span class="p">)</span>
+            <span class="n">prediction</span> <span class="o">=</span> <span class="n">charset_normalizer</span><span class="o">.</span><span class="n">detect</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;..encoding prediction:&#39;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;....</span><span class="si">{</span><span class="n">prediction</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">df</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">loadDataFile</span><span class="p">(</span><span class="n">file</span><span class="p">,</span>
+                                       <span class="n">nrows</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+                                       <span class="n">load_table</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                                       <span class="n">encoding</span><span class="o">=</span><span class="n">prediction</span><span class="p">[</span><span class="s1">&#39;encoding&#39;</span><span class="p">])</span>
+            <span class="k">except</span> <span class="ne">UnicodeError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Error encountered in file:&#39;</span><span class="p">,</span> <span class="n">file</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Encoding prediction </span><span class="si">{</span><span class="n">prediction</span><span class="p">[</span><span class="s2">&quot;encoding&quot;</span><span class="p">]</span><span class="si">}</span><span class="s1"> unsuccessful for </span><span class="si">{</span><span class="n">file</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+                <span class="c1">#self.encoding_predictions[str(i)] = prediction[&#39;encoding&#39;]</span>
+            <span class="k">except</span> <span class="ne">UnicodeDecodeError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Error encountered in file:&#39;</span><span class="p">,</span> <span class="n">file</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Encoding prediction </span><span class="si">{</span><span class="n">prediction</span><span class="p">[</span><span class="s2">&quot;encoding&quot;</span><span class="p">]</span><span class="si">}</span><span class="s1"> unsuccessful for </span><span class="si">{</span><span class="n">file</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="k">except</span> <span class="n">EmptyDataError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;[Warning] </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s1">:&#39;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;  </span><span class="si">{</span><span class="n">file</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+
+        <span class="n">filename</span> <span class="o">=</span> <span class="n">file</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
         <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
         <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;The first ten unformatted rows of </span><span class="si">{0}</span><span class="s1"> are displayed&#39;</span>
               <span class="s1">&#39; below:&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">filename</span><span class="p">))</span>
@@ -1185,12 +1213,24 @@
         <span class="n">val</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="n">sdfs_param_units</span> <span class="o">=</span> <span class="n">Parameter</span><span class="p">(</span><span class="n">sdfs_param</span><span class="p">)</span><span class="o">.</span><span class="n">units</span>
         <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;  Are the units of measure for </span><span class="si">{</span><span class="n">param</span><span class="si">}</span><span class="s1"> </span><span class="si">{</span><span class="n">sdfs_param_units</span><span class="si">}</span><span class="s1">?&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;  Are the units of measure [</span><span class="si">{</span><span class="n">sdfs_param_units</span><span class="si">}</span><span class="s1">] for column header &quot;</span><span class="si">{</span><span class="n">param</span><span class="si">}</span><span class="s1">&quot;?&#39;</span><span class="p">)</span>
         <span class="n">confirm</span> <span class="o">=</span> <span class="n">validate_entry</span><span class="p">(</span><span class="n">indent_statement</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">confirm</span> <span class="o">==</span> <span class="s1">&#39;n&#39;</span><span class="p">:</span>
-            <span class="n">val</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s1">&#39;  Enter the scalar quanitity for converting the &#39;</span>
-                        <span class="s1">&#39;recorded measurements to the following unit basis: &#39;</span>
-                        <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">sdfs_param_units</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">param</span> <span class="o">==</span> <span class="s1">&#39;Temp&#39;</span> <span class="ow">or</span> <span class="s1">&#39;DP&#39;</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;  Are the units of measure for </span><span class="si">{</span><span class="n">param</span><span class="si">}</span><span class="s1"> Fahrenheit?&#39;</span><span class="p">)</span>
+                <span class="n">temp_confirm</span> <span class="o">=</span> <span class="n">validate_entry</span><span class="p">(</span><span class="n">indent_statement</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">temp_confirm</span> <span class="o">==</span> <span class="s1">&#39;y&#39;</span><span class="p">:</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;  </span><span class="si">{</span><span class="n">param</span><span class="si">}</span><span class="s1"> will be converted from Fahrenheit to Celsius&#39;</span><span class="p">)</span>
+                    <span class="n">val</span> <span class="o">=</span> <span class="s1">&#39;f_c&#39;</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;  Temperature must be in either degree Fahrenheit or Celsius&#39;</span><span class="p">)</span>
+
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">val</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s1">&#39;  Enter the scalar quanitity for converting the &#39;</span>
+                            <span class="s1">&#39;recorded measurements to the following unit basis: &#39;</span>
+                            <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">sdfs_param_units</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="n">val</span>
 
@@ -1716,9 +1756,16 @@
                 <span class="n">val</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">indent</span><span class="si">}{</span><span class="n">console_statement</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 
                 <span class="k">if</span> <span class="n">val</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
+                    <span class="c1"># set valid true, step to next attribute</span>
                     <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">indent</span><span class="si">}</span><span class="s1">..skipping&#39;</span><span class="p">)</span>
                     <span class="n">valid</span> <span class="o">=</span> <span class="kc">True</span>
-                    <span class="c1"># set valid true, step to next attribute</span>
+
+                    <span class="k">if</span> <span class="n">attrib</span> <span class="o">==</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">sdfs_param</span><span class="si">}</span><span class="s1">&#39;</span> <span class="o">+</span> <span class="s1">&#39;_Method_Code&#39;</span><span class="p">:</span>
+                        <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;Unknown Reference&#39;</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">sdfs_param</span><span class="si">}</span><span class="s1">&#39;</span> <span class="o">+</span> <span class="s1">&#39;_Method&#39;</span><span class="p">:</span> <span class="n">name</span><span class="p">})</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="n">attrib</span><span class="p">:</span> <span class="kc">None</span><span class="p">})</span>
+
                     <span class="k">continue</span>
 
                 <span class="k">if</span> <span class="n">attrib</span> <span class="o">==</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">sdfs_param</span><span class="si">}</span><span class="s1">&#39;</span> <span class="o">+</span> <span class="s1">&#39;_Method_Code&#39;</span><span class="p">:</span>
@@ -1838,7 +1885,7 @@
 
                 <span class="n">class_param_cols</span> <span class="o">=</span> <span class="p">[]</span>
                 <span class="n">site_cols</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Site_Name&#39;</span><span class="p">,</span> <span class="s1">&#39;Agency&#39;</span><span class="p">,</span> <span class="s1">&#39;Site_AQS&#39;</span><span class="p">,</span>
-                             <span class="s1">&#39;Site_Lat&#39;</span><span class="p">,</span> <span class="s1">&#39;Site_Lon&#39;</span><span class="p">]</span>
+                             <span class="s1">&#39;Site_Lat&#39;</span><span class="p">,</span> <span class="s1">&#39;Site_Lon&#39;</span><span class="p">,</span> <span class="s1">&#39;Data_Source&#39;</span><span class="p">]</span>
                 <span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">class_params</span><span class="p">:</span>
                     <span class="n">class_param_cols</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="n">col</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span>
                                              <span class="k">if</span> <span class="n">col</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="n">param</span><span class="p">)])</span>
@@ -1919,7 +1966,7 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2021, Samuel Frederick.</p>
+    <p>&#169; Copyright 2022, United States Environmental Protection Agency.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
