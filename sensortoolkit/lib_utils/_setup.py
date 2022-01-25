@@ -25,7 +25,7 @@ import json
 import pandas as pd
 from pandas.errors import EmptyDataError
 import pprint
-import chardet
+import charset_normalizer
 import pytz
 from pytz.exceptions import UnknownTimeZoneError
 from sensortoolkit.lib_utils import (flatten_list, validate_entry,
@@ -389,7 +389,7 @@ class _Setup:
         print('')
         self.encoding_predictions = {}
         for i, file in enumerate(self.file_list):
-            # Try loading with utf-8 encoding, if error raised, try utf-16
+            # Try loading with utf-8 encoding, if error raised, predict encoding
             try:
                 df = self.loadDataFile(file)
             except UnicodeDecodeError:
@@ -400,21 +400,23 @@ class _Setup:
 
                 with open(file, 'rb') as f:
                     data = f.read(10000)
-                prediction = chardet.detect(data)
+                prediction = charset_normalizer.detect(data)
                 print('..encoding prediction:')
                 print(f'....{prediction}')
                 print('')
 
                 try:
                     df = self.loadDataFile(file, encoding=prediction['encoding'])
+                    self.encoding_predictions[str(i)] = prediction['encoding']
                 except UnicodeError as e:
                     print('Error encountered in file:', file)
                     print(e)
-                    self.encoding_predictions[str(i)] = prediction['encoding']
+                    print(f'Encoding prediction {prediction["encoding"]} unsuccessful for {file}')
+                    #self.encoding_predictions[str(i)] = prediction['encoding']
                 except UnicodeDecodeError as e:
+                    print('Error encountered in file:', file)
                     print(e)
                     print(f'Encoding prediction {prediction["encoding"]} unsuccessful for {file}')
-
             except EmptyDataError as e:
                 print(f'[Warning] {e}:')
                 print(f'  {file}')
@@ -469,19 +471,45 @@ class _Setup:
                      ' {0} at {1}'.format(self.file_extension, data_path))
 
         # First try loading with utf-8 encoding, if error raised, try utf-16
+        file = self.file_list[0]
         try:
-            df = self.loadDataFile(self.file_list[0],
+            df = self.loadDataFile(file,
                                    nrows=10,
                                    load_table=True)
         except UnicodeDecodeError:
-            print('\n[WARNING]: Reading dataset with uft-8 encoding '
-                  'unsuccessful, trying utf-16')
-            df = self.loadDataFile(self.file_list[0],
-                                   nrows=10,
-                                   load_table=True,
-                                   encoding='utf-16')
+            print('[WARNING]: Reading the following dataset with uft-8 encoding '
+                  'unsuccessful')
+            print(file.replace(self.data_rel_path, ''))
+            print('..Attempting to guess encoding')
 
-        filename = self.file_list[0].split('/')[-1]
+            with open(file, 'rb') as f:
+                data = f.read(10000)
+            prediction = charset_normalizer.detect(data)
+            print('..encoding prediction:')
+            print(f'....{prediction}')
+
+            try:
+                df = self.loadDataFile(file,
+                                       nrows=10,
+                                       load_table=True,
+                                       encoding=prediction['encoding'])
+            except UnicodeError as e:
+                print('')
+                print('Error encountered in file:', file)
+                print(e)
+                print(f'Encoding prediction {prediction["encoding"]} unsuccessful for {file}')
+                #self.encoding_predictions[str(i)] = prediction['encoding']
+            except UnicodeDecodeError as e:
+                print('')
+                print('Error encountered in file:', file)
+                print(e)
+                print(f'Encoding prediction {prediction["encoding"]} unsuccessful for {file}')
+        except EmptyDataError as e:
+            print(f'[Warning] {e}:')
+            print(f'  {file}')
+            print('')
+
+        filename = file.split('/')[-1]
         print('')
         print('The first ten unformatted rows of {0} are displayed'
               ' below:'.format(filename))
@@ -795,7 +823,7 @@ class _Setup:
         val = None
         sdfs_param_units = Parameter(sdfs_param).units
         print('')
-        print(f'  Are the units of measure for {param} {sdfs_param_units}?')
+        print(f'  Are the units of measure [{sdfs_param_units}] for column header "{param}"?')
         confirm = validate_entry(indent_statement=2)
         print('')
         if confirm == 'n':
@@ -1467,7 +1495,7 @@ class ReferenceSetup(_Setup):
 
                 class_param_cols = []
                 site_cols = ['Site_Name', 'Agency', 'Site_AQS',
-                             'Site_Lat', 'Site_Lon']
+                             'Site_Lat', 'Site_Lon', 'Data_Source']
                 for param in class_params:
                     class_param_cols.extend([col for col in df.columns
                                              if col.startswith(param)])
