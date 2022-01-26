@@ -1,0 +1,159 @@
+================
+Quickstart Guide
+================
+
+Sensortoolkit allows rapid and reproducible evaluation of air sensor data regardless of
+data formatting or encoding and facilitates comparison against reference data from a
+variety of API services or locally maintained data files. Sensor performance is determined
+using performance metrics and targets recommended by U.S. EPA's documents on the testing
+and evaluation of sensors measuring either fine particular matter or ozone for use in non-regulatory,
+supplemental, and informational monitoring applications.
+
+This guide provides a brief overview of how to use the sensortoolkit library, including
+primary functions and methods that are essential to making the most out of the library.
+The guide walks you through a example scenario, evaluating air sensor data [particular model?]
+against reference data collected from a monitor collocated at the ambient monitoring
+site where sensors were deployed in triplicate.
+
+Example Scenario
+^^^^^^^^^^^^^^^^
+
+Say that you have deployed three sensors at an ambient air monitoring site alongside
+reference instrumentation. The sensor measures both PM2.5 and O3, and you have confirmed
+with the agency overseeing the monitoring site that reference-grade monitors
+designated either Federal Equivalent Methods (FEMs) or Federal Reference Methods (FRMs).
+Following a sampling period of 30 days, you collect data from each sensor and acquire data
+from the monitoring agency for collocated reference measurements.
+
+The first decision you will need to make in using sensortoolkit is where to store scripts,
+data, figures, and reports that are related to your current project. This could be any folder
+location on your computer. I suggest creating a new folder in your documents directory. Let's
+call this directory ``my_evaluation``.
+
+sensortoolkit works best in development environments that allow you simultaneously develop
+scripts, view and explore variables, and execute code. These types of software utilities
+are called integrated development environments (IDEs). One popular IDE for python included
+alongside Anaconda distributions of the coding language is Spyder.
+
+Open up your IDE and create a new python script. You can choose to name this file anything
+you'd like, but we'll go with ``evaluation.py`` for this example. This file should be saved
+in the folder you created, so following from above, we now have a single file called ``evaluation.py``
+in the ``my_evaluation`` directory.
+
+Next, within your ``evaluation.py`` script, import the sensortoolkit library
+
+.. code-block:: python
+
+  import sensortoolkit
+
+Next, you need to tell sensortoolkit where on your computer you are conducting your evaluation.
+This is our ``my_evaluation`` folder, and the full path to that folder is referred to as the "project path".
+Set the project path using the following function
+
+.. code-block:: python
+
+  # Configure the project directory where data, figures, etc. will be stored
+  sensortoolkit.presets.set_project_path()
+
+Once you've set the project path, add information about the testing organization and
+location where the sensors were deployed. Inputting this information is optional,
+but is helpful in attributing the evaluation to the responsible party in meta data
+files that are generated during analysis.
+
+.. code-block:: python
+
+  # Add information about the testing organization that conducted the evaluation
+  sensortoolkit.presets.test_org = {
+      'Deployment name': '[Insert name of deployment]',
+      'Org name': ['[Insert organization name line 1]',
+                   '[Insert organization name line 2]'],
+      'Website': {'website name': '[Insert name of website]',
+                  'website link': '[Insert website here]'},
+      'Contact email': '[Insert email here]',
+      'Contact phone': '[Insert phone number here]'}
+
+  # Add information about the testing location where sensors were sited
+  sensortoolkit.presets.test_loc = {
+      'Site name': '[Insert name of site] ',
+      'Site address': '[Insert site address]',
+      'Site lat': '[Insert site latitude]',
+      'Site long': '[Insert site longitude]',
+      'Site AQS ID': '[If applicable, insert site AQS ID]'}
+
+.. code-block:: python
+
+  import sensortoolkit
+
+  # Configure the project directory where data, figures, etc. will be stored
+  sensortoolkit.presets.set_project_path()
+
+  # Add information about the testing organization that conducted the evaluation
+  sensortoolkit.presets.test_org = {
+      'Deployment name': '[Insert name of deployment]',
+      'Org name': ['[Insert organization name line 1]',
+                   '[Insert organization name line 2]'],
+      'Website': {'website name': '[Insert name of website]',
+                  'website link': '[Insert website here]'},
+      'Contact email': '[Insert email here]',
+      'Contact phone': '[Insert phone number here]'}
+
+  # Add information about the testing location where sensors were sited
+  sensortoolkit.presets.test_loc = {
+      'Site name': '[Insert name of site] ',
+      'Site address': '[Insert site address]',
+      'Site lat': '[Insert site latitude]',
+      'Site long': '[Insert site longitude]',
+      'Site AQS ID': '[If applicable, insert site AQS ID]'}
+
+  # Create an AirSensor instance for the sensor you'd like to evaluate
+  sensor = sensortoolkit.AirSensor(make='[Insert sensor manufacturer]',
+                                   model='[Insert sensor model]')
+
+  # Construct sensor-specific directories in the project path for data, figures, etc.
+  sensor.create_directories()
+
+  # Run the interative setup routine for specifying how to ingest sensor data
+  sensor.sensor_setup()
+
+  # Import sensor datasets and save processed datasets to the data folder
+  sensor.load_data(load_raw_data=True,
+                   write_to_file=True)
+
+  # Create a ReferenceMonitor instance for FRM/FEM monitor collocated alongside sensors
+  reference = sensortoolkit.ReferenceMonitor()
+
+  # Run the interactive setup routine for specifying how to ingest reference data
+  reference.reference_setup()
+
+  # Import reference data for parameter types measured by the air sensor, also
+  # import meteorological data if instruments collocated at monitoring site
+  reference.load_data(bdate=sensor.bdate,
+                      edate=sensor.edate,
+                      param_list=sensor.param_headers,
+                      met_data=True)
+
+  # Create a Parameter instance for the pollutant you wish to evaluate
+  pollutant = sensortoolkit.Parameter('[Insert pollutant from list of SDFS labels]')
+
+.. tabbed:: Evaluation
+
+  .. code-block:: python
+
+    # Run the evaluation
+    evaluation = sensortoolkit.SensorEvaluation(sensor,
+                                                pollutant,
+                                                reference,
+                                                write_to_file=True)
+
+.. tabbed:: Report
+
+  .. code-block:: python
+
+    # Create a performance evaluation report for the sensor
+    report = sensortoolkit.PerformanceReport(sensor,
+                                             pollutant,
+                                             reference,
+                                             write_to_file=True)
+
+    # Generate report
+    report.CreateReport()

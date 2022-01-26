@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>sensortoolkit - Air Sensor Data Analysis Library &mdash; sensortoolkit 0.7.3b1 documentation</title>
+  <title>Quickstart Guide &mdash; sensortoolkit 0.7.3b1 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" type="text/css" />
@@ -21,7 +21,8 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Quickstart Guide" href="quickstart.html" /> 
+    <link rel="next" title="Installation" href="install.html" />
+    <link rel="prev" title="sensortoolkit - Air Sensor Data Analysis Library" href="index.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -29,7 +30,7 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="#" class="icon icon-home"> sensortoolkit
+            <a href="index.html" class="icon icon-home"> sensortoolkit
           </a>
               <div class="version">
                 0.7.3b1
@@ -43,8 +44,8 @@
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Documentation Overview</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart Guide</a></li>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Quickstart Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="import_sensortoolkit.html">Importing sensortoolkit</a></li>
 <li class="toctree-l1"><a class="reference internal" href="testingattrib_objects/index.html">Testing Attribute Objects</a><ul>
@@ -372,17 +373,17 @@
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="#">sensortoolkit</a>
+          <a href="index.html">sensortoolkit</a>
       </nav>
 
       <div class="wy-nav-content">
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="#" class="icon icon-home"></a> &raquo;</li>
-      <li>sensortoolkit - Air Sensor Data Analysis Library</li>
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>Quickstart Guide</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/quickstart.rst.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -390,160 +391,154 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="sensortoolkit-air-sensor-data-analysis-library">
-<h1>sensortoolkit - Air Sensor Data Analysis Library<a class="headerlink" href="#sensortoolkit-air-sensor-data-analysis-library" title="Permalink to this headline"></a></h1>
-<figure class="align-center">
-<img alt="Air sensors at an ambient air monitoring site." src="_images/CSAM_3_crop.jpg" />
-</figure>
-<p><em>Sensors at an ambient air monitoring site. Photo Credit - South Coast AQMD AQ-SPEC Program</em></p>
-<hr class="docutils" />
-<div class="admonition important">
-<p class="admonition-title">Important</p>
-<p>This documentation is currently under development. Please check for
-updates to the BitBucket repository before referencing the documentation.</p>
+  <section id="quickstart-guide">
+<h1>Quickstart Guide<a class="headerlink" href="#quickstart-guide" title="Permalink to this headline"></a></h1>
+<p>Sensortoolkit allows rapid and reproducible evaluation of air sensor data regardless of
+data formatting or encoding and facilitates comparison against reference data from a
+variety of API services or locally maintained data files. Sensor performance is determined
+using performance metrics and targets recommended by U.S. EPA’s documents on the testing
+and evaluation of sensors measuring either fine particular matter or ozone for use in non-regulatory,
+supplemental, and informational monitoring applications.</p>
+<p>This guide provides a brief overview of how to use the sensortoolkit library, including
+primary functions and methods that are essential to making the most out of the library.
+The guide walks you through a example scenario, evaluating air sensor data [particular model?]
+against reference data collected from a monitor collocated at the ambient monitoring
+site where sensors were deployed in triplicate.</p>
+<section id="example-scenario">
+<h2>Example Scenario<a class="headerlink" href="#example-scenario" title="Permalink to this headline"></a></h2>
+<p>Say that you have deployed three sensors at an ambient air monitoring site alongside
+reference instrumentation. The sensor measures both PM2.5 and O3, and you have confirmed
+with the agency overseeing the monitoring site that reference-grade monitors
+designated either Federal Equivalent Methods (FEMs) or Federal Reference Methods (FRMs).
+Following a sampling period of 30 days, you collect data from each sensor and acquire data
+from the monitoring agency for collocated reference measurements.</p>
+<p>The first decision you will need to make in using sensortoolkit is where to store scripts,
+data, figures, and reports that are related to your current project. This could be any folder
+location on your computer. I suggest creating a new folder in your documents directory. Let’s
+call this directory <code class="docutils literal notranslate"><span class="pre">my_evaluation</span></code>.</p>
+<p>sensortoolkit works best in development environments that allow you simultaneously develop
+scripts, view and explore variables, and execute code. These types of software utilities
+are called integrated development environments (IDEs). One popular IDE for python included
+alongside Anaconda distributions of the coding language is Spyder.</p>
+<p>Open up your IDE and create a new python script. You can choose to name this file anything
+you’d like, but we’ll go with <code class="docutils literal notranslate"><span class="pre">evaluation.py</span></code> for this example. This file should be saved
+in the folder you created, so following from above, we now have a single file called <code class="docutils literal notranslate"><span class="pre">evaluation.py</span></code>
+in the <code class="docutils literal notranslate"><span class="pre">my_evaluation</span></code> directory.</p>
+<p>Next, within your <code class="docutils literal notranslate"><span class="pre">evaluation.py</span></code> script, import the sensortoolkit library</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sensortoolkit</span>
+</pre></div>
 </div>
-<section id="description">
-<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline"></a></h2>
-<p>sensortoolkit is a Python library for evaluating air sensor data. The library is
-intended for use with sensors collocated at ambient air monitoring sites alongside
-FRM/FEM monitors for comparison and analysis of sensor data against
-reference-grade data.</p>
-<p><cite>sensortoolkit</cite> can be used to evaluate sensor data for a single or multiple
-sensors measuring one of the following pollutants:
-<span class="raw-html">PM<sub>1</sub>, PM<sub>2.5</sub> [criteria], PM<sub>10</sub> [criteria], CO [criteria],
-NO, NO<sub>2</sub> [criteria], NO<sub>x</sub>, O<sub>3</sub> [criteria], SO<sub>2</sub> [criteria], SO<sub>x</sub></span>.</p>
-<p>sensortoolkit is most suitable for individuals who have some prior coding
-experience in python. The library is equipped with an API (application
-programming interface) that allows for ease of navigation and customization,
-making sensortoolkit accessible to individuals with a wide range of skillsets
-(e.g.,  individuals interested in monitoring their own sensor data, students
-and academic researchers, and industry professionals).</p>
-</section>
-<section id="key-features">
-<h2>Key Features<a class="headerlink" href="#key-features" title="Permalink to this headline"></a></h2>
-<p><strong>The primary goal of sensortoolkit is to provide a platform for analyzing air sensor
-data regardless of formatting differences across sensor data formatting schemes.</strong>
-This goal extends to reference data as well, and interactive setup modules are
-included for interpreting the recorded format for datasets for subsequent ingestion
-into standardized formatting schemes for sensor and reference data.</p>
-<ul class="simple">
-<li><p>Import sensor data via a standardized ingestion process and interactive setup module</p></li>
-<li><p>Average to 1-hour and/or 24-hour averaging intervals.</p></li>
-<li><p>Import FRM/FEM reference data from a variety of sources, including ingestion modules for importing data from AirNowTech, and modules for querying either the  AQS or AirNow API services.</p></li>
-<li><p>Submit queries for single or multiple parameters, parse datasets into a consistent reference data format and save unmodified and processed datasets to a data directory.</p></li>
-<li><p>Conduct analysis with the <cite>SensorEvaluation</cite> module</p></li>
-</ul>
-<blockquote>
-<div><ul class="simple">
-<li><p>Compute U.S. EPA’s recommended performance metrics for evaluating <span class="raw-html">PM<sub>2.5</sub></span> and <span class="raw-html">O<sub>3</sub></span> sensors.</p></li>
-<li><p>Visualize sensor performance with various figures and save to file location.</p></li>
-</ul>
-<blockquote>
-<div><ul class="simple">
-<li><p>Sensor vs. FRM/FEM scatter plots</p></li>
-<li><p>Timeseries indicating both sensor and FRM/FEM concentrations</p></li>
-<li><p>Performance metric results and comparison against target values/ranges.</p></li>
-<li><p>Save performance evaluation results, statistics, and supplemental information detailing the deployment conditions to a deployment JSON file.</p></li>
-</ul>
-</div></blockquote>
-</div></blockquote>
-<ul class="simple">
-<li><p>Create testing reports using U.S. EPA’s base-testing report template (PowerPoint file) with the <cite>PerformanceReport</cite> module.</p></li>
-<li><p>Additional modules are included for calculating quantities (AQI, <span class="raw-html">PM<sub>2.5</sub></span> NowCast, application of sensor correction equations, the U.S. Wide correction equation for PurpleAir sensors via Barkjohn et al. 2021 <a class="footnote-reference brackets" href="#f1" id="id1">1</a>, etc.) and conducting additional analysis (quality control modules for identifying outliers, invalidation of datapoints, A&amp;B channel cleaning for PurpleAir data via Barkjohn et al. 2021 <a class="footnote-reference brackets" href="#f1" id="id2">1</a>, etc.)</p></li>
-<li><p>Access to modules utilized by the <cite>SensorEvaluation</cite> and <cite>PerformanceReport</cite> for greater customization in conducting analysis.</p></li>
-</ul>
-<p class="rubric">Footnotes</p>
-<dl class="footnote brackets">
-<dt class="label" id="f1"><span class="brackets">1</span><span class="fn-backref">(<a href="#id1">1</a>,<a href="#id2">2</a>)</span></dt>
-<dd><p>Barkjohn, K. K., Gantt, B., and Clements, A. L.: Development and application of a United States-wide correction for PM2.5 data collected with the PurpleAir sensor, Atmos. Meas. Tech., 14, 4617–4637, <a class="reference external" href="https://doi.org/10.5194/amt-14-4617-2021">https://doi.org/10.5194/amt-14-4617-2021</a>, 2021.</p>
-</dd>
-</dl>
-</section>
-<section id="u-s-epa-s-performance-targets-reports">
-<h2>U.S. EPA’s Performance Targets Reports<a class="headerlink" href="#u-s-epa-s-performance-targets-reports" title="Permalink to this headline"></a></h2>
-<p>In February 2021, U.S. EPA released two reports outlining recommended performance
-testing protocols, metrics, and target values for fine particulate matter (<span class="raw-html">PM<sub>2.5</sub></span>)
-and ozone (<span class="raw-html">O<sub>3</sub></span>) air sensors used in
-non-regulatory, supplemental, and informational monitoring (NSIM) applications.</p>
-<aside class="sidebar">
-<p class="sidebar-title">Links to U.S. EPA’s Reports</p>
-<ul class="simple">
-<li><p><a class="reference external" href="https://cfpub.epa.gov/si/si_public_record_Report.cfm?dirEntryId=350785&amp;Lab=CEMM">Fine Particulate Matter Report</a></p></li>
-<li><p><a class="reference external" href="https://cfpub.epa.gov/si/si_public_record_Report.cfm?dirEntryId=350784&amp;Lab=CEMM">Ozone Report</a></p></li>
-</ul>
-</aside>
-<p>The sensortoolkit library includes numerous modules for computing performance metrics recommended by
-U.S. EPA for evaluating  (<span class="raw-html">PM<sub>2.5</sub></span>) and ozone (<span class="raw-html">O<sub>3</sub></span>) sensors. Additionally,
-plotting functions are included for visualizing performance evaluation results, including
-visualization of sensor performance metric values against U.S. EPA’s performance targets,
-sensor time series, scatter plots comparing collocated sensor and reference measurements,
-distribution plots for displaying the range of meteorological conditions during the
-deployment, etc. Tabular statistics and figures can be automatically compiled into
-testing reports recommended by U.S. EPA’s performance targets documents for testing
-conducting at ambient air monitoring sites.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Presently, evaluation of sensor performance with sensortoolkit using
-U.S. EPA’s recommended performance metrics and target values is limited to
-<span class="raw-html">PM<sub>2.5</sub></span> and <span class="raw-html">O<sub>3</sub></span>.</p>
+<p>Next, you need to tell sensortoolkit where on your computer you are conducting your evaluation.
+This is our <code class="docutils literal notranslate"><span class="pre">my_evaluation</span></code> folder, and the full path to that folder is referred to as the “project path”.
+Set the project path using the following function</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Configure the project directory where data, figures, etc. will be stored</span>
+<span class="n">sensortoolkit</span><span class="o">.</span><span class="n">presets</span><span class="o">.</span><span class="n">set_project_path</span><span class="p">()</span>
+</pre></div>
 </div>
-<p>FRM/FEM data may not be available at all testing sites for non-criteria
-pollutants (<span class="raw-html">PM<sub>1</sub></span>, NO,
-<span class="raw-html">NO<sub>x</sub></span>, <span class="raw-html">SO<sub>x</sub></span>, etc.). Testers should ensure that sensors are
-collocated alongside reference instrumentation capable of reporting 1-hour and/or
-24-hour concentration values for evaluation parameters of interest.</p>
-<div class="toctree-wrapper compound">
-<p class="caption" role="heading"><span class="caption-text">Documentation Overview</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart Guide</a></li>
-<li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="import_sensortoolkit.html">Importing sensortoolkit</a></li>
-<li class="toctree-l1"><a class="reference internal" href="testingattrib_objects/index.html">Testing Attribute Objects</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="testingattrib_objects/airsensor/index.html">The AirSensor Object</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="testingattrib_objects/airsensor/overview.html">AirSensor Instantiation</a></li>
-<li class="toctree-l3"><a class="reference internal" href="testingattrib_objects/airsensor/setup.html">AirSensor Setup</a></li>
-<li class="toctree-l3"><a class="reference internal" href="testingattrib_objects/airsensor/load_data.html">Loading Sensor Data</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="testingattrib_objects/referencemonitor/index.html">The ReferenceMonitor Object</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="testingattrib_objects/referencemonitor/overview.html">ReferenceMonitor Instantiation</a></li>
-<li class="toctree-l3"><a class="reference internal" href="testingattrib_objects/referencemonitor/setup.html">ReferenceMonitor Setup</a></li>
-<li class="toctree-l3"><a class="reference internal" href="testingattrib_objects/referencemonitor/load_data.html">Loading Reference Data</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="testingattrib_objects/parameter.html">The Parameter Object</a></li>
-<li class="toctree-l2"><a class="reference internal" href="testingattrib_objects/setup_overview.html">Overview of Instantiating Testing Attributes</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="evaluation_objects/index.html">Evaluation Objects</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="evaluation_objects/sensoreval/index.html">Conducting Analysis - The SensorEvaluation Class</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="evaluation_objects/sensoreval/plotting.html">Plotting Methods</a></li>
-<li class="toctree-l3"><a class="reference internal" href="evaluation_objects/sensoreval/printing.html">Descriptive Summary Methods</a></li>
-<li class="toctree-l3"><a class="reference internal" href="evaluation_objects/sensoreval/statistic.html">Statistical Methods</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="evaluation_objects/performancereport.html">Creating Testing Reports - The PerformanceReport Class</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="data_structures/index.html">Data Structures</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="data_structures/sensor_data.html">Sensor Data Structures</a></li>
-<li class="toctree-l2"><a class="reference internal" href="data_structures/reference_data.html">Reference Data Structures</a></li>
-<li class="toctree-l2"><a class="reference internal" href="data_structures/config_structs.html">Configuration Setup JSON</a></li>
-<li class="toctree-l2"><a class="reference internal" href="data_structures/eval_structs.html">Performance Evaluation Data Structures</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="sdfs/index.html">sensortoolkit Data Formatting Scheme (SDFS)</a></li>
-</ul>
+<p>Once you’ve set the project path, add information about the testing organization and
+location where the sensors were deployed. Inputting this information is optional,
+but is helpful in attributing the evaluation to the responsible party in meta data
+files that are generated during analysis.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Add information about the testing organization that conducted the evaluation</span>
+<span class="n">sensortoolkit</span><span class="o">.</span><span class="n">presets</span><span class="o">.</span><span class="n">test_org</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;Deployment name&#39;</span><span class="p">:</span> <span class="s1">&#39;[Insert name of deployment]&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Org name&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;[Insert organization name line 1]&#39;</span><span class="p">,</span>
+                 <span class="s1">&#39;[Insert organization name line 2]&#39;</span><span class="p">],</span>
+    <span class="s1">&#39;Website&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;website name&#39;</span><span class="p">:</span> <span class="s1">&#39;[Insert name of website]&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;website link&#39;</span><span class="p">:</span> <span class="s1">&#39;[Insert website here]&#39;</span><span class="p">},</span>
+    <span class="s1">&#39;Contact email&#39;</span><span class="p">:</span> <span class="s1">&#39;[Insert email here]&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Contact phone&#39;</span><span class="p">:</span> <span class="s1">&#39;[Insert phone number here]&#39;</span><span class="p">}</span>
+
+<span class="c1"># Add information about the testing location where sensors were sited</span>
+<span class="n">sensortoolkit</span><span class="o">.</span><span class="n">presets</span><span class="o">.</span><span class="n">test_loc</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;Site name&#39;</span><span class="p">:</span> <span class="s1">&#39;[Insert name of site] &#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Site address&#39;</span><span class="p">:</span> <span class="s1">&#39;[Insert site address]&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Site lat&#39;</span><span class="p">:</span> <span class="s1">&#39;[Insert site latitude]&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Site long&#39;</span><span class="p">:</span> <span class="s1">&#39;[Insert site longitude]&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Site AQS ID&#39;</span><span class="p">:</span> <span class="s1">&#39;[If applicable, insert site AQS ID]&#39;</span><span class="p">}</span>
+</pre></div>
 </div>
-<div class="toctree-wrapper compound">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sensortoolkit</span>
+
+<span class="c1"># Configure the project directory where data, figures, etc. will be stored</span>
+<span class="n">sensortoolkit</span><span class="o">.</span><span class="n">presets</span><span class="o">.</span><span class="n">set_project_path</span><span class="p">()</span>
+
+<span class="c1"># Add information about the testing organization that conducted the evaluation</span>
+<span class="n">sensortoolkit</span><span class="o">.</span><span class="n">presets</span><span class="o">.</span><span class="n">test_org</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;Deployment name&#39;</span><span class="p">:</span> <span class="s1">&#39;[Insert name of deployment]&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Org name&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;[Insert organization name line 1]&#39;</span><span class="p">,</span>
+                 <span class="s1">&#39;[Insert organization name line 2]&#39;</span><span class="p">],</span>
+    <span class="s1">&#39;Website&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;website name&#39;</span><span class="p">:</span> <span class="s1">&#39;[Insert name of website]&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;website link&#39;</span><span class="p">:</span> <span class="s1">&#39;[Insert website here]&#39;</span><span class="p">},</span>
+    <span class="s1">&#39;Contact email&#39;</span><span class="p">:</span> <span class="s1">&#39;[Insert email here]&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Contact phone&#39;</span><span class="p">:</span> <span class="s1">&#39;[Insert phone number here]&#39;</span><span class="p">}</span>
+
+<span class="c1"># Add information about the testing location where sensors were sited</span>
+<span class="n">sensortoolkit</span><span class="o">.</span><span class="n">presets</span><span class="o">.</span><span class="n">test_loc</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;Site name&#39;</span><span class="p">:</span> <span class="s1">&#39;[Insert name of site] &#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Site address&#39;</span><span class="p">:</span> <span class="s1">&#39;[Insert site address]&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Site lat&#39;</span><span class="p">:</span> <span class="s1">&#39;[Insert site latitude]&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Site long&#39;</span><span class="p">:</span> <span class="s1">&#39;[Insert site longitude]&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Site AQS ID&#39;</span><span class="p">:</span> <span class="s1">&#39;[If applicable, insert site AQS ID]&#39;</span><span class="p">}</span>
+
+<span class="c1"># Create an AirSensor instance for the sensor you&#39;d like to evaluate</span>
+<span class="n">sensor</span> <span class="o">=</span> <span class="n">sensortoolkit</span><span class="o">.</span><span class="n">AirSensor</span><span class="p">(</span><span class="n">make</span><span class="o">=</span><span class="s1">&#39;[Insert sensor manufacturer]&#39;</span><span class="p">,</span>
+                                 <span class="n">model</span><span class="o">=</span><span class="s1">&#39;[Insert sensor model]&#39;</span><span class="p">)</span>
+
+<span class="c1"># Construct sensor-specific directories in the project path for data, figures, etc.</span>
+<span class="n">sensor</span><span class="o">.</span><span class="n">create_directories</span><span class="p">()</span>
+
+<span class="c1"># Run the interative setup routine for specifying how to ingest sensor data</span>
+<span class="n">sensor</span><span class="o">.</span><span class="n">sensor_setup</span><span class="p">()</span>
+
+<span class="c1"># Import sensor datasets and save processed datasets to the data folder</span>
+<span class="n">sensor</span><span class="o">.</span><span class="n">load_data</span><span class="p">(</span><span class="n">load_raw_data</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                 <span class="n">write_to_file</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># Create a ReferenceMonitor instance for FRM/FEM monitor collocated alongside sensors</span>
+<span class="n">reference</span> <span class="o">=</span> <span class="n">sensortoolkit</span><span class="o">.</span><span class="n">ReferenceMonitor</span><span class="p">()</span>
+
+<span class="c1"># Run the interactive setup routine for specifying how to ingest reference data</span>
+<span class="n">reference</span><span class="o">.</span><span class="n">reference_setup</span><span class="p">()</span>
+
+<span class="c1"># Import reference data for parameter types measured by the air sensor, also</span>
+<span class="c1"># import meteorological data if instruments collocated at monitoring site</span>
+<span class="n">reference</span><span class="o">.</span><span class="n">load_data</span><span class="p">(</span><span class="n">bdate</span><span class="o">=</span><span class="n">sensor</span><span class="o">.</span><span class="n">bdate</span><span class="p">,</span>
+                    <span class="n">edate</span><span class="o">=</span><span class="n">sensor</span><span class="o">.</span><span class="n">edate</span><span class="p">,</span>
+                    <span class="n">param_list</span><span class="o">=</span><span class="n">sensor</span><span class="o">.</span><span class="n">param_headers</span><span class="p">,</span>
+                    <span class="n">met_data</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># Create a Parameter instance for the pollutant you wish to evaluate</span>
+<span class="n">pollutant</span> <span class="o">=</span> <span class="n">sensortoolkit</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="s1">&#39;[Insert pollutant from list of SDFS labels]&#39;</span><span class="p">)</span>
+</pre></div>
 </div>
-<section id="indices-and-tables">
-<h3>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline"></a></h3>
-<ul class="simple">
-<li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
-<li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
-</ul>
-</section>
+<div class="tabbed-set docutils">
+<input checked="checked" id="70ded979-a6ec-47df-bc64-c832832392bf" name="4bfec44b-d28e-4faf-bff5-cd52d1cd35b0" type="radio">
+</input><label class="tabbed-label" for="70ded979-a6ec-47df-bc64-c832832392bf">
+Evaluation</label><div class="tabbed-content docutils">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Run the evaluation</span>
+<span class="n">evaluation</span> <span class="o">=</span> <span class="n">sensortoolkit</span><span class="o">.</span><span class="n">SensorEvaluation</span><span class="p">(</span><span class="n">sensor</span><span class="p">,</span>
+                                            <span class="n">pollutant</span><span class="p">,</span>
+                                            <span class="n">reference</span><span class="p">,</span>
+                                            <span class="n">write_to_file</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<input id="733da58e-869c-412d-b923-0a8089802c73" name="4bfec44b-d28e-4faf-bff5-cd52d1cd35b0" type="radio">
+</input><label class="tabbed-label" for="733da58e-869c-412d-b923-0a8089802c73">
+Report</label><div class="tabbed-content docutils">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create a performance evaluation report for the sensor</span>
+<span class="n">report</span> <span class="o">=</span> <span class="n">sensortoolkit</span><span class="o">.</span><span class="n">PerformanceReport</span><span class="p">(</span><span class="n">sensor</span><span class="p">,</span>
+                                         <span class="n">pollutant</span><span class="p">,</span>
+                                         <span class="n">reference</span><span class="p">,</span>
+                                         <span class="n">write_to_file</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># Generate report</span>
+<span class="n">report</span><span class="o">.</span><span class="n">CreateReport</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
 </section>
 </section>
 
@@ -551,7 +546,8 @@ collocated alongside reference instrumentation capable of reporting 1-hour and/o
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="quickstart.html" class="btn btn-neutral float-right" title="Quickstart Guide" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="index.html" class="btn btn-neutral float-left" title="sensortoolkit - Air Sensor Data Analysis Library" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="install.html" class="btn btn-neutral float-right" title="Installation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
