@@ -119,7 +119,7 @@ the information. Any reference to specific commercial products, processes, or
 services by service mark, trademark, manufacturer, or otherwise, does not
 constitute or imply their endorsement, recommendation or favoring by the USEPA.
 The USEPA seal and logo shall not be used in any manner to imply endorsement of
-any commercial product or activity by the USEPA or the United States Government
+any commercial product or activity by the USEPA or the United States Government.
 
 ****
 ## Installation <a name="install"></a>
