@@ -7,7 +7,7 @@
 **Warning: This code is in beta development and has not been cleared for public use. Please do not distribute or share components of this repository with individuals external to EPA.**
 
 *Samuel Frederick, NSSC Contractor (ORAU)*\
-*Office: 919-541-4086 | Email: frederick.samuel@epa.gov*
+*Email: frederick.samuel@epa.gov*
 
 ****
 ## Readme Guide
@@ -104,7 +104,7 @@ formatting schemes for sensor and reference data.
 &nbsp;&nbsp;&nbsp;&nbsp;Center for Environmental Measurement and Modeling\
 &nbsp;&nbsp;&nbsp;&nbsp;Air Methods & Characterization Division, Source and Fine Scale Branch\
 &nbsp;&nbsp;&nbsp;&nbsp;109 T.W. Alexander Drive, Research Triangle Park, NC  27711\
-&nbsp;&nbsp;&nbsp;&nbsp;Office: 919-541-1363 | Email: clements.andrea@epa.gov
+&nbsp;&nbsp;&nbsp;&nbsp;Email: clements.andrea@epa.gov
 
 Additional information about EPA's research involving air sensors including the reports for fine particulate matter sensors and ozone sensors, past evaluation results, and additional documentation are located at EPA's [Air Sensor Toolbox](https://www.epa.gov/air-sensor-toolbox).
 

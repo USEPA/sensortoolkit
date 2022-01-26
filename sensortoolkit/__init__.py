@@ -67,7 +67,7 @@ Contact
     | Center for Environmental Measurement and Modeling
     | Air Methods & Characterization Division, Source and Fine Scale Branch
     | 109 T.W. Alexander Drive, Research Triangle Park, NC  27711
-    | Office: 919-541-1363 | Email: clements.andrea@epa.gov
+    | Email: clements.andrea@epa.gov
     |
 
 @Author:
