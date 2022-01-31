@@ -81,77 +81,77 @@ Arguments passed to ``SensorEvaluation``
   * - ``**kwargs``
     - ``testing_org`` and ``testing_loc``. See below for more detail.
 
+..
+  Keyword Arguments passed to ``SensorEvaluation``
+  """"""""""""""""""""""""""""""""""""""""""""""""
 
-Keyword Arguments passed to ``SensorEvaluation``
-""""""""""""""""""""""""""""""""""""""""""""""""
+  Additional keyword arguments may be passed to the class. The current
+  version of ``SensorEvaluation`` supports two additional keyword arguments for
+  specifying information about the testing organization and evaluation location.
 
-Additional keyword arguments may be passed to the class. The current
-version of ``SensorEvaluation`` supports two additional keyword arguments for
-specifying information about the testing organization and evaluation location.
+  ``testing_org``
+  ^^^^^^^^^^^^^^^
 
-``testing_org``
-^^^^^^^^^^^^^^^
+  A dictionary containing the information about the testing organization.
 
-A dictionary containing the information about the testing organization.
+  .. list-table:: ``testing_org`` Attributes
+    :widths: 50 75
+    :header-rows: 1
 
-.. list-table:: ``testing_org`` Attributes
-  :widths: 50 75
-  :header-rows: 1
+    * - Attribute name
+      - Description
+    * - ``Deployment name``
+      - The descriptive name assigned to the sensor deployment.
+    * - ``Org name``
+      - The name of the testing organization.
+    * - ``Website``
+      - Website address for the testing organization.
+    * - ``Contact email``
+      - Contact email address responsible parties conducting testing.
+    * - ``Contact phone``
+      - Phone number for responsible parties conducting testing.
 
-  * - Attribute name
-    - Description
-  * - ``Deployment name``
-    - The descriptive name assigned to the sensor deployment.
-  * - ``Org name``
-    - The name of the testing organization.
-  * - ``Website``
-    - Website address for the testing organization.
-  * - ``Contact email``
-    - Contact email address responsible parties conducting testing.
-  * - ``Contact phone``
-    - Phone number for responsible parties conducting testing.
+  **Example:**
 
-**Example:**
+  .. code-block:: python
 
-.. code-block:: python
+    testing_org = {'Deployment name': '[Insert name of deployment]',
+                   'Org name': ['[Insert organization name]'],
+                   'Website': {'website name': '[Insert name of website]',
+                               'website link': '[Insert website here]'},
+                   'Contact email': '[Insert email here]',
+                   'Contact phone': '[Insert phone number here]'}
 
-  testing_org = {'Deployment name': '[Insert name of deployment]',
-                 'Org name': ['[Insert organization name]'],
-                 'Website': {'website name': '[Insert name of website]',
-                             'website link': '[Insert website here]'},
-                 'Contact email': '[Insert email here]',
-                 'Contact phone': '[Insert phone number here]'}
+  ``testing_loc``
+  ^^^^^^^^^^^^^^^
 
-``testing_loc``
-^^^^^^^^^^^^^^^
+  A dictionary containing information about the testing site. If the site is part
+  of U.S. EPA's Air Quality System (AQS), the AQS Site ID should be specified.
 
-A dictionary containing information about the testing site. If the site is part
-of U.S. EPA's Air Quality System (AQS), the AQS Site ID should be specified.
+  .. list-table:: ``testing_org`` Attributes
+    :widths: 50 75
+    :header-rows: 1
 
-.. list-table:: ``testing_org`` Attributes
-  :widths: 50 75
-  :header-rows: 1
+    * - Attribute name
+      - Description
+    * - ``Site name``
+      - The name of the ambient monitoring site.
+    * - ``Site address``
+      - The street address of the monitoring site.
+    * - ``Site lat``
+      - The latitude coordinate of the site.
+    * - ``Site lon``
+      - The longitude coordinate of the site.
 
-  * - Attribute name
-    - Description
-  * - ``Site name``
-    - The name of the ambient monitoring site.
-  * - ``Site address``
-    - The street address of the monitoring site.
-  * - ``Site lat``
-    - The latitude coordinate of the site.
-  * - ``Site lon``
-    - The longitude coordinate of the site.
+  **Example:**
 
-**Example:**
+  .. code-block:: python
 
-.. code-block:: python
-
-  testing_loc = {'Site name': '[Insert name of site] ',
-                 'Site address': '[Insert site address]',
-                 'Site lat': '[Insert site latitude]',
-                 'Site long': '[Insert site longitude]',
-                 'Site AQS ID': '[If applicable, insert site AQS ID]'}
+    testing_loc = {'Site name': '[Insert name of site] ',
+                   'Site address': '[Insert site address]',
+                   'Site lat': '[Insert site latitude]',
+                   'Site long': '[Insert site longitude]',
+                   'Site AQS ID': '[If applicable, insert site AQS ID]'}
 
 ``SensorEvaluation`` Methods
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^

@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Creating Testing Reports - The PerformanceReport Class &mdash; sensortoolkit 0.7.3b1 documentation</title>
+  <title>Creating Testing Reports - The PerformanceReport Class &mdash; sensortoolkit 0.7.4b1 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" type="text/css" />
@@ -33,7 +33,7 @@
             <a href="../index.html" class="icon icon-home"> sensortoolkit
           </a>
               <div class="version">
-                0.7.3b1
+                0.7.4b1
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
@@ -399,31 +399,111 @@ the <code class="docutils literal notranslate"><span class="pre">sensortoolkit.S
 <code class="docutils literal notranslate"><span class="pre">PerformanceReport</span></code> class as they do to conduct analysis with <code class="docutils literal notranslate"><span class="pre">SensorEvaluation</span></code>
 (<code class="docutils literal notranslate"><span class="pre">PerformanceReport</span></code> is an inherited class of <code class="docutils literal notranslate"><span class="pre">SensorEvaluation</span></code>, which means that
 its initialization creates a <code class="docutils literal notranslate"><span class="pre">SensorEvaluation</span></code> instance and is used to construct reports).</p>
-<p>There are a few additional attributes users can pass to the <code class="docutils literal notranslate"><span class="pre">PerformanceReport</span></code>
-class, including the dictionaries <code class="docutils literal notranslate"><span class="pre">testing_org</span></code> and <code class="docutils literal notranslate"><span class="pre">testing_loc</span></code>. These
-dictionaries house information about the testing organization, contact information,
+<p>Note that information about the testing organization and testing location can be
+populated in reports via the respective <code class="docutils literal notranslate"><span class="pre">sensortoolkit.presets</span></code> attributes:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Fill in bracketed placeholder text with your information</span>
+<span class="c1"># Add information about the testing organization that conducted the evaluation</span>
+<span class="n">sensortoolkit</span><span class="o">.</span><span class="n">presets</span><span class="o">.</span><span class="n">test_org</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;Deployment name&#39;</span><span class="p">:</span> <span class="s1">&#39;[Insert name of deployment]&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Org name&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;[Insert organization name line 1]&#39;</span><span class="p">,</span>
+                 <span class="s1">&#39;[Insert organization name line 2]&#39;</span><span class="p">],</span>
+    <span class="s1">&#39;Website&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;website name&#39;</span><span class="p">:</span> <span class="s1">&#39;[Insert name of website]&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;website link&#39;</span><span class="p">:</span> <span class="s1">&#39;[Insert website here]&#39;</span><span class="p">},</span>
+    <span class="s1">&#39;Contact email&#39;</span><span class="p">:</span> <span class="s1">&#39;[Insert email here]&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Contact phone&#39;</span><span class="p">:</span> <span class="s1">&#39;[Insert phone number here]&#39;</span><span class="p">}</span>
+
+<span class="c1"># Add information about the testing location where sensors were sited</span>
+<span class="n">sensortoolkit</span><span class="o">.</span><span class="n">presets</span><span class="o">.</span><span class="n">test_loc</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;Site name&#39;</span><span class="p">:</span> <span class="s1">&#39;[Insert name of site] &#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Site address&#39;</span><span class="p">:</span> <span class="s1">&#39;[Insert site address]&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Site lat&#39;</span><span class="p">:</span> <span class="s1">&#39;[Insert site latitude]&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Site long&#39;</span><span class="p">:</span> <span class="s1">&#39;[Insert site longitude]&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Site AQS ID&#39;</span><span class="p">:</span> <span class="s1">&#39;[If applicable, insert site AQS ID]&#39;</span><span class="p">}</span>
+</pre></div>
+</div>
+<p>These dictionaries house information about the testing organization, contact information,
 and site details including the address, coordinates, and site AQS ID if applicable.</p>
+<section id="testing-org">
+<h2><code class="docutils literal notranslate"><span class="pre">testing_org</span></code><a class="headerlink" href="#testing-org" title="Permalink to this headline"></a></h2>
+<p>A dictionary containing the information about the testing organization.</p>
+<table class="colwidths-given docutils align-default" id="id1">
+<caption><span class="caption-text"><code class="docutils literal notranslate"><span class="pre">testing_org</span></code> Attributes</span><a class="headerlink" href="#id1" title="Permalink to this table"></a></caption>
+<colgroup>
+<col style="width: 40%" />
+<col style="width: 60%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Attribute name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Deployment</span> <span class="pre">name</span></code></p></td>
+<td><p>The descriptive name assigned to the sensor deployment.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Org</span> <span class="pre">name</span></code></p></td>
+<td><p>The name of the testing organization.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Website</span></code></p></td>
+<td><p>Website address for the testing organization.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Contact</span> <span class="pre">email</span></code></p></td>
+<td><p>Contact email address responsible parties conducting testing.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Contact</span> <span class="pre">phone</span></code></p></td>
+<td><p>Phone number for responsible parties conducting testing.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="testing-loc">
+<h2><code class="docutils literal notranslate"><span class="pre">testing_loc</span></code><a class="headerlink" href="#testing-loc" title="Permalink to this headline"></a></h2>
+<p>A dictionary containing information about the testing site. If the site is part
+of U.S. EPA’s Air Quality System (AQS), the AQS Site ID should be specified.</p>
+<table class="colwidths-given docutils align-default" id="id2">
+<caption><span class="caption-text"><code class="docutils literal notranslate"><span class="pre">testing_org</span></code> Attributes</span><a class="headerlink" href="#id2" title="Permalink to this table"></a></caption>
+<colgroup>
+<col style="width: 40%" />
+<col style="width: 60%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Attribute name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Site</span> <span class="pre">name</span></code></p></td>
+<td><p>The name of the ambient monitoring site.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Site</span> <span class="pre">address</span></code></p></td>
+<td><p>The street address of the monitoring site.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Site</span> <span class="pre">lat</span></code></p></td>
+<td><p>The latitude coordinate of the site.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Site</span> <span class="pre">lon</span></code></p></td>
+<td><p>The longitude coordinate of the site.</p></td>
+</tr>
+</tbody>
+</table>
 <p>Below is an example of running the <cite>PerformanceReport</cite> class to create a testing
 report for the <code class="docutils literal notranslate"><span class="pre">Example_Make_Model</span></code> sensor evaluating its <span class="raw-html">PM<sub>2.5</sub></span> performance.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pollutant</span> <span class="o">=</span> <span class="n">sensortoolkit</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="s1">&#39;PM25&#39;</span><span class="p">)</span>
-
-<span class="c1"># Instantiate the PerformanceReport class for the example sensor dataset</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Instantiate the PerformanceReport class for the example sensor dataset</span>
 <span class="n">report</span> <span class="o">=</span> <span class="n">sensortoolkit</span><span class="o">.</span><span class="n">PerformanceReport</span><span class="p">(</span><span class="n">sensor_object</span><span class="p">,</span>
                                          <span class="n">pollutant</span><span class="p">,</span>
                                          <span class="n">reference_object</span><span class="p">,</span>
                                          <span class="n">write_to_file</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                                         <span class="n">figure_search</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-                                         <span class="n">testing_loc</span><span class="o">=</span><span class="n">loc</span><span class="p">,</span>
-                                         <span class="n">testing_org</span><span class="o">=</span><span class="n">org</span><span class="p">)</span>
+                                         <span class="n">figure_search</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
 <span class="c1"># Compile the report and save the file to the reports subfolder</span>
 <span class="n">report</span><span class="o">.</span><span class="n">CreateReport</span><span class="p">()</span>
 </pre></div>
 </div>
+</section>
 <section id="arguments-passed-to-performancereport">
 <h2>Arguments passed to <code class="docutils literal notranslate"><span class="pre">PerformanceReport</span></code><a class="headerlink" href="#arguments-passed-to-performancereport" title="Permalink to this headline"></a></h2>
-<table class="colwidths-given docutils align-default" id="id1">
-<caption><span class="caption-text"><code class="docutils literal notranslate"><span class="pre">sensortoolkit.PerformanceReport()</span></code> attributes</span><a class="headerlink" href="#id1" title="Permalink to this table"></a></caption>
+<table class="colwidths-given docutils align-default" id="id3">
+<caption><span class="caption-text"><code class="docutils literal notranslate"><span class="pre">sensortoolkit.PerformanceReport()</span></code> attributes</span><a class="headerlink" href="#id3" title="Permalink to this table"></a></caption>
 <colgroup>
 <col style="width: 40%" />
 <col style="width: 60%" />
@@ -452,9 +532,6 @@ and figures are written to <code class="docutils literal notranslate"><span clas
 directory before attempting to create new figures. If false, <br />
 PerformanceReport will create all new figures (may risk overwriting <br />
 existing figures). Defaults to False.</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">**kwargs</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">testing_org</span></code> and <code class="docutils literal notranslate"><span class="pre">testing_loc</span></code>. See <a class="reference external" href="../evaluation_objects/sensoreval/index.html#keyword-arguments-passed-to-sensorevaluation">Keyword arguments passed to sensorevaluation</a>.</p></td>
 </tr>
 </tbody>
 </table>
@@ -523,8 +600,8 @@ Users must either insert these details manually by placing information in the
 provided table, or by appending documentation to the end of the report and noting on
 the supplemental information page that addition documentation has been attached.</p>
 <div class="tabbed-set docutils">
-<input checked="checked" id="3ab2d747-20c6-4989-8482-c9ae42cb0fde" name="b4542325-9136-4932-9583-43f670289025" type="radio">
-</input><label class="tabbed-label" for="3ab2d747-20c6-4989-8482-c9ae42cb0fde">
+<input checked="checked" id="6265bddc-8b32-4127-887f-3aca79267be7" name="2b613bf8-03d8-4bc5-b860-421692f228c9" type="radio">
+</input><label class="tabbed-label" for="6265bddc-8b32-4127-887f-3aca79267be7">
 Page 1 - Testing Summary</label><div class="tabbed-content docutils">
 <p>The first page of the testing report allows testers to insert information about their
 organization including contact information, and testers are also encouraged to
@@ -533,45 +610,45 @@ provide details about the sensor and FRM/FEM instrumentation used for testing.</
 information about the deployment. These figures provide indication of the sensor’s
 performance during the testing period, site conditions including temperature and
 relative humidity, and meteorological influences that may be present in sensor data.</p>
-<figure class="align-center" id="id2">
+<figure class="align-center" id="id4">
 <img alt="The first page of the performance report. This page features tables for listing details about the testing organization, site information, sensor information, and FRM/FEM information. Below these tables are a number of figures, including timeseries and scatter plots at 1-hour and 24-hour averages indicating the agreement between the sensor and FRM/FEM. Below these plots is a figure displaying the results of the sensor against EPA's recommended performance metrics and target values for evaluating air sensor performance. Below this figure is a final row displaying the meteorological conditions during the deployment (temperature and relative humidity) and the influence of these meteorological parameters on sensor measurements." src="../_images/performance_report_example_pg1.png" />
 <figcaption>
-<p><span class="caption-text">Example_Make_Model Base Testing Report (Page 1)</span><a class="headerlink" href="#id2" title="Permalink to this image"></a></p>
+<p><span class="caption-text">Example_Make_Model Base Testing Report (Page 1)</span><a class="headerlink" href="#id4" title="Permalink to this image"></a></p>
 </figcaption>
 </figure>
 </div>
-<input id="90d0881b-12da-4e64-94b4-9ba29edf440b" name="b4542325-9136-4932-9583-43f670289025" type="radio">
-</input><label class="tabbed-label" for="90d0881b-12da-4e64-94b4-9ba29edf440b">
+<input id="ab19a118-2a20-4884-aba7-6eb8dc5b76a4" name="2b613bf8-03d8-4bc5-b860-421692f228c9" type="radio">
+</input><label class="tabbed-label" for="ab19a118-2a20-4884-aba7-6eb8dc5b76a4">
 Page 2 - Tabular Statistics</label><div class="tabbed-content docutils">
 <p>The second page of the report includes tabular statistics, such as the performance
 metric values characterizing sensor vs. FRM/FEM accuracy (bias and linearity),
 error, and sensor-sensor (intersensor) precision.</p>
-<figure class="align-center" id="id3">
+<figure class="align-center" id="id5">
 <img alt="The second page of the performance report. Tabular statistics are listed for the sensor vs. FRM/FEM correlation, indicating individual sensor unit regression statistics (coefficient of determination, slope, intercept) and data quality (the uptime percentage and number of paired sensor and FRM/FEM concentration pairs). Also in the sensor vs. FRM/FEM correlation section is a table containing error metric values (RMSE and NRMSE). Below is a section for inter-sensor precision (sensor vs. sensor). A table in this section indicates the precision metric values including CV and SD, and data quality (uptime and the number of paired hourly measurement periods that all sensors were concurrently recording alongside the reference monitor)." src="../_images/performance_report_example_pg2.png" />
 <figcaption>
-<p><span class="caption-text">Example_Make_Model Base Testing Report (Page 2)</span><a class="headerlink" href="#id3" title="Permalink to this image"></a></p>
+<p><span class="caption-text">Example_Make_Model Base Testing Report (Page 2)</span><a class="headerlink" href="#id5" title="Permalink to this image"></a></p>
 </figcaption>
 </figure>
 </div>
-<input id="f1795b31-fdc2-4a01-804e-c979a538386c" name="b4542325-9136-4932-9583-43f670289025" type="radio">
-</input><label class="tabbed-label" for="f1795b31-fdc2-4a01-804e-c979a538386c">
+<input id="111794bb-8513-44e1-a18c-e8ac9b162e17" name="2b613bf8-03d8-4bc5-b860-421692f228c9" type="radio">
+</input><label class="tabbed-label" for="111794bb-8513-44e1-a18c-e8ac9b162e17">
 Page 3 - Sensor vs. FRM/FEM Scatter</label><div class="tabbed-content docutils">
 <p>Scatter plots for each sensor unit vs. FRM/FEM measurement pairs are displayed
 on a third page of the report.</p>
-<figure class="align-center" id="id4">
+<figure class="align-center" id="id6">
 <img alt="The third page of the performance report. This page includes sensor vs. FRM/FEM scatter plots for each sensor in the testing group at both 1-hour and 24-hour averages. Data pairs are colored by the relative humidity recorded by an independent monitor at the testing site to indicate whether humidity biases sensor measurements." src="../_images/performance_report_example_pg3.png" />
 <figcaption>
-<p><span class="caption-text">Example_Make_Model Base Testing Report (Page 3)</span><a class="headerlink" href="#id4" title="Permalink to this image"></a></p>
+<p><span class="caption-text">Example_Make_Model Base Testing Report (Page 3)</span><a class="headerlink" href="#id6" title="Permalink to this image"></a></p>
 </figcaption>
 </figure>
 </div>
-<input id="b186dffc-dfd0-496d-9595-2784cf80fe84" name="b4542325-9136-4932-9583-43f670289025" type="radio">
-</input><label class="tabbed-label" for="b186dffc-dfd0-496d-9595-2784cf80fe84">
+<input id="f86e6c4a-35fb-431a-af55-1d65bed59dcb" name="2b613bf8-03d8-4bc5-b860-421692f228c9" type="radio">
+</input><label class="tabbed-label" for="f86e6c4a-35fb-431a-af55-1d65bed59dcb">
 Page 4 - Supplemental Information</label><div class="tabbed-content docutils">
-<figure class="align-center" id="id5">
+<figure class="align-center" id="id7">
 <img alt="The fourth page of the performance report. This page includes a table listing various documents, reports, and observations that testers may wish to attached to the report. Entries are provided to indicate whether a particular type of documentation has been attached and a description of the URL or file path to the documentation." src="../_images/performance_report_example_pg4.png" />
 <figcaption>
-<p><span class="caption-text">Example_Make_Model Base Testing Report (Page 4)</span><a class="headerlink" href="#id5" title="Permalink to this image"></a></p>
+<p><span class="caption-text">Example_Make_Model Base Testing Report (Page 4)</span><a class="headerlink" href="#id7" title="Permalink to this image"></a></p>
 </figcaption>
 </figure>
 </div>
