@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>sensortoolkit.lib_utils._setup.displayMethods &mdash; sensortoolkit 0.7.4b1 documentation</title>
+  <title>sensortoolkit.lib_utils._flatten_datasets &mdash; sensortoolkit 0.7.4b1 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" type="text/css" />
@@ -20,7 +20,9 @@
         <script src="../../_static/doctools.js"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
-    <link rel="search" title="Search" href="../../search.html" /> 
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="sensortoolkit.lib_utils._flatten_datasets.flatten_datasets" href="sensortoolkit.lib_utils._flatten_datasets.flatten_datasets.html" />
+    <link rel="prev" title="sensortoolkit.lib_utils._flatten_list.flatten_list" href="sensortoolkit.lib_utils._flatten_list.flatten_list.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -83,8 +85,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../../sdfs/index.html">sensortoolkit Data Formatting Scheme (SDFS)</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">API Documentation</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../index.html">sensortoolkit API</a><ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">sensortoolkit API</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../calculate.html"><code class="docutils literal notranslate"><span class="pre">sensortoolkit.calculate</span></code></a><ul>
 <li class="toctree-l3"><a class="reference internal" href="sensortoolkit.calculate._aqi.html">sensortoolkit.calculate._aqi</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="sensortoolkit.calculate._aqi.html#resources">Resources</a></li>
@@ -206,7 +208,7 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../lib_utils.html"><code class="docutils literal notranslate"><span class="pre">sensortoolkit.lib_utils</span></code></a><ul>
+<li class="toctree-l2 current"><a class="reference internal" href="../lib_utils.html"><code class="docutils literal notranslate"><span class="pre">sensortoolkit.lib_utils</span></code></a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="sensortoolkit.lib_utils._check_type.html">sensortoolkit.lib_utils._check_type</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="sensortoolkit.lib_utils._check_type.check_type.html">sensortoolkit.lib_utils._check_type.check_type</a></li>
 </ul>
@@ -219,7 +221,7 @@
 <li class="toctree-l4"><a class="reference internal" href="sensortoolkit.lib_utils._flatten_list.flatten_list.html">sensortoolkit.lib_utils._flatten_list.flatten_list</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="sensortoolkit.lib_utils._flatten_datasets.html">sensortoolkit.lib_utils._flatten_datasets</a><ul>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">sensortoolkit.lib_utils._flatten_datasets</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="sensortoolkit.lib_utils._flatten_datasets.flatten_datasets.html">sensortoolkit.lib_utils._flatten_datasets.flatten_datasets</a></li>
 </ul>
 </li>
@@ -387,9 +389,11 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>sensortoolkit.lib_utils._setup.displayMethods</li>
+          <li><a href="../index.html">sensortoolkit API</a> &raquo;</li>
+          <li><a href="../lib_utils.html"><code class="docutils literal notranslate"><span class="pre">sensortoolkit.lib_utils</span></code></a> &raquo;</li>
+      <li>sensortoolkit.lib_utils._flatten_datasets</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="../../_sources/api/_autosummary/sensortoolkit.lib_utils._setup.displayMethods.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../../_sources/api/_autosummary/sensortoolkit.lib_utils._flatten_datasets.rst.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -397,14 +401,47 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="sensortoolkit-lib-utils-setup-displaymethods">
-<h1>sensortoolkit.lib_utils._setup.displayMethods<a class="headerlink" href="#sensortoolkit-lib-utils-setup-displaymethods" title="Permalink to this headline"></a></h1>
+  <section id="module-sensortoolkit.lib_utils._flatten_datasets">
+<span id="sensortoolkit-lib-utils-flatten-datasets"></span><h1>sensortoolkit.lib_utils._flatten_datasets<a class="headerlink" href="#module-sensortoolkit.lib_utils._flatten_datasets" title="Permalink to this headline"></a></h1>
+<dl class="simple">
+<dt>&#64;Author:</dt><dd><p>Samuel Frederick, NSSC Contractor (ORAU)
+U.S. EPA, Office of Research and Development
+Center for Environmental Measurement and Modeling
+Air Methods and Characterization Division, Source and Fine Scale Branch
+109 T.W Alexander Drive, Research Triangle Park, NC 27711
+Office: 919-541-4086 | Email: <a class="reference external" href="mailto:frederick&#46;samuel&#37;&#52;&#48;epa&#46;gov">frederick<span>&#46;</span>samuel<span>&#64;</span>epa<span>&#46;</span>gov</a></p>
+</dd>
+<dt>Created:</dt><dd><p>Mon Jan 31 11:06:57 2022</p>
+</dd>
+<dt>Last Updated:</dt><dd><p>Mon Jan 31 11:06:57 2022</p>
+</dd>
+</dl>
+<p class="rubric">Functions</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="sensortoolkit.lib_utils._flatten_datasets.flatten_datasets.html#sensortoolkit.lib_utils._flatten_datasets.flatten_datasets" title="sensortoolkit.lib_utils._flatten_datasets.flatten_datasets"><code class="xref py py-obj docutils literal notranslate"><span class="pre">flatten_datasets</span></code></a></p></td>
+<td><p><dl class="field-list simple">
+<dt class="field-odd">param AirSensor</dt>
+<dd class="field-odd"><p>DESCRIPTION.</p>
+</dd>
+</dl>
+</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 
 
            </div>
           </div>
-          <footer>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="sensortoolkit.lib_utils._flatten_list.flatten_list.html" class="btn btn-neutral float-left" title="sensortoolkit.lib_utils._flatten_list.flatten_list" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="sensortoolkit.lib_utils._flatten_datasets.flatten_datasets.html" class="btn btn-neutral float-right" title="sensortoolkit.lib_utils._flatten_datasets.flatten_datasets" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
 
   <hr/>
 

@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>sensortoolkit.lib_utils._setup.displayMethods &mdash; sensortoolkit 0.7.4b1 documentation</title>
+  <title>sensortoolkit.calculate._convert_temp.convert_temp &mdash; sensortoolkit 0.7.4b1 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" type="text/css" />
@@ -20,7 +20,9 @@
         <script src="../../_static/doctools.js"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
-    <link rel="search" title="Search" href="../../search.html" /> 
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="sensortoolkit.calculate._cv" href="sensortoolkit.calculate._cv.html" />
+    <link rel="prev" title="sensortoolkit.calculate._convert_temp" href="sensortoolkit.calculate._convert_temp.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -83,16 +85,16 @@
 <li class="toctree-l1"><a class="reference internal" href="../../sdfs/index.html">sensortoolkit Data Formatting Scheme (SDFS)</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">API Documentation</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../index.html">sensortoolkit API</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../calculate.html"><code class="docutils literal notranslate"><span class="pre">sensortoolkit.calculate</span></code></a><ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">sensortoolkit API</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../calculate.html"><code class="docutils literal notranslate"><span class="pre">sensortoolkit.calculate</span></code></a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="sensortoolkit.calculate._aqi.html">sensortoolkit.calculate._aqi</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="sensortoolkit.calculate._aqi.html#resources">Resources</a></li>
 <li class="toctree-l4"><a class="reference internal" href="sensortoolkit.calculate._aqi.html#calculation">Calculation</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="sensortoolkit.calculate._convert_temp.html">sensortoolkit.calculate._convert_temp</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="sensortoolkit.calculate._convert_temp.convert_temp.html">sensortoolkit.calculate._convert_temp.convert_temp</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="sensortoolkit.calculate._convert_temp.html">sensortoolkit.calculate._convert_temp</a><ul class="current">
+<li class="toctree-l4 current"><a class="current reference internal" href="#">sensortoolkit.calculate._convert_temp.convert_temp</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="sensortoolkit.calculate._cv.html">sensortoolkit.calculate._cv</a><ul>
@@ -387,9 +389,12 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>sensortoolkit.lib_utils._setup.displayMethods</li>
+          <li><a href="../index.html">sensortoolkit API</a> &raquo;</li>
+          <li><a href="../calculate.html"><code class="docutils literal notranslate"><span class="pre">sensortoolkit.calculate</span></code></a> &raquo;</li>
+          <li><a href="sensortoolkit.calculate._convert_temp.html">sensortoolkit.calculate._convert_temp</a> &raquo;</li>
+      <li>sensortoolkit.calculate._convert_temp.convert_temp</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="../../_sources/api/_autosummary/sensortoolkit.lib_utils._setup.displayMethods.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../../_sources/api/_autosummary/sensortoolkit.calculate._convert_temp.convert_temp.rst.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -397,14 +402,45 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="sensortoolkit-lib-utils-setup-displaymethods">
-<h1>sensortoolkit.lib_utils._setup.displayMethods<a class="headerlink" href="#sensortoolkit-lib-utils-setup-displaymethods" title="Permalink to this headline"></a></h1>
+  <section id="sensortoolkit-calculate-convert-temp-convert-temp">
+<h1>sensortoolkit.calculate._convert_temp.convert_temp<a class="headerlink" href="#sensortoolkit-calculate-convert-temp-convert-temp" title="Permalink to this headline"></a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="sensortoolkit.calculate._convert_temp.convert_temp">
+<span class="sig-name descname"><span class="pre">convert_temp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">from_unit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'F'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">to_unit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'C'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/sensortoolkit/calculate/_convert_temp.html#convert_temp"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sensortoolkit.calculate._convert_temp.convert_temp" title="Permalink to this definition"></a></dt>
+<dd><p>Convert temperature from one unit basis to another.</p>
+<p>Can convert from Fahrenheit to Celsius or vice versa.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>pandas DataFrame</em><em> or </em><em>pandas Series</em>) – DESCRIPTION.</p></li>
+<li><p><strong>from_unit</strong> (<em>str</em><em>, </em><em>optional</em>) – DESCRIPTION. Defaults to ‘F’.</p></li>
+<li><p><strong>to_unit</strong> (<em>str</em><em>, </em><em>optional</em>) – DESCRIPTION. Defaults to ‘C’.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>KeyError</strong> – DESCRIPTION.</p></li>
+<li><p><strong>AttributeError</strong> – DESCRIPTION.</p></li>
+</ul>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>DESCRIPTION.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>converted_data (pandas DataFrame)</p>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
 
 
            </div>
           </div>
-          <footer>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="sensortoolkit.calculate._convert_temp.html" class="btn btn-neutral float-left" title="sensortoolkit.calculate._convert_temp" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="sensortoolkit.calculate._cv.html" class="btn btn-neutral float-right" title="sensortoolkit.calculate._cv" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
 
   <hr/>
 
