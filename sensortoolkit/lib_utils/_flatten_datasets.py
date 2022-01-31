@@ -1,12 +1,17 @@
 # -*- coding: utf-8 -*-
 """
+This module contains a method for converting datasets for AirSensor and
+ReferenceMonitor objects corresponding to instruments that have been collocated
+at an ambient monitoring site into a single pandas DataFrame object and
+(optionally) saved as comma-separated value files for each sampling or
+averaging interval present in sensor and reference datasets.
+
+================================================================================
+
 @Author:
-  Samuel Frederick, NSSC Contractor (ORAU)
-  U.S. EPA, Office of Research and Development
-  Center for Environmental Measurement and Modeling
-  Air Methods and Characterization Division, Source and Fine Scale Branch
-  109 T.W Alexander Drive, Research Triangle Park, NC 27711
-  Office: 919-541-4086 | Email: frederick.samuel@epa.gov
+  | Samuel Frederick, NSSC Contractor (ORAU)
+  | U.S. EPA / ORD / CEMM / AMCD / SFSB
+
 
 Created:
   Mon Jan 31 11:06:57 2022
@@ -22,12 +27,12 @@ def flatten_datasets(AirSensor, ReferenceMonitor, write_to_file=False):
 
 
     Args:
-        AirSensor (TYPE): DESCRIPTION.
-        ReferenceMonitor (TYPE): DESCRIPTION.
-        write_to_file (TYPE, optional): DESCRIPTION. Defaults to False.
+        AirSensor (sensortoolkit.AirSensor): DESCRIPTION.
+        ReferenceMonitor (sensortoolkit.ReferenceMonitor): DESCRIPTION.
+        write_to_file (bool, optional): DESCRIPTION. Defaults to False.
 
     Returns:
-        flat_dict (TYPE): DESCRIPTION.
+        flat_dict (dict): DESCRIPTION.
 
     """
     site_info_cols = ['Agency', 'Site_Name', 'Site_AQS','Site_Lat', 'Site_Lon',
@@ -63,6 +68,7 @@ def flatten_datasets(AirSensor, ReferenceMonitor, write_to_file=False):
             print('..writing flattened dataset to .csv')
             today = get_todays_date()
             interv = interval.replace('-', '_')
+            #TODO: allow customization for where this file will be saved
             flat_df.to_csv(f'flatten_data_export_{interv}_{today}.csv')
 
         flat_dict[interval] = flat_df
