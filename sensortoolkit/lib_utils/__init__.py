@@ -2,7 +2,7 @@
 """
 The ``sensortoolkit.lib_utils`` subpackage contains general utilities that are
 accessed by various methods that contain interactive components or assist in
-configuring the project workspace. 
+configuring the project workspace.
 
 ===============================================================================
 
@@ -22,5 +22,6 @@ from ._input_tools import validate_entry, enter_continue
 from ._copy_datasets import copy_datasets
 from ._sensor_subfolders import create_sensor_directories
 from ._flatten_list import flatten_list
+from ._flatten_datasets import flatten_datasets
 from ._setup import SensorSetup
 from ._setup import ReferenceSetup
