@@ -19,7 +19,7 @@ Last Updated:
 from ._check_type import check_type
 from ._version import _get_version
 from ._input_tools import validate_entry, enter_continue
-from ._copy_datasets import copy_datasets
+from ._copy_datasets import copy_datasets, _prompt_directory
 from ._sensor_subfolders import create_sensor_directories
 from ._flatten_list import flatten_list
 from ._flatten_datasets import flatten_datasets
