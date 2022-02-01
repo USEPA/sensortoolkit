@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Creating Testing Reports - The PerformanceReport Class &mdash; sensortoolkit 0.7.4b1 documentation</title>
+  <title>Creating Testing Reports - The PerformanceReport Class &mdash; sensortoolkit 0.7.4b2 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" type="text/css" />
@@ -33,7 +33,7 @@
             <a href="../index.html" class="icon icon-home"> sensortoolkit
           </a>
               <div class="version">
-                0.7.4b1
+                0.7.4b2
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
@@ -91,6 +91,10 @@
 <li class="toctree-l3"><a class="reference internal" href="../api/_autosummary/sensortoolkit.calculate._aqi.html">sensortoolkit.calculate._aqi</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../api/_autosummary/sensortoolkit.calculate._aqi.html#resources">Resources</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../api/_autosummary/sensortoolkit.calculate._aqi.html#calculation">Calculation</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../api/_autosummary/sensortoolkit.calculate._convert_temp.html">sensortoolkit.calculate._convert_temp</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api/_autosummary/sensortoolkit.calculate._convert_temp.convert_temp.html">sensortoolkit.calculate._convert_temp.convert_temp</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../api/_autosummary/sensortoolkit.calculate._cv.html">sensortoolkit.calculate._cv</a><ul>
@@ -215,6 +219,10 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../api/_autosummary/sensortoolkit.lib_utils._flatten_list.html">sensortoolkit.lib_utils._flatten_list</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../api/_autosummary/sensortoolkit.lib_utils._flatten_list.flatten_list.html">sensortoolkit.lib_utils._flatten_list.flatten_list</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../api/_autosummary/sensortoolkit.lib_utils._flatten_datasets.html">sensortoolkit.lib_utils._flatten_datasets</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api/_autosummary/sensortoolkit.lib_utils._flatten_datasets.flatten_datasets.html">sensortoolkit.lib_utils._flatten_datasets.flatten_datasets</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../api/_autosummary/sensortoolkit.lib_utils._input_tools.html">sensortoolkit.lib_utils._input_tools</a><ul>
@@ -600,8 +608,8 @@ Users must either insert these details manually by placing information in the
 provided table, or by appending documentation to the end of the report and noting on
 the supplemental information page that addition documentation has been attached.</p>
 <div class="tabbed-set docutils">
-<input checked="checked" id="6265bddc-8b32-4127-887f-3aca79267be7" name="2b613bf8-03d8-4bc5-b860-421692f228c9" type="radio">
-</input><label class="tabbed-label" for="6265bddc-8b32-4127-887f-3aca79267be7">
+<input checked="checked" id="2f1adf79-19bd-43e3-a2d7-061bb149df98" name="d0854b3d-a111-4a07-87c5-cb58a790a3a7" type="radio">
+</input><label class="tabbed-label" for="2f1adf79-19bd-43e3-a2d7-061bb149df98">
 Page 1 - Testing Summary</label><div class="tabbed-content docutils">
 <p>The first page of the testing report allows testers to insert information about their
 organization including contact information, and testers are also encouraged to
@@ -617,8 +625,8 @@ relative humidity, and meteorological influences that may be present in sensor d
 </figcaption>
 </figure>
 </div>
-<input id="ab19a118-2a20-4884-aba7-6eb8dc5b76a4" name="2b613bf8-03d8-4bc5-b860-421692f228c9" type="radio">
-</input><label class="tabbed-label" for="ab19a118-2a20-4884-aba7-6eb8dc5b76a4">
+<input id="1eb8d3ce-d89e-4aa0-987f-6ecdaf4d1c05" name="d0854b3d-a111-4a07-87c5-cb58a790a3a7" type="radio">
+</input><label class="tabbed-label" for="1eb8d3ce-d89e-4aa0-987f-6ecdaf4d1c05">
 Page 2 - Tabular Statistics</label><div class="tabbed-content docutils">
 <p>The second page of the report includes tabular statistics, such as the performance
 metric values characterizing sensor vs. FRM/FEM accuracy (bias and linearity),
@@ -630,8 +638,8 @@ error, and sensor-sensor (intersensor) precision.</p>
 </figcaption>
 </figure>
 </div>
-<input id="111794bb-8513-44e1-a18c-e8ac9b162e17" name="2b613bf8-03d8-4bc5-b860-421692f228c9" type="radio">
-</input><label class="tabbed-label" for="111794bb-8513-44e1-a18c-e8ac9b162e17">
+<input id="51617003-439a-46fa-bbfa-719e85639abb" name="d0854b3d-a111-4a07-87c5-cb58a790a3a7" type="radio">
+</input><label class="tabbed-label" for="51617003-439a-46fa-bbfa-719e85639abb">
 Page 3 - Sensor vs. FRM/FEM Scatter</label><div class="tabbed-content docutils">
 <p>Scatter plots for each sensor unit vs. FRM/FEM measurement pairs are displayed
 on a third page of the report.</p>
@@ -642,8 +650,8 @@ on a third page of the report.</p>
 </figcaption>
 </figure>
 </div>
-<input id="f86e6c4a-35fb-431a-af55-1d65bed59dcb" name="2b613bf8-03d8-4bc5-b860-421692f228c9" type="radio">
-</input><label class="tabbed-label" for="f86e6c4a-35fb-431a-af55-1d65bed59dcb">
+<input id="a2b203a0-436f-4a4e-aedd-6b1b9726c1f6" name="d0854b3d-a111-4a07-87c5-cb58a790a3a7" type="radio">
+</input><label class="tabbed-label" for="a2b203a0-436f-4a4e-aedd-6b1b9726c1f6">
 Page 4 - Supplemental Information</label><div class="tabbed-content docutils">
 <figure class="align-center" id="id7">
 <img alt="The fourth page of the performance report. This page includes a table listing various documents, reports, and observations that testers may wish to attached to the report. Entries are provided to indicate whether a particular type of documentation has been attached and a description of the URL or file path to the documentation." src="../_images/performance_report_example_pg4.png" />

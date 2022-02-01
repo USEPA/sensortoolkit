@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AirSensor Setup &mdash; sensortoolkit 0.7.4b1 documentation</title>
+  <title>AirSensor Setup &mdash; sensortoolkit 0.7.4b2 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" type="text/css" />
@@ -33,7 +33,7 @@
             <a href="../../index.html" class="icon icon-home"> sensortoolkit
           </a>
               <div class="version">
-                0.7.4b1
+                0.7.4b2
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
@@ -91,6 +91,10 @@
 <li class="toctree-l3"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.calculate._aqi.html">sensortoolkit.calculate._aqi</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.calculate._aqi.html#resources">Resources</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.calculate._aqi.html#calculation">Calculation</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.calculate._convert_temp.html">sensortoolkit.calculate._convert_temp</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.calculate._convert_temp.convert_temp.html">sensortoolkit.calculate._convert_temp.convert_temp</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.calculate._cv.html">sensortoolkit.calculate._cv</a><ul>
@@ -215,6 +219,10 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.lib_utils._flatten_list.html">sensortoolkit.lib_utils._flatten_list</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.lib_utils._flatten_list.flatten_list.html">sensortoolkit.lib_utils._flatten_list.flatten_list</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.lib_utils._flatten_datasets.html">sensortoolkit.lib_utils._flatten_datasets</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.lib_utils._flatten_datasets.flatten_datasets.html">sensortoolkit.lib_utils._flatten_datasets.flatten_datasets</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../api/_autosummary/sensortoolkit.lib_utils._input_tools.html">sensortoolkit.lib_utils._input_tools</a><ul>
@@ -517,8 +525,8 @@ is indicated on the left hand side of the console statement. Below, the example 
 a number of rows of metadata, so the header index containing descriptors for the time column and
 pollutant measurement columns is found on row index #5.</p>
 <div class="tabbed-set docutils">
-<input checked="checked" id="58f02722-190b-4d50-ac05-84d126ad3bf0" name="576a990d-d3af-4172-acc0-085d5555d5ba" type="radio">
-</input><label class="tabbed-label" for="58f02722-190b-4d50-ac05-84d126ad3bf0">
+<input checked="checked" id="f10afe92-7aa5-4c58-b3a3-7d740084d09e" name="a1e0218d-957d-41c3-8c09-c9cccaa6dfa9" type="radio">
+</input><label class="tabbed-label" for="f10afe92-7aa5-4c58-b3a3-7d740084d09e">
 Header Row Index = 0</label><div class="tabbed-content docutils">
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">============================= Column Header Index ============================</span>
 <span class="go">Options</span>
@@ -549,8 +557,8 @@ Header Row Index = 0</label><div class="tabbed-content docutils">
 </pre></div>
 </div>
 </div>
-<input id="61dff951-76f6-4a07-9f03-2093e7723725" name="576a990d-d3af-4172-acc0-085d5555d5ba" type="radio">
-</input><label class="tabbed-label" for="61dff951-76f6-4a07-9f03-2093e7723725">
+<input id="5daa2667-8cf2-4e1c-961b-6d90ac1bdbb0" name="a1e0218d-957d-41c3-8c09-c9cccaa6dfa9" type="radio">
+</input><label class="tabbed-label" for="5daa2667-8cf2-4e1c-961b-6d90ac1bdbb0">
 Header Row Index &gt; 0</label><div class="tabbed-content docutils">
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">============================= Column Header Index ============================</span>
 <span class="go">Options</span>
@@ -582,8 +590,8 @@ Header Row Index &gt; 0</label><div class="tabbed-content docutils">
 </pre></div>
 </div>
 </div>
-<input id="3ecc6377-9c0a-4506-ac1c-1d9ed38bb55e" name="576a990d-d3af-4172-acc0-085d5555d5ba" type="radio">
-</input><label class="tabbed-label" for="3ecc6377-9c0a-4506-ac1c-1d9ed38bb55e">
+<input id="d545198d-349d-48fd-be3c-ef70106c0c8b" name="a1e0218d-957d-41c3-8c09-c9cccaa6dfa9" type="radio">
+</input><label class="tabbed-label" for="d545198d-349d-48fd-be3c-ef70106c0c8b">
 Header Row Index = None</label><div class="tabbed-content docutils">
 <p>Select this option if the dataset does not contain a single row with header
 information. The example below indicates a log description followed immediately
