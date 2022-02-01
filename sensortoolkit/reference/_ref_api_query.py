@@ -724,6 +724,8 @@ def query_aqs(param, data_period, aqs_id, username=None, key=None,
 
     elif status == 'No data matched your selection':
         return pd.DataFrame()
+    elif status == 'Failed':
+        raise ValueError(json_data['Header'][0]['error'][0])
 
 
 def parse_sample_data(sample_data, get_monitor_info, param_list, **kwargs):
