@@ -1208,10 +1208,15 @@ class ReferenceSetup(_Setup):
             None.
 
         """
+        airdata_link = 'https://epa.maps.arcgis.com/apps/webappviewer/index.html?id=5f239fd3e72f424f98ef3d5def547eb5'
         self.printSelectionBanner('Enter Ambient Air Monitoring Site Information',
                                   options=['..press enter to skip entries'],
                                   notes=['Site AQS ID required for AQS queries',
-                                         'Site Latitude and Longitude required for AirNow queries'])
+                                         'Use the EPA AirData Air Quality Monitors Map to locate AQS Sites'
+                                         f'  {airdata_link}'
+                                         'Site Latitude and Longitude required for AirNow queries',
+                                         '  Latitude must be between -90 and +90 degrees ',
+                                         '  Longitude must be between -180 and +180 degrees'])
         self.agency = None
         self.site_name = None
         self.site_aqs = None
@@ -1221,7 +1226,7 @@ class ReferenceSetup(_Setup):
         site_dict = {
             'Enter the name of the monitoring site: ': 'site_name',
             'Enter the name of the Agency overseeing the monitoring site: ': 'agency',
-            'Enter the AQS site ID (if applicable) [format XX-XXX-XXXX]: ': 'site_aqs',
+            'Enter the AQS site ID (if applicable, format XX-XXX-XXXX): ': 'site_aqs',
             'Enter the site latitude (in decimal coordinates): ': 'site_lat',
             'Enter the site longitude (in decimal coordinates): ': 'site_lon'
             }
