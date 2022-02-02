@@ -7,7 +7,7 @@
 
 To determine the AQS Site ID for an ambient monitoring site at which sensors have been collocated alongside reference monitors, use EPA’s [AirData Air Quality Monitors Map](https://epa.maps.arcgis.com/apps/webappviewer/index.html?id=5f239fd3e72f424f98ef3d5def547eb5)
 
-<img src="docs/_troubleshootfigs_/AirData_1.png" width=800/>
+<img src="docs/_troubleshootfigs_/AirData_1.png" width=500/>
 
 <img src="docs/_troubleshootfigs_/AirData_2.png" width=150 align="right"/>
 
@@ -25,7 +25,7 @@ Clicking on a layer will display sites with reference monitors measuring the ind
 
 Below, the “PM2.5 – Active” displays all US sites in the AQS database that are actively monitoring and reporting.
 
-<img src="docs/_troubleshootfigs_/AirData_4.png" width=800/>
+<img src="docs/_troubleshootfigs_/AirData_4.png" width=500/>
 
 <img src="docs/_troubleshootfigs_/AirData_5.png" width=250 align="right" padding="10px"/>
 
