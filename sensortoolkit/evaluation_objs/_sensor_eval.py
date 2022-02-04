@@ -895,7 +895,7 @@ class SensorEvaluation:
                                            sensor_name=self.name,
                                            write_to_file=self.write_to_file)
 
-    def plot_met_influence(self, met_param=None, report_fmt=True,
+    def plot_met_influence(self, met_param='Temp', report_fmt=True,
                            **kwargs):
         """Plot the influence meteorological parameters (temperature or
         relative humidity) on sensor measurements.
