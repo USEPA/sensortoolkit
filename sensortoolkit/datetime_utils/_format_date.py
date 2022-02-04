@@ -17,7 +17,7 @@ Last Updated:
 import pandas as pd
 
 
-def get_todays_date():
+def get_todays_date(fmt='%y%m%d'):
     """Returns a string for today's date in YYMMDD format.
 
     Returns:
@@ -26,5 +26,5 @@ def get_todays_date():
 
     """
     datetime = pd.Timestamp.now()
-    formatted_date = datetime.strftime('%y%m%d')
+    formatted_date = datetime.strftime(fmt)
     return formatted_date
