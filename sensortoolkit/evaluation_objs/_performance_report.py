@@ -254,6 +254,27 @@ class PerformanceReport(SensorEvaluation):
 
         return os.path.exists(full_figure_path), full_figure_path
 
+    def AddFigure(self, fig_name, fig_path):
+        """
+
+
+        Args:
+            fig_name (TYPE): DESCRIPTION.
+            fig_path (TYPE): DESCRIPTION.
+
+        Returns:
+            None.
+
+        """
+        fig_loc = self.fig_locs[fig_name]
+        figure = self.shapes.add_picture(fig_path,
+                                         left=ppt.util.Inches(fig_loc['left']),
+                                         top=ppt.util.Inches(fig_loc['top'])
+                                         )
+
+        # Move image to 0 z-order (background)
+        self.cursor_sp.addprevious(figure._element)
+
     def AddSingleScatterPlot(self, **kwargs):
         """Add sensor vs reference scatter plots to report.
 
@@ -288,14 +309,7 @@ class PerformanceReport(SensorEvaluation):
                 # text_pos=kwargs.get('text_pos', 'upper_left'),
                 report_fmt=True)
 
-        scatter_loc = self.fig_locs['SingleScatter']
-        self.scatterplt = self.shapes.add_picture(
-                                    fig_path,
-                                    left=ppt.util.Inches(scatter_loc['left']),
-                                    top=ppt.util.Inches(scatter_loc['top']))
-
-        # Move image to 0 z-order (background)
-        self.cursor_sp.addprevious(self.scatterplt._element)
+        self.AddFigure(fig_name='SingleScatter', fig_path=fig_path)
 
     def AddMultiScatter(self, **kwargs):
         """Add Sensor vs reference scatter plots for all sensors.
@@ -415,14 +429,7 @@ class PerformanceReport(SensorEvaluation):
             self.write_to_file = True
             self.plot_timeseries(report_fmt=True)
 
-        timeseries_loc = self.fig_locs['Timeseries']
-        self.timeseries = self.shapes.add_picture(
-                                fig_path,
-                                left=ppt.util.Inches(timeseries_loc['left']),
-                                top=ppt.util.Inches(timeseries_loc['top']))
-
-        # Move image to 0 z-order (background)
-        self.cursor_sp.addprevious(self.timeseries._element)
+        self.AddFigure(fig_name='Timeseries', fig_path=fig_path)
 
     def AddMetricsPlot(self, **kwargs):
         """Add Performance target metric boxplots/dot plots to report.
@@ -453,14 +460,7 @@ class PerformanceReport(SensorEvaluation):
             self.write_to_file = True
             self.plot_metrics()
 
-        metricplt_loc = self.fig_locs['MetricPlot']
-        self.metricplot = self.shapes.add_picture(
-                                fig_path,
-                                left=ppt.util.Inches(metricplt_loc['left']),
-                                top=ppt.util.Inches(metricplt_loc['top']))
-
-        # Move image to 0 z-order (background)
-        self.cursor_sp.addprevious(self.metricplot._element)
+        self.AddFigure(fig_name='MetricPlot', fig_path=fig_path)
 
     def AddMetDistPlot(self, **kwargs):
         """Add meteorological distribution (Temp, RH) to report.
@@ -491,14 +491,7 @@ class PerformanceReport(SensorEvaluation):
             self.write_to_file = True
             self.plot_met_dist()
 
-        metdist_loc = self.fig_locs['MetDist']
-        self.metdist = self.shapes.add_picture(
-                                    fig_path,
-                                    left=ppt.util.Inches(metdist_loc['left']),
-                                    top=ppt.util.Inches(metdist_loc['top']))
-
-        # Move image to 0 z-order (background)
-        self.cursor_sp.addprevious(self.metdist._element)
+        self.AddFigure(fig_name='MetDist', fig_path=fig_path)
 
     def AddMetInflPlot(self, **kwargs):
         """Add normalized met. influence scatter (Temp, RH) to report.
@@ -531,14 +524,7 @@ class PerformanceReport(SensorEvaluation):
             self.plot_met_influence(report_fmt=True,
                                     plot_error_bars=False)
 
-        metinf_loc = self.fig_locs['MetInfl']
-        self.metinf = self.shapes.add_picture(
-                                    fig_path,
-                                    left=ppt.util.Inches(metinf_loc['left']),
-                                    top=ppt.util.Inches(metinf_loc['top']))
-
-        # Move image to 0 z-order (background)
-        self.cursor_sp.addprevious(self.metinf._element)
+        self.AddFigure(fig_name='MetInfl', fig_path=fig_path)
 
     def GetShape(self, slide_idx, shape_id=None, shape_loc=None):
         """Retrieve shape object for tables based on known shape ID.
