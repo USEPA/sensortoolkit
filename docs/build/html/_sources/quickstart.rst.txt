@@ -33,6 +33,16 @@ designated either Federal Equivalent Methods (FEMs) or Federal Reference Methods
 Following a sampling period of 30 days, you collect data from each Toucan sensor and acquire data
 from the monitoring agency for collocated reference measurements.
 
+Example Data Sets
+-----------------
+
+Example data sets for the Toco Toucan sensor and collocated reference monitor are included in the
+[GitHub/BitBucket] repository under the ``/example_datasets`` folder. You can download these files
+and follow along the example outlined here in the Quickstart guide. In addition, other sections in
+this documentation, including the "Testing Attribute Objects" and "Evaluation Objects" sections,
+take a deeper dive into importing and working with sensor and reference data and make use of the example
+datasets to illustrate how sensortoolkit's modules work.
+
 Initial Setup
 -------------
 
@@ -103,7 +113,7 @@ files that are generated during analysis.
 4 - Creating an AirSensor Object
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The next step is to create a profile for our Toco Toucan sensor that will store all
+The next step is to create a object for our Toco Toucan sensor that will store all
 of the data sets and related attributes for our analysis. This is done by calling the
 ``sensortoolkit.AirSensor`` method:
 
@@ -113,16 +123,21 @@ of the data sets and related attributes for our analysis. This is done by callin
   sensor = sensortoolkit.AirSensor(make='Toco',
                                    model='Toucan')
 
-This creates an instance of the ``sensortoolkit.AirSensor`` class called ``sensor``.
+This creates an instance of ``sensortoolkit.AirSensor`` called ``sensor``.
 Currently, the ``sensor`` object doesn't have many attributes since we've only specified
-the make and model for the sensor, however, we use ``sensor`` to continue the setup process
+the make and model for the sensor, however, we will use ``sensor`` to continue the setup process
 and eventually load sensor data.
+
+.. tip::
+
+  More information about ``sensortoolkit.AirSensor`` is found `here <./testingattrib_objects/airsensor/index.html>`_
+
 
 5 - Constructing Project Directories
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Next, we need to create a directory system of folders within our project path that
-will house data sets, figures, reports, etc. To do so, use the ``create_directories()`` method
+will house data sets, figures, reports, etc. To do so, use the ``create_directories()`` function
 included alongside your ``sensor`` object. You will see a list of directories be printed to
 the console that are created by the module.
 
@@ -163,7 +178,7 @@ Below is the console output for ``create_directories()``:
 
 Now we're ready to tell sensortoolkit how data from the Toco Toucan sensors should
 be imported based on the formatting scheme for the recorded data sets. The ``sensor_setup()``
-method included alongside your ``sensor`` object walks you through the process of transferring
+function included alongside your ``sensor`` object walks you through the process of transferring
 data sets to the right location within the project path and asks you to indicate various attributes
 regarding the recorded datasets in order to build a profile of the Toco Toucan sensor formatting.
 
@@ -177,7 +192,7 @@ regarding the recorded datasets in order to build a profile of the Toco Toucan s
 
 Following completion of the setup module, we can load the Toco Toucan data sets to the
 ``sensor`` object so that we have access to the data sets for analysis. The ``load_data()``
-method included alongside your ``sensor`` object imports recorded datasets and processes
+function included alongside your ``sensor`` object imports recorded datasets and processes
 these into a standardized format for subsequent analysis:
 
 .. code-block:: python
@@ -192,7 +207,7 @@ We've now completed the setup procedure for the Toco Toucan sensors!
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 We will now follow a similar process for the reference monitor collocated alongside
-the Toco Toucan sensors at the monitoring site. First, create a profile for the
+the Toco Toucan sensors at the monitoring site. First, create an object for the
 reference monitor by calling the ``sensortoolkit.ReferenceMonitor`` method:
 
 .. code-block:: python
@@ -200,14 +215,18 @@ reference monitor by calling the ``sensortoolkit.ReferenceMonitor`` method:
   # Create a ReferenceMonitor instance for FRM/FEM monitor collocated alongside sensors
   reference = sensortoolkit.ReferenceMonitor()
 
-This creates an instance of the ``sensortoolkit.ReferenceMonitor`` class called ``reference``.
+This creates an instance of ``sensortoolkit.ReferenceMonitor`` called ``reference``.
+
+.. tip::
+
+  More information about ``sensortoolkit.ReferenceMonitor`` is found `here <./testingattrib_objects/referencemonitor/index.html>`_
 
 9 - Configuring the Reference Setup
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 As with the Toco Toucan sensor data sets, we need to give sensortoolkit indication of the
 location of reference monitor datasets and data formatting in order to import and utilize
-these data sets. This is accomplished via the ``reference_setup()`` method which is included
+these data sets. This is accomplished via the ``reference_setup()`` function which is included
 alongside your ``reference`` object.
 
 .. code-block:: python
@@ -218,7 +237,7 @@ alongside your ``reference`` object.
 10 - Importing Reference Data
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Reference data are imported via the ``load_data()`` method included alongside your ``reference``
+Reference data are imported via the ``load_data()`` function included alongside your ``reference``
 object. If you intend to query data from either the AirNow or AQS API, please see [Loading Reference
 Data] for more information.
 
@@ -238,7 +257,7 @@ The final component we need to specify is which environmental parameter or pollu
 measured by the Toco Toucan air sensor that we wish to evaluate against collocated reference
 measurements. We will evaluate the performance of the Toucan sensor for measuring PM2.5. Like the
 ``sensortoolkit.AirSensor`` and ``sensortoolkit.ReferenceMonitor`` methods that we used to create
-profiles for the sensor and reference monitor included in our evaluation, we will create a profile
+objects for the sensor and reference monitor included in our evaluation, we will create an object
 for the evaluation parameter PM2.5 via the ``sensortoolkit.Parameter`` method.
 
 .. code-block:: python
@@ -247,11 +266,15 @@ for the evaluation parameter PM2.5 via the ``sensortoolkit.Parameter`` method.
   # Select pollutant name from list of SDFS labels
   pollutant = sensortoolkit.Parameter('PM25')
 
-.. important::
+.. tip::
+
+  More information about ``sensortoolkit.Parameter`` is found `here <./testingattrib_objects/parameter.html>`_
+
+.. caution::
 
   Note that the label ``PM25`` that we've passed to ``sensortoolkit.Parameter`` is not arbitrary! This label
   is included in a list of parameter labels recognized by sensortoolkit as potential evaluation parameters. A
-  full list is available at [Table of SDFS Parameters].
+  full list is available under the `sensortoolkit Data Formatting Scheme Page <./sdfs/index.html#id1>`_.
 
 ----
 
@@ -266,6 +289,13 @@ data analysis within an IDE or the generation of performance evaluation reports.
 Data Analysis with SensorEvaluation
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+``SensorEvaluation`` provides a platform for analyzing air sensor data against
+regulatory grade measurements. With ``SensorEvaluation``, users can compute
+various quantities and metrics recommended by U.S. EPA’s performance
+targets reports including precision, error, linearity, and bias. ``SensorEvaluation`` also
+contains numerous plotting methods for displaying and saving figures for
+time series, sensor vs. reference scatter, meteorological conditions, etc.
+
 .. code-block:: python
 
   # Run the evaluation
@@ -274,12 +304,18 @@ Data Analysis with SensorEvaluation
                                               reference,
                                               write_to_file=True)
 
-``SensorEvaluation`` contains numerous methods for generating figures, calculating
-statistical quantities, and displaying formatted performance evaluation summaries.
-More information about ``SensorEvaluation`` methods is available at [``SensorEvaluation`` Methods].
+.. tip::
+
+  More information about ``sensortoolkit.SensorEvaluation`` is found `here <./evaluation_objects/sensoreval/index.html>`_
 
 Creating Reports with PerformanceReport
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+``PerformanceReport`` leverages many of the functions included in ``SensorEvaluation``
+to automate the process of creating and compiling testing reports. These reports
+provide a detailed overview of the testing site and conditions, summarize sensor performance
+via EPA's recommended performance metrics and target values, and display results by way of time series
+figures, scatter plots, and tabular statistics.
 
 .. code-block:: python
 
@@ -292,15 +328,27 @@ Creating Reports with PerformanceReport
   # Generate report
   report.CreateReport()
 
-More information about ``PerformanceReport`` is available at [Creating Testing Reports - The ``PerformanceReport`` Class]
+.. tip::
+
+  More information about ``sensortoolkit.PerformanceReport`` is found `here <./evaluation_objects/performancereport.html>`_
 
 ------
 
 Templates
 =========
 
+Below are templates that you can use to get started with sensortoolkit. These
+can be copied directly from the documentation into your IDE of choice.
+
+.. note::
+
+  Text in brackets indicates where you should enter information relevant to your evaluation.
+
+
 Initial Setup
 -------------
+
+This template summarizes the 'Initial Setup' process discussed above.
 
 .. code-block:: python
 

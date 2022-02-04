@@ -83,14 +83,14 @@ of U.S. EPA's Air Quality System (AQS), the AQS Site ID should be specified.
 
 
 Below is an example of running the `PerformanceReport` class to create a testing
-report for the ``Example_Make_Model`` sensor evaluating its :raw-html:`PM<sub>2.5</sub>` performance.
+report for the ``Toco_Toucan`` sensor evaluating its :raw-html:`PM<sub>2.5</sub>` performance.
 
 .. code-block:: python
 
   # Instantiate the PerformanceReport class for the example sensor dataset
-  report = sensortoolkit.PerformanceReport(sensor_object,
+  report = sensortoolkit.PerformanceReport(sensor,
                                            pollutant,
-                                           reference_object,
+                                           reference,
                                            write_to_file=True,
                                            figure_search=False)
 
@@ -143,25 +143,25 @@ the following will be printed to the console.
   ..N excluded: 2 out of 32 total
   ..N concurrent: 30
   ..Concurrent measurement timeframe: 2019-08-02 00:00:00+00:00 - 2019-09-01 00:00:00+00:00
-  Computing 1-hour regression statistics for Example_Make_Model vs. T-API T640X at 16.67 LPM
-  ..SN01
-  ..SN02
-  ..SN03
-  Computing 24-hour regression statistics for Example_Make_Model vs. T-API T640X at 16.67 LPM
-  ..SN01
-  ..SN02
-  ..SN03
-  ..Saving dataset to the following path: C:\Users\...\Documents\sensortoolkit_testing\data\eval_stats\Example_Make_Model\Example_Make_Model_PM25_vs_T-API_T640X_at_16.67_LPM_stats_df_211102.csv
-  Computing 1-hour regression statistics for Example_Make_Model vs. T-API T640X at 16.67 LPM
-  ..SN01
-  ..SN02
-  ..SN03
-  Computing 24-hour regression statistics for Example_Make_Model vs. T-API T640X at 16.67 LPM
-  ..SN01
-  ..SN02
-  ..SN03
-  ..Saving dataset to the following path: C:\Users\...\Documents\sensortoolkit_testing\data\eval_stats\Example_Make_Model\Example_Make_Model_PM25_vs_T-API_T640X_at_16.67_LPM_stats_df_211102.csv
-  Creating Testing Report for Example_Make_Model
+  Computing 1-hour regression statistics for Toco_Toucan vs. T-API T640X at 16.67 LPM
+  ..RT01
+  ..RT02
+  ..RT03
+  Computing 24-hour regression statistics for Toco_Toucan vs. T-API T640X at 16.67 LPM
+  ..RT01
+  ..RT02
+  ..RT03
+  ..Saving dataset to the following path: C:\Users\...\Documents\sensortoolkit_testing\data\eval_stats\Toco_Toucan\Toco_Toucan_PM25_vs_T-API_T640X_at_16.67_LPM_stats_df_211102.csv
+  Computing 1-hour regression statistics for Toco_Toucan vs. T-API T640X at 16.67 LPM
+  ..RT01
+  ..RT02
+  ..RT03
+  Computing 24-hour regression statistics for Toco_Toucan vs. T-API T640X at 16.67 LPM
+  ..RT01
+  ..RT02
+  ..RT03
+  ..Saving dataset to the following path: C:\Users\...\Documents\sensortoolkit_testing\data\eval_stats\Toco_Toucan\Toco_Toucan_PM25_vs_T-API_T640X_at_16.67_LPM_stats_df_211102.csv
+  Creating Testing Report for Toco_Toucan
   ..Adding figures to report
   ..creating subplot for 1 sensor with 1 row and 1 column
   ..creating subplot for 1 sensor with 1 row and 1 column
@@ -171,7 +171,7 @@ the following will be printed to the console.
   ..creating subplot for 3 sensors with 1 row and 3 columns
   ..creating subplot for 3 sensors with 1 row and 3 columns
   ..Saving report
-  ....\reports\Example_Make_Model\PM25\Base_Testing_Report_PM25_Example_Make_Model_211102.pptx
+  ....\reports\Toco_Toucan\PM25\Base_Testing_Report_PM25_Toco_Toucan_211102.pptx
 
 .. note::
 
@@ -181,7 +181,7 @@ the following will be printed to the console.
 Example Report
 --------------
 
-Below is an example report for the ``Example_Make_Model`` sensor.
+Below is an example report for the ``Toco_Toucan`` sensor.
 
 Please note that at present, ``PerformanceReport`` does not populate the FRM/FEM
 Instrumentation table with calibration dates, flowrate verification checks, and
@@ -205,7 +205,7 @@ the supplemental information page that addition documentation has been attached.
      :align: center
      :alt: The first page of the performance report. This page features tables for listing details about the testing organization, site information, sensor information, and FRM/FEM information. Below these tables are a number of figures, including timeseries and scatter plots at 1-hour and 24-hour averages indicating the agreement between the sensor and FRM/FEM. Below these plots is a figure displaying the results of the sensor against EPA's recommended performance metrics and target values for evaluating air sensor performance. Below this figure is a final row displaying the meteorological conditions during the deployment (temperature and relative humidity) and the influence of these meteorological parameters on sensor measurements.
 
-     Example_Make_Model Base Testing Report (Page 1)
+     Toco Toucan Base Testing Report (Page 1)
 
 .. tabbed:: Page 2 - Tabular Statistics
 
@@ -217,7 +217,7 @@ the supplemental information page that addition documentation has been attached.
     :align: center
     :alt: The second page of the performance report. Tabular statistics are listed for the sensor vs. FRM/FEM correlation, indicating individual sensor unit regression statistics (coefficient of determination, slope, intercept) and data quality (the uptime percentage and number of paired sensor and FRM/FEM concentration pairs). Also in the sensor vs. FRM/FEM correlation section is a table containing error metric values (RMSE and NRMSE). Below is a section for inter-sensor precision (sensor vs. sensor). A table in this section indicates the precision metric values including CV and SD, and data quality (uptime and the number of paired hourly measurement periods that all sensors were concurrently recording alongside the reference monitor).
 
-    Example_Make_Model Base Testing Report (Page 2)
+    Toco Toucan Base Testing Report (Page 2)
 
 .. tabbed:: Page 3 - Sensor vs. FRM/FEM Scatter
 
@@ -228,7 +228,7 @@ the supplemental information page that addition documentation has been attached.
      :align: center
      :alt: The third page of the performance report. This page includes sensor vs. FRM/FEM scatter plots for each sensor in the testing group at both 1-hour and 24-hour averages. Data pairs are colored by the relative humidity recorded by an independent monitor at the testing site to indicate whether humidity biases sensor measurements.
 
-     Example_Make_Model Base Testing Report (Page 3)
+     Toco Toucan Base Testing Report (Page 3)
 
 .. tabbed:: Page 4 - Supplemental Information
 
@@ -236,7 +236,7 @@ the supplemental information page that addition documentation has been attached.
      :align: center
      :alt: The fourth page of the performance report. This page includes a table listing various documents, reports, and observations that testers may wish to attached to the report. Entries are provided to indicate whether a particular type of documentation has been attached and a description of the URL or file path to the documentation.
 
-     Example_Make_Model Base Testing Report (Page 4)
+     Toco Toucan Base Testing Report (Page 4)
 
 
 

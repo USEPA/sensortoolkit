@@ -30,17 +30,17 @@ objects that require use of the setup.json configuration files created during
 this initial use-case.**
 
 .. code-block:: python
-  :emphasize-lines: 34, 36, 40, 41, 48, 49
+  :emphasize-lines: 33, 35, 39, 40, 46, 47
 
   # -*- coding: utf-8 -*-
   """
   Testing attribute setup process for an air sensor and reference monitor in a
-  new project directory called 'work_path'. At the start of using this script,
-  users should have an empty directory at the work_path folder, except for a
-  version of this script that should be housed within the work_path folder.
+  new project directory (located at the project path). At the start of using
+  this script, users should have an empty directory in the folder located at
+  the project path, except for a python script that contains the commands below.
 
   Following the use of this script, the following should be contained within
-  the user's project directory:
+  the user's project directory :
 
       - `/data`, `/figures`, and `/reports` directories (as well as the
         subfolder structure within the directories)
@@ -58,34 +58,33 @@ this initial use-case.**
   """
   import sensortoolkit
 
-  sensortoolkit.presets.set_project_path('C:/Users/.../Documents/my_evaluation')
+  sensortoolkit.presets.set_project_path('[path/to/the/evaluation]')
 
   # AirSensor object instantiation
-  sensor_object = sensortoolkit.AirSensor(make='Example_Make',
-                                          model='Model')
+  sensor = sensortoolkit.AirSensor(make='[Sensor Make]',
+                                   model='[Sensor Model]')
   # Create Data and Figures directory, subdirectories
-  sensor_object.create_directories()
+  sensor.create_directories()
   # Run setup configuration for sensor data, creates setup.json file
-  sensor_object.sensor_setup()
+  sensor.sensor_setup()
 
   # Import and loading sensor data for the first time, processed data files will
   # be saved following ingestion.
-  sensor_object.load_data(load_raw_data=True,
-                          write_to_file=True)
+  sensor.load_data(load_raw_data=True,
+                   write_to_file=True)
 
-  # Create Parameter attribute for pollutant (PM2.5) for which sensor evaluation
-  # will be conducted
-  pollutant = sensortoolkit.Parameter('PM25')
+  # Create a Parameter instance for the pollutant you wish to evaluate
+  pollutant = sensortoolkit.Parameter('[Insert pollutant from list of SDFS labels]')
 
   # Loading reference object for the first time
-  reference_object = sensortoolkit.ReferenceMonitor()
-  reference_object.reference_setup()
+  reference = sensortoolkit.ReferenceMonitor()
+  reference.reference_setup()
 
   # Load reference data for the evaluation timeframe
-  reference_object.load_data(bdate='2019-08-01',
-                             edate='2019-09-15',
-                             param_list=['PM25'],
-                             met_data=True)
+  reference.load_data(bdate=sensor.bdate,
+                      edate=sensor.edate,
+                      param_list=sensor.param_headers,
+                      met_data=True)
 
   # Run SensorEvaluation or PerformanceReport here...
 
@@ -106,7 +105,7 @@ These previously created data structures allow users to reload previously config
 to an initial instantiation of the sensor and reference objects**.
 
 .. code-block:: python
-  :emphasize-lines: 26, 27, 36, 37, 38
+  :emphasize-lines: 25, 26, 32, 33, 34
 
   # -*- coding: utf-8 -*-
   """
@@ -118,37 +117,35 @@ to an initial instantiation of the sensor and reference objects**.
 
   Users should ensure that sensor processed datasets have been created and saved
   to the user's ``/data/sensor_data/[sensor_name]/processed``
-  directory during a previous run of the sensor_object.load_data() module, and
+  directory during a previous run of the sensor.load_data() module, and
   that processed reference datasets corresponding to the reference data source
   the user intends to utilize are located at
   ``/data/reference_data/[data_source]/processed/[site_name_site_aqs]``
   """
   import sensortoolkit
 
-  sensortoolkit.presets.set_project_path('C:/Users/.../Documents/my_evaluation')
+  sensortoolkit.presets.set_project_path('[path/to/the/evaluation]')
 
   # AirSensor object instantiation
-  sensor_object = sensortoolkit.AirSensor(make='Example_Make',
-                                          model='Model')
+  sensor = sensortoolkit.AirSensor(make='[Sensor Make]',
+                                   model='[Sensor Model]')
 
   # Load sensor data from processed datasets
-  sensor_object.load_data(load_raw_data=False,
-                          write_to_file=False)
+  sensor.load_data(load_raw_data=False,
+                   write_to_file=False)
 
-  # Create Parameter attribute for pollutant (PM2.5) for which sensor evaluation
-  # will be conducted
-  pollutant = sensortoolkit.Parameter('PM25')
+  # Create a Parameter instance for the pollutant you wish to evaluate
+  pollutant = sensortoolkit.Parameter('[Insert pollutant from list of SDFS labels]')
 
-  # Loading a pre-configured reference object (must indicate source, site, site id
-  # if applicable)
-  reference_object = sensortoolkit.ReferenceMonitor(data_source='airnowtech',
-                                                    site_name='Burdens Creek',
-                                                    site_id='370630099')
+  # Loading a pre-configured reference object (must indicate source, site, site id if applicable)
+  reference = sensortoolkit.ReferenceMonitor(data_source='[Enter the reference data source (lower case)]',
+                                             site_name='[Enter the site name (replace spaces with underscores "_")]',
+                                             site_id='[Enter the site AQS ID (no spaces)]')
 
   # Load reference data for the evaluation timeframe
-  reference_object.load_data(bdate='2019-08-01',
-                             edate='2019-09-15',
-                             param_list=['PM25'],
-                             met_data=True)
+  reference.load_data(bdate=sensor.bdate,
+                      edate=sensor.edate,
+                      param_list=sensor.param_headers,
+                      met_data=True)
 
   # Run SensorEvaluation or PeformanceReport here...

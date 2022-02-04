@@ -4,13 +4,12 @@ The first object the user encounters is the AirSensor object. This structure is
 used to keep track of sensor attributes and can be used to import and access
 sensor datasets. First, users create an instance of the AirSensor object type,
 specifying the make and model of the sensor. Below is an example of instantiating the
-AirSensor object within the `example.py` script for the example sensor dataset included
-alongside the sensortoolkit library:
+AirSensor object for the 'Toco Toucan' example mentioned in the `Quickstart Guide <../../quickstart.html#example-scenario-toco-toucan>`_:
 
 .. code-block:: python
 
-  sensor_object = sensortoolkit.AirSensor(make='Example_Make',
-                                          model='Model')
+  sensor = sensortoolkit.AirSensor(make='Toco',
+                                   model='Toucan')
 
 .. list-table:: ``sensortoolkit.AirSensor() attributes``
  :widths: 50 75
@@ -39,18 +38,21 @@ following line of code to construct this folder structure at the user’s
 
 .. code-block:: python
 
-  sensor_object.create_directories()
+  sensor.create_directories()
 
 .. note::
   The above code snippet assumes that the user named their instance of the ``sensortoolkit.AirSensor``
-  object ``sensor_object``. If a different name was chosen, replace instances of ``sensor_object`` with ``[custom_name]``
+  object ``sensor``. If a different name was chosen, replace instances of ``sensor`` with ``[custom_name]``
   to access the instance attributes such as the ``create_directories()`` method.
 
-Users should see the following printed to the console indicating the constructed directory structure:
+Users should see the following printed to the console indicating the constructed directory structure (note that
+the parent folder location where the folders are placed will depend on where you define the project path - the code
+block below follows the 'Toco Toucan' Quickstart example, where the project directory has been set to
+`C:\Users\...\Documents\toucan_evaluation`):
 
 .. code-block:: console
 
-  Creating "data" subdirectory within C:\Users\...\Documents\my_evaluation
+  Creating "data" subdirectory within C:\Users\...\Documents\toucan_evaluation
   ..\data\eval_stats
   ..\data\reference_data
   ....\data\reference_data\airnow
@@ -63,29 +65,29 @@ Users should see the following printed to the console indicating the constructed
   ......\data\reference_data\aqs\raw
   ......\data\reference_data\aqs\processed
   ..\data\sensor_data
-  ..\data\eval_stats\Example_Make_Model
-  ..\data\sensor_data\Example_Make_Model
-  ....\data\sensor_data\Example_Make_Model\processed_data
-  ....\data\sensor_data\Example_Make_Model\raw_data
+  ..\data\eval_stats\Toco_Toucan
+  ..\data\sensor_data\Toco_Toucan
+  ....\data\sensor_data\Toco_Toucan\processed_data
+  ....\data\sensor_data\Toco_Toucan\raw_data
 
-  Creating "figures" subdirectory within C:\Users\...\Documents\my_evaluation
-  ..\figures\Example_Make_Model
+  Creating "figures" subdirectory within C:\Users\...\Documents\toucan_evaluation
+  ..\figures\Toco_Toucan
 
-  Creating "reports" subdirectory within C:\Users\...\Documents\my_evaluation
+  Creating "reports" subdirectory within C:\Users\...\Documents\toucan_evaluation
 
 
 Directory Structure
 ^^^^^^^^^^^^^^^^^^^
 
-Below is the directory structure created by running the ``sensor_object.create_directories()``
-function for the ``Example_Make_Model`` sensor type.
+Below is the directory structure created by running the ``sensor.create_directories()``
+function for the ``Toco_Toucan`` sensor type.
 
 .. code-block:: console
 
-  my_evaluation                           <-- Top level directory. Set as ``work_path``.
+  toucan_evaluation                       <-- Top level directory. Set as ``work_path``.
   ├───data                                <-- Sensor and reference data, statistics, setup configuration files, etc.
   │   ├───eval_stats
-  │   │   └───Example_Make_Model
+  │   │   └───Toco_Toucan
   │   ├───reference_data                  <-- Subdirectories organized by reference data source.
   │   │   ├───airnow
   │   │   │   ├───processed
@@ -97,11 +99,11 @@ function for the ``Example_Make_Model`` sensor type.
   │   │       ├───processed
   │   │       └───raw
   │   └───sensor_data                     <-- Subdirectories organized by sensor type.
-  │       └───Example_Make_Model
+  │       └───Toco_Toucan
   │           ├───processed_data
   │           └───raw_data
   ├───figures                             <-- Figures. Subdirectories organized by sensor type.
-  │   └───Example_Make_Model
+  │   └───Toco_Toucan
   └───reports
 
 .. |br| raw:: html

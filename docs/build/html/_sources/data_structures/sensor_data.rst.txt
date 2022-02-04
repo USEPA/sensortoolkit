@@ -2,26 +2,27 @@ Sensor Data Structures
 ----------------------
 
 Sensor data are accessed via the ``AirSensor`` object instance. Following
-the `evaluation.py` example, mention of ``sensor_object`` below refers to the ``AirSensor``
+the `Toco Toucan Quickstart Guide example <../quickstart.html#example-scenario-toco-toucan>`_,
+mention of ``sensor`` variable below refers to the ``AirSensor``
 object instantiated under the `Testing Attribute Objects - The AirSensor Object` section.
 
 Accessing Sensor Data
 ^^^^^^^^^^^^^^^^^^^^^
-Sensor datasets are access via the ``sensor_object.data`` attribute, which stores `pandas DataFrames <https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html>`_
+Sensor datasets are access via the ``sensor.data`` attribute, which stores `pandas DataFrames <https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html>`_
 in a dictionary structure at recorded sampling frequency, 1-hour averaged intervals, and 24-hour averaged intervals for each
 parameter classification:
 
 .. code-block:: python
 
-  {'SN01': # Key may differ depending on choice of serial identifiers
+  {'[serial identifier 1]': # Key will differ depending on choice of serial identifiers
        {'1-minute': pandas DataFrame object, # Key may differ depending on sensor sampling freq.
         '1-hour': pandas DataFrame object,
         '24-hour': pandas DataFrame object},
-   'SN02': # Key may differ depending on choice of serial identifiers
+   '[serial identifier 2]': # Key will differ depending on choice of serial identifiers
        {'1-minute': pandas DataFrame object, # Key may differ depending on sensor sampling freq.
         '1-hour': pandas DataFrame object,
         '24-hour': pandas DataFrame object},
-   'SN03': # Key may differ depending on choice of serial identifiers
+   '[serial identifier 3]': # Key will differ depending on choice of serial identifiers
        {'1-minute': pandas DataFrame object, # Key may differ depending on sensor sampling freq.
         '1-hour': pandas DataFrame object,
         '24-hour': pandas DataFrame object}
@@ -30,7 +31,7 @@ parameter classification:
 .. note::
 
   The keys for accessing sensor datasets are dependent on the user's configured
-  choice for serial identifiers (e.g., ``SN01``). Additionally, the first key within
+  choice for serial identifiers. Additionally, the first key within
   each unit data sub-dictionary will depend on the configured sampling frequency
   for the sensor. For the example above, the sampling frequency was set to
   1-minute intervals, so the key for the first dataset entry is ``1-minute``.
@@ -38,8 +39,8 @@ parameter classification:
 Dataset Example
 ^^^^^^^^^^^^^^^
 
-The first five rows of data for sensor unit ``SN01`` that have been averaged to 1-hour intervals
-and formatted as an SDFS dataset (accessed as ``sensor_obj['SN01']['1-hour']``) are shown at the following link:
+The first five rows of data for the Toco Toucan sensor unit ``RT01`` that have been averaged to 1-hour intervals
+and formatted as an SDFS dataset (accessed as ``sensor['RT01']['1-hour']``) are shown at the following link:
 `Example Sensor Dataset <../sdfs/index.html#example-sdfs-datasets>`_
 
 

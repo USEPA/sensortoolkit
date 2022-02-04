@@ -17,12 +17,13 @@ To run the ``sensor_setup()`` module, users should first ensure that they have c
 ``AirSensor`` object via the directions above and have run the ``create_directories()`` method if
 the folder structure listed above does not exist in the user's project directory.
 
-Continuing with the above example for an ``AirSensor`` instance named ``sensor_object``,
+Continuing with the `Quickstart Guide <../../quickstart.html#example-scenario-toco-toucan>`_  example for the 'Toco Toucan' sensor,
+following the creation of an ``AirSensor`` instance called ``sensor``,
 the setup module is called via the following line of code:
 
 .. code-block:: python
 
-  sensor_object.sensor_setup()
+  sensor.sensor_setup()
 
 Running this code, users should notice a number of printed statements in the console
 that are waiting on user input. ``sensor_setup()`` is an interactive module, where the
@@ -87,7 +88,9 @@ and confirms the entry, a subsequent section in the console will prompt the user
 select the files for the recorded sensor datasets corresponding to the indicated file type.
 
 Users should see a file explorer window open up, asking the user to select either a directory
-or file(s) depending on the users' selection in the preceding step.
+or file(s) depending on the users' selection in the preceding step. In the example below,
+we assume that the datasets for the 'Toco Toucan' sensor have been placed directly within
+the ``/Documents`` directory.
 
 Users will be prompted to press enter to continue with the file transfer after
 reviewing the filenames for the datasets that will be transferred and the location
@@ -100,27 +103,19 @@ where the copied datasets will be saved.
 
   [File Browser: Select the files for recorded sensor datasets with file type ".csv"]
   Source Files:
-  ['C:/Users/.../Documents/Public_Sensor_Evaluation/beta_testing/data/sensor/Example_Make_Model_SN01_raw.csv',
-  'C:/Users/.../Documents/Public_Sensor_Evaluation/beta_testing/data/sensor/Example_Make_Model_SN02_raw.csv',
-  'C:/Users/.../Documents/Public_Sensor_Evaluation/beta_testing/data/sensor/Example_Make_Model_SN03_raw.csv']
+  ['C:/Users/.../Documents/toco_toucan_RT01_raw.csv',
+  'C:/Users/.../Documents/toco_toucan_RT02_raw.csv',
+  'C:/Users/.../Documents/toco_toucan_RT03_raw.csv']
 
   Destination Directory:
-  ..C:\Users\SFREDE01\OneDrive - Environmental Protection Agency
-  (EPA)\Profile\Documents\sensortoolkit_testing\Data and
-  Figures\sensor_data\Example_Make_Model\raw_data
+  ..C:\Users\...\Documents\toucan_evaluation\data\sensor_data\Toco_Toucan\raw_data
 
   Press enter to continue.
 
   Copying the following files:
-  ..C:/Users/SFREDE01/OneDrive - Environmental Protection Agency (EPA)/Profile/Docu
-  ments/Public_Sensor_Evaluation/beta_testing/data/sensor/Example_Make_Model_SN01
-  _raw.csv
-  ..C:/Users/SFREDE01/OneDrive - Environmental Protection Agency (EPA)/Profile/Docu
-  ments/Public_Sensor_Evaluation/beta_testing/data/sensor/Example_Make_Model_SN02
-  _raw.csv
-  ..C:/Users/SFREDE01/OneDrive - Environmental Protection Agency (EPA)/Profile/Docu
-  ments/Public_Sensor_Evaluation/beta_testing/data/sensor/Example_Make_Model_SN03
-  _raw.csv
+  ..C:/Users/.../Documents/toco_toucan_RT01_raw.csv
+  ..C:/Users/.../Documents/toco_toucan_RT02_raw.csv
+  ..C:/Users/.../Documents/toco_toucan_RT03_raw.csv
 
   Press enter to continue.
 
@@ -133,9 +128,10 @@ column headers, and users should type ``None`` for the header row index under su
 
 To help the user in selecting the row index number corresponding to the header information,
 the first ten rows of one of the sensor datasets are printed to the console. The row index
-is indicated on the left hand side of the console statement. Below, the example dataset contains
-a number of rows of metadata, so the header index containing descriptors for the time column and
-pollutant measurement columns is found on row index #5.
+is indicated on the left hand side of the console statement.
+
+Below are a few examples for various sensor datasets, each displaying a different formatting
+scheme regarding where the header row is located in recorded datasets.
 
 .. tabbed:: Header Row Index = 0
 
@@ -149,19 +145,19 @@ pollutant measurement columns is found on row index #5.
     ==============================================================================
 
     The first ten unformatted rows of C:\Users\...\Documents\sensortoolkit_testing
-    \data\sensor_data\Clarity_Node\raw_data\clarity-measurements-2019-07-09_J8.csv
+    \data\sensor_data\Northern_Cardinal\raw_data\Northern_Cardinal_CC01.csv
     are displayed below:
                                                        0
-    0  nodeId,timeUtc,aqi,pm1MassConcCalib[ug/m3],pm1...
-    1  AYSNHJJ8,2019-07-09T11:59:00.000Z,54,,10,,13.5...
-    2  AYSNHJJ8,2019-07-09T11:56:00.000Z,55,,9.82,,14...
-    3  AYSNHJJ8,2019-07-09T11:53:00.000Z,57,,10.71,,1...
-    4  AYSNHJJ8,2019-07-09T11:51:00.000Z,53,,10.24,,1...
-    5  AYSNHJJ8,2019-07-09T11:48:00.000Z,56,,10.53,,1...
-    6  AYSNHJJ8,2019-07-09T11:46:00.000Z,54,,9.94,,13...
-    7  AYSNHJJ8,2019-07-09T11:43:00.000Z,56,,11.06,,1...
-    8  AYSNHJJ8,2019-07-09T11:40:00.000Z,58,,9.76,,15...
-    9  AYSNHJJ8,2019-07-09T11:38:00.000Z,57,,10,,14.7...
+    0  serialId,timeUtc,aqi,pm1MassConcCalib[ug/m3],p...
+    1  cardinalis_01,2019-07-09T11:59:00.000Z,54,,10,...
+    2  cardinalis_01,2019-07-09T11:56:00.000Z,55,,9.8...
+    3  cardinalis_01,2019-07-09T11:53:00.000Z,57,,10....
+    4  cardinalis_01,2019-07-09T11:51:00.000Z,53,,10....
+    5  cardinalis_01,2019-07-09T11:48:00.000Z,56,,10....
+    6  cardinalis_01,2019-07-09T11:46:00.000Z,54,,9.9...
+    7  cardinalis_01,2019-07-09T11:43:00.000Z,56,,11....
+    8  cardinalis_01,2019-07-09T11:40:00.000Z,58,,9.7...
+    9  cardinalis_01,2019-07-09T11:38:00.000Z,57,,10,...
 
     Enter the row index number for column headers: 0
 
@@ -181,17 +177,17 @@ pollutant measurement columns is found on row index #5.
     ==============================================================================
 
     The first ten unformatted rows of C:\Users\...\Documents\sensortoolkit_testing
-    \data\sensor_data\Example_Make_Model\raw_data\Example_Make_Model_SN01_raw.csv
+    \data\sensor_data\Toco_Toucan\raw_data\toco_toucan_RT01_raw.csv
     are displayed below:
 
                                                        0
-    0                   CRADA · AQY-BA-317 (AQY-BA-317A)
-    1                             Instrument Data export
-    2                               8/1/2019 to 9/1/2019
+    0                      Serial ID: Ramphastos Toco 01
+    1                             Instrument Data Export
+    2                              8/1/2019 to 8/31/2019
     3             (UTC-05:00) Eastern Time (US & Canada)
     4                         Averaging period: 1 minute
     5  Time,NO2 (ppb),O3 (ppb),PM2.5 (µg/m³),TEMP (°C...
-    6   2019/08/01 07:11:00,,,5.4,24.80,95.3,24.0,Sample
+    6  2019/08/01 07:11:00,,,5.4,24.80,95.3,24.0,Sample.
     7  2019/08/01 07:12:00,5.5,0.0,5.5,24.88,95.1,24....
     8  2019/08/01 07:13:00,2.0,4.4,5.3,25.00,95.1,24....
     9  2019/08/01 07:14:00,-0.9,8.8,5.4,25.14,95.2,24...
@@ -218,7 +214,7 @@ pollutant measurement columns is found on row index #5.
     ==============================================================================
 
     The first ten unformatted rows of C:\Users\...\Documents\sensortoolkit_testing
-    \data\sensor_data\Vaisala_AQT420\raw_data\Vaisala_1_06-12.txt
+    \data\sensor_data\Scarlet_Macaw\raw_data\Scarlet_Macaw_AM01.txt
     are displayed below:
                                                        0
     0  =~=~=~=~=~=~=~=~=~=~=~= PuTTY log 2018.06.12 2...
@@ -261,7 +257,7 @@ each column index are displayed.
   ============================== Parsing Datasets ==============================
   ==============================================================================
 
-  Parsing datasets at "../data/sensor_data/"Example_Make_Model/raw_data"
+  Parsing datasets at "../data/sensor_data/Toco_Toucan/raw_data"
   ..header(s) at column index 0: ['Time']
   ..header(s) at column index 1: ['NO2 (ppb)']
   ..header(s) at column index 2: ['O3 (ppb)']
@@ -310,7 +306,7 @@ each column index are displayed.
     ============================== Parsing Datasets ==============================
     ==============================================================================
 
-    Parsing datasets at "../data/sensor_data/"Example_Make_Model/raw_data"
+    Parsing datasets at "../data/sensor_data/[sensor_name]/raw_data"
     ..header(s) at column index 0: ['Time', 'time']
 
 
@@ -370,14 +366,20 @@ mode.
 7. Specifying the Parameter Renaming Scheme
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Next, users are prompted to configure the parameter renaming scheme by entering
-in the sensortoolkit Data Formatting Standard (SDFS) parameter name
-that corresponds to each parameter header name.
+Next, users are prompted to configure the parameter renaming scheme for converting
+recorded datasets into sensortoolkit's Data Formatting Standard (SDFS), which
+includes a `list of preset parameter names and associated attributes <../../sdfs/index.html>`_.
 
-.. tip::
+If parameters represented in the sensor datasets are included in the list of SDFS parameters,
+select "S" when prompted to enter the type of parameter corresponding to the header name as
+indicated in the recorded dataset.
 
-  Column names that do not have a corresponding listed parameter should be dropped
-  from the dataset by pressing enter.
+If a header name does not correspond to one of the parameters in the list of preset SDFS parameter
+names, you can create a new custom parameter attribute using the "N" character or "C" to associate
+the header name with a custom parameter that you may have created previously. Otherwise, if you do
+not choose to include the header and associated column in the processed datasets, you can enter an
+empty character (by pressing the "Enter" key), which will skip over the header label and drop it
+from datasets that are processed to the SDFS format.
 
 .. code-block:: console
 
@@ -393,19 +395,142 @@ that corresponds to each parameter header name.
    'Temp', 'RH', 'Press', 'WD', 'WS']
   ==============================================================================
 
-  [1/7] Enter SDFS parameter associated with NO2 (ppb): NO2
+  [1/7]
+  -----
 
-  [2/7] Enter SDFS parameter associated with O3 (ppb): O3
+  Enter the character indicating the type of parameter
+  {'': '(enter key) Skip the current header and drop from SDFS datasets',
+   'C': 'The header corresponds to an existing custom Parameter',
+   'N': 'Create a new custom Parameter for the header',
+   'S': 'The header corresponds to an SDFS Parameter'}
 
-  [3/7] Enter SDFS parameter associated with PM2.5 (µg/m³): PM25
+  Parameter type for header name "NO2 (ppb)": S
 
-  [4/7] Enter SDFS parameter associated with TEMP (°C): Temp
+  SDFS Parameters:
+  ['CO', 'DP', 'NO', 'NO2', 'NOx', 'O3', 'PM1', 'PM10', 'PM25', 'SO2', 'SOx',
+   'Temp', 'RH', 'Press', 'WD', 'WS']
 
-  [5/7] Enter SDFS parameter associated with RH (%): RH
+  From the list above, select the SDFS parameter associated with NO2 (ppb): NO2
 
-  [6/7] Enter SDFS parameter associated with DP (°C): DP
+    Are the units of measure [ppbv] for column header "NO2 (ppb)"?
 
-  [7/7] Enter SDFS parameter associated with Inlet:
+    Confirm entry [y/n]: y
+
+  [2/7]
+  -----
+
+  Enter the character indicating the type of parameter
+  {'': '(enter key) Skip the current header and drop from SDFS datasets',
+   'C': 'The header corresponds to an existing custom Parameter',
+   'N': 'Create a new custom Parameter for the header',
+   'S': 'The header corresponds to an SDFS Parameter'}
+
+  Parameter type for header name "O3 (ppb)": S
+
+  SDFS Parameters:
+  ['CO', 'DP', 'NO', 'NO2', 'NOx', 'O3', 'PM1', 'PM10', 'PM25', 'SO2', 'SOx',
+   'Temp', 'RH', 'Press', 'WD', 'WS']
+
+  From the list above, select the SDFS parameter associated with O3 (ppb): O3
+
+    Are the units of measure [ppbv] for column header "O3 (ppb)"?
+
+    Confirm entry [y/n]: y
+
+  [3/7]
+  -----
+
+  Enter the character indicating the type of parameter
+  {'': '(enter key) Skip the current header and drop from SDFS datasets',
+   'C': 'The header corresponds to an existing custom Parameter',
+   'N': 'Create a new custom Parameter for the header',
+   'S': 'The header corresponds to an SDFS Parameter'}
+
+  Parameter type for header name "PM2.5 (µg/m³)": S
+
+  SDFS Parameters:
+  ['CO', 'DP', 'NO', 'NO2', 'NOx', 'O3', 'PM1', 'PM10', 'PM25', 'SO2', 'SOx',
+   'Temp', 'RH', 'Press', 'WD', 'WS']
+
+  From the list above, select the SDFS parameter associated with PM2.5 (µg/m³): PM25
+
+    Are the units of measure [µg/m³] for column header "PM2.5 (µg/m³)"?
+
+    Confirm entry [y/n]: y
+
+  [4/7]
+  -----
+
+  Enter the character indicating the type of parameter
+  {'': '(enter key) Skip the current header and drop from SDFS datasets',
+   'C': 'The header corresponds to an existing custom Parameter',
+   'N': 'Create a new custom Parameter for the header',
+   'S': 'The header corresponds to an SDFS Parameter'}
+
+  Parameter type for header name "TEMP (°C)": S
+
+  SDFS Parameters:
+  ['CO', 'DP', 'NO', 'NO2', 'NOx', 'O3', 'PM1', 'PM10', 'PM25', 'SO2', 'SOx',
+   'Temp', 'RH', 'Press', 'WD', 'WS']
+
+  From the list above, select the SDFS parameter associated with TEMP (°C): Temp
+
+    Are the units of measure [°C] for column header "TEMP (°C)"?
+
+    Confirm entry [y/n]: y
+
+  [5/7]
+  -----
+
+  Enter the character indicating the type of parameter
+  {'': '(enter key) Skip the current header and drop from SDFS datasets',
+   'C': 'The header corresponds to an existing custom Parameter',
+   'N': 'Create a new custom Parameter for the header',
+   'S': 'The header corresponds to an SDFS Parameter'}
+
+  Parameter type for header name "RH (%)": S
+
+  SDFS Parameters:
+  ['CO', 'DP', 'NO', 'NO2', 'NOx', 'O3', 'PM1', 'PM10', 'PM25', 'SO2', 'SOx',
+   'Temp', 'RH', 'Press', 'WD', 'WS']
+
+  From the list above, select the SDFS parameter associated with RH (%): RH
+
+    Are the units of measure [%] for column header "RH (%)"?
+
+    Confirm entry [y/n]: y
+
+  [6/7]
+  -----
+
+  Enter the character indicating the type of parameter
+  {'': '(enter key) Skip the current header and drop from SDFS datasets',
+   'C': 'The header corresponds to an existing custom Parameter',
+   'N': 'Create a new custom Parameter for the header',
+   'S': 'The header corresponds to an SDFS Parameter'}
+
+  Parameter type for header name "DP (°C)": S
+
+  SDFS Parameters:
+  ['CO', 'DP', 'NO', 'NO2', 'NOx', 'O3', 'PM1', 'PM10', 'PM25', 'SO2', 'SOx',
+   'Temp', 'RH', 'Press', 'WD', 'WS']
+
+  From the list above, select the SDFS parameter associated with DP (°C): DP
+
+    Are the units of measure [°C] for column header "DP (°C)"?
+
+    Confirm entry [y/n]: y
+
+  [7/7]
+  -----
+
+  Enter the character indicating the type of parameter
+  {'': '(enter key) Skip the current header and drop from SDFS datasets',
+   'C': 'The header corresponds to an existing custom Parameter',
+   'N': 'Create a new custom Parameter for the header',
+   'S': 'The header corresponds to an SDFS Parameter'}
+
+  Parameter type for header name "Inlet":
   ..Inlet will be dropped
 
   Configured renaming scheme:
@@ -556,32 +681,29 @@ corresponds to which unit during analysis.
   ..press X to end adding entries
   ==============================================================================
 
-  ..C:\Users\...\Documents\sensortoolkit_testing\data\sensor_data\
-  Example_Make_Model\raw_data\Example_Make_Model_SN01_raw.csv
-  ..C:\Users\...\Documents\sensortoolkit_testing\data\sensor_data\
-  Example_Make_Model\raw_data\Example_Make_Model_SN02_raw.csv
-  ..C:\Users\...\Documents\sensortoolkit_testing\data\sensor_data\
-  Example_Make_Model\raw_data\Example_Make_Model_SN03_raw.csv
+  ..C:\Users\...\Documents\toucan_evaluation\data\sensor_data\Toco_Toucan\raw_data\toco_toucan_RT01_raw.csv
+  ..C:\Users\...\Documents\toucan_evaluation\data\sensor_data\Toco_Toucan\raw_data\toco_toucan_RT02_raw.csv
+  ..C:\Users\...\Documents\toucan_evaluation\data\sensor_data\Toco_Toucan\raw_data\toco_toucan_RT03_raw.csv
 
   Enter the number of unique sensors corresponding to the datasets above: 3
 
   Confirm entry [y/n]: y
   Enter unique serial identifiers for each sensor associated with the datasets listed above:
 
-  Enter serial identifier #1: SN01
+  Enter serial identifier #1: RT01
 
   Confirm entry [y/n]: y
 
-  Enter serial identifier #2: SN02
+  Enter serial identifier #2: RT02
 
   Confirm entry [y/n]: y
 
-  Enter serial identifier #3: SN03
+  Enter serial identifier #3: RT03
 
   Confirm entry [y/n]: y
 
   Configured serial identifiers:
-  {'1': 'SN01', '2': 'SN02', '3': 'SN03'}
+  {'1': 'RT01', '2': 'RT02', '3': 'RT03'}
 
 
   Press enter to continue.
@@ -601,4 +723,4 @@ where ``[sensor_name]`` is replaced by the name given to the sensor.
   ==============================================================================
 
   ..writing setup configuration to the following path:
-    \data\sensor_data\Example_Make_Model\Example_Make_Model_setup.json
+    \data\sensor_data\Toco_Toucan\Toco_Toucan_setup.json

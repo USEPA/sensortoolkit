@@ -17,16 +17,23 @@ If users plan to query either the AirNow or AQS API (user accounts required for 
 the setup module will walk users through an abbreviated process in order to indicate various site
 parameters that are required for querying these API services.
 
-Continuing with the `evaluation.py` example, the setup module can be called via the
-following line of code:
+Continuing with the `Toco Toucan Quickstart example <../../quickstart.html#example-scenario-toco-toucan>`_,
+following the creation of our ``reference`` object, the setup module can be called via the following line of code:
 
 .. code-block:: python
 
-  reference_object.reference_setup()
+  reference.reference_setup()
 
 Running the above code, the user is greeted with a number of printed statements in
 the console that prompt the user's input. ``reference_setup()`` is an interactive
 module, where the user inputs information via the console.
+
+.. note::
+
+  If you're following along with the `Toco Toucan Quickstart example <../../quickstart.html#example-scenario-toco-toucan>`_,
+  please note that example reference data sets included in the [BitBucket/GitHub] repository under the ``/example_datasets``
+  folder were downloaded from AirNow-Tech. To use the ``"airnowtech_example_reference_data.csv"``
+  data file, **follow the setup directions below under the "AirNow-Tech" tab.**
 
 .. tip::
 
@@ -40,11 +47,12 @@ module, where the user inputs information via the console.
   A console width of at least 80 characters is recommended to properly format
   printed statements, banners, and tables within this setup method.
 
-.. tabbed:: Local
+
+.. tabbed:: AirNow-Tech
 
   The following steps below walk through the setup process. The example below
-  describes the setup process for a reference data file acquired locally for
-  EPA's sensor testing site:
+  describes the setup process for a reference data file downloaded from AirNow-Tech
+  for the EPA RTP monitoring site for sensor evaluations.
 
   **1. Selecting the Reference Data Service/Source**
 
@@ -52,7 +60,447 @@ module, where the user inputs information via the console.
     The user's entry must correspond to one of the options listed in the table shown
     in the banner for the section: users must choose from ``airnow`` (user plans to
     query the AirNow API), ``aqs`` (user plans to query the AQS API), ``airnowtech`` (user
-    has downloaded files from the AirNowTech system and has saved files locally to the user's
+    has downloaded files from the AirNow-Tech system and has saved files locally to the user's
+    system), or ``local`` (a catchall for reference data files the user may have stored
+    locally on their system that were not acquired from any of the services previously mentioned).
+
+    .. code-block:: console
+
+      =================== Select Name of Service for Data Source ===================
+      Options
+      -------
+      ['airnow', 'aqs', 'airnowtech', 'local']
+      ==============================================================================
+
+      Enter the name of the service from the list of options above: airnowtech
+
+  **2. Adding Monitoring Site Information**
+
+    Next, the user should enter in information about the ambient monitoring site
+    at which the collocation study was conducted. If certain details are unknown or
+    don't apply to the site (e.g. Non-AQS sites will not have an AQS Site ID), entries
+    can be skipped by pressing the 'Enter' key.
+
+    .. important::
+      Users are strongly recommended to provide a site name and, if applicable, a site AQS ID.
+      These attributes are used to organize reference data within the ``/data/reference_data/[data source]/[raw or processed]``
+      subdirectories.
+
+      This is particularly important if users are working with data from numerous sites yet share the same data source.
+      For instance, if one is using AirNow-Tech for reference data at two sites, Site A and Site B,
+      the folder structure for processed reference datasets should look something like:
+
+      .. code-block:: console
+
+        my_evaluation
+        |
+        └─data
+           └───reference_data
+                └───airnowtech
+                   ├───raw
+                   └───processed
+                      ├SiteNameA_AAAAAAAAA
+                      └SiteNameB_BBBBBBBBB
+
+      where AAAAAAAAA is the AQS site ID for site A and BBBBBBBBB is the AQS site ID
+      for site B.
+
+      If the site name is unspecified, datasets will be placed in a subfolder named ``UnspecifiedSite_XXXXXXXXX``
+      where ``XXXXXXXXX`` is the AQS site ID if specified. If both the site name and AQS Site ID
+      are not specified, data sets will be placed in a folder named ``UnspecifiedSite_UnspecifiedSiteID``.
+      For this reason, specifying the site name and site ID where applicable is strongly advised to avoid
+      data being stored in an ambiguous ``UnspecifiedSite_UnspecifiedSiteID``.
+
+    .. code-block:: console
+
+      ================ Enter Ambient Air Monitoring Site Information ===============
+      Options
+      -------
+      ..press enter to skip entries
+
+      Notes
+      -----
+      Site AQS ID required for AQS queries
+      Site Latitude and Longitude required for AirNow queries
+      ==============================================================================
+
+      Enter the name of the monitoring site: Burdens Creek
+
+      Confirm entry [y/n]: y
+
+
+      Enter the name of the Agency overseeing the monitoring site: OAQPS
+
+      Confirm entry [y/n]: y
+
+
+      Enter the AQS site ID (if applicable) [format XX-XXX-XXXX]:37-063-0099
+
+      Confirm entry [y/n]: y
+
+
+      Enter the site latitude (in decimal coordinates):35.889
+
+      Confirm entry [y/n]: y
+
+
+      Enter the site longitude (in decimal coordinates):-78.874
+
+      Confirm entry [y/n]: y
+
+  **3. Selecting File Data Type**
+
+    Next, users specify the data type for recorded reference data. Accepted data
+    types include .csv, .txt, and .xlsx. Future updates to sensortoolkit may
+    expand this list to include additional supported data types. Users should enter
+    one of the data types listed in the section banner.
+
+    .. code-block:: console
+
+      ============================== Select Data Type ==============================
+      Options
+      -------
+      ['.csv', '.txt', '.xlsx']
+      ==============================================================================
+
+      Enter the reference data type from the list of supported data types:.csv
+
+      Selected data type: .csv
+
+      Confirm entry [y/n]: y
+
+  **4. Selecting Data Files**
+
+    Next, the user is asked to select how reference datasets will be selected for copying
+    to the project path that the user specified. Users are presented with three options:
+    ``directory``, which will locate and copy all of the data files in the specified directory for the
+    indicated data type, ``recursive directory``, which will locate and copy all data files within the
+    specified directory and any subdirectories contained within the indicated folder path, and ``files`` which
+    copies over files that the user manually selects within a directory.
+
+    .. code-block:: console
+
+      ======================= Select Data Files or Directory =======================
+      Options
+      -------
+      ['directory', 'recursive directory', 'files']
+      ==============================================================================
+
+      Enter how to select reference datasets from the list of options above: files
+
+      Select data sets by files
+
+      Confirm entry [y/n]: y
+
+  **5. Copying Data files**
+
+    Once the user selects an option for indicating how data files should be located
+    and confirms the entry, a subsequent section in the console will prompt the user to
+    select the files for the recorded reference datasets corresponding to the indicated file type.
+
+    Users should see a file explorer window open up, asking the user to select either a directory
+    or file(s) depending on the users' selection in the preceding step.
+
+    Users will be prompted to press enter to continue with the file transfer after
+    reviewing the filenames for the datasets that will be transferred and the location
+    where the copied datasets will be saved.
+
+    .. code-block:: console
+
+      ================== Copy Data Files to the Project Directory ==================
+      ==============================================================================
+
+      [File Browser: Select the files for recorded reference datasets with file type ".csv"]
+
+      Source Files:
+      ['C:/Users/.../Documents/Public_Sensor_Evaluation/beta_testing/data/reference/20190901_20190930_PMGasMet.csv']
+
+      Destination Directory:
+      ..C:\Users\...\Documents\sensortoolkit_testing\data\reference_data\airnowtech\raw\Burdens_Creek_370630099
+
+      Press enter to continue.
+
+      Copying the following files:
+      ..C:/Users/.../Documents/sensortoolkit/beta_testing/data/reference/20190901_20190930_PMGasMet.csv
+
+      Press enter to continue.
+
+  **6. Pre-processing AirNow-Tech Datasets**
+
+    The local AirNow-Tech files that the user selected in the previous step are
+    imported and processed versions of these datasets are ingested into the SDFS
+    format via the ``sensortoolkit.reference.preprocess_airnowtech()`` method.
+    Processed datasets are subsequently saved as comma-separated value files to
+    ``/data/reference_data/airnowtech/processed/[site_name]_[site_id]``, where ``[site_name]``
+    is the name of the site assigned by the user in step 2, and ``[site_id]`` is
+    the AQS ID for the site assigned in step 2 (if applicable).
+
+    .. code-block:: console
+
+      ====================== Pre-process AirNow-Tech Datasets ======================
+      ==============================================================================
+
+      Writing AirNow-Tech data sets to csv files
+      ../reference_data/airnowtech/processed/Burdens_Creek_370630099/H_201909_PM.csv
+      Writing AirNow-Tech data sets to csv files
+      ../reference_data/airnowtech/processed/Burdens_Creek_370630099/H_201909_Gases.csv
+      Writing AirNow-Tech data sets to csv files
+      ../reference_data/airnowtech/processed/Burdens_Creek_370630099/H_201909_Met.csv
+
+  **7. Saving the Setup Configuration to** ``setup.json``
+
+    The Setup module will automatically save the setup configuration
+    to a ``reference_setup.json`` file at the indicated directory location:
+
+    .. code-block:: console
+
+      ============================= Setup Configuration ============================
+      ==============================================================================
+
+      ..writing setup configuration to the following path:
+        \data\reference_data\airnowtech\raw\Burdens_Creek_370630099\reference_setup.json
+
+.. tabbed:: AQS
+
+  The following steps below walk through the setup process. The example below
+  describes the setup process for a reference data file downloaded from AQS
+  for the Triple Oak monitoring site nearby EPA's RTP monitoring site for sensor evaluations.
+
+  **1. Selecting the Reference Data Service/Source**
+
+    First, the user is asked to specify the service or source for reference data.
+    The user's entry must correspond to one of the options listed in the table shown
+    in the banner for the section: users must choose from ``airnow`` (user plans to
+    query the AirNow API), ``aqs`` (user plans to query the AQS API), ``airnowtech`` (user
+    has downloaded files from the AirNow-Tech system and has saved files locally to the user's
+    system), or ``local`` (a catchall for reference data files the user may have stored
+    locally on their system that were not acquired from any of the services previously mentioned).
+
+    .. code-block:: console
+
+      =================== Select Name of Service for Data Source ===================
+      Options
+      -------
+      ['airnow', 'aqs', 'airnowtech', 'local']
+      ==============================================================================
+
+      Enter the name of the service from the list of options above: aqs
+
+  **2. Adding Monitoring Site Information**
+
+    Next, the user should enter in information about the ambient monitoring site
+    at which the collocation study was conducted. If certain details are unknown or
+    don't apply to the site (e.g. Non-AQS sites will not have an AQS Site ID), entries
+    can be skipped by pressing the 'Enter' key.
+
+    .. important::
+      Users are strongly recommended to provide a site name and, if applicable, a site AQS ID.
+      These attributes are used to organize reference data within the ``/data/reference_data/[data source]/[raw or processed]``
+      subdirectories.
+
+      This is particularly important if users are working with data from numerous sites yet share the same data source.
+      For instance, if one is using AirNow-Tech for reference data at two sites, Site A and Site B,
+      the folder structure for processed reference datasets should look something like:
+
+      .. code-block:: console
+
+        my_evaluation
+        |
+        └─data
+           └───reference_data
+                └───airnowtech
+                   ├───raw
+                   └───processed
+                      ├SiteNameA_AAAAAAAAA
+                      └SiteNameB_BBBBBBBBB
+
+      where AAAAAAAAA is the AQS site ID for site A and BBBBBBBBB is the AQS site ID
+      for site B.
+
+      If the site name is unspecified, datasets will be placed in a subfolder named ``UnspecifiedSite_XXXXXXXXX``
+      where ``XXXXXXXXX`` is the AQS site ID if specified. If both the site name and AQS Site ID
+      are not specified, data sets will be placed in a folder named ``UnspecifiedSite_UnspecifiedSiteID``.
+      For this reason, specifying the site name and site ID where applicable is strongly advised to avoid
+      data being stored in an ambiguous ``UnspecifiedSite_UnspecifiedSiteID``.
+
+    .. code-block:: console
+
+      ================ Enter Ambient Air Monitoring Site Information ===============
+      Options
+      -------
+      ..press enter to skip entries
+
+      Notes
+      -----
+      Site AQS ID required for AQS queries
+      Site Latitude and Longitude required for AirNow queries
+      ==============================================================================
+
+      Enter the name of the monitoring site: Triple Oak
+
+      Confirm entry [y/n]: y
+
+
+      Enter the name of the Agency overseeing the monitoring site: NCDEQ
+
+      Confirm entry [y/n]: y
+
+
+      Enter the AQS site ID (if applicable) [format XX-XXX-XXXX]:37-183-0021
+
+      Confirm entry [y/n]: y
+
+
+      Enter the site latitude (in decimal coordinates):35.87
+
+      Confirm entry [y/n]: y
+
+
+      Enter the site longitude (in decimal coordinates):-78.82
+
+      Confirm entry [y/n]: y
+
+  **3. Saving the Setup Configuration to** ``setup.json``
+
+    The Setup module will automatically save the setup configuration
+    to a ``reference_setup.json`` file at the indicated directory location:
+
+    .. code-block:: console
+
+      ============================= Setup Configuration ============================
+      ==============================================================================
+
+      ..writing setup configuration to the following path:
+        \data\reference_data\aqs\raw\Triple_Oak_371830021\reference_setup.json
+
+.. tabbed:: AirNow
+
+
+  The following steps below walk through the setup process. The example below
+  describes the setup process for a reference data file downloaded from AirNow
+  for the EPA RTP monitoring site for sensor evaluations.
+
+  **1. Selecting the Reference Data Service/Source**
+
+    First, the user is asked to specify the service or source for reference data.
+    The user's entry must correspond to one of the options listed in the table shown
+    in the banner for the section: users must choose from ``airnow`` (user plans to
+    query the AirNow API), ``aqs`` (user plans to query the AQS API), ``airnowtech`` (user
+    has downloaded files from the AirNow-Tech system and has saved files locally to the user's
+    system), or ``local`` (a catchall for reference data files the user may have stored
+    locally on their system that were not acquired from any of the services previously mentioned).
+
+    .. code-block:: console
+
+      =================== Select Name of Service for Data Source ===================
+      Options
+      -------
+      ['airnow', 'aqs', 'airnowtech', 'local']
+      ==============================================================================
+
+      Enter the name of the service from the list of options above: airnow
+
+  **2. Adding Monitoring Site Information**
+
+    Next, the user should enter in information about the ambient monitoring site
+    at which the collocation study was conducted. If certain details are unknown or
+    don't apply to the site (e.g. Non-AQS sites will not have an AQS Site ID), entries
+    can be skipped by pressing the 'Enter' key.
+
+    .. important::
+      Users are strongly recommended to provide a site name and, if applicable, a site AQS ID.
+      These attributes are used to organize reference data within the ``/data/reference_data/[data source]/[raw or processed]``
+      subdirectories.
+
+      This is particularly important if users are working with data from numerous sites yet share the same data source.
+      For instance, if one is using AirNow-Tech for reference data at two sites, Site A and Site B,
+      the folder structure for processed reference datasets should look something like:
+
+      .. code-block:: console
+
+        my_evaluation
+        |
+        └─data
+           └───reference_data
+                └───airnowtech
+                   ├───raw
+                   └───processed
+                      ├SiteNameA_AAAAAAAAA
+                      └SiteNameB_BBBBBBBBB
+
+      where AAAAAAAAA is the AQS site ID for site A and BBBBBBBBB is the AQS site ID
+      for site B.
+
+      If the site name is unspecified, datasets will be placed in a subfolder named ``UnspecifiedSite_XXXXXXXXX``
+      where ``XXXXXXXXX`` is the AQS site ID if specified. If both the site name and AQS Site ID
+      are not specified, data sets will be placed in a folder named ``UnspecifiedSite_UnspecifiedSiteID``.
+      For this reason, specifying the site name and site ID where applicable is strongly advised to avoid
+      data being stored in an ambiguous ``UnspecifiedSite_UnspecifiedSiteID``.
+
+    .. code-block:: console
+
+      ================ Enter Ambient Air Monitoring Site Information ===============
+      Options
+      -------
+      ..press enter to skip entries
+
+      Notes
+      -----
+      Site AQS ID required for AQS queries
+      Site Latitude and Longitude required for AirNow queries
+      ==============================================================================
+
+      Enter the name of the monitoring site: Burdens Creek
+
+      Confirm entry [y/n]: y
+
+
+      Enter the name of the Agency overseeing the monitoring site: OAQPS
+
+      Confirm entry [y/n]: y
+
+
+      Enter the AQS site ID (if applicable) [format XX-XXX-XXXX]:37-063-0099
+
+      Confirm entry [y/n]: y
+
+
+      Enter the site latitude (in decimal coordinates):35.889
+
+      Confirm entry [y/n]: y
+
+
+      Enter the site longitude (in decimal coordinates):-78.874
+
+      Confirm entry [y/n]: y
+
+  **3. Saving the Setup Configuration to** ``setup.json``
+
+    The Setup module will automatically save the setup configuration
+    to a ``reference_setup.json`` file at the indicated directory location:
+
+    .. code-block:: console
+
+      ============================= Setup Configuration ============================
+      ==============================================================================
+
+      ..writing setup configuration to the following path:
+        \data\reference_data\airnow\raw\Burdens_Creek_370630099\reference_setup.json
+        .. tabbed:: Local
+
+          The following steps below walk through the setup process. The example below
+          describes the setup process for a reference data file acquired locally for
+          EPA's sensor testing site:
+
+.. tabbed:: Local
+
+  **1. Selecting the Reference Data Service/Source**
+
+    First, the user is asked to specify the service or source for reference data.
+    The user's entry must correspond to one of the options listed in the table shown
+    in the banner for the section: users must choose from ``airnow`` (user plans to
+    query the AirNow API), ``aqs`` (user plans to query the AQS API), ``airnowtech`` (user
+    has downloaded files from the AirNow-Tech system and has saved files locally to the user's
     system), or ``local`` (a catchall for reference data files the user may have stored
     locally on their system that were not acquired from any of the services previously mentioned).
 
@@ -79,7 +527,7 @@ module, where the user inputs information via the console.
       subdirectories.
 
       This is particularly important if users are working with data from numerous sites yet share the same data source.
-      For instance, if one is using AirNowTech for reference data at two sites, Site A and Site B,
+      For instance, if one is using AirNow-Tech for reference data at two sites, Site A and Site B,
       the folder structure for processed reference datasets should look something like:
 
       .. code-block:: console
@@ -375,24 +823,84 @@ module, where the user inputs information via the console.
        'Temp', 'RH', 'Press', 'WD', 'WS']
       ==============================================================================
 
-      [1/7] Enter SDFS parameter associated with UV_633_370nm:
+      [1/7]
+      -----
+
+      Enter the character indicating the type of parameter
+      {'': '(enter key) Skip the current header and drop from SDFS datasets',
+       'C': 'The header corresponds to an existing custom Parameter',
+       'N': 'Create a new custom Parameter for the header',
+       'S': 'The header corresponds to an SDFS Parameter'}
+
+      Parameter type for header name "UV_633_370nm":
       ..UV_633_370nm will be dropped
 
-      [2/7] Enter SDFS parameter associated with BC AE33 880nm:
+      [2/7]
+      -----
+
+      Enter the character indicating the type of parameter
+      {'': '(enter key) Skip the current header and drop from SDFS datasets',
+       'C': 'The header corresponds to an existing custom Parameter',
+       'N': 'Create a new custom Parameter for the header',
+       'S': 'The header corresponds to an SDFS Parameter'}
+
+      Parameter type for header name "BC AE33 880nm":
       ..BC AE33 880nm will be dropped
 
-      [3/7] Enter SDFS parameter associated with Grimm PM2.5:
+      [3/7]
+      -----
+
+      Enter the character indicating the type of parameter
+      {'': '(enter key) Skip the current header and drop from SDFS datasets',
+       'C': 'The header corresponds to an existing custom Parameter',
+       'N': 'Create a new custom Parameter for the header',
+       'S': 'The header corresponds to an SDFS Parameter'}
+
+      Parameter type for header name "Grimm PM2.5":
       ..Grimm PM2.5 will be dropped
 
-      [4/7] Enter SDFS parameter associated with Grimm PM10:
+      [4/7]
+      -----
+
+      Enter the character indicating the type of parameter
+      {'': '(enter key) Skip the current header and drop from SDFS datasets',
+       'C': 'The header corresponds to an existing custom Parameter',
+       'N': 'Create a new custom Parameter for the header',
+       'S': 'The header corresponds to an SDFS Parameter'}
+
+      Parameter type for header name "Grimm PM10":
       ..Grimm PM10 will be dropped
 
-      [5/7] Enter SDFS parameter associated with GRIMM PM1:
+      [5/7]
+      -----
+
+      Enter the character indicating the type of parameter
+      {'': '(enter key) Skip the current header and drop from SDFS datasets',
+       'C': 'The header corresponds to an existing custom Parameter',
+       'N': 'Create a new custom Parameter for the header',
+       'S': 'The header corresponds to an SDFS Parameter'}
+
+      Parameter type for header name "GRIMM PM1":
       ..GRIMM PM1 will be dropped
 
-      [6/7] Enter SDFS parameter associated with T640_2_PM25: PM25
+      [6/7]
+      -----
 
-        Enter the units of measure for T640_2_PM25:Micrograms per cubic meter
+      Enter the character indicating the type of parameter
+      {'': '(enter key) Skip the current header and drop from SDFS datasets',
+       'C': 'The header corresponds to an existing custom Parameter',
+       'N': 'Create a new custom Parameter for the header',
+       'S': 'The header corresponds to an SDFS Parameter'}
+
+      Parameter type for header name "T640_2_PM25": S
+
+      SDFS Parameters:
+      ['CO', 'DP', 'NO', 'NO2', 'NOx', 'O3', 'PM1', 'PM10', 'PM25', 'SO2', 'SOx',
+       'Temp', 'RH', 'Press', 'WD', 'WS']
+
+      From the list above, select the SDFS parameter associated with T640_2_PM25: PM25
+
+        Enter the units of measure for T640_2_PM25: Micrograms per cubic meter
 
         Confirm entry [y/n]: y
 
@@ -444,7 +952,7 @@ module, where the user inputs information via the console.
 
         Confirm entry [y/n]: y
 
-        Enter the parameter occurance code for the above reference method:1
+        Enter the parameter occurrence code for the above reference method:1
 
         Confirm entry [y/n]: y
 
@@ -452,7 +960,22 @@ module, where the user inputs information via the console.
 
         Confirm entry [y/n]: y
 
-      [7/7] Enter SDFS parameter associated with T640_2_PM10: PM10
+      [7/7]
+      -----
+
+      Enter the character indicating the type of parameter
+      {'': '(enter key) Skip the current header and drop from SDFS datasets',
+       'C': 'The header corresponds to an existing custom Parameter',
+       'N': 'Create a new custom Parameter for the header',
+       'S': 'The header corresponds to an SDFS Parameter'}
+
+      Parameter type for header name "T640_2_PM10": S
+
+      SDFS Parameters:
+      ['CO', 'DP', 'NO', 'NO2', 'NOx', 'O3', 'PM1', 'PM10', 'PM25', 'SO2', 'SOx',
+       'Temp', 'RH', 'Press', 'WD', 'WS']
+
+      From the list above, select the SDFS parameter associated with T640_2_PM10: PM10
 
         Enter the units of measure for T640_2_PM10:Micrograms per cubic meter
 
@@ -530,7 +1053,7 @@ module, where the user inputs information via the console.
 
         Confirm entry [y/n]: y
 
-        Enter the parameter occurance code for the above reference method:1
+        Enter the parameter occurrence code for the above reference method:1
 
         Confirm entry [y/n]:
         ..invalid entry, select [y/n]
@@ -654,441 +1177,3 @@ module, where the user inputs information via the console.
 
       ..H_201909_PM.csv
       ..H_201910_PM.csv
-
-.. tabbed:: AirNowTech
-
-  The following steps below walk through the setup process. The example below
-  describes the setup process for a reference data file downloaded from AirNowTech
-  for the EPA RTP monitoring site for sensor evaluations.
-
-  **1. Selecting the Reference Data Service/Source**
-
-    First, the user is asked to specify the service or source for reference data.
-    The user's entry must correspond to one of the options listed in the table shown
-    in the banner for the section: users must choose from ``airnow`` (user plans to
-    query the AirNow API), ``aqs`` (user plans to query the AQS API), ``airnowtech`` (user
-    has downloaded files from the AirNowTech system and has saved files locally to the user's
-    system), or ``local`` (a catchall for reference data files the user may have stored
-    locally on their system that were not acquired from any of the services previously mentioned).
-
-    .. code-block:: console
-
-      =================== Select Name of Service for Data Source ===================
-      Options
-      -------
-      ['airnow', 'aqs', 'airnowtech', 'local']
-      ==============================================================================
-
-      Enter the name of the service from the list of options above: airnowtech
-
-  **2. Adding Monitoring Site Information**
-
-    Next, the user should enter in information about the ambient monitoring site
-    at which the collocation study was conducted. If certain details are unknown or
-    don't apply to the site (e.g. Non-AQS sites will not have an AQS Site ID), entries
-    can be skipped by pressing the 'Enter' key.
-
-    .. important::
-      Users are strongly recommended to provide a site name and, if applicable, a site AQS ID.
-      These attributes are used to organize reference data within the ``/data/reference_data/[data source]/[raw or processed]``
-      subdirectories.
-
-      This is particularly important if users are working with data from numerous sites yet share the same data source.
-      For instance, if one is using AirNowTech for reference data at two sites, Site A and Site B,
-      the folder structure for processed reference datasets should look something like:
-
-      .. code-block:: console
-
-        my_evaluation
-        |
-        └─data
-           └───reference_data
-                └───airnowtech
-                   ├───raw
-                   └───processed
-                      ├SiteNameA_AAAAAAAAA
-                      └SiteNameB_BBBBBBBBB
-
-      where AAAAAAAAA is the AQS site ID for site A and BBBBBBBBB is the AQS site ID
-      for site B.
-
-      If the site name is unspecified, datasets will be placed in a subfolder named ``UnspecifiedSite_XXXXXXXXX``
-      where ``XXXXXXXXX`` is the AQS site ID if specified. If both the site name and AQS Site ID
-      are not specified, data sets will be placed in a folder named ``UnspecifiedSite_UnspecifiedSiteID``.
-      For this reason, specifying the site name and site ID where applicable is strongly advised to avoid
-      data being stored in an ambiguous ``UnspecifiedSite_UnspecifiedSiteID``.
-
-    .. code-block:: console
-
-      ================ Enter Ambient Air Monitoring Site Information ===============
-      Options
-      -------
-      ..press enter to skip entries
-
-      Notes
-      -----
-      Site AQS ID required for AQS queries
-      Site Latitude and Longitude required for AirNow queries
-      ==============================================================================
-
-      Enter the name of the monitoring site: Burdens Creek
-
-      Confirm entry [y/n]: y
-
-
-      Enter the name of the Agency overseeing the monitoring site: OAQPS
-
-      Confirm entry [y/n]: y
-
-
-      Enter the AQS site ID (if applicable) [format XX-XXX-XXXX]:37-063-0099
-
-      Confirm entry [y/n]: y
-
-
-      Enter the site latitude (in decimal coordinates):35.889
-
-      Confirm entry [y/n]: y
-
-
-      Enter the site longitude (in decimal coordinates):-78.874
-
-      Confirm entry [y/n]: y
-
-  **3. Selecting File Data Type**
-
-    Next, users specify the data type for recorded reference data. Accepted data
-    types include .csv, .txt, and .xlsx. Future updates to sensortoolkit may
-    expand this list to include additional supported data types. Users should enter
-    one of the data types listed in the section banner.
-
-    .. code-block:: console
-
-      ============================== Select Data Type ==============================
-      Options
-      -------
-      ['.csv', '.txt', '.xlsx']
-      ==============================================================================
-
-      Enter the reference data type from the list of supported data types:.csv
-
-      Selected data type: .csv
-
-      Confirm entry [y/n]: y
-
-  **4. Selecting Data Files**
-
-    Next, the user is asked to select how reference datasets will be selected for copying
-    to the project path that the user specified. Users are presented with three options:
-    ``directory``, which will locate and copy all of the data files in the specified directory for the
-    indicated data type, ``recursive directory``, which will locate and copy all data files within the
-    specified directory and any subdirectories contained within the indicated folder path, and ``files`` which
-    copies over files that the user manually selects within a directory.
-
-    .. code-block:: console
-
-      ======================= Select Data Files or Directory =======================
-      Options
-      -------
-      ['directory', 'recursive directory', 'files']
-      ==============================================================================
-
-      Enter how to select reference datasets from the list of options above: files
-
-      Select data sets by files
-
-      Confirm entry [y/n]: y
-
-  **5. Copying Data files**
-
-    Once the user selects an option for indicating how data files should be located
-    and confirms the entry, a subsequent section in the console will prompt the user to
-    select the files for the recorded reference datasets corresponding to the indicated file type.
-
-    Users should see a file explorer window open up, asking the user to select either a directory
-    or file(s) depending on the users' selection in the preceding step.
-
-    Users will be prompted to press enter to continue with the file transfer after
-    reviewing the filenames for the datasets that will be transferred and the location
-    where the copied datasets will be saved.
-
-    .. code-block:: console
-
-      ================== Copy Data Files to the Project Directory ==================
-      ==============================================================================
-
-      [File Browser: Select the files for recorded reference datasets with file type ".csv"]
-
-      Source Files:
-      ['C:/Users/.../Documents/Public_Sensor_Evaluation/beta_testing/data/reference/20190901_20190930_PMGasMet.csv']
-
-      Destination Directory:
-      ..C:\Users\...\Documents\sensortoolkit_testing\data\reference_data\airnowtech\raw\Burdens_Creek_370630099
-
-      Press enter to continue.
-
-      Copying the following files:
-      ..C:/Users/.../Documents/sensortoolkit/beta_testing/data/reference/20190901_20190930_PMGasMet.csv
-
-      Press enter to continue.
-
-  **6. Pre-processing AirNowTech Datasets**
-
-    The local AirNowTech files that the user selected in the previous step are
-    imported and processed versions of these datasets are ingested into the SDFS
-    format via the ``sensortoolkit.reference.preprocess_airnowtech()`` method.
-    Processed datasets are subsequently saved as comma-separated value files to
-    ``/data/reference_data/airnowtech/processed/[site_name]_[site_id]``, where ``[site_name]``
-    is the name of the site assigned by the user in step 2, and ``[site_id]`` is
-    the AQS ID for the site assigned in step 2 (if applicable).
-
-    .. code-block:: console
-
-      ======================= Pre-process AirNowTech Datasets ======================
-      ==============================================================================
-      Writing AirNowTech dataframes to csv files
-      ../reference_data/airnowtech/processed/Burdens_Creek_370630099/H_201909_PM.csv
-      Writing AirNowTech dataframes to csv files
-      ../reference_data/airnowtech/processed/Burdens_Creek_370630099/H_201909_Gases.csv
-      Writing AirNowTech dataframes to csv files
-      ../reference_data/airnowtech/processed/Burdens_Creek_370630099/H_201909_Met.csv
-
-  **7. Saving the Setup Configuration to** ``setup.json``
-
-    The Setup module will automatically save the setup configuration
-    to a ``reference_setup.json`` file at the indicated directory location:
-
-    .. code-block:: console
-
-      ============================= Setup Configuration ============================
-      ==============================================================================
-
-      ..writing setup configuration to the following path:
-        \data\reference_data\airnowtech\raw\Burdens_Creek_370630099\reference_setup.json
-
-.. tabbed:: AQS
-
-  The following steps below walk through the setup process. The example below
-  describes the setup process for a reference data file downloaded from AQS
-  for the Triple Oak monitoring site nearby EPA's RTP monitoring site for sensor evaluations.
-
-  **1. Selecting the Reference Data Service/Source**
-
-    First, the user is asked to specify the service or source for reference data.
-    The user's entry must correspond to one of the options listed in the table shown
-    in the banner for the section: users must choose from ``airnow`` (user plans to
-    query the AirNow API), ``aqs`` (user plans to query the AQS API), ``airnowtech`` (user
-    has downloaded files from the AirNowTech system and has saved files locally to the user's
-    system), or ``local`` (a catchall for reference data files the user may have stored
-    locally on their system that were not acquired from any of the services previously mentioned).
-
-    .. code-block:: console
-
-      =================== Select Name of Service for Data Source ===================
-      Options
-      -------
-      ['airnow', 'aqs', 'airnowtech', 'local']
-      ==============================================================================
-
-      Enter the name of the service from the list of options above: aqs
-
-  **2. Adding Monitoring Site Information**
-
-    Next, the user should enter in information about the ambient monitoring site
-    at which the collocation study was conducted. If certain details are unknown or
-    don't apply to the site (e.g. Non-AQS sites will not have an AQS Site ID), entries
-    can be skipped by pressing the 'Enter' key.
-
-    .. important::
-      Users are strongly recommended to provide a site name and, if applicable, a site AQS ID.
-      These attributes are used to organize reference data within the ``/data/reference_data/[data source]/[raw or processed]``
-      subdirectories.
-
-      This is particularly important if users are working with data from numerous sites yet share the same data source.
-      For instance, if one is using AirNowTech for reference data at two sites, Site A and Site B,
-      the folder structure for processed reference datasets should look something like:
-
-      .. code-block:: console
-
-        my_evaluation
-        |
-        └─data
-           └───reference_data
-                └───airnowtech
-                   ├───raw
-                   └───processed
-                      ├SiteNameA_AAAAAAAAA
-                      └SiteNameB_BBBBBBBBB
-
-      where AAAAAAAAA is the AQS site ID for site A and BBBBBBBBB is the AQS site ID
-      for site B.
-
-      If the site name is unspecified, datasets will be placed in a subfolder named ``UnspecifiedSite_XXXXXXXXX``
-      where ``XXXXXXXXX`` is the AQS site ID if specified. If both the site name and AQS Site ID
-      are not specified, data sets will be placed in a folder named ``UnspecifiedSite_UnspecifiedSiteID``.
-      For this reason, specifying the site name and site ID where applicable is strongly advised to avoid
-      data being stored in an ambiguous ``UnspecifiedSite_UnspecifiedSiteID``.
-
-    .. code-block:: console
-
-      ================ Enter Ambient Air Monitoring Site Information ===============
-      Options
-      -------
-      ..press enter to skip entries
-
-      Notes
-      -----
-      Site AQS ID required for AQS queries
-      Site Latitude and Longitude required for AirNow queries
-      ==============================================================================
-
-      Enter the name of the monitoring site: Triple Oak
-
-      Confirm entry [y/n]: y
-
-
-      Enter the name of the Agency overseeing the monitoring site: NCDEQ
-
-      Confirm entry [y/n]: y
-
-
-      Enter the AQS site ID (if applicable) [format XX-XXX-XXXX]:37-183-0021
-
-      Confirm entry [y/n]: y
-
-
-      Enter the site latitude (in decimal coordinates):35.87
-
-      Confirm entry [y/n]: y
-
-
-      Enter the site longitude (in decimal coordinates):-78.82
-
-      Confirm entry [y/n]: y
-
-  **3. Saving the Setup Configuration to** ``setup.json``
-
-    The Setup module will automatically save the setup configuration
-    to a ``reference_setup.json`` file at the indicated directory location:
-
-    .. code-block:: console
-
-      ============================= Setup Configuration ============================
-      ==============================================================================
-
-      ..writing setup configuration to the following path:
-        \data\reference_data\aqs\raw\Triple_Oak_371830021\reference_setup.json
-
-.. tabbed:: AirNow
-
-
-  The following steps below walk through the setup process. The example below
-  describes the setup process for a reference data file downloaded from AirNow
-  for the EPA RTP monitoring site for sensor evaluations.
-
-  **1. Selecting the Reference Data Service/Source**
-
-    First, the user is asked to specify the service or source for reference data.
-    The user's entry must correspond to one of the options listed in the table shown
-    in the banner for the section: users must choose from ``airnow`` (user plans to
-    query the AirNow API), ``aqs`` (user plans to query the AQS API), ``airnowtech`` (user
-    has downloaded files from the AirNowTech system and has saved files locally to the user's
-    system), or ``local`` (a catchall for reference data files the user may have stored
-    locally on their system that were not acquired from any of the services previously mentioned).
-
-    .. code-block:: console
-
-      =================== Select Name of Service for Data Source ===================
-      Options
-      -------
-      ['airnow', 'aqs', 'airnowtech', 'local']
-      ==============================================================================
-
-      Enter the name of the service from the list of options above: airnow
-
-  **2. Adding Monitoring Site Information**
-
-    Next, the user should enter in information about the ambient monitoring site
-    at which the collocation study was conducted. If certain details are unknown or
-    don't apply to the site (e.g. Non-AQS sites will not have an AQS Site ID), entries
-    can be skipped by pressing the 'Enter' key.
-
-    .. important::
-      Users are strongly recommended to provide a site name and, if applicable, a site AQS ID.
-      These attributes are used to organize reference data within the ``/data/reference_data/[data source]/[raw or processed]``
-      subdirectories.
-
-      This is particularly important if users are working with data from numerous sites yet share the same data source.
-      For instance, if one is using AirNowTech for reference data at two sites, Site A and Site B,
-      the folder structure for processed reference datasets should look something like:
-
-      .. code-block:: console
-
-        my_evaluation
-        |
-        └─data
-           └───reference_data
-                └───airnowtech
-                   ├───raw
-                   └───processed
-                      ├SiteNameA_AAAAAAAAA
-                      └SiteNameB_BBBBBBBBB
-
-      where AAAAAAAAA is the AQS site ID for site A and BBBBBBBBB is the AQS site ID
-      for site B.
-
-      If the site name is unspecified, datasets will be placed in a subfolder named ``UnspecifiedSite_XXXXXXXXX``
-      where ``XXXXXXXXX`` is the AQS site ID if specified. If both the site name and AQS Site ID
-      are not specified, data sets will be placed in a folder named ``UnspecifiedSite_UnspecifiedSiteID``.
-      For this reason, specifying the site name and site ID where applicable is strongly advised to avoid
-      data being stored in an ambiguous ``UnspecifiedSite_UnspecifiedSiteID``.
-
-    .. code-block:: console
-
-      ================ Enter Ambient Air Monitoring Site Information ===============
-      Options
-      -------
-      ..press enter to skip entries
-
-      Notes
-      -----
-      Site AQS ID required for AQS queries
-      Site Latitude and Longitude required for AirNow queries
-      ==============================================================================
-
-      Enter the name of the monitoring site: Burdens Creek
-
-      Confirm entry [y/n]: y
-
-
-      Enter the name of the Agency overseeing the monitoring site: OAQPS
-
-      Confirm entry [y/n]: y
-
-
-      Enter the AQS site ID (if applicable) [format XX-XXX-XXXX]:37-063-0099
-
-      Confirm entry [y/n]: y
-
-
-      Enter the site latitude (in decimal coordinates):35.889
-
-      Confirm entry [y/n]: y
-
-
-      Enter the site longitude (in decimal coordinates):-78.874
-
-      Confirm entry [y/n]: y
-
-  **3. Saving the Setup Configuration to** ``setup.json``
-
-    The Setup module will automatically save the setup configuration
-    to a ``reference_setup.json`` file at the indicated directory location:
-
-    .. code-block:: console
-
-      ============================= Setup Configuration ============================
-      ==============================================================================
-
-      ..writing setup configuration to the following path:
-        \data\reference_data\airnow\raw\Burdens_Creek_370630099\reference_setup.json

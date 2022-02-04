@@ -65,16 +65,16 @@ sorted by the reference data source or API service.
     reference data source. Site information was provided for the Burdens Creek
     Monitoring site:
 
-    >>> ref = sensortoolkit.ReferenceMonitor(project_path=WORK_PATH)
-    >>> ref.reference_setup()
+    >>> reference = sensortoolkit.ReferenceMonitor(project_path=WORK_PATH)
+    >>> reference.reference_setup()
 
     See ReferenceMonitor Setup for more information on running the ``reference_setup()``
     method.
 
     """
-    reference_object.load_data(bdate='2019-08-01',
-                               edate='2019-09-15',
-                               param_list=['PM25'])
+    reference.load_data(bdate=sensor.bdate,
+                        edate=sensor.edate,
+                        param_list=sensor.param_headers)
 
   .. code-block:: console
 
@@ -82,9 +82,7 @@ sorted by the reference data source or API service.
     ..2019-08
     ....H_201908_PM.csv
     ....H_201908_Met.csv
-    ..2019-09
-    ....H_201909_PM.csv
-    ....H_201909_Met.csv
+    Computing 24-hour averaged reference datasets
 
 .. tabbed:: AirNowTech
 
@@ -143,17 +141,17 @@ sorted by the reference data source or API service.
     reference data source. Site information was provided for the Burdens Creek
     Monitoring site:
 
-    >>> ref = sensortoolkit.ReferenceMonitor(project_path=WORK_PATH)
-    >>> ref.reference_setup()
+    >>> reference = sensortoolkit.ReferenceMonitor(project_path=WORK_PATH)
+    >>> reference.reference_setup()
 
     See the 'ReferenceMonitor Setup' section for more information on running
     the ``reference_setup()`` method.
 
     """
 
-    reference_object.load_data(bdate='2019-08-01',
-                               edate='2019-09-15',
-                               param_list=['PM25'])
+    reference.load_data(bdate=sensor.bdate,
+                        edate=sensor.edate,
+                        param_list=sensor.param_headers)
 
   .. code-block:: console
 
@@ -161,9 +159,7 @@ sorted by the reference data source or API service.
     ..2019-08
     ....H_201908_PM.csv
     ....H_201908_Met.csv
-    ..2019-09
-    ....H_201909_PM.csv
-    ....H_201909_Met.csv
+    Computing 24-hour averaged reference datasets
 
 .. tabbed:: Querying the AQS API
 
@@ -214,8 +210,8 @@ sorted by the reference data source or API service.
     reference data source. Site information was provided for the Millbrook School
     Monitoring site:
 
-    >>> ref = sensortoolkit.ReferenceMonitor(project_path=WORK_PATH)
-    >>> ref.reference_setup()
+    >>> reference = sensortoolkit.ReferenceMonitor(project_path=WORK_PATH)
+    >>> reference.reference_setup()
 
     See the 'ReferenceMonitor Setup' section for more information on running
     the ``reference_setup()`` method.
@@ -225,11 +221,11 @@ sorted by the reference data source or API service.
     aqs_username = 'username@email.com'
     aqs_key = 'NOT-A-REAL-KEY'
 
-    ref.query_aqs(username=aqs_username,
-                key=aqs_key,
-                param_list=['PM25'],
-                bdate='2019-08-01',
-                edate='2019-09-15')
+    reference.query_aqs(username=aqs_username,
+                        key=aqs_key,
+                        bdate=sensor.bdate,
+                        edate=sensor.edate,
+                        param_list=sensor.param_headers)
 
   When the above code block is run, a dialog indicating the status of the API
   query will be printed to the console. Below is the console output for an example
@@ -251,7 +247,7 @@ sorted by the reference data source or API service.
     various parameters, and instrument POCs.
 
   .. code-block:: console
-    :emphasize-lines: 17, 37
+    :emphasize-lines: 17
 
     Querying AQS API
     ..Parameter(s): PM25
@@ -274,46 +270,12 @@ sorted by the reference data source or API service.
     Enter the POC for data entries you wish to keep: 5
 
     Querying AQS API
-    ..Parameter(s): PM25
-    ..Query start: 2019-09-01
-    ..Query end: 2019-09-30
-    ..Response status: Success
-    ..Query start: 2019-09-01
-    ..Query end: 2019-09-30
-    ..Response status: Success
-    ..Query site(s):
-    ....Site name: Millbrook School
-    ......AQS ID: 37-183-0014
-    ......Latitude: 35.8561
-    ......Longitude: -78.5742
-
-    The following parameter occurrence codes (POCs) for PM25 were found:
-    ..POC: 3, number of entries: 720
-    ..POC: 5, number of entries: 720
-
-    Enter the POC for data entries you wish to keep: 5
-
-    Querying AQS API
     ..Parameter(s): Temp, RH
     ..Query start: 2019-08-01
     ..Query end: 2019-08-31
     ..Response status: Success
     ..Query start: 2019-08-01
     ..Query end: 2019-08-31
-    ..Response status: Success
-    ..Query site(s):
-    ....Site name: Millbrook School
-    ......AQS ID: 37-183-0014
-    ......Latitude: 35.8561
-    ......Longitude: -78.5742
-
-    Querying AQS API
-    ..Parameter(s): Temp, RH
-    ..Query start: 2019-09-01
-    ..Query end: 2019-09-30
-    ..Response status: Success
-    ..Query start: 2019-09-01
-    ..Query end: 2019-09-30
     ..Response status: Success
     ..Query site(s):
     ....Site name: Millbrook School
@@ -363,18 +325,18 @@ sorted by the reference data source or API service.
     reference data source. Site information was provided for the Burdens Creek
     Monitoring site:
 
-    >>> ref = sensortoolkit.ReferenceMonitor(project_path=WORK_PATH)
-    >>> ref.reference_setup()
+    >>> reference = sensortoolkit.ReferenceMonitor(project_path=WORK_PATH)
+    >>> reference.reference_setup()
 
     See the 'ReferenceMonitor Setup' section for more information on running
     the ``reference_setup()`` method.
 
     """
     airnow_key = 'NOT-A-REAL-KEY'
-    ref.query_airnow(key=airnow_key,
-                     param_list=['PM25'],
-                     bdate='2019-08-01',
-                     edate='2019-09-15')
+    reference.query_airnow(key=airnow_key,
+                           bdate=sensor.bdate,
+                           edate=sensor.edate,
+                           param_list=sensor.param_headers)
 
   When the above code block is run, a dialog indicating the status of the API
   query will be printed to the console. Below is the console output for an example
@@ -388,16 +350,6 @@ sorted by the reference data source or API service.
     ..Parameter(s): PM25
     ..Query start: 2019-08-01
     ..Query end: 2019-08-31
-    ..Query site(s):
-    ....Site name: Burdens Creek
-    ......AQS ID: 37-063-0099
-    ......Latitude: 35.8894
-    ......Longitude: -78.8747
-    ..Query Status: Success
-    Querying AirNow API
-    ..Parameter(s): PM25
-    ..Query start: 2019-09-01
-    ..Query end: 2019-09-30
     ..Query site(s):
     ....Site name: Burdens Creek
     ......AQS ID: 37-063-0099

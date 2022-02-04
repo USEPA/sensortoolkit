@@ -1,7 +1,8 @@
 Reference Data Structures
 -------------------------
 Reference data are accessed via the ``ReferenceMonitor`` object instance. Following
-the `evaluation.py` example, mention of ``reference_object`` below refers to the ``ReferenceMonitor``
+the `Toco Toucan Quickstart Guide example <../quickstart.html#example-scenario-toco-toucan>`_,
+mention of ``reference`` variable below refers to the ``ReferenceMonitor``
 object instantiated under the `Testing Attribute Objects - The ReferenceMonitor Object` section.
 
 Accessing Reference Data
@@ -14,7 +15,7 @@ and data sets are organized by parameter classification (either ``PM`` for parti
   Parameter classifications for each SDFS parameter can be found in the
   `Table of SDFS Parameters <../sdfs/index.html#id1>`_.
 
-Reference datasets are access via the ``reference_object.data`` attribute, which stores pandas
+Reference datasets are access via the ``reference.data`` attribute, which stores pandas
 DataFrames for each parameter classification in a dictionary structure at both
 1-hour and 24-hour averaged intervals:
 
@@ -33,7 +34,7 @@ Dataset Example
 
 The first five rows of data for particulate matter measurements collected at the Burdens Creek
 monitoring site in RTP, NC, averaged to 1-hour intervals, and formatted as an SDFS dataset
-(accessed as ``ref_obj['PM']['1-hour']``) are shown at the following link:
+(accessed as ``reference['PM']['1-hour']``) are shown at the following link:
 `Example Reference Dataset <../sdfs/index.html#example-sdfs-datasets>`_
 
 ..

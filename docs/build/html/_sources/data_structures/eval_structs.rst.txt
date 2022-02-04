@@ -33,7 +33,7 @@ averaging intervals specified by ``evaluation.eval_param_averaging``.
 where ``[sensor_name]`` is the name of the sensor, ``[parameter]`` is the SDFS parameter name,
 ``[reference_name]`` is the name of the reference monitor, and ``YYMMDD`` is the date the figure was compiled.
 
-Below is an example of ``evaluation.stats_df`` for the ``Example_Make_Model`` sensor dataset:
+Below is an example of ``evaluation.stats_df`` for the `Toco Toucan Quickstart Guide example <../quickstart.html#example-scenario-toco-toucan>`_:
 
 .. csv-table:: `stats_df.csv`
    :file: ../data/stats_df.csv
@@ -55,7 +55,7 @@ averaging intervals specified by ``evaluation.eval_param_averaging``.
 where ``[sensor_name]`` is the name of the sensor, ``[parameter]`` is the SDFS parameter name,
 ``[reference_name]`` is the name of the reference monitor, and ``YYMMDD`` is the date the figure was compiled.
 
-Below is an example of ``evaluation.stats_df`` for the ``Example_Make_Model`` sensor dataset:
+Below is an example of ``evaluation.stats_df`` for the `Toco Toucan Quickstart Guide example <../quickstart.html#example-scenario-toco-toucan>`_:
 
 .. csv-table:: `avg_stats_df.csv`
    :file: ../data/avg_stats_df.csv
@@ -96,112 +96,113 @@ The deployment dictionary ``evaluation.deploy_dict`` is saved as a JSON file to
 where ``[sensor_name]`` is the name of the sensor, ``[parameter]`` is the SDFS parameter name,
 ``[reference_name]`` is the name of the reference monitor, and ``YYMMDD`` is the date the figure was compiled.
 
-Below is an example of ``evaluation.deploy_dict`` for the ``Example_Make_Model`` sensor dataset:
+Below is an example of ``evaluation.deploy_dict`` for the `Toco Toucan Quickstart Guide example <../quickstart.html#example-scenario-toco-toucan>`_:
 
 .. code-block:: json
 
   {
-      "sensortoolkit Version": "1.0.0",
-      "Date of Analysis": "2021-08-25 09:46:19 AM",
-      "Testing Organization": {
-          "Deployment number": "Deployment #1",
-          "Org name": [
-              "U.S. Environmental Protection Agency",
-              "Office of Research and Development"
-          ],
-          "Website": {
-              "website name": "Air Sensor Toolbox | U.S. EPA Website",
-              "website link": "https://www.epa.gov/air-sensor-toolbox/evaluation-emerging-air-sensor-performance"
-          },
-          "Contact email": "example@email.com",
-          "Contact phone": "XXX-XXX-XXXX"
-      },
-      "Testing Location": {
-          "Site name": "Ambient Monitoring Innovative Research Station (AIRS) ",
-          "Site address": "Research Triangle Park, NC",
-          "Site lat": "35.889510N",
-          "Site long": "-78.874572W",
-          "Site AQS ID": "37 \u2013 063 \u2013 0099"
-      },
-      "Sensor Name": "Example_Make_Model",
+      "sensortoolkit Version": "0.7.4b2",
+      "Date of Analysis": "2022-02-04 15:12:41 PM",
+      "Sensor Name": "Toco_Toucan",
+      "Sensor Firmware Version": "Unspecified",
       "Deployment Groups": {
           "Group 1": {
-              "eval_start": "2019-08-01 12:11:00",
-              "eval_end": "2019-09-02 04:59:00",
-              "eval_duration": "31 days 16:48:00",
               "sensors": {
                   "1": {
-                      "serial_id": "SN01",
+                      "serial_id": "RT01",
                       "deploy_issues": "False",
-                      "recording_interval": "1.0 minute",
-                      "uptime_1-hour": 97.368,
-                      "uptime_24-hour": 93.75
+                      "recording_interval": "1-minute",
+                      "uptime_1-hour": 97.268,
+                      "uptime_24-hour": 96.667
                   },
                   "2": {
-                      "serial_id": "SN02",
+                      "serial_id": "RT02",
                       "deploy_issues": "False",
-                      "recording_interval": "1.0 minute",
-                      "uptime_1-hour": 97.632,
-                      "uptime_24-hour": 93.75
+                      "recording_interval": "1-minute",
+                      "uptime_1-hour": 97.541,
+                      "uptime_24-hour": 96.667
                   },
                   "3": {
-                      "serial_id": "SN03",
+                      "serial_id": "RT03",
                       "deploy_issues": "False",
-                      "recording_interval": "1.0 minute",
-                      "uptime_1-hour": 97.632,
-                      "uptime_24-hour": 93.75
+                      "recording_interval": "1-minute",
+                      "uptime_1-hour": 97.541,
+                      "uptime_24-hour": 96.667
                   }
               },
+              "eval_start": "2019-08-01T12:11:00+0000",
+              "eval_end": "2019-08-31T23:59:00+0000",
+              "eval_duration": "30 days 11:48:00",
               "PM25": {
                   "Precision": {
-                      "cv_1-hour": 13.094,
-                      "std_1-hour": 0.581,
-                      "n_1-hour": 736,
-                      "cv_24-hour": 7.091,
-                      "std_24-hour": 0.313,
-                      "n_24-hour": 30
+                      "cv_1-hour": 12.951,
+                      "std_1-hour": 0.585,
+                      "n_1-hour": 712,
+                      "cv_24-hour": 6.874,
+                      "std_24-hour": 0.308,
+                      "n_24-hour": 29
                   },
                   "Error": {
-                      "rmse_1-hour": 3.798,
-                      "nrmse_1-hour": 48.561,
-                      "rmse_24-hour": 3.615,
-                      "nrmse_24-hour": 46.804
+                      "rmse_1-hour": 3.654,
+                      "nrmse_1-hour": 46.897,
+                      "rmse_24-hour": 3.483,
+                      "nrmse_24-hour": 44.881
                   },
                   "Reference": {
-                      "reference_name": "Teledyne API T640x",
-                      "conc_min_1-hour": 3.352,
-                      "conc_max_1-hour": 15.318,
+                      "reference_name": "T-API T640X at 16.67 LPM",
+                      "conc_min_1-hour": 3.3,
+                      "conc_max_1-hour": 15.3,
                       "n_exceed_conc_goal_1-hour": 0,
-                      "conc_min_24-hour": 4.999,
-                      "conc_max_24-hour": 11.087,
+                      "conc_min_24-hour": 5.663,
+                      "conc_max_24-hour": 11.046,
                       "n_exceed_conc_goal_24-hour": 0
                   }
               },
               "Meteorological Conditions": {
                   "Temperature": {
-                      "instrument_name": "RM Young 41382 VC",
-                      "min_1-hour": 14.348,
-                      "max_1-hour": 37.735,
+                      "instrument_name": "Philips Pw9762/02",
+                      "min_1-hour": 14.3,
+                      "max_1-hour": 37.7,
                       "n_exceed_target_criteria_1-hour": 0,
-                      "n_measurement_pairs_1-hour": 758.0,
-                      "min_24-hour": 21.21,
-                      "max_24-hour": 28.956,
+                      "n_measurement_pairs_1-hour": 728.0,
+                      "min_24-hour": 21.146,
+                      "max_24-hour": 28.904,
                       "n_exceed_target_criteria_24-hour": 0,
-                      "n_measurement_pairs_24-hour": 32.0
+                      "n_measurement_pairs_24-hour": 31.0
                   },
                   "Relative Humidity": {
-                      "instrument_name": "RM Young 41382 VC",
-                      "min_1-hour": 24.933,
+                      "instrument_name": "Hygrothermograph Elec or Mach Avg",
+                      "min_1-hour": 24.0,
                       "max_1-hour": 97.0,
-                      "n_exceed_target_criteria_1-hour": 172,
-                      "n_measurement_pairs_1-hour": 758.0,
-                      "min_24-hour": 60.369,
-                      "max_24-hour": 88.171,
+                      "n_exceed_target_criteria_1-hour": 144,
+                      "n_measurement_pairs_1-hour": 728.0,
+                      "min_24-hour": 59.917,
+                      "max_24-hour": 87.583,
                       "n_exceed_target_criteria_24-hour": 0,
-                      "n_measurement_pairs_24-hour": 32.0
+                      "n_measurement_pairs_24-hour": 31.0
                   }
               }
           }
+      },
+      "Testing Organization": {
+          "Deployment name": "[Name of Deployment]",
+          "Org name": [
+              "[Organization name line 1]",
+              "[Organization name line 2]"
+          ],
+          "Website": {
+              "website name": "[Website Name]",
+              "website link": "[Website Link]"
+          },
+          "Contact email": "[Contact Email]",
+          "Contact phone": "[Contact Phone Number]"
+      },
+      "Testing Location": {
+          "Site name": "[Site Name]",
+          "Site address": "[Site Address]",
+          "Site lat": "[Site Latitude]",
+          "Site long": "[Site Longitude]",
+          "Site AQS ID": "[Site AQS ID]"
       }
   }
 

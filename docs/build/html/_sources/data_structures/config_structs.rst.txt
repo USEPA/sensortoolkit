@@ -3,7 +3,7 @@ Configuration Setup JSON
 During the sensor and reference setup methods, a record of the setup configuration
 is saved locally to a ``setup.json`` file. This file is used to indicate to the
 ingestion module how the data should be interpreted into the
-`sensortoolkit Data Formatting Scheme (SDFS) <../../sdfs/index.html>`_.
+`sensortoolkit Data Formatting Scheme (SDFS) <../sdfs/index.html>`_.
 
 This file is passed to a subroutine ``sensortoolkit.sensor_ingest.standard_ingest()``
 to import the recorded dataset and convert headers and date/time-like columns to SDFS formatting.
@@ -19,15 +19,15 @@ these files assist in converting data recorded in their original format into SDF
 scheme for parameter data names and date/time formatting.
 
 The sensor setup.json file is named ``[sensor_name]_setup.json`` where ``[sensor_name]``
-is the name assigned to the sensor via ``sensor_object.name``. This file is located within
+is the name assigned to the sensor via ``sensor.name``. This file is located within
 the users' project directory in the following relative path:
 ``\Data and Figures\sensor_data\[sensor_name]\[sensor_name]_setup.json``
 
 .. code-block:: json
 
   {
-      "path": "C:\\Users\\...\\Documents\\sensortoolkit_testing",
-      "data_rel_path": "/data/sensor_data/Example_Make_Model/raw_data",
+      "path": "C:/Users/.../Documents/toucan_evaluation",
+      "data_rel_path": "/data/sensor_data/Toco_Toucan/raw_data",
       "data_type": "sensor",
       "file_extension": ".csv",
       "header_iloc": 5,
@@ -44,7 +44,11 @@ the users' project directory in the following relative path:
           "col_idx_0": {
               "Time": {
                   "sdfs_param": "DateTime",
-                  "in_file_list_idx": [0, 1, 2],
+                  "in_file_list_idx": [
+                      0,
+                      1,
+                      2
+                  ],
                   "header_class": "datetime",
                   "drop": false,
                   "dt_format": "%Y/%m/%d %H:%M:%S",
@@ -54,7 +58,11 @@ the users' project directory in the following relative path:
           "col_idx_1": {
               "NO2 (ppb)": {
                   "sdfs_param": "NO2",
-                  "in_file_list_idx": [0, 1, 2],
+                  "in_file_list_idx": [
+                      0,
+                      1,
+                      2
+                  ],
                   "unit_transform": null,
                   "header_class": "parameter",
                   "drop": false
@@ -63,7 +71,11 @@ the users' project directory in the following relative path:
           "col_idx_2": {
               "O3 (ppb)": {
                   "sdfs_param": "O3",
-                  "in_file_list_idx": [0, 1, 2],
+                  "in_file_list_idx": [
+                      0,
+                      1,
+                      2
+                  ],
                   "unit_transform": null,
                   "header_class": "parameter",
                   "drop": false
@@ -72,7 +84,11 @@ the users' project directory in the following relative path:
           "col_idx_3": {
               "PM2.5 (\u00b5g/m\u00b3)": {
                   "sdfs_param": "PM25",
-                  "in_file_list_idx": [0, 1, 2],
+                  "in_file_list_idx": [
+                      0,
+                      1,
+                      2
+                  ],
                   "unit_transform": null,
                   "header_class": "parameter",
                   "drop": false
@@ -81,7 +97,11 @@ the users' project directory in the following relative path:
           "col_idx_4": {
               "TEMP (\u00b0C)": {
                   "sdfs_param": "Temp",
-                  "in_file_list_idx": [0, 1, 2],
+                  "in_file_list_idx": [
+                      0,
+                      1,
+                      2
+                  ],
                   "unit_transform": null,
                   "header_class": "parameter",
                   "drop": false
@@ -90,7 +110,11 @@ the users' project directory in the following relative path:
           "col_idx_5": {
               "RH (%)": {
                   "sdfs_param": "RH",
-                  "in_file_list_idx": [0, 1, 2],
+                  "in_file_list_idx": [
+                      0,
+                      1,
+                      2
+                  ],
                   "unit_transform": null,
                   "header_class": "parameter",
                   "drop": false
@@ -99,7 +123,11 @@ the users' project directory in the following relative path:
           "col_idx_6": {
               "DP (\u00b0C)": {
                   "sdfs_param": "DP",
-                  "in_file_list_idx": [0, 1, 2],
+                  "in_file_list_idx": [
+                      0,
+                      1,
+                      2
+                  ],
                   "unit_transform": null,
                   "header_class": "parameter",
                   "drop": false
@@ -108,26 +136,31 @@ the users' project directory in the following relative path:
           "col_idx_7": {
               "Inlet": {
                   "sdfs_param": "",
-                  "in_file_list_idx": [0, 1, 2],
+                  "in_file_list_idx": [
+                      0,
+                      1,
+                      2
+                  ],
                   "header_class": "parameter",
                   "drop": true
               }
           }
       },
-      "name": "Example_Make_Model",
+      "name": "Toco_Toucan",
       "dataset_kwargs": {
-          "name": "Example_Make_Model"
+          "name": "Toco_Toucan"
       },
       "_dataset_selection": "files",
       "file_list": [
-          "C:\\Users\\...\\Documents\\sensortoolkit_testing\\data\\sensor_data\\Example_Make_Model\\raw_data\\Example_Make_Model_SN01_raw.csv",
-          "C:\\Users\\...\\Documents\\sensortoolkit_testing\\data\\sensor_data\\Example_Make_Model\\raw_data\\Example_Make_Model_SN02_raw.csv",
-          "C:\\Users\\...\\Documents\\sensortoolkit_testing\\data\\sensor_data\\Example_Make_Model\\raw_data\\Example_Make_Model_SN03_raw.csv"
+          "C:/Users/.../Documents/toucan_evaluation\\data\\sensor_data\\Toco_Toucan\\raw_data\\toco_toucan_RT01_raw.csv",
+          "C:/Users/.../Documents/toucan_evaluation\\data\\sensor_data\\Toco_Toucan\\raw_data\\toco_toucan_RT02_raw.csv",
+          "C:/Users/.../Documents/toucan_evaluation\\data\\sensor_data\\Toco_Toucan\\raw_data\\toco_toucan_RT03_raw.csv"
       ],
+      "encoding_predictions": {},
       "serials": {
-          "1": "SN01",
-          "2": "SN02",
-          "3": "SN03"
+          "1": "RT01",
+          "2": "RT02",
+          "3": "RT03"
       },
       "number_of_sensors": 3
   }
