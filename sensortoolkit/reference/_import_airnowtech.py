@@ -229,7 +229,7 @@ def write_to_file(df, path, outpath):
 
     # Require non-empty dataframe
     if not df.empty:
-        print('Writing AirNowTech dataframes to csv files')
+        print('Writing AirNow-Tech data sets to csv files')
 
         start_month = df.index[0].strftime('%Y-%m')
         end_month = df.index[-1].strftime('%Y-%m')
