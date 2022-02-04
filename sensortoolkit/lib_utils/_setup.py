@@ -723,12 +723,14 @@ class _Setup:
                 print('-----')
 
                 header_type = input('Enter the character indicating the type of'
-                   f' parameter \n{pretty_params}\n\nHeader name "{rec_header}": ')
+                   f' parameter \n{pretty_params}\n\nParameter type for header'
+                   f' name "{rec_header}": ')
 
                 if header_type == 'S':
-                    set_header = input(f'{self.sdfs_params}\nFrom the list '
-                            'above, select the SDFS parameter associated with '
-                            f'{rec_header}: ')
+                    print('SDFS Parameters:')
+                    print(self.sdfs_params)
+                    set_header = input(f'From the list above, select the SDFS '
+                                       f'parameter associated with {rec_header}: ')
 
                     if set_header in self.sdfs_params:
                         valid = True
@@ -1312,7 +1314,7 @@ class ReferenceSetup(_Setup):
         - Units
         - Parameter AQS Code
         - Reference Method Code
-        - Parameter Occurance Code
+        - Parameter Occurence Code
 
         Args:
             param (str):
@@ -1328,7 +1330,7 @@ class ReferenceSetup(_Setup):
             f'Enter the units of measure for {param}: ': f'{sdfs_param}' + '_Unit',
             f'Enter the parameter code for {param}: ': f'{sdfs_param}' + '_Param_Code',
             f'Enter the method code corresponding to the reference method for {param}: ': f'{sdfs_param}' + '_Method_Code',
-            f'Enter the parameter occurance code for the above reference method: ': f'{sdfs_param}' + '_Method_POC'
+            f'Enter the parameter occurence code for the above reference method: ': f'{sdfs_param}' + '_Method_POC'
             }
 
         indent = '  '
@@ -1457,10 +1459,12 @@ class ReferenceSetup(_Setup):
         self.setDataExtension()
         self.copyDataSets()
 
-        self.printSelectionBanner('Pre-process AirNowTech Datasets',
+        self.printSelectionBanner('Pre-process AirNow-Tech Datasets',
                                     options=[])
+        print('')
         for file in self.file_list:
             preprocess_airnowtech(file, self.path)
+        print('')
 
     def localRefDataIngest(self):
         """Wrapper method for ingesting reference datasets acquired locally.
