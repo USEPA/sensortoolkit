@@ -313,6 +313,11 @@ class ReferenceMonitor:
 
     @property
     def project_path(self):
+        if _presets._project_path != self._project_path:
+            print('[Note] Project path changed by user, setting AirSensor '
+                  'instance project path to new location')
+            self._project_path = _presets._project_path
+
         return self._project_path
 
     @project_path.setter
