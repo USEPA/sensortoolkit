@@ -20,8 +20,9 @@ from sensortoolkit import lib_utils
 from sensortoolkit import ingest
 from sensortoolkit import datetime_utils
 from sensortoolkit import presets as _presets
+from pathlib import Path
 
-default_proj_path = _presets._project_path
+#default_proj_path = _presets._project_path
 
 class AirSensor:
     """Object for storing and accessing air sensor data and device attributes.
@@ -33,6 +34,9 @@ class AirSensor:
             The name of the air sensor model.
 
     """
+    # Default project path set to library path, should be something like
+    # 'C:/Users/.../Anaconda3/Lib/site-packages/sensortoolkit'
+    default_proj_path = Path(__file__).parent.parent
 
     def __init__(self, make, model):
 
@@ -49,7 +53,7 @@ class AirSensor:
             self.name = '_'.join([self.make.replace(' ', '_'),
                                   self.model.replace(' ', '_')])
 
-        if self.project_path == default_proj_path:
+        if Path(self.project_path) == self.default_proj_path:
             print('..Warning, project path has not been specified. Use the '
                   'sensortoolkit.presets.set_project_path() method to assign '
                   'a directory path.')

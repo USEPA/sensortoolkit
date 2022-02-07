@@ -21,8 +21,9 @@ from sensortoolkit.reference import ref_api_query, load_ref_dataframes
 from sensortoolkit.param import Parameter
 from sensortoolkit.datetime_utils import interval_averaging
 from sensortoolkit import presets as _presets
+from pathlib import Path
 
-default_proj_path = _presets._project_path
+#default_proj_path = _presets._project_path
 
 class ReferenceMonitor:
     """
@@ -63,6 +64,10 @@ class ReferenceMonitor:
     """
     _data_sources = ['airnow', 'aqs', 'airnowtech', 'local']
 
+    # Default project path set to library path, should be something like
+    # 'C:/Users/.../Anaconda3/Lib/site-packages/sensortoolkit'
+    default_proj_path = Path(__file__).parent.parent
+
     def __init__(self, data_source=None, site_name=None, site_id=None):
 
         self._setup_path = None
@@ -84,7 +89,7 @@ class ReferenceMonitor:
 
         self.project_path = _presets._project_path
 
-        if self.project_path == default_proj_path:
+        if Path(self.project_path) == self.default_proj_path:
             print('..Warning, project path has not been specified. Use the '
                   'sensortoolkit.presets.set_project_path() method to assign '
                   'a directory path.')
