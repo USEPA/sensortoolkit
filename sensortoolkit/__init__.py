@@ -142,7 +142,7 @@ class _presets:
     def __init__(self):
         # Testing organization information
         self.test_org = {'Deployment name': '',
-                         'Org name': '',
+                         'Org name': ['', ''],
                          'Website': {'website name': '',
                                      'website link': ''},
                          'Contact email': '',
