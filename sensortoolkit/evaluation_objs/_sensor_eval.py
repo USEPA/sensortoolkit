@@ -565,7 +565,7 @@ class SensorEvaluation:
 
                 ref_data = self.ref_dict[sensortoolkit.Parameter(param).classifier][averaging_interval]
                 ref_name = ref_data[f'{param}_Method'].unique()[0]
-                print(ref_name)
+
                 # Prevent Sensor_Timeplot from writing to file on first
                 # iteration of loop
                 if i == 0:
@@ -984,7 +984,7 @@ class SensorEvaluation:
                                       **kwargs)
 
     def plot_sensor_met_scatter(self, averaging_interval='1-hour',
-                                met_param=None,
+                                met_param='Temp',
                                 **kwargs):
         """Plot internal sensor temp or RH measurements against collocated
         reference monitor measurements.
