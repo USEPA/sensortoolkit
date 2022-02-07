@@ -48,6 +48,7 @@ import sys
 import numpy as np
 from sensortoolkit.lib_utils import flatten_list
 from sensortoolkit.param import Parameter
+from sensortoolkit.calculate import convert_temp
 
 
 def ref_api_query(query_type=None, param=None, bdate='', edate='',
@@ -318,6 +319,9 @@ def ref_api_query(query_type=None, param=None, bdate='', edate='',
 
         process_df = merge_data.sort_index()
 
+        process_df.index.name = 'DateTime'
+        process_df = process_df.tz_localize('UTC')
+
         # Save monthly datasets
         save_api_dataset(process_df, raw_query, path,
                          query_type, param_class, data_period)
@@ -325,9 +329,7 @@ def ref_api_query(query_type=None, param=None, bdate='', edate='',
         full_query = full_query.append(process_df)
         raw_full_query = raw_full_query.append(raw_query)
 
-
     full_query.index.name = 'DateTime'
-    full_query = full_query.tz_localize('UTC')
 
     bdate = pd.to_datetime(bdate).strftime('%Y-%m-%d')
     edate = pd.to_datetime(edate).strftime('%Y-%m-%d')
@@ -935,6 +937,12 @@ def ingest_aqs(data, param, api_param, param_classifier,
                                         param + '_Value']
         data[param + '_Unit'] = data[
             param + '_Unit'].replace('PPB', 'Parts per Billion')
+
+    if param == 'Temp' and data[param + '_Unit'].unique()[0] == 'Degrees Fahrenheit':
+        # Convert to concentrations to ppb
+        data[param + '_Value'] = convert_temp(data[param + '_Value'],
+                                              from_unit='F', to_unit='C')
+        data[param + '_Unit'] = 'Degrees Celsius'
 
     data['Data_Source'] = 'AQS API'
     data['Data_Acquisition_Date_Time'] = time_of_query
