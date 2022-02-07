@@ -1,4 +1,4 @@
-# sensortoolkit (v0.7.5 beta 1) - Air Sensor Data Analysis Library
+# sensortoolkit (v0.7.6 beta 1) - Air Sensor Data Analysis Library
 
 ![Sensors at an Ambient Air Monitoring Site](docs/_readmefigs_/CSAM_3_crop.jpg){width=1200}
 
