@@ -218,7 +218,7 @@ def sensor_import(sensor_name=None, sensor_serials=None,
 
     """
     valid_extensions = ['.csv', '.txt', '.xlsx']
-    custom_ingest = kwargs.get('custom_ingest_module', False)
+    custom_ingest = kwargs.get('custom_ingest_module', None)
     start = kwargs.get('bdate', None)
     end = kwargs.get('edate', None)
 
@@ -342,21 +342,22 @@ def ingest_wrapper(cwd, sensor_name, serial, data_path, custom_ingest):
     setup_path = os.path.abspath(data_path + '../' + sensor_name
                                  + '_setup.json')
 
-    if os.path.exists(setup_path) and not custom_ingest:
+    if os.path.exists(setup_path) and custom_ingest is None:
         return standard_ingest(cwd, name=sensor_name,
                                setup_file_path=setup_path)
     else:
+        return globals()[custom_ingest](cwd, serial)
         # Otherwise, use sensor-specific ingestion modules
-        if 'purpleair' in sensor_name.lower():
-            # assuming Thingspeak API dataset
-            return ingest_purpleair(cwd, serial)
+        # if 'purpleair' in sensor_name.lower():
+        #     # assuming Thingspeak API dataset
+        #     return ingest_purpleair(cwd, serial)
 
     #    if sensor_name == 'Your_Sensor_Model_Here':
     #        return Custom_Ingest_Module_For_Your_Sensor(cwd)
 
-        else:
-            sys.exit('No sensor specific import module specified for '
-                     + sensor_name)
+        # else:
+        #     sys.exit('No sensor specific import module specified for '
+        #              + sensor_name)
 
 
 # Sensor specific ingestion modules
