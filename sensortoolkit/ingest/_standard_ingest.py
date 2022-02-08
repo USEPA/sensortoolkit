@@ -156,7 +156,12 @@ def standard_ingest(path, name=None, setup_file_path=None):
         offset = tz.utcoffset(dt) / pd.to_timedelta('1 hour')
         print(f'....converting datetime index from {time_zone} (UTC {offset} '
               'hours) to UTC.')
-        df = df.tz_localize(time_zone).tz_convert('UTC')
+        # Check if the datetime index is already in UTC (can happen if format
+        # was inferred and tzone set UTC)
+        try:
+            df = df.tz_localize(time_zone).tz_convert('UTC')
+        except TypeError:
+            pass
         # Experimental inclusion of metadata attributes dictionary
         df.attrs['local_tzone'] = time_zone
 
