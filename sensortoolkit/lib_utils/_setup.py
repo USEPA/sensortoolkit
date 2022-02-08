@@ -711,8 +711,10 @@ class _Setup:
                                       )
         # drop time-like columns and ask user for SDFS parameter associated
         # with remaining cols
-        param_col_list = [param for param in self.all_col_headers
-                          if param not in self.timestamp_col_headers]
+        # param_col_list = [param for param in self.all_col_headers
+        #                   if param not in self.timestamp_col_headers)]
+        param_col_list = list(set(param for param in self.all_col_headers
+                          if param not in self.timestamp_col_headers))
 
         n_params = len(param_col_list)
         renaming_dict = {}
