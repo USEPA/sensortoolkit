@@ -760,15 +760,15 @@ def scatter_plotter(df_list, ref_df, stats_df=None, plot_subset=None,
                                         str(Nr*Nc), str(Nr*Nc - 1))
                 break
 
-            tdelta_interval = sensor_df.index[1] - sensor_df.index[0]
+            # tdelta_interval = sensor_df.index[1] - sensor_df.index[0]
 
-            if (tdelta_interval) == pd.Timedelta('1 days'):
-                daily_df_obj = [sensor_df]
-                daily_ref_df = ref_df
+            # if (tdelta_interval) == pd.Timedelta('1 days'):
+            #     daily_df_obj = [sensor_df]
+            #     daily_ref_df = ref_df
 
-            if (tdelta_interval) == pd.Timedelta('1 hour'):
-                hourly_df_obj = [sensor_df]
-                hourly_ref_df = ref_df
+            # if (tdelta_interval) == pd.Timedelta('1 hour'):
+            #     hourly_df_obj = [sensor_df]
+            #     hourly_ref_df = ref_df
 
             if plot_regression is True:
                 sensor_stats = regression_stats(sensor_df_obj=sensor_df,
