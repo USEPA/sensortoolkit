@@ -450,7 +450,7 @@ def ingest_wrapper(cwd, sensor_name, serial, data_path, custom_ingest):
 #     return df
 
 
-def ingest_purpleair(cwd, serial):
+def pa_thingspeak(cwd, serial):
     """Ingestion module for the PurpleAir PA-II (and PA-II-SD).
 
     Args:
