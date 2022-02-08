@@ -54,7 +54,7 @@ import sys
 import pandas as pd
 from sensortoolkit.datetime_utils import sensor_averaging
 from sensortoolkit.ingest import standard_ingest, processed_data_search
-from sensortoolkit.calculate import dewpoint
+from sensortoolkit.calculate import dewpoint, convert_temp
 
 
 def sensor_import(sensor_name=None, sensor_serials=None,
@@ -554,6 +554,64 @@ def ingest_purpleair(cwd, serial):
 
     if serial + 'B' in cwd:
         return None
+
+def pa_sdcard(cwd, serial):
+    # Note, this assume preprocessing of datasets ('UTCDateTime' is original name of timestamp col)
+    df = pd.read_csv(cwd, parse_dates=['DateTime'], index_col='DateTime')
+
+    drop_cols = ['mac_address',
+                'firmware_ver',
+                'hardware',
+                'adc',
+                'mem',
+                'rssi',
+                'uptime',
+                'p_0_3_um',
+                'p_0_5_um',
+                'p_1_0_um',
+                'p_2_5_um',
+                'p_5_0_um',
+                'p_10_0_um',
+                'p_0_3_um_b',
+                'p_0_5_um_b',
+                'p_1_0_um_b',
+                'p_2_5_um_b',
+                'p_5_0_um_b',
+                'p_10_0_um_b',
+                'hardwareversion',
+                'pm2.5_aqi_atm',
+                'pm2.5_aqi_cf_1',
+                'pm2.5_aqi_atm_b',
+                'pm2.5_aqi_cf_1_b',
+                'gas']
+
+    drop = [i for i in drop_cols if i in df.columns]
+
+    df = df.drop(columns=drop)
+
+    df = df.rename(columns={'current_temp_f': 'Temp_Value',
+                            'current_humidity': 'RH_Value',
+                            'current_dewpoint_f': 'DP_Value',
+                            'pressure': 'Press_Value',
+                            'pm1_0_atm': 'PM1_ATM_A_Value',
+                            'pm2_5_atm': 'PM25_ATM_A_Value',
+                            'pm10_0_atm': 'PM10_ATM_A_Value',
+                            'pm1_0_cf_1': 'PM1_CF1_A_Value',
+                            'pm2_5_cf_1': 'PM25_CF1_A_Value',
+                            'pm10_0_cf_1': 'PM10_CF1_A_Value',
+                            'pm1_0_atm_b': 'PM1_ATM_B_Value',
+                            'pm2_5_atm_b': 'PM25_ATM_B_Value',
+                            'pm10_0_atm_b': 'PM10_ATM_B_Value',
+                            'pm1_0_cf_1_b': 'PM1_CF1_B_Value',
+                            'pm2_5_cf_1_b': 'PM25_CF1_B_Value',
+                            'pm10_0_cf_1_b': 'PM10_CF1_B_Value'
+                            })
+
+    # Convert F to C
+    df.Temp_Value = convert_temp(df.Temp_Value)
+    df.DP_Value = convert_temp(df.DP_Value)
+
+    return df
 
 
 #def custom_ingest_module_for_your_sensor(cwd):
