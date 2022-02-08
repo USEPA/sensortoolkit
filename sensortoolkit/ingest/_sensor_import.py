@@ -264,6 +264,7 @@ def sensor_import(sensor_name=None, sensor_serials=None,
                                ' serial ID. Files must be either .csv or .txt')
                 raise AttributeError(console_out)
 
+            sensor_df = sensor_df.sort_index()
             sensor_df = concat_dataset(data=sensor_df, bdate=start, edate=end)
 
             full_df_list.append(sensor_df)
