@@ -11,7 +11,7 @@ Last Updated:
 """
 import pandas as pd
 
-def convert_temp(data, from_unit='F', to_unit='C'):
+def convert_temp(data, from_unit='F', to_unit='C', **kwargs):
     """Convert temperature from one unit basis to another.
 
     Can convert from Fahrenheit to Celsius or vice versa.
@@ -29,6 +29,7 @@ def convert_temp(data, from_unit='F', to_unit='C'):
         converted_data (pandas DataFrame): DESCRIPTION.
 
     """
+    verbose = kwargs.get('verbose', True)
     # # Convert input type to pandas dataframe
     # data_type = type(data)
     # if data_type is not pd.core.frame.DataFrame:
@@ -42,10 +43,12 @@ def convert_temp(data, from_unit='F', to_unit='C'):
     c_to_f = lambda x: 1.8*(x) + 32.0
 
     if from_unit == 'F' and to_unit == 'C':
-        print('....converting from Fahrenheit to Celsius')
+        if verbose:
+            print('....converting from Fahrenheit to Celsius')
         converted_data = f_to_c(data)
     elif from_unit == 'C' and to_unit == 'F':
-        print('....converting from Celsius to Fahrenheit')
+        if verbose:
+            print('....converting from Celsius to Fahrenheit')
         converted_data = c_to_f(data)
     else:
         raise AttributeError('Invalid conversion. Arguments for "from_unit"'
