@@ -36,11 +36,15 @@ def _prompt_directory():
     return path
 
 
-def _prompt_files():
+def _prompt_files(**kwargs):
+    single_file = kwargs.get('single_file', False)
     root = tk.Tk()
     root.withdraw()
     root.wm_attributes('-topmost', 1)
-    path = filedialog.askopenfilenames(parent=root)
+    if not single_file:
+        path = filedialog.askopenfilenames(parent=root)
+    else:
+        path = filedialog.askopenfilename(parent=root)
     if path == '':
         raise ValueError('File selection terminated by user')
     return path
