@@ -36,6 +36,7 @@ from sensortoolkit.ingest import standard_ingest
 from sensortoolkit.datetime_utils import (interval_averaging,
                                           get_timestamp_interval)
 from sensortoolkit import _param_dict
+from sensortoolkit.lib_utils._copy_datasets import _prompt_files, _check_extension
 
 
 class _Setup:
@@ -69,6 +70,8 @@ class _Setup:
         self.header_names = None
         self.header_iloc = None
         self.data_row_idx = None
+        self.custom_ingest = False
+        self.use_previous_setup = False
         self.sdfs_header_names = []
         self.all_col_headers = []
         self.timestamp_col_headers = []
@@ -87,11 +90,22 @@ class _Setup:
         self.setDataExtension()
 
         # Ask user for either directory or files to load in, parse datasets
-        # and could make call to copy datasets to transfer to 'data' subdir
+        # and copy datasets to transfer to 'data' subdirectory
         self.setDataRelPath()
         self.selectDataSets()
         self.copyDataSets()
 
+        # Ask if using custom ingest module, if true, exit config
+        self.specifyCustomIngest()
+        if self.custom_ingest:
+            return
+
+        # Ask user if they have a previously configured setup.json for the device
+        self.loadPreviousSetup()
+        if self.use_previous_setup:
+            return
+
+        # set the row position where the data header is located
         self.setHeaderIndex()
 
         if self.header_iloc is None:
@@ -100,8 +114,11 @@ class _Setup:
         # otherwise, specify column headers in parsedatasets, infer header at
         # iloc position
         self.parseDataSets()
+        # Specify which headers are assocaited with timestamp info
         self.setTimeHeaders()
+        # Specify how to convert recorded parameter headers to SDFS
         self.setParamHeaders()
+        # Specify datetime formatting for time-like columns and tzone
         self.setDateTimeFormat()
         self.setTimeZone()
 
@@ -279,6 +296,106 @@ class _Setup:
                                        return_filenames=True,
                                        **self.dataset_kwargs)
         enter_continue()
+
+    def specifyCustomIngest(self):
+        """Ask the user whether a custom, prewritten ingestion module will be
+        used to import sensor data instead of the standard_ingest() method.
+
+
+        Returns:
+            None.
+
+        """
+        self.printSelectionBanner('Indicate whether to use a custom ingestion method',
+                                  options=[])
+
+        confirm = validate_entry(
+            statement='Will a custom, prewritten ingestion module be used to import data?')
+
+        if confirm == 'y':
+            self.custom_ingest = True
+            # TODO: could make note of how to use AirSensor.load_data with custom ingest module here
+        enter_continue()
+
+    def loadPreviousSetup(self):
+        """Ask the user if a previous setup config exists for the type of sensor
+        or reference dataset that they are loading. If they choose to use a
+        previously configured setup.json file, use the file attributes to fill
+        in various setup components, such as the parameter renaming, datetime
+        formatting, etc.
+
+        Returns:
+            None.
+
+        """
+        self.printSelectionBanner('Indicate whether to use a previous setup configuration',
+                                  options=[])
+        console_text = ('Have you previously created a setup.json config '
+                        'file that [1] matches the device type associated with '
+                        'the selected data sets and [2] intend to use the previous '
+                        'setup.json file to configure the current setup session?')
+        console_text = '\n'.join(wrap(console_text,
+                                      width=self.__banner_w__))
+
+        confirm = validate_entry(statement=console_text)
+
+        if confirm == 'y':
+            self.use_previous_setup = True
+
+            # Ask user to locate where the setup.json file is
+            valid_file = False
+            while valid_file is False:
+                # TODO: print something to console prompting user to select file
+                print('')
+                print('Select the setup.json file you wish to use')
+                file_path = _prompt_files(single_file=True)
+                valid_file = _check_extension(file_path, '.json')
+
+            enter_continue()
+
+            # import that json
+            with open(file_path) as p:
+                previous_setup_data = json.loads(p.read())
+                p.close()
+
+            # extract attributes
+            self.header_iloc = previous_setup_data['header_iloc']
+            self.data_row_idx = previous_setup_data['data_row_idx']
+            self.sdfs_header_names = previous_setup_data['sdfs_header_names']
+
+            self.parseDataSets()
+
+            previous_col_headers = previous_setup_data['col_headers']
+
+            col_descrip = {}
+            for col_idx in previous_col_headers:
+                for label in previous_col_headers[col_idx]:
+                    if label not in col_descrip:
+                        col_descrip[label] = {}
+
+                    col_descrip[label]['sdfs_param'] = previous_col_headers[col_idx][label]['sdfs_param']
+                    col_descrip[label]['header_class'] = previous_col_headers[col_idx][label]['header_class']
+
+                    if col_descrip[label]['header_class'] == 'datetime':
+                        col_descrip[label]['dt_format'] = previous_col_headers[col_idx][label]['dt_format']
+                        col_descrip[label]['dt_timezone'] = previous_col_headers[col_idx][label]['dt_timezone']
+                    col_descrip[label]['drop'] = previous_col_headers[col_idx][label]['drop']
+                    if (col_descrip[label]['header_class'] == 'parameter') and (col_descrip[label]['drop'] is False):
+                        col_descrip[label]['unit_transform'] = previous_col_headers[col_idx][label]['unit_transform']
+
+            for col_idx in self.col_headers:
+                for label in self.col_headers[col_idx]:
+
+                    self.col_headers[col_idx][label]['sdfs_param'] = col_descrip[label]['sdfs_param']
+                    self.col_headers[col_idx][label]['header_class'] = col_descrip[label]['header_class']
+
+                    if col_descrip[label]['header_class'] == 'datetime':
+                        self.col_headers[col_idx][label]['dt_format'] = col_descrip[label]['dt_format']
+                        self.col_headers[col_idx][label]['dt_timezone'] = col_descrip[label]['dt_timezone']
+                    self.col_headers[col_idx][label]['drop'] = col_descrip[label]['drop']
+                    if (col_descrip[label]['header_class'] == 'parameter') and (col_descrip[label]['drop'] is False):
+                        self.col_headers[col_idx][label]['unit_transform'] = col_descrip[label]['unit_transform']
+
 
     def loadDataFile(self, file, **kwargs):
         """Helper function for loading the first few rows of recorded datasets.
