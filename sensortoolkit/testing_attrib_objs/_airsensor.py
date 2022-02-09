@@ -277,16 +277,14 @@ class AirSensor:
             None.
 
         """
-        custom_ingest = kwargs.get('custom_ingest_module', False)
+        try:
+            self.setup_data
+        except AttributeError:
+            print(f'No setup configuration specified for {self.name}.')
+            print("Run the 'AirSensor.sensor_setup()' module before loading"
+                  " sensor data.")
+            return
 
-        if not custom_ingest:
-            try:
-                self.setup_data
-            except AttributeError:
-                print(f'No setup configuration specified for {self.name}.')
-                print("Run the 'AirSensor.sensor_setup()' module before loading"
-                      " sensor data.")
-                return
 
         # path to raw sensor data
         self._data_path = os.path.join(self.project_path, 'data',
