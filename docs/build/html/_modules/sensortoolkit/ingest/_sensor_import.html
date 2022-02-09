@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>sensortoolkit.ingest._sensor_import &mdash; sensortoolkit 0.7.5b1 documentation</title>
+  <title>sensortoolkit.ingest._sensor_import &mdash; sensortoolkit 0.7.7b1 documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" type="text/css" />
@@ -30,7 +30,7 @@
             <a href="../../../index.html" class="icon icon-home"> sensortoolkit
           </a>
               <div class="version">
-                0.7.5b1
+                0.7.7b1
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
@@ -136,7 +136,7 @@
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">from</span> <span class="nn">sensortoolkit.datetime_utils</span> <span class="kn">import</span> <span class="n">sensor_averaging</span>
 <span class="kn">from</span> <span class="nn">sensortoolkit.ingest</span> <span class="kn">import</span> <span class="n">standard_ingest</span><span class="p">,</span> <span class="n">processed_data_search</span>
-<span class="kn">from</span> <span class="nn">sensortoolkit.calculate</span> <span class="kn">import</span> <span class="n">dewpoint</span>
+<span class="kn">from</span> <span class="nn">sensortoolkit.calculate</span> <span class="kn">import</span> <span class="n">dewpoint</span><span class="p">,</span> <span class="n">convert_temp</span>
 
 
 <div class="viewcode-block" id="sensor_import"><a class="viewcode-back" href="../../../api/_autosummary/sensortoolkit.ingest._sensor_import.sensor_import.html#sensortoolkit.ingest._sensor_import.sensor_import">[docs]</a><span class="k">def</span> <span class="nf">sensor_import</span><span class="p">(</span><span class="n">sensor_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sensor_serials</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
@@ -300,7 +300,7 @@
 
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">valid_extensions</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;.csv&#39;</span><span class="p">,</span> <span class="s1">&#39;.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;.xlsx&#39;</span><span class="p">]</span>
-    <span class="n">custom_ingest</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;custom_ingest_module&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+    <span class="n">custom_ingest</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;custom_ingest_module&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
     <span class="n">start</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;bdate&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
     <span class="n">end</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;edate&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
 
@@ -346,6 +346,7 @@
                                <span class="s1">&#39; serial ID. Files must be either .csv or .txt&#39;</span><span class="p">)</span>
                 <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span><span class="n">console_out</span><span class="p">)</span>
 
+            <span class="n">sensor_df</span> <span class="o">=</span> <span class="n">sensor_df</span><span class="o">.</span><span class="n">sort_index</span><span class="p">()</span>
             <span class="n">sensor_df</span> <span class="o">=</span> <span class="n">concat_dataset</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">sensor_df</span><span class="p">,</span> <span class="n">bdate</span><span class="o">=</span><span class="n">start</span><span class="p">,</span> <span class="n">edate</span><span class="o">=</span><span class="n">end</span><span class="p">)</span>
 
             <span class="n">full_df_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sensor_df</span><span class="p">)</span>
@@ -424,21 +425,22 @@
     <span class="n">setup_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">data_path</span> <span class="o">+</span> <span class="s1">&#39;../&#39;</span> <span class="o">+</span> <span class="n">sensor_name</span>
                                  <span class="o">+</span> <span class="s1">&#39;_setup.json&#39;</span><span class="p">)</span>
 
-    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">setup_path</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">custom_ingest</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">setup_path</span><span class="p">)</span> <span class="ow">and</span> <span class="n">custom_ingest</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">standard_ingest</span><span class="p">(</span><span class="n">cwd</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">sensor_name</span><span class="p">,</span>
                                <span class="n">setup_file_path</span><span class="o">=</span><span class="n">setup_path</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="nb">globals</span><span class="p">()[</span><span class="n">custom_ingest</span><span class="p">](</span><span class="n">cwd</span><span class="p">,</span> <span class="n">serial</span><span class="p">)</span></div>
         <span class="c1"># Otherwise, use sensor-specific ingestion modules</span>
-        <span class="k">if</span> <span class="s1">&#39;purpleair&#39;</span> <span class="ow">in</span> <span class="n">sensor_name</span><span class="o">.</span><span class="n">lower</span><span class="p">():</span>
-            <span class="c1"># assuming Thingspeak API dataset</span>
-            <span class="k">return</span> <span class="n">ingest_purpleair</span><span class="p">(</span><span class="n">cwd</span><span class="p">,</span> <span class="n">serial</span><span class="p">)</span>
+        <span class="c1"># if &#39;purpleair&#39; in sensor_name.lower():</span>
+        <span class="c1">#     # assuming Thingspeak API dataset</span>
+        <span class="c1">#     return ingest_purpleair(cwd, serial)</span>
 
     <span class="c1">#    if sensor_name == &#39;Your_Sensor_Model_Here&#39;:</span>
     <span class="c1">#        return Custom_Ingest_Module_For_Your_Sensor(cwd)</span>
 
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="s1">&#39;No sensor specific import module specified for &#39;</span>
-                     <span class="o">+</span> <span class="n">sensor_name</span><span class="p">)</span></div>
+        <span class="c1"># else:</span>
+        <span class="c1">#     sys.exit(&#39;No sensor specific import module specified for &#39;</span>
+        <span class="c1">#              + sensor_name)</span>
 
 
 <span class="c1"># Sensor specific ingestion modules</span>
@@ -530,7 +532,7 @@
 <span class="c1">#     return df</span>
 
 
-<div class="viewcode-block" id="ingest_purpleair"><a class="viewcode-back" href="../../../api/_autosummary/sensortoolkit.ingest._sensor_import.ingest_purpleair.html#sensortoolkit.ingest._sensor_import.ingest_purpleair">[docs]</a><span class="k">def</span> <span class="nf">ingest_purpleair</span><span class="p">(</span><span class="n">cwd</span><span class="p">,</span> <span class="n">serial</span><span class="p">):</span>
+<div class="viewcode-block" id="pa_thingspeak"><a class="viewcode-back" href="../../../api/_autosummary/sensortoolkit.ingest._sensor_import.pa_thingspeak.html#sensortoolkit.ingest._sensor_import.pa_thingspeak">[docs]</a><span class="k">def</span> <span class="nf">pa_thingspeak</span><span class="p">(</span><span class="n">cwd</span><span class="p">,</span> <span class="n">serial</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Ingestion module for the PurpleAir PA-II (and PA-II-SD).</span>
 
 <span class="sd">    Args:</span>
@@ -634,6 +636,64 @@
 
     <span class="k">if</span> <span class="n">serial</span> <span class="o">+</span> <span class="s1">&#39;B&#39;</span> <span class="ow">in</span> <span class="n">cwd</span><span class="p">:</span>
         <span class="k">return</span> <span class="kc">None</span></div>
+
+<div class="viewcode-block" id="pa_sdcard"><a class="viewcode-back" href="../../../api/_autosummary/sensortoolkit.ingest._sensor_import.pa_sdcard.html#sensortoolkit.ingest._sensor_import.pa_sdcard">[docs]</a><span class="k">def</span> <span class="nf">pa_sdcard</span><span class="p">(</span><span class="n">cwd</span><span class="p">,</span> <span class="n">serial</span><span class="p">):</span>
+    <span class="c1"># Note, this assume preprocessing of datasets (&#39;UTCDateTime&#39; is original name of timestamp col)</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">cwd</span><span class="p">,</span> <span class="n">parse_dates</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;DateTime&#39;</span><span class="p">],</span> <span class="n">index_col</span><span class="o">=</span><span class="s1">&#39;DateTime&#39;</span><span class="p">)</span>
+
+    <span class="n">drop_cols</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;mac_address&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;firmware_ver&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;hardware&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;adc&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;mem&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;rssi&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;uptime&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;p_0_3_um&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;p_0_5_um&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;p_1_0_um&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;p_2_5_um&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;p_5_0_um&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;p_10_0_um&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;p_0_3_um_b&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;p_0_5_um_b&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;p_1_0_um_b&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;p_2_5_um_b&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;p_5_0_um_b&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;p_10_0_um_b&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;hardwareversion&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;pm2.5_aqi_atm&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;pm2.5_aqi_cf_1&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;pm2.5_aqi_atm_b&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;pm2.5_aqi_cf_1_b&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;gas&#39;</span><span class="p">]</span>
+
+    <span class="n">drop</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">drop_cols</span> <span class="k">if</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">]</span>
+
+    <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="n">drop</span><span class="p">)</span>
+
+    <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;current_temp_f&#39;</span><span class="p">:</span> <span class="s1">&#39;Temp_Value&#39;</span><span class="p">,</span>
+                            <span class="s1">&#39;current_humidity&#39;</span><span class="p">:</span> <span class="s1">&#39;RH_Value&#39;</span><span class="p">,</span>
+                            <span class="s1">&#39;current_dewpoint_f&#39;</span><span class="p">:</span> <span class="s1">&#39;DP_Value&#39;</span><span class="p">,</span>
+                            <span class="s1">&#39;pressure&#39;</span><span class="p">:</span> <span class="s1">&#39;Press_Value&#39;</span><span class="p">,</span>
+                            <span class="s1">&#39;pm1_0_atm&#39;</span><span class="p">:</span> <span class="s1">&#39;PM1_ATM_A_Value&#39;</span><span class="p">,</span>
+                            <span class="s1">&#39;pm2_5_atm&#39;</span><span class="p">:</span> <span class="s1">&#39;PM25_ATM_A_Value&#39;</span><span class="p">,</span>
+                            <span class="s1">&#39;pm10_0_atm&#39;</span><span class="p">:</span> <span class="s1">&#39;PM10_ATM_A_Value&#39;</span><span class="p">,</span>
+                            <span class="s1">&#39;pm1_0_cf_1&#39;</span><span class="p">:</span> <span class="s1">&#39;PM1_CF1_A_Value&#39;</span><span class="p">,</span>
+                            <span class="s1">&#39;pm2_5_cf_1&#39;</span><span class="p">:</span> <span class="s1">&#39;PM25_CF1_A_Value&#39;</span><span class="p">,</span>
+                            <span class="s1">&#39;pm10_0_cf_1&#39;</span><span class="p">:</span> <span class="s1">&#39;PM10_CF1_A_Value&#39;</span><span class="p">,</span>
+                            <span class="s1">&#39;pm1_0_atm_b&#39;</span><span class="p">:</span> <span class="s1">&#39;PM1_ATM_B_Value&#39;</span><span class="p">,</span>
+                            <span class="s1">&#39;pm2_5_atm_b&#39;</span><span class="p">:</span> <span class="s1">&#39;PM25_ATM_B_Value&#39;</span><span class="p">,</span>
+                            <span class="s1">&#39;pm10_0_atm_b&#39;</span><span class="p">:</span> <span class="s1">&#39;PM10_ATM_B_Value&#39;</span><span class="p">,</span>
+                            <span class="s1">&#39;pm1_0_cf_1_b&#39;</span><span class="p">:</span> <span class="s1">&#39;PM1_CF1_B_Value&#39;</span><span class="p">,</span>
+                            <span class="s1">&#39;pm2_5_cf_1_b&#39;</span><span class="p">:</span> <span class="s1">&#39;PM25_CF1_B_Value&#39;</span><span class="p">,</span>
+                            <span class="s1">&#39;pm10_0_cf_1_b&#39;</span><span class="p">:</span> <span class="s1">&#39;PM10_CF1_B_Value&#39;</span>
+                            <span class="p">})</span>
+
+    <span class="c1"># Convert F to C</span>
+    <span class="n">df</span><span class="o">.</span><span class="n">Temp_Value</span> <span class="o">=</span> <span class="n">convert_temp</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">Temp_Value</span><span class="p">)</span>
+    <span class="n">df</span><span class="o">.</span><span class="n">DP_Value</span> <span class="o">=</span> <span class="n">convert_temp</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">DP_Value</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">df</span></div>
 
 
 <span class="c1">#def custom_ingest_module_for_your_sensor(cwd):</span>
