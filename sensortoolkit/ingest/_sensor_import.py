@@ -556,11 +556,103 @@ def pa_thingspeak(cwd, serial):
         return None
 
 def pa_sdcard(cwd, serial):
-    # Note, this assume preprocessing of datasets ('UTCDateTime' is original name of timestamp col)
+    """
+
+    Note, this assume preprocessing of datasets:
+    - Timestamp column has been changed from 'UTCDateTime' to 'DateTime'
+    - Rows where an invalid timestamp entry was encountered (bad formatting)
+      were dropped from the preprocessed dataset.
+
+    Args:
+        cwd (TYPE): DESCRIPTION.
+        serial (TYPE): DESCRIPTION.
+
+    Returns:
+        df (TYPE): DESCRIPTION.
+
+    """
+
     df = pd.read_csv(cwd, parse_dates=['DateTime'], index_col='DateTime')
 
+    file_versions = list(df.firmware_ver.unique())
+
+    if 4.02 in file_versions:
+        print('......version 4.02 detected')
+
+        firmware_df = df[df.firmware_ver==4.02]
+
+        firmware_df = firmware_df.rename(
+            columns={'hardwareversion,': 'pm1_0_atm,',
+                     'pm1_0_atm,': 'pm2_5_atm,',
+                     'pm2_5_atm,': 'pm10_0_atm,',
+                     'pm10_0_atm,': 'pm1_0_cf_1,',
+                     'pm1_0_cf_1,': 'pm2_5_cf_1,',
+                     'pm2_5_cf_1,': 'pm10_0_cf_1,',
+                     'pm10_0_cf_1,': 'pm2.5_aqi_atm,',
+                     'pm2.5_aqi_atm,': 'pm2.5_aqi_cf_1,',
+                     'pm2.5_aqi_cf_1,': 'p_0_3_um,',
+                     'p_0_3_um,': 'p_0_5_um,',
+                     'p_0_5_um,': 'p_1_0_um,',
+                     'p_1_0_um,': 'p_2_5_um,',
+                     'p_2_5_um,': 'p_5_0_um,',
+                     'p_5_0_um,': 'p_10_0_um,',
+                     'p_10_0_um,': 'pm1_0_atm_b,',
+                     'pm1_0_atm_b,': 'pm2_5_atm_b,',
+                     'pm2_5_atm_b,': 'pm10_0_atm_b,',
+                     'pm10_0_atm_b,': 'pm1_0_cf_1_b,',
+                     'pm1_0_cf_1_b,': 'pm2_5_cf_1_b,',
+                     'pm2_5_cf_1_b,': 'pm10_0_cf_1_b,',
+                     'pm10_0_cf_1_b,': 'pm2.5_aqi_atm_b,',
+                     'pm2.5_aqi_atm_b,': 'pm2.5_aqi_cf_1_b,',
+                     'pm2.5_aqi_cf_1_b,': 'p_0_3_um_b,',
+                     'p_0_3_um_b,': 'p_0_5_um_b,',
+                     'p_0_5_um_b,': 'p_1_0_um_b,',
+                     'p_1_0_um_b,': 'p_2_5_um_b,',
+                     'p_2_5_um_b,': 'p_5_0_um_b,',
+                     'p_5_0_um_b,': 'p_10_0_um_b,',
+                     'p_10_0_um_b,': 'gas'})
+        firmware_df_idx = firmware_df.index
+        firmware_df = firmware_df.drop(columns=['gas'])
+
+        df.loc[firmware_df_idx, :] = firmware_df
+
+    # Firmware prior to v5.00 had the CF=1 and CF=ATM labels swapped.
+    version_label_swap = [version for version in file_versions if version < 5.00]
+
+    # Correct labels for older firmware versions
+    if version_label_swap != []:
+        for version in version_label_swap:
+            print('......swapping labels')
+            firmware_df = df[df.firmware_ver==version]
+
+            rename = {'pm1_0_atm': 'pm1_0_cf_1',
+                     'pm2_5_atm': 'pm2_5_cf_1',
+                     'pm10_0_atm': 'pm10_0_cf_1',
+                     'pm1_0_cf_1': 'pm1_0_atm',
+                     'pm2_5_cf_1': 'pm2_5_atm',
+                     'pm10_0_cf_1': 'pm10_0_atm',
+                     'pm2.5_aqi_atm': 'pm2.5_aqi_cf_1',
+                     'pm2.5_aqi_cf_1': 'pm2.5_aqi_atm',
+                     'pm1_0_atm_b': 'pm1_0_cf_1_b',
+                     'pm2_5_atm_b': 'pm2_5_cf_1_b',
+                     'pm10_0_atm_b': 'pm10_0_cf_1_b',
+                     'pm1_0_cf_1_b': 'pm1_0_atm_b',
+                     'pm2_5_cf_1_b': 'pm2_5_atm_b',
+                     'pm10_0_cf_1_b': 'pm10_0_atm_b',
+                     'pm2.5_aqi_atm_b': 'pm2.5_aqi_cf_1_b',
+                     'pm2.5_aqi_cf_1_b': 'pm2.5_aqi_atm_b'}
+
+            # Rename old column names with new names
+            firmware_df = firmware_df.rename(
+                columns={**rename, **{val:key for key, val in rename.items()}})
+
+
+            firmware_df_idx = firmware_df.index
+
+            df.loc[firmware_df_idx, :] = firmware_df
+
     drop_cols = ['mac_address',
-                'firmware_ver',
+                #'firmware_ver',  # Keeping firmware version in for time being
                 'hardware',
                 'adc',
                 'mem',
@@ -608,8 +700,8 @@ def pa_sdcard(cwd, serial):
                             })
 
     # Convert F to C
-    df.Temp_Value = convert_temp(df.Temp_Value)
-    df.DP_Value = convert_temp(df.DP_Value)
+    df.Temp_Value = convert_temp(df.Temp_Value, verbose=False)
+    df.DP_Value = convert_temp(df.DP_Value, verbose=False)
 
     return df
 
