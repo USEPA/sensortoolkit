@@ -383,6 +383,10 @@ class _Setup:
                     if (col_descrip[label]['header_class'] == 'parameter') and (col_descrip[label]['drop'] is False):
                         col_descrip[label]['unit_transform'] = previous_col_headers[col_idx][label]['unit_transform']
 
+            # TODO: Implement some sort of error catching mechanism that kicks in
+            # if the formatting for the current datasets and previous setup config
+            # do not match, fall back with standard setup process (i.e.,
+            # set use_previous_setup to false and continue)
             for col_idx in self.col_headers:
                 for label in self.col_headers[col_idx]:
 
