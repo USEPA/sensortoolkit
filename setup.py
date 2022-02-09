@@ -61,6 +61,7 @@ setup(name='sensortoolkit',
                         'tabulate',
                         'statsmodels',
                         'urllib3',
-                        'pip'
+                        'pip',
+                        'chardet'
                         ]
       )
