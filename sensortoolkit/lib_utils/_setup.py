@@ -389,17 +389,24 @@ class _Setup:
             # set use_previous_setup to false and continue)
             for col_idx in self.col_headers:
                 for label in self.col_headers[col_idx]:
+                    try:
+                        self.col_headers[col_idx][label]['sdfs_param'] = col_descrip[label]['sdfs_param']
+                        self.col_headers[col_idx][label]['header_class'] = col_descrip[label]['header_class']
 
-                    self.col_headers[col_idx][label]['sdfs_param'] = col_descrip[label]['sdfs_param']
-                    self.col_headers[col_idx][label]['header_class'] = col_descrip[label]['header_class']
-
-                    if col_descrip[label]['header_class'] == 'datetime':
-                        self.col_headers[col_idx][label]['dt_format'] = col_descrip[label]['dt_format']
-                        self.col_headers[col_idx][label]['dt_timezone'] = col_descrip[label]['dt_timezone']
-                    self.col_headers[col_idx][label]['drop'] = col_descrip[label]['drop']
-                    if (col_descrip[label]['header_class'] == 'parameter') and (col_descrip[label]['drop'] is False):
-                        self.col_headers[col_idx][label]['unit_transform'] = col_descrip[label]['unit_transform']
-
+                        if col_descrip[label]['header_class'] == 'datetime':
+                            self.col_headers[col_idx][label]['dt_format'] = col_descrip[label]['dt_format']
+                            self.col_headers[col_idx][label]['dt_timezone'] = col_descrip[label]['dt_timezone']
+                        self.col_headers[col_idx][label]['drop'] = col_descrip[label]['drop']
+                        if (col_descrip[label]['header_class'] == 'parameter') and (col_descrip[label]['drop'] is False):
+                            self.col_headers[col_idx][label]['unit_transform'] = col_descrip[label]['unit_transform']
+                    except KeyError as e:
+                        # header in the current datasets but not in previous setup
+                        # For now, just assume the columns are not going to be used
+                        if label in self.all_col_headers:
+                            self.col_headers[col_idx][label]['sdfs_param'] = ''
+                            self.col_headers[col_idx][label]['header_class'] = 'parameter'
+                            self.col_headers[col_idx][label]['drop'] = True
+                        continue
 
     def loadDataFile(self, file, **kwargs):
         """Helper function for loading the first few rows of recorded datasets.
