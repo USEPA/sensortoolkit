@@ -240,12 +240,12 @@ class Parameter:
             response = validate_entry()
             if response == 'y':
                 validate = True
+            print('')
 
         # Set units using table options for params with classif. PM, Gases, or Met
         if self.classifier != 'Ancillary':
             options =  unit_data[unit_data.Classification == self.classifier]
 
-            print('')
             print('Choose from the following unit codes:')
             with pd.option_context('display.expand_frame_repr', False,
                                    'display.max_rows', None):
