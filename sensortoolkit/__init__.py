@@ -75,15 +75,32 @@ Contact
   | U.S. EPA / ORD / CEMM / AMCD / SFSB
 
 """
-_param_dict = {}
+import os as _os
 from json import load
-from pathlib import Path
-with open(f'{Path(__file__).parent}/param/param_info.json', 'r') as file:
-    data = load(file)
-    for key, val in data.items():
-        _param_dict[key] = val
-del data, file, key, val
-del Path, load
+from shutil import copy2
+from appdirs import user_data_dir
+
+_lib_path = _os.path.dirname(_os.path.abspath(__file__))
+
+_app_name='sensortoolkit'
+_app_author='USEPA'
+_app_data_dir = user_data_dir(_app_name, _app_author)
+
+# Load in SDFS parameter attributes
+_param_dict = {}
+if not _os.path.exists(_app_data_dir):
+    _os.makedirs(_app_data_dir)
+    # copy param data from site-packages to folder location (initial install)
+    copy2(f'{_lib_path}/param/param_info.json',
+          f'{_app_data_dir}/param_info.json')
+else:
+    # load in param data at appdata location (including any custom params)
+    with open(f'{_app_data_dir}/param_info.json', 'r') as file:
+        data = load(file)
+        for key, val in data.items():
+            _param_dict[key] = val
+
+del load, copy2, user_data_dir, data
 
 # Setup modules and package maintenance
 import sensortoolkit.lib_utils as lib_utils
@@ -116,8 +133,6 @@ import sensortoolkit.plotting as plotting
 import sensortoolkit.reference as reference
 
 
-import os as _os
-
 class _presets:
     """A simple class for setting package-wide attributes.
 
@@ -133,7 +148,7 @@ class _presets:
 
     """
     #_project_path = _os.getcwd()
-    _project_path = _os.path.dirname(_os.path.abspath(__file__))
+    _project_path = _lib_path
     _org_keys = ['Deployment name', 'Org name', 'Website',
                  'Contact email', 'Contact phone']
     _loc_keys = ['Site name', 'Site address', 'Site lat',
