@@ -788,25 +788,32 @@ def scatter_plotter(df_list, ref_df, stats_df=None, plot_subset=None,
             # Optional combine of RH data from AIRS and sensor, where the AIRS
             # data is preferred and sensor data used if AIRS RH not available
             if RH_colormap is True:
-                if 'mean_RH_Value' in sensor_df:
-                    sensor_df = sensor_df.rename(columns={'mean_RH_Value':
-                                                          'RH_Value'})
 
-                if ((isinstance(met_ref_df, pd.DataFrame)) and
-                   (met_ref_df['RH_Value'].dropna().empty is False)):
-                    if 'RH_Value' not in sensor_df:
-                        sensor_df['RH_Value'] = np.nan
+                try:
+                    if 'mean_RH_Value' in sensor_df:
+                        sensor_df = sensor_df.rename(columns={'mean_RH_Value':
+                                                              'RH_Value'})
 
-                    # Ref RH data left join with sensor RH data
-                    try:
-                        df['RH_Value'] = met_ref_df['RH_Value'].combine_first(
-                          sensor_df['RH_Value'])
-                    except KeyError as missing_param:
-                        print(missing_param,
-                              'not found in met reference dataframe')
+                    if ((isinstance(met_ref_df, pd.DataFrame)) and
+                       (met_ref_df['RH_Value'].dropna().empty is False)):
+                        if 'RH_Value' not in sensor_df:
+                            sensor_df['RH_Value'] = np.nan
 
-                    cmap_vals = df['RH_Value']
-                else:
+                        # Ref RH data left join with sensor RH data
+                        try:
+                            df['RH_Value'] = met_ref_df['RH_Value'].combine_first(
+                              sensor_df['RH_Value'])
+                        except KeyError as missing_param:
+                            print(missing_param,
+                                  'not found in met reference dataframe')
+
+                        cmap_vals = df['RH_Value']
+                    else:
+                        df['RH_Value'] = sensor_df['RH_Value']
+                        print('..Reference RH not found, internal sensor RH',
+                              'shown in figure')
+                        cmap_vals = df['RH_Value']
+                except KeyError:
                     df['RH_Value'] = sensor_df['RH_Value']
                     print('..Reference RH not found, internal sensor RH',
                           'shown in figure')
