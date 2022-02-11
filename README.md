@@ -146,11 +146,7 @@ compiling code. Anaconda is free for individuals.
 
 ### 1. Clone the repository on BitBucket:
 
-There are a couple ways this can be done, either via a program with a UI
-like SourceTree or via a command-line interface. For users just getting
-starting with how to use Git, Bitbucket has a [tutorial] on how to clone
-repositories that may be helpful. From the terminal, the repository can
-be cloned via the following command
+From a command line interface, the repository can be cloned via the following command
 
     git clone https://bitbucket.epa.gov/scm/~sfrede01/sensortoolkit.git
 
