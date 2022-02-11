@@ -125,14 +125,14 @@ class AirSensor:
 
         """
         try:
-            self.project_path
+            path = self.project_path
         except AttributeError as error_message:
             print(error_message)
             return
 
         lib_utils.create_sensor_directories(name=self.name,
                                             param=param_headers,
-                                            path=self.project_path
+                                            path=path
                                             )
 
     def copy_datasets(self, select='directory'):
@@ -156,14 +156,14 @@ class AirSensor:
 
         """
         try:
-            self.project_path
+            path = self.project_path
         except AttributeError as error_message:
             print(error_message)
             return
 
         lib_utils.copy_datasets(data_type='sensor',
                                 name=self.name,
-                                path=self.project_path,
+                                path=path,
                                 select=select)
 
     def sensor_setup(self):
