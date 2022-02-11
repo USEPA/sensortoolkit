@@ -31,6 +31,7 @@ import pathlib
 from sensortoolkit.lib_utils import validate_entry
 from ._targets import ParameterTargets
 from sensortoolkit import _param_dict
+from sensortoolkit import _app_data_dir
 
 class Parameter:
     """Object for accessing parameter attributes.
@@ -144,8 +145,8 @@ class Parameter:
         if save_custom_param:
             file_path = pathlib.Path(__file__)
             parent_path = file_path.parent.absolute()
-            with open(f'{parent_path}/param_info.json', 'w') as file:
-                print(f'Updating param_info.json with custom parameter {self.name}')
+            with open(f'{_app_data_dir}/param_info.json', 'w') as file:
+                print(f'..updating param_info.json with custom parameter {self.name}')
                 json.dump(self.__param_dict__, file, indent=4, ensure_ascii=True)
 
 
