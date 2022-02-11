@@ -16,27 +16,39 @@ formatted) sensor datasets by calling methods in the
   which the setup method and underlying generalized ingestion methodology is not
   able to handle certain sensor datasets.
 
-  The PurpleAir PA-II and its datasets fall into this category, as the sensor
-  produces two datasets, one for each internal plantower PMS5003 sensor
-  (referred to as A and B). In order to import data from the PurpleAir sensor,
-  a custom ingestion method named ``ingest_purpleair()`` is included in this
-  module.
+  For example, devices that record multiple datasets simulaneously will require
+  custom ingestion methods. Datasets for the PurpleAir PA-II that are obtained
+  from the ThingSpeak API may fall into this category, as the API service may
+  provide separate datasets for each internal PM sensor (channels A and B).
 
-  When the user wishes to load sensor data, the ``sensor_import()`` method
-  will call the ``ingestion_wrapper()`` which determines whether the general
-  ingestion method ``sensortoolkit.ingest.standard_ingest()`` should be used, or
-  whether a custom ingestion method should be called. For the case of the
-  PurpleAir, the ``ingest_purpleair()`` method is called by the
-  ``ingestion_wrapper()`` if the name of the sensor contains the phrase
-  "purpleair".
+  For these circumstances, users should create custom functions for importing
+  sensor data. When attempting to load sensor data via the AirSensor.load_data()
+  method, users should pass the custom ingestion function to load_data().
+
+  Example:
+
+  .. code-block:: python
+
+    # Your custom ingestion function
+    def custom_ingestion_method(path_to_data_file, sensor_serial_id):
+
+        # Load data from the file path for the specified sensor unit 
+        data = pandas.read_csv(path_to_data_file)
+
+        # Other steps you may need to take to convert the data into SDFS format
+        # ...
+
+        return data
+
+    # Assuming you have created a AirSensor object named 'sensor'
+    # Pass the custom ingest function to the ingest_method attribute
+    sensor.load_data(load_raw_data=True,
+                     write_to_file=True,
+                     ingest_method=custom_ingestion_method)
 
   If users come across a circumstance where the ``standard_ingest()`` method is
   not successfully able to import sensor data, **users are recommended to create
-  a custom ingestion method**, similar to how the ``ingest_purpleair()`` method
-  is used to import PurpleAir data from multiple data channels. A reference to
-  the **custom method will need to be added to the** ``ingest_wrapper()``
-  **method** so that the ingestion method can be called if the name of the
-  sensor matches the device associated with the custom method that was created.
+  a custom ingestion method**.
 
 ================================================================================
 
@@ -191,7 +203,7 @@ def sensor_import(sensor_name=None, sensor_serials=None,
         The timestamp (date) marking the end of the sensor testing period,
         formatted as ``'YYYY-MM-DD HH:MM:SS'``. Sensor datasets will be
         concatenated to end at this timestamp.
-    :param function object ingest_module:
+    :param function object ingest_method:
         If not None, ``ingest_wrapper()`` will attempt to import sensor
         data using a passed custom written ingestion module instead of the
         ``standard_ingest()`` method.
@@ -218,7 +230,7 @@ def sensor_import(sensor_name=None, sensor_serials=None,
 
     """
     valid_extensions = ['.csv', '.txt', '.xlsx']
-    ingest_module = kwargs.get('ingest_module', None)
+    ingest_method = kwargs.get('ingest_method', None)
     start = kwargs.get('bdate', None)
     end = kwargs.get('edate', None)
 
@@ -242,7 +254,7 @@ def sensor_import(sensor_name=None, sensor_serials=None,
                         cwd = '//'.join([path, filename])
                         print('....' + filename)
                         df = ingest_wrapper(cwd, sensor_name, serial,
-                                            data_path, ingest_module)
+                                            data_path, ingest_method)
 
                         sensor_df = sensor_df.append(df)
 
@@ -316,7 +328,7 @@ def concat_dataset(data, bdate, edate):
     return data
 
 
-def ingest_wrapper(cwd, sensor_name, serial, data_path, ingest_module):
+def ingest_wrapper(cwd, sensor_name, serial, data_path, ingest_method):
     """Wrapper for ingestion modules. Selects the ingestion module to convert
     sensor-specific data formatting to SDFS format for analysis.
 
@@ -330,7 +342,7 @@ def ingest_wrapper(cwd, sensor_name, serial, data_path, ingest_module):
         data_path (str):
             full path to sensor data top directory (contains subdirs for
             processed and raw data, and the setup.json if configured)
-        ingest_module (function object):
+        ingest_method (function object):
             If not None, ``ingest_wrapper()`` will attempt to import sensor
             data using a passed custom written ingestion module instead of the
             ``standard_ingest()`` method.
@@ -344,8 +356,8 @@ def ingest_wrapper(cwd, sensor_name, serial, data_path, ingest_module):
     setup_path = os.path.abspath(data_path + '../' + sensor_name
                                  + '_setup.json')
 
-    if os.path.exists(setup_path) and ingest_module is None:
+    if os.path.exists(setup_path) and ingest_method is None:
         return standard_ingest(cwd, name=sensor_name,
                                setup_file_path=setup_path)
     else:
-        return ingest_module(cwd, serial)
+        return ingest_method(cwd, serial)
