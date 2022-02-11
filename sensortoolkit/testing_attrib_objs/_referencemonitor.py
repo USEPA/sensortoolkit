@@ -596,7 +596,7 @@ class ReferenceMonitor:
             try:
                 path = os.path.normpath(
                     os.path.join(
-                        self.setup_data['path'] +
+                        self.project_path +
                         self.setup_data['data_rel_path'].replace('/raw/',
                                                                  '/processed/')
                         )
