@@ -95,6 +95,13 @@ def sensor_averaging(full_df_list, sensor_serials=None, name='',
     for full_df, sensor_n in zip(full_df_list, sensor_serials):
         serial_id = sensor_serials[sensor_n]
 
+        n_duplicate = len(full_df[full_df.index.duplicated()].index)
+        if not full_df[full_df.index.duplicated()].empty:
+            print(f'..{n_duplicate} duplicate timestamp index values detected,'
+                  ' keeping first entry')
+            print(full_df[full_df.index.duplicated()].index)
+            full_df = full_df[~full_df.index.duplicated(keep='first')]
+
         # Compute timedelta between successive timestamps
         delta = (full_df.index[1:] - full_df.index[0:-1]).to_frame()
         if delta.index.name is None:
