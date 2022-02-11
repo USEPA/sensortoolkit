@@ -17,7 +17,8 @@ Last Updated:
 """
 
 
-def remove_duplicates(full_df, aggregate_by='mean'):
+def remove_duplicates(full_df, agg_numeric_by='mean', agg_object_by='first',
+                      **kwargs):
     """Locate and remove duplicate timestamp entries if present in passed
     dataframe.
 
@@ -31,20 +32,30 @@ def remove_duplicates(full_df, aggregate_by='mean'):
         full_df (pandas dataframe):
             Modified sensor dataframe at recorded sampling frequency with
             duplicated timestamps removed.
-            
+
     """
+    indent = kwargs.get('print_indent', 0)
     # Average duplicate entries, remove duplicated timestamps
     dup_data = full_df[full_df.index.duplicated() == True]
 
     if dup_data.empty:
-        print('No duplicate timestamps found')
+        print(f'{indent*"."}no duplicate timestamps found')
     else:
+        col_order = list(full_df.columns)
         original_df_len = full_df.shape[0]
-        full_df = full_df.groupby(full_df.index).agg(aggregate_by)
+
+        obj_df = full_df.select_dtypes(include=['object', 'datetime'])
+        num_df = full_df.select_dtypes(exclude=['object', 'datetime'])
+
+        num_df = num_df.groupby(num_df.index).agg(agg_numeric_by)
+        obj_df = obj_df.groupby(obj_df.index).agg(agg_object_by)
+
+        full_df = num_df.join(obj_df)
+        full_df = full_df[col_order]
         modified_df_len = full_df.shape[0]
 
         n_duplicates = original_df_len - modified_df_len
-        print(str(n_duplicates), 'duplicate timestamps found')
-        print('...Removing duplicate entries')
+        print(f'{indent*"."}{str(n_duplicates)} duplicate timestamps found')
+        print(f'{(indent+2)*"."}removing duplicate entries')
 
     return full_df
