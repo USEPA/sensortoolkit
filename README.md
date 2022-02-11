@@ -171,38 +171,38 @@ pip install .
 Users will see something similar to the following be printed to the
 console:
 ```
-Processing c:\users\..\documents\sensortoolkit
-Requirement already satisfied: matplotlib in c:\users\sfrede01\anaconda3\lib\site-packages (from sensortoolkit==0.1.0b2) (3.3.4)
-Requirement already satisfied: numpy in c:\users\sfrede01\anaconda3\lib\site-packages (from sensortoolkit==0.1.0b2) (1.20.1)
-Requirement already satisfied: pandas in c:\users\sfrede01\anaconda3\lib\site-packages (from sensortoolkit==0.1.0b2) (1.2.4)
-Requirement already satisfied: pathlib2 in c:\users\sfrede01\anaconda3\lib\site-packages (from sensortoolkit==0.1.0b2) (2.3.5)
-Requirement already satisfied: python-pptx in c:\users\sfrede01\anaconda3\lib\site-packages (from sensortoolkit==0.1.0b2) (0.6.18)
-Requirement already satisfied: requests in c:\users\sfrede01\anaconda3\lib\site-packages (from sensortoolkit==0.1.0b2) (2.25.1)
-Requirement already satisfied: scipy in c:\users\sfrede01\anaconda3\lib\site-packages (from sensortoolkit==0.1.0b2) (1.6.2)
-Requirement already satisfied: seaborn in c:\users\sfrede01\anaconda3\lib\site-packages (from sensortoolkit==0.1.0b2) (0.11.1)
-Requirement already satisfied: statsmodels in c:\users\sfrede01\anaconda3\lib\site-packages (from sensortoolkit==0.1.0b2) (0.12.2)
-Requirement already satisfied: urllib3 in c:\users\sfrede01\anaconda3\lib\site-packages (from sensortoolkit==0.1.0b2) (1.26.4)
-Requirement already satisfied: pip in c:\users\sfrede01\anaconda3\lib\site-packages (from sensortoolkit==0.1.0b2) (21.0.1)
-Requirement already satisfied: pyparsing!=2.0.4,!=2.1.2,!=2.1.6,>=2.0.3 in c:\users\sfrede01\anaconda3\lib\site-packages (from matplotlib->sensortoolkit==0.1.0b2) (2.4.7)
-Requirement already satisfied: pillow>=6.2.0 in c:\users\sfrede01\anaconda3\lib\site-packages (from matplotlib->sensortoolkit==0.1.0b2) (8.2.0)
-Requirement already satisfied: python-dateutil>=2.1 in c:\users\sfrede01\anaconda3\lib\site-packages (from matplotlib->sensortoolkit==0.1.0b2) (2.8.1)
-Requirement already satisfied: kiwisolver>=1.0.1 in c:\users\sfrede01\anaconda3\lib\site-packages (from matplotlib->sensortoolkit==0.1.0b2) (1.3.1)
-Requirement already satisfied: cycler>=0.10 in c:\users\sfrede01\anaconda3\lib\site-packages (from matplotlib->sensortoolkit==0.1.0b2) (0.10.0)
-Requirement already satisfied: six in c:\users\sfrede01\anaconda3\lib\site-packages (from cycler>=0.10->matplotlib->sensortoolkit==0.1.0b2) (1.15.0)
-Requirement already satisfied: pytz>=2017.3 in c:\users\sfrede01\anaconda3\lib\site-packages (from pandas->sensortoolkit==0.1.0b2) (2021.1)
-Requirement already satisfied: lxml>=3.1.0 in c:\users\sfrede01\anaconda3\lib\site-packages (from python-pptx->sensortoolkit==0.1.0b2) (4.6.3)
-Requirement already satisfied: XlsxWriter>=0.5.7 in c:\users\sfrede01\anaconda3\lib\site-packages (from python-pptx->sensortoolkit==0.1.0b2) (1.3.8)
-Requirement already satisfied: chardet<5,>=3.0.2 in c:\users\sfrede01\anaconda3\lib\site-packages (from requests->sensortoolkit==0.1.0b2) (4.0.0)
-Requirement already satisfied: idna<3,>=2.5 in c:\users\sfrede01\anaconda3\lib\site-packages (from requests->sensortoolkit==0.1.0b2) (2.10)
-Requirement already satisfied: certifi>=2017.4.17 in c:\users\sfrede01\anaconda3\lib\site-packages (from requests->sensortoolkit==0.1.0b2) (2020.12.5)
-Requirement already satisfied: patsy>=0.5 in c:\users\sfrede01\anaconda3\lib\site-packages (from statsmodels->sensortoolkit==0.1.0b2) (0.5.1)
+Processing c:\users\...\documents\sensortoolkit
+Requirement already satisfied: matplotlib in c:\users\...\anaconda3\lib\site-packages (from sensortoolkit) (3.3.4)
+Requirement already satisfied: numpy in c:\users\...\anaconda3\lib\site-packages (from sensortoolkit) (1.20.1)
+Requirement already satisfied: pandas in c:\users\...\anaconda3\lib\site-packages (from sensortoolkit) (1.2.4)
+Requirement already satisfied: pathlib2 in c:\users\...\anaconda3\lib\site-packages (from sensortoolkit) (2.3.5)
+Requirement already satisfied: python-pptx in c:\users\...\anaconda3\lib\site-packages (from sensortoolkit) (0.6.18)
+Requirement already satisfied: requests in c:\users\...\anaconda3\lib\site-packages (from sensortoolkit) (2.25.1)
+Requirement already satisfied: scipy in c:\users\...\anaconda3\lib\site-packages (from sensortoolkit) (1.6.2)
+Requirement already satisfied: seaborn in c:\users\...\anaconda3\lib\site-packages (from sensortoolkit) (0.11.1)
+Requirement already satisfied: statsmodels in c:\users\...\anaconda3\lib\site-packages (from sensortoolkit) (0.12.2)
+Requirement already satisfied: urllib3 in c:\users\...\anaconda3\lib\site-packages (from sensortoolkit) (1.26.4)
+Requirement already satisfied: pip in c:\users\...\anaconda3\lib\site-packages (from sensortoolkit) (21.0.1)
+Requirement already satisfied: pyparsing!=2.0.4,!=2.1.2,!=2.1.6,>=2.0.3 in c:\users\...\anaconda3\lib\site-packages (from matplotlib->sensortoolkit) (2.4.7)
+Requirement already satisfied: pillow>=6.2.0 in c:\users\...\anaconda3\lib\site-packages (from matplotlib->sensortoolkit) (8.2.0)
+Requirement already satisfied: python-dateutil>=2.1 in c:\users\...\anaconda3\lib\site-packages (from matplotlib->sensortoolkit) (2.8.1)
+Requirement already satisfied: kiwisolver>=1.0.1 in c:\users\...\anaconda3\lib\site-packages (from matplotlib->sensortoolkit) (1.3.1)
+Requirement already satisfied: cycler>=0.10 in c:\users\...\anaconda3\lib\site-packages (from matplotlib->sensortoolkit) (0.10.0)
+Requirement already satisfied: six in c:\users\...\anaconda3\lib\site-packages (from cycler>=0.10->matplotlib->sensortoolkit) (1.15.0)
+Requirement already satisfied: pytz>=2017.3 in c:\users\...\anaconda3\lib\site-packages (from pandas->sensortoolkit) (2021.1)
+Requirement already satisfied: lxml>=3.1.0 in c:\users\...\anaconda3\lib\site-packages (from python-pptx->sensortoolkit) (4.6.3)
+Requirement already satisfied: XlsxWriter>=0.5.7 in c:\users\...\anaconda3\lib\site-packages (from python-pptx->sensortoolkit) (1.3.8)
+Requirement already satisfied: chardet<5,>=3.0.2 in c:\users\...\anaconda3\lib\site-packages (from requests->sensortoolkit) (4.0.0)
+Requirement already satisfied: idna<3,>=2.5 in c:\users\...\anaconda3\lib\site-packages (from requests->sensortoolkit) (2.10)
+Requirement already satisfied: certifi>=2017.4.17 in c:\users\...\anaconda3\lib\site-packages (from requests->sensortoolkit) (2020.12.5)
+Requirement already satisfied: patsy>=0.5 in c:\users\...\anaconda3\lib\site-packages (from statsmodels->sensortoolkit) (0.5.1)
 Building wheels for collected packages: sensortoolkit
   Building wheel for sensortoolkit (setup.py) ... done
-  Created wheel for sensortoolkit: filename=sensortoolkit-0.1.0b2-py3-none-any.whl size=264195 sha256=255f3b7f2818bc10ed695d7bbdf9facfcde8fbe88866621d77cba99376ef8fbb
-  Stored in directory: C:\Users\SFREDE01\AppData\Local\Temp\pip-ephem-wheel-cache-k4dnnl3u\wheels\d0\5d\9f\8f5c8d55a67e2c9d9ff85111d0e96da3ef3782e3356c46e010
+  Created wheel for sensortoolkit: filename=sensortoolkit-py3-none-any.whl size=264195 sha256=255f3b7f2818bc10ed695d7bbdf9facfcde8fbe88866621d77cba99376ef8fbb
+  Stored in directory: C:\Users\...\AppData\Local\Temp\pip-ephem-wheel-cache-k4dnnl3u\wheels\d0\5d\9f\8f5c8d55a67e2c9d9ff85111d0e96da3ef3782e3356c46e010
 Successfully built sensortoolkit
 Installing collected packages: sensortoolkit
-Successfully installed sensortoolkit-0.1.0b2
+Successfully installed sensortoolkit
 ```
 
 ### *Note*
