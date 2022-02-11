@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>sensortoolkit.calculate._convert_temp &mdash; sensortoolkit 0.7.7b1 documentation</title>
+  <title>sensortoolkit.calculate._convert_temp &mdash; sensortoolkit 0.8.0b1 documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" type="text/css" />
@@ -30,7 +30,7 @@
             <a href="../../../index.html" class="icon icon-home"> sensortoolkit
           </a>
               <div class="version">
-                0.7.7b1
+                0.8.0b1
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
@@ -93,7 +93,7 @@
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 
-<div class="viewcode-block" id="convert_temp"><a class="viewcode-back" href="../../../api/_autosummary/sensortoolkit.calculate._convert_temp.convert_temp.html#sensortoolkit.calculate._convert_temp.convert_temp">[docs]</a><span class="k">def</span> <span class="nf">convert_temp</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">from_unit</span><span class="o">=</span><span class="s1">&#39;F&#39;</span><span class="p">,</span> <span class="n">to_unit</span><span class="o">=</span><span class="s1">&#39;C&#39;</span><span class="p">):</span>
+<div class="viewcode-block" id="convert_temp"><a class="viewcode-back" href="../../../api/_autosummary/sensortoolkit.calculate._convert_temp.convert_temp.html#sensortoolkit.calculate._convert_temp.convert_temp">[docs]</a><span class="k">def</span> <span class="nf">convert_temp</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">from_unit</span><span class="o">=</span><span class="s1">&#39;F&#39;</span><span class="p">,</span> <span class="n">to_unit</span><span class="o">=</span><span class="s1">&#39;C&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Convert temperature from one unit basis to another.</span>
 
 <span class="sd">    Can convert from Fahrenheit to Celsius or vice versa.</span>
@@ -111,6 +111,7 @@
 <span class="sd">        converted_data (pandas DataFrame): DESCRIPTION.</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">verbose</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;verbose&#39;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
     <span class="c1"># # Convert input type to pandas dataframe</span>
     <span class="c1"># data_type = type(data)</span>
     <span class="c1"># if data_type is not pd.core.frame.DataFrame:</span>
@@ -124,10 +125,12 @@
     <span class="n">c_to_f</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="mf">1.8</span><span class="o">*</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">+</span> <span class="mf">32.0</span>
 
     <span class="k">if</span> <span class="n">from_unit</span> <span class="o">==</span> <span class="s1">&#39;F&#39;</span> <span class="ow">and</span> <span class="n">to_unit</span> <span class="o">==</span> <span class="s1">&#39;C&#39;</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;....converting from Fahrenheit to Celsius&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;....converting from Fahrenheit to Celsius&#39;</span><span class="p">)</span>
         <span class="n">converted_data</span> <span class="o">=</span> <span class="n">f_to_c</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
     <span class="k">elif</span> <span class="n">from_unit</span> <span class="o">==</span> <span class="s1">&#39;C&#39;</span> <span class="ow">and</span> <span class="n">to_unit</span> <span class="o">==</span> <span class="s1">&#39;F&#39;</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;....converting from Celsius to Fahrenheit&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;....converting from Celsius to Fahrenheit&#39;</span><span class="p">)</span>
         <span class="n">converted_data</span> <span class="o">=</span> <span class="n">c_to_f</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span><span class="s1">&#39;Invalid conversion. Arguments for &quot;from_unit&quot;&#39;</span>

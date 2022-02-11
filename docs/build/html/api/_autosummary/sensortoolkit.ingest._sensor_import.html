@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>sensortoolkit.ingest._sensor_import &mdash; sensortoolkit 0.7.7b1 documentation</title>
+  <title>sensortoolkit.ingest._sensor_import &mdash; sensortoolkit 0.8.0b1 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" type="text/css" />
@@ -33,7 +33,7 @@
             <a href="../../index.html" class="icon icon-home"> sensortoolkit
           </a>
               <div class="version">
-                0.7.7b1
+                0.8.0b1
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
@@ -65,8 +65,6 @@
 <li class="toctree-l3 current"><a class="current reference internal" href="#">sensortoolkit.ingest._sensor_import</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="sensortoolkit.ingest._sensor_import.concat_dataset.html">sensortoolkit.ingest._sensor_import.concat_dataset</a></li>
 <li class="toctree-l4"><a class="reference internal" href="sensortoolkit.ingest._sensor_import.ingest_wrapper.html">sensortoolkit.ingest._sensor_import.ingest_wrapper</a></li>
-<li class="toctree-l4"><a class="reference internal" href="sensortoolkit.ingest._sensor_import.pa_sdcard.html">sensortoolkit.ingest._sensor_import.pa_sdcard</a></li>
-<li class="toctree-l4"><a class="reference internal" href="sensortoolkit.ingest._sensor_import.pa_thingspeak.html">sensortoolkit.ingest._sensor_import.pa_thingspeak</a></li>
 <li class="toctree-l4"><a class="reference internal" href="sensortoolkit.ingest._sensor_import.sensor_import.html">sensortoolkit.ingest._sensor_import.sensor_import</a></li>
 </ul>
 </li>
@@ -126,25 +124,35 @@ formatted) sensor datasets by calling methods in the
 a wide range of formatting schemes. However, there may be circumstances in
 which the setup method and underlying generalized ingestion methodology is not
 able to handle certain sensor datasets.</p>
-<p>The PurpleAir PA-II and its datasets fall into this category, as the sensor
-produces two datasets, one for each internal plantower PMS5003 sensor
-(referred to as A and B). In order to import data from the PurpleAir sensor,
-a custom ingestion method named <code class="docutils literal notranslate"><span class="pre">ingest_purpleair()</span></code> is included in this
-module.</p>
-<p>When the user wishes to load sensor data, the <code class="docutils literal notranslate"><span class="pre">sensor_import()</span></code> method
-will call the <code class="docutils literal notranslate"><span class="pre">ingestion_wrapper()</span></code> which determines whether the general
-ingestion method <code class="docutils literal notranslate"><span class="pre">sensortoolkit.ingest.standard_ingest()</span></code> should be used, or
-whether a custom ingestion method should be called. For the case of the
-PurpleAir, the <code class="docutils literal notranslate"><span class="pre">ingest_purpleair()</span></code> method is called by the
-<code class="docutils literal notranslate"><span class="pre">ingestion_wrapper()</span></code> if the name of the sensor contains the phrase
-“purpleair”.</p>
+<p>For example, devices that record multiple datasets simulaneously will require
+custom ingestion methods. Datasets for the PurpleAir PA-II that are obtained
+from the ThingSpeak API may fall into this category, as the API service may
+provide separate datasets for each internal PM sensor (channels A and B).</p>
+<p>For these circumstances, users should create custom functions for importing
+sensor data. When attempting to load sensor data via the AirSensor.load_data()
+method, users should pass the custom ingestion function to load_data().</p>
+<p>Example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Your custom ingestion function</span>
+<span class="k">def</span> <span class="nf">custom_ingestion_method</span><span class="p">(</span><span class="n">path_to_data_file</span><span class="p">,</span> <span class="n">sensor_serial_id</span><span class="p">):</span>
+
+    <span class="c1"># Load data from the file path for the specified sensor unit</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">pandas</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">path_to_data_file</span><span class="p">)</span>
+
+    <span class="c1"># Other steps you may need to take to convert the data into SDFS format</span>
+    <span class="c1"># ...</span>
+
+    <span class="k">return</span> <span class="n">data</span>
+
+<span class="c1"># Assuming you have created a AirSensor object named &#39;sensor&#39;</span>
+<span class="c1"># Pass the custom ingest function to the ingest_method attribute</span>
+<span class="n">sensor</span><span class="o">.</span><span class="n">load_data</span><span class="p">(</span><span class="n">load_raw_data</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                 <span class="n">write_to_file</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                 <span class="n">ingest_method</span><span class="o">=</span><span class="n">custom_ingestion_method</span><span class="p">)</span>
+</pre></div>
+</div>
 <p>If users come across a circumstance where the <code class="docutils literal notranslate"><span class="pre">standard_ingest()</span></code> method is
 not successfully able to import sensor data, <strong>users are recommended to create
-a custom ingestion method</strong>, similar to how the <code class="docutils literal notranslate"><span class="pre">ingest_purpleair()</span></code> method
-is used to import PurpleAir data from multiple data channels. A reference to
-the <strong>custom method will need to be added to the</strong> <code class="docutils literal notranslate"><span class="pre">ingest_wrapper()</span></code>
-<strong>method</strong> so that the ingestion method can be called if the name of the
-sensor matches the device associated with the custom method that was created.</p>
+a custom ingestion method</strong>.</p>
 </div>
 <hr class="docutils" />
 <dl>
@@ -170,12 +178,6 @@ sensor matches the device associated with the custom method that was created.</p
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="sensortoolkit.ingest._sensor_import.ingest_wrapper.html#sensortoolkit.ingest._sensor_import.ingest_wrapper" title="sensortoolkit.ingest._sensor_import.ingest_wrapper"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ingest_wrapper</span></code></a></p></td>
 <td><p>Wrapper for ingestion modules.</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="sensortoolkit.ingest._sensor_import.pa_sdcard.html#sensortoolkit.ingest._sensor_import.pa_sdcard" title="sensortoolkit.ingest._sensor_import.pa_sdcard"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pa_sdcard</span></code></a></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="sensortoolkit.ingest._sensor_import.pa_thingspeak.html#sensortoolkit.ingest._sensor_import.pa_thingspeak" title="sensortoolkit.ingest._sensor_import.pa_thingspeak"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pa_thingspeak</span></code></a></p></td>
-<td><p>Ingestion module for the PurpleAir PA-II (and PA-II-SD).</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="sensortoolkit.ingest._sensor_import.sensor_import.html#sensortoolkit.ingest._sensor_import.sensor_import" title="sensortoolkit.ingest._sensor_import.sensor_import"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sensor_import</span></code></a></p></td>
 <td><p>Import recorded or processed sensor data.</p></td>

@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Installation &mdash; sensortoolkit 0.7.7b1 documentation</title>
+  <title>Installation &mdash; sensortoolkit 0.8.0b1 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" type="text/css" />
@@ -33,7 +33,7 @@
             <a href="index.html" class="icon icon-home"> sensortoolkit
           </a>
               <div class="version">
-                0.7.7b1
+                0.8.0b1
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -92,20 +92,22 @@ a package distribution of Python that includes many widely used libraries as
 well as the <a class="reference external" href="https://www.spyder-ide.org">Spyder IDE</a> for editing and compiling code. Anaconda is free for
 individuals.</p>
 </div>
-<section id="clone-the-repository-on-bitbucket">
-<h2>Clone the repository on BitBucket:<a class="headerlink" href="#clone-the-repository-on-bitbucket" title="Permalink to this headline"></a></h2>
-<p>There are a couple ways this can be done, either via a program with a UI like
-SourceTree or via a command-line interface. For users just getting starting with how to
-use Git, Bitbucket has a <a class="reference external" href="https://www.atlassian.com/git/tutorials/setting-up-a-repository/git-clone?utm_campaign=learn-git-clone&amp;utm_medium=in-app-help&amp;utm_source=stash">tutorial</a>
-on how to clone repositories that may be helpful. From the terminal, the
-repository can be cloned via the following command</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">bitbucket</span><span class="o">.</span><span class="n">epa</span><span class="o">.</span><span class="n">gov</span><span class="o">/</span><span class="n">scm</span><span class="o">/~</span><span class="n">sfrede01</span><span class="o">/</span><span class="n">sensortoolkit</span><span class="o">.</span><span class="n">git</span>
+<section id="installing-with-pip">
+<h2>Installing with pip<a class="headerlink" href="#installing-with-pip" title="Permalink to this headline"></a></h2>
+<p>The easiest way to install sensortoolkit is via <code class="docutils literal notranslate"><span class="pre">pip</span></code>. Open up a command line interface (for Anaconda users,
+the Anaconda Prompt is recommended) and type the following command:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">pip install sensortoolkit</span>
 </pre></div>
 </div>
 </section>
-<section id="installing-sensortoolkit">
-<h2>Installing <code class="docutils literal notranslate"><span class="pre">sensortoolkit</span></code><a class="headerlink" href="#installing-sensortoolkit" title="Permalink to this headline"></a></h2>
-<p>First, navigate to the folder location for the cloned repository:</p>
+<section id="installing-from-source">
+<h2>Installing from source<a class="headerlink" href="#installing-from-source" title="Permalink to this headline"></a></h2>
+<p>sensortoolkit is developed and maintained in a USEPA GitHub repository. The latest
+development build can be obtained by cloning the repository:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">USEPA</span><span class="o">/</span><span class="n">sensortoolkit</span><span class="o">.</span><span class="n">git</span>
+</pre></div>
+</div>
+<p>Next, navigate to the folder location for the cloned repository:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">cd path/to/sensortoolkit</span>
 </pre></div>
 </div>
@@ -123,43 +125,7 @@ shouldn’t matter too much.</p>
 <p>The installation process checks for several packages sensortoolkit needs to run (dependencies).
 If you have Anaconda installed, you’ll notice that the installation process may indicate
 that a lot of the required libraries are already installed as those packages come with
-the base installation of Anaconda. Pip may need to install <cite>python-pptx</cite>, which is
-used by sensortoolkit to create testing reports as .pptx files.</p>
-<p>Users will see something similar to the following be printed to the console:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">Processing c:\users\..\documents\sensortoolkit</span>
-<span class="go">Requirement already satisfied: matplotlib in c:\users\sfrede01\anaconda3\lib\site-packages (from sensortoolkit==0.1.0b2) (3.3.4)</span>
-<span class="go">Requirement already satisfied: numpy in c:\users\sfrede01\anaconda3\lib\site-packages (from sensortoolkit==0.1.0b2) (1.20.1)</span>
-<span class="go">Requirement already satisfied: pandas in c:\users\sfrede01\anaconda3\lib\site-packages (from sensortoolkit==0.1.0b2) (1.2.4)</span>
-<span class="go">Requirement already satisfied: pathlib2 in c:\users\sfrede01\anaconda3\lib\site-packages (from sensortoolkit==0.1.0b2) (2.3.5)</span>
-<span class="go">Requirement already satisfied: python-pptx in c:\users\sfrede01\anaconda3\lib\site-packages (from sensortoolkit==0.1.0b2) (0.6.18)</span>
-<span class="go">Requirement already satisfied: requests in c:\users\sfrede01\anaconda3\lib\site-packages (from sensortoolkit==0.1.0b2) (2.25.1)</span>
-<span class="go">Requirement already satisfied: scipy in c:\users\sfrede01\anaconda3\lib\site-packages (from sensortoolkit==0.1.0b2) (1.6.2)</span>
-<span class="go">Requirement already satisfied: seaborn in c:\users\sfrede01\anaconda3\lib\site-packages (from sensortoolkit==0.1.0b2) (0.11.1)</span>
-<span class="go">Requirement already satisfied: statsmodels in c:\users\sfrede01\anaconda3\lib\site-packages (from sensortoolkit==0.1.0b2) (0.12.2)</span>
-<span class="go">Requirement already satisfied: urllib3 in c:\users\sfrede01\anaconda3\lib\site-packages (from sensortoolkit==0.1.0b2) (1.26.4)</span>
-<span class="go">Requirement already satisfied: pip in c:\users\sfrede01\anaconda3\lib\site-packages (from sensortoolkit==0.1.0b2) (21.0.1)</span>
-<span class="go">Requirement already satisfied: pyparsing!=2.0.4,!=2.1.2,!=2.1.6,&gt;=2.0.3 in c:\users\sfrede01\anaconda3\lib\site-packages (from matplotlib-&gt;sensortoolkit==0.1.0b2) (2.4.7)</span>
-<span class="go">Requirement already satisfied: pillow&gt;=6.2.0 in c:\users\sfrede01\anaconda3\lib\site-packages (from matplotlib-&gt;sensortoolkit==0.1.0b2) (8.2.0)</span>
-<span class="go">Requirement already satisfied: python-dateutil&gt;=2.1 in c:\users\sfrede01\anaconda3\lib\site-packages (from matplotlib-&gt;sensortoolkit==0.1.0b2) (2.8.1)</span>
-<span class="go">Requirement already satisfied: kiwisolver&gt;=1.0.1 in c:\users\sfrede01\anaconda3\lib\site-packages (from matplotlib-&gt;sensortoolkit==0.1.0b2) (1.3.1)</span>
-<span class="go">Requirement already satisfied: cycler&gt;=0.10 in c:\users\sfrede01\anaconda3\lib\site-packages (from matplotlib-&gt;sensortoolkit==0.1.0b2) (0.10.0)</span>
-<span class="go">Requirement already satisfied: six in c:\users\sfrede01\anaconda3\lib\site-packages (from cycler&gt;=0.10-&gt;matplotlib-&gt;sensortoolkit==0.1.0b2) (1.15.0)</span>
-<span class="go">Requirement already satisfied: pytz&gt;=2017.3 in c:\users\sfrede01\anaconda3\lib\site-packages (from pandas-&gt;sensortoolkit==0.1.0b2) (2021.1)</span>
-<span class="go">Requirement already satisfied: lxml&gt;=3.1.0 in c:\users\sfrede01\anaconda3\lib\site-packages (from python-pptx-&gt;sensortoolkit==0.1.0b2) (4.6.3)</span>
-<span class="go">Requirement already satisfied: XlsxWriter&gt;=0.5.7 in c:\users\sfrede01\anaconda3\lib\site-packages (from python-pptx-&gt;sensortoolkit==0.1.0b2) (1.3.8)</span>
-<span class="go">Requirement already satisfied: chardet&lt;5,&gt;=3.0.2 in c:\users\sfrede01\anaconda3\lib\site-packages (from requests-&gt;sensortoolkit==0.1.0b2) (4.0.0)</span>
-<span class="go">Requirement already satisfied: idna&lt;3,&gt;=2.5 in c:\users\sfrede01\anaconda3\lib\site-packages (from requests-&gt;sensortoolkit==0.1.0b2) (2.10)</span>
-<span class="go">Requirement already satisfied: certifi&gt;=2017.4.17 in c:\users\sfrede01\anaconda3\lib\site-packages (from requests-&gt;sensortoolkit==0.1.0b2) (2020.12.5)</span>
-<span class="go">Requirement already satisfied: patsy&gt;=0.5 in c:\users\sfrede01\anaconda3\lib\site-packages (from statsmodels-&gt;sensortoolkit==0.1.0b2) (0.5.1)</span>
-<span class="go">Building wheels for collected packages: sensortoolkit</span>
-<span class="go">  Building wheel for sensortoolkit (setup.py) ... done</span>
-<span class="go">  Created wheel for sensortoolkit: filename=sensortoolkit-0.1.0b2-py3-none-any.whl size=264195 sha256=255f3b7f2818bc10ed695d7bbdf9facfcde8fbe88866621d77cba99376ef8fbb</span>
-<span class="go">  Stored in directory: C:\Users\SFREDE01\AppData\Local\Temp\pip-ephem-wheel-cache-k4dnnl3u\wheels\d0\5d\9f\8f5c8d55a67e2c9d9ff85111d0e96da3ef3782e3356c46e010</span>
-<span class="go">Successfully built sensortoolkit</span>
-<span class="go">Installing collected packages: sensortoolkit</span>
-<span class="go">Successfully installed sensortoolkit-0.1.0b2</span>
-</pre></div>
-</div>
+the base installation of Anaconda.</p>
 </section>
 </section>
 

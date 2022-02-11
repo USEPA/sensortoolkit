@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>sensortoolkit.datetime_utils._time_averaging &mdash; sensortoolkit 0.7.7b1 documentation</title>
+  <title>sensortoolkit.datetime_utils._time_averaging &mdash; sensortoolkit 0.8.0b1 documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" type="text/css" />
@@ -30,7 +30,7 @@
             <a href="../../../index.html" class="icon icon-home"> sensortoolkit
           </a>
               <div class="version">
-                0.7.7b1
+                0.8.0b1
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
@@ -121,6 +121,7 @@
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">sensortoolkit.qc._duplicate_removal</span> <span class="kn">import</span> <span class="n">remove_duplicates</span>
 
 
 <div class="viewcode-block" id="sensor_averaging"><a class="viewcode-back" href="../../../api/_autosummary/sensortoolkit.datetime_utils._time_averaging.sensor_averaging.html#sensortoolkit.datetime_utils._time_averaging.sensor_averaging">[docs]</a><span class="k">def</span> <span class="nf">sensor_averaging</span><span class="p">(</span><span class="n">full_df_list</span><span class="p">,</span> <span class="n">sensor_serials</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span>
@@ -176,6 +177,11 @@
     <span class="c1"># Loop over each recorded sensor dataset and compute hourly, daily averages</span>
     <span class="k">for</span> <span class="n">full_df</span><span class="p">,</span> <span class="n">sensor_n</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">full_df_list</span><span class="p">,</span> <span class="n">sensor_serials</span><span class="p">):</span>
         <span class="n">serial_id</span> <span class="o">=</span> <span class="n">sensor_serials</span><span class="p">[</span><span class="n">sensor_n</span><span class="p">]</span>
+
+        <span class="n">full_df</span> <span class="o">=</span> <span class="n">remove_duplicates</span><span class="p">(</span><span class="n">full_df</span><span class="p">,</span>
+                                    <span class="n">agg_numeric_by</span><span class="o">=</span><span class="s1">&#39;mean&#39;</span><span class="p">,</span>
+                                    <span class="n">agg_object_by</span><span class="o">=</span><span class="s1">&#39;first&#39;</span><span class="p">,</span>
+                                    <span class="n">print_indent</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
 
         <span class="c1"># Compute timedelta between successive timestamps</span>
         <span class="n">delta</span> <span class="o">=</span> <span class="p">(</span><span class="n">full_df</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="o">-</span> <span class="n">full_df</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span><span class="o">.</span><span class="n">to_frame</span><span class="p">()</span>

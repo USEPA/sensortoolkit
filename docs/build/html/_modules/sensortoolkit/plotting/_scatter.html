@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>sensortoolkit.plotting._scatter &mdash; sensortoolkit 0.7.7b1 documentation</title>
+  <title>sensortoolkit.plotting._scatter &mdash; sensortoolkit 0.8.0b1 documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" type="text/css" />
@@ -30,7 +30,7 @@
             <a href="../../../index.html" class="icon icon-home"> sensortoolkit
           </a>
               <div class="version">
-                0.7.7b1
+                0.8.0b1
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
@@ -870,25 +870,32 @@
             <span class="c1"># Optional combine of RH data from AIRS and sensor, where the AIRS</span>
             <span class="c1"># data is preferred and sensor data used if AIRS RH not available</span>
             <span class="k">if</span> <span class="n">RH_colormap</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
-                <span class="k">if</span> <span class="s1">&#39;mean_RH_Value&#39;</span> <span class="ow">in</span> <span class="n">sensor_df</span><span class="p">:</span>
-                    <span class="n">sensor_df</span> <span class="o">=</span> <span class="n">sensor_df</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;mean_RH_Value&#39;</span><span class="p">:</span>
-                                                          <span class="s1">&#39;RH_Value&#39;</span><span class="p">})</span>
 
-                <span class="k">if</span> <span class="p">((</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">met_ref_df</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">))</span> <span class="ow">and</span>
-                   <span class="p">(</span><span class="n">met_ref_df</span><span class="p">[</span><span class="s1">&#39;RH_Value&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span><span class="o">.</span><span class="n">empty</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">)):</span>
-                    <span class="k">if</span> <span class="s1">&#39;RH_Value&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">sensor_df</span><span class="p">:</span>
-                        <span class="n">sensor_df</span><span class="p">[</span><span class="s1">&#39;RH_Value&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="s1">&#39;mean_RH_Value&#39;</span> <span class="ow">in</span> <span class="n">sensor_df</span><span class="p">:</span>
+                        <span class="n">sensor_df</span> <span class="o">=</span> <span class="n">sensor_df</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;mean_RH_Value&#39;</span><span class="p">:</span>
+                                                              <span class="s1">&#39;RH_Value&#39;</span><span class="p">})</span>
 
-                    <span class="c1"># Ref RH data left join with sensor RH data</span>
-                    <span class="k">try</span><span class="p">:</span>
-                        <span class="n">df</span><span class="p">[</span><span class="s1">&#39;RH_Value&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">met_ref_df</span><span class="p">[</span><span class="s1">&#39;RH_Value&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">combine_first</span><span class="p">(</span>
-                          <span class="n">sensor_df</span><span class="p">[</span><span class="s1">&#39;RH_Value&#39;</span><span class="p">])</span>
-                    <span class="k">except</span> <span class="ne">KeyError</span> <span class="k">as</span> <span class="n">missing_param</span><span class="p">:</span>
-                        <span class="nb">print</span><span class="p">(</span><span class="n">missing_param</span><span class="p">,</span>
-                              <span class="s1">&#39;not found in met reference dataframe&#39;</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="p">((</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">met_ref_df</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">))</span> <span class="ow">and</span>
+                       <span class="p">(</span><span class="n">met_ref_df</span><span class="p">[</span><span class="s1">&#39;RH_Value&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span><span class="o">.</span><span class="n">empty</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">)):</span>
+                        <span class="k">if</span> <span class="s1">&#39;RH_Value&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">sensor_df</span><span class="p">:</span>
+                            <span class="n">sensor_df</span><span class="p">[</span><span class="s1">&#39;RH_Value&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
 
-                    <span class="n">cmap_vals</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;RH_Value&#39;</span><span class="p">]</span>
-                <span class="k">else</span><span class="p">:</span>
+                        <span class="c1"># Ref RH data left join with sensor RH data</span>
+                        <span class="k">try</span><span class="p">:</span>
+                            <span class="n">df</span><span class="p">[</span><span class="s1">&#39;RH_Value&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">met_ref_df</span><span class="p">[</span><span class="s1">&#39;RH_Value&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">combine_first</span><span class="p">(</span>
+                              <span class="n">sensor_df</span><span class="p">[</span><span class="s1">&#39;RH_Value&#39;</span><span class="p">])</span>
+                        <span class="k">except</span> <span class="ne">KeyError</span> <span class="k">as</span> <span class="n">missing_param</span><span class="p">:</span>
+                            <span class="nb">print</span><span class="p">(</span><span class="n">missing_param</span><span class="p">,</span>
+                                  <span class="s1">&#39;not found in met reference dataframe&#39;</span><span class="p">)</span>
+
+                        <span class="n">cmap_vals</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;RH_Value&#39;</span><span class="p">]</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">df</span><span class="p">[</span><span class="s1">&#39;RH_Value&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">sensor_df</span><span class="p">[</span><span class="s1">&#39;RH_Value&#39;</span><span class="p">]</span>
+                        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;..Reference RH not found, internal sensor RH&#39;</span><span class="p">,</span>
+                              <span class="s1">&#39;shown in figure&#39;</span><span class="p">)</span>
+                        <span class="n">cmap_vals</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;RH_Value&#39;</span><span class="p">]</span>
+                <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
                     <span class="n">df</span><span class="p">[</span><span class="s1">&#39;RH_Value&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">sensor_df</span><span class="p">[</span><span class="s1">&#39;RH_Value&#39;</span><span class="p">]</span>
                     <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;..Reference RH not found, internal sensor RH&#39;</span><span class="p">,</span>
                           <span class="s1">&#39;shown in figure&#39;</span><span class="p">)</span>

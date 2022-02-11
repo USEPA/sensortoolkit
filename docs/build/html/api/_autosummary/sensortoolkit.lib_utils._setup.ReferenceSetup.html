@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>sensortoolkit.lib_utils._setup.ReferenceSetup &mdash; sensortoolkit 0.7.7b1 documentation</title>
+  <title>sensortoolkit.lib_utils._setup.ReferenceSetup &mdash; sensortoolkit 0.8.0b1 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" type="text/css" />
@@ -33,7 +33,7 @@
             <a href="../../index.html" class="icon icon-home"> sensortoolkit
           </a>
               <div class="version">
-                0.7.7b1
+                0.8.0b1
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
@@ -155,53 +155,59 @@ Defaults to None.</p>
 <tr class="row-odd"><td><p><a class="reference internal" href="#sensortoolkit.lib_utils._setup.ReferenceSetup.loadDataFile" title="sensortoolkit.lib_utils._setup.ReferenceSetup.loadDataFile"><code class="xref py py-obj docutils literal notranslate"><span class="pre">loadDataFile</span></code></a></p></td>
 <td><p>Helper function for loading the first few rows of recorded datasets.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#sensortoolkit.lib_utils._setup.ReferenceSetup.localRefDataIngest" title="sensortoolkit.lib_utils._setup.ReferenceSetup.localRefDataIngest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">localRefDataIngest</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#sensortoolkit.lib_utils._setup.ReferenceSetup.loadPreviousSetup" title="sensortoolkit.lib_utils._setup.ReferenceSetup.loadPreviousSetup"><code class="xref py py-obj docutils literal notranslate"><span class="pre">loadPreviousSetup</span></code></a></p></td>
+<td><p>Ask the user if a previous setup config exists for the type of sensor or reference dataset that they are loading.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sensortoolkit.lib_utils._setup.ReferenceSetup.localRefDataIngest" title="sensortoolkit.lib_utils._setup.ReferenceSetup.localRefDataIngest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">localRefDataIngest</span></code></a></p></td>
 <td><p>Wrapper method for ingesting reference datasets acquired locally.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#sensortoolkit.lib_utils._setup.ReferenceSetup.parseDataSets" title="sensortoolkit.lib_utils._setup.ReferenceSetup.parseDataSets"><code class="xref py py-obj docutils literal notranslate"><span class="pre">parseDataSets</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#sensortoolkit.lib_utils._setup.ReferenceSetup.parseDataSets" title="sensortoolkit.lib_utils._setup.ReferenceSetup.parseDataSets"><code class="xref py py-obj docutils literal notranslate"><span class="pre">parseDataSets</span></code></a></p></td>
 <td><p>Load the  first few rows of recorded sensor datasets located in the <code class="docutils literal notranslate"><span class="pre">../data/sensor_data/[sensor_name]/raw_data</span></code> directory path.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#sensortoolkit.lib_utils._setup.ReferenceSetup.printSelectionBanner" title="sensortoolkit.lib_utils._setup.ReferenceSetup.printSelectionBanner"><code class="xref py py-obj docutils literal notranslate"><span class="pre">printSelectionBanner</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sensortoolkit.lib_utils._setup.ReferenceSetup.printSelectionBanner" title="sensortoolkit.lib_utils._setup.ReferenceSetup.printSelectionBanner"><code class="xref py py-obj docutils literal notranslate"><span class="pre">printSelectionBanner</span></code></a></p></td>
 <td><p>Display a banner indicating the current configuration step.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#sensortoolkit.lib_utils._setup.ReferenceSetup.processAirNowTech" title="sensortoolkit.lib_utils._setup.ReferenceSetup.processAirNowTech"><code class="xref py py-obj docutils literal notranslate"><span class="pre">processAirNowTech</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#sensortoolkit.lib_utils._setup.ReferenceSetup.processAirNowTech" title="sensortoolkit.lib_utils._setup.ReferenceSetup.processAirNowTech"><code class="xref py py-obj docutils literal notranslate"><span class="pre">processAirNowTech</span></code></a></p></td>
 <td><p>Wrapper method for calling the <code class="docutils literal notranslate"><span class="pre">sensortoolkit.reference.preprocess_airnowtech()</span></code> method for converting downloaded AirNowTech datasets to SDFS format.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#sensortoolkit.lib_utils._setup.ReferenceSetup.selectDataSets" title="sensortoolkit.lib_utils._setup.ReferenceSetup.selectDataSets"><code class="xref py py-obj docutils literal notranslate"><span class="pre">selectDataSets</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sensortoolkit.lib_utils._setup.ReferenceSetup.selectDataSets" title="sensortoolkit.lib_utils._setup.ReferenceSetup.selectDataSets"><code class="xref py py-obj docutils literal notranslate"><span class="pre">selectDataSets</span></code></a></p></td>
 <td><p>Choose the selection scheme for pointing to recorded data files.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#sensortoolkit.lib_utils._setup.ReferenceSetup.selectDataSource" title="sensortoolkit.lib_utils._setup.ReferenceSetup.selectDataSource"><code class="xref py py-obj docutils literal notranslate"><span class="pre">selectDataSource</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#sensortoolkit.lib_utils._setup.ReferenceSetup.selectDataSource" title="sensortoolkit.lib_utils._setup.ReferenceSetup.selectDataSource"><code class="xref py py-obj docutils literal notranslate"><span class="pre">selectDataSource</span></code></a></p></td>
 <td><p>Select the service/source from which reference data were acquired.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#sensortoolkit.lib_utils._setup.ReferenceSetup.setColumnHeaders" title="sensortoolkit.lib_utils._setup.ReferenceSetup.setColumnHeaders"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setColumnHeaders</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sensortoolkit.lib_utils._setup.ReferenceSetup.setColumnHeaders" title="sensortoolkit.lib_utils._setup.ReferenceSetup.setColumnHeaders"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setColumnHeaders</span></code></a></p></td>
 <td><p>Manually set column headers if the user indicates <code class="docutils literal notranslate"><span class="pre">'None'</span></code> for the row index for the column headers in <code class="docutils literal notranslate"><span class="pre">setHeaderIndex()</span></code>.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#sensortoolkit.lib_utils._setup.ReferenceSetup.setDataExtension" title="sensortoolkit.lib_utils._setup.ReferenceSetup.setDataExtension"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setDataExtension</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#sensortoolkit.lib_utils._setup.ReferenceSetup.setDataExtension" title="sensortoolkit.lib_utils._setup.ReferenceSetup.setDataExtension"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setDataExtension</span></code></a></p></td>
 <td><p>Select the file data extension for to the datasets that will be loaded.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#sensortoolkit.lib_utils._setup.ReferenceSetup.setDataRelPath" title="sensortoolkit.lib_utils._setup.ReferenceSetup.setDataRelPath"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setDataRelPath</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sensortoolkit.lib_utils._setup.ReferenceSetup.setDataRelPath" title="sensortoolkit.lib_utils._setup.ReferenceSetup.setDataRelPath"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setDataRelPath</span></code></a></p></td>
 <td><p>Assign the relative path for the recorded dataset subdirectory.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#sensortoolkit.lib_utils._setup.ReferenceSetup.setDateTimeFormat" title="sensortoolkit.lib_utils._setup.ReferenceSetup.setDateTimeFormat"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setDateTimeFormat</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#sensortoolkit.lib_utils._setup.ReferenceSetup.setDateTimeFormat" title="sensortoolkit.lib_utils._setup.ReferenceSetup.setDateTimeFormat"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setDateTimeFormat</span></code></a></p></td>
 <td><p>Configure the date/time formatting for date/time column(s) specified in <code class="docutils literal notranslate"><span class="pre">setTimeHeaders()</span></code>.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#sensortoolkit.lib_utils._setup.ReferenceSetup.setHeaderIndex" title="sensortoolkit.lib_utils._setup.ReferenceSetup.setHeaderIndex"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setHeaderIndex</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sensortoolkit.lib_utils._setup.ReferenceSetup.setHeaderIndex" title="sensortoolkit.lib_utils._setup.ReferenceSetup.setHeaderIndex"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setHeaderIndex</span></code></a></p></td>
 <td><p>Select the integer index position for the row containing headers.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#sensortoolkit.lib_utils._setup.ReferenceSetup.setParamHeaders" title="sensortoolkit.lib_utils._setup.ReferenceSetup.setParamHeaders"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setParamHeaders</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#sensortoolkit.lib_utils._setup.ReferenceSetup.setParamHeaders" title="sensortoolkit.lib_utils._setup.ReferenceSetup.setParamHeaders"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setParamHeaders</span></code></a></p></td>
 <td><p>Select the SDFS parameters corresponding to column names discovered by <code class="docutils literal notranslate"><span class="pre">ParseDataSets()</span></code>.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#sensortoolkit.lib_utils._setup.ReferenceSetup.setParamMetaCols" title="sensortoolkit.lib_utils._setup.ReferenceSetup.setParamMetaCols"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setParamMetaCols</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sensortoolkit.lib_utils._setup.ReferenceSetup.setParamMetaCols" title="sensortoolkit.lib_utils._setup.ReferenceSetup.setParamMetaCols"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setParamMetaCols</span></code></a></p></td>
 <td><p>Prompt user to enter various parameter metadata attributes.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#sensortoolkit.lib_utils._setup.ReferenceSetup.setSiteInfo" title="sensortoolkit.lib_utils._setup.ReferenceSetup.setSiteInfo"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setSiteInfo</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#sensortoolkit.lib_utils._setup.ReferenceSetup.setSiteInfo" title="sensortoolkit.lib_utils._setup.ReferenceSetup.setSiteInfo"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setSiteInfo</span></code></a></p></td>
 <td><p>Prompt user to enter various site attributes.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#sensortoolkit.lib_utils._setup.ReferenceSetup.setTimeHeaders" title="sensortoolkit.lib_utils._setup.ReferenceSetup.setTimeHeaders"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setTimeHeaders</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sensortoolkit.lib_utils._setup.ReferenceSetup.setTimeHeaders" title="sensortoolkit.lib_utils._setup.ReferenceSetup.setTimeHeaders"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setTimeHeaders</span></code></a></p></td>
 <td><p>Specify the column(s) containing date/timestamp information.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#sensortoolkit.lib_utils._setup.ReferenceSetup.setTimeZone" title="sensortoolkit.lib_utils._setup.ReferenceSetup.setTimeZone"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setTimeZone</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#sensortoolkit.lib_utils._setup.ReferenceSetup.setTimeZone" title="sensortoolkit.lib_utils._setup.ReferenceSetup.setTimeZone"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setTimeZone</span></code></a></p></td>
 <td><p>Select the time zone associated with the date/time column(s).</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sensortoolkit.lib_utils._setup.ReferenceSetup.specifyCustomIngest" title="sensortoolkit.lib_utils._setup.ReferenceSetup.specifyCustomIngest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">specifyCustomIngest</span></code></a></p></td>
+<td><p>Ask the user whether a custom, prewritten ingestion module will be used to import sensor data instead of the standard_ingest() method.</p></td>
 </tr>
 </tbody>
 </table>
@@ -369,6 +375,21 @@ FRM/FEMs for the indicated parameter.</p>
 </dd>
 <dt class="field-even">Return type</dt>
 <dd class="field-even"><p>df (pandas DataFrame)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sensortoolkit.lib_utils._setup.ReferenceSetup.loadPreviousSetup">
+<span class="sig-name descname"><span class="pre">loadPreviousSetup</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sensortoolkit.lib_utils._setup.ReferenceSetup.loadPreviousSetup" title="Permalink to this definition"></a></dt>
+<dd><p>Ask the user if a previous setup config exists for the type of sensor
+or reference dataset that they are loading. If they choose to use a
+previously configured setup.json file, use the file attributes to fill
+in various setup components, such as the parameter renaming, datetime
+formatting, etc.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>None.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -659,6 +680,18 @@ Defaults to True.</p>
 <dd><p>Select the time zone associated with the date/time column(s).</p>
 <p>Timezones should be valid timezone names recognized by the <code class="docutils literal notranslate"><span class="pre">pytz</span></code>
 library.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>None.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sensortoolkit.lib_utils._setup.ReferenceSetup.specifyCustomIngest">
+<span class="sig-name descname"><span class="pre">specifyCustomIngest</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sensortoolkit.lib_utils._setup.ReferenceSetup.specifyCustomIngest" title="Permalink to this definition"></a></dt>
+<dd><p>Ask the user whether a custom, prewritten ingestion module will be
+used to import sensor data instead of the standard_ingest() method.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>None.</p>
