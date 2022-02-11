@@ -191,10 +191,10 @@ def sensor_import(sensor_name=None, sensor_serials=None,
         The timestamp (date) marking the end of the sensor testing period,
         formatted as ``'YYYY-MM-DD HH:MM:SS'``. Sensor datasets will be
         concatenated to end at this timestamp.
-    :param bool custom_ingest_module:
-        If True, ``ingest_wrapper()`` will attempt to import sensor data using
-        a custom written ingestion module instead of the ``standard_ingest()``
-        method.
+    :param function object ingest_module:
+        If not None, ``ingest_wrapper()`` will attempt to import sensor
+        data using a passed custom written ingestion module instead of the
+        ``standard_ingest()`` method.
 
     Returns:
         (tuple): Three-element tuple containing:
@@ -218,7 +218,7 @@ def sensor_import(sensor_name=None, sensor_serials=None,
 
     """
     valid_extensions = ['.csv', '.txt', '.xlsx']
-    custom_ingest = kwargs.get('custom_ingest_module', None)
+    ingest_module = kwargs.get('ingest_module', None)
     start = kwargs.get('bdate', None)
     end = kwargs.get('edate', None)
 
@@ -242,7 +242,7 @@ def sensor_import(sensor_name=None, sensor_serials=None,
                         cwd = '//'.join([path, filename])
                         print('....' + filename)
                         df = ingest_wrapper(cwd, sensor_name, serial,
-                                            data_path, custom_ingest)
+                                            data_path, ingest_module)
 
                         sensor_df = sensor_df.append(df)
 
@@ -315,7 +315,8 @@ def concat_dataset(data, bdate, edate):
         data = data.loc[:edate, :]
     return data
 
-def ingest_wrapper(cwd, sensor_name, serial, data_path, custom_ingest):
+
+def ingest_wrapper(cwd, sensor_name, serial, data_path, ingest_module):
     """Wrapper for ingestion modules. Selects the ingestion module to convert
     sensor-specific data formatting to SDFS format for analysis.
 
@@ -329,9 +330,9 @@ def ingest_wrapper(cwd, sensor_name, serial, data_path, custom_ingest):
         data_path (str):
             full path to sensor data top directory (contains subdirs for
             processed and raw data, and the setup.json if configured)
-        custom_ingest_module (bool):
-            If True, ``ingest_wrapper()`` will attempt to import sensor data
-            using a custom written ingestion module instead of the
+        ingest_module (function object):
+            If not None, ``ingest_wrapper()`` will attempt to import sensor
+            data using a passed custom written ingestion module instead of the
             ``standard_ingest()`` method.
 
     Returns:
@@ -343,8 +344,8 @@ def ingest_wrapper(cwd, sensor_name, serial, data_path, custom_ingest):
     setup_path = os.path.abspath(data_path + '../' + sensor_name
                                  + '_setup.json')
 
-    if os.path.exists(setup_path) and custom_ingest is None:
+    if os.path.exists(setup_path) and ingest_module is None:
         return standard_ingest(cwd, name=sensor_name,
                                setup_file_path=setup_path)
     else:
-        return custom_ingest(cwd, serial)
+        return ingest_module(cwd, serial)
