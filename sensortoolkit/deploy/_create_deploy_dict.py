@@ -343,11 +343,15 @@ def deploy_met_stats(deploy_dict, df_list, met_ref_df, cal_check_dict=None):
         fmt_param = param_obj.format_name
         #fmt_param_units = param_obj.units
 
+        no_data = False
         try:
             ref_name = met_ref_df.loc[:, param_name + '_Method'].dropna().apply(
                                             lambda x: str(x)).unique()[0]
         except IndexError:
             ref_name = 'Unknown Reference'
+        except KeyError:
+            # No met parameter data in passed reference dataframe
+            no_data = True
 
         if param_name == 'Temp':
             max_criterion = 40  # provisional criterion for upper lim (deg C)
@@ -361,18 +365,6 @@ def deploy_met_stats(deploy_dict, df_list, met_ref_df, cal_check_dict=None):
             start = deploy['eval_start']
             end = deploy['eval_end']
 
-            ref_data = met_ref_df.loc[start:end,  param_name + '_Value']
-
-            grp_idx = [int(i) - 1 for i in deploy['sensors'].keys()]
-            data_pairs = []
-            for idx in grp_idx:
-                df = df_list[idx]
-                start = df.index.min()
-                end = df.index.max()
-                data_pairs.append(
-                            met_ref_df.loc[start:end,
-                                           param_name + '_Value'].dropna().size)
-
             if met_str not in deploy:
                 deploy[met_str] = {}
 
@@ -381,17 +373,36 @@ def deploy_met_stats(deploy_dict, df_list, met_ref_df, cal_check_dict=None):
 
             stats_loc = deploy[met_str][fmt_param]
 
-            stats_loc['instrument_name'] = ref_name
-            stats_loc['min' + avg_suffix] = \
-                float("{0:.3f}".format(ref_data.min()))
-            stats_loc['max' + avg_suffix] = \
-                float("{0:.3f}".format(ref_data.max()))
-            stats_loc['n_exceed_target_criteria' + avg_suffix] = \
-                int(ref_data.where((ref_data > max_criterion) |
-                                   (ref_data < min_criterion)).count())
-            stats_loc['n_measurement_pairs' + avg_suffix] = \
-                np.mean(data_pairs)
+            if not no_data:
+                ref_data = met_ref_df.loc[start:end,  param_name + '_Value']
 
-            #deploy[met_str]['cal_check_dates'] = cal_check_dict
+                grp_idx = [int(i) - 1 for i in deploy['sensors'].keys()]
+                data_pairs = []
+                for idx in grp_idx:
+                    df = df_list[idx]
+                    start = df.index.min()
+                    end = df.index.max()
+                    data_pairs.append(
+                                met_ref_df.loc[start:end,
+                                               param_name + '_Value'].dropna().size)
+
+                stats_loc['instrument_name'] = ref_name
+                stats_loc['min' + avg_suffix] = \
+                    float("{0:.3f}".format(ref_data.min()))
+                stats_loc['max' + avg_suffix] = \
+                    float("{0:.3f}".format(ref_data.max()))
+                stats_loc['n_exceed_target_criteria' + avg_suffix] = \
+                    int(ref_data.where((ref_data > max_criterion) |
+                                       (ref_data < min_criterion)).count())
+                stats_loc['n_measurement_pairs' + avg_suffix] = \
+                    np.mean(data_pairs)
+
+                #deploy[met_str]['cal_check_dates'] = cal_check_dict
+            else:
+                stats_loc['instrument_name'] = ''
+                stats_loc['min' + avg_suffix] = ''
+                stats_loc['max' + avg_suffix] = ''
+                stats_loc['n_exceed_target_criteria' + avg_suffix] = ''
+                stats_loc['n_measurement_pairs' + avg_suffix] = ''
 
     return deploy_dict
