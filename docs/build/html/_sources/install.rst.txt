@@ -1,6 +1,6 @@
-============
-Installation
-============
+*************************************
+Installing and Updating sensortoolkit
+*************************************
 
 .. note::
 
@@ -10,9 +10,11 @@ Installation
   well as the `Spyder IDE <https://www.spyder-ide.org>`_ for editing and compiling code. Anaconda is free for
   individuals.
 
+Installation
+============
 
 Installing with pip
-===================
+-------------------
 
 The easiest way to install sensortoolkit is via ``pip``. Open up a command line interface (for Anaconda users,
 the Anaconda Prompt is recommended) and type the following command:
@@ -22,7 +24,7 @@ the Anaconda Prompt is recommended) and type the following command:
   pip install sensortoolkit
 
 Installing from source
-======================
+----------------------
 
 sensortoolkit is developed and maintained in a USEPA GitHub repository. The latest
 development build can be obtained by cloning the repository:
@@ -56,90 +58,57 @@ If you have Anaconda installed, you'll notice that the installation process may 
 that a lot of the required libraries are already installed as those packages come with
 the base installation of Anaconda.
 
-..
-  Install package dependencies:
-  -----------------------------
+Updating sensortoolkit
+======================
 
-  `conda` and `pip` are two popular package managers for installing python packages
-  and manage the dependency structure for the packages the user wishes to install.
-  Below are guides for installing dependencies for `senortoolkit` in either `conda`
-  or `pip`.
+Updating from a PyPI package distribution
+-----------------------------------------
 
-  **Please note, users should either follow the conda installation process
-  using a virtual environment or install dependencies with pip.**
+If you've installed sensortoolkit using the `installing with pip <./install.html#installing-with-pip>`_ instructions listed
+above, updating your installation is equally as easy!
 
+Open a command line interface and type the following:
 
-  Installing dependencies in a conda virtual environment
-  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.. code-block:: console
 
-  If users have an Anaconda distribution of Python, users may wish to create a virtual
-  environment via `conda` for installing the dependencies required by the `sensortoolkit`
-  library. The benefit of a virtual environment is that software package versions
-  required by the library won't modify package versions in the
-  default base environment (a virtual environment creates a walled garden where
-  users can install the packages and the package versions they require without
-  changing the state or version of packages installed in the base environment).
+  pip install --upgrade sensortoolkit
 
-  `sensortoolkit` comes with the file ``env.yml`` that allows easy installation of
-  dependencies into a `conda` virtual environment named ``sensor-eval``. First,
-  navigate to the folder location for the cloned repository:
-  ::
-    $ cd path/to/library
+.. tip::
 
-  Next, create the virtual environment from the provided ``env.yml`` file. This
-  will install various packages that are required by the `sensortoolkit` library.
-  ::
+	If you wish to upgrade to a specific version of sensortoolkit, this can be done
+  via the following command:
 
-    $ conda env create -f env.yml
+  .. code-block:: console
 
-  Finally, activate the environment to use packages installed in the environment:
-  ::
+    pip install --upgrade sensortoolkit==X.X.X
 
-    $ conda activate sensor-eval
+  where X.X.X is replaced by the version you would like to install.
 
-  If the environment has been activate successfully, the command prompt should
-  display the environment name in parentheses before the system prompt ``$``:
-  ::
+Updating from source
+--------------------
 
-    (sensor-eval) $
+If you cloned the GitHub repository, first, open a command line interface and
+change directories to the folder containing your cloned version of the sensortoolkit repository:
 
-  .. tip::
+.. code-block:: console
 
-      To exit the ``sensor-eval`` environment, type: ``conda deactivate``
+  cd path/to/sensortoolkit
 
+Next, install available updates via a 'git pull' command:
 
-  Installing dependencies with pip
-  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  .. warning::
+.. code-block:: console
 
-      `conda` users are discouraged from using pip to install dependencies, as
-      packages installed via `pip` may supersede previously installed packages
-      via `conda`. In addition, `conda` and `pip` manage dependencies differently,
-      and this may lead to potential issues if users wish to update package versions
-      at a future point.
+  git pull
 
-  First, navigate to the folder location for the cloned repository:
-  ::
-
-    $ cd path/to/library
-
-  A list of dependencies and package versions is provided in the ``requirements.txt``
-  file within the main directory of the library. Dependencies are installed with
-  `pip` via the following command:
-  ::
-
-    $ pip install –r requirements.txt --user
-
-  Run ``setup.py``
-  ----------------------------------
-
-  The last step in the installation process is ensuring that the ``sensortoolkit``
-  package modules can be imported from any directory location on a users system. For Anaconda
-  users, packages are placed in a directory location with a path that should look
-  something like ``user/Anaconda3/Lib/site-packages``.
-
-  To run the setup.py module, open a command line utility and ensure that the current
-  directory is the location of the cloned repository. Then type the following command:
-  ::
-
-    $ python setup.py install
+  remote: Enumerating objects: 4141, done.
+  remote: Counting objects: 100% (4141/4141), done.
+  remote: Compressing objects: 100% (690/690), done.
+  remote: Total 3747 (delta 3334), reused 3396 (delta 3044), pack-reused 0
+  Receiving objects: 100% (3747/3747), 7.86 MiB | 487.00 KiB/s, done.
+  Resolving deltas: 100% (3334/3334), completed with 362 local objects.
+  From https://github.com/USEPA/sensortoolkit.git
+   e5aed929..026ee1c2  master -> origin/master
+  Updating files: 100% (559/559), done.
+  Updating e5aed929..026ee1c2
+  Fast-forward
+  [A log of various files in the source code that have been modified in the current dev. package]

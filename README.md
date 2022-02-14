@@ -126,8 +126,8 @@ any commercial product or activity by the USEPA or the United States Government.
 
 ***The following installation guide is pulled from the HTML formatted documentation packaged alongside `sensortoolkit`. Once the repository has been downloaded, users
 are strongly recommended to follow the remainder of the documentation via the HTML
-documentation. The HTML documentation contain greater detail about implementing the
-`sensortoolkit` library, detailed API documentation, as well as formatted tips, notes, and recommendations for using the library.***
+documentation. The HTML documentation contains greater detail regarding the implementation of the
+`sensortoolkit` library, including a quick start guide, detailed API documentation, formatted tips, notes, and general recommendations for using the library.***
 
 To open the included HTML documentation, open a command line interface and ensure that the current working directory is the folder location
 where the repository was downloaded. Next, type the following command and hit enter:

@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Installation &mdash; sensortoolkit 0.8.0b1 documentation</title>
+  <title>Installing and Updating sensortoolkit &mdash; sensortoolkit 0.8.0b1 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" type="text/css" />
@@ -46,7 +46,7 @@
               <p class="caption" role="heading"><span class="caption-text">Documentation Overview</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart Guide</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Installation</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Installing and Updating sensortoolkit</a></li>
 <li class="toctree-l1"><a class="reference internal" href="import_sensortoolkit.html">Importing sensortoolkit</a></li>
 <li class="toctree-l1"><a class="reference internal" href="testingattrib_objects/index.html">Testing Attribute Objects</a></li>
 <li class="toctree-l1"><a class="reference internal" href="evaluation_objects/index.html">Evaluation Objects</a></li>
@@ -72,7 +72,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>Installation</li>
+      <li>Installing and Updating sensortoolkit</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/install.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -82,8 +82,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="installation">
-<h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline"></a></h1>
+  <section id="installing-and-updating-sensortoolkit">
+<h1>Installing and Updating sensortoolkit<a class="headerlink" href="#installing-and-updating-sensortoolkit" title="Permalink to this headline"></a></h1>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Users will need an installation of Python (v3.6 or greater). It’s highly
@@ -92,8 +92,10 @@ a package distribution of Python that includes many widely used libraries as
 well as the <a class="reference external" href="https://www.spyder-ide.org">Spyder IDE</a> for editing and compiling code. Anaconda is free for
 individuals.</p>
 </div>
+<section id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline"></a></h2>
 <section id="installing-with-pip">
-<h2>Installing with pip<a class="headerlink" href="#installing-with-pip" title="Permalink to this headline"></a></h2>
+<h3>Installing with pip<a class="headerlink" href="#installing-with-pip" title="Permalink to this headline"></a></h3>
 <p>The easiest way to install sensortoolkit is via <code class="docutils literal notranslate"><span class="pre">pip</span></code>. Open up a command line interface (for Anaconda users,
 the Anaconda Prompt is recommended) and type the following command:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">pip install sensortoolkit</span>
@@ -101,7 +103,7 @@ the Anaconda Prompt is recommended) and type the following command:</p>
 </div>
 </section>
 <section id="installing-from-source">
-<h2>Installing from source<a class="headerlink" href="#installing-from-source" title="Permalink to this headline"></a></h2>
+<h3>Installing from source<a class="headerlink" href="#installing-from-source" title="Permalink to this headline"></a></h3>
 <p>sensortoolkit is developed and maintained in a USEPA GitHub repository. The latest
 development build can be obtained by cloning the repository:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">USEPA</span><span class="o">/</span><span class="n">sensortoolkit</span><span class="o">.</span><span class="n">git</span>
@@ -126,6 +128,55 @@ shouldn’t matter too much.</p>
 If you have Anaconda installed, you’ll notice that the installation process may indicate
 that a lot of the required libraries are already installed as those packages come with
 the base installation of Anaconda.</p>
+</section>
+</section>
+<section id="updating-sensortoolkit">
+<h2>Updating sensortoolkit<a class="headerlink" href="#updating-sensortoolkit" title="Permalink to this headline"></a></h2>
+<section id="updating-from-a-pypi-package-distribution">
+<h3>Updating from a PyPI package distribution<a class="headerlink" href="#updating-from-a-pypi-package-distribution" title="Permalink to this headline"></a></h3>
+<p>If you’ve installed sensortoolkit using the <a class="reference external" href="./install.html#installing-with-pip">installing with pip</a> instructions listed
+above, updating your installation is equally as easy!</p>
+<p>Open a command line interface and type the following:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">pip install --upgrade sensortoolkit</span>
+</pre></div>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<blockquote>
+<div><p>If you wish to upgrade to a specific version of sensortoolkit, this can be done</p>
+</div></blockquote>
+<p>via the following command:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">pip install --upgrade sensortoolkit==X.X.X</span>
+</pre></div>
+</div>
+<p>where X.X.X is replaced by the version you would like to install.</p>
+</div>
+</section>
+<section id="updating-from-source">
+<h3>Updating from source<a class="headerlink" href="#updating-from-source" title="Permalink to this headline"></a></h3>
+<p>If you cloned the GitHub repository, first, open a command line interface and
+change directories to the folder containing your cloned version of the sensortoolkit repository:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">cd path/to/sensortoolkit</span>
+</pre></div>
+</div>
+<p>Next, install available updates via a ‘git pull’ command:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">git pull</span>
+
+<span class="go">remote: Enumerating objects: 4141, done.</span>
+<span class="go">remote: Counting objects: 100% (4141/4141), done.</span>
+<span class="go">remote: Compressing objects: 100% (690/690), done.</span>
+<span class="go">remote: Total 3747 (delta 3334), reused 3396 (delta 3044), pack-reused 0</span>
+<span class="go">Receiving objects: 100% (3747/3747), 7.86 MiB | 487.00 KiB/s, done.</span>
+<span class="go">Resolving deltas: 100% (3334/3334), completed with 362 local objects.</span>
+<span class="go">From https://github.com/USEPA/sensortoolkit.git</span>
+<span class="go"> e5aed929..026ee1c2  master -&gt; origin/master</span>
+<span class="go">Updating files: 100% (559/559), done.</span>
+<span class="go">Updating e5aed929..026ee1c2</span>
+<span class="go">Fast-forward</span>
+<span class="go">[A log of various files in the source code that have been modified in the current dev. package]</span>
+</pre></div>
+</div>
+</section>
 </section>
 </section>
 

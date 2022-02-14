@@ -20,7 +20,7 @@ site where sensors were deployed in triplicate.
 
 .. note::
 
-  Script templates are provided at the end of this guide, recapping functions you 
+  Script templates are provided at the end of this guide, recapping functions you
   will need for setting up analyses, conducting evaluations, and creating reports.
   `Click here <./quickstart.html#templates>`_ to jump to the templates section.
 
@@ -33,15 +33,16 @@ development of the package, you can clone the GitHub repository.
 
 .. tip::
 
-  `Click here <./install.html>`_ for more info about installing sensortoolkit.
+  `Click here <./install.html#installation>`_ for more info about installing sensortoolkit.
 
 Sensortoolkit is actively maintained, and bug fixes and feature enhancements
-are regularly added to the latest development build. More information about
+are regularly added to the latest development build. **Users are strongly encouraged to update to
+the latest version of sensortoolkit before using the library for analysis**. More information about
 updating sensortoolkit can be found by following the link below.
 
 .. tip::
 
-  `Click here <./install.html>`_ for more info about updating sensortoolkit.
+  `Click here <./install.html#updating-sensortoolkit>`_ for more info about updating sensortoolkit.
 
 
 Example Scenario - *Toco Toucan*
@@ -53,9 +54,10 @@ Example Scenario - *Toco Toucan*
 
 Say that you have chosen to test a sensor from the manufacturer *'Toco'* called the
 *'Toucan'*. Three Toco Toucans were deployed at an ambient air monitoring site alongside
-reference instrumentation. The Toucan air sensor measures both PM2.5 and O3, and you have confirmed
+reference instrumentation. Let's say that the Toucan air sensor measures both PM2.5 and O3 and that you have confirmed
 with the agency overseeing the monitoring site that reference-grade monitors
-designated either Federal Equivalent Methods (FEMs) or Federal Reference Methods (FRMs).
+designated either Federal Equivalent Methods (FEMs) or Federal Reference Methods (FRMs) are situated at the
+monitoring site for the pollutants you plan to measure.
 Following a sampling period of 30 days, you collect data from each Toucan sensor and acquire data
 from the monitoring agency for collocated reference measurements.
 
@@ -83,7 +85,7 @@ call this directory ``toucan_evaluation``.
 2 - Calling sensortoolkit from Scripts
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-sensortoolkit works best in development environments that allow you simultaneously develop
+sensortoolkit works best in development environments that allow you to simultaneously develop
 scripts, view and explore variables, and execute code. These types of software utilities
 are called integrated development environments (IDEs). One popular IDE for python included
 alongside Anaconda distributions of the coding language is Spyder.
@@ -112,7 +114,7 @@ Set the project path using the following function
   sensortoolkit.presets.set_project_path()
 
 Once you've set the project path, add information about the testing organization and
-location where the sensors were deployed. Inputting this information is optional,
+location where the sensors were deployed. Inputting this information is optional
 but is helpful in attributing the evaluation to the responsible party in meta data
 files that are generated during analysis.
 
@@ -139,8 +141,8 @@ files that are generated during analysis.
 4 - Creating an AirSensor Object
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The next step is to create a object for our Toco Toucan sensor that will store all
-of the data sets and related attributes for our analysis. This is done by calling the
+The next step is to create an object for our Toco Toucan sensor that will store all
+the data sets and related attributes for our analysis. This is done by calling the
 ``sensortoolkit.AirSensor`` method:
 
 .. code-block:: python
@@ -250,7 +252,7 @@ This creates an instance of ``sensortoolkit.ReferenceMonitor`` called ``referenc
 9 - Configuring the Reference Setup
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-As with the Toco Toucan sensor data sets, we need to give sensortoolkit indication of the
+As with the Toco Toucan sensor data sets, we need to give sensortoolkit an indication of the
 location of reference monitor datasets and data formatting in order to import and utilize
 these data sets. This is accomplished via the ``reference_setup()`` function which is included
 alongside your ``reference`` object.
@@ -264,8 +266,8 @@ alongside your ``reference`` object.
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Reference data are imported via the ``load_data()`` function included alongside your ``reference``
-object. If you intend to query data from either the AirNow or AQS API, please see [Loading Reference
-Data] for more information.
+object. If you intend to query data from either the AirNow or AQS API, please see
+`Loading Reference Data <./testingattrib_objects/referencemonitor/load_data.html>`_ for more information.
 
 .. code-block:: python
 
