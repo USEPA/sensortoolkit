@@ -93,13 +93,15 @@ def sensor_averaging(full_df_list, sensor_serials=None, name='',
                           np.linspace(1, n_sensors, n_sensors, dtype=int)}
 
     # Loop over each recorded sensor dataset and compute hourly, daily averages
-    for full_df, sensor_n in zip(full_df_list, sensor_serials):
+    for i, (full_df, sensor_n) in enumerate(zip(full_df_list, sensor_serials)):
         serial_id = sensor_serials[sensor_n]
 
         full_df = remove_duplicates(full_df,
                                     agg_numeric_by='mean',
                                     agg_object_by='first',
                                     print_indent=2)
+
+        full_df_list[i] = full_df
 
         # Compute timedelta between successive timestamps
         delta = (full_df.index[1:] - full_df.index[0:-1]).to_frame()
@@ -171,7 +173,7 @@ def sensor_averaging(full_df_list, sensor_serials=None, name='',
             hourly_cp.to_csv(path + name + '_' + serial_id + '_hourly.csv')
             daily_cp.to_csv(path + name + '_' + serial_id + '_daily.csv')
 
-    return hourly_df_list, daily_df_list
+    return full_df_list, hourly_df_list, daily_df_list
 
 
 def interval_averaging(df, freq='H', interval_count=60, thres=0.75):
