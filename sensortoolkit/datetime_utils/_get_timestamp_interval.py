@@ -33,12 +33,17 @@ def get_timestamp_interval(df, warning=False, as_timedelta=False):
             in the dataframe.
 
     """
+    if df.empty:
+        return None
     # Only count the duration between consecutive, non-repeating timestamps
     idx = df.index.drop_duplicates()
 
     delta = (idx[1:] - idx[0:-1]).to_frame()
     idx_name = delta.index.name
+
     t_delta = delta[idx_name].mode()[0]
+
+
 
     delta_std = delta.std()[0].seconds
 
