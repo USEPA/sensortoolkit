@@ -32,7 +32,7 @@ formatted) sensor datasets by calling methods in the
     # Your custom ingestion function
     def custom_ingestion_method(path_to_data_file, sensor_serial_id):
 
-        # Load data from the file path for the specified sensor unit 
+        # Load data from the file path for the specified sensor unit
         data = pandas.read_csv(path_to_data_file)
 
         # Other steps you may need to take to convert the data into SDFS format
@@ -281,12 +281,14 @@ def sensor_import(sensor_name=None, sensor_serials=None,
 
             full_df_list.append(sensor_df)
 
-        hourly_df_list, daily_df_list = sensor_averaging(full_df_list,
-                                                         sensor_serials,
-                                                         sensor_name,
-                                                         write_to_file,
-                                                         path=processed_path,
-                                                         **kwargs)
+        df_tuple = sensor_averaging(full_df_list,
+                                    sensor_serials,
+                                    sensor_name,
+                                    write_to_file,
+                                    path=processed_path,
+                                    **kwargs)
+
+        full_df_list, hourly_df_list, daily_df_list = df_tuple
 
     else:
         df_tuple = processed_data_search(processed_path,
