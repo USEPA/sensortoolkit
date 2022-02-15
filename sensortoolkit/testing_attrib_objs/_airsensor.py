@@ -22,7 +22,6 @@ from sensortoolkit import datetime_utils
 from sensortoolkit import presets as _presets
 from pathlib import Path
 
-#default_proj_path = _presets._project_path
 
 class AirSensor:
     """Object for storing and accessing air sensor data and device attributes.
@@ -295,8 +294,7 @@ class AirSensor:
                                          'sensor_data', self.name,
                                          'processed_data', '')
 
-        df_tuple = ingest.sensor_import(
-                                        sensor_name=self.name,
+        df_tuple = ingest.sensor_import(sensor_name=self.name,
                                         sensor_serials=self.serials,
                                         load_raw_data=load_raw_data,
                                         data_path=self._data_path,
@@ -304,21 +302,21 @@ class AirSensor:
                                         write_to_file=write_to_file,
                                         **kwargs)
         self._set_data(df_tuple)
+        self._check_empty_datasets()
 
     def _set_data(self, data_obj):
         for dataset_group in data_obj:
             # Check that the intervals in the datasets are similar
             t_intervals = [datetime_utils.get_timestamp_interval(df)
                            for df in dataset_group]
-
-            same_t_interval = all(interval==t_intervals[0] for
-                                  interval in t_intervals)
-
-            if not same_t_interval:
+            t_interval_series = pd.Series(t_intervals)
+            t_interval_mode = t_interval_series.mode()
+            if t_interval_mode.shape != (1,):
                 print('Warning, timestamp intervals not consistent.')
                 print(t_intervals)
             else:
-                t_interval = t_intervals[0]
+                t_mode = t_interval_mode.values[0]
+                t_interval = t_mode
                 self.data[t_interval] = {}
                 for serial_id, df in zip(self.serials.values(), dataset_group):
                     self.data[t_interval][serial_id] = df
@@ -330,6 +328,32 @@ class AirSensor:
         self.bdate = pd.to_datetime(eval_bdate)
         self.edate = pd.to_datetime(eval_edate)
 
+    def _check_empty_datasets(self):
 
-if __name__ == '__main__':
-    work_path = r'C:\Users\SFREDE01\OneDrive - Environmental Protection Agency (EPA)\Profile\Documents\sensortoolkit_testing'
+        empty_datasets = {}
+        for key, serial in self.serials.items():
+            empty_datasets[serial] = {}
+            for interval in self.data.keys():
+                dataset = self.data[interval][serial]
+                empty_datasets[serial][interval] = dataset.empty
+
+        for sensor_to_drop in empty_datasets.keys():
+            if all(empty_datasets[sensor_to_drop].values()) is True:
+                print(f'..empty datasets detected for {sensor_to_drop}, may be '
+                      'due to user-specified evaluation period concatenation')
+                print(f'..dropping {sensor_to_drop} from evaluation group')
+                serial_loc = [key for (key, val) in self.serials.items()
+                              if val == sensor_to_drop][0]
+
+                # Remove serial corresponding to sensor with empty datasets
+                # from serial dict
+                self.serials.pop(serial_loc)
+                # Reorder serial IDs
+                self.serials = {str(i): serial_id for i, (key, serial_id)
+                                in enumerate(self.serials.items(), 1)}
+
+                # Remove empty datasets from data object
+                for interval in self.data.copy():
+                    for serial_id in self.data[interval].copy():
+                        if serial_id == sensor_to_drop:
+                            self.data[interval].pop(serial_id)
