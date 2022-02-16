@@ -387,8 +387,18 @@ class _Setup:
             # if the formatting for the current datasets and previous setup config
             # do not match, fall back with standard setup process (i.e.,
             # set use_previous_setup to false and continue)
-            for col_idx in self.col_headers:
-                for label in self.col_headers[col_idx]:
+            for col_idx in self.col_headers.copy():
+                for label in self.col_headers[col_idx].copy():
+
+                    # Check if the recorded dataset doesnt have a header,
+                    # if so, use previously manually configured names
+                    if previous_setup_data['header_iloc'] == None:
+                        # label is an integer value, reassign to previously
+                        # manually configured name
+                        former_label = label
+                        label = list(col_descrip.keys())[former_label]
+                        self.col_headers[col_idx][label] = self.col_headers[col_idx].pop(former_label)
+
                     try:
                         self.col_headers[col_idx][label]['sdfs_param'] = col_descrip[label]['sdfs_param']
                         self.col_headers[col_idx][label]['header_class'] = col_descrip[label]['header_class']
