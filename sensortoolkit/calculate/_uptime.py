@@ -67,13 +67,22 @@ def uptime(dataframe_object, key=None):
 
         uptime_dict.update({key: {}})
 
-        meets_thres = df.count().mode()[0]
-        below_thres = df.isna().sum().mode()[0]
+        if df.empty:
+            uptime_value = 0
+            meets_thres = 0
+            below_thres = 0
+            expected = 0
 
-        dt = get_timestamp_interval(df,as_timedelta=True)
-        expected = pd.date_range(df.index.min(), df.index.max(), freq=dt).shape[0]
+        else:
 
-        uptime_value = (float(meets_thres) / expected)*100
+            meets_thres = df.count().mode()[0]
+            below_thres = df.isna().sum().mode()[0]
+
+            dt = get_timestamp_interval(df,as_timedelta=True)
+            expected = pd.date_range(df.index.min(), df.index.max(),
+                                     freq=dt).shape[0]
+
+            uptime_value = (float(meets_thres) / expected)*100
 
         print(f'..non-null count: {meets_thres}, expected count: {expected}, '
               f'uptime: {uptime_value:0.2f}%')
