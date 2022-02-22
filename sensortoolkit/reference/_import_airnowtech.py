@@ -343,6 +343,7 @@ def write_to_file(df, path, outpath):
 
                 try:
                     site_aqs = month_df['Site_AQS'].mode()[0]
+                    site_aqs = str(site_aqs).zfill(9)
                     site_aqs = site_aqs.replace('-', '').replace(' ', '')
                 except KeyError:
                     site_aqs = 'Unspecified_Site_AQS_ID'
