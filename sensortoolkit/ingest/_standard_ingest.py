@@ -24,7 +24,7 @@ import pandas as pd
 from pandas.errors import EmptyDataError
 from sensortoolkit.param import Parameter
 from sensortoolkit.calculate import convert_temp
-
+import charset_normalizer
 
 def standard_ingest(path, name=None, setup_file_path=None):
     """Ingestion module for sensor data using setup.json configuration file
@@ -65,9 +65,42 @@ def standard_ingest(path, name=None, setup_file_path=None):
                 row_idx = setup['data_row_idx']
 
             if setup['file_extension'] in ('.csv', '.txt'):
-                df = pd.read_csv(path, header=setup['header_iloc'],
-                                 names=names, skiprows=row_idx,
-                                 encoding=encoding_pred, on_bad_lines='warn')
+                try:
+                    df = pd.read_csv(path, header=setup['header_iloc'],
+                                     names=names, skiprows=row_idx,
+                                     encoding=encoding_pred,
+                                     on_bad_lines='warn')
+                except UnicodeDecodeError:
+                    print('[WARNING]: Reading the following dataset with uft-8 '
+                          'encoding unsuccessful')
+                    print(path)
+                    print('..Attempting to guess encoding')
+
+                    with open(path, 'rb') as f:
+                        data = f.read(10000)
+                    prediction = charset_normalizer.detect(data)
+                    print('..encoding prediction:')
+                    print(f'....{prediction}')
+                    print('')
+
+                    try:
+                        df = pd.read_csv(path, header=setup['header_iloc'],
+                                         names=names, skiprows=row_idx,
+                                         encoding=prediction["encoding"],
+                                         on_bad_lines='warn')
+                    except UnicodeError as e:
+                        print('Error encountered in file:', path)
+                        print(e)
+                        print(f'Encoding prediction {prediction["encoding"]} '
+                              f'unsuccessful for {path}')
+                        return pd.DataFrame()
+                    except UnicodeDecodeError as e:
+                        print('Error encountered in file:', path)
+                        print(e)
+                        print(f'Encoding prediction {prediction["encoding"]} '
+                              f'unsuccessful for {path}')
+                        return pd.DataFrame()
+
             if setup['file_extension'] == '.xlsx':
                 df = pd.read_excel(path, header=setup['header_iloc'],
                                    names=names, skiprows=row_idx,
