@@ -5,7 +5,6 @@
 *Sensors at an ambient air monitoring site. Photo Credit - South Coast AQMD AQ-SPEC Program*
 
 *Samuel Frederick, NSSC Contractor (ORAU)*\
-*Email: frederick.samuel@epa.gov*
 
 ****
 ## Readme Guide
@@ -134,7 +133,7 @@ python opendocs.py
 ```
 The documentation should open in your default browser, and you should see a landing page that looks something like this:
 
-![sensortoolkit Landing Page](docs/_readmefigs_/toolkit_landing_page.png){width=800}
+![sensortoolkit Landing Page](docs/_readmefigs_/toolkit_landing_page.png)
 
 Note: Users will need an installation of Python (v3.6 or greater). It’s
 highly recommended that users download an Anaconda distribution of
