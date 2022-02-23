@@ -4,7 +4,7 @@
 
 *Sensors at an ambient air monitoring site. Photo Credit - South Coast AQMD AQ-SPEC Program*
 
-*Samuel Frederick, NSSC Contractor (ORAU)*\
+*Samuel Frederick, NSSC Contractor (ORAU)*
 
 ****
 ## Readme Guide
