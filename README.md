@@ -1,6 +1,6 @@
 # sensortoolkit (v0.8.1 beta 1) - Air Sensor Data Analysis Library
 
-![Sensors at an Ambient Air Monitoring Site](docs/_readmefigs_/CSAM_3_crop.jpg){width=1200}
+![Sensors at an Ambient Air Monitoring Site](docs/_readmefigs_/CSAM_3_crop.jpg)
 
 *Sensors at an ambient air monitoring site. Photo Credit - South Coast AQMD AQ-SPEC Program*
 
