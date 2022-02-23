@@ -283,14 +283,3 @@ class Parameter:
                          'Unit Code': None}
 
         return unit_info
-
-
-if __name__ == '__main__':
-    # Testing
-    # ----------------------
-    PM25 = Parameter('PM25')
-    # O3 = Parameter('O3')
-    # SO2 = Parameter('SO2')
-
-    #Temp = Parameter('Temp')
-    #RH = Parameter('RH')

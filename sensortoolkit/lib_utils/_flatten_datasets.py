@@ -74,8 +74,3 @@ def flatten_datasets(AirSensor, ReferenceMonitor, write_to_file=False):
         flat_dict[interval] = flat_df
 
     return flat_dict
-
-
-if __name__ == '__main__':
-    data_dict = flatten_datasets(sensor, ref, write_to_file=True)
-    df = data_dict['24-hour']

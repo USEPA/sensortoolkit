@@ -128,7 +128,7 @@ def downsampling_interval(quant_df, thres_quant=0.99, plot_quantiles=True):
     Say we have the following scenario where a sensor was configured to record
     data at 60 second intervals but the recording interval occasionally drifted
     to shorter or longer intervals:
-    
+
     - threshold quantile (``'thres_quant'``) = 0.99 (99th percentile)
     - threshold recording interval (recording interval at the 99th percentile)
       = 115 seconds
@@ -262,15 +262,3 @@ def plot_timedelta_quantiles(quant_df, interval, thres_quant=0.99):
     ax.set_xlabel('Quantile (%)', fontsize=12)
     ax.set_ylabel('Recording Interval Time Delta (s)', fontsize=12)
     ax.tick_params(axis='both', labelsize=11)
-
-
-if __name__ == '__main__':
-
-    quant_df = timedelta_quantiles(Eval.full_df_list, Eval.serials)
-    interval = downsampling_interval(quant_df, thres_quant=0.95)
-
-    # Consider adding a qc flag or something to the datasets that have been
-    # downsampled
-
-    #modified_df_list = apply_downsampling(Eval.full_df_list,
-    #                                      downsampling_interval=interval)

@@ -181,9 +181,3 @@ def create_sensor_directories(name=None, param=None, path=None):
     if not os.path.exists(report_path):
         print('\nCreating "reports" subdirectory within', path)
         os.makedirs(report_path)
-
-
-if __name__ == '__main__':
-    create_sensor_directories(name='Example_Make_Model',
-                              param=['PM25', 'O3'],
-                              path=r'C:\Users\SFREDE01\OneDrive - Environmental Protection Agency (EPA)\Profile\Documents\sensortoolkit_testing')

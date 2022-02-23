@@ -627,15 +627,3 @@ class ReferenceMonitor:
                 df = data_dict[classifier][interval]
                 if not df.empty:
                     self.data[classifier][interval] = df
-
-
-if __name__ == '__main__':
-
-    work_path = r'C:\Users\SFREDE01\OneDrive - Environmental Protection Agency (EPA)\Profile\Documents\test_dir'
-
-    ref = ReferenceMonitor(project_path=work_path)
-
-    ref = ReferenceMonitor(site_name='Test Site',
-                    site_id=None,
-                    data_source='local',
-                    project_path=work_path)
