@@ -387,6 +387,7 @@ class _Setup:
             # if the formatting for the current datasets and previous setup config
             # do not match, fall back with standard setup process (i.e.,
             # set use_previous_setup to false and continue)
+            self._not_in_previous_setup = {}
             for col_idx in self.col_headers.copy():
                 for label in self.col_headers[col_idx].copy():
 
@@ -416,7 +417,32 @@ class _Setup:
                             self.col_headers[col_idx][label]['sdfs_param'] = ''
                             self.col_headers[col_idx][label]['header_class'] = 'parameter'
                             self.col_headers[col_idx][label]['drop'] = True
+                        if col_idx not in self._not_in_previous_setup:
+                            self._not_in_previous_setup[col_idx] = {}
+                        self._not_in_previous_setup[col_idx][label] = {'sdfs_param': '',
+                                                                       'header_class': '',
+                                                                       'drop': False}
                         continue
+
+            # Ask the user to specify attributes for columns that
+            # didnt appear in the previously configured setup.
+            if self._not_in_previous_setup != {}:
+                new_cols = []
+
+                for col_idx in self._not_in_previous_setup:
+                    new_cols.extend(self._not_in_previous_setup[col_idx].keys())
+
+                new_cols = list(set(new_cols))
+
+                self.all_col_headers.extend(new_cols)
+                self.all_col_headers = list(set(self.all_col_headers))
+
+                self.setTimeHeaders(
+                    print_statement=f'\nFrom the following list of column names, enter the names of columns which contain timestamps\n{new_cols}')
+                self.setDateTimeFormat()
+                self.setTimeZone()
+                self.setParamHeaders(col_list=new_cols)
+
 
     def loadDataFile(self, file, **kwargs):
         """Helper function for loading the first few rows of recorded datasets.
@@ -755,7 +781,7 @@ class _Setup:
 
         print('')
 
-    def setTimeHeaders(self, print_banner=True):
+    def setTimeHeaders(self, print_banner=True, print_statement=None):
         """Specify the column(s) containing date/timestamp information.
 
         Args:
@@ -774,6 +800,10 @@ class _Setup:
         # Create a list of time-like columns, update the col_headers list with
         # the DateTime type corresponding to the specified header name
         # Enter in the time like columns [LOOP]
+
+        if print_statement is not None:
+            print(print_statement)
+
         end = False
         i = 1
         while end is False:
@@ -817,7 +847,7 @@ class _Setup:
         print('\nTimestamp column list:', self.timestamp_col_headers)
         enter_continue()
 
-    def setParamHeaders(self, print_banner=True):
+    def setParamHeaders(self, print_banner=True, col_list=None):
         """Select the SDFS parameters corresponding to column names discovered
         by ``ParseDataSets()``.
 
@@ -851,8 +881,12 @@ class _Setup:
         # with remaining cols
         # param_col_list = [param for param in self.all_col_headers
         #                   if param not in self.timestamp_col_headers)]
-        param_col_list = list(set(param for param in self.all_col_headers
-                          if param not in self.timestamp_col_headers))
+        if col_list is None:
+            param_col_list = list(set(param for param in self.all_col_headers
+                              if param not in self.timestamp_col_headers))
+        else:
+            param_col_list = list(set(param for param in col_list if param
+                                      not in self.timestamp_col_headers))
 
         n_params = len(param_col_list)
         renaming_dict = {}
@@ -874,7 +908,10 @@ class _Setup:
 
                     if set_header in self.sdfs_params:
                         valid = True
+
                         self.sdfs_header_names.append(set_header)
+                        self.sdfs_header_names = list(set(self.sdfs_header_names))
+
                         if self.data_type == 'reference':
                             self.setParamMetaCols(rec_header, set_header)
                         unit_transform = self.checkParamUnits(rec_header, set_header)
@@ -1005,6 +1042,15 @@ class _Setup:
 
         self.time_format_dict = {}
         for col in self.timestamp_col_headers:
+
+            # Pass over previously configured timestamp columns (when using
+            # loadPreviousSetup())
+            for col_idx in self.col_headers.keys():
+                if col in self.col_headers[col_idx]:
+                    col_attribs = self.col_headers[col_idx][col]
+            if 'dt_format' in col_attribs:
+                continue
+
             invalid = True
             while invalid is True:
                 val = input('Enter date/time formatting for "' + col + '": ')
@@ -1047,6 +1093,15 @@ class _Setup:
                                          ' "pytz.all_timezones"'])
 
         for col in self.timestamp_col_headers:
+
+            # Pass over previously configured timestamp columns (when using
+            # loadPreviousSetup())
+            for col_idx in self.col_headers.keys():
+                if col in self.col_headers[col_idx]:
+                    col_attribs = self.col_headers[col_idx][col]
+            if ('dt_timezone' in col_attribs):
+                continue
+
             invalid = True
             while invalid is True:
                 val = input('Enter time zone for "' + col + '": ')
@@ -1676,43 +1731,3 @@ class ReferenceSetup(_Setup):
                     filename = 'H_' + year + month + '_' + classifier + '.csv'
                     print(f'..{filename}')
                     month_df.to_csv(os.path.join(process_path, filename))
-
-
-"""
-# Testing out using new method dataset for criteria pollutants
-def displayMethods(param, lookup_data, verbose=False):
-
-        if verbose:
-            expand_frame_repr =  False
-            col_width = 1000
-        else:
-            expand_frame_repr =  True
-            col_width = 65
-        with pd.option_context('display.expand_frame_repr', expand_frame_repr,
-                               'display.max_colwidth', col_width,
-                               'display.max_rows', None,
-                               'display.colheader_justify', 'right'):
-            table = lookup_data[
-                lookup_data['Method Type'].str.startswith(param)
-                            ].reset_index(drop=True)
-
-            if not verbose:
-                table['Make/Model'] = table.Abbrev_Make + ' ' + table.Model
-                print(table[['Make/Model', 'Method Code']
-                            ].reset_index(drop=True))
-            else:
-                print(table[['Make', 'Model', 'Method Code']
-                            ].reset_index(drop=True))
-
-        return table
-"""
-
-if __name__ == '__main__':
-    sensor_name = 'Example_Make_Model'
-    work_path = (r'C:\Users\SFREDE01\OneDrive - Environmental Protection Agency (EPA)\Profile\Documents\sensortoolkit_testing')
-
-    test = SensorSetup(name=sensor_name,
-                path=work_path)
-
-
-    #test = ReferenceSetup(path=work_path)
