@@ -18,4 +18,4 @@ file_path = os.path.abspath(__file__)
 index_path = os.path.join(file_path, '..', 'docs', 'build',
                           'html', 'index.html')
 
-webbrowser.open_new_tab(index_path)
+webbrowser.open_new_tab('file://' + os.path.normpath(index_path))
