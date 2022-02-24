@@ -1,7 +1,6 @@
 # sensortoolkit - Air Sensor Data Analysis Library
 
-*Version 0.8.2 Beta 3*
-
+[![PyPI version](https://badge.fury.io/py/sensortoolkit.svg)](https://badge.fury.io/py/sensortoolkit)
 [![Downloads](https://pepy.tech/badge/sensortoolkit)](https://pepy.tech/project/sensortoolkit)
 [![Documentation Status](https://readthedocs.org/projects/sensortoolkit/badge/?version=latest)](https://sensortoolkit.readthedocs.io/en/latest/?badge=latest)
 
