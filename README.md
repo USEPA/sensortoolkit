@@ -1,5 +1,7 @@
 # sensortoolkit (v0.8.2 beta 3) - Air Sensor Data Analysis Library
 
+[![Downloads](https://pepy.tech/badge/sensortoolkit)](https://pepy.tech/project/sensortoolkit)
+
 ![Sensors at an Ambient Air Monitoring Site](docs/_readmefigs_/CSAM_3_crop.jpg)
 
 *Sensors at an ambient air monitoring site. Photo Credit - South Coast AQMD AQ-SPEC Program*
