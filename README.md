@@ -1,4 +1,6 @@
-# sensortoolkit (v0.8.2 beta 3) - Air Sensor Data Analysis Library
+# sensortoolkit - Air Sensor Data Analysis Library
+
+*Version 0.8.2 Beta 3*
 
 [![Downloads](https://pepy.tech/badge/sensortoolkit)](https://pepy.tech/project/sensortoolkit)
 [![Documentation Status](https://readthedocs.org/projects/sensortoolkit/badge/?version=latest)](https://sensortoolkit.readthedocs.io/en/latest/?badge=latest)
