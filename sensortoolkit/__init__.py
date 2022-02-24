@@ -88,6 +88,7 @@ _app_data_dir = user_data_dir(_app_name, _app_author)
 
 # Load in SDFS parameter attributes
 _param_dict = {}
+data = None
 if not _os.path.exists(_app_data_dir):
     _os.makedirs(_app_data_dir)
     # copy param data from site-packages to folder location (initial install)
