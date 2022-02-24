@@ -1,6 +1,7 @@
 # sensortoolkit (v0.8.2 beta 3) - Air Sensor Data Analysis Library
 
 [![Downloads](https://pepy.tech/badge/sensortoolkit)](https://pepy.tech/project/sensortoolkit)
+[![Documentation Status](https://readthedocs.org/projects/sensortoolkit/badge/?version=latest)](https://sensortoolkit.readthedocs.io/en/latest/?badge=latest)
 
 ![Sensors at an Ambient Air Monitoring Site](docs/_readmefigs_/CSAM_3_crop.jpg)
 
