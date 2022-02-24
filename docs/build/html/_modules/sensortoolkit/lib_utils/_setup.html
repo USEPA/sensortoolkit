@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>sensortoolkit.lib_utils._setup &mdash; sensortoolkit 0.8.0b1 documentation</title>
+  <title>sensortoolkit.lib_utils._setup &mdash; sensortoolkit 0.8.2b1 documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" type="text/css" />
@@ -30,7 +30,7 @@
             <a href="../../../index.html" class="icon icon-home"> sensortoolkit
           </a>
               <div class="version">
-                0.8.0b1
+                0.8.2b1
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
@@ -469,8 +469,19 @@
             <span class="c1"># if the formatting for the current datasets and previous setup config</span>
             <span class="c1"># do not match, fall back with standard setup process (i.e.,</span>
             <span class="c1"># set use_previous_setup to false and continue)</span>
-            <span class="k">for</span> <span class="n">col_idx</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">col_headers</span><span class="p">:</span>
-                <span class="k">for</span> <span class="n">label</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">col_headers</span><span class="p">[</span><span class="n">col_idx</span><span class="p">]:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_not_in_previous_setup</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="k">for</span> <span class="n">col_idx</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">col_headers</span><span class="o">.</span><span class="n">copy</span><span class="p">():</span>
+                <span class="k">for</span> <span class="n">label</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">col_headers</span><span class="p">[</span><span class="n">col_idx</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">():</span>
+
+                    <span class="c1"># Check if the recorded dataset doesnt have a header,</span>
+                    <span class="c1"># if so, use previously manually configured names</span>
+                    <span class="k">if</span> <span class="n">previous_setup_data</span><span class="p">[</span><span class="s1">&#39;header_iloc&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
+                        <span class="c1"># label is an integer value, reassign to previously</span>
+                        <span class="c1"># manually configured name</span>
+                        <span class="n">former_label</span> <span class="o">=</span> <span class="n">label</span>
+                        <span class="n">label</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">col_descrip</span><span class="o">.</span><span class="n">keys</span><span class="p">())[</span><span class="n">former_label</span><span class="p">]</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">col_headers</span><span class="p">[</span><span class="n">col_idx</span><span class="p">][</span><span class="n">label</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">col_headers</span><span class="p">[</span><span class="n">col_idx</span><span class="p">]</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">former_label</span><span class="p">)</span>
+
                     <span class="k">try</span><span class="p">:</span>
                         <span class="bp">self</span><span class="o">.</span><span class="n">col_headers</span><span class="p">[</span><span class="n">col_idx</span><span class="p">][</span><span class="n">label</span><span class="p">][</span><span class="s1">&#39;sdfs_param&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">col_descrip</span><span class="p">[</span><span class="n">label</span><span class="p">][</span><span class="s1">&#39;sdfs_param&#39;</span><span class="p">]</span>
                         <span class="bp">self</span><span class="o">.</span><span class="n">col_headers</span><span class="p">[</span><span class="n">col_idx</span><span class="p">][</span><span class="n">label</span><span class="p">][</span><span class="s1">&#39;header_class&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">col_descrip</span><span class="p">[</span><span class="n">label</span><span class="p">][</span><span class="s1">&#39;header_class&#39;</span><span class="p">]</span>
@@ -488,7 +499,32 @@
                             <span class="bp">self</span><span class="o">.</span><span class="n">col_headers</span><span class="p">[</span><span class="n">col_idx</span><span class="p">][</span><span class="n">label</span><span class="p">][</span><span class="s1">&#39;sdfs_param&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
                             <span class="bp">self</span><span class="o">.</span><span class="n">col_headers</span><span class="p">[</span><span class="n">col_idx</span><span class="p">][</span><span class="n">label</span><span class="p">][</span><span class="s1">&#39;header_class&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;parameter&#39;</span>
                             <span class="bp">self</span><span class="o">.</span><span class="n">col_headers</span><span class="p">[</span><span class="n">col_idx</span><span class="p">][</span><span class="n">label</span><span class="p">][</span><span class="s1">&#39;drop&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+                        <span class="k">if</span> <span class="n">col_idx</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_not_in_previous_setup</span><span class="p">:</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">_not_in_previous_setup</span><span class="p">[</span><span class="n">col_idx</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">_not_in_previous_setup</span><span class="p">[</span><span class="n">col_idx</span><span class="p">][</span><span class="n">label</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;sdfs_param&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
+                                                                       <span class="s1">&#39;header_class&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
+                                                                       <span class="s1">&#39;drop&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">}</span>
                         <span class="k">continue</span>
+
+            <span class="c1"># Ask the user to specify attributes for columns that</span>
+            <span class="c1"># didnt appear in the previously configured setup.</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_not_in_previous_setup</span> <span class="o">!=</span> <span class="p">{}:</span>
+                <span class="n">new_cols</span> <span class="o">=</span> <span class="p">[]</span>
+
+                <span class="k">for</span> <span class="n">col_idx</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_not_in_previous_setup</span><span class="p">:</span>
+                    <span class="n">new_cols</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_not_in_previous_setup</span><span class="p">[</span><span class="n">col_idx</span><span class="p">]</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+
+                <span class="n">new_cols</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">new_cols</span><span class="p">))</span>
+
+                <span class="bp">self</span><span class="o">.</span><span class="n">all_col_headers</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">new_cols</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">all_col_headers</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">all_col_headers</span><span class="p">))</span>
+
+                <span class="bp">self</span><span class="o">.</span><span class="n">setTimeHeaders</span><span class="p">(</span>
+                    <span class="n">print_statement</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">From the following list of column names, enter the names of columns which contain timestamps</span><span class="se">\n</span><span class="si">{</span><span class="n">new_cols</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">setDateTimeFormat</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">setTimeZone</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">setParamHeaders</span><span class="p">(</span><span class="n">col_list</span><span class="o">=</span><span class="n">new_cols</span><span class="p">)</span>
+
 
     <span class="k">def</span> <span class="nf">loadDataFile</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Helper function for loading the first few rows of recorded datasets.</span>
@@ -827,7 +863,7 @@
 
         <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">setTimeHeaders</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">print_banner</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">setTimeHeaders</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">print_banner</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">print_statement</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Specify the column(s) containing date/timestamp information.</span>
 
 <span class="sd">        Args:</span>
@@ -846,6 +882,10 @@
         <span class="c1"># Create a list of time-like columns, update the col_headers list with</span>
         <span class="c1"># the DateTime type corresponding to the specified header name</span>
         <span class="c1"># Enter in the time like columns [LOOP]</span>
+
+        <span class="k">if</span> <span class="n">print_statement</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">print_statement</span><span class="p">)</span>
+
         <span class="n">end</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span>
         <span class="k">while</span> <span class="n">end</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
@@ -889,7 +929,7 @@
         <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Timestamp column list:&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">timestamp_col_headers</span><span class="p">)</span>
         <span class="n">enter_continue</span><span class="p">()</span>
 
-    <span class="k">def</span> <span class="nf">setParamHeaders</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">print_banner</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">setParamHeaders</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">print_banner</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">col_list</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Select the SDFS parameters corresponding to column names discovered</span>
 <span class="sd">        by ``ParseDataSets()``.</span>
 
@@ -923,8 +963,12 @@
         <span class="c1"># with remaining cols</span>
         <span class="c1"># param_col_list = [param for param in self.all_col_headers</span>
         <span class="c1">#                   if param not in self.timestamp_col_headers)]</span>
-        <span class="n">param_col_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">param</span> <span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">all_col_headers</span>
-                          <span class="k">if</span> <span class="n">param</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">timestamp_col_headers</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">col_list</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">param_col_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">param</span> <span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">all_col_headers</span>
+                              <span class="k">if</span> <span class="n">param</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">timestamp_col_headers</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">param_col_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">param</span> <span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">col_list</span> <span class="k">if</span> <span class="n">param</span>
+                                      <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">timestamp_col_headers</span><span class="p">))</span>
 
         <span class="n">n_params</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">param_col_list</span><span class="p">)</span>
         <span class="n">renaming_dict</span> <span class="o">=</span> <span class="p">{}</span>
@@ -946,7 +990,10 @@
 
                     <span class="k">if</span> <span class="n">set_header</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">sdfs_params</span><span class="p">:</span>
                         <span class="n">valid</span> <span class="o">=</span> <span class="kc">True</span>
+
                         <span class="bp">self</span><span class="o">.</span><span class="n">sdfs_header_names</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">set_header</span><span class="p">)</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">sdfs_header_names</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sdfs_header_names</span><span class="p">))</span>
+
                         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_type</span> <span class="o">==</span> <span class="s1">&#39;reference&#39;</span><span class="p">:</span>
                             <span class="bp">self</span><span class="o">.</span><span class="n">setParamMetaCols</span><span class="p">(</span><span class="n">rec_header</span><span class="p">,</span> <span class="n">set_header</span><span class="p">)</span>
                         <span class="n">unit_transform</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">checkParamUnits</span><span class="p">(</span><span class="n">rec_header</span><span class="p">,</span> <span class="n">set_header</span><span class="p">)</span>
@@ -1077,6 +1124,15 @@
 
         <span class="bp">self</span><span class="o">.</span><span class="n">time_format_dict</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">timestamp_col_headers</span><span class="p">:</span>
+
+            <span class="c1"># Pass over previously configured timestamp columns (when using</span>
+            <span class="c1"># loadPreviousSetup())</span>
+            <span class="k">for</span> <span class="n">col_idx</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">col_headers</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+                <span class="k">if</span> <span class="n">col</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">col_headers</span><span class="p">[</span><span class="n">col_idx</span><span class="p">]:</span>
+                    <span class="n">col_attribs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">col_headers</span><span class="p">[</span><span class="n">col_idx</span><span class="p">][</span><span class="n">col</span><span class="p">]</span>
+            <span class="k">if</span> <span class="s1">&#39;dt_format&#39;</span> <span class="ow">in</span> <span class="n">col_attribs</span><span class="p">:</span>
+                <span class="k">continue</span>
+
             <span class="n">invalid</span> <span class="o">=</span> <span class="kc">True</span>
             <span class="k">while</span> <span class="n">invalid</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
                 <span class="n">val</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s1">&#39;Enter date/time formatting for &quot;&#39;</span> <span class="o">+</span> <span class="n">col</span> <span class="o">+</span> <span class="s1">&#39;&quot;: &#39;</span><span class="p">)</span>
@@ -1119,6 +1175,15 @@
                                          <span class="s1">&#39; &quot;pytz.all_timezones&quot;&#39;</span><span class="p">])</span>
 
         <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">timestamp_col_headers</span><span class="p">:</span>
+
+            <span class="c1"># Pass over previously configured timestamp columns (when using</span>
+            <span class="c1"># loadPreviousSetup())</span>
+            <span class="k">for</span> <span class="n">col_idx</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">col_headers</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+                <span class="k">if</span> <span class="n">col</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">col_headers</span><span class="p">[</span><span class="n">col_idx</span><span class="p">]:</span>
+                    <span class="n">col_attribs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">col_headers</span><span class="p">[</span><span class="n">col_idx</span><span class="p">][</span><span class="n">col</span><span class="p">]</span>
+            <span class="k">if</span> <span class="p">(</span><span class="s1">&#39;dt_timezone&#39;</span> <span class="ow">in</span> <span class="n">col_attribs</span><span class="p">):</span>
+                <span class="k">continue</span>
+
             <span class="n">invalid</span> <span class="o">=</span> <span class="kc">True</span>
             <span class="k">while</span> <span class="n">invalid</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
                 <span class="n">val</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s1">&#39;Enter time zone for &quot;&#39;</span> <span class="o">+</span> <span class="n">col</span> <span class="o">+</span> <span class="s1">&#39;&quot;: &#39;</span><span class="p">)</span>
@@ -1748,46 +1813,6 @@
                     <span class="n">filename</span> <span class="o">=</span> <span class="s1">&#39;H_&#39;</span> <span class="o">+</span> <span class="n">year</span> <span class="o">+</span> <span class="n">month</span> <span class="o">+</span> <span class="s1">&#39;_&#39;</span> <span class="o">+</span> <span class="n">classifier</span> <span class="o">+</span> <span class="s1">&#39;.csv&#39;</span>
                     <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;..</span><span class="si">{</span><span class="n">filename</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
                     <span class="n">month_df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">process_path</span><span class="p">,</span> <span class="n">filename</span><span class="p">))</span></div></div>
-
-
-<span class="sd">&quot;&quot;&quot;</span>
-<span class="sd"># Testing out using new method dataset for criteria pollutants</span>
-<span class="sd">def displayMethods(param, lookup_data, verbose=False):</span>
-
-<span class="sd">        if verbose:</span>
-<span class="sd">            expand_frame_repr =  False</span>
-<span class="sd">            col_width = 1000</span>
-<span class="sd">        else:</span>
-<span class="sd">            expand_frame_repr =  True</span>
-<span class="sd">            col_width = 65</span>
-<span class="sd">        with pd.option_context(&#39;display.expand_frame_repr&#39;, expand_frame_repr,</span>
-<span class="sd">                               &#39;display.max_colwidth&#39;, col_width,</span>
-<span class="sd">                               &#39;display.max_rows&#39;, None,</span>
-<span class="sd">                               &#39;display.colheader_justify&#39;, &#39;right&#39;):</span>
-<span class="sd">            table = lookup_data[</span>
-<span class="sd">                lookup_data[&#39;Method Type&#39;].str.startswith(param)</span>
-<span class="sd">                            ].reset_index(drop=True)</span>
-
-<span class="sd">            if not verbose:</span>
-<span class="sd">                table[&#39;Make/Model&#39;] = table.Abbrev_Make + &#39; &#39; + table.Model</span>
-<span class="sd">                print(table[[&#39;Make/Model&#39;, &#39;Method Code&#39;]</span>
-<span class="sd">                            ].reset_index(drop=True))</span>
-<span class="sd">            else:</span>
-<span class="sd">                print(table[[&#39;Make&#39;, &#39;Model&#39;, &#39;Method Code&#39;]</span>
-<span class="sd">                            ].reset_index(drop=True))</span>
-
-<span class="sd">        return table</span>
-<span class="sd">&quot;&quot;&quot;</span>
-
-<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
-    <span class="n">sensor_name</span> <span class="o">=</span> <span class="s1">&#39;Example_Make_Model&#39;</span>
-    <span class="n">work_path</span> <span class="o">=</span> <span class="p">(</span><span class="sa">r</span><span class="s1">&#39;C:\Users\SFREDE01\OneDrive - Environmental Protection Agency (EPA)\Profile\Documents\sensortoolkit_testing&#39;</span><span class="p">)</span>
-
-    <span class="n">test</span> <span class="o">=</span> <span class="n">SensorSetup</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">sensor_name</span><span class="p">,</span>
-                <span class="n">path</span><span class="o">=</span><span class="n">work_path</span><span class="p">)</span>
-
-
-    <span class="c1">#test = ReferenceSetup(path=work_path)</span>
 </pre></div>
 
            </div>
