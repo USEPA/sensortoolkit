@@ -4,7 +4,7 @@
 [![Downloads](https://pepy.tech/badge/sensortoolkit)](https://pepy.tech/project/sensortoolkit)
 [![Documentation Status](https://readthedocs.org/projects/sensortoolkit/badge/?version=latest)](https://sensortoolkit.readthedocs.io/en/latest/?badge=latest)
 
-![Sensors at an Ambient Air Monitoring Site](docs/_readmefigs_/CSAM_3_crop.jpg)
+![Sensors at an Ambient Air Monitoring Site](https://github.com/USEPA/sensortoolkit/blob/master/docs/_readmefigs_/CSAM_3_crop.jpg?raw=true)
 
 *Sensors at an ambient air monitoring site. Photo Credit - South Coast AQMD AQ-SPEC Program*
 
@@ -137,7 +137,7 @@ python opendocs.py
 ```
 The documentation should open in your default browser, and you should see a landing page that looks something like this:
 
-![sensortoolkit Landing Page](docs/_readmefigs_/toolkit_landing_page.png)
+![sensortoolkit Landing Page](https://github.com/USEPA/sensortoolkit/blob/master/docs/_readmefigs_/toolkit_landing_page.png?raw=true)
 
 Note: Users will need an installation of Python (v3.6 or greater). It’s
 highly recommended that users download an Anaconda distribution of
