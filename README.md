@@ -1,8 +1,8 @@
 # sensortoolkit - Air Sensor Data Analysis Library
 
 [![PyPI version](https://badge.fury.io/py/sensortoolkit.svg)](https://badge.fury.io/py/sensortoolkit)
-[![Downloads](https://pepy.tech/badge/sensortoolkit)](https://pepy.tech/project/sensortoolkit)
 [![Documentation Status](https://readthedocs.org/projects/sensortoolkit/badge/?version=latest)](https://sensortoolkit.readthedocs.io/en/latest/?badge=latest)
+[![Downloads](https://pepy.tech/badge/sensortoolkit)](https://pepy.tech/project/sensortoolkit)
 
 ![Sensors at an Ambient Air Monitoring Site](https://github.com/USEPA/sensortoolkit/blob/master/docs/_readmefigs_/CSAM_3_crop.jpg?raw=true)
 
