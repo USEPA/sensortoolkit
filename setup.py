@@ -10,7 +10,6 @@ setup(name='sensortoolkit',
       long_description=readme,
       long_description_content_type='text/markdown',
       author='Samuel Frederick, ORAU Contractor for U.S. EPA ORD',
-      author_email='frederick.samuel@epa.gov',
       license='The MIT License (MIT)',
       license_files=('LICENSE.txt'),
       classifiers=[
