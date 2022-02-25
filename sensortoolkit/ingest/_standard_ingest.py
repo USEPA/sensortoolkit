@@ -71,7 +71,7 @@ def standard_ingest(path, name=None, setup_file_path=None):
                                      encoding=encoding_pred,
                                      on_bad_lines='warn')
                 except UnicodeDecodeError:
-                    print('[WARNING]: Reading the following dataset with uft-8 '
+                    print('\n[WARNING]: Reading the following dataset with uft-8 '
                           'encoding unsuccessful')
                     print(path)
                     print('..Attempting to guess encoding')
@@ -92,13 +92,13 @@ def standard_ingest(path, name=None, setup_file_path=None):
                         print('Error encountered in file:', path)
                         print(e)
                         print(f'Encoding prediction {prediction["encoding"]} '
-                              f'unsuccessful for {path}')
+                              f'unsuccessful for {path}\n')
                         return pd.DataFrame()
                     except UnicodeDecodeError as e:
                         print('Error encountered in file:', path)
                         print(e)
                         print(f'Encoding prediction {prediction["encoding"]} '
-                              f'unsuccessful for {path}')
+                              f'unsuccessful for {path}\n')
                         return pd.DataFrame()
 
             if setup['file_extension'] == '.xlsx':
