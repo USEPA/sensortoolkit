@@ -149,7 +149,7 @@ compiling code. Anaconda is free for individuals.
 
 From a command line interface, the repository can be cloned via the following command
 
-    git clone https://bitbucket.epa.gov/scm/~sfrede01/sensortoolkit.git
+    git clone https://github.com/USEPA/sensortoolkit.git
 
 ### 2. Install `sensortoolkit`
 
