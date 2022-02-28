@@ -58,7 +58,8 @@ class AirSensor:
                   'a directory path.')
             return
 
-        self._setup_path = rf"{self.project_path}\data\sensor_data\{self.name}\{self.name}_setup.json"
+        self._setup_path = os.path.join(self.project_path, 'data', 'sensor_data',
+                                        self.name, f'{self.name}_setup.json')
 
         self._get_ingest_config()
 

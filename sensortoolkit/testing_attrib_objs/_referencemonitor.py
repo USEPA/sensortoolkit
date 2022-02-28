@@ -117,9 +117,12 @@ class ReferenceMonitor:
         self._ref_data_subfolder = '_'.join([self._fmt_site_name,
                                             self._fmt_site_id])
 
-        self._ref_parent_path = rf"{self.project_path}\data\reference_data\{self.data_source}"
-        self._ref_raw_path = rf"{self._ref_parent_path}\raw\{self._ref_data_subfolder}"
-        self._setup_path = rf"{self._ref_raw_path}\reference_setup.json"
+        self._ref_parent_path = os.path.join(self.project_path, 'data',
+                                             'reference_data', self.data_source)
+        self._ref_raw_path =  os.path.join(self._ref_parent_path, 'raw',
+                                           self._ref_data_subfolder)
+        self._setup_path = os.path.join(self._ref_raw_path,
+                                        'reference_setup.json')
 
         if not os.path.isdir(os.path.normpath(self._ref_raw_path)):
             raise ValueError(f'No reference data folder with the path {self._ref_raw_path}')
@@ -597,8 +600,8 @@ class ReferenceMonitor:
                 path = os.path.normpath(
                     os.path.join(
                         self.project_path +
-                        self.setup_data['data_rel_path'].replace('/raw/',
-                                                                 '/processed/')
+                        self.setup_data['data_rel_path'].replace('raw',
+                                                                 'processed')
                         )
                     )
             except AttributeError:

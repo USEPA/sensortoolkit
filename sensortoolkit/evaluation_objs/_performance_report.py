@@ -249,8 +249,7 @@ class PerformanceReport(SensorEvaluation):
             subfolder = self._param_name
         # Search for figure created today
         figure_name += '_' + self.today + '.png'
-        full_figure_path = self.figure_path + '\\'.join((subfolder,
-                                                         figure_name))
+        full_figure_path = os.path.join(self.figure_path, subfolder, figure_name)
 
         return os.path.exists(full_figure_path), full_figure_path
 
@@ -684,8 +683,7 @@ class PerformanceReport(SensorEvaluation):
         for slide_n in np.arange(1, len(self.rpt.slides) + 1):
             slide_idx = int(slide_n) - 1
             pic = self.GetShape(slide_idx, shape_loc=(pic_left, pic_top))
-            pic_path = self.figure_path + '\\deployment\\' + \
-                self.name + '.png'
+            pic_path = os.path.join(self.figure_path, 'deployment', f'{self.name}.png')
             if not os.path.exists(pic_path):
                 print('No deployment picture found at', pic_path)
                 placeholder_path = os.path.join(__file__,
@@ -1080,6 +1078,8 @@ class PerformanceReport(SensorEvaluation):
             # Raise when attributes are 'none' likely due to no data
             except TypeError:
                 pass
+            except ValueError:
+                self.tempexceed[grp] = '0'
 
         # Number of 24-hr periods temp exceeded target criteria
         self.rhexceed = {}
@@ -1087,6 +1087,7 @@ class PerformanceReport(SensorEvaluation):
         met_conds = 'Meteorological Conditions'  # abbreviating
         rh = 'Relative Humidity'  # abbreviating
         for grp in list(grp_info.keys()):
+            print(grp_info[grp][met_conds][rh][exceed_str])
             try:
                 self.rhexceed[grp] = \
                     '{0:d}'.format(
@@ -1095,6 +1096,8 @@ class PerformanceReport(SensorEvaluation):
             # Raise when attributes are 'none' likely due to no data
             except TypeError:
                 pass
+            except ValueError:
+                self.rhexceed[grp] = '0'
 
         # ----------- Cell 1: N periods outside temp target criteria ----------
         cell = shape.table.cell(0, 1)
@@ -1169,6 +1172,9 @@ class PerformanceReport(SensorEvaluation):
                 else:
                     text_obj = cell.text_frame.add_paragraph()
                 grp_val = dic[param][grp]
+
+                if grp_val == '':
+                    grp_val = 0
 
                 if len(self.eval_grps) == 1:
                     text_obj.text = str(round(grp_val))
