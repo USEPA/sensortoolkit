@@ -85,8 +85,8 @@ def sort_airnowtech(df):
         path.
 
     """
-    method_path = os.path.abspath(os.path.join(__file__,
-                                  '../method_codes/methods_criteria.csv'))
+    method_path = os.path.abspath(os.path.join(__file__, '..','method_codes',
+                                               'methods_criteria.csv'))
 
     # Method code lookup dataframe
     method_df = pd.read_csv(method_path)
@@ -357,7 +357,7 @@ def write_to_file(df, path, outpath):
 
                 print('../reference_data/airnowtech/processed/' + folder
                       + '/' + filename)
-                month_df.to_csv(outpath + '/' + filename,
+                month_df.to_csv(os.path.join(outpath, filename),
                                 index_label='DateTime')
 
     return folder

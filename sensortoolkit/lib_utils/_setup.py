@@ -515,11 +515,14 @@ class _Setup:
             None.
 
         """
-        self.data_rel_path = f'/data/{self.data_type}_data/'
+        self.data_rel_path = os.path.join('data', f'{self.data_type}_data')
         if self.data_type == 'sensor':
-            self.data_rel_path += f'{self.name}/raw_data'
+            self.data_rel_path = os.path.join(self.data_rel_path, self.name, 'raw_data', '')
         if self.data_type == 'reference':
-            self.data_rel_path += f'{self.dataset_kwargs["ref_data_source"]}/raw/{self.ref_data_subfolder}/'
+            self.data_rel_path = os.path.join(self.data_rel_path,
+                                              self.dataset_kwargs["ref_data_source"],
+                                              'raw', self.ref_data_subfolder, '')
+
 
     def parseDataSets(self, print_banner=True):
         """Load the  first few rows of recorded sensor datasets located in the
@@ -1157,10 +1160,10 @@ class _Setup:
             filename = self.name + '_setup.json'
             sensor_path = os.path.normpath(
                             os.path.join(self.data_rel_path, '..'))
-            outpath = os.path.normpath(self.path + sensor_path)
+            outpath = os.path.normpath(os.path.join(self.path, sensor_path))
         if self.data_type == 'reference':
             filename = 'reference_setup.json'
-            outpath = os.path.normpath(self.path + self.data_rel_path)
+            outpath = os.path.normpath(os.path.join(self.path, self.data_rel_path))
 
         if not os.path.isdir(outpath):
             os.makedirs(outpath)
@@ -1229,8 +1232,8 @@ class SensorSetup(_Setup):
 
         abbrev_files = []
         for file in self.file_list:
-            file = file.replace(self.path + '/data/sensor_data/' +
-                                self.name + '/raw_data/', '')
+            file = file.replace(os.path.join(self.path, 'data', 'sensor_data',
+                                             self.name, 'raw_data', ''), '')
             abbrev_files.append(file)
             print('..{0}'.format(file))
 
@@ -1291,8 +1294,9 @@ class ReferenceSetup(_Setup):
 
     """
     # Method code lookup tables
-    criteria_methods_path = os.path.abspath(os.path.join(__file__,
-                        '../../reference/method_codes/methods_criteria.csv'))
+    criteria_methods_path = os.path.abspath(os.path.join(__file__, '..', '..',
+                                            'reference', 'method_codes',
+                                            'methods_criteria.csv'))
     criteria_lookup = pd.read_csv(criteria_methods_path)
 
     critera_params = {'CO': 'Carbon monoxide',
@@ -1306,8 +1310,9 @@ class ReferenceSetup(_Setup):
 
     api_services = ['aqs', 'airnow']
 
-    met_methods_path = os.path.abspath(os.path.join(__file__,
-                            '../../reference/method_codes/methods_met.csv'))
+    met_methods_path = os.path.abspath(os.path.join(__file__, '..', '..',
+                                            'reference', 'method_codes',
+                                            'methods_met.csv'))
     met_lookup = pd.read_csv(met_methods_path)
 
     def __init__(self, path):
@@ -1678,8 +1683,8 @@ class ReferenceSetup(_Setup):
         self.printSelectionBanner('Ingest Local Datasets',
                                     options=[])
 
-        process_path = os.path.normpath(os.path.join(self.outpath,
-                            f'../../../processed/{self.ref_data_subfolder}'))
+        process_path = os.path.normpath(os.path.join(self.outpath, '..', '..',
+                                        '..', 'processed', self.ref_data_subfolder))
 
         if not os.path.isdir(process_path):
             os.makedirs(process_path)

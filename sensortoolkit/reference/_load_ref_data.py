@@ -15,6 +15,7 @@ Created:
 Last Updated:
   Wed Jul 14 12:44:57 2021
 """
+import os
 import pandas as pd
 from sensortoolkit.datetime_utils import interval_averaging
 
@@ -56,9 +57,6 @@ def load_ref_dataframes(bdate, edate, path, classes):
     (pm_d_ref_df, gas_d_ref_df, met_d_ref_df) = (pd.DataFrame(),
                                                  pd.DataFrame(),
                                                  pd.DataFrame())
-
-    if not path.endswith('/'):
-        path += '/'
 
     for date in pd.date_range(start=bdate, end=edate).to_period('M').unique():
         month = str(date.month).zfill(2)
@@ -138,9 +136,9 @@ def import_ref_dataframe(df, path, year, month, suffix=None):
 
     """
     try:
-        filename = 'H_' + year + month + suffix + '.csv'
-        load_df = pd.read_csv(path + filename, parse_dates=['DateTime'],
-                              index_col='DateTime')
+        filename = f'H_{year}{month}{suffix}.csv'
+        load_df = pd.read_csv(os.path.join(path, filename),
+                              parse_dates=['DateTime'], index_col='DateTime')
 
         # Append loaded dataframe based on the first instance of a timestamp
         # index value (i.e., avoid duplicate index values by combining only

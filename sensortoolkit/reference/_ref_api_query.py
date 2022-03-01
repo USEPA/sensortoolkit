@@ -195,11 +195,11 @@ def ref_api_query(query_type=None, param=None, bdate='', edate='',
 
     # Method code lookup tables
     criteria_methods_path = os.path.abspath(os.path.join(__file__,
-                                  '../method_codes/methods_criteria.csv'))
+                                  '..', 'method_codes', 'methods_criteria.csv'))
     criteria_lookup_table = pd.read_csv(criteria_methods_path)
 
     met_methods_path = os.path.abspath(os.path.join(__file__,
-                                  '../method_codes/methods_met.csv'))
+                                  '..', 'method_codes', 'methods_met.csv'))
     met_lookup_table = pd.read_csv(met_methods_path)
 
     # Monthly intervals to query
@@ -1167,20 +1167,7 @@ def save_api_dataset(process_df, raw_df, path, query_type, param_class,
         os.makedirs(raw_path)
 
     year_month = pd.to_datetime(data_period[0]).strftime('%Y%m')
-    filename = 'H_' + year_month + '_' + param_class + '.csv'
+    filename = f'H_{year_month}_{param_class}.csv'
 
-    process_df.to_csv(process_path + '/' + filename)
-    raw_df.to_csv(raw_path + '/' + filename)
-
-if __name__ == '__main__':
-
-    path = r'C:\\Users\\SFREDE01\\OneDrive - Environmental Protection Agency (EPA)\\Profile\\Documents\\test_dir'
-
-    aqs_id = {"state": "08",
-            "county": "031",
-            "site": "0026"}
-
-    data = ref_api_query(query_type='AQS', param=['Temp', 'RH'],
-                         bdate='20191101', edate='20200131',
-                  username='frederick.samuel@epa.gov', key='silverbird29',
-                  aqs_id=aqs_id, path=path)
+    process_df.to_csv(os.path.join(process_path, filename))
+    raw_df.to_csv(os.path.join(raw_path, filename))

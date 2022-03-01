@@ -145,7 +145,7 @@ class Parameter:
         if save_custom_param:
             file_path = pathlib.Path(__file__)
             parent_path = file_path.parent.absolute()
-            with open(f'{_app_data_dir}/param_info.json', 'w') as file:
+            with open(os.path.join(_app_data_dir, 'param_info.json'), 'w') as file:
                 print(f'..updating param_info.json with custom parameter {self.name}')
                 json.dump(self.__param_dict__, file, indent=4, ensure_ascii=True)
 
@@ -213,8 +213,7 @@ class Parameter:
         return sdfs
 
     def _get_units(self):
-        unit_table_path = os.path.abspath(os.path.join(__file__,
-                                                       "../units.csv"))
+        unit_table_path = os.path.abspath(os.path.join(__file__, '..', 'units.csv'))
 
         # Preset options
         if self.name in self.__param_dict__:

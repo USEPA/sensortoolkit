@@ -251,7 +251,7 @@ def sensor_import(sensor_name=None, sensor_serials=None,
                                      extension in valid_extensions)
                     if serial in filename and valid_file:
                         # Load sensor data and append file datasets
-                        cwd = '//'.join([path, filename])
+                        cwd = os.path.join(path, filename)
                         print('....' + filename)
                         df = ingest_wrapper(cwd, sensor_name, serial,
                                             data_path, ingest_method)
@@ -303,9 +303,15 @@ def sensor_import(sensor_name=None, sensor_serials=None,
         daily_df_list = [concat_dataset(df, start, end)
                          for df in daily_df_list]
 
+    col_headers = []
+    for df in full_df_list:
+        col_headers.extend(df.columns)
+    col_headers = list(set(col_headers))
+
     # Compute dewpoint
-    full_df_list = dewpoint(full_df_list)
-    hourly_df_list = dewpoint(hourly_df_list)
+    if 'Temp_Value' in col_headers and 'RH_Value' in col_headers:
+        full_df_list = dewpoint(full_df_list)
+        hourly_df_list = dewpoint(hourly_df_list)
 
     return full_df_list, hourly_df_list, daily_df_list
 
@@ -355,8 +361,8 @@ def ingest_wrapper(cwd, sensor_name, serial, data_path, ingest_method):
             ingestion module.
     """
     # If setup json exists for particular sensor, use standard ingest module
-    setup_path = os.path.abspath(data_path + '../' + sensor_name
-                                 + '_setup.json')
+    setup_path = os.path.abspath(os.path.join(data_path, '..',
+                                              f'{sensor_name}_setup.json'))
 
     if os.path.exists(setup_path) and ingest_method is None:
         return standard_ingest(cwd, name=sensor_name,
