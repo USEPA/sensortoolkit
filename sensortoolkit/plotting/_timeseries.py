@@ -13,6 +13,7 @@ Created:
 Last Updated:
   Wed Jul 28 14:19:13 2021
 """
+import os
 import pandas as pd
 from pandas.plotting import register_matplotlib_converters
 import numpy as np
@@ -404,8 +405,8 @@ def sensor_timeplot(df_list, ref_df, param=None, sensor_name=None,
     # Save image to folder at figure_path
     if write_to_file is True:
         todays_date = get_todays_date()
-        figure_path = (figure_path + param + '\\' + sensor_name +
-                       '_timeseries_' + param + '_' + averaging_interval)
+        figure_path = os.path.join(figure_path, param,
+                                   f'{sensor_name}_timeseries_{param}_{averaging_interval}')
 
         # Optionally add suffix to filename
         if filename_suffix != '':
@@ -571,8 +572,8 @@ def deployment_timeline(deployment_df, cmap_name='Dark2',
 
     if write_to_file is True:
         todays_date = get_todays_date()
-        figure_path = figure_path + '\\deployment_timeline_plot' + '_' \
-            + todays_date + '.png'
+        figure_path = os.path.join(figure_path,
+                                   f'deployment_timeline_plot_{todays_date}.png')
 
         plt.savefig(figure_path, dpi=300)
         plt.close()

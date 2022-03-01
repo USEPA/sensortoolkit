@@ -13,6 +13,7 @@ Created:
 Last Updated:
   Wed Jul 28 14:11:14 2021
 """
+import os
 import sys
 import pandas as pd
 from pandas.plotting import register_matplotlib_converters
@@ -904,10 +905,9 @@ def scatter_plotter(df_list, ref_df, stats_df=None, plot_subset=None,
         if param_class == 'Met':
             param_name = param_class
 
-        file_name = (sensor_name + '_vs_'
-                     + ref_name).replace(r'/', '').replace('\\', '')
+        file_name = f'{sensor_name}_vs_{ref_name}'.replace(r'/', '').replace('\\', '')
 
-        file_path = figure_path + param_name + '\\' + file_name
+        file_path = os.path.join(figure_path, param_name, file_name)
 
         # if matplotlib axes object not passed to Scatter_Plotter, the figure
         # created will be for data at the averaging interval specified by
@@ -1361,8 +1361,8 @@ def normalized_met_scatter(df_list, ref_df, avg_df, met_ref_df=None,
     # Write plot to file ------------------------------------------------------
     if write_to_file is True:
         todays_date = get_todays_date()
-        figure_path = figure_path + param_name + '\\' + sensor_name +\
-            '_normalized_' + param_name + '_vs_' + met_param_name
+        figure_path = os.path.join(figure_path, param_name,
+                            f'{sensor_name}_normalized_{param_name}_vs_{met_param_name}')
 
         # Indicate performance targets template formatted
         if report_fmt is True:

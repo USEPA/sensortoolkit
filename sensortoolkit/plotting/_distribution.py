@@ -17,6 +17,7 @@ Created:
 Last Updated:
   Wed Jul 28 14:20:18 2021
 """
+import os
 from pandas.plotting import register_matplotlib_converters
 import numpy as np
 import matplotlib.pyplot as plt
@@ -86,8 +87,8 @@ def ref_distrib(ref_df, param=None, averaging_interval='1-hour',
 
         if write_to_file is True:
             todays_date = get_todays_date()
-            figure_path = figure_path + ref_name + '_DistPlot_' + param_name \
-                + '_' + todays_date
+            figure_path = os.path.join(figure_path,
+                                       f'{ref_name}_DistPlot_{param_name}_{todays_date}')
             if filename_suffix != '':
                 figure_path = figure_path + '_' + filename_suffix
             figure_path += '.png'
@@ -204,8 +205,8 @@ def met_distrib(met_ref_data, avg_hrly_df, figure_path, sensor_name=None,
 
     if write_to_file is True:
         todays_date = get_todays_date()
-        file_path = figure_path + 'Met' + '\\' + sensor_name + '_'\
-            'met_distplot_report_fmt' + '_' + todays_date
+        file_path = os.path.join(figure_path, 'Met',
+                                 f'{sensor_name}_met_distplot_report_fmt_{todays_date}')
         plt.savefig(file_path + '.png', dpi=300)
         plt.close()
 
