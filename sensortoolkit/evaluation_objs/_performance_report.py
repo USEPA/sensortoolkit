@@ -2789,12 +2789,10 @@ class PerformanceReport(SensorEvaluation):
 
         """
         print('..Saving report')
-        self.rpt_name = 'Base_Testing_Report_' + self._param_name\
-                        + '_' + self.name + '_' + self.today + '.pptx'
+        self.rpt_name = f'Base_Testing_Report_{self._param_name}_{self.name}_{self.today}.pptx'
 
-        save_dir = '\\'.join((self.path, 'reports',
-                              self.name, self._param_name))
-        save_path = '\\'.join((save_dir, self.rpt_name))
+        save_dir = os.path.join(self.path, 'reports', self.name, self._param_name)
+        save_path = os.path.join(save_dir, self.rpt_name)
 
         if not os.path.exists(save_dir):
             os.makedirs(save_dir)
