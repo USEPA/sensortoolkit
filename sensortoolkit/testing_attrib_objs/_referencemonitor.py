@@ -597,13 +597,19 @@ class ReferenceMonitor:
         """
         if path is None:
             try:
-                path = os.path.normpath(
-                    os.path.join(
-                        self.project_path,
-                        self.setup_data['data_rel_path'].replace('raw',
-                                                                 'processed')
-                        )
-                    )
+
+                data_rel_path = self.setup_data['data_rel_path'].replace('raw', 'processed')
+                path_validated = False
+
+                # Remove slashes from start of data relative path
+                while not path_validated:
+                    if data_rel_path.startswith('/') or data_rel_path.startswith(r'\\'):
+                        data_rel_path = data_rel_path[1:]
+                    if not data_rel_path.startswith('/') and not data_rel_path.startswith(r'\\'):
+                        path_validated = True
+
+                path = os.path.normpath(os.path.join(self.project_path,
+                                                     data_rel_path))
             except AttributeError:
                 print('Setup configuration does not specify reference data '
                       'source, run ReferenceMonitor.reference_setup()')
