@@ -1088,7 +1088,6 @@ class PerformanceReport(SensorEvaluation):
         met_conds = 'Meteorological Conditions'  # abbreviating
         rh = 'Relative Humidity'  # abbreviating
         for grp in list(grp_info.keys()):
-            print(grp_info[grp][met_conds][rh][exceed_str])
             try:
                 self.rhexceed[grp] = \
                     '{0:d}'.format(
