@@ -14,6 +14,7 @@ Created:
 Last Updated:
   Wed Jul 28 14:24:17 2021
 """
+import os
 import sys
 import pandas as pd
 from pandas.plotting import register_matplotlib_converters
@@ -555,6 +556,8 @@ def performance_metrics(stats_df, deploy_dict, param=None,
     if write_to_file is True:
         todays_date = get_todays_date()
 
-        plt.savefig(path + param + '\\' + sensor_name + '_regression_boxplot_'
-                    + param + '_' + todays_date + '.png', dpi=300)
+        fig_path = os.path.join(path, param,
+                    f'{sensor_name}_regression_boxplot_{param}_{todays_date}.png')
+
+        plt.savefig(fig_path, dpi=300)
         plt.close()
