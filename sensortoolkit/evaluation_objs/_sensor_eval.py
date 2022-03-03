@@ -564,7 +564,7 @@ class SensorEvaluation:
                     sensor_data = self.daily_df_list
 
                 ref_data = self.ref_dict[sensortoolkit.Parameter(param).classifier][averaging_interval]
-                ref_name = ref_data[f'{param}_Method'].unique()[0]
+                ref_name = self.reference.get_method_name(self.param.name)
 
                 # Prevent Sensor_Timeplot from writing to file on first
                 # iteration of loop
