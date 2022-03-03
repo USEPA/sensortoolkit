@@ -907,45 +907,45 @@ module, where the user inputs information via the console.
 
         Confirm entry [y/n]: y
 
-      |   Method Code | Collection Description                                     | Method Type   |
-      |--------------:|:-----------------------------------------------------------|:--------------|
-      |           116 | BGI Model PQ200 PM2.5 Sampler w/WINS                       | FRM           |
-      |           117 | R & P Model 2000 PM2.5 Sampler w/WINS                      | FRM           |
-      |           118 | R & P Model 2025 PM2.5 Sequential w/WINS                   | FRM           |
-      |           119 | Andersen RAAS2.5-100 PM2.5 SAM w/WINS                      | FRM           |
-      |           120 | Andersen RAAS2.5-300 PM2.5 SEQ w/WINS                      | FRM           |
-      |           123 | Thermo Env Model 605 CAPS                                  | FRM           |
-      |           128 | Andersen RAAS2.5-2000PM2.5 Aud w/WINS                      | FRM           |
-      |           129 | R & P Model 2000 PM-2.5 Audit w/WINS                       | FRM           |
-      |           135 | URG-MASS100 Single PM2.5 Sampler                           | FRM           |
-      |           136 | URG-MASS300 Sequential PM2.5 Sampler                       | FRM           |
-      |           142 | BGI Models PQ200-VSCC or PQ200A-VSCC                       | FRM           |
-      |           143 | R & P Model 2000 PM-2.5 Air Sampler w/VSCC                 | FRM           |
-      |           144 | R & P Model 2000 PM-2.5 Audit Sampler w/VSCC               | FRM           |
-      |           145 | R & P Model 2025 PM-2.5 Sequential Air Sampler w/VSCC      | FRM           |
-      |           153 | Thermo Electron Model RAAS2.5-100 w/VSCC                   | FRM           |
-      |           154 | Thermo Electron Model RAAS2.5-200 Audit w/VSCC             | FRM           |
-      |           155 | Thermo Electron Model RAAS2.5-300 Sequential w/VSCC        | FRM           |
-      |           170 | Met One BAM-1020 Mass Monitor w/VSCC                       | FEM           |
-      |           177 | Thermo Scientific Partisol 2000-D Dichot.                  | FEM           |
-      |           179 | Thermo Scientific Dichot. Partisol-Plus Model 2025-D Seq   | FEM           |
-      |           181 | Thermo Scientific TEOM 1400 FDMS or 1405 8500C FDMS w/VSCC | FEM           |
-      |           182 | Thermo Scientific TEOM 1405-DF Dichotomous FDMS            | FEM           |
-      |           183 | Thermo Scientific 5014i or FH62C14-DHS w/VSCC              | FEM           |
-      |           184 | Thermo Scientific Model 5030 SHARP w/VSCC                  | FEM           |
-      |           195 | GRIMM EDM Model 180 with naphion dryer                     | FEM           |
-      |           203 | Opsis SM200-Dust Monitor w/VSCC                            | FEM           |
-      |           204 | Teledyne Model 602 Beta plus w/VSCC                        | FEM           |
-      |           209 | Met One BAM-1022 Mass Monitor w/ VSCC or TE-PM2.5C         | FEM           |
-      |           219 | Tisch Model TE-Wilbur2.5 Low-Volume Sampler                | FRM           |
-      |           221 | Met One E-FRM PM2.5 with WINS                              | FRM           |
-      |           235 | Met One E-FRM PM2.5 with URG-2000-30EGN cyclone            | FEM           |
-      |           236 | Teledyne T640 at 5.0 LPM                                   | FEM           |
-      |           238 | Teledyne T640X at 16.67 LPM                                | FEM           |
-      |           245 | Met One E-SEQ-FRM PM2.5 with WINS                          | FRM           |
-      |           521 | Met One E-FRM PM2.5 with VSCC                              | FRM           |
-      |           545 | Met One E-SEQ-FRM PM2.5 with VSCC                          | FRM           |
-      |           581 | Thermo Scientific 1405-F FDMS w/VSCC                       | FEM           |
+      | Method Code | Collection Description                                     | Method Type |
+      |------------:|:-----------------------------------------------------------|:------------|
+      |         116 | BGI Model PQ200 PM2.5 Sampler w/WINS                       | FRM         |
+      |         117 | R & P Model 2000 PM2.5 Sampler w/WINS                      | FRM         |
+      |         118 | R & P Model 2025 PM2.5 Sequential w/WINS                   | FRM         |
+      |         119 | Andersen RAAS2.5-100 PM2.5 SAM w/WINS                      | FRM         |
+      |         120 | Andersen RAAS2.5-300 PM2.5 SEQ w/WINS                      | FRM         |
+      |         123 | Thermo Env Model 605 CAPS                                  | FRM         |
+      |         128 | Andersen RAAS2.5-2000PM2.5 Aud w/WINS                      | FRM         |
+      |         129 | R & P Model 2000 PM-2.5 Audit w/WINS                       | FRM         |
+      |         135 | URG-MASS100 Single PM2.5 Sampler                           | FRM         |
+      |         136 | URG-MASS300 Sequential PM2.5 Sampler                       | FRM         |
+      |         142 | BGI Models PQ200-VSCC or PQ200A-VSCC                       | FRM         |
+      |         143 | R & P Model 2000 PM-2.5 Air Sampler w/VSCC                 | FRM         |
+      |         144 | R & P Model 2000 PM-2.5 Audit Sampler w/VSCC               | FRM         |
+      |         145 | R & P Model 2025 PM-2.5 Sequential Air Sampler w/VSCC      | FRM         |
+      |         153 | Thermo Electron Model RAAS2.5-100 w/VSCC                   | FRM         |
+      |         154 | Thermo Electron Model RAAS2.5-200 Audit w/VSCC             | FRM         |
+      |         155 | Thermo Electron Model RAAS2.5-300 Sequential w/VSCC        | FRM         |
+      |         170 | Met One BAM-1020 Mass Monitor w/VSCC                       | FEM         |
+      |         177 | Thermo Scientific Partisol 2000-D Dichot.                  | FEM         |
+      |         179 | Thermo Scientific Dichot. Partisol-Plus Model 2025-D Seq   | FEM         |
+      |         181 | Thermo Scientific TEOM 1400 FDMS or 1405 8500C FDMS w/VSCC | FEM         |
+      |         182 | Thermo Scientific TEOM 1405-DF Dichotomous FDMS            | FEM         |
+      |         183 | Thermo Scientific 5014i or FH62C14-DHS w/VSCC              | FEM         |
+      |         184 | Thermo Scientific Model 5030 SHARP w/VSCC                  | FEM         |
+      |         195 | GRIMM EDM Model 180 with naphion dryer                     | FEM         |
+      |         203 | Opsis SM200-Dust Monitor w/VSCC                            | FEM         |
+      |         204 | Teledyne Model 602 Beta plus w/VSCC                        | FEM         |
+      |         209 | Met One BAM-1022 Mass Monitor w/ VSCC or TE-PM2.5C         | FEM         |
+      |         219 | Tisch Model TE-Wilbur2.5 Low-Volume Sampler                | FRM         |
+      |         221 | Met One E-FRM PM2.5 with WINS                              | FRM         |
+      |         235 | Met One E-FRM PM2.5 with URG-2000-30EGN cyclone            | FEM         |
+      |         236 | Teledyne T640 at 5.0 LPM                                   | FEM         |
+      |         238 | Teledyne T640X at 16.67 LPM                                | FEM         |
+      |         245 | Met One E-SEQ-FRM PM2.5 with WINS                          | FRM         |
+      |         521 | Met One E-FRM PM2.5 with VSCC                              | FRM         |
+      |         545 | Met One E-SEQ-FRM PM2.5 with VSCC                          | FRM         |
+      |         581 | Thermo Scientific 1405-F FDMS w/VSCC                       | FEM         |
 
         Enter the method code corresponding to the reference method for T640_2_PM25:238
 
@@ -984,69 +984,69 @@ module, where the user inputs information via the console.
 
         Confirm entry [y/n]: y
 
-      |   Method Code | Collection Description                          | Method Type   |
-      |--------------:|:------------------------------------------------|:--------------|
-      |             1 | LO-VOL-SA244E                                   | nan           |
-      |             2 | LO-VOL-GMW9200                                  | nan           |
-      |             3 | LO-VOL-WA10-DICHOT                              | nan           |
-      |             4 | LO-VOL-SA246B-DICHOT                            | nan           |
-      |            11 | DUSTTRAK 8530                                   | nan           |
-      |            12 | DUSTTRAK 8533                                   | nan           |
-      |            25 | MED-VOL-SA254                                   | nan           |
-      |            26 | MED-VOL-GMW9100                                 | nan           |
-      |            40 | WEDDING-AUTOMATED-PM10 SAMPLER                  | nan           |
-      |            41 | BAM-102-CONTINUOUS MONITOR                      | nan           |
-      |            51 | HI-VOL-SA321                                    | nan           |
-      |            52 | HI-VOL-SA321A                                   | nan           |
-      |            53 | HI-VOL-GMW9000                                  | nan           |
-      |            54 | HI-VOL-W10                                      | nan           |
-      |            55 | HI-VOL-W10-(W/MAINT.AC.PORT)                    | nan           |
-      |            56 | HI-VOL-SA321G-(321-W/OILSHIM)                   | nan           |
-      |            57 | HI-VOL-SA321AG(321A-W/OILSHIM)                  | nan           |
-      |            58 | HI-VOL-SA321B                                   | nan           |
-      |            59 | HI-VOL-SA1200                                   | nan           |
-      |            62 | HI-VOL-WEDDING-INLET                            | FRM           |
-      |            63 | HI-VOL SA/GMW-1200                              | FRM           |
-      |            64 | HI-VOL-SA/GMW-321-B                             | FRM           |
-      |            65 | HI-VOL-SA/GMW-321-C                             | FRM           |
-      |            71 | OREGON-DEQ-MED-VOL                              | FRM           |
-      |            73 | LO-VOL-DICHOTOMOUS-SA246B-INLT                  | FRM           |
-      |            76 | INSTRMENTL-ANDRSEN-SA246B-INLT                  | FEM           |
-      |            79 | INSTRUMENTAL-R&P SA246B-INLET                   | FEM           |
-      |            81 | INSTRUMENTAL-WEDDING-AUTOMATIC                  | FEM           |
-      |            98 | R&P Model 2000 Partisol                         | FRM           |
-      |           122 | INSTRUMENT MET ONE 4 MODELS                     | FEM           |
-      |           124 | BGI Inc. Model PQ100 PM10                       | FRM           |
-      |           125 | BGI Inc. Model PQ200 PM10                       | FRM           |
-      |           126 | R - P Co Partisol Model 2000                    | FRM           |
-      |           127 | R - P Co Partisol Model 2025                    | FRM           |
-      |           130 | Andersen RAAS10-100 Single channel              | FRM           |
-      |           131 | Andersen RAAS10-200 S-Channel                   | FRM           |
-      |           132 | Andersen RAAS10-300 M-channel                   | FRM           |
-      |           141 | Tisch Environ Model-6070 PM10 Hi-Vol            | FRM           |
-      |           150 | T A Series FH 62 C14 Continuous                 | FEM           |
-      |           151 | Environnement S.A. Model MP101M                 | FEM           |
-      |           156 | Instrument DKK_TOA                              | FEM           |
-      |           162 | Hi Vol SSI Ecotech Model 3000                   | FRM           |
-      |           193 | OPSIS Model SM200 PM10 Monitor                  | FEM           |
-      |           197 | Thermo Partisol Model 2000-D Dichot             | FEM           |
-      |           198 | Thermo Partisol Model 2025-D Dichot             | FEM           |
-      |           205 | AP 602 BAM                                      | FEM           |
-      |           208 | Thermo Scientific 1405-DF Dichotomous TEOM FDMS | FEM           |
-      |           216 | Tisch Model TE-Wilbur10 Low-Volume Sampler      | FRM           |
-      |           226 | Met One E-BAM PLUS                              | FEM           |
-      |           231 | Met One E-FRM PM10                              | FRM           |
-      |           239 | Teledyne API T640X at 16.67 LPM                 | FEM           |
-      |           246 | Met One E-SEQ-FRM                               | FRM           |
-      |           702 | INTERIM PM10                                    | nan           |
-      |           771 | INTERIM PM10                                    | nan           |
-      |           772 | INTERIM PM10                                    | nan           |
-      |           773 | LO-VOL-DICHOT-INTERIM                           | nan           |
-      |           774 | HI-VOL INTERIM 15 MICRON                        | nan           |
-      |           790 | Virtual Impactor                                | nan           |
-      |           792 | Virtual Impactor                                | nan           |
-      |           879 | INSTRUMENTAL-R&P SA246B-Inlet (Tx Modification) | nan           |
-      |           900 | BGI Inc. frmOMNI at 5 lpm                       | nan           |
+      | Method Code | Collection Description                          | Method Type |
+      |------------:|:------------------------------------------------|:------------|
+      |           1 | LO-VOL-SA244E                                   | nan         |
+      |           2 | LO-VOL-GMW9200                                  | nan         |
+      |           3 | LO-VOL-WA10-DICHOT                              | nan         |
+      |           4 | LO-VOL-SA246B-DICHOT                            | nan         |
+      |          11 | DUSTTRAK 8530                                   | nan         |
+      |          12 | DUSTTRAK 8533                                   | nan         |
+      |          25 | MED-VOL-SA254                                   | nan         |
+      |          26 | MED-VOL-GMW9100                                 | nan         |
+      |          40 | WEDDING-AUTOMATED-PM10 SAMPLER                  | nan         |
+      |          41 | BAM-102-CONTINUOUS MONITOR                      | nan         |
+      |          51 | HI-VOL-SA321                                    | nan         |
+      |          52 | HI-VOL-SA321A                                   | nan         |
+      |          53 | HI-VOL-GMW9000                                  | nan         |
+      |          54 | HI-VOL-W10                                      | nan         |
+      |          55 | HI-VOL-W10-(W/MAINT.AC.PORT)                    | nan         |
+      |          56 | HI-VOL-SA321G-(321-W/OILSHIM)                   | nan         |
+      |          57 | HI-VOL-SA321AG(321A-W/OILSHIM)                  | nan         |
+      |          58 | HI-VOL-SA321B                                   | nan         |
+      |          59 | HI-VOL-SA1200                                   | nan         |
+      |          62 | HI-VOL-WEDDING-INLET                            | FRM         |
+      |          63 | HI-VOL SA/GMW-1200                              | FRM         |
+      |          64 | HI-VOL-SA/GMW-321-B                             | FRM         |
+      |          65 | HI-VOL-SA/GMW-321-C                             | FRM         |
+      |          71 | OREGON-DEQ-MED-VOL                              | FRM         |
+      |          73 | LO-VOL-DICHOTOMOUS-SA246B-INLT                  | FRM         |
+      |          76 | INSTRMENTL-ANDRSEN-SA246B-INLT                  | FEM         |
+      |          79 | INSTRUMENTAL-R&P SA246B-INLET                   | FEM         |
+      |          81 | INSTRUMENTAL-WEDDING-AUTOMATIC                  | FEM         |
+      |          98 | R&P Model 2000 Partisol                         | FRM         |
+      |         122 | INSTRUMENT MET ONE 4 MODELS                     | FEM         |
+      |         124 | BGI Inc. Model PQ100 PM10                       | FRM         |
+      |         125 | BGI Inc. Model PQ200 PM10                       | FRM         |
+      |         126 | R - P Co Partisol Model 2000                    | FRM         |
+      |         127 | R - P Co Partisol Model 2025                    | FRM         |
+      |         130 | Andersen RAAS10-100 Single channel              | FRM         |
+      |         131 | Andersen RAAS10-200 S-Channel                   | FRM         |
+      |         132 | Andersen RAAS10-300 M-channel                   | FRM         |
+      |         141 | Tisch Environ Model-6070 PM10 Hi-Vol            | FRM         |
+      |         150 | T A Series FH 62 C14 Continuous                 | FEM         |
+      |         151 | Environnement S.A. Model MP101M                 | FEM         |
+      |         156 | Instrument DKK_TOA                              | FEM         |
+      |         162 | Hi Vol SSI Ecotech Model 3000                   | FRM         |
+      |         193 | OPSIS Model SM200 PM10 Monitor                  | FEM         |
+      |         197 | Thermo Partisol Model 2000-D Dichot             | FEM         |
+      |         198 | Thermo Partisol Model 2025-D Dichot             | FEM         |
+      |         205 | AP 602 BAM                                      | FEM         |
+      |         208 | Thermo Scientific 1405-DF Dichotomous TEOM FDMS | FEM         |
+      |         216 | Tisch Model TE-Wilbur10 Low-Volume Sampler      | FRM         |
+      |         226 | Met One E-BAM PLUS                              | FEM         |
+      |         231 | Met One E-FRM PM10                              | FRM         |
+      |         239 | Teledyne API T640X at 16.67 LPM                 | FEM         |
+      |         246 | Met One E-SEQ-FRM                               | FRM         |
+      |         702 | INTERIM PM10                                    | nan         |
+      |         771 | INTERIM PM10                                    | nan         |
+      |         772 | INTERIM PM10                                    | nan         |
+      |         773 | LO-VOL-DICHOT-INTERIM                           | nan         |
+      |         774 | HI-VOL INTERIM 15 MICRON                        | nan         |
+      |         790 | Virtual Impactor                                | nan         |
+      |         792 | Virtual Impactor                                | nan         |
+      |         879 | INSTRUMENTAL-R&P SA246B-Inlet (Tx Modification) | nan         |
+      |         900 | BGI Inc. frmOMNI at 5 lpm                       | nan         |
 
         Enter the method code corresponding to the reference method for T640_2_PM10:239
 
