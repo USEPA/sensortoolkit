@@ -208,7 +208,7 @@ def sensor_timeplot(df_list, ref_df, param=None, sensor_name=None,
     sns.set_style(kwargs.get('seaborn_style', 'darkgrid'))
     date_interval = kwargs.get('date_interval', 5)
     yscale = kwargs.get('yscale', 'linear')
-    ylims = kwargs.get('ylims', (0, 1.25*max_conc))
+    ylims = kwargs.get('ylims', (-1, 1.25*max_conc))
     format_xaxis_weeks = kwargs.get('format_xaxis_weeks', False)
     fig_size = kwargs.get('fig_size', (16, 3.5))
     fontsize = kwargs.get('fontsize', 15)
@@ -308,11 +308,15 @@ def sensor_timeplot(df_list, ref_df, param=None, sensor_name=None,
         ax.set_title(title_str, fontsize=fontsize*1.1, x=title_xpos)
 
     # Set the colormap and configure the range of hues that will be sampled
-    colormap = plt.cm.get_cmap(cmap_name)
-    cmap_lbound = cmap_norm_range[0]
-    cmap_ubound = cmap_norm_range[1]
-    colors = [colormap(i) for i in np.linspace(cmap_lbound, cmap_ubound,
-              len(df_list))]
+    if len(df_list) == 1:
+        monocolor = kwargs.get('monocolor', '#0048AD')
+        colors = [monocolor]
+    else:
+        colormap = plt.cm.get_cmap(cmap_name)
+        cmap_lbound = cmap_norm_range[0]
+        cmap_ubound = cmap_norm_range[1]
+        colors = [colormap(i) for i in np.linspace(cmap_lbound, cmap_ubound,
+                  len(df_list))]
     ax.set_prop_cycle('color', kwargs.get('sensor_colors', colors))
 
     # Loop through sensor dataframes, check data present, plot data
