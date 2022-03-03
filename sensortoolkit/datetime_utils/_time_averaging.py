@@ -85,7 +85,9 @@ def sensor_averaging(full_df_list, sensor_serials=None, name='',
 
     """
     print('Averaging datasets to 1-hour and 24-hour intervals:')
-    hourly_df_list, daily_df_list = [], []
+    data_dict = {'full': {},
+                 '1-hour': {},
+                 '24-hour': {}}
 
     if sensor_serials is None:
         n_sensors = len(full_df_list)
@@ -96,12 +98,13 @@ def sensor_averaging(full_df_list, sensor_serials=None, name='',
     for i, (full_df, sensor_n) in enumerate(zip(full_df_list, sensor_serials)):
         serial_id = sensor_serials[sensor_n]
 
+        for interval in data_dict:
+            data_dict[interval][serial_id] = None
+
         full_df = remove_duplicates(full_df,
                                     agg_numeric_by='mean',
                                     agg_object_by='first',
                                     print_indent=2)
-
-        full_df_list[i] = full_df
 
         # Compute timedelta between successive timestamps
         delta = (full_df.index[1:] - full_df.index[0:-1]).to_frame()
@@ -141,8 +144,9 @@ def sensor_averaging(full_df_list, sensor_serials=None, name='',
         if full_df.attrs != {} and daily_df.attrs == {}:
             daily_df.attrs = full_df.attrs
 
-        hourly_df_list.append(hourly_df)
-        daily_df_list.append(daily_df)
+        data_dict['full'][serial_id] = full_df
+        data_dict['1-hour'][serial_id] = hourly_df
+        data_dict['24-hour'][serial_id] = daily_df
 
         if write_to_file is True:
             print('....writing full, hourly, and daily datasets to .csv files')
@@ -173,7 +177,7 @@ def sensor_averaging(full_df_list, sensor_serials=None, name='',
             hourly_cp.to_csv(path + name + '_' + serial_id + '_hourly.csv')
             daily_cp.to_csv(path + name + '_' + serial_id + '_daily.csv')
 
-    return full_df_list, hourly_df_list, daily_df_list
+    return data_dict
 
 
 def interval_averaging(df, freq='H', interval_count=60, thres=0.75):
