@@ -16,6 +16,7 @@ Last Updated:
 import os
 import json
 import pandas as pd
+from sensortoolkit import calculate
 from sensortoolkit import lib_utils
 from sensortoolkit import ingest
 from sensortoolkit import datetime_utils
@@ -295,21 +296,30 @@ class AirSensor:
                                          'sensor_data', self.name,
                                          'processed_data', '')
 
-        df_tuple = ingest.sensor_import(sensor_name=self.name,
+        self.data = ingest.sensor_import(sensor_name=self.name,
                                         sensor_serials=self.serials,
                                         load_raw_data=load_raw_data,
                                         data_path=self._data_path,
                                         processed_path=self._processed_path,
                                         write_to_file=write_to_file,
                                         **kwargs)
-        self._set_data(df_tuple)
-        self._check_empty_datasets()
 
-    def _set_data(self, data_obj):
-        for dataset_group in data_obj:
-            # Check that the intervals in the datasets are similar
+        # Compute dewpoint
+        if 'Temp' in self.param_headers and 'RH' in self.param_headers:
+            for interval in self.data:
+
+                for serial in self.data[interval]:
+                    if not self.data[interval][serial].empty:
+                        self.data[interval][serial] = calculate.dewpoint(
+                                                        self.data[interval][serial])
+
+        self._set_data()
+
+    def _set_data(self):
+
+        for interval in self.data.copy():
             t_intervals = [datetime_utils.get_timestamp_interval(df)
-                           for df in dataset_group]
+                           for df in self.data[interval].values() if df is not None]
             t_interval_series = pd.Series(t_intervals)
             t_interval_mode = t_interval_series.mode()
             if t_interval_mode.shape != (1,):
@@ -318,11 +328,11 @@ class AirSensor:
             else:
                 t_mode = t_interval_mode.values[0]
                 t_interval = t_mode
-                self.data[t_interval] = {}
-                for serial_id, df in zip(self.serials.values(), dataset_group):
-                    self.data[t_interval][serial_id] = df
+                self.data[t_interval] = self.data.pop(interval)
 
         self.recording_interval = list(self.data.keys())[0]
+
+        self._check_empty_datasets()
 
         eval_bdate, eval_edate = datetime_utils.timeframe_search(
                                             self.data['1-hour'].values())
