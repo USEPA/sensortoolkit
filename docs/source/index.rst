@@ -153,7 +153,7 @@ Running Analyses and Creating Reports
 * :doc:`Evaluation Objects <evaluation_objects/index>`
 
 .. toctree::
-    :caption: Running Analyses and Creating Reports
+    :caption: Analysis and Reports
     :titlesonly:
     :hidden:
 
