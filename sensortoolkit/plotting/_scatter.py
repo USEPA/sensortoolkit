@@ -1227,10 +1227,18 @@ def normalized_met_scatter(df_list, ref_df, avg_df, met_ref_df=None,
 
     # Set colormap and assign number of discrete colors from colormap
     if point_colors is None:
-        colormap = plt.cm.get_cmap(cmap_name)
-        cmap_lbound, cmap_ubound = cmap_norm_range[0], cmap_norm_range[1]
-        colors = [colormap(i) for i in np.linspace(cmap_lbound, cmap_ubound,
-                  len(norm_df_list))]
+
+        # Set the colormap and configure the range of hues that will be sampled
+        if len(df_list) == 1:
+            monocolor = kwargs.get('monocolor', '#0048AD')
+            colors = [monocolor]
+        else:
+            colormap = plt.cm.get_cmap(cmap_name)
+            cmap_lbound = cmap_norm_range[0]
+            cmap_ubound = cmap_norm_range[1]
+            colors = [colormap(i) for i in np.linspace(cmap_lbound, cmap_ubound,
+                      len(df_list))]
+
     else:
         colors = point_colors
 
@@ -1252,14 +1260,14 @@ def normalized_met_scatter(df_list, ref_df, avg_df, met_ref_df=None,
         if ydata.dropna().empty is True:
             continue
 
-        try:
-            kwargs['monocolor'] = colors[i]
-        except IndexError:
-            print('..warning: length of point colors list does not match'
-                  ' number of sensor datasets')
-            print('..assigning first point color to unspecified point color '
-                  'index')
-            kwargs['monocolor'] = colors[0]
+        # try:
+        #     kwargs['monocolor'] = colors[i]
+        # except IndexError:
+        #     print('..warning: length of point colors list does not match'
+        #           ' number of sensor datasets')
+        #     print('..assigning first point color to unspecified point color '
+        #           'index')
+        #     kwargs['monocolor'] = colors[0]
 
         draw_scatter(ax, xdata, ydata, param_dict,
                      xlims=xlims, ylims=ylims, fontsize=fontsize,
