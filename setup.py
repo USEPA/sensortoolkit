@@ -5,13 +5,16 @@ here = pathlib.Path(__file__).parent
 readme = (here / 'README.md').read_text()
 
 setup(name='sensortoolkit',
-      version='0.8.3b2',
+      version='0.8.4b1',
       description='Library for evaluating air sensor data',
       long_description=readme,
       long_description_content_type='text/markdown',
       author='Samuel Frederick, ORAU Contractor for U.S. EPA ORD',
       maintainer_email='clements.andrea@epa.gov',
-      url='https://github.com/USEPA/sensortoolkit',
+      project_urls={'Source': 'https://github.com/USEPA/sensortoolkit',
+                    'Documentation': 'https://sensortoolkit.readthedocs.io/en/latest/',
+                    'Tracker': 'https://github.com/USEPA/sensortoolkit/issues',
+                    'US EPA Air Sensor Toolbox': 'https://www.epa.gov/air-sensor-toolbox'},
       license='The MIT License (MIT)',
       license_files=('LICENSE.txt'),
       classifiers=[
