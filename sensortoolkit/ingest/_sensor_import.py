@@ -281,39 +281,26 @@ def sensor_import(sensor_name=None, sensor_serials=None,
 
             full_df_list.append(sensor_df)
 
-        df_tuple = sensor_averaging(full_df_list,
-                                    sensor_serials,
-                                    sensor_name,
-                                    write_to_file,
-                                    path=processed_path,
-                                    **kwargs)
-
-        full_df_list, hourly_df_list, daily_df_list = df_tuple
+        data_dict = sensor_averaging(full_df_list,
+                                     sensor_serials,
+                                     sensor_name,
+                                     write_to_file,
+                                     path=processed_path,
+                                     **kwargs)
 
     else:
-        df_tuple = processed_data_search(processed_path,
-                                         sensor_serials,
-                                         **kwargs)
-        full_df_list, hourly_df_list, daily_df_list = df_tuple
+        data_dict = processed_data_search(processed_path,
+                                          sensor_serials,
+                                          **kwargs)
 
-        full_df_list = [concat_dataset(df, start, end)
-                        for df in full_df_list]
-        hourly_df_list = [concat_dataset(df, start, end)
-                          for df in hourly_df_list]
-        daily_df_list = [concat_dataset(df, start, end)
-                         for df in daily_df_list]
+    for interval in data_dict:
+        for serial in data_dict[interval]:
+            if not data_dict[interval][serial].empty:
+               data_dict[interval][serial] =  concat_dataset(
+                                                   data_dict[interval][serial],
+                                                   start, end)
 
-    col_headers = []
-    for df in full_df_list:
-        col_headers.extend(df.columns)
-    col_headers = list(set(col_headers))
-
-    # Compute dewpoint
-    if 'Temp_Value' in col_headers and 'RH_Value' in col_headers:
-        full_df_list = dewpoint(full_df_list)
-        hourly_df_list = dewpoint(hourly_df_list)
-
-    return full_df_list, hourly_df_list, daily_df_list
+    return data_dict
 
 
 def concat_dataset(data, bdate, edate):
