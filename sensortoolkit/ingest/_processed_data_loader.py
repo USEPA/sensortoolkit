@@ -64,7 +64,9 @@ def processed_data_search(processed_path, sensor_serials, **kwargs):
     start = kwargs.get('deploy_bdate', None)
     end = kwargs.get('deploy_edate', None)
 
-    full_df_list, hourly_df_list, daily_df_list = [], [], []
+    data_dict = {'full': {},
+                 '1-hour': {},
+                 '24-hour': {}}
 
     # Check if files in processed file directory
     if len(os.listdir(processed_path)) == 0:
@@ -73,10 +75,13 @@ def processed_data_search(processed_path, sensor_serials, **kwargs):
 
     else:
         print('Loading processed sensor data')
-        for sensor_id in list(sensor_serials.values()):
+        for serial_id in list(sensor_serials.values()):
+            for interval in data_dict:
+                data_dict[interval][serial_id] = pd.DataFrame()
+
             for filename in os.listdir(processed_path):
 
-                if filename.endswith(sensor_id + '_full.csv'):
+                if filename.endswith(serial_id + '_full.csv'):
                     print('..' + filename)
                     # Assert index formatting is ISO8601
                     df = pd.read_csv(processed_path+filename,
@@ -85,9 +90,9 @@ def processed_data_search(processed_path, sensor_serials, **kwargs):
                         df = df.loc[start:, :]
                     if end is not None:
                         df = df.loc[:end, :]
-                    full_df_list.append(df)
+                    data_dict['full'][serial_id] = df
 
-                if filename.endswith(sensor_id + '_hourly.csv'):
+                if filename.endswith(serial_id + '_hourly.csv'):
                     print('..' + filename)
                     # Assert index formatting is ISO8601
                     df = pd.read_csv(processed_path+filename,
@@ -96,9 +101,9 @@ def processed_data_search(processed_path, sensor_serials, **kwargs):
                         df = df.loc[start:, :]
                     if end is not None:
                         df = df.loc[:end, :]
-                    hourly_df_list.append(df)
+                    data_dict['1-hour'][serial_id] = df
 
-                if filename.endswith(sensor_id + '_daily.csv'):
+                if filename.endswith(serial_id + '_daily.csv'):
                     print('..' + filename)
                     # Assert index formatting is ISO8601
                     df = pd.read_csv(processed_path+filename,
@@ -107,6 +112,6 @@ def processed_data_search(processed_path, sensor_serials, **kwargs):
                         df = df.loc[start:, :]
                     if end is not None:
                         df = df.loc[:end, :]
-                    daily_df_list.append(df)
+                    data_dict['24-hour'][serial_id] = df
 
-        return full_df_list, hourly_df_list, daily_df_list
+        return data_dict
