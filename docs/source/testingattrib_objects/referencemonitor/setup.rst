@@ -486,13 +486,12 @@ module, where the user inputs information via the console.
 
       ..writing setup configuration to the following path:
         \data\reference_data\airnow\raw\Burdens_Creek_370630099\reference_setup.json
-        .. tabbed:: Local
-
-          The following steps below walk through the setup process. The example below
-          describes the setup process for a reference data file acquired locally for
-          EPA's sensor testing site:
 
 .. tabbed:: Local
+
+  The following steps below walk through the setup process. The example below
+  describes the setup process for a reference data file acquired locally for
+  EPA's sensor testing site:
 
   **1. Selecting the Reference Data Service/Source**
 
