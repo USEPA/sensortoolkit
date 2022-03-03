@@ -23,7 +23,7 @@ evaluation statistics, printed to the console. Example outputs are shown for eac
 -----
 
 ``SensorEvaluation.print_eval_metrics()``
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 `API Documentation for print_eval_metrics() <../../api/_autosummary/sensortoolkit.evaluation_objs._sensor_eval.SensorEvaluation.html#sensortoolkit.evaluation_objs._sensor_eval.SensorEvaluation.print_eval_metrics>`_
 
@@ -49,7 +49,7 @@ Below is an example for the `Toco Toucan Quickstart Guide example <../../quickst
                      Toco_Toucan 24-hour Performance Evaluation Results
                          Reference Method: T-API T640X at 16.67 LPM
   ----------------------------------------------------------------------------------------
-    CV  |         Slope          |       Intercept        |          R^2           | RMSE
+    CV  |         Slope          |       Intercept        |          R~2           | RMSE
   ----------------------------------------------------------------------------------------
    7.1  |          0.87          |         -2.38          |          0.59          | 3.6
         |     (0.84 to 0.92)     |    (-2.56 to -2.12)    |     (0.54 to 0.63)     |
@@ -57,7 +57,7 @@ Below is an example for the `Toco Toucan Quickstart Guide example <../../quickst
 -----
 
 ``SensorEvaluation.print_eval_conditions()``
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 `API Documentation for print_eval_conditions() <../../api/_autosummary/sensortoolkit.evaluation_objs._sensor_eval.SensorEvaluation.html#sensortoolkit.evaluation_objs._sensor_eval.SensorEvaluation.print_eval_conditions>`_
 

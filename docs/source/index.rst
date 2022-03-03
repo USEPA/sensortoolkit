@@ -1,4 +1,3 @@
-================================================
 sensortoolkit - Air Sensor Data Analysis Library
 ================================================
 
@@ -20,14 +19,17 @@ sensortoolkit - Air Sensor Data Analysis Library
   provided on an “as is” basis and the user assumes responsibility for its use.
   EPA has relinquished control of the information and no longer has responsibility
   to protect the integrity , confidentiality, or availability of the information.
-  Any reference to specific commercial products, processes, or services by service 
+  Any reference to specific commercial products, processes, or services by service
   mark, trademark, manufacturer, or otherwise, does not constitute or imply their
   endorsement, recommendation or favoring by EPA. The EPA seal and logo shall not
   be used in any manner to imply endorsement of any commercial product or activity
   by EPA or the United States Government.
 
-Description
-^^^^^^^^^^^
+Overview
+--------
+
+Library Description
+~~~~~~~~~~~~~~~~~~~
 
 sensortoolkit is a Python library for evaluating air sensor data. The library is
 intended for use with sensors collocated at ambient air monitoring sites alongside
@@ -47,7 +49,7 @@ making sensortoolkit accessible to individuals with a wide range of skillsets
 and academic researchers, and industry professionals).
 
 Key Features
-^^^^^^^^^^^^
+~~~~~~~~~~~~
 
 **The primary goal of sensortoolkit is to provide a platform for analyzing air sensor
 data regardless of formatting differences across sensor data formatting schemes.**
@@ -78,7 +80,7 @@ into standardized formatting schemes for sensor and reference data.
 .. [#f1] Barkjohn, K. K., Gantt, B., and Clements, A. L.: Development and application of a United States-wide correction for PM2.5 data collected with the PurpleAir sensor, Atmos. Meas. Tech., 14, 4617–4637, https://doi.org/10.5194/amt-14-4617-2021, 2021.
 
 U.S. EPA's Performance Targets Reports
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 In February 2021, U.S. EPA released two reports outlining recommended performance
 testing protocols, metrics, and target values for fine particulate matter (:raw-html:`PM<sub>2.5</sub>`)
@@ -112,17 +114,55 @@ pollutants (:raw-html:`PM<sub>1</sub>`, NO,
 collocated alongside reference instrumentation capable of reporting 1-hour and/or
 24-hour concentration values for evaluation parameters of interest.
 
+
+Getting Started
+---------------
+
+* :doc:`Quick Start Guide <quickstart>`
+* :doc:`Installation and Updates <install>`
+* :doc:`Importing sensortoolkit <import_sensortoolkit>`
+
 .. toctree::
-    :caption: Documentation Overview
+    :caption: Getting Started
     :titlesonly:
+    :hidden:
 
     quickstart
     install
     import_sensortoolkit
+
+Objects and Data Structures
+---------------------------
+
+* :doc:`Testing Attribute Objects <testingattrib_objects/index>`
+* :doc:`Data Structures <data_structures/index>`
+* :doc:`The Sensortoolkit Data Formatting Scheme <sdfs/index>`
+
+.. toctree::
+    :caption: Objects and Data Structures
+    :titlesonly:
+    :hidden:
+
     testingattrib_objects/index
-    evaluation_objects/index
     data_structures/index
     sdfs/index
+
+Running Analyses and Creating Reports
+-------------------------------------
+
+* :doc:`Evaluation Objects <evaluation_objects/index>`
+
+.. toctree::
+    :caption: Objects and Data Structures
+    :titlesonly:
+    :hidden:
+
+    evaluation_objects/index
+
+API Documentation
+---------------------------
+
+* :doc:`API Documentation <api/index>`
 
 .. toctree::
     :hidden:
@@ -131,7 +171,7 @@ collocated alongside reference instrumentation capable of reporting 1-hour and/o
     api/index
 
 Indices and tables
-==================
+------------------
 
 * :ref:`genindex`
 * :ref:`modindex`

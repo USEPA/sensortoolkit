@@ -1,6 +1,5 @@
-************************************************
 Conducting Analysis - The SensorEvaluation Class
-************************************************
+================================================
 
 .. role:: raw-html(raw)
    :format: html
@@ -28,9 +27,8 @@ a user-friendly and efficient platform for evaluating sensor performance.
   `methods for setting custom performance targets and metrics <../../testingattrib_objects/parameter.html#setting-performance-targets-and-metrics>`_.
 
 
-========================================
 A brief overview of ``SensorEvaluation``
-========================================
+----------------------------------------
 
 - Computes various quantities and metrics recommended by U.S. EPA's performance targets reports
   including precision (SD - standard deviation, CV - coefficient of variation),
@@ -60,7 +58,7 @@ Below is an example of instantiating the ``SensorEvaluation`` class for the ``Ai
   modules will use the name ``evaluation``.
 
 Arguments passed to ``SensorEvaluation``
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+----------------------------------------
 
 .. list-table:: ``sensortoolkit.SensorEvaluation()`` attributes
   :widths: 50 75
@@ -152,7 +150,7 @@ Arguments passed to ``SensorEvaluation``
                    'Site AQS ID': '[If applicable, insert site AQS ID]'}
 
 ``SensorEvaluation`` Methods
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+----------------------------
 
 ``SensorEvaluation`` contain numerous methods for generating figures, calculating
 statistical quantities, and displaying formatted summaries printed to the console

@@ -1,4 +1,3 @@
-=========================
 Testing Attribute Objects
 =========================
 sensortoolkit contains several class objects to aid users in various data
@@ -41,7 +40,7 @@ Next, users should indicate the project path to sensortoolkit. This is done by u
 ``sensortoolkit.presets.set_project_path()`` method as indicated in the code snippet below. Users can either
 pass the full path to the project directory as a string to the ``set_project_path()`` method, or if a path is
 not passed, a file explorer window will open up and prompt the user to select the folder corresponding to the
-project directory. 
+project directory.
 
 .. code-block:: python
 

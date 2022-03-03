@@ -23,7 +23,7 @@ Example figures are shown for each plotting method.
 -----
 
 ``SensorEvaluation.plot_met_dist()``
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 `API Documentation for plot_met_dist() <../../api/_autosummary/sensortoolkit.evaluation_objs._sensor_eval.SensorEvaluation.html#sensortoolkit.evaluation_objs._sensor_eval.SensorEvaluation.plot_met_dist>`_
 
@@ -55,7 +55,7 @@ Example
 -----
 
 ``SensorEvaluation.plot_met_influence()``
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 `API Documentation for plot_met_influence() <../../api/_autosummary/sensortoolkit.evaluation_objs._sensor_eval.SensorEvaluation.html#sensortoolkit.evaluation_objs._sensor_eval.SensorEvaluation.plot_met_influence>`_
 
@@ -86,7 +86,7 @@ Example
 -----
 
 ``SensorEvaluation.plot_metrics()``
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 `API Documentation for plot_metrics() <../../api/_autosummary/sensortoolkit.evaluation_objs._sensor_eval.SensorEvaluation.html#sensortoolkit.evaluation_objs._sensor_eval.SensorEvaluation.plot_metrics>`_
 
@@ -100,7 +100,7 @@ Results for the following metrics are shown:
 
 - Linearity:
 
-  - :math:`R^2`: The coefficient of determination, which is a measure of linearity between sensor
+  - :math:`R~2`: The coefficient of determination, which is a measure of linearity between sensor
     and reference measurement pairs.
 
 - Bias:
@@ -139,7 +139,7 @@ Example
 -----
 
 ``SensorEvaluation.plot_sensor_met_scatter()``
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 `API Documentation for plot_sensor_met_scatter() <../../api/_autosummary/sensortoolkit.evaluation_objs._sensor_eval.SensorEvaluation.html#sensortoolkit.evaluation_objs._sensor_eval.SensorEvaluation.plot_sensor_met_scatter>`_
 
@@ -168,7 +168,7 @@ Example
 -----
 
 ``SensorEvaluation.plot_sensor_scatter()``
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 `API Documentation for plot_sensor_scatter() <../../api/_autosummary/sensortoolkit.evaluation_objs._sensor_eval.SensorEvaluation.html#sensortoolkit.evaluation_objs._sensor_eval.SensorEvaluation.plot_sensor_scatter>`_
 
@@ -198,7 +198,7 @@ Example
 -----
 
 ``SensorEvaluation.plot_timeseries()``
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 `API Documentation for plot_timeseries() <../../api/_autosummary/sensortoolkit.evaluation_objs._sensor_eval.SensorEvaluation.html#sensortoolkit.evaluation_objs._sensor_eval.SensorEvaluation.plot_timeseries>`_
 

@@ -1,9 +1,8 @@
-****************
 Quickstart Guide
-****************
+================
 
 .. contents:: Table of Contents
-  :depth: 3
+  :depth: 2
 
 Sensortoolkit allows rapid and reproducible evaluation of air sensor data regardless of
 data formatting or encoding and facilitates comparison against reference data from a
@@ -26,7 +25,7 @@ site where sensors were deployed in triplicate.
 
 
 Installing and Updating sensortoolkit
-=====================================
+-------------------------------------
 
 sensortoolkit can be easily downloaded with ``pip``, or if you wish to contribute to the
 development of the package, you can clone the GitHub repository.
@@ -46,7 +45,7 @@ updating sensortoolkit can be found by following the link below.
 
 
 Example Scenario - *Toco Toucan*
-================================
+--------------------------------
 
 .. sidebar:: A Real Toco Toucan
 
@@ -62,7 +61,7 @@ Following a sampling period of 30 days, you collect data from each Toucan sensor
 from the monitoring agency for collocated reference measurements.
 
 Example Data Sets
------------------
+~~~~~~~~~~~~~~~~~
 
 Example data sets for the Toco Toucan sensor and collocated reference monitor are included in the
 GitHub repository under the ``/example_datasets`` folder. You can download these files
@@ -75,7 +74,7 @@ Initial Setup
 -------------
 
 1 - Create a Project Directory
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The first decision you will need to make in using sensortoolkit is where to store scripts,
 data, figures, and reports that are related to your current project. This could be any folder
@@ -83,7 +82,7 @@ location on your computer. I suggest creating a new folder in your documents dir
 call this directory ``toucan_evaluation``.
 
 2 - Calling sensortoolkit from Scripts
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 sensortoolkit works best in development environments that allow you to simultaneously develop
 scripts, view and explore variables, and execute code. These types of software utilities
@@ -102,7 +101,7 @@ Next, within your ``analysis.py`` script, import the sensortoolkit library
   import sensortoolkit
 
 3 - Setting the Project Path and Testing Attributes
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Next, you need to tell sensortoolkit where on your computer you are conducting your evaluation.
 This is our ``toucan_evaluation`` folder, and the full path to that folder is referred to as the "project path".
@@ -139,7 +138,7 @@ files that are generated during analysis.
       'Site AQS ID': '[If applicable, insert site AQS ID]'}
 
 4 - Creating an AirSensor Object
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The next step is to create an object for our Toco Toucan sensor that will store all
 the data sets and related attributes for our analysis. This is done by calling the
@@ -162,7 +161,7 @@ and eventually load sensor data.
 
 
 5 - Constructing Project Directories
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Next, we need to create a directory system of folders within our project path that
 will house data sets, figures, reports, etc. To do so, use the ``create_directories()`` function
@@ -202,7 +201,7 @@ Below is the console output for ``create_directories()``:
   Creating "reports" subdirectory within C:\Users\...\Documents\toucan_evaluation
 
 6 - Configuring the Sensor Setup
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Now we're ready to tell sensortoolkit how data from the Toco Toucan sensors should
 be imported based on the formatting scheme for the recorded data sets. The ``sensor_setup()``
@@ -216,7 +215,7 @@ regarding the recorded datasets in order to build a profile of the Toco Toucan s
   sensor.sensor_setup()
 
 7 - Importing Sensor Data
-^^^^^^^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Following completion of the setup module, we can load the Toco Toucan data sets to the
 ``sensor`` object so that we have access to the data sets for analysis. The ``load_data()``
@@ -232,7 +231,7 @@ these into a standardized format for subsequent analysis:
 We've now completed the setup procedure for the Toco Toucan sensors!
 
 8 - Creating an ReferenceMonitor Object
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 We will now follow a similar process for the reference monitor collocated alongside
 the Toco Toucan sensors at the monitoring site. First, create an object for the
@@ -250,7 +249,7 @@ This creates an instance of ``sensortoolkit.ReferenceMonitor`` called ``referenc
   More information about ``sensortoolkit.ReferenceMonitor`` is found `here <./testingattrib_objects/referencemonitor/index.html>`_
 
 9 - Configuring the Reference Setup
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 As with the Toco Toucan sensor data sets, we need to give sensortoolkit an indication of the
 location of reference monitor datasets and data formatting in order to import and utilize
@@ -263,7 +262,7 @@ alongside your ``reference`` object.
   reference.reference_setup()
 
 10 - Importing Reference Data
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Reference data are imported via the ``load_data()`` function included alongside your ``reference``
 object. If you intend to query data from either the AirNow or AQS API, please see
@@ -279,7 +278,7 @@ object. If you intend to query data from either the AirNow or AQS API, please se
                       met_data=True)
 
 11 - Creating a Parameter Object
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The final component we need to specify is which environmental parameter or pollutant
 measured by the Toco Toucan air sensor that we wish to evaluate against collocated reference
@@ -315,7 +314,7 @@ modules. Use of these modules can be divided into one of two categories, allowin
 data analysis within an IDE or the generation of performance evaluation reports.
 
 Data Analysis with SensorEvaluation
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ``SensorEvaluation`` provides a platform for analyzing air sensor data against
 regulatory grade measurements. With ``SensorEvaluation``, users can compute
@@ -337,7 +336,7 @@ time series, sensor vs. reference scatter, meteorological conditions, etc.
   More information about ``sensortoolkit.SensorEvaluation`` is found `here <./evaluation_objects/sensoreval/index.html>`_
 
 Creating Reports with PerformanceReport
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ``PerformanceReport`` leverages many of the functions included in ``SensorEvaluation``
 to automate the process of creating and compiling testing reports. These reports
@@ -362,8 +361,8 @@ figures, scatter plots, and tabular statistics.
 
 ------
 
-Templates
-=========
+Script Templates
+================
 
 Below are templates that you can use to get started with sensortoolkit. These
 can be copied directly from the documentation into your IDE of choice.

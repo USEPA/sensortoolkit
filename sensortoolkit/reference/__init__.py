@@ -20,3 +20,4 @@ from ._airnowtech_to_long import airnowtech_wide_to_long
 from ._import_airnowtech import preprocess_airnowtech
 from ._load_ref_data import load_ref_dataframes
 from ._ref_api_query import (ref_api_query, query_airnow, query_aqs)
+from ._ref_flags import reference_flags

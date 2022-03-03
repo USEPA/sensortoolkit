@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>sensortoolkit.datetime_utils._time_averaging &mdash; sensortoolkit 0.8.2b4 documentation</title>
+  <title>sensortoolkit.datetime_utils._time_averaging &mdash; sensortoolkit 0.8.3b2 documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" type="text/css" />
@@ -30,7 +30,7 @@
             <a href="../../../index.html" class="icon icon-home"> sensortoolkit
           </a>
               <div class="version">
-                0.8.2b4
+                0.8.3b2
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
@@ -40,15 +40,22 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">Documentation Overview</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../quickstart.html">Quickstart Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../quickstart.html#script-templates">Script Templates</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../install.html">Installing and Updating sensortoolkit</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../import_sensortoolkit.html">Importing sensortoolkit</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Objects and Data Structures</span></p>
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../testingattrib_objects/index.html">Testing Attribute Objects</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../evaluation_objects/index.html">Evaluation Objects</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../data_structures/index.html">Data Structures</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../sdfs/index.html">sensortoolkit Data Formatting Scheme (SDFS)</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Objects and Data Structures</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../evaluation_objects/index.html">Evaluation Objects</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">API Documentation</span></p>
 <ul>
@@ -167,7 +174,9 @@
 
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Averaging datasets to 1-hour and 24-hour intervals:&#39;</span><span class="p">)</span>
-    <span class="n">hourly_df_list</span><span class="p">,</span> <span class="n">daily_df_list</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
+    <span class="n">data_dict</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;full&#39;</span><span class="p">:</span> <span class="p">{},</span>
+                 <span class="s1">&#39;1-hour&#39;</span><span class="p">:</span> <span class="p">{},</span>
+                 <span class="s1">&#39;24-hour&#39;</span><span class="p">:</span> <span class="p">{}}</span>
 
     <span class="k">if</span> <span class="n">sensor_serials</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">n_sensors</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">full_df_list</span><span class="p">)</span>
@@ -178,12 +187,13 @@
     <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">full_df</span><span class="p">,</span> <span class="n">sensor_n</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">full_df_list</span><span class="p">,</span> <span class="n">sensor_serials</span><span class="p">)):</span>
         <span class="n">serial_id</span> <span class="o">=</span> <span class="n">sensor_serials</span><span class="p">[</span><span class="n">sensor_n</span><span class="p">]</span>
 
+        <span class="k">for</span> <span class="n">interval</span> <span class="ow">in</span> <span class="n">data_dict</span><span class="p">:</span>
+            <span class="n">data_dict</span><span class="p">[</span><span class="n">interval</span><span class="p">][</span><span class="n">serial_id</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+
         <span class="n">full_df</span> <span class="o">=</span> <span class="n">remove_duplicates</span><span class="p">(</span><span class="n">full_df</span><span class="p">,</span>
                                     <span class="n">agg_numeric_by</span><span class="o">=</span><span class="s1">&#39;mean&#39;</span><span class="p">,</span>
                                     <span class="n">agg_object_by</span><span class="o">=</span><span class="s1">&#39;first&#39;</span><span class="p">,</span>
                                     <span class="n">print_indent</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
-
-        <span class="n">full_df_list</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">full_df</span>
 
         <span class="c1"># Compute timedelta between successive timestamps</span>
         <span class="n">delta</span> <span class="o">=</span> <span class="p">(</span><span class="n">full_df</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="o">-</span> <span class="n">full_df</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span><span class="o">.</span><span class="n">to_frame</span><span class="p">()</span>
@@ -223,8 +233,9 @@
         <span class="k">if</span> <span class="n">full_df</span><span class="o">.</span><span class="n">attrs</span> <span class="o">!=</span> <span class="p">{}</span> <span class="ow">and</span> <span class="n">daily_df</span><span class="o">.</span><span class="n">attrs</span> <span class="o">==</span> <span class="p">{}:</span>
             <span class="n">daily_df</span><span class="o">.</span><span class="n">attrs</span> <span class="o">=</span> <span class="n">full_df</span><span class="o">.</span><span class="n">attrs</span>
 
-        <span class="n">hourly_df_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">hourly_df</span><span class="p">)</span>
-        <span class="n">daily_df_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">daily_df</span><span class="p">)</span>
+        <span class="n">data_dict</span><span class="p">[</span><span class="s1">&#39;full&#39;</span><span class="p">][</span><span class="n">serial_id</span><span class="p">]</span> <span class="o">=</span> <span class="n">full_df</span>
+        <span class="n">data_dict</span><span class="p">[</span><span class="s1">&#39;1-hour&#39;</span><span class="p">][</span><span class="n">serial_id</span><span class="p">]</span> <span class="o">=</span> <span class="n">hourly_df</span>
+        <span class="n">data_dict</span><span class="p">[</span><span class="s1">&#39;24-hour&#39;</span><span class="p">][</span><span class="n">serial_id</span><span class="p">]</span> <span class="o">=</span> <span class="n">daily_df</span>
 
         <span class="k">if</span> <span class="n">write_to_file</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
             <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;....writing full, hourly, and daily datasets to .csv files&#39;</span><span class="p">)</span>
@@ -255,7 +266,7 @@
             <span class="n">hourly_cp</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">path</span> <span class="o">+</span> <span class="n">name</span> <span class="o">+</span> <span class="s1">&#39;_&#39;</span> <span class="o">+</span> <span class="n">serial_id</span> <span class="o">+</span> <span class="s1">&#39;_hourly.csv&#39;</span><span class="p">)</span>
             <span class="n">daily_cp</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">path</span> <span class="o">+</span> <span class="n">name</span> <span class="o">+</span> <span class="s1">&#39;_&#39;</span> <span class="o">+</span> <span class="n">serial_id</span> <span class="o">+</span> <span class="s1">&#39;_daily.csv&#39;</span><span class="p">)</span>
 
-    <span class="k">return</span> <span class="n">full_df_list</span><span class="p">,</span> <span class="n">hourly_df_list</span><span class="p">,</span> <span class="n">daily_df_list</span></div>
+    <span class="k">return</span> <span class="n">data_dict</span></div>
 
 
 <div class="viewcode-block" id="interval_averaging"><a class="viewcode-back" href="../../../api/_autosummary/sensortoolkit.datetime_utils._time_averaging.interval_averaging.html#sensortoolkit.datetime_utils._time_averaging.interval_averaging">[docs]</a><span class="k">def</span> <span class="nf">interval_averaging</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="n">interval_count</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span> <span class="n">thres</span><span class="o">=</span><span class="mf">0.75</span><span class="p">):</span>

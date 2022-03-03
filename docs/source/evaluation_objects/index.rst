@@ -1,4 +1,3 @@
-==================
 Evaluation Objects
 ==================
 sensortoolkit contains several class objects to aid users in various data

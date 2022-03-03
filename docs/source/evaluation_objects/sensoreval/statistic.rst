@@ -20,7 +20,7 @@ argument specified during instantiation of the ``SensorEvaluation`` object is se
 -----
 
 ``SensorEvaluation.add_deploy_dict_stats()``
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 `API Documentation for add_deploy_dict_stats() <../../api/_autosummary/sensortoolkit.evaluation_objs._sensor_eval.SensorEvaluation.html#sensortoolkit.evaluation_objs._sensor_eval.SensorEvaluation.add_deploy_dict_stats>`_
 
@@ -62,7 +62,7 @@ Computing CV for 24-Hour averaged PM25
 ------
 
 ``SensorEvaluation.calculate_metrics()``
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 `API Documentation for calculate_metrics() <../../api/_autosummary/sensortoolkit.evaluation_objs._sensor_eval.SensorEvaluation.html#sensortoolkit.evaluation_objs._sensor_eval.SensorEvaluation.calculate_metrics>`_
 

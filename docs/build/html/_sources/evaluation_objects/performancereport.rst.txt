@@ -1,6 +1,5 @@
-******************************************************
 Creating Testing Reports - The PerformanceReport Class
-******************************************************
+======================================================
 
 .. role:: raw-html(raw)
   :format: html
@@ -39,7 +38,7 @@ These dictionaries house information about the testing organization, contact inf
 and site details including the address, coordinates, and site AQS ID if applicable.
 
 ``testing_org``
-^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~
 
 A dictionary containing the information about the testing organization.
 
@@ -61,7 +60,7 @@ A dictionary containing the information about the testing organization.
     - Phone number for responsible parties conducting testing.
 
 ``testing_loc``
-^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~
 
 A dictionary containing information about the testing site. If the site is part
 of U.S. EPA's Air Quality System (AQS), the AQS Site ID should be specified.
@@ -98,7 +97,7 @@ report for the ``Toco_Toucan`` sensor evaluating its :raw-html:`PM<sub>2.5</sub>
   report.CreateReport()
 
 Arguments passed to ``PerformanceReport``
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+-----------------------------------------
 
 .. list-table:: ``sensortoolkit.PerformanceReport()`` attributes
   :widths: 50 75
@@ -122,7 +121,7 @@ Arguments passed to ``PerformanceReport``
       existing figures). Defaults to False.
 
 Console Output
-^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~
 
 When the above code block is run (including both instantiation of the ``PerformanceReport``
 object ``report`` and running the ``PerformanceReport.create_report()`` method),

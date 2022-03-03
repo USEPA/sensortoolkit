@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>sensortoolkit.plotting._timeseries &mdash; sensortoolkit 0.8.2b4 documentation</title>
+  <title>sensortoolkit.plotting._timeseries &mdash; sensortoolkit 0.8.3b2 documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" type="text/css" />
@@ -30,7 +30,7 @@
             <a href="../../../index.html" class="icon icon-home"> sensortoolkit
           </a>
               <div class="version">
-                0.8.2b4
+                0.8.3b2
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
@@ -40,15 +40,22 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">Documentation Overview</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../quickstart.html">Quickstart Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../quickstart.html#script-templates">Script Templates</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../install.html">Installing and Updating sensortoolkit</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../import_sensortoolkit.html">Importing sensortoolkit</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Objects and Data Structures</span></p>
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../testingattrib_objects/index.html">Testing Attribute Objects</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../evaluation_objects/index.html">Evaluation Objects</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../data_structures/index.html">Data Structures</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../sdfs/index.html">sensortoolkit Data Formatting Scheme (SDFS)</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Objects and Data Structures</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../evaluation_objects/index.html">Evaluation Objects</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">API Documentation</span></p>
 <ul>
@@ -95,6 +102,7 @@
 <span class="sd">Last Updated:</span>
 <span class="sd">  Wed Jul 28 14:19:13 2021</span>
 <span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">from</span> <span class="nn">pandas.plotting</span> <span class="kn">import</span> <span class="n">register_matplotlib_converters</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -289,7 +297,7 @@
     <span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;seaborn_style&#39;</span><span class="p">,</span> <span class="s1">&#39;darkgrid&#39;</span><span class="p">))</span>
     <span class="n">date_interval</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;date_interval&#39;</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
     <span class="n">yscale</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;yscale&#39;</span><span class="p">,</span> <span class="s1">&#39;linear&#39;</span><span class="p">)</span>
-    <span class="n">ylims</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;ylims&#39;</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">1.25</span><span class="o">*</span><span class="n">max_conc</span><span class="p">))</span>
+    <span class="n">ylims</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;ylims&#39;</span><span class="p">,</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mf">1.25</span><span class="o">*</span><span class="n">max_conc</span><span class="p">))</span>
     <span class="n">format_xaxis_weeks</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;format_xaxis_weeks&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
     <span class="n">fig_size</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;fig_size&#39;</span><span class="p">,</span> <span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mf">3.5</span><span class="p">))</span>
     <span class="n">fontsize</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;fontsize&#39;</span><span class="p">,</span> <span class="mi">15</span><span class="p">)</span>
@@ -389,11 +397,15 @@
         <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">title_str</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="n">fontsize</span><span class="o">*</span><span class="mf">1.1</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="n">title_xpos</span><span class="p">)</span>
 
     <span class="c1"># Set the colormap and configure the range of hues that will be sampled</span>
-    <span class="n">colormap</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">get_cmap</span><span class="p">(</span><span class="n">cmap_name</span><span class="p">)</span>
-    <span class="n">cmap_lbound</span> <span class="o">=</span> <span class="n">cmap_norm_range</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-    <span class="n">cmap_ubound</span> <span class="o">=</span> <span class="n">cmap_norm_range</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-    <span class="n">colors</span> <span class="o">=</span> <span class="p">[</span><span class="n">colormap</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">cmap_lbound</span><span class="p">,</span> <span class="n">cmap_ubound</span><span class="p">,</span>
-              <span class="nb">len</span><span class="p">(</span><span class="n">df_list</span><span class="p">))]</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">df_list</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">monocolor</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;monocolor&#39;</span><span class="p">,</span> <span class="s1">&#39;#0048AD&#39;</span><span class="p">)</span>
+        <span class="n">colors</span> <span class="o">=</span> <span class="p">[</span><span class="n">monocolor</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">colormap</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">get_cmap</span><span class="p">(</span><span class="n">cmap_name</span><span class="p">)</span>
+        <span class="n">cmap_lbound</span> <span class="o">=</span> <span class="n">cmap_norm_range</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">cmap_ubound</span> <span class="o">=</span> <span class="n">cmap_norm_range</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">colors</span> <span class="o">=</span> <span class="p">[</span><span class="n">colormap</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">cmap_lbound</span><span class="p">,</span> <span class="n">cmap_ubound</span><span class="p">,</span>
+                  <span class="nb">len</span><span class="p">(</span><span class="n">df_list</span><span class="p">))]</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">set_prop_cycle</span><span class="p">(</span><span class="s1">&#39;color&#39;</span><span class="p">,</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;sensor_colors&#39;</span><span class="p">,</span> <span class="n">colors</span><span class="p">))</span>
 
     <span class="c1"># Loop through sensor dataframes, check data present, plot data</span>
@@ -486,8 +498,8 @@
     <span class="c1"># Save image to folder at figure_path</span>
     <span class="k">if</span> <span class="n">write_to_file</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
         <span class="n">todays_date</span> <span class="o">=</span> <span class="n">get_todays_date</span><span class="p">()</span>
-        <span class="n">figure_path</span> <span class="o">=</span> <span class="p">(</span><span class="n">figure_path</span> <span class="o">+</span> <span class="n">param</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\\</span><span class="s1">&#39;</span> <span class="o">+</span> <span class="n">sensor_name</span> <span class="o">+</span>
-                       <span class="s1">&#39;_timeseries_&#39;</span> <span class="o">+</span> <span class="n">param</span> <span class="o">+</span> <span class="s1">&#39;_&#39;</span> <span class="o">+</span> <span class="n">averaging_interval</span><span class="p">)</span>
+        <span class="n">figure_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">figure_path</span><span class="p">,</span> <span class="n">param</span><span class="p">,</span>
+                                   <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">sensor_name</span><span class="si">}</span><span class="s1">_timeseries_</span><span class="si">{</span><span class="n">param</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="n">averaging_interval</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 
         <span class="c1"># Optionally add suffix to filename</span>
         <span class="k">if</span> <span class="n">filename_suffix</span> <span class="o">!=</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
@@ -653,8 +665,8 @@
 
     <span class="k">if</span> <span class="n">write_to_file</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
         <span class="n">todays_date</span> <span class="o">=</span> <span class="n">get_todays_date</span><span class="p">()</span>
-        <span class="n">figure_path</span> <span class="o">=</span> <span class="n">figure_path</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\\</span><span class="s1">deployment_timeline_plot&#39;</span> <span class="o">+</span> <span class="s1">&#39;_&#39;</span> \
-            <span class="o">+</span> <span class="n">todays_date</span> <span class="o">+</span> <span class="s1">&#39;.png&#39;</span>
+        <span class="n">figure_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">figure_path</span><span class="p">,</span>
+                                   <span class="sa">f</span><span class="s1">&#39;deployment_timeline_plot_</span><span class="si">{</span><span class="n">todays_date</span><span class="si">}</span><span class="s1">.png&#39;</span><span class="p">)</span>
 
         <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">figure_path</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">)</span>
         <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>

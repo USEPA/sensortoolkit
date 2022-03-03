@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>sensortoolkit.reference._ref_api_query &mdash; sensortoolkit 0.8.2b4 documentation</title>
+  <title>sensortoolkit.reference._ref_api_query &mdash; sensortoolkit 0.8.3b2 documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" type="text/css" />
@@ -30,7 +30,7 @@
             <a href="../../../index.html" class="icon icon-home"> sensortoolkit
           </a>
               <div class="version">
-                0.8.2b4
+                0.8.3b2
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
@@ -40,15 +40,22 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">Documentation Overview</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../quickstart.html">Quickstart Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../quickstart.html#script-templates">Script Templates</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../install.html">Installing and Updating sensortoolkit</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../import_sensortoolkit.html">Importing sensortoolkit</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Objects and Data Structures</span></p>
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../testingattrib_objects/index.html">Testing Attribute Objects</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../evaluation_objects/index.html">Evaluation Objects</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../data_structures/index.html">Data Structures</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../sdfs/index.html">sensortoolkit Data Formatting Scheme (SDFS)</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Objects and Data Structures</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../evaluation_objects/index.html">Evaluation Objects</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">API Documentation</span></p>
 <ul>
@@ -277,11 +284,11 @@
 
     <span class="c1"># Method code lookup tables</span>
     <span class="n">criteria_methods_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="vm">__file__</span><span class="p">,</span>
-                                  <span class="s1">&#39;../method_codes/methods_criteria.csv&#39;</span><span class="p">))</span>
+                                  <span class="s1">&#39;..&#39;</span><span class="p">,</span> <span class="s1">&#39;method_codes&#39;</span><span class="p">,</span> <span class="s1">&#39;methods_criteria.csv&#39;</span><span class="p">))</span>
     <span class="n">criteria_lookup_table</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">criteria_methods_path</span><span class="p">)</span>
 
     <span class="n">met_methods_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="vm">__file__</span><span class="p">,</span>
-                                  <span class="s1">&#39;../method_codes/methods_met.csv&#39;</span><span class="p">))</span>
+                                  <span class="s1">&#39;..&#39;</span><span class="p">,</span> <span class="s1">&#39;method_codes&#39;</span><span class="p">,</span> <span class="s1">&#39;methods_met.csv&#39;</span><span class="p">))</span>
     <span class="n">met_lookup_table</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">met_methods_path</span><span class="p">)</span>
 
     <span class="c1"># Monthly intervals to query</span>
@@ -1249,23 +1256,10 @@
         <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">raw_path</span><span class="p">)</span>
 
     <span class="n">year_month</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">data_period</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y%m&#39;</span><span class="p">)</span>
-    <span class="n">filename</span> <span class="o">=</span> <span class="s1">&#39;H_&#39;</span> <span class="o">+</span> <span class="n">year_month</span> <span class="o">+</span> <span class="s1">&#39;_&#39;</span> <span class="o">+</span> <span class="n">param_class</span> <span class="o">+</span> <span class="s1">&#39;.csv&#39;</span>
+    <span class="n">filename</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;H_</span><span class="si">{</span><span class="n">year_month</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="n">param_class</span><span class="si">}</span><span class="s1">.csv&#39;</span>
 
-    <span class="n">process_df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">process_path</span> <span class="o">+</span> <span class="s1">&#39;/&#39;</span> <span class="o">+</span> <span class="n">filename</span><span class="p">)</span>
-    <span class="n">raw_df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">raw_path</span> <span class="o">+</span> <span class="s1">&#39;/&#39;</span> <span class="o">+</span> <span class="n">filename</span><span class="p">)</span></div>
-
-<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
-
-    <span class="n">path</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;C:</span><span class="se">\\</span><span class="s1">Users</span><span class="se">\\</span><span class="s1">SFREDE01</span><span class="se">\\</span><span class="s1">OneDrive - Environmental Protection Agency (EPA)</span><span class="se">\\</span><span class="s1">Profile</span><span class="se">\\</span><span class="s1">Documents</span><span class="se">\\</span><span class="s1">test_dir&#39;</span>
-
-    <span class="n">aqs_id</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;state&quot;</span><span class="p">:</span> <span class="s2">&quot;08&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;county&quot;</span><span class="p">:</span> <span class="s2">&quot;031&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;site&quot;</span><span class="p">:</span> <span class="s2">&quot;0026&quot;</span><span class="p">}</span>
-
-    <span class="n">data</span> <span class="o">=</span> <span class="n">ref_api_query</span><span class="p">(</span><span class="n">query_type</span><span class="o">=</span><span class="s1">&#39;AQS&#39;</span><span class="p">,</span> <span class="n">param</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Temp&#39;</span><span class="p">,</span> <span class="s1">&#39;RH&#39;</span><span class="p">],</span>
-                         <span class="n">bdate</span><span class="o">=</span><span class="s1">&#39;20191101&#39;</span><span class="p">,</span> <span class="n">edate</span><span class="o">=</span><span class="s1">&#39;20200131&#39;</span><span class="p">,</span>
-                  <span class="n">username</span><span class="o">=</span><span class="s1">&#39;frederick.samuel@epa.gov&#39;</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="s1">&#39;silverbird29&#39;</span><span class="p">,</span>
-                  <span class="n">aqs_id</span><span class="o">=</span><span class="n">aqs_id</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="n">path</span><span class="p">)</span>
+    <span class="n">process_df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">process_path</span><span class="p">,</span> <span class="n">filename</span><span class="p">))</span>
+    <span class="n">raw_df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">raw_path</span><span class="p">,</span> <span class="n">filename</span><span class="p">))</span></div>
 </pre></div>
 
            </div>

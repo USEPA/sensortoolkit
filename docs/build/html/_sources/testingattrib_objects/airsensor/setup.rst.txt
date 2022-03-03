@@ -36,7 +36,7 @@ setup process:
   printed statements, banners, and tables within this setup method.
 
 1. Selecting File Data Type
-^^^^^^^^^^^^^^^^^^^^^^^^^^^
+---------------------------
 
 First, users specify the data type for recorded sensor data. Accepted data
 types include .csv, .txt, and .xlsx. Future updates to sensortoolkit may
@@ -58,7 +58,7 @@ one of the data types listed in the section banner.
   Confirm entry [y/n]: y
 
 2. Selecting Data Files
-^^^^^^^^^^^^^^^^^^^^^^^
+-----------------------
 
 Next, the user is asked to select how sensor datasets will be selected for copying
 to the project path that the user specified. Users are presented with three options:
@@ -82,7 +82,7 @@ copies over files that the user manually selects within a directory.
   Confirm entry [y/n]: y
 
 3. Copying Data files
-^^^^^^^^^^^^^^^^^^^^^
+---------------------
 Once the user selects an option for indicating how data files should be located
 and confirms the entry, a subsequent section in the console will prompt the user to
 select the files for the recorded sensor datasets corresponding to the indicated file type.
@@ -120,7 +120,7 @@ where the copied datasets will be saved.
   Press enter to continue.
 
 4. Selecting the Column Header Index
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+------------------------------------
 Next, users are prompted to enter the row index corresponding to the column headers.
 Sensor datasets may place the header information at the top of the file, and in this
 case, the header row index would be ``0``. Occasionally, data sets do not include any
@@ -235,7 +235,7 @@ scheme regarding where the header row is located in recorded datasets.
     Confirm entry [y/n]: y
 
 5. Parsing Sensor Datasets
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+--------------------------------------------------------
 
 If column headers are not included in the sensor datasets (i.e., the column
 header index in step 1 was set to ``None``), users will need to manually enter
@@ -311,7 +311,7 @@ each column index are displayed.
 
 
 6. Specifying Timestamp Columns
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+-------------------------------
 Users must list all time-like columns that will be used for the 'DateTime'
 index. Typically, this either includes one column as is the case for the
 example, or two columns (one column for the date and another for the time).
@@ -364,7 +364,7 @@ mode.
     Press enter to continue.
 
 7. Specifying the Parameter Renaming Scheme
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+-------------------------------------------
 
 Next, users are prompted to configure the parameter renaming scheme for converting
 recorded datasets into sensortoolkit's Data Formatting Standard (SDFS), which
@@ -545,7 +545,7 @@ from datasets that are processed to the SDFS format.
   Press enter to continue.
 
 8. Configuring Timestamp Column Formatting
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+------------------------------------------
 
 Next, the timestamp column formatting should be specified. Users are encouraged
 to reference https://strftime.org/ for a table of formatting codes. Additional
@@ -620,7 +620,7 @@ or revise the entered formatting scheme.
 
 
 9. Specifying the DateTime Index Time Zone
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+------------------------------------------
 
 Next, the time zone for the timestamp column should be indicated. `SDFS <../../sdfs/index.html>`_
 formatted datasets indicate timestamps in Coordinated Universal Time (UTC), and during
@@ -658,7 +658,7 @@ time zone name.
 
 
 10. Configuring Sensor Serial identifiers
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+-----------------------------------------
 
 Next, users should indicate unique identifiers corresponding to each air sensor in
 the testing group. It is common for sensors to be labeled by a unique serial identifier,
@@ -709,7 +709,7 @@ corresponds to which unit during analysis.
   Press enter to continue.
 
 11. Saving the Setup Configuration to ``setup.json``
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+----------------------------------------------------
 
 Lastly, the Setup module will automatically save the setup configuration
 to a ``setup.json`` file.

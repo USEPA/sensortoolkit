@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>sensortoolkit.plotting._distribution &mdash; sensortoolkit 0.8.2b4 documentation</title>
+  <title>sensortoolkit.plotting._distribution &mdash; sensortoolkit 0.8.3b2 documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" type="text/css" />
@@ -30,7 +30,7 @@
             <a href="../../../index.html" class="icon icon-home"> sensortoolkit
           </a>
               <div class="version">
-                0.8.2b4
+                0.8.3b2
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
@@ -40,15 +40,22 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">Documentation Overview</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../quickstart.html">Quickstart Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../quickstart.html#script-templates">Script Templates</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../install.html">Installing and Updating sensortoolkit</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../import_sensortoolkit.html">Importing sensortoolkit</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Objects and Data Structures</span></p>
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../testingattrib_objects/index.html">Testing Attribute Objects</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../evaluation_objects/index.html">Evaluation Objects</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../data_structures/index.html">Data Structures</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../sdfs/index.html">sensortoolkit Data Formatting Scheme (SDFS)</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Objects and Data Structures</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../evaluation_objects/index.html">Evaluation Objects</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">API Documentation</span></p>
 <ul>
@@ -99,6 +106,7 @@
 <span class="sd">Last Updated:</span>
 <span class="sd">  Wed Jul 28 14:20:18 2021</span>
 <span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">from</span> <span class="nn">pandas.plotting</span> <span class="kn">import</span> <span class="n">register_matplotlib_converters</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
@@ -168,8 +176,8 @@
 
         <span class="k">if</span> <span class="n">write_to_file</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
             <span class="n">todays_date</span> <span class="o">=</span> <span class="n">get_todays_date</span><span class="p">()</span>
-            <span class="n">figure_path</span> <span class="o">=</span> <span class="n">figure_path</span> <span class="o">+</span> <span class="n">ref_name</span> <span class="o">+</span> <span class="s1">&#39;_DistPlot_&#39;</span> <span class="o">+</span> <span class="n">param_name</span> \
-                <span class="o">+</span> <span class="s1">&#39;_&#39;</span> <span class="o">+</span> <span class="n">todays_date</span>
+            <span class="n">figure_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">figure_path</span><span class="p">,</span>
+                                       <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">ref_name</span><span class="si">}</span><span class="s1">_DistPlot_</span><span class="si">{</span><span class="n">param_name</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="n">todays_date</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">filename_suffix</span> <span class="o">!=</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
                 <span class="n">figure_path</span> <span class="o">=</span> <span class="n">figure_path</span> <span class="o">+</span> <span class="s1">&#39;_&#39;</span> <span class="o">+</span> <span class="n">filename_suffix</span>
             <span class="n">figure_path</span> <span class="o">+=</span> <span class="s1">&#39;.png&#39;</span>
@@ -286,8 +294,8 @@
 
     <span class="k">if</span> <span class="n">write_to_file</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
         <span class="n">todays_date</span> <span class="o">=</span> <span class="n">get_todays_date</span><span class="p">()</span>
-        <span class="n">file_path</span> <span class="o">=</span> <span class="n">figure_path</span> <span class="o">+</span> <span class="s1">&#39;Met&#39;</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\\</span><span class="s1">&#39;</span> <span class="o">+</span> <span class="n">sensor_name</span> <span class="o">+</span> <span class="s1">&#39;_&#39;</span>\
-            <span class="s1">&#39;met_distplot_report_fmt&#39;</span> <span class="o">+</span> <span class="s1">&#39;_&#39;</span> <span class="o">+</span> <span class="n">todays_date</span>
+        <span class="n">file_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">figure_path</span><span class="p">,</span> <span class="s1">&#39;Met&#39;</span><span class="p">,</span>
+                                 <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">sensor_name</span><span class="si">}</span><span class="s1">_met_distplot_report_fmt_</span><span class="si">{</span><span class="n">todays_date</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
         <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">file_path</span> <span class="o">+</span> <span class="s1">&#39;.png&#39;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">)</span>
         <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
 

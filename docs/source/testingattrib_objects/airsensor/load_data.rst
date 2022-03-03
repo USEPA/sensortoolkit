@@ -28,7 +28,7 @@ analysis.
       computed. If false, processed data will be loaded.
 
 Initial Import
-^^^^^^^^^^^^^^
+--------------
 
 To load originally recorded datasets and save processed (SDFS formatted) versions
 of sensor datasets to the appropriate directory location, select ``load_raw_data = True``
@@ -63,7 +63,7 @@ files to the ```.../processed_data`` directory.
 
 
 Loading from Processed Data Files
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+---------------------------------
 
 If users have previously loaded sensor datasets (i.e., processed sensor data files
 have been created for the sensor), users can save a little bit of time by loading

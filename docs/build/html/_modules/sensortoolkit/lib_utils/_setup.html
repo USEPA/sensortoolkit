@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>sensortoolkit.lib_utils._setup &mdash; sensortoolkit 0.8.2b4 documentation</title>
+  <title>sensortoolkit.lib_utils._setup &mdash; sensortoolkit 0.8.3b2 documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" type="text/css" />
@@ -30,7 +30,7 @@
             <a href="../../../index.html" class="icon icon-home"> sensortoolkit
           </a>
               <div class="version">
-                0.8.2b4
+                0.8.3b2
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
@@ -40,15 +40,22 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">Documentation Overview</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../quickstart.html">Quickstart Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../quickstart.html#script-templates">Script Templates</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../install.html">Installing and Updating sensortoolkit</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../import_sensortoolkit.html">Importing sensortoolkit</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Objects and Data Structures</span></p>
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../testingattrib_objects/index.html">Testing Attribute Objects</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../evaluation_objects/index.html">Evaluation Objects</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../data_structures/index.html">Data Structures</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../sdfs/index.html">sensortoolkit Data Formatting Scheme (SDFS)</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Objects and Data Structures</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../evaluation_objects/index.html">Evaluation Objects</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">API Documentation</span></p>
 <ul>
@@ -597,11 +604,14 @@
 <span class="sd">            None.</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">data_rel_path</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;/data/</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">data_type</span><span class="si">}</span><span class="s1">_data/&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data_rel_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">data_type</span><span class="si">}</span><span class="s1">_data&#39;</span><span class="p">)</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_type</span> <span class="o">==</span> <span class="s1">&#39;sensor&#39;</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">data_rel_path</span> <span class="o">+=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s1">/raw_data&#39;</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">data_rel_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data_rel_path</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="s1">&#39;raw_data&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_type</span> <span class="o">==</span> <span class="s1">&#39;reference&#39;</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">data_rel_path</span> <span class="o">+=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">dataset_kwargs</span><span class="p">[</span><span class="s2">&quot;ref_data_source&quot;</span><span class="p">]</span><span class="si">}</span><span class="s1">/raw/</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">ref_data_subfolder</span><span class="si">}</span><span class="s1">/&#39;</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">data_rel_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data_rel_path</span><span class="p">,</span>
+                                              <span class="bp">self</span><span class="o">.</span><span class="n">dataset_kwargs</span><span class="p">[</span><span class="s2">&quot;ref_data_source&quot;</span><span class="p">],</span>
+                                              <span class="s1">&#39;raw&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ref_data_subfolder</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+
 
     <span class="k">def</span> <span class="nf">parseDataSets</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">print_banner</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Load the  first few rows of recorded sensor datasets located in the</span>
@@ -1239,10 +1249,10 @@
             <span class="n">filename</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">+</span> <span class="s1">&#39;_setup.json&#39;</span>
             <span class="n">sensor_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">normpath</span><span class="p">(</span>
                             <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data_rel_path</span><span class="p">,</span> <span class="s1">&#39;..&#39;</span><span class="p">))</span>
-            <span class="n">outpath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">normpath</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">path</span> <span class="o">+</span> <span class="n">sensor_path</span><span class="p">)</span>
+            <span class="n">outpath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">normpath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="p">,</span> <span class="n">sensor_path</span><span class="p">))</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_type</span> <span class="o">==</span> <span class="s1">&#39;reference&#39;</span><span class="p">:</span>
             <span class="n">filename</span> <span class="o">=</span> <span class="s1">&#39;reference_setup.json&#39;</span>
-            <span class="n">outpath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">normpath</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">path</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_rel_path</span><span class="p">)</span>
+            <span class="n">outpath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">normpath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_rel_path</span><span class="p">))</span>
 
         <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">outpath</span><span class="p">):</span>
             <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">outpath</span><span class="p">)</span>
@@ -1311,8 +1321,8 @@
 
         <span class="n">abbrev_files</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">file_list</span><span class="p">:</span>
-            <span class="n">file</span> <span class="o">=</span> <span class="n">file</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">path</span> <span class="o">+</span> <span class="s1">&#39;/data/sensor_data/&#39;</span> <span class="o">+</span>
-                                <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">+</span> <span class="s1">&#39;/raw_data/&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+            <span class="n">file</span> <span class="o">=</span> <span class="n">file</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="p">,</span> <span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="s1">&#39;sensor_data&#39;</span><span class="p">,</span>
+                                             <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="s1">&#39;raw_data&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">),</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
             <span class="n">abbrev_files</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
             <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;..</span><span class="si">{0}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">file</span><span class="p">))</span>
 
@@ -1373,8 +1383,9 @@
 
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># Method code lookup tables</span>
-    <span class="n">criteria_methods_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="vm">__file__</span><span class="p">,</span>
-                        <span class="s1">&#39;../../reference/method_codes/methods_criteria.csv&#39;</span><span class="p">))</span>
+    <span class="n">criteria_methods_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="vm">__file__</span><span class="p">,</span> <span class="s1">&#39;..&#39;</span><span class="p">,</span> <span class="s1">&#39;..&#39;</span><span class="p">,</span>
+                                            <span class="s1">&#39;reference&#39;</span><span class="p">,</span> <span class="s1">&#39;method_codes&#39;</span><span class="p">,</span>
+                                            <span class="s1">&#39;methods_criteria.csv&#39;</span><span class="p">))</span>
     <span class="n">criteria_lookup</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">criteria_methods_path</span><span class="p">)</span>
 
     <span class="n">critera_params</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;CO&#39;</span><span class="p">:</span> <span class="s1">&#39;Carbon monoxide&#39;</span><span class="p">,</span>
@@ -1388,8 +1399,9 @@
 
     <span class="n">api_services</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;aqs&#39;</span><span class="p">,</span> <span class="s1">&#39;airnow&#39;</span><span class="p">]</span>
 
-    <span class="n">met_methods_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="vm">__file__</span><span class="p">,</span>
-                            <span class="s1">&#39;../../reference/method_codes/methods_met.csv&#39;</span><span class="p">))</span>
+    <span class="n">met_methods_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="vm">__file__</span><span class="p">,</span> <span class="s1">&#39;..&#39;</span><span class="p">,</span> <span class="s1">&#39;..&#39;</span><span class="p">,</span>
+                                            <span class="s1">&#39;reference&#39;</span><span class="p">,</span> <span class="s1">&#39;method_codes&#39;</span><span class="p">,</span>
+                                            <span class="s1">&#39;methods_met.csv&#39;</span><span class="p">))</span>
     <span class="n">met_lookup</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">met_methods_path</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
@@ -1760,8 +1772,8 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">printSelectionBanner</span><span class="p">(</span><span class="s1">&#39;Ingest Local Datasets&#39;</span><span class="p">,</span>
                                     <span class="n">options</span><span class="o">=</span><span class="p">[])</span>
 
-        <span class="n">process_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">normpath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">outpath</span><span class="p">,</span>
-                            <span class="sa">f</span><span class="s1">&#39;../../../processed/</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">ref_data_subfolder</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">))</span>
+        <span class="n">process_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">normpath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">outpath</span><span class="p">,</span> <span class="s1">&#39;..&#39;</span><span class="p">,</span> <span class="s1">&#39;..&#39;</span><span class="p">,</span>
+                                        <span class="s1">&#39;..&#39;</span><span class="p">,</span> <span class="s1">&#39;processed&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ref_data_subfolder</span><span class="p">))</span>
 
         <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">process_path</span><span class="p">):</span>
             <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">process_path</span><span class="p">)</span>

@@ -1,6 +1,5 @@
-*************************************
 Installing and Updating sensortoolkit
-*************************************
+=====================================
 
 .. note::
 
@@ -11,10 +10,10 @@ Installing and Updating sensortoolkit
   individuals.
 
 Installation
-============
+------------
 
 Installing with pip
--------------------
+~~~~~~~~~~~~~~~~~~~
 
 The easiest way to install sensortoolkit is via ``pip``. Open up a command line interface (for Anaconda users,
 the Anaconda Prompt is recommended) and type the following command:
@@ -24,7 +23,7 @@ the Anaconda Prompt is recommended) and type the following command:
   pip install sensortoolkit
 
 Installing from source
-----------------------
+~~~~~~~~~~~~~~~~~~~~~~
 
 sensortoolkit is developed and maintained in a USEPA GitHub repository. The latest
 development build can be obtained by cloning the repository:
@@ -59,10 +58,10 @@ that a lot of the required libraries are already installed as those packages com
 the base installation of Anaconda.
 
 Updating sensortoolkit
-======================
+----------------------
 
 Updating from a PyPI package distribution
------------------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 If you've installed sensortoolkit using the `installing with pip <./install.html#installing-with-pip>`_ instructions listed
 above, updating your installation is equally as easy!
@@ -85,7 +84,7 @@ Open a command line interface and type the following:
   where X.X.X is replaced by the version you would like to install.
 
 Updating from source
---------------------
+~~~~~~~~~~~~~~~~~~~~
 
 If you cloned the GitHub repository, first, open a command line interface and
 change directories to the folder containing your cloned version of the sensortoolkit repository:

@@ -25,7 +25,7 @@ AirSensor object for the 'Toco Toucan' example mentioned in the `Quickstart Guid
      underscores.
 
 Constructing the sensortoolkit Directory Structure
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+--------------------------------------------------
 sensortoolkit utilizes a folder structure for storing datasets and organizing
 related files. This folder structure is located at the path to a directory the
 user wishes to store evaluation-related content in. This path is referred to as
@@ -77,7 +77,7 @@ block below follows the 'Toco Toucan' Quickstart example, where the project dire
 
 
 Directory Structure
-^^^^^^^^^^^^^^^^^^^
+-------------------
 
 Below is the directory structure created by running the ``sensor.create_directories()``
 function for the ``Toco_Toucan`` sensor type.
