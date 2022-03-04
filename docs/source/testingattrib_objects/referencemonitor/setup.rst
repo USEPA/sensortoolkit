@@ -907,45 +907,43 @@ module, where the user inputs information via the console.
 
         Confirm entry [y/n]: y
 
-      | Method Code | Collection Description                                     | Method Type |
-      |------------:|:-----------------------------------------------------------|:------------|
-      |         116 | BGI Model PQ200 PM2.5 Sampler w/WINS                       | FRM         |
-      |         117 | R & P Model 2000 PM2.5 Sampler w/WINS                      | FRM         |
-      |         118 | R & P Model 2025 PM2.5 Sequential w/WINS                   | FRM         |
-      |         119 | Andersen RAAS2.5-100 PM2.5 SAM w/WINS                      | FRM         |
-      |         120 | Andersen RAAS2.5-300 PM2.5 SEQ w/WINS                      | FRM         |
-      |         123 | Thermo Env Model 605 CAPS                                  | FRM         |
-      |         128 | Andersen RAAS2.5-2000PM2.5 Aud w/WINS                      | FRM         |
-      |         129 | R & P Model 2000 PM-2.5 Audit w/WINS                       | FRM         |
-      |         135 | URG-MASS100 Single PM2.5 Sampler                           | FRM         |
-      |         136 | URG-MASS300 Sequential PM2.5 Sampler                       | FRM         |
-      |         142 | BGI Models PQ200-VSCC or PQ200A-VSCC                       | FRM         |
-      |         143 | R & P Model 2000 PM-2.5 Air Sampler w/VSCC                 | FRM         |
-      |         144 | R & P Model 2000 PM-2.5 Audit Sampler w/VSCC               | FRM         |
-      |         145 | R & P Model 2025 PM-2.5 Sequential Air Sampler w/VSCC      | FRM         |
-      |         153 | Thermo Electron Model RAAS2.5-100 w/VSCC                   | FRM         |
-      |         154 | Thermo Electron Model RAAS2.5-200 Audit w/VSCC             | FRM         |
-      |         155 | Thermo Electron Model RAAS2.5-300 Sequential w/VSCC        | FRM         |
-      |         170 | Met One BAM-1020 Mass Monitor w/VSCC                       | FEM         |
-      |         177 | Thermo Scientific Partisol 2000-D Dichot.                  | FEM         |
-      |         179 | Thermo Scientific Dichot. Partisol-Plus Model 2025-D Seq   | FEM         |
-      |         181 | Thermo Scientific TEOM 1400 FDMS or 1405 8500C FDMS w/VSCC | FEM         |
-      |         182 | Thermo Scientific TEOM 1405-DF Dichotomous FDMS            | FEM         |
-      |         183 | Thermo Scientific 5014i or FH62C14-DHS w/VSCC              | FEM         |
-      |         184 | Thermo Scientific Model 5030 SHARP w/VSCC                  | FEM         |
-      |         195 | GRIMM EDM Model 180 with naphion dryer                     | FEM         |
-      |         203 | Opsis SM200-Dust Monitor w/VSCC                            | FEM         |
-      |         204 | Teledyne Model 602 Beta plus w/VSCC                        | FEM         |
-      |         209 | Met One BAM-1022 Mass Monitor w/ VSCC or TE-PM2.5C         | FEM         |
-      |         219 | Tisch Model TE-Wilbur2.5 Low-Volume Sampler                | FRM         |
-      |         221 | Met One E-FRM PM2.5 with WINS                              | FRM         |
-      |         235 | Met One E-FRM PM2.5 with URG-2000-30EGN cyclone            | FEM         |
-      |         236 | Teledyne T640 at 5.0 LPM                                   | FEM         |
-      |         238 | Teledyne T640X at 16.67 LPM                                | FEM         |
-      |         245 | Met One E-SEQ-FRM PM2.5 with WINS                          | FRM         |
-      |         521 | Met One E-FRM PM2.5 with VSCC                              | FRM         |
-      |         545 | Met One E-SEQ-FRM PM2.5 with VSCC                          | FRM         |
-      |         581 | Thermo Scientific 1405-F FDMS w/VSCC                       | FEM         |
+      | Method Code | Collection Description                                | Method Type |
+      |------------:|:------------------------------------------------------|:------------|
+      |         116 | BGI Model PQ200 PM2.5 Sampler w/WINS                  | FRM         |
+      |         117 | R & P Model 2000 PM2.5 Sampler w/WINS                 | FRM         |
+      |         118 | R & P Model 2025 PM2.5 Sequential w/WINS              | FRM         |
+      |         119 | Andersen RAAS2.5-100 PM2.5 SAM w/WINS                 | FRM         |
+      |         120 | Andersen RAAS2.5-300 PM2.5 SEQ w/WINS                 | FRM         |
+      |         123 | Thermo Env Model 605 CAPS                             | FRM         |
+      |         128 | Andersen RAAS2.5-2000PM2.5 Aud w/WINS                 | FRM         |
+      |         129 | R & P Model 2000 PM-2.5 Audit w/WINS                  | FRM         |
+      |         135 | URG-MASS100 Single PM2.5 Sampler                      | FRM         |
+      |         136 | URG-MASS300 Sequential PM2.5 Sampler                  | FRM         |
+      |         142 | BGI Models PQ200-VSCC or PQ200A-VSCC                  | FRM         |
+      |         143 | R & P Model 2000 PM-2.5 Air Sampler w/VSCC            | FRM         |
+      |         144 | R & P Model 2000 PM-2.5 Audit Sampler w/VSCC          | FRM         |
+      |         145 | R & P Model 2025 PM-2.5 Sequential Air Sampler w/VSCC | FRM         |
+      |         153 | Thermo Electron Model RAAS2.5-100 w/VSCC              | FRM         |
+      |         154 | Thermo Electron Model RAAS2.5-200 Audit w/VSCC        | FRM         |
+      |         155 | Thermo Electron Model RAAS2.5-300 Sequential w/VSCC   | FRM         |
+      |         170 | Met One BAM-1020 Mass Monitor w/VSCC                  | FEM         |
+      |         177 | Thermo Scientific Partisol 2000-D Dichot.             | FEM         |
+      |         182 | Thermo Scientific TEOM 1405-DF Dichotomous FDMS       | FEM         |
+      |         183 | Thermo Scientific 5014i or FH62C14-DHS w/VSCC         | FEM         |
+      |         184 | Thermo Scientific Model 5030 SHARP w/VSCC             | FEM         |
+      |         195 | GRIMM EDM Model 180 with naphion dryer                | FEM         |
+      |         203 | Opsis SM200-Dust Monitor w/VSCC                       | FEM         |
+      |         204 | Teledyne Model 602 Beta plus w/VSCC                   | FEM         |
+      |         209 | Met One BAM-1022 Mass Monitor w/ VSCC or TE-PM2.5C    | FEM         |
+      |         219 | Tisch Model TE-Wilbur2.5 Low-Volume Sampler           | FRM         |
+      |         221 | Met One E-FRM PM2.5 with WINS                         | FRM         |
+      |         235 | Met One E-FRM PM2.5 with URG-2000-30EGN cyclone       | FEM         |
+      |         236 | Teledyne T640 at 5.0 LPM                              | FEM         |
+      |         238 | Teledyne T640X at 16.67 LPM                           | FEM         |
+      |         245 | Met One E-SEQ-FRM PM2.5 with WINS                     | FRM         |
+      |         521 | Met One E-FRM PM2.5 with VSCC                         | FRM         |
+      |         545 | Met One E-SEQ-FRM PM2.5 with VSCC                     | FRM         |
+      |         581 | Thermo Scientific 1405-F FDMS w/VSCC                  | FEM         |
 
         Enter the method code corresponding to the reference method for T640_2_PM25:238
 
