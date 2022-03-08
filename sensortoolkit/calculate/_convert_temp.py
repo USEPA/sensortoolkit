@@ -10,6 +10,7 @@ Last Updated:
   Fri Sep 10 09:11:01 2021
 """
 import pandas as pd
+import numpy as np
 
 def convert_temp(data, from_unit='F', to_unit='C', **kwargs):
     """Convert temperature from one unit basis to another.
@@ -39,20 +40,42 @@ def convert_temp(data, from_unit='F', to_unit='C', **kwargs):
     # if 'Temp_Value' not in data:
     #     raise KeyError('Column header "Temp_Value" not in passed dataframe.')
 
-    f_to_c = lambda x: (x - 32.0) / 1.8
-    c_to_f = lambda x: 1.8*(x) + 32.0
-
     if from_unit == 'F' and to_unit == 'C':
         if verbose:
             print('....converting from Fahrenheit to Celsius')
-        converted_data = f_to_c(data)
+
+        try:
+            converted_data = _f_to_c(data)
+        except TypeError as e:
+            print(e)
     elif from_unit == 'C' and to_unit == 'F':
         if verbose:
             print('....converting from Celsius to Fahrenheit')
-        converted_data = c_to_f(data)
+        try:
+            converted_data = _c_to_f(data)
+        except TypeError as e:
+            print(e)
     else:
         raise AttributeError('Invalid conversion. Arguments for "from_unit"'
                              ' and "to_unit" must be either "C" or "F" and'
                              ' should not be the same unit.')
 
     return converted_data
+
+
+def _f_to_c(x):
+    func = lambda x: (x - 32.0) / 1.8
+    try:
+        val = func(x)
+    except TypeError as e:
+        val = np.nan
+    return val
+
+
+def _c_to_f(x):
+    func = lambda x: 1.8*(x) + 32.0
+    try:
+        val = func(x)
+    except TypeError as e:
+        val = np.nan
+    return val
