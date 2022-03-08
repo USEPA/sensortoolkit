@@ -28,6 +28,8 @@ Last Updated:
 """
 import pptx as ppt
 import datetime as dt
+import pytz
+from timezonefinder import TimezoneFinder
 import numpy as np
 import math
 import os
@@ -131,6 +133,25 @@ class PerformanceReport(SensorEvaluation):
         self.testing_loc = _presets.test_loc
         self.testing_org = _presets.test_org
 
+        self.overall_begin = self.deploy_period_df['Begin'].min()
+        self.overall_end = self.deploy_period_df['End'].max()
+
+        self.utc_offset = None
+        self.tzone = pytz.timezone('UTC')
+        tf = TimezoneFinder()
+        if (self.testing_loc['Site lat'] is not None) and (self.testing_loc['Site long'] is not None):
+            try:
+                lat = float(self.testing_loc['Site lat'])
+                lon = float(self.testing_loc['Site long'])
+
+                zone = tf.timezone_at(lng=lon, lat=lat)
+                self.tzone = pytz.timezone(zone)
+
+                lst_now = dt.datetime.now(self.tzone)
+                self.tzone_utc_offset = lst_now.utcoffset().total_seconds()/3600
+
+            except ValueError as e:
+                print(f'{e}, latitude and longitude coordinates should be passed as floats')
         # Populate deployment dictionary with performance metric results
         self.calculate_metrics()
 
@@ -152,6 +173,7 @@ class PerformanceReport(SensorEvaluation):
             for sensor in grp_sensors:
                 serial = grp_sensors[sensor]['serial_id']
                 self.serial_grp_dict[serial] = grp
+        self.eval_grps = list(self.tframe.keys())
 
         # Initialize report object
         self.rpt = ppt.Presentation(self.template_path)
@@ -668,10 +690,15 @@ class PerformanceReport(SensorEvaluation):
                             font_name='Calibri Light', font_size=20)
             tester_text.line_spacing = ppt.util.Pt(text_vspace)
 
-            # Add current month to header
-            month_year = dt.datetime.now().strftime('%B %Y')
+            # Add month(s) of eval to header
+            start_month = self.overall_begin.strftime('%B %Y')
+            end_month = self.overall_end.strftime('%B %Y')
+
             tester_text = tester_info.text_frame.add_paragraph()
-            tester_text.text = month_year
+            if start_month == end_month:
+                tester_text.text = f'{start_month}'
+            else:
+                tester_text.text = f'{start_month}—{end_month}'
             self.FormatText(tester_text, alignment='left',
                             font_name='Calibri Light', font_size=20)
             tester_text.line_spacing = ppt.util.Pt(text_vspace)
@@ -759,8 +786,7 @@ class PerformanceReport(SensorEvaluation):
 
         # Add site lat long
         text_obj = cell.text_frame.add_paragraph()
-        text_obj.text = (self.testing_loc['Site lat'] + ', ' +
-                         self.testing_loc['Site long'])
+        text_obj.text = f'{self.testing_loc["Site lat"]}, {self.testing_loc["Site long"]}'
         self.FormatText(text_obj, alignment='center', font_name='Calibri',
                         font_size=11)
 
@@ -774,24 +800,39 @@ class PerformanceReport(SensorEvaluation):
                         font_size=14)
 
         # ------------------ Cell 3: Sampling timeframe -----------------------
+        # cell = shape.table.cell(4, 0)
+        # text_obj = cell.text_frame.add_paragraph()
+        # text_obj.text = f'Time zone: {self.tzone.zone}'
+        # self.FormatText(text_obj, alignment='center', font_name='Calibri',
+        #             font_size=12)
+
+
         cell = shape.table.cell(4, 1)
+        text_obj = cell.text_frame.paragraphs[0]
+
+        begin_lst = self.overall_begin.tz_convert(self.tzone.zone).strftime('%Y-%m-%d %H:%M %Z')
+        end_lst = self.overall_end.tz_convert(self.tzone.zone).strftime('%Y-%m-%d %H:%M %Z')
+
+        text_obj.text = f'{begin_lst} to\n{end_lst}'
+        self.FormatText(text_obj, alignment='center', font_name='Calibri',
+                    font_size=11)
 
         # Add sampling timeframe for each group in deployment
-        self.eval_grps = list(self.tframe.keys())
-        for i, grp in enumerate(self.tframe):
-            if i == 0:
-                text_obj = cell.text_frame.paragraphs[0]
-            else:
-                text_obj = cell.text_frame.add_paragraph()
-            grp_name = self.eval_grps[i]
-            grp_tframe = self.tframe[grp_name]
+        # self.eval_grps = list(self.tframe.keys())
+        # for i, grp in enumerate(self.tframe):
+        #     if i == 0:
+        #         text_obj = cell.text_frame.paragraphs[0]
+        #     else:
+        #         text_obj = cell.text_frame.add_paragraph()
+        #     grp_name = self.eval_grps[i]
+        #     grp_tframe = self.tframe[grp_name]
 
-            if len(self.eval_grps) == 1:
-                text_obj.text = grp_tframe
-            else:
-                text_obj.text = grp_name + ': ' + grp_tframe
-            self.FormatText(text_obj, alignment='center', font_name='Calibri',
-                            font_size=11)
+        #     if len(self.eval_grps) == 1:
+        #         text_obj.text = grp_tframe
+        #     else:
+        #         text_obj.text = grp_name + ': ' + grp_tframe
+        #     self.FormatText(text_obj, alignment='center', font_name='Calibri',
+        #                     font_size=11)
 
     def EditSensorTable(self):
         """Add information to sensor information table (page 1).
@@ -808,7 +849,7 @@ class PerformanceReport(SensorEvaluation):
         """
         # Get pptx table shape for modifying cells
         if self.n_avg_intervals == 2:
-            shape = self.GetShape(slide_idx=0, shape_id=49)
+            shape = self.GetShape(slide_idx=0, shape_id=34)
         if self.n_avg_intervals == 1:
             shape = self.GetShape(slide_idx=0, shape_id=30)
 
@@ -843,41 +884,68 @@ class PerformanceReport(SensorEvaluation):
                         font_size=14)
 
         # -------------------- Sensor Serial ID cells -------------------------
-        rows = [4, 5, 6]  # row indicies for sensor serial cells
-        cols = [1, 3, 4]  # column indicies for sensor serial cells
-        for i, iloc in enumerate(rows):
-            for j, jloc in enumerate(cols):
-                cell_n = 3*i + (j + 1)
+        for cell_n, cell in enumerate(shape.table.iter_cells(), 1):
+            # Only fill in ID info for number of sensors in evaluation.
+            # If number of sensors is, say, 8, then the last cell for the
+            # 3x3 grid for serial numbers is left empty.
 
-                # Only fill in ID info for number of sensors in evaluation.
-                # If number of sensors is, say, 8, then the last cell for the
-                # 3x3 grid for serial numbers is left empty.
-                if len(self.serial_grp_dict) < cell_n:
-                    pass
-                else:
-                    cell = shape.table.cell(iloc, jloc)
+            if (cell_n < 18) or (cell_n > 28) or (cell_n in [21, 25]):
+                continue
 
-                    serial_idx = cell_n - 1
-                    sensor_serial = list(self.serial_grp_dict.keys()
-                                         )[serial_idx]
-                    sensor_grp = list(self.serial_grp_dict.values()
-                                      )[serial_idx]
+            if cell_n >  21:
+                cell_n -= 1
+            if cell_n > 24:
+                cell_n -= 1
+            cell_n -= 17
 
-                    # Add group number if multiple groups
-                    if len(self.eval_grps) > 1:
-                        grp_obj = cell.text_frame.paragraphs[0]
-                        grp_obj.text = sensor_grp
-                        self.FormatText(grp_obj, alignment='center',
-                                        font_name='Calibri', font_size=10.5)
+            if len(self.serial_grp_dict) < cell_n:
+                pass
+            else:
+                serial_idx = cell_n - 1
+                sensor_serial = list(self.serial_grp_dict.keys()
+                                     )[serial_idx]
+                sensor_grp = list(self.serial_grp_dict.values()
+                                  )[serial_idx]
 
-                        # Add sensor serial ID
-                        serial_obj = cell.text_frame.add_paragraph()
-                    else:
-                        serial_obj = cell.text_frame.paragraphs[0]
-
-                    serial_obj.text = sensor_serial
-                    self.FormatText(serial_obj, alignment='center',
+                # Add group number if multiple groups
+                if len(self.eval_grps) > 1:
+                    grp_obj = cell.text_frame.paragraphs[0]
+                    grp_obj.text = sensor_grp
+                    self.FormatText(grp_obj, alignment='center',
                                     font_name='Calibri', font_size=10.5)
+
+                    # Add sensor serial ID
+                    serial_obj = cell.text_frame.add_paragraph()
+                else:
+                    serial_obj = cell.text_frame.paragraphs[0]
+
+                serial_obj.text = sensor_serial
+                self.FormatText(serial_obj, alignment='center',
+                                font_name='Calibri', font_size=10.5)
+
+        # If one sensor, merge 3x3 grid to single cell
+        if len(self.serials) == 1:
+
+            cell_span_orig = shape.table.cell(4, 1)
+            cell_span_other = shape.table.cell(6, 3)
+
+            cell_span_orig.merge(cell_span_other)
+
+        # If three sensors, merge 3x3 to 1x3 (merge to single row)
+        if len(self.serials) == 3:
+
+            for j in [1, 2, 3]:
+                cell_span_orig = shape.table.cell(4, j)
+                cell_span_other = shape.table.cell(6, j)
+                cell_span_orig.merge(cell_span_other)
+
+        # If six sensors, merge 3x3 to 2x3 (merge second and thrid rows)
+        if len(self.serials) == 6:
+
+            for j in [1, 2, 3]:
+                cell_span_orig = shape.table.cell(5, j)
+                cell_span_other = shape.table.cell(6, j)
+                cell_span_orig.merge(cell_span_other)
 
         # Check for issues with deployment
         for i, grp in enumerate(self.deploy_dict['Deployment Groups']):
@@ -985,7 +1053,7 @@ class PerformanceReport(SensorEvaluation):
                                                             'conc_max_24-hour']
 
                 self.refconc[grp] = \
-                    '{0:3.1f}-{1:3.1f} (1-hr), '\
+                    '{0:3.1f}-{1:3.1f} (1-hr),\n'\
                     '{2:3.1f}-{3:3.1f} (24-hr)'.format(ref_hmin, ref_hmax,
                                                        ref_dmin, ref_dmax)
 
@@ -1533,7 +1601,8 @@ class PerformanceReport(SensorEvaluation):
                             pass
                         c10_row += 1
 
-            if i > datacellend:
+            if i > datacellend and self.n_sensors > 1:
+
                 j = i - (datacellend + 1)
 
                 # Metric Mean column 1
@@ -2082,6 +2151,13 @@ class PerformanceReport(SensorEvaluation):
         tabular_layout_idx = 1
         tabular_layout = self.rpt.slide_layouts[tabular_layout_idx]
 
+        uptime_disclaimer = ('*This value is only a recommendation for '
+                             'ensuring data quality and is not included in the '
+                             'list of target values discussed in Section 4 of '
+                             'the Performance Testing Protocols, Metrics, and '
+                             'Target Values for Fine Particulate Matter Air '
+                             'Sensors\ndocument.')
+
         legend_txt = {
                 'line1': 'Device-specific metrics (computed for each '
                          'sensor in evaluation)',
@@ -2114,6 +2190,19 @@ class PerformanceReport(SensorEvaluation):
             # Create new tabular stats page
             tabular_slide = self.rpt.slides.add_slide(
                                                 tabular_layout)
+
+
+            uptime_footnote = tabular_slide.shapes.add_textbox(left=ppt.util.Inches(0.51),
+                                                               top=ppt.util.Inches(21.52),
+                                                               width=ppt.util.Inches(15.68),
+                                                               height=ppt.util.Inches(0.48))
+            uptime_textframe = uptime_footnote.text_frame
+
+            uptime_p = uptime_textframe.paragraphs[0]
+            uptime_p.text = uptime_disclaimer
+
+            self.FormatText(uptime_p, alignment='left',
+                            font_name='Calibri', font_size=11.5)
 
             # Sensor Reference Table
             sr_frame, sr_table = self.ConstructTable(
@@ -2170,7 +2259,7 @@ class PerformanceReport(SensorEvaluation):
                                 ppt.util.Inches(12.81),  # width
                                 ppt.util.Inches(0.44))  # height
             sr_header_obj = sr_header.text_frame.paragraphs[0]
-            sr_header_obj.text = 'Sensor-FRM/FEM Correlation'
+            sr_header_obj.text = 'Sensor-FRM/FEM Agreement'
             self.FormatText(sr_header_obj, alignment='left',
                             font_name='Calibri Light', font_size=20)
 
@@ -2286,6 +2375,8 @@ class PerformanceReport(SensorEvaluation):
         if table_type == 'sensor_reference':
             if self.n_avg_intervals == 2:
                 nrows = 5 + self.grp_n_sensors
+                if self.n_sensors == 1:
+                    nrows -= 1
                 ncols = 11
                 col_width = ppt.util.Inches(1.2)
                 width = ppt.util.Inches(14.4)
@@ -2297,6 +2388,8 @@ class PerformanceReport(SensorEvaluation):
 
             if self.n_avg_intervals == 1:
                 nrows = 5 + self.grp_n_sensors
+                if self.n_sensors == 1:
+                    nrows -= 1
                 ncols = 6
                 col_width = ppt.util.Inches(2.4)
                 width = ppt.util.Inches(14.4)
