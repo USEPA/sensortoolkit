@@ -1201,14 +1201,14 @@ def normalized_met_scatter(df_list, ref_df, avg_df, met_ref_df=None,
     # Retreive formatted version of sensor and parameter name
     fmt_sensor_name = sensor_name.replace('_', ' ')
 
-    try:
-        met_ref_name = data[met_param_name + '_Method'].dropna().unique()[0]
-    except IndexError:
-        met_ref_name = 'Unspecified Reference'
-    except KeyError:
-        met_ref_name = sensor_name
+    # try:
+    #     met_ref_name = data[met_param_name + '_Method'].dropna().unique()[0]
+    # except IndexError:
+    #     met_ref_name = 'Unspecified Reference'
+    # except KeyError:
+    #     met_ref_name = sensor_name
 
-    x_label = f'{met_ref_name} {fmt_met_param} ({fmt_met_units})'
+    x_label = f'Reference {fmt_met_param} ({fmt_met_units})'
 
     title = fmt_sensor_name + ' ' + fmt_param + ' Normalized by ' + ref_name
 
