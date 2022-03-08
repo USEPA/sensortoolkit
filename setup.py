@@ -65,6 +65,7 @@ setup(name='sensortoolkit',
                         'statsmodels',
                         'urllib3',
                         'pip',
-                        'chardet'
+                        'chardet',
+                        'timezonefinder'
                         ]
       )
