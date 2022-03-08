@@ -449,6 +449,18 @@ def performance_metrics(stats_df, deploy_dict, param=None,
                               linewidth=marker_border_width,
                               jitter=False)
 
+                if n_sensors == 1 and metric_name in ['CV', 'SD']:
+                    props = dict(boxstyle='round',
+                                 facecolor='lightblue',
+                                 alpha=0.5)
+
+                    axs[ax_idx].text(0.5, 0.6, 'N/A$^†$',
+                                     color = '#1A315C', fontsize=14,
+                                     horizontalalignment='center',
+                                     verticalalignment='center',
+                                     transform=axs[ax_idx].transAxes,
+                                     bbox=props)
+
             boxes = []
 
             if metric_name == 'R$^2$':
@@ -486,6 +498,9 @@ def performance_metrics(stats_df, deploy_dict, param=None,
                 upper_lim = 1.5*data_df[metric_name].max()
                 if upper_lim < 50:
                     upper_lim = 50
+                if n_sensors == 1:
+                    upper_lim = 60
+
                 metric_name = rf'{metric_name} (%)'
 
             if metric_name == 'RMSE':
@@ -500,6 +515,7 @@ def performance_metrics(stats_df, deploy_dict, param=None,
             if metric_name == 'NRMSE':
                 dim_key = 'NRMSE'
                 lower_lim = 0
+                upper_lim = 1.5*data_df[metric_name].max()
                 if upper_lim < 50:
                     upper_lim = 50
                 metric_name = r'NRMSE ($\%$)'
@@ -511,6 +527,8 @@ def performance_metrics(stats_df, deploy_dict, param=None,
                 metric_name = rf'{metric_name} ({param_obj.units})'
 
                 if upper_lim < 10:
+                    upper_lim = 10
+                if n_sensors == 1:
                     upper_lim = 10
 
             # Get formatting values
