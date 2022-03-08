@@ -207,17 +207,23 @@ def cv(df_list, deploy_dict, param=None, return_deploy_dict=True):
                 print('Sensor', n, 'indicates issues during deployment')
                 print('Excluding sensor', n, 'from CV calculation')
 
-        # Set analysis dataframe for computing CV
-        deploy_cols = [i + '_' + param for i in deploy_sensor_nums]
-        deploy_cv_df = cv_df.loc[start:end, deploy_cols]
+        # If only one sensor in the analysis cohort, set precision metrics null
+        if len(deploy_sensor_nums) == 1:
+            CV, st_dev, n_concurr = np.nan, np.nan, np.nan
+        else:
+            # Set analysis dataframe for computing CV
+            deploy_cols = [i + '_' + param for i in deploy_sensor_nums]
+            deploy_cv_df = cv_df.loc[start:end, deploy_cols]
+            deploy_cv_df, CV, st_dev, n_concurr = _calculate_cv(deploy_cv_df,
+                                                                serials,
+                                                                param=param)
+            CV = float("{0:.3f}".format(CV))
+            st_dev = float("{0:.3f}".format(st_dev))
+            n_concurr = int(n_concurr)
 
-        deploy_cv_df, CV, st_dev, n_concurr = _calculate_cv(deploy_cv_df,
-                                                            serials,
-                                                            param=param)
-
-        stats_loc['cv' + avg_suffix] = float("{0:.3f}".format(CV))
-        stats_loc['std' + avg_suffix] = float("{0:.3f}".format(st_dev))
-        stats_loc['n' + avg_suffix] = int(n_concurr)
+        stats_loc['cv' + avg_suffix] = CV
+        stats_loc['std' + avg_suffix] = st_dev
+        stats_loc['n' + avg_suffix] = n_concurr
 
     if return_deploy_dict is True:
         return deploy_dict
