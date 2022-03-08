@@ -176,7 +176,7 @@ def met_distrib(met_ref_data, avg_hrly_df, figure_path, sensor_name=None,
                      **{'alpha': 0.6})
 
         if param.startswith('RH'):
-            label = 'Relative Humidity (%)'
+            label = 'Reference Relative Humidity (%)'
             if sensor_data:
                 axs[i].set_title('*Sensor Measurements Shown*',
                                  fontsize=detail_font_size, y=0.97)
@@ -184,7 +184,7 @@ def met_distrib(met_ref_data, avg_hrly_df, figure_path, sensor_name=None,
             axs[i].xaxis.set_major_locator(plt.MultipleLocator(25))
 
         if param.startswith('Temp'):
-            label = 'Temperature ($\\degree$C)'
+            label = 'Reference Temperature ($\\degree$C)'
             if sensor_data:
                 axs[i].set_title('*Sensor Measurements Shown*',
                                  fontsize=detail_font_size, y=0.97)
@@ -192,8 +192,9 @@ def met_distrib(met_ref_data, avg_hrly_df, figure_path, sensor_name=None,
             axs[i].xaxis.set_major_locator(plt.MultipleLocator(10))
 
         if param.startswith('DP'):
-            label = 'Dew Point ($\\degree$C)'
+            label = 'Reference Dew Point ($\\degree$C)'
             if sensor_data:
+                label = label.replace('Reference', 'Sensor')
                 axs[i].set_title('*Sensor Measurements Shown*',
                                  fontsize=detail_font_size, y=0.97)
             axs[i].set_xlabel(label, fontsize=detail_font_size)
