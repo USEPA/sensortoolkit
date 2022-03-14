@@ -1389,16 +1389,16 @@ class PerformanceReport(SensorEvaluation):
         self.uptime_h_vals, self.uptime_d_vals = [], []
         n_h_vals, n_d_vals = [], []
 
+        n_header_rows = 4
+        if self.n_avg_intervals == 1:
+            datacols = 6
+        if self.n_avg_intervals == 2:
+            datacols = 11
+        datacell0 = datacols*n_header_rows
+        datacellend = datacell0 + self.grp_n_sensors*datacols
+
         for i, cell in enumerate(cells):
             text_obj = cell.text_frame.paragraphs[0]
-
-            n_header_rows = 4
-            if self.n_avg_intervals == 1:
-                datacols = 6
-            if self.n_avg_intervals == 2:
-                datacols = 11
-            datacell0 = datacols*n_header_rows
-            datacellend = datacell0 + self.grp_n_sensors*datacols
 
             # Add table header info (rows 1-4)
             if str(i) in table_categories:
@@ -1446,10 +1446,10 @@ class PerformanceReport(SensorEvaluation):
                 except KeyError:
                     pass
 
+            j = i - (datacell0 + 1)
             # Decision tree for adding sensor data to table
             if (i > datacell0 and i < datacell0 + (datacols)*self.grp_n_sensors
                and i % datacols != 0):
-                j = i - (datacell0 + 1)
 
                 # Metric column 1
                 if j % datacols == 0:
@@ -1601,8 +1601,82 @@ class PerformanceReport(SensorEvaluation):
                             pass
                         c10_row += 1
 
-            if i > datacellend and self.n_sensors > 1:
 
+            if (i >= datacellend - datacols) and (i < datacellend +1):
+                txt = None
+
+                if j % datacols == 0:
+                    # 1-hr R^2
+                    if self.n_avg_intervals == 1:
+                        txt = self.CheckTargets(rsqr_h_vals, metric='R^2')
+                    # 1-hr R^2
+                    if self.n_avg_intervals == 2:
+                        txt = self.CheckTargets(rsqr_h_vals, metric='R^2')
+
+                if (j - 1) % datacols == 0:
+                    # 1-hr Slope
+                    if self.n_avg_intervals == 1:
+                        txt = self.CheckTargets(slope_h_vals, metric='Slope')
+                    # 24-hr R^2
+                    if self.n_avg_intervals == 2:
+                        txt = self.CheckTargets(rsqr_d_vals, metric='R^2')
+
+                # Metric Mean column 3
+                if (j - 2) % datacols == 0:
+                    # 1-hr Intercept
+                    if self.n_avg_intervals == 1:
+                        txt = self.CheckTargets(intcpt_h_vals,
+                                                metric='Intercept')
+                    # 1-hr Slope
+                    if self.n_avg_intervals == 2:
+                        txt = self.CheckTargets(slope_h_vals, metric='Slope')
+
+                # Metric Mean column 4
+                if (j - 3) % datacols == 0:
+                    # 1-hr Uptime
+                    if self.n_avg_intervals == 1:
+                        txt = self.CheckTargets(self.uptime_h_vals,
+                                                metric='Uptime')
+                    # 24-hr Slope
+                    if self.n_avg_intervals == 2:
+                        txt = self.CheckTargets(slope_d_vals, metric='Slope')
+
+                # Metric Mean column 5
+                if (j - 4) % datacols == 0:
+                    # 1-hr N paired measurements
+                    if self.n_avg_intervals == 1:
+                        pass
+                    # 1-hr Intercept
+                    if self.n_avg_intervals == 2:
+                        txt = self.CheckTargets(intcpt_h_vals,
+                                                metric='Intercept')
+
+                if self.n_avg_intervals == 2:
+                    if (j - 5) % datacols == 0:
+                        # 24-hr Intercept
+                        txt = self.CheckTargets(intcpt_d_vals,
+                                                metric='Intercept')
+
+                    if (j - 6) % datacols == 0:
+                        # 1-hr Uptime
+                        txt = self.CheckTargets(self.uptime_h_vals,
+                                                metric='Uptime')
+
+                    if (j - 7) % datacols == 0:
+                        # 24-hr Uptime
+                        txt = self.CheckTargets(self.uptime_d_vals,
+                                                metric='Uptime')
+
+                # Indicate number of sensors meeting performance metric target
+                if txt is not None:
+                    trgt_cell = cells[i - datacols*(self.grp_n_sensors + 1)]
+                    trgt_cell_text = trgt_cell.text_frame.add_paragraph()
+                    trgt_cell_text.text = txt
+                    self.FormatText(trgt_cell_text, alignment='center',
+                                    font_name='Calibri Light', font_size=12)
+
+            #if i > datacellend and self.n_sensors > 1:
+            if i > datacellend:
                 j = i - (datacellend + 1)
 
                 # Metric Mean column 1
@@ -1610,12 +1684,12 @@ class PerformanceReport(SensorEvaluation):
                     # Mean 1-hr R^2
                     if self.n_avg_intervals == 1:
                         val = np.mean(rsqr_h_vals)
-                        txt = self.CheckTargets(rsqr_h_vals, metric='R^2')
+                        #txt = self.CheckTargets(rsqr_h_vals, metric='R^2')
                         fmt_precision = '3.2f'
                     # Mean 1-hr R^2
                     if self.n_avg_intervals == 2:
                         val = np.mean(rsqr_h_vals)
-                        txt = self.CheckTargets(rsqr_h_vals, metric='R^2')
+                        #txt = self.CheckTargets(rsqr_h_vals, metric='R^2')
                         fmt_precision = '3.2f'
 
                 # Metric Mean column 2
@@ -1623,12 +1697,12 @@ class PerformanceReport(SensorEvaluation):
                     # Mean 1-hr Slope
                     if self.n_avg_intervals == 1:
                         val = np.mean(slope_h_vals)
-                        txt = self.CheckTargets(slope_h_vals, metric='Slope')
+                        #txt = self.CheckTargets(slope_h_vals, metric='Slope')
                         fmt_precision = '3.2f'
                     # Mean 24-hr R^2
                     if self.n_avg_intervals == 2:
                         val = np.mean(rsqr_d_vals)
-                        txt = self.CheckTargets(rsqr_d_vals, metric='R^2')
+                        #txt = self.CheckTargets(rsqr_d_vals, metric='R^2')
                         fmt_precision = '3.2f'
 
                 # Metric Mean column 3
@@ -1636,13 +1710,13 @@ class PerformanceReport(SensorEvaluation):
                     # Mean 1-hr Intercept
                     if self.n_avg_intervals == 1:
                         val = np.mean(intcpt_h_vals)
-                        txt = self.CheckTargets(intcpt_h_vals,
-                                                metric='Intercept')
+                        #txt = self.CheckTargets(intcpt_h_vals,
+                        #                        metric='Intercept')
                         fmt_precision = '3.2f'
                     # Mean 1-hr Slope
                     if self.n_avg_intervals == 2:
                         val = np.mean(slope_h_vals)
-                        txt = self.CheckTargets(slope_h_vals, metric='Slope')
+                        #txt = self.CheckTargets(slope_h_vals, metric='Slope')
                         fmt_precision = '3.2f'
 
                 # Metric Mean column 4
@@ -1650,13 +1724,13 @@ class PerformanceReport(SensorEvaluation):
                     # Mean 1-hr Uptime
                     if self.n_avg_intervals == 1:
                         val = np.mean(self.uptime_h_vals)
-                        txt = self.CheckTargets(self.uptime_h_vals,
-                                                metric='Uptime')
+                        #txt = self.CheckTargets(self.uptime_h_vals,
+                        #                        metric='Uptime')
                         fmt_precision = '3.2f'
                     # Mean 24-hr Slope
                     if self.n_avg_intervals == 2:
                         val = np.mean(slope_d_vals)
-                        txt = self.CheckTargets(slope_d_vals, metric='Slope')
+                        #txt = self.CheckTargets(slope_d_vals, metric='Slope')
                         fmt_precision = '3.2f'
 
                 # Metric Mean column 5
@@ -1667,8 +1741,8 @@ class PerformanceReport(SensorEvaluation):
                     # Mean 1-hr Intercept
                     if self.n_avg_intervals == 2:
                         val = np.mean(intcpt_h_vals)
-                        txt = self.CheckTargets(intcpt_h_vals,
-                                                metric='Intercept')
+                        #txt = self.CheckTargets(intcpt_h_vals,
+                        #                         metric='Intercept')
                         fmt_precision = '3.2f'
 
                 if self.n_avg_intervals == 2:
@@ -1676,24 +1750,24 @@ class PerformanceReport(SensorEvaluation):
                     if (j - 5) % datacols == 0:
                         # Mean 24-hr Intercept
                         val = np.mean(intcpt_d_vals)
-                        txt = self.CheckTargets(intcpt_d_vals,
-                                                metric='Intercept')
+                        #txt = self.CheckTargets(intcpt_d_vals,
+                        #                        metric='Intercept')
                         fmt_precision = '3.2f'
 
                     # Metric Mean column 7
                     if (j - 6) % datacols == 0:
                         # Mean 1-hr Uptime
                         val = np.mean(self.uptime_h_vals)
-                        txt = self.CheckTargets(self.uptime_h_vals,
-                                                metric='Uptime')
+                        #txt = self.CheckTargets(self.uptime_h_vals,
+                        #                        metric='Uptime')
                         fmt_precision = '.0f'
 
                     # Metric Mean column 8
                     if (j - 7) % datacols == 0:
                         # Mean 24-hr Uptime
                         val = np.mean(self.uptime_d_vals)
-                        txt = self.CheckTargets(self.uptime_d_vals,
-                                                metric='Uptime')
+                        # txt = self.CheckTargets(self.uptime_d_vals,
+                        #                         metric='Uptime')
                         fmt_precision = '.0f'
 
                     # Metric Mean column 9
@@ -1708,20 +1782,11 @@ class PerformanceReport(SensorEvaluation):
                         val = np.mean(n_d_vals)
                         fmt_precision = '.0f'
 
-                # Indicate number of sensors meeting performance metric target
-                if txt is not None:
-                    trgt_cell = cells[i - datacols*(self.grp_n_sensors + 2)]
-                    trgt_cell_text = trgt_cell.text_frame.add_paragraph()
-                    trgt_cell_text.text = txt
-                    self.FormatText(trgt_cell_text, alignment='center',
-                                    font_name='Calibri Light', font_size=12)
-
                 text_obj.text = format(val, fmt_precision)
 
             # Configure text formatting
             self.FormatText(text_obj, alignment='center',
                             font_name='Calibri', font_size=14)
-            txt = None
 
     def EditErrorTable(self, table):
         """Add error tabular statistics (page 2).
@@ -2802,6 +2867,9 @@ class PerformanceReport(SensorEvaluation):
                     text = closed_dot
                 else:
                     text = open_dot
+            # If only one sensor and no sensors passed
+            if text == '':
+                text = open_dot
 
         if metric in ['CV', 'SD', 'RMSE', 'NRMSE']:
             if pcnt_passed == 100:
