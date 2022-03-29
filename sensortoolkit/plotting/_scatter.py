@@ -239,7 +239,7 @@ def draw_scatter(ax, xdata, ydata, param_dict, sensor_stats=None,
                 transform=ax.transAxes, color=text_color,
                 alpha=text_alpha, size=text_size)
 
-        # Pearson Correlation Coefficient
+        # Coefficient of Determination
         r_square = sensor_stats.loc[0, 'R$^2$']
         ax.text(text_x - text_xdisplacement,
                 text_y - text_ydisplacement,
