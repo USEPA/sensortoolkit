@@ -66,7 +66,7 @@ class ReferenceMonitor:
 
     # Default project path set to library path, should be something like
     # 'C:/Users/.../Anaconda3/Lib/site-packages/sensortoolkit'
-    default_proj_path = Path(__file__).parent.parent
+    default_proj_path = Path(__file__).parent.parent.__str__()
 
     def __init__(self, data_source=None, site_name=None, site_id=None):
 
