@@ -1002,6 +1002,7 @@ class _Setup:
             the unit basis for the SDFS parameter.
 
         """
+
         val = None
         sdfs_param_units = Parameter(sdfs_param).units
         print('')
@@ -1010,13 +1011,26 @@ class _Setup:
         print('')
         if confirm == 'n':
             if param == 'Temp' or 'DP':
-                print(f'  Are the units of measure for {param} Fahrenheit?')
+
+                if sdfs_param_units == '°F':
+                    old_temp_basis = '°C'
+                    old_unit_name = 'Celsius'
+                    new_unit_name = 'Fahrenheit'
+                elif sdfs_param_units == '°C':
+                    old_temp_basis = '°F'
+                    old_unit_name = 'Fahrenheit'
+                    new_unit_name = 'Celsius'
+
+                print(f'  Are the units of measure [{old_temp_basis}] for column header "{param}"?')
                 temp_confirm = validate_entry(indent_statement=2)
                 if temp_confirm == 'y':
                     print('')
-                    print(f'  {param} will be converted from Fahrenheit to Celsius')
-                    val = 'f_c'
+                    old_temp_basis = old_temp_basis.replace("°", "").lower()
+                    new_temp_basis = sdfs_param_units.replace("°", "").lower()
+                    print(f'  "{param}" will be converted from {old_unit_name} to {new_unit_name}')
+                    val = f'{old_temp_basis}_{new_temp_basis}'
                 else:
+                    print('')
                     print('  Temperature must be in either degree Fahrenheit or Celsius')
 
             else:
