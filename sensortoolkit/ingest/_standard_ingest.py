@@ -222,11 +222,19 @@ def standard_ingest(path, name=None, setup_file_path=None):
         # Use a specific equation indicated by the conversion string
         if isinstance(conversion, str):
 
+            # Temperature conversions
             if conversion == 'f_c':
                 sdfs_header = setup['col_rename_dict'][header]
                 converted_data = convert_temp(df[sdfs_header],
                                               from_unit='F',
                                               to_unit='C')
+                df[sdfs_header] = converted_data
+
+            if conversion == 'c_f':
+                sdfs_header = setup['col_rename_dict'][header]
+                converted_data = convert_temp(df[sdfs_header],
+                                              from_unit='C',
+                                              to_unit='F')
                 df[sdfs_header] = converted_data
 
             # Other non-scalar conversions could go here
