@@ -1962,56 +1962,48 @@ class PerformanceReport(SensorEvaluation):
                                      ['Precision'])
 
         if self.n_avg_intervals == 2:
-            datacols = 8
+            datacols = 6
             nheaderrows = 4
             headercellend = nheaderrows*(datacols + 1)
             span_dict = {'Precision (between collocated sensors)': [1, 4],
-                         'Data Quality': [5, 8],
-                         'CV\n(%)': [10, 11],
-                         f'SD\n({self.param.units})': [12, 13],
-                         'Uptime\n(%)': [14, 15],
-                         'Number concurrent sensor values': [16, 17]}
+                         'Data Quality': [5, 6],
+                         'CV\n(%)': [8, 9],
+                         f'SD\n({self.param.units})': [10, 11],
+                         'Number concurrent sensor values': [12, 13]}
             table_categories = {'1': 'Precision (between collocated sensors)',
                                 '5': 'Data Quality'}
-            metrics = {'10': 'CV\n(%)',
-                       '12': f'SD\n({self.param.units})',
-                       '14': 'Uptime\n(%)',
-                       '16': 'Number of concurrent\nsensor concentration pairs'}
-            avg_intervals = {'19': '1-Hour',
-                             '20': '24-Hour',
-                             '21': '1-Hour',
-                             '22': '24-Hour',
-                             '23': '1-Hour',
-                             '24': '24-Hour',
-                             '25': '1-Hour',
-                             '26': '24-Hour'}
+            metrics = {'8': 'CV\n(%)',
+                       '10': f'SD\n({self.param.units})',
+                       '12': 'Number of concurrent\nsensor concentration pairs'}
+            avg_intervals = {'15': '1-Hour',
+                             '16': '24-Hour',
+                             '17': '1-Hour',
+                             '18': '24-Hour',
+                             '19': '1-Hour',
+                             '20': '24-Hour'}
 
             cv_ubound = self.param.PerformanceTargets.get_metric(
-                            metrics['10'].split('\n')[0])['bounds'][1]
+                            metrics['8'].split('\n')[0])['bounds'][1]
             sd_ubound = self.param.PerformanceTargets.get_metric(
-                            metrics['12'].split('\n')[0])['bounds'][1]
+                            metrics['10'].split('\n')[0])['bounds'][1]
 
-            metric_targets = {'27': 'Metric Target Range',
-                              '28': '≤ {:3.1f}'.format(cv_ubound),
-                              '29': '≤ {:3.1f}'.format(cv_ubound),
-                              '30': '≤ {:2.1f}'.format(sd_ubound),
-                              '31': '≤ {:2.1f}'.format(sd_ubound),
-                              '32': '75%*',
-                              '33': '75%*',
-                              '34': '-',
-                              '35': '-',
-                              '36': 'Deployment Value'}
-            metric_vals = {'37': format(grp_stats['cv_1-hour'], '3.1f'),
-                           '38': format(grp_stats['cv_24-hour'], '3.1f'),
-                           '39': format(grp_stats['std_1-hour'], '3.1f'),
-                           '40': format(grp_stats['std_24-hour'], '3.1f'),
-                           '41': format(np.mean(self.uptime_h_vals), '.0f'),
-                           '42': format(np.mean(self.uptime_d_vals), '.0f'),
-                           '43': format(grp_stats['n_1-hour'], '.0f'),
-                           '44': format(grp_stats['n_24-hour'], '.0f')}
+            metric_targets = {'21': 'Metric Target Range',
+                              '22': '≤ {:3.1f}'.format(cv_ubound),
+                              '23': '≤ {:3.1f}'.format(cv_ubound),
+                              '24': '≤ {:2.1f}'.format(sd_ubound),
+                              '25': '≤ {:2.1f}'.format(sd_ubound),
+                              '26': '-',
+                              '27': '-',
+                              '28': 'Deployment Value'}
+            metric_vals = {'29': format(grp_stats['cv_1-hour'], '3.1f'),
+                           '30': format(grp_stats['cv_24-hour'], '3.1f'),
+                           '31': format(grp_stats['std_1-hour'], '3.1f'),
+                           '32': format(grp_stats['std_24-hour'], '3.1f'),
+                           '33': format(grp_stats['n_1-hour'], '.0f'),
+                           '34': format(grp_stats['n_24-hour'], '.0f')}
 
         if self.n_avg_intervals == 1:
-            datacols = 4
+            datacols = 3
             nheaderrows = 4
             headercellend = nheaderrows*(datacols + 1)
             span_dict = {'Precision (between collocated sensors)': [1, 2],
@@ -2021,29 +2013,25 @@ class PerformanceReport(SensorEvaluation):
                                 '3': 'Data Quality'}
             metrics = {'6': 'CV\n(%)',
                        '7': f'SD\n({self.param.units})',
-                       '8': 'Uptime\n(%)',
-                       '9': 'Number of paired\nsensor and '
+                       '8': 'Number of paired\nsensor and '
                             'reference\nconcentration pairs'}
-            avg_intervals = {'11': '1-Hour',
-                             '12': '1-Hour',
-                             '13': '1-Hour',
-                             '14': '1-Hour'}
+            avg_intervals = {'10': '1-Hour',
+                             '11': '1-Hour',
+                             '12': '1-Hour'}
 
             cv_ubound = self.param.PerformanceTargets.get_metric(
                             metrics['6'].split('\n')[0])['bounds'][1]
             sd_ubound = self.param.PerformanceTargets.get_metric(
                             metrics['7'].split('\n')[0])['bounds'][1]
 
-            metric_targets = {'15': 'Metric Target Range',
-                              '16': '≤ {:3.1f}'.format(cv_ubound),
-                              '17': '≤ {:2.1f}'.format(sd_ubound),
-                              '18': '75%*',
-                              '19': '-',
-                              '20': 'Deployment Value'}
-            metric_vals = {'21': format(grp_stats['cv_1-hour'], '3.1f'),
-                           '22': format(grp_stats['std_1-hour'], '3.1f'),
-                           '23': format(np.mean(self.uptime_h_vals), '.0f'),
-                           '24': format(grp_stats['n_1-hour'], '.0f')}
+            metric_targets = {'13': 'Metric Target Range',
+                              '14': '≤ {:3.1f}'.format(cv_ubound),
+                              '15': '≤ {:2.1f}'.format(sd_ubound),
+                              '16': '-',
+                              '17': 'Deployment Value'}
+            metric_vals = {'18': format(grp_stats['cv_1-hour'], '3.1f'),
+                           '19': format(grp_stats['std_1-hour'], '3.1f'),
+                           '20': format(grp_stats['n_1-hour'], '.0f')}
 
         cells = self.SetSpanningCells(table, span_dict)
 
@@ -2101,10 +2089,6 @@ class PerformanceReport(SensorEvaluation):
                         txt = self.CheckTargets(val, metric='CV')
                 # Metric column 3
                 if (j - 1) % datacols == 2:
-                    # 1-hr Uptime
-                    if self.n_avg_intervals == 1:
-                        val = float(metric_vals[str(i)])
-                        txt = self.CheckTargets(val, metric='Uptime')
                     # 1-hr Std dev
                     if self.n_avg_intervals == 2:
                         val = float(metric_vals[str(i)])
@@ -2116,18 +2100,6 @@ class PerformanceReport(SensorEvaluation):
                         val = float(metric_vals[str(i)])
                         txt = self.CheckTargets(val, metric='SD')
 
-                if self.n_avg_intervals == 2:
-                    # Metric column 5
-                    if (j - 1) % datacols == 4:
-                        # 1-hr uptime
-                        val = float(metric_vals[str(i)])
-                        txt = self.CheckTargets(val, metric='Uptime')
-                    # Metric column 6
-                    if (j - 1) % datacols == 5:
-                        # 24-hr uptime
-                        val = float(metric_vals[str(i)])
-                        txt = self.CheckTargets(val, metric='Uptime')
-
                 # Indicate whether sensors meet performance metric target
                 if txt is not None:
                     trgt_cell = cells[i - 2*(datacols + 1)]
@@ -2135,6 +2107,13 @@ class PerformanceReport(SensorEvaluation):
                     trgt_cell_text.text = txt
                     self.FormatText(trgt_cell_text, alignment='center',
                                     font_name='Calibri Light', font_size=12)
+
+                if math.isnan(val):
+                    text_obj.text = '-'
+                    cell.fill.solid()
+                    cell.fill.fore_color.rgb = ppt.dml.color.RGBColor(214,
+                                                                      216,
+                                                                      226)
 
             self.FormatText(text_obj, alignment='center',
                             font_name='Calibri', font_size=14)
@@ -2237,12 +2216,13 @@ class PerformanceReport(SensorEvaluation):
                 'line6': '',
                 'line7': 'Single-valued metrics '
                          '(computed via entire evaluation dataset)',
-                'line8': '○  Indicates that the metric value is not '
+                'line8': '☆  Indicates that the metric value is not '
                          'within the target range',
-                'line9': '●  Indicates that the metric value is within '
+                'line9': '★  Indicates that the metric value is within '
                          'the target range',
 
                 }
+
 
         # List of unique testing groups
         grps = sorted(list(set(self.serial_grp_dict.values())))
@@ -2487,23 +2467,23 @@ class PerformanceReport(SensorEvaluation):
         if table_type == 'sensor_sensor':
             if self.n_avg_intervals == 2:
                 nrows = 5
-                ncols = 9
+                ncols = 7
                 col_width = ppt.util.Inches(1.2)
                 width = ppt.util.Inches(12.0)
                 height = ppt.util.Inches(3.23)
                 left = ppt.util.Inches(1.32)
                 top = ppt.util.Inches(3.69 + 7.83 + 2*table_spacing + 3.23)
-                greyed_cells = [34, 35]
+                greyed_cells = [26, 27]
 
             if self.n_avg_intervals == 1:
                 nrows = 5
-                ncols = 5
+                ncols = 4
                 col_width = ppt.util.Inches(2.4)
                 width = ppt.util.Inches(12.0)
                 height = ppt.util.Inches(3.23)
                 left = ppt.util.Inches(1.32)
                 top = ppt.util.Inches(3.69 + 7.83 + 2*table_spacing + 3.23)
-                greyed_cells = [19]
+                greyed_cells = [15]
 
         # Construct the table based on selected presets
         frame = shapes.add_table(nrows, ncols, left, top,
@@ -2836,6 +2816,9 @@ class PerformanceReport(SensorEvaluation):
                 target range criteria for the performance metric.
 
         """
+        device_metrics = ['R^2', 'Slope', 'Intercept', 'Uptime']
+        group_metrics = ['CV', 'SD', 'RMSE', 'NRMSE']
+
         # Place float / int values (single-valued intersensor stats) into
         # list for parsing
         if type(metric_vals) != list:
@@ -2854,31 +2837,34 @@ class PerformanceReport(SensorEvaluation):
         n_passed = sum(metric_min <= val <= metric_max for val
                        in metric_vals)
 
-        open_dot = '○'
-        closed_dot = '●'
+        device_o_symb = '○'
+        device_c_symb = '●'
+
+        group_o_symb = '☆'
+        group_c_symb = '★'
 
         if n_sensors != 0:
             pcnt_passed = 100*(n_passed / n_sensors)
 
-        if metric in ['R^2', 'Slope', 'Intercept', 'Uptime']:
-            text = n_passed*closed_dot + (n_sensors - n_passed)*open_dot
+        if metric in device_metrics:
+            text = n_passed*device_c_symb + (n_sensors - n_passed)*device_o_symb
             if n_sensors == 1 and metric == 'Uptime':
                 if pcnt_passed == 100:
-                    text = closed_dot
+                    text = device_c_symb
                 else:
-                    text = open_dot
+                    text = device_o_symb
             # If only one sensor and no sensors passed
             if text == '':
-                text = open_dot
+                text = device_o_symb
 
-        if metric in ['CV', 'SD', 'RMSE', 'NRMSE']:
+        if metric in group_metrics:
             if pcnt_passed == 100:
-                text = closed_dot
+                text = group_c_symb
             elif n_sensors > 0:
-                text = open_dot
+                text = group_o_symb
             else:
                 # Metric values empty?
-                text = ''
+                text = group_o_symb
 
         return text
 
