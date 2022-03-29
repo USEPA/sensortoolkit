@@ -133,6 +133,7 @@ import sensortoolkit.plotting as plotting
 # Modules for importing, loading, and retrieving reference data
 import sensortoolkit.reference as reference
 
+from .param._parameter import Parameter
 
 class _presets:
     """A simple class for setting package-wide attributes.
@@ -155,6 +156,23 @@ class _presets:
     _loc_keys = ['Site name', 'Site address', 'Site lat',
                  'Site long', 'Site AQS ID']
 
+    _temp_bases = {'°C': {'Unit Code': 17,
+                          'Description': 'Degrees',
+                          'Label': '°C',
+                          'Conditions': None,
+                          'Context': 'Centigrade',
+                          'SDFS': 'Temp, DP',
+                          'Classification': 'Met'},
+                   '°F': {'Unit Code': 15,
+                          'Description': 'Degrees',
+                          'Label': '°F',
+                          'Conditions': None,
+                          'Context': 'Fahrenheit',
+                          'SDFS': 'Temp, DP',
+                          'Classification': 'Met'}
+                   }
+
+
     def __init__(self):
         # Testing organization information
         self.test_org = {'Deployment name': '',
@@ -170,6 +188,8 @@ class _presets:
                          'Site lat': '',
                          'Site long': '',
                          'Site AQS ID': ''}
+
+        self.temp_units = 'C'
 
     def set_project_path(self, project_path=None):
         """Configure the path to the directory where evaluation scripts, data
@@ -193,6 +213,30 @@ class _presets:
         else:
             raise ValueError('Directory path does not exist')
 
+    @property
+    def temp_units(self):
+        return self._temp_units
+
+    @temp_units.setter
+    def temp_units(self, value):
+        temp_names = {'F': 'Fahrenheit', 'C': 'Celsius'}
+        if value not in ['F', 'C']:
+            raise ValueError(f'Invalid unit "{value}", select either "F" for '
+                             'Fahrenheit or "C" for Celsius')
+        try:
+            if value != self.temp_units:
+                print('..temperature unit basis changed from '
+                      f'{temp_names[self.temp_units]} to {temp_names[value]}')
+        except AttributeError:
+            pass
+
+        self._temp_units = value
+
+        # Change unit info for temperature to user selected unit basis
+        Parameter.__param_dict__['Temp']['unit_info'] = self._temp_bases[f'°{self._temp_units}']
+        Parameter.__param_dict__['Temp']['aqs_unit_code'] = self._temp_bases[f'°{self._temp_units}']['Unit Code']
+
+        # TODO: Dewpoint?
 
 presets = _presets()
 
@@ -201,6 +245,5 @@ from .testing_attrib_objs._airsensor import AirSensor
 from .testing_attrib_objs._referencemonitor import ReferenceMonitor
 from .evaluation_objs._sensor_eval import SensorEvaluation
 from .evaluation_objs._performance_report import PerformanceReport
-from .param._parameter import Parameter
 
 __version__ = lib_utils._get_version()
