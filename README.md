@@ -15,7 +15,8 @@
 * [Overview](#overview)
   * [Key Features](#key-features)
   * [Dependencies](#dependencies)
-  * [Contact and Resources](#contact)
+  * [Contact](#contact)
+  * [Resources](#resources)
 * [Installation](#install)
 
 ## Overview <a name="overview"></a>
@@ -82,8 +83,8 @@ formatting schemes for sensor and reference data.
 -   Access to modules utilized by the `SensorEvaluation` and `PerformanceReport` for greater customization
     in conducting analysis.
 
-
 ## Dependencies: <a name="dependencies"></a>
+
 * [Python](https://www.python.org/) >= 3.6
 * [pandas](https://pypi.org/project/pandas/) >= 1.3.0
 * [numpy](https://pypi.org/project/numpy/) >= 1.16.5
@@ -98,7 +99,8 @@ formatting schemes for sensor and reference data.
 * [urllib3](https://pypi.org/project/urllib3/)
 * [pip](https://pypi.org/project/pip/)
 
-## Contact and Resources <a name="contact"></a>
+## Contact <a name="contact"></a>
+
 *Please direct all inquiries to*\
 &nbsp;&nbsp;&nbsp;&nbsp;Andrea Clements Ph.D., Research Physical Scientist\
 &nbsp;&nbsp;&nbsp;&nbsp;U.S. EPA, Office of Research and Development\
@@ -106,6 +108,28 @@ formatting schemes for sensor and reference data.
 &nbsp;&nbsp;&nbsp;&nbsp;Air Methods & Characterization Division, Source and Fine Scale Branch\
 &nbsp;&nbsp;&nbsp;&nbsp;109 T.W. Alexander Drive, Research Triangle Park, NC  27711\
 &nbsp;&nbsp;&nbsp;&nbsp;Email: clements.andrea@epa.gov
+
+## Resources <a name="resources"></a>
+
+### Documentation
+
+Documentation for sensortoolkit is hosted by readthedocs. The documentation includes formatted tips, notes, and general recommendations for
+using the sensortoolkit library. [Click Here](https://sensortoolkit.readthedocs.io/en/latest/index.html)
+to be taken to the documentation landing page. Below are a few of the topics discussed in the documentation:
+
+- Getting started
+  - Quick start guide
+  - Script templates for outlining package use
+  - Directions on installation and updates to sensortoolkit
+- Objects and Data Structures
+  - Testing Attribute Objects
+  - Data Structures
+  - The sensortoolkit Data Formatting Scheme
+- Analysis and Reports
+  - Evaluation Objects
+- API Documentation
+
+### EPA's Air Sensor Toolbox
 
 Additional information about EPA's research involving air sensors including the reports for fine particulate matter sensors and ozone sensors, past evaluation results, and additional documentation are located at EPA's [Air Sensor Toolbox](https://www.epa.gov/air-sensor-toolbox).
 
@@ -125,25 +149,11 @@ any commercial product or activity by the USEPA or the United States Government.
 ****
 ## Installation <a name="install"></a>
 
-***The following installation guide is pulled from the HTML formatted documentation packaged alongside `sensortoolkit`. Once the repository has been downloaded, users
-are strongly recommended to follow the remainder of the documentation via the HTML
-documentation. The HTML documentation contains greater detail regarding the implementation of the
-`sensortoolkit` library, including a quick start guide, detailed API documentation, formatted tips, notes, and general recommendations for using the library.***
-
-To open the included HTML documentation, open a command line interface and ensure that the current working directory is the folder location
-where the repository was downloaded. Next, type the following command and hit enter:
-```
-python opendocs.py
-```
-The documentation should open in your default browser, and you should see a landing page that looks something like this:
-
-![sensortoolkit Landing Page](https://github.com/USEPA/sensortoolkit/blob/master/docs/_readmefigs_/toolkit_landing_page.png?raw=true)
-
-Note: Users will need an installation of Python (v3.6 or greater). It’s
-highly recommended that users download an Anaconda distribution of
-Python. Anaconda is a package distribution of Python that includes many
-widely used libraries as well as the Spyder IDE for editing and
-compiling code. Anaconda is free for individuals.
+> Note: Users will need an installation of Python (v3.6 or greater). It’s
+  highly recommended that users download an Anaconda distribution of
+  Python. Anaconda is a package distribution of Python that includes many
+  widely used libraries as well as the Spyder IDE for editing and
+  compiling code. Anaconda is free for individuals.
 
 ### 1. Clone the repository on BitBucket:
 
