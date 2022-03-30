@@ -41,7 +41,7 @@ professionals).
 
 In February 2021, EPA released [two reports](https://www.epa.gov/air-sensor-toolbox/air-sensor-performance-targets-and-testing-protocols#reports) detailing recommended performance testing protocols, metrics, and target values for the evaluation of sensors measuring either fine particulate matter (PM<sub>2.5</sub>) or ozone (O<sub>3</sub>). The sensortoolkit library includes numerous modules for computing performance metrics recommended by U.S. EPA for evaluating PM<sub>2.5</sub> and O<sub>3</sub> sensors. Additionally, plotting functions are included for visualizing performance evaluation results, including visualization of sensor performance metric values against U.S. EPA’s performance targets, sensor time series, scatter plots comparing collocated sensor and reference measurements, distribution plots for displaying the range of meteorological conditions during the deployment, etc. Tabular statistics and figures can be automatically compiled into testing reports recommended by U.S. EPA’s performance targets documents for testing conducting at ambient air monitoring sites.
 
-## Key features: <a name="key-features"></a>
+## Key features <a name="key-features"></a>
 
 **The primary goal of `sensortoolkit` is to provide a platform for
 analyzing air sensor data regardless of formatting differences across
@@ -83,11 +83,10 @@ formatting schemes for sensor and reference data.
 -   Access to modules utilized by the `SensorEvaluation` and `PerformanceReport` for greater customization
     in conducting analysis.
 
-## Dependencies: <a name="dependencies"></a>
+## Dependencies <a name="dependencies"></a>
 
 [Click here](https://github.com/USEPA/sensortoolkit/network/dependencies) to be taken to a list of dependencies required by sensortoolkit.
 The library requires a **minimum of Python 3.6**.
-
 
 ## Contact <a name="contact"></a>
 
@@ -145,7 +144,7 @@ any commercial product or activity by the USEPA or the United States Government.
   widely used libraries as well as the Spyder IDE for editing and
   compiling code. Anaconda is free for individuals.
 
-### 1. Clone the repository on BitBucket:
+### 1. Clone the repository
 
 From a command line interface, the repository can be cloned via the following command
 
