@@ -16,6 +16,7 @@ Created:
 Last Updated:
   Wed Sep  8 12:33:10 2021
 """
+from ._method_lookup import get_reference_method
 from ._airnowtech_to_long import airnowtech_wide_to_long
 from ._import_airnowtech import preprocess_airnowtech
 from ._load_ref_data import load_ref_dataframes
