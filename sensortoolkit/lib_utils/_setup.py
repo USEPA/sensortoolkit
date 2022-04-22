@@ -1606,7 +1606,7 @@ class ReferenceSetup(_Setup):
                         print(f'{indent}..invalid entry, enter either an integer or "None"')
                         # valid is still false, will continue with current attribute
                         continue
-                    if val not in method_table['Method Code'].values:
+                    if val not in method_table['Code'].values:
                         print(f'{indent}..method code not in table of methods, continue with entry?')
                         custom_method = True
 
@@ -1629,8 +1629,8 @@ class ReferenceSetup(_Setup):
 
                         else:
                             name = method_table[
-                                method_table['Method Code']==int(val)
-                                    ]['Collection Description'].values[0]
+                                method_table['Code']==int(val)
+                                    ]['Instrument Make & Model'].values[0]
                             self.__dict__.update({f'{sdfs_param}' + '_Method': name})
 
 
@@ -1654,10 +1654,27 @@ class ReferenceSetup(_Setup):
         with pd.option_context('display.expand_frame_repr', False,
                                            'display.max_rows', None):
             table = lookup_data[lookup_data['Parameter Code']==param_code]
+
+            make = table['Make']
+            model = table['Model']
+
+            table.loc[:, 'Instrument Make & Model'] = make + ' ' + model
+            table = table.rename(columns={'Method Code': 'Code',
+                                          'Method Type': 'Desig.'})
+
+            no_name_idx = table.where(table['Instrument Make & Model']=='- -').dropna().index
+
+            collec_descrip = table['Collection Description']
+            analy_descrip = table['Analysis Description']
+
+            table.loc[no_name_idx, 'Instrument Make & Model'] = collec_descrip + '-' + analy_descrip
+
+            table = table.sort_index()
+
             print('')
-            print(table[['Method Code',
-                         'Collection Description',
-                         'Method Type']].to_markdown(index=False))
+            print(table[['Code','Desig.','Instrument Make & Model',
+                         ]].to_markdown(index=False, tablefmt='pretty'))
+
         return table
 
     def processAirNowTech(self):
