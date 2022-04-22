@@ -49,11 +49,12 @@ import numpy as np
 from sensortoolkit.lib_utils import flatten_list
 from sensortoolkit.param import Parameter
 from sensortoolkit.calculate import convert_temp
+from sensortoolkit.reference import get_reference_method
 
 
 def ref_api_query(query_type=None, param=None, bdate='', edate='',
                   aqs_id=None, airnow_bbox=None, username=None, key=None,
-                  path=None):
+                  path=None, select_method_on_each_query=False):
     """Wrapper function for sending an API data query to either the AQS or
     AirNow API for a specified parameter (``param``).
 
@@ -119,6 +120,20 @@ def ref_api_query(query_type=None, param=None, bdate='', edate='',
             AQS only: email associated with API account
         key (str):
             Both AQS and AirNow: API authentication key code.
+        path (str):
+            Description.
+        select_method_on_each_query (bool):
+            If True, the name of the reference method will be evaluated for
+            each monthly query using a lookup table to associate the parameter
+            code and method code with the appropriate reference name.
+            Occasionally, multiple reference instruments are assocaited with a
+            parameter code / method code grouping and the function will prompt
+            the user the specify which reference method was used to collect the
+            data returned by AQS. If the reference method is known to not
+            change over the course of the sampling period that data are
+            queried, users may wish to set this attribute to False so that the
+            reference monitor name selection configured on the first monthly
+            query is used for subsequent monthly queries. Defaults to False.
 
     Returns:
         (tuple): two-element tuple containing:
@@ -132,6 +147,10 @@ def ref_api_query(query_type=None, param=None, bdate='', edate='',
               dataset returned by the API query.
 
     """
+    if query_type not in ['AQS', 'AirNow']:
+        raise ValueError('Invalid API service name passed to query_type, pass either'
+              ' "AQS" or "AirNow"')
+
     if type(param) is str:
         param_list = [param]
     elif type(param) is list:
@@ -140,49 +159,7 @@ def ref_api_query(query_type=None, param=None, bdate='', edate='',
         raise TypeError('Invalid type passed to "param". Must be either type'
                         ' string or list.')
 
-    # Create a dictionary of parameters to query. Keys are the SDFS parameter
-    # name, entries include the api name associated with the SDFS name,
-    # classification for parameter, etc.
-    param_dict = {}
-    classes = []
-    for param in param_list:
-
-        param_obj = Parameter(param)
-        param_class = param_obj.classifier
-        classes.append(param_class)
-
-        # Dictionary for translating between parameter terminology used in code and
-        # terminology used by AQS/AirNow. Note that this list is not comprehensive,
-        # and users wishing to query parameters outside those listed below will
-        # need to modify this method accordingly.
-        param_to_api_naming = {'AQS': {'PM25': '88101',
-                                       'PM10': '88102',
-                                       'O3': '44201',
-                                       'CO': '42101',
-                                       'NO2': '42602',
-                                       'SO2': '42401',
-                                       'Temp': '62101', # or 68105?
-                                       'RH': '62201',
-                                       },
-                               'AirNow': {'PM25': 'PM25',
-                                          'PM10': 'PM10',
-                                          'O3': 'OZONE',
-                                          'CO': 'CO',
-                                          'NO2':  'NO2',
-                                          'SO2': 'SO2'
-                                          },
-                               }
-        try:
-            api_param = param_to_api_naming[query_type][param]
-        except KeyError:
-            print('Invalid API service name passed to query_type, pass either'
-                  ' "AQS" or "AirNow"')
-
-        param_dict[param] = {}
-        param_dict[param]['parameter_object'] = param_obj
-        param_dict[param]['api_name'] = api_param
-        param_dict[param]['classifier'] = param_class
-
+    param_dict, classes = modify_param_dict(param_list, query_type)
 
     if classes.count(classes[0]) != len(classes):
         sys.exit('Query parameters have mixed classifications (i.e., some '
@@ -208,6 +185,10 @@ def ref_api_query(query_type=None, param=None, bdate='', edate='',
 
     # Loop over monthly intervals, query API, process datasets, save .csv files
     full_query, raw_full_query = pd.DataFrame(), pd.DataFrame()
+
+    for param in param_dict:
+        param_dict[param]['ref_name'] = None
+
     for month in query_months:
         month_param_list = param_list.copy()
         data_period = list(query_months[month].values())
@@ -245,10 +226,22 @@ def ref_api_query(query_type=None, param=None, bdate='', edate='',
                 else:
                     lookup_table = criteria_lookup_table
 
+                # Determine reference method on each monthly query or use
+                # reference name from past months (if reference is known to
+                # be consistent throughout overall query period)
+                if select_method_on_each_query:
+                    ref_name = None
+                else:
+                    ref_name = param_dict[param]['ref_name']
+
                 # Modify header names, drop unused columns
                 query_data, idx = ingest_aqs(query_data, param, api_param,
                                              param_class, time_of_query,
-                                             lookup_table)
+                                             lookup_table, ref_name)
+
+                # Store the name of the indicated reference monitor for subsequent monthly
+                # queries (assuming ref doesn't change!)
+                param_dict[param]['ref_name'] = query_data[param+ '_Method'].unique()[0]
 
             data = query_data
             data = data.loc[idx.index, :]
@@ -335,6 +328,63 @@ def ref_api_query(query_type=None, param=None, bdate='', edate='',
     edate = pd.to_datetime(edate).strftime('%Y-%m-%d')
     return full_query.loc[bdate:edate, :]
 
+def modify_param_dict(param_list, query_type):
+    """Create a dictionary of parameters to query. Keys are the SDFS parameter
+    name, entries include the api name associated with the SDFS name,
+    classification for parameter, etc.
+
+    Args:
+        param_list (TYPE): DESCRIPTION.
+        query_type (TYPE): DESCRIPTION.
+
+    Raises:
+        ValueError: DESCRIPTION.
+
+    Returns:
+        param_dict (TYPE): DESCRIPTION.
+        classes (TYPE): DESCRIPTION.
+
+    """
+    param_dict = {}
+    classes = []
+    for param in param_list:
+
+        param_obj = Parameter(param)
+        param_class = param_obj.classifier
+        classes.append(param_class)
+
+        # Dictionary for translating between parameter terminology used in code and
+        # terminology used by AQS/AirNow. Note that this list is not comprehensive,
+        # and users wishing to query parameters outside those listed below will
+        # need to modify this method accordingly.
+        param_to_api_naming = {'AQS': {'PM25': '88101',
+                                       'PM10': '81102',
+                                       'O3': '44201',
+                                       'CO': '42101',
+                                       'NO2': '42602',
+                                       'SO2': '42401',
+                                       'Temp': '62101', # or 68105?
+                                       'RH': '62201',
+                                       },
+                               'AirNow': {'PM25': 'PM25',
+                                          'PM10': 'PM10',
+                                          'O3': 'OZONE',
+                                          'CO': 'CO',
+                                          'NO2':  'NO2',
+                                          'SO2': 'SO2'
+                                          },
+                               }
+        try:
+            api_param = param_to_api_naming[query_type][param]
+        except KeyError:
+            raise ValueError(f'Invalid parameter name "{param}"')
+
+        param_dict[param] = {}
+        param_dict[param]['parameter_object'] = param_obj
+        param_dict[param]['api_name'] = api_param
+        param_dict[param]['classifier'] = param_class
+
+    return param_dict, classes
 
 def select_poc(df, param):
     """Ask the user for a single POC if multiple codes present in dataset.
@@ -686,10 +736,8 @@ def query_aqs(param, data_period, aqs_id, username=None, key=None,
     if aqs_id is None:
         sys.exit('AQS Site ID missing from API Query')
 
-    begin = (data_period[0][:4] + '-' + data_period[0][4:6]
-             + '-' + data_period[0][6:])
-    end = (data_period[1][:4] + '-' + data_period[1][4:6]
-           + '-' + data_period[1][6:])
+    begin = f'{data_period[0][:4]}-{data_period[0][4:6]}-{data_period[0][6:]}'
+    end = f'{data_period[1][:4]}-{data_period[1][4:6]}-{data_period[1][6:]}'
     print('..Query start:', begin)
     print('..Query end:', end)
 
@@ -816,7 +864,7 @@ def parse_sample_data(sample_data, get_monitor_info, param_list, **kwargs):
 
 
 def ingest_aqs(data, param, api_param, param_classifier,
-               time_of_query, lookup_table):
+               time_of_query, lookup_table, ref_name=None):
     """Convert AQS query data to SDFS formatted datasets.
 
     Args:
@@ -843,13 +891,17 @@ def ingest_aqs(data, param, api_param, param_classifier,
             ('<https://aqs.epa.gov/aqsweb/documents/codetables/methods_criteria.html>'_).
             For meteorological parameters, the following lookup table is used
             (`<https://aqs.epa.gov/aqsweb/documents/codetables/methods_met.html>`_)
+        ref_name (str):
+            The name of the reference monitor. If not None, will override use
+            of lookup table to determine reference instrument name. Defaults
+            to None.
 
     Returns:
         (tuple): two-element tuple containing:
 
             - **data** (*pandas DataFrame*): SDFS formatted dataset.
-            - **idx** (*pandas DateTimeIndex*): The datetime index (UTC) for the
-              data received from the API query.
+            - **idx** (*pandas DateTimeIndex*): The datetime index (UTC) for
+              the data received from the API query.
 
     """
     idx = pd.to_datetime(data['date_gmt_' + api_param] + ' '
@@ -859,28 +911,44 @@ def ingest_aqs(data, param, api_param, param_classifier,
     idx = idx.dropna()
 
     # Method code instrument look up
-    if param_classifier == 'Met':
-        row = lookup_table.where(
-                (lookup_table['Parameter Code'] == int(api_param)) &
-                (lookup_table['Method Code'] == int(data['method_code_' + api_param].unique()[0]))
-                ).dropna(how='all', axis=0)
-        instrument = row['Collection Description'] + row['Analysis Description']
-        instrument = instrument.mode()[0]
+    # if param_classifier == 'Met':
+    #     data_method_code = int(data['method_code_' + api_param].unique()[0])
 
-        # replace various phrases that are not the instrument name
-        remove_phrases = ['Instrumental', 'INSTRUMENTAL', 'Electronic',
-                          'Barometric Sensor']
-        for phrase in remove_phrases:
-            instrument = instrument.replace(phrase, '')
-        if instrument.replace(' ', '') == '':
-            instrument = 'Unspecified_Reference'
+    #     instrument_info = get_reference_method(lookup_table, api_param,
+    #                                            data_method_code)
 
+    #     row = lookup_table.where(
+    #             (lookup_table['Parameter Code'] == int(api_param)) &
+    #             (lookup_table['Method Code'] == int(data['method_code_' + api_param].unique()[0]))
+    #             ).dropna(how='all', axis=0)
+    #     instrument = row['Collection Description'] + row['Analysis Description']
+    #     instrument = instrument.mode()[0]
+
+    #     #replace various phrases that are not the instrument name
+    #     remove_phrases = ['Instrumental', 'INSTRUMENTAL', 'Electronic',
+    #                       'Barometric Sensor']
+    #     for phrase in remove_phrases:
+    #         instrument = instrument.replace(phrase, '')
+    #     if instrument.replace(' ', '') == '':
+    #         instrument = 'Unspecified_Reference'
+    #     instrument = instrument_info[0]
+
+    # else:
+    #     instrument = lookup_table.where(
+    #         (lookup_table['Parameter Code'] == int(api_param)) &
+    #         (lookup_table['Method Code'] == int(data['method_code_' + api_param].unique()[0]))
+    #         )['Equivalent Method'].dropna()
+    #     instrument = instrument.mode()[0]
+
+    if ref_name is None:
+        data_method_code = int(data['method_code_' + api_param].unique()[0])
+
+
+        instrument_info = get_reference_method(lookup_table, api_param,
+                                               data_method_code)
+        instrument = instrument_info[0]
     else:
-        instrument = lookup_table.where(
-            (lookup_table['Parameter Code'] == int(api_param)) &
-            (lookup_table['Method Code'] == int(data['method_code_' + api_param].unique()[0]))
-            )['Equivalent Method'].dropna()
-        instrument = instrument.mode()[0]
+        instrument = ref_name
 
     data['method_' + api_param] = instrument
 
