@@ -30,6 +30,7 @@ import datetime
 from shutil import copy
 from sensortoolkit.reference import airnowtech_wide_to_long
 from sensortoolkit.lib_utils import flatten_list
+from sensortoolkit.reference import get_reference_method
 
 
 def ingest_airnowtech(path, Clean_QC_Code=False):
@@ -66,7 +67,7 @@ def ingest_airnowtech(path, Clean_QC_Code=False):
     df = pd.DataFrame(index=hourly_index).join(df)
 
     # Change AQS ID column dtype to string and remove decimal place
-    df['Site AQS'] = df['Site AQS'].astype(str).replace(r'\.0', '', regex=True)
+    #df['Site AQS'] = df['Site AQS'].astype(str).replace(r'\.0', '', regex=True)
     return df
 
 
@@ -85,11 +86,14 @@ def sort_airnowtech(df):
         path.
 
     """
-    method_path = os.path.abspath(os.path.join(__file__, '..','method_codes',
-                                               'methods_criteria.csv'))
+    crtieria_lookup_path = os.path.abspath(os.path.join(__file__, '..',
+                                    'method_codes', 'methods_criteria.csv'))
+    met_lookup_path = os.path.abspath(os.path.join(__file__, '..',
+                                    'method_codes', 'methods_met.csv'))
 
     # Method code lookup dataframe
-    method_df = pd.read_csv(method_path)
+    criteria_lookup_table = pd.read_csv(crtieria_lookup_path)
+    met_lookup_table = pd.read_csv(met_lookup_path)
 
     # Dataframes to be populated
     idx = df.index.drop_duplicates()
@@ -105,15 +109,25 @@ def sort_airnowtech(df):
     site_cols = ['index', 'Agency', 'Site', 'Site AQS']
     site_df = df.reset_index().drop_duplicates(subset=['index'])[site_cols]
     site_df = site_df.set_index(site_df['index']).drop(columns=['index'])
+    hourly_index = pd.date_range(site_df.index.min(), site_df.index.max(),
+                                 freq='H')
+    site_df = pd.DataFrame(index=hourly_index).join(site_df)
+
     site_df = site_df.rename(columns={'Site': 'Site_Name',
                                       'Site AQS': 'Site_AQS'})
-    site_df['Site_AQS'] = site_df['Site_AQS'].astype(str)
 
-    state_id = site_df['Site_AQS'].str.slice(0, 2)
-    county_id = site_df['Site_AQS'].str.slice(2, 5)
-    site_id = site_df['Site_AQS'].str.slice(5, 9)
+    site_aqs_idx = site_df['Site_AQS'][site_df['Site_AQS'].notna()].index
+    site_df.loc[site_df['Site_AQS'].isna()] = ''
 
-    site_df['Site_AQS'] = (state_id + '-' + county_id + '-' + site_id)
+    # Change AQS ID column dtype to string and remove decimal place
+    site_df['Site_AQS'] = site_df['Site_AQS'].astype(str).replace(r'\.0', '', regex=True)
+
+    state_id = site_df.loc[site_aqs_idx, 'Site_AQS'].str.slice(0, 2)
+    county_id = site_df.loc[site_aqs_idx, 'Site_AQS'].str.slice(2, 5)
+    site_id = site_df.loc[site_aqs_idx, 'Site_AQS'].str.slice(5, 9)
+
+    site_df.loc[site_aqs_idx, 'Site_AQS'] = (state_id + '-' + county_id + '-' + site_id)
+
     for param in df.Param.dropna().unique():
 
         param_df = df[df.Param == param]
@@ -136,30 +150,43 @@ def sort_airnowtech(df):
             param_df = param_df[param_df[param + '_Method_POC'] == 1]
             print(f'..Multiple POCs for {param} found. Retaining data for POC 1.')
 
-        # Method code(s) listed for parameter data
-        method_list = param_df[param + '_Method_Code'].dropna().unique()
-        # Find instrument corresponding to method code in lookup table
-        for method in method_list:
-            method_name = method_df.where(
-                    method_df['Method Code'
-                              ] == method).dropna()['Equivalent Method']
 
-            # Lots of instruments associated with Method Code 11, for eval.
-            # purposes likely only assoc with RH values.
-            if method == 11:
-                method_name = pd.Series(['HYGROTHERMOGRAPH ELEC OR MACH AVG'])
+        aqs_param_code = param_df[param + '_Param_Code'].dropna().unique()[0]
+        aqs_method_code = param_df[param + '_Method_Code'].dropna().unique()[0]
 
-        # If one instrument type used for parameter data stream, record in col
-        if (len(method_list) == 1 and len(method_name.values) > 0):
-            # Set instrument name via lookup
-            data = param_df.where(
-                    param_df.isnull().any(axis=1) == False).dropna(axis=0,
-                                                                   how='all')
-            data[param + '_Method'] = method_name.values[0]
-            param_df = data
-        else:
-            # No name found in method code lookup table
-            param_df[param + '_Method'] = np.nan
+        if param in met_list:
+            lookup_table = met_lookup_table
+        if (param in pm_list or param in gas_list):
+            lookup_table = criteria_lookup_table
+
+        instrument_info = get_reference_method(lookup_table, aqs_param_code,
+                                               aqs_method_code)
+        param_df[param + '_Method'] = instrument_info[0]
+
+        # # Method code(s) listed for parameter data
+        # method_list = param_df[param + '_Method_Code'].dropna().unique()
+        # # Find instrument corresponding to method code in lookup table
+        # for method in method_list:
+        #     method_name = method_df.where(
+        #             method_df['Method Code'
+        #                       ] == method).dropna()['Equivalent Method']
+
+        #     # Lots of instruments associated with Method Code 11, for eval.
+        #     # purposes likely only assoc with RH values.
+        #     if method == 11:
+        #         method_name = pd.Series(['HYGROTHERMOGRAPH ELEC OR MACH AVG'])
+
+        # # If one instrument type used for parameter data stream, record in col
+        # if (len(method_list) == 1 and len(method_name.values) > 0):
+        #     # Set instrument name via lookup
+        #     data = param_df.where(
+        #             param_df.isnull().any(axis=1) == False).dropna(axis=0,
+        #                                                            how='all')
+        #     data[param + '_Method'] = method_name.values[0]
+        #     param_df = data
+        # else:
+        #     # No name found in method code lookup table
+        #     param_df[param + '_Method'] = np.nan
 
         if param in pm_list:
             pm_df = pm_df.join(param_df).combine_first(site_df)
@@ -211,18 +238,18 @@ def write_to_file(df, path, outpath):
     # Method names are listed in all upper case in the method code lookup
     # table, so I use .title() to leave only the first letter of each word
     # describing the reference method. These are some exceptions:
-    replace = {'Api': 'API',
-               'Frm': 'FRM',
-               'Fem': 'FEM',
-               'Lpm': 'LPM',
-               ' At ': ' at ',
-               'Bam': 'BAM',
-               'Pm': 'PM',
-               'Vscc': 'VSCC',
-               ' Te ': ' TE ',
-               ' Or ': ' or ',
-               'W/': 'w/',
-               ' And ': ' and '}
+    # replace = {'Api': 'API',
+    #            'Frm': 'FRM',
+    #            'Fem': 'FEM',
+    #            'Lpm': 'LPM',
+    #            ' At ': ' at ',
+    #            'Bam': 'BAM',
+    #            'Pm': 'PM',
+    #            'Vscc': 'VSCC',
+    #            ' Te ': ' TE ',
+    #            ' Or ': ' or ',
+    #            'W/': 'w/',
+    #            ' And ': ' and '}
 
     orig_inpath = path
     orig_outpath = outpath
@@ -287,21 +314,20 @@ def write_to_file(df, path, outpath):
                     if ref_method.dropna().empty:
                         ref_name = 'Unspecified Reference'
                     else:
-                        ref_name = month_df[
-                                    renaming[param] + '_Method'].str.title()
+                        ref_name = ref_method.unique()[0]
                     month_df[renaming[param] + '_Method'] = ref_name
 
                     # Phrases that shouldn't be lower cased (FRM, FEM, etc.)
-                    for oldstr, newstr in zip(replace, replace.values()):
-                        month_df[renaming[param] + '_Method'] = month_df[
-                                renaming[param] + '_Method'].str.replace(
-                                                                oldstr, newstr)
+                    # for oldstr, newstr in zip(replace, replace.values()):
+                    #     month_df[renaming[param] + '_Method'] = month_df[
+                    #             renaming[param] + '_Method'].str.replace(
+                    #                                             oldstr, newstr)
                 except KeyError:
                     continue
 
             month_df['Site_Lat'] = np.nan
             month_df['Site_Lon'] = np.nan
-            month_df['Data_Source'] = 'AirNowTech'
+            month_df['Data_Source'] = 'AirNow-Tech'
 
             # Get the date and time the file was downloaded
             file_createtime = pathlib.Path(path).stat().st_ctime
