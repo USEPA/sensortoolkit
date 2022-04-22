@@ -690,8 +690,7 @@ def scatter_plotter(df_list, ref_df, stats_df=None, plot_subset=None,
 
     if plot_title is True:
         if title_text is None:
-            title_text = (fmt_sensor_name + ' vs. ' + ref_name + ' ' +
-                          averaging_interval + ' ' + fmt_param)
+            title_text = f'{fmt_sensor_name} vs. {ref_name} {averaging_interval} {fmt_param}'
 
         title_text = '\n'.join(wrap(title_text,
                                     kwargs.get('title_textwrap',
@@ -760,16 +759,6 @@ def scatter_plotter(df_list, ref_df, stats_df=None, plot_subset=None,
                 auto_filename_suffix = auto_filename_suffix.replace(
                                         str(Nr*Nc), str(Nr*Nc - 1))
                 break
-
-            # tdelta_interval = sensor_df.index[1] - sensor_df.index[0]
-
-            # if (tdelta_interval) == pd.Timedelta('1 days'):
-            #     daily_df_obj = [sensor_df]
-            #     daily_ref_df = ref_df
-
-            # if (tdelta_interval) == pd.Timedelta('1 hour'):
-            #     hourly_df_obj = [sensor_df]
-            #     hourly_ref_df = ref_df
 
             if plot_regression is True:
                 sensor_stats = regression_stats(sensor_df_obj=sensor_df,
@@ -1201,16 +1190,9 @@ def normalized_met_scatter(df_list, ref_df, avg_df, met_ref_df=None,
     # Retreive formatted version of sensor and parameter name
     fmt_sensor_name = sensor_name.replace('_', ' ')
 
-    # try:
-    #     met_ref_name = data[met_param_name + '_Method'].dropna().unique()[0]
-    # except IndexError:
-    #     met_ref_name = 'Unspecified Reference'
-    # except KeyError:
-    #     met_ref_name = sensor_name
-
     x_label = f'Reference {fmt_met_param} ({fmt_met_units})'
 
-    title = fmt_sensor_name + ' ' + fmt_param + ' Normalized by ' + ref_name
+    title = f'{fmt_sensor_name} {fmt_param} Normalized by {ref_name}'
 
     labels = [title]
     labels = wrap_text(labels, max_label_len=40)
@@ -1259,15 +1241,6 @@ def normalized_met_scatter(df_list, ref_df, avg_df, met_ref_df=None,
 
         if ydata.dropna().empty is True:
             continue
-
-        # try:
-        #     kwargs['monocolor'] = colors[i]
-        # except IndexError:
-        #     print('..warning: length of point colors list does not match'
-        #           ' number of sensor datasets')
-        #     print('..assigning first point color to unspecified point color '
-        #           'index')
-        #     kwargs['monocolor'] = colors[0]
 
         draw_scatter(ax, xdata, ydata, param_dict,
                      xlims=xlims, ylims=ylims, fontsize=fontsize,
