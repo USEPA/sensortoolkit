@@ -308,10 +308,10 @@ def deploy_met_stats(deploy_dict, df_list, met_ref_df, operational_range):
             A dataframe containing meteorological parameters recorded at the
             testing site during the evaluation period (either 1-hr or 24-hr
             averaging intervals).
-    	cal_check_dict (dict):
-            [Future feature] Dictionary for housing dates and descriptions of QC
-            calibration checks as part of regularly scheduled and cataloged QC
-            procedures.
+    	operational_range (dict):
+            Dictionary for listing the operational range indicated by the
+            sensor manufacturer for meteorological parameters, such as temp
+            and RH.
 
     Returns:
         deploy_dict:
@@ -342,12 +342,8 @@ def deploy_met_stats(deploy_dict, df_list, met_ref_df, operational_range):
             # No met parameter data in passed reference dataframe
             no_data = True
 
-        if param_name == 'Temp':
-            max_criterion = 40  # provisional criterion for upper lim (deg C)
-            min_criterion = -20  # provisional criterion for lower lim (deg C)
-        if param_name == 'RH':
-            max_criterion = 90  # provisional criterion for upper lim (%)
-            min_criterion = 10  # provisional criterion for lower lim (%)
+        max_criterion = operational_range[param_name][1]
+        min_criterion = operational_range[param_name][0]
 
         for group in deploy_dict['Deployment Groups']:
             deploy = deploy_dict['Deployment Groups'][group]
@@ -380,11 +376,15 @@ def deploy_met_stats(deploy_dict, df_list, met_ref_df, operational_range):
                     float("{0:.3f}".format(ref_data.min()))
                 stats_loc['max' + avg_suffix] = \
                     float("{0:.3f}".format(ref_data.max()))
-                stats_loc['n_exceed_target_criteria' + avg_suffix] = \
-                    int(ref_data.where((ref_data > max_criterion) |
+
+                if (max_criterion and min_criterion):
+                    value = int(ref_data.where((ref_data > max_criterion) |
                                        (ref_data < min_criterion)).count())
-                stats_loc['n_measurement_pairs' + avg_suffix] = \
-                    np.mean(data_pairs)
+                else:
+                    value = None
+
+                stats_loc['n_exceed_target_criteria' + avg_suffix] = value
+                stats_loc['n_measurement_pairs' + avg_suffix] =  np.mean(data_pairs)
 
                 #deploy[met_str]['cal_check_dates'] = cal_check_dict
             else:
