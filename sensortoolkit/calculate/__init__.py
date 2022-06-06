@@ -21,7 +21,7 @@ from ._convert_temp import convert_temp
 from ._cv import cv
 from ._rmse import rmse
 from ._dewpoint import dewpoint
-from ._normalize import normalize
+from ._concentration_trends import normalize, diff, absdiff
 from ._nowcast_pm25 import nowcast_pm25
 from ._uptime import uptime
 from ._regression_stats import regression_stats, join_stats
