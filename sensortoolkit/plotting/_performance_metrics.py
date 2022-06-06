@@ -261,9 +261,11 @@ def performance_metrics(stats_df, deploy_dict, param=None,
     if len(param_obj.averaging) == 2:
         PLOT_XMIN = -0.50
         PLOT_XMAX = 1.5
+        wspace=0.35
     if len(param_obj.averaging) == 1:
         PLOT_XMIN = -1
         PLOT_XMAX = 1
+        wspace = 0.5
 
     PLOT_XRANGE = PLOT_XMAX - PLOT_XMIN
 
@@ -454,8 +456,9 @@ def performance_metrics(stats_df, deploy_dict, param=None,
                                  facecolor='lightblue',
                                  alpha=0.5)
 
-                    axs[ax_idx].text(0.5, 0.6, 'N/A$^†$',
-                                     color = '#1A315C', fontsize=14,
+                    axs[ax_idx].text(0.5, 0.62,
+                                     'N/A, less than\nthree sensors in\ntesting group',
+                                     color = '#1A315C', fontsize=13,
                                      horizontalalignment='center',
                                      verticalalignment='center',
                                      transform=axs[ax_idx].transAxes,
@@ -564,7 +567,7 @@ def performance_metrics(stats_df, deploy_dict, param=None,
         plt.tight_layout()
         sns.set(font_scale=kwargs.get('font_scale', 1))
 
-    fig.subplots_adjust(wspace=kwargs.get('fig_wspace', 0.35),
+    fig.subplots_adjust(wspace=kwargs.get('fig_wspace', wspace),
                         hspace=kwargs.get('fig_hspace', 0.1),
                         left=kwargs.get('fig_left', 0.03),
                         right=kwargs.get('fig_right', 0.97),
