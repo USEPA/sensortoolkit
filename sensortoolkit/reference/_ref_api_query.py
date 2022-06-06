@@ -517,18 +517,19 @@ def modify_ref_method_str(df, param):
 
     """
     # Lookup dictionary of phrases that shouldn't be title cased
-    replace = {'Method': {'Api': 'API',
-                          'Frm': 'FRM',
-                          'Fem': 'FEM',
-                          'Lpm': 'LPM',
-                          ' At ': ' at ',
-                          'Bam': 'BAM',
-                          'Pm': 'PM',
-                          'Vscc': 'VSCC',
-                          'Te': 'TE',
-                          ' Or ': ' or ',
-                          'W/': 'w/',
-                          ' And ': ' and '},
+    replace = {
+                # 'Method': {'Api': 'API',
+                #           'Frm': 'FRM',
+                #           'Fem': 'FEM',
+                #           'Lpm': 'LPM',
+                #           ' At ': ' at ',
+                #           'Bam': 'BAM',
+                #           'Pm': 'PM',
+                #           'Vscc': 'VSCC',
+                #           'Te': 'TE',
+                #           ' Or ': ' or ',
+                #           'W/': 'w/',
+                #           ' And ': ' and '},
                'Unit': {'PPB': 'Parts per billion',
                         'PPM': 'Parts per million',
                         'UG/M3': 'Micrograms/cubic meter'}
