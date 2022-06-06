@@ -175,19 +175,22 @@ class _presets:
 
     def __init__(self):
         # Testing organization information
-        self.test_org = {'Deployment name': '',
-                         'Org name': ['', ''],
-                         'Website': {'website name': '',
-                                     'website link': ''},
-                         'Contact email': '',
-                         'Contact phone': ''}
+        self.test_org = {'testing_descrip': '',
+                         'org_name': '',
+                         'org_division': '',
+                         'org_type': '',
+                         'org_website': {'title': '',
+                                         'link': ''},
+                         'org_contact_email': '',
+                         'org_contact_phone': ''
+                         }
 
         # Testing location information
-        self.test_loc = {'Site name': '',
-                         'Site address': '',
-                         'Site lat': '',
-                         'Site long': '',
-                         'Site AQS ID': ''}
+        self.test_loc = {'site_name': '',
+                         'site_address': '',
+                         'site_lat': '',
+                         'site_lon': '',
+                         'site_aqs_id': ''}
 
         self.temp_units = 'C'
 
