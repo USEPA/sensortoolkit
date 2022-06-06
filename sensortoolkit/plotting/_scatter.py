@@ -924,14 +924,17 @@ def scatter_plotter(df_list, ref_df, stats_df=None, plot_subset=None,
         return axs
 
 
-def normalized_met_scatter(df_list, ref_df, avg_df, met_ref_df=None,
-                           figure_path=None, param=None, met_param=None,
-                           sensor_name=None, write_to_file=True,
-                           sensor_serials=None, ref_name=None,
-                           report_fmt=False, fig=None, ax=None,
-                           return_mpl_obj=False, **kwargs):
-    """Plot parameter values normalized by reference values against either
-    temperature or relative humidity.
+def met_influence(df_list, ref_df, avg_df, met_ref_df=None,
+                figure_path=None, param=None, met_param=None,
+                sensor_name=None, write_to_file=True,
+                sensor_serials=None, ref_name=None, ref_mdl=None,
+                report_fmt=False, fig=None, ax=None,
+                return_mpl_obj=False, **kwargs):
+    """Plot parameter values against meteorological parameter (Temp, RH, or DP)
+    to display the influence of the chosen meteorological parameter on
+    concentration values. Display either normalized concentrations (sensor
+    divided by paired reference concentration), difference (sensor-reference),
+    or the absolute difference (|sensor - reference|).
 
     Args:
         df_list (list):
@@ -1103,19 +1106,31 @@ def normalized_met_scatter(df_list, ref_df, avg_df, met_ref_df=None,
 
     sns.set_style(kwargs.get('seaborn_style', 'darkgrid'))
 
+    dep_var = kwargs.get('dep_var', 'normalized')
+
+    dep_var_options = ['normalized', 'absdiff', 'diff']
+    if dep_var not in dep_var_options:
+        raise ValueError(f'Invalid dependent variable name {dep_var}, choose from {dep_var_options}')
+
     kwargs['show_N'] = False
     kwargs['show_RMSE'] = False
     kwargs['show_spearman'] = False
     kwargs['show_one_to_one'] = False
     kwargs['show_trendline'] = False
     kwargs['point_size'] = kwargs.get('point_size', 12)
-    kwargs['point_alpha'] = kwargs.get('point_alpha', 0.5)
+    kwargs['point_alpha'] = kwargs.get('point_alpha', 0.7)
 
     point_colors = kwargs.get('point_colors', None)
     xlims = kwargs.get('xlims', None)
     ylims = kwargs.get('ylims', None)
-    cmap_norm_range = kwargs.get('cmap_norm_range', (0, 0.4))
-    cmap_name = kwargs.get('cmap_name', 'Set1')
+
+    if len(sensor_serials) < 4:
+        cmap_norm_range = kwargs.get('cmap_norm_range', (0, 0.4))
+        cmap_name = kwargs.get('cmap_name', 'Set1')
+    else:
+        cmap_norm_range = kwargs.get('cmap_norm_range', (0.1, .9))
+        cmap_name = kwargs.get('cmap_name', 'seismic_r')
+
     fontsize = kwargs.get('fontsize', 12)
     detail_fontsize = kwargs.get('detail_fontsize', 10)
     subplot_adjust = kwargs.get('subplot_adjust', None)
@@ -1146,29 +1161,6 @@ def normalized_met_scatter(df_list, ref_df, avg_df, met_ref_df=None,
                   'distribution')
             return
 
-    # Set xlim and ylim if not specified
-    if xlims is None or ylims is None:
-        # Determine which limits need to be set based on whether values have
-        # been passed to kwargs for xlims or ylims
-        set_xlims = True
-        set_ylims = True
-        if xlims is not None:
-            set_xlims = False
-        if ylims is not None:
-            set_ylims = False
-
-        lim_tup = met_scatter_lims(met_data=data,
-                                   param=param_name,
-                                   met_param=met_param_name,
-                                   xlims=xlims,
-                                   ylims=ylims,
-                                   serials=sensor_serials,
-                                   avg_df=avg_df)
-
-        if set_xlims:
-            xlims = lim_tup[0]
-        if set_ylims:
-            ylims = lim_tup[1]
 
     if param_name == 'Temp':
         met_param_name = 'Temp'
@@ -1190,22 +1182,67 @@ def normalized_met_scatter(df_list, ref_df, avg_df, met_ref_df=None,
     # Retreive formatted version of sensor and parameter name
     fmt_sensor_name = sensor_name.replace('_', ' ')
 
+    ref_df = ref_df[ref_df[f'{param}_Value'] > ref_mdl]
+    print(f'[Note]: {param} values below the Federal MDL ({ref_mdl} {param_obj.units_description})'
+          ' are not shown')
+
+    if dep_var == 'normalized':
+        # Compute normalized dataframes
+        depvar_df_list = normalize(df_list, ref_df, param_name, ref_name)
+        title = f'{fmt_sensor_name} {fmt_param} Normalized by {ref_name}'
+        # Plot 1:1 normalization line
+        ax.axhline(y=1.0, linewidth=1.5, color='#8b8b8b', alpha=.8)
+        legend_list = ['1:1']
+    if dep_var == 'diff':
+        depvar_df_list = diff(df_list, ref_df, param_name, ref_name)
+        title = f'{fmt_param} Concentration Difference\n({fmt_sensor_name} - {ref_name})'
+        # Plot target bias line
+        ax.axhline(y=0.0, linewidth=1.5, color='#8b8b8b', alpha=.8)
+        legend_list = [f'Target Value: 0 {fmt_param_units}']
+    if dep_var == 'absdiff':
+        depvar_df_list = absdiff(df_list, ref_df, param_name, ref_name)
+        title = f'{fmt_param} Absolute Concentration Difference\n|{fmt_sensor_name} - {ref_name}|'
+        # Plot target bias line
+        ax.axhline(y=0.0, linewidth=1.5, color='#8b8b8b', alpha=.8, linestyle='--')
+        legend_list = [f'Target Value: 0 {fmt_param_units}']
+
     x_label = f'Reference {fmt_met_param} ({fmt_met_units})'
+    # labels = [title]
+    # labels = wrap_text(labels, max_label_len=45)
+    # title = labels[0]
 
-    title = f'{fmt_sensor_name} {fmt_param} Normalized by {ref_name}'
-
-    labels = [title]
-    labels = wrap_text(labels, max_label_len=40)
-    title = labels[0]
 
     param_dict = {'xlabel': x_label,
                   'ylabel': ''}
 
-    # Compute normalized dataframes
-    norm_df_list = normalize(df_list, ref_df, param_name, ref_name)
 
-    # Plot 1:1 normalization line
-    ax.axhline(y=1.0, linewidth=1.5, color='#8b8b8b', alpha=.8)
+    # Set xlim and ylim if not specified
+    if xlims is None or ylims is None:
+        # Determine which limits need to be set based on whether values have
+        # been passed to kwargs for xlims or ylims
+        set_xlims = True
+        set_ylims = True
+        if xlims is not None:
+            set_xlims = False
+        if ylims is not None:
+            set_ylims = False
+
+        lim_tup = met_scatter_lims(met_data=data,
+                                   param=param_name,
+                                   met_param=met_param_name,
+                                   xlims=xlims,
+                                   ylims=ylims,
+                                   serials=sensor_serials,
+                                   depvar_df_list=depvar_df_list,
+                                   dep_var=dep_var)
+
+        if set_xlims:
+            xlims = lim_tup[0]
+        if set_ylims:
+            ylims = lim_tup[1]
+
+
+
 
     # Set colormap and assign number of discrete colors from colormap
     if point_colors is None:
@@ -1224,20 +1261,18 @@ def normalized_met_scatter(df_list, ref_df, avg_df, met_ref_df=None,
     else:
         colors = point_colors
 
-    ax.set_prop_cycle('color', colors)
-
     # If the normalized param is temp or RH, the ref_df will be the met_ref_df
     if any(col.startswith('Temp') or col.startswith('RH') for col in ref_df):
         data = ref_df
 
     # Generate scatter plots for each normalized sensor dataset
-    legend_list = ['1:1']
-    for i, (df, sensor_n) in enumerate(zip(norm_df_list, sensor_serials)):
+
+    for i, (df, sensor_n, color) in enumerate(zip(depvar_df_list, sensor_serials, colors)):
         compare_df = pd.DataFrame()
         compare_df[met_param_name + '_Value'] = data[met_param_name + '_Value']
-        compare_df['Normalized_' + param_name + '_Value'] = df['Normalized_' + param_name + '_Value']
+        compare_df[f'{dep_var.title()}_{param_name}_Value'] = df[f'{dep_var.title()}_{param_name}_Value']
         xdata = compare_df[met_param_name + '_Value']
-        ydata = compare_df['Normalized_'+param_name + '_Value']
+        ydata = compare_df[f'{dep_var.title()}_{param_name}_Value']
 
         if ydata.dropna().empty is True:
             continue
@@ -1245,7 +1280,7 @@ def normalized_met_scatter(df_list, ref_df, avg_df, met_ref_df=None,
         draw_scatter(ax, xdata, ydata, param_dict,
                      xlims=xlims, ylims=ylims, fontsize=fontsize,
                      detail_fontsize=detail_fontsize,
-                     plot_regression=False, **kwargs)
+                     plot_regression=False, monocolor=color, **kwargs)
 
         ax.set_title(title, fontsize=fontsize, pad=6)
 
@@ -1259,7 +1294,7 @@ def normalized_met_scatter(df_list, ref_df, avg_df, met_ref_df=None,
     # Axes object position, dimensions ----------------------------------------
     box = ax.get_position()
 
-    if len(sensor_serials)/8 > 1:
+    if (len(sensor_serials) + 1)/4 > 1:
         leg_cols = 2
         col_spacing = 0.8
         if unique_ax_obj is True and report_fmt is True:
@@ -1276,7 +1311,8 @@ def normalized_met_scatter(df_list, ref_df, avg_df, met_ref_df=None,
     ybottom, ytop = ax.get_ylim()
     ax.set_aspect(abs((xright-xleft)/(ybottom-ytop))*ratio)
 
-    ax.set_yticks(np.arange(round(ybottom), round(ytop + 1), 1))
+    # if dep_var == 'normalized':
+    #     ax.set_yticks(np.arange(round(ybottom), round(ytop + 1), 1))
 
     # Adjust axes dimensions to fit width and height of plot
     if unique_ax_obj is True and report_fmt is True:
@@ -1323,8 +1359,8 @@ def normalized_met_scatter(df_list, ref_df, avg_df, met_ref_df=None,
 
     # Error bars --------------------------------------------------------------
     all_sensor_data = pd.DataFrame()
-    for i, df in enumerate(norm_df_list, 1):
-        sensor_data = df['Normalized_' + param_name  + '_Value']
+    for i, df in enumerate(depvar_df_list, 1):
+        sensor_data = df[f'{dep_var.title()}_{param_name}_Value']
         all_sensor_data[param_name  + '_Value' + '_sensor_' + str(i)] = sensor_data
     ydata = all_sensor_data
 
