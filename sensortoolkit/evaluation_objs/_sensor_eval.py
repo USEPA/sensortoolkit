@@ -369,57 +369,56 @@ class SensorEvaluation:
 
         """
         # Compute inter-sensor precision and error metric values
-        # CV: 1-hour averaged sensor param
-        self.deploy_dict = sensortoolkit.calculate.cv(
-                                            self.hourly_df_list,
-                                            self.deploy_dict,
-                                            param=self._param_name)
 
-        # CV: 24-hour averaged sensor param
-        self.deploy_dict = sensortoolkit.calculate.cv(
-                                            self.daily_df_list,
-                                            self.deploy_dict,
-                                            param=self._param_name)
-
-        # RMSE: 1-hour averaged sensor param
-        self.deploy_dict = sensortoolkit.calculate.rmse(
-                                            self.hourly_df_list,
-                                            self.hourly_ref_df,
-                                            self.deploy_dict,
-                                            param=self._param_name)
-
-        # RMSE: 24-hour averaged sensor param
-        self.deploy_dict = sensortoolkit.calculate.rmse(
-                                            self.daily_df_list,
-                                            self.daily_ref_df,
-                                            self.deploy_dict,
-                                            param=self._param_name)
-
-        # Reference details for param evaluation (hourly data)
-        self.deploy_dict = sensortoolkit.deploy.deploy_ref_stats(
-                                            self.deploy_dict,
-                                            self.hourly_ref_df,
-                                            param=self._param_name,
-                                            ref_name=self.ref_name)
-
-        # Reference details for param evaluation (daily data)
-        self.deploy_dict = sensortoolkit.deploy.deploy_ref_stats(
-                                            self.deploy_dict,
-                                            self.daily_ref_df,
-                                            param=self._param_name,
-                                            ref_name=self.ref_name)
-
-        # Reference details for meteorological data (1-hr averages)
-        self.deploy_dict = sensortoolkit.deploy.deploy_met_stats(
-                                                self.deploy_dict,
+        if '1-hour' in self.param.averaging:
+            # CV: 1-hour averaged sensor param
+            self.deploy_dict = sensortoolkit.calculate.cv(
                                                 self.hourly_df_list,
-                                                self.met_hourly_ref_df)
-
-        # Reference details for meteorological data (24-hr averages)
-        self.deploy_dict = sensortoolkit.deploy.deploy_met_stats(
                                                 self.deploy_dict,
+                                                param=self._param_name)
+            # RMSE: 1-hour averaged sensor param
+            self.deploy_dict = sensortoolkit.calculate.rmse(
+                                                self.hourly_df_list,
+                                                self.hourly_ref_df,
+                                                self.deploy_dict,
+                                                param=self._param_name)
+            # Reference details for param evaluation (hourly data)
+            self.deploy_dict = sensortoolkit.deploy.deploy_ref_stats(
+                                                self.deploy_dict,
+                                                self.hourly_ref_df,
+                                                param=self._param_name,
+                                                ref_name=self.ref_name)
+            # Reference details for meteorological data (1-hr averages)
+            self.deploy_dict = sensortoolkit.deploy.deploy_met_stats(
+                                                    self.deploy_dict,
+                                                    self.hourly_df_list,
+                                                    self.met_hourly_ref_df,
+                                                    self.sensor.operational_range)
+
+        if '24-hour' in self.param.averaging:
+            # CV: 24-hour averaged sensor param
+            self.deploy_dict = sensortoolkit.calculate.cv(
                                                 self.daily_df_list,
-                                                self.met_daily_ref_df)
+                                                self.deploy_dict,
+                                                param=self._param_name)
+            # RMSE: 24-hour averaged sensor param
+            self.deploy_dict = sensortoolkit.calculate.rmse(
+                                                self.daily_df_list,
+                                                self.daily_ref_df,
+                                                self.deploy_dict,
+                                                param=self._param_name)
+            # Reference details for param evaluation (daily data)
+            self.deploy_dict = sensortoolkit.deploy.deploy_ref_stats(
+                                                self.deploy_dict,
+                                                self.daily_ref_df,
+                                                param=self._param_name,
+                                                ref_name=self.ref_name)
+            # Reference details for meteorological data (24-hr averages)
+            self.deploy_dict = sensortoolkit.deploy.deploy_met_stats(
+                                                    self.deploy_dict,
+                                                    self.daily_df_list,
+                                                    self.met_daily_ref_df,
+                                                    self.sensor.operational_range)
 
         if self.write_to_file is True:
 
@@ -476,53 +475,56 @@ class SensorEvaluation:
             print('Populating deployment dataframe with evaluation statistics')
             self.add_deploy_dict_stats()
 
-        hourly_stats = sensortoolkit.calculate.regression_stats(
-                                        sensor_df_obj=self.hourly_df_list,
-                                        ref_df_obj=self.hourly_ref_df,
-                                        deploy_dict=self.deploy_dict,
-                                        param=self._param_name,
-                                        serials=self.serials
-                                        )
+        if '1-hour' in self.param.averaging:
+            hourly_stats = sensortoolkit.calculate.regression_stats(
+                                            sensor_df_obj=self.hourly_df_list,
+                                            ref_df_obj=self.hourly_ref_df,
+                                            deploy_dict=self.deploy_dict,
+                                            param=self._param_name,
+                                            serials=self.serials
+                                            )
+            avg_hourly_stats = sensortoolkit.calculate.regression_stats(
+                                    sensor_df_obj=self.hourly_df_list,
+                                    ref_df_obj=self.hourly_ref_df,
+                                    deploy_dict=self.deploy_dict,
+                                    param=self._param_name,
+                                    serials=self.serials
+                                    )
 
-        daily_stats = sensortoolkit.calculate.regression_stats(
-                                        sensor_df_obj=self.daily_df_list,
-                                        ref_df_obj=self.daily_ref_df,
-                                        deploy_dict=self.deploy_dict,
-                                        param=self._param_name,
-                                        serials=self.serials
-                                        )
+        if '24-hour' in self.param.averaging:
+            daily_stats = sensortoolkit.calculate.regression_stats(
+                                            sensor_df_obj=self.daily_df_list,
+                                            ref_df_obj=self.daily_ref_df,
+                                            deploy_dict=self.deploy_dict,
+                                            param=self._param_name,
+                                            serials=self.serials
+                                            )
+            avg_daily_stats = sensortoolkit.calculate.regression_stats(
+                                            sensor_df_obj=self.daily_df_list,
+                                            ref_df_obj=self.daily_ref_df,
+                                            deploy_dict=self.deploy_dict,
+                                            param=self._param_name,
+                                            serials=self.serials
+                                            )
 
-        # Combine the statistics dataframes into one
-        self.stats_df = sensortoolkit.calculate.join_stats(
-                                        hourly_stats,
-                                        daily_stats,
-                                        stats_path=self.stats_path,
-                                        stats_type='individual',
-                                        write_to_file=self.write_to_file)
+        if self.param.averaging == ['1-hour']:
+            self.stats_df = hourly_stats
+            self.avg_stats_df = avg_hourly_stats
+        elif self.param.averaging == ['1-hour', '24-hour']:
+            # Combine the statistics dataframes into one
+            self.stats_df = sensortoolkit.calculate.join_stats(
+                                            hourly_stats,
+                                            daily_stats,
+                                            stats_path=self.stats_path,
+                                            stats_type='individual',
+                                            write_to_file=self.write_to_file)
 
-        avg_hourly_stats = sensortoolkit.calculate.regression_stats(
-                                sensor_df_obj=self.hourly_df_list,
-                                ref_df_obj=self.hourly_ref_df,
-                                deploy_dict=self.deploy_dict,
-                                param=self._param_name,
-                                serials=self.serials
-                                )
-
-        avg_daily_stats = sensortoolkit.calculate.regression_stats(
-                                        sensor_df_obj=self.daily_df_list,
-                                        ref_df_obj=self.daily_ref_df,
-                                        deploy_dict=self.deploy_dict,
-                                        param=self._param_name,
-                                        serials=self.serials
-                                        )
-
-        # Combine the statistics dataframes into one
-        self.avg_stats_df = sensortoolkit.calculate.join_stats(
-                                        avg_hourly_stats,
-                                        avg_daily_stats,
-                                        stats_path=self.stats_path,
-                                        stats_type='average',
-                                        write_to_file=self.write_to_file)
+            self.avg_stats_df = sensortoolkit.calculate.join_stats(
+                                            avg_hourly_stats,
+                                            avg_daily_stats,
+                                            stats_path=self.stats_path,
+                                            stats_type='average',
+                                            write_to_file=self.write_to_file)
 
     def plot_timeseries(self, report_fmt=True, **kwargs):
         """Plot sensor and FRM/FEM reference measurements over time.
