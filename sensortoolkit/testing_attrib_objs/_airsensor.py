@@ -38,7 +38,7 @@ class AirSensor:
     # 'C:/Users/.../Anaconda3/Lib/site-packages/sensortoolkit'
     default_proj_path = Path(__file__).parent.parent.__str__()
 
-    def __init__(self, make, model):
+    def __init__(self, make, model, **kwargs):
 
         self.make = make
         self.model = model
@@ -46,7 +46,10 @@ class AirSensor:
         self.bdate = None
         self.edate = None
         self.data = {}
+        self.operational_range = {'Temp': (None, None),
+                                  'RH': (None, None)}
         self.recording_interval = None
+        self.firmware_version = kwargs.get('firmware_version', None)
         self.project_path = _presets._project_path
 
         if self.make is not None and self.model is not None:
