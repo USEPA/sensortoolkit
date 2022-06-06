@@ -358,12 +358,6 @@ class ReferenceMonitor:
         try:
             method_name = self.data[classifier]['1-hour'][param + '_Method'].dropna().unique()[0]
 
-            ref_replace = {'Thermo Scientific ': '',
-                   'Dichotomous': 'Dichot'}
-
-            for key, value in zip(ref_replace.keys(), ref_replace.values()):
-                method_name = method_name.replace(key, value)
-
         except IndexError:
             method_name = 'Unknown Reference'
         except KeyError:
@@ -371,6 +365,121 @@ class ReferenceMonitor:
             print(f'No reference monitor found for {param}')
 
         return method_name
+
+    def get_method_info(self, param, attributes=['Parameter', 'Parameter Code',
+                        'Method Code', 'Recording Mode', 'Collection Description',
+                        'Analysis Description', 'Method Type', 'Reference Method ID',
+                        'Make', 'Model', 'Equivalent Method', 'Federal MDL', 'Min Value',
+                        'Max Value', 'Digits', 'Round Truncate Indicator', 'Units',
+                        'Method Name']):
+        """Return information about the instrument corresponding to the passed
+        parameter. By default, return information for the following attributes:
+
+            ['Parameter', 'Parameter Code', 'Method Code', 'Recording Mode',
+             'Collection Description', 'Analysis Description', 'Method Type',
+             'Reference Method ID', 'Make', 'Model', 'Equivalent Method',
+             'Federal MDL', 'Min Value', 'Max Value', 'Digits',
+             'Round Truncate Indicator', 'Units', 'Method Name']
+
+        Passing a subset of these listed attributes will return a dictionary
+        with corresponding attribute values. If only one attribute passed as a
+        string to the "attributes" parameter, a string or int will be returned
+        instead.
+
+
+        Args:
+            param (str):
+                The parameter corresponding to the reference method.
+
+        Returns:
+            return_info (str, int, or dict):
+                Attribute(s) requested by the user for the reference method.
+
+        """
+        param_obj = Parameter(param)
+        classifier = param_obj.classifier
+
+        if classifier == 'Met':
+
+            met_methods_path = os.path.abspath(os.path.join(__file__,
+                                '..', '..', 'reference', 'method_codes', 'methods_met.csv'))
+            lookup_table = pd.read_csv(met_methods_path)
+
+        elif param_obj.criteria_pollutant:
+            criteria_methods_path = os.path.abspath(os.path.join(__file__,
+                                '..', '..', 'reference', 'method_codes', 'methods_criteria.csv'))
+            lookup_table = pd.read_csv(criteria_methods_path)
+        else:
+            print('Reference instrument not found')
+            return
+
+        if self.data[classifier]['1-hour'].empty:
+            print('No reference data found, load data via ReferenceMontior.load_data()')
+            return
+
+        # TODO: add error catching (either index error or keyerror)
+        try:
+            method_code = int(self.data[classifier]['1-hour'][param + '_Method_Code'].dropna().unique()[0])
+        except KeyError as e:
+            print(e, f'not found in reference dataset, no such parameter label "{param}"')
+            return
+        except IndexError:
+            print(f'Method Code unspecified for {param} reference method')
+            return
+        method_name = self.get_method_name(param)
+        aqs_param_code = param_obj.aqs_parameter_code
+
+        lookup_table['Method Name'] = lookup_table.Make + ' ' + lookup_table.Model
+
+        data_match = lookup_table[(lookup_table['Method Name'] == method_name)&
+                     (lookup_table['Method Code']==method_code)&
+                     (lookup_table['Parameter Code']==aqs_param_code)
+                     ].dropna(how='all', axis=0)
+
+        if data_match.shape[0] == 1:
+            #desig = data_match['Method Type'].unique()[0]
+
+            info = data_match.to_dict('records')[0]
+
+            if info == {}:
+                print('No information on reference monitor found')
+                return
+            else:
+
+                if type(attributes) is str:
+                    if attributes in info:
+
+                        if (param_obj.units=='ppbv' and info['Units'] == 'Parts per million'):
+
+                            if (attributes in ['Federal MDL', 'Min Value', 'Max Value']):
+                                info[attributes] *= 1000
+                            if attributes == 'Units':
+                                info[attributes] = param_obj.units_description
+
+                        return_info = info[attributes]
+                    else:
+                        print(f'..attribute "{attributes}" unspecified')
+                else:
+
+                    return_info = {}
+                    for attrib in attributes:
+                        if attrib in info:
+
+                            if (param_obj.units=='ppbv' and info['Units'] == 'Parts per million'):
+
+                                if (attrib in ['Federal MDL', 'Min Value', 'Max Value']):
+                                    info[attrib] *= 1000
+                                if attrib == 'Units':
+                                    info[attrib] = param_obj.units_description
+
+                            return_info[attrib] = info[attrib]
+                        else:
+                            print(f'..attribute "{attrib}" unspecified')
+
+                return return_info
+        else:
+            print('No information on reference monitor found')
+            return
 
 
     def query_aqs(self, username, key, param_list, bdate, edate,
@@ -610,9 +719,10 @@ class ReferenceMonitor:
 
                 path = os.path.normpath(os.path.join(self.project_path,
                                                      data_rel_path))
-            except AttributeError:
+            except AttributeError as e:
                 print('Setup configuration does not specify reference data '
                       'source, run ReferenceMonitor.reference_setup()')
+                print(e)
                 return
 
         if met_data is True:
