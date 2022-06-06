@@ -133,11 +133,13 @@ def met_distrib(met_ref_data, avg_hrly_df, figure_path, sensor_name=None,
     font_size = 10
     detail_font_size = 0.8*font_size
     n_var = len(met_ref_data.count())  # Number of met variables to plot
-    fig, axs = plt.subplots(1, n_var, figsize=(5.15, 2.54))
+    fig, axs = plt.subplots(1, n_var, figsize=(5.23, 2.58))
 
     fill_color = [['#77529A'], ['#b06c8b'], ['#588ded']]
-    plt.suptitle('Evaluation Site Meteorological Conditions\n',
-                 fontsize=font_size)
+
+    fig_title = ('Temperature and Relative Humidity\n'
+                 '1-hour Averaged Measurements')
+
 
     fig.subplots_adjust(wspace=.6,
                         hspace=.3,
@@ -158,6 +160,7 @@ def met_distrib(met_ref_data, avg_hrly_df, figure_path, sensor_name=None,
             try:
                 data = avg_hrly_df['mean_' + param].dropna()
                 sensor_data = True
+                fig_title = fig_title.replace('Meteorological Site Monitor', 'Internal Sensor')
             except KeyError:
                 print('..{param} not measured by sensor, unable to plot '
                       'distribution')
@@ -178,6 +181,7 @@ def met_distrib(met_ref_data, avg_hrly_df, figure_path, sensor_name=None,
         if param.startswith('RH'):
             label = 'Reference Relative Humidity (%)'
             if sensor_data:
+                label = label.replace('Reference', 'Sensor')
                 axs[i].set_title('*Sensor Measurements Shown*',
                                  fontsize=detail_font_size, y=0.97)
             axs[i].set_xlabel(label, fontsize=detail_font_size)
@@ -186,6 +190,7 @@ def met_distrib(met_ref_data, avg_hrly_df, figure_path, sensor_name=None,
         if param.startswith('Temp'):
             label = 'Reference Temperature ($\\degree$C)'
             if sensor_data:
+                label = label.replace('Reference', 'Sensor')
                 axs[i].set_title('*Sensor Measurements Shown*',
                                  fontsize=detail_font_size, y=0.97)
             axs[i].set_xlabel(label, fontsize=detail_font_size)
@@ -203,6 +208,8 @@ def met_distrib(met_ref_data, avg_hrly_df, figure_path, sensor_name=None,
                           fontsize=detail_font_size)
 
         axs[i].tick_params(axis='both', labelsize=detail_font_size)
+
+    plt.suptitle(fig_title, fontsize=font_size)
 
     if write_to_file is True:
         todays_date = get_todays_date()
