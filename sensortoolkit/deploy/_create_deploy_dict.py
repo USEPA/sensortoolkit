@@ -221,21 +221,18 @@ def deploy_ref_stats(deploy_dict, ref_df, cal_check_dict=None, param=None,
     """
     param_obj = Parameter(param)
     param_name = param_obj.name
-    #fmt_param = param_obj.format_name
-    #fmt_param_units = param_obj.units
 
     date_index, avg_suffix = deploy_timestamp_index(ref_df,
                                                     averaging_suffix=True)
 
     if param_name == 'PM25':
         conc_goal = 25  # Concentration goal: 25 ug/m^3 for at least one day
-        #cal_check_dict = cal_check_dict['PM cal checks'][ref_name]
     elif param_name == 'O3':
         conc_goal = 60  # Concentration goal: 60 ppbv for at least one day
-        #cal_check_dict = cal_check_dict['Gas cal checks'][ref_name]
+        ref_df[f'{param_name}_rolling_8-hour_Value'] = ref_df[f'{param_name}_Value'].rolling(window=8).mean()
+
     else:
         conc_goal = None
-        #cal_check_dict = None
 
     for group in deploy_dict['Deployment Groups']:
         deploy = deploy_dict['Deployment Groups'][group]
@@ -258,19 +255,32 @@ def deploy_ref_stats(deploy_dict, ref_df, cal_check_dict=None, param=None,
             float("{0:.3f}".format(ref_data.min()))
         stats_loc['conc_max' + avg_suffix] = \
             float("{0:.3f}".format(ref_data.max()))
+        stats_loc['conc_mean' + avg_suffix] = \
+            float("{0:.3f}".format(ref_data.mean()))
         stats_loc['n_exceed_conc_goal' + avg_suffix] = \
             int(ref_data.where(ref_data > conc_goal).count())
-        #stats_loc['cal_check_dates'] = cal_check_dict
 
         if ref_data.dropna().empty:
             stats_loc['conc_min' + avg_suffix] = None
             stats_loc['conc_max' + avg_suffix] = None
             stats_loc['n_exceed_conc_goal' + avg_suffix] = None
 
+        # add 8-hr rolling statistics
+        if param_name =='O3':
+            avg_suffix = '_rolling_8-hour'
+            ref_data = ref_df.loc[start:end, f'{param_name}{avg_suffix}_Value']
+
+            stats_loc['conc_min' + avg_suffix] = \
+                float("{0:.3f}".format(ref_data.min()))
+            stats_loc['conc_max' + avg_suffix] = \
+                float("{0:.3f}".format(ref_data.max()))
+            stats_loc['conc_mean' + avg_suffix] = \
+                float("{0:.3f}".format(ref_data.mean()))
+
     return deploy_dict
 
 
-def deploy_met_stats(deploy_dict, df_list, met_ref_df, cal_check_dict=None):
+def deploy_met_stats(deploy_dict, df_list, met_ref_df, operational_range):
     """Add meteorological instrument statistics to the parameter statistics
     subfield in the deployment dictionary.
 
