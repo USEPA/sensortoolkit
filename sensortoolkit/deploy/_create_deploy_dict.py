@@ -41,9 +41,9 @@ from sensortoolkit.param import Parameter
 from sensortoolkit.datetime_utils import (deploy_timestamp_index,
                                           get_timestamp_interval)
 
-
 def construct_deploy_dict(deploy_df, full_df_list, hourly_df_list,
-                          daily_df_list, sensor_name, **kwargs):
+                          daily_df_list, sensor_name, testing_loc,
+                          testing_org, **kwargs):
     """Create the deployment dictionary, initialize with sensor group info,
     time period of deployment, testing agency and location, and library version
     and time at which the dictionary were constructed.
@@ -74,15 +74,13 @@ def construct_deploy_dict(deploy_df, full_df_list, hourly_df_list,
             DateTime at 24-hour averaged sampling frequency.
         sensor_name (str):
             The make and model of the sensor being evaluated.
-
-    **Keyword Arguments**
-
-    :param dict testing_org:
-        A dictionary containing the information about the testing organization.
-    :param dict testing_loc:
-        A dictionary containing information about the testing site. If the site
-        is part of U.S. EPA’s Air Quality System (AQS), the AQS Site ID should
-        be specified.
+        testing_org (dict):
+            A dictionary containing the information about the testing
+            organization.
+        testing_loc (dict):
+            A dictionary containing information about the testing site. If the
+            site is part of U.S. EPA’s Air Quality System (AQS), the AQS Site
+            ID should be specified.
 
     Returns:
         deploy_dict (dict):
@@ -92,30 +90,11 @@ def construct_deploy_dict(deploy_df, full_df_list, hourly_df_list,
             serial IDs for devices within each deployment group.
 
     """
-
-    # Testing organization information
-    testing_org = kwargs.get('testing_org',
-                             {'Deployment name': '[Name of Deployment]',
-                              'Org name': ['[Organization name line 1]',
-                                           '[Organization name line 2]'],
-                              'Website': {'website name': '[Website Name]',
-                                          'website link': '[Website Link]'},
-                              'Contact email': '[Contact Email]',
-                              'Contact phone': '[Contact Phone Number]'})
-
-    # Testing location information
-    testing_loc = kwargs.get('testing_loc',
-                             {'Site name': '[Site Name]',
-                              'Site address': '[Site Address]',
-                              'Site lat': '[Site Latitude]',
-                              'Site long': '[Site Longitude]',
-                              'Site AQS ID': '[Site AQS ID]'})
-
     current_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S %p')
     deploy_dict = {'sensortoolkit Version': _get_version(),
                    'Date of Analysis': current_time,
                    'Sensor Name': sensor_name,
-                   'Sensor Firmware Version': 'Unspecified',  # TODO
+                   'Sensor Firmware Version': kwargs.get('sensor_firmware', 'Unspecified'),
                    'Deployment Groups': {},
                    'Testing Organization': testing_org,
                    'Testing Location': testing_loc}
