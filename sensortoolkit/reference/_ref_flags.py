@@ -41,7 +41,10 @@ def reference_flags(sensor, reference, return_type='JSON', write_to_file=False):
                                    sensor.edate.strftime('%Y-%m'),
                                    freq='MS').strftime('%Y%m')
 
-    data_subfolder = f'{reference.site_name.replace(" ", "_")}_{reference.site_id}'
+    site_name = reference.site_name.replace(" ", "_")
+    site_id = reference.site_id.replace('-', '')
+
+    data_subfolder = f'{site_name}_{site_id}'
     ref_path = (f'{sensor.project_path}//data//reference_data//{reference.data_source}//'
                 f'processed//{data_subfolder}')
 
@@ -93,9 +96,8 @@ def reference_flags(sensor, reference, return_type='JSON', write_to_file=False):
                 if param not in incidents[classifier]:
                     incidents[classifier][param] = {}
 
-                flag_data = df[f'{param}_QAQC_Code']
-                month_incidents = flag_incidents(flag_data, param,
-                                                  interval=tdelta)
+
+                month_incidents = flag_incidents(df, param, interval=tdelta)
                 incidents[classifier][param].update(month_incidents)
 
 
@@ -139,12 +141,12 @@ def reference_flags(sensor, reference, return_type='JSON', write_to_file=False):
         return
 
 
-def flag_incidents(flag_data, param, interval=None):
+def flag_incidents(df, param, interval=None):
     """
 
 
     Args:
-        flag_data (TYPE): DESCRIPTION.
+        df (TYPE): DESCRIPTION.
         param (TYPE): DESCRIPTION.
         interval (TYPE, optional): DESCRIPTION. Defaults to None.
 
@@ -173,6 +175,12 @@ def flag_incidents(flag_data, param, interval=None):
          '2019-08-21 07:56:00 to 2019-08-21 07:58:00': 'Down'}
 
     """
+    flag_data = df[f'{param}_QAQC_Code']
+    data_source = df.Data_Source.unique()[0]
+
+    airnow_flags = {0: 'Valid', 1: 'Adjusted', 2: 'Averaged', 3:'Interpolated',
+                    4: 'Estimated', 5: 'Suspect', 6: 'Suspect (audit failure)',
+                    7: 'Insufficient data', 8: 'Missing', 9: 'Invalid'}
     flag_data = flag_data.dropna()
     if flag_data.empty:
         return {}
@@ -206,53 +214,25 @@ def flag_incidents(flag_data, param, interval=None):
             # Flag occurs for single timestamp
             if consec_flag_data.shape[0] == 1:
                 time = consec_flag_data.DateTime.dt.strftime(tstamp_fmt).values[0]
-                incidents[time] = consec_flag_data[f'{param}_QAQC_Code'].unique()[0]
             # Flag occurs for consecutive timestamp interval
             else:
                 btime = consec_flag_data.DateTime.dt.strftime(tstamp_fmt).values[0]
                 etime = consec_flag_data.DateTime.dt.strftime(tstamp_fmt).values[-1]
                 time = f'{btime} to {etime}'
-                incidents[time] = consec_flag_data[f'{param}_QAQC_Code'].unique()[0]
+
+
+            flag_descrip = consec_flag_data[f'{param}_QAQC_Code'].unique()[0]
+            if type(flag_descrip) is str:
+                flag_descrip = flag_descrip.replace('.', '')
+            elif data_source == 'AirNow' or data_source == 'AirNow-Tech':
+                if flag_descrip == 0:
+                    continue
+                try:
+                    flag_descrip = f'{int(flag_descrip)} - {airnow_flags[flag_descrip]}'
+                except KeyError:
+                    print(f'..unknown data flag "{flag_descrip}"')
+                    flag_descrip = str(flag_descrip)
+
+            incidents[time] = flag_descrip
 
     return incidents
-
-
-if __name__ == '__main__':
-
-    # Generate a dictionary of flags for PM, Gases, and Met reference
-    # instruments during the evaluation timeframe. Save the log to a JSON file.
-    flag_dict= reference_flags(sensor=sensor,
-                               reference=ref,
-                               return_type='dict',
-                               write_to_file=True)
-
-
-    # Code for generating logs spanning the entire duration of EPA sensor evals
-    path = r'C:\Users\SFREDE01\OneDrive - Environmental Protection Agency (EPA)\Profile\Documents\sensortoolkit_testing\data\reference_data\local\processed\Burdens_Creek_370630099'
-    """
-    # Flags for PM25 (May 2018 to July 2021, T640x)
-    pm25_incidents = {}
-    for file in os.listdir(path):
-        if file.startswith('min') and file.endswith('PM.csv'):
-            print(file)
-            file_path = f'{path}//{file}'
-            df = pd.read_csv(file_path, index_col='DateTime', parse_dates=['DateTime'])
-            flag_data = df['PM25_QAQC_Code']
-            month_incidents = flag_incidents(flag_data,
-                                             param='PM25',
-                                             interval='1-minute')
-            pm25_incidents.update(month_incidents)
-
-    # Flags for O3 (June 2018 to July 2021, T265)
-    O3_incidents = {}
-    for file in os.listdir(path):
-        if file.startswith('min') and file.endswith('Gases.csv'):
-            print(file)
-            file_path = f'{path}//{file}'
-            df = pd.read_csv(file_path, index_col='DateTime', parse_dates=['DateTime'])
-            flag_data = df['O3_QAQC_Code']
-            month_incidents = flag_incidents(flag_data,
-                                             param='O3',
-                                             interval='1-minute')
-            O3_incidents.update(month_incidents)
-   """
