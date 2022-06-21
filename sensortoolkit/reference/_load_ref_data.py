@@ -98,6 +98,22 @@ def load_ref_dataframes(bdate, edate, path, classes):
                                           interval_count=24,
                                           thres=0.75)
 
+    # concatenate ref dataframes to bdate, edate specified
+    btz = bdate.timetz().tzinfo
+    if btz is None:
+        bdate = bdate.tz_localize('UTC')
+    etz = edate.timetz().tzinfo
+    if etz is None:
+        edate = edate.tz_localize('UTC')
+
+    pm_h_ref_df = pm_h_ref_df.loc[bdate:edate, :]
+    gas_h_ref_df = gas_h_ref_df.loc[bdate:edate, :]
+    met_h_ref_df = met_h_ref_df.loc[bdate:edate, :]
+
+    pm_d_ref_df = pm_d_ref_df.loc[bdate:edate, :]
+    gas_d_ref_df = gas_d_ref_df.loc[bdate:edate, :]
+    met_d_ref_df = met_d_ref_df.loc[bdate:edate, :]
+
     ref_dict = {'PM': {'1-hour': pm_h_ref_df,
                        '24-hour':  pm_d_ref_df},
                 'Gases': {'1-hour': gas_h_ref_df,
