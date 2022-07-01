@@ -42,6 +42,7 @@ class AirSensor:
 
         self.make = make
         self.model = model
+        self.kwargs = kwargs
         self._setup_path = None
         self.bdate = None
         self.edate = None
@@ -49,7 +50,7 @@ class AirSensor:
         self.operational_range = {'Temp': (None, None),
                                   'RH': (None, None)}
         self.recording_interval = None
-        self.firmware_version = kwargs.get('firmware_version', None)
+        self.firmware_version = self.kwargs.get('firmware_version', None)
         self.project_path = _presets._project_path
 
         if self.make is not None and self.model is not None:
@@ -74,6 +75,15 @@ class AirSensor:
                 self.setup_data = json.loads(p.read())
                 p.close()
             self.serials = self.setup_data['serials']
+            if self.kwargs.get('keep_serials'):
+                keep_serials = self.kwargs.get('keep_serials')
+                for serial in keep_serials:
+                    if serial not in self.serials.values():
+                        raise AttributeError(f'{serial} not in list of sensor serials')
+
+                    self.serials = {key: serial for key, serial in
+                                    self.serials.items() if serial in keep_serials}
+
             self.param_headers = self.setup_data['sdfs_header_names']
             self.create_directories(param_headers=self.param_headers)
 
