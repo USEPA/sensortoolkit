@@ -322,11 +322,20 @@ def object_grouper(series, number_threshold):
 
     """
     try:
-        counts = series.value_counts().values[0]
-        if counts >= number_threshold:
-            val = series.value_counts().index[0]
+        # If the column is a QAQC data flag column, return '1' if ANY non-null
+        # values recorded in passed dataframe, otherwise return '0'
+        if 'QAQC_Code' in series.name:
+            unique_flags = list(series.replace('', np.nan).dropna().unique())
+            if unique_flags != []:
+                val = 1
+            else:
+                val = np.nan
         else:
-            val = np.nan
+            counts = series.value_counts().values[0]
+            if counts >= number_threshold:
+                val = series.value_counts().index[0]
+            else:
+                val = np.nan
     except IndexError:
         val = np.nan
     return val
