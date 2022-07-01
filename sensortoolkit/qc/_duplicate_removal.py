@@ -10,7 +10,7 @@ assigning values for duplicate timestamps (e.g., computing averages).
 @Author:
   | Samuel Frederick, NSSC Contractor (ORAU)
   | U.S. EPA / ORD / CEMM / AMCD / SFSB
-  
+
 Created:
   Thu Feb 18 13:19:54 2021
 Last Updated:
