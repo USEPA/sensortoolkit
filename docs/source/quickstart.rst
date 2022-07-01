@@ -121,21 +121,22 @@ files that are generated during analysis.
 
   # Add information about the testing organization that conducted the evaluation
   sensortoolkit.presets.test_org = {
-      'Deployment name': '[Insert name of deployment]',
-      'Org name': ['[Insert organization name line 1]',
-                   '[Insert organization name line 2]'],
-      'Website': {'website name': '[Insert name of website]',
-                  'website link': '[Insert website here]'},
-      'Contact email': '[Insert email here]',
-      'Contact phone': '[Insert phone number here]'}
+      'testing_descrip': '[Insert name of deployment]',
+      'org_name': '[Insert organization name]',
+      'org_division': '[Insert organization division]',
+      'org_type': '[Insert organization sector type]',
+      'org_website': {'title': '[Insert title of website]',
+                      'link': '[Insert website link]'},
+      'org_contact_email': '[Insert email]',
+      'org_contact_phone': '[Insert phone number]'}
 
   # Add information about the testing location where sensors were sited
   sensortoolkit.presets.test_loc = {
-      'Site name': '[Insert name of site] ',
-      'Site address': '[Insert site address]',
-      'Site lat': '[Insert site latitude]',
-      'Site long': '[Insert site longitude]',
-      'Site AQS ID': '[If applicable, insert site AQS ID]'}
+      'site_name': '[Insert name of site] ',
+      'site_address': '[Insert site address]',
+      'site_lat': '[Insert site latitude]',
+      'site_lon': '[Insert site longitude]',
+      'site_aqs_id': '[If applicable, insert site AQS ID]'}
 
 4 - Creating an AirSensor Object
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -386,21 +387,22 @@ This template summarizes the 'Initial Setup' process discussed above.
 
   # Add information about the testing organization that conducted the evaluation
   sensortoolkit.presets.test_org = {
-      'Deployment name': '[Insert name of deployment]',
-      'Org name': ['[Insert organization name line 1]',
-                   '[Insert organization name line 2]'],
-      'Website': {'website name': '[Insert name of website]',
-                  'website link': '[Insert website here]'},
-      'Contact email': '[Insert email here]',
-      'Contact phone': '[Insert phone number here]'}
+      'testing_descrip': '[Insert name of deployment]',
+      'org_name': '[Insert organization name]',
+      'org_division': '[Insert organization division]',
+      'org_type': '[Insert organization sector type]',
+      'org_website': {'title': '[Insert title of website]',
+                      'link': '[Insert website link]'},
+      'org_contact_email': '[Insert email]',
+      'org_contact_phone': '[Insert phone number]'}
 
   # Add information about the testing location where sensors were sited
   sensortoolkit.presets.test_loc = {
-      'Site name': '[Insert name of site] ',
-      'Site address': '[Insert site address]',
-      'Site lat': '[Insert site latitude]',
-      'Site long': '[Insert site longitude]',
-      'Site AQS ID': '[If applicable, insert site AQS ID]'}
+      'site_name': '[Insert name of site] ',
+      'site_address': '[Insert site address]',
+      'site_lat': '[Insert site latitude]',
+      'site_lon': '[Insert site longitude]',
+      'site_aqs_id': '[If applicable, insert site AQS ID]'}
 
   # Create an AirSensor instance for the sensor you'd like to evaluate
   sensor = sensortoolkit.AirSensor(make='[Insert sensor manufacturer]',

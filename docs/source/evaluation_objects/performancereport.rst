@@ -18,21 +18,22 @@ populated in reports via the respective ``sensortoolkit.presets`` attributes:
   # Fill in bracketed placeholder text with your information
   # Add information about the testing organization that conducted the evaluation
   sensortoolkit.presets.test_org = {
-      'Deployment name': '[Insert name of deployment]',
-      'Org name': ['[Insert organization name line 1]',
-                   '[Insert organization name line 2]'],
-      'Website': {'website name': '[Insert name of website]',
-                  'website link': '[Insert website here]'},
-      'Contact email': '[Insert email here]',
-      'Contact phone': '[Insert phone number here]'}
+      'testing_descrip': '[Insert name of deployment]',
+      'org_name': '[Insert organization name]',
+      'org_division': '[Insert organization division]',
+      'org_type': '[Insert organization sector type]',
+      'org_website': {'title': '[Insert title of website]',
+                      'link': '[Insert website link]'},
+      'org_contact_email': '[Insert email]',
+      'org_contact_phone': '[Insert phone number]'}
 
   # Add information about the testing location where sensors were sited
   sensortoolkit.presets.test_loc = {
-      'Site name': '[Insert name of site] ',
-      'Site address': '[Insert site address]',
-      'Site lat': '[Insert site latitude]',
-      'Site long': '[Insert site longitude]',
-      'Site AQS ID': '[If applicable, insert site AQS ID]'}
+      'site_name': '[Insert name of site] ',
+      'site_address': '[Insert site address]',
+      'site_lat': '[Insert site latitude]',
+      'site_lon': '[Insert site longitude]',
+      'site_aqs_id': '[If applicable, insert site AQS ID]'}
 
 These dictionaries house information about the testing organization, contact information,
 and site details including the address, coordinates, and site AQS ID if applicable.
@@ -48,15 +49,17 @@ A dictionary containing the information about the testing organization.
 
   * - Attribute name
     - Description
-  * - ``Deployment name``
+  * - ``testing_descrip``
     - The descriptive name assigned to the sensor deployment.
-  * - ``Org name``
+  * - ``org_name``
     - The name of the testing organization.
-  * - ``Website``
-    - Website address for the testing organization.
-  * - ``Contact email``
+  * - ``org_division``
+    - The organization testing division.
+  * - ``org_website``
+    - Website title and address for the testing organization.
+  * - ``org_contact_email``
     - Contact email address responsible parties conducting testing.
-  * - ``Contact phone``
+  * - ``org_contact_phone``
     - Phone number for responsible parties conducting testing.
 
 ``testing_loc``
@@ -71,14 +74,16 @@ of U.S. EPA's Air Quality System (AQS), the AQS Site ID should be specified.
 
   * - Attribute name
     - Description
-  * - ``Site name``
+  * - ``site_name``
     - The name of the ambient monitoring site.
-  * - ``Site address``
+  * - ``site_address``
     - The street address of the monitoring site.
-  * - ``Site lat``
+  * - ``site_lat``
     - The latitude coordinate of the site.
-  * - ``Site lon``
+  * - ``site_lon``
     - The longitude coordinate of the site.
+  * - ``site_aqs_id``
+    - [AQS Sites Only] The AQS site code assigned to the ambient monitoring site.
 
 
 Below is an example of running the `PerformanceReport` class to create a testing
