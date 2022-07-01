@@ -256,10 +256,11 @@ def sensor_import(sensor_name=None, sensor_serials=None,
                         df = ingest_wrapper(cwd, sensor_name, serial,
                                             data_path, ingest_method)
 
-                        sensor_df = sensor_df.append(df)
+                        if df is not None:
+                            sensor_df = sensor_df.append(df)
 
-                        if df.attrs != {} and sensor_df.attrs == {}:
-                            sensor_df.attrs = df.attrs
+                            if df.attrs != {} and sensor_df.attrs == {}:
+                                sensor_df.attrs = df.attrs
 
                 file_list.extend(files)
 
