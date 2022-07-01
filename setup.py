@@ -5,7 +5,7 @@ here = pathlib.Path(__file__).parent
 readme = (here / 'README.md').read_text()
 
 setup(name='sensortoolkit',
-      version='0.8.6b2',
+      version='1.0.0',
       description='Library for evaluating air sensor data',
       long_description=readme,
       long_description_content_type='text/markdown',
@@ -66,6 +66,8 @@ setup(name='sensortoolkit',
                         'urllib3',
                         'pip',
                         'chardet',
-                        'timezonefinder'
+                        'timezonefinder',
+                        'appdirs',
+                        'charset-normalizer'
                         ]
       )
