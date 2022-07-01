@@ -139,10 +139,10 @@ class PerformanceReport(SensorEvaluation):
         self.utc_offset = None
         self.tzone = pytz.timezone('UTC')
         tf = TimezoneFinder()
-        if (self.testing_loc['Site lat'] is not None) and (self.testing_loc['Site long'] is not None):
+        if (self.testing_loc['site_lat'] is not None) and (self.testing_loc['site_lon'] is not None):
             try:
-                lat = float(self.testing_loc['Site lat'])
-                lon = float(self.testing_loc['Site long'])
+                lat = float(self.testing_loc['site_lat'])
+                lon = float(self.testing_loc['site_lon'])
 
                 zone = tf.timezone_at(lng=lon, lat=lat)
                 self.tzone = pytz.timezone(zone)
@@ -198,6 +198,37 @@ class PerformanceReport(SensorEvaluation):
         ref_cmax = self.hourly_ref_df[self._param_name + '_Value'].max()
         self.plot_cmax = 1.25*max(sensor_avg_cmax, ref_cmax)
 
+        self.n_grps = len(set(self.serial_grp_dict.values()))
+        self.n_sensors = len(set(self.serial_grp_dict))
+
+        # remove page 1 footnote if less than three sensors
+        if self.n_sensors < 3:
+
+            if self.n_avg_intervals == 1:
+                shape_id = 57
+            if self.n_avg_intervals == 2:
+                shape_id = 5
+            footnote = self.GetShape(slide_obj=self.rpt.slides[0],
+                                     shape_id=shape_id)
+            sp = footnote._element
+            sp.getparent().remove(sp)
+
+
+            if self.n_avg_intervals == 1:
+                shape_id = 42
+            if self.n_avg_intervals == 2:
+                shape_id = 22
+
+            section_header = self.GetShape(slide_obj=self.rpt.slides[0],
+                                           shape_id=shape_id)
+
+            header_text = section_header.text_frame.paragraphs[0].text
+            new_text = header_text.replace('Metrics', 'Metrics')
+            section_header.text_frame.paragraphs[0].text = new_text
+            self.FormatText(section_header.text_frame.paragraphs[0],
+                            alignment='center', font_name='Calibri Light',
+                            font_size=17.8)
+
     def FigPositions(self):
         """Assign figure positions for reports.
 
@@ -231,7 +262,7 @@ class PerformanceReport(SensorEvaluation):
             self.fig_locs['Timeseries']['top'] = 8.15
             self.fig_locs['MetricPlot']['left'] = 0.65
             self.fig_locs['MetricPlot']['top'] = 13.19
-            self.fig_locs['MetDist']['left'] = 1.91
+            self.fig_locs['MetDist']['left'] = 1.61
             self.fig_locs['MetDist']['top'] = 17.58
             self.fig_locs['MetInfl']['left'] = 8.24
             self.fig_locs['MetInfl']['top'] = 17.54
@@ -308,7 +339,7 @@ class PerformanceReport(SensorEvaluation):
             None.
 
         """
-        fig_name = self.name + '_vs_' + self.ref_name + '_report_fmt'
+        fig_name = self.name + '_vs_' + self.ref_desig + '_report_fmt'
 
         fig_exists, fig_path = self.FigureSearch(fig_name)
 
@@ -378,7 +409,7 @@ class PerformanceReport(SensorEvaluation):
                 plural = 's'
             else:
                 plural = ''
-            fig_name = (self.name + '_vs_' + self.ref_name +
+            fig_name = (self.name + '_vs_' + self.ref_desig +
                         '_' + averaging_interval + '_' + str(self.n_sensors) +
                         '_' + 'sensor' + plural)
 
@@ -547,7 +578,7 @@ class PerformanceReport(SensorEvaluation):
 
         self.AddFigure(fig_name='MetInfl', fig_path=fig_path)
 
-    def GetShape(self, slide_idx, shape_id=None, shape_loc=None):
+    def GetShape(self, slide_idx=None, slide_obj=None, shape_id=None, shape_loc=None):
         """Retrieve shape object for tables based on known shape ID.
 
         Allows for editing, modifying the table and its cells.
@@ -575,6 +606,9 @@ class PerformanceReport(SensorEvaluation):
                 The slide shape object located at the location or ID specified.
 
         """
+        if slide_idx is not None:
+            slide_obj = self.rpt.slides[slide_idx]
+
         if shape_loc is not None:
             shp_l = shape_loc[0]
             shp_t = shape_loc[1]
@@ -584,10 +618,11 @@ class PerformanceReport(SensorEvaluation):
                     return shape
             print('No shape within specified tolerance!')
 
-        else:
-            for shape in self.rpt.slides[slide_idx].shapes:
+        elif slide_obj is not None:
+            for shape in slide_obj.shapes:
                 if shape.shape_id == shape_id:
                     return shape
+
 
     def EditHeader(self):
         """Insert header description (title, contact info, photo, etc.).
@@ -657,35 +692,35 @@ class PerformanceReport(SensorEvaluation):
 
             # Set deployment number
             tester_text = tester_info.text_frame.paragraphs[0]
-            tester_text.text = self.testing_org['Deployment name']
+            tester_text.text = self.testing_org['testing_descrip']
             self.FormatText(tester_text, alignment='left',
                             font_name='Calibri', font_size=20, bold=True)
             tester_text.line_spacing = ppt.util.Pt(text_vspace)
 
             # Set testing organization name (line 2)
             tester_text = tester_info.text_frame.add_paragraph()
-            tester_text.text = self.testing_org['Org name'][0]
+            tester_text.text = self.testing_org['org_name']
             self.FormatText(tester_text, alignment='left',
                             font_name='Calibri Light', font_size=20)
             tester_text.line_spacing = ppt.util.Pt(text_vspace)
 
             # Set testing organization name (line 2)
             tester_text = tester_info.text_frame.add_paragraph()
-            tester_text.text = self.testing_org['Org name'][1]
+            tester_text.text = self.testing_org['org_division']
             self.FormatText(tester_text, alignment='left',
                             font_name='Calibri Light', font_size=20)
             tester_text.line_spacing = ppt.util.Pt(text_vspace)
 
             # Add contact email
             tester_text = tester_info.text_frame.add_paragraph()
-            tester_text.text = (self.testing_org['Contact email'])
+            tester_text.text = (self.testing_org['org_contact_email'])
             self.FormatText(tester_text, alignment='left',
                             font_name='Calibri Light', font_size=20)
             tester_text.line_spacing = ppt.util.Pt(text_vspace)
 
             # Add contact phone number
             tester_text = tester_info.text_frame.add_paragraph()
-            tester_text.text = ('      ' + self.testing_org['Contact phone'])
+            tester_text.text = ('      ' + self.testing_org['org_contact_phone'])
             self.FormatText(tester_text, alignment='left',
                             font_name='Calibri Light', font_size=20)
             tester_text.line_spacing = ppt.util.Pt(text_vspace)
@@ -747,46 +782,47 @@ class PerformanceReport(SensorEvaluation):
 
         # Add organization name
         text_obj = cell.text_frame.paragraphs[0]
-        text_obj.text = (self.testing_org['Org name'][0] + ' - ' +
-                         self.testing_org['Org name'][1])
+        text_obj.text = (f'{self.testing_org["org_name"]} - '
+                         f'{self.testing_org["org_division"]}'
+                         f'\n{self.testing_org["org_type"]}')
         self.FormatText(text_obj, alignment='left', font_name='Calibri',
                         font_size=14)
 
         # Add contact link
         text_obj = cell.text_frame.add_paragraph()
         run = text_obj.add_run()
-        run.text = self.testing_org['Website']['website name']
-        link = self.testing_org['Website']['website link']
+        run.text = self.testing_org['org_website']['title']
+        link = self.testing_org['org_website']['link']
         hlink = run.hyperlink
         hlink.address = link
         self.FormatText(text_obj, alignment='left', font_name='Calibri',
                         font_size=11)
 
         # Add contact email, phone number
-        text_obj = cell.text_frame.add_paragraph()
-        text_obj.text = (self.testing_org['Contact email'] + '\n' + '      ' +
-                         self.testing_org['Contact phone'])
-        self.FormatText(text_obj, alignment='left', font_name='Calibri',
-                        font_size=11)
+        # text_obj = cell.text_frame.add_paragraph()
+        # text_obj.text = (self.testing_org['org_contact_email'] + '\n' + '      ' +
+        #                  self.testing_org['org_contact_phone'])
+        # self.FormatText(text_obj, alignment='left', font_name='Calibri',
+        #                 font_size=11)
 
         # ----------- Cell 2: Testing location information ----------------
         cell = shape.table.cell(2, 1)
 
         # Add site name
         text_obj = cell.text_frame.paragraphs[0]
-        text_obj.text = self.testing_loc['Site name']
+        text_obj.text = self.testing_loc['site_name']
         self.FormatText(text_obj, alignment='center', font_name='Calibri',
                         font_size=14)
 
         # Add site address
         text_obj = cell.text_frame.add_paragraph()
-        text_obj.text = self.testing_loc['Site address']
+        text_obj.text = self.testing_loc['site_address']
         self.FormatText(text_obj, alignment='center', font_name='Calibri',
                         font_size=11)
 
         # Add site lat long
         text_obj = cell.text_frame.add_paragraph()
-        text_obj.text = f'{self.testing_loc["Site lat"]}, {self.testing_loc["Site long"]}'
+        text_obj.text = f'{self.testing_loc["site_lat"]}, {self.testing_loc["site_lon"]}'
         self.FormatText(text_obj, alignment='center', font_name='Calibri',
                         font_size=11)
 
@@ -795,7 +831,7 @@ class PerformanceReport(SensorEvaluation):
 
         # Add site name
         text_obj = cell.text_frame.paragraphs[0]
-        text_obj.text = self.testing_loc['Site AQS ID']
+        text_obj.text = self.testing_loc['site_aqs_id']
         self.FormatText(text_obj, alignment='center', font_name='Calibri',
                         font_size=14)
 
@@ -810,12 +846,16 @@ class PerformanceReport(SensorEvaluation):
         cell = shape.table.cell(4, 1)
         text_obj = cell.text_frame.paragraphs[0]
 
-        begin_lst = self.overall_begin.tz_convert(self.tzone.zone).strftime('%Y-%m-%d %H:%M %Z')
-        end_lst = self.overall_end.tz_convert(self.tzone.zone).strftime('%Y-%m-%d %H:%M %Z')
+        # begin_lst = self.overall_begin.tz_convert(self.tzone.zone).strftime('%Y-%m-%d %H:%M %Z')
+        # end_lst = self.overall_end.tz_convert(self.tzone.zone).strftime('%Y-%m-%d %H:%M %Z')
 
-        text_obj.text = f'{begin_lst} to\n{end_lst}'
+        tstamp_fmt = '%m-%d-%y'
+        begin = self.overall_begin.strftime(tstamp_fmt)
+        end = self.overall_end.strftime(tstamp_fmt)
+
+        text_obj.text = f'{begin} to {end}'
         self.FormatText(text_obj, alignment='center', font_name='Calibri',
-                    font_size=11)
+                    font_size=14)
 
         # Add sampling timeframe for each group in deployment
         # self.eval_grps = list(self.tframe.keys())
@@ -840,7 +880,7 @@ class PerformanceReport(SensorEvaluation):
         =========== ===================
         Table name  TableID
         =========== ===================
-        Sensor info 49 (PM2.5), 30 (O3)
+        Sensor info 49 (PM2.5), 35 (O3)
         =========== ===================
 
         Returns:
@@ -851,7 +891,7 @@ class PerformanceReport(SensorEvaluation):
         if self.n_avg_intervals == 2:
             shape = self.GetShape(slide_idx=0, shape_id=34)
         if self.n_avg_intervals == 1:
-            shape = self.GetShape(slide_idx=0, shape_id=30)
+            shape = self.GetShape(slide_idx=0, shape_id=35)
 
         # Populate list with configured sensor recording interval(s)
         rec_interval = []
@@ -873,6 +913,17 @@ class PerformanceReport(SensorEvaluation):
         text_obj.text = self.fmt_sensor_name
         self.FormatText(text_obj, alignment='center', font_name='Calibri',
                         font_size=14)
+
+        # --------------- Cell 2: Sensor firwmare version ---------------------
+        if self.sensor.firmware_version:
+            cell = shape.table.cell(2, 1)
+
+            # Add sensor manufacturer, model name
+            text_obj = cell.text_frame.paragraphs[0]
+            text_obj.text = self.sensor.firmware_version
+            self.FormatText(text_obj, alignment='center', font_name='Calibri',
+                            font_size=14)
+
 
         # --------------- Cell 3: Sensor recording interval -------------------
         cell = shape.table.cell(3, 1)
@@ -924,15 +975,15 @@ class PerformanceReport(SensorEvaluation):
                                 font_name='Calibri', font_size=10.5)
 
         # If one sensor, merge 3x3 grid to single cell
-        if len(self.serials) == 1:
+        # if len(self.serials) == 1:
 
-            cell_span_orig = shape.table.cell(4, 1)
-            cell_span_other = shape.table.cell(6, 3)
+        #     cell_span_orig = shape.table.cell(4, 1)
+        #     cell_span_other = shape.table.cell(6, 3)
 
-            cell_span_orig.merge(cell_span_other)
+        #     cell_span_orig.merge(cell_span_other)
 
-        # If three sensors, merge 3x3 to 1x3 (merge to single row)
-        if len(self.serials) == 3:
+        # If three or fewer sensors, merge 3x3 to 1x3 (merge to single row)
+        if len(self.serials) <= 3:
 
             for j in [1, 2, 3]:
                 cell_span_orig = shape.table.cell(4, j)
@@ -1043,19 +1094,31 @@ class PerformanceReport(SensorEvaluation):
         for grp in list(grp_info.keys()):
             ref = 'Reference'
             try:
-                ref_hmin = grp_info[grp][self._param_name][ref][
-                                                            'conc_min_1-hour']
-                ref_hmax = grp_info[grp][self._param_name][ref][
-                                                            'conc_max_1-hour']
-                ref_dmin = grp_info[grp][self._param_name][ref][
-                                                            'conc_min_24-hour']
-                ref_dmax = grp_info[grp][self._param_name][ref][
-                                                            'conc_max_24-hour']
 
-                self.refconc[grp] = \
-                    '{0:3.1f}-{1:3.1f} (1-hr),\n'\
-                    '{2:3.1f}-{3:3.1f} (24-hr)'.format(ref_hmin, ref_hmax,
-                                                       ref_dmin, ref_dmax)
+                averaging = self.param.averaging.copy()
+                if self.param.name == 'O3':
+                    averaging.append('rolling_8-hour')
+
+                refconc_str = ''
+                for i, interval in enumerate(averaging):
+
+                    ref_min = grp_info[grp][self._param_name][ref][
+                                                                f'conc_min_{interval}']
+                    ref_max = grp_info[grp][self._param_name][ref][
+                                                                f'conc_max_{interval}']
+                    ref_mean = grp_info[grp][self._param_name][ref][
+                                                                f'conc_mean_{interval}']
+
+                    fmt_averaging = interval.replace('_', ' ').replace('hour', 'hr').replace('rolling', 'Rolling')
+
+                    avg_conc_str = f'[{fmt_averaging}] {ref_min:3.1f}-{ref_max:3.1f}, avg: {ref_mean:3.1f},\n'
+
+                    if i == (len(averaging)-1):
+                        avg_conc_str = avg_conc_str.replace(',\n', '')
+
+                    refconc_str += avg_conc_str
+
+                self.refconc[grp]=refconc_str
 
             # Raise when attributes are 'none' likely due to no data
             except TypeError:
@@ -1129,43 +1192,42 @@ class PerformanceReport(SensorEvaluation):
         if self.n_avg_intervals == 2:
             shape = self.GetShape(slide_idx=0, shape_id=74)
         if self.n_avg_intervals == 1:
-            shape = self.GetShape(slide_idx=0, shape_id=32)
+            shape = self.GetShape(slide_idx=0, shape_id=46)
 
         grp_info = self.deploy_dict['Deployment Groups']
 
-        # Number of 24-hr periods temp exceeded target criteria
-        self.tempexceed = {}
-        exceed_str = 'n_exceed_target_criteria_24-hour'
         met_conds = 'Meteorological Conditions'  # abbreviating
+        if '24-hour' in self.param.averaging:
+            exceed_str = 'n_exceed_target_criteria_24-hour'
+        else:
+            exceed_str = 'n_exceed_target_criteria_1-hour'
+
+        # Number of periods temp exceeded target criteria
+        self.tempexceed = {}
+
         temp = 'Temperature'  # abbreviating
         for grp in list(grp_info.keys()):
             try:
-                self.tempexceed[grp] = \
-                    '{0:d}'.format(
-                       grp_info[grp][met_conds][temp][exceed_str])
+                self.tempexceed[grp] = int(grp_info[grp][met_conds][temp][exceed_str])
 
             # Raise when attributes are 'none' likely due to no data
             except TypeError:
-                pass
+                self.tempexceed[grp] = np.nan
             except ValueError:
-                self.tempexceed[grp] = '0'
+                self.tempexceed[grp] = np.nan
 
         # Number of 24-hr periods temp exceeded target criteria
         self.rhexceed = {}
-        exceed_str = 'n_exceed_target_criteria_24-hour'
-        met_conds = 'Meteorological Conditions'  # abbreviating
         rh = 'Relative Humidity'  # abbreviating
         for grp in list(grp_info.keys()):
             try:
-                self.rhexceed[grp] = \
-                    '{0:d}'.format(
-                       grp_info[grp][met_conds][rh][exceed_str])
+                self.rhexceed[grp] = int(grp_info[grp][met_conds][rh][exceed_str])
 
             # Raise when attributes are 'none' likely due to no data
             except TypeError:
-                pass
+                self.rhexceed[grp] = np.nan
             except ValueError:
-                self.rhexceed[grp] = '0'
+                self.rhexceed[grp] = np.nan
 
         # ----------- Cell 1: N periods outside temp target criteria ----------
         cell = shape.table.cell(0, 1)
@@ -1175,14 +1237,40 @@ class PerformanceReport(SensorEvaluation):
             else:
                 text_obj = cell.text_frame.add_paragraph()
             grp_name = list(self.tempexceed.keys())[i]
+
             grp_tempexceed = self.tempexceed[grp_name]
 
-            if len(self.eval_grps) == 1:
-                text_obj.text = grp_tempexceed
+            # Gray cell
+            if np.isnan(grp_tempexceed):
+                text_obj.text = '-'
+                cell.fill.solid()
+                cell.fill.fore_color.rgb = ppt.dml.color.RGBColor(214, 216, 226)
+                self.FormatText(text_obj, alignment='center',
+                                font_name='Calibri', font_size=10)
+
             else:
-                text_obj.text = grp_name + ': ' + grp_tempexceed
-            self.FormatText(text_obj, alignment='center',
-                            font_name='Calibri', font_size=10)
+                grp_tempexceed = str(grp_tempexceed)
+
+                if len(self.eval_grps) == 1:
+                    text_obj.text = grp_tempexceed
+                else:
+                    text_obj.text = grp_name + ': ' + grp_tempexceed
+                self.FormatText(text_obj, alignment='center',
+                                font_name='Calibri', font_size=10)
+
+                # Modify text, add operational range
+                lbound = self.sensor.operational_range['Temp'][0]
+                ubound = self.sensor.operational_range['Temp'][1]
+                op_range = f'{lbound} to {ubound} °C'
+
+                cell = shape.table.cell(0, 0)
+                new_text = cell.text.replace('no operational range specified',
+                                             op_range)
+                cell.text = new_text
+
+                self.FormatText(cell.text_frame.paragraphs[0], alignment='left',
+                                font_name='Calibri', font_size=11)
+
 
         # ----------- Cell 2: N periods outside rh target criteria ------------
         cell = shape.table.cell(1, 1)
@@ -1192,14 +1280,41 @@ class PerformanceReport(SensorEvaluation):
             else:
                 text_obj = cell.text_frame.add_paragraph()
             grp_name = list(self.rhexceed.keys())[i]
+
             grp_rhexceed = self.rhexceed[grp_name]
 
-            if len(self.eval_grps) == 1:
-                text_obj.text = grp_rhexceed
+            # Gray cell
+            if np.isnan(grp_rhexceed):
+                text_obj.text = '-'
+                cell.fill.solid()
+                cell.fill.fore_color.rgb = ppt.dml.color.RGBColor(214, 216, 226)
+                self.FormatText(text_obj, alignment='center',
+                                font_name='Calibri', font_size=10)
+
             else:
-                text_obj.text = grp_name + ': ' + grp_rhexceed
-            self.FormatText(text_obj, alignment='center',
-                            font_name='Calibri', font_size=10)
+                grp_rhexceed = str(grp_rhexceed)
+
+
+                if len(self.eval_grps) == 1:
+                    text_obj.text = grp_rhexceed
+                else:
+                    text_obj.text = grp_name + ': ' + grp_rhexceed
+                self.FormatText(text_obj, alignment='center',
+                                font_name='Calibri', font_size=10)
+
+                # Modify text, add operational range
+                lbound = self.sensor.operational_range['RH'][0]
+                ubound = self.sensor.operational_range['RH'][1]
+                op_range = f'{lbound} to {ubound}%'
+
+                cell = shape.table.cell(1, 0)
+                new_text = cell.text.replace('no operational range specified',
+                                             op_range)
+                cell.text = new_text
+
+                self.FormatText(cell.text_frame.paragraphs[0], alignment='left',
+                                font_name='Calibri', font_size=11)
+
 
     def EditMetInfTable(self):
         """Add meteorological influence table (page 1).
@@ -1207,7 +1322,7 @@ class PerformanceReport(SensorEvaluation):
         ====================== ==================
         Table name             TableID
         ====================== ==================
-        N paired met conc vals 48 (O3), 76 (PM25)
+        N paired met conc vals 48 (O3), 32 (PM25)
         ====================== ==================
 
         Returns:
@@ -1216,9 +1331,9 @@ class PerformanceReport(SensorEvaluation):
         """
         # Get pptx table shape for modifying cells
         if self.n_avg_intervals == 2:
-            shape = self.GetShape(slide_idx=0, shape_id=76)
+            shape = self.GetShape(slide_idx=0, shape_id=32)
         if self.n_avg_intervals == 1:
-            shape = self.GetShape(slide_idx=0, shape_id=33)
+            shape = self.GetShape(slide_idx=0, shape_id=45)
 
         grp_info = self.deploy_dict['Deployment Groups']
 
@@ -1278,7 +1393,7 @@ class PerformanceReport(SensorEvaluation):
                        '16': f'Intercept\n({self.param.units})',
                        '18': 'Uptime\n(%)',
                        '20': 'Number of paired\nsensor and '
-                             'FRM/FEM\nconcentration pairs'}
+                             'FRM/FEM\nconcentration values'}
             avg_intervals = {'23': '1-Hour',
                              '24': '24-Hour',
                              '25': '1-Hour',
@@ -1329,7 +1444,7 @@ class PerformanceReport(SensorEvaluation):
                        '9': f'Intercept\n({self.param.units})',
                        '10': 'Uptime\n(%)',
                        '11': 'Number of paired\nsensor and '
-                             'reference\nconcentration pairs'}
+                             'reference\nconcentration values'}
             avg_intervals = {'13': '1-Hour',
                              '14': '1-Hour',
                              '15': '1-Hour',
@@ -1943,7 +2058,7 @@ class PerformanceReport(SensorEvaluation):
 
             txt = None
 
-    def EditSensorSensorTable(self, table):
+    def EditSensorSensorTable(self, table, slide):
         """Add intersensor (sensor-sensor) precision tabular stats (page 2).
 
 
@@ -2007,31 +2122,32 @@ class PerformanceReport(SensorEvaluation):
             nheaderrows = 4
             headercellend = nheaderrows*(datacols + 1)
             span_dict = {'Precision (between collocated sensors)': [1, 2],
-                         'Data Quality': [3, 4]}
+                         #'Data Quality': [3, 4],
+                         }
 
             table_categories = {'1': 'Precision (between collocated sensors)',
                                 '3': 'Data Quality'}
-            metrics = {'6': 'CV\n(%)',
-                       '7': f'SD\n({self.param.units})',
-                       '8': 'Number of paired\nsensor and '
-                            'reference\nconcentration pairs'}
-            avg_intervals = {'10': '1-Hour',
-                             '11': '1-Hour',
-                             '12': '1-Hour'}
+            metrics = {'5': 'CV\n(%)',
+                       '6': f'SD\n({self.param.units})',
+                       '7': 'Number of paired\nsensor and '
+                            'reference\nconcentration values'}
+            avg_intervals = {'9': '1-Hour',
+                             '10': '1-Hour',
+                             '11': '1-Hour'}
 
             cv_ubound = self.param.PerformanceTargets.get_metric(
-                            metrics['6'].split('\n')[0])['bounds'][1]
+                            metrics['5'].split('\n')[0])['bounds'][1]
             sd_ubound = self.param.PerformanceTargets.get_metric(
-                            metrics['7'].split('\n')[0])['bounds'][1]
+                            metrics['6'].split('\n')[0])['bounds'][1]
 
-            metric_targets = {'13': 'Metric Target Range',
-                              '14': '≤ {:3.1f}'.format(cv_ubound),
-                              '15': '≤ {:2.1f}'.format(sd_ubound),
-                              '16': '-',
-                              '17': 'Deployment Value'}
-            metric_vals = {'18': format(grp_stats['cv_1-hour'], '3.1f'),
-                           '19': format(grp_stats['std_1-hour'], '3.1f'),
-                           '20': format(grp_stats['n_1-hour'], '.0f')}
+            metric_targets = {'12': 'Metric Target Range',
+                              '13': '≤ {:3.1f}'.format(cv_ubound),
+                              '14': '≤ {:2.1f}'.format(sd_ubound),
+                              '15': '-',
+                              '16': 'Deployment Value'}
+            metric_vals = {'17': format(grp_stats['cv_1-hour'], '3.1f'),
+                           '18': format(grp_stats['std_1-hour'], '3.1f'),
+                           '19': format(grp_stats['n_1-hour'], '.0f')}
 
         cells = self.SetSpanningCells(table, span_dict)
 
@@ -2108,6 +2224,7 @@ class PerformanceReport(SensorEvaluation):
                     self.FormatText(trgt_cell_text, alignment='center',
                                     font_name='Calibri Light', font_size=12)
 
+                # Gray cell
                 if math.isnan(val):
                     text_obj.text = '-'
                     cell.fill.solid()
@@ -2119,6 +2236,32 @@ class PerformanceReport(SensorEvaluation):
                             font_name='Calibri', font_size=14)
 
             txt = None
+
+        if self.n_sensors < 3:
+            footnote = slide.shapes.add_textbox(
+                                    ppt.util.Inches(1.32),  # left
+                                    ppt.util.Inches(14.43),  # top
+                                    ppt.util.Inches(9.4),  # width
+                                    ppt.util.Inches(0.48))  # height
+            text_frame = footnote.text_frame
+            p = text_frame.paragraphs[0]
+
+            footnote_superscript = p.add_run()
+            footnote_superscript.text = '1'
+            font = footnote_superscript.font
+            self.SetSuperscript(font)
+
+            footnote = p.add_run()
+            footnote.text = ('Precision statistics are computed for evaluations with '
+                      'at least three collocated sensor units. Metric values '
+                      'are left blank for evaluations with two or fewer sensor '
+                      'units.')
+
+            self.FormatText(p, alignment='left',
+                            font_name='Calibri', font_size=14)
+            text_frame.fit_text()
+
+
 
     def SetSpanningCells(self, table, span_dict):
         """Merge tabular cells to form cells spanning multiple rows/columns.
@@ -2188,8 +2331,7 @@ class PerformanceReport(SensorEvaluation):
             None.
 
         """
-        self.n_grps = len(set(self.serial_grp_dict.values()))
-        self.n_sensors = len(set(self.serial_grp_dict))
+
 
         # Use slide layout for generating additional slides
         tabular_layout_idx = 1
@@ -2265,7 +2407,7 @@ class PerformanceReport(SensorEvaluation):
             ss_frame, ss_table = self.ConstructTable(
                                         tabular_slide,
                                         table_type='sensor_sensor')
-            self.EditSensorSensorTable(ss_table)
+            self.EditSensorSensorTable(ss_table, tabular_slide)
 
             # Adjust sensor-reference table vertical position
             EMU_to_in = 1/914400.0
@@ -2304,7 +2446,7 @@ class PerformanceReport(SensorEvaluation):
                                 ppt.util.Inches(12.81),  # width
                                 ppt.util.Inches(0.44))  # height
             sr_header_obj = sr_header.text_frame.paragraphs[0]
-            sr_header_obj.text = 'Sensor-FRM/FEM Agreement'
+            sr_header_obj.text = 'Sensor-FRM/FEM Correlation'
             self.FormatText(sr_header_obj, alignment='left',
                             font_name='Calibri Light', font_size=20)
 
@@ -2315,7 +2457,15 @@ class PerformanceReport(SensorEvaluation):
                                 ppt.util.Inches(12.81),  # width
                                 ppt.util.Inches(0.44))  # height
             ss_header_obj = ss_header.text_frame.paragraphs[0]
-            ss_header_obj.text = 'Sensor-Sensor Precision'
+
+
+            ss_header_text = ss_header_obj.add_run()
+            ss_header_text.text = 'Sensor-Sensor Precision'
+            if self.n_sensors < 3:
+                footnote_superscript = ss_header_obj.add_run()
+                footnote_superscript.text = '1'
+                font = footnote_superscript.font
+                self.SetSuperscript(font)
             self.FormatText(ss_header_obj, alignment='left',
                             font_name='Calibri Light', font_size=20)
 
