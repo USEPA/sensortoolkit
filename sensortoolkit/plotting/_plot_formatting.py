@@ -17,6 +17,7 @@ Last Updated:
   Wed Jul 28 14:13:57 2021
 """
 from pandas.plotting import register_matplotlib_converters
+import pandas as pd
 import numpy as np
 from textwrap import wrap
 import math
@@ -201,7 +202,7 @@ def sensor_subplot_formatting(number_of_sensors, param_obj, report_fmt,
                 top = 0.85
                 bottom = 0.15
                 suptitle_xpos = 0.46
-                suptitle_ypos = 0.95
+                suptitle_ypos = 1
                 title_text_wrap = 30
             else:
                 fig_size = (4.9, 5.5)
@@ -211,6 +212,7 @@ def sensor_subplot_formatting(number_of_sensors, param_obj, report_fmt,
                 right = 0.85
                 top = 0.9
                 bottom = 0.25
+                suptitle_ypos = 0.98
         else:
             fig_size = (4.9, 5.5)
             wspace = .01
@@ -219,9 +221,10 @@ def sensor_subplot_formatting(number_of_sensors, param_obj, report_fmt,
             right = 0.85
             top = 0.95
             bottom = 0.1
+            suptitle_ypos = 0.98
 
         suptitle_xpos = 0.50
-        suptitle_ypos = 0.98
+
         title_text_wrap = 35
         detail_fontsize = .75*font_size
         filename_suffix = '1_sensor'
@@ -232,12 +235,12 @@ def sensor_subplot_formatting(number_of_sensors, param_obj, report_fmt,
 
         if RH_colormap is True:
             fig_size = (12.3, 5.12)
-            wspace = .38
+            wspace = 0.3
             hspace = .05
             left = 0.06
             right = 0.94
-            top = 0.97
-            bottom = 0.22
+            top = 0.90
+            bottom = 0.25
         else:
             fig_size = (12, 4)
             wspace = .4
@@ -357,7 +360,7 @@ def sensor_subplot_formatting(number_of_sensors, param_obj, report_fmt,
             suptitle_xpos = 0.5
             suptitle_ypos = 1.01
             title_text_wrap = 30
-            suptitle_ypos = 0.95
+            suptitle_ypos = 1.0
         # Plot both 1-hour and 24-hour averaged datasets
         else:
             wspace = .4
