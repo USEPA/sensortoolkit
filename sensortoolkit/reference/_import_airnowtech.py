@@ -32,8 +32,19 @@ from sensortoolkit.reference import airnowtech_wide_to_long
 from sensortoolkit.lib_utils import flatten_list
 from sensortoolkit.reference import get_reference_method
 
+airnowtech_codes = {0: 'Valid',
+                    1: 'Adjusted',
+                    2: 'Averaged',
+                    3: 'Interpolated',
+                    4: 'Estimated',
+                    5: 'Suspect',
+                    6: 'Suspect (audit failure)',
+                    7: 'Insufficient data',
+                    8: 'Missing',
+                    9: 'Invalid'
+                    }
 
-def ingest_airnowtech(path, Clean_QC_Code=False):
+def ingest_airnowtech(path):
     """Ingest raw AirNowTech data (table, unpivoted format, 1-hr recording
     freq) and set index column to Date & Time (UTC).
 
@@ -57,9 +68,6 @@ def ingest_airnowtech(path, Clean_QC_Code=False):
 
         df = df.tz_localize('UTC')
 
-    if Clean_QC_Code is True:
-        df = df[df['QC Code'] == 0]
-
     # Regenerate hourly index to fill gaps in dataset
     hourly_index = pd.date_range(df.index.min(), df.index.max(), freq='H')
 
@@ -71,7 +79,7 @@ def ingest_airnowtech(path, Clean_QC_Code=False):
     return df
 
 
-def sort_airnowtech(df):
+def sort_airnowtech(df, **kwargs):
     """Data are sorted into PM, gas, and met dataframes and a table containing
     all AQS method codes is used to associate the recorded method code for data
     streams with the instrument used to make the measurement.
@@ -128,6 +136,21 @@ def sort_airnowtech(df):
 
     site_df.loc[site_aqs_idx, 'Site_AQS'] = (state_id + '-' + county_id + '-' + site_id)
 
+    if kwargs.get('agency'):
+        site_df['Agency'] = kwargs.get('agency')
+    if kwargs.get('site_name'):
+        site_df['Site_Name'] = kwargs.get('site_name')
+    if kwargs.get('site_aqs'):
+        site_df['Site_AQS'] = kwargs.get('site_aqs')
+    if kwargs.get('site_lat'):
+        site_df['Site_Lat'] = kwargs.get('site_lat')
+    elif ('Site_Lat' not in site_df.columns):
+         site_df['Site_Lat'] = np.nan
+    if kwargs.get('site_lon'):
+        site_df['Site_Lon'] = kwargs.get('site_lon')
+    elif ('Site_Lon' not in site_df.columns):
+        site_df['Site_Lon'] = np.nan
+
     for param in df.Param.dropna().unique():
 
         param_df = df[df.Param == param]
@@ -151,17 +174,41 @@ def sort_airnowtech(df):
             print(f'..Multiple POCs for {param} found. Retaining data for POC 1.')
 
 
-        aqs_param_code = param_df[param + '_Param_Code'].dropna().unique()[0]
-        aqs_method_code = param_df[param + '_Method_Code'].dropna().unique()[0]
+        try:
+            aqs_param_code = param_df[param + '_Param_Code'].dropna().unique()[0]
+        except IndexError:
+            aqs_param_code = np.nan
+        try:
+            aqs_method_code = param_df[param + '_Method_Code'].dropna().unique()[0]
+        except IndexError:
+            aqs_method_code = np.nan
 
         if param in met_list:
             lookup_table = met_lookup_table
         if (param in pm_list or param in gas_list):
             lookup_table = criteria_lookup_table
 
-        instrument_info = get_reference_method(lookup_table, aqs_param_code,
-                                               aqs_method_code)
-        param_df[param + '_Method'] = instrument_info[0]
+        if np.isnan(aqs_param_code) or np.isnan(aqs_method_code):
+            param_df[param + '_Method'] = 'Unspecified Reference'
+        else:
+            instrument_info = get_reference_method(lookup_table, aqs_param_code,
+                                                   aqs_method_code)
+            param_df[param + '_Method'] = instrument_info[0]
+
+        for code, description in airnowtech_codes.items():
+
+            #print(param_df[param_df[f'{param}_QAQC_Code']==float(code)])
+            code_idx = param_df[param_df[f'{param}_QAQC_Code']==float(code)].index
+
+            if code == 0:
+                description = ''
+            elif code > 4:
+                # Invalidate data if one of following flags: 'Suspect',
+                # 'Suspect (audit failure)', 'Insufficient data','Missing',
+                # or 'Invalid'
+                param_df.loc[code_idx, f'{param}_Value'] = np.nan
+
+            param_df.loc[code_idx, f'{param}_QAQC_Code'] = description
 
         # # Method code(s) listed for parameter data
         # method_list = param_df[param + '_Method_Code'].dropna().unique()
@@ -234,22 +281,6 @@ def write_to_file(df, path, outpath):
     # Column names associated with each parameter
     aqs_attribs = ['_Value', '_Unit', '_QAQC_Code', '_Param_Code',
                    '_Method', '_Method_Code', '_Method_POC']
-
-    # Method names are listed in all upper case in the method code lookup
-    # table, so I use .title() to leave only the first letter of each word
-    # describing the reference method. These are some exceptions:
-    # replace = {'Api': 'API',
-    #            'Frm': 'FRM',
-    #            'Fem': 'FEM',
-    #            'Lpm': 'LPM',
-    #            ' At ': ' at ',
-    #            'Bam': 'BAM',
-    #            'Pm': 'PM',
-    #            'Vscc': 'VSCC',
-    #            ' Te ': ' TE ',
-    #            ' Or ': ' or ',
-    #            'W/': 'w/',
-    #            ' And ': ' and '}
 
     orig_inpath = path
     orig_outpath = outpath
@@ -325,8 +356,8 @@ def write_to_file(df, path, outpath):
                 except KeyError:
                     continue
 
-            month_df['Site_Lat'] = np.nan
-            month_df['Site_Lon'] = np.nan
+            # month_df['Site_Lat'] = np.nan
+            # month_df['Site_Lon'] = np.nan
             month_df['Data_Source'] = 'AirNow-Tech'
 
             # Get the date and time the file was downloaded
@@ -371,6 +402,7 @@ def write_to_file(df, path, outpath):
                     site_aqs = month_df['Site_AQS'].mode()[0]
                     site_aqs = str(site_aqs).zfill(9)
                     site_aqs = site_aqs.replace('-', '').replace(' ', '')
+                    site_aqs = site_aqs.zfill(9)
                 except KeyError:
                     site_aqs = 'Unspecified_Site_AQS_ID'
 
@@ -389,7 +421,7 @@ def write_to_file(df, path, outpath):
     return folder
 
 
-def preprocess_airnowtech(file_path, project_path):
+def preprocess_airnowtech(file_path, project_path, **kwargs):
     """Wrapper module for pre-processing datasets downloaded as .csv files
     from airnowtech.org. When downloading data, the table box under "Display
     Settings" should be checked and configured to 'unpivoted' format.
@@ -406,7 +438,7 @@ def preprocess_airnowtech(file_path, project_path):
     outpath = os.path.join(os.path.abspath(project_path), 'data',
                            'reference_data', 'airnowtech', 'processed')
 
-    for df in sort_airnowtech(ant_df):
+    for df in sort_airnowtech(ant_df, **kwargs):
         site_folder = write_to_file(df, file_path, outpath)
 
     # Copy the downloaded dataset to site specific subfolder
