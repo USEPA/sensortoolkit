@@ -1694,7 +1694,10 @@ class ReferenceSetup(_Setup):
                                     options=[])
         print('')
         for file in self.file_list:
-            preprocess_airnowtech(file, self.path)
+            preprocess_airnowtech(file, self.path, agency=self.agency,
+                                  site_name=self.site_name, site_aqs=self.site_aqs,
+                                  site_lat=self.site_lat, site_lon=self.site_lon)
+
         print('')
 
     def localRefDataIngest(self):
