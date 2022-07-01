@@ -187,6 +187,8 @@ class SensorEvaluation:
         # Add keyword arguments
         self.__dict__.update(**kwargs)
         self.kwargs = kwargs
+        if self.sensor.firmware_version:
+            self.kwargs['sensor_firmware'] = self.sensor.firmware_version
 
         # path to sensor figures
         self.figure_path = os.path.join(self.path, 'figures', self.name, '')
@@ -212,6 +214,8 @@ class SensorEvaluation:
                                                         self.hourly_df_list,
                                                         self.daily_df_list,
                                                         self.name,
+                                                        self.testing_loc,
+                                                        self.testing_org,
                                                         **self.kwargs)
 
         deploy_grps = self.deploy_dict['Deployment Groups']
@@ -331,6 +335,8 @@ class SensorEvaluation:
 
         # Get the name of the reference monitor
         self.ref_name = self.reference.get_method_name(self.param.name)
+        self.ref_info = self.reference.get_method_info(self.param.name)
+        self.ref_desig = self.ref_info['Method Type']
 
         self.daily_ref_df = self.ref_dict[self.param.classifier]['24-hour']
 
@@ -510,21 +516,23 @@ class SensorEvaluation:
         if self.param.averaging == ['1-hour']:
             self.stats_df = hourly_stats
             self.avg_stats_df = avg_hourly_stats
-        elif self.param.averaging == ['1-hour', '24-hour']:
-            # Combine the statistics dataframes into one
-            self.stats_df = sensortoolkit.calculate.join_stats(
-                                            hourly_stats,
-                                            daily_stats,
-                                            stats_path=self.stats_path,
-                                            stats_type='individual',
-                                            write_to_file=self.write_to_file)
+            daily_stats = pd.DataFrame()
+            avg_daily_stats = pd.DataFrame()
 
-            self.avg_stats_df = sensortoolkit.calculate.join_stats(
-                                            avg_hourly_stats,
-                                            avg_daily_stats,
-                                            stats_path=self.stats_path,
-                                            stats_type='average',
-                                            write_to_file=self.write_to_file)
+        # Combine the statistics dataframes into one
+        self.stats_df = sensortoolkit.calculate.join_stats(
+                                        hourly_stats,
+                                        daily_stats,
+                                        stats_path=self.stats_path,
+                                        stats_type='individual',
+                                        write_to_file=self.write_to_file)
+
+        self.avg_stats_df = sensortoolkit.calculate.join_stats(
+                                        avg_hourly_stats,
+                                        avg_daily_stats,
+                                        stats_path=self.stats_path,
+                                        stats_type='average',
+                                        write_to_file=self.write_to_file)
 
     def plot_timeseries(self, report_fmt=True, **kwargs):
         """Plot sensor and FRM/FEM reference measurements over time.
@@ -556,8 +564,7 @@ class SensorEvaluation:
         kwargs.pop('param', None)
 
         if len(avg_list) == 2 and report_fmt is True:
-            fig, axs = plt.subplots(2, 1, figsize=(10.15, 4.1))
-            fig.subplots_adjust(hspace=0.7)
+            fig, axs = plt.subplots(2, 1, figsize=(10.15, 4.2))
             for i, averaging_interval in enumerate(avg_list):
 
                 if averaging_interval == '1-hour':
@@ -566,7 +573,6 @@ class SensorEvaluation:
                     sensor_data = self.daily_df_list
 
                 ref_data = self.ref_dict[sensortoolkit.Parameter(param).classifier][averaging_interval]
-                ref_name = self.reference.get_method_name(self.param.name)
 
                 # Prevent Sensor_Timeplot from writing to file on first
                 # iteration of loop
@@ -582,7 +588,7 @@ class SensorEvaluation:
                                         param=param,
                                         figure_path=self.figure_path,
                                         sensor_name=self.name,
-                                        ref_name=ref_name,
+                                        ref_name=self.ref_desig,
                                         bdate=t_start,
                                         edate=t_end,
                                         averaging_interval=averaging_interval,
@@ -594,6 +600,7 @@ class SensorEvaluation:
 
                 if i == 0:
                     axs[i].get_legend().remove()
+
         else:
 
             averaging_interval = kwargs.get('averaging_interval', '1-hour')
@@ -619,7 +626,7 @@ class SensorEvaluation:
                     param=param,
                     figure_path=self.figure_path,
                     sensor_name=self.name,
-                    ref_name=ref_name,
+                    ref_name=self.ref_desig,
                     bdate=t_start,
                     edate=t_end,
                     averaging_interval=averaging_interval,
@@ -691,6 +698,9 @@ class SensorEvaluation:
                   'sensor vs. reference measurements')
             self.calculate_metrics()
 
+        write = kwargs.get('write_to_file', self.write_to_file)
+        kwargs.pop('write_to_file', None)
+
         sensortoolkit.plotting.performance_metrics(
                                     self.stats_df,
                                     self.deploy_dict,
@@ -698,10 +708,10 @@ class SensorEvaluation:
                                     param_averaging=self.param.averaging,
                                     path=self.figure_path,
                                     sensor_name=self.name,
-                                    write_to_file=self.write_to_file,
+                                    write_to_file=write,
                                     **kwargs)
 
-    def plot_sensor_scatter(self, averaging_interval='24-hour',
+    def plot_sensor_scatter(self, averaging_interval=None,
                             plot_subset=None, **kwargs):
         """Plot sensor vs FRM/FEM reference measurement pairs as scatter.
 
@@ -717,7 +727,8 @@ class SensorEvaluation:
             averaging_interval (str, optional):
                 The measurement averaging intervals commonly utilized for
                 analyzing data corresponding the the selected parameter.
-                Defaults to '24-hour'.
+                Defaults to the shortest averaging interval in the list of
+                preset parameter averaging intervals (param.averaging).
             plot_subset (list, optional):
                 A list of either sensor serial IDs or the keys associated with
                 the serial IDs in the serial dictionary. Defaults to None.
@@ -737,9 +748,15 @@ class SensorEvaluation:
             None.
 
         """
+        if averaging_interval is None:
+            averaging_interval = self.param.averaging[0]
+
         report_fmt = kwargs.get('report_fmt', False)
         # Avoids multiple args passed to same param
         kwargs.pop('report_fmt', None)
+
+        write = kwargs.get('write_to_file', self.write_to_file)
+        kwargs.pop('write_to_file', None)
 
         try:
             self.deploy_dict['Deployment Groups']['Group 1'][self._param_name]
@@ -775,6 +792,8 @@ class SensorEvaluation:
                 sys.exit('Reporting template formatted '
                          'figure not specified for ' + self._param_name)
 
+
+
             fig, axs = plt.subplots(1, len(avg_list), figsize=figsize)
             fig.subplots_adjust(hspace=0.7)
             for i, averaging_interval in enumerate(self.param.averaging):
@@ -794,7 +813,7 @@ class SensorEvaluation:
                     write_to_file = False
                     kwargs['draw_cbar'] = False
                 if i == len(self.param.averaging) - 1:
-                    write_to_file = self.write_to_file
+                    write_to_file = write
                     kwargs['draw_cbar'] = True
 
                 if isinstance(axs, np.ndarray):
@@ -814,7 +833,7 @@ class SensorEvaluation:
                                         param=self._param_name,
                                         figure_path=self.figure_path,
                                         sensor_name=self.name,
-                                        ref_name=self.ref_name,
+                                        ref_name=self.ref_desig,
                                         averaging_interval=averaging_interval,
                                         plot_subset=plot_subset,
                                         write_to_file=write_to_file,
@@ -856,11 +875,11 @@ class SensorEvaluation:
                                param=self._param_name,
                                figure_path=self.figure_path,
                                sensor_name=self.name,
-                               ref_name=self.ref_name,
+                               ref_name=self.ref_desig,
                                averaging_interval=averaging_interval,
                                plot_subset=plot_subset,
                                report_fmt=report_fmt,
-                               write_to_file=self.write_to_file,
+                               write_to_file=write,
                                **kwargs)
 
     def plot_met_dist(self):
@@ -930,23 +949,29 @@ class SensorEvaluation:
             None.
 
         """
+        kwargs['dep_var'] = kwargs.get('dep_var', 'normalized')
         # Reference data header names for met data
         valid_met_params = ['Temp', 'RH']
+
+        write = kwargs.get('write_to_file', self.write_to_file)
+        kwargs.pop('write_to_file', None)
 
         if report_fmt is True:
             fig, axs = plt.subplots(1, 2, figsize=(8.1, 3.8))
             fig.subplots_adjust(hspace=0.7)
             kwargs['fontsize'] = kwargs.get('fontsize', 10)
-            kwargs['ylims'] = kwargs.get('ylims', (-.3, 4))
+
+            if kwargs.get('dep_var') == 'normalized':
+                kwargs['ylims'] = kwargs.get('ylims', (-.3, 4))
 
             for i, m_param in enumerate(valid_met_params):
                 # Prevent writing to file on first iteration of loop
                 if i == 0:
                     write_to_file = False
                 if i == 1:
-                    write_to_file = self.write_to_file
+                    write_to_file = write
 
-                axs[i] = sensortoolkit.plotting.normalized_met_scatter(
+                axs[i] = sensortoolkit.plotting.met_influence(
                                           self.hourly_df_list,
                                           self.hourly_ref_df,
                                           self.avg_hrly_df,
@@ -956,7 +981,8 @@ class SensorEvaluation:
                                           sensor_serials=self.serials,
                                           sensor_name=self.name,
                                           met_param=m_param,
-                                          ref_name=self.ref_name,
+                                          ref_name=self.ref_desig,
+                                          ref_mdl=self.ref_info.get('Federal MDL', None),
                                           write_to_file=write_to_file,
                                           report_fmt=report_fmt,
                                           fig=fig,
@@ -971,7 +997,7 @@ class SensorEvaluation:
             if met_param not in valid_met_params:
                 sys.exit(f'Invalid parameter name: {met_param}')
 
-            sensortoolkit.plotting.normalized_met_scatter(
+            sensortoolkit.plotting.met_influence(
                                       self.hourly_df_list,
                                       self.hourly_ref_df,
                                       self.avg_hrly_df,
@@ -981,8 +1007,9 @@ class SensorEvaluation:
                                       sensor_serials=self.serials,
                                       sensor_name=self.name,
                                       met_param=met_param,
-                                      ref_name=self.ref_name,
-                                      write_to_file=self.write_to_file,
+                                      ref_name=self.ref_desig,
+                                      ref_mdl=self.ref_info.get('Federal MDL', None),
+                                      write_to_file=write,
                                       **kwargs)
 
     def plot_sensor_met_scatter(self, averaging_interval='1-hour',
@@ -1079,7 +1106,7 @@ class SensorEvaluation:
                            sensor_serials=self.serials,
                            **kwargs)
 
-    def print_eval_metrics(self, averaging_interval='24-hour'):
+    def print_eval_metrics(self, averaging_interval=None):
         """Display a summary of performance evaluation results using
         EPA’s recommended performance metrics (‘PM25’ and ‘O3’).
 
@@ -1092,12 +1119,16 @@ class SensorEvaluation:
             averaging_interval (dict, optional):
                 The measurement averaging intervals commonly utilized for
                 analyzing data corresponding the the selected parameter.
-                Defaults to '24-hour'.
+                Defaults to the shortest averaging interval in the list of
+                preset parameter averaging intervals (param.averaging).
 
         Returns:
             None.
 
         """
+        if averaging_interval is None:
+            averaging_interval = self.param.averaging[0]
+
         try:
             self.deploy_dict['Deployment Groups']['Group 1'][self._param_name]
         except KeyError:
@@ -1160,7 +1191,7 @@ class SensorEvaluation:
                                                           linearity_max),
               5*' ')
 
-    def print_eval_conditions(self, averaging_interval='24-hour'):
+    def print_eval_conditions(self, averaging_interval=None):
         """Display conditions for the evaluation parameter and meteorological
         conditions during the testing period.
 
@@ -1174,12 +1205,16 @@ class SensorEvaluation:
             averaging_interval (str, optional):
                 The measurement averaging intervals commonly utilized for
                 analyzing data corresponding the the selected parameter.
-                Defaults to '24-hour'.
+                Defaults to the shortest averaging interval in the list of
+                preset parameter averaging intervals (param.averaging).
 
         Returns:
             None.
 
         """
+        if averaging_interval is None:
+            averaging_interval = self.param.averaging[0]
+
         try:
             self.deploy_dict['Deployment Groups']['Group 1'][self._param_name]
         except KeyError:
