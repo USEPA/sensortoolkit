@@ -473,8 +473,8 @@ def performance_metrics(stats_df, deploy_dict, param=None,
 
             if metric_name == 'Slope':
                 dim_key = 'Slope'
-                upper_lim = abs(1.5*stats_df[metric_name]).max()
-                lower_lim = 1.5*stats_df[metric_name].min()
+                upper_lim, lower_lim = (abs(1.5*stats_df[metric_name]).max(),
+                                        1.5*stats_df[metric_name].min())
 
                 if upper_lim < 2.0 and upper_lim > 0.25:
                     upper_lim = 2.0
@@ -486,12 +486,18 @@ def performance_metrics(stats_df, deploy_dict, param=None,
                 else:
                     lower_lim = 1.5*lower_lim
 
+                if kwargs.get('slope_lims'):
+                    lower_lim, upper_lim = kwargs.get('slope_lims')
+
             if metric_name == 'Intercept':
                 dim_key = 'Intercept'
                 upper_lim = abs(1.5*stats_df[metric_name]).max()
                 if upper_lim < 10:
                     upper_lim = 10
                 lower_lim = -1*upper_lim
+
+                if kwargs.get('intercept_lims'):
+                    lower_lim, upper_lim = kwargs.get('intercept_lims')
 
                 metric_name = rf'{metric_name} ({param_obj.units})'
 
@@ -504,6 +510,9 @@ def performance_metrics(stats_df, deploy_dict, param=None,
                 if n_sensors == 1:
                     upper_lim = 60
 
+                if kwargs.get('cv_lims'):
+                    lower_lim, upper_lim = kwargs.get('cv_lims')
+
                 metric_name = rf'{metric_name} (%)'
 
             if metric_name == 'RMSE':
@@ -513,6 +522,9 @@ def performance_metrics(stats_df, deploy_dict, param=None,
                 if upper_lim < 10:
                     upper_lim = 10
 
+                if kwargs.get('rmse_lims'):
+                    lower_lim, upper_lim = kwargs.get('rmse_lims')
+
                 metric_name = rf'{metric_name} ({param_obj.units})'
 
             if metric_name == 'NRMSE':
@@ -521,18 +533,25 @@ def performance_metrics(stats_df, deploy_dict, param=None,
                 upper_lim = 1.5*data_df[metric_name].max()
                 if upper_lim < 50:
                     upper_lim = 50
+
+                if kwargs.get('nrmse_lims'):
+                    lower_lim, upper_lim = kwargs.get('nrmse_lims')
+
                 metric_name = r'NRMSE ($\%$)'
 
             if metric_name == 'SD':
                 dim_key = 'SD'
                 lower_lim = 0
                 upper_lim = 1.5*data_df[metric_name].max()
-                metric_name = rf'{metric_name} ({param_obj.units})'
-
                 if upper_lim < 10:
                     upper_lim = 10
                 if n_sensors == 1:
                     upper_lim = 10
+
+                if kwargs.get('sd_lims'):
+                    lower_lim, upper_lim = kwargs.get('sd_lims')
+
+                metric_name = rf'{metric_name} ({param_obj.units})'
 
             # Get formatting values
             ylims = kwargs.get(dim_key + '_ylims',
@@ -567,12 +586,25 @@ def performance_metrics(stats_df, deploy_dict, param=None,
         plt.tight_layout()
         sns.set(font_scale=kwargs.get('font_scale', 1))
 
+    show_legend = kwargs.get('show_legend', False)
+
+    if show_legend:
+        fig.legend(labels=[f'{param} Averaging' for param in param_averaging], ncol=2,
+                   loc='center', bbox_to_anchor=(0.5, 0.05))
+
+        for ax in axs:
+            ax.axes.get_xaxis().set_visible(False)
+
+        fig_bottom = 0.15
+    else:
+        fig_bottom = 0.13
+
     fig.subplots_adjust(wspace=kwargs.get('fig_wspace', wspace),
                         hspace=kwargs.get('fig_hspace', 0.1),
                         left=kwargs.get('fig_left', 0.03),
                         right=kwargs.get('fig_right', 0.97),
                         top=kwargs.get('fig_top', 0.93),
-                        bottom=kwargs.get('fig_bottom', 0.13))
+                        bottom=kwargs.get('fig_bottom', fig_bottom))
 
     if write_to_file is True:
         todays_date = get_todays_date()
