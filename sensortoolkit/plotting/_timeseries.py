@@ -212,7 +212,7 @@ def sensor_timeplot(df_list, ref_df, param=None, sensor_name=None,
     format_xaxis_weeks = kwargs.get('format_xaxis_weeks', False)
     fig_size = kwargs.get('fig_size', (16, 3.5))
     fontsize = kwargs.get('fontsize', 15)
-    legend_fontscale = kwargs.get('legend_fontscale', 0.72)
+    legend_fontscale = kwargs.get('legend_fontscale', 0.8)
     cmap_name = kwargs.get('cmap_name', 'Set1')
     cmap_norm_range = kwargs.get('cmap_normrange', cmap_range)
     show_title = kwargs.get('show_title', True)
@@ -233,18 +233,29 @@ def sensor_timeplot(df_list, ref_df, param=None, sensor_name=None,
         # timeseries [plots arranged as 2 rows, 1 column])
         if len(param_averaging) == 2:
             fontsize = 10.5
-            fig_size = (10.15, 4.1)
+            fig_size = (10.15, 4.2)
             show_title = True
 
             # Scaling values for axes box
-            box_xscale = kwargs.get('box_xscale', 0.45)  # Translate x-axis loc
-            box_yscale = kwargs.get('box_yscale', 1.0)  # Translate y-axis loc
-            box_wscale = kwargs.get('box_wscale', 1.0)  # Transform plot width
-            box_hscale = kwargs.get('box_hscale', 1.12) # Transform plot height
+            # box_xscale = kwargs.get('box_xscale', 0.45)  # Translate x-axis loc
+            # box_yscale = kwargs.get('box_yscale', 1.0)  # Translate y-axis loc
+            # box_wscale = kwargs.get('box_wscale', 1.0)  # Transform plot width
+            # box_hscale = kwargs.get('box_hscale', 1.12) # Transform plot height
+
+            subplot_top=0.935
+            subplot_bottom=0.165
+            subplot_left=0.055
+            subplot_right=0.945
+            subplot_hspace=0.47
+            subplot_wspace=0.2
+
+            kwargs['subplots_adjust'] = (subplot_top, subplot_bottom,
+                                         subplot_left, subplot_right,
+                                         subplot_hspace, subplot_wspace)
 
             title_xpos = 0.5
             # x, y loc of legend (w.r.t axes obj)
-            legend_pos = kwargs.get('legend_loc', (1.11, 1.29))
+            legend_pos = kwargs.get('legend_loc', (0.5, -0.35))
             columnspacing = 0.9  # Legend column spacing
 
         # Figure consists of one timeseries plot (1-hr)
@@ -254,16 +265,27 @@ def sensor_timeplot(df_list, ref_df, param=None, sensor_name=None,
             fig_size = (10.16, 3.8)
             show_title = False
 
-            box_xscale = kwargs.get('box_xscale', 1.1)  # Translate x-axis loc
-            box_yscale = kwargs.get('box_yscale', 3.1)  # Translate y-axis loc
-            box_wscale = kwargs.get('box_wscale', 1.02)  # Transform plot width
-            box_hscale = kwargs.get('box_hscale', 0.67) # Transform plot height
+            subplot_top=0.98
+            subplot_bottom=0.49
+            subplot_left=0.055
+            subplot_right=0.945
+            subplot_hspace=0.47
+            subplot_wspace=0.2
+
+            kwargs['subplots_adjust'] = (subplot_top, subplot_bottom,
+                                         subplot_left, subplot_right,
+                                         subplot_hspace, subplot_wspace)
+
+            # box_xscale = kwargs.get('box_xscale', 1.1)  # Translate x-axis loc
+            # box_yscale = kwargs.get('box_yscale', 3.1)  # Translate y-axis loc
+            # box_wscale = kwargs.get('box_wscale', 1.02)  # Transform plot width
+            # box_hscale = kwargs.get('box_hscale', 0.67) # Transform plot height
 
             # Modify the bounds of the subplot [x_l, x_r, y_u, y_l]
-            kwargs['subplots_adjust'] = (0.05, 0.98, 0.95, 0.5)
+            #kwargs['subplots_adjust'] = (0.05, 0.98, 0.95, 0.5)
 
             title_xpos = 0.5
-            legend_pos = kwargs.get('legend_loc', (0.85, -0.55))
+            legend_pos = kwargs.get('legend_loc', (0.5, -0.2))
             columnspacing = 0.9
 
         # reassign report_fmt false so that generic formatting is selected.
@@ -272,10 +294,10 @@ def sensor_timeplot(df_list, ref_df, param=None, sensor_name=None,
 
     # Generic figure formatting
     if report_fmt is False:
-        box_xscale = kwargs.get('box_xscale', 1.0)
-        box_yscale = kwargs.get('box_yscale', 1.2)
-        box_wscale = kwargs.get('box_wscale', 0.94)
-        box_hscale = kwargs.get('box_hscale', 0.94)
+        # box_xscale = kwargs.get('box_xscale', 1.0)
+        # box_yscale = kwargs.get('box_yscale', 1.2)
+        # box_wscale = kwargs.get('box_wscale', 0.94)
+        # box_hscale = kwargs.get('box_hscale', 0.94)
 
         title_xpos = kwargs.get('title_xloc', 0.5)
         legend_pos = kwargs.get('legend_loc', (1.06, 0.5))
@@ -283,14 +305,18 @@ def sensor_timeplot(df_list, ref_df, param=None, sensor_name=None,
 
     # Format the legend, determine how many columns to split legend into
     n_legend_objs = len(sensor_serials) + 1
-    if n_legend_objs / 4 > 1:
-        leg_ncol = 2
-    else:
-        leg_ncol = 1
 
-    # Use only one legend column if serial IDs are long
-    if max(len(i) for i in sensor_serials.values()) > 6:
-        leg_ncol = 1
+    if report_fmt is True:
+        leg_ncol = n_legend_objs
+    else:
+        if n_legend_objs / 4 > 1:
+            leg_ncol = 2
+        else:
+            leg_ncol = 1
+
+        # Use only one legend column if serial IDs are long
+        if max(len(i) for i in sensor_serials.values()) > 6:
+            leg_ncol = 1
 
     if (ax and fig) is None:
         # No axes object passed to function, create unique fig, axes objects
@@ -352,7 +378,7 @@ def sensor_timeplot(df_list, ref_df, param=None, sensor_name=None,
     # Configure x- and y-axis attributes (scale, labeling, limits, ticks)
     ax.set_yscale(yscale)
     ax.set_ylabel(f'{fmt_param} ({fmt_param_units})', fontsize=fontsize)
-    ax.set_xlabel('Date', fontsize=fontsize)
+    #ax.set_xlabel('Date', fontsize=fontsize)
 
     ax.set_xlim(pd.to_datetime(bdate), pd.to_datetime(edate))
     if ylims:
@@ -363,20 +389,20 @@ def sensor_timeplot(df_list, ref_df, param=None, sensor_name=None,
     if format_xaxis_weeks is True:
         week_freq = 1  # Initially mark every week
         ax.xaxis.set_major_locator(mdates.WeekdayLocator(interval=week_freq))
-        labels = [item.get_text() for item in ax.get_xticklabels()]
+        wk_labels = [item.get_text() for item in ax.get_xticklabels()]
 
         # If the number of weekly labels exceeds 15, reduce weekly interval
         # until less than 15 left.
-        while len(labels) > 15:
+        while len(wk_labels) > 15:
             week_freq += 1
             ax.xaxis.set_major_locator(mdates.WeekdayLocator(
                                                         interval=week_freq))
-            labels = [item.get_text() for item in ax.get_xticklabels()]
+            wk_labels = [item.get_text() for item in ax.get_xticklabels()]
 
-        for i, label in enumerate(labels):
-            labels[i] = 'Week ' + str(int(week_freq*i+1))
+        for i, wk_label in enumerate(wk_labels):
+            wk_labels[i] = 'Week ' + str(int(week_freq*i+1))
 
-        ax.set_xticklabels(labels)
+        ax.set_xticklabels(wk_labels)
         ax.set_xlabel('Duration', fontsize=fontsize)
     # Format x-axis by date and time [MM-DD-YY] at specified date interval
     else:
@@ -386,25 +412,31 @@ def sensor_timeplot(df_list, ref_df, param=None, sensor_name=None,
 
     # Set legend position, wrap legend text to fit
     handles, labels = ax.get_legend_handles_labels()
-    updated_labels = wrap_text(labels)
-    ax.legend(handles, updated_labels, bbox_to_anchor=legend_pos, loc='center',
+
+    if report_fmt is False:
+        labels = wrap_text(labels)
+    ax.legend(handles, labels, bbox_to_anchor=legend_pos, loc='center',
               fontsize=kwargs.get('legend_fontsize',
                                   fontsize*legend_fontscale),
               ncol=leg_ncol, columnspacing=columnspacing,
               handlelength=1.25)
 
     # Adjust axes dimensions to fit width and height of plot
-    box = ax.get_position()
-    ax.set_position([box.x0*box_xscale, box.y0*box_yscale,
-                     box.width*box_wscale, box.height*box_hscale])
+    # box = ax.get_position()
+    # ax.set_position([box.x0*box_xscale, box.y0*box_yscale,
+    #                  box.width*box_wscale, box.height*box_hscale])
 
-    if unique_ax_obj is True:
+    if (unique_ax_obj is True) or (fig.axes.index(ax) == len(fig.axes)-1):
         subplot_adjust = kwargs.get('subplots_adjust',
-                                    (0.05, 0.9, 0.90, 0.15))
-        fig.subplots_adjust(left=subplot_adjust[0],
-                            right=subplot_adjust[1],
-                            top=subplot_adjust[2],
-                            bottom=subplot_adjust[3])
+                                    (0.865, 0.135, 0.045, 0.9, 0.47, 0.2))
+
+        fig.subplots_adjust(top=subplot_adjust[0],
+                            bottom=subplot_adjust[1],
+                            left=subplot_adjust[2],
+                            right=subplot_adjust[3],
+                            hspace=subplot_adjust[4],
+                            wspace=subplot_adjust[5],
+                            )
 
     # Save image to folder at figure_path
     if write_to_file is True:
@@ -498,12 +530,19 @@ def deployment_timeline(deployment_df, cmap_name='Dark2',
 
     fig, ax = plt.subplots(1, 1, figsize=fig_size)
 
-    wspace = 0.0
-    hspace = 0.1
-    left = 0.1
-    right = 0.99
-    top = 0.89
-    bottom = 0.1
+    top=0.995
+    bottom=0.06
+    left=0.075
+    right=0.995
+    hspace=0.1
+    wspace=0.0
+
+    # top=0.985
+    # bottom=0.06
+    # left=0.08
+    # right=0.86
+    # hspace=0.1
+    # wspace=0.0
 
     fig.subplots_adjust(wspace=wspace,
                         hspace=hspace,
@@ -516,7 +555,7 @@ def deployment_timeline(deployment_df, cmap_name='Dark2',
 
         sensor_type_data = deployment_df.where(
                             deployment_df['Sensor Name'] ==
-                            sensor_type).dropna()
+                            sensor_type).dropna(how='all', axis=0)
 
         bdate = mdates.date2num(pd.to_datetime(sensor_type_data.Begin))
         edate = mdates.date2num(pd.to_datetime(sensor_type_data.End))
@@ -528,8 +567,11 @@ def deployment_timeline(deployment_df, cmap_name='Dark2',
                 left=bdate, color=c, alpha=.8, label=fmt_sensor_type)
         ax.xaxis_date()
 
-    ax.legend(fontsize=0.8*fontsize, loc='upper center',
-              bbox_to_anchor=(0.5, 1.1), ncol=len(unique_types))
+    ax.legend(fontsize=0.9*fontsize, loc='center',
+              bbox_to_anchor=(0.5, 0.98), ncol=len(unique_types))
+
+    # ax.legend(fontsize=0.8*fontsize, loc='right',
+    #           bbox_to_anchor=(1.175, 0.5), ncol=1)
 
     # Pad the x-axis a little bit on either side of sensor deployment periods
     x_start = pd.to_datetime(

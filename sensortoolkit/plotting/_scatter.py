@@ -25,7 +25,7 @@ from textwrap import wrap
 from sensortoolkit.calculate import regression_stats
 from sensortoolkit.param import Parameter
 from sensortoolkit.datetime_utils import get_todays_date
-from sensortoolkit.calculate import normalize
+from sensortoolkit.calculate import normalize, diff, absdiff
 from sensortoolkit.deploy import get_max_conc
 from sensortoolkit.plotting import (set_fontsize,
      sensor_subplot_formatting, met_scatter_lims, wrap_text, error_bars)
@@ -692,19 +692,23 @@ def scatter_plotter(df_list, ref_df, stats_df=None, plot_subset=None,
         if title_text is None:
             title_text = f'{fmt_sensor_name} vs. {ref_name} {averaging_interval} {fmt_param}'
 
-        title_text = '\n'.join(wrap(title_text,
-                                    kwargs.get('title_textwrap',
-                                               title_textwrap)))
+        if report_fmt:
+            title_text = title_text.replace(f'{ref_name} ', f'{ref_name}\n')
+
+        else:
+            title_text = '\n'.join(wrap(title_text,
+                                        kwargs.get('title_textwrap',
+                                                   title_textwrap)))
 
         n_lines = len(title_text.split('\n'))
         if n_lines > 2:  # shift the figure down a tad if 3 or more lines
             font_size *= 0.9
             suptitle_ypos *= 1.03
 
-        if unique_ax_obj is True:
-            fig.suptitle(title_text, fontsize=font_size,
-                         y=kwargs.get('title_yloc', suptitle_ypos),
-                         x=kwargs.get('title_xloc', suptitle_xpos))
+        if (unique_ax_obj is True) and (len(fig.axes) > 1):
+                fig.suptitle(title_text, fontsize=font_size,
+                             y=kwargs.get('title_yloc', suptitle_ypos),
+                             x=kwargs.get('title_xloc', suptitle_xpos))
         else:
             axs.set_title(title_text, fontsize=font_size,
                           y=kwargs.get('title_yloc', suptitle_ypos),
@@ -838,7 +842,7 @@ def scatter_plotter(df_list, ref_df, stats_df=None, plot_subset=None,
             ctitle = 'Relative Humidity (%)'
             cbar_orien = 'horizontal'
             cbar_size = 0.3
-            cbar_ypos = 0.6
+            cbar_ypos = 1
 
             if number_of_sensors == 1:
                 cbar_size = 0.8
