@@ -28,7 +28,7 @@ Installing from source
 sensortoolkit is developed and maintained in a USEPA GitHub repository. The latest
 development build can be obtained by cloning the repository:
 
-::
+.. code-block:: console
 
   git clone https://github.com/USEPA/sensortoolkit.git
 
@@ -40,7 +40,7 @@ Next, navigate to the folder location for the cloned repository:
 
 Next, sensortoolkit needs to be installed to a target directory where python
 looks for packages whenever the user tells python to import a package name.
-By default, this is the `/site-packages`` directory, and should be located at a
+By default, this is the ``/site-packages`` directory, and should be located at a
 path that looks something like ``C:\Users\...\Anaconda3\Lib\site-packages``
 (if you have Anaconda installed). The location of this package may be a little
 different depending on how your python installation was configured, although this
@@ -74,8 +74,7 @@ Open a command line interface and type the following:
 
 .. tip::
 
-	If you wish to upgrade to a specific version of sensortoolkit, this can be done
-  via the following command:
+	If you wish to upgrade to a specific version of sensortoolkit, this can be done via the following command:
 
   .. code-block:: console
 
