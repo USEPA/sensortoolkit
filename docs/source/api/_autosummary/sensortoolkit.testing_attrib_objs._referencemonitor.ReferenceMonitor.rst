@@ -16,6 +16,7 @@
    .. autosummary::
       :nosignatures:
    
+      ~ReferenceMonitor.get_method_info
       ~ReferenceMonitor.get_method_name
       ~ReferenceMonitor.load_data
       ~ReferenceMonitor.query_airnow
