@@ -56,11 +56,11 @@ class PerformanceReport(SensorEvaluation):
 
     .. important::
 
-      ``PerformanceReport`` is an inherited class of ``SensorEvaluation``. As a
+      ``PerformanceReport`` is an inherited class of ``SensorEvaluation``\. As a
       result, it inherits all the class and instance attributes of
-      ``SensorEvaluation``, including its numerous variables and data
+      ``SensorEvaluation``\, including its numerous variables and data
       structures. Programmatically, ``PerformanceReport`` is intended as a
-      direct extension of ``SensorEvaluation``; users can easily interact with
+      direct extension of ``SensorEvaluation``\; users can easily interact with
       all the attributes and data stuctures for sensor evaluations. However,
       whereas ``SensorEvaluation`` allows analysis of a wide number of
       pollutants and parameters, ``PerformanceReport`` is presently intended
@@ -91,7 +91,7 @@ class PerformanceReport(SensorEvaluation):
             ``/figures`` directory before attempting to create new figures.
             If false, PerformanceReport will create all new figures (may risk
             overwriting existing figures). Defaults to False.
-        **kwargs (dict):
+        \\*\\*kwargs (dict):
             - fmt_sensor_name
 
     """
@@ -239,6 +239,7 @@ class PerformanceReport(SensorEvaluation):
             None.
 
         """
+
         self.fig_locs = {'SingleScatter': {'left': '',
                                            'top': ''},
                          'TripleScatter': {'left': '',
@@ -298,6 +299,7 @@ class PerformanceReport(SensorEvaluation):
                 - **full_figure_path** (*str*): The full directory path.
 
         """
+
         if subfolder is None:
             subfolder = self._param_name
         # Search for figure created today
@@ -318,6 +320,7 @@ class PerformanceReport(SensorEvaluation):
             None.
 
         """
+
         fig_loc = self.fig_locs[fig_name]
         figure = self.shapes.add_picture(fig_path,
                                          left=ppt.util.Inches(fig_loc['left']),
@@ -331,7 +334,7 @@ class PerformanceReport(SensorEvaluation):
         """Add sensor vs reference scatter plots to report.
 
         Args:
-            **kwargs (dict):
+            \\*\\*kwargs (dict):
                 Keyword arguments passed to ``plot_sensor_scatter()``
                 subroutine for drawing scatter plots.
 
@@ -339,6 +342,7 @@ class PerformanceReport(SensorEvaluation):
             None.
 
         """
+
         fig_name = self.name + '_vs_' + self.ref_desig + '_report_fmt'
 
         fig_exists, fig_path = self.FigureSearch(fig_name)
@@ -367,7 +371,7 @@ class PerformanceReport(SensorEvaluation):
         """Add Sensor vs reference scatter plots for all sensors.
 
         Args:
-            **kwargs (dict):
+            \\*\\*kwargs (dict):
                 Keyword arguments passed to ``plot_sensor_scatter()``
                 subroutine for drawing scatter plots.
 
@@ -375,6 +379,7 @@ class PerformanceReport(SensorEvaluation):
             None.
 
         """
+
         # Use slide layout for generating additional slides
         slide_layout_idx = 0
         slide_layout = self.rpt.slide_layouts[slide_layout_idx]
@@ -455,7 +460,7 @@ class PerformanceReport(SensorEvaluation):
         """Add timeseries plots to report.
 
         Args:
-            **kwargs (dict):
+            \\*\\*kwargs (dict):
                 Keyword arguments passed to ``sensor_timeplot()``
                 subroutine for drawing timeseries plots.
 
@@ -463,6 +468,7 @@ class PerformanceReport(SensorEvaluation):
             None.
 
         """
+
         fig_name = self.name + '_timeseries_' + self._param_name \
             + '_report_fmt'
 
@@ -487,7 +493,7 @@ class PerformanceReport(SensorEvaluation):
         """Add Performance target metric boxplots/dot plots to report.
 
         Args:
-            **kwargs (dict):
+            \\*\\*kwargs (dict):
                 Keyword arguments passed to ``performance_metrics()``
                 subroutine for drawing performance metric plots.
 
@@ -495,6 +501,7 @@ class PerformanceReport(SensorEvaluation):
             None.
 
         """
+
         fig_name = self.name + '_regression_boxplot_' + self._param_name
 
         fig_exists, fig_path = self.FigureSearch(fig_name)
@@ -518,7 +525,7 @@ class PerformanceReport(SensorEvaluation):
         """Add meteorological distribution (Temp, RH) to report.
 
         Args:
-            **kwargs (dict):
+            \\*\\*kwargs (dict):
                 Keyword arguments passed to ``met_distrib()``
                 subroutine for drawing distribution plots.
 
@@ -526,6 +533,7 @@ class PerformanceReport(SensorEvaluation):
             None.
 
         """
+
         fig_name = self.name + '_met_distplot_report_fmt'
 
         fig_exists, fig_path = self.FigureSearch(fig_name, subfolder='Met')
@@ -549,7 +557,7 @@ class PerformanceReport(SensorEvaluation):
         """Add normalized met. influence scatter (Temp, RH) to report.
 
         Args:
-            **kwargs (dict):
+            \\*\\*kwargs (dict):
                 Keyword arguments passed to ``normalized_met_scatter()``
                 subroutine for drawing distribution plots.
 
@@ -557,6 +565,7 @@ class PerformanceReport(SensorEvaluation):
             None.
 
         """
+
         fig_name = self.name + '_normalized_' + self._param_name \
             + '_met_report_fmt'
 
@@ -606,6 +615,7 @@ class PerformanceReport(SensorEvaluation):
                 The slide shape object located at the location or ID specified.
 
         """
+
         if slide_idx is not None:
             slide_obj = self.rpt.slides[slide_idx]
 
@@ -645,6 +655,7 @@ class PerformanceReport(SensorEvaluation):
             None
 
         """
+
         # Title location for header
         title_left = 0.98
         title_top = 0.51
@@ -774,6 +785,7 @@ class PerformanceReport(SensorEvaluation):
             None.
 
         """
+
         # Get pptx table shape for modifying cells
         shape = self.GetShape(slide_idx=0, shape_id=18)
 
@@ -887,6 +899,7 @@ class PerformanceReport(SensorEvaluation):
             None.
 
         """
+
         # Get pptx table shape for modifying cells
         if self.n_avg_intervals == 2:
             shape = self.GetShape(slide_idx=0, shape_id=34)
@@ -1045,6 +1058,7 @@ class PerformanceReport(SensorEvaluation):
             None.
 
         """
+
         # Get pptx table shape for modifying cells
         shape = self.GetShape(slide_idx=0, shape_id=51)
 
@@ -1082,6 +1096,7 @@ class PerformanceReport(SensorEvaluation):
             None.
 
         """
+
         # Get pptx table shape for modifying cells
         if self.n_avg_intervals == 2:
             shape = self.GetShape(slide_idx=0, shape_id=75)
@@ -1188,6 +1203,7 @@ class PerformanceReport(SensorEvaluation):
             None.
 
         """
+
         # Get pptx table shape for modifying cells
         if self.n_avg_intervals == 2:
             shape = self.GetShape(slide_idx=0, shape_id=74)
@@ -1329,6 +1345,7 @@ class PerformanceReport(SensorEvaluation):
             None.
 
         """
+
         # Get pptx table shape for modifying cells
         if self.n_avg_intervals == 2:
             shape = self.GetShape(slide_idx=0, shape_id=32)
@@ -1378,6 +1395,7 @@ class PerformanceReport(SensorEvaluation):
             None.
 
         """
+
         if self.n_avg_intervals == 2:
             span_dict = {'Bias and Linearity': [1, 6],
                          'Data Quality': [7, 10],
@@ -2543,7 +2561,7 @@ class PerformanceReport(SensorEvaluation):
             slide (pptx slide object):
                 The report slide on which the tabular statistics will be
                 placed. This will likely be slide #2 (i.e.,
-                ``self.rpt.slides[1]``).
+                ``self.rpt.slides[1]``\).
             table_type (str):
                 Name of the type of table to construct. Options include the
                 following:
@@ -2707,6 +2725,7 @@ class PerformanceReport(SensorEvaluation):
             None
 
         """
+
         print("{:^6s}{:^18s}{:^12s}{:^10s}".format('ID', 'Type',
                                                    'Left loc', 'Top loc'))
         print("{:^6s}{:^18s}{:^12s}{:^10s}".format('', '', '(in)', '(in)'))
@@ -2738,12 +2757,13 @@ class PerformanceReport(SensorEvaluation):
                 An XML element.
             tagname (str):
                 XML tagname for the sub-element to add to the parent attribute.
-            **kwargs (dict): Attributes to assign to the sub-element.
+            \\*\\*kwargs (dict): Attributes to assign to the sub-element.
 
         Returns:
             element (XML): Updated element with attributes added.
 
         """
+
         # Create a new sub-element entry for the passed tagname
         element = ppt.oxml.xmlchemy.OxmlElement(tagname)
 
@@ -2781,6 +2801,7 @@ class PerformanceReport(SensorEvaluation):
             None.
 
         """
+        
         # Table cell object
         tc = cell._tc
         # Table cell properties
@@ -2818,6 +2839,7 @@ class PerformanceReport(SensorEvaluation):
             None.
 
         """
+
         font._element.set('baseline', '-25000')
 
     def SetSuperscript(self, font):
@@ -2838,6 +2860,7 @@ class PerformanceReport(SensorEvaluation):
             None.
 
         """
+
         font._element.set('baseline', '30000')
 
     def MoveSlide(self, slides, slide, new_idx):
@@ -2862,6 +2885,7 @@ class PerformanceReport(SensorEvaluation):
             None.
 
         """
+
         slides._sldIdLst.insert(new_idx, slides._sldIdLst[slides.index(slide)])
 
     def AddSlideNumbers(self):
@@ -2886,6 +2910,7 @@ class PerformanceReport(SensorEvaluation):
             None.
 
         """
+
         layout = self.rpt.slide_layouts[1]
         placeholders = layout.placeholders
         for i, placeholder in enumerate(placeholders):
@@ -2950,7 +2975,7 @@ class PerformanceReport(SensorEvaluation):
             fall within the target range. Textually, this can be represented by
             a series of three dots, where two dots are closed and one is empty.
 
-            Text returned by ``CheckTargets()``:
+            Text returned by ``CheckTargets()``\:
 
                 '●●○'
 
@@ -2966,6 +2991,7 @@ class PerformanceReport(SensorEvaluation):
                 target range criteria for the performance metric.
 
         """
+
         device_metrics = ['R^2', 'Slope', 'Intercept', 'Uptime']
         group_metrics = ['CV', 'SD', 'RMSE', 'NRMSE']
 
@@ -3029,6 +3055,7 @@ class PerformanceReport(SensorEvaluation):
             None.
 
         """
+
         print('Creating Testing Report for', self.name)
 
         ref_source = self.hourly_ref_df.Data_Source.mode()[0]
@@ -3084,6 +3111,7 @@ class PerformanceReport(SensorEvaluation):
             None.
 
         """
+
         print('..Saving report')
         self.rpt_name = f'Base_Testing_Report_{self._param_name}_{self.name}_{self.today}.pptx'
 
