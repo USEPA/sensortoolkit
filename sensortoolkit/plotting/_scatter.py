@@ -938,7 +938,7 @@ def met_influence(df_list, ref_df, avg_df, met_ref_df=None,
     to display the influence of the chosen meteorological parameter on
     concentration values. Display either normalized concentrations (sensor
     divided by paired reference concentration), difference (sensor-reference),
-    or the absolute difference (|sensor - reference|).
+    or the absolute difference (\|sensor - reference|).
 
     Args:
         df_list (list):
