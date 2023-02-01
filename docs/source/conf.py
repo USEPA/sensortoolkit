@@ -13,8 +13,7 @@
 import os
 import sys
 
-#lib = r'C:\Users\SFREDE01\OneDrive - Environmental Protection Agency (EPA)\Profile\Documents\Public_Sensor_Evaluation\sensortoolkit'
-lib = r'C:\Users\mkumar01\OneDrive - Environmental Protection Agency (EPA)\Profile\Documents\GitHub\sensortoolkit'
+lib = r'C:\Users\mkumar01\OneDrive - Environmental Protection Agency (EPA)\Profile\Documents\Master\sensortoolkit'
 sys.path.insert(0, os.path.abspath(lib))
 
 # -- Project information -----------------------------------------------------
