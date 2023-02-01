@@ -16,7 +16,7 @@
       :nosignatures:
    
       draw_scatter
-      normalized_met_scatter
+      met_influence
       scatter_plotter
    
    
