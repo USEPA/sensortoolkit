@@ -61,7 +61,7 @@ class SensorEvaluation:
             If true, evaluation statistics will be written to the
             ``/data/eval_stats`` sensor subdirectory. Figures will also be
             written to the appropriate figures subdirectory.
-        **kwargs:
+        \\*\\*kwargs:
             Keyword arguments (currently unused).
 
     Attributes:
@@ -374,6 +374,7 @@ class SensorEvaluation:
             None.
 
         """
+
         # Compute inter-sensor precision and error metric values
 
         if '1-hour' in self.param.averaging:
@@ -475,6 +476,7 @@ class SensorEvaluation:
             None.
 
         """
+
         try:
             self.deploy_dict['Deployment Groups']['Group 1'][self._param_name]
         except KeyError:
@@ -546,12 +548,13 @@ class SensorEvaluation:
             report_fmt (bool, optional):
                 If true, format figure for inclusion in a performance report.
                 Defaults to True.
-            **kwargs (dict): Plotting keyword arguments.
+            \\*\\*kwargs (dict): Plotting keyword arguments.
 
         Returns:
             None.
 
         """
+
         timestamp_fmt = '%Y-%m-%d %H:%M:%S'
         t_start = (self.avg_hrly_df.dropna(how='all', axis=0).index[0] -
                    pd.Timedelta('1D')).strftime(timestamp_fmt)
@@ -681,12 +684,13 @@ class SensorEvaluation:
         via the ``sensortoolkit.Parameter.averaging`` attribute).
 
         Args:
-            **kwargs (dict): Plotting keyword arguments.
+            \\*\\*kwargs (dict): Plotting keyword arguments.
 
         Returns:
             None.
 
         """
+
         try:
             self.deploy_dict['Deployment Groups']['Group 1'][self._param_name]
         except KeyError:
@@ -740,7 +744,7 @@ class SensorEvaluation:
             first page of the performance report included alongside U.S. EPA's
             documents outlining recommended testing protocols, performance
             metrics, and target values. Defaults to False.
-        :param **kwargs:
+        :param \\*\\*kwargs:
             Additional keyword arguments passed to the underlying
             ``sensortoolkit.plotting.scatter_plotter()`` method.
 
@@ -748,6 +752,7 @@ class SensorEvaluation:
             None.
 
         """
+
         if averaging_interval is None:
             averaging_interval = self.param.averaging[0]
 
@@ -908,6 +913,7 @@ class SensorEvaluation:
             None.
 
         """
+
         met_params = ['Temp_Value', 'RH_Value']
 
         sensortoolkit.plotting.met_distrib(self.met_hourly_ref_df[met_params],
@@ -943,12 +949,13 @@ class SensorEvaluation:
             report_fmt (bool, optional):
                 If true, format figure for inclusion in a performance report.
                 Defaults to True.
-            **kwargs (dict): Plotting keyword arguments.
+            \\*\\*kwargs (dict): Plotting keyword arguments.
 
         Returns:
             None.
 
         """
+
         kwargs['dep_var'] = kwargs.get('dep_var', 'normalized')
         # Reference data header names for met data
         valid_met_params = ['Temp', 'RH']
@@ -1037,13 +1044,14 @@ class SensorEvaluation:
                 Defaults to '1-hour'.
             met_param (str, optional):
                 The meteorological parameter to display. Defaults to None.
-            **kwargs (dict):
+            \\*\\*kwargs (dict):
                 Plotting keyword arguments.
 
         Returns:
             None.
 
         """
+
         # Data header names for met data
         met_params = ['Temp', 'RH']
 
@@ -1126,6 +1134,7 @@ class SensorEvaluation:
             None.
 
         """
+
         if averaging_interval is None:
             averaging_interval = self.param.averaging[0]
 
@@ -1212,6 +1221,7 @@ class SensorEvaluation:
             None.
 
         """
+        
         if averaging_interval is None:
             averaging_interval = self.param.averaging[0]
 
