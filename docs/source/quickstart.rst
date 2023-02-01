@@ -21,7 +21,7 @@ site where sensors were deployed in triplicate.
 
   Script templates are provided at the end of this guide, recapping functions you
   will need for setting up analyses, conducting evaluations, and creating reports.
-  `Click here <./quickstart.html#templates>`_ to jump to the templates section.
+  `Click here <./quickstart.html#templates>`__ to jump to the templates section.
 
 
 Installing and Updating sensortoolkit
@@ -32,7 +32,7 @@ development of the package, you can clone the GitHub repository.
 
 .. tip::
 
-  `Click here <./install.html#installation>`_ for more info about installing sensortoolkit.
+  `Click here <./install.html#installation>`__ for more info about installing sensortoolkit.
 
 Sensortoolkit is actively maintained, and bug fixes and feature enhancements
 are regularly added to the latest development build. **Users are strongly encouraged to update to
@@ -41,7 +41,7 @@ updating sensortoolkit can be found by following the link below.
 
 .. tip::
 
-  `Click here <./install.html#updating-sensortoolkit>`_ for more info about updating sensortoolkit.
+  `Click here <./install.html#updating-sensortoolkit>`__ for more info about updating sensortoolkit.
 
 
 Example Scenario - *Toco Toucan*
@@ -158,7 +158,7 @@ and eventually load sensor data.
 
 .. tip::
 
-  More information about ``sensortoolkit.AirSensor`` is found `here <./testingattrib_objects/airsensor/index.html>`_
+  More information about ``sensortoolkit.AirSensor`` is found `here <./testingattrib_objects/airsensor/index.html>`__
 
 
 5 - Constructing Project Directories
@@ -247,7 +247,7 @@ This creates an instance of ``sensortoolkit.ReferenceMonitor`` called ``referenc
 
 .. tip::
 
-  More information about ``sensortoolkit.ReferenceMonitor`` is found `here <./testingattrib_objects/referencemonitor/index.html>`_
+  More information about ``sensortoolkit.ReferenceMonitor`` is found `here <./testingattrib_objects/referencemonitor/index.html>`__
 
 9 - Configuring the Reference Setup
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -267,7 +267,7 @@ alongside your ``reference`` object.
 
 Reference data are imported via the ``load_data()`` function included alongside your ``reference``
 object. If you intend to query data from either the AirNow or AQS API, please see
-`Loading Reference Data <./testingattrib_objects/referencemonitor/load_data.html>`_ for more information.
+`Loading Reference Data <./testingattrib_objects/referencemonitor/load_data.html>`__ for more information.
 
 .. code-block:: python
 
@@ -296,7 +296,7 @@ for the evaluation parameter PM2.5 via the ``sensortoolkit.Parameter`` method.
 
 .. tip::
 
-  More information about ``sensortoolkit.Parameter`` is found `here <./testingattrib_objects/parameter.html>`_
+  More information about ``sensortoolkit.Parameter`` is found `here <./testingattrib_objects/parameter.html>`__
 
 .. caution::
 
@@ -334,7 +334,7 @@ time series, sensor vs. reference scatter, meteorological conditions, etc.
 
 .. tip::
 
-  More information about ``sensortoolkit.SensorEvaluation`` is found `here <./evaluation_objects/sensoreval/index.html>`_
+  More information about ``sensortoolkit.SensorEvaluation`` is found `here <./evaluation_objects/sensoreval/index.html>`__
 
 Creating Reports with PerformanceReport
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -358,7 +358,7 @@ figures, scatter plots, and tabular statistics.
 
 .. tip::
 
-  More information about ``sensortoolkit.PerformanceReport`` is found `here <./evaluation_objects/performancereport.html>`_
+  More information about ``sensortoolkit.PerformanceReport`` is found `here <./evaluation_objects/performancereport.html>`__
 
 ------
 
