@@ -19,8 +19,9 @@ build:
   tools:
     python: "miniconda3-4.7"
   jobs:
-    post_checkout:
-       - echo "Commands ran at 'post_checkout' step"
+    post_install:
+       - echo "Commands ran at 'post_install' step"
+       - /home/docs/checkouts/readthedocs.org/user_builds/sensortoolkit/checkouts/latest cat docs/conf.py
        - /home/docs/checkouts/readthedocs.org/user_builds/sensortoolkit/conda/latest/bin/python -m sphinx -T -E -b html -d _build/doctrees -D language=en . _build/html
        - /home/docs/checkouts/readthedocs.org/user_builds/sensortoolkit/conda/latest/bin/python -m sphinx -T -E -b readthedocssinglehtmllocalmedia -d _build/doctrees -D language=en . _build/localmedia
        - /home/docs/checkouts/readthedocs.org/user_builds/sensortoolkit/conda/latest/bin/python -m sphinx -b latex -D language=en -d _build/doctrees . _build/latex
