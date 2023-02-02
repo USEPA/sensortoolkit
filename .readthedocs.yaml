@@ -13,8 +13,8 @@ build:
   tools:
     python: "miniconda3-4.7"
   jobs:
-    post_system_dependencies:
-       - echo "Commands ran at 'post_system_dependencies' step"
+    post_install:
+       - echo "Commands ran at 'post_install' step"
        - cat docs/source/conf.py
        - python -m sphinx -T -E -b html -d _build/doctrees -D language=en . _build/html
        - python -m sphinx -T -E -b readthedocssinglehtmllocalmedia -d _build/doctrees -D language=en . _build/localmedia
