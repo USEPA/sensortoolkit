@@ -8,18 +8,26 @@ conda:
     environment: environment.yml
 
 # Set the version of Python and other tools you might need
-#build:
-#  os: ubuntu-22.04
-#  tools:
-#    python: "3.8"
+build:
+  os: ubuntu-22.04
+  tools:
+    python: "3.8"
+  jobs:
+    pre_build:
+       - echo "Commands ran at 'pre_build' step"
+       - python -m sphinx -T -E -b html -d _build/doctrees . _build/html
+       - python -m sphinx -T -E -b readthedocssinglehtmllocalmedia -d _build/doctrees -D . _build/localmedia
+       - python -m sphinx -b latex -D -d _build/doctrees . _build/latex
 
 # Build documentation in the docs/ directory with Sphinx
 sphinx:
-  builder: html
+#  builder: html
   configuration: docs/source/conf.py
-  fail_on_warning: true
+#  fail_on_warning: true
 
 ## Optionally declare the Python requirements required to build your docs
 #python:
-#  install:
-#    - requirements: docs/requirements.txt
+#   version: 3.8
+#   install:
+#      - method: pip
+#        path: .
