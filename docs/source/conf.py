@@ -17,6 +17,14 @@ import sys
 #sys.path.insert(0, os.path.abspath(lib))
 sys.path.insert(0, os.path.abspath('../../sensortoolkit/'))
 
+# -- Read the Docs Specific Configuration --------------------------------------
+
+# This needs to be done before sensortoolkit is imported
+#on_rtd = os.environ.get('READTHEDOCS', None) == 'True'
+#if on_rtd:
+#    os.environ['SENSORTOOLKIT_CONFIGDIR'] = '/home/docs/source/'
+#    os.environ['HOME'] = '/home/docs/'
+
 # -- Project information -----------------------------------------------------
 import sensortoolkit
 project = 'sensortoolkit'
