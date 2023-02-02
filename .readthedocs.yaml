@@ -13,11 +13,11 @@ build:
   tools:
     python: "miniconda3-4.7"
   jobs:
-    post_build:
-       - echo "Commands ran at 'post_build' step"
-       - python -m sphinx -T -E -b html -d _build/doctrees -D language=en . _build/html
-       - python -m sphinx -T -E -b readthedocssinglehtmllocalmedia -d _build/doctrees -D language=en . _build/localmedia
-       - python -m sphinx -b latex -D language=en -d _build/doctrees . _build/latex
+    post_install:
+       - echo "Commands ran at 'post_install' step"
+       - /home/docs/checkouts/readthedocs.org/user_builds/sensortoolkit/conda/latest/bin/python -m sphinx -T -E -b html -d _build/doctrees -D language=en . _build/html
+       - /home/docs/checkouts/readthedocs.org/user_builds/sensortoolkit/conda/latest/bin/python -m sphinx -T -E -b readthedocssinglehtmllocalmedia -d _build/doctrees -D language=en . _build/localmedia
+       - /home/docs/checkouts/readthedocs.org/user_builds/sensortoolkit/conda/latest/bin/python -m sphinx -b latex -D language=en -d _build/doctrees . _build/latex
 
 # Build documentation in the docs/ directory with Sphinx
 sphinx:
