@@ -94,12 +94,11 @@ if not _os.path.exists(_app_data_dir):
     # copy param data from site-packages to folder location (initial install)
     copy2(_os.path.join(_lib_path, 'param', 'param_info.json'),
           _os.path.join(_app_data_dir, 'param_info.json'))
-else:
-    # load in param data at appdata location (including any custom params)
-    with open(_os.path.join(_app_data_dir, 'param_info.json'), 'r') as file:
-        data = load(file)
-        for key, val in data.items():
-            _param_dict[key] = val
+# load in param data at appdata location (including any custom params)
+with open(_os.path.join(_app_data_dir, 'param_info.json'), 'r') as file:
+    data = load(file)
+    for key, val in data.items():
+        _param_dict[key] = val
 
 del load, copy2, user_data_dir, data
 
