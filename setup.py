@@ -1,3 +1,6 @@
+# setup.py 
+# file describes all of the metadata about your project.
+
 import pathlib
 from setuptools import setup, find_packages
 

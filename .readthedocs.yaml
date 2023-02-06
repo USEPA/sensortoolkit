@@ -1,16 +1,21 @@
+# .readthedocs.yaml
+# Read the Docs configuration file
+# See https://docs.readthedocs.io/en/stable/config-file/v2.html for details
+
 # Required
 version: 2
 
-# Default
+# Additional formats of the documentation to be built, apart from the default HTML.
 formats: []
 
+# Create a conda environment, using the file below, to build documentation on ReadtheDocs
 #conda:
 #    environment: environment.yml
 
 # Build documentation in the docs/ directory with Sphinx
 sphinx:
 #   builder: html
-   configuration: docs/source/conf.py
+   configuration: docs/source/conf.py #The path to the conf.py file, relative to the root of the project.
 #  fail_on_warning: true
 
 # Set the version of Python and other tools you might need
@@ -18,7 +23,7 @@ build:
   os: ubuntu-22.04
   tools:
     python: "3.8"
-#    python: "miniconda3-4.7"
+#    python: "miniconda3-4.7" #this is specfically required if using a conda environment (to build documentation) and you want to specify build.jobs.
 
 # Optionally declare the Python requirements required to build your docs
 python:
