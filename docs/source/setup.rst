@@ -2,7 +2,7 @@ Setting Up for sensortoolkit
 ==============================
 
 Setting up for sensortoolkit requries downloading Python and an IDE, creating a project directory, and
-downloading your sensor and reference data. Given below is a more detailed guide for setting up for sensortoolkit.
+downloading your sensor and reference data. Given below is a detailed guide for setting up for sensortoolkit.
 
 .. note::
 

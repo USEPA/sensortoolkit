@@ -1,53 +1,59 @@
 Installing and Updating sensortoolkit
 =====================================
 
+sensortoolkit can be installed using a provided YAML file to create a conda virtual environment,
+using ``pip``, and by cloning the GitHub repository. This section will explain the three
+installation methods in detail and how to update sensortoolkit.
+
 .. note::
 
   Users will need an installation of Python (v3.6 or greater). It’s highly recommended that users
   download an `Anaconda distribution of Python <https://www.anaconda.com/products/individual>`_. Anaconda is
-  a package distribution of Python that includes many widely used libraries as
-  well as the `Spyder IDE <https://www.spyder-ide.org>`__ for editing and compiling code. Anaconda is free for
-  individuals.
+  a package distribution of Python that includes many widely used libraries as well as
+  the `Spyder IDE <https://www.spyder-ide.org>`__ for editing and compiling code. Anaconda is free for individuals.
 
-Installation
-------------
+Install sensortoolkit
+---------------------
 
 Installing with Conda Virtual Environment
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-To quickly reproduce a suitable environment, with required packages and versions, the ``stk-environment.yml``
-file is used to download sensortoolkit which is described below.
+A virtual environment is a tool for dependency management to isolate your project by creating an
+environment on top of an existing Python installation. It is highly recommended to use a virtual environment
+for each new python project to ensure that the base installation of python isn't tampered with.
+It's much easier to start over by deleting the virtual environment than deleting your installation of Python!
 
-A virtual environment is a tool for dependency management to isolate your project by created an
-environment on top of an existing Python installation. Conda is used as it’s a simple open source
-environment and package manager. To quickly create a suitable conda virtual environment with the
-required package versions and sensortoolkit, we can use the ``stk-environment.yml`` file included
-in the GitHub repository under the ``/environments`` folder.
+In this documentation, Conda is used as it’s a simple open source environment and package manager.
+To quickly create a suitable conda virtual environment for sensortoolkit,
+with the required package versions, we can use the ``stk-environment.yml`` file included
+in the GitHub repository under the ``/environments`` folder to create the ``stk-env`` conda virtual environment.
 
-1 - Download .yml file
-"""""""""""""""""""""""
+1 - Download YAML file
+""""""""""""""""""""""
 
 Download the ``stk-environment.yml`` file included in the GitHub repository under the ``/environments``
 folder to the root of your project directory.
 
-2- Create Conda Virtual Environment
+2 - Create Conda Virtual Environment
 """"""""""""""""""""""""""""""""""""
 
-In command line interface (CLI), (for Anaconda users, the Anaconda Prompt is recommended)
-navigate to the project directory where ``stk-environment.yml`` was downloaded.
-In CLI, type in the following command:
+In your command line interface (CLI), (for Anaconda users, the Anaconda Prompt is recommended)
+navigate to your project directory where ``stk-environment.yml`` was downloaded.
+In your CLI, type in the following command:
 
 .. code-block:: console
 
   conda env create -f stk-environment.yml
 
-To activate the conda virtual environment, type in the following command:
+To activate the ``stk-env`` virtual environment, type in the following command:
 
 .. code-block:: console
 
   conda activate stk-env
 
-When activated, the virtual environment name enclosed in paranthesis will appear in your CLI as shown below.
+When activated, the virtual environment name enclosed in paranthesis will appear in your CLI as shown below. When
+the virtual environment is active, any additions, deletions, and changes to installed python packages will only
+exist within the virtual environment.
 
 .. code-block:: console
 
@@ -57,40 +63,83 @@ When activated, the virtual environment name enclosed in paranthesis will appear
 
   The above commands when creating a virtual environment assume the user has downloaded Miniconda or Anaconda.
 
-Now, we have created a virtual environment called ``stk-env`` where python v3.9.15, sensortoolkit v|formatted_version|,
+Now, we have created a virtual environment called ``stk-env`` where python v3.8.15, sensortoolkit,
 and other required package dependencies for sensortoolkit and Spyder IDE are downloaded.
 
 .. note::
 
-  In your IDE, make sure you modify the python interpreter to point to the ``/python.exe`` file within the ``stk-env`` virtual environment we created from the ``stk-environment.yml`` file. After, restart your IDE.
+  Before running an analysis with sensortoolkit, make sure you modify your IDE's python interpreter to point to the ``/python.exe`` file within the ``stk-env`` virtual environment we created from the ``stk-environment.yml`` file. After, restart the IDE.
 
 .. tip::
 
-  To find the path of python within the virtual environment open up your CLI and make sure the conda virtual environment is activated. For Windows OS type in the following command:
+  To find the path of ``/python.exe`` within the virtual environment, open up your CLI and make sure the conda virtual environment is activated. For Windows, type in the following command:
 
   .. code-block:: console
 
     where python
 
-  For MacOS type in the following command:
+  Similar commands can be done for other operating systems.
+  Copy the path of the ``/python.exe`` in the ``stk-env`` virtual environment. It should be located
+  at a path that looks something like ``C:\Users\...\Miniconda3\envs\stk-env\python.exe``
+  (if you have Miniconda installed). If using Spyder IDE, paste this path into the Spyder python interpreter
+  (Tools>Preferences>Python Interpreter>Use the following Python interpreter: [Insert ``/python.exe`` path]).
+  Then, restart the IDE.
 
-  .. code-block:: console
+.. tip::
 
-    which python
-
-  Copy the path of the ``/python.exe`` in the ``stk-env`` virtual environment we created using the
-  ``stk-environment.yml`` file. It should be located at a path that looks something
-  like ``C:\Users\...\Miniconda3\envs\stk-env\python.exe``. If using Spyder IDE, paste this
-  path into the Spyder python interpreter (Tools>Preferences>Python Interpreter>Use the following Python interpreter: ).
-  Then, restart the console (Console>Restart console) after making changes.
-
-.. note::
-
-  To deactivate the conda virtual environment, in CLI type in the following command:
+  To deactivate the conda virtual environment, type in the following in your CLI:
 
   .. code-block:: console
 
     conda deactivate
+
+Installing with pip
+^^^^^^^^^^^^^^^^^^^
+
+The easiest way to install sensortoolkit is via ``pip``. Open up a CLI and type the following command:
+
+.. code-block:: console
+
+  pip install sensortoolkit
+
+Installing from source
+^^^^^^^^^^^^^^^^^^^^^^
+
+sensortoolkit is developed and maintained in a USEPA GitHub repository. The latest
+development build can be obtained by cloning the repository:
+
+.. code-block:: console
+
+  git clone https://github.com/USEPA/sensortoolkit.git
+
+.. note::
+
+  Git is a free and open source distributed version control system. In order to use Git commands you will need to download Git found `here <https://git-scm.com/downloads>`_.
+
+Next, navigate to the folder location for the cloned repository:
+
+.. code-block:: console
+
+  cd path/to/sensortoolkit
+
+Next, sensortoolkit needs to be installed to a target directory where python
+looks for packages when asked by the user to import a package.
+By default, this is the ``/site-packages`` directory, and should be located at a
+path that looks something like ``C:\Users\...\Anaconda3\Lib\site-packages``
+(if you have Anaconda installed). The location of this package may be a little
+different depending on how your python installation was configured, although this
+shouldn't matter too much.
+
+Type the following into your CLI to install sensortoolkit (don't forget the period!):
+
+.. code-block:: console
+
+  pip install .
+
+The installation process checks for several packages sensortoolkit needs to run (dependencies).
+If you have Anaconda installed, you'll notice that the installation process may indicate
+that a lot of the required libraries are already installed as those packages come with
+the base installation of Anaconda.
 
 .. tip::
 
@@ -105,62 +154,17 @@ and other required package dependencies for sensortoolkit and Spyder IDE are dow
 
   |formatted_version|
 
-Installing with pip
-~~~~~~~~~~~~~~~~~~~
-
-The easiest way to install sensortoolkit is via ``pip``. Open up a CLI and type the following command:
-
-.. code-block:: console
-
-  pip install sensortoolkit
-
-Installing from source
-~~~~~~~~~~~~~~~~~~~~~~
-
-sensortoolkit is developed and maintained in a USEPA GitHub repository. The latest
-development build can be obtained by cloning the repository:
-
-.. code-block:: console
-
-  git clone https://github.com/USEPA/sensortoolkit.git
-
-Next, navigate to the folder location for the cloned repository:
-
-.. code-block:: console
-
-  cd path/to/sensortoolkit
-
-Next, sensortoolkit needs to be installed to a target directory where python
-looks for packages whenever the user tells python to import a package name.
-By default, this is the ``/site-packages`` directory, and should be located at a
-path that looks something like ``C:\Users\...\Anaconda3\Lib\site-packages``
-(if you have Anaconda installed). The location of this package may be a little
-different depending on how your python installation was configured, although this
-shouldn't matter too much.
-
-Type the following into CLI prompt to install sensortoolkit (don't forget the period!):
-
-.. code-block:: console
-
-  pip install .
-
-The installation process checks for several packages sensortoolkit needs to run (dependencies).
-If you have Anaconda installed, you'll notice that the installation process may indicate
-that a lot of the required libraries are already installed as those packages come with
-the base installation of Anaconda.
-
-Updating sensortoolkit
-----------------------
+Update sensortoolkit
+--------------------
 
 Updating from a PyPI package distribution
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-If you've installed sensortoolkit using the
-`Installing with Conda Virtual Environment <./install.html#Installing-with-Conda-Virtual-Environment>`_ or
-`Installing with pip <./install.html#installing-with-pip>`_ instructions listed
-above, updating your installation is equally as easy!
+If you've installed sensortoolkit using a
+`Conda virtual environment <./install.html#Installing-with-Conda-Virtual-Environment>`_ or with
+`pip <./install.html#installing-with-pip>`_, updating your installation is equally as easy!
 
-Open a command line interface and type the following:
+Open a your CLI and type the following:
 
 .. code-block:: console
 
@@ -181,9 +185,9 @@ Open a command line interface and type the following:
   where X.X.X is replaced by the version you would like to install.
 
 Updating from source
-~~~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^
 
-If you cloned the GitHub repository, first, open a command line interface and
+If you cloned the GitHub repository, first, open your CLI and
 change directories to the folder containing your cloned version of the sensortoolkit repository:
 
 .. code-block:: console
@@ -208,7 +212,3 @@ Next, install available updates via a 'git pull' command:
   Updating e5aed929..026ee1c2
   Fast-forward
   [A log of various files in the source code that have been modified in the current dev. package]
-
-.. note::
-
-  Git is a free and open source distributed version control system. In order to use Git commands you will need to download Git, found `here <https://git-scm.com/downloads>_`.

@@ -29,7 +29,7 @@ Overview
 --------
 
 Library Description
-~~~~~~~~~~~~~~~~~~~
+"""""""""""""""""""
 
 sensortoolkit is a Python library for evaluating air sensor data. The library is
 intended for use with sensors collocated at ambient air monitoring sites alongside
@@ -49,7 +49,7 @@ making sensortoolkit accessible to individuals with a wide range of skillsets
 and academic researchers, and industry professionals).
 
 Key Features
-~~~~~~~~~~~~
+""""""""""""
 
 **The primary goal of sensortoolkit is to provide a platform for analyzing air sensor
 data regardless of formatting differences across sensor data formatting schemes.**
@@ -80,7 +80,7 @@ into standardized formatting schemes for sensor and reference data.
 .. [#f1] Barkjohn, K. K., Gantt, B., and Clements, A. L.: Development and application of a United States-wide correction for PM2.5 data collected with the PurpleAir sensor, Atmos. Meas. Tech., 14, 4617–4637, https://doi.org/10.5194/amt-14-4617-2021, 2021.
 
 U.S. EPA's Performance Targets Reports
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+""""""""""""""""""""""""""""""""""""""
 
 In February 2021, U.S. EPA released two reports outlining recommended performance
 testing protocols, metrics, and target values for fine particulate matter (:raw-html:`PM<sub>2.5</sub>`)

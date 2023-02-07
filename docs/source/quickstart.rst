@@ -15,8 +15,8 @@ This section walks you through an example scenario, evaluating data from a ficti
 sensor named the *'Toco Toucan'* against reference data collected from a monitor collocated at
 the ambient monitoring site where sensors were deployed in triplicate.
 
-Example Scenario - *Toco Toucan*
---------------------------------
+Example Scenario - Toco Toucan
+------------------------------
 
 .. sidebar:: A Real Toco Toucan
 
@@ -31,8 +31,8 @@ monitoring site for the pollutants you plan to measure.
 Following a sampling period of 30 days, you collect data from each Toucan sensor and acquire data
 from the monitoring agency for collocated reference measurements.
 
-1 - Setting Up
---------------
+1 - Setting Up for sensortoolkit
+--------------------------------
 
 Setting up for sensortoolkit requries downloading Python and an IDE, creating a project directory, and
 downloading your sensor and reference data. A brief run thorugh is given below, but more detailed information
@@ -106,8 +106,8 @@ updating sensortoolkit can be found by following the link below.
 
   `Click here <./install.html#updating-sensortoolkit>`__ for more info about updating sensortoolkit.
 
-Running Sensortoolkit
----------------------
+4 - Running sensortoolkit
+-------------------------
 
 Run the ``analysis.py`` script and follow the instructions in the console of your IDE to create
 and compile a testing report. For more guidance, follow along the *Toco Toucan* example outlined

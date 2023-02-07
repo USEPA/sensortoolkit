@@ -1,10 +1,10 @@
 Analysis with sensortoolkit
-=====================================
+===========================
 
 This guide provides a brief overview of how to use the sensortoolkit library, including
 primary functions and methods that are essential to making the most out of the library.
 We will walk through the ``analysis.py`` script in evaluating data from a fictitious air sensor
-named the ‘*Toco Toucan*’ explained in the `Quickstart Guide<./quickstart.html#example-scenario-toco-toucan>`_.
+named the ‘*Toco Toucan*’ explained in the `Quickstart Guide <./quickstart.html#id2>`_.
 
 .. note::
 
@@ -58,7 +58,7 @@ files that are generated during analysis.
 
 .. tip::
 
-  It is strongly recommended to input information for the ``site_name`` and ``site_aqs_id``, if applicable as these are used to name files and directories created by sensortoolkit
+  It is strongly recommended to input information for the ``site_name`` and ``site_aqs_id``, if applicable, as these are used to name files and directories created by sensortoolkit in other functions.
 
 .. code-block:: python
 
