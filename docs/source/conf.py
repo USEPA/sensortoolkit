@@ -13,8 +13,7 @@
 import os
 import sys
 
-#lib = r'C:\Users\mkumar01\OneDrive - Environmental Protection Agency (EPA)\Profile\Documents\Master\sensortoolkit'
-#sys.path.insert(0, os.path.abspath(lib))
+# path to directory containing project source files
 sys.path.insert(0, os.path.abspath('../../sensortoolkit/'))
 
 # -- Project information -----------------------------------------------------
@@ -27,6 +26,7 @@ author = 'Samuel Frederick'
 version = sensortoolkit.__version__
 release = version
 
+# make rst_epilog a variable, to include a string of rst at the end of every source file that is read
 rst_epilog = '.. |formatted_version| replace:: ``%s``' % version
 
 # -- General configuration ---------------------------------------------------
