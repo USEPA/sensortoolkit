@@ -118,9 +118,10 @@ collocated alongside reference instrumentation capable of reporting 1-hour and/o
 Getting Started
 ---------------
 
-* :doc:`Quick Start Guide <quickstart>`
-* :doc:`Installation and Updates <install>`
-* :doc:`Importing sensortoolkit <import_sensortoolkit>`
+* :doc:`Quickstart Guide <quickstart>`
+* :doc:`Setting Up for sensortoolkit <setup>`
+* :doc:`Analysis with sensortoolkit <template>`
+* :doc:`Installing and Updating sensortoolkit <install>`
 
 .. toctree::
     :caption: Getting Started
@@ -128,8 +129,9 @@ Getting Started
     :hidden:
 
     quickstart
+    setup
+    template
     install
-    import_sensortoolkit
 
 Objects and Data Structures
 ---------------------------
