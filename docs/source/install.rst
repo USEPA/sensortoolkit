@@ -1,7 +1,7 @@
 Installing and Updating sensortoolkit
 =====================================
 
-sensortoolkit can be installed using a provided YAML file to create a conda virtual environment,
+sensortoolkit can be installed using a provided YAML file to create a Conda virtual environment,
 using ``pip``, and by cloning the GitHub repository. This section will explain the three
 installation methods in detail and how to update sensortoolkit.
 
@@ -24,9 +24,9 @@ for each new python project to ensure that the base installation of python isn't
 It's much easier to start over by deleting the virtual environment than deleting your installation of Python!
 
 In this documentation, Conda is used as it’s a simple open source environment and package manager.
-To quickly create a suitable conda virtual environment for sensortoolkit,
+To quickly create a suitable Conda virtual environment for sensortoolkit,
 with the required package versions, we can use the ``stk-environment.yml`` file included
-in the GitHub repository under the ``/environments`` folder to create the ``stk-env`` conda virtual environment.
+in the GitHub repository under the ``/environments`` folder to create the ``stk-env`` Conda virtual environment.
 
 1 - Download YAML file
 """"""""""""""""""""""
@@ -51,7 +51,7 @@ To activate the ``stk-env`` virtual environment, type in the following command:
 
   conda activate stk-env
 
-When activated, the virtual environment name enclosed in paranthesis will appear in your CLI as shown below. When
+When activated, the virtual environment name enclosed in parenthesis will appear in your CLI as shown below. When
 the virtual environment is active, any additions, deletions, and changes to installed python packages will only
 exist within the virtual environment.
 
@@ -72,7 +72,7 @@ and other required package dependencies for sensortoolkit and Spyder IDE are dow
 
 .. tip::
 
-  To find the path of ``/python.exe`` within the virtual environment, open up your CLI and make sure the conda virtual environment is activated. For Windows, type in the following command:
+  To find the path of ``/python.exe`` within the virtual environment, open up your CLI and make sure the Conda virtual environment is activated. For Windows, type in the following command:
 
   .. code-block:: console
 
@@ -87,7 +87,7 @@ and other required package dependencies for sensortoolkit and Spyder IDE are dow
 
 .. tip::
 
-  To deactivate the conda virtual environment, type in the following in your CLI:
+  To deactivate the Conda virtual environment, type in the following in your CLI:
 
   .. code-block:: console
 

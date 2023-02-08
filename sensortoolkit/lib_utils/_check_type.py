@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-This module contains a method for evaluting the type of an object to determine
+This module contains a method for evaluating the type of an object to determine
 whether the type matches a list of accepted or anticipated types.
 
 This module is used by various methods including

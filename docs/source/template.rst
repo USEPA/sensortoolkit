@@ -154,7 +154,7 @@ regarding the recorded datasets in order to build a profile of the *Toco Toucan*
 
 .. code-block:: python
 
-  # Run the interative setup routine for specifying how to ingest sensor data
+  # Run the interactive setup routine for specifying how to ingest sensor data
   sensor.sensor_setup()
 
 6 - Importing Sensor Data
@@ -352,7 +352,7 @@ can be copied directly from the documentation into your IDE of choice.
   # Construct sensor-specific directories in the project path for data, figures, etc.
   sensor.create_directories()
 
-  # Run the interative setup routine for specifying how to ingest sensor data
+  # Run the interactive setup routine for specifying how to ingest sensor data
   sensor.sensor_setup()
 
   # Import sensor datasets and save processed datasets to the data folder

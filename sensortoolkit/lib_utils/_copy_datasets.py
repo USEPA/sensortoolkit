@@ -105,7 +105,7 @@ def copy_datasets(data_type=None, path=None, select='directory', **kwargs):
 
         Choose from the following options:
 
-        - ``'local'``: Data files aqcuired locally (e.g., local transfer
+        - ``'local'``: Data files acquired locally (e.g., local transfer
           from agency overseeing reference instrumentation at air monitoring
           site).
         - ``'airnowtech'``: User has downloaded files from the AirNowTech

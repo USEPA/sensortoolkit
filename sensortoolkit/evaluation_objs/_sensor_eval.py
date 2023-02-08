@@ -105,12 +105,12 @@ class SensorEvaluation:
             Dataset containing reference data at 1-hour averaging intervals
             for methods measuring parameters matching the parameter
             classification of the parameter object passed to the
-            ``SensorEvaluation`` class during instantation.
+            ``SensorEvaluation`` class during instantiation.
         daily_ref_df (pandas DataFrame):
             Dataset containing reference data at 24-hour averaging intervals
             for methods measuring parameters matching the parameter
             classification of the parameter object passed to the
-            ``SensorEvaluation`` class during instantation.
+            ``SensorEvaluation`` class during instantiation.
         pm_hourly_ref_df (pandas DataFrame):
             Dataset containing reference data at 1-hour averaging intervals
             for methods measuring particulate matter parameters.
@@ -171,7 +171,7 @@ class SensorEvaluation:
         self.serials = sensor.serials
 
         # Private to avoid confusion between SensorEvaluation attribute and
-        # paraeter attribute
+        # parameter attribute
         self.param = param
         self._param_name = param.name
 

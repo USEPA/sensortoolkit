@@ -146,7 +146,7 @@ class ReferenceMonitor:
            Choose the service or source from which reference data were
            acquired. Choose from the following options:
 
-           - ``'local'``: Data files aqcuired locally (e.g., local transfer
+           - ``'local'``: Data files acquired locally (e.g., local transfer
              from agency overseeing reference instrumentation at air monitoring
              site).
            - ``'airnowtech'``: User has downloaded files from the AirNowTech
@@ -235,7 +235,7 @@ class ReferenceMonitor:
             converted to SDFS format are saved as comma-separated value files
             to the ``/data/reference_data/[source]/processed/[site_name]_[site_id]``.
 
-        **Setup for AirNowTech Datsets:**
+        **Setup for AirNowTech Datasets:**
 
         Setup process is the same as steps #1-5 for the local data file setup
         process. Subsequently, these steps are followed by:
@@ -353,7 +353,7 @@ class ReferenceMonitor:
         """
         classifier = Parameter(param).classifier
         if self.data[classifier]['1-hour'].empty:
-            print('No reference data found, load data via ReferenceMontior.load_data()')
+            print('No reference data found, load data via ReferenceMonitor.load_data()')
             return
         try:
             method_name = self.data[classifier]['1-hour'][param + '_Method'].dropna().unique()[0]
@@ -414,7 +414,7 @@ class ReferenceMonitor:
             return
 
         if self.data[classifier]['1-hour'].empty:
-            print('No reference data found, load data via ReferenceMontior.load_data()')
+            print('No reference data found, load data via ReferenceMonitor.load_data()')
             return
 
         # TODO: add error catching (either index error or keyerror)

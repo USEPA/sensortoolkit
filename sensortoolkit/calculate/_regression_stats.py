@@ -62,9 +62,9 @@ def regression_stats(sensor_df_obj, ref_df_obj, deploy_dict, param, serials,
 
     For each instance, the dependent and independent variables are assigned as
     **hourly/daily sensor data vs. hourly/daily reference data**; please note
-    the ``ref_df_obj`` object can be either a DataFrame containg FRM/FEM
-    concentratons, or a DataFrame containing intersensor averages depending on
-    the use case. The 'ref' label refers moreso to the fact that the dataset is
+    the ``ref_df_obj`` object can be either a DataFrame containing FRM/FEM
+    concentrations, or a DataFrame containing intersensor averages depending on
+    the use case. The 'ref' label refers more so to the fact that the dataset is
     used as the independent variable for regressions.
 
     .. note::

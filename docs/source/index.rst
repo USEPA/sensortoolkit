@@ -44,7 +44,7 @@ NO, NO<sub>2</sub> [criteria], NO<sub>x</sub>, O<sub>3</sub> [criteria], SO<sub>
 sensortoolkit is most suitable for individuals who have some prior coding
 experience in python. The library is equipped with an API (application
 programming interface) that allows for ease of navigation and customization,
-making sensortoolkit accessible to individuals with a wide range of skillsets
+making sensortoolkit accessible to individuals with a wide range of skill sets
 (e.g.,  individuals interested in monitoring their own sensor data, students
 and academic researchers, and industry professionals).
 
@@ -72,7 +72,7 @@ into standardized formatting schemes for sensor and reference data.
       *	Save performance evaluation results, statistics, and supplemental information detailing the deployment conditions to a deployment JSON file.
 
 -	Create testing reports using U.S. EPA’s base-testing report template (PowerPoint file) with the `PerformanceReport` module.
--	Additional modules are included for calculating quantities (AQI, :raw-html:`PM<sub>2.5</sub>` NowCast, application of sensor correction equations, the U.S. Wide correction equation for PurpleAir sensors via Barkjohn et al. 2021 [#f1]_, etc.) and conducting additional analysis (quality control modules for identifying outliers, invalidation of datapoints, A&B channel cleaning for PurpleAir data via Barkjohn et al. 2021 [#f1]_, etc.)
+-	Additional modules are included for calculating quantities (AQI, :raw-html:`PM<sub>2.5</sub>` NowCast, application of sensor correction equations, the U.S. Wide correction equation for PurpleAir sensors via Barkjohn et al. 2021 [#f1]_, etc.) and conducting additional analysis (quality control modules for identifying outliers, invalidation of data points, A&B channel cleaning for PurpleAir data via Barkjohn et al. 2021 [#f1]_, etc.)
 -	Access to modules utilized by the `SensorEvaluation` and `PerformanceReport` for greater customization in conducting analysis.
 
 .. rubric:: Footnotes

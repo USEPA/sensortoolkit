@@ -200,7 +200,7 @@ def deploy_ref_stats(deploy_dict, ref_df, cal_check_dict=None, param=None,
             for devices within each deployment group.
     	ref_df (pandas dataframe):
             Dataframe for reference concentrations at either 1-hour or 24-hour
-            averaging depending on the performance targets recommeneded
+            averaging depending on the performance targets recommended
             averaging interval.
     	cal_check_dict (dict):
             [Future feature] Dictionary for housing dates and descriptions of QC

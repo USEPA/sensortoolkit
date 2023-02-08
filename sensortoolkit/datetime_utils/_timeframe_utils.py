@@ -22,7 +22,7 @@ def timeframe_search(sensor_df_list):
     """Determines the timeframe for which data should be loaded.
 
     Locates the beginning and end date of each hourly averaged sensor dataframe
-    and subsequently determines the eariest and latest date within all recorded
+    and subsequently determines the earliest and latest date within all recorded
     sensor datasets
 
     Args:
@@ -60,7 +60,7 @@ def deploy_timestamp_index(df_obj, averaging_suffix=True):
     """Create a timestamp index that spans the total duration of time during
     which sensors in an evaluation group were deployed.
 
-    Searches for the eariest and latest timestamp in sensor datasets and
+    Searches for the earliest and latest timestamp in sensor datasets and
     creates a datetime index at the indicated averaging interval spanning the
     time period of testing.
 

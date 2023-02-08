@@ -44,7 +44,7 @@ sensor = sensortoolkit.AirSensor(make='Toco',
 # Construct sensor-specific directories in the project path for data, figures, etc.
 #sensor.create_directories()
 
-# Run the interative setup routine for specifying how to ingest sensor data
+# Run the interactive setup routine for specifying how to ingest sensor data
 #sensor.sensor_setup()
 
 # Import sensor datasets and save processed datasets to the data folder

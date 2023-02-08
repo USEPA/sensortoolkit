@@ -126,7 +126,7 @@ def ref_api_query(query_type=None, param=None, bdate='', edate='',
             If True, the name of the reference method will be evaluated for
             each monthly query using a lookup table to associate the parameter
             code and method code with the appropriate reference name.
-            Occasionally, multiple reference instruments are assocaited with a
+            Occasionally, multiple reference instruments are associated with a
             parameter code / method code grouping and the function will prompt
             the user the specify which reference method was used to collect the
             data returned by AQS. If the reference method is known to not
@@ -441,7 +441,7 @@ def modify_ref_cols(df, param):
 
     Returns:
         df (pandas DataFrame):
-            Modified dataframe column data types correected and column ordering
+            Modified dataframe column data types corrected and column ordering
             reorganized.
 
     """
@@ -496,13 +496,13 @@ def modify_ref_method_str(df, param):
 
     Instrument Method names retrieved from the method code lookup table are
     specified in all upper case characters. These are converted to title cased
-    characters (e.g., This Is Title Cased Text). While this imrpoves legibility
+    characters (e.g., This Is Title Cased Text). While this improves legibility
     some phrases (particularly acronyms, conjunctions, prepositions, ect.)
     should not be title cased. This function replaces specific phrases with the
     expected format.
 
     In addition, abbreviated unit names (used by AirNow) are converted to
-    long format text to ensure consistency for reference data retreived from
+    long format text to ensure consistency for reference data retrieved from
     AQS, AirNow, and AirNowTech, and also to improve legibility.
 
     Args:
@@ -707,7 +707,7 @@ def query_aqs(param, data_period, aqs_id, username=None, key=None,
         reference monitor and site metadata to the dataset returned by
         this method.
     :param str sample_duration:
-        The duration of recorded reference data the user wishes to retreive.
+        The duration of recorded reference data the user wishes to retrieve.
 
     Returns:
         data (pandas DataFrame):
@@ -813,7 +813,7 @@ def parse_sample_data(sample_data, get_monitor_info, param_list, **kwargs):
     :param str key:
         User key for API authentication.
     :param str sample_duration:
-        The duration of recorded reference data the user wishes to retreive.
+        The duration of recorded reference data the user wishes to retrieve.
 
     Returns:
         sample_data (pandas DataFrame):
@@ -1187,10 +1187,10 @@ def save_api_dataset(process_df, raw_df, path, query_type, param_class,
             A dataset containing unmodified data returned by the API service.
         path (str):
             The project path where the ``/data/reference_data`` subdirectory
-            is housed. Data are saved at the refrence data subdirectory
+            is housed. Data are saved at the reference data subdirectory
             structure within this parent directory.
         query_type (str):
-            The name of the API service used to retreieve query data.
+            The name of the API service used to retrieve query data.
         param_class (sstr):
             A term for sorting the parameter into one of three environmental
             parameter classifications, either ‘PM’ for particulate matter

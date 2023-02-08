@@ -34,8 +34,8 @@ from the monitoring agency for collocated reference measurements.
 1 - Setting Up for sensortoolkit
 --------------------------------
 
-Setting up for sensortoolkit requries downloading Python and an IDE, creating a project directory, and
-downloading your sensor and reference data. A brief run thorugh is given below, but more detailed information
+Setting up for sensortoolkit requires downloading Python and an IDE, creating a project directory, and
+downloading your sensor and reference data. A brief run through is given below, but more detailed information
 can be found in the next section.
 
 Download Python and IDE
@@ -85,7 +85,7 @@ Then, this file should be saved in the project directory you created.
 
   `Click here <./template.html>`__ for more info about analysis with sensortoolkit and the script template.
 
-3 - Installating and Updating sensortoolkit
+3 - Installing and Updating sensortoolkit
 -------------------------------------------
 
 It's highly recommended to download sensortoolkit into a suitable environment, with all the packages and versions,

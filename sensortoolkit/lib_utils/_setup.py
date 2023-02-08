@@ -111,10 +111,10 @@ class _Setup:
         if self.header_iloc is None:
             # Manually specify column names if none provided
             self.setColumnHeaders()
-        # otherwise, specify column headers in parsedatasets, infer header at
+        # otherwise, specify column headers in parse datasets, infer header at
         # iloc position
         self.parseDataSets()
-        # Specify which headers are assocaited with timestamp info
+        # Specify which headers are associated with timestamp info
         self.setTimeHeaders()
         # Specify how to convert recorded parameter headers to SDFS
         self.setParamHeaders()
@@ -129,7 +129,7 @@ class _Setup:
             select_type (str): The title of the configuration section.
             options (list, optional):
                 List of interactive options indicating keyword characters
-                used to modify the state of thge console and
+                used to modify the state of the console and
                 a description of what entering that keyword does. Defaults
                 to [].
 
@@ -391,7 +391,7 @@ class _Setup:
             for col_idx in self.col_headers.copy():
                 for label in self.col_headers[col_idx].copy():
 
-                    # Check if the recorded dataset doesnt have a header,
+                    # Check if the recorded dataset does not have a header,
                     # if so, use previously manually configured names
                     if previous_setup_data['header_iloc'] == None:
                         # label is an integer value, reassign to previously
@@ -425,7 +425,7 @@ class _Setup:
                         continue
 
             # Ask the user to specify attributes for columns that
-            # didnt appear in the previously configured setup.
+            # did not appear in the previously configured setup.
             if self._not_in_previous_setup != {}:
                 new_cols = []
 
@@ -1034,7 +1034,7 @@ class _Setup:
                     print('  Temperature must be in either degree Fahrenheit or Celsius')
 
             else:
-                val = input('  Enter the scalar quanitity for converting the '
+                val = input('  Enter the scalar quantity for converting the '
                             'recorded measurements to the following unit basis: '
                             f'{sdfs_param_units}')
 
@@ -1362,7 +1362,7 @@ class ReferenceSetup(_Setup):
 
         Choose from the following options:
 
-        - ``'local'``: Data files aqcuired locally (e.g., local transfer
+        - ``'local'``: Data files acquired locally (e.g., local transfer
           from agency overseeing reference instrumentation at air monitoring
           site).
         - ``'airnowtech'``: User has downloaded files from the AirNowTech
@@ -1413,7 +1413,7 @@ class ReferenceSetup(_Setup):
 
         .. important
 
-            **The following attrbiutes are required for querying API services:**
+            **The following attributes are required for querying API services:**
 
             - If the reference data source is ``'aqs'``, an AQS ID must be
               specified.
@@ -1528,7 +1528,7 @@ class ReferenceSetup(_Setup):
         - Units
         - Parameter AQS Code
         - Reference Method Code
-        - Parameter Occurence Code
+        - Parameter Occurrence Code
 
         Args:
             param (str):
@@ -1544,7 +1544,7 @@ class ReferenceSetup(_Setup):
             f'Enter the units of measure for {param}: ': f'{sdfs_param}' + '_Unit',
             f'Enter the parameter code for {param}: ': f'{sdfs_param}' + '_Param_Code',
             f'Enter the method code corresponding to the reference method for {param}: ': f'{sdfs_param}' + '_Method_Code',
-            f'Enter the parameter occurence code for the above reference method: ': f'{sdfs_param}' + '_Method_POC'
+            f'Enter the parameter occurrence code for the above reference method: ': f'{sdfs_param}' + '_Method_POC'
             }
 
         indent = '  '
@@ -1636,7 +1636,7 @@ class ReferenceSetup(_Setup):
 
     def displayMethods(self, param_code, lookup_data):
         """Helper function for printing an abbreviated dataset of reference
-        methods correponding to the indicated parameter.
+        methods corresponding to the indicated parameter.
 
         Args:
             param_code (int):
@@ -1749,7 +1749,7 @@ class ReferenceSetup(_Setup):
 
                 class_df = df[class_param_cols]
 
-                # Save class dataframe in monthly segements
+                # Save class dataframe in monthly segments
                 for date in pd.date_range(start=class_df.index.min(),
                               end=class_df.index.max()).to_period('M').unique():
                     month = str(date.month).zfill(2)

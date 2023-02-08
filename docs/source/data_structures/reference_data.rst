@@ -48,14 +48,14 @@ monitoring site in RTP, NC, averaged to 1-hour intervals, and formatted as an SD
     * ``gas_hourly_ref_df``
     * ``gas_daily_ref_df``
 
-  * ``met_``: Instruments measuring meteorlogical parameters (temperature, relative humidity, pressure, dewpoint, wind speed, wind direction)
+  * ``met_``: Instruments measuring meteorological parameters (temperature, relative humidity, pressure, dewpoint, wind speed, wind direction)
 
     * ``met_hourly_ref_df``
     * ``met_daily_ref_df``
 
   .. tip::
 
-    Since working with six reference dataframes can be challenging to track and retreive
+    Since working with six reference dataframes can be challenging to track and retrieve
     reference data for the selected ``Eval.param``, the dataframes ``Eval.hourly_ref_df`` and
     ``Eval.daily_ref_df`` are aliases of the reference dataframes corresponding to the parameter
     classification of the ``Eval.param``.

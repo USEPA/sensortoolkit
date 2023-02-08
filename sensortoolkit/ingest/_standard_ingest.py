@@ -117,7 +117,7 @@ def standard_ingest(path, name=None, setup_file_path=None):
         sys.exit('Invalid data type. Must be either .csv, .txt, or .xlsx')
 
     # If the header row loads on a row of data (may be intentional if
-    # formatting for first row is unusual and doesnt follow delimited format).
+    # formatting for first row is unusual and does not follow delimited format).
     if df.columns.all() != setup['all_col_headers']:
         df.columns = setup['all_col_headers']
 

@@ -19,7 +19,7 @@ import warnings
 
 
 class ParameterTargets:
-    """Assign and retreive parameter performance metrics and target values for
+    """Assign and retrieve parameter performance metrics and target values for
     the evaluation of air sensor performance for devices measuring the
     indicated parameter.
 

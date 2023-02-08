@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-This module contains a method for identifiying and removing duplicated timestamp
+This module contains a method for identifying and removing duplicated timestamp
 entries in datasets. Since SDFS datasets utilize a pandas DatetimeIndex,
 duplicated timestamp entries may cause indexing issues when accessing and
 assigning values for duplicate timestamps (e.g., computing averages).

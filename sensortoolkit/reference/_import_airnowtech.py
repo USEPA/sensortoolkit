@@ -86,7 +86,7 @@ def sort_airnowtech(df, **kwargs):
 
     Args:
         df (pandas dataframe):
-            Imported airnowtech dataset, may contain data for multilple
+            Imported airnowtech dataset, may contain data for multiple
             parameter classifications (PM, gases, met) if selected when the
             data were downloaded.
     Returns:
@@ -254,7 +254,7 @@ def write_to_file(df, path, outpath):
             Processed airnowtech data for one of the following parameter
             classifications (PM, Gases, or Met)
         path (str):
-            The full directory path to the downloded airnowtech dataset.
+            The full directory path to the downloaded airnowtech dataset.
             Used to determine the date and time that the data were downloaded
             and added to the dataframe as the 'Data_Acquisition_Date_Time'.
         outpath (str):

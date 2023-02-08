@@ -99,14 +99,14 @@ def subplot_dims(n_sensors):
 def sensor_subplot_formatting(number_of_sensors, param_obj, report_fmt,
                               **kwargs):
     """Configure subplot parameters that control the spacing of subplots,
-    number of subplots and dimensions of the Matplotliub axes object array,
+    number of subplots and dimensions of the Matplotlib axes object array,
     color bar formatting, etc.
 
     Args:
         number_of_sensors (int):
             The number of sensors to display in the figure.
         param_obj (sensortoolkit.Parameter):
-            The parameter correpsonding to measurement data that will be
+            The parameter corresponding to measurement data that will be
             displayed in the figure.
         report_fmt (bool):
             If true, select formatting presets for displaying figures on the
@@ -415,7 +415,7 @@ def met_scatter_lims(met_data, param, met_param, xlims, ylims, serials,
             concentration pairs will be displayed along the y-axis.
         met_param (str):
             The name of the meteorological parameter displayed along the x-axis.
-            The name is the SDFS parameter name assocaited with the
+            The name is the SDFS parameter name associated with the
             meteorological parameter; for temperature, pass ``'Temp'``, for
             relative humidity, pass ``'RH'``.
         xlims (Two-element tuple):

@@ -12,7 +12,7 @@ sensor performance evaluation reports.
 
     Future versions of sensortoolkit may allow the creation of reports for
     enhanced testing, however, currently programmatic creation of reports via
-    this module is intendedly strictly for base testing at an ambient, outdoor
+    this module is intended strictly for base testing at an ambient, outdoor
     monitoring site.
 
 ================================================================================
@@ -61,7 +61,7 @@ class PerformanceReport(SensorEvaluation):
       ``SensorEvaluation``\, including its numerous variables and data
       structures. Programmatically, ``PerformanceReport`` is intended as a
       direct extension of ``SensorEvaluation``\; users can easily interact with
-      all the attributes and data stuctures for sensor evaluations. However,
+      all the attributes and data structures for sensor evaluations. However,
       whereas ``SensorEvaluation`` allows analysis of a wide number of
       pollutants and parameters, ``PerformanceReport`` is presently intended
       for constructing reports pertaining to sensors measuring either fine
@@ -97,7 +97,7 @@ class PerformanceReport(SensorEvaluation):
     """
 
     # Evaluation parameters for which the PerformanceReport class can
-    # constuct reports
+    # construct reports
     report_params = ['PM25', 'O3']
 
     def __init__(self, sensor, param, reference, write_to_file=False,
@@ -179,7 +179,7 @@ class PerformanceReport(SensorEvaluation):
         self.rpt = ppt.Presentation(self.template_path)
         self.shapes = self.rpt.slides[0].shapes
 
-        # Shape at backgroud around which to orient other figures
+        # Shape at background around which to orient other figures
         self.cursor_sp = self.shapes[0]._element
 
         # The number of unique averaging intervals at which data will be
@@ -772,7 +772,7 @@ class PerformanceReport(SensorEvaluation):
                 pic.insert_picture(pic_path)
 
     def EditSiteTable(self):
-        """Add details to testing organzation and site info table (page 1).
+        """Add details to testing organization and site info table (page 1).
 
         ====================== =======
         Table name             TableID
@@ -927,7 +927,7 @@ class PerformanceReport(SensorEvaluation):
         self.FormatText(text_obj, alignment='center', font_name='Calibri',
                         font_size=14)
 
-        # --------------- Cell 2: Sensor firwmare version ---------------------
+        # --------------- Cell 2: Sensor firmware version ---------------------
         if self.sensor.firmware_version:
             cell = shape.table.cell(2, 1)
 
@@ -1003,7 +1003,7 @@ class PerformanceReport(SensorEvaluation):
                 cell_span_other = shape.table.cell(6, j)
                 cell_span_orig.merge(cell_span_other)
 
-        # If six sensors, merge 3x3 to 2x3 (merge second and thrid rows)
+        # If six sensors, merge 3x3 to 2x3 (merge second and third rows)
         if len(self.serials) == 6:
 
             for j in [1, 2, 3]:
@@ -2290,7 +2290,7 @@ class PerformanceReport(SensorEvaluation):
                 pptx table object to modify.
             span_dict (dict):
                 Dictionary where each entry contains list of
-                consecutive cell indicies in the table that will be spanned.
+                consecutive cell indices in the table that will be spanned.
 
                 Example:
                     Say you have a table with three rows and two columns for
@@ -2833,7 +2833,7 @@ class PerformanceReport(SensorEvaluation):
 
         Args:
             font (pptx text run object):
-                Font object containing various character properies.
+                Font object containing various character properties.
 
         Returns:
             None.
@@ -2854,7 +2854,7 @@ class PerformanceReport(SensorEvaluation):
 
         Args:
             font (pptx text run object):
-                Font object containing various character properies.
+                Font object containing various character properties.
 
         Returns:
             None.
@@ -2894,8 +2894,8 @@ class PerformanceReport(SensorEvaluation):
         For some reason, the python pptx module can't assign the footer page
         number to slides that are created by the library. While slides that
         are imported via the template (the first and last page of the report)
-        have page number placeholders already assigned, the pptx library doesnt
-        do this without explicity copying and pasting the page number
+        have page number placeholders already assigned, the pptx library does not
+        do this without explicitly copying and pasting the page number
         placeholder from the layout to the slides that are created by the
         module.
 

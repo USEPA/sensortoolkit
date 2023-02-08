@@ -11,7 +11,7 @@ folder.
 
 Below is the directory structure created by running the ``create_directories()``
 method for an example sensor ``example_sensor`` within the project path
-``.../my_evalution``
+``.../my_evaluation``
 
 .. code-block:: console
 

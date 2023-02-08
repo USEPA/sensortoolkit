@@ -20,7 +20,7 @@ import numpy as np
 def invalidate_period(df, param, bdate, edate):
     """Invalidate data by manually indicating a period of time.
 
-    Data within the indicated start and end timestamps will be invaldiated
+    Data within the indicated start and end timestamps will be invalidated
     (i.e., values set np.nan) and the parameter QAQC column will indicate data
     have been modified by flagging as type #2
 
@@ -30,7 +30,7 @@ def invalidate_period(df, param, bdate, edate):
         df (pandas DataFrame):
             Dataset containing timeseries data that will be invalidated.
         param (str):
-            The name of the parmeter to invalidate.
+            The name of the parameter to invalidate.
         bdate (str):
             The beginning timestamp for data invalidation in
             'YYYY-MM-DD HH:MM:SS' format.

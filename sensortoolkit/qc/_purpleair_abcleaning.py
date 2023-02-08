@@ -7,7 +7,7 @@ publication section 3.2.3 "Comparison of A and B channels". Briefly, quality
 control (QC) criteria are applied during data averaging, whereby the absolute
 and percent difference between concurrent (nearest neighbor by logged timestamp)
 A and B channel measurement pairs are calculated. If both of these QC criteria
-do not exceed respective thesholds, the A and B channels are averaged. Otherwise,
+do not exceed respective thresholds, the A and B channels are averaged. Otherwise,
 occasions where the A and B channel differ by a margin greater than the QC
 criteria thresholds are set null.
 

@@ -51,13 +51,13 @@ def persistent_values(df, param, tolerance=3, freq='H', invalidate=False):
         df.loc[:, param + '_QAQC_Code'] = np.nan
 
     if df[df[param + '_Value'].diff() == 0].empty:
-        print('..no persistant values found for ' + param)
+        print('..no persistent values found for ' + param)
         return df
 
-    print('..flagging persistant values for ' + param)
+    print('..flagging persistent values for ' + param)
     data = df[param + '_Value'].copy().to_frame()
 
-    # take the difference between consequtive data points and shift n times
+    # take the difference between consecutive data points and shift n times
     # where n is the tolerance
     window_df = pd.DataFrame()
     for i in np.arange(1, tolerance + 1, 1, dtype=int):
