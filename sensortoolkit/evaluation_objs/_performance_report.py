@@ -24,8 +24,12 @@ sensor performance evaluation reports.
 Created:
   Tue Dec 15 08:53:19 2020
 Last Updated:
-  Mon Jun 28 16:17:59 2021
+  Wed Feb 08 02:16:03 2023
 """
+# Wed Feb 08 02:16:03 2023, Menaka Kumar, NSSC Contractor (ORAU) U.S. EPA / ORD / CEMM / AMCD / SFSB 
+# modified current lines 802-803 to remove "org_type" from appearing on PerformanceReport
+# modified current lines 818-822 to add back "org_contact_email" and "org_contact_phone" on PerformanceReport
+
 import pptx as ppt
 import datetime as dt
 import pytz
@@ -795,8 +799,8 @@ class PerformanceReport(SensorEvaluation):
         # Add organization name
         text_obj = cell.text_frame.paragraphs[0]
         text_obj.text = (f'{self.testing_org["org_name"]} - '
-                         f'{self.testing_org["org_division"]}'
-                         f'\n{self.testing_org["org_type"]}')
+                         f'{self.testing_org["org_division"]}') # modified by KM 02/08/2023
+#                         f'\n{self.testing_org["org_type"]}') # commented out by KM 02/08/2023
         self.FormatText(text_obj, alignment='left', font_name='Calibri',
                         font_size=14)
 
@@ -811,11 +815,11 @@ class PerformanceReport(SensorEvaluation):
                         font_size=11)
 
         # Add contact email, phone number
-        # text_obj = cell.text_frame.add_paragraph()
-        # text_obj.text = (self.testing_org['org_contact_email'] + '\n' + '      ' +
-        #                  self.testing_org['org_contact_phone'])
-        # self.FormatText(text_obj, alignment='left', font_name='Calibri',
-        #                 font_size=11)
+        text_obj = cell.text_frame.add_paragraph() # uncommented by KM 02/08/2023
+        text_obj.text = (self.testing_org['org_contact_email'] + '\n' + '      ' + # uncommented by KM 02/08/2023
+                          self.testing_org['org_contact_phone']) # uncommented by KM 02/08/2023
+        self.FormatText(text_obj, alignment='left', font_name='Calibri', # uncommented by KM 02/08/2023
+                        font_size=11) # uncommented by KM 02/08/2023
 
         # ----------- Cell 2: Testing location information ----------------
         cell = shape.table.cell(2, 1)
