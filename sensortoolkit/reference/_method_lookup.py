@@ -11,8 +11,12 @@
 Created:
   Tue Apr 19 08:48:04 2022
 Last Updated:
-  Tue Apr 19 08:48:04 2022
+  Wed Feb 08 02:16:03 2023
 """
+# Wed Feb 08 02:16:03 2023, Menaka Kumar, NSSC Contractor (ORAU) U.S. EPA / ORD / CEMM / AMCD / SFSB 
+# modified current line 59 to change 'record' to 'records' due to deprecated warning when running
+# sensortoolkit that "Using short name for 'orient' is deprecated"
+
 import numpy as np
 import pandas as pd
 from textwrap import wrap
@@ -52,7 +56,7 @@ def get_reference_method(lookup_table, aqs_param_code, aqs_method_code):
     selections = lookup_table.where(mask).dropna(how='all', axis=0)
 
     instrument_dict = {}
-    for entry in selections.to_dict('record'):
+    for entry in selections.to_dict('records'): # modified by KM 02/08/2023
 
         if (entry['Make']=='-'and entry['Model']=='-'):
             entry_collect_descrip = entry['Collection Description']
