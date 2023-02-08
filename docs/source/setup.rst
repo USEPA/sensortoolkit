@@ -29,8 +29,14 @@ can help you decide which package manager to use.
 
 sensortoolkit works best in development environments that allow you to simultaneously develop scripts, view 
 and explore variables, and, execute code. These types of software utilities are called integrated development
-environments (IDEs). One popular IDE for Python included alongside Anaconda distributions of
-the coding language is the `Spyder IDE <https://www.spyder-ide.org>`__.
+environments (IDEs). To create scripts that utilize the sensortoolkit library, it’s recommended that users
+develop their code in an IDE. One popular IDE for Python included alongside Anaconda distributions of
+the coding language is the `Spyder IDE <https://www.spyder-ide.org>`__ which can be accessed via the
+Anaconda Prompt with the following command:
+
+.. code-block:: console
+
+  spyder
 
 .. caution::
 
