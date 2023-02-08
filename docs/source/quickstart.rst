@@ -13,7 +13,8 @@ supplemental, and informational monitoring applications.
 
 This section walks you through an example scenario, evaluating data from a fictitious air
 sensor named the *'Toco Toucan'* against reference data collected from a monitor collocated at
-the ambient monitoring site where sensors were deployed in triplicate.
+the ambient monitoring site where sensors were deployed in triplicate, and a quick summary of 
+how to use sensortoolkit for the first time.
 
 Example Scenario - Toco Toucan
 ------------------------------
@@ -24,35 +25,36 @@ Example Scenario - Toco Toucan
 
 Say that you have chosen to test a sensor from the manufacturer *'Toco'* called the
 *'Toucan'*. Three *Toco Toucans* were deployed at an ambient air monitoring site alongside
-reference instrumentation. Let's say that the Toucan air sensor measures both PM2.5 and O3 and that you have confirmed
-with the agency overseeing the monitoring site that reference-grade monitors
-designated either Federal Equivalent Methods (FEMs) or Federal Reference Methods (FRMs) are situated at the
-monitoring site for the pollutants you plan to measure.
-Following a sampling period of 30 days, you collect data from each Toucan sensor and acquire data
-from the monitoring agency for collocated reference measurements.
+reference instrumentation. Let's say that the Toucan air sensor measures both PM2.5
+and O3 and that you have confirmed with the agency overseeing the monitoring site
+that reference-grade monitors designated either Federal Equivalent Methods (FEMs)
+or Federal Reference Methods (FRMs) are situated at the monitoring site for the
+pollutants you plan to measure. Following a sampling period of 30 days, you
+collect data from each Toucan sensor and acquire data from the monitoring
+agency for collocated reference measurements.
 
 1 - Setting Up for sensortoolkit
 --------------------------------
 
 Setting up for sensortoolkit requires downloading Python and an IDE, creating a project directory, and
-downloading your sensor and reference data. A brief run through is given below, but more detailed information
+downloading your sensor and reference data. A brief run through is given below, but more information
 can be found in the next section.
 
 Download Python and IDE
 """""""""""""""""""""""
 
-As sensortoolkit is a python package, users will need Python(v3.6 or greater) to use it.
+As sensortoolkit is a Python package, users will need Python(v3.6 or greater) to use it.
 It's highly recommended that users download `Miniconda <https://docs.conda.io/en/latest/miniconda.html>`_ or
 `Anaconda <https://www.anaconda.com/products/individual>`_ as both are free installers
 of a simple open source environment and package manager and Python.
 
 .. note::
 
-  `Click here <./setup.html#download-python-and-ide>`__ for more info about installing python with Anaconda or Miniconda.
+  `Click here <./setup.html#download-python-and-ide>`__ for more info about installing Python with Anaconda or Miniconda.
 
 Sensortoolkit works best in development environments that allow you to simultaneously develop scripts, view and
 explore variables, and, execute code. These types of software utilities are called integrated development
-environments (IDEs). One popular IDE for python included alongside Anaconda distributions of
+environments (IDEs). One popular IDE for Python included alongside Anaconda distributions of
 the coding language is the `Spyder IDE <https://www.spyder-ide.org>`__.
 
 Create Project Directory
@@ -78,8 +80,10 @@ GitHub repository under the ``/example_datasets`` folder. Download these files t
 Open up your IDE and create a new python script. You can choose to name this file
 anything you’d like, but we’ll go with ``analysis.py`` for this example.
 Copy and paste the script template given `here <./template.html#script-template>`__.
-Text in brackets indicates where you should enter information relevant to your evaluation.
-Then, this file should be saved in the project directory you created.
+
+Follow along the *Toco Toucan* example outlined in the
+`Analysis with sensortoolkit <./template.html#initial-setup>`__ section to understand the ``analysis.py`` script
+and insert relevant information. Then, this file should be saved in the project directory you created.
 
 .. note::
 
@@ -109,9 +113,11 @@ updating sensortoolkit can be found by following the link below.
 4 - Running sensortoolkit
 -------------------------
 
-Run the ``analysis.py`` script and follow the instructions in the console of your IDE to create
-and compile a testing report. For more guidance, follow along the *Toco Toucan* example outlined
-in the `Analysis with sensortoolkit <./template.html>`__ section.
-Documentation in other sections, including the `Testing Attribute Objects <./testingattrib_objects/index.html>`_ and
-`Evaluation Objects <./evaluation_objects/index.html>`_ sections, describes in greater detail importing and working
-with sensor and reference data and make use of the example datasets to illustrate how sensortoolkit’s modules work.
+Run the ``analysis.py`` script from your IDE and follow the instructions in the console to create
+and compile a testing report.
+
+For more guidance when following sensortoolkit's interactive ingestion module, please see the
+`Testing Attribute Objects <./testingattrib_objects/index.html>`_ and
+`Evaluation Objects <./evaluation_objects/index.html>`_ sections which
+describe in greater detail importing and working with sensor and reference
+data while making use of the *Toco Toucan* example to illustrate how sensortoolkit’s modules work.

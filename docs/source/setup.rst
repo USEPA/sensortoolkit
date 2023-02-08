@@ -18,7 +18,7 @@ Setup
 1 - Download Python and IDE
 """""""""""""""""""""""""""
 
-As sensortoolkit is a python package, we will need python to use it.
+As sensortoolkit is a python package, we will need Python to use it.
 In `Installing and Updating sensortoolkit <./install.html#Installing-with-Conda-Virtual-Environment>`_,
 Conda is used as it’s a simple open source environment and package manager.
 Hence, I suggest downloading `Miniconda <https://docs.conda.io/en/latest/miniconda.html>`_ or
@@ -32,7 +32,7 @@ and explore variables, and, execute code. These types of software utilities are 
 environments (IDEs). One popular IDE for Python included alongside Anaconda distributions of
 the coding language is the `Spyder IDE <https://www.spyder-ide.org>`__.
 
-.. tip::
+.. caution::
 
   The PATH environment variable specifies the directories to be searched to find a command. When downloading softwares, **don't forget to adjust your path environment to add the respective software to your path**. This will come up in the installation steps for Miniconda/Anaconda and Spyder IDE.
 

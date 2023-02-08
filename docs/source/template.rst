@@ -4,7 +4,7 @@ Analysis with sensortoolkit
 This guide provides a brief overview of how to use the sensortoolkit library, including
 primary functions and methods that are essential to making the most out of the library.
 We will walk through the ``analysis.py`` script in evaluating data from a fictitious air sensor
-named the ‘*Toco Toucan*’ explained in the `Quickstart Guide <./quickstart.html#id2>`_.
+named the ‘*Toco Toucan*’ explained in the `Quickstart Guide <./quickstart.html#example-scenario-toco-toucan>`_.
 
 .. note::
 
@@ -18,17 +18,20 @@ file anything you’d like, but we’ll go with ``analysis.py`` for this example
 This file should be saved in the project folder you created.
 
 Copy and paste the script template provided at the bottom of this page
-into ``analysis.py``. Text in brackets indicates where you should enter
-information relevant to your evaluation. Don't forget to save afterward!
-
-You can follow along the *Toco Toucan* example outlined below. In addition, other sections
-in this documentation, including the `Testing Attribute Objects <./testingattrib_objects/index.html>`_
-and `Evaluation Objects <./evaluation_objects/index.html>`_ sections, take a deeper dive into
-importing and working with sensor and reference data and make use of the example datasets to
-illustrate how sensortoolkit’s modules work.
+into ``analysis.py``. Don't forget to save afterward!
 
 Initial Setup
 -------------
+
+Follow along the *Toco Toucan* example outlined below to understand
+the ``analysis.py`` script and insert relevant information.
+
+.. note::
+
+  More information on importing and working with sensor and reference data while making use of the
+  *Toco Toucan* example to illustrate how sensortoolkit’s modules work can be found in
+  `Testing Attribute Objects <./testingattrib_objects/index.html>`_ and
+  `Evaluation Objects <./evaluation_objects/index.html>`_.
 
 1 - Calling sensortoolkit from Scripts
 """"""""""""""""""""""""""""""""""""""
@@ -307,7 +310,7 @@ figures, scatter plots, and tabular statistics.
 Script Template
 ================
 
-Below is the template that you can use to get started with sensortoolkit. This
+Below is the full template that you can use to get started with sensortoolkit. This
 can be copied directly from the documentation into your IDE of choice.
 
 .. note::
@@ -398,3 +401,10 @@ can be copied directly from the documentation into your IDE of choice.
 
   # Generate report
   report.CreateReport()
+
+.. note::
+
+  Running the evaluation via ``sensortoolkit.SensorEvaluation`` and generating a
+  report via ``sensortoolkit.PerformanceReport`` and ``sensortoolkit.PerformanceReport.CreateReport``
+  do not depend on each other. Therefore, you can choose to use one rather than the other depending on
+  your desired output.

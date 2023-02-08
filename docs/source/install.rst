@@ -62,13 +62,14 @@ exist within the virtual environment.
 .. note::
 
   The above commands when creating a virtual environment assume the user has downloaded Miniconda or Anaconda.
+  `Click here <./setup.html#download-python-and-ide>`__ for more info about installing Python with Miniconda or Anaconda.
 
 Now, we have created a virtual environment called ``stk-env`` where python v3.8.15, sensortoolkit,
-and other required package dependencies for sensortoolkit and Spyder IDE are downloaded.
+and other required package dependencies for sensortoolkit and Spyder IDE are downloaded!
 
-.. note::
+.. caution::
 
-  Before running an analysis with sensortoolkit, make sure you modify your IDE's python interpreter to point to the ``/python.exe`` file within the ``stk-env`` virtual environment we created from the ``stk-environment.yml`` file. After, restart the IDE.
+  Before running an analysis with sensortoolkit, make sure you modify your IDE's Python interpreter to point to the ``/python.exe`` file within the ``stk-env`` virtual environment. After, restart the IDE.
 
 .. tip::
 
@@ -82,7 +83,7 @@ and other required package dependencies for sensortoolkit and Spyder IDE are dow
   Copy the path of the ``/python.exe`` in the ``stk-env`` virtual environment. It should be located
   at a path that looks something like ``C:\Users\...\Miniconda3\envs\stk-env\python.exe``
   (if you have Miniconda installed). If using Spyder IDE, paste this path into the Spyder python interpreter
-  (Tools>Preferences>Python Interpreter>Use the following Python interpreter: [Insert ``/python.exe`` path]).
+  (Tools>Preferences>Python Interpreter>Use the following Python interpreter: [Insert path]).
   Then, restart the IDE.
 
 .. tip::
@@ -136,6 +137,8 @@ Type the following into your CLI to install sensortoolkit (don't forget the peri
 
   pip install .
 
+----
+
 The installation process checks for several packages sensortoolkit needs to run (dependencies).
 If you have Anaconda installed, you'll notice that the installation process may indicate
 that a lot of the required libraries are already installed as those packages come with
@@ -164,7 +167,11 @@ If you've installed sensortoolkit using a
 `Conda virtual environment <./install.html#Installing-with-Conda-Virtual-Environment>`_ or with
 `pip <./install.html#installing-with-pip>`_, updating your installation is equally as easy!
 
-Open a your CLI and type the following:
+.. tip::
+
+	If using a virtual environment, make sure your virtual environment is activated before using commands to modify packages!
+
+Open your CLI and type the following:
 
 .. code-block:: console
 
@@ -172,11 +179,7 @@ Open a your CLI and type the following:
 
 .. tip::
 
-	If using a virtual environment, make sure your virtual environment is activated before modifying packages!
-
-.. tip::
-
-	If you wish to upgrade to a specific version of sensortoolkit, this can be done via the following command:
+  If you wish to upgrade to a specific version of sensortoolkit, this can be done via the following command:
 
   .. code-block:: console
 
