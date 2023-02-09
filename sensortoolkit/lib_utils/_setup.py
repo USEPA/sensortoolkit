@@ -16,8 +16,12 @@ Formatting Scheme (SDFS).
 Created:
   Mon Jul 19 08:25:55 2021
 Last Updated:
-  Mon Jul 19 08:25:55 2021
+  Thur Feb 09 02:06:41 2023
 """
+# Thur Feb 09 02:06:41 2023, Menaka Kumar, NSSC Contractor (ORAU) U.S. EPA / ORD / CEMM / AMCD / SFSB 
+# uncommented and modified current lines 882 & 885 to print a note of SDFS parameters in AirSensor setup when specifying parameter columns.
+# modified current lines 1431 & 1435-1436 to print better link for EPA AirData Air Quality Monitors Map and format better.
+
 import os
 import sys
 from textwrap import wrap
@@ -875,10 +879,10 @@ class _Setup:
 
 
         if print_banner:
-            #txt = 'Choose from the following list of SDFS parameter names'
+            txt = 'The following is a list of SDFS parameter names:' # uncommented and modified by KM 2/9/2023
             self.printSelectionBanner('Specify Parameter columns',
                                       options=[self.skip_str],
-                                      #notes=[txt, self.params]
+                                      notes=[txt, self.sdfs_params] # uncommented and modified by KM 2/9/2023
                                       )
         # drop time-like columns and ask user for SDFS parameter associated
         # with remaining cols
@@ -1424,12 +1428,12 @@ class ReferenceSetup(_Setup):
             None.
 
         """
-        airdata_link = 'https://epa.maps.arcgis.com/apps/webappviewer/index.html?id=5f239fd3e72f424f98ef3d5def547eb5'
+        airdata_link = 'https://www.epa.gov/outdoor-air-quality-data/interactive-map-air-quality-monitors' # modified by KM 2/9/2023
         self.printSelectionBanner('Enter Ambient Air Monitoring Site Information',
                                   options=['..press enter to skip entries'],
                                   notes=['Site AQS ID required for AQS queries',
-                                         'Use the EPA AirData Air Quality Monitors Map to locate AQS Sites'
-                                         f'  {airdata_link}'
+                                         'Use the EPA AirData Air Quality Monitors Map to locate AQS Sites:' # modified by KM 2/9/2023
+                                         f' {airdata_link}' # modified by KM 2/9/2023
                                          'Site Latitude and Longitude required for AirNow queries',
                                          '  Latitude must be between -90 and +90 degrees ',
                                          '  Longitude must be between -180 and +180 degrees'])
