@@ -155,7 +155,7 @@ the following will be printed to the console.
   ..RT01
   ..RT02
   ..RT03
-  ..Saving dataset to the following path: C:\Users\...\Documents\sensortoolkit_testing\data\eval_stats\Toco_Toucan\Toco_Toucan_PM25_vs_T-API_T640X_at_16.67_LPM_stats_df_211102.csv
+  ..Saving dataset to the following path: C:\Users\...\Documents\toucan_evaluation\data\eval_stats\Toco_Toucan\Toco_Toucan_PM25_vs_T-API_T640X_at_16.67_LPM_stats_df_211102.csv
   Computing 1-hour regression statistics for Toco_Toucan vs. T-API T640X at 16.67 LPM
   ..RT01
   ..RT02
@@ -164,7 +164,7 @@ the following will be printed to the console.
   ..RT01
   ..RT02
   ..RT03
-  ..Saving dataset to the following path: C:\Users\...\Documents\sensortoolkit_testing\data\eval_stats\Toco_Toucan\Toco_Toucan_PM25_vs_T-API_T640X_at_16.67_LPM_stats_df_211102.csv
+  ..Saving dataset to the following path: C:\Users\...\Documents\toucan_evaluation\data\eval_stats\Toco_Toucan\Toco_Toucan_PM25_vs_T-API_T640X_at_16.67_LPM_stats_df_211102.csv
   Creating Testing Report for Toco_Toucan
   ..Adding figures to report
   ..creating subplot for 1 sensor with 1 row and 1 column
