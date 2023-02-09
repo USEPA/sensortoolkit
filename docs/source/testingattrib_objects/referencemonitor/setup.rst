@@ -120,8 +120,13 @@ module, where the user inputs information via the console.
 
       Notes
       -----
-      Site AQS ID required for AQS queries
-      Site Latitude and Longitude required for AirNow queries
+        Site AQS ID required for AQS queries
+        Use the EPA AirData Air Quality Monitors Map to locate AQS Sites:
+        https://epa.maps.arcgis.com/apps/webappviewer/index.html
+
+        Site Latitude and Longitude required for AirNow queries
+          Latitude must be between -90 and +90 degrees
+          Longitude must be between -180 and +180 degrees
       ==============================================================================
 
       Enter the name of the monitoring site: Burdens Creek
@@ -178,6 +183,10 @@ module, where the user inputs information via the console.
     specified directory and any subdirectories contained within the indicated folder path, and ``files`` which
     copies over files that the user manually selects within a directory.
 
+    .. note::
+      If using reference data from ``airnowtech``, the option to specify how to select data files or
+      directories may not be asked as it's assumed to be ``files``.
+
     .. code-block:: console
 
       ======================= Select Data Files or Directory =======================
@@ -213,15 +222,16 @@ module, where the user inputs information via the console.
       [File Browser: Select the files for recorded reference datasets with file type ".csv"]
 
       Source Files:
-      ['C:/Users/.../Documents/Public_Sensor_Evaluation/beta_testing/data/reference/20190901_20190930_PMGasMet.csv']
+      ['C:/Users/.../Documents/toucan_evaluation/airnowtech_example_reference_data.csv']
 
       Destination Directory:
-      ..C:\Users\...\Documents\sensortoolkit_testing\data\reference_data\airnowtech\raw\Burdens_Creek_370630099
+      ..C:\Users\...\Documents\toucan_evaluation\data\reference_data\
+        airnowtech\raw\Burdens_Creek_370630099
 
       Press enter to continue.
 
       Copying the following files:
-      ..C:/Users/.../Documents/sensortoolkit/beta_testing/data/reference/20190901_20190930_PMGasMet.csv
+      ..C:/Users/.../Documents/toucan_evaluation/airnowtech_example_reference_data.csv
 
       Press enter to continue.
 
@@ -235,10 +245,53 @@ module, where the user inputs information via the console.
     is the name of the site assigned by the user in step 2, and ``[site_id]`` is
     the AQS ID for the site assigned in step 2 (if applicable).
 
+    If multiple reference instruments correspond to a parameter's method code,
+    the user will be prompted to enter the appropriate reference instrument make and model
+    for the indicated parameter. Follow the table shown in your console to specify the reference monitor used.
+
     .. code-block:: console
 
       ====================== Pre-process AirNow-Tech Datasets ======================
       ==============================================================================
+
+      --------------------------------------------------------------------------------
+      AQS Parameter Code: 42602 (Nitrogen dioxide [NO2]), AQS Method Code: 599
+      --------------------------------------------------------------------------------
+      Multiple instruments correspond to indicated parameter and method code
+      ..From the table of instruments below, enter the index for the appropriate make
+      ..and model
+
+      |   Index | Make                                        | Model                 |
+      |--------:|:--------------------------------------------|:----------------------|
+      |       0 | Teledyne Advanced Pollution Instrumentation | 200A                  |
+      |       1 | Teledyne Advanced Pollution Instrumentation | 200AU                 |
+      |       2 | Teledyne Advanced Pollution Instrumentation | 200E                  |
+      |       3 | Teledyne Advanced Pollution Instrumentation | 200EU                 |
+      |       4 | Teledyne Advanced Pollution Instrumentation | T200                  |
+      |       5 | Teledyne Advanced Pollution Instrumentation | N200                  |
+      |       6 | Teledyne Advanced Pollution Instrumentation | T200U                 |
+      |       7 | Teledyne Advanced Pollution Instrumentation | T204                  |
+      |       8 | Teledyne Analytical Instruments             | 9110A                 |
+      |       9 | Teledyne Analytical Instruments             | 9110E                 |
+      |      10 | Teledyne Analytical Instruments             | 9110T                 |
+      |      11 | Teledyne Monitor Labs                       | sensor-e TML-41       |
+      |      12 | mlu-recordum                                | airpointer 801-002000 |
+
+      Reference Instrument Index: 5
+
+      --------------------------------------------------------------------------------
+      AQS Parameter Code: 44201 (Ozone), AQS Method Code: 199
+      --------------------------------------------------------------------------------
+      Multiple instruments correspond to indicated parameter and method code
+      ..From the table of instruments below, enter the index for the appropriate make
+      ..and model
+
+      |   Index | Make                                        | Model   |
+      |--------:|:--------------------------------------------|:--------|
+      |       0 | Teledyne Advanced Pollution Instrumentation | 265E    |
+      |       1 | Teledyne Advanced Pollution Instrumentation | T265    |
+
+      Reference Instrument Index: 1
 
       Writing AirNow-Tech data sets to csv files
       ../reference_data/airnowtech/processed/Burdens_Creek_370630099/H_201909_PM.csv
@@ -258,7 +311,8 @@ module, where the user inputs information via the console.
       ==============================================================================
 
       ..writing setup configuration to the following path:
-        \data\reference_data\airnowtech\raw\Burdens_Creek_370630099\reference_setup.json
+        C:\Users\...\Documents\toucan_evaluation\data\reference_data\
+        airnowtech\raw\Burdens_Creek_370630099\reference_setup.json
 
 .. tabbed:: AQS
 
@@ -656,18 +710,15 @@ module, where the user inputs information via the console.
        'C:/Users/.../Documents/AIRS Project/AIRS\nEvaluation/AIRS_Ref_Data/min_201909_PM.csv']
 
       Destination Directory:
-      ..C:\Users\SFREDE01\OneDrive - Environmental Protection Agency
-      (EPA)\Profile\Documents\sensortoolkit_testing\Data and
+      ..C:\Users\...\Documents\sensortoolkit_testing\Data and
       Figures\reference_data\local\raw\Burdens_Creek_370630099
 
       Press enter to continue.
 
       Copying the following files:
-      ..C:/Users/SFREDE01/OneDrive - Environmental Protection Agency
-      (EPA)/Profile/Documents/AIRS Project/AIRS
+      ..C:/Users/.../Documents/AIRS Project/AIRS
       Evaluation/AIRS_Ref_Data/min_201908_PM.csv
-      ..C:/Users/SFREDE01/OneDrive - Environmental Protection Agency
-      (EPA)/Profile/Documents/AIRS Project/AIRS
+      ..C:/Users/.../Documents/AIRS Project/AIRS
       Evaluation/AIRS_Ref_Data/min_201909_PM.csv
 
       Press enter to continue.
@@ -727,7 +778,7 @@ module, where the user inputs information via the console.
       Manual configuration of column headers is not required if an integer header row index
       value is set in the previous step.
 
-    Next, the module will automatically search for datafiles corresponding to the
+    Next, the module will automatically search for data files corresponding to the
     file type and header index (if previously specified). A list of unique headers for
     each column index are displayed.
 
