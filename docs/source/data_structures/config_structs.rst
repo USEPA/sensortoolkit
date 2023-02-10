@@ -21,24 +21,26 @@ scheme for parameter data names and date/time formatting.
 The sensor setup.json file is named ``[sensor_name]_setup.json`` where ``[sensor_name]``
 is the name assigned to the sensor via ``sensor.name``. This file is located within
 the users' project directory in the following relative path:
-``\Data and Figures\sensor_data\[sensor_name]\[sensor_name]_setup.json``
+``\Data\sensor_data\[sensor_name]\[sensor_name]_setup.json``
 
 .. code-block:: json
 
   {
       "path": "C:/Users/.../Documents/toucan_evaluation",
-      "data_rel_path": "/data/sensor_data/Toco_Toucan/raw_data",
+      "data_rel_path": "data\\sensor_data\\Toco_Toucan\\raw_data\\",
       "data_type": "sensor",
       "file_extension": ".csv",
       "header_iloc": 5,
       "data_row_idx": null,
+      "custom_ingest": false,
+      "use_previous_setup": false,
       "sdfs_header_names": [
-          "NO2",
-          "O3",
-          "PM25",
-          "Temp",
           "RH",
-          "DP"
+          "DP",
+          "Temp",
+          "O3",
+          "NO2",
+          "PM25"
       ],
       "col_headers": {
           "col_idx_0": {
@@ -51,7 +53,7 @@ the users' project directory in the following relative path:
                   ],
                   "header_class": "datetime",
                   "drop": false,
-                  "dt_format": "%Y/%m/%d %H:%M:%S",
+                  "dt_format": "%-m/%-d/%Y %-H:%M",
                   "dt_timezone": "EST"
               }
           },
@@ -170,7 +172,7 @@ Reference ``setup.json``
 
 The reference setup.json file is named ``reference_setup.json`` and is located within
 the users' project directory in the following relative path:
-``\Data and Figures\reference_data\[data_type]\[site_name]_[site_id]\reference_setup.json``,
+``\Data\reference_data\[data_type]\raw\[site_name]_[site_id]\reference_setup.json``,
 where ``[data_type]`` is the name of the reference data source (i.e., 'airnowtech', 'local', etc.),
 ``['site_name']`` is the name of the monitoring site, where spaces have been replaced by '_', and
 ``[site_id]`` is the AQS site ID (if applicable).
@@ -184,89 +186,31 @@ for creating a processed (SDFS formatted) version of the reference dataset.
 .. code-block:: json
 
   {
-      "path": "C:\\Users\\...\\Documents\\sensortoolkit_testing",
-      "data_rel_path": "/data/reference_data/local/raw/Burdens_Creek_370630099/",
+      "path": "C:/Users/.../Documents/toucan_evaluation",
+      "data_rel_path": "data\\reference_data\\airnowtech\\raw\\Burdens_Creek_370630099\\",
       "data_type": "reference",
       "file_extension": ".csv",
-      "header_iloc": 2,
+      "header_iloc": null,
       "data_row_idx": null,
-      "sdfs_header_names": [
-          "PM25",
-          "PM10"
-      ],
-      "col_headers": {
-          "col_idx_0": {
-              "Date & Time": {
-                  "sdfs_param": "DateTime",
-                  "in_file_list_idx": [0, 1],
-                  "header_class": "datetime",
-                  "drop": false,
-                  "dt_format": "%-m/%-d/%Y %-I:%M %p",
-                  "dt_timezone": "EST"
-              }
-          },
-          "col_idx_1": {
-              "Grimm PM2.5": {
-                  "sdfs_param": "",
-                  "in_file_list_idx": [0, 1],
-                  "header_class": "parameter",
-                  "drop": true
-              }
-          },
-          "col_idx_2": {
-              "Grimm PM10": {
-                  "sdfs_param": "",
-                  "in_file_list_idx": [0, 1],
-                  "header_class": "parameter",
-                  "drop": true
-              }
-          },
-          },
-          "col_idx_3": {
-              "T640_2_PM25": {
-                  "sdfs_param": "PM25",
-                  "in_file_list_idx": [0, 1],
-                  "unit_transform": null,
-                  "header_class": "parameter",
-                  "drop": false
-              }
-          },
-          "col_idx_4": {
-              "T640_2_PM10": {
-                  "sdfs_param": "PM10",
-                  "in_file_list_idx": [0, 1],
-                  "unit_transform": null,
-                  "header_class": "parameter",
-                  "drop": false
-              }
-          }
-      },
+      "custom_ingest": false,
+      "use_previous_setup": false,
+      "sdfs_header_names": [],
+      "col_headers": {},
       "dataset_kwargs": {
-          "ref_data_source": "local",
+          "ref_data_source": "airnowtech",
           "site_name": "Burdens_Creek",
           "site_aqs": "370630099"
       },
       "agency": "OAQPS",
       "site_name": "Burdens Creek",
       "site_aqs": "37-063-0099",
-      "site_lat": "35.88",
-      "site_lon": "-78.87",
+      "site_lat": "35.889",
+      "site_lon": "-78.874",
       "fmt_site_name": "Burdens_Creek",
       "fmt_site_aqs": "370630099",
       "ref_data_subfolder": "Burdens_Creek_370630099",
       "_dataset_selection": "files",
       "file_list": [
-          "C:\\Users\\...\\Documents\\sensortoolkit_testing\\data\\reference_data\\local\\raw\\Burdens_Creek_370630099\\min_201908_PM.csv",
-          "C:\\Users\\...\\Documents\\sensortoolkit_testing\\data\\reference_data\\local\\raw\\Burdens_Creek_370630099\\min_201909_PM.csv"
-      ],
-      "PM25_Unit": "Micrograms/cubic meter (LC)",
-      "PM25_Param_Code": "Micrograms/cubic meter (LC)",
-      "PM25_Method_Code": 238,
-      "PM25_Method": "Teledyne T640X at 16.67 LPM",
-      "PM25_Method_POC": "1",
-      "PM10_Unit": "Micrograms/cubic meter (LC)",
-      "PM10_Param_Code": "Micrograms/cubic meter (LC)",
-      "PM10_Method_Code": 239,
-      "PM10_Method": "Teledyne API T640X at 16.67 LPM",
-      "PM10_Method_POC": "1"
+          "C:/Users/.../Documents/toucan_evaluation\\data\\reference_data\\airnowtech\\raw\\Burdens_Creek_370630099\\airnowtech_example_reference_data.csv"
+      ]
   }
