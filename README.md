@@ -86,7 +86,7 @@ formatting schemes for sensor and reference data.
 ## Dependencies <a name="dependencies"></a>
 
 [Click here](https://github.com/USEPA/sensortoolkit/network/dependencies) to be taken to a list of dependencies required by sensortoolkit.
-The library requires a **minimum of Python 3.6**.
+The library requires a **minimum of Python 3.8**.
 
 ## Contact <a name="contact"></a>
 
@@ -139,7 +139,7 @@ any commercial product or activity by the USEPA or the United States Government.
 ****
 ## Installation <a name="install"></a>
 
-> Note: Users will need an installation of Python (v3.6 or greater). It’s
+> Note: Users will need an installation of Python (v3.8 or greater). It’s
   highly recommended that users download an Anaconda distribution of
   Python. Anaconda is a package distribution of Python that includes many
   widely used libraries as well as the Spyder IDE for editing and
