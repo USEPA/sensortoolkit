@@ -29,6 +29,11 @@ release = version
 # make rst_epilog a variable, to include a string of rst at the end of every source file that is read
 rst_epilog = '.. |formatted_version| replace:: ``%s``' % version
 
+# make rst_prolog a variable, to include a string of rst at the beginning of every source file that is read
+rst_prolog = """
+.. |min_python_version| replace:: 3.8
+"""
+
 # -- General configuration ---------------------------------------------------
 
 # Add any Sphinx extension module names here, as strings. They can be

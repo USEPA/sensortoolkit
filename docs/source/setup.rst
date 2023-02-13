@@ -6,7 +6,7 @@ downloading your sensor and reference data. Given below is a detailed guide for 
 
 .. note::
 
-  Users will need an installation of Python (v3.6 or greater). It’s highly recommended that users
+  Users will need an installation of Python (v|min_python_version| or greater). It’s highly recommended that users
   download an `Anaconda distribution of Python <https://www.anaconda.com/products/individual>`_. Anaconda is
   a package distribution of Python that includes many widely used libraries as
   well as the `Spyder IDE <https://www.spyder-ide.org>`__ for editing and compiling code. Anaconda is free for
