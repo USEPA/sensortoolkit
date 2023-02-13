@@ -43,7 +43,7 @@ can be found in the next section.
 Download Python and IDE
 """""""""""""""""""""""
 
-As sensortoolkit is a Python package, users will need Python(v|min_python_version| or greater) to use it.
+As sensortoolkit is a Python package, users will need an installation of Python |min_python_version| or greater.
 It's highly recommended that users download `Miniconda <https://docs.conda.io/en/latest/miniconda.html>`_ or
 `Anaconda <https://www.anaconda.com/products/individual>`_ as both are free installers
 of a simple open source environment and package manager and Python.

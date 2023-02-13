@@ -7,7 +7,7 @@ installation methods in detail and how to update sensortoolkit.
 
 .. note::
 
-  Users will need an installation of Python (v|min_python_version| or greater). It’s highly recommended that users
+  Users will need an installation of Python |min_python_version| or greater. It’s highly recommended that users
   download an `Anaconda distribution of Python <https://www.anaconda.com/products/individual>`_. Anaconda is
   a package distribution of Python that includes many widely used libraries as well as
   the `Spyder IDE <https://www.spyder-ide.org>`__ for editing and compiling code. Anaconda is free for individuals.
@@ -64,7 +64,7 @@ exist within the virtual environment.
   The above commands when creating a virtual environment assume the user has downloaded Miniconda or Anaconda.
   `Click here <./setup.html#download-python-and-ide>`__ for more info about installing Python with Miniconda or Anaconda.
 
-Now, we have created a virtual environment called ``stk-env`` where Python v|min_python_version|, sensortoolkit,
+Now, we have created a virtual environment called ``stk-env`` where Python 3.8, sensortoolkit,
 and other required package dependencies for sensortoolkit and Spyder IDE are downloaded!
 
 .. caution::
