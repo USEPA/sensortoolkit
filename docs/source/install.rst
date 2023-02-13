@@ -25,25 +25,25 @@ It's much easier to start over by deleting the virtual environment than deleting
 
 In this documentation, Conda is used as it’s a simple open source environment and package manager.
 To quickly create a suitable Conda virtual environment for sensortoolkit,
-with the required package versions, we can use the ``stk-environment.yml`` file included
+with the required package versions, we can use the ``sensortoolkit_env.yml`` file included
 in the GitHub repository under the ``/environments`` folder to create the ``stk-env`` Conda virtual environment.
 
 1 - Download YAML file
 """"""""""""""""""""""
 
-Download the ``stk-environment.yml`` file included in the GitHub repository under the ``/environments``
+Download the ``sensortoolkit_env.yml`` file included in the GitHub repository under the ``/environments``
 folder to the root of your project directory.
 
 2 - Create Conda Virtual Environment
 """"""""""""""""""""""""""""""""""""
 
 In your command line interface (CLI), (for Anaconda users, the Anaconda Prompt is recommended)
-navigate to your project directory where ``stk-environment.yml`` was downloaded.
+navigate to your project directory where ``sensortoolkit_env.yml`` was downloaded.
 In your CLI, type in the following command:
 
 .. code-block:: console
 
-  conda env create -f stk-environment.yml
+  conda env create -f sensortoolkit_env.yml 
 
 To activate the ``stk-env`` virtual environment, type in the following command:
 
