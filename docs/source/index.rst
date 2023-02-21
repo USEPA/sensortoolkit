@@ -120,8 +120,8 @@ Getting Started
 
 * :doc:`Quickstart Guide <quickstart>`
 * :doc:`Setting Up for sensortoolkit <setup>`
-* :doc:`Analysis with sensortoolkit <template>`
 * :doc:`Installing and Updating sensortoolkit <install>`
+* :doc:`Analysis with sensortoolkit <template>`
 
 .. toctree::
     :caption: Getting Started
@@ -130,8 +130,8 @@ Getting Started
 
     quickstart
     setup
-    template
     install
+    template
 
 Objects and Data Structures
 ---------------------------

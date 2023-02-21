@@ -38,7 +38,7 @@ agency for collocated reference measurements.
 
 Setting up for sensortoolkit requires downloading Python and an IDE, creating a project directory, and
 downloading your sensor and reference data. A brief run through is given below, but more information
-can be found in the next section.
+can be found in the `next section <./setup.html>`_.
 
 Download Python and IDE
 """""""""""""""""""""""
@@ -74,32 +74,18 @@ GitHub repository under the ``/example_datasets`` folder. Download these files t
 
   `Click here <./setup.html>`__ for more info about setting up for sensortoolkit.
 
-2 - Analysis with sensortoolkit
--------------------------------
-
-Open up your IDE and create a new python script. You can choose to name this file
-anything you’d like, but we’ll go with ``analysis.py`` for this example.
-Copy and paste the script template given `here <./template.html#script-template>`__.
-
-Follow along the *Toco Toucan* example outlined in the
-`Analysis with sensortoolkit <./template.html#initial-setup>`__ section to understand the ``analysis.py`` script
-and insert relevant information. Then, this file should be saved in the project directory you created.
-
-.. note::
-
-  `Click here <./template.html>`__ for more info about analysis with sensortoolkit and the script template.
-
-3 - Installing and Updating sensortoolkit
+2 - Installing and Updating sensortoolkit
 -------------------------------------------
 
-It's highly recommended to download sensortoolkit into a suitable environment, with all the packages and versions,
-from the ``stk-environment.yml`` file included in the GitHub repository under the ``/environments`` folder.
-Also, sensortoolkit can be easily downloaded with pip or, if you wish to contribute to the development of the package,
+It's highly recommended to download sensortoolkit into a suitable virtual environment,
+with all the packages and versions, from the ``stk_environment.yml`` file included in
+the GitHub repository under the ``/environments`` folder. Also, sensortoolkit can be easily
+downloaded with ``pip`` or, if you wish to contribute to the development of the package,
 cloned from the GitHub repository.
 
 .. note::
 
-  `Click here <./install.html>`__ for more info about installing sensortoolkit.
+  `Click here <./install.html#Install-sensortoolkit>`__ for more info about installing sensortoolkit.
 
 Sensortoolkit is actively maintained, and bug fixes and feature enhancements
 are regularly added to the latest development build. **Users are strongly encouraged to update to
@@ -109,6 +95,21 @@ updating sensortoolkit can be found by following the link below.
 .. note::
 
   `Click here <./install.html#updating-sensortoolkit>`__ for more info about updating sensortoolkit.
+
+3 - Analysis with sensortoolkit
+-------------------------------
+
+Open up your IDE and create a new python script. You can choose to name this file
+anything you’d like, but we’ll go with ``analysis.py`` for this example.
+Copy and paste the script template given `here <./template.html#script-template>`__.
+
+Follow along the *Toco Toucan* example outlined in the
+`Analysis with sensortoolkit <./template.html#analysis>`__ section to understand the ``analysis.py`` script
+and insert relevant information. Then, this file should be saved in the project directory you created.
+
+.. note::
+
+  `Click here <./template.html>`__ for more info about analysis with sensortoolkit and the script template.
 
 4 - Running sensortoolkit
 -------------------------
