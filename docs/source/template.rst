@@ -20,8 +20,8 @@ This file should be saved in the project folder you created.
 Copy and paste the script template provided at the bottom of this page
 into ``analysis.py``. Don't forget to save afterward!
 
-Initial Setup
--------------
+Analysis
+--------
 
 Follow along the *Toco Toucan* example outlined below to understand
 the ``analysis.py`` script and insert relevant information.
