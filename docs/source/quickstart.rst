@@ -46,16 +46,16 @@ Download Python and IDE
 As sensortoolkit is a Python package, users will need an installation of Python |min_python_version| or greater.
 It's highly recommended that users download `Miniconda <https://docs.conda.io/en/latest/miniconda.html>`_ or
 `Anaconda <https://www.anaconda.com/products/individual>`_ as both are free installers
-of a simple open source environment and package manager and Python.
+of a simple open source environment, a package manager, and Python.
 
 .. note::
 
   `Click here <./setup.html#download-python-and-ide>`__ for more info about installing Python with Anaconda or Miniconda.
 
 Sensortoolkit works best in development environments that allow you to simultaneously develop scripts, view and
-explore variables, and, execute code. These types of software utilities are called integrated development
-environments (IDEs). One popular IDE for Python included alongside Anaconda distributions of
-the coding language is the `Spyder IDE <https://www.spyder-ide.org>`__.
+explore variables, and execute code. These types of software utilities are called integrated development
+environments (IDEs). One popular IDE for Python, included alongside Anaconda distributions, is the 
+`Spyder IDE <https://www.spyder-ide.org>`__.
 
 Create Project Directory
 """"""""""""""""""""""""
@@ -68,7 +68,8 @@ Example Data Sets
 """""""""""""""""
 
 Example data sets for the *Toco Toucan* sensors and collocated reference monitor are included in the
-GitHub repository under the ``/example_datasets`` folder. Download these files to your project directory.
+`GitHub repository <https://github.com/USEPA/sensortoolkit>`_ under the ``/example_datasets`` 
+folder. Download these files to your project directory.
 
 .. note::
 
@@ -77,10 +78,11 @@ GitHub repository under the ``/example_datasets`` folder. Download these files t
 2 - Installing and Updating sensortoolkit
 -------------------------------------------
 
-It's highly recommended to download sensortoolkit into a suitable virtual environment,
-with all the packages and versions, from the ``stk_environment.yml`` file included in
-the GitHub repository under the ``/environments`` folder. Also, sensortoolkit can be easily
-downloaded with ``pip`` or, if you wish to contribute to the development of the package,
+It's highly recommended to download sensortoolkit into a suitable virtual environment, 
+from the ``stk_environment.yml`` file included in the 
+`GitHub repository <https://github.com/USEPA/sensortoolkit>`_ under 
+the ``/environments`` folder. Also, sensortoolkit can be easily
+downloaded with ``pip``, or if you wish to contribute to the development of the package,
 cloned from the GitHub repository.
 
 .. note::

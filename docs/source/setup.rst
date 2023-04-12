@@ -55,7 +55,8 @@ creating a new folder in your documents directory. Let's call this directory ``t
 3 - Download Sensor and Reference Data Sets
 """""""""""""""""""""""""""""""""""""""""""
 
-Example data sets for the *Toco Toucan* example are included in the GitHub repository under
+Example data sets for the *Toco Toucan* example are included in the 
+`GitHub repository <https://github.com/USEPA/sensortoolkit>`_ under
 the ``/example_datasets`` folder. Download these files to your project directory.
 The files include one collocated reference monitor data set called ``airnowtech_example_reference_data.csv``
 and three *Toco Toucan* sensor data sets called ``toco_toucan_RT01_raw.csv``, ``toco_toucan_RT02_raw.csv``,
@@ -63,5 +64,7 @@ and ``toco_toucan_RT03_raw.csv``.
 
 .. tip::
 
-  To download the .csv files from Github, select the .csv file, right-click the ``raw`` button
-  at the top, select ``Save link as...``, and save to the project directory, ``toucan_evaluation``.
+  To download the .csv files from Github, select the .csv file and click ``View raw`` 
+  or the ``Download`` button. The raw file will open in your browser. 
+  Then, right-click anywhere on the page and select ``Save as...`` and save the file to the 
+  project directory, ``toucan_evaluation``. **Make sure it is saved with a .csv extension.**

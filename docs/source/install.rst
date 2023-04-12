@@ -36,14 +36,15 @@ in the GitHub repository under the ``/environments`` folder to create the ``stk-
 1 - Download YAML file
 """"""""""""""""""""""
 
-Download the ``sensortoolkit_env.yml`` file included in the GitHub repository under the ``/environments``
+Download the ``sensortoolkit_env.yml`` file included in the 
+`GitHub repository <https://github.com/USEPA/sensortoolkit>`_ under the ``/environments``
 folder to the root of your project directory.
 
 .. tip::
 
-  To download the ``sensortoolkit_env.yml`` file from Github, select the .yml file, right-click the ``raw`` button
-  at the top, select ``Save link as...``, and save to the project directory, ``toucan_evaluation``. **Make sure
-  the file extension stays as just .yml**.
+  To download the ``sensortoolkit_env.yml`` file from Github, select the .yml file and right-click 
+  the ``raw`` button at the top. Then, select ``Save link as...``, and save to the 
+  project directory, ``toucan_evaluation``. **Make sure the file extension stays as just .yml**.
 
 2 - Create Conda Virtual Environment
 """"""""""""""""""""""""""""""""""""
@@ -114,7 +115,7 @@ The user will see something similar to the following printed after creating the 
   Requirement already satisfied: contourpy>=1.0.1 in c:\users\...\miniconda3\envs\stk-env\lib\site-packages (from matplotlib->sensortoolkit->-r C:\Users\...\Documents\toucan_evaluation\condaenv.0ut78_b8.requirements.txt (line 4)) (1.0.5)
   Requirement already satisfied: fonttools>=4.22.0 in c:\users\...\miniconda3\envs\stk-env\lib\site-packages (from matplotlib->sensortoolkit->-r C:\Users\...\Documents\toucan_evaluation\condaenv.0ut78_b8.requirements.txt (line 4)) (4.25.0)
 
-To use the virtual environment we must activate it. To activate the ``stk-env``
+**To use the virtual environment we must activate it.** To activate the ``stk-env``
 virtual environment, type in the following command:
 
 .. code-block:: console
@@ -131,7 +132,7 @@ When activated, the virtual environment name enclosed in parenthesis will appear
 
   When the virtual environment is active, any additions, deletions, and changes to installed python packages will only
   exist within the virtual environment. **Hence, if any changes to packages must be done for this project
-  the virtual environment must be activated first**
+  the virtual environment must be activated first.**
 
 .. note::
 
@@ -162,7 +163,8 @@ and other required package dependencies for sensortoolkit and Spyder IDE are dow
 
 .. tip::
 
-  If you would like to return to the base environment the user must first deactivate the virtual environment.
+  If you would like to return to the base environment after finishing your project work,
+  the user should deactivate the virtual environment.
   To deactivate the Conda virtual environment, type in the following in your CLI:
 
   .. code-block:: console
@@ -206,7 +208,7 @@ path that looks something like ``C:\Users\...\Anaconda3\Lib\site-packages``
 different depending on how your python installation was configured, although this
 shouldn't matter too much.
 
-Type the following into your CLI to install sensortoolkit (don't forget the period!):
+Type the following into your CLI to install sensortoolkit. **Don't forget the period!**:
 
 .. code-block:: console
 
@@ -242,7 +244,7 @@ If you've installed sensortoolkit using a
 `Conda virtual environment <./install.html#Installing-with-Conda-Virtual-Environment>`_ or with
 `pip <./install.html#installing-with-pip>`_, updating your installation is equally as easy!
 
-.. tip::
+.. caution::
 
 	If using a virtual environment, make sure your virtual environment is activated before using commands to modify packages!
 
