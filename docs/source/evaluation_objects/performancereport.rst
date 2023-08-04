@@ -188,6 +188,11 @@ Example Report
 
 Below is an example report for the ``Toco_Toucan`` sensor.
 
+.. note::
+
+   Sensortoolkit converts time to the UTC timezone. Graphs displayed in the report
+   are in UTC.
+
 Please note that at present, ``PerformanceReport`` does not populate the FRM/FEM
 Instrumentation table with calibration dates, flowrate verification checks, and
 any description of maintenance activities conducted on the reference instrumentation.

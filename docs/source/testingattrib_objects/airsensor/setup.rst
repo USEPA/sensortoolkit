@@ -396,6 +396,11 @@ mode.
 
     Press enter to continue.
 
+.. note::
+
+   Sensortoolkit converts time to the UTC timezone. Graphs displayed in the final report
+   are in UTC.
+
 9. Specifying the Parameter Renaming Scheme
 -------------------------------------------
 
