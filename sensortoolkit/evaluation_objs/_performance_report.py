@@ -102,7 +102,7 @@ class PerformanceReport(SensorEvaluation):
 
     # Evaluation parameters for which the PerformanceReport class can
     # construct reports
-    report_params = ['PM25', 'O3']
+    report_params = ['PM25', 'PM10', 'O3']
 
     def __init__(self, sensor, param, reference, write_to_file=False,
                  figure_search=False, **kwargs):
