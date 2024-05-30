@@ -285,7 +285,8 @@ def sensor_timeplot(df_list, ref_df, param=None, sensor_name=None,
             #kwargs['subplots_adjust'] = (0.05, 0.98, 0.95, 0.5)
 
             title_xpos = 0.5
-            legend_pos = kwargs.get('legend_loc', (0.5, -0.2))
+            #legend_pos = kwargs.get('legend_loc', (0.5, -0.2))
+            legend_pos = kwargs.get('legend_loc', (0.8, -0.5)) ###
             columnspacing = 0.9
 
         # reassign report_fmt false so that generic formatting is selected.
@@ -329,7 +330,9 @@ def sensor_timeplot(df_list, ref_df, param=None, sensor_name=None,
         unique_ax_obj = False
 
     if show_title is True:
-        title_str = (averaging_interval + " Averaged " + fmt_sensor_name + ' '
+        # title_str = (averaging_interval + " Averaged " + fmt_sensor_name + ' '
+        #              + fmt_param)
+        title_str = (averaging_interval + " Averaged" + ' '
                      + fmt_param)
         ax.set_title(title_str, fontsize=fontsize*1.1, x=title_xpos)
 
