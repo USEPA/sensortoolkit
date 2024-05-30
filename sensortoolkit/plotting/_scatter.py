@@ -690,8 +690,8 @@ def scatter_plotter(df_list, ref_df, stats_df=None, plot_subset=None,
 
     if plot_title is True:
         if title_text is None:
-            title_text = f'{fmt_sensor_name} vs. {ref_name} {averaging_interval} {fmt_param}'
-
+            #title_text = f'{fmt_sensor_name} vs. {ref_name} {averaging_interval} {fmt_param}'
+            title_text = f'{averaging_interval} Averaged {fmt_param}'
         if report_fmt:
             title_text = title_text.replace(f'{ref_name} ', f'{ref_name}\n')
 
@@ -1193,7 +1193,8 @@ def met_influence(df_list, ref_df, avg_df, met_ref_df=None,
     if dep_var == 'normalized':
         # Compute normalized dataframes
         depvar_df_list = normalize(df_list, ref_df, param_name, ref_name)
-        title = f'{fmt_sensor_name} {fmt_param} Normalized by {ref_name}'
+        #title = f'{fmt_sensor_name} {fmt_param} Normalized by {ref_name}'
+        title = f' ' ###
         # Plot 1:1 normalization line
         ax.axhline(y=1.0, linewidth=1.5, color='#8b8b8b', alpha=.8)
         legend_list = ['1:1']
@@ -1210,14 +1211,15 @@ def met_influence(df_list, ref_df, avg_df, met_ref_df=None,
         ax.axhline(y=0.0, linewidth=1.5, color='#8b8b8b', alpha=.8, linestyle='--')
         legend_list = [f'Target Value: 0 {fmt_param_units}']
 
-    x_label = f'Reference {fmt_met_param} ({fmt_met_units})'
+    x_label = f'Monitor {fmt_met_param} ({fmt_met_units})'
+    y_label = f'Normalized {fmt_param}'
     # labels = [title]
     # labels = wrap_text(labels, max_label_len=45)
     # title = labels[0]
 
 
     param_dict = {'xlabel': x_label,
-                  'ylabel': ''}
+                  'ylabel': y_label}
 
 
     # Set xlim and ylim if not specified
