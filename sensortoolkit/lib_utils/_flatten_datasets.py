@@ -154,7 +154,7 @@ def flatten_datasets(AirSensor, ReferenceMonitor, verbose=True, include_units=Tr
 
             if not flat_df.empty:
                 for sensor_key in AirSensor.data[interval]:
-                    for param in ['PM25', 'O3']:
+                    for param in ['PM25', 'O3', 'PM10', 'NO2', 'CO', 'SO2']:
                         if ((f'{param}_Value_{sensor_key}' in flat_df.columns)
                         and (f'{param}_Value_Ref' in flat_df.columns)):
                             flat_df[f'{param}_Ratio_{sensor_key}'] = flat_df[f'{param}_Value_{sensor_key}'] / flat_df[f'{param}_Value_Ref']

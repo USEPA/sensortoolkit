@@ -102,7 +102,7 @@ class PerformanceReport(SensorEvaluation):
 
     # Evaluation parameters for which the PerformanceReport class can
     # construct reports
-    report_params = ['PM25', 'PM10', 'O3']
+    report_params = ['PM25', 'PM10', 'O3', 'CO', 'NO2', 'SO2']
 
     def __init__(self, sensor, param, reference, write_to_file=False,
                  figure_search=False, **kwargs):
@@ -1115,7 +1115,7 @@ class PerformanceReport(SensorEvaluation):
             try:
 
                 averaging = self.param.averaging.copy()
-                if self.param.name == 'O3':
+                if self.param.name == 'O3' or self.param.name == 'NO2' or self.param.name == 'CO':
                     averaging.append('rolling_8-hour')
 
                 refconc_str = ''
