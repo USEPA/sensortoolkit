@@ -275,7 +275,10 @@ class SensorEvaluation:
             self.pm_hourly_ref_df = self.ref_dict['PM']['1-hour']
             self.pm_daily_ref_df = self.ref_dict['PM']['24-hour']
         else:
-            cols = ['PM25' + col for col in ref_param_cols]
+            if self.param == 'PM25':
+                cols = ['PM25' + col for col in ref_param_cols]
+            else:
+                cols = ['PM10' + col for col in ref_param_cols]
             cols = cols + site_cols
             self.pm_hourly_ref_df = pd.DataFrame(np.nan,
                                                  index=hourly_ref_idx,
@@ -295,7 +298,14 @@ class SensorEvaluation:
             self.gas_hourly_ref_df = self.ref_dict['Gases']['1-hour']
             self.gas_daily_ref_df = self.ref_dict['Gases']['24-hour']
         else:
-            cols = ['O3' + col for col in ref_param_cols]
+            if self.param == 'O3':
+                cols = ['O3' + col for col in ref_param_cols]
+            elif self.param == 'CO':
+                cols = ['CO' + col for col in ref_param_cols]
+            elif self.param == 'NO2':
+                cols = ['NO2' + col for col in ref_param_cols]
+            else:
+                cols = ['SO2' + col for col in ref_param_cols]
             cols = cols + site_cols
             self.gas_hourly_ref_df = pd.DataFrame(np.nan,
                                                   index=hourly_ref_idx,
