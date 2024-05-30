@@ -137,8 +137,8 @@ def met_distrib(met_ref_data, avg_hrly_df, figure_path, sensor_name=None,
 
     fill_color = [['#77529A'], ['#b06c8b'], ['#588ded']]
 
-    fig_title = ('Temperature and Relative Humidity\n'
-                 '1-hour Averaged Measurements')
+    # fig_title = ('Temperature and Relative Humidity\n'
+    #              '1-hour Averaged Measurements')
 
 
     fig.subplots_adjust(wspace=.6,
@@ -160,7 +160,7 @@ def met_distrib(met_ref_data, avg_hrly_df, figure_path, sensor_name=None,
             try:
                 data = avg_hrly_df['mean_' + param].dropna()
                 sensor_data = True
-                fig_title = fig_title.replace('Meteorological Site Monitor', 'Internal Sensor')
+                #fig_title = fig_title.replace('Meteorological Site Monitor', 'Internal Sensor')
             except KeyError:
                 print('..{param} not measured by sensor, unable to plot '
                       'distribution')
@@ -173,28 +173,30 @@ def met_distrib(met_ref_data, avg_hrly_df, figure_path, sensor_name=None,
         sns.histplot(data,
                      ax=axs[i],
                      bins=15,
-                     stat='percent',
+                     stat='density',
                      kde=True,
                      color=fill_color[i][0],
                      **{'alpha': 0.6})
 
         if param.startswith('RH'):
-            label = 'Reference Relative Humidity (%)'
+            label = 'Relative Humidity (%)'
             if sensor_data:
                 label = label.replace('Reference', 'Sensor')
                 axs[i].set_title('*Sensor Measurements Shown*',
                                  fontsize=detail_font_size, y=0.97)
             axs[i].set_xlabel(label, fontsize=detail_font_size)
             axs[i].xaxis.set_major_locator(plt.MultipleLocator(25))
+            axs[i].set_title('Relative Humidity', fontsize=10)
 
         if param.startswith('Temp'):
-            label = 'Reference Temperature ($\\degree$C)'
+            label = 'Temperature ($\\degree$C)'
             if sensor_data:
                 label = label.replace('Reference', 'Sensor')
                 axs[i].set_title('*Sensor Measurements Shown*',
                                  fontsize=detail_font_size, y=0.97)
             axs[i].set_xlabel(label, fontsize=detail_font_size)
             axs[i].xaxis.set_major_locator(plt.MultipleLocator(10))
+            axs[i].set_title('Temperature',fontsize=10)
 
         if param.startswith('DP'):
             label = 'Reference Dew Point ($\\degree$C)'
@@ -204,12 +206,12 @@ def met_distrib(met_ref_data, avg_hrly_df, figure_path, sensor_name=None,
                                  fontsize=detail_font_size, y=0.97)
             axs[i].set_xlabel(label, fontsize=detail_font_size)
 
-        axs[i].set_ylabel('Relative Probability (%)',
+        axs[i].set_ylabel('Relative Probability',
                           fontsize=detail_font_size)
 
         axs[i].tick_params(axis='both', labelsize=detail_font_size)
 
-    plt.suptitle(fig_title, fontsize=font_size)
+    #plt.suptitle(fig_title, fontsize=font_size)
 
     if write_to_file is True:
         todays_date = get_todays_date()
