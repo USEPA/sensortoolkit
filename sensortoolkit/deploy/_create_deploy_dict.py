@@ -227,8 +227,19 @@ def deploy_ref_stats(deploy_dict, ref_df, cal_check_dict=None, param=None,
 
     if param_name == 'PM25':
         conc_goal = 25  # Concentration goal: 25 ug/m^3 for at least one day
+    elif param_name == 'PM10':
+        conc_goal = 40  # Concentration goal: 40 ug/m^3 for at least one day
     elif param_name == 'O3':
         conc_goal = 60  # Concentration goal: 60 ppbv for at least one day
+        ref_df[f'{param_name}_rolling_8-hour_Value'] = ref_df[f'{param_name}_Value'].rolling(window=8).mean()
+    elif param_name == 'NO2':
+        conc_goal = 30  # Concentration goal: 30 ppbv for at least one day
+        ref_df[f'{param_name}_rolling_8-hour_Value'] = ref_df[f'{param_name}_Value'].rolling(window=8).mean()
+    #elif param_name == 'SO2':
+    #    conc_goal = 30  # Concentration goal: 30 ppbv for at least one day
+    #    ref_df[f'{param_name}_rolling_8-hour_Value'] = ref_df[f'{param_name}_Value'].rolling(window=8).mean()
+    elif param_name == 'CO':
+        conc_goal = 0.5  # Concentration goal: 0.5 ppmv for at least one day
         ref_df[f'{param_name}_rolling_8-hour_Value'] = ref_df[f'{param_name}_Value'].rolling(window=8).mean()
 
     else:
