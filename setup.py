@@ -9,6 +9,7 @@ readme = (here / 'README.md').read_text()
 
 setup(name='sensortoolkit',
       version='0.9.0b2',
+      #version='1.0.0',
       python_requires='>=3.8, <4',
       description='Library for evaluating air sensor data',
       long_description=readme,
