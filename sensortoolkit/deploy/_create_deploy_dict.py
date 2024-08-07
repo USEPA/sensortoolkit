@@ -277,7 +277,7 @@ def deploy_ref_stats(deploy_dict, ref_df, cal_check_dict=None, param=None,
             stats_loc['n_exceed_conc_goal' + avg_suffix] = None
 
         # add 8-hr rolling statistics
-        if param_name =='O3':
+        if param_name =='O3' or param_name =='CO' or param_name =='NO2':
             avg_suffix = '_rolling_8-hour'
             ref_data = ref_df.loc[start:end, f'{param_name}{avg_suffix}_Value']
 
