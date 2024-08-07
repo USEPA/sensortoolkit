@@ -173,7 +173,7 @@ def met_distrib(met_ref_data, avg_hrly_df, figure_path, sensor_name=None,
         sns.histplot(data,
                      ax=axs[i],
                      bins=15,
-                     stat='density',
+                     stat='probability',
                      kde=True,
                      color=fill_color[i][0],
                      **{'alpha': 0.6})
@@ -186,7 +186,7 @@ def met_distrib(met_ref_data, avg_hrly_df, figure_path, sensor_name=None,
                                  fontsize=detail_font_size, y=0.97)
             axs[i].set_xlabel(label, fontsize=detail_font_size)
             axs[i].xaxis.set_major_locator(plt.MultipleLocator(25))
-            axs[i].set_title('Relative Humidity', fontsize=10)
+            axs[i].set_title('Relative Humidity Monitor', fontsize=10)
 
         if param.startswith('Temp'):
             label = 'Temperature ($\\degree$C)'
@@ -196,7 +196,7 @@ def met_distrib(met_ref_data, avg_hrly_df, figure_path, sensor_name=None,
                                  fontsize=detail_font_size, y=0.97)
             axs[i].set_xlabel(label, fontsize=detail_font_size)
             axs[i].xaxis.set_major_locator(plt.MultipleLocator(10))
-            axs[i].set_title('Temperature',fontsize=10)
+            axs[i].set_title('Temperature Monitor',fontsize=10)
 
         if param.startswith('DP'):
             label = 'Reference Dew Point ($\\degree$C)'
