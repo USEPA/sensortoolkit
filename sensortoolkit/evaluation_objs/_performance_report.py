@@ -675,10 +675,11 @@ class PerformanceReport(SensorEvaluation):
             run1.text = 'Testing Report - '
             param_baseline = title_line_1.add_run()
             param_baseline.text = self.param.format_baseline
-            param_subscript = title_line_1.add_run()
-            param_subscript.text = self.param.format_subscript
-            font = param_subscript.font
-            self.SetSubscript(font)
+            if self.param.name != 'CO':
+                param_subscript = title_line_1.add_run()
+                param_subscript.text = self.param.format_subscript
+                font = param_subscript.font
+                self.SetSubscript(font)
             run4 = title_line_1.add_run()
             run4.text = ' Base Testing'
 
