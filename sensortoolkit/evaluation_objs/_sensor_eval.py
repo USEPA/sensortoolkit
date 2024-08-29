@@ -1018,6 +1018,108 @@ class SensorEvaluation:
                                       ref_mdl=self.ref_info.get('Federal MDL', None),
                                       write_to_file=write,
                                       **kwargs)
+            
+    def plot_wind_influence(self, met_param='WS', report_fmt=True,
+                           **kwargs):
+        """Plot the influence meteorological parameters (wind speed or
+        wind direction) on sensor measurements.
+
+        The concentration difference between sensor measurements and reference 
+        measurement values or the absolute value of that difference for 
+        the corresponding timestamp and are plotted along the y-axis. Meteorological 
+        measurements as measured by anemometers (rather than onboard sensor measurements)
+        are plotted along the x-axis. Scatter for each sensor are displayed as
+        separate colors to indicate the unique response of each sensor unit.
+
+        A gray 1:1 line indicates ideal agreement between sensor and reference
+        measurements over the range of wind conditions (i.e., a ratio
+        of 1 would indicate that the sensor and reference measure the same
+        concentration value for a given timestamp). Scatter below the 1:1
+        line indicates underestimation bias, and scatter above the 1:1 line
+        indicates overestimation bias.
+
+        Args:
+            met_param (str, optional):
+                Either ``'WS'`` for displaying the influence of wind speed
+                or ``'WD'`` for displaying the influence of wind direction.
+                Defaults to None.
+            report_fmt (bool, optional):
+                If true, format figure for inclusion in a performance report.
+                Defaults to True.
+            \\*\\*kwargs (dict): Plotting keyword arguments.
+
+        Returns:
+            None.
+
+        """
+
+        # kwargs['dep_var'] = kwargs.get('dep_var', 'absdiff')
+        # Reference data header names for met data
+        valid_met_params = ['WS', 'WD']
+
+        write = kwargs.get('write_to_file', self.write_to_file)
+        kwargs.pop('write_to_file', None)
+
+        if report_fmt is True:
+            fig, axs = plt.subplots(1, 2, figsize=(8.1, 3.8))
+            fig.subplots_adjust(hspace=0.7)
+            kwargs['fontsize'] = kwargs.get('fontsize', 10)
+
+            # if kwargs.get('dep_var') == 'diff':
+            #     kwargs['ylims'] = kwargs.get('ylims', (-.3, 4))
+
+            for i, m_param in enumerate(valid_met_params):
+                # Prevent writing to file on first iteration of loop
+                if i == 0:
+                    write_to_file = False
+                    kwargs['ylims'] = kwargs.get('ylims', (-.3, 4))
+                    kwargs['dep_var'] = kwargs.get('dep_var', 'diff')
+
+                if i == 1:
+                    write_to_file = write
+                    kwargs['ylims'] = kwargs.get('ylims', (-.3, 4))
+                    kwargs['dep_var'] = kwargs.get('dep_var', 'absdiff')
+
+                axs[i] = sensortoolkit.plotting.wind_influence(
+                                          self.hourly_df_list,
+                                          self.hourly_ref_df,
+                                          self.avg_hrly_df,
+                                          self.met_hourly_ref_df,
+                                          self.figure_path,
+                                          param=self._param_name,
+                                          sensor_serials=self.serials,
+                                          sensor_name=self.name,
+                                          met_param=m_param,
+                                          ref_name=self.ref_desig,
+                                          ref_mdl=self.ref_info.get('Federal MDL', None),
+                                          write_to_file=write_to_file,
+                                          report_fmt=report_fmt,
+                                          fig=fig,
+                                          ax=axs[i],
+                                          **kwargs)
+                if i == 0:
+                    axs[i].get_legend().remove()
+        else:
+            # Either Temp or RH must be passed to met_param if not using report
+            # formatting. Report formatted plots dont require a value for
+            # met_param as both Temp and RH scatter are automatically plotted.
+            if met_param not in valid_met_params:
+                sys.exit(f'Invalid parameter name: {met_param}')
+
+            sensortoolkit.plotting.wind_influence(
+                                      self.hourly_df_list,
+                                      self.hourly_ref_df,
+                                      self.avg_hrly_df,
+                                      self.met_hourly_ref_df,
+                                      self.figure_path,
+                                      param=self._param_name,
+                                      sensor_serials=self.serials,
+                                      sensor_name=self.name,
+                                      met_param=met_param,
+                                      ref_name=self.ref_desig,
+                                      ref_mdl=self.ref_info.get('Federal MDL', None),
+                                      write_to_file=write,
+                                      **kwargs)
 
     def plot_sensor_met_scatter(self, averaging_interval='1-hour',
                                 met_param='Temp',
