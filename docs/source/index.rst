@@ -85,15 +85,22 @@ U.S. EPA's Performance Targets Reports
 In February 2021, U.S. EPA released two reports outlining recommended performance
 testing protocols, metrics, and target values for fine particulate matter (:raw-html:`PM<sub>2.5</sub>`)
 and ozone (:raw-html:`O<sub>3</sub>`) air sensors used in
-non-regulatory, supplemental, and informational monitoring (NSIM) applications.
+non-regulatory, supplemental, and informational monitoring (NSIM) applications. Then, in February of 2024,
+U.S. EPA released a (:raw-html:`PM<sub>10</sub>`) supplemental report and a nitrogen dioxide (:raw-html:`NO<sub>2</sub>`), 
+carbon monoxide (:raw-html:`CO`), and a sulfur dioxide (:raw-html:`SO<sub>2</sub>`) supplemental report outlining recommended performance 
+testing protocols, metrics, and target values for their respective sensors for NSIM applications.
 
 .. sidebar:: Links to U.S. EPA's Reports
 
   * `Fine Particulate Matter Report <https://cfpub.epa.gov/si/si_public_record_Report.cfm?dirEntryId=350785&Lab=CEMM>`_
+  * `Supplement to Fine Particulate Matter Report <https://cfpub.epa.gov/si/si_public_record_report.cfm?dirEntryId=360419&Lab=CEMM>`_
   * `Ozone Report <https://cfpub.epa.gov/si/si_public_record_Report.cfm?dirEntryId=350784&Lab=CEMM>`_
+  * `Supplement to Ozone Report <https://cfpub.epa.gov/si/si_public_record_Report.cfm?dirEntryId=360578&Lab=CEMM>`_
 
 The sensortoolkit library includes numerous modules for computing performance metrics recommended by
-U.S. EPA for evaluating  (:raw-html:`PM<sub>2.5</sub>`) and ozone (:raw-html:`O<sub>3</sub>`) sensors. Additionally,
+U.S. EPA for evaluating (:raw-html:`PM<sub>2.5</sub>`), (:raw-html:`PM<sub>10</sub>`), ozone (:raw-html:`O<sub>3</sub>`), 
+nitrogen dioxide (:raw-html:`NO<sub>2</sub>`), carbon monoxide (:raw-html:`CO`), 
+and sulfur dioxide (:raw-html:`SO<sub>2</sub>`) sensors. Additionally,
 plotting functions are included for visualizing performance evaluation results, including
 visualization of sensor performance metric values against U.S. EPA's performance targets,
 sensor time series, scatter plots comparing collocated sensor and reference measurements,
@@ -104,9 +111,10 @@ conducting at ambient air monitoring sites.
 
 .. note::
 
-    Presently, evaluation of sensor performance with sensortoolkit using
-    U.S. EPA’s recommended performance metrics and target values is limited to
-    :raw-html:`PM<sub>2.5</sub>` and :raw-html:`O<sub>3</sub>`.
+    Evaluation of sensor performance with sensortoolkit using
+    U.S. EPA’s recommended performance metrics and target 
+    values has been recently updated to include :raw-html:`PM<sub>10</sub>`, 
+    :raw-html:`NO<sub>2</sub>`, :raw-html:`CO`, :raw-html:`SO<sub>2</sub>`!
 
 FRM/FEM data may not be available at all testing sites for non-criteria
 pollutants (:raw-html:`PM<sub>1</sub>`, NO,
