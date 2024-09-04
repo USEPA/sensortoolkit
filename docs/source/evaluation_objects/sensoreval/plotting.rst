@@ -89,6 +89,40 @@ indicates overestimation bias.
 
 -----
 
+``SensorEvaluation.plot_wind_influence()``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+`API Documentation for plot_wind_influence() <../../api/_autosummary/sensortoolkit.evaluation_objs._sensor_eval.SensorEvaluation.html#sensortoolkit.evaluation_objs._sensor_eval.SensorEvaluation.plot_wind_influence>`_
+
+Example
+"""""""
+
+.. figure:: ../../data/Example_Test_Testing_diff_absdiff_PM25_met_report_fmt_240822_v1.png
+   :align: center
+   :alt: Scatter plots indicating the influence of wind speed and wind direction on sensor measurements by plotting the concentration difference (sensor-reference) vs. wind speed or the absolute concentration difference (sensor-reference) vs. wind direction.
+
+|
+
+Description
+"""""""""""
+
+Displays the influence of meteorological parameters (wind speed or wind
+direction) on sensor measurements. Sensor measurements are the concentration 
+difference or absolute concentration difference of the sensor and reference 
+measurement values for the corresponding timestamp and are plotted
+along the y-axis. Meteorological measurements as measured by wind speed and wind direction 
+monitors (rather than onboard sensor measurements) are plotted
+along the x-axis. Scatter for each sensor are displayed as separate colors to
+indicate the unique response of each sensor unit.
+
+The gray 1:1 line indicates ideal agreement between sensor and reference measurements
+over the range of meteorological conditions (i.e., a ratio of 1 would indicate
+that the sensor and reference measure the same concentration value for a given timestamp).
+Scatter below the 1:1 line indicates underestimation bias, and scatter above the 1:1 line
+indicates overestimation bias.
+
+-----
+
 ``SensorEvaluation.plot_metrics()``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
