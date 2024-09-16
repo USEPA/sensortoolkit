@@ -308,10 +308,7 @@ def sensor_timeplot(df_list, ref_df, param=None, sensor_name=None,
     n_legend_objs = len(sensor_serials) + 1
 
     if report_fmt is True:
-        if n_legend_objs <= 5:
-            leg_ncol = 1
-        else:
-            leg_ncol = n_legend_objs
+        leg_ncol = n_legend_objs
     else:
         if n_legend_objs / 4 > 1:
             leg_ncol = 2
