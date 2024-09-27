@@ -307,18 +307,32 @@ def sensor_timeplot(df_list, ref_df, param=None, sensor_name=None,
     # Format the legend, determine how many columns to split legend into
     n_legend_objs = len(sensor_serials) + 1
 
+    # if report_fmt is True:
+    #     leg_ncol = n_legend_objs
+    # else:
+    #     if n_legend_objs / 4 > 1:
+    #         leg_ncol = 2
+    #     else:
+    #         leg_ncol = 1
+
+    #     # Use only one legend column if serial IDs are long
+    #     if max(len(i) for i in sensor_serials.values()) > 6:
+    #         leg_ncol = 1
+
+    # Changed figuring out the number of columns on the timeseries legend 
+    # column based on pollutant type since with the gas plots there is a text 
+    # box to the left and not for the PM plots.
     if report_fmt is True:
-        leg_ncol = n_legend_objs
+        if len(param_averaging) == 1: # for the gases
+            if n_legend_objs / 4 > 1:
+                leg_ncol = 2
+            else:
+                leg_ncol = 1
+        elif len(param_averaging) == 2: # for PM
+            leg_ncol = n_legend_objs
     else:
-        if n_legend_objs / 4 > 1:
-            leg_ncol = 2
-        else:
-            leg_ncol = 1
-
-        # Use only one legend column if serial IDs are long
-        if max(len(i) for i in sensor_serials.values()) > 6:
-            leg_ncol = 1
-
+        leg_ncol = n_legend_objs
+        
     if (ax and fig) is None:
         # No axes object passed to function, create unique fig, axes objects
         fig, ax = plt.subplots(1, 1, figsize=fig_size)
