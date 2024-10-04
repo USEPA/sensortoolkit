@@ -35,6 +35,11 @@ setup process:
   A console width of at least 80 characters is recommended to properly format
   printed statements, banners, and tables within this setup method.
 
+.. note::
+
+  Currently, if a mistake is made in a step of the ingestion process,
+  you may have to start the process over.
+
 1. Selecting File Data Type
 ---------------------------
 
@@ -418,6 +423,10 @@ the header name with a custom parameter that you may have created previously. Ot
 not choose to include the header and associated column in the processed datasets, you can enter an
 empty character (by pressing the "Enter" key), which will skip over the header label and drop it
 from datasets that are processed to the SDFS format.
+.. tip::
+
+  Try to only add the SDFS parameters that you are using in your evaluation and report generation.
+  Extra unnecessary parameters may cause sensortoolkit to not function.
 
 .. code-block:: console
 

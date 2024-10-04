@@ -21,6 +21,7 @@ populated in reports via the respective ``sensortoolkit.presets`` attributes:
       'testing_descrip': '[Insert name of deployment]',
       'org_name': '[Insert organization name]',
       'org_division': '[Insert organization division]',
+      'org_type': '', #not needed
       'org_website': {'title': '[Insert title of website]',
                       'link': '[Insert website link]'},
       'org_contact_email': '[Insert email]',
@@ -28,11 +29,11 @@ populated in reports via the respective ``sensortoolkit.presets`` attributes:
 
   # Add information about the testing location where sensors were sited
   sensortoolkit.presets.test_loc = {
-      'site_name': '[Insert name of site] ',
+      'site_name': '[Insert name of site] ', #strongly recommended
       'site_address': '[Insert site address]',
       'site_lat': '[Insert site latitude]',
       'site_lon': '[Insert site longitude]',
-      'site_aqs_id': '[If applicable, insert site AQS ID]'}
+      'site_aqs_id': '[If applicable, insert site AQS ID]'} #strongly recommended, if applicable
 
 These dictionaries house information about the testing organization, contact information,
 and site details including the address, coordinates, and site AQS ID if applicable.
@@ -54,6 +55,8 @@ A dictionary containing the information about the testing organization.
     - The name of the testing organization.
   * - ``org_division``
     - The organization testing division.
+  * - ``org_type``
+    - The organization sector type.
   * - ``org_website``
     - Website title and address for the testing organization.
   * - ``org_contact_email``

@@ -82,7 +82,8 @@ module, where the user inputs information via the console.
     can be skipped by pressing the 'Enter' key.
 
     .. important::
-      Users are strongly recommended to provide a site name and, if applicable, a site AQS ID.
+      Users are strongly recommended to provide a site name and, if applicable, a site AQS ID. An AQS ID is a
+      9 digit number consisting of state code, county code, and site code that identifies an air monitoring site.
       These attributes are used to organize reference data within the ``/data/reference_data/[data source]/[raw or processed]``
       subdirectories.
 
@@ -348,7 +349,8 @@ module, where the user inputs information via the console.
     can be skipped by pressing the 'Enter' key.
 
     .. important::
-      Users are strongly recommended to provide a site name and, if applicable, a site AQS ID.
+      Users are strongly recommended to provide a site name and, if applicable, a site AQS ID. An AQS ID is a
+      9 digit number consisting of state code, county code, and site code that identifies an air monitoring site.
       These attributes are used to organize reference data within the ``/data/reference_data/[data source]/[raw or processed]``
       subdirectories.
 
@@ -462,7 +464,8 @@ module, where the user inputs information via the console.
     can be skipped by pressing the 'Enter' key.
 
     .. important::
-      Users are strongly recommended to provide a site name and, if applicable, a site AQS ID.
+      Users are strongly recommended to provide a site name and, if applicable, a site AQS ID. An AQS ID is a
+      9 digit number consisting of state code, county code, and site code that identifies an air monitoring site.
       These attributes are used to organize reference data within the ``/data/reference_data/[data source]/[raw or processed]``
       subdirectories.
 
@@ -575,7 +578,8 @@ module, where the user inputs information via the console.
     can be skipped by pressing the 'Enter' key.
 
     .. important::
-      Users are strongly recommended to provide a site name and, if applicable, a site AQS ID.
+      Users are strongly recommended to provide a site name and, if applicable, a site AQS ID. An AQS ID is a
+      9 digit number consisting of state code, county code, and site code that identifies an air monitoring site.
       These attributes are used to organize reference data within the ``/data/reference_data/[data source]/[raw or processed]``
       subdirectories.
 

@@ -47,7 +47,7 @@ Description
 """""""""""
 
 Display a summary of performance evaluation results using EPA’s recommended
-performance metrics (:raw-html:`PM<sub>2.5</sub>` and :raw-html:`O<sub>3</sub>`).
+performance metrics.
 
 The coefficient of variation, sensor vs FRM/FEM OLS regression slope,
 intercept, and :raw-html:`R<sup>2</sup>`,, and RMSE are displayed. Regression statistics

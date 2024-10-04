@@ -2,7 +2,7 @@ Installing and Updating sensortoolkit
 =====================================
 
 sensortoolkit can be installed using a provided YAML file to create a Conda virtual environment,
-using ``pip``, and by cloning the GitHub repository. This section will explain the three
+using ``pip``, or by cloning the GitHub repository. This section will explain the three
 installation methods in detail and how to update sensortoolkit.
 
 .. note::

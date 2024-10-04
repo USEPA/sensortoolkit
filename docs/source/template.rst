@@ -61,7 +61,9 @@ files that are generated during analysis.
 
 .. tip::
 
-  It is strongly recommended to input information for the ``site_name`` and ``site_aqs_id``, if applicable, as these are used to name files and directories created by sensortoolkit in other functions.
+  It is strongly recommended to input information for the ``site_name`` and ``site_aqs_id``, if applicable,
+  as these are used to name files and directories created by sensortoolkit in other functions. An AQS ID is a
+  9 digit number consisting of state code, county code, and site code that identifies an air monitoring site.
 
 .. code-block:: python
 
@@ -70,6 +72,7 @@ files that are generated during analysis.
       'testing_descrip': '[Insert name of deployment]',
       'org_name': '[Insert organization name]',
       'org_division': '[Insert organization division]',
+      'org_type': '', #not needed
       'org_website': {'title': '[Insert title of website]',
                       'link': '[Insert website link]'},
       'org_contact_email': '[Insert email]',
@@ -331,6 +334,7 @@ can be copied directly from the documentation into your IDE of choice.
       'testing_descrip': '[Insert name of deployment]',
       'org_name': '[Insert organization name]',
       'org_division': '[Insert organization division]',
+      'org_type': '', #not needed
       'org_website': {'title': '[Insert title of website]',
                       'link': '[Insert website link]'},
       'org_contact_email': '[Insert email]',

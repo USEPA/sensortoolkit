@@ -8,7 +8,8 @@ Sensortoolkit allows rapid and reproducible evaluation of air sensor data regard
 data formatting or encoding and facilitates comparison against reference data from a
 variety of API services or locally maintained data files. Sensor performance is determined
 using performance metrics and targets recommended by U.S. EPA's documents on the testing
-and evaluation of sensors measuring either fine particular matter or ozone for use in non-regulatory,
+and evaluation of sensors measuring either fine particular matter (PM2.5), PM10, ozone, 
+carbon monoxide, sulfur dioxide, or nitrogen dioxide for use in non-regulatory,
 supplemental, and informational monitoring applications.
 
 This section walks you through an example scenario, evaluating data from a fictitious air
@@ -31,7 +32,7 @@ that reference-grade monitors designated either Federal Equivalent Methods (FEMs
 or Federal Reference Methods (FRMs) are situated at the monitoring site for the
 pollutants you plan to measure. Following a sampling period of 30 days, you
 collect data from each Toucan sensor and acquire data from the monitoring
-agency for collocated reference measurements.
+agency (AirnowTech) for collocated reference measurements.
 
 1 - Setting Up for sensortoolkit
 --------------------------------
@@ -55,7 +56,8 @@ of a simple open source environment, a package manager, and Python.
 Sensortoolkit works best in development environments that allow you to simultaneously develop scripts, view and
 explore variables, and execute code. These types of software utilities are called integrated development
 environments (IDEs). One popular IDE for Python, included alongside Anaconda distributions, is the 
-`Spyder IDE <https://www.spyder-ide.org>`__.
+`Spyder IDE <https://www.spyder-ide.org>`__. In addition, using a virtual environment is highly recommended for ease of use
+and to protect the base installation of python.
 
 Create Project Directory
 """"""""""""""""""""""""
