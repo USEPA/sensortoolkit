@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>sensortoolkit.plotting._errorbars &mdash; sensortoolkit 0.9.0b2 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            sensortoolkit
+          </a>
+              <div class="version">
+                0.9.0b2
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../quickstart.html">Quickstart Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../setup.html">Setting Up for sensortoolkit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../install.html">Installing and Updating sensortoolkit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../template.html">Analysis with sensortoolkit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../template.html#script-template">Script Template</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Objects and Data Structures</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../testingattrib_objects/index.html">Testing Attribute Objects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../data_structures/index.html">Data Structures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../sdfs/index.html">sensortoolkit Data Formatting Scheme (SDFS)</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Analysis and Reports</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../evaluation_objects/index.html">Evaluation Objects</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/index.html">sensortoolkit API</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">sensortoolkit</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">sensortoolkit.plotting._errorbars</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for sensortoolkit.plotting._errorbars</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">This module contains a method ``error_bars()`` for displaying the y-error in</span>
+<span class="sd">measured quantities at regularly spaced intervals (bins) along the x-axis. This</span>
+<span class="sd">method can be used in conjunction with the ``normalized_met_scatter()`` plotting</span>
+<span class="sd">method to display the standard error of normalized measurement pairs (dependent</span>
+<span class="sd">variable) at regularly spaced intervals across the distribution of</span>
+<span class="sd">measured temperature or relative humidity (independent variable).</span>
+
+<span class="sd">================================================================================</span>
+
+<span class="sd">@Author:</span>
+<span class="sd">  | Samuel Frederick, NSSC Contractor (ORAU)</span>
+<span class="sd">  | U.S. EPA / ORD / CEMM / AMCD / SFSB</span>
+
+<span class="sd">Created:</span>
+<span class="sd">  Mon Jan 27 08:49:12 2020</span>
+<span class="sd">Last Updated:</span>
+<span class="sd">  Wed Jul 28 14:18:59 2021</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">pandas.plotting</span> <span class="kn">import</span> <span class="n">register_matplotlib_converters</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">math</span>
+<span class="n">register_matplotlib_converters</span><span class="p">()</span>
+
+
+<div class="viewcode-block" id="error_bars"><a class="viewcode-back" href="../../../api/_autosummary/sensortoolkit.plotting._errorbars.error_bars.html#sensortoolkit.plotting._errorbars.error_bars">[docs]</a><span class="k">def</span> <span class="nf">error_bars</span><span class="p">(</span><span class="n">xdata</span><span class="p">,</span> <span class="n">ydata</span><span class="p">,</span> <span class="n">ax</span><span class="p">,</span> <span class="n">n_xbins</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">plot_yerror</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+               <span class="n">errorbar_color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Display error bars on a passed matplotlib axes plot instance.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        xdata (pandas Series):</span>
+<span class="sd">            Data plotted along the x-axis of the passed axes instance &#39;ax&#39;.</span>
+<span class="sd">        ydata (pandas Series):</span>
+<span class="sd">            Data plotted along the y-axis of the passed axes instance &#39;ax&#39;.</span>
+<span class="sd">        ax (matplotlib axes instance):</span>
+<span class="sd">            A scatter plot displaying measurement pairs along x and y axes.</span>
+<span class="sd">        n_xbins (int, optional):</span>
+<span class="sd">            The number of bins along the range of the xdata from which the error</span>
+<span class="sd">            bars will be computed. This also equals the number of errorbars.</span>
+<span class="sd">            Defaults to 8.</span>
+<span class="sd">        plot_yerror (bool, optional):</span>
+<span class="sd">            Plot error along the y-axis. Defaults to True.</span>
+<span class="sd">        errorbar_color (str, optional):</span>
+<span class="sd">            The color of the error bars. Defaults to &#39;k&#39; (black).</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        None.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">combine</span> <span class="o">=</span> <span class="n">xdata</span><span class="o">.</span><span class="n">to_frame</span><span class="p">()</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">ydata</span><span class="p">)</span>
+
+    <span class="n">xmin</span> <span class="o">=</span> <span class="n">xdata</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>
+    <span class="n">xmax</span> <span class="o">=</span> <span class="n">xdata</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+    <span class="n">xrange</span> <span class="o">=</span> <span class="n">xmax</span> <span class="o">-</span> <span class="n">xmin</span>
+    <span class="n">xbin_width</span> <span class="o">=</span> <span class="n">xrange</span> <span class="o">/</span> <span class="n">n_xbins</span>
+    <span class="n">xbin_centers</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">xmin</span> <span class="o">+</span> <span class="mf">0.5</span><span class="o">*</span><span class="n">xbin_width</span><span class="p">,</span>
+                               <span class="n">xmax</span> <span class="o">-</span> <span class="mf">0.5</span><span class="o">*</span><span class="n">xbin_width</span><span class="p">,</span>
+                               <span class="n">n_xbins</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">plot_yerror</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="n">yerr_list</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">yavg_list</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="n">xdata</span> <span class="o">=</span> <span class="n">combine</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="n">combine</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
+        <span class="n">ydata</span> <span class="o">=</span> <span class="n">combine</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="n">combine</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="mi">1</span><span class="p">:]]</span>
+
+        <span class="k">for</span> <span class="n">bin_center</span> <span class="ow">in</span> <span class="n">xbin_centers</span><span class="p">:</span>
+            <span class="n">bin_min</span> <span class="o">=</span> <span class="n">bin_center</span> <span class="o">-</span> <span class="mf">0.5</span><span class="o">*</span><span class="n">xbin_width</span>
+            <span class="n">bin_max</span> <span class="o">=</span> <span class="n">bin_center</span> <span class="o">+</span> <span class="mf">0.5</span><span class="o">*</span><span class="n">xbin_width</span>
+
+            <span class="n">bin_idx</span> <span class="o">=</span> <span class="n">combine</span><span class="o">.</span><span class="n">where</span><span class="p">((</span><span class="n">xdata</span> <span class="o">&lt;</span> <span class="n">bin_max</span><span class="p">)</span> <span class="o">&amp;</span>
+                                    <span class="p">(</span><span class="n">xdata</span> <span class="o">&gt;</span> <span class="n">bin_min</span><span class="p">))</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">how</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">index</span>
+
+            <span class="n">bin_ydata</span> <span class="o">=</span> <span class="n">combine</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">bin_idx</span><span class="p">,</span> <span class="n">combine</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="mi">1</span><span class="p">:]]</span>
+
+            <span class="c1"># Compute y-data std for xbin range</span>
+            <span class="n">bin_ystd</span> <span class="o">=</span> <span class="n">bin_ydata</span><span class="o">.</span><span class="n">stack</span><span class="p">()</span><span class="o">.</span><span class="n">std</span><span class="p">()</span>
+
+            <span class="c1"># Compute y-data avg for xbin range</span>
+            <span class="n">bin_yavg</span> <span class="o">=</span> <span class="n">bin_ydata</span><span class="o">.</span><span class="n">stack</span><span class="p">()</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+            <span class="n">yavg_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">bin_yavg</span><span class="p">)</span>
+
+            <span class="c1"># Number of sensor-reference data pairs per bin</span>
+            <span class="n">bin_n</span> <span class="o">=</span> <span class="n">bin_ydata</span><span class="o">.</span><span class="n">stack</span><span class="p">()</span><span class="o">.</span><span class="n">count</span><span class="p">()</span>
+
+            <span class="c1"># Compute standard error and append to yerror list</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">std_err</span> <span class="o">=</span> <span class="n">bin_ystd</span> <span class="o">/</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">bin_n</span><span class="p">)</span>
+                <span class="n">yerr_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">std_err</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">ZeroDivisionError</span><span class="p">:</span>
+                <span class="n">yerr_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Warning, divide by zero encountered, zero bin size&#39;</span><span class="p">)</span>
+
+    <span class="n">ax</span><span class="o">.</span><span class="n">errorbar</span><span class="p">(</span><span class="n">xbin_centers</span><span class="p">,</span> <span class="n">yavg_list</span><span class="p">,</span> <span class="n">yerr</span><span class="o">=</span><span class="n">yerr_list</span><span class="p">,</span>
+                <span class="n">fmt</span><span class="o">=</span><span class="s1">&#39;D&#39;</span><span class="p">,</span> <span class="n">mfc</span><span class="o">=</span><span class="n">errorbar_color</span><span class="p">,</span> <span class="n">mec</span><span class="o">=</span><span class="n">errorbar_color</span><span class="p">,</span>
+                <span class="n">ecolor</span><span class="o">=</span><span class="n">errorbar_color</span><span class="p">,</span> <span class="n">capsize</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="o">**</span><span class="p">{</span><span class="s1">&#39;markersize&#39;</span><span class="p">:</span> <span class="mi">4</span><span class="p">},</span>
+                <span class="n">alpha</span><span class="o">=</span><span class="mf">.7</span><span class="p">)</span></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, United States Environmental Protection Agency.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

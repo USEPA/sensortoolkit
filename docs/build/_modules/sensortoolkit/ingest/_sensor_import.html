@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>sensortoolkit.ingest._sensor_import &mdash; sensortoolkit 0.9.0b2 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            sensortoolkit
+          </a>
+              <div class="version">
+                0.9.0b2
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../quickstart.html">Quickstart Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../setup.html">Setting Up for sensortoolkit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../install.html">Installing and Updating sensortoolkit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../template.html">Analysis with sensortoolkit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../template.html#script-template">Script Template</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Objects and Data Structures</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../testingattrib_objects/index.html">Testing Attribute Objects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../data_structures/index.html">Data Structures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../sdfs/index.html">sensortoolkit Data Formatting Scheme (SDFS)</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Analysis and Reports</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../evaluation_objects/index.html">Evaluation Objects</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/index.html">sensortoolkit API</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">sensortoolkit</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">sensortoolkit.ingest._sensor_import</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for sensortoolkit.ingest._sensor_import</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">This module contains wrapper methods for importing and loading sensor data.</span>
+<span class="sd">These methods call on other methods both within this module and in parallel</span>
+<span class="sd">modules. For instance, recorded sensor datasets are located by the</span>
+<span class="sd">``sensor_import()`` method, which subsequently calls methods in the</span>
+<span class="sd">``_standard_ingest.py`` module for converting these datasets to SDFS format.</span>
+<span class="sd">``sensor_import()`` can also be used to load previously processed (SDFS</span>
+<span class="sd">formatted) sensor datasets by calling methods in the</span>
+<span class="sd">``_processed_data_loader.py`` module.</span>
+
+<span class="sd">.. important::</span>
+
+<span class="sd">  The ``AirSensor.sensor_setup()`` method can be used to import sensor data from</span>
+<span class="sd">  a wide range of formatting schemes. However, there may be circumstances in</span>
+<span class="sd">  which the setup method and underlying generalized ingestion methodology is not</span>
+<span class="sd">  able to handle certain sensor datasets.</span>
+
+<span class="sd">  For example, devices that record multiple datasets simultaneously will require</span>
+<span class="sd">  custom ingestion methods. Datasets for the PurpleAir PA-II that are obtained</span>
+<span class="sd">  from the ThingSpeak API may fall into this category, as the API service may</span>
+<span class="sd">  provide separate datasets for each internal PM sensor (channels A and B).</span>
+
+<span class="sd">  For these circumstances, users should create custom functions for importing</span>
+<span class="sd">  sensor data. When attempting to load sensor data via the AirSensor.load_data()</span>
+<span class="sd">  method, users should pass the custom ingestion function to load_data().</span>
+
+<span class="sd">  Example:</span>
+
+<span class="sd">  .. code-block:: python</span>
+
+<span class="sd">    # Your custom ingestion function</span>
+<span class="sd">    def custom_ingestion_method(path_to_data_file, sensor_serial_id):</span>
+
+<span class="sd">        # Load data from the file path for the specified sensor unit</span>
+<span class="sd">        data = pandas.read_csv(path_to_data_file)</span>
+
+<span class="sd">        # Other steps you may need to take to convert the data into SDFS format</span>
+<span class="sd">        # ...</span>
+
+<span class="sd">        return data</span>
+
+<span class="sd">    # Assuming you have created a AirSensor object named &#39;sensor&#39;</span>
+<span class="sd">    # Pass the custom ingest function to the ingest_method attribute</span>
+<span class="sd">    sensor.load_data(load_raw_data=True,</span>
+<span class="sd">                     write_to_file=True,</span>
+<span class="sd">                     ingest_method=custom_ingestion_method)</span>
+
+<span class="sd">  If users come across a circumstance where the ``standard_ingest()`` method is</span>
+<span class="sd">  not successfully able to import sensor data, **users are recommended to create</span>
+<span class="sd">  a custom ingestion method**.</span>
+
+<span class="sd">================================================================================</span>
+
+<span class="sd">@Author:</span>
+<span class="sd">  | Samuel Frederick, NSSC Contractor (ORAU)</span>
+<span class="sd">  | U.S. EPA / ORD / CEMM / AMCD / SFSB</span>
+
+<span class="sd">Created:</span>
+<span class="sd">  Wed Dec  4 08:57:18 2019</span>
+<span class="sd">Last Updated:</span>
+<span class="sd">  Wed Jul 14 10:22:15 2021</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">sensortoolkit.datetime_utils</span> <span class="kn">import</span> <span class="n">sensor_averaging</span>
+<span class="kn">from</span> <span class="nn">sensortoolkit.ingest</span> <span class="kn">import</span> <span class="n">standard_ingest</span><span class="p">,</span> <span class="n">processed_data_search</span>
+<span class="kn">from</span> <span class="nn">sensortoolkit.calculate</span> <span class="kn">import</span> <span class="n">dewpoint</span><span class="p">,</span> <span class="n">convert_temp</span>
+
+
+<div class="viewcode-block" id="sensor_import"><a class="viewcode-back" href="../../../api/_autosummary/sensortoolkit.ingest._sensor_import.sensor_import.html#sensortoolkit.ingest._sensor_import.sensor_import">[docs]</a><span class="k">def</span> <span class="nf">sensor_import</span><span class="p">(</span><span class="n">sensor_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sensor_serials</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                  <span class="n">load_raw_data</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">data_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">processed_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                  <span class="n">write_to_file</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Import recorded or processed sensor data.</span>
+
+<span class="sd">    If loading recorded datasets (i.e., load_raw_data is True), the method will</span>
+<span class="sd">    walk through the directory path where recorded sensor datasets should be</span>
+<span class="sd">    located (``..//data//sensor_data//Sensor_Name//raw_data``). Users</span>
+<span class="sd">    must follow the expected naming scheme for files in this location,</span>
+<span class="sd">    specifying the sensor name and sensor serial identifier for each dataset.</span>
+<span class="sd">    If multiple files were recorded for each sensor unit, files must be</span>
+<span class="sd">    chronologically ordered, and the naming scheme specifying sensor serial id</span>
+<span class="sd">    and sensor make and model must also be adopted. Files must be type &#39;.csv&#39;</span>
+<span class="sd">    or &#39;.txt&#39;.</span>
+
+<span class="sd">    Here are two example cases that follow the expected naming scheme:</span>
+
+<span class="sd">    - **Example 1**:</span>
+
+<span class="sd">      *Import recorded data from one file per sensor*:</span>
+
+<span class="sd">      Say the sensor name is &#39;Example_Make_Model&#39; and three sensor units were</span>
+<span class="sd">      tested with the following serial identifiers:</span>
+
+<span class="sd">      .. code-block:: python</span>
+
+<span class="sd">        sensor_serials = {&#39;1&#39;: &#39;SN01&#39;, &#39;2&#39;: &#39;SN02&#39;, &#39;3&#39;: &#39;SN03&#39;}</span>
+
+<span class="sd">      Let&#39;s also assume that the three units each record separate &#39;.csv&#39;</span>
+<span class="sd">      files. The recorded sensor datasets should be placed at the following</span>
+<span class="sd">      folder location:</span>
+
+<span class="sd">      .. code-block:: console</span>
+
+<span class="sd">        &#39;..//data//sensor_data//Example_Make_Model//raw_data&#39;</span>
+
+<span class="sd">      The folder structure should look something like:</span>
+
+<span class="sd">      .. code-block:: console</span>
+
+<span class="sd">        path//to//raw_data//</span>
+<span class="sd">            Example_Make_Model_SN01.csv</span>
+<span class="sd">            Example_Make_Model_SN02.csv</span>
+<span class="sd">            Example_Make_Model_SN03.csv</span>
+
+<span class="sd">      These files adhere to the expected file naming scheme and data file</span>
+<span class="sd">      formatting and will be loaded without issue by the Import method.</span>
+
+
+<span class="sd">    - **Example 2**:</span>
+
+<span class="sd">      *Import data from multiple files per sensor within nested subdirectories:*</span>
+
+<span class="sd">      For simplicity, let&#39;s use the same serial identifiers as before. The</span>
+<span class="sd">      data will also be located at the same folder path. However, now let&#39;s</span>
+<span class="sd">      say that instead of one file per sensor, datasets are recorded at daily</span>
+<span class="sd">      intervals over the evaluation period and were collected at weekly</span>
+<span class="sd">      intervals and organized by unit ID into sub-directories. Let&#39;s also say</span>
+<span class="sd">      that the data files are recorded as .txt files instead of .csv files.</span>
+<span class="sd">      The data sets can be placed into the ``..//raw_data`` folder path, and</span>
+<span class="sd">      might look something like:</span>
+
+<span class="sd">      .. code-block:: console</span>
+
+<span class="sd">        path//to//raw_data//</span>
+<span class="sd">            //2021_01_08_data_collection</span>
+<span class="sd">                //SN01//</span>
+<span class="sd">                    Example_Make_Model_SN01_20210101.txt</span>
+<span class="sd">                    Example_Make_Model_SN01_20210102.txt</span>
+<span class="sd">                    ...</span>
+<span class="sd">                    Example_Make_Model_SN01_20210108.txt</span>
+<span class="sd">                //SN02//</span>
+<span class="sd">                    Example_Make_Model_SN02_20210101.txt</span>
+<span class="sd">                    Example_Make_Model_SN02_20210102.txt</span>
+<span class="sd">                    ...</span>
+<span class="sd">                    Example_Make_Model_SN02_20210108.txt</span>
+<span class="sd">                //SN03//</span>
+<span class="sd">                    Example_Make_Model_SN03_20210101.txt</span>
+<span class="sd">                    Example_Make_Model_SN03_20210102.txt</span>
+<span class="sd">                    ...</span>
+<span class="sd">                    Example_Make_Model_SN03_20210108.txt</span>
+<span class="sd">            //2021_01_15_data_collection</span>
+<span class="sd">                //SN01//</span>
+<span class="sd">                    Example_Make_Model_SN01_20210109.txt</span>
+<span class="sd">                    Example_Make_Model_SN01_20210110.txt</span>
+<span class="sd">                    ...</span>
+<span class="sd">                    Example_Make_Model_SN01_20210115.txt</span>
+<span class="sd">                //SN02//</span>
+<span class="sd">                    Example_Make_Model_SN02_20210109.txt</span>
+<span class="sd">                    Example_Make_Model_SN02_20210110.txt</span>
+<span class="sd">                    ...</span>
+<span class="sd">                    Example_Make_Model_SN02_20210115.txt</span>
+<span class="sd">                //SN03//</span>
+<span class="sd">                    Example_Make_Model_SN03_20210109.txt</span>
+<span class="sd">                    Example_Make_Model_SN03_20210110.txt</span>
+<span class="sd">                    ...</span>
+<span class="sd">                    Example_Make_Model_SN03_20210115.txt</span>
+<span class="sd">            ...</span>
+
+<span class="sd">      .. note::</span>
+
+<span class="sd">        If all the files have unique names, one could place all of</span>
+<span class="sd">        the .txt files in the ``//raw_data//`` directory. This example is simply</span>
+<span class="sd">        meant to illustrate that the import method can handle these types of</span>
+<span class="sd">        nested folder structures if the appropriate naming scheme is followed).</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        sensor_name (str): The make and model of the sensor being evaluated.</span>
+<span class="sd">        serials (dict): A dictionary of sensor serial identifiers for each unit</span>
+<span class="sd">            in a testing group</span>
+<span class="sd">        load_raw_data (bool): If true, raw data in the appropriate subdirectory</span>
+<span class="sd">            will be loaded and 1-hr and 24-hr averages will be computed and</span>
+<span class="sd">            saved to a processed data subdirectory for the specified sensor.</span>
+<span class="sd">            If false, processed data will be loaded.</span>
+<span class="sd">        data_path (str): The full directory path to raw sensor data for a given</span>
+<span class="sd">            sensor make and model.</span>
+<span class="sd">        processed_path (str): The full directory path to processed sensor data</span>
+<span class="sd">            for a given sensor make and model.</span>
+<span class="sd">        write_to_file (bool): If true and load_raw_data true, processed files</span>
+<span class="sd">            will be written to folder location. In addition, subsequent</span>
+<span class="sd">            evaluation statistics will be written to the &#39;data&#39; and</span>
+<span class="sd">            &#39;eval_stats&#39; sensor subdirectory. Figures will also be written to</span>
+<span class="sd">            the appropriate figures subdirectory.</span>
+
+<span class="sd">    **Keyword Arguments**</span>
+
+<span class="sd">    :param str bdate:</span>
+<span class="sd">        The timestamp (date) marking the beginning of the sensor testing period,</span>
+<span class="sd">        formatted as ``&#39;YYYY-MM-DD HH:MM:SS&#39;``. Sensor datasets will be</span>
+<span class="sd">        concatenated to begin at this timestamp.</span>
+<span class="sd">    :param str edate:</span>
+<span class="sd">        The timestamp (date) marking the end of the sensor testing period,</span>
+<span class="sd">        formatted as ``&#39;YYYY-MM-DD HH:MM:SS&#39;``. Sensor datasets will be</span>
+<span class="sd">        concatenated to end at this timestamp.</span>
+<span class="sd">    :param function object ingest_method:</span>
+<span class="sd">        If not None, ``ingest_wrapper()`` will attempt to import sensor</span>
+<span class="sd">        data using a passed custom written ingestion module instead of the</span>
+<span class="sd">        ``standard_ingest()`` method.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        (tuple): Three-element tuple containing:</span>
+
+<span class="sd">            - **full_df_list** (*list*): List of pandas dataframe objects, one</span>
+<span class="sd">              for each sensor dataset containing processed full time-resolution</span>
+<span class="sd">              data.</span>
+<span class="sd">            - **hourly_df_list** (*list*): List of pandas dataframe objects, one</span>
+<span class="sd">              for each sensor dataset containing processed hourly averaged</span>
+<span class="sd">              time-resolution data.</span>
+<span class="sd">            - **daily_df_list** (*list*): List of pandas dataframe objects, one</span>
+<span class="sd">              for each sensor dataset containing processed daily (24-hr)</span>
+<span class="sd">              averaged time-resolution data.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        AttributeError: If searching for recorded sensor datasets and no files</span>
+<span class="sd">            found with the expected naming scheme or file formatting (files must</span>
+<span class="sd">            be ordered chronologically, contain the unique serial identifier</span>
+<span class="sd">            corresponding to the sensor unit that recorded the sensor data file,</span>
+<span class="sd">            and must be in either .csv or .txt format).</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">valid_extensions</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;.csv&#39;</span><span class="p">,</span> <span class="s1">&#39;.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;.xlsx&#39;</span><span class="p">]</span>
+    <span class="n">ingest_method</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;ingest_method&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+    <span class="n">start</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;bdate&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+    <span class="n">end</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;edate&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">load_raw_data</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="n">full_df_list</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Importing Recorded Sensor Data:&#39;</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">serial</span> <span class="ow">in</span> <span class="n">sensor_serials</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="n">sensor_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;..&#39;</span> <span class="o">+</span> <span class="n">serial</span><span class="p">)</span>
+
+            <span class="n">file_list</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">path</span><span class="p">,</span> <span class="n">folders</span><span class="p">,</span> <span class="n">files</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">walk</span><span class="p">(</span><span class="n">data_path</span><span class="p">):</span>
+                <span class="k">for</span> <span class="n">filename</span> <span class="ow">in</span> <span class="n">files</span><span class="p">:</span>
+                    <span class="n">filename_l</span> <span class="o">=</span> <span class="n">filename</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+                    <span class="c1"># check the file has one of the listed valid extensions</span>
+                    <span class="n">valid_file</span> <span class="o">=</span> <span class="nb">any</span><span class="p">(</span><span class="n">filename_l</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="n">extension</span><span class="p">)</span> <span class="k">for</span>
+                                     <span class="n">extension</span> <span class="ow">in</span> <span class="n">valid_extensions</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="n">serial</span> <span class="ow">in</span> <span class="n">filename</span> <span class="ow">and</span> <span class="n">valid_file</span><span class="p">:</span>
+                        <span class="c1"># Load sensor data and append file datasets</span>
+                        <span class="n">cwd</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">filename</span><span class="p">)</span>
+                        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;....&#39;</span> <span class="o">+</span> <span class="n">filename</span><span class="p">)</span>
+                        <span class="n">df</span> <span class="o">=</span> <span class="n">ingest_wrapper</span><span class="p">(</span><span class="n">cwd</span><span class="p">,</span> <span class="n">sensor_name</span><span class="p">,</span> <span class="n">serial</span><span class="p">,</span>
+                                            <span class="n">data_path</span><span class="p">,</span> <span class="n">ingest_method</span><span class="p">)</span>
+
+                        <span class="k">if</span> <span class="n">df</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                            <span class="n">sensor_df</span> <span class="o">=</span> <span class="n">sensor_df</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+
+                            <span class="k">if</span> <span class="n">df</span><span class="o">.</span><span class="n">attrs</span> <span class="o">!=</span> <span class="p">{}</span> <span class="ow">and</span> <span class="n">sensor_df</span><span class="o">.</span><span class="n">attrs</span> <span class="o">==</span> <span class="p">{}:</span>
+                                <span class="n">sensor_df</span><span class="o">.</span><span class="n">attrs</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">attrs</span>
+
+                <span class="n">file_list</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">files</span><span class="p">)</span>
+
+            <span class="c1"># Check if serial ID not found in any file names.</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">any</span><span class="p">(</span><span class="n">serial</span> <span class="ow">in</span> <span class="n">file</span> <span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="n">file_list</span><span class="p">):</span>
+                <span class="n">console_out</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;Serial ID &#39;</span> <span class="o">+</span> <span class="n">serial</span> <span class="o">+</span> <span class="s1">&#39; not found in data &#39;</span>
+                               <span class="s1">&#39;files:</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">file_list</span><span class="p">))</span>
+                <span class="nb">print</span><span class="p">(</span><span class="n">console_out</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">sensor_df</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
+                <span class="n">console_out</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;No sensor data files found with the expected&#39;</span>
+                               <span class="s1">&#39; naming scheme. Files for each sensor must be &#39;</span>
+                               <span class="s1">&#39;ordered chronologically and contain the sensor&#39;</span>
+                               <span class="s1">&#39; serial ID. Files must be either .csv or .txt&#39;</span><span class="p">)</span>
+                <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span><span class="n">console_out</span><span class="p">)</span>
+
+            <span class="n">sensor_df</span> <span class="o">=</span> <span class="n">sensor_df</span><span class="o">.</span><span class="n">sort_index</span><span class="p">()</span>
+            <span class="n">sensor_df</span> <span class="o">=</span> <span class="n">concat_dataset</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">sensor_df</span><span class="p">,</span> <span class="n">bdate</span><span class="o">=</span><span class="n">start</span><span class="p">,</span> <span class="n">edate</span><span class="o">=</span><span class="n">end</span><span class="p">)</span>
+
+            <span class="n">full_df_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sensor_df</span><span class="p">)</span>
+
+        <span class="n">data_dict</span> <span class="o">=</span> <span class="n">sensor_averaging</span><span class="p">(</span><span class="n">full_df_list</span><span class="p">,</span>
+                                     <span class="n">sensor_serials</span><span class="p">,</span>
+                                     <span class="n">sensor_name</span><span class="p">,</span>
+                                     <span class="n">write_to_file</span><span class="p">,</span>
+                                     <span class="n">path</span><span class="o">=</span><span class="n">processed_path</span><span class="p">,</span>
+                                     <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">data_dict</span> <span class="o">=</span> <span class="n">processed_data_search</span><span class="p">(</span><span class="n">processed_path</span><span class="p">,</span>
+                                          <span class="n">sensor_serials</span><span class="p">,</span>
+                                          <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">interval</span> <span class="ow">in</span> <span class="n">data_dict</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">serial</span> <span class="ow">in</span> <span class="n">data_dict</span><span class="p">[</span><span class="n">interval</span><span class="p">]:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">data_dict</span><span class="p">[</span><span class="n">interval</span><span class="p">][</span><span class="n">serial</span><span class="p">]</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
+               <span class="n">data_dict</span><span class="p">[</span><span class="n">interval</span><span class="p">][</span><span class="n">serial</span><span class="p">]</span> <span class="o">=</span>  <span class="n">concat_dataset</span><span class="p">(</span>
+                                                   <span class="n">data_dict</span><span class="p">[</span><span class="n">interval</span><span class="p">][</span><span class="n">serial</span><span class="p">],</span>
+                                                   <span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">data_dict</span></div>
+
+
+<div class="viewcode-block" id="concat_dataset"><a class="viewcode-back" href="../../../api/_autosummary/sensortoolkit.ingest._sensor_import.concat_dataset.html#sensortoolkit.ingest._sensor_import.concat_dataset">[docs]</a><span class="k">def</span> <span class="nf">concat_dataset</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">bdate</span><span class="p">,</span> <span class="n">edate</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Concatenate pandas DataFrame with DateTimeIndex to the specified time</span>
+<span class="sd">    period (bdate, edate).</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        data (pandas DataFrame): Air sensor dataset to concatenate.</span>
+<span class="sd">        bdate (str): The beginning timestamp for the concatenated dataset.</span>
+<span class="sd">        edate (str): The ending timestamp for the concatenated dataset.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        data (pandas DataFrame): The concatenated sensor dataset.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">bdate</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">bdate</span><span class="p">:,</span> <span class="p">:]</span>
+    <span class="k">if</span> <span class="n">edate</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[:</span><span class="n">edate</span><span class="p">,</span> <span class="p">:]</span>
+    <span class="k">return</span> <span class="n">data</span></div>
+
+
+<div class="viewcode-block" id="ingest_wrapper"><a class="viewcode-back" href="../../../api/_autosummary/sensortoolkit.ingest._sensor_import.ingest_wrapper.html#sensortoolkit.ingest._sensor_import.ingest_wrapper">[docs]</a><span class="k">def</span> <span class="nf">ingest_wrapper</span><span class="p">(</span><span class="n">cwd</span><span class="p">,</span> <span class="n">sensor_name</span><span class="p">,</span> <span class="n">serial</span><span class="p">,</span> <span class="n">data_path</span><span class="p">,</span> <span class="n">ingest_method</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Wrapper for ingestion modules. Selects the ingestion module to convert</span>
+<span class="sd">    sensor-specific data formatting to SDFS format for analysis.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        cwd (str):</span>
+<span class="sd">            full path to recorded sensor dataset including the file name.</span>
+<span class="sd">        sensor_name (str):</span>
+<span class="sd">            The make and model of the sensor.</span>
+<span class="sd">        serial (dict):</span>
+<span class="sd">            The serial identifier unique to each sensor unit</span>
+<span class="sd">        data_path (str):</span>
+<span class="sd">            full path to sensor data top directory (contains subdirs for</span>
+<span class="sd">            processed and raw data, and the setup.json if configured)</span>
+<span class="sd">        ingest_method (function object):</span>
+<span class="sd">            If not None, ``ingest_wrapper()`` will attempt to import sensor</span>
+<span class="sd">            data using a passed custom written ingestion module instead of the</span>
+<span class="sd">            ``standard_ingest()`` method.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        pandas DataFrame object:</span>
+<span class="sd">            Sensor dataframe imported and processed via the appropriate</span>
+<span class="sd">            ingestion module.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># If setup json exists for particular sensor, use standard ingest module</span>
+    <span class="n">setup_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">data_path</span><span class="p">,</span> <span class="s1">&#39;..&#39;</span><span class="p">,</span>
+                                              <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">sensor_name</span><span class="si">}</span><span class="s1">_setup.json&#39;</span><span class="p">))</span>
+
+    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">setup_path</span><span class="p">)</span> <span class="ow">and</span> <span class="n">ingest_method</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">standard_ingest</span><span class="p">(</span><span class="n">cwd</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">sensor_name</span><span class="p">,</span>
+                               <span class="n">setup_file_path</span><span class="o">=</span><span class="n">setup_path</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">ingest_method</span><span class="p">(</span><span class="n">cwd</span><span class="p">,</span> <span class="n">serial</span><span class="p">)</span></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, United States Environmental Protection Agency.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

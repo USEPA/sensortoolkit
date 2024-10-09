@@ -1,15 +1,17 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en">
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Quickstart Guide &mdash; sensortoolkit 0.8.3b2 documentation</title>
-      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-      <link rel="stylesheet" href="_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" type="text/css" />
-      <link rel="stylesheet" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" type="text/css" />
-      <link rel="stylesheet" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" type="text/css" />
+  <title>Quickstart Guide &mdash; sensortoolkit 0.9.0b2 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css" />
+      <link rel="stylesheet" type="text/css" href="_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" />
+      <link rel="stylesheet" type="text/css" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+      <link rel="stylesheet" type="text/css" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+
+  
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
@@ -17,11 +19,12 @@
         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Installing and Updating sensortoolkit" href="install.html" />
+    <link rel="next" title="Setting Up for sensortoolkit" href="setup.html" />
     <link rel="prev" title="sensortoolkit - Air Sensor Data Analysis Library" href="index.html" /> 
 </head>
 
@@ -30,14 +33,18 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="index.html" class="icon icon-home"> sensortoolkit
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            sensortoolkit
           </a>
               <div class="version">
-                0.8.3b2
+                0.9.0b2
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -46,9 +53,10 @@
               <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Quickstart Guide</a></li>
-<li class="toctree-l1"><a class="reference internal" href="#script-templates">Script Templates</a></li>
+<li class="toctree-l1"><a class="reference internal" href="setup.html">Setting Up for sensortoolkit</a></li>
 <li class="toctree-l1"><a class="reference internal" href="install.html">Installing and Updating sensortoolkit</a></li>
-<li class="toctree-l1"><a class="reference internal" href="import_sensortoolkit.html">Importing sensortoolkit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="template.html">Analysis with sensortoolkit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="template.html#script-template">Script Template</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Objects and Data Structures</span></p>
 <ul>
@@ -56,7 +64,7 @@
 <li class="toctree-l1"><a class="reference internal" href="data_structures/index.html">Data Structures</a></li>
 <li class="toctree-l1"><a class="reference internal" href="sdfs/index.html">sensortoolkit Data Formatting Scheme (SDFS)</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Objects and Data Structures</span></p>
+<p class="caption" role="heading"><span class="caption-text">Analysis and Reports</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="evaluation_objects/index.html">Evaluation Objects</a></li>
 </ul>
@@ -78,8 +86,8 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>Quickstart Guide</li>
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Quickstart Guide</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/quickstart.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -90,22 +98,17 @@
            <div itemprop="articleBody">
              
   <section id="quickstart-guide">
-<h1><a class="toc-backref" href="#id8">Quickstart Guide</a><a class="headerlink" href="#quickstart-guide" title="Permalink to this headline"></a></h1>
+<h1><a class="toc-backref" href="#id2">Quickstart Guide</a><a class="headerlink" href="#quickstart-guide" title="Permalink to this heading"></a></h1>
 <div class="contents topic" id="table-of-contents">
 <p class="topic-title">Table of Contents</p>
 <ul class="simple">
-<li><p><a class="reference internal" href="#quickstart-guide" id="id8">Quickstart Guide</a></p>
+<li><p><a class="reference internal" href="#quickstart-guide" id="id2">Quickstart Guide</a></p>
 <ul>
-<li><p><a class="reference internal" href="#installing-and-updating-sensortoolkit" id="id9">Installing and Updating sensortoolkit</a></p></li>
-<li><p><a class="reference internal" href="#example-scenario-toco-toucan" id="id10">Example Scenario - <em>Toco Toucan</em></a></p></li>
-<li><p><a class="reference internal" href="#initial-setup" id="id11">Initial Setup</a></p></li>
-<li><p><a class="reference internal" href="#evaluating-air-sensor-data" id="id12">Evaluating Air Sensor Data</a></p></li>
-</ul>
-</li>
-<li><p><a class="reference internal" href="#script-templates" id="id13">Script Templates</a></p>
-<ul>
-<li><p><a class="reference internal" href="#id7" id="id14">Initial Setup</a></p></li>
-<li><p><a class="reference internal" href="#evaluation-objects" id="id15">Evaluation Objects</a></p></li>
+<li><p><a class="reference internal" href="#example-scenario-toco-toucan" id="id3">Example Scenario - Toco Toucan</a></p></li>
+<li><p><a class="reference internal" href="#setting-up-for-sensortoolkit" id="id4">1 - Setting Up for sensortoolkit</a></p></li>
+<li><p><a class="reference internal" href="#installing-and-updating-sensortoolkit" id="id5">2 - Installing and Updating sensortoolkit</a></p></li>
+<li><p><a class="reference internal" href="#analysis-with-sensortoolkit" id="id6">3 - Analysis with sensortoolkit</a></p></li>
+<li><p><a class="reference internal" href="#running-sensortoolkit" id="id7">4 - Running sensortoolkit</a></p></li>
 </ul>
 </li>
 </ul>
@@ -114,409 +117,110 @@
 data formatting or encoding and facilitates comparison against reference data from a
 variety of API services or locally maintained data files. Sensor performance is determined
 using performance metrics and targets recommended by U.S. EPA’s documents on the testing
-and evaluation of sensors measuring either fine particular matter or ozone for use in non-regulatory,
+and evaluation of sensors measuring either fine particular matter (PM2.5), PM10, ozone,
+carbon monoxide, sulfur dioxide, or nitrogen dioxide for use in non-regulatory,
 supplemental, and informational monitoring applications.</p>
-<p>This guide provides a brief overview of how to use the sensortoolkit library, including
-primary functions and methods that are essential to making the most out of the library.
-The guide walks you through a example scenario, evaluating data from a fictitious air sensor named the
-<em>‘Toco Toucan’</em> against reference data collected from a monitor collocated at the ambient monitoring
-site where sensors were deployed in triplicate.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Script templates are provided at the end of this guide, recapping functions you
-will need for setting up analyses, conducting evaluations, and creating reports.
-<a class="reference external" href="./quickstart.html#templates">Click here</a> to jump to the templates section.</p>
-</div>
-<section id="installing-and-updating-sensortoolkit">
-<h2><a class="toc-backref" href="#id9">Installing and Updating sensortoolkit</a><a class="headerlink" href="#installing-and-updating-sensortoolkit" title="Permalink to this headline"></a></h2>
-<p>sensortoolkit can be easily downloaded with <code class="docutils literal notranslate"><span class="pre">pip</span></code>, or if you wish to contribute to the
-development of the package, you can clone the GitHub repository.</p>
-<div class="admonition tip">
-<p class="admonition-title">Tip</p>
-<p><a class="reference external" href="./install.html#installation">Click here</a> for more info about installing sensortoolkit.</p>
-</div>
-<p>Sensortoolkit is actively maintained, and bug fixes and feature enhancements
-are regularly added to the latest development build. <strong>Users are strongly encouraged to update to
-the latest version of sensortoolkit before using the library for analysis</strong>. More information about
-updating sensortoolkit can be found by following the link below.</p>
-<div class="admonition tip">
-<p class="admonition-title">Tip</p>
-<p><a class="reference external" href="./install.html#updating-sensortoolkit">Click here</a> for more info about updating sensortoolkit.</p>
-</div>
-</section>
+<p>This section walks you through an example scenario, evaluating data from a fictitious air
+sensor named the <em>‘Toco Toucan’</em> against reference data collected from a monitor collocated at
+the ambient monitoring site where sensors were deployed in triplicate, and a quick summary of
+how to use sensortoolkit for the first time.</p>
 <section id="example-scenario-toco-toucan">
-<h2><a class="toc-backref" href="#id10">Example Scenario - <em>Toco Toucan</em></a><a class="headerlink" href="#example-scenario-toco-toucan" title="Permalink to this headline"></a></h2>
+<h2><a class="toc-backref" href="#id3">Example Scenario - Toco Toucan</a><a class="headerlink" href="#example-scenario-toco-toucan" title="Permalink to this heading"></a></h2>
 <aside class="sidebar">
 <p class="sidebar-title">A Real Toco Toucan</p>
 <img alt="_images/toco_toucan.jpg" src="_images/toco_toucan.jpg" />
 </aside>
 <p>Say that you have chosen to test a sensor from the manufacturer <em>‘Toco’</em> called the
-<em>‘Toucan’</em>. Three Toco Toucans were deployed at an ambient air monitoring site alongside
-reference instrumentation. Let’s say that the Toucan air sensor measures both PM2.5 and O3 and that you have confirmed
-with the agency overseeing the monitoring site that reference-grade monitors
-designated either Federal Equivalent Methods (FEMs) or Federal Reference Methods (FRMs) are situated at the
-monitoring site for the pollutants you plan to measure.
-Following a sampling period of 30 days, you collect data from each Toucan sensor and acquire data
-from the monitoring agency for collocated reference measurements.</p>
-<section id="example-data-sets">
-<h3>Example Data Sets<a class="headerlink" href="#example-data-sets" title="Permalink to this headline"></a></h3>
-<p>Example data sets for the Toco Toucan sensor and collocated reference monitor are included in the
-GitHub repository under the <code class="docutils literal notranslate"><span class="pre">/example_datasets</span></code> folder. You can download these files
-and follow along the example outlined here in the Quickstart guide. In addition, other sections in
-this documentation, including the “Testing Attribute Objects” and “Evaluation Objects” sections,
-take a deeper dive into importing and working with sensor and reference data and make use of the example
-datasets to illustrate how sensortoolkit’s modules work.</p>
+<em>‘Toucan’</em>. Three <em>Toco Toucans</em> were deployed at an ambient air monitoring site alongside
+reference instrumentation. Let’s say that the Toucan air sensor measures both PM2.5
+and O3 and that you have confirmed with the agency overseeing the monitoring site
+that reference-grade monitors designated either Federal Equivalent Methods (FEMs)
+or Federal Reference Methods (FRMs) are situated at the monitoring site for the
+pollutants you plan to measure. Following a sampling period of 30 days, you
+collect data from each Toucan sensor and acquire data from the monitoring
+agency (AirnowTech) for collocated reference measurements.</p>
 </section>
-</section>
-<section id="initial-setup">
-<h2><a class="toc-backref" href="#id11">Initial Setup</a><a class="headerlink" href="#initial-setup" title="Permalink to this headline"></a></h2>
-<section id="create-a-project-directory">
-<h3>1 - Create a Project Directory<a class="headerlink" href="#create-a-project-directory" title="Permalink to this headline"></a></h3>
-<p>The first decision you will need to make in using sensortoolkit is where to store scripts,
-data, figures, and reports that are related to your current project. This could be any folder
-location on your computer. I suggest creating a new folder in your documents directory. Let’s
-call this directory <code class="docutils literal notranslate"><span class="pre">toucan_evaluation</span></code>.</p>
-</section>
-<section id="calling-sensortoolkit-from-scripts">
-<h3>2 - Calling sensortoolkit from Scripts<a class="headerlink" href="#calling-sensortoolkit-from-scripts" title="Permalink to this headline"></a></h3>
-<p>sensortoolkit works best in development environments that allow you to simultaneously develop
-scripts, view and explore variables, and execute code. These types of software utilities
-are called integrated development environments (IDEs). One popular IDE for python included
-alongside Anaconda distributions of the coding language is Spyder.</p>
-<p>Open up your IDE and create a new python script. You can choose to name this file anything
-you’d like, but we’ll go with <code class="docutils literal notranslate"><span class="pre">analysis.py</span></code> for this example. This file should be saved
-in the folder you created, so following from above, we now have a single file called <code class="docutils literal notranslate"><span class="pre">analysis.py</span></code>
-in the <code class="docutils literal notranslate"><span class="pre">toucan_evaluation</span></code> directory.</p>
-<p>Next, within your <code class="docutils literal notranslate"><span class="pre">analysis.py</span></code> script, import the sensortoolkit library</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sensortoolkit</span>
-</pre></div>
-</div>
-</section>
-<section id="setting-the-project-path-and-testing-attributes">
-<h3>3 - Setting the Project Path and Testing Attributes<a class="headerlink" href="#setting-the-project-path-and-testing-attributes" title="Permalink to this headline"></a></h3>
-<p>Next, you need to tell sensortoolkit where on your computer you are conducting your evaluation.
-This is our <code class="docutils literal notranslate"><span class="pre">toucan_evaluation</span></code> folder, and the full path to that folder is referred to as the “project path”.
-Set the project path using the following function</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Configure the project directory where data, figures, etc. will be stored</span>
-<span class="n">sensortoolkit</span><span class="o">.</span><span class="n">presets</span><span class="o">.</span><span class="n">set_project_path</span><span class="p">()</span>
-</pre></div>
-</div>
-<p>Once you’ve set the project path, add information about the testing organization and
-location where the sensors were deployed. Inputting this information is optional
-but is helpful in attributing the evaluation to the responsible party in meta data
-files that are generated during analysis.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Add information about the testing organization that conducted the evaluation</span>
-<span class="n">sensortoolkit</span><span class="o">.</span><span class="n">presets</span><span class="o">.</span><span class="n">test_org</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s1">&#39;Deployment name&#39;</span><span class="p">:</span> <span class="s1">&#39;[Insert name of deployment]&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;Org name&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;[Insert organization name line 1]&#39;</span><span class="p">,</span>
-                 <span class="s1">&#39;[Insert organization name line 2]&#39;</span><span class="p">],</span>
-    <span class="s1">&#39;Website&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;website name&#39;</span><span class="p">:</span> <span class="s1">&#39;[Insert name of website]&#39;</span><span class="p">,</span>
-                <span class="s1">&#39;website link&#39;</span><span class="p">:</span> <span class="s1">&#39;[Insert website here]&#39;</span><span class="p">},</span>
-    <span class="s1">&#39;Contact email&#39;</span><span class="p">:</span> <span class="s1">&#39;[Insert email here]&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;Contact phone&#39;</span><span class="p">:</span> <span class="s1">&#39;[Insert phone number here]&#39;</span><span class="p">}</span>
-
-<span class="c1"># Add information about the testing location where sensors were sited</span>
-<span class="n">sensortoolkit</span><span class="o">.</span><span class="n">presets</span><span class="o">.</span><span class="n">test_loc</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s1">&#39;Site name&#39;</span><span class="p">:</span> <span class="s1">&#39;[Insert name of site] &#39;</span><span class="p">,</span>
-    <span class="s1">&#39;Site address&#39;</span><span class="p">:</span> <span class="s1">&#39;[Insert site address]&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;Site lat&#39;</span><span class="p">:</span> <span class="s1">&#39;[Insert site latitude]&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;Site long&#39;</span><span class="p">:</span> <span class="s1">&#39;[Insert site longitude]&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;Site AQS ID&#39;</span><span class="p">:</span> <span class="s1">&#39;[If applicable, insert site AQS ID]&#39;</span><span class="p">}</span>
-</pre></div>
-</div>
-</section>
-<section id="creating-an-airsensor-object">
-<h3>4 - Creating an AirSensor Object<a class="headerlink" href="#creating-an-airsensor-object" title="Permalink to this headline"></a></h3>
-<p>The next step is to create an object for our Toco Toucan sensor that will store all
-the data sets and related attributes for our analysis. This is done by calling the
-<code class="docutils literal notranslate"><span class="pre">sensortoolkit.AirSensor</span></code> method:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create an AirSensor instance for the sensor you&#39;d like to evaluate</span>
-<span class="n">sensor</span> <span class="o">=</span> <span class="n">sensortoolkit</span><span class="o">.</span><span class="n">AirSensor</span><span class="p">(</span><span class="n">make</span><span class="o">=</span><span class="s1">&#39;Toco&#39;</span><span class="p">,</span>
-                                 <span class="n">model</span><span class="o">=</span><span class="s1">&#39;Toucan&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>This creates an instance of <code class="docutils literal notranslate"><span class="pre">sensortoolkit.AirSensor</span></code> called <code class="docutils literal notranslate"><span class="pre">sensor</span></code>.
-Currently, the <code class="docutils literal notranslate"><span class="pre">sensor</span></code> object doesn’t have many attributes since we’ve only specified
-the make and model for the sensor, however, we will use <code class="docutils literal notranslate"><span class="pre">sensor</span></code> to continue the setup process
-and eventually load sensor data.</p>
-<div class="admonition tip">
-<p class="admonition-title">Tip</p>
-<p>More information about <code class="docutils literal notranslate"><span class="pre">sensortoolkit.AirSensor</span></code> is found <a class="reference external" href="./testingattrib_objects/airsensor/index.html">here</a></p>
-</div>
-</section>
-<section id="constructing-project-directories">
-<h3>5 - Constructing Project Directories<a class="headerlink" href="#constructing-project-directories" title="Permalink to this headline"></a></h3>
-<p>Next, we need to create a directory system of folders within our project path that
-will house data sets, figures, reports, etc. To do so, use the <code class="docutils literal notranslate"><span class="pre">create_directories()</span></code> function
-included alongside your <code class="docutils literal notranslate"><span class="pre">sensor</span></code> object. You will see a list of directories be printed to
-the console that are created by the module.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Construct sensor-specific directories in the project path for data, figures, etc.</span>
-<span class="n">sensor</span><span class="o">.</span><span class="n">create_directories</span><span class="p">()</span>
-</pre></div>
-</div>
-<p>Below is the console output for <code class="docutils literal notranslate"><span class="pre">create_directories()</span></code>:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">Creating &quot;data&quot; subdirectory within C:\Users\...\Documents\toucan_evaluation</span>
-<span class="go">..\data\eval_stats</span>
-<span class="go">....\data\eval_stats\Toco_Toucan</span>
-<span class="go">..\data\reference_data</span>
-<span class="go">....\data\reference_data\airnow</span>
-<span class="go">......\data\reference_data\airnow\raw</span>
-<span class="go">......\data\reference_data\airnow\processed</span>
-<span class="go">....\data\reference_data\airnowtech</span>
-<span class="go">......\data\reference_data\airnowtech\raw</span>
-<span class="go">......\data\reference_data\airnowtech\processed</span>
-<span class="go">....\data\reference_data\aqs</span>
-<span class="go">......\data\reference_data\aqs\raw</span>
-<span class="go">......\data\reference_data\aqs\processed</span>
-<span class="go">..\data\sensor_data</span>
-<span class="go">....\data\sensor_data\Toco_Toucan</span>
-<span class="go">......\data\sensor_data\Toco_Toucan\processed_data</span>
-<span class="go">......\data\sensor_data\Toco_Toucan\raw_data</span>
-
-<span class="go">Creating &quot;figures&quot; subdirectory within C:\Users\...\Documents\toucan_evaluation</span>
-<span class="go">..\figures\Toco_Toucan</span>
-
-<span class="go">Creating &quot;reports&quot; subdirectory within C:\Users\...\Documents\toucan_evaluation</span>
-</pre></div>
-</div>
-</section>
-<section id="configuring-the-sensor-setup">
-<h3>6 - Configuring the Sensor Setup<a class="headerlink" href="#configuring-the-sensor-setup" title="Permalink to this headline"></a></h3>
-<p>Now we’re ready to tell sensortoolkit how data from the Toco Toucan sensors should
-be imported based on the formatting scheme for the recorded data sets. The <code class="docutils literal notranslate"><span class="pre">sensor_setup()</span></code>
-function included alongside your <code class="docutils literal notranslate"><span class="pre">sensor</span></code> object walks you through the process of transferring
-data sets to the right location within the project path and asks you to indicate various attributes
-regarding the recorded datasets in order to build a profile of the Toco Toucan sensor formatting.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Run the interative setup routine for specifying how to ingest sensor data</span>
-<span class="n">sensor</span><span class="o">.</span><span class="n">sensor_setup</span><span class="p">()</span>
-</pre></div>
-</div>
-</section>
-<section id="importing-sensor-data">
-<h3>7 - Importing Sensor Data<a class="headerlink" href="#importing-sensor-data" title="Permalink to this headline"></a></h3>
-<p>Following completion of the setup module, we can load the Toco Toucan data sets to the
-<code class="docutils literal notranslate"><span class="pre">sensor</span></code> object so that we have access to the data sets for analysis. The <code class="docutils literal notranslate"><span class="pre">load_data()</span></code>
-function included alongside your <code class="docutils literal notranslate"><span class="pre">sensor</span></code> object imports recorded datasets and processes
-these into a standardized format for subsequent analysis:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Import sensor data sets and save processed data sets to the data folder</span>
-<span class="n">sensor</span><span class="o">.</span><span class="n">load_data</span><span class="p">(</span><span class="n">load_raw_data</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                 <span class="n">write_to_file</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>We’ve now completed the setup procedure for the Toco Toucan sensors!</p>
-</section>
-<section id="creating-an-referencemonitor-object">
-<h3>8 - Creating an ReferenceMonitor Object<a class="headerlink" href="#creating-an-referencemonitor-object" title="Permalink to this headline"></a></h3>
-<p>We will now follow a similar process for the reference monitor collocated alongside
-the Toco Toucan sensors at the monitoring site. First, create an object for the
-reference monitor by calling the <code class="docutils literal notranslate"><span class="pre">sensortoolkit.ReferenceMonitor</span></code> method:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create a ReferenceMonitor instance for FRM/FEM monitor collocated alongside sensors</span>
-<span class="n">reference</span> <span class="o">=</span> <span class="n">sensortoolkit</span><span class="o">.</span><span class="n">ReferenceMonitor</span><span class="p">()</span>
-</pre></div>
-</div>
-<p>This creates an instance of <code class="docutils literal notranslate"><span class="pre">sensortoolkit.ReferenceMonitor</span></code> called <code class="docutils literal notranslate"><span class="pre">reference</span></code>.</p>
-<div class="admonition tip">
-<p class="admonition-title">Tip</p>
-<p>More information about <code class="docutils literal notranslate"><span class="pre">sensortoolkit.ReferenceMonitor</span></code> is found <a class="reference external" href="./testingattrib_objects/referencemonitor/index.html">here</a></p>
-</div>
-</section>
-<section id="configuring-the-reference-setup">
-<h3>9 - Configuring the Reference Setup<a class="headerlink" href="#configuring-the-reference-setup" title="Permalink to this headline"></a></h3>
-<p>As with the Toco Toucan sensor data sets, we need to give sensortoolkit an indication of the
-location of reference monitor datasets and data formatting in order to import and utilize
-these data sets. This is accomplished via the <code class="docutils literal notranslate"><span class="pre">reference_setup()</span></code> function which is included
-alongside your <code class="docutils literal notranslate"><span class="pre">reference</span></code> object.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Run the interactive setup routine for specifying how to ingest reference data</span>
-<span class="n">reference</span><span class="o">.</span><span class="n">reference_setup</span><span class="p">()</span>
-</pre></div>
-</div>
-</section>
-<section id="importing-reference-data">
-<h3>10 - Importing Reference Data<a class="headerlink" href="#importing-reference-data" title="Permalink to this headline"></a></h3>
-<p>Reference data are imported via the <code class="docutils literal notranslate"><span class="pre">load_data()</span></code> function included alongside your <code class="docutils literal notranslate"><span class="pre">reference</span></code>
-object. If you intend to query data from either the AirNow or AQS API, please see
-<a class="reference external" href="./testingattrib_objects/referencemonitor/load_data.html">Loading Reference Data</a> for more information.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Import reference data for parameter types measured by the air sensor, also</span>
-<span class="c1"># import meteorological data if instruments collocated at monitoring site</span>
-<span class="n">reference</span><span class="o">.</span><span class="n">load_data</span><span class="p">(</span><span class="n">bdate</span><span class="o">=</span><span class="n">sensor</span><span class="o">.</span><span class="n">bdate</span><span class="p">,</span>
-                    <span class="n">edate</span><span class="o">=</span><span class="n">sensor</span><span class="o">.</span><span class="n">edate</span><span class="p">,</span>
-                    <span class="n">param_list</span><span class="o">=</span><span class="n">sensor</span><span class="o">.</span><span class="n">param_headers</span><span class="p">,</span>
-                    <span class="n">met_data</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-</pre></div>
-</div>
-</section>
-<section id="creating-a-parameter-object">
-<h3>11 - Creating a Parameter Object<a class="headerlink" href="#creating-a-parameter-object" title="Permalink to this headline"></a></h3>
-<p>The final component we need to specify is which environmental parameter or pollutant
-measured by the Toco Toucan air sensor that we wish to evaluate against collocated reference
-measurements. We will evaluate the performance of the Toucan sensor for measuring PM2.5. Like the
-<code class="docutils literal notranslate"><span class="pre">sensortoolkit.AirSensor</span></code> and <code class="docutils literal notranslate"><span class="pre">sensortoolkit.ReferenceMonitor</span></code> methods that we used to create
-objects for the sensor and reference monitor included in our evaluation, we will create an object
-for the evaluation parameter PM2.5 via the <code class="docutils literal notranslate"><span class="pre">sensortoolkit.Parameter</span></code> method.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create a Parameter instance for the pollutant you wish to evaluate</span>
-<span class="c1"># Select pollutant name from list of SDFS labels</span>
-<span class="n">pollutant</span> <span class="o">=</span> <span class="n">sensortoolkit</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="s1">&#39;PM25&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-<div class="admonition tip">
-<p class="admonition-title">Tip</p>
-<p>More information about <code class="docutils literal notranslate"><span class="pre">sensortoolkit.Parameter</span></code> is found <a class="reference external" href="./testingattrib_objects/parameter.html">here</a></p>
-</div>
-<div class="admonition caution">
-<p class="admonition-title">Caution</p>
-<p>Note that the label <code class="docutils literal notranslate"><span class="pre">PM25</span></code> that we’ve passed to <code class="docutils literal notranslate"><span class="pre">sensortoolkit.Parameter</span></code> is not arbitrary! This label
-is included in a list of parameter labels recognized by sensortoolkit as potential evaluation parameters. A
-full list is available under the <a class="reference external" href="./sdfs/index.html#id1">sensortoolkit Data Formatting Scheme Page</a>.</p>
-</div>
-</section>
-</section>
-<hr class="docutils" />
-<section id="evaluating-air-sensor-data">
-<h2><a class="toc-backref" href="#id12">Evaluating Air Sensor Data</a><a class="headerlink" href="#evaluating-air-sensor-data" title="Permalink to this headline"></a></h2>
-<p>Now that we’ve completed the initial setup process for the Toco Toucan sensor and
-collocated reference monitor, we are ready to test out sensortoolkit’s evaluation
-modules. Use of these modules can be divided into one of two categories, allowing either
-data analysis within an IDE or the generation of performance evaluation reports.</p>
-<section id="data-analysis-with-sensorevaluation">
-<h3>Data Analysis with SensorEvaluation<a class="headerlink" href="#data-analysis-with-sensorevaluation" title="Permalink to this headline"></a></h3>
-<p><code class="docutils literal notranslate"><span class="pre">SensorEvaluation</span></code> provides a platform for analyzing air sensor data against
-regulatory grade measurements. With <code class="docutils literal notranslate"><span class="pre">SensorEvaluation</span></code>, users can compute
-various quantities and metrics recommended by U.S. EPA’s performance
-targets reports including precision, error, linearity, and bias. <code class="docutils literal notranslate"><span class="pre">SensorEvaluation</span></code> also
-contains numerous plotting methods for displaying and saving figures for
-time series, sensor vs. reference scatter, meteorological conditions, etc.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Run the evaluation</span>
-<span class="n">evaluation</span> <span class="o">=</span> <span class="n">sensortoolkit</span><span class="o">.</span><span class="n">SensorEvaluation</span><span class="p">(</span><span class="n">sensor</span><span class="p">,</span>
-                                            <span class="n">pollutant</span><span class="p">,</span>
-                                            <span class="n">reference</span><span class="p">,</span>
-                                            <span class="n">write_to_file</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-</pre></div>
-</div>
-<div class="admonition tip">
-<p class="admonition-title">Tip</p>
-<p>More information about <code class="docutils literal notranslate"><span class="pre">sensortoolkit.SensorEvaluation</span></code> is found <a class="reference external" href="./evaluation_objects/sensoreval/index.html">here</a></p>
-</div>
-</section>
-<section id="creating-reports-with-performancereport">
-<h3>Creating Reports with PerformanceReport<a class="headerlink" href="#creating-reports-with-performancereport" title="Permalink to this headline"></a></h3>
-<p><code class="docutils literal notranslate"><span class="pre">PerformanceReport</span></code> leverages many of the functions included in <code class="docutils literal notranslate"><span class="pre">SensorEvaluation</span></code>
-to automate the process of creating and compiling testing reports. These reports
-provide a detailed overview of the testing site and conditions, summarize sensor performance
-via EPA’s recommended performance metrics and target values, and display results by way of time series
-figures, scatter plots, and tabular statistics.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create a performance evaluation report for the sensor</span>
-<span class="n">report</span> <span class="o">=</span> <span class="n">sensortoolkit</span><span class="o">.</span><span class="n">PerformanceReport</span><span class="p">(</span><span class="n">sensor</span><span class="p">,</span>
-                                         <span class="n">pollutant</span><span class="p">,</span>
-                                         <span class="n">reference</span><span class="p">,</span>
-                                         <span class="n">write_to_file</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-
-<span class="c1"># Generate report</span>
-<span class="n">report</span><span class="o">.</span><span class="n">CreateReport</span><span class="p">()</span>
-</pre></div>
-</div>
-<div class="admonition tip">
-<p class="admonition-title">Tip</p>
-<p>More information about <code class="docutils literal notranslate"><span class="pre">sensortoolkit.PerformanceReport</span></code> is found <a class="reference external" href="./evaluation_objects/performancereport.html">here</a></p>
-</div>
-</section>
-</section>
-</section>
-<hr class="docutils" />
-<section id="script-templates">
-<h1><a class="toc-backref" href="#id13">Script Templates</a><a class="headerlink" href="#script-templates" title="Permalink to this headline"></a></h1>
-<p>Below are templates that you can use to get started with sensortoolkit. These
-can be copied directly from the documentation into your IDE of choice.</p>
+<section id="setting-up-for-sensortoolkit">
+<h2><a class="toc-backref" href="#id4">1 - Setting Up for sensortoolkit</a><a class="headerlink" href="#setting-up-for-sensortoolkit" title="Permalink to this heading"></a></h2>
+<p>Setting up for sensortoolkit requires downloading Python and an IDE, creating a project directory, and
+downloading your sensor and reference data. A brief run through is given below, but more information
+can be found in the <a class="reference external" href="./setup.html">next section</a>.</p>
+<section id="download-python-and-ide">
+<h3>Download Python and IDE<a class="headerlink" href="#download-python-and-ide" title="Permalink to this heading"></a></h3>
+<p>As sensortoolkit is a Python package, users will need an installation of Python 3.8 or greater.
+It’s highly recommended that users download <a class="reference external" href="https://docs.conda.io/en/latest/miniconda.html">Miniconda</a> or
+<a class="reference external" href="https://www.anaconda.com/products/individual">Anaconda</a> as both are free installers
+of a simple open source environment, a package manager, and Python.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Text in brackets indicates where you should enter information relevant to your evaluation.</p>
+<p><a class="reference external" href="./setup.html#download-python-and-ide">Click here</a> for more info about installing Python with Anaconda or Miniconda.</p>
 </div>
-<section id="id7">
-<h2><a class="toc-backref" href="#id14">Initial Setup</a><a class="headerlink" href="#id7" title="Permalink to this headline"></a></h2>
-<p>This template summarizes the ‘Initial Setup’ process discussed above.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sensortoolkit</span>
-
-<span class="c1"># Configure the project directory where data, figures, etc. will be stored</span>
-<span class="n">sensortoolkit</span><span class="o">.</span><span class="n">presets</span><span class="o">.</span><span class="n">set_project_path</span><span class="p">()</span>
-
-<span class="c1"># Add information about the testing organization that conducted the evaluation</span>
-<span class="n">sensortoolkit</span><span class="o">.</span><span class="n">presets</span><span class="o">.</span><span class="n">test_org</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s1">&#39;Deployment name&#39;</span><span class="p">:</span> <span class="s1">&#39;[Insert name of deployment]&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;Org name&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;[Insert organization name line 1]&#39;</span><span class="p">,</span>
-                 <span class="s1">&#39;[Insert organization name line 2]&#39;</span><span class="p">],</span>
-    <span class="s1">&#39;Website&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;website name&#39;</span><span class="p">:</span> <span class="s1">&#39;[Insert name of website]&#39;</span><span class="p">,</span>
-                <span class="s1">&#39;website link&#39;</span><span class="p">:</span> <span class="s1">&#39;[Insert website here]&#39;</span><span class="p">},</span>
-    <span class="s1">&#39;Contact email&#39;</span><span class="p">:</span> <span class="s1">&#39;[Insert email here]&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;Contact phone&#39;</span><span class="p">:</span> <span class="s1">&#39;[Insert phone number here]&#39;</span><span class="p">}</span>
-
-<span class="c1"># Add information about the testing location where sensors were sited</span>
-<span class="n">sensortoolkit</span><span class="o">.</span><span class="n">presets</span><span class="o">.</span><span class="n">test_loc</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s1">&#39;Site name&#39;</span><span class="p">:</span> <span class="s1">&#39;[Insert name of site] &#39;</span><span class="p">,</span>
-    <span class="s1">&#39;Site address&#39;</span><span class="p">:</span> <span class="s1">&#39;[Insert site address]&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;Site lat&#39;</span><span class="p">:</span> <span class="s1">&#39;[Insert site latitude]&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;Site long&#39;</span><span class="p">:</span> <span class="s1">&#39;[Insert site longitude]&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;Site AQS ID&#39;</span><span class="p">:</span> <span class="s1">&#39;[If applicable, insert site AQS ID]&#39;</span><span class="p">}</span>
-
-<span class="c1"># Create an AirSensor instance for the sensor you&#39;d like to evaluate</span>
-<span class="n">sensor</span> <span class="o">=</span> <span class="n">sensortoolkit</span><span class="o">.</span><span class="n">AirSensor</span><span class="p">(</span><span class="n">make</span><span class="o">=</span><span class="s1">&#39;[Insert sensor manufacturer]&#39;</span><span class="p">,</span>
-                                 <span class="n">model</span><span class="o">=</span><span class="s1">&#39;[Insert sensor model]&#39;</span><span class="p">)</span>
-
-<span class="c1"># Construct sensor-specific directories in the project path for data, figures, etc.</span>
-<span class="n">sensor</span><span class="o">.</span><span class="n">create_directories</span><span class="p">()</span>
-
-<span class="c1"># Run the interative setup routine for specifying how to ingest sensor data</span>
-<span class="n">sensor</span><span class="o">.</span><span class="n">sensor_setup</span><span class="p">()</span>
-
-<span class="c1"># Import sensor datasets and save processed datasets to the data folder</span>
-<span class="n">sensor</span><span class="o">.</span><span class="n">load_data</span><span class="p">(</span><span class="n">load_raw_data</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                 <span class="n">write_to_file</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-
-<span class="c1"># Create a ReferenceMonitor instance for FRM/FEM monitor collocated alongside sensors</span>
-<span class="n">reference</span> <span class="o">=</span> <span class="n">sensortoolkit</span><span class="o">.</span><span class="n">ReferenceMonitor</span><span class="p">()</span>
-
-<span class="c1"># Run the interactive setup routine for specifying how to ingest reference data</span>
-<span class="n">reference</span><span class="o">.</span><span class="n">reference_setup</span><span class="p">()</span>
-
-<span class="c1"># Import reference data for parameter types measured by the air sensor, also</span>
-<span class="c1"># import meteorological data if instruments collocated at monitoring site</span>
-<span class="n">reference</span><span class="o">.</span><span class="n">load_data</span><span class="p">(</span><span class="n">bdate</span><span class="o">=</span><span class="n">sensor</span><span class="o">.</span><span class="n">bdate</span><span class="p">,</span>
-                    <span class="n">edate</span><span class="o">=</span><span class="n">sensor</span><span class="o">.</span><span class="n">edate</span><span class="p">,</span>
-                    <span class="n">param_list</span><span class="o">=</span><span class="n">sensor</span><span class="o">.</span><span class="n">param_headers</span><span class="p">,</span>
-                    <span class="n">met_data</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-
-<span class="c1"># Create a Parameter instance for the pollutant you wish to evaluate</span>
-<span class="n">pollutant</span> <span class="o">=</span> <span class="n">sensortoolkit</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="s1">&#39;[Insert pollutant from list of SDFS labels]&#39;</span><span class="p">)</span>
-</pre></div>
+<p>Sensortoolkit works best in development environments that allow you to simultaneously develop scripts, view and
+explore variables, and execute code. These types of software utilities are called integrated development
+environments (IDEs). One popular IDE for Python, included alongside Anaconda distributions, is the
+<a class="reference external" href="https://www.spyder-ide.org">Spyder IDE</a>. In addition, using a virtual environment is highly recommended for ease of use
+and to protect the base installation of python.</p>
+</section>
+<section id="create-project-directory">
+<h3>Create Project Directory<a class="headerlink" href="#create-project-directory" title="Permalink to this heading"></a></h3>
+<p>You will need to decide where to store scripts, data, figures, and reports that are related
+to your current project. This could be any folder location on your computer. I suggest
+creating a new folder in your documents directory. Let’s call this directory <code class="docutils literal notranslate"><span class="pre">toucan_evaluation</span></code>.</p>
+</section>
+<section id="example-data-sets">
+<h3>Example Data Sets<a class="headerlink" href="#example-data-sets" title="Permalink to this heading"></a></h3>
+<p>Example data sets for the <em>Toco Toucan</em> sensors and collocated reference monitor are included in the
+<a class="reference external" href="https://github.com/USEPA/sensortoolkit">GitHub repository</a> under the <code class="docutils literal notranslate"><span class="pre">/example_datasets</span></code>
+folder. Download these files to your project directory.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><a class="reference external" href="./setup.html">Click here</a> for more info about setting up for sensortoolkit.</p>
 </div>
 </section>
-<section id="evaluation-objects">
-<h2><a class="toc-backref" href="#id15">Evaluation Objects</a><a class="headerlink" href="#evaluation-objects" title="Permalink to this headline"></a></h2>
-<div class="tabbed-set docutils">
-<input checked="checked" id="d5cafabb-1cdb-4471-9869-83d83430b094" name="0f631c73-2d66-4529-a2f5-41843f3c5856" type="radio">
-</input><label class="tabbed-label" for="d5cafabb-1cdb-4471-9869-83d83430b094">
-SensorEvaluation</label><div class="tabbed-content docutils">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Run the evaluation</span>
-<span class="n">evaluation</span> <span class="o">=</span> <span class="n">sensortoolkit</span><span class="o">.</span><span class="n">SensorEvaluation</span><span class="p">(</span><span class="n">sensor</span><span class="p">,</span>
-                                            <span class="n">pollutant</span><span class="p">,</span>
-                                            <span class="n">reference</span><span class="p">,</span>
-                                            <span class="n">write_to_file</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-</pre></div>
+</section>
+<section id="installing-and-updating-sensortoolkit">
+<h2><a class="toc-backref" href="#id5">2 - Installing and Updating sensortoolkit</a><a class="headerlink" href="#installing-and-updating-sensortoolkit" title="Permalink to this heading"></a></h2>
+<p>It’s highly recommended to download sensortoolkit into a suitable virtual environment,
+from the <code class="docutils literal notranslate"><span class="pre">stk_environment.yml</span></code> file included in the
+<a class="reference external" href="https://github.com/USEPA/sensortoolkit">GitHub repository</a> under
+the <code class="docutils literal notranslate"><span class="pre">/environments</span></code> folder. Also, sensortoolkit can be easily
+downloaded with <code class="docutils literal notranslate"><span class="pre">pip</span></code>, or if you wish to contribute to the development of the package,
+cloned from the GitHub repository.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><a class="reference external" href="./install.html#Install-sensortoolkit">Click here</a> for more info about installing sensortoolkit.</p>
 </div>
+<p>Sensortoolkit is actively maintained, and bug fixes and feature enhancements
+are regularly added to the latest development build. <strong>Users are strongly encouraged to update to
+the latest version of sensortoolkit before using the library for analysis</strong>. More information about
+updating sensortoolkit can be found by following the link below.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><a class="reference external" href="./install.html#updating-sensortoolkit">Click here</a> for more info about updating sensortoolkit.</p>
 </div>
-<input id="bbc30658-5d4f-4dc8-a146-405d4b9b6e91" name="0f631c73-2d66-4529-a2f5-41843f3c5856" type="radio">
-</input><label class="tabbed-label" for="bbc30658-5d4f-4dc8-a146-405d4b9b6e91">
-PerformanceReport</label><div class="tabbed-content docutils">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create a performance evaluation report for the sensor</span>
-<span class="n">report</span> <span class="o">=</span> <span class="n">sensortoolkit</span><span class="o">.</span><span class="n">PerformanceReport</span><span class="p">(</span><span class="n">sensor</span><span class="p">,</span>
-                                         <span class="n">pollutant</span><span class="p">,</span>
-                                         <span class="n">reference</span><span class="p">,</span>
-                                         <span class="n">write_to_file</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-
-<span class="c1"># Generate report</span>
-<span class="n">report</span><span class="o">.</span><span class="n">CreateReport</span><span class="p">()</span>
-</pre></div>
+</section>
+<section id="analysis-with-sensortoolkit">
+<h2><a class="toc-backref" href="#id6">3 - Analysis with sensortoolkit</a><a class="headerlink" href="#analysis-with-sensortoolkit" title="Permalink to this heading"></a></h2>
+<p>Open up your IDE and create a new python script. You can choose to name this file
+anything you’d like, but we’ll go with <code class="docutils literal notranslate"><span class="pre">analysis.py</span></code> for this example.
+Copy and paste the script template given <a class="reference external" href="./template.html#script-template">here</a>.</p>
+<p>Follow along the <em>Toco Toucan</em> example outlined in the
+<a class="reference external" href="./template.html#analysis">Analysis with sensortoolkit</a> section to understand the <code class="docutils literal notranslate"><span class="pre">analysis.py</span></code> script
+and insert relevant information. Then, this file should be saved in the project directory you created.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><a class="reference external" href="./template.html">Click here</a> for more info about analysis with sensortoolkit and the script template.</p>
 </div>
-</div>
-</div>
+</section>
+<section id="running-sensortoolkit">
+<h2><a class="toc-backref" href="#id7">4 - Running sensortoolkit</a><a class="headerlink" href="#running-sensortoolkit" title="Permalink to this heading"></a></h2>
+<p>Run the <code class="docutils literal notranslate"><span class="pre">analysis.py</span></code> script from your IDE and follow the instructions in the console to create
+and compile a testing report.</p>
+<p>For more guidance when following sensortoolkit’s interactive ingestion module, please see the
+<a class="reference external" href="./testingattrib_objects/index.html">Testing Attribute Objects</a> and
+<a class="reference external" href="./evaluation_objects/index.html">Evaluation Objects</a> sections which
+describe in greater detail importing and working with sensor and reference
+data while making use of the <em>Toco Toucan</em> example to illustrate how sensortoolkit’s modules work.</p>
 </section>
 </section>
 
@@ -525,7 +229,7 @@ PerformanceReport</label><div class="tabbed-content docutils">
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="index.html" class="btn btn-neutral float-left" title="sensortoolkit - Air Sensor Data Analysis Library" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="install.html" class="btn btn-neutral float-right" title="Installing and Updating sensortoolkit" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="setup.html" class="btn btn-neutral float-right" title="Setting Up for sensortoolkit" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>sensortoolkit.testing_attrib_objs._referencemonitor &mdash; sensortoolkit 0.9.0b2 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            sensortoolkit
+          </a>
+              <div class="version">
+                0.9.0b2
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../quickstart.html">Quickstart Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../setup.html">Setting Up for sensortoolkit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../install.html">Installing and Updating sensortoolkit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../template.html">Analysis with sensortoolkit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../template.html#script-template">Script Template</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Objects and Data Structures</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../testingattrib_objects/index.html">Testing Attribute Objects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../data_structures/index.html">Data Structures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../sdfs/index.html">sensortoolkit Data Formatting Scheme (SDFS)</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Analysis and Reports</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../evaluation_objects/index.html">Evaluation Objects</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/index.html">sensortoolkit API</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">sensortoolkit</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">sensortoolkit.testing_attrib_objs._referencemonitor</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for sensortoolkit.testing_attrib_objs._referencemonitor</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">This module contains the ReferenceMonitor testing attribute object class.</span>
+
+<span class="sd">================================================================================</span>
+
+<span class="sd">@Author:</span>
+<span class="sd">  | Samuel Frederick, NSSC Contractor (ORAU)</span>
+<span class="sd">  | U.S. EPA / ORD / CEMM / AMCD / SFSB</span>
+
+<span class="sd">Created:</span>
+<span class="sd">  Thu Sep 23 08:34:17 2021</span>
+<span class="sd">Last Updated:</span>
+<span class="sd">  Thu Sep 23 08:34:17 2021</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">sensortoolkit</span> <span class="kn">import</span> <span class="n">lib_utils</span>
+<span class="kn">from</span> <span class="nn">sensortoolkit.reference</span> <span class="kn">import</span> <span class="n">ref_api_query</span><span class="p">,</span> <span class="n">load_ref_dataframes</span>
+<span class="kn">from</span> <span class="nn">sensortoolkit.param</span> <span class="kn">import</span> <span class="n">Parameter</span>
+<span class="kn">from</span> <span class="nn">sensortoolkit.datetime_utils</span> <span class="kn">import</span> <span class="n">interval_averaging</span>
+<span class="kn">from</span> <span class="nn">sensortoolkit</span> <span class="kn">import</span> <span class="n">presets</span> <span class="k">as</span> <span class="n">_presets</span>
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+
+<span class="c1">#default_proj_path = _presets._project_path</span>
+
+<div class="viewcode-block" id="ReferenceMonitor"><a class="viewcode-back" href="../../../api/_autosummary/sensortoolkit.testing_attrib_objs._referencemonitor.ReferenceMonitor.html#sensortoolkit.testing_attrib_objs._referencemonitor.ReferenceMonitor">[docs]</a><span class="k">class</span> <span class="nc">ReferenceMonitor</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Object for storing and accessing reference monitor (FRM/FEM) data as well as</span>
+<span class="sd">    instrument and monitoring site attributes.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        data_source (str, optional):</span>
+<span class="sd">            The name of the data service that</span>
+<span class="sd">            reference measurements were acquired from. Defaults to None.</span>
+
+<span class="sd">            Options:</span>
+
+<span class="sd">                - ``airnow``: Reference data from the AirNow API</span>
+
+<span class="sd">                - ``aqs``: Reference data from U.S. EPA&#39;s Air Quality System</span>
+
+<span class="sd">                - ``airnowtech``: Reference data from AirNowTech, files</span>
+<span class="sd">                  downloaded locally.</span>
+
+<span class="sd">                - ``local``: A catch-all category for datasets stored locally on</span>
+<span class="sd">                  the user&#39;s system.</span>
+
+<span class="sd">        site_name (str, optional):</span>
+<span class="sd">            The name of the air monitoring site. Defaults to None.</span>
+<span class="sd">        site_id (str, optional):</span>
+<span class="sd">            The unique identification number for the air monitoring site.</span>
+<span class="sd">            Typically the AQS Site ID if applicable. Defaults to None.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        ValueError:</span>
+<span class="sd">            If both the site name and site ID are not None but the</span>
+<span class="sd">            data source is None, raise ValueError as the source must be</span>
+<span class="sd">            specified to indicate where reference data are located. Also,</span>
+<span class="sd">            a ValueError will be raised if the passed data source, site name,</span>
+<span class="sd">            and site id do not point to a valid reference data subdirectory.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">_data_sources</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;airnow&#39;</span><span class="p">,</span> <span class="s1">&#39;aqs&#39;</span><span class="p">,</span> <span class="s1">&#39;airnowtech&#39;</span><span class="p">,</span> <span class="s1">&#39;local&#39;</span><span class="p">]</span>
+
+    <span class="c1"># Default project path set to library path, should be something like</span>
+    <span class="c1"># &#39;C:/Users/.../Anaconda3/Lib/site-packages/sensortoolkit&#39;</span>
+    <span class="n">default_proj_path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="fm">__str__</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data_source</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">site_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">site_id</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_setup_path</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data_source</span> <span class="o">=</span> <span class="n">data_source</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">site_name</span> <span class="o">=</span> <span class="n">site_name</span>
+
+        <span class="k">if</span> <span class="n">site_id</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">lib_utils</span><span class="o">.</span><span class="n">check_type</span><span class="p">(</span><span class="n">site_id</span><span class="p">,</span> <span class="n">accept_types</span><span class="o">=</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">str</span><span class="p">])</span>
+            <span class="n">site_id</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">site_id</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">site_id</span> <span class="o">=</span> <span class="n">site_id</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;PM&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;1-hour&#39;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(),</span>
+                            <span class="s1">&#39;24-hour&#39;</span><span class="p">:</span>  <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()},</span>
+                    <span class="s1">&#39;Gases&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;1-hour&#39;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(),</span>
+                              <span class="s1">&#39;24-hour&#39;</span><span class="p">:</span>  <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()},</span>
+                    <span class="s1">&#39;Met&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;1-hour&#39;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(),</span>
+                            <span class="s1">&#39;24-hour&#39;</span><span class="p">:</span>  <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()}</span>
+                    <span class="p">}</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">project_path</span> <span class="o">=</span> <span class="n">_presets</span><span class="o">.</span><span class="n">_project_path</span>
+
+        <span class="k">if</span> <span class="n">Path</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">project_path</span><span class="p">)</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">default_proj_path</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;..Warning, project path has not been specified. Use the &#39;</span>
+                  <span class="s1">&#39;sensortoolkit.presets.set_project_path() method to assign &#39;</span>
+                  <span class="s1">&#39;a directory path.&#39;</span><span class="p">)</span>
+            <span class="k">return</span>
+
+        <span class="k">if</span> <span class="nb">all</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">site_name</span> <span class="o">==</span> <span class="kc">None</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">site_id</span> <span class="o">==</span> <span class="kc">None</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">data_source</span> <span class="o">==</span> <span class="kc">None</span><span class="p">]):</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;..reference data source and monitoring site information&#39;</span>
+                  <span class="s1">&#39; not specified, run ReferenceMonitor.reference_setup() to continue&#39;</span><span class="p">)</span>
+            <span class="k">return</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_source</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;No reference data source specified, choose&#39;</span>
+                             <span class="sa">f</span><span class="s1">&#39; from the following sources: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_data_sources</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">site_name</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">site_name</span> <span class="o">=</span> <span class="s1">&#39;Unspecified Site Name&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">site_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">site_name</span><span class="o">.</span><span class="n">title</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_fmt_site_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">site_name</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="s1">&#39;_&#39;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">site_id</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">site_id</span> <span class="o">=</span> <span class="s1">&#39;Unspecified Site ID&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_fmt_site_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">site_id</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="s1">&#39;_&#39;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_ref_data_subfolder</span> <span class="o">=</span> <span class="s1">&#39;_&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">_fmt_site_name</span><span class="p">,</span>
+                                            <span class="bp">self</span><span class="o">.</span><span class="n">_fmt_site_id</span><span class="p">])</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_ref_parent_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">project_path</span><span class="p">,</span> <span class="s1">&#39;data&#39;</span><span class="p">,</span>
+                                             <span class="s1">&#39;reference_data&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_source</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_ref_raw_path</span> <span class="o">=</span>  <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_ref_parent_path</span><span class="p">,</span> <span class="s1">&#39;raw&#39;</span><span class="p">,</span>
+                                           <span class="bp">self</span><span class="o">.</span><span class="n">_ref_data_subfolder</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_setup_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_ref_raw_path</span><span class="p">,</span>
+                                        <span class="s1">&#39;reference_setup.json&#39;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">normpath</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_ref_raw_path</span><span class="p">)):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;No reference data folder with the path </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_ref_raw_path</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_get_ingest_config</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">_get_ingest_config</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_setup_path</span><span class="p">):</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_setup_path</span><span class="p">)</span> <span class="k">as</span> <span class="n">p</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">setup_data</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
+                <span class="n">p</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+<div class="viewcode-block" id="ReferenceMonitor.reference_setup"><a class="viewcode-back" href="../../../api/_autosummary/sensortoolkit.testing_attrib_objs._referencemonitor.ReferenceMonitor.html#sensortoolkit.testing_attrib_objs._referencemonitor.ReferenceMonitor.reference_setup">[docs]</a>    <span class="k">def</span> <span class="nf">reference_setup</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Interactive method for configuring reference data ingestion.</span>
+
+<span class="sd">        **Setup for Local Datasets:**</span>
+
+<span class="sd">        1. **Selecting the Reference Data Service or Source**:</span>
+
+<span class="sd">           Choose the service or source from which reference data were</span>
+<span class="sd">           acquired. Choose from the following options:</span>
+
+<span class="sd">           - ``&#39;local&#39;``: Data files acquired locally (e.g., local transfer</span>
+<span class="sd">             from agency overseeing reference instrumentation at air monitoring</span>
+<span class="sd">             site).</span>
+<span class="sd">           - ``&#39;airnowtech&#39;``: User has downloaded files from the AirNowTech</span>
+<span class="sd">             system and has saved files locally to the user’s system.</span>
+<span class="sd">           - ``&#39;aqs&#39;``: User will query EPA&#39;s Air Quality System (AQS) API for</span>
+<span class="sd">             reference data.</span>
+<span class="sd">           - ``&#39;airnow&#39;``: User will query the AirNow API for reference data.</span>
+
+<span class="sd">        2. **Adding Monitoring Site Information**:</span>
+
+<span class="sd">            Users input information about the ambient monitoring site at</span>
+<span class="sd">            which the collocation study was conducted.</span>
+
+<span class="sd">        3. **Selecting File Data Type**:</span>
+
+<span class="sd">           Choose the corresponding data file type for recorded reference</span>
+<span class="sd">           datasets from ``&#39;.csv&#39;``, ``&#39;.txt&#39;``, ``&#39;.xlsx&#39;``.</span>
+
+<span class="sd">        4. **Selecting Data Files**:</span>
+
+<span class="sd">           Choose the selection scheme for pointing to recorded data files from</span>
+<span class="sd">           the following options:</span>
+
+<span class="sd">           - ``&#39;directory&#39;``, which will locate and copy all of the data files</span>
+<span class="sd">             in the specified directory for the indicated data type</span>
+<span class="sd">           - ``&#39;recursive directory&#39;``, which will locate and copy all data</span>
+<span class="sd">             files within the specified directory and any subdirectories</span>
+<span class="sd">             contained within the indicated folder path</span>
+<span class="sd">           - ``&#39;files&#39;`` which copies over files that the user manually selects</span>
+<span class="sd">             within a directory.</span>
+
+<span class="sd">        5. **Copying Data Files**:</span>
+
+<span class="sd">           Recorded reference datasets are copied from the selected file or folder</span>
+<span class="sd">           location to the ``../data/reference_data/[reference_source]/[site_name]_[site_id]/raw``</span>
+<span class="sd">           directory path.</span>
+
+<span class="sd">        6. **Selecting the Column Header Index**:</span>
+
+<span class="sd">           Users indicate the integer index position for the row of header</span>
+<span class="sd">           data in reference datasets.</span>
+
+<span class="sd">        7. **Parsing Reference Datasets**:</span>
+
+<span class="sd">           The first few rows of recorded reference datasets located in the</span>
+<span class="sd">           ``../data/reference_data/[reference_source]/[site_name]_[site_id]/raw``</span>
+<span class="sd">           directory path are imported and the names of column headers are</span>
+<span class="sd">           located based on the indicated head index. A list of unique column</span>
+<span class="sd">           headers is stored for subsequent reassignment of column header</span>
+<span class="sd">           names.</span>
+
+<span class="sd">        8. **Specifying Timestamp Columns**:</span>
+
+<span class="sd">           Users indicate the column(s) containing date/timestamp information.</span>
+
+<span class="sd">        9. **Specifying the Parameter Renaming Scheme and Monitor Information**:</span>
+
+<span class="sd">           Users indicate the SDFS parameters corresponding to column names</span>
+<span class="sd">           discovered in step 5. This creates a parameter renaming dictionary</span>
+<span class="sd">           for reassigning the names of header labels. Details about the</span>
+<span class="sd">           reference monitors used to measure the selected SDFS parameters are</span>
+<span class="sd">           also indicated at this step.</span>
+
+<span class="sd">        10. **Configuring Timestamp Column Formatting**:</span>
+
+<span class="sd">            Users indicate the date/time formatting for date/time column(s)</span>
+<span class="sd">            indicated in step 6. Formatting should correspond to the</span>
+<span class="sd">            ``strftime`` formatting keywords located at https://strftime.org/</span>
+
+<span class="sd">        11. **Specifying the DateTime Index Time Zone**:</span>
+
+<span class="sd">            Users indicate the time zone associated with the date/time</span>
+<span class="sd">            column(s). Timezones should be valid timezone names recognized by</span>
+<span class="sd">            the ``pytz`` library.</span>
+
+<span class="sd">        12. **Saving the Setup Configuration to** ``setup.json``:</span>
+
+<span class="sd">            The setup configuration specified by the user is saved to a</span>
+<span class="sd">            ``setup.json`` file for subsequent use by the ingestion module for</span>
+<span class="sd">            importing recorded reference datasets and conversion to SDFS datasets.</span>
+
+<span class="sd">        13. **Reference Data Ingestion and Saving Processed Datasets**:</span>
+
+<span class="sd">            Recorded reference datasets are ingested via the configuration</span>
+<span class="sd">            specified and processed version of these datasets that have been</span>
+<span class="sd">            converted to SDFS format are saved as comma-separated value files</span>
+<span class="sd">            to the ``/data/reference_data/[source]/processed/[site_name]_[site_id]``.</span>
+
+<span class="sd">        **Setup for AirNowTech Datasets:**</span>
+
+<span class="sd">        Setup process is the same as steps #1-5 for the local data file setup</span>
+<span class="sd">        process. Subsequently, these steps are followed by:</span>
+
+<span class="sd">        6. **Pre-processing AirNowTech Datasets**:</span>
+
+<span class="sd">           Local AirNowTech files that the user selected in the previous step</span>
+<span class="sd">           are imported and processed versions of these datasets are ingested</span>
+<span class="sd">           into the SDFS format via the</span>
+<span class="sd">           ``sensortoolkit.reference.preprocess_airnowtech()`` method.</span>
+<span class="sd">           Processed datasets are subsequently saved as comma-separated value</span>
+<span class="sd">           files to ``/data/reference_data/airnowtech/processed/[site_name]_[site_id]``</span>
+
+<span class="sd">        7. **Saving the Setup Configuration to** ``setup.json``:</span>
+
+<span class="sd">            The setup configuration specified by the user is saved to a</span>
+<span class="sd">            ``setup.json`` file.</span>
+
+<span class="sd">        **Setup for Querying the AQS API**</span>
+
+<span class="sd">        Setup process is the same as steps 1 and 2 for the local data file setup</span>
+<span class="sd">        process.</span>
+
+<span class="sd">        .. important::</span>
+
+<span class="sd">            Users must provide a site AQS ID in step 2 to successfully query</span>
+<span class="sd">            the API service.</span>
+
+<span class="sd">        The setup configuration is subsequently saved to a</span>
+<span class="sd">        ``reference_setup.json``. Users should then query the AQS API via the</span>
+<span class="sd">        ``ReferenceMonitor.query_aqs()`` method.</span>
+
+<span class="sd">        **Setup for Querying the AirNow API**</span>
+
+<span class="sd">        Setup process is the same as steps 1 and 2 for the local data file setup</span>
+<span class="sd">        process.</span>
+
+<span class="sd">        .. important::</span>
+
+<span class="sd">            In step 2, users must provide the latitude and longitude</span>
+<span class="sd">            coordinates for the monitoring site where air sensors were</span>
+<span class="sd">            collocated to successfully query the API service.</span>
+
+<span class="sd">        The setup configuration is subsequently saved to a</span>
+<span class="sd">        ``reference_setup.json``. Users should then query the AirNow API via the</span>
+<span class="sd">        ``ReferenceMonitor.query_airnow()`` method.</span>
+
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;setup_data&#39;</span><span class="p">):</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;A setup configuration has previously been created for </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">setup_data</span><span class="p">[</span><span class="s2">&quot;site_name&quot;</span><span class="p">]</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Do you wish to continue and overwrite the previously created configuration?&#39;</span><span class="p">)</span>
+            <span class="n">val</span> <span class="o">=</span> <span class="n">lib_utils</span><span class="o">.</span><span class="n">validate_entry</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">val</span> <span class="o">==</span> <span class="s1">&#39;n&#39;</span><span class="p">:</span>
+                <span class="k">return</span>
+
+        <span class="n">setup_config</span> <span class="o">=</span> <span class="n">lib_utils</span><span class="o">.</span><span class="n">ReferenceSetup</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">project_path</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setup_data</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">setup_config</span><span class="o">.</span><span class="n">config_dict</span><span class="p">)</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">data_source</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data_source</span>
+
+    <span class="nd">@data_source</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">data_source</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">val</span><span class="p">):</span>
+
+
+        <span class="k">if</span> <span class="n">val</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_data_source</span> <span class="o">=</span> <span class="n">val</span>
+        <span class="k">elif</span> <span class="n">val</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data_sources</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_data_source</span> <span class="o">=</span> <span class="n">val</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Invalid entry for data source, must be of the&#39;</span>
+                             <span class="sa">f</span><span class="s1">&#39; following: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_data_sources</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">project_path</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">_presets</span><span class="o">.</span><span class="n">_project_path</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_project_path</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;[Note] Project path changed by user, setting AirSensor &#39;</span>
+                  <span class="s1">&#39;instance project path to new location&#39;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_project_path</span> <span class="o">=</span> <span class="n">_presets</span><span class="o">.</span><span class="n">_project_path</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_project_path</span>
+
+    <span class="nd">@project_path</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">project_path</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isabs</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_project_path</span> <span class="o">=</span> <span class="n">path</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Invalid project path, path not absolute: &#39;</span>
+                                 <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">path</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Invalid project path, directory not found: &#39;</span>
+                             <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">path</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<div class="viewcode-block" id="ReferenceMonitor.get_method_name"><a class="viewcode-back" href="../../../api/_autosummary/sensortoolkit.testing_attrib_objs._referencemonitor.ReferenceMonitor.html#sensortoolkit.testing_attrib_objs._referencemonitor.ReferenceMonitor.get_method_name">[docs]</a>    <span class="k">def</span> <span class="nf">get_method_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">param</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the name of the reference method (instrument name) for</span>
+<span class="sd">        the passed parameter.</span>
+
+
+<span class="sd">        Args:</span>
+<span class="sd">            param (str):</span>
+<span class="sd">                The parameter for which the reference monitor name will be</span>
+<span class="sd">                retrieved.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            method_name (str):</span>
+<span class="sd">                Name of the reference monitor used to collect measurements for</span>
+<span class="sd">                the passed parameter.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">classifier</span> <span class="o">=</span> <span class="n">Parameter</span><span class="p">(</span><span class="n">param</span><span class="p">)</span><span class="o">.</span><span class="n">classifier</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">classifier</span><span class="p">][</span><span class="s1">&#39;1-hour&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;No reference data found, load data via ReferenceMonitor.load_data()&#39;</span><span class="p">)</span>
+            <span class="k">return</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">method_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">classifier</span><span class="p">][</span><span class="s1">&#39;1-hour&#39;</span><span class="p">][</span><span class="n">param</span> <span class="o">+</span> <span class="s1">&#39;_Method&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span><span class="o">.</span><span class="n">unique</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+
+        <span class="k">except</span> <span class="ne">IndexError</span><span class="p">:</span>
+            <span class="n">method_name</span> <span class="o">=</span> <span class="s1">&#39;Unknown Reference&#39;</span>
+        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+            <span class="n">method_name</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;No reference monitor found for </span><span class="si">{</span><span class="n">param</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">method_name</span></div>
+
+<div class="viewcode-block" id="ReferenceMonitor.get_method_info"><a class="viewcode-back" href="../../../api/_autosummary/sensortoolkit.testing_attrib_objs._referencemonitor.ReferenceMonitor.html#sensortoolkit.testing_attrib_objs._referencemonitor.ReferenceMonitor.get_method_info">[docs]</a>    <span class="k">def</span> <span class="nf">get_method_info</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">param</span><span class="p">,</span> <span class="n">attributes</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Parameter&#39;</span><span class="p">,</span> <span class="s1">&#39;Parameter Code&#39;</span><span class="p">,</span>
+                        <span class="s1">&#39;Method Code&#39;</span><span class="p">,</span> <span class="s1">&#39;Recording Mode&#39;</span><span class="p">,</span> <span class="s1">&#39;Collection Description&#39;</span><span class="p">,</span>
+                        <span class="s1">&#39;Analysis Description&#39;</span><span class="p">,</span> <span class="s1">&#39;Method Type&#39;</span><span class="p">,</span> <span class="s1">&#39;Reference Method ID&#39;</span><span class="p">,</span>
+                        <span class="s1">&#39;Make&#39;</span><span class="p">,</span> <span class="s1">&#39;Model&#39;</span><span class="p">,</span> <span class="s1">&#39;Equivalent Method&#39;</span><span class="p">,</span> <span class="s1">&#39;Federal MDL&#39;</span><span class="p">,</span> <span class="s1">&#39;Min Value&#39;</span><span class="p">,</span>
+                        <span class="s1">&#39;Max Value&#39;</span><span class="p">,</span> <span class="s1">&#39;Digits&#39;</span><span class="p">,</span> <span class="s1">&#39;Round Truncate Indicator&#39;</span><span class="p">,</span> <span class="s1">&#39;Units&#39;</span><span class="p">,</span>
+                        <span class="s1">&#39;Method Name&#39;</span><span class="p">]):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return information about the instrument corresponding to the passed</span>
+<span class="sd">        parameter. By default, return information for the following attributes:</span>
+
+<span class="sd">            [&#39;Parameter&#39;, &#39;Parameter Code&#39;, &#39;Method Code&#39;, &#39;Recording Mode&#39;,</span>
+<span class="sd">             &#39;Collection Description&#39;, &#39;Analysis Description&#39;, &#39;Method Type&#39;,</span>
+<span class="sd">             &#39;Reference Method ID&#39;, &#39;Make&#39;, &#39;Model&#39;, &#39;Equivalent Method&#39;,</span>
+<span class="sd">             &#39;Federal MDL&#39;, &#39;Min Value&#39;, &#39;Max Value&#39;, &#39;Digits&#39;,</span>
+<span class="sd">             &#39;Round Truncate Indicator&#39;, &#39;Units&#39;, &#39;Method Name&#39;]</span>
+
+<span class="sd">        Passing a subset of these listed attributes will return a dictionary</span>
+<span class="sd">        with corresponding attribute values. If only one attribute passed as a</span>
+<span class="sd">        string to the &quot;attributes&quot; parameter, a string or int will be returned</span>
+<span class="sd">        instead.</span>
+
+
+<span class="sd">        Args:</span>
+<span class="sd">            param (str):</span>
+<span class="sd">                The parameter corresponding to the reference method.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            return_info (str, int, or dict):</span>
+<span class="sd">                Attribute(s) requested by the user for the reference method.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">param_obj</span> <span class="o">=</span> <span class="n">Parameter</span><span class="p">(</span><span class="n">param</span><span class="p">)</span>
+        <span class="n">classifier</span> <span class="o">=</span> <span class="n">param_obj</span><span class="o">.</span><span class="n">classifier</span>
+
+        <span class="k">if</span> <span class="n">classifier</span> <span class="o">==</span> <span class="s1">&#39;Met&#39;</span><span class="p">:</span>
+
+            <span class="n">met_methods_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="vm">__file__</span><span class="p">,</span>
+                                <span class="s1">&#39;..&#39;</span><span class="p">,</span> <span class="s1">&#39;..&#39;</span><span class="p">,</span> <span class="s1">&#39;reference&#39;</span><span class="p">,</span> <span class="s1">&#39;method_codes&#39;</span><span class="p">,</span> <span class="s1">&#39;methods_met.csv&#39;</span><span class="p">))</span>
+            <span class="n">lookup_table</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">met_methods_path</span><span class="p">)</span>
+
+        <span class="k">elif</span> <span class="n">param_obj</span><span class="o">.</span><span class="n">criteria_pollutant</span><span class="p">:</span>
+            <span class="n">criteria_methods_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="vm">__file__</span><span class="p">,</span>
+                                <span class="s1">&#39;..&#39;</span><span class="p">,</span> <span class="s1">&#39;..&#39;</span><span class="p">,</span> <span class="s1">&#39;reference&#39;</span><span class="p">,</span> <span class="s1">&#39;method_codes&#39;</span><span class="p">,</span> <span class="s1">&#39;methods_criteria.csv&#39;</span><span class="p">))</span>
+            <span class="n">lookup_table</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">criteria_methods_path</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Reference instrument not found&#39;</span><span class="p">)</span>
+            <span class="k">return</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">classifier</span><span class="p">][</span><span class="s1">&#39;1-hour&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;No reference data found, load data via ReferenceMonitor.load_data()&#39;</span><span class="p">)</span>
+            <span class="k">return</span>
+
+        <span class="c1"># TODO: add error catching (either index error or keyerror)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">method_code</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">classifier</span><span class="p">][</span><span class="s1">&#39;1-hour&#39;</span><span class="p">][</span><span class="n">param</span> <span class="o">+</span> <span class="s1">&#39;_Method_Code&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span><span class="o">.</span><span class="n">unique</span><span class="p">()[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="k">except</span> <span class="ne">KeyError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;not found in reference dataset, no such parameter label &quot;</span><span class="si">{</span><span class="n">param</span><span class="si">}</span><span class="s1">&quot;&#39;</span><span class="p">)</span>
+            <span class="k">return</span>
+        <span class="k">except</span> <span class="ne">IndexError</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Method Code unspecified for </span><span class="si">{</span><span class="n">param</span><span class="si">}</span><span class="s1"> reference method&#39;</span><span class="p">)</span>
+            <span class="k">return</span>
+        <span class="n">method_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_method_name</span><span class="p">(</span><span class="n">param</span><span class="p">)</span>
+        <span class="n">aqs_param_code</span> <span class="o">=</span> <span class="n">param_obj</span><span class="o">.</span><span class="n">aqs_parameter_code</span>
+
+        <span class="n">lookup_table</span><span class="p">[</span><span class="s1">&#39;Method Name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">lookup_table</span><span class="o">.</span><span class="n">Make</span> <span class="o">+</span> <span class="s1">&#39; &#39;</span> <span class="o">+</span> <span class="n">lookup_table</span><span class="o">.</span><span class="n">Model</span>
+
+        <span class="n">data_match</span> <span class="o">=</span> <span class="n">lookup_table</span><span class="p">[(</span><span class="n">lookup_table</span><span class="p">[</span><span class="s1">&#39;Method Name&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">method_name</span><span class="p">)</span><span class="o">&amp;</span>
+                     <span class="p">(</span><span class="n">lookup_table</span><span class="p">[</span><span class="s1">&#39;Method Code&#39;</span><span class="p">]</span><span class="o">==</span><span class="n">method_code</span><span class="p">)</span><span class="o">&amp;</span>
+                     <span class="p">(</span><span class="n">lookup_table</span><span class="p">[</span><span class="s1">&#39;Parameter Code&#39;</span><span class="p">]</span><span class="o">==</span><span class="n">aqs_param_code</span><span class="p">)</span>
+                     <span class="p">]</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">how</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">data_match</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="c1">#desig = data_match[&#39;Method Type&#39;].unique()[0]</span>
+
+            <span class="n">info</span> <span class="o">=</span> <span class="n">data_match</span><span class="o">.</span><span class="n">to_dict</span><span class="p">(</span><span class="s1">&#39;records&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+
+            <span class="k">if</span> <span class="n">info</span> <span class="o">==</span> <span class="p">{}:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;No information on reference monitor found&#39;</span><span class="p">)</span>
+                <span class="k">return</span>
+            <span class="k">else</span><span class="p">:</span>
+
+                <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">attributes</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">str</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">attributes</span> <span class="ow">in</span> <span class="n">info</span><span class="p">:</span>
+
+                        <span class="k">if</span> <span class="p">(</span><span class="n">param_obj</span><span class="o">.</span><span class="n">units</span><span class="o">==</span><span class="s1">&#39;ppbv&#39;</span> <span class="ow">and</span> <span class="n">info</span><span class="p">[</span><span class="s1">&#39;Units&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;Parts per million&#39;</span><span class="p">):</span>
+
+                            <span class="k">if</span> <span class="p">(</span><span class="n">attributes</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;Federal MDL&#39;</span><span class="p">,</span> <span class="s1">&#39;Min Value&#39;</span><span class="p">,</span> <span class="s1">&#39;Max Value&#39;</span><span class="p">]):</span>
+                                <span class="n">info</span><span class="p">[</span><span class="n">attributes</span><span class="p">]</span> <span class="o">*=</span> <span class="mi">1000</span>
+                            <span class="k">if</span> <span class="n">attributes</span> <span class="o">==</span> <span class="s1">&#39;Units&#39;</span><span class="p">:</span>
+                                <span class="n">info</span><span class="p">[</span><span class="n">attributes</span><span class="p">]</span> <span class="o">=</span> <span class="n">param_obj</span><span class="o">.</span><span class="n">units_description</span>
+
+                        <span class="n">return_info</span> <span class="o">=</span> <span class="n">info</span><span class="p">[</span><span class="n">attributes</span><span class="p">]</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;..attribute &quot;</span><span class="si">{</span><span class="n">attributes</span><span class="si">}</span><span class="s1">&quot; unspecified&#39;</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+
+                    <span class="n">return_info</span> <span class="o">=</span> <span class="p">{}</span>
+                    <span class="k">for</span> <span class="n">attrib</span> <span class="ow">in</span> <span class="n">attributes</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="n">attrib</span> <span class="ow">in</span> <span class="n">info</span><span class="p">:</span>
+
+                            <span class="k">if</span> <span class="p">(</span><span class="n">param_obj</span><span class="o">.</span><span class="n">units</span><span class="o">==</span><span class="s1">&#39;ppbv&#39;</span> <span class="ow">and</span> <span class="n">info</span><span class="p">[</span><span class="s1">&#39;Units&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;Parts per million&#39;</span><span class="p">):</span>
+
+                                <span class="k">if</span> <span class="p">(</span><span class="n">attrib</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;Federal MDL&#39;</span><span class="p">,</span> <span class="s1">&#39;Min Value&#39;</span><span class="p">,</span> <span class="s1">&#39;Max Value&#39;</span><span class="p">]):</span>
+                                    <span class="n">info</span><span class="p">[</span><span class="n">attrib</span><span class="p">]</span> <span class="o">*=</span> <span class="mi">1000</span>
+                                <span class="k">if</span> <span class="n">attrib</span> <span class="o">==</span> <span class="s1">&#39;Units&#39;</span><span class="p">:</span>
+                                    <span class="n">info</span><span class="p">[</span><span class="n">attrib</span><span class="p">]</span> <span class="o">=</span> <span class="n">param_obj</span><span class="o">.</span><span class="n">units_description</span>
+
+                            <span class="n">return_info</span><span class="p">[</span><span class="n">attrib</span><span class="p">]</span> <span class="o">=</span> <span class="n">info</span><span class="p">[</span><span class="n">attrib</span><span class="p">]</span>
+                        <span class="k">else</span><span class="p">:</span>
+                            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;..attribute &quot;</span><span class="si">{</span><span class="n">attrib</span><span class="si">}</span><span class="s1">&quot; unspecified&#39;</span><span class="p">)</span>
+
+                <span class="k">return</span> <span class="n">return_info</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;No information on reference monitor found&#39;</span><span class="p">)</span>
+            <span class="k">return</span></div>
+
+
+<div class="viewcode-block" id="ReferenceMonitor.query_aqs"><a class="viewcode-back" href="../../../api/_autosummary/sensortoolkit.testing_attrib_objs._referencemonitor.ReferenceMonitor.html#sensortoolkit.testing_attrib_objs._referencemonitor.ReferenceMonitor.query_aqs">[docs]</a>    <span class="k">def</span> <span class="nf">query_aqs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">username</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">param_list</span><span class="p">,</span> <span class="n">bdate</span><span class="p">,</span> <span class="n">edate</span><span class="p">,</span>
+                  <span class="n">site_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">query_met_data</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Send a data query to the AQS API.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            username (str):</span>
+<span class="sd">                The email account registered with the API service.</span>
+<span class="sd">            key (str):</span>
+<span class="sd">                The API authentication key code.</span>
+<span class="sd">            param_list (list):</span>
+<span class="sd">                A list of SDFS parameters measured by reference monitors at</span>
+<span class="sd">                the monitoring site for which data will be loaded.</span>
+<span class="sd">            bdate (str):</span>
+<span class="sd">                The beginning date (“YYYY-MM-DD” format) for the sensor</span>
+<span class="sd">                testing period.</span>
+<span class="sd">            edate (str):</span>
+<span class="sd">                The ending date (“YYYY-MM-DD” format) for the sensor testing</span>
+<span class="sd">                period.</span>
+<span class="sd">            site_id (dict, optional):</span>
+<span class="sd">                The AQS site ID for the air monitoring site from which</span>
+<span class="sd">                reference measurements will be returned by the API. The site</span>
+<span class="sd">                ID is passed as a dictionary with three key-value pairs:</span>
+
+<span class="sd">                    - ``&#39;state&#39;``: The two digit FIPS code for the state</span>
+<span class="sd">                      (leading zero included).</span>
+<span class="sd">                    - ``&#39;county&#39;``: The three digit FIPS code for the county</span>
+<span class="sd">                      (leading zeros included) located within the state.</span>
+<span class="sd">                    - ``&#39;site&#39;``: The four digit AQS site number within the</span>
+<span class="sd">                      county (leading zeros included).</span>
+
+<span class="sd">                .. note::</span>
+
+<span class="sd">                    If site_id is not null, the site ID passed will be used</span>
+<span class="sd">                    instead of any previously configured reference monitor</span>
+<span class="sd">                    configuration via the</span>
+<span class="sd">                    ``sensortoolkit.ReferenceMonitor.reference_setup()``</span>
+<span class="sd">                    method.</span>
+
+<span class="sd">            query_met_data (bool, optional):</span>
+<span class="sd">                If true, meteorological data for temperature and</span>
+<span class="sd">                relative humidity measurements will be queried in addition to</span>
+<span class="sd">                parameters passed to param_list. Defaults to true (U.S. EPA’s</span>
+<span class="sd">                documents for recommended performance testing protocols,</span>
+<span class="sd">                metrics, and target values encourage users to report</span>
+<span class="sd">                meteorological conditions for sensor performance evaluations</span>
+<span class="sd">                and reports).</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">site_id</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">site_list</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">setup_data</span><span class="p">[</span><span class="s1">&#39;site_aqs&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="p">)</span>
+                <span class="n">site_id</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;state&#39;</span><span class="p">:</span> <span class="n">site_list</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+                                <span class="s1">&#39;county&#39;</span><span class="p">:</span> <span class="n">site_list</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+                                <span class="s1">&#39;site&#39;</span><span class="p">:</span> <span class="n">site_list</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+                            <span class="p">}</span>
+            <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Setup configuration does not specify a site AQS ID, run&#39;</span>
+                      <span class="s1">&#39;ReferenceMonitor.reference_setup() and enter a site ID&#39;</span><span class="p">)</span>
+                <span class="k">return</span>
+
+        <span class="n">aqs_param_df</span> <span class="o">=</span> <span class="n">ref_api_query</span><span class="p">(</span><span class="n">query_type</span><span class="o">=</span><span class="s1">&#39;AQS&#39;</span><span class="p">,</span>
+                                     <span class="n">param</span><span class="o">=</span><span class="n">param_list</span><span class="p">,</span>
+                                     <span class="n">bdate</span><span class="o">=</span><span class="n">bdate</span><span class="p">,</span>
+                                     <span class="n">edate</span><span class="o">=</span><span class="n">edate</span><span class="p">,</span>
+                                     <span class="n">aqs_id</span><span class="o">=</span><span class="n">site_id</span><span class="p">,</span>
+                                     <span class="n">username</span><span class="o">=</span><span class="n">username</span><span class="p">,</span>
+                                     <span class="n">key</span><span class="o">=</span><span class="n">key</span><span class="p">,</span>
+                                     <span class="n">path</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_project_path</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">aqs_param_df</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
+            <span class="n">aqs_d_param_df</span> <span class="o">=</span> <span class="n">interval_averaging</span><span class="p">(</span><span class="n">aqs_param_df</span><span class="p">,</span>
+                                                <span class="n">freq</span><span class="o">=</span><span class="s1">&#39;D&#39;</span><span class="p">,</span>
+                                                <span class="n">interval_count</span><span class="o">=</span><span class="mi">24</span><span class="p">,</span>
+                                                <span class="n">thres</span><span class="o">=</span><span class="mf">0.75</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">query_met_data</span><span class="p">:</span>
+            <span class="n">aqs_met_df</span> <span class="o">=</span> <span class="n">ref_api_query</span><span class="p">(</span><span class="n">query_type</span><span class="o">=</span><span class="s1">&#39;AQS&#39;</span><span class="p">,</span>
+                                       <span class="n">param</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Temp&#39;</span><span class="p">,</span> <span class="s1">&#39;RH&#39;</span><span class="p">],</span>
+                                       <span class="n">bdate</span><span class="o">=</span><span class="n">bdate</span><span class="p">,</span>
+                                       <span class="n">edate</span><span class="o">=</span><span class="n">edate</span><span class="p">,</span>
+                                       <span class="n">aqs_id</span><span class="o">=</span><span class="n">site_id</span><span class="p">,</span>
+                                       <span class="n">username</span><span class="o">=</span><span class="n">username</span><span class="p">,</span>
+                                       <span class="n">key</span><span class="o">=</span><span class="n">key</span><span class="p">,</span>
+                                       <span class="n">path</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_project_path</span><span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">aqs_met_df</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
+                <span class="n">aqs_d_met_df</span> <span class="o">=</span> <span class="n">interval_averaging</span><span class="p">(</span><span class="n">aqs_met_df</span><span class="p">,</span>
+                                                  <span class="n">freq</span><span class="o">=</span><span class="s1">&#39;D&#39;</span><span class="p">,</span>
+                                                  <span class="n">interval_count</span><span class="o">=</span><span class="mi">24</span><span class="p">,</span>
+                                                  <span class="n">thres</span><span class="o">=</span><span class="mf">0.75</span><span class="p">)</span>
+
+        <span class="n">classifier</span> <span class="o">=</span> <span class="n">Parameter</span><span class="p">(</span><span class="n">param_list</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">.</span><span class="n">classifier</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">aqs_param_df</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">classifier</span><span class="p">][</span><span class="s1">&#39;1-hour&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">aqs_param_df</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">classifier</span><span class="p">][</span><span class="s1">&#39;24-hour&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">aqs_d_param_df</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">query_met_data</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="ow">not</span> <span class="n">aqs_met_df</span><span class="o">.</span><span class="n">empty</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;Met&#39;</span><span class="p">][</span><span class="s1">&#39;1-hour&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">aqs_met_df</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;Met&#39;</span><span class="p">][</span><span class="s1">&#39;24-hour&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">aqs_d_met_df</span></div>
+
+<div class="viewcode-block" id="ReferenceMonitor.query_airnow"><a class="viewcode-back" href="../../../api/_autosummary/sensortoolkit.testing_attrib_objs._referencemonitor.ReferenceMonitor.html#sensortoolkit.testing_attrib_objs._referencemonitor.ReferenceMonitor.query_airnow">[docs]</a>    <span class="k">def</span> <span class="nf">query_airnow</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">param_list</span><span class="p">,</span> <span class="n">bdate</span><span class="p">,</span> <span class="n">edate</span><span class="p">,</span> <span class="n">bbox</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                     <span class="n">bbox_size</span><span class="o">=</span><span class="mf">0.01</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Send a data query to the AirNow API.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            key (str):</span>
+<span class="sd">                The API authentication key code.</span>
+<span class="sd">            param_list (list):</span>
+<span class="sd">                A list of SDFS parameters measured by reference monitors at</span>
+<span class="sd">                the monitoring site for which data will be loaded.</span>
+<span class="sd">            bdate (str):</span>
+<span class="sd">                The beginning date (“YYYY-MM-DD” format) for the sensor</span>
+<span class="sd">                testing period.</span>
+<span class="sd">            edate (str):</span>
+<span class="sd">                The ending date (“YYYY-MM-DD” format) for the sensor testing</span>
+<span class="sd">                period.</span>
+<span class="sd">            bbox (dict, optional):</span>
+<span class="sd">                A bounding box of coordinates within which data will be</span>
+<span class="sd">                queried. Defaults to None. ``bbox`` accepts four key-value</span>
+<span class="sd">                pair entries, where the following keys should be specified:</span>
+
+<span class="sd">                - ``&#39;minLat&#39;``: The northern-most latitude for the bounding</span>
+<span class="sd">                  box.</span>
+<span class="sd">                - ``&#39;maxLat&#39;``: The southern-most latitude for the bounding</span>
+<span class="sd">                  box.</span>
+<span class="sd">                - ``&#39;minLong&#39;``: The western-most longitude for the bounding</span>
+<span class="sd">                  box.</span>
+<span class="sd">                - ``&#39;maxLong&#39;``: The eastern-most longitude for the bounding</span>
+<span class="sd">                  box.</span>
+
+<span class="sd">                Values for each key should be type float.</span>
+
+<span class="sd">            bbox_size (float, optional):</span>
+<span class="sd">                DESCRIPTION. Defaults to 0.01.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="n">bbox</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">site_lat</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">setup_data</span><span class="p">[</span><span class="s1">&#39;site_lat&#39;</span><span class="p">])</span>
+                <span class="n">site_lon</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">setup_data</span><span class="p">[</span><span class="s1">&#39;site_lon&#39;</span><span class="p">])</span>
+
+                <span class="n">bbox</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;minLat&quot;</span><span class="p">:</span> <span class="nb">round</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">site_lat</span> <span class="o">-</span> <span class="n">bbox_size</span><span class="p">),</span> <span class="mi">3</span><span class="p">),</span>
+                        <span class="s2">&quot;maxLat&quot;</span><span class="p">:</span> <span class="nb">round</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">site_lat</span> <span class="o">+</span> <span class="n">bbox_size</span><span class="p">),</span> <span class="mi">3</span><span class="p">),</span>
+                        <span class="s2">&quot;minLong&quot;</span><span class="p">:</span> <span class="nb">round</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">site_lon</span> <span class="o">-</span> <span class="n">bbox_size</span><span class="p">),</span> <span class="mi">3</span><span class="p">),</span>
+                        <span class="s2">&quot;maxLong&quot;</span><span class="p">:</span> <span class="nb">round</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">site_lon</span> <span class="o">+</span> <span class="n">bbox_size</span><span class="p">),</span> <span class="mi">3</span><span class="p">)}</span>
+            <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Setup configuration does not specify site latitude &#39;</span>
+                      <span class="s1">&#39;and/or longitude, run ReferenceMonitor.reference_setup&#39;</span>
+                      <span class="s1">&#39;() and enter a site ID&#39;</span><span class="p">)</span>
+                <span class="k">return</span>
+
+
+        <span class="n">airnow_df</span> <span class="o">=</span> <span class="n">ref_api_query</span><span class="p">(</span><span class="n">query_type</span><span class="o">=</span><span class="s1">&#39;AirNow&#39;</span><span class="p">,</span>
+                                  <span class="n">param</span><span class="o">=</span><span class="n">param_list</span><span class="p">,</span>
+                                  <span class="n">bdate</span><span class="o">=</span><span class="n">bdate</span><span class="p">,</span>
+                                  <span class="n">edate</span><span class="o">=</span><span class="n">edate</span><span class="p">,</span>
+                                  <span class="n">airnow_bbox</span><span class="o">=</span><span class="n">bbox</span><span class="p">,</span>
+                                  <span class="n">key</span><span class="o">=</span><span class="n">key</span><span class="p">,</span>
+                                  <span class="n">path</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_project_path</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">airnow_df</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
+            <span class="n">airnow_d_df</span> <span class="o">=</span> <span class="n">interval_averaging</span><span class="p">(</span><span class="n">airnow_df</span><span class="p">,</span>
+                                              <span class="n">freq</span><span class="o">=</span><span class="s1">&#39;D&#39;</span><span class="p">,</span>
+                                              <span class="n">interval_count</span><span class="o">=</span><span class="mi">24</span><span class="p">,</span>
+                                              <span class="n">thres</span><span class="o">=</span><span class="mf">0.75</span><span class="p">)</span>
+
+        <span class="n">classifier</span> <span class="o">=</span> <span class="n">Parameter</span><span class="p">(</span><span class="n">param_list</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">.</span><span class="n">classifier</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">airnow_df</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">classifier</span><span class="p">][</span><span class="s1">&#39;1-hour&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">airnow_df</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">classifier</span><span class="p">][</span><span class="s1">&#39;24-hour&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">airnow_d_df</span></div>
+
+
+<div class="viewcode-block" id="ReferenceMonitor.load_data"><a class="viewcode-back" href="../../../api/_autosummary/sensortoolkit.testing_attrib_objs._referencemonitor.ReferenceMonitor.html#sensortoolkit.testing_attrib_objs._referencemonitor.ReferenceMonitor.load_data">[docs]</a>    <span class="k">def</span> <span class="nf">load_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bdate</span><span class="p">,</span> <span class="n">edate</span><span class="p">,</span> <span class="n">param_list</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">met_data</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Load reference data from locally acquired files.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            bdate (str):</span>
+<span class="sd">                The beginning date (“YYYY-MM-DD” format) for the sensor</span>
+<span class="sd">                testing period.</span>
+<span class="sd">            edate (str):</span>
+<span class="sd">                The ending date (“YYYY-MM-DD” format) for the sensor testing</span>
+<span class="sd">                period.</span>
+<span class="sd">            param_list (list):</span>
+<span class="sd">                A list of SDFS parameters measured by reference monitors at</span>
+<span class="sd">                the monitoring site for which data will be loaded.</span>
+<span class="sd">            path (str, optional):</span>
+<span class="sd">                Full path to the data directory where processed reference</span>
+<span class="sd">                datasets are located. If None (default), will attempt to</span>
+<span class="sd">                construct path from an existing setup configuration if the</span>
+<span class="sd">                ``sensortoolkit.ReferenceMonitor.reference_setup()`` method</span>
+<span class="sd">                was run prior to calling ``load_data()``.</span>
+
+<span class="sd">                .. note::</span>
+
+<span class="sd">                    If path is not null (i.e., a valid directory path is</span>
+<span class="sd">                    passed) and a reference monitor configuration was created</span>
+<span class="sd">                    with</span>
+<span class="sd">                    ``sensortoolkit.ReferenceMonitor.reference_setup()``</span>
+<span class="sd">                    prior to running ``load_data()``, the path will point to</span>
+<span class="sd">                    datasets located at the indicated path instead of</span>
+<span class="sd">                    datasets pointed to by the path configured by the</span>
+<span class="sd">                    ``reference_setup()`` method.</span>
+
+<span class="sd">            met_data (bool, optional):</span>
+<span class="sd">                If true, meteorological data will be loaded in addition to</span>
+<span class="sd">                datasets corresponding to parameters passed to param_list.</span>
+<span class="sd">                Defaults to true (U.S. EPA’s documents for recommended</span>
+<span class="sd">                performance testing protocols, metrics, and target values</span>
+<span class="sd">                encourage users to report meteorological conditions for sensor</span>
+<span class="sd">                performance evaluations and reports).</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">path</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+
+                <span class="n">data_rel_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">setup_data</span><span class="p">[</span><span class="s1">&#39;data_rel_path&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;raw&#39;</span><span class="p">,</span> <span class="s1">&#39;processed&#39;</span><span class="p">)</span>
+                <span class="n">path_validated</span> <span class="o">=</span> <span class="kc">False</span>
+
+                <span class="c1"># Remove slashes from start of data relative path</span>
+                <span class="k">while</span> <span class="ow">not</span> <span class="n">path_validated</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">data_rel_path</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)</span> <span class="ow">or</span> <span class="n">data_rel_path</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;</span><span class="se">\\</span><span class="s1">&#39;</span><span class="p">):</span>
+                        <span class="n">data_rel_path</span> <span class="o">=</span> <span class="n">data_rel_path</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+                    <span class="k">if</span> <span class="ow">not</span> <span class="n">data_rel_path</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">data_rel_path</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;</span><span class="se">\\</span><span class="s1">&#39;</span><span class="p">):</span>
+                        <span class="n">path_validated</span> <span class="o">=</span> <span class="kc">True</span>
+
+                <span class="n">path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">normpath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">project_path</span><span class="p">,</span>
+                                                     <span class="n">data_rel_path</span><span class="p">))</span>
+            <span class="k">except</span> <span class="ne">AttributeError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Setup configuration does not specify reference data &#39;</span>
+                      <span class="s1">&#39;source, run ReferenceMonitor.reference_setup()&#39;</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+                <span class="k">return</span>
+
+        <span class="k">if</span> <span class="n">met_data</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;Temp&#39;</span><span class="p">,</span> <span class="s1">&#39;RH&#39;</span><span class="p">]:</span>
+                <span class="k">if</span> <span class="n">param</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">param_list</span><span class="p">:</span>
+                    <span class="n">param_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">param</span><span class="p">)</span>
+
+        <span class="n">classes</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">param_list</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">Parameter</span><span class="o">.</span><span class="n">__param_dict__</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+                <span class="n">classes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Parameter</span><span class="p">(</span><span class="n">param</span><span class="p">)</span><span class="o">.</span><span class="n">classifier</span><span class="p">)</span>
+        <span class="n">classes</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">classes</span><span class="p">)</span>
+
+        <span class="n">bdate</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">bdate</span><span class="p">)</span>
+        <span class="n">edate</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">edate</span><span class="p">)</span>
+
+        <span class="n">data_dict</span> <span class="o">=</span> <span class="n">load_ref_dataframes</span><span class="p">(</span><span class="n">bdate</span><span class="p">,</span> <span class="n">edate</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">classes</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">classifier</span> <span class="ow">in</span> <span class="n">data_dict</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">interval</span> <span class="ow">in</span> <span class="n">data_dict</span><span class="p">[</span><span class="n">classifier</span><span class="p">]:</span>
+                <span class="n">df</span> <span class="o">=</span> <span class="n">data_dict</span><span class="p">[</span><span class="n">classifier</span><span class="p">][</span><span class="n">interval</span><span class="p">]</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">df</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">classifier</span><span class="p">][</span><span class="n">interval</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span></div></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, United States Environmental Protection Agency.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

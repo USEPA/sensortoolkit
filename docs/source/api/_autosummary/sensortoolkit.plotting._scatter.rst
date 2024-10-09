@@ -18,6 +18,7 @@
       draw_scatter
       met_influence
       scatter_plotter
+      wind_influence
    
    
 

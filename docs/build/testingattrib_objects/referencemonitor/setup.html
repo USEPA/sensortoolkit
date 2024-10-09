@@ -1,0 +1,1311 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en">
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ReferenceMonitor Setup &mdash; sensortoolkit 0.9.0b2 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Loading Reference Data" href="load_data.html" />
+    <link rel="prev" title="ReferenceMonitor Instantiation" href="overview.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            sensortoolkit
+          </a>
+              <div class="version">
+                0.9.0b2
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../quickstart.html">Quickstart Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../setup.html">Setting Up for sensortoolkit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../install.html">Installing and Updating sensortoolkit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../template.html">Analysis with sensortoolkit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../template.html#script-template">Script Template</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Objects and Data Structures</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Testing Attribute Objects</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../airsensor/index.html">The AirSensor Object</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">The ReferenceMonitor Object</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="overview.html">ReferenceMonitor Instantiation</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">ReferenceMonitor Setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="load_data.html">Loading Reference Data</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../parameter.html">The Parameter Object</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../setup_overview.html">Overview of Instantiating Testing Attributes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../data_structures/index.html">Data Structures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../sdfs/index.html">sensortoolkit Data Formatting Scheme (SDFS)</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Analysis and Reports</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../evaluation_objects/index.html">Evaluation Objects</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../api/index.html">sensortoolkit API</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">sensortoolkit</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Testing Attribute Objects</a></li>
+          <li class="breadcrumb-item"><a href="index.html">The ReferenceMonitor Object</a></li>
+      <li class="breadcrumb-item active">ReferenceMonitor Setup</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/testingattrib_objects/referencemonitor/setup.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="referencemonitor-setup">
+<h1>ReferenceMonitor Setup<a class="headerlink" href="#referencemonitor-setup" title="Permalink to this heading"></a></h1>
+<p>The <code class="docutils literal notranslate"><span class="pre">sensortoolkit.ReferenceMonitor.reference_setup()</span></code> module guides users through
+an interactive process of entering in details regarding the reference data configuration
+the user plans to make use of for conducting evaluations.</p>
+<p>For reference datasets that users have downloaded locally, the setup process walks users through entering in details
+necessary for constructing a data ingestion configuration. This configuration is saved
+to a setup.json configuration file that contains details for describing and converting
+the recorded sensor data format into the <a class="reference external" href="../../sdfs/index.html">sensortoolkit Data Formatting Scheme (SDFS)</a>.</p>
+<p>If users plan to query either the AirNow or AQS API (user accounts required for either service),
+the setup module will walk users through an abbreviated process in order to indicate various site
+parameters that are required for querying these API services.</p>
+<p>Continuing with the <a class="reference external" href="../../quickstart.html#example-scenario-toco-toucan">Toco Toucan Quickstart example</a>,
+following the creation of our <code class="docutils literal notranslate"><span class="pre">reference</span></code> object, the setup module can be called via the following line of code:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">reference</span><span class="o">.</span><span class="n">reference_setup</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Running the above code, the user is greeted with a number of printed statements in
+the console that prompt the user’s input. <code class="docutils literal notranslate"><span class="pre">reference_setup()</span></code> is an interactive
+module, where the user inputs information via the console.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you’re following along with the <a class="reference external" href="../../quickstart.html#example-scenario-toco-toucan">Toco Toucan Quickstart example</a>,
+please note that example reference data sets included in the GitHub repository under the <code class="docutils literal notranslate"><span class="pre">/example_datasets</span></code>
+folder were downloaded from AirNow-Tech. To use the <code class="docutils literal notranslate"><span class="pre">&quot;airnowtech_example_reference_data.csv&quot;</span></code>
+data file, <strong>follow the setup directions below under the “AirNow-Tech” tab.</strong></p>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Because the setup process is slightly different depending on the service selected,
+use the tabs below to select the reference data service or source corresponding
+to your use case. This will display the setup process corresponding to the selected
+service or data source.</p>
+</div>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>A console width of at least 80 characters is recommended to properly format
+printed statements, banners, and tables within this setup method.</p>
+</div>
+<div class="tabbed-set docutils">
+<input checked="checked" id="72cbe2c0-348a-4973-b738-2563a294977e" name="7618e83b-b320-492b-948e-ecd093edb1df" type="radio">
+</input><label class="tabbed-label" for="72cbe2c0-348a-4973-b738-2563a294977e">
+AirNow-Tech</label><div class="tabbed-content docutils">
+<p>The following steps below walk through the setup process. The example below
+describes the setup process for a reference data file downloaded from AirNow-Tech
+for the EPA RTP monitoring site for sensor evaluations.</p>
+<p><strong>1. Selecting the Reference Data Service/Source</strong></p>
+<blockquote>
+<div><p>First, the user is asked to specify the service or source for reference data.
+The user’s entry must correspond to one of the options listed in the table shown
+in the banner for the section: users must choose from <code class="docutils literal notranslate"><span class="pre">airnow</span></code> (user plans to
+query the AirNow API), <code class="docutils literal notranslate"><span class="pre">aqs</span></code> (user plans to query the AQS API), <code class="docutils literal notranslate"><span class="pre">airnowtech</span></code> (user
+has downloaded files from the AirNow-Tech system and has saved files locally to the user’s
+system), or <code class="docutils literal notranslate"><span class="pre">local</span></code> (a catchall for reference data files the user may have stored
+locally on their system that were not acquired from any of the services previously mentioned).</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">=================== Select Name of Service for Data Source ===================</span>
+<span class="go">Options</span>
+<span class="go">-------</span>
+<span class="go">[&#39;airnow&#39;, &#39;aqs&#39;, &#39;airnowtech&#39;, &#39;local&#39;]</span>
+<span class="go">==============================================================================</span>
+
+<span class="go">Enter the name of the service from the list of options above: airnowtech</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p><strong>2. Adding Monitoring Site Information</strong></p>
+<blockquote>
+<div><p>Next, the user should enter in information about the ambient monitoring site
+at which the collocation study was conducted. If certain details are unknown or
+don’t apply to the site (e.g. Non-AQS sites will not have an AQS Site ID), entries
+can be skipped by pressing the ‘Enter’ key.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Users are strongly recommended to provide a site name and, if applicable, a site AQS ID.
+These attributes are used to organize reference data within the <code class="docutils literal notranslate"><span class="pre">/data/reference_data/[data</span> <span class="pre">source]/[raw</span> <span class="pre">or</span> <span class="pre">processed]</span></code>
+subdirectories.</p>
+<p>This is particularly important if users are working with data from numerous sites yet share the same data source.
+For instance, if one is using AirNow-Tech for reference data at two sites, Site A and Site B,
+the folder structure for processed reference datasets should look something like:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">my_evaluation</span>
+<span class="go">|</span>
+<span class="go">└─data</span>
+<span class="go">   └───reference_data</span>
+<span class="go">        └───airnowtech</span>
+<span class="go">           ├───raw</span>
+<span class="go">           └───processed</span>
+<span class="go">              ├SiteNameA_AAAAAAAAA</span>
+<span class="go">              └SiteNameB_BBBBBBBBB</span>
+</pre></div>
+</div>
+<p>where AAAAAAAAA is the AQS site ID for site A and BBBBBBBBB is the AQS site ID
+for site B.</p>
+<p>If the site name is unspecified, datasets will be placed in a subfolder named <code class="docutils literal notranslate"><span class="pre">UnspecifiedSite_XXXXXXXXX</span></code>
+where <code class="docutils literal notranslate"><span class="pre">XXXXXXXXX</span></code> is the AQS site ID if specified. If both the site name and AQS Site ID
+are not specified, data sets will be placed in a folder named <code class="docutils literal notranslate"><span class="pre">UnspecifiedSite_UnspecifiedSiteID</span></code>.
+For this reason, specifying the site name and site ID where applicable is strongly advised to avoid
+data being stored in an ambiguous <code class="docutils literal notranslate"><span class="pre">UnspecifiedSite_UnspecifiedSiteID</span></code>.</p>
+</div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">================ Enter Ambient Air Monitoring Site Information ===============</span>
+<span class="go">Options</span>
+<span class="go">-------</span>
+<span class="go">..press enter to skip entries</span>
+
+<span class="go">Notes</span>
+<span class="go">-----</span>
+<span class="go">  Site AQS ID required for AQS queries</span>
+<span class="go">  Use the EPA AirData Air Quality Monitors Map to locate AQS Sites:</span>
+<span class="go">  https://epa.maps.arcgis.com/apps/webappviewer/index.html</span>
+
+<span class="go">  Site Latitude and Longitude required for AirNow queries</span>
+<span class="go">    Latitude must be between -90 and +90 degrees</span>
+<span class="go">    Longitude must be between -180 and +180 degrees</span>
+<span class="go">==============================================================================</span>
+
+<span class="go">Enter the name of the monitoring site: Burdens Creek</span>
+
+<span class="go">Confirm entry [y/n]: y</span>
+
+
+<span class="go">Enter the name of the Agency overseeing the monitoring site: OAQPS</span>
+
+<span class="go">Confirm entry [y/n]: y</span>
+
+
+<span class="go">Enter the AQS site ID (if applicable) [format XX-XXX-XXXX]:37-063-0099</span>
+
+<span class="go">Confirm entry [y/n]: y</span>
+
+
+<span class="go">Enter the site latitude (in decimal coordinates):35.889</span>
+
+<span class="go">Confirm entry [y/n]: y</span>
+
+
+<span class="go">Enter the site longitude (in decimal coordinates):-78.874</span>
+
+<span class="go">Confirm entry [y/n]: y</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p><strong>3. Selecting File Data Type</strong></p>
+<blockquote>
+<div><p>Next, users specify the data type for recorded reference data. Accepted data
+types include .csv, .txt, and .xlsx. Future updates to sensortoolkit may
+expand this list to include additional supported data types. Users should enter
+one of the data types listed in the section banner.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">============================== Select Data Type ==============================</span>
+<span class="go">Options</span>
+<span class="go">-------</span>
+<span class="go">[&#39;.csv&#39;, &#39;.txt&#39;, &#39;.xlsx&#39;]</span>
+<span class="go">==============================================================================</span>
+
+<span class="go">Enter the reference data type from the list of supported data types:.csv</span>
+
+<span class="go">Selected data type: .csv</span>
+
+<span class="go">Confirm entry [y/n]: y</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p><strong>4. Selecting Data Files</strong></p>
+<blockquote>
+<div><p>Next, the user is asked to select how reference datasets will be selected for copying
+to the project path that the user specified. Users are presented with three options:
+<code class="docutils literal notranslate"><span class="pre">directory</span></code>, which will locate and copy all of the data files in the specified directory for the
+indicated data type, <code class="docutils literal notranslate"><span class="pre">recursive</span> <span class="pre">directory</span></code>, which will locate and copy all data files within the
+specified directory and any subdirectories contained within the indicated folder path, and <code class="docutils literal notranslate"><span class="pre">files</span></code> which
+copies over files that the user manually selects within a directory.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If using reference data from <code class="docutils literal notranslate"><span class="pre">airnowtech</span></code>, the option to specify how to select data files or
+directories may not be asked as it’s assumed to be <code class="docutils literal notranslate"><span class="pre">files</span></code>.</p>
+</div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">======================= Select Data Files or Directory =======================</span>
+<span class="go">Options</span>
+<span class="go">-------</span>
+<span class="go">[&#39;directory&#39;, &#39;recursive directory&#39;, &#39;files&#39;]</span>
+<span class="go">==============================================================================</span>
+
+<span class="go">Enter how to select reference datasets from the list of options above: files</span>
+
+<span class="go">Select data sets by files</span>
+
+<span class="go">Confirm entry [y/n]: y</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p><strong>5. Copying Data files</strong></p>
+<blockquote>
+<div><p>Once the user selects an option for indicating how data files should be located
+and confirms the entry, a subsequent section in the console will prompt the user to
+select the files for the recorded reference datasets corresponding to the indicated file type.</p>
+<p>Users should see a file explorer window open up, asking the user to select either a directory
+or file(s) depending on the users’ selection in the preceding step.</p>
+<p>Users will be prompted to press enter to continue with the file transfer after
+reviewing the filenames for the datasets that will be transferred and the location
+where the copied datasets will be saved.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">================== Copy Data Files to the Project Directory ==================</span>
+<span class="go">==============================================================================</span>
+
+<span class="go">[File Browser: Select the files for recorded reference datasets with file type &quot;.csv&quot;]</span>
+
+<span class="go">Source Files:</span>
+<span class="go">[&#39;C:/Users/.../Documents/toucan_evaluation/airnowtech_example_reference_data.csv&#39;]</span>
+
+<span class="go">Destination Directory:</span>
+<span class="go">..C:\Users\...\Documents\toucan_evaluation\data\reference_data\</span>
+<span class="go">  airnowtech\raw\Burdens_Creek_370630099</span>
+
+<span class="go">Press enter to continue.</span>
+
+<span class="go">Copying the following files:</span>
+<span class="go">..C:/Users/.../Documents/toucan_evaluation/airnowtech_example_reference_data.csv</span>
+
+<span class="go">Press enter to continue.</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p><strong>6. Pre-processing AirNow-Tech Datasets</strong></p>
+<blockquote>
+<div><p>The local AirNow-Tech files that the user selected in the previous step are
+imported and processed versions of these datasets are ingested into the SDFS
+format via the <code class="docutils literal notranslate"><span class="pre">sensortoolkit.reference.preprocess_airnowtech()</span></code> method.
+Processed datasets are subsequently saved as comma-separated value files to
+<code class="docutils literal notranslate"><span class="pre">/data/reference_data/airnowtech/processed/[site_name]_[site_id]</span></code>, where <code class="docutils literal notranslate"><span class="pre">[site_name]</span></code>
+is the name of the site assigned by the user in step 2, and <code class="docutils literal notranslate"><span class="pre">[site_id]</span></code> is
+the AQS ID for the site assigned in step 2 (if applicable).</p>
+<p>If multiple reference instruments correspond to a parameter’s method code,
+the user will be prompted to enter the appropriate reference instrument make and model
+for the indicated parameter. Follow the table shown in your console to specify the reference monitor used.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">====================== Pre-process AirNow-Tech Datasets ======================</span>
+<span class="go">==============================================================================</span>
+
+<span class="go">--------------------------------------------------------------------------------</span>
+<span class="go">AQS Parameter Code: 42602 (Nitrogen dioxide [NO2]), AQS Method Code: 599</span>
+<span class="go">--------------------------------------------------------------------------------</span>
+<span class="go">Multiple instruments correspond to indicated parameter and method code</span>
+<span class="go">..From the table of instruments below, enter the index for the appropriate make</span>
+<span class="go">..and model</span>
+
+<span class="go">|   Index | Make                                        | Model                 |</span>
+<span class="go">|--------:|:--------------------------------------------|:----------------------|</span>
+<span class="go">|       0 | Teledyne Advanced Pollution Instrumentation | 200A                  |</span>
+<span class="go">|       1 | Teledyne Advanced Pollution Instrumentation | 200AU                 |</span>
+<span class="go">|       2 | Teledyne Advanced Pollution Instrumentation | 200E                  |</span>
+<span class="go">|       3 | Teledyne Advanced Pollution Instrumentation | 200EU                 |</span>
+<span class="go">|       4 | Teledyne Advanced Pollution Instrumentation | T200                  |</span>
+<span class="go">|       5 | Teledyne Advanced Pollution Instrumentation | N200                  |</span>
+<span class="go">|       6 | Teledyne Advanced Pollution Instrumentation | T200U                 |</span>
+<span class="go">|       7 | Teledyne Advanced Pollution Instrumentation | T204                  |</span>
+<span class="go">|       8 | Teledyne Analytical Instruments             | 9110A                 |</span>
+<span class="go">|       9 | Teledyne Analytical Instruments             | 9110E                 |</span>
+<span class="go">|      10 | Teledyne Analytical Instruments             | 9110T                 |</span>
+<span class="go">|      11 | Teledyne Monitor Labs                       | sensor-e TML-41       |</span>
+<span class="go">|      12 | mlu-recordum                                | airpointer 801-002000 |</span>
+
+<span class="go">Reference Instrument Index: 5</span>
+
+<span class="go">--------------------------------------------------------------------------------</span>
+<span class="go">AQS Parameter Code: 44201 (Ozone), AQS Method Code: 199</span>
+<span class="go">--------------------------------------------------------------------------------</span>
+<span class="go">Multiple instruments correspond to indicated parameter and method code</span>
+<span class="go">..From the table of instruments below, enter the index for the appropriate make</span>
+<span class="go">..and model</span>
+
+<span class="go">|   Index | Make                                        | Model   |</span>
+<span class="go">|--------:|:--------------------------------------------|:--------|</span>
+<span class="go">|       0 | Teledyne Advanced Pollution Instrumentation | 265E    |</span>
+<span class="go">|       1 | Teledyne Advanced Pollution Instrumentation | T265    |</span>
+
+<span class="go">Reference Instrument Index: 1</span>
+
+<span class="go">Writing AirNow-Tech data sets to csv files</span>
+<span class="go">../reference_data/airnowtech/processed/Burdens_Creek_370630099/H_201909_PM.csv</span>
+<span class="go">Writing AirNow-Tech data sets to csv files</span>
+<span class="go">../reference_data/airnowtech/processed/Burdens_Creek_370630099/H_201909_Gases.csv</span>
+<span class="go">Writing AirNow-Tech data sets to csv files</span>
+<span class="go">../reference_data/airnowtech/processed/Burdens_Creek_370630099/H_201909_Met.csv</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p><strong>7. Saving the Setup Configuration to</strong> <code class="docutils literal notranslate"><span class="pre">setup.json</span></code></p>
+<blockquote>
+<div><p>The Setup module will automatically save the setup configuration
+to a <code class="docutils literal notranslate"><span class="pre">reference_setup.json</span></code> file at the indicated directory location:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">============================= Setup Configuration ============================</span>
+<span class="go">==============================================================================</span>
+
+<span class="go">..writing setup configuration to the following path:</span>
+<span class="go">  C:\Users\...\Documents\toucan_evaluation\data\reference_data\</span>
+<span class="go">  airnowtech\raw\Burdens_Creek_370630099\reference_setup.json</span>
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<input id="4ba7da4d-b6fd-4c38-98c7-b0c16d529299" name="7618e83b-b320-492b-948e-ecd093edb1df" type="radio">
+</input><label class="tabbed-label" for="4ba7da4d-b6fd-4c38-98c7-b0c16d529299">
+AQS</label><div class="tabbed-content docutils">
+<p>The following steps below walk through the setup process. The example below
+describes the setup process for a reference data file downloaded from AQS
+for the Triple Oak monitoring site nearby EPA’s RTP monitoring site for sensor evaluations.</p>
+<p><strong>1. Selecting the Reference Data Service/Source</strong></p>
+<blockquote>
+<div><p>First, the user is asked to specify the service or source for reference data.
+The user’s entry must correspond to one of the options listed in the table shown
+in the banner for the section: users must choose from <code class="docutils literal notranslate"><span class="pre">airnow</span></code> (user plans to
+query the AirNow API), <code class="docutils literal notranslate"><span class="pre">aqs</span></code> (user plans to query the AQS API), <code class="docutils literal notranslate"><span class="pre">airnowtech</span></code> (user
+has downloaded files from the AirNow-Tech system and has saved files locally to the user’s
+system), or <code class="docutils literal notranslate"><span class="pre">local</span></code> (a catchall for reference data files the user may have stored
+locally on their system that were not acquired from any of the services previously mentioned).</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">=================== Select Name of Service for Data Source ===================</span>
+<span class="go">Options</span>
+<span class="go">-------</span>
+<span class="go">[&#39;airnow&#39;, &#39;aqs&#39;, &#39;airnowtech&#39;, &#39;local&#39;]</span>
+<span class="go">==============================================================================</span>
+
+<span class="go">Enter the name of the service from the list of options above: aqs</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p><strong>2. Adding Monitoring Site Information</strong></p>
+<blockquote>
+<div><p>Next, the user should enter in information about the ambient monitoring site
+at which the collocation study was conducted. If certain details are unknown or
+don’t apply to the site (e.g. Non-AQS sites will not have an AQS Site ID), entries
+can be skipped by pressing the ‘Enter’ key.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Users are strongly recommended to provide a site name and, if applicable, a site AQS ID.
+These attributes are used to organize reference data within the <code class="docutils literal notranslate"><span class="pre">/data/reference_data/[data</span> <span class="pre">source]/[raw</span> <span class="pre">or</span> <span class="pre">processed]</span></code>
+subdirectories.</p>
+<p>This is particularly important if users are working with data from numerous sites yet share the same data source.
+For instance, if one is using AirNow-Tech for reference data at two sites, Site A and Site B,
+the folder structure for processed reference datasets should look something like:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">my_evaluation</span>
+<span class="go">|</span>
+<span class="go">└─data</span>
+<span class="go">   └───reference_data</span>
+<span class="go">        └───airnowtech</span>
+<span class="go">           ├───raw</span>
+<span class="go">           └───processed</span>
+<span class="go">              ├SiteNameA_AAAAAAAAA</span>
+<span class="go">              └SiteNameB_BBBBBBBBB</span>
+</pre></div>
+</div>
+<p>where AAAAAAAAA is the AQS site ID for site A and BBBBBBBBB is the AQS site ID
+for site B.</p>
+<p>If the site name is unspecified, datasets will be placed in a subfolder named <code class="docutils literal notranslate"><span class="pre">UnspecifiedSite_XXXXXXXXX</span></code>
+where <code class="docutils literal notranslate"><span class="pre">XXXXXXXXX</span></code> is the AQS site ID if specified. If both the site name and AQS Site ID
+are not specified, data sets will be placed in a folder named <code class="docutils literal notranslate"><span class="pre">UnspecifiedSite_UnspecifiedSiteID</span></code>.
+For this reason, specifying the site name and site ID where applicable is strongly advised to avoid
+data being stored in an ambiguous <code class="docutils literal notranslate"><span class="pre">UnspecifiedSite_UnspecifiedSiteID</span></code>.</p>
+</div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">================ Enter Ambient Air Monitoring Site Information ===============</span>
+<span class="go">Options</span>
+<span class="go">-------</span>
+<span class="go">..press enter to skip entries</span>
+
+<span class="go">Notes</span>
+<span class="go">-----</span>
+<span class="go">Site AQS ID required for AQS queries</span>
+<span class="go">Site Latitude and Longitude required for AirNow queries</span>
+<span class="go">==============================================================================</span>
+
+<span class="go">Enter the name of the monitoring site: Triple Oak</span>
+
+<span class="go">Confirm entry [y/n]: y</span>
+
+
+<span class="go">Enter the name of the Agency overseeing the monitoring site: NCDEQ</span>
+
+<span class="go">Confirm entry [y/n]: y</span>
+
+
+<span class="go">Enter the AQS site ID (if applicable) [format XX-XXX-XXXX]:37-183-0021</span>
+
+<span class="go">Confirm entry [y/n]: y</span>
+
+
+<span class="go">Enter the site latitude (in decimal coordinates):35.87</span>
+
+<span class="go">Confirm entry [y/n]: y</span>
+
+
+<span class="go">Enter the site longitude (in decimal coordinates):-78.82</span>
+
+<span class="go">Confirm entry [y/n]: y</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p><strong>3. Saving the Setup Configuration to</strong> <code class="docutils literal notranslate"><span class="pre">setup.json</span></code></p>
+<blockquote>
+<div><p>The Setup module will automatically save the setup configuration
+to a <code class="docutils literal notranslate"><span class="pre">reference_setup.json</span></code> file at the indicated directory location:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">============================= Setup Configuration ============================</span>
+<span class="go">==============================================================================</span>
+
+<span class="go">..writing setup configuration to the following path:</span>
+<span class="go">  \data\reference_data\aqs\raw\Triple_Oak_371830021\reference_setup.json</span>
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<input id="c8c26841-7287-4e8a-a656-f37531ec33bd" name="7618e83b-b320-492b-948e-ecd093edb1df" type="radio">
+</input><label class="tabbed-label" for="c8c26841-7287-4e8a-a656-f37531ec33bd">
+AirNow</label><div class="tabbed-content docutils">
+<p>The following steps below walk through the setup process. The example below
+describes the setup process for a reference data file downloaded from AirNow
+for the EPA RTP monitoring site for sensor evaluations.</p>
+<p><strong>1. Selecting the Reference Data Service/Source</strong></p>
+<blockquote>
+<div><p>First, the user is asked to specify the service or source for reference data.
+The user’s entry must correspond to one of the options listed in the table shown
+in the banner for the section: users must choose from <code class="docutils literal notranslate"><span class="pre">airnow</span></code> (user plans to
+query the AirNow API), <code class="docutils literal notranslate"><span class="pre">aqs</span></code> (user plans to query the AQS API), <code class="docutils literal notranslate"><span class="pre">airnowtech</span></code> (user
+has downloaded files from the AirNow-Tech system and has saved files locally to the user’s
+system), or <code class="docutils literal notranslate"><span class="pre">local</span></code> (a catchall for reference data files the user may have stored
+locally on their system that were not acquired from any of the services previously mentioned).</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">=================== Select Name of Service for Data Source ===================</span>
+<span class="go">Options</span>
+<span class="go">-------</span>
+<span class="go">[&#39;airnow&#39;, &#39;aqs&#39;, &#39;airnowtech&#39;, &#39;local&#39;]</span>
+<span class="go">==============================================================================</span>
+
+<span class="go">Enter the name of the service from the list of options above: airnow</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p><strong>2. Adding Monitoring Site Information</strong></p>
+<blockquote>
+<div><p>Next, the user should enter in information about the ambient monitoring site
+at which the collocation study was conducted. If certain details are unknown or
+don’t apply to the site (e.g. Non-AQS sites will not have an AQS Site ID), entries
+can be skipped by pressing the ‘Enter’ key.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Users are strongly recommended to provide a site name and, if applicable, a site AQS ID.
+These attributes are used to organize reference data within the <code class="docutils literal notranslate"><span class="pre">/data/reference_data/[data</span> <span class="pre">source]/[raw</span> <span class="pre">or</span> <span class="pre">processed]</span></code>
+subdirectories.</p>
+<p>This is particularly important if users are working with data from numerous sites yet share the same data source.
+For instance, if one is using AirNow-Tech for reference data at two sites, Site A and Site B,
+the folder structure for processed reference datasets should look something like:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">my_evaluation</span>
+<span class="go">|</span>
+<span class="go">└─data</span>
+<span class="go">   └───reference_data</span>
+<span class="go">        └───airnowtech</span>
+<span class="go">           ├───raw</span>
+<span class="go">           └───processed</span>
+<span class="go">              ├SiteNameA_AAAAAAAAA</span>
+<span class="go">              └SiteNameB_BBBBBBBBB</span>
+</pre></div>
+</div>
+<p>where AAAAAAAAA is the AQS site ID for site A and BBBBBBBBB is the AQS site ID
+for site B.</p>
+<p>If the site name is unspecified, datasets will be placed in a subfolder named <code class="docutils literal notranslate"><span class="pre">UnspecifiedSite_XXXXXXXXX</span></code>
+where <code class="docutils literal notranslate"><span class="pre">XXXXXXXXX</span></code> is the AQS site ID if specified. If both the site name and AQS Site ID
+are not specified, data sets will be placed in a folder named <code class="docutils literal notranslate"><span class="pre">UnspecifiedSite_UnspecifiedSiteID</span></code>.
+For this reason, specifying the site name and site ID where applicable is strongly advised to avoid
+data being stored in an ambiguous <code class="docutils literal notranslate"><span class="pre">UnspecifiedSite_UnspecifiedSiteID</span></code>.</p>
+</div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">================ Enter Ambient Air Monitoring Site Information ===============</span>
+<span class="go">Options</span>
+<span class="go">-------</span>
+<span class="go">..press enter to skip entries</span>
+
+<span class="go">Notes</span>
+<span class="go">-----</span>
+<span class="go">Site AQS ID required for AQS queries</span>
+<span class="go">Site Latitude and Longitude required for AirNow queries</span>
+<span class="go">==============================================================================</span>
+
+<span class="go">Enter the name of the monitoring site: Burdens Creek</span>
+
+<span class="go">Confirm entry [y/n]: y</span>
+
+
+<span class="go">Enter the name of the Agency overseeing the monitoring site: OAQPS</span>
+
+<span class="go">Confirm entry [y/n]: y</span>
+
+
+<span class="go">Enter the AQS site ID (if applicable) [format XX-XXX-XXXX]:37-063-0099</span>
+
+<span class="go">Confirm entry [y/n]: y</span>
+
+
+<span class="go">Enter the site latitude (in decimal coordinates):35.889</span>
+
+<span class="go">Confirm entry [y/n]: y</span>
+
+
+<span class="go">Enter the site longitude (in decimal coordinates):-78.874</span>
+
+<span class="go">Confirm entry [y/n]: y</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p><strong>3. Saving the Setup Configuration to</strong> <code class="docutils literal notranslate"><span class="pre">setup.json</span></code></p>
+<blockquote>
+<div><p>The Setup module will automatically save the setup configuration
+to a <code class="docutils literal notranslate"><span class="pre">reference_setup.json</span></code> file at the indicated directory location:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">============================= Setup Configuration ============================</span>
+<span class="go">==============================================================================</span>
+
+<span class="go">..writing setup configuration to the following path:</span>
+<span class="go">  \data\reference_data\airnow\raw\Burdens_Creek_370630099\reference_setup.json</span>
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<input id="acfea0e7-9767-49d0-814b-c3694de59a58" name="7618e83b-b320-492b-948e-ecd093edb1df" type="radio">
+</input><label class="tabbed-label" for="acfea0e7-9767-49d0-814b-c3694de59a58">
+Local</label><div class="tabbed-content docutils">
+<p>The following steps below walk through the setup process. The example below
+describes the setup process for a reference data file acquired locally for
+EPA’s sensor testing site:</p>
+<p><strong>1. Selecting the Reference Data Service/Source</strong></p>
+<blockquote>
+<div><p>First, the user is asked to specify the service or source for reference data.
+The user’s entry must correspond to one of the options listed in the table shown
+in the banner for the section: users must choose from <code class="docutils literal notranslate"><span class="pre">airnow</span></code> (user plans to
+query the AirNow API), <code class="docutils literal notranslate"><span class="pre">aqs</span></code> (user plans to query the AQS API), <code class="docutils literal notranslate"><span class="pre">airnowtech</span></code> (user
+has downloaded files from the AirNow-Tech system and has saved files locally to the user’s
+system), or <code class="docutils literal notranslate"><span class="pre">local</span></code> (a catchall for reference data files the user may have stored
+locally on their system that were not acquired from any of the services previously mentioned).</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">=================== Select Name of Service for Data Source ===================</span>
+<span class="go">Options</span>
+<span class="go">-------</span>
+<span class="go">[&#39;airnow&#39;, &#39;aqs&#39;, &#39;airnowtech&#39;, &#39;local&#39;]</span>
+<span class="go">==============================================================================</span>
+
+<span class="go">Enter the name of the service from the list of options above: local</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p><strong>2. Adding Monitoring Site Information</strong></p>
+<blockquote>
+<div><p>Next, the user should enter in information about the ambient monitoring site
+at which the collocation study was conducted. If certain details are unknown or
+don’t apply to the site (e.g. Non-AQS sites will not have an AQS Site ID), entries
+can be skipped by pressing the ‘Enter’ key.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Users are strongly recommended to provide a site name and, if applicable, a site AQS ID.
+These attributes are used to organize reference data within the <code class="docutils literal notranslate"><span class="pre">/data/reference_data/[data</span> <span class="pre">source]/[raw</span> <span class="pre">or</span> <span class="pre">processed]</span></code>
+subdirectories.</p>
+<p>This is particularly important if users are working with data from numerous sites yet share the same data source.
+For instance, if one is using AirNow-Tech for reference data at two sites, Site A and Site B,
+the folder structure for processed reference datasets should look something like:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">my_evaluation</span>
+<span class="go">|</span>
+<span class="go">└───data</span>
+<span class="go">   └───reference_data</span>
+<span class="go">        └───airnowtech</span>
+<span class="go">           ├───raw</span>
+<span class="go">           └───processed</span>
+<span class="go">              ├SiteNameA_AAAAAAAAA</span>
+<span class="go">              └SiteNameB_BBBBBBBBB</span>
+</pre></div>
+</div>
+<p>where AAAAAAAAA is the AQS site ID for site A and BBBBBBBBB is the AQS site ID
+for site B.</p>
+<p>If the site name is unspecified, datasets will be placed in a subfolder named <code class="docutils literal notranslate"><span class="pre">UnspecifiedSite_XXXXXXXXX</span></code>
+where <code class="docutils literal notranslate"><span class="pre">XXXXXXXXX</span></code> is the AQS site ID if specified. If both the site name and AQS Site ID
+are not specified, data sets will be placed in a folder named <code class="docutils literal notranslate"><span class="pre">UnspecifiedSite_UnspecifiedSiteID</span></code>.
+For this reason, specifying the site name and site ID where applicable is strongly advised to avoid
+data being stored in an ambiguous <code class="docutils literal notranslate"><span class="pre">UnspecifiedSite_UnspecifiedSiteID</span></code>.</p>
+</div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">================ Enter Ambient Air Monitoring Site Information ===============</span>
+<span class="go">Options</span>
+<span class="go">-------</span>
+<span class="go">..press enter to skip entries</span>
+
+<span class="go">Notes</span>
+<span class="go">-----</span>
+<span class="go">Site AQS ID required for AQS queries</span>
+<span class="go">Site Latitude and Longitude required for AirNow queries</span>
+<span class="go">==============================================================================</span>
+
+<span class="go">Enter the name of the monitoring site: Burdens Creek</span>
+
+<span class="go">Confirm entry [y/n]: y</span>
+
+
+<span class="go">Enter the name of the Agency overseeing the monitoring site: OAQPS</span>
+
+<span class="go">Confirm entry [y/n]: y</span>
+
+
+<span class="go">Enter the AQS site ID (if applicable) [format XX-XXX-XXXX]:37-063-0099</span>
+
+<span class="go">Confirm entry [y/n]: y</span>
+
+
+<span class="go">Enter the site latitude (in decimal coordinates):35.889</span>
+
+<span class="go">Confirm entry [y/n]: y</span>
+
+
+<span class="go">Enter the site longitude (in decimal coordinates):-78.874</span>
+
+<span class="go">Confirm entry [y/n]: y</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p><strong>3. Selecting File Data Type</strong></p>
+<blockquote>
+<div><p>Next, users specify the data type for recorded reference data. Accepted data
+types include .csv, .txt, and .xlsx. Future updates to sensortoolkit may
+expand this list to include additional supported data types. Users should enter
+one of the data types listed in the section banner.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">============================== Select Data Type ==============================</span>
+<span class="go">Options</span>
+<span class="go">-------</span>
+<span class="go">[&#39;.csv&#39;, &#39;.txt&#39;, &#39;.xlsx&#39;]</span>
+<span class="go">==============================================================================</span>
+
+<span class="go">Enter the reference data type from the list of supported data types:.csv</span>
+
+<span class="go">Selected data type: .csv</span>
+
+<span class="go">Confirm entry [y/n]: y</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p><strong>4. Selecting Data Files</strong></p>
+<blockquote>
+<div><p>Next, the user is asked to select how reference datasets will be selected for copying
+to the project path that the user specified. Users are presented with three options:
+<code class="docutils literal notranslate"><span class="pre">directory</span></code>, which will locate and copy all of the data files in the specified directory for the
+indicated data type, <code class="docutils literal notranslate"><span class="pre">recursive</span> <span class="pre">directory</span></code>, which will locate and copy all data files within the
+specified directory and any subdirectories contained within the indicated folder path, and <code class="docutils literal notranslate"><span class="pre">files</span></code> which
+copies over files that the user manually selects within a directory.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">======================= Select Data Files or Directory =======================</span>
+<span class="go">Options</span>
+<span class="go">-------</span>
+<span class="go">[&#39;directory&#39;, &#39;recursive directory&#39;, &#39;files&#39;]</span>
+<span class="go">==============================================================================</span>
+
+<span class="go">Enter how to select reference datasets from the list of options above: files</span>
+
+<span class="go">Select data sets by files</span>
+
+<span class="go">Confirm entry [y/n]: y</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p><strong>5. Copying Data files</strong></p>
+<blockquote>
+<div><p>Once the user selects an option for indicating how data files should be located
+and confirms the entry, a subsequent section in the console will prompt the user to
+select the files for the recorded reference datasets corresponding to the indicated file type.</p>
+<p>Users should see a file explorer window open up, asking the user to select either a directory
+or file(s) depending on the users’ selection in the preceding step.</p>
+<p>Users will be prompted to press enter to continue with the file transfer after
+reviewing the filenames for the datasets that will be transferred and the location
+where the copied datasets will be saved.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">================== Copy Data Files to the Project Directory ==================</span>
+<span class="go">==============================================================================</span>
+
+<span class="go">[File Browser: Select the files for recorded reference datasets with file type &quot;.csv&quot;]</span>
+
+<span class="go">Source Files:</span>
+<span class="go">[&#39;C:/Users/.../Documents/AIRS Project/AIRS\nEvaluation/AIRS_Ref_Data/min_201908_PM.csv&#39;,</span>
+<span class="go"> &#39;C:/Users/.../Documents/AIRS Project/AIRS\nEvaluation/AIRS_Ref_Data/min_201909_PM.csv&#39;]</span>
+
+<span class="go">Destination Directory:</span>
+<span class="go">..C:\Users\...\Documents\sensortoolkit_testing\Data and</span>
+<span class="go">Figures\reference_data\local\raw\Burdens_Creek_370630099</span>
+
+<span class="go">Press enter to continue.</span>
+
+<span class="go">Copying the following files:</span>
+<span class="go">..C:/Users/.../Documents/AIRS Project/AIRS</span>
+<span class="go">Evaluation/AIRS_Ref_Data/min_201908_PM.csv</span>
+<span class="go">..C:/Users/.../Documents/AIRS Project/AIRS</span>
+<span class="go">Evaluation/AIRS_Ref_Data/min_201909_PM.csv</span>
+
+<span class="go">Press enter to continue.</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p><strong>6. Selecting the Column Header Index</strong></p>
+<blockquote>
+<div><p>Next, users are prompted to enter the row index corresponding to the column headers.
+Reference datasets may place the header information at the top of the file, and in this
+case, the header row index would be <code class="docutils literal notranslate"><span class="pre">0</span></code>. Occasionally, data sets do not include any
+column headers, and users should type <code class="docutils literal notranslate"><span class="pre">None</span></code> for the header row index under such circumstances.</p>
+<p>To help the user in selecting the row index number corresponding to the header information,
+the first ten rows of one of the reference datasets are printed to the console. The row index
+is indicated on the left hand side of the console statement. Below, the example dataset contains
+a number of rows of metadata, so the header index containing descriptors for the time column and
+pollutant measurement columns is found on row index #2.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">============================= Column Header Index ============================</span>
+<span class="go">Options</span>
+<span class="go">-------</span>
+<span class="go">..type &quot;None&quot; if no header columns in recorded sensor dataset</span>
+<span class="go">==============================================================================</span>
+
+<span class="go">The first ten unformatted rows of C:\Users\...\Documents\sensortoolkit_testing</span>
+<span class="go">\data\reference_data\local\raw\Burdens_Creek_370630099\min_201908_PM.csv</span>
+<span class="go">are displayed below:</span>
+<span class="go">                                           0</span>
+<span class="go">0  Station: BURDENS CREEK PM  Periodically: 8/1/2...</span>
+<span class="go">1                                            ,,,,,,,</span>
+<span class="go">2  Date &amp; Time,UV_633_370nm,BC AE33 880nm,Grimm P...</span>
+<span class="go">3        ,ng/m3,ng/m3,ug/m3L,ug/m3,ug/m3,ug/m3,ug/m3</span>
+<span class="go">4      8/1/2019 7:00 AM,875,726,12,17.5,9.4,9.5,19.8</span>
+<span class="go">5    8/1/2019 7:01 AM,958,785,11.5,16.6,9.4,9.5,18.1</span>
+<span class="go">6    8/1/2019 7:02 AM,999,800,11.3,16.1,9.4,9.5,18.3</span>
+<span class="go">7    8/1/2019 7:03 AM,936,787,11.6,16.5,9.4,9.4,17.7</span>
+<span class="go">8    8/1/2019 7:04 AM,935,768,12.4,18.1,9.4,9.4,16.3</span>
+<span class="go">9      8/1/2019 7:05 AM,908,752,11,14.9,9.2,9.5,15.7</span>
+
+<span class="go">Enter the row index number for column headers: 2</span>
+
+<span class="go">Header row index: 2</span>
+
+<span class="go">Confirm entry [y/n]: y</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p><strong>7. Parsing Reference Datasets</strong></p>
+<blockquote>
+<div><p>If column headers are not included in the reference datasets (i.e., the column
+header index in step 1 was set to <code class="docutils literal notranslate"><span class="pre">None</span></code>), users will need to manually enter
+the names of column headers for datasets. This will prompt a section labeled
+<cite>Manually Set Column Headers</cite> and the user will be asked to enter in columns until
+the user indicates to the console to end header entry model by pressing <code class="docutils literal notranslate"><span class="pre">X</span></code>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Manual configuration of column headers is not required if an integer header row index
+value is set in the previous step.</p>
+</div>
+<p>Next, the module will automatically search for data files corresponding to the
+file type and header index (if previously specified). A list of unique headers for
+each column index are displayed.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">============================== Parsing Datasets ==============================</span>
+<span class="go">==============================================================================</span>
+
+<span class="go">Parsing datasets at &quot;../data/reference_data/local/raw/Burdens_Creek_370630099/&quot;</span>
+<span class="go">..Header(s) at column index 0: [&#39;Date &amp; Time&#39;]</span>
+<span class="go">..Header(s) at column index 1: [&#39;UV_633_370nm&#39;]</span>
+<span class="go">..Header(s) at column index 2: [&#39;BC AE33 880nm&#39;]</span>
+<span class="go">..Header(s) at column index 3: [&#39;Grimm PM2.5&#39;]</span>
+<span class="go">..Header(s) at column index 4: [&#39;Grimm PM10&#39;]</span>
+<span class="go">..Header(s) at column index 5: [&#39;GRIMM PM1&#39;]</span>
+<span class="go">..Header(s) at column index 6: [&#39;T640_2_PM25&#39;]</span>
+<span class="go">..Header(s) at column index 7: [&#39;T640_2_PM10&#39;]</span>
+
+<span class="go">Press enter to continue.</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p><strong>8. Specifying Timestamp Columns</strong></p>
+<blockquote>
+<div><p>Users must list all time-like columns that will be used for the ‘DateTime’
+index. Typically, this either includes one column as is the case for the
+example, or two columns (one column for the date and another for the time).</p>
+<p>Once entry is complete, the user should press <code class="docutils literal notranslate"><span class="pre">X</span></code> to exit column header entry
+mode.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">========================== Specify Timestamp columns =========================</span>
+<span class="go">Options</span>
+<span class="go">-------</span>
+<span class="go">..press X to end adding entries</span>
+<span class="go">..press D to delete the previous entry</span>
+<span class="go">==============================================================================</span>
+
+<span class="go">Enter Timestamp column name #1: Date &amp; Time</span>
+
+<span class="go">Enter Timestamp column name #2: X</span>
+
+<span class="go">Timestamp column list: [&#39;Date &amp; Time&#39;]</span>
+
+<span class="go">Press enter to continue.</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p><strong>9. Specifying the Parameter Renaming Scheme and Monitor Information</strong></p>
+<blockquote>
+<div><p>Next, users are prompted to configure the parameter renaming scheme by entering
+in the sensortoolkit Data Formatting Scheme (SDFS) parameter name
+that corresponds to each parameter header name.</p>
+<p>For each SDFS parameter specified, a set of queries will be prompted which
+ask the user to specify parameter-specific details. Based on the indicated
+SDFS parameter, a prompt will ask the user whether the reference
+measurements are associated with a standard <a class="reference external" href="https://aqs.epa.gov/aqsweb/documents/codetables/methods_all.html">parameter code</a>
+EPA’s Air Quality System (AQS) associates with the pollutant or environmental parameter.</p>
+<p>Parameter codes are assigned by AQS for classifying the
+type of parameter alongside a description of the reference method used to collect measurements.
+For instance, <code class="docutils literal notranslate"><span class="pre">88101</span></code> is the standard parameter code for <span class="raw-html">PM<sub>2.5</sub></span> measurements collected at local
+conditions via an instrument designated a Federal Reference Method (FRM) or
+Federal Equivalent Method (FEM) for <span class="raw-html">PM<sub>2.5</sub></span>.</p>
+<p>For the example below, measurements for <span class="raw-html">PM<sub>2.5</sub></span> and <span class="raw-html">PM<sub>10</sub></span> were collected by a
+Teledyne API T640x, which is designated an FEM for <span class="raw-html">PM<sub>2.5</sub></span> and <span class="raw-html">PM<sub>10</sub></span>. Measurements for these pollutants
+made with the T640x are categorized under the parameter codes <code class="docutils literal notranslate"><span class="pre">88101</span></code> for <span class="raw-html">PM<sub>2.5</sub></span>
+measurements and <code class="docutils literal notranslate"><span class="pre">88102</span></code> for <span class="raw-html">PM<sub>10</sub></span> measurements. A table of FRM/FEM methods
+is displayed if the user indicates that the parameter code corresponds to the
+standard AQS code indicated by the console. The user is asked to select the
+method code (which is AQS code associated with the reference instrument) for
+each parameter. Below, the highlighted lines indicate the table entries corresponding
+to the Teledyne API T640x used to collect <span class="raw-html">PM<sub>2.5</sub></span> and <span class="raw-html">PM<sub>10</sub></span> measurement data.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Column names that do not have a corresponding listed parameter should be dropped
+from the dataset by pressing enter.</p>
+</div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">========================== Specify Parameter columns =========================</span>
+<span class="go">Options</span>
+<span class="go">-------</span>
+<span class="go">..press enter to skip columns that will be dropped</span>
+
+<span class="go">Notes</span>
+<span class="go">-----</span>
+<span class="go">Choose from the following list of SDFS parameter names</span>
+<span class="go">[&#39;CO&#39;, &#39;DP&#39;, &#39;NO&#39;, &#39;NO2&#39;, &#39;NOx&#39;, &#39;O3&#39;, &#39;PM1&#39;, &#39;PM10&#39;, &#39;PM25&#39;, &#39;SO2&#39;, &#39;SOx&#39;,</span>
+<span class="go"> &#39;Temp&#39;, &#39;RH&#39;, &#39;Press&#39;, &#39;WD&#39;, &#39;WS&#39;]</span>
+<span class="go">==============================================================================</span>
+
+<span class="go">[1/7]</span>
+<span class="go">-----</span>
+
+<span class="go">Enter the character indicating the type of parameter</span>
+<span class="go">{&#39;&#39;: &#39;(enter key) Skip the current header and drop from SDFS datasets&#39;,</span>
+<span class="go"> &#39;C&#39;: &#39;The header corresponds to an existing custom Parameter&#39;,</span>
+<span class="go"> &#39;N&#39;: &#39;Create a new custom Parameter for the header&#39;,</span>
+<span class="go"> &#39;S&#39;: &#39;The header corresponds to an SDFS Parameter&#39;}</span>
+
+<span class="go">Parameter type for header name &quot;UV_633_370nm&quot;:</span>
+<span class="go">..UV_633_370nm will be dropped</span>
+
+<span class="go">[2/7]</span>
+<span class="go">-----</span>
+
+<span class="go">Enter the character indicating the type of parameter</span>
+<span class="go">{&#39;&#39;: &#39;(enter key) Skip the current header and drop from SDFS datasets&#39;,</span>
+<span class="go"> &#39;C&#39;: &#39;The header corresponds to an existing custom Parameter&#39;,</span>
+<span class="go"> &#39;N&#39;: &#39;Create a new custom Parameter for the header&#39;,</span>
+<span class="go"> &#39;S&#39;: &#39;The header corresponds to an SDFS Parameter&#39;}</span>
+
+<span class="go">Parameter type for header name &quot;BC AE33 880nm&quot;:</span>
+<span class="go">..BC AE33 880nm will be dropped</span>
+
+<span class="go">[3/7]</span>
+<span class="go">-----</span>
+
+<span class="go">Enter the character indicating the type of parameter</span>
+<span class="go">{&#39;&#39;: &#39;(enter key) Skip the current header and drop from SDFS datasets&#39;,</span>
+<span class="go"> &#39;C&#39;: &#39;The header corresponds to an existing custom Parameter&#39;,</span>
+<span class="go"> &#39;N&#39;: &#39;Create a new custom Parameter for the header&#39;,</span>
+<span class="go"> &#39;S&#39;: &#39;The header corresponds to an SDFS Parameter&#39;}</span>
+
+<span class="go">Parameter type for header name &quot;Grimm PM2.5&quot;:</span>
+<span class="go">..Grimm PM2.5 will be dropped</span>
+
+<span class="go">[4/7]</span>
+<span class="go">-----</span>
+
+<span class="go">Enter the character indicating the type of parameter</span>
+<span class="go">{&#39;&#39;: &#39;(enter key) Skip the current header and drop from SDFS datasets&#39;,</span>
+<span class="go"> &#39;C&#39;: &#39;The header corresponds to an existing custom Parameter&#39;,</span>
+<span class="go"> &#39;N&#39;: &#39;Create a new custom Parameter for the header&#39;,</span>
+<span class="go"> &#39;S&#39;: &#39;The header corresponds to an SDFS Parameter&#39;}</span>
+
+<span class="go">Parameter type for header name &quot;Grimm PM10&quot;:</span>
+<span class="go">..Grimm PM10 will be dropped</span>
+
+<span class="go">[5/7]</span>
+<span class="go">-----</span>
+
+<span class="go">Enter the character indicating the type of parameter</span>
+<span class="go">{&#39;&#39;: &#39;(enter key) Skip the current header and drop from SDFS datasets&#39;,</span>
+<span class="go"> &#39;C&#39;: &#39;The header corresponds to an existing custom Parameter&#39;,</span>
+<span class="go"> &#39;N&#39;: &#39;Create a new custom Parameter for the header&#39;,</span>
+<span class="go"> &#39;S&#39;: &#39;The header corresponds to an SDFS Parameter&#39;}</span>
+
+<span class="go">Parameter type for header name &quot;GRIMM PM1&quot;:</span>
+<span class="go">..GRIMM PM1 will be dropped</span>
+<span class="hll">
+</span><span class="go">[6/7]</span>
+<span class="go">-----</span>
+
+<span class="go">Enter the character indicating the type of parameter</span>
+<span class="go">{&#39;&#39;: &#39;(enter key) Skip the current header and drop from SDFS datasets&#39;,</span>
+<span class="go"> &#39;C&#39;: &#39;The header corresponds to an existing custom Parameter&#39;,</span>
+<span class="go"> &#39;N&#39;: &#39;Create a new custom Parameter for the header&#39;,</span>
+<span class="go"> &#39;S&#39;: &#39;The header corresponds to an SDFS Parameter&#39;}</span>
+
+<span class="go">Parameter type for header name &quot;T640_2_PM25&quot;: S</span>
+
+<span class="go">SDFS Parameters:</span>
+<span class="go">[&#39;CO&#39;, &#39;DP&#39;, &#39;NO&#39;, &#39;NO2&#39;, &#39;NOx&#39;, &#39;O3&#39;, &#39;PM1&#39;, &#39;PM10&#39;, &#39;PM25&#39;, &#39;SO2&#39;, &#39;SOx&#39;,</span>
+<span class="go"> &#39;Temp&#39;, &#39;RH&#39;, &#39;Press&#39;, &#39;WD&#39;, &#39;WS&#39;]</span>
+
+<span class="go">From the list above, select the SDFS parameter associated with T640_2_PM25: PM25</span>
+
+<span class="go">  Enter the units of measure for T640_2_PM25: Micrograms per cubic meter</span>
+
+<span class="go">  Confirm entry [y/n]: y</span>
+
+<span class="go">  Is the parameter code for reference measurements 88101?</span>
+
+<span class="go">  Confirm entry [y/n]: y</span>
+
+<span class="go">| Method Code | Collection Description                          | Method Type |</span>
+<span class="go">|------------:|:------------------------------------------------|:------------|</span>
+<span class="go">|         116 | BGI Model PQ200 PM2.5 Sampler w/WINS            | FRM         |</span>
+<span class="go">|         117 | R &amp; P Model 2000 PM2.5 Sampler w/WINS           | FRM         |</span>
+<span class="go">|         118 | R &amp; P Model 2025 PM2.5 Sequential w/WINS        | FRM         |</span>
+<span class="go">|         119 | Andersen RAAS2.5-100 PM2.5 SAM w/WINS           | FRM         |</span>
+<span class="go">|         120 | Andersen RAAS2.5-300 PM2.5 SEQ w/WINS           | FRM         |</span>
+<span class="go">|         123 | Thermo Env Model 605 CAPS                       | FRM         |</span>
+<span class="go">|         128 | Andersen RAAS2.5-2000PM2.5 Aud w/WINS           | FRM         |</span>
+<span class="go">|         129 | R &amp; P Model 2000 PM-2.5 Audit w/WINS            | FRM         |</span>
+<span class="go">|         135 | URG-MASS100 Single PM2.5 Sampler                | FRM         |</span>
+<span class="go">|         136 | URG-MASS300 Sequential PM2.5 Sampler            | FRM         |</span>
+<span class="go">|         142 | BGI Models PQ200-VSCC or PQ200A-VSCC            | FRM         |</span>
+<span class="go">|         143 | R &amp; P Model 2000 PM-2.5 Air Sampler w/VSCC      | FRM         |</span>
+<span class="go">|         144 | R &amp; P Model 2000 PM-2.5 Audit Sampler w/VSCC    | FRM         |</span>
+<span class="go">|         153 | Thermo Electron Model RAAS2.5-100 w/VSCC        | FRM         |</span>
+<span class="go">|         154 | Thermo Electron Model RAAS2.5-200 Audit w/VSCC  | FRM         |</span>
+<span class="go">|         170 | Met One BAM-1020 Mass Monitor w/VSCC            | FEM         |</span>
+<span class="go">|         177 | Thermo Scientific Partisol 2000-D Dichot.       | FEM         |</span>
+<span class="go">|         182 | Thermo Scientific TEOM 1405-DF Dichotomous FDMS | FEM         |</span>
+<span class="go">|         183 | Thermo Scientific 5014i or FH62C14-DHS w/VSCC   | FEM         |</span>
+<span class="go">|         184 | Thermo Scientific Model 5030 SHARP w/VSCC       | FEM         |</span>
+<span class="go">|         195 | GRIMM EDM Model 180 with naphion dryer          | FEM         |</span>
+<span class="go">|         203 | Opsis SM200-Dust Monitor w/VSCC                 | FEM         |</span>
+<span class="go">|         204 | Teledyne Model 602 Beta plus w/VSCC             | FEM         |</span>
+<span class="go">|         219 | Tisch Model TE-Wilbur2.5 Low-Volume Sampler     | FRM         |</span>
+<span class="go">|         221 | Met One E-FRM PM2.5 with WINS                   | FRM         |</span>
+<span class="go">|         235 | Met One E-FRM PM2.5 with URG-2000-30EGN cyclone | FEM         |</span>
+<span class="go">|         236 | Teledyne T640 at 5.0 LPM                        | FEM         |</span>
+<span class="go">|         238 | Teledyne T640X at 16.67 LPM                     | FEM         |</span>
+<span class="go">|         245 | Met One E-SEQ-FRM PM2.5 with WINS               | FRM         |</span>
+<span class="go">|         521 | Met One E-FRM PM2.5 with VSCC                   | FRM         |</span>
+<span class="go">|         545 | Met One E-SEQ-FRM PM2.5 with VSCC               | FRM         |</span>
+<span class="go">|         581 | Thermo Scientific 1405-F FDMS w/VSCC            | FEM         |</span>
+
+<span class="go">  Enter the method code corresponding to the reference method for T640_2_PM25:238</span>
+
+<span class="go">  Confirm entry [y/n]: y</span>
+
+<span class="go">  Enter the parameter occurrence code for the above reference method:1</span>
+
+<span class="go">  Confirm entry [y/n]: y</span>
+
+<span class="go">  Are the units of measure for T640_2_PM25 µg/m³?</span>
+
+<span class="go">  Confirm entry [y/n]: y</span>
+
+<span class="go">[7/7]</span>
+<span class="go">-----</span>
+
+<span class="go">Enter the character indicating the type of parameter</span>
+<span class="go">{&#39;&#39;: &#39;(enter key) Skip the current header and drop from SDFS datasets&#39;,</span>
+<span class="go"> &#39;C&#39;: &#39;The header corresponds to an existing custom Parameter&#39;,</span>
+<span class="go"> &#39;N&#39;: &#39;Create a new custom Parameter for the header&#39;,</span>
+<span class="hll"><span class="go"> &#39;S&#39;: &#39;The header corresponds to an SDFS Parameter&#39;}</span>
+</span>
+<span class="go">Parameter type for header name &quot;T640_2_PM10&quot;: S</span>
+
+<span class="go">SDFS Parameters:</span>
+<span class="go">[&#39;CO&#39;, &#39;DP&#39;, &#39;NO&#39;, &#39;NO2&#39;, &#39;NOx&#39;, &#39;O3&#39;, &#39;PM1&#39;, &#39;PM10&#39;, &#39;PM25&#39;, &#39;SO2&#39;, &#39;SOx&#39;,</span>
+<span class="go"> &#39;Temp&#39;, &#39;RH&#39;, &#39;Press&#39;, &#39;WD&#39;, &#39;WS&#39;]</span>
+
+<span class="go">From the list above, select the SDFS parameter associated with T640_2_PM10: PM10</span>
+
+<span class="go">  Enter the units of measure for T640_2_PM10:Micrograms per cubic meter</span>
+
+<span class="go">  Confirm entry [y/n]: y</span>
+
+<span class="go">  Is the parameter code for reference measurements 81102?</span>
+
+<span class="go">  Confirm entry [y/n]: y</span>
+
+<span class="go">| Method Code | Collection Description                          | Method Type |</span>
+<span class="go">|------------:|:------------------------------------------------|:------------|</span>
+<span class="go">|           1 | LO-VOL-SA244E                                   | nan         |</span>
+<span class="go">|           2 | LO-VOL-GMW9200                                  | nan         |</span>
+<span class="go">|           3 | LO-VOL-WA10-DICHOT                              | nan         |</span>
+<span class="go">|           4 | LO-VOL-SA246B-DICHOT                            | nan         |</span>
+<span class="go">|          11 | DUSTTRAK 8530                                   | nan         |</span>
+<span class="go">|          12 | DUSTTRAK 8533                                   | nan         |</span>
+<span class="go">|          25 | MED-VOL-SA254                                   | nan         |</span>
+<span class="go">|          26 | MED-VOL-GMW9100                                 | nan         |</span>
+<span class="go">|          40 | WEDDING-AUTOMATED-PM10 SAMPLER                  | nan         |</span>
+<span class="go">|          41 | BAM-102-CONTINUOUS MONITOR                      | nan         |</span>
+<span class="go">|          51 | HI-VOL-SA321                                    | nan         |</span>
+<span class="go">|          52 | HI-VOL-SA321A                                   | nan         |</span>
+<span class="go">|          53 | HI-VOL-GMW9000                                  | nan         |</span>
+<span class="go">|          54 | HI-VOL-W10                                      | nan         |</span>
+<span class="go">|          55 | HI-VOL-W10-(W/MAINT.AC.PORT)                    | nan         |</span>
+<span class="go">|          56 | HI-VOL-SA321G-(321-W/OILSHIM)                   | nan         |</span>
+<span class="go">|          57 | HI-VOL-SA321AG(321A-W/OILSHIM)                  | nan         |</span>
+<span class="go">|          58 | HI-VOL-SA321B                                   | nan         |</span>
+<span class="go">|          59 | HI-VOL-SA1200                                   | nan         |</span>
+<span class="go">|          62 | HI-VOL-WEDDING-INLET                            | FRM         |</span>
+<span class="go">|          63 | HI-VOL SA/GMW-1200                              | FRM         |</span>
+<span class="go">|          64 | HI-VOL-SA/GMW-321-B                             | FRM         |</span>
+<span class="go">|          65 | HI-VOL-SA/GMW-321-C                             | FRM         |</span>
+<span class="go">|          71 | OREGON-DEQ-MED-VOL                              | FRM         |</span>
+<span class="go">|          73 | LO-VOL-DICHOTOMOUS-SA246B-INLT                  | FRM         |</span>
+<span class="go">|          76 | INSTRMENTL-ANDRSEN-SA246B-INLT                  | FEM         |</span>
+<span class="go">|          79 | INSTRUMENTAL-R&amp;P SA246B-INLET                   | FEM         |</span>
+<span class="go">|          81 | INSTRUMENTAL-WEDDING-AUTOMATIC                  | FEM         |</span>
+<span class="go">|          98 | R&amp;P Model 2000 Partisol                         | FRM         |</span>
+<span class="go">|         122 | INSTRUMENT MET ONE 4 MODELS                     | FEM         |</span>
+<span class="go">|         124 | BGI Inc. Model PQ100 PM10                       | FRM         |</span>
+<span class="go">|         125 | BGI Inc. Model PQ200 PM10                       | FRM         |</span>
+<span class="go">|         126 | R - P Co Partisol Model 2000                    | FRM         |</span>
+<span class="go">|         127 | R - P Co Partisol Model 2025                    | FRM         |</span>
+<span class="go">|         130 | Andersen RAAS10-100 Single channel              | FRM         |</span>
+<span class="go">|         131 | Andersen RAAS10-200 S-Channel                   | FRM         |</span>
+<span class="go">|         132 | Andersen RAAS10-300 M-channel                   | FRM         |</span>
+<span class="go">|         141 | Tisch Environ Model-6070 PM10 Hi-Vol            | FRM         |</span>
+<span class="go">|         150 | T A Series FH 62 C14 Continuous                 | FEM         |</span>
+<span class="go">|         151 | Environnement S.A. Model MP101M                 | FEM         |</span>
+<span class="go">|         156 | Instrument DKK_TOA                              | FEM         |</span>
+<span class="go">|         162 | Hi Vol SSI Ecotech Model 3000                   | FRM         |</span>
+<span class="go">|         193 | OPSIS Model SM200 PM10 Monitor                  | FEM         |</span>
+<span class="go">|         197 | Thermo Partisol Model 2000-D Dichot             | FEM         |</span>
+<span class="go">|         198 | Thermo Partisol Model 2025-D Dichot             | FEM         |</span>
+<span class="go">|         205 | AP 602 BAM                                      | FEM         |</span>
+<span class="go">|         208 | Thermo Scientific 1405-DF Dichotomous TEOM FDMS | FEM         |</span>
+<span class="go">|         216 | Tisch Model TE-Wilbur10 Low-Volume Sampler      | FRM         |</span>
+<span class="go">|         226 | Met One E-BAM PLUS                              | FEM         |</span>
+<span class="go">|         231 | Met One E-FRM PM10                              | FRM         |</span>
+<span class="go">|         239 | Teledyne API T640X at 16.67 LPM                 | FEM         |</span>
+<span class="go">|         246 | Met One E-SEQ-FRM                               | FRM         |</span>
+<span class="go">|         702 | INTERIM PM10                                    | nan         |</span>
+<span class="go">|         771 | INTERIM PM10                                    | nan         |</span>
+<span class="go">|         772 | INTERIM PM10                                    | nan         |</span>
+<span class="go">|         773 | LO-VOL-DICHOT-INTERIM                           | nan         |</span>
+<span class="go">|         774 | HI-VOL INTERIM 15 MICRON                        | nan         |</span>
+<span class="go">|         790 | Virtual Impactor                                | nan         |</span>
+<span class="go">|         792 | Virtual Impactor                                | nan         |</span>
+<span class="go">|         879 | INSTRUMENTAL-R&amp;P SA246B-Inlet (Tx Modification) | nan         |</span>
+<span class="go">|         900 | BGI Inc. frmOMNI at 5 lpm                       | nan         |</span>
+
+<span class="go">  Enter the method code corresponding to the reference method for T640_2_PM10:239</span>
+
+<span class="go">  Confirm entry [y/n]: y</span>
+
+<span class="go">  Enter the parameter occurrence code for the above reference method:1</span>
+
+<span class="go">  Confirm entry [y/n]:</span>
+<span class="go">  ..invalid entry, select [y/n]</span>
+
+<span class="go">  Confirm entry [y/n]: y</span>
+
+<span class="go">  Are the units of measure for T640_2_PM10 µg/m³?</span>
+
+<span class="go">  Confirm entry [y/n]: y</span>
+
+<span class="go">Configured renaming scheme:</span>
+<span class="go">{&#39;BC AE33 880nm&#39;: &#39;&#39;,</span>
+<span class="go"> &#39;GRIMM PM1&#39;: &#39;&#39;,</span>
+<span class="go"> &#39;Grimm PM10&#39;: &#39;&#39;,</span>
+<span class="go"> &#39;Grimm PM2.5&#39;: &#39;&#39;,</span>
+<span class="go"> &#39;T640_2_PM10&#39;: &#39;PM10&#39;,</span>
+<span class="go"> &#39;T640_2_PM25&#39;: &#39;PM25&#39;,</span>
+<span class="go"> &#39;UV_633_370nm&#39;: &#39;&#39;}</span>
+
+<span class="go">Press enter to continue.</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p><strong>10. Configuring Timestamp Column Formatting</strong></p>
+<blockquote>
+<div><p>Next, the timestamp column formatting should be specified. Users are encouraged
+to reference <a class="reference external" href="https://strftime.org/">https://strftime.org/</a> for a table of formatting codes. Additional
+info is available in the Python documentation: <a class="reference external" href="https://docs.python.org/3/library/datetime.html#strftime-and-strptime-format-codes">https://docs.python.org/3/library/datetime.html#strftime-and-strptime-format-codes</a>.</p>
+<p>A formatting scheme must be specified for each time-like column indicated in
+the previous section.</p>
+<p>The user will be asked to confirm the entry with <code class="docutils literal notranslate"><span class="pre">y</span></code> or <code class="docutils literal notranslate"><span class="pre">n</span></code> to either continue
+or revise the entered formatting scheme.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">==================== Configure Timestamp Column Formatting ===================</span>
+<span class="go">Options</span>
+<span class="go">-------</span>
+<span class="go">..If a timestamp column is formatted as the number of seconds since the Unix</span>
+<span class="go">epoch (1 Jan. 1970), enter &quot;epoch&quot;</span>
+<span class="go">..press enter to skip columns that will be dropped</span>
+
+<span class="go">Notes</span>
+<span class="go">-----</span>
+<span class="go">..format code list: https://docs.python.org/3/library/datetime.html#strftime-</span>
+<span class="go">and-strptime-format-codes</span>
+<span class="go">==============================================================================</span>
+
+<span class="go">Enter date/time formatting for &quot;Date &amp; Time&quot;: %-m/%-d/%Y %-I:%M %p</span>
+
+<span class="go">Confirm entry [y/n]: y</span>
+
+<span class="go">Configured formatting scheme:</span>
+<span class="go">{&#39;Date &amp; Time&#39;: &#39;%-m/%-d/%Y %-I:%M %p&#39;}</span>
+
+<span class="go">Press enter to continue.</span>
+</pre></div>
+</div>
+<p><strong>11. Specifying the DateTime Index Time Zone</strong></p>
+<p>Next, the time zone for the timestamp column should be indicated. <a class="reference external" href="../../sdfs/index.html">SDFS</a>
+formatted datasets indicate timestamps in Coordinated Universal Time (UTC), and during
+dataset ingestion, timestamps are shifted by the UTC offset corresponding to the time zone
+indicated at this step.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">pytz</span></code> package is used for indicating time zone names
+and corresponding UTC offsets, and users can type <code class="docutils literal notranslate"><span class="pre">pytz.all_timezones</span></code> to see a list of
+all time zones in the <code class="docutils literal notranslate"><span class="pre">pytz</span></code> library (word of caution, there are a lot!). When the
+console asks for the time zone corresponding to a particular column, the text you
+enter is checked against the list of valid time zones in the <code class="docutils literal notranslate"><span class="pre">pytz</span></code> package and will
+indicate an invalid entry if the user’s input for the time zone was not a valid
+time zone name.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">====================== Specify DateTime Index Time Zone ======================</span>
+<span class="go">Options</span>
+<span class="go">-------</span>
+<span class="go">..press enter to skip columns that will be dropped</span>
+
+<span class="go">Notes</span>
+<span class="go">-----</span>
+<span class="go">For a list of all time zones, type &quot;pytz.all_timezones&quot;</span>
+<span class="go">==============================================================================</span>
+
+<span class="go">Enter time zone for &quot;Date &amp; Time&quot;: EST</span>
+
+<span class="go">Confirm entry [y/n]: y</span>
+
+<span class="go">Configured time zone formatting:</span>
+<span class="go">{&#39;Date &amp; Time&#39;: &#39;%-m/%-d/%Y %-I:%M %p&#39;, &#39;Date &amp; Time_tz&#39;: &#39;EST&#39;}</span>
+
+<span class="go">Press enter to continue.</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p><strong>12. Saving the Setup Configuration to</strong> <code class="docutils literal notranslate"><span class="pre">setup.json</span></code></p>
+<blockquote>
+<div><p>The Setup module will automatically save the setup configuration
+to a <code class="docutils literal notranslate"><span class="pre">reference_setup.json</span></code> file at the indicated directory location:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">============================= Setup Configuration ============================</span>
+<span class="go">==============================================================================</span>
+
+<span class="go">..writing setup configuration to the following path:</span>
+<span class="go">  \data\reference_data\local\raw\Burdens_Creek_370630099\reference_setup.json</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p><strong>13. Reference Data Ingestion and Saving Processed Datasets</strong></p>
+<blockquote>
+<div><p>As a final step, recorded reference datasets are ingested via the configuration
+specified and processed version of these datasets that have been converted to
+SDFS format are saved as comma-separated value files to the
+<code class="docutils literal notranslate"><span class="pre">/data/reference_data/[source]/processed/[site_name]_[site_id]</span></code> directory, where
+<code class="docutils literal notranslate"><span class="pre">[source]</span></code> is the reference data source assigned in step 1, <code class="docutils literal notranslate"><span class="pre">[site_name]</span></code>
+is the name of the site assigned by the user in step 2, and <code class="docutils literal notranslate"><span class="pre">[site_id]</span></code> is
+the AQS ID for the site assigned in step 2 (if applicable).</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">============================ Ingest Local Datasets ===========================</span>
+<span class="go">==============================================================================</span>
+
+<span class="go">..H_201909_PM.csv</span>
+<span class="go">..H_201910_PM.csv</span>
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+</div>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="overview.html" class="btn btn-neutral float-left" title="ReferenceMonitor Instantiation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="load_data.html" class="btn btn-neutral float-right" title="Loading Reference Data" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, United States Environmental Protection Agency.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

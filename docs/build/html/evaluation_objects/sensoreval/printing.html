@@ -1,15 +1,17 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en">
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Descriptive Summary Methods &mdash; sensortoolkit 0.8.3b2 documentation</title>
-      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" type="text/css" />
+  <title>Descriptive Summary Methods &mdash; sensortoolkit 0.9.0b2 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+
+  
   <!--[if lt IE 9]>
     <script src="../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
@@ -17,6 +19,7 @@
         <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
         <script src="../../_static/jquery.js"></script>
         <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../../_static/doctools.js"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
@@ -30,14 +33,18 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="../../index.html" class="icon icon-home"> sensortoolkit
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            sensortoolkit
           </a>
               <div class="version">
-                0.8.3b2
+                0.9.0b2
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -46,9 +53,10 @@
               <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../quickstart.html">Quickstart Guide</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../quickstart.html#script-templates">Script Templates</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../setup.html">Setting Up for sensortoolkit</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../install.html">Installing and Updating sensortoolkit</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../import_sensortoolkit.html">Importing sensortoolkit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../template.html">Analysis with sensortoolkit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../template.html#script-template">Script Template</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Objects and Data Structures</span></p>
 <ul>
@@ -56,7 +64,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../data_structures/index.html">Data Structures</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../sdfs/index.html">sensortoolkit Data Formatting Scheme (SDFS)</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Objects and Data Structures</span></p>
+<p class="caption" role="heading"><span class="caption-text">Analysis and Reports</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="../index.html">Evaluation Objects</a><ul class="current">
 <li class="toctree-l2 current"><a class="reference internal" href="index.html">Conducting Analysis - The SensorEvaluation Class</a><ul class="current">
@@ -87,10 +95,10 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="../index.html">Evaluation Objects</a> &raquo;</li>
-          <li><a href="index.html">Conducting Analysis - The SensorEvaluation Class</a> &raquo;</li>
-      <li>Descriptive Summary Methods</li>
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Evaluation Objects</a></li>
+          <li class="breadcrumb-item"><a href="index.html">Conducting Analysis - The SensorEvaluation Class</a></li>
+      <li class="breadcrumb-item active">Descriptive Summary Methods</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../../_sources/evaluation_objects/sensoreval/printing.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -101,7 +109,7 @@
            <div itemprop="articleBody">
              
   <section id="descriptive-summary-methods">
-<h1>Descriptive Summary Methods<a class="headerlink" href="#descriptive-summary-methods" title="Permalink to this headline"></a></h1>
+<h1>Descriptive Summary Methods<a class="headerlink" href="#descriptive-summary-methods" title="Permalink to this heading"></a></h1>
 <p>Below is a discussion of descriptive summary methods included alongside <code class="docutils literal notranslate"><span class="pre">SensorEvaluation</span></code>.
 These methods print formatted summaries in the console for testing conditions and
 evaluation statistics, printed to the console. Example outputs are shown for each summary method.</p>
@@ -119,38 +127,51 @@ printed statements resulting from these methods.</p>
 </div>
 <hr class="docutils" />
 <section id="sensorevaluation-print-eval-metrics">
-<h2><code class="docutils literal notranslate"><span class="pre">SensorEvaluation.print_eval_metrics()</span></code><a class="headerlink" href="#sensorevaluation-print-eval-metrics" title="Permalink to this headline"></a></h2>
+<h2><code class="docutils literal notranslate"><span class="pre">SensorEvaluation.print_eval_metrics()</span></code><a class="headerlink" href="#sensorevaluation-print-eval-metrics" title="Permalink to this heading"></a></h2>
 <p><a class="reference external" href="../../api/_autosummary/sensortoolkit.evaluation_objs._sensor_eval.SensorEvaluation.html#sensortoolkit.evaluation_objs._sensor_eval.SensorEvaluation.print_eval_metrics">API Documentation for print_eval_metrics()</a></p>
+<section id="example">
+<h3>Example<a class="headerlink" href="#example" title="Permalink to this heading"></a></h3>
+<p>Below is an example for the <a class="reference external" href="../../quickstart.html#example-scenario-toco-toucan">Toco Toucan Quickstart Guide example</a></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">----------------------------------------------------------------------------------------</span>
+<span class="go">                 Toco_Toucan 1-hour Performance Evaluation Results</span>
+<span class="go">        Reference Method: Teledyne Advanced Pollution Instrumentation T640X</span>
+<span class="go">----------------------------------------------------------------------------------------</span>
+<span class="go">  CV  |         Slope          |       Intercept        |          R^2           | RMSE</span>
+<span class="go">----------------------------------------------------------------------------------------</span>
+<span class="go"> 13.0 |          0.79          |         -1.69          |          0.54          | 3.6</span>
+<span class="go">      |     (0.75 to 0.82)     |    (-1.73 to -1.66)    |     (0.52 to 0.56)     |</span>
+</pre></div>
+</div>
+</section>
 <section id="description">
-<h3>Description<a class="headerlink" href="#description" title="Permalink to this headline"></a></h3>
+<h3>Description<a class="headerlink" href="#description" title="Permalink to this heading"></a></h3>
 <p>Display a summary of performance evaluation results using EPA’s recommended
-performance metrics (<span class="raw-html">PM<sub>2.5</sub></span> and <span class="raw-html">O<sub>3</sub></span>).</p>
+performance metrics.</p>
 <p>The coefficient of variation, sensor vs FRM/FEM OLS regression slope,
 intercept, and <span class="raw-html">R<sup>2</sup></span>,, and RMSE are displayed. Regression statistics
 are computed for each sensor, and the mean metric value is
 presented alongside the range (min to max).</p>
 </section>
-<section id="example">
-<h3>Example<a class="headerlink" href="#example" title="Permalink to this headline"></a></h3>
-<p>Below is an example for the <a class="reference external" href="../../quickstart.html#example-scenario-toco-toucan">Toco Toucan Quickstart Guide example</a></p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">----------------------------------------------------------------------------------------</span>
-<span class="go">                   Toco_Toucan 24-hour Performance Evaluation Results</span>
-<span class="go">                       Reference Method: T-API T640X at 16.67 LPM</span>
-<span class="go">----------------------------------------------------------------------------------------</span>
-<span class="go">  CV  |         Slope          |       Intercept        |          R~2           | RMSE</span>
-<span class="go">----------------------------------------------------------------------------------------</span>
-<span class="go"> 7.1  |          0.87          |         -2.38          |          0.59          | 3.6</span>
-<span class="go">      |     (0.84 to 0.92)     |    (-2.56 to -2.12)    |     (0.54 to 0.63)     |</span>
-</pre></div>
-</div>
-</section>
 </section>
 <hr class="docutils" />
 <section id="sensorevaluation-print-eval-conditions">
-<h2><code class="docutils literal notranslate"><span class="pre">SensorEvaluation.print_eval_conditions()</span></code><a class="headerlink" href="#sensorevaluation-print-eval-conditions" title="Permalink to this headline"></a></h2>
+<h2><code class="docutils literal notranslate"><span class="pre">SensorEvaluation.print_eval_conditions()</span></code><a class="headerlink" href="#sensorevaluation-print-eval-conditions" title="Permalink to this heading"></a></h2>
 <p><a class="reference external" href="../../api/_autosummary/sensortoolkit.evaluation_objs._sensor_eval.SensorEvaluation.html#sensortoolkit.evaluation_objs._sensor_eval.SensorEvaluation.print_eval_conditions">API Documentation for print_eval_conditions()</a></p>
 <section id="id1">
-<h3>Description<a class="headerlink" href="#id1" title="Permalink to this headline"></a></h3>
+<h3>Example<a class="headerlink" href="#id1" title="Permalink to this heading"></a></h3>
+<p>Below is an example for the <a class="reference external" href="../../quickstart.html#example-scenario-toco-toucan">Toco Toucan Quickstart Guide example</a></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">----------------------------------------------------------------------------------------</span>
+<span class="go">                    Toco_Toucan (3) 1-hour Evaluation Conditions</span>
+<span class="go">----------------------------------------------------------------------------------------</span>
+<span class="go">  Eval period  |   Duration   | Sensor PM25  |   Ref PM25   |     Temp     |      RH</span>
+<span class="go">----------------------------------------------------------------------------------------</span>
+<span class="go">   08-01-19-   |   31 days    |     4.5      |     7.8      |      26      |      72</span>
+<span class="go">    09-01-19   |              |(0.9 to 13.8) |(3.3 to 15.3) |  (14 to 38)  |  (24 to 97)</span>
+</pre></div>
+</div>
+</section>
+<section id="id3">
+<h3>Description<a class="headerlink" href="#id3" title="Permalink to this heading"></a></h3>
 <p>Display conditions for the evaluation parameter and meteorological conditions
 during the testing period.</p>
 <p>Values for the evaluation parameter recorded by the sensor, FRM/FEM
@@ -158,19 +179,6 @@ instrument, and temperature and relative humidity values are
 displayed by the mean of 1-hour or 24-hour averages during the
 testing period. The range (min to max) of each parameter is listed
 below the mean in parentheses.</p>
-</section>
-<section id="id2">
-<h3>Example<a class="headerlink" href="#id2" title="Permalink to this headline"></a></h3>
-<p>Below is an example for the <a class="reference external" href="../../quickstart.html#example-scenario-toco-toucan">Toco Toucan Quickstart Guide example</a></p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">----------------------------------------------------------------------------------------</span>
-<span class="go">                     Toco_Toucan (3) 24-hour Evaluation Conditions</span>
-<span class="go">----------------------------------------------------------------------------------------</span>
-<span class="go"> Eval period  |   Duration   | Sensor PM25  |   Ref PM25   |     Temp     |      RH</span>
-<span class="go">----------------------------------------------------------------------------------------</span>
-<span class="go">  08-01-19-   |   32 days    |     4.4      |     7.7      |      26      |      71</span>
-<span class="go">   09-02-19   |              | (1.2 to 8.1) |(4.9 to 11.0) |  (21 to 29)  |  (60 to 88)</span>
-</pre></div>
-</div>
 </section>
 </section>
 </section>

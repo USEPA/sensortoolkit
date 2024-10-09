@@ -16,6 +16,8 @@
       :nosignatures:
    
       flatten_datasets
+      remove_verbose
+      verbose_columns
    
    
 

@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>sensortoolkit.param._targets &mdash; sensortoolkit 0.9.0b2 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            sensortoolkit
+          </a>
+              <div class="version">
+                0.9.0b2
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../quickstart.html">Quickstart Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../setup.html">Setting Up for sensortoolkit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../install.html">Installing and Updating sensortoolkit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../template.html">Analysis with sensortoolkit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../template.html#script-template">Script Template</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Objects and Data Structures</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../testingattrib_objects/index.html">Testing Attribute Objects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../data_structures/index.html">Data Structures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../sdfs/index.html">sensortoolkit Data Formatting Scheme (SDFS)</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Analysis and Reports</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../evaluation_objects/index.html">Evaluation Objects</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/index.html">sensortoolkit API</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">sensortoolkit</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">sensortoolkit.param._targets</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for sensortoolkit.param._targets</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">This module contains the ParameterTargets class, which is used to access and</span>
+<span class="sd">configure performance metrics and target values for parameters that may be</span>
+<span class="sd">measured by an air sensor.</span>
+
+<span class="sd">================================================================================</span>
+
+<span class="sd">@Author:</span>
+<span class="sd">  | Samuel Frederick, NSSC Contractor (ORAU)</span>
+<span class="sd">  | U.S. EPA / ORD / CEMM / AMCD / SFSB</span>
+
+<span class="sd">Created:</span>
+<span class="sd">  Thu Sep  2 09:43:36 2021</span>
+<span class="sd">Last Updated:</span>
+<span class="sd">  Thu Sep  2 09:43:36 2021</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+
+
+<div class="viewcode-block" id="ParameterTargets"><a class="viewcode-back" href="../../../api/_autosummary/sensortoolkit.param._targets.ParameterTargets.html#sensortoolkit.param._targets.ParameterTargets">[docs]</a><span class="k">class</span> <span class="nc">ParameterTargets</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Assign and retrieve parameter performance metrics and target values for</span>
+<span class="sd">    the evaluation of air sensor performance for devices measuring the</span>
+<span class="sd">    indicated parameter.</span>
+
+<span class="sd">    Preset performance metrics and target values are included for sensors</span>
+<span class="sd">    measuring either fine particulate matter (PM2.5) or ozone (O3), where</span>
+<span class="sd">    U.S. EPA&#39;s recommended performance metrics and target values for devices</span>
+<span class="sd">    measuring these pollutants are utilized.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        param (sensortoolkit.Parameter object):</span>
+<span class="sd">            The parameter for which air sensor performance is evaluated against</span>
+<span class="sd">            using the metrics and target values included in this module.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">param</span><span class="p">):</span>
+        <span class="n">_usepa_targets</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;PM25&#39;</span><span class="p">:</span>
+                               <span class="p">{</span><span class="s1">&#39;Bias&#39;</span><span class="p">:</span>
+                                    <span class="p">{</span><span class="s1">&#39;Slope&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;description&#39;</span><span class="p">:</span> <span class="s1">&#39;Ordinary least &#39;</span>
+                                               <span class="s1">&#39;squares regression slope&#39;</span><span class="p">,</span>
+                                               <span class="s1">&#39;bounds&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.65</span><span class="p">,</span> <span class="mf">1.35</span><span class="p">),</span>
+                                               <span class="s1">&#39;goal&#39;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
+                                               <span class="s1">&#39;metric_units&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">},</span>
+
+                                     <span class="s1">&#39;Intercept&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;description&#39;</span><span class="p">:</span> <span class="s1">&#39;Ordinary &#39;</span>
+                                                   <span class="s1">&#39;least squares regression &#39;</span>
+                                                   <span class="s1">&#39;intercept&#39;</span><span class="p">,</span>
+                                                   <span class="s1">&#39;bounds&#39;</span><span class="p">:</span> <span class="p">(</span><span class="o">-</span><span class="mf">5.0</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">),</span>
+                                                   <span class="s1">&#39;goal&#39;</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
+                                                   <span class="s1">&#39;metric_units&#39;</span><span class="p">:</span> <span class="s1">&#39;$</span><span class="se">\\</span><span class="s1">mu g/m^3$&#39;</span><span class="p">},</span>
+                                     <span class="p">},</span>
+
+                                <span class="s1">&#39;Linearity&#39;</span><span class="p">:</span>
+                                    <span class="p">{</span><span class="s1">&#39;R^2&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;description&#39;</span><span class="p">:</span> <span class="s1">&#39;Coefficient of &#39;</span>
+                                             <span class="s1">&#39;determination&#39;</span><span class="p">,</span>
+                                               <span class="s1">&#39;bounds&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.70</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">),</span>
+                                               <span class="s1">&#39;goal&#39;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
+                                               <span class="s1">&#39;metric_units&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">}</span>
+                                     <span class="p">},</span>
+
+                                <span class="s1">&#39;Error&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;RMSE&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;description&#39;</span><span class="p">:</span> <span class="s1">&#39;Root mean &#39;</span>
+                                                   <span class="s1">&#39;square error&#39;</span><span class="p">,</span>
+                                                   <span class="s1">&#39;bounds&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">7.0</span><span class="p">),</span>
+                                                   <span class="s1">&#39;goal&#39;</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
+                                                   <span class="s1">&#39;metric_units&#39;</span><span class="p">:</span> <span class="s1">&#39;$</span><span class="se">\\</span><span class="s1">mu g/m^3$&#39;</span><span class="p">},</span>
+
+                                          <span class="s1">&#39;NRMSE&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;description&#39;</span><span class="p">:</span> <span class="s1">&#39;Normalized&#39;</span>
+                                                    <span class="s1">&#39; root mean square error&#39;</span><span class="p">,</span>
+                                                    <span class="s1">&#39;bounds&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">30.0</span><span class="p">),</span>
+                                                    <span class="s1">&#39;goal&#39;</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
+                                                    <span class="s1">&#39;metric_units&#39;</span><span class="p">:</span> <span class="s1">&#39;%&#39;</span><span class="p">}</span>
+                                          <span class="p">},</span>
+
+                                <span class="s1">&#39;Precision&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;SD&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;description&#39;</span><span class="p">:</span> <span class="s1">&#39;Standard&#39;</span>
+                                                     <span class="s1">&#39; deviation&#39;</span><span class="p">,</span>
+                                                     <span class="s1">&#39;bounds&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">),</span>
+                                                     <span class="s1">&#39;goal&#39;</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
+                                                     <span class="s1">&#39;metric_units&#39;</span><span class="p">:</span> <span class="s1">&#39;$</span><span class="se">\\</span><span class="s1">mu g/m^3$&#39;</span><span class="p">},</span>
+
+                                              <span class="s1">&#39;CV&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;description&#39;</span><span class="p">:</span> <span class="s1">&#39;Coeffici&#39;</span>
+                                                     <span class="s1">&#39;ent of variation&#39;</span><span class="p">,</span>
+                                                     <span class="s1">&#39;bounds&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">30.0</span><span class="p">),</span>
+                                                     <span class="s1">&#39;goal&#39;</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
+                                                     <span class="s1">&#39;metric_units&#39;</span><span class="p">:</span> <span class="s1">&#39;%&#39;</span><span class="p">}}</span>
+                                <span class="p">},</span>
+
+                           <span class="s1">&#39;O3&#39;</span><span class="p">:</span>
+                               <span class="p">{</span><span class="s1">&#39;Bias&#39;</span><span class="p">:</span>
+                                    <span class="p">{</span><span class="s1">&#39;Slope&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;description&#39;</span><span class="p">:</span> <span class="s1">&#39;Ordinary least&#39;</span>
+                                               <span class="s1">&#39; squares regression slope&#39;</span><span class="p">,</span>
+                                               <span class="s1">&#39;bounds&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.8</span><span class="p">,</span> <span class="mf">1.2</span><span class="p">),</span>
+                                               <span class="s1">&#39;goal&#39;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
+                                               <span class="s1">&#39;metric_units&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">},</span>
+
+                                     <span class="s1">&#39;Intercept&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;description&#39;</span><span class="p">:</span> <span class="s1">&#39;Ordinary &#39;</span>
+                                                   <span class="s1">&#39;least squares regression&#39;</span>
+                                                   <span class="s1">&#39; intercept&#39;</span><span class="p">,</span>
+                                                   <span class="s1">&#39;bounds&#39;</span><span class="p">:</span> <span class="p">(</span><span class="o">-</span><span class="mf">5.0</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">),</span>
+                                                   <span class="s1">&#39;goal&#39;</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
+                                                   <span class="s1">&#39;metric_units&#39;</span><span class="p">:</span> <span class="s1">&#39;ppbv&#39;</span><span class="p">},</span>
+                                     <span class="p">},</span>
+
+                                <span class="s1">&#39;Linearity&#39;</span><span class="p">:</span>
+                                    <span class="p">{</span><span class="s1">&#39;R^2&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;description&#39;</span><span class="p">:</span> <span class="s1">&#39;Coefficient of de&#39;</span>
+                                             <span class="s1">&#39;termination&#39;</span><span class="p">,</span>
+                                               <span class="s1">&#39;bounds&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.80</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">),</span>
+                                               <span class="s1">&#39;goal&#39;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
+                                               <span class="s1">&#39;metric_units&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">}</span>
+                                     <span class="p">},</span>
+
+                                <span class="s1">&#39;Error&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;RMSE&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;description&#39;</span><span class="p">:</span> <span class="s1">&#39;Root mean &#39;</span>
+                                                   <span class="s1">&#39;square error&#39;</span><span class="p">,</span>
+                                                   <span class="s1">&#39;bounds&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">),</span>
+                                                   <span class="s1">&#39;goal&#39;</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
+                                                   <span class="s1">&#39;metric_units&#39;</span><span class="p">:</span> <span class="s1">&#39;ppbv&#39;</span><span class="p">},</span>
+
+                                          <span class="s1">&#39;NRMSE&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;description&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+                                                    <span class="s1">&#39;bounds&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+                                                    <span class="s1">&#39;goal&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+                                                    <span class="s1">&#39;metric_units&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">}</span>
+                                          <span class="p">},</span>
+
+                                <span class="s1">&#39;Precision&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;SD&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;description&#39;</span><span class="p">:</span> <span class="s1">&#39;Standard &#39;</span>
+                                                     <span class="s1">&#39;deviation&#39;</span><span class="p">,</span>
+                                                     <span class="s1">&#39;bounds&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">),</span>
+                                                     <span class="s1">&#39;goal&#39;</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
+                                                     <span class="s1">&#39;metric_units&#39;</span><span class="p">:</span> <span class="s1">&#39;ppbv&#39;</span><span class="p">},</span>
+
+                                              <span class="s1">&#39;CV&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;description&#39;</span><span class="p">:</span> <span class="s1">&#39;Coeffici&#39;</span>
+                                                     <span class="s1">&#39;ent of variation&#39;</span><span class="p">,</span>
+                                                     <span class="s1">&#39;bounds&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">30.0</span><span class="p">),</span>
+                                                     <span class="s1">&#39;goal&#39;</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
+                                                     <span class="s1">&#39;metric_units&#39;</span><span class="p">:</span> <span class="s1">&#39;%&#39;</span><span class="p">}}</span>
+                                <span class="p">},</span>
+                            
+                            <span class="s1">&#39;PM10&#39;</span><span class="p">:</span>
+                               <span class="p">{</span><span class="s1">&#39;Bias&#39;</span><span class="p">:</span>
+                                    <span class="p">{</span><span class="s1">&#39;Slope&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;description&#39;</span><span class="p">:</span> <span class="s1">&#39;Ordinary least &#39;</span>
+                                               <span class="s1">&#39;squares regression slope&#39;</span><span class="p">,</span>
+                                               <span class="s1">&#39;bounds&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.65</span><span class="p">,</span> <span class="mf">1.35</span><span class="p">),</span>
+                                               <span class="s1">&#39;goal&#39;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
+                                               <span class="s1">&#39;metric_units&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">},</span>
+
+                                     <span class="s1">&#39;Intercept&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;description&#39;</span><span class="p">:</span> <span class="s1">&#39;Ordinary &#39;</span>
+                                                   <span class="s1">&#39;least squares regression &#39;</span>
+                                                   <span class="s1">&#39;intercept&#39;</span><span class="p">,</span>
+                                                   <span class="s1">&#39;bounds&#39;</span><span class="p">:</span> <span class="p">(</span><span class="o">-</span><span class="mf">10.0</span><span class="p">,</span> <span class="mf">10.0</span><span class="p">),</span>
+                                                   <span class="s1">&#39;goal&#39;</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
+                                                   <span class="s1">&#39;metric_units&#39;</span><span class="p">:</span> <span class="s1">&#39;$</span><span class="se">\\</span><span class="s1">mu g/m^3$&#39;</span><span class="p">},</span>
+                                     <span class="p">},</span>
+
+                                <span class="s1">&#39;Linearity&#39;</span><span class="p">:</span>
+                                    <span class="p">{</span><span class="s1">&#39;R^2&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;description&#39;</span><span class="p">:</span> <span class="s1">&#39;Coefficient of &#39;</span>
+                                             <span class="s1">&#39;determination&#39;</span><span class="p">,</span>
+                                               <span class="s1">&#39;bounds&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.70</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">),</span>
+                                               <span class="s1">&#39;goal&#39;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
+                                               <span class="s1">&#39;metric_units&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">}</span>
+                                     <span class="p">},</span>
+
+                                <span class="s1">&#39;Error&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;RMSE&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;description&#39;</span><span class="p">:</span> <span class="s1">&#39;Root mean &#39;</span>
+                                                   <span class="s1">&#39;square error&#39;</span><span class="p">,</span>
+                                                   <span class="s1">&#39;bounds&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">14.0</span><span class="p">),</span>
+                                                   <span class="s1">&#39;goal&#39;</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
+                                                   <span class="s1">&#39;metric_units&#39;</span><span class="p">:</span> <span class="s1">&#39;$</span><span class="se">\\</span><span class="s1">mu g/m^3$&#39;</span><span class="p">},</span>
+
+                                          <span class="s1">&#39;NRMSE&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;description&#39;</span><span class="p">:</span> <span class="s1">&#39;Normalized&#39;</span>
+                                                    <span class="s1">&#39; root mean square error&#39;</span><span class="p">,</span>
+                                                    <span class="s1">&#39;bounds&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">30.0</span><span class="p">),</span>
+                                                    <span class="s1">&#39;goal&#39;</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
+                                                    <span class="s1">&#39;metric_units&#39;</span><span class="p">:</span> <span class="s1">&#39;%&#39;</span><span class="p">}</span>
+                                          <span class="p">},</span>
+
+                                <span class="s1">&#39;Precision&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;SD&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;description&#39;</span><span class="p">:</span> <span class="s1">&#39;Standard&#39;</span>
+                                                     <span class="s1">&#39; deviation&#39;</span><span class="p">,</span>
+                                                     <span class="s1">&#39;bounds&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">),</span>
+                                                     <span class="s1">&#39;goal&#39;</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
+                                                     <span class="s1">&#39;metric_units&#39;</span><span class="p">:</span> <span class="s1">&#39;$</span><span class="se">\\</span><span class="s1">mu g/m^3$&#39;</span><span class="p">},</span>
+
+                                              <span class="s1">&#39;CV&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;description&#39;</span><span class="p">:</span> <span class="s1">&#39;Coeffici&#39;</span>
+                                                     <span class="s1">&#39;ent of variation&#39;</span><span class="p">,</span>
+                                                     <span class="s1">&#39;bounds&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">30.0</span><span class="p">),</span>
+                                                     <span class="s1">&#39;goal&#39;</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
+                                                     <span class="s1">&#39;metric_units&#39;</span><span class="p">:</span> <span class="s1">&#39;%&#39;</span><span class="p">}}</span>
+                                <span class="p">},</span>
+     
+                           <span class="s1">&#39;CO&#39;</span><span class="p">:</span>
+                               <span class="p">{</span><span class="s1">&#39;Bias&#39;</span><span class="p">:</span>
+                                    <span class="p">{</span><span class="s1">&#39;Slope&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;description&#39;</span><span class="p">:</span> <span class="s1">&#39;Ordinary least&#39;</span>
+                                               <span class="s1">&#39; squares regression slope&#39;</span><span class="p">,</span>
+                                               <span class="s1">&#39;bounds&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.8</span><span class="p">,</span> <span class="mf">1.2</span><span class="p">),</span>
+                                               <span class="s1">&#39;goal&#39;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
+                                               <span class="s1">&#39;metric_units&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">},</span>
+
+                                     <span class="s1">&#39;Intercept&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;description&#39;</span><span class="p">:</span> <span class="s1">&#39;Ordinary &#39;</span>
+                                                   <span class="s1">&#39;least squares regression&#39;</span>
+                                                   <span class="s1">&#39; intercept&#39;</span><span class="p">,</span>
+                                                   <span class="s1">&#39;bounds&#39;</span><span class="p">:</span> <span class="p">(</span><span class="o">-</span><span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">),</span>
+                                                   <span class="s1">&#39;goal&#39;</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
+                                                   <span class="s1">&#39;metric_units&#39;</span><span class="p">:</span> <span class="s1">&#39;ppmv&#39;</span><span class="p">},</span>
+                                     <span class="p">},</span>
+
+                                <span class="s1">&#39;Linearity&#39;</span><span class="p">:</span>
+                                    <span class="p">{</span><span class="s1">&#39;R^2&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;description&#39;</span><span class="p">:</span> <span class="s1">&#39;Coefficient of de&#39;</span>
+                                             <span class="s1">&#39;termination&#39;</span><span class="p">,</span>
+                                               <span class="s1">&#39;bounds&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.80</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">),</span>
+                                               <span class="s1">&#39;goal&#39;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
+                                               <span class="s1">&#39;metric_units&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">}</span>
+                                     <span class="p">},</span>
+
+                                <span class="s1">&#39;Error&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;RMSE&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;description&#39;</span><span class="p">:</span> <span class="s1">&#39;Root mean &#39;</span>
+                                                   <span class="s1">&#39;square error&#39;</span><span class="p">,</span>
+                                                   <span class="s1">&#39;bounds&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.15</span><span class="p">),</span>
+                                                   <span class="s1">&#39;goal&#39;</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
+                                                   <span class="s1">&#39;metric_units&#39;</span><span class="p">:</span> <span class="s1">&#39;ppmv&#39;</span><span class="p">},</span>
+
+                                          <span class="s1">&#39;NRMSE&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;description&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+                                                    <span class="s1">&#39;bounds&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+                                                    <span class="s1">&#39;goal&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+                                                    <span class="s1">&#39;metric_units&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">}</span>
+                                          <span class="p">},</span>
+
+                                <span class="s1">&#39;Precision&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;SD&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;description&#39;</span><span class="p">:</span> <span class="s1">&#39;Standard &#39;</span>
+                                                     <span class="s1">&#39;deviation&#39;</span><span class="p">,</span>
+                                                     <span class="s1">&#39;bounds&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.02</span><span class="p">),</span>
+                                                     <span class="s1">&#39;goal&#39;</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
+                                                     <span class="s1">&#39;metric_units&#39;</span><span class="p">:</span> <span class="s1">&#39;ppmv&#39;</span><span class="p">},</span>
+
+                                              <span class="s1">&#39;CV&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;description&#39;</span><span class="p">:</span> <span class="s1">&#39;Coeffici&#39;</span>
+                                                     <span class="s1">&#39;ent of variation&#39;</span><span class="p">,</span>
+                                                     <span class="s1">&#39;bounds&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">30.0</span><span class="p">),</span>
+                                                     <span class="s1">&#39;goal&#39;</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
+                                                     <span class="s1">&#39;metric_units&#39;</span><span class="p">:</span> <span class="s1">&#39;%&#39;</span><span class="p">}}</span>
+                                <span class="p">},</span>                                   
+                                   
+                           <span class="s1">&#39;NO2&#39;</span><span class="p">:</span>
+                               <span class="p">{</span><span class="s1">&#39;Bias&#39;</span><span class="p">:</span>
+                                    <span class="p">{</span><span class="s1">&#39;Slope&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;description&#39;</span><span class="p">:</span> <span class="s1">&#39;Ordinary least&#39;</span>
+                                               <span class="s1">&#39; squares regression slope&#39;</span><span class="p">,</span>
+                                               <span class="s1">&#39;bounds&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.65</span><span class="p">,</span> <span class="mf">1.35</span><span class="p">),</span>
+                                               <span class="s1">&#39;goal&#39;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
+                                               <span class="s1">&#39;metric_units&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">},</span>
+
+                                     <span class="s1">&#39;Intercept&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;description&#39;</span><span class="p">:</span> <span class="s1">&#39;Ordinary &#39;</span>
+                                                   <span class="s1">&#39;least squares regression&#39;</span>
+                                                   <span class="s1">&#39; intercept&#39;</span><span class="p">,</span>
+                                                   <span class="s1">&#39;bounds&#39;</span><span class="p">:</span> <span class="p">(</span><span class="o">-</span><span class="mf">5.0</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">),</span>
+                                                   <span class="s1">&#39;goal&#39;</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
+                                                   <span class="s1">&#39;metric_units&#39;</span><span class="p">:</span> <span class="s1">&#39;ppbv&#39;</span><span class="p">},</span>
+                                     <span class="p">},</span>
+
+                                <span class="s1">&#39;Linearity&#39;</span><span class="p">:</span>
+                                    <span class="p">{</span><span class="s1">&#39;R^2&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;description&#39;</span><span class="p">:</span> <span class="s1">&#39;Coefficient of de&#39;</span>
+                                             <span class="s1">&#39;termination&#39;</span><span class="p">,</span>
+                                               <span class="s1">&#39;bounds&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.70</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">),</span>
+                                               <span class="s1">&#39;goal&#39;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
+                                               <span class="s1">&#39;metric_units&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">}</span>
+                                     <span class="p">},</span>
+
+                                <span class="s1">&#39;Error&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;RMSE&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;description&#39;</span><span class="p">:</span> <span class="s1">&#39;Root mean &#39;</span>
+                                                   <span class="s1">&#39;square error&#39;</span><span class="p">,</span>
+                                                   <span class="s1">&#39;bounds&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">15.0</span><span class="p">),</span>
+                                                   <span class="s1">&#39;goal&#39;</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
+                                                   <span class="s1">&#39;metric_units&#39;</span><span class="p">:</span> <span class="s1">&#39;ppbv&#39;</span><span class="p">},</span>
+
+                                          <span class="s1">&#39;NRMSE&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;description&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+                                                    <span class="s1">&#39;bounds&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+                                                    <span class="s1">&#39;goal&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+                                                    <span class="s1">&#39;metric_units&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">}</span>
+                                          <span class="p">},</span>
+
+                                <span class="s1">&#39;Precision&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;SD&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;description&#39;</span><span class="p">:</span> <span class="s1">&#39;Standard &#39;</span>
+                                                     <span class="s1">&#39;deviation&#39;</span><span class="p">,</span>
+                                                     <span class="s1">&#39;bounds&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">),</span>
+                                                     <span class="s1">&#39;goal&#39;</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
+                                                     <span class="s1">&#39;metric_units&#39;</span><span class="p">:</span> <span class="s1">&#39;ppbv&#39;</span><span class="p">},</span>
+
+                                              <span class="s1">&#39;CV&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;description&#39;</span><span class="p">:</span> <span class="s1">&#39;Coeffici&#39;</span>
+                                                     <span class="s1">&#39;ent of variation&#39;</span><span class="p">,</span>
+                                                     <span class="s1">&#39;bounds&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">30.0</span><span class="p">),</span>
+                                                     <span class="s1">&#39;goal&#39;</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
+                                                     <span class="s1">&#39;metric_units&#39;</span><span class="p">:</span> <span class="s1">&#39;%&#39;</span><span class="p">}}</span>
+                                <span class="p">},</span>     
+                                   
+                           <span class="s1">&#39;SO2&#39;</span><span class="p">:</span>
+                               <span class="p">{</span><span class="s1">&#39;Bias&#39;</span><span class="p">:</span>
+                                    <span class="p">{</span><span class="s1">&#39;Slope&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;description&#39;</span><span class="p">:</span> <span class="s1">&#39;Ordinary least&#39;</span>
+                                               <span class="s1">&#39; squares regression slope&#39;</span><span class="p">,</span>
+                                               <span class="s1">&#39;bounds&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.65</span><span class="p">,</span> <span class="mf">1.35</span><span class="p">),</span>
+                                               <span class="s1">&#39;goal&#39;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
+                                               <span class="s1">&#39;metric_units&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">},</span>
+
+                                     <span class="s1">&#39;Intercept&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;description&#39;</span><span class="p">:</span> <span class="s1">&#39;Ordinary &#39;</span>
+                                                   <span class="s1">&#39;least squares regression&#39;</span>
+                                                   <span class="s1">&#39; intercept&#39;</span><span class="p">,</span>
+                                                   <span class="s1">&#39;bounds&#39;</span><span class="p">:</span> <span class="p">(</span><span class="o">-</span><span class="mf">5.0</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">),</span>
+                                                   <span class="s1">&#39;goal&#39;</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
+                                                   <span class="s1">&#39;metric_units&#39;</span><span class="p">:</span> <span class="s1">&#39;ppbv&#39;</span><span class="p">},</span>
+                                     <span class="p">},</span>
+
+                                <span class="s1">&#39;Linearity&#39;</span><span class="p">:</span>
+                                    <span class="p">{</span><span class="s1">&#39;R^2&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;description&#39;</span><span class="p">:</span> <span class="s1">&#39;Coefficient of de&#39;</span>
+                                             <span class="s1">&#39;termination&#39;</span><span class="p">,</span>
+                                               <span class="s1">&#39;bounds&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.70</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">),</span>
+                                               <span class="s1">&#39;goal&#39;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
+                                               <span class="s1">&#39;metric_units&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">}</span>
+                                     <span class="p">},</span>
+
+                                <span class="s1">&#39;Error&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;RMSE&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;description&#39;</span><span class="p">:</span> <span class="s1">&#39;Root mean &#39;</span>
+                                                   <span class="s1">&#39;square error&#39;</span><span class="p">,</span>
+                                                   <span class="s1">&#39;bounds&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">15.0</span><span class="p">),</span>
+                                                   <span class="s1">&#39;goal&#39;</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
+                                                   <span class="s1">&#39;metric_units&#39;</span><span class="p">:</span> <span class="s1">&#39;ppbv&#39;</span><span class="p">},</span>
+
+                                          <span class="s1">&#39;NRMSE&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;description&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+                                                    <span class="s1">&#39;bounds&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+                                                    <span class="s1">&#39;goal&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+                                                    <span class="s1">&#39;metric_units&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">}</span>
+                                          <span class="p">},</span>
+
+                                <span class="s1">&#39;Precision&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;SD&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;description&#39;</span><span class="p">:</span> <span class="s1">&#39;Standard &#39;</span>
+                                                     <span class="s1">&#39;deviation&#39;</span><span class="p">,</span>
+                                                     <span class="s1">&#39;bounds&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">),</span>
+                                                     <span class="s1">&#39;goal&#39;</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
+                                                     <span class="s1">&#39;metric_units&#39;</span><span class="p">:</span> <span class="s1">&#39;ppbv&#39;</span><span class="p">},</span>
+
+                                              <span class="s1">&#39;CV&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;description&#39;</span><span class="p">:</span> <span class="s1">&#39;Coeffici&#39;</span>
+                                                     <span class="s1">&#39;ent of variation&#39;</span><span class="p">,</span>
+                                                     <span class="s1">&#39;bounds&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">30.0</span><span class="p">),</span>
+                                                     <span class="s1">&#39;goal&#39;</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
+                                                     <span class="s1">&#39;metric_units&#39;</span><span class="p">:</span> <span class="s1">&#39;%&#39;</span><span class="p">}}</span>
+                                <span class="p">}</span>     
+                                   
+                           <span class="p">}</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_metrics</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;Bias&#39;</span><span class="p">:</span> <span class="p">{},</span>
+                         <span class="s1">&#39;Linearity&#39;</span><span class="p">:</span> <span class="p">{},</span>
+                         <span class="s1">&#39;Error&#39;</span><span class="p">:</span> <span class="p">{},</span>
+                         <span class="s1">&#39;Precision&#39;</span><span class="p">:</span> <span class="p">{}</span>
+                         <span class="p">}</span>
+
+        <span class="k">if</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">_usepa_targets</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_metrics</span> <span class="o">=</span> <span class="n">_usepa_targets</span><span class="p">[</span><span class="n">param</span><span class="p">]</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">metric_categories</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_metrics</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+
+<div class="viewcode-block" id="ParameterTargets.set_metric"><a class="viewcode-back" href="../../../api/_autosummary/sensortoolkit.param._targets.ParameterTargets.html#sensortoolkit.param._targets.ParameterTargets.set_metric">[docs]</a>    <span class="k">def</span> <span class="nf">set_metric</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">metric_category</span><span class="p">,</span> <span class="n">metric_name</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Assign a new performance metric to an existing metric category.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            metric_category (str):</span>
+<span class="sd">                The name of an existing performance metric category within</span>
+<span class="sd">                the dictionary of metric values, accessed via</span>
+<span class="sd">                ``get_all_metrics()`` (e.g., &#39;Bias&#39; or &#39;Error&#39;).</span>
+<span class="sd">            metric_name (str):</span>
+<span class="sd">                The name of a new performance metric that will be added to</span>
+<span class="sd">                the indicated metric category.</span>
+
+<span class="sd">        **Keyword Arguments:**</span>
+
+<span class="sd">        :param str description:</span>
+<span class="sd">            A textual description of the metric.</span>
+<span class="sd">        :param bounds:</span>
+<span class="sd">            The target range (lower bound, upper bound) for the metric.</span>
+<span class="sd">        :type bounds: Two-element tuple</span>
+<span class="sd">        :param goal:</span>
+<span class="sd">            The goal/ideal achievable performance metric value.</span>
+<span class="sd">        :type goal: int or float</span>
+<span class="sd">        :param str metric_units:</span>
+<span class="sd">            The units associated with the metric (if applicable)</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            KeyError: Raise if the passed metric category is not in the list</span>
+<span class="sd">                metric categories (keys) indicated by the dictionary of metric</span>
+<span class="sd">                values accessed via ``get_all_metrics()``.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Ensure title case</span>
+        <span class="n">metric_category</span> <span class="o">=</span> <span class="n">metric_category</span><span class="o">.</span><span class="n">title</span><span class="p">()</span>
+        <span class="c1">#metric_name = metric_name.title()</span>
+
+        <span class="k">if</span> <span class="n">metric_category</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_metrics</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="s1">&#39;Unspecified metric category: &#39;</span>
+                           <span class="s1">&#39;</span><span class="si">{0}</span><span class="s1">. Category must be one of the &#39;</span>
+                           <span class="s1">&#39;following: </span><span class="si">{1}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">metric_category</span><span class="p">,</span>
+                                                   <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_metrics</span><span class="o">.</span><span class="n">keys</span><span class="p">())))</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_metrics</span><span class="p">[</span><span class="n">metric_category</span><span class="p">][</span><span class="n">metric_name</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="n">metric_entry</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_metrics</span><span class="p">[</span><span class="n">metric_category</span><span class="p">][</span><span class="n">metric_name</span><span class="p">]</span>
+        <span class="n">metric_entry</span><span class="p">[</span><span class="s1">&#39;description&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;description&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="n">metric_entry</span><span class="p">[</span><span class="s1">&#39;bounds&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;bounds&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="n">metric_entry</span><span class="p">[</span><span class="s1">&#39;goal&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;goal&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="n">metric_entry</span><span class="p">[</span><span class="s1">&#39;metric_units&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;metric_units&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ParameterTargets.get_metric"><a class="viewcode-back" href="../../../api/_autosummary/sensortoolkit.param._targets.ParameterTargets.html#sensortoolkit.param._targets.ParameterTargets.get_metric">[docs]</a>    <span class="k">def</span> <span class="nf">get_metric</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">metric_name</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return details about a single performance metric (description,</span>
+<span class="sd">        target range, goal value, metric units).</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            metric_name (str):</span>
+<span class="sd">                The name of the metric to return information about. Must be</span>
+<span class="sd">                contained within the list of metrics indicated by</span>
+<span class="sd">                ``get_all_metrics()``.</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            KeyError: Raise if passed metric name is not in the dictionary of</span>
+<span class="sd">                configured metrics.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            metric (dict):</span>
+<span class="sd">                Return a dictionary containing a textual description</span>
+<span class="sd">                of the metric (key- &#39;description&#39;), the target range for the</span>
+<span class="sd">                metric (key- &#39;bounds&#39;), the goal/ideal achievable performance</span>
+<span class="sd">                metric value (key- &#39;goal&#39;), and the units associated with the</span>
+<span class="sd">                metric if applicable (key- &#39;metric_units&#39;).</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Ensure title case</span>
+        <span class="c1"># metric_category = metric_category.title()</span>
+        <span class="c1"># #metric_name = metric_name.title()</span>
+
+        <span class="k">for</span> <span class="n">cat</span><span class="p">,</span> <span class="n">cat_metrics</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_metrics</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">info</span> <span class="ow">in</span> <span class="n">cat_metrics</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="k">if</span> <span class="n">name</span> <span class="o">==</span> <span class="n">metric_name</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="n">info</span>
+
+        <span class="c1"># If metric name not found, raise keyerror indicating the metric is not</span>
+        <span class="c1"># in the list of performance metrics</span>
+        <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Unspecified metric name: </span><span class="si">{</span><span class="n">metric_name</span><span class="si">}</span><span class="s1">. Metric name &#39;</span>
+                       <span class="sa">f</span><span class="s1">&#39;must be one of the following: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_metrics</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ParameterTargets.get_all_metrics"><a class="viewcode-back" href="../../../api/_autosummary/sensortoolkit.param._targets.ParameterTargets.html#sensortoolkit.param._targets.ParameterTargets.get_all_metrics">[docs]</a>    <span class="k">def</span> <span class="nf">get_all_metrics</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns all performance metrics and target values associated with</span>
+<span class="sd">        the Parameter object.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            dict: A dictionary containing the performance metric categories,</span>
+<span class="sd">            metric names, and target values.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_metrics</span></div>
+
+<div class="viewcode-block" id="ParameterTargets.set_metric_category"><a class="viewcode-back" href="../../../api/_autosummary/sensortoolkit.param._targets.ParameterTargets.html#sensortoolkit.param._targets.ParameterTargets.set_metric_category">[docs]</a>    <span class="k">def</span> <span class="nf">set_metric_category</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">metric_category</span><span class="p">,</span> <span class="n">metric_names</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Assign a new metric category. Optionally, users can also add new</span>
+<span class="sd">        metrics and associated target values to this new category.</span>
+
+<span class="sd">        Example:</span>
+
+<span class="sd">            Say we are working with a parameter (pollutant) that is neither</span>
+<span class="sd">            ``PM25`` nor ``O3``, so the existing set of performance targets for</span>
+<span class="sd">            these pollutants (metrics and target values recommended by U.S. EPA)</span>
+<span class="sd">            are not utilized. Let&#39;s also assume that the name of our parameter</span>
+<span class="sd">            object is ``param_obj``. After instantiating the parameter object,</span>
+<span class="sd">            we may call the ``get_all_metrics()`` method to display all of the</span>
+<span class="sd">            performance metrics and target values for our parameter. Since no</span>
+<span class="sd">            preset metrics were specified, we will see the following printed to</span>
+<span class="sd">            the console:</span>
+
+<span class="sd">            &gt;&gt;&gt; param_obj.PerformanceTargets.get_all_metrics()</span>
+<span class="sd">            {&#39;Bias&#39;: {}, &#39;Linearity&#39;: {}, &#39;Error&#39;: {}, &#39;Precision&#39;: {}}</span>
+
+<span class="sd">            We can add a new performance evaluation metric category as well as</span>
+<span class="sd">            any metrics and associated target values we may wish to include in</span>
+<span class="sd">            the new category using the ``set_metric_category()`` method. For</span>
+<span class="sd">            instance, say we wish to add a category &#39;Data Quality&#39; and a metric</span>
+<span class="sd">            within this category called &#39;Uptime&#39; with a target value of 70%</span>
+<span class="sd">            uptime or greater. This new category and metric can be added via</span>
+<span class="sd">            the following:</span>
+
+<span class="sd">            &gt;&gt;&gt; param_obj.PerformanceTargets.set_metric_category(</span>
+<span class="sd">                    metric_category=&#39;Data Quality&#39;,</span>
+<span class="sd">                    metric_names={&#39;Uptime&#39;: {&#39;description&#39;: &#39;Measurement uptime&#39;,</span>
+<span class="sd">                                             &#39;bounds&#39;: (70, 100),</span>
+<span class="sd">                                             &#39;goal&#39;: 100,</span>
+<span class="sd">                                             &#39;metric_units&#39;: &#39;%&#39;}</span>
+<span class="sd">                                  }</span>
+<span class="sd">                    )</span>
+
+<span class="sd">            If we again call the ``get_all_metrics()`` method, we will see that</span>
+<span class="sd">            the dictionary has been updated to include the new category and</span>
+<span class="sd">            metric name.</span>
+
+<span class="sd">            &gt;&gt;&gt; param_obj.PerformanceTargets.get_all_metrics()</span>
+<span class="sd">            {&#39;Bias&#39;: {},</span>
+<span class="sd">             &#39;Linearity&#39;: {},</span>
+<span class="sd">             &#39;Error&#39;: {},</span>
+<span class="sd">             &#39;Precision&#39;: {},</span>
+<span class="sd">             &#39;Data_Quality&#39;: {&#39;Uptime&#39;: {&#39;description&#39;: &#39;Measurement uptime&#39;,</span>
+<span class="sd">                                         &#39;bounds&#39;: (70, 100),</span>
+<span class="sd">                                         &#39;goal&#39;: 100,</span>
+<span class="sd">                                         &#39;metric_units&#39;: &#39;%&#39;}</span>
+<span class="sd">                              }</span>
+<span class="sd">             }</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            metric_category (str):</span>
+<span class="sd">                The name of the new performance metric category to add.</span>
+<span class="sd">            metric_names (dict, optional):</span>
+<span class="sd">                A dictionary of metrics (dictionary keys) and a description</span>
+<span class="sd">                of each metric (sub-dictionary for each metric containing</span>
+<span class="sd">                &#39;description&#39; - a textual description of the metric,</span>
+<span class="sd">                &#39;bounds&#39; - the lower and upper bounds of the target range for</span>
+<span class="sd">                the specified metric, &#39;goal&#39; - the goal/ideal achievable</span>
+<span class="sd">                performance metric value, and &#39;metric_units&#39; - the units</span>
+<span class="sd">                associated with the metric if applicable). Defaults to None.</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            TypeError: Raise if the type of metric_names is not a dictionary.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Ensure title case</span>
+        <span class="n">metric_category</span> <span class="o">=</span> <span class="n">metric_category</span><span class="o">.</span><span class="n">title</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="n">metric_category</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_metrics</span><span class="p">:</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;Warning: Overwriting existing metric category.&quot;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_metrics</span><span class="p">[</span><span class="n">metric_category</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="k">if</span> <span class="n">metric_names</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">metric_names</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="nb">dict</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;Expected &quot;metric_names&quot; to be type dict,&#39;</span>
+                                <span class="s1">&#39; received type </span><span class="si">{0}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">metric_names</span><span class="p">))</span>
+                                <span class="p">)</span>
+            <span class="k">for</span> <span class="n">metric_name</span> <span class="ow">in</span> <span class="n">metric_names</span><span class="p">:</span>
+                <span class="n">metric_info</span> <span class="o">=</span> <span class="n">metric_names</span><span class="p">[</span><span class="n">metric_name</span><span class="p">]</span>
+                <span class="n">kwargs</span> <span class="o">=</span> <span class="n">metric_info</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">set_metric</span><span class="p">(</span><span class="n">metric_category</span><span class="p">,</span>
+                                <span class="n">metric_name</span><span class="p">,</span>
+                                <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, United States Environmental Protection Agency.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

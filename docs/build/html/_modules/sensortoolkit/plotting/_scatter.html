@@ -1,14 +1,16 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>sensortoolkit.plotting._scatter &mdash; sensortoolkit 0.8.3b2 documentation</title>
-      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" type="text/css" />
+  <title>sensortoolkit.plotting._scatter &mdash; sensortoolkit 0.9.0b2 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+
+  
   <!--[if lt IE 9]>
     <script src="../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
@@ -16,6 +18,7 @@
         <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
         <script src="../../../_static/jquery.js"></script>
         <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../../../_static/doctools.js"></script>
     <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
@@ -27,14 +30,18 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="../../../index.html" class="icon icon-home"> sensortoolkit
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            sensortoolkit
           </a>
               <div class="version">
-                0.8.3b2
+                0.9.0b2
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -43,9 +50,10 @@
               <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../quickstart.html">Quickstart Guide</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../quickstart.html#script-templates">Script Templates</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../setup.html">Setting Up for sensortoolkit</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../install.html">Installing and Updating sensortoolkit</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../import_sensortoolkit.html">Importing sensortoolkit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../template.html">Analysis with sensortoolkit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../template.html#script-template">Script Template</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Objects and Data Structures</span></p>
 <ul>
@@ -53,7 +61,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../data_structures/index.html">Data Structures</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../sdfs/index.html">sensortoolkit Data Formatting Scheme (SDFS)</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Objects and Data Structures</span></p>
+<p class="caption" role="heading"><span class="caption-text">Analysis and Reports</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../evaluation_objects/index.html">Evaluation Objects</a></li>
 </ul>
@@ -75,9 +83,9 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="../../index.html">Module code</a> &raquo;</li>
-      <li>sensortoolkit.plotting._scatter</li>
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">sensortoolkit.plotting._scatter</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -114,7 +122,7 @@
 <span class="kn">from</span> <span class="nn">sensortoolkit.calculate</span> <span class="kn">import</span> <span class="n">regression_stats</span>
 <span class="kn">from</span> <span class="nn">sensortoolkit.param</span> <span class="kn">import</span> <span class="n">Parameter</span>
 <span class="kn">from</span> <span class="nn">sensortoolkit.datetime_utils</span> <span class="kn">import</span> <span class="n">get_todays_date</span>
-<span class="kn">from</span> <span class="nn">sensortoolkit.calculate</span> <span class="kn">import</span> <span class="n">normalize</span>
+<span class="kn">from</span> <span class="nn">sensortoolkit.calculate</span> <span class="kn">import</span> <span class="n">normalize</span><span class="p">,</span> <span class="n">diff</span><span class="p">,</span> <span class="n">absdiff</span>
 <span class="kn">from</span> <span class="nn">sensortoolkit.deploy</span> <span class="kn">import</span> <span class="n">get_max_conc</span>
 <span class="kn">from</span> <span class="nn">sensortoolkit.plotting</span> <span class="kn">import</span> <span class="p">(</span><span class="n">set_fontsize</span><span class="p">,</span>
      <span class="n">sensor_subplot_formatting</span><span class="p">,</span> <span class="n">met_scatter_lims</span><span class="p">,</span> <span class="n">wrap_text</span><span class="p">,</span> <span class="n">error_bars</span><span class="p">)</span>
@@ -125,7 +133,7 @@
                  <span class="n">xlims</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ylims</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">detail_fontsize</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                  <span class="n">param</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">plot_regression</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">colormap_vals</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                  <span class="n">colormap_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;A helper function to draw scatterplots with linear regressions on passed</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;A helper function to draw scatterplots with linear regressions on passed</span>
 <span class="sd">    matplotlib axes instance</span>
 
 <span class="sd">    Args:</span>
@@ -328,7 +336,7 @@
                 <span class="n">transform</span><span class="o">=</span><span class="n">ax</span><span class="o">.</span><span class="n">transAxes</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">text_color</span><span class="p">,</span>
                 <span class="n">alpha</span><span class="o">=</span><span class="n">text_alpha</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">text_size</span><span class="p">)</span>
 
-        <span class="c1"># Pearson Correlation Coefficient</span>
+        <span class="c1"># Coefficient of Determination</span>
         <span class="n">r_square</span> <span class="o">=</span> <span class="n">sensor_stats</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;R$^2$&#39;</span><span class="p">]</span>
         <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">text_x</span> <span class="o">-</span> <span class="n">text_xdisplacement</span><span class="p">,</span>
                 <span class="n">text_y</span> <span class="o">-</span> <span class="n">text_ydisplacement</span><span class="p">,</span>
@@ -381,7 +389,7 @@
                     <span class="n">met_ref_df</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">deploy_dict</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sensor_serials</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                     <span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">fig</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">report_fmt</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">return_axs</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
                     <span class="n">param_class</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Front-end function for creating scatter plots.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Front-end function for creating scatter plots.</span>
 
 <span class="sd">    Calls Draw_Scatter for lower-end tasks and sets formatting for plots</span>
 <span class="sd">    based off passed parameters.</span>
@@ -779,22 +787,25 @@
 
     <span class="k">if</span> <span class="n">plot_title</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">title_text</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">title_text</span> <span class="o">=</span> <span class="p">(</span><span class="n">fmt_sensor_name</span> <span class="o">+</span> <span class="s1">&#39; vs. &#39;</span> <span class="o">+</span> <span class="n">ref_name</span> <span class="o">+</span> <span class="s1">&#39; &#39;</span> <span class="o">+</span>
-                          <span class="n">averaging_interval</span> <span class="o">+</span> <span class="s1">&#39; &#39;</span> <span class="o">+</span> <span class="n">fmt_param</span><span class="p">)</span>
+            <span class="c1">#title_text = f&#39;{fmt_sensor_name} vs. {ref_name} {averaging_interval} {fmt_param}&#39;</span>
+            <span class="n">title_text</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">averaging_interval</span><span class="si">}</span><span class="s1"> Averaged </span><span class="si">{</span><span class="n">fmt_param</span><span class="si">}</span><span class="s1">&#39;</span>
+        <span class="k">if</span> <span class="n">report_fmt</span><span class="p">:</span>
+            <span class="n">title_text</span> <span class="o">=</span> <span class="n">title_text</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">ref_name</span><span class="si">}</span><span class="s1"> &#39;</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">ref_name</span><span class="si">}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
 
-        <span class="n">title_text</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">wrap</span><span class="p">(</span><span class="n">title_text</span><span class="p">,</span>
-                                    <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;title_textwrap&#39;</span><span class="p">,</span>
-                                               <span class="n">title_textwrap</span><span class="p">)))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">title_text</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">wrap</span><span class="p">(</span><span class="n">title_text</span><span class="p">,</span>
+                                        <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;title_textwrap&#39;</span><span class="p">,</span>
+                                                   <span class="n">title_textwrap</span><span class="p">)))</span>
 
         <span class="n">n_lines</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">title_text</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">))</span>
         <span class="k">if</span> <span class="n">n_lines</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">:</span>  <span class="c1"># shift the figure down a tad if 3 or more lines</span>
             <span class="n">font_size</span> <span class="o">*=</span> <span class="mf">0.9</span>
             <span class="n">suptitle_ypos</span> <span class="o">*=</span> <span class="mf">1.03</span>
 
-        <span class="k">if</span> <span class="n">unique_ax_obj</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
-            <span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="n">title_text</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="n">font_size</span><span class="p">,</span>
-                         <span class="n">y</span><span class="o">=</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;title_yloc&#39;</span><span class="p">,</span> <span class="n">suptitle_ypos</span><span class="p">),</span>
-                         <span class="n">x</span><span class="o">=</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;title_xloc&#39;</span><span class="p">,</span> <span class="n">suptitle_xpos</span><span class="p">))</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">unique_ax_obj</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">fig</span><span class="o">.</span><span class="n">axes</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">):</span>
+                <span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="n">title_text</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="n">font_size</span><span class="p">,</span>
+                             <span class="n">y</span><span class="o">=</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;title_yloc&#39;</span><span class="p">,</span> <span class="n">suptitle_ypos</span><span class="p">),</span>
+                             <span class="n">x</span><span class="o">=</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;title_xloc&#39;</span><span class="p">,</span> <span class="n">suptitle_xpos</span><span class="p">))</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">axs</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">title_text</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="n">font_size</span><span class="p">,</span>
                           <span class="n">y</span><span class="o">=</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;title_yloc&#39;</span><span class="p">,</span> <span class="n">suptitle_ypos</span><span class="p">),</span>
@@ -849,16 +860,6 @@
                 <span class="n">auto_filename_suffix</span> <span class="o">=</span> <span class="n">auto_filename_suffix</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span>
                                         <span class="nb">str</span><span class="p">(</span><span class="n">Nr</span><span class="o">*</span><span class="n">Nc</span><span class="p">),</span> <span class="nb">str</span><span class="p">(</span><span class="n">Nr</span><span class="o">*</span><span class="n">Nc</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span>
                 <span class="k">break</span>
-
-            <span class="c1"># tdelta_interval = sensor_df.index[1] - sensor_df.index[0]</span>
-
-            <span class="c1"># if (tdelta_interval) == pd.Timedelta(&#39;1 days&#39;):</span>
-            <span class="c1">#     daily_df_obj = [sensor_df]</span>
-            <span class="c1">#     daily_ref_df = ref_df</span>
-
-            <span class="c1"># if (tdelta_interval) == pd.Timedelta(&#39;1 hour&#39;):</span>
-            <span class="c1">#     hourly_df_obj = [sensor_df]</span>
-            <span class="c1">#     hourly_ref_df = ref_df</span>
 
             <span class="k">if</span> <span class="n">plot_regression</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
                 <span class="n">sensor_stats</span> <span class="o">=</span> <span class="n">regression_stats</span><span class="p">(</span><span class="n">sensor_df_obj</span><span class="o">=</span><span class="n">sensor_df</span><span class="p">,</span>
@@ -938,7 +939,7 @@
             <span class="n">ctitle</span> <span class="o">=</span> <span class="s1">&#39;Relative Humidity (%)&#39;</span>
             <span class="n">cbar_orien</span> <span class="o">=</span> <span class="s1">&#39;horizontal&#39;</span>
             <span class="n">cbar_size</span> <span class="o">=</span> <span class="mf">0.3</span>
-            <span class="n">cbar_ypos</span> <span class="o">=</span> <span class="mf">0.6</span>
+            <span class="n">cbar_ypos</span> <span class="o">=</span> <span class="mi">1</span>
 
             <span class="k">if</span> <span class="n">number_of_sensors</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
                 <span class="n">cbar_size</span> <span class="o">=</span> <span class="mf">0.8</span>
@@ -1011,7 +1012,9 @@
 
         <span class="n">todays_date</span> <span class="o">=</span> <span class="n">get_todays_date</span><span class="p">()</span>
         <span class="n">file_path</span> <span class="o">=</span> <span class="n">file_path</span> <span class="o">+</span> <span class="s1">&#39;_&#39;</span> <span class="o">+</span> <span class="n">todays_date</span> <span class="o">+</span> <span class="s1">&#39;.png&#39;</span>
-
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
         <span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">)</span>
         <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 
@@ -1024,14 +1027,17 @@
         <span class="k">return</span> <span class="n">axs</span></div>
 
 
-<div class="viewcode-block" id="normalized_met_scatter"><a class="viewcode-back" href="../../../api/_autosummary/sensortoolkit.plotting._scatter.normalized_met_scatter.html#sensortoolkit.plotting._scatter.normalized_met_scatter">[docs]</a><span class="k">def</span> <span class="nf">normalized_met_scatter</span><span class="p">(</span><span class="n">df_list</span><span class="p">,</span> <span class="n">ref_df</span><span class="p">,</span> <span class="n">avg_df</span><span class="p">,</span> <span class="n">met_ref_df</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                           <span class="n">figure_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">param</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">met_param</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                           <span class="n">sensor_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">write_to_file</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                           <span class="n">sensor_serials</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ref_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                           <span class="n">report_fmt</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">fig</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                           <span class="n">return_mpl_obj</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Plot parameter values normalized by reference values against either</span>
-<span class="sd">    temperature or relative humidity.</span>
+<div class="viewcode-block" id="met_influence"><a class="viewcode-back" href="../../../api/_autosummary/sensortoolkit.plotting._scatter.met_influence.html#sensortoolkit.plotting._scatter.met_influence">[docs]</a><span class="k">def</span> <span class="nf">met_influence</span><span class="p">(</span><span class="n">df_list</span><span class="p">,</span> <span class="n">ref_df</span><span class="p">,</span> <span class="n">avg_df</span><span class="p">,</span> <span class="n">met_ref_df</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                <span class="n">figure_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">param</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">met_param</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                <span class="n">sensor_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">write_to_file</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                <span class="n">sensor_serials</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ref_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ref_mdl</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                <span class="n">report_fmt</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">fig</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                <span class="n">return_mpl_obj</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Plot parameter values against meteorological parameter (Temp, RH, or DP)</span>
+<span class="sd">    to display the influence of the chosen meteorological parameter on</span>
+<span class="sd">    concentration values. Display either normalized concentrations (sensor</span>
+<span class="sd">    divided by paired reference concentration), difference (sensor-reference),</span>
+<span class="sd">    or the absolute difference (\|sensor - reference|).</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        df_list (list):</span>
@@ -1203,19 +1209,31 @@
 
     <span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;seaborn_style&#39;</span><span class="p">,</span> <span class="s1">&#39;darkgrid&#39;</span><span class="p">))</span>
 
+    <span class="n">dep_var</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;dep_var&#39;</span><span class="p">,</span> <span class="s1">&#39;normalized&#39;</span><span class="p">)</span>
+
+    <span class="n">dep_var_options</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;normalized&#39;</span><span class="p">,</span> <span class="s1">&#39;absdiff&#39;</span><span class="p">,</span> <span class="s1">&#39;diff&#39;</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">dep_var</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">dep_var_options</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Invalid dependent variable name </span><span class="si">{</span><span class="n">dep_var</span><span class="si">}</span><span class="s1">, choose from </span><span class="si">{</span><span class="n">dep_var_options</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
     <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;show_N&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
     <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;show_RMSE&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
     <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;show_spearman&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
     <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;show_one_to_one&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
     <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;show_trendline&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
     <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;point_size&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;point_size&#39;</span><span class="p">,</span> <span class="mi">12</span><span class="p">)</span>
-    <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;point_alpha&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;point_alpha&#39;</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">)</span>
+    <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;point_alpha&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;point_alpha&#39;</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">)</span>
 
     <span class="n">point_colors</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;point_colors&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
     <span class="n">xlims</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;xlims&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
     <span class="n">ylims</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;ylims&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
-    <span class="n">cmap_norm_range</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;cmap_norm_range&#39;</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">))</span>
-    <span class="n">cmap_name</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;cmap_name&#39;</span><span class="p">,</span> <span class="s1">&#39;Set1&#39;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">sensor_serials</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">4</span><span class="p">:</span>
+        <span class="n">cmap_norm_range</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;cmap_norm_range&#39;</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">))</span>
+        <span class="n">cmap_name</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;cmap_name&#39;</span><span class="p">,</span> <span class="s1">&#39;Set1&#39;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">cmap_norm_range</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;cmap_norm_range&#39;</span><span class="p">,</span> <span class="p">(</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">.9</span><span class="p">))</span>
+        <span class="n">cmap_name</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;cmap_name&#39;</span><span class="p">,</span> <span class="s1">&#39;seismic_r&#39;</span><span class="p">)</span>
+
     <span class="n">fontsize</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;fontsize&#39;</span><span class="p">,</span> <span class="mi">12</span><span class="p">)</span>
     <span class="n">detail_fontsize</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;detail_fontsize&#39;</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
     <span class="n">subplot_adjust</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;subplot_adjust&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
@@ -1246,29 +1264,6 @@
                   <span class="s1">&#39;distribution&#39;</span><span class="p">)</span>
             <span class="k">return</span>
 
-    <span class="c1"># Set xlim and ylim if not specified</span>
-    <span class="k">if</span> <span class="n">xlims</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">ylims</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="c1"># Determine which limits need to be set based on whether values have</span>
-        <span class="c1"># been passed to kwargs for xlims or ylims</span>
-        <span class="n">set_xlims</span> <span class="o">=</span> <span class="kc">True</span>
-        <span class="n">set_ylims</span> <span class="o">=</span> <span class="kc">True</span>
-        <span class="k">if</span> <span class="n">xlims</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">set_xlims</span> <span class="o">=</span> <span class="kc">False</span>
-        <span class="k">if</span> <span class="n">ylims</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">set_ylims</span> <span class="o">=</span> <span class="kc">False</span>
-
-        <span class="n">lim_tup</span> <span class="o">=</span> <span class="n">met_scatter_lims</span><span class="p">(</span><span class="n">met_data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span>
-                                   <span class="n">param</span><span class="o">=</span><span class="n">param_name</span><span class="p">,</span>
-                                   <span class="n">met_param</span><span class="o">=</span><span class="n">met_param_name</span><span class="p">,</span>
-                                   <span class="n">xlims</span><span class="o">=</span><span class="n">xlims</span><span class="p">,</span>
-                                   <span class="n">ylims</span><span class="o">=</span><span class="n">ylims</span><span class="p">,</span>
-                                   <span class="n">serials</span><span class="o">=</span><span class="n">sensor_serials</span><span class="p">,</span>
-                                   <span class="n">avg_df</span><span class="o">=</span><span class="n">avg_df</span><span class="p">)</span>
-
-        <span class="k">if</span> <span class="n">set_xlims</span><span class="p">:</span>
-            <span class="n">xlims</span> <span class="o">=</span> <span class="n">lim_tup</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-        <span class="k">if</span> <span class="n">set_ylims</span><span class="p">:</span>
-            <span class="n">ylims</span> <span class="o">=</span> <span class="n">lim_tup</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
 
     <span class="k">if</span> <span class="n">param_name</span> <span class="o">==</span> <span class="s1">&#39;Temp&#39;</span><span class="p">:</span>
         <span class="n">met_param_name</span> <span class="o">=</span> <span class="s1">&#39;Temp&#39;</span>
@@ -1290,29 +1285,69 @@
     <span class="c1"># Retreive formatted version of sensor and parameter name</span>
     <span class="n">fmt_sensor_name</span> <span class="o">=</span> <span class="n">sensor_name</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">,</span> <span class="s1">&#39; &#39;</span><span class="p">)</span>
 
-    <span class="k">try</span><span class="p">:</span>
-        <span class="n">met_ref_name</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">met_param_name</span> <span class="o">+</span> <span class="s1">&#39;_Method&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span><span class="o">.</span><span class="n">unique</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
-    <span class="k">except</span> <span class="ne">IndexError</span><span class="p">:</span>
-        <span class="n">met_ref_name</span> <span class="o">=</span> <span class="s1">&#39;Unspecified Reference&#39;</span>
-    <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
-        <span class="n">met_ref_name</span> <span class="o">=</span> <span class="n">sensor_name</span>
+    <span class="n">ref_df</span> <span class="o">=</span> <span class="n">ref_df</span><span class="p">[</span><span class="n">ref_df</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">param</span><span class="si">}</span><span class="s1">_Value&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">ref_mdl</span><span class="p">]</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;[Note]: </span><span class="si">{</span><span class="n">param</span><span class="si">}</span><span class="s1"> values below the Federal MDL (</span><span class="si">{</span><span class="n">ref_mdl</span><span class="si">}</span><span class="s1"> </span><span class="si">{</span><span class="n">param_obj</span><span class="o">.</span><span class="n">units_description</span><span class="si">}</span><span class="s1">)&#39;</span>
+          <span class="s1">&#39; are not shown&#39;</span><span class="p">)</span>
 
-    <span class="n">x_label</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">met_ref_name</span><span class="si">}</span><span class="s1"> </span><span class="si">{</span><span class="n">fmt_met_param</span><span class="si">}</span><span class="s1"> (</span><span class="si">{</span><span class="n">fmt_met_units</span><span class="si">}</span><span class="s1">)&#39;</span>
+    <span class="k">if</span> <span class="n">dep_var</span> <span class="o">==</span> <span class="s1">&#39;normalized&#39;</span><span class="p">:</span>
+        <span class="c1"># Compute normalized dataframes</span>
+        <span class="n">depvar_df_list</span> <span class="o">=</span> <span class="n">normalize</span><span class="p">(</span><span class="n">df_list</span><span class="p">,</span> <span class="n">ref_df</span><span class="p">,</span> <span class="n">param_name</span><span class="p">,</span> <span class="n">ref_name</span><span class="p">)</span>
+        <span class="c1">#title = f&#39;{fmt_sensor_name} {fmt_param} Normalized by {ref_name}&#39;</span>
+        <span class="n">title</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;1-hour Averages&#39;</span> <span class="c1"># for right now, everything is plotting at 1-hr. But may have to change PM eval to 24-hour averages</span>
+        <span class="c1"># Plot 1:1 normalization line</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#8b8b8b&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">.8</span><span class="p">)</span>
+        <span class="n">legend_list</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;1:1&#39;</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">dep_var</span> <span class="o">==</span> <span class="s1">&#39;diff&#39;</span><span class="p">:</span>
+        <span class="n">depvar_df_list</span> <span class="o">=</span> <span class="n">diff</span><span class="p">(</span><span class="n">df_list</span><span class="p">,</span> <span class="n">ref_df</span><span class="p">,</span> <span class="n">param_name</span><span class="p">,</span> <span class="n">ref_name</span><span class="p">)</span>
+        <span class="n">title</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">fmt_param</span><span class="si">}</span><span class="s1"> Concentration Difference</span><span class="se">\n</span><span class="s1">(</span><span class="si">{</span><span class="n">fmt_sensor_name</span><span class="si">}</span><span class="s1"> - </span><span class="si">{</span><span class="n">ref_name</span><span class="si">}</span><span class="s1">)&#39;</span>
+        <span class="c1"># Plot target bias line</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#8b8b8b&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">.8</span><span class="p">)</span>
+        <span class="n">legend_list</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s1">&#39;Target Value: 0 </span><span class="si">{</span><span class="n">fmt_param_units</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">dep_var</span> <span class="o">==</span> <span class="s1">&#39;absdiff&#39;</span><span class="p">:</span>
+        <span class="n">depvar_df_list</span> <span class="o">=</span> <span class="n">absdiff</span><span class="p">(</span><span class="n">df_list</span><span class="p">,</span> <span class="n">ref_df</span><span class="p">,</span> <span class="n">param_name</span><span class="p">,</span> <span class="n">ref_name</span><span class="p">)</span>
+        <span class="n">title</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">fmt_param</span><span class="si">}</span><span class="s1"> Absolute Concentration Difference</span><span class="se">\n</span><span class="s1">|</span><span class="si">{</span><span class="n">fmt_sensor_name</span><span class="si">}</span><span class="s1"> - </span><span class="si">{</span><span class="n">ref_name</span><span class="si">}</span><span class="s1">|&#39;</span>
+        <span class="c1"># Plot target bias line</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#8b8b8b&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">.8</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
+        <span class="n">legend_list</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s1">&#39;Target Value: 0 </span><span class="si">{</span><span class="n">fmt_param_units</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">]</span>
 
-    <span class="n">title</span> <span class="o">=</span> <span class="n">fmt_sensor_name</span> <span class="o">+</span> <span class="s1">&#39; &#39;</span> <span class="o">+</span> <span class="n">fmt_param</span> <span class="o">+</span> <span class="s1">&#39; Normalized by &#39;</span> <span class="o">+</span> <span class="n">ref_name</span>
+    <span class="n">x_label</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;Monitor </span><span class="si">{</span><span class="n">fmt_met_param</span><span class="si">}</span><span class="s1"> (</span><span class="si">{</span><span class="n">fmt_met_units</span><span class="si">}</span><span class="s1">)&#39;</span>
+    <span class="n">y_label</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;Normalized </span><span class="si">{</span><span class="n">fmt_param</span><span class="si">}</span><span class="s1">&#39;</span>
+    <span class="c1"># labels = [title]</span>
+    <span class="c1"># labels = wrap_text(labels, max_label_len=45)</span>
+    <span class="c1"># title = labels[0]</span>
 
-    <span class="n">labels</span> <span class="o">=</span> <span class="p">[</span><span class="n">title</span><span class="p">]</span>
-    <span class="n">labels</span> <span class="o">=</span> <span class="n">wrap_text</span><span class="p">(</span><span class="n">labels</span><span class="p">,</span> <span class="n">max_label_len</span><span class="o">=</span><span class="mi">40</span><span class="p">)</span>
-    <span class="n">title</span> <span class="o">=</span> <span class="n">labels</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 
     <span class="n">param_dict</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;xlabel&#39;</span><span class="p">:</span> <span class="n">x_label</span><span class="p">,</span>
-                  <span class="s1">&#39;ylabel&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">}</span>
+                  <span class="s1">&#39;ylabel&#39;</span><span class="p">:</span> <span class="n">y_label</span><span class="p">}</span>
 
-    <span class="c1"># Compute normalized dataframes</span>
-    <span class="n">norm_df_list</span> <span class="o">=</span> <span class="n">normalize</span><span class="p">(</span><span class="n">df_list</span><span class="p">,</span> <span class="n">ref_df</span><span class="p">,</span> <span class="n">param_name</span><span class="p">,</span> <span class="n">ref_name</span><span class="p">)</span>
 
-    <span class="c1"># Plot 1:1 normalization line</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#8b8b8b&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">.8</span><span class="p">)</span>
+    <span class="c1"># Set xlim and ylim if not specified</span>
+    <span class="k">if</span> <span class="n">xlims</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">ylims</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="c1"># Determine which limits need to be set based on whether values have</span>
+        <span class="c1"># been passed to kwargs for xlims or ylims</span>
+        <span class="n">set_xlims</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="n">set_ylims</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">if</span> <span class="n">xlims</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">set_xlims</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="k">if</span> <span class="n">ylims</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">set_ylims</span> <span class="o">=</span> <span class="kc">False</span>
+
+        <span class="n">lim_tup</span> <span class="o">=</span> <span class="n">met_scatter_lims</span><span class="p">(</span><span class="n">met_data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span>
+                                   <span class="n">param</span><span class="o">=</span><span class="n">param_name</span><span class="p">,</span>
+                                   <span class="n">met_param</span><span class="o">=</span><span class="n">met_param_name</span><span class="p">,</span>
+                                   <span class="n">xlims</span><span class="o">=</span><span class="n">xlims</span><span class="p">,</span>
+                                   <span class="n">ylims</span><span class="o">=</span><span class="n">ylims</span><span class="p">,</span>
+                                   <span class="n">serials</span><span class="o">=</span><span class="n">sensor_serials</span><span class="p">,</span>
+                                   <span class="n">depvar_df_list</span><span class="o">=</span><span class="n">depvar_df_list</span><span class="p">,</span>
+                                   <span class="n">dep_var</span><span class="o">=</span><span class="n">dep_var</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">set_xlims</span><span class="p">:</span>
+            <span class="n">xlims</span> <span class="o">=</span> <span class="n">lim_tup</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">set_ylims</span><span class="p">:</span>
+            <span class="n">ylims</span> <span class="o">=</span> <span class="n">lim_tup</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+
+
+
 
     <span class="c1"># Set colormap and assign number of discrete colors from colormap</span>
     <span class="k">if</span> <span class="n">point_colors</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
@@ -1331,37 +1366,26 @@
     <span class="k">else</span><span class="p">:</span>
         <span class="n">colors</span> <span class="o">=</span> <span class="n">point_colors</span>
 
-    <span class="n">ax</span><span class="o">.</span><span class="n">set_prop_cycle</span><span class="p">(</span><span class="s1">&#39;color&#39;</span><span class="p">,</span> <span class="n">colors</span><span class="p">)</span>
-
     <span class="c1"># If the normalized param is temp or RH, the ref_df will be the met_ref_df</span>
     <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">col</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;Temp&#39;</span><span class="p">)</span> <span class="ow">or</span> <span class="n">col</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;RH&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">ref_df</span><span class="p">):</span>
         <span class="n">data</span> <span class="o">=</span> <span class="n">ref_df</span>
 
     <span class="c1"># Generate scatter plots for each normalized sensor dataset</span>
-    <span class="n">legend_list</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;1:1&#39;</span><span class="p">]</span>
-    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">sensor_n</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">norm_df_list</span><span class="p">,</span> <span class="n">sensor_serials</span><span class="p">)):</span>
+
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">sensor_n</span><span class="p">,</span> <span class="n">color</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">depvar_df_list</span><span class="p">,</span> <span class="n">sensor_serials</span><span class="p">,</span> <span class="n">colors</span><span class="p">)):</span>
         <span class="n">compare_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
         <span class="n">compare_df</span><span class="p">[</span><span class="n">met_param_name</span> <span class="o">+</span> <span class="s1">&#39;_Value&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">met_param_name</span> <span class="o">+</span> <span class="s1">&#39;_Value&#39;</span><span class="p">]</span>
-        <span class="n">compare_df</span><span class="p">[</span><span class="s1">&#39;Normalized_&#39;</span> <span class="o">+</span> <span class="n">param_name</span> <span class="o">+</span> <span class="s1">&#39;_Value&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Normalized_&#39;</span> <span class="o">+</span> <span class="n">param_name</span> <span class="o">+</span> <span class="s1">&#39;_Value&#39;</span><span class="p">]</span>
+        <span class="n">compare_df</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">dep_var</span><span class="o">.</span><span class="n">title</span><span class="p">()</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="n">param_name</span><span class="si">}</span><span class="s1">_Value&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">dep_var</span><span class="o">.</span><span class="n">title</span><span class="p">()</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="n">param_name</span><span class="si">}</span><span class="s1">_Value&#39;</span><span class="p">]</span>
         <span class="n">xdata</span> <span class="o">=</span> <span class="n">compare_df</span><span class="p">[</span><span class="n">met_param_name</span> <span class="o">+</span> <span class="s1">&#39;_Value&#39;</span><span class="p">]</span>
-        <span class="n">ydata</span> <span class="o">=</span> <span class="n">compare_df</span><span class="p">[</span><span class="s1">&#39;Normalized_&#39;</span><span class="o">+</span><span class="n">param_name</span> <span class="o">+</span> <span class="s1">&#39;_Value&#39;</span><span class="p">]</span>
+        <span class="n">ydata</span> <span class="o">=</span> <span class="n">compare_df</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">dep_var</span><span class="o">.</span><span class="n">title</span><span class="p">()</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="n">param_name</span><span class="si">}</span><span class="s1">_Value&#39;</span><span class="p">]</span>
 
         <span class="k">if</span> <span class="n">ydata</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span><span class="o">.</span><span class="n">empty</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
             <span class="k">continue</span>
 
-        <span class="c1"># try:</span>
-        <span class="c1">#     kwargs[&#39;monocolor&#39;] = colors[i]</span>
-        <span class="c1"># except IndexError:</span>
-        <span class="c1">#     print(&#39;..warning: length of point colors list does not match&#39;</span>
-        <span class="c1">#           &#39; number of sensor datasets&#39;)</span>
-        <span class="c1">#     print(&#39;..assigning first point color to unspecified point color &#39;</span>
-        <span class="c1">#           &#39;index&#39;)</span>
-        <span class="c1">#     kwargs[&#39;monocolor&#39;] = colors[0]</span>
-
         <span class="n">draw_scatter</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">xdata</span><span class="p">,</span> <span class="n">ydata</span><span class="p">,</span> <span class="n">param_dict</span><span class="p">,</span>
                      <span class="n">xlims</span><span class="o">=</span><span class="n">xlims</span><span class="p">,</span> <span class="n">ylims</span><span class="o">=</span><span class="n">ylims</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="n">fontsize</span><span class="p">,</span>
                      <span class="n">detail_fontsize</span><span class="o">=</span><span class="n">detail_fontsize</span><span class="p">,</span>
-                     <span class="n">plot_regression</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+                     <span class="n">plot_regression</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">monocolor</span><span class="o">=</span><span class="n">color</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
         <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">title</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="n">fontsize</span><span class="p">,</span> <span class="n">pad</span><span class="o">=</span><span class="mi">6</span><span class="p">)</span>
 
@@ -1375,7 +1399,7 @@
     <span class="c1"># Axes object position, dimensions ----------------------------------------</span>
     <span class="n">box</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">get_position</span><span class="p">()</span>
 
-    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">sensor_serials</span><span class="p">)</span><span class="o">/</span><span class="mi">8</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">sensor_serials</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="mi">4</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
         <span class="n">leg_cols</span> <span class="o">=</span> <span class="mi">2</span>
         <span class="n">col_spacing</span> <span class="o">=</span> <span class="mf">0.8</span>
         <span class="k">if</span> <span class="n">unique_ax_obj</span> <span class="ow">is</span> <span class="kc">True</span> <span class="ow">and</span> <span class="n">report_fmt</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
@@ -1392,7 +1416,8 @@
     <span class="n">ybottom</span><span class="p">,</span> <span class="n">ytop</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">get_ylim</span><span class="p">()</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">set_aspect</span><span class="p">(</span><span class="nb">abs</span><span class="p">((</span><span class="n">xright</span><span class="o">-</span><span class="n">xleft</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">ybottom</span><span class="o">-</span><span class="n">ytop</span><span class="p">))</span><span class="o">*</span><span class="n">ratio</span><span class="p">)</span>
 
-    <span class="n">ax</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">ybottom</span><span class="p">),</span> <span class="nb">round</span><span class="p">(</span><span class="n">ytop</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span> <span class="mi">1</span><span class="p">))</span>
+    <span class="c1"># if dep_var == &#39;normalized&#39;:</span>
+    <span class="c1">#     ax.set_yticks(np.arange(round(ybottom), round(ytop + 1), 1))</span>
 
     <span class="c1"># Adjust axes dimensions to fit width and height of plot</span>
     <span class="k">if</span> <span class="n">unique_ax_obj</span> <span class="ow">is</span> <span class="kc">True</span> <span class="ow">and</span> <span class="n">report_fmt</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
@@ -1439,8 +1464,8 @@
 
     <span class="c1"># Error bars --------------------------------------------------------------</span>
     <span class="n">all_sensor_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
-    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">df</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">norm_df_list</span><span class="p">,</span> <span class="mi">1</span><span class="p">):</span>
-        <span class="n">sensor_data</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Normalized_&#39;</span> <span class="o">+</span> <span class="n">param_name</span>  <span class="o">+</span> <span class="s1">&#39;_Value&#39;</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">df</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">depvar_df_list</span><span class="p">,</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="n">sensor_data</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">dep_var</span><span class="o">.</span><span class="n">title</span><span class="p">()</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="n">param_name</span><span class="si">}</span><span class="s1">_Value&#39;</span><span class="p">]</span>
         <span class="n">all_sensor_data</span><span class="p">[</span><span class="n">param_name</span>  <span class="o">+</span> <span class="s1">&#39;_Value&#39;</span> <span class="o">+</span> <span class="s1">&#39;_sensor_&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)]</span> <span class="o">=</span> <span class="n">sensor_data</span>
     <span class="n">ydata</span> <span class="o">=</span> <span class="n">all_sensor_data</span>
 
@@ -1460,6 +1485,486 @@
         <span class="n">todays_date</span> <span class="o">=</span> <span class="n">get_todays_date</span><span class="p">()</span>
         <span class="n">figure_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">figure_path</span><span class="p">,</span> <span class="n">param_name</span><span class="p">,</span>
                             <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">sensor_name</span><span class="si">}</span><span class="s1">_normalized_</span><span class="si">{</span><span class="n">param_name</span><span class="si">}</span><span class="s1">_vs_</span><span class="si">{</span><span class="n">met_param_name</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+        <span class="c1"># Indicate performance targets template formatted</span>
+        <span class="k">if</span> <span class="n">report_fmt</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">unique_ax_obj</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
+                <span class="n">figure_path</span> <span class="o">=</span> <span class="n">figure_path</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;_vs_&#39;</span> <span class="o">+</span> <span class="n">met_param_name</span><span class="p">,</span> <span class="s1">&#39;_met&#39;</span><span class="p">)</span>
+            <span class="n">figure_path</span> <span class="o">=</span> <span class="n">figure_path</span> <span class="o">+</span> <span class="s1">&#39;_&#39;</span> <span class="o">+</span> <span class="s1">&#39;report_fmt&#39;</span>
+
+        <span class="c1"># Filename suffix for harmonized sensor datasets</span>
+        <span class="k">if</span> <span class="n">param_name</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;corrected&#39;</span><span class="p">):</span>
+            <span class="n">figure_path</span> <span class="o">=</span> <span class="n">figure_path</span> <span class="o">+</span> <span class="s1">&#39;_&#39;</span> <span class="o">+</span> <span class="s1">&#39;corrected&#39;</span>
+
+        <span class="n">figure_path</span> <span class="o">+=</span> <span class="s1">&#39;_&#39;</span> <span class="o">+</span> <span class="n">todays_date</span> <span class="o">+</span> <span class="s1">&#39;.png&#39;</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">figure_path</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="n">return_mpl_obj</span> <span class="ow">is</span> <span class="kc">True</span> <span class="ow">or</span> <span class="n">report_fmt</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">ax</span></div>
+
+<div class="viewcode-block" id="wind_influence"><a class="viewcode-back" href="../../../api/_autosummary/sensortoolkit.plotting._scatter.wind_influence.html#sensortoolkit.plotting._scatter.wind_influence">[docs]</a><span class="k">def</span> <span class="nf">wind_influence</span><span class="p">(</span><span class="n">df_list</span><span class="p">,</span> <span class="n">ref_df</span><span class="p">,</span> <span class="n">avg_df</span><span class="p">,</span> <span class="n">met_ref_df</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                <span class="n">figure_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">param</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">met_param</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                <span class="n">sensor_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">write_to_file</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                <span class="n">sensor_serials</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ref_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ref_mdl</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                <span class="n">report_fmt</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">fig</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                <span class="n">return_mpl_obj</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Plot parameter values against meteorological parameter (Temp, RH, or DP)</span>
+<span class="sd">    to display the influence of the chosen meteorological parameter on</span>
+<span class="sd">    concentration values. Display either normalized concentrations (sensor</span>
+<span class="sd">    divided by paired reference concentration), difference (sensor-reference),</span>
+<span class="sd">    or the absolute difference (\|sensor - reference|).</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        df_list (list):</span>
+<span class="sd">            A list containing sensor datasets (1-hour averges) with parameter</span>
+<span class="sd">            measurements.</span>
+<span class="sd">        ref_df (pandas DataFrame):</span>
+<span class="sd">            Reference dataset with collocated monitor measurements for the</span>
+<span class="sd">            specified parameter.</span>
+<span class="sd">        avg_df (pandas DataFrame):</span>
+<span class="sd">            A dataset containing the intersensor average for concurrently</span>
+<span class="sd">            recorded sensor measurements for each parameter measured by the</span>
+<span class="sd">            air sensor.</span>
+<span class="sd">        met_ref_df (pandas DataFrame, optional):</span>
+<span class="sd">            Meteorological reference data (1-hour averages) for temperature,</span>
+<span class="sd">            relative humidity, and dew point measurements. Defaults to None.</span>
+<span class="sd">        figure_path (str, optional):</span>
+<span class="sd">            Path to directory where the figure will be saved. Defaults to None.</span>
+<span class="sd">        param (str, optional):</span>
+<span class="sd">            Column header name for the parameter values to be plotted. Defaults</span>
+<span class="sd">            to None.</span>
+<span class="sd">        met_param (str, optional):</span>
+<span class="sd">            The meteorological parameter plotted along the x-axis of the</span>
+<span class="sd">            scatter plot. Defaults to None.</span>
+<span class="sd">        sensor_name (str, optional):</span>
+<span class="sd">            The name of the air sensor (make, manufacturer). Defaults to None.</span>
+<span class="sd">        write_to_file (bool, optional):</span>
+<span class="sd">            If true, the figure will be saved as a png image to the</span>
+<span class="sd">            ``[project_path]/figures`` subdirectory. Defaults to True.</span>
+<span class="sd">        sensor_serials (dict, optional):</span>
+<span class="sd">            A dictionary of sensor serial identifiers for each unit in the</span>
+<span class="sd">            testing deployment. Defaults to None.</span>
+<span class="sd">        ref_name (str, optional):</span>
+<span class="sd">            The name of the reference monitor collocated alongside the air</span>
+<span class="sd">            sensors that recorded concurrent measurement pairs for the specified</span>
+<span class="sd">            parameter. Defaults to None.</span>
+<span class="sd">        report_fmt (bool, optional):</span>
+<span class="sd">            If true, select formatting presets for displaying figures on the</span>
+<span class="sd">            reporting template for sensor performance evaluations included</span>
+<span class="sd">            alongside US EPA&#39;s performance targets documents for air sensors.</span>
+<span class="sd">            Defaults to False.</span>
+<span class="sd">        fig (Matplotlib.figure.Figure, optional):</span>
+<span class="sd">            Optional, the Matplotlib figure on which axes object elements are</span>
+<span class="sd">            drawn. Useful is the user is iterating over the Axes elements of a</span>
+<span class="sd">            Matplotlib figure in a for-loop outside this plotting function.</span>
+<span class="sd">            Within the loop, calls to this function can be made to add elements</span>
+<span class="sd">            for each axes object. Defaults to None.</span>
+<span class="sd">        ax (matplotlib.axes._subplots.AxesSubplot, optional):</span>
+<span class="sd">            Optional, the Matplotlib Axes object on which plotting elements</span>
+<span class="sd">            will be drawn. Useful is the user is iterating over the Axes</span>
+<span class="sd">            elements of a Matplotlib figure in a for-loop outside this plotting</span>
+<span class="sd">            function. Within the loop, calls to this function can be made to add</span>
+<span class="sd">            elements for each axes object. Defaults to None.</span>
+<span class="sd">        return_mpl_obj (bool, optional):</span>
+<span class="sd">            If true, will return a Matplotlib axes instance (useful for</span>
+<span class="sd">            iteration over subplot axes if this plotting function is called</span>
+<span class="sd">            within a for-loop that is iterating over the axes elements in</span>
+<span class="sd">            a Matplotlib subplot object). Defaults to False.</span>
+
+<span class="sd">    **Keyword Arguments:**</span>
+
+<span class="sd">    :param point_size:</span>
+<span class="sd">        The size of the scatter points. Defaults to 12</span>
+<span class="sd">    :type point_size: float or int, passed to Draw_Scatter()</span>
+<span class="sd">    :param point_alpha:</span>
+<span class="sd">        The transparency of the scatter plots. Defaults to 0.5.</span>
+<span class="sd">    :type point_alpha: float, passed to Draw_Scatter()</span>
+<span class="sd">    :param list point_colors:</span>
+<span class="sd">        A list of strings indicating colors for each sensor scatter - either</span>
+<span class="sd">        color hex codes or `valid color names recognized by Matplotlib &lt;https://matplotlib.org/stable/gallery/color/named_colors.html&gt;`_.</span>
+<span class="sd">        Defaults to None.</span>
+<span class="sd">    :param xlims:</span>
+<span class="sd">        Set the x-limits of the plot. Defaults to None.</span>
+<span class="sd">    :type xlims: Two-element tuple</span>
+<span class="sd">    :param ylims:</span>
+<span class="sd">        Set the y-limits of the plot. Defaults to None.</span>
+<span class="sd">    :type ylims: Two-element tuple</span>
+<span class="sd">    :param cmap_norm_range:</span>
+<span class="sd">        A two-element tuple containing the normalized range of the colormap</span>
+<span class="sd">        values that will be displayed in the figure. The full range of the</span>
+<span class="sd">        selected colormap can be selected by passing (0, 1). Hues will</span>
+<span class="sd">        be selected at equally spaced intervals within the normalized</span>
+<span class="sd">        colormap range specified.  Defaults to (0, 0.4).</span>
+<span class="sd">    :type cmap_norm_range: Two-element tuple</span>
+<span class="sd">    :param cmap_name:</span>
+<span class="sd">        The name of the colormap which the scatter plot will be assigned.</span>
+<span class="sd">        Defaults to &#39;Set1&#39;.</span>
+<span class="sd">    :type cmap_name: str, passed to Draw_Scatter()</span>
+<span class="sd">    :param fontsize:</span>
+<span class="sd">        The fontsize of plot titles and labels. Defaults to 12.</span>
+<span class="sd">    :type fontsize: int or float, passed to Draw_Scatter()</span>
+<span class="sd">    :param detail_fontsize:</span>
+<span class="sd">        Fontsize for axes tick labels and smaller plotting text elements.</span>
+<span class="sd">        Defaults to 10.</span>
+<span class="sd">    :type detail_fontsize: int or float, passed to Draw_Scatter()</span>
+<span class="sd">    :param subplot_adjust:</span>
+<span class="sd">        Adjust the dimensions for drawing subplots on the Matplotlib Figure</span>
+<span class="sd">        object. Passed to ``Matplotlib.subplots.subplots_adjust()``. Contains</span>
+<span class="sd">        the following entries:</span>
+
+<span class="sd">        - top: Modify the upper-most bounds of the figure.</span>
+<span class="sd">        - bottom: Modify the lower-most bounds of the figure.</span>
+<span class="sd">        - left: Modify the left-most bounds of the figure.</span>
+<span class="sd">        - right: Modify the right-most bounds of the figure.</span>
+<span class="sd">        - hspace: Modify the height of padding between subplots</span>
+<span class="sd">        - wspace: Modify the width of padding between subplots</span>
+<span class="sd">        - legend_pos: Two-element tuple containing floats indicating the</span>
+<span class="sd">          x-axis and y-axis position of the center of the plot legend.</span>
+
+<span class="sd">        Defaults to None.</span>
+
+<span class="sd">    :param float fig_wspace:</span>
+<span class="sd">        Modify the width of padding between subplots. Passed to</span>
+<span class="sd">        ``Matplotlib.subplots.subplots_adjust()`` ``&#39;wspace&#39;`` argument.</span>
+<span class="sd">    :param float fig_hspace:</span>
+<span class="sd">        Modify the height of padding between subplots. ``&#39;hspace&#39;`` argument.</span>
+<span class="sd">    :param float fig_left:</span>
+<span class="sd">        Modify the left-most bounds of the figure. Passed to</span>
+<span class="sd">        ``Matplotlib.subplots.subplots_adjust()`` ``&#39;left&#39;`` argument.</span>
+<span class="sd">    :param float fig_right:</span>
+<span class="sd">        Modify the right-most bounds of the figure. Passed to</span>
+<span class="sd">        ``Matplotlib.subplots.subplots_adjust()`` ``&#39;right&#39;`` argument.</span>
+<span class="sd">    :param float fig_top:</span>
+<span class="sd">        Modify the upper-most bounds of the figure. Passed to</span>
+<span class="sd">        ``Matplotlib.subplots.subplots_adjust()`` ``&#39;top&#39;`` argument.</span>
+<span class="sd">    :param float fig_bottom:</span>
+<span class="sd">        Modify the lower-most bounds of the figure. Passed to</span>
+<span class="sd">        ``Matplotlib.subplots.subplots_adjust()`` ``&#39;bottom&#39;`` argument.</span>
+<span class="sd">    :type subplot_adjust: Seven-element tuple</span>
+<span class="sd">    :param bool show_errorbars:</span>
+<span class="sd">        If True, display errorbars (standard error) for normalized</span>
+<span class="sd">        sensor-reference measurement pairs. Defaults to False.</span>
+<span class="sd">    :param bool show_legend:</span>
+<span class="sd">        If True, display the figure legend. Defaults to True.</span>
+<span class="sd">    :param fig_size:</span>
+<span class="sd">        The dimensions (width, height) in inches of the Matplotlib figure to</span>
+<span class="sd">        be drawn. Defaults to (8, 4).</span>
+<span class="sd">    :type fig_size: Two-element tuple</span>
+<span class="sd">    :param int errorbar_nbins:</span>
+<span class="sd">        The number of bins along the x-axis that data for the dependent variable</span>
+<span class="sd">        are grouped into and displayed error bars. Defaults to 10 (i.e., 10 error</span>
+<span class="sd">        bars equally spaced along the x-axis will be shown indicating the</span>
+<span class="sd">        standard error in the dependent variable).</span>
+<span class="sd">    :param str errorbar_color:</span>
+<span class="sd">        The color of the error bars drawn on the plot. Defaults to #151515.</span>
+<span class="sd">    :param legend_loc:</span>
+<span class="sd">        The x and y coordinate of center of the legend (relative to the axes</span>
+<span class="sd">        object coordinates).</span>
+<span class="sd">    :type legend_loc: Two-element tuple</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        ax (Matplotlib Axes object):</span>
+<span class="sd">            The Matplotlib Axes object on which plotting elements</span>
+<span class="sd">            will be drawn. Useful is the user is iterating over the Axes</span>
+<span class="sd">            elements of a Matplotlib figure in a for-loop outside this plotting</span>
+<span class="sd">            function. Within the loop, calls to this function can be made to add</span>
+<span class="sd">            elements for each axes object. Returned if ``return_mpl_obj`` is</span>
+<span class="sd">            True.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">param_obj</span> <span class="o">=</span> <span class="n">Parameter</span><span class="p">(</span><span class="n">param</span><span class="p">)</span>
+    <span class="n">param_name</span> <span class="o">=</span> <span class="n">param_obj</span><span class="o">.</span><span class="n">name</span>
+    <span class="n">fmt_param</span> <span class="o">=</span> <span class="n">param_obj</span><span class="o">.</span><span class="n">format_name</span>
+    <span class="n">fmt_param_units</span> <span class="o">=</span> <span class="n">param_obj</span><span class="o">.</span><span class="n">units</span>
+
+    <span class="n">met_param_obj</span> <span class="o">=</span> <span class="n">Parameter</span><span class="p">(</span><span class="n">met_param</span><span class="p">)</span>
+    <span class="n">met_param_name</span> <span class="o">=</span> <span class="n">met_param_obj</span><span class="o">.</span><span class="n">name</span>
+    <span class="n">fmt_met_param</span> <span class="o">=</span> <span class="n">met_param_obj</span><span class="o">.</span><span class="n">format_name</span>
+    <span class="n">fmt_met_units</span> <span class="o">=</span> <span class="n">met_param_obj</span><span class="o">.</span><span class="n">units</span>
+
+    <span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;seaborn_style&#39;</span><span class="p">,</span> <span class="s1">&#39;darkgrid&#39;</span><span class="p">))</span>
+    
+    <span class="c1"># dep_var = kwargs.get(&#39;dep_var&#39;, &#39;diff&#39;)</span>
+
+    <span class="n">dep_var_options</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;absdiff&#39;</span><span class="p">,</span> <span class="s1">&#39;diff&#39;</span><span class="p">]</span>
+    <span class="c1"># if dep_var not in dep_var_options:</span>
+    <span class="c1">#     raise ValueError(f&#39;Invalid dependent variable name {dep_var}, choose from {dep_var_options}&#39;)</span>
+
+    <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;show_N&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;show_RMSE&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;show_spearman&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;show_one_to_one&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;show_trendline&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;point_size&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;point_size&#39;</span><span class="p">,</span> <span class="mi">12</span><span class="p">)</span>
+    <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;point_alpha&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;point_alpha&#39;</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">)</span>
+
+    <span class="n">point_colors</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;point_colors&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+    <span class="n">xlims</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;xlims&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+    <span class="n">ylims</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;ylims&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">sensor_serials</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">4</span><span class="p">:</span>
+        <span class="n">cmap_norm_range</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;cmap_norm_range&#39;</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">))</span>
+        <span class="n">cmap_name</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;cmap_name&#39;</span><span class="p">,</span> <span class="s1">&#39;Set1&#39;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">cmap_norm_range</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;cmap_norm_range&#39;</span><span class="p">,</span> <span class="p">(</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">.9</span><span class="p">))</span>
+        <span class="n">cmap_name</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;cmap_name&#39;</span><span class="p">,</span> <span class="s1">&#39;seismic_r&#39;</span><span class="p">)</span>
+
+    <span class="n">fontsize</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;fontsize&#39;</span><span class="p">,</span> <span class="mi">12</span><span class="p">)</span>
+    <span class="n">detail_fontsize</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;detail_fontsize&#39;</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+    <span class="n">subplot_adjust</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;subplot_adjust&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+
+    <span class="n">show_errorbars</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;show_errorbars&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+    <span class="n">show_legend</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;show_legend&#39;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+
+    <span class="c1"># Remove attributes from kwargs if specified</span>
+    <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;fontsize&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+    <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;ylims&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+    <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;xlims&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+
+    <span class="n">data</span> <span class="o">=</span> <span class="n">met_ref_df</span>
+    <span class="k">if</span> <span class="n">data</span><span class="p">[</span><span class="n">met_param_name</span> <span class="o">+</span> <span class="s1">&#39;_Value&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;..Met data empty for </span><span class="si">{</span><span class="n">met_param_name</span><span class="si">}</span><span class="s1">, trying sensor measurements&#39;</span><span class="p">)</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="n">avg_df</span><span class="p">[</span><span class="s1">&#39;mean_&#39;</span> <span class="o">+</span> <span class="n">met_param_name</span> <span class="o">+</span> <span class="s1">&#39;_Value&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">to_frame</span><span class="p">()</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;mean_&#39;</span> <span class="o">+</span> <span class="n">met_param_name</span> <span class="o">+</span> <span class="s1">&#39;_Value&#39;</span><span class="p">:</span>
+                                                   <span class="n">met_param_name</span> <span class="o">+</span> <span class="s1">&#39;_Value&#39;</span><span class="p">})</span>
+            <span class="n">sensor_data</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;..</span><span class="si">{met_param_name}</span><span class="s1"> not measured by sensor, unable to plot &#39;</span>
+                  <span class="s1">&#39;distribution&#39;</span><span class="p">)</span>
+            <span class="k">return</span>
+        <span class="k">if</span> <span class="n">data</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;..no intersensor averaged </span><span class="si">{met_param_name}</span><span class="s1"> data, unable to plot &#39;</span>
+                  <span class="s1">&#39;distribution&#39;</span><span class="p">)</span>
+            <span class="k">return</span>
+
+
+    <span class="k">if</span> <span class="n">param_name</span> <span class="o">==</span> <span class="s1">&#39;WS&#39;</span><span class="p">:</span>
+        <span class="n">met_param_name</span> <span class="o">=</span> <span class="s1">&#39;WS&#39;</span>
+    <span class="k">if</span> <span class="n">param_name</span> <span class="o">==</span> <span class="s1">&#39;WD&#39;</span><span class="p">:</span>
+        <span class="n">met_param_name</span> <span class="o">=</span> <span class="s1">&#39;WD&#39;</span>
+    <span class="k">elif</span> <span class="n">met_param_name</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Enter valid parameter for met_param_name: Either WS or WD&#39;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">ax</span> <span class="ow">and</span> <span class="n">fig</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="c1"># No axes object passed to function, create unique fig, axes objects</span>
+        <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;fig_size&#39;</span><span class="p">,</span> <span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">4</span><span class="p">)))</span>
+        <span class="n">unique_ax_obj</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># Axes object passed to function, set axes within scope of function to</span>
+        <span class="c1"># passed axes object.</span>
+        <span class="n">ax</span> <span class="o">=</span> <span class="n">ax</span>
+        <span class="n">unique_ax_obj</span> <span class="o">=</span> <span class="kc">False</span>
+
+    <span class="c1"># Retreive formatted version of sensor and parameter name</span>
+    <span class="n">fmt_sensor_name</span> <span class="o">=</span> <span class="n">sensor_name</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">,</span> <span class="s1">&#39; &#39;</span><span class="p">)</span>
+
+    <span class="n">ref_df</span> <span class="o">=</span> <span class="n">ref_df</span><span class="p">[</span><span class="n">ref_df</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">param</span><span class="si">}</span><span class="s1">_Value&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">ref_mdl</span><span class="p">]</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;[Note]: </span><span class="si">{</span><span class="n">param</span><span class="si">}</span><span class="s1"> values below the Federal MDL (</span><span class="si">{</span><span class="n">ref_mdl</span><span class="si">}</span><span class="s1"> </span><span class="si">{</span><span class="n">param_obj</span><span class="o">.</span><span class="n">units_description</span><span class="si">}</span><span class="s1">)&#39;</span>
+          <span class="s1">&#39; are not shown&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">met_param</span><span class="p">)</span>
+    <span class="c1"># if dep_var == &#39;normalized&#39;:</span>
+    <span class="c1">#     # Compute normalized dataframes</span>
+    <span class="c1">#     depvar_df_list = normalize(df_list, ref_df, param_name, ref_name)</span>
+    <span class="c1">#     #title = f&#39;{fmt_sensor_name} {fmt_param} Normalized by {ref_name}&#39;</span>
+    <span class="c1">#     title = f&#39; &#39; ###</span>
+    <span class="c1">#     # Plot 1:1 normalization line</span>
+    <span class="c1">#     ax.axhline(y=1.0, linewidth=1.5, color=&#39;#8b8b8b&#39;, alpha=.8)</span>
+    <span class="c1">#     legend_list = [&#39;1:1&#39;]</span>
+    <span class="c1"># if dep_var == &#39;diff&#39;:</span>
+    <span class="k">if</span> <span class="n">met_param</span> <span class="o">==</span> <span class="s1">&#39;WS&#39;</span><span class="p">:</span>
+        <span class="n">dep_var</span> <span class="o">=</span> <span class="s1">&#39;diff&#39;</span>
+        <span class="n">depvar_df_list</span> <span class="o">=</span> <span class="n">diff</span><span class="p">(</span><span class="n">df_list</span><span class="p">,</span> <span class="n">ref_df</span><span class="p">,</span> <span class="n">param_name</span><span class="p">,</span> <span class="n">ref_name</span><span class="p">)</span>
+        <span class="n">title</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">fmt_param</span><span class="si">}</span><span class="s1"> Concentration Difference</span><span class="se">\n</span><span class="s1">(</span><span class="si">{</span><span class="n">fmt_sensor_name</span><span class="si">}</span><span class="s1"> - </span><span class="si">{</span><span class="n">ref_name</span><span class="si">}</span><span class="s1">)&#39;</span>
+        <span class="c1"># Plot target bias line</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#8b8b8b&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">.8</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
+        <span class="n">legend_list</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s1">&#39;Target Value: 0 </span><span class="si">{</span><span class="n">fmt_param_units</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">]</span>
+    <span class="c1"># if dep_var == &#39;absdiff&#39;:</span>
+    <span class="k">if</span> <span class="n">met_param</span> <span class="o">==</span> <span class="s1">&#39;WD&#39;</span><span class="p">:</span>
+        <span class="n">dep_var</span> <span class="o">=</span> <span class="s1">&#39;absdiff&#39;</span>
+        <span class="n">depvar_df_list</span> <span class="o">=</span> <span class="n">absdiff</span><span class="p">(</span><span class="n">df_list</span><span class="p">,</span> <span class="n">ref_df</span><span class="p">,</span> <span class="n">param_name</span><span class="p">,</span> <span class="n">ref_name</span><span class="p">)</span>
+        <span class="n">title</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">fmt_param</span><span class="si">}</span><span class="s1"> Absolute Concentration Difference</span><span class="se">\n</span><span class="s1">|</span><span class="si">{</span><span class="n">fmt_sensor_name</span><span class="si">}</span><span class="s1"> - </span><span class="si">{</span><span class="n">ref_name</span><span class="si">}</span><span class="s1">|&#39;</span>
+        <span class="c1"># Plot target bias line</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#8b8b8b&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">.8</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
+        <span class="n">legend_list</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s1">&#39;Target Value: 0 </span><span class="si">{</span><span class="n">fmt_param_units</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">]</span>
+
+    <span class="n">x_label</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;Monitor </span><span class="si">{</span><span class="n">fmt_met_param</span><span class="si">}</span><span class="s1"> (</span><span class="si">{</span><span class="n">fmt_met_units</span><span class="si">}</span><span class="s1">)&#39;</span>
+    <span class="n">y_label</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;Concentration Difference </span><span class="si">{</span><span class="n">fmt_param</span><span class="si">}</span><span class="s1">&#39;</span>
+    <span class="c1"># labels = [title]</span>
+    <span class="c1"># labels = wrap_text(labels, max_label_len=45)</span>
+    <span class="c1"># title = labels[0]</span>
+
+
+    <span class="n">param_dict</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;xlabel&#39;</span><span class="p">:</span> <span class="n">x_label</span><span class="p">,</span>
+                  <span class="s1">&#39;ylabel&#39;</span><span class="p">:</span> <span class="n">y_label</span><span class="p">}</span>
+
+
+    <span class="c1"># # Set xlim and ylim if not specified</span>
+    <span class="c1"># if xlims is None or ylims is None:</span>
+    <span class="c1">#     # Determine which limits need to be set based on whether values have</span>
+    <span class="c1">#     # been passed to kwargs for xlims or ylims</span>
+    <span class="c1">#     set_xlims = True</span>
+    <span class="c1">#     set_ylims = True</span>
+    <span class="c1">#     if xlims is not None:</span>
+    <span class="c1">#         set_xlims = False</span>
+    <span class="c1">#     if ylims is not None:</span>
+    <span class="c1">#         set_ylims = False</span>
+
+    <span class="c1">#     lim_tup = met_scatter_lims(met_data=data,</span>
+    <span class="c1">#                                param=param_name,</span>
+    <span class="c1">#                                met_param=met_param_name,</span>
+    <span class="c1">#                                xlims=xlims,</span>
+    <span class="c1">#                                ylims=ylims,</span>
+    <span class="c1">#                                serials=sensor_serials,</span>
+    <span class="c1">#                                depvar_df_list=depvar_df_list,</span>
+    <span class="c1">#                                dep_var=dep_var)</span>
+
+        <span class="c1"># if set_xlims:</span>
+        <span class="c1">#     xlims = lim_tup[0]</span>
+        <span class="c1"># if set_ylims:</span>
+        <span class="c1">#     ylims = lim_tup[1]</span>
+
+
+
+
+    <span class="c1"># Set colormap and assign number of discrete colors from colormap</span>
+    <span class="k">if</span> <span class="n">point_colors</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+
+        <span class="c1"># Set the colormap and configure the range of hues that will be sampled</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">df_list</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">monocolor</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;monocolor&#39;</span><span class="p">,</span> <span class="s1">&#39;#0048AD&#39;</span><span class="p">)</span>
+            <span class="n">colors</span> <span class="o">=</span> <span class="p">[</span><span class="n">monocolor</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">colormap</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">get_cmap</span><span class="p">(</span><span class="n">cmap_name</span><span class="p">)</span>
+            <span class="n">cmap_lbound</span> <span class="o">=</span> <span class="n">cmap_norm_range</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">cmap_ubound</span> <span class="o">=</span> <span class="n">cmap_norm_range</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">colors</span> <span class="o">=</span> <span class="p">[</span><span class="n">colormap</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">cmap_lbound</span><span class="p">,</span> <span class="n">cmap_ubound</span><span class="p">,</span>
+                      <span class="nb">len</span><span class="p">(</span><span class="n">df_list</span><span class="p">))]</span>
+
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">colors</span> <span class="o">=</span> <span class="n">point_colors</span>
+
+    <span class="c1"># If the normalized param is WS or WD, the ref_df will be the met_ref_df</span>
+    <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">col</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;WS&#39;</span><span class="p">)</span> <span class="ow">or</span> <span class="n">col</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;WD&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">ref_df</span><span class="p">):</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">ref_df</span>
+
+    <span class="c1"># Generate scatter plots for each normalized sensor dataset</span>
+
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">sensor_n</span><span class="p">,</span> <span class="n">color</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">depvar_df_list</span><span class="p">,</span> <span class="n">sensor_serials</span><span class="p">,</span> <span class="n">colors</span><span class="p">)):</span>
+        <span class="n">compare_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+        <span class="n">compare_df</span><span class="p">[</span><span class="n">met_param_name</span> <span class="o">+</span> <span class="s1">&#39;_Value&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">met_param_name</span> <span class="o">+</span> <span class="s1">&#39;_Value&#39;</span><span class="p">]</span>
+        <span class="n">compare_df</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">dep_var</span><span class="o">.</span><span class="n">title</span><span class="p">()</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="n">param_name</span><span class="si">}</span><span class="s1">_Value&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">dep_var</span><span class="o">.</span><span class="n">title</span><span class="p">()</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="n">param_name</span><span class="si">}</span><span class="s1">_Value&#39;</span><span class="p">]</span>
+        <span class="n">xdata</span> <span class="o">=</span> <span class="n">compare_df</span><span class="p">[</span><span class="n">met_param_name</span> <span class="o">+</span> <span class="s1">&#39;_Value&#39;</span><span class="p">]</span>
+        <span class="n">ydata</span> <span class="o">=</span> <span class="n">compare_df</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">dep_var</span><span class="o">.</span><span class="n">title</span><span class="p">()</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="n">param_name</span><span class="si">}</span><span class="s1">_Value&#39;</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="n">ydata</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span><span class="o">.</span><span class="n">empty</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="k">continue</span>
+
+        <span class="n">draw_scatter</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">xdata</span><span class="p">,</span> <span class="n">ydata</span><span class="p">,</span> <span class="n">param_dict</span><span class="p">,</span>
+                     <span class="n">xlims</span><span class="o">=</span><span class="n">xlims</span><span class="p">,</span> <span class="n">ylims</span><span class="o">=</span><span class="n">ylims</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="n">fontsize</span><span class="p">,</span>
+                     <span class="n">detail_fontsize</span><span class="o">=</span><span class="n">detail_fontsize</span><span class="p">,</span>
+                     <span class="n">plot_regression</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">monocolor</span><span class="o">=</span><span class="n">color</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">title</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="n">fontsize</span><span class="p">,</span> <span class="n">pad</span><span class="o">=</span><span class="mi">6</span><span class="p">)</span>
+
+        <span class="c1"># Choose between serial ID and sensor number labels for plot legend</span>
+        <span class="k">if</span> <span class="n">sensor_serials</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">lbl</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">sensor_serials</span><span class="o">.</span><span class="n">values</span><span class="p">())[</span><span class="n">i</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">lbl</span> <span class="o">=</span> <span class="s1">&#39;Sensor &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">legend_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">lbl</span><span class="p">)</span>
+
+    <span class="c1"># Axes object position, dimensions ----------------------------------------</span>
+    <span class="n">box</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">get_position</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">sensor_serials</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="mi">4</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">leg_cols</span> <span class="o">=</span> <span class="mi">2</span>
+        <span class="n">col_spacing</span> <span class="o">=</span> <span class="mf">0.8</span>
+        <span class="k">if</span> <span class="n">unique_ax_obj</span> <span class="ow">is</span> <span class="kc">True</span> <span class="ow">and</span> <span class="n">report_fmt</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">set_position</span><span class="p">([</span><span class="n">box</span><span class="o">.</span><span class="n">x0</span><span class="o">*</span><span class="mf">0.75</span><span class="p">,</span> <span class="n">box</span><span class="o">.</span><span class="n">y0</span><span class="p">,</span> <span class="n">box</span><span class="o">.</span><span class="n">width</span><span class="o">*</span><span class="mf">0.85</span><span class="p">,</span> <span class="n">box</span><span class="o">.</span><span class="n">height</span><span class="p">])</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">leg_cols</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="n">col_spacing</span> <span class="o">=</span> <span class="mf">0.8</span>
+        <span class="k">if</span> <span class="n">unique_ax_obj</span> <span class="ow">is</span> <span class="kc">True</span> <span class="ow">and</span> <span class="n">report_fmt</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">set_position</span><span class="p">([</span><span class="n">box</span><span class="o">.</span><span class="n">x0</span><span class="p">,</span> <span class="n">box</span><span class="o">.</span><span class="n">y0</span><span class="p">,</span> <span class="n">box</span><span class="o">.</span><span class="n">width</span> <span class="o">*</span> <span class="mf">0.90</span><span class="p">,</span> <span class="n">box</span><span class="o">.</span><span class="n">height</span><span class="p">])</span>
+
+    <span class="c1"># Set the ratio of plot dimensions to 2:1</span>
+    <span class="n">ratio</span> <span class="o">=</span> <span class="mf">0.5</span>
+    <span class="n">xleft</span><span class="p">,</span> <span class="n">xright</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">get_xlim</span><span class="p">()</span>
+    <span class="n">ybottom</span><span class="p">,</span> <span class="n">ytop</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">get_ylim</span><span class="p">()</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_aspect</span><span class="p">(</span><span class="nb">abs</span><span class="p">((</span><span class="n">xright</span><span class="o">-</span><span class="n">xleft</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">ybottom</span><span class="o">-</span><span class="n">ytop</span><span class="p">))</span><span class="o">*</span><span class="n">ratio</span><span class="p">)</span>
+
+    <span class="c1"># if dep_var == &#39;normalized&#39;:</span>
+    <span class="c1">#     ax.set_yticks(np.arange(round(ybottom), round(ytop + 1), 1))</span>
+
+    <span class="c1"># Adjust axes dimensions to fit width and height of plot</span>
+    <span class="k">if</span> <span class="n">unique_ax_obj</span> <span class="ow">is</span> <span class="kc">True</span> <span class="ow">and</span> <span class="n">report_fmt</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="c1"># Adjustments for single plot</span>
+        <span class="n">top</span> <span class="o">=</span> <span class="mf">0.9</span>
+        <span class="n">bottom</span> <span class="o">=</span> <span class="mf">0.13</span>
+        <span class="n">left</span> <span class="o">=</span> <span class="mf">0.04</span>
+        <span class="n">right</span> <span class="o">=</span> <span class="mf">0.86</span>
+        <span class="n">hspace</span> <span class="o">=</span> <span class="mf">0.20</span>
+        <span class="n">wspace</span> <span class="o">=</span> <span class="mf">0.20</span>
+        <span class="n">legend_pos</span> <span class="o">=</span> <span class="p">(</span><span class="mf">1.02</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">)</span>
+        <span class="n">legend_fontsize</span> <span class="o">=</span> <span class="n">detail_fontsize</span>
+        <span class="n">legend_loc</span> <span class="o">=</span> <span class="s1">&#39;center left&#39;</span>  <span class="c1"># position legend based on its center left</span>
+
+    <span class="k">elif</span> <span class="n">subplot_adjust</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="c1"># axes adjustments for PT report formatted multi-axes plot</span>
+        <span class="n">top</span> <span class="o">=</span> <span class="mf">0.95</span>
+        <span class="n">bottom</span> <span class="o">=</span> <span class="mf">0.4</span>
+        <span class="n">left</span> <span class="o">=</span> <span class="mf">0.05</span>
+        <span class="n">right</span> <span class="o">=</span> <span class="mf">0.95</span>
+        <span class="n">hspace</span> <span class="o">=</span> <span class="mf">0.20</span>
+        <span class="n">wspace</span> <span class="o">=</span> <span class="mf">0.20</span>
+        <span class="n">legend_pos</span> <span class="o">=</span> <span class="p">(</span><span class="mf">.5</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.65</span><span class="p">)</span>
+        <span class="n">legend_fontsize</span> <span class="o">=</span> <span class="n">detail_fontsize</span>
+        <span class="n">legend_loc</span> <span class="o">=</span> <span class="s1">&#39;center&#39;</span>  <span class="c1"># position the legend based on its center</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">subplot_adjust</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">subplot_adjust</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+        <span class="n">top</span> <span class="o">=</span> <span class="n">subplot_adjust</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">bottom</span> <span class="o">=</span> <span class="n">subplot_adjust</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">left</span> <span class="o">=</span> <span class="n">subplot_adjust</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+        <span class="n">right</span> <span class="o">=</span> <span class="n">subplot_adjust</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+        <span class="n">hspace</span> <span class="o">=</span> <span class="n">subplot_adjust</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span>
+        <span class="n">wspace</span> <span class="o">=</span> <span class="n">subplot_adjust</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span>
+        <span class="n">legend_pos</span> <span class="o">=</span> <span class="n">subplot_adjust</span><span class="p">[</span><span class="mi">6</span><span class="p">]</span>
+        <span class="n">legend_fontsize</span> <span class="o">=</span> <span class="n">detail_fontsize</span>
+        <span class="n">legend_loc</span> <span class="o">=</span> <span class="s1">&#39;center&#39;</span>  <span class="c1"># position the legend based on its center</span>
+
+    <span class="n">fig</span><span class="o">.</span><span class="n">subplots_adjust</span><span class="p">(</span><span class="n">wspace</span><span class="o">=</span><span class="n">wspace</span><span class="p">,</span>
+                        <span class="n">hspace</span><span class="o">=</span><span class="n">hspace</span><span class="p">,</span>
+                        <span class="n">left</span><span class="o">=</span><span class="n">left</span><span class="p">,</span>
+                        <span class="n">right</span><span class="o">=</span><span class="n">right</span><span class="p">,</span>
+                        <span class="n">top</span><span class="o">=</span><span class="n">top</span><span class="p">,</span>
+                        <span class="n">bottom</span><span class="o">=</span><span class="n">bottom</span><span class="p">)</span>
+
+    <span class="c1"># Error bars --------------------------------------------------------------</span>
+    <span class="n">all_sensor_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">df</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">depvar_df_list</span><span class="p">,</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="n">sensor_data</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">dep_var</span><span class="o">.</span><span class="n">title</span><span class="p">()</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="n">param_name</span><span class="si">}</span><span class="s1">_Value&#39;</span><span class="p">]</span>
+        <span class="n">all_sensor_data</span><span class="p">[</span><span class="n">param_name</span>  <span class="o">+</span> <span class="s1">&#39;_Value&#39;</span> <span class="o">+</span> <span class="s1">&#39;_sensor_&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)]</span> <span class="o">=</span> <span class="n">sensor_data</span>
+    <span class="n">ydata</span> <span class="o">=</span> <span class="n">all_sensor_data</span>
+
+    <span class="k">if</span> <span class="n">show_errorbars</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="n">error_bars</span><span class="p">(</span><span class="n">xdata</span><span class="p">,</span> <span class="n">ydata</span><span class="p">,</span> <span class="n">ax</span><span class="p">,</span> <span class="n">plot_yerror</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                   <span class="n">n_xbins</span><span class="o">=</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;errorbar_nbins&#39;</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span>
+                   <span class="n">errorbar_color</span><span class="o">=</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;errorbar_color&#39;</span><span class="p">,</span> <span class="s1">&#39;#151515&#39;</span><span class="p">))</span>
+
+    <span class="c1"># Legend position ---------------------------------------------------------</span>
+    <span class="k">if</span> <span class="n">show_legend</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">legend_list</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="n">legend_fontsize</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="n">legend_loc</span><span class="p">,</span>
+                  <span class="n">bbox_to_anchor</span><span class="o">=</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;legend_loc&#39;</span><span class="p">,</span> <span class="n">legend_pos</span><span class="p">),</span>
+                  <span class="n">ncol</span><span class="o">=</span><span class="n">leg_cols</span><span class="p">,</span> <span class="n">columnspacing</span><span class="o">=</span><span class="n">col_spacing</span><span class="p">)</span>
+
+    <span class="c1"># Write plot to file ------------------------------------------------------</span>
+    <span class="k">if</span> <span class="n">write_to_file</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="n">todays_date</span> <span class="o">=</span> <span class="n">get_todays_date</span><span class="p">()</span>
+        <span class="n">figure_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">figure_path</span><span class="p">,</span> <span class="n">param_name</span><span class="p">,</span>
+                            <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">sensor_name</span><span class="si">}</span><span class="s1">_diff_absdiff_</span><span class="si">{</span><span class="n">param_name</span><span class="si">}</span><span class="s1">_vs_</span><span class="si">{</span><span class="n">met_param_name</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 
         <span class="c1"># Indicate performance targets template formatted</span>
         <span class="k">if</span> <span class="n">report_fmt</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>

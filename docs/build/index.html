@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en">
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>sensortoolkit - Air Sensor Data Analysis Library &mdash; sensortoolkit 0.9.0b2 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css" />
+      <link rel="stylesheet" type="text/css" href="_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" />
+      <link rel="stylesheet" type="text/css" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+      <link rel="stylesheet" type="text/css" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Quickstart Guide" href="quickstart.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="#" class="icon icon-home">
+            sensortoolkit
+          </a>
+              <div class="version">
+                0.9.0b2
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="setup.html">Setting Up for sensortoolkit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installing and Updating sensortoolkit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="template.html">Analysis with sensortoolkit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="template.html#script-template">Script Template</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Objects and Data Structures</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="testingattrib_objects/index.html">Testing Attribute Objects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="data_structures/index.html">Data Structures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sdfs/index.html">sensortoolkit Data Formatting Scheme (SDFS)</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Analysis and Reports</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="evaluation_objects/index.html">Evaluation Objects</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="api/index.html">sensortoolkit API</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">sensortoolkit</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="#" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">sensortoolkit - Air Sensor Data Analysis Library</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="sensortoolkit-air-sensor-data-analysis-library">
+<h1>sensortoolkit - Air Sensor Data Analysis Library<a class="headerlink" href="#sensortoolkit-air-sensor-data-analysis-library" title="Permalink to this heading"></a></h1>
+<figure class="align-center">
+<img alt="Air sensors at an ambient air monitoring site." src="_images/CSAM_3_crop.jpg" />
+</figure>
+<p><em>Sensors at an ambient air monitoring site. Photo Credit - South Coast AQMD AQ-SPEC Program</em></p>
+<hr class="docutils" />
+<div class="admonition-disclaimer admonition">
+<p class="admonition-title">Disclaimer</p>
+<p>The United States Environmental Protection Agency (EPA) GitHub project code is
+provided on an “as is” basis and the user assumes responsibility for its use.
+EPA has relinquished control of the information and no longer has responsibility
+to protect the integrity , confidentiality, or availability of the information.
+Any reference to specific commercial products, processes, or services by service
+mark, trademark, manufacturer, or otherwise, does not constitute or imply their
+endorsement, recommendation or favoring by EPA. The EPA seal and logo shall not
+be used in any manner to imply endorsement of any commercial product or activity
+by EPA or the United States Government.</p>
+</div>
+<section id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Permalink to this heading"></a></h2>
+<section id="library-description">
+<h3>Library Description<a class="headerlink" href="#library-description" title="Permalink to this heading"></a></h3>
+<p>sensortoolkit is a Python library for evaluating air sensor data. The library is
+intended for use with sensors collocated at ambient air monitoring sites alongside
+FRM/FEM monitors for comparison and analysis of sensor data against
+reference-grade data.</p>
+<p><cite>sensortoolkit</cite> can be used to evaluate sensor data for a single or multiple
+sensors measuring one of the following pollutants:
+<span class="raw-html">PM<sub>1</sub>, PM<sub>2.5</sub> [criteria], PM<sub>10</sub> [criteria], CO [criteria],
+NO, NO<sub>2</sub> [criteria], NO<sub>x</sub>, O<sub>3</sub> [criteria], SO<sub>2</sub> [criteria], SO<sub>x</sub></span>.</p>
+<p>sensortoolkit is most suitable for individuals who have some prior coding
+experience in python. The library is equipped with an API (application
+programming interface) that allows for ease of navigation and customization,
+making sensortoolkit accessible to individuals with a wide range of skill sets
+(e.g.,  individuals interested in monitoring their own sensor data, students
+and academic researchers, and industry professionals).</p>
+</section>
+<section id="key-features">
+<h3>Key Features<a class="headerlink" href="#key-features" title="Permalink to this heading"></a></h3>
+<p><strong>The primary goal of sensortoolkit is to provide a platform for analyzing air sensor
+data regardless of formatting differences across sensor data formatting schemes.</strong>
+This goal extends to reference data as well, and interactive setup modules are
+included for interpreting the recorded format for datasets for subsequent ingestion
+into standardized formatting schemes for sensor and reference data.</p>
+<ul class="simple">
+<li><p>Import sensor data via a standardized ingestion process and interactive setup module</p></li>
+<li><p>Average to 1-hour and/or 24-hour averaging intervals.</p></li>
+<li><p>Import FRM/FEM reference data from a variety of sources, including ingestion modules for importing data from AirNowTech, and modules for querying either the  AQS or AirNow API services.</p></li>
+<li><p>Submit queries for single or multiple parameters, parse datasets into a consistent reference data format and save unmodified and processed datasets to a data directory.</p></li>
+<li><p>Conduct analysis with the <cite>SensorEvaluation</cite> module</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p>Compute U.S. EPA’s recommended performance metrics for evaluating <span class="raw-html">PM<sub>2.5</sub></span> and <span class="raw-html">O<sub>3</sub></span> sensors.</p></li>
+<li><p>Visualize sensor performance with various figures and save to file location.</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p>Sensor vs. FRM/FEM scatter plots</p></li>
+<li><p>Timeseries indicating both sensor and FRM/FEM concentrations</p></li>
+<li><p>Performance metric results and comparison against target values/ranges.</p></li>
+<li><p>Save performance evaluation results, statistics, and supplemental information detailing the deployment conditions to a deployment JSON file.</p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<ul class="simple">
+<li><p>Create testing reports using U.S. EPA’s base-testing report template (PowerPoint file) with the <cite>PerformanceReport</cite> module.</p></li>
+<li><p>Additional modules are included for calculating quantities (AQI, <span class="raw-html">PM<sub>2.5</sub></span> NowCast, application of sensor correction equations, the U.S. Wide correction equation for PurpleAir sensors via Barkjohn et al. 2021 <a class="footnote-reference brackets" href="#f1" id="id1">1</a>, etc.) and conducting additional analysis (quality control modules for identifying outliers, invalidation of data points, A&amp;B channel cleaning for PurpleAir data via Barkjohn et al. 2021 <a class="footnote-reference brackets" href="#f1" id="id2">1</a>, etc.)</p></li>
+<li><p>Access to modules utilized by the <cite>SensorEvaluation</cite> and <cite>PerformanceReport</cite> for greater customization in conducting analysis.</p></li>
+</ul>
+<p class="rubric">Footnotes</p>
+<dl class="footnote brackets">
+<dt class="label" id="f1"><span class="brackets">1</span><span class="fn-backref">(<a href="#id1">1</a>,<a href="#id2">2</a>)</span></dt>
+<dd><p>Barkjohn, K. K., Gantt, B., and Clements, A. L.: Development and application of a United States-wide correction for PM2.5 data collected with the PurpleAir sensor, Atmos. Meas. Tech., 14, 4617–4637, <a class="reference external" href="https://doi.org/10.5194/amt-14-4617-2021">https://doi.org/10.5194/amt-14-4617-2021</a>, 2021.</p>
+</dd>
+</dl>
+</section>
+<section id="u-s-epa-s-performance-targets-reports">
+<h3>U.S. EPA’s Performance Targets Reports<a class="headerlink" href="#u-s-epa-s-performance-targets-reports" title="Permalink to this heading"></a></h3>
+<p>In February 2021, U.S. EPA released two reports outlining recommended performance
+testing protocols, metrics, and target values for fine particulate matter (<span class="raw-html">PM<sub>2.5</sub></span>)
+and ozone (<span class="raw-html">O<sub>3</sub></span>) air sensors used in
+non-regulatory, supplemental, and informational monitoring (NSIM) applications.</p>
+<aside class="sidebar">
+<p class="sidebar-title">Links to U.S. EPA’s Reports</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://cfpub.epa.gov/si/si_public_record_Report.cfm?dirEntryId=350785&amp;Lab=CEMM">Fine Particulate Matter Report</a></p></li>
+<li><p><a class="reference external" href="https://cfpub.epa.gov/si/si_public_record_Report.cfm?dirEntryId=350784&amp;Lab=CEMM">Ozone Report</a></p></li>
+</ul>
+</aside>
+<p>The sensortoolkit library includes numerous modules for computing performance metrics recommended by
+U.S. EPA for evaluating  (<span class="raw-html">PM<sub>2.5</sub></span>) and ozone (<span class="raw-html">O<sub>3</sub></span>) sensors. Additionally,
+plotting functions are included for visualizing performance evaluation results, including
+visualization of sensor performance metric values against U.S. EPA’s performance targets,
+sensor time series, scatter plots comparing collocated sensor and reference measurements,
+distribution plots for displaying the range of meteorological conditions during the
+deployment, etc. Tabular statistics and figures can be automatically compiled into
+testing reports recommended by U.S. EPA’s performance targets documents for testing
+conducting at ambient air monitoring sites.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Presently, evaluation of sensor performance with sensortoolkit using
+U.S. EPA’s recommended performance metrics and target values is limited to
+<span class="raw-html">PM<sub>2.5</sub></span> and <span class="raw-html">O<sub>3</sub></span>.</p>
+</div>
+<p>FRM/FEM data may not be available at all testing sites for non-criteria
+pollutants (<span class="raw-html">PM<sub>1</sub></span>, NO,
+<span class="raw-html">NO<sub>x</sub></span>, <span class="raw-html">SO<sub>x</sub></span>, etc.). Testers should ensure that sensors are
+collocated alongside reference instrumentation capable of reporting 1-hour and/or
+24-hour concentration values for evaluation parameters of interest.</p>
+</section>
+</section>
+<section id="getting-started">
+<h2>Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="quickstart.html"><span class="doc">Quickstart Guide</span></a></p></li>
+<li><p><a class="reference internal" href="setup.html"><span class="doc">Setting Up for sensortoolkit</span></a></p></li>
+<li><p><a class="reference internal" href="install.html"><span class="doc">Installing and Updating sensortoolkit</span></a></p></li>
+<li><p><a class="reference internal" href="template.html"><span class="doc">Analysis with sensortoolkit</span></a></p></li>
+</ul>
+<div class="toctree-wrapper compound">
+</div>
+</section>
+<section id="objects-and-data-structures">
+<h2>Objects and Data Structures<a class="headerlink" href="#objects-and-data-structures" title="Permalink to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="testingattrib_objects/index.html"><span class="doc">Testing Attribute Objects</span></a></p></li>
+<li><p><a class="reference internal" href="data_structures/index.html"><span class="doc">Data Structures</span></a></p></li>
+<li><p><a class="reference internal" href="sdfs/index.html"><span class="doc">The Sensortoolkit Data Formatting Scheme</span></a></p></li>
+</ul>
+<div class="toctree-wrapper compound">
+</div>
+</section>
+<section id="running-analyses-and-creating-reports">
+<h2>Running Analyses and Creating Reports<a class="headerlink" href="#running-analyses-and-creating-reports" title="Permalink to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="evaluation_objects/index.html"><span class="doc">Evaluation Objects</span></a></p></li>
+</ul>
+<div class="toctree-wrapper compound">
+</div>
+</section>
+<section id="api-documentation">
+<h2>API Documentation<a class="headerlink" href="#api-documentation" title="Permalink to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="api/index.html"><span class="doc">API Documentation</span></a></p></li>
+</ul>
+<div class="toctree-wrapper compound">
+</div>
+</section>
+<section id="indices-and-tables">
+<h2>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
+<li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="quickstart.html" class="btn btn-neutral float-right" title="Quickstart Guide" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, United States Environmental Protection Agency.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -36,7 +36,7 @@ where ``[sensor_name]`` is the name of the sensor, ``[parameter]`` is the SDFS p
 Below is an example of ``evaluation.stats_df`` for the `Toco Toucan Quickstart Guide example <../quickstart.html#example-scenario-toco-toucan>`_:
 
 .. csv-table:: `stats_df.csv`
-   :file: ../data/stats_df.csv
+   :file: ../data/stats_df_v2.csv
    :header-rows: 1
    :widths: auto
 
@@ -58,7 +58,7 @@ where ``[sensor_name]`` is the name of the sensor, ``[parameter]`` is the SDFS p
 Below is an example of ``evaluation.stats_df`` for the `Toco Toucan Quickstart Guide example <../quickstart.html#example-scenario-toco-toucan>`_:
 
 .. csv-table:: `avg_stats_df.csv`
-   :file: ../data/avg_stats_df.csv
+   :file: ../data/avg_stats_df_v2.csv
    :header-rows: 1
    :widths: auto
 
@@ -101,8 +101,8 @@ Below is an example of ``evaluation.deploy_dict`` for the `Toco Toucan Quickstar
 .. code-block:: json
 
   {
-      "sensortoolkit Version": "0.7.4b2",
-      "Date of Analysis": "2022-02-04 15:12:41 PM",
+      "sensortoolkit Version": "0.9.0b2",
+      "Date of Analysis": "2023-02-09 15:49:20 PM",
       "Sensor Name": "Toco_Toucan",
       "Sensor Firmware Version": "Unspecified",
       "Deployment Groups": {
@@ -112,97 +112,98 @@ Below is an example of ``evaluation.deploy_dict`` for the `Toco Toucan Quickstar
                       "serial_id": "RT01",
                       "deploy_issues": "False",
                       "recording_interval": "1-minute",
-                      "uptime_1-hour": 97.268,
-                      "uptime_24-hour": 96.667
+                      "uptime_1-hour": 97.271,
+                      "uptime_24-hour": 93.548
                   },
                   "2": {
                       "serial_id": "RT02",
                       "deploy_issues": "False",
                       "recording_interval": "1-minute",
-                      "uptime_1-hour": 97.541,
-                      "uptime_24-hour": 96.667
+                      "uptime_1-hour": 97.544,
+                      "uptime_24-hour": 93.548
                   },
                   "3": {
                       "serial_id": "RT03",
                       "deploy_issues": "False",
                       "recording_interval": "1-minute",
-                      "uptime_1-hour": 97.541,
-                      "uptime_24-hour": 96.667
+                      "uptime_1-hour": 97.544,
+                      "uptime_24-hour": 93.548
                   }
               },
               "eval_start": "2019-08-01T12:11:00+0000",
-              "eval_end": "2019-08-31T23:59:00+0000",
-              "eval_duration": "30 days 11:48:00",
+              "eval_end": "2019-09-01T00:59:00+0000",
+              "eval_duration": "30 days 12:48:00",
               "PM25": {
                   "Precision": {
-                      "cv_1-hour": 12.951,
+                      "cv_1-hour": 12.959,
                       "std_1-hour": 0.585,
-                      "n_1-hour": 712,
+                      "n_1-hour": 713,
                       "cv_24-hour": 6.874,
                       "std_24-hour": 0.308,
                       "n_24-hour": 29
                   },
                   "Error": {
-                      "rmse_1-hour": 3.654,
-                      "nrmse_1-hour": 46.897,
-                      "rmse_24-hour": 3.483,
-                      "nrmse_24-hour": 44.881
+                      "rmse_1-hour": 3.646,
+                      "nrmse_1-hour": 46.871,
+                      "rmse_24-hour": 3.478,
+                      "nrmse_24-hour": 44.849
                   },
                   "Reference": {
-                      "reference_name": "T-API T640X at 16.67 LPM",
+                      "reference_name": "Teledyne Advanced Pollution Instrumentation T640X",
                       "conc_min_1-hour": 3.3,
                       "conc_max_1-hour": 15.3,
+                      "conc_mean_1-hour": 7.779,
                       "n_exceed_conc_goal_1-hour": 0,
                       "conc_min_24-hour": 5.663,
                       "conc_max_24-hour": 11.046,
+                      "conc_mean_24-hour": 7.754,
                       "n_exceed_conc_goal_24-hour": 0
                   }
               },
               "Meteorological Conditions": {
                   "Temperature": {
-                      "instrument_name": "Philips Pw9762/02",
+                      "instrument_name": "Instrumental-Electronic or Machine Average",
                       "min_1-hour": 14.3,
                       "max_1-hour": 37.7,
-                      "n_exceed_target_criteria_1-hour": 0,
+                      "n_exceed_target_criteria_1-hour": null,
                       "n_measurement_pairs_1-hour": 728.0,
                       "min_24-hour": 21.146,
                       "max_24-hour": 28.904,
-                      "n_exceed_target_criteria_24-hour": 0,
-                      "n_measurement_pairs_24-hour": 31.0
+                      "n_exceed_target_criteria_24-hour": null,
+                      "n_measurement_pairs_24-hour": 30.0
                   },
                   "Relative Humidity": {
-                      "instrument_name": "Hygrothermograph Elec or Mach Avg",
+                      "instrument_name": "Instrumental-Hygrothermograph Electronic or Machine Average",
                       "min_1-hour": 24.0,
                       "max_1-hour": 97.0,
-                      "n_exceed_target_criteria_1-hour": 144,
+                      "n_exceed_target_criteria_1-hour": null,
                       "n_measurement_pairs_1-hour": 728.0,
                       "min_24-hour": 59.917,
                       "max_24-hour": 87.583,
-                      "n_exceed_target_criteria_24-hour": 0,
-                      "n_measurement_pairs_24-hour": 31.0
+                      "n_exceed_target_criteria_24-hour": null,
+                      "n_measurement_pairs_24-hour": 30.0
                   }
               }
           }
       },
       "Testing Organization": {
-          "Deployment name": "[Name of Deployment]",
-          "Org name": [
-              "[Organization name line 1]",
-              "[Organization name line 2]"
-          ],
-          "Website": {
-              "website name": "[Website Name]",
-              "website link": "[Website Link]"
+          "testing_descrip": "Toco Toucan",
+          "org_name": "U.S. Environmental Protection Agency",
+          "org_division": "Office of Research and Development",
+          "org_type": "",
+          "org_website": {
+              "title": "Air Sensor Toolbox | U.S. EPA Website",
+              "link": "https://www.epa.gov/air-sensor-toolbox"
           },
-          "Contact email": "[Contact Email]",
-          "Contact phone": "[Contact Phone Number]"
+          "org_contact_email": "Clements.Andrea@epa.gov",
+          "org_contact_phone": "919-541-1364"
       },
       "Testing Location": {
-          "Site name": "[Site Name]",
-          "Site address": "[Site Address]",
-          "Site lat": "[Site Latitude]",
-          "Site long": "[Site Longitude]",
-          "Site AQS ID": "[Site AQS ID]"
+          "site_name": "Burdens Creek",
+          "site_address": "Research Triangle Park, NC",
+          "site_lat": "35.889",
+          "site_lon": "-78.874",
+          "site_aqs_id": "37-063-0099"
       }
   }
 

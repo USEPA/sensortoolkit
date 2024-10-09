@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>sensortoolkit.calculate._cv &mdash; sensortoolkit 0.9.0b2 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            sensortoolkit
+          </a>
+              <div class="version">
+                0.9.0b2
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../quickstart.html">Quickstart Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../setup.html">Setting Up for sensortoolkit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../install.html">Installing and Updating sensortoolkit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../template.html">Analysis with sensortoolkit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../template.html#script-template">Script Template</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Objects and Data Structures</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../testingattrib_objects/index.html">Testing Attribute Objects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../data_structures/index.html">Data Structures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../sdfs/index.html">sensortoolkit Data Formatting Scheme (SDFS)</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Analysis and Reports</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../evaluation_objects/index.html">Evaluation Objects</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/index.html">sensortoolkit API</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">sensortoolkit</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">sensortoolkit.calculate._cv</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for sensortoolkit.calculate._cv</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">This module computes the coefficient of variation (CV), a measure of precision,</span>
+<span class="sd">for collocated sensors recording data concurrently.</span>
+
+<span class="sd">.. note::</span>
+
+<span class="sd">    CV as defined by U.S. EPA&#39;s Performance Targets Reports is measured for</span>
+<span class="sd">    periods where all sensors in the evaluation group are measuring</span>
+<span class="sd">    concurrently.</span>
+
+<span class="sd">    For example, if three sensors are included in a deployment group,</span>
+<span class="sd">    the CV will only be calculated for periods where all three sensors are operating</span>
+<span class="sd">    normally and recording values simultaneously.</span>
+
+<span class="sd">U.S. EPA&#39;s Performance Targets Reports calculate CV as</span>
+
+<span class="sd">.. math::</span>
+
+<span class="sd">    CV = \\frac{SD}{\\bar{x}}\\times 100</span>
+
+<span class="sd">where :math:`\\bar{x}` is the deployment averaged sensor concentration for a</span>
+<span class="sd">field test, and :math:`SD`, the standard deviation, is defined as</span>
+
+<span class="sd">.. math::</span>
+
+<span class="sd">    SD = \\sqrt{\\frac{1}{(N\\times M)-1}\\sum_{j=1}^{M}\\left[</span>
+<span class="sd">    \\sum_{i=1}^{N}(x_{ij} - \\bar{x_i})^2\\right]}</span>
+
+<span class="sd">and where:</span>
+
+<span class="sd">    :math:`M` = number of identical sensors operated simultaneously during a</span>
+<span class="sd">    field test</span>
+
+<span class="sd">    :math:`N` = number of measurement intervals during which all identical</span>
+<span class="sd">    instruments are operating and returning valid averages over the duration of</span>
+<span class="sd">    the field test</span>
+
+<span class="sd">    :math:`x_{ij}` = Sensor concentration for measurement interval :math:`i` and</span>
+<span class="sd">    sensor unit :math:`j`.</span>
+
+<span class="sd">    :math:`\\bar{x_i}` = Intersensor average sensor concentration for</span>
+<span class="sd">    measurement interval :math:`i`. **All sensor units deployed for testing**</span>
+<span class="sd">    **must have recorded non-null values for measurement interval** :math:`i`</span>
+<span class="sd">    **to compute** :math:`\\bar{x_i}`.</span>
+
+<span class="sd">================================================================================</span>
+
+<span class="sd">@Author:</span>
+<span class="sd">  | Samuel Frederick, NSSC Contractor (ORAU)</span>
+<span class="sd">  | U.S. EPA / ORD / CEMM / AMCD / SFSB</span>
+
+<span class="sd">Created:</span>
+<span class="sd">  Wed Jan 29 10:03:27 2020</span>
+<span class="sd">Last Updated:</span>
+<span class="sd">  Tue Jul 13 09:21:40 2021</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">sensortoolkit.datetime_utils</span> <span class="kn">import</span> <span class="n">deploy_timestamp_index</span>
+
+
+<span class="k">def</span> <span class="nf">_calculate_cv</span><span class="p">(</span><span class="n">cv_df</span><span class="p">,</span> <span class="n">sensor_numbers</span><span class="p">,</span> <span class="n">param</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Compute CV for a group of collocated, concurrently recording sensors.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        cv_df (pandas dataframe):</span>
+<span class="sd">            Dataframe with parameter concentration values, used to</span>
+<span class="sd">            calculate CV. Only rows (unique timestamps) are kept where all</span>
+<span class="sd">            deployment group sensors are concurrently recording for calculating</span>
+<span class="sd">            CV.</span>
+<span class="sd">        sensor_numbers</span>
+<span class="sd">            serial identifiers for sensors in the deployment group.</span>
+<span class="sd">        param (str):</span>
+<span class="sd">            Parameter name to evaluate</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        (tuple): four-element tuple containing:</span>
+
+<span class="sd">            - cv_df (pandas DataFrame): Modified cv_df, dropped rows were not</span>
+<span class="sd">              all sensors measuring concurrently, add columns for computing CV.</span>
+<span class="sd">            - CV (float): The coefficient of variation of concurrent sensor</span>
+<span class="sd">              measurements. Calculated as the 100*(standard deviation / mean of</span>
+<span class="sd">              all concurrent sensor measurements).</span>
+<span class="sd">            - st_dev (float): The standard deviation of concurrent sensor</span>
+<span class="sd">              measurements.</span>
+<span class="sd">            - n_concurr (int): Number of concurrent hours with all sensors</span>
+<span class="sd">              reporting pollutant values.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">cv_df</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">cv_df</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">pd</span><span class="o">.</span><span class="n">Timedelta</span><span class="p">(</span><span class="s1">&#39;0 days 01:00:00&#39;</span><span class="p">):</span>
+        <span class="n">time_interval</span> <span class="o">=</span> <span class="s2">&quot;1-Hour&quot;</span>
+    <span class="k">elif</span> <span class="n">cv_df</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">cv_df</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">pd</span><span class="o">.</span><span class="n">Timedelta</span><span class="p">(</span><span class="s1">&#39;1 days 00:00:00&#39;</span><span class="p">):</span>
+        <span class="n">time_interval</span> <span class="o">=</span> <span class="s2">&quot;24-Hour&quot;</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Computing CV for &quot;</span> <span class="o">+</span> <span class="n">time_interval</span> <span class="o">+</span> <span class="s2">&quot; averaged &quot;</span> <span class="o">+</span> <span class="n">param</span><span class="p">)</span>
+
+    <span class="n">cv_df</span><span class="p">[</span><span class="n">param</span> <span class="o">+</span> <span class="s1">&#39;_sensor_mean&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cv_df</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">sensor_number</span> <span class="ow">in</span> <span class="n">sensor_numbers</span><span class="p">:</span>
+        <span class="n">cv_df</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">sensor_number</span><span class="p">)</span><span class="o">+</span><span class="s1">&#39;_val-avg_val_sqrd&#39;</span><span class="p">]</span> <span class="o">=</span> \
+            <span class="p">(</span><span class="n">cv_df</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">sensor_number</span><span class="p">)</span><span class="o">+</span><span class="s1">&#39;_&#39;</span> <span class="o">+</span> <span class="n">param</span><span class="p">]</span> <span class="o">-</span>
+             <span class="n">cv_df</span><span class="p">[</span><span class="n">param</span> <span class="o">+</span> <span class="s1">&#39;_sensor_mean&#39;</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span>
+
+    <span class="n">sum_sqrd_diff</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">total_n_vals</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">pollutant_avg</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="n">before_drop_n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">cv_df</span><span class="p">)</span>
+    <span class="n">cv_df</span> <span class="o">=</span> <span class="n">cv_df</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">)</span>  <span class="c1"># drop empty columns</span>
+    <span class="n">cv_df</span> <span class="o">=</span> <span class="n">cv_df</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">how</span><span class="o">=</span><span class="s1">&#39;any&#39;</span><span class="p">)</span>  <span class="c1"># drop rows with any missing data values</span>
+    <span class="n">after_drop_n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">cv_df</span><span class="p">)</span>
+    <span class="n">n_excluded</span> <span class="o">=</span> <span class="n">before_drop_n</span> <span class="o">-</span> <span class="n">after_drop_n</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;..N excluded:&quot;</span><span class="p">,</span> <span class="n">n_excluded</span><span class="p">,</span> <span class="s2">&quot;out of&quot;</span><span class="p">,</span> <span class="n">before_drop_n</span><span class="p">,</span> <span class="s2">&quot;total&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;..N concurrent:&quot;</span><span class="p">,</span> <span class="n">after_drop_n</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;..Concurrent measurement timeframe:&quot;</span><span class="p">,</span> <span class="n">cv_df</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s1">&#39;-&#39;</span><span class="p">,</span>
+          <span class="n">cv_df</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+
+    <span class="n">n_sensors</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">sensor_n</span> <span class="ow">in</span> <span class="n">sensor_numbers</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">sum_sqrd_diff</span> <span class="o">+=</span> <span class="n">cv_df</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">sensor_n</span><span class="p">)</span><span class="o">+</span><span class="s1">&#39;_val-avg_val_sqrd&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+            <span class="n">total_n_vals</span> <span class="o">+=</span> <span class="n">cv_df</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">sensor_n</span><span class="p">)</span><span class="o">+</span><span class="s1">&#39;_val-avg_val_sqrd&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">count</span><span class="p">()</span>
+            <span class="n">pollutant_avg</span> <span class="o">+=</span> <span class="n">cv_df</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">sensor_n</span><span class="p">)</span><span class="o">+</span><span class="s1">&#39;_&#39;</span> <span class="o">+</span> <span class="n">param</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+            <span class="n">n_sensors</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+            <span class="k">continue</span>
+
+    <span class="c1"># number of concurrent hours with all sensors reporting pollutant values</span>
+    <span class="n">n_concurr</span> <span class="o">=</span> <span class="n">total_n_vals</span> <span class="o">/</span> <span class="n">n_sensors</span>
+
+    <span class="n">pollutant_avg</span> <span class="o">/=</span> <span class="n">n_sensors</span>
+    <span class="n">st_dev</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">sum_sqrd_diff</span><span class="o">/</span><span class="p">(</span><span class="n">total_n_vals</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span>
+    <span class="n">CV</span> <span class="o">=</span> <span class="p">(</span><span class="n">st_dev</span> <span class="o">/</span> <span class="n">pollutant_avg</span><span class="p">)</span><span class="o">*</span><span class="mi">100</span>  <span class="c1"># CV reported in percentage</span>
+
+    <span class="k">return</span> <span class="n">cv_df</span><span class="p">,</span> <span class="n">CV</span><span class="p">,</span> <span class="n">st_dev</span><span class="p">,</span> <span class="n">n_concurr</span>
+
+
+<div class="viewcode-block" id="cv"><a class="viewcode-back" href="../../../api/_autosummary/sensortoolkit.calculate._cv.cv.html#sensortoolkit.calculate._cv.cv">[docs]</a><span class="k">def</span> <span class="nf">cv</span><span class="p">(</span><span class="n">df_list</span><span class="p">,</span> <span class="n">deploy_dict</span><span class="p">,</span> <span class="n">param</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">return_deploy_dict</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Compute CV for set of sensor dataframes and indicated parameter.</span>
+
+<span class="sd">    Loops over the unique deployment groups and constructs a dataframe of</span>
+<span class="sd">    concurrently recorded sensor measurements which is passed to CV_Calculator</span>
+<span class="sd">    to determine CV.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        df_list (list):</span>
+<span class="sd">            List of sensor dataframes</span>
+<span class="sd">        deploy_dict (dict):</span>
+<span class="sd">            A dictionary containing descriptive statistics and</span>
+<span class="sd">            textual information about the deployment (testing agency, site,</span>
+<span class="sd">            time period, etc.), sensors tested, and site conditions during the</span>
+<span class="sd">            evaluation.</span>
+<span class="sd">        param (str):</span>
+<span class="sd">            Parameter name to evaluate</span>
+<span class="sd">        return_deploy_dict (bool):</span>
+<span class="sd">            If true, return modified deployment dictionary with precision</span>
+<span class="sd">            statistics (CV, standard deviation, N concurrent datapoints across</span>
+<span class="sd">            all sensors).</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        If ``return_deploy_dict`` is ``True``, return ``deploy_dict`` with</span>
+<span class="sd">        updated precision statistics, else return ``CV`` (float).</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">date_index</span><span class="p">,</span> <span class="n">avg_suffix</span> <span class="o">=</span> <span class="n">deploy_timestamp_index</span><span class="p">(</span><span class="n">df_list</span><span class="p">,</span>
+                                                    <span class="n">averaging_suffix</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="n">cv_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="n">date_index</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">df</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">df_list</span><span class="p">):</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">df_list</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="n">sensor_number</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">cv_df</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">sensor_number</span><span class="p">)</span><span class="o">+</span><span class="s1">&#39;_&#39;</span><span class="o">+</span><span class="n">param</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">param</span><span class="o">+</span> <span class="s1">&#39;_Value&#39;</span><span class="p">]</span>
+        <span class="k">except</span> <span class="ne">KeyError</span> <span class="k">as</span> <span class="n">param_not_found</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Parameter name not found in passed dataframes:&#39;</span><span class="p">,</span>
+                  <span class="n">param_not_found</span><span class="p">)</span>
+            <span class="k">continue</span>
+
+    <span class="k">for</span> <span class="n">group</span> <span class="ow">in</span> <span class="n">deploy_dict</span><span class="p">[</span><span class="s1">&#39;Deployment Groups&#39;</span><span class="p">]:</span>
+        <span class="n">deploy</span> <span class="o">=</span> <span class="n">deploy_dict</span><span class="p">[</span><span class="s1">&#39;Deployment Groups&#39;</span><span class="p">][</span><span class="n">group</span><span class="p">]</span>
+        <span class="n">deploy_sensor_nums</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">deploy</span><span class="p">[</span><span class="s1">&#39;sensors&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+
+        <span class="k">if</span> <span class="n">param</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">deploy</span><span class="p">:</span>
+            <span class="n">deploy</span><span class="p">[</span><span class="n">param</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="n">deploy</span><span class="p">[</span><span class="n">param</span><span class="p">][</span><span class="s1">&#39;Precision&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="k">if</span> <span class="s1">&#39;Precision&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">deploy</span><span class="p">[</span><span class="n">param</span><span class="p">]:</span>
+            <span class="n">deploy</span><span class="p">[</span><span class="n">param</span><span class="p">][</span><span class="s1">&#39;Precision&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="n">stats_loc</span> <span class="o">=</span> <span class="n">deploy</span><span class="p">[</span><span class="n">param</span><span class="p">][</span><span class="s1">&#39;Precision&#39;</span><span class="p">]</span>
+
+        <span class="n">start</span> <span class="o">=</span> <span class="n">date_index</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">freq</span><span class="o">=</span><span class="s1">&#39;H&#39;</span><span class="p">)</span>
+        <span class="n">end</span> <span class="o">=</span> <span class="n">date_index</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">freq</span><span class="o">=</span><span class="s1">&#39;H&#39;</span><span class="p">)</span>
+
+        <span class="n">serials</span> <span class="o">=</span> <span class="p">{</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">):</span> <span class="n">deploy</span><span class="p">[</span><span class="s1">&#39;sensors&#39;</span><span class="p">][</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)][</span><span class="s1">&#39;serial_id&#39;</span><span class="p">]</span> <span class="k">for</span>
+                   <span class="n">i</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">deploy</span><span class="p">[</span><span class="s1">&#39;sensors&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">keys</span><span class="p">())}</span>
+
+        <span class="c1"># Check if issues with individual sensors during deployment, remove</span>
+        <span class="c1"># from serial dictionary and sensor number list used to pop. CV df</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">deploy</span><span class="p">[</span><span class="s1">&#39;sensors&#39;</span><span class="p">]):</span>
+            <span class="k">if</span> <span class="n">deploy</span><span class="p">[</span><span class="s1">&#39;sensors&#39;</span><span class="p">][</span><span class="n">n</span><span class="p">][</span><span class="s1">&#39;deploy_issues&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;True&#39;</span><span class="p">:</span>
+                <span class="n">serials</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+                <span class="n">deploy_sensor_nums</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Sensor&#39;</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="s1">&#39;indicates issues during deployment&#39;</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Excluding sensor&#39;</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="s1">&#39;from CV calculation&#39;</span><span class="p">)</span>
+
+        <span class="c1"># If only one sensor in the analysis cohort, set precision metrics null</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">deploy_sensor_nums</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">CV</span><span class="p">,</span> <span class="n">st_dev</span><span class="p">,</span> <span class="n">n_concurr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># Set analysis dataframe for computing CV</span>
+            <span class="n">deploy_cols</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="s1">&#39;_&#39;</span> <span class="o">+</span> <span class="n">param</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">deploy_sensor_nums</span><span class="p">]</span>
+            <span class="n">deploy_cv_df</span> <span class="o">=</span> <span class="n">cv_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">start</span><span class="p">:</span><span class="n">end</span><span class="p">,</span> <span class="n">deploy_cols</span><span class="p">]</span>
+            <span class="n">deploy_cv_df</span><span class="p">,</span> <span class="n">CV</span><span class="p">,</span> <span class="n">st_dev</span><span class="p">,</span> <span class="n">n_concurr</span> <span class="o">=</span> <span class="n">_calculate_cv</span><span class="p">(</span><span class="n">deploy_cv_df</span><span class="p">,</span>
+                                                                <span class="n">serials</span><span class="p">,</span>
+                                                                <span class="n">param</span><span class="o">=</span><span class="n">param</span><span class="p">)</span>
+            <span class="n">CV</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{0:.3f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">CV</span><span class="p">))</span>
+            <span class="n">st_dev</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{0:.3f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">st_dev</span><span class="p">))</span>
+            <span class="n">n_concurr</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">n_concurr</span><span class="p">)</span>
+
+        <span class="n">stats_loc</span><span class="p">[</span><span class="s1">&#39;cv&#39;</span> <span class="o">+</span> <span class="n">avg_suffix</span><span class="p">]</span> <span class="o">=</span> <span class="n">CV</span>
+        <span class="n">stats_loc</span><span class="p">[</span><span class="s1">&#39;std&#39;</span> <span class="o">+</span> <span class="n">avg_suffix</span><span class="p">]</span> <span class="o">=</span> <span class="n">st_dev</span>
+        <span class="n">stats_loc</span><span class="p">[</span><span class="s1">&#39;n&#39;</span> <span class="o">+</span> <span class="n">avg_suffix</span><span class="p">]</span> <span class="o">=</span> <span class="n">n_concurr</span>
+
+    <span class="k">if</span> <span class="n">return_deploy_dict</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">deploy_dict</span>
+
+    <span class="k">return</span> <span class="n">CV</span></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, United States Environmental Protection Agency.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

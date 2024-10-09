@@ -1,15 +1,17 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en">
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AirSensor Setup &mdash; sensortoolkit 0.8.3b2 documentation</title>
-      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" type="text/css" />
+  <title>AirSensor Setup &mdash; sensortoolkit 0.9.0b2 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+
+  
   <!--[if lt IE 9]>
     <script src="../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
@@ -17,6 +19,7 @@
         <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
         <script src="../../_static/jquery.js"></script>
         <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../../_static/doctools.js"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
@@ -30,14 +33,18 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="../../index.html" class="icon icon-home"> sensortoolkit
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            sensortoolkit
           </a>
               <div class="version">
-                0.8.3b2
+                0.9.0b2
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -46,9 +53,10 @@
               <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../quickstart.html">Quickstart Guide</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../quickstart.html#script-templates">Script Templates</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../setup.html">Setting Up for sensortoolkit</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../install.html">Installing and Updating sensortoolkit</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../import_sensortoolkit.html">Importing sensortoolkit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../template.html">Analysis with sensortoolkit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../template.html#script-template">Script Template</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Objects and Data Structures</span></p>
 <ul class="current">
@@ -67,7 +75,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../data_structures/index.html">Data Structures</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../sdfs/index.html">sensortoolkit Data Formatting Scheme (SDFS)</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Objects and Data Structures</span></p>
+<p class="caption" role="heading"><span class="caption-text">Analysis and Reports</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../evaluation_objects/index.html">Evaluation Objects</a></li>
 </ul>
@@ -89,10 +97,10 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="../index.html">Testing Attribute Objects</a> &raquo;</li>
-          <li><a href="index.html">The AirSensor Object</a> &raquo;</li>
-      <li>AirSensor Setup</li>
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Testing Attribute Objects</a></li>
+          <li class="breadcrumb-item"><a href="index.html">The AirSensor Object</a></li>
+      <li class="breadcrumb-item active">AirSensor Setup</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../../_sources/testingattrib_objects/airsensor/setup.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -103,7 +111,7 @@
            <div itemprop="articleBody">
              
   <section id="airsensor-setup">
-<h1>AirSensor Setup<a class="headerlink" href="#airsensor-setup" title="Permalink to this headline"></a></h1>
+<h1>AirSensor Setup<a class="headerlink" href="#airsensor-setup" title="Permalink to this heading"></a></h1>
 <p>Sensor data are recorded in a wide variety of formatting conventions and data types.
 Data ingestion converts datasets recorded by sensors to a standardized formatting
 scheme for data types, header names, and a sorted datetime index.</p>
@@ -132,8 +140,13 @@ setup process:</p>
 <p>A console width of at least 80 characters is recommended to properly format
 printed statements, banners, and tables within this setup method.</p>
 </div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Currently, if a mistake is made in a step of the ingestion process,
+you may have to start the process over.</p>
+</div>
 <section id="selecting-file-data-type">
-<h2>1. Selecting File Data Type<a class="headerlink" href="#selecting-file-data-type" title="Permalink to this headline"></a></h2>
+<h2>1. Selecting File Data Type<a class="headerlink" href="#selecting-file-data-type" title="Permalink to this heading"></a></h2>
 <p>First, users specify the data type for recorded sensor data. Accepted data
 types include .csv, .txt, and .xlsx. Future updates to sensortoolkit may
 expand this list to include additional supported data types. Users should enter
@@ -153,7 +166,7 @@ one of the data types listed in the section banner.</p>
 </div>
 </section>
 <section id="selecting-data-files">
-<h2>2. Selecting Data Files<a class="headerlink" href="#selecting-data-files" title="Permalink to this headline"></a></h2>
+<h2>2. Selecting Data Files<a class="headerlink" href="#selecting-data-files" title="Permalink to this heading"></a></h2>
 <p>Next, the user is asked to select how sensor datasets will be selected for copying
 to the project path that the user specified. Users are presented with three options:
 <code class="docutils literal notranslate"><span class="pre">directory</span></code>, which will locate and copy all of the data files in the specified directory for the
@@ -166,7 +179,7 @@ copies over files that the user manually selects within a directory.</p>
 <span class="go">[&#39;directory&#39;, &#39;recursive directory&#39;, &#39;files&#39;]</span>
 <span class="go">==============================================================================</span>
 
-<span class="go">Enter how to select sensor datasets from the list of options above: files</span>
+<span class="go">Enter how to select sensor datasets from the list of options above:files</span>
 
 <span class="go">Select data sets by files</span>
 
@@ -175,7 +188,7 @@ copies over files that the user manually selects within a directory.</p>
 </div>
 </section>
 <section id="copying-data-files">
-<h2>3. Copying Data files<a class="headerlink" href="#copying-data-files" title="Permalink to this headline"></a></h2>
+<h2>3. Copying Data files<a class="headerlink" href="#copying-data-files" title="Permalink to this heading"></a></h2>
 <p>Once the user selects an option for indicating how data files should be located
 and confirms the entry, a subsequent section in the console will prompt the user to
 select the files for the recorded sensor datasets corresponding to the indicated file type.</p>
@@ -190,10 +203,11 @@ where the copied datasets will be saved.</p>
 <span class="go">==============================================================================</span>
 
 <span class="go">[File Browser: Select the files for recorded sensor datasets with file type &quot;.csv&quot;]</span>
+
 <span class="go">Source Files:</span>
-<span class="go">[&#39;C:/Users/.../Documents/toco_toucan_RT01_raw.csv&#39;,</span>
-<span class="go">&#39;C:/Users/.../Documents/toco_toucan_RT02_raw.csv&#39;,</span>
-<span class="go">&#39;C:/Users/.../Documents/toco_toucan_RT03_raw.csv&#39;]</span>
+<span class="go">[&#39;C:/Users/.../Documents/toucan_evaluation/toco_toucan_RT01_raw.csv&#39;,</span>
+<span class="go">&#39;C:/Users/.../Documents/toucan_evaluation/toco_toucan_RT02_raw.csv&#39;,</span>
+<span class="go">&#39;C:/Users/.../Documents/toucan_evaluation/toco_toucan_RT03_raw.csv&#39;]</span>
 
 <span class="go">Destination Directory:</span>
 <span class="go">..C:\Users\...\Documents\toucan_evaluation\data\sensor_data\Toco_Toucan\raw_data</span>
@@ -201,16 +215,44 @@ where the copied datasets will be saved.</p>
 <span class="go">Press enter to continue.</span>
 
 <span class="go">Copying the following files:</span>
-<span class="go">..C:/Users/.../Documents/toco_toucan_RT01_raw.csv</span>
-<span class="go">..C:/Users/.../Documents/toco_toucan_RT02_raw.csv</span>
-<span class="go">..C:/Users/.../Documents/toco_toucan_RT03_raw.csv</span>
+<span class="go">..C:/Users/.../Documents/toucan_evaluation/toco_toucan_RT01_raw.csv</span>
+<span class="go">..C:/Users/.../Documents/toucan_evaluation/toco_toucan_RT02_raw.csv</span>
+<span class="go">..C:/Users/.../Documents/toucan_evaluation/toco_toucan_RT03_raw.csv</span>
 
 <span class="go">Press enter to continue.</span>
 </pre></div>
 </div>
 </section>
+<section id="prewritten-ingestion-module">
+<h2>4. Prewritten Ingestion Module<a class="headerlink" href="#prewritten-ingestion-module" title="Permalink to this heading"></a></h2>
+<p>Next, the user is asked if a custom, prewritten ingestion module should be used to import data. Most sensor data
+files will not fit the standard data formatting. Therefore, it is often better to manually provide sensortoolkit with
+data formatting attributes and not use the prewitten ingestion module.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">============== Indicate whether to use a custom ingestion method =============</span>
+<span class="go">==============================================================================</span>
+<span class="go">Will a custom, prewritten ingestion module be used to import data? [y/n]: n</span>
+
+<span class="go">Press enter to continue.</span>
+</pre></div>
+</div>
+</section>
+<section id="previous-setup-configuration">
+<h2>5. Previous Setup Configuration<a class="headerlink" href="#previous-setup-configuration" title="Permalink to this heading"></a></h2>
+<p>Next, the user is asked if a setup.json file has been previously created for the project and if the user intends on
+using it to configure the current setup session. If this is the first time sensortoolkit is being used
+or a difference has been made to the <code class="docutils literal notranslate"><span class="pre">sensor</span></code> object, a setup.json file has not been previously created.
+If the user would like to use the same <code class="docutils literal notranslate"><span class="pre">sensor</span></code> object setup that has been successfully previously made,
+the user may use it to skip the interactive ingestion module for the <code class="docutils literal notranslate"><span class="pre">sensor</span></code> object.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">=========== Indicate whether to use a previous setup configuration ===========</span>
+<span class="go">==============================================================================</span>
+<span class="go">Have you previously created a setup.json config file that [1] matches the</span>
+<span class="go">device type associated with the selected data sets and [2] intend to use the</span>
+<span class="go">previous setup.json file to configure the current setup session? [y/n]: n</span>
+</pre></div>
+</div>
+</section>
 <section id="selecting-the-column-header-index">
-<h2>4. Selecting the Column Header Index<a class="headerlink" href="#selecting-the-column-header-index" title="Permalink to this headline"></a></h2>
+<h2>6. Selecting the Column Header Index<a class="headerlink" href="#selecting-the-column-header-index" title="Permalink to this heading"></a></h2>
 <p>Next, users are prompted to enter the row index corresponding to the column headers.
 Sensor datasets may place the header information at the top of the file, and in this
 case, the header row index would be <code class="docutils literal notranslate"><span class="pre">0</span></code>. Occasionally, data sets do not include any
@@ -221,8 +263,8 @@ is indicated on the left hand side of the console statement.</p>
 <p>Below are a few examples for various sensor datasets, each displaying a different formatting
 scheme regarding where the header row is located in recorded datasets.</p>
 <div class="tabbed-set docutils">
-<input checked="checked" id="78534aea-f152-42f3-b494-bc2cd41b047d" name="90f65768-0895-4b38-b4c6-0d3073fff9b9" type="radio">
-</input><label class="tabbed-label" for="78534aea-f152-42f3-b494-bc2cd41b047d">
+<input checked="checked" id="97bfcbe6-7054-4dda-b859-9f4bb50e5dcd" name="75ff3fa0-c663-42d3-84f0-d1b5a379cfa6" type="radio">
+</input><label class="tabbed-label" for="97bfcbe6-7054-4dda-b859-9f4bb50e5dcd">
 Header Row Index = 0</label><div class="tabbed-content docutils">
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">============================= Column Header Index ============================</span>
 <span class="go">Options</span>
@@ -253,8 +295,8 @@ Header Row Index = 0</label><div class="tabbed-content docutils">
 </pre></div>
 </div>
 </div>
-<input id="aa93afe1-71ff-4ff3-bc23-eadf21210171" name="90f65768-0895-4b38-b4c6-0d3073fff9b9" type="radio">
-</input><label class="tabbed-label" for="aa93afe1-71ff-4ff3-bc23-eadf21210171">
+<input id="373ed4fe-43e1-4ead-bd99-a86c60e10dc8" name="75ff3fa0-c663-42d3-84f0-d1b5a379cfa6" type="radio">
+</input><label class="tabbed-label" for="373ed4fe-43e1-4ead-bd99-a86c60e10dc8">
 Header Row Index &gt; 0</label><div class="tabbed-content docutils">
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">============================= Column Header Index ============================</span>
 <span class="go">Options</span>
@@ -262,7 +304,7 @@ Header Row Index &gt; 0</label><div class="tabbed-content docutils">
 <span class="go">..type &quot;None&quot; if no header columns in recorded sensor dataset</span>
 <span class="go">==============================================================================</span>
 
-<span class="go">The first ten unformatted rows of C:\Users\...\Documents\sensortoolkit_testing</span>
+<span class="go">The first ten unformatted rows of C:\Users\...\Documents\toucan_evaluation</span>
 <span class="go">\data\sensor_data\Toco_Toucan\raw_data\toco_toucan_RT01_raw.csv</span>
 <span class="go">are displayed below:</span>
 
@@ -273,10 +315,10 @@ Header Row Index &gt; 0</label><div class="tabbed-content docutils">
 <span class="go">3             (UTC-05:00) Eastern Time (US &amp; Canada)</span>
 <span class="go">4                         Averaging period: 1 minute</span>
 <span class="hll"><span class="go">5  Time,NO2 (ppb),O3 (ppb),PM2.5 (µg/m³),TEMP (°C...</span>
-</span><span class="go">6  2019/08/01 07:11:00,,,5.4,24.80,95.3,24.0,Sample.</span>
-<span class="go">7  2019/08/01 07:12:00,5.5,0.0,5.5,24.88,95.1,24....</span>
-<span class="go">8  2019/08/01 07:13:00,2.0,4.4,5.3,25.00,95.1,24....</span>
-<span class="go">9  2019/08/01 07:14:00,-0.9,8.8,5.4,25.14,95.2,24...</span>
+</span><span class="go">6            8/1/2019 7:11,,,5.4,24.8,95.3,24,Sample</span>
+<span class="go">7       8/1/2019 7:12,5.5,0,5.5,24.88,95.1,24,Sample</span>
+<span class="go">8        8/1/2019 7:13,2,4.4,5.3,25,95.1,24.2,Sample</span>
+<span class="go">9  8/1/2019 7:14,-0.9,8.8,5.4,25.14,95.2,24.3,Sample</span>
 
 <span class="go">Enter the row index number for column headers: 5</span>
 
@@ -286,8 +328,8 @@ Header Row Index &gt; 0</label><div class="tabbed-content docutils">
 </pre></div>
 </div>
 </div>
-<input id="6f4653b1-786c-41b8-a77c-95fa8846f9d5" name="90f65768-0895-4b38-b4c6-0d3073fff9b9" type="radio">
-</input><label class="tabbed-label" for="6f4653b1-786c-41b8-a77c-95fa8846f9d5">
+<input id="3cce7d2f-1498-43dd-9706-fecbe5d7ae5f" name="75ff3fa0-c663-42d3-84f0-d1b5a379cfa6" type="radio">
+</input><label class="tabbed-label" for="3cce7d2f-1498-43dd-9706-fecbe5d7ae5f">
 Header Row Index = None</label><div class="tabbed-content docutils">
 <p>Select this option if the dataset does not contain a single row with header
 information. The example below indicates a log description followed immediately
@@ -324,7 +366,7 @@ by rows with comma-delimited data.</p>
 </div>
 </section>
 <section id="parsing-sensor-datasets">
-<h2>5. Parsing Sensor Datasets<a class="headerlink" href="#parsing-sensor-datasets" title="Permalink to this headline"></a></h2>
+<h2>7. Parsing Sensor Datasets<a class="headerlink" href="#parsing-sensor-datasets" title="Permalink to this heading"></a></h2>
 <p>If column headers are not included in the sensor datasets (i.e., the column
 header index in step 1 was set to <code class="docutils literal notranslate"><span class="pre">None</span></code>), users will need to manually enter
 the names of column headers for sensor datasets. This will prompt a section labeled
@@ -335,22 +377,22 @@ the user indicates to the console to end header entry model by pressing <code cl
 <p>Manual configuration of column headers is not required if an integer header row index
 value is set in the previous step.</p>
 </div>
-<p>Next, the module will automatically search for datafiles corresponding to the
+<p>Next, the module will automatically search for data files corresponding to the
 file type and header index (if previously specified). A list of unique headers for
 each column index are displayed.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">============================== Parsing Datasets ==============================</span>
 <span class="go">==============================================================================</span>
 
 <span class="go">Parsing datasets at &quot;../data/sensor_data/Toco_Toucan/raw_data&quot;</span>
-<span class="go">..header(s) at column index 0: [&#39;Time&#39;]</span>
-<span class="go">..header(s) at column index 1: [&#39;NO2 (ppb)&#39;]</span>
-<span class="go">..header(s) at column index 2: [&#39;O3 (ppb)&#39;]</span>
-<span class="go">..header(s) at column index 3: [&#39;PM2.5 (µg/m³)&#39;]</span>
-<span class="go">..header(s) at column index 4: [&#39;TEMP (°C)&#39;]</span>
-<span class="go">..header(s) at column index 5: [&#39;RH (%)&#39;]</span>
-<span class="go">..header(s) at column index 6: [&#39;DP (°C)&#39;]</span>
-<span class="go">..header(s) at column index 7: [&#39;Inlet&#39;]</span>
 
+<span class="go">..Header(s) at column index 0: [&#39;Time&#39;]</span>
+<span class="go">..Header(s) at column index 1: [&#39;NO2 (ppb)&#39;]</span>
+<span class="go">..Header(s) at column index 2: [&#39;O3 (ppb)&#39;]</span>
+<span class="go">..Header(s) at column index 3: [&#39;PM2.5 (µg/m³)&#39;]</span>
+<span class="go">..Header(s) at column index 4: [&#39;TEMP (°C)&#39;]</span>
+<span class="go">..Header(s) at column index 5: [&#39;RH (%)&#39;]</span>
+<span class="go">..Header(s) at column index 6: [&#39;DP (°C)&#39;]</span>
+<span class="go">..Header(s) at column index 7: [&#39;Inlet&#39;]</span>
 <span class="go">Press enter to continue.</span>
 </pre></div>
 </div>
@@ -394,7 +436,7 @@ header position zero:</p>
 </div>
 </section>
 <section id="specifying-timestamp-columns">
-<h2>6. Specifying Timestamp Columns<a class="headerlink" href="#specifying-timestamp-columns" title="Permalink to this headline"></a></h2>
+<h2>8. Specifying Timestamp Columns<a class="headerlink" href="#specifying-timestamp-columns" title="Permalink to this heading"></a></h2>
 <p>Users must list all time-like columns that will be used for the ‘DateTime’
 index. Typically, this either includes one column as is the case for the
 example, or two columns (one column for the date and another for the time).</p>
@@ -442,9 +484,14 @@ name, both header names must be specified via the following:</p>
 </pre></div>
 </div>
 </div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Sensortoolkit converts time to the UTC timezone. Graphs displayed in the final report
+are in UTC.</p>
+</div>
 </section>
 <section id="specifying-the-parameter-renaming-scheme">
-<h2>7. Specifying the Parameter Renaming Scheme<a class="headerlink" href="#specifying-the-parameter-renaming-scheme" title="Permalink to this headline"></a></h2>
+<h2>9. Specifying the Parameter Renaming Scheme<a class="headerlink" href="#specifying-the-parameter-renaming-scheme" title="Permalink to this heading"></a></h2>
 <p>Next, users are prompted to configure the parameter renaming scheme for converting
 recorded datasets into sensortoolkit’s Data Formatting Standard (SDFS), which
 includes a <a class="reference external" href="../../sdfs/index.html">list of preset parameter names and associated attributes</a>.</p>
@@ -456,7 +503,12 @@ names, you can create a new custom parameter attribute using the “N” charact
 the header name with a custom parameter that you may have created previously. Otherwise, if you do
 not choose to include the header and associated column in the processed datasets, you can enter an
 empty character (by pressing the “Enter” key), which will skip over the header label and drop it
-from datasets that are processed to the SDFS format.</p>
+from datasets that are processed to the SDFS format.
+.. tip:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Try</span> <span class="n">to</span> <span class="n">only</span> <span class="n">add</span> <span class="n">the</span> <span class="n">SDFS</span> <span class="n">parameters</span> <span class="n">that</span> <span class="n">you</span> <span class="n">are</span> <span class="n">using</span> <span class="ow">in</span> <span class="n">your</span> <span class="n">evaluation</span> <span class="ow">and</span> <span class="n">report</span> <span class="n">generation</span><span class="o">.</span>
+<span class="n">Extra</span> <span class="n">unnecessary</span> <span class="n">parameters</span> <span class="n">may</span> <span class="n">cause</span> <span class="n">sensortoolkit</span> <span class="n">to</span> <span class="ow">not</span> <span class="n">function</span><span class="o">.</span>
+</pre></div>
+</div>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">========================== Specify Parameter columns =========================</span>
 <span class="go">Options</span>
 <span class="go">-------</span>
@@ -621,10 +673,10 @@ from datasets that are processed to the SDFS format.</p>
 </div>
 </section>
 <section id="configuring-timestamp-column-formatting">
-<h2>8. Configuring Timestamp Column Formatting<a class="headerlink" href="#configuring-timestamp-column-formatting" title="Permalink to this headline"></a></h2>
+<h2>10. Configuring Timestamp Column Formatting<a class="headerlink" href="#configuring-timestamp-column-formatting" title="Permalink to this heading"></a></h2>
 <p>Next, the timestamp column formatting should be specified. Users are encouraged
 to reference <a class="reference external" href="https://strftime.org/">https://strftime.org/</a> for a table of formatting codes. Additional
-info is available in the Python documentation: <a class="reference external" href="https://docs.python.org/3/library/datetime.html#strftime-and-strptime-format-codes">https://docs.python.org/3/library/datetime.html#strftime-and-strptime-format-codes</a>.</p>
+info is available in the Python documentation <a class="reference external" href="https://docs.python.org/3/library/datetime.html#strftime-and-strptime-format-codes">here</a>.</p>
 <p>A formatting scheme must be specified for each time-like column indicated in
 the previous section.</p>
 <p>The user will be asked to confirm the entry with <code class="docutils literal notranslate"><span class="pre">y</span></code> or <code class="docutils literal notranslate"><span class="pre">n</span></code> to either continue
@@ -642,12 +694,12 @@ or revise the entered formatting scheme.</p>
 <span class="go">and-strptime-format-codes</span>
 <span class="go">==============================================================================</span>
 
-<span class="go">Enter date/time formatting for &quot;Time&quot;: %Y/%m/%d %H:%M:%S</span>
+<span class="go">Enter date/time formatting for &quot;Time&quot;: %-m/%-d/%Y %-H:%M</span>
 
 <span class="go">Confirm entry [y/n]: y</span>
 
 <span class="go">Configured formatting scheme:</span>
-<span class="go">{&#39;Time&#39;: &#39;%Y/%m/%d %H:%M:%S&#39;}</span>
+<span class="go">{&#39;Time&#39;: &#39;%-m/%-d/%Y %-H:%M&#39;}</span>
 
 <span class="go">Press enter to continue.</span>
 </pre></div>
@@ -689,7 +741,7 @@ specified via the following:</p>
 </div>
 </section>
 <section id="specifying-the-datetime-index-time-zone">
-<h2>9. Specifying the DateTime Index Time Zone<a class="headerlink" href="#specifying-the-datetime-index-time-zone" title="Permalink to this headline"></a></h2>
+<h2>11. Specifying the DateTime Index Time Zone<a class="headerlink" href="#specifying-the-datetime-index-time-zone" title="Permalink to this heading"></a></h2>
 <p>Next, the time zone for the timestamp column should be indicated. <a class="reference external" href="../../sdfs/index.html">SDFS</a>
 formatted datasets indicate timestamps in Coordinated Universal Time (UTC), and during
 dataset ingestion, timestamps are shifted by the UTC offset corresponding to the time zone
@@ -716,14 +768,14 @@ time zone name.</p>
 <span class="go">Confirm entry [y/n]: y</span>
 
 <span class="go">Configured time zone formatting:</span>
-<span class="go">{&#39;Time&#39;: &#39;%Y/%m/%d %H:%M:%S&#39;, &#39;Time_tz&#39;: &#39;EST&#39;}</span>
+<span class="go">{&#39;Time&#39;: &#39;%-m/%-d/%Y %-H:%M&#39;, &#39;Time_tz&#39;: &#39;EST&#39;}</span>
 
 <span class="go">Press enter to continue.</span>
 </pre></div>
 </div>
 </section>
 <section id="configuring-sensor-serial-identifiers">
-<h2>10. Configuring Sensor Serial identifiers<a class="headerlink" href="#configuring-sensor-serial-identifiers" title="Permalink to this headline"></a></h2>
+<h2>12. Configuring Sensor Serial identifiers<a class="headerlink" href="#configuring-sensor-serial-identifiers" title="Permalink to this heading"></a></h2>
 <p>Next, users should indicate unique identifiers corresponding to each air sensor in
 the testing group. It is common for sensors to be labeled by a unique serial identifier,
 either indicated on the housing of the sensor or as a metadata entry for recorded datasets.</p>
@@ -741,13 +793,14 @@ are used to locate, group, and import data for each unit.</p>
 <span class="go">..press X to end adding entries</span>
 <span class="go">==============================================================================</span>
 
-<span class="go">..C:\Users\...\Documents\toucan_evaluation\data\sensor_data\Toco_Toucan\raw_data\toco_toucan_RT01_raw.csv</span>
-<span class="go">..C:\Users\...\Documents\toucan_evaluation\data\sensor_data\Toco_Toucan\raw_data\toco_toucan_RT02_raw.csv</span>
-<span class="go">..C:\Users\...\Documents\toucan_evaluation\data\sensor_data\Toco_Toucan\raw_data\toco_toucan_RT03_raw.csv</span>
+<span class="go">..toco_toucan_RT01_raw.csv</span>
+<span class="go">..toco_toucan_RT02_raw.csv</span>
+<span class="go">..toco_toucan_RT03_raw.csv</span>
 
 <span class="go">Enter the number of unique sensors corresponding to the datasets above: 3</span>
 
 <span class="go">Confirm entry [y/n]: y</span>
+
 <span class="go">Enter unique serial identifiers for each sensor associated with the datasets listed above:</span>
 
 <span class="go">Enter serial identifier #1: RT01</span>
@@ -765,13 +818,12 @@ are used to locate, group, and import data for each unit.</p>
 <span class="go">Configured serial identifiers:</span>
 <span class="go">{&#39;1&#39;: &#39;RT01&#39;, &#39;2&#39;: &#39;RT02&#39;, &#39;3&#39;: &#39;RT03&#39;}</span>
 
-
 <span class="go">Press enter to continue.</span>
 </pre></div>
 </div>
 </section>
 <section id="saving-the-setup-configuration-to-setup-json">
-<h2>11. Saving the Setup Configuration to <code class="docutils literal notranslate"><span class="pre">setup.json</span></code><a class="headerlink" href="#saving-the-setup-configuration-to-setup-json" title="Permalink to this headline"></a></h2>
+<h2>13.  Saving the Setup Configuration to <code class="docutils literal notranslate"><span class="pre">setup.json</span></code><a class="headerlink" href="#saving-the-setup-configuration-to-setup-json" title="Permalink to this heading"></a></h2>
 <p>Lastly, the Setup module will automatically save the setup configuration
 to a <code class="docutils literal notranslate"><span class="pre">setup.json</span></code> file.</p>
 <p>This file is located at <code class="docutils literal notranslate"><span class="pre">..\data\sensor_data\[sensor_name]\</span></code>
@@ -780,7 +832,13 @@ where <code class="docutils literal notranslate"><span class="pre">[sensor_name]
 <span class="go">==============================================================================</span>
 
 <span class="go">..writing setup configuration to the following path:</span>
-<span class="go">  \data\sensor_data\Toco_Toucan\Toco_Toucan_setup.json</span>
+<span class="go">  C:\Users\...\Documents\toucan_evaluation\data\sensor_data\Toco_Toucan\Toco_Toucan_setup.json</span>
+
+<span class="go">....\figures\Toco_Toucan\O3</span>
+<span class="go">....\figures\Toco_Toucan\NO2</span>
+<span class="go">....\figures\Toco_Toucan\PM25</span>
+<span class="go">....\figures\Toco_Toucan\Met</span>
+<span class="go">....\figures\Toco_Toucan\deployment</span>
 </pre></div>
 </div>
 </section>

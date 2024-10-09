@@ -1,14 +1,16 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>sensortoolkit.datetime_utils._time_averaging &mdash; sensortoolkit 0.8.3b2 documentation</title>
-      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" type="text/css" />
+  <title>sensortoolkit.datetime_utils._time_averaging &mdash; sensortoolkit 0.9.0b2 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+
+  
   <!--[if lt IE 9]>
     <script src="../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
@@ -16,6 +18,7 @@
         <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
         <script src="../../../_static/jquery.js"></script>
         <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../../../_static/doctools.js"></script>
     <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
@@ -27,14 +30,18 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="../../../index.html" class="icon icon-home"> sensortoolkit
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            sensortoolkit
           </a>
               <div class="version">
-                0.8.3b2
+                0.9.0b2
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -43,9 +50,10 @@
               <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../quickstart.html">Quickstart Guide</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../quickstart.html#script-templates">Script Templates</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../setup.html">Setting Up for sensortoolkit</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../install.html">Installing and Updating sensortoolkit</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../import_sensortoolkit.html">Importing sensortoolkit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../template.html">Analysis with sensortoolkit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../template.html#script-template">Script Template</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Objects and Data Structures</span></p>
 <ul>
@@ -53,7 +61,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../data_structures/index.html">Data Structures</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../sdfs/index.html">sensortoolkit Data Formatting Scheme (SDFS)</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Objects and Data Structures</span></p>
+<p class="caption" role="heading"><span class="caption-text">Analysis and Reports</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../evaluation_objects/index.html">Evaluation Objects</a></li>
 </ul>
@@ -75,9 +83,9 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="../../index.html">Module code</a> &raquo;</li>
-      <li>sensortoolkit.datetime_utils._time_averaging</li>
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">sensortoolkit.datetime_utils._time_averaging</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -128,12 +136,13 @@
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">sys</span>
 <span class="kn">from</span> <span class="nn">sensortoolkit.qc._duplicate_removal</span> <span class="kn">import</span> <span class="n">remove_duplicates</span>
 
 
 <div class="viewcode-block" id="sensor_averaging"><a class="viewcode-back" href="../../../api/_autosummary/sensortoolkit.datetime_utils._time_averaging.sensor_averaging.html#sensortoolkit.datetime_utils._time_averaging.sensor_averaging">[docs]</a><span class="k">def</span> <span class="nf">sensor_averaging</span><span class="p">(</span><span class="n">full_df_list</span><span class="p">,</span> <span class="n">sensor_serials</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span>
                      <span class="n">write_to_file</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Write full (recorded), hourly, and daily averaged datasets to csv.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Write full (recorded), hourly, and daily averaged datasets to csv.</span>
 
 <span class="sd">    Wrapper function for computing hourly and daily averaged DataFrames.</span>
 
@@ -237,6 +246,19 @@
         <span class="n">data_dict</span><span class="p">[</span><span class="s1">&#39;1-hour&#39;</span><span class="p">][</span><span class="n">serial_id</span><span class="p">]</span> <span class="o">=</span> <span class="n">hourly_df</span>
         <span class="n">data_dict</span><span class="p">[</span><span class="s1">&#39;24-hour&#39;</span><span class="p">][</span><span class="n">serial_id</span><span class="p">]</span> <span class="o">=</span> <span class="n">daily_df</span>
 
+        <span class="c1"># If both PM10 and PM2.5 data available, calculate the ratio PM2.5/PM10 and</span>
+        <span class="c1"># store it in the data_dict as the last column titled ratio_value.</span>
+        <span class="kn">from</span> <span class="nn">sensortoolkit.calculate</span> <span class="kn">import</span> <span class="n">calculate_ratio</span><span class="p">,</span> <span class="n">ratio_count</span>
+        <span class="n">data_dict</span> <span class="o">=</span> <span class="n">calculate_ratio</span><span class="p">(</span><span class="n">data_dict</span><span class="p">,</span> <span class="n">serial_id</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+        <span class="c1"># Also, count the number of times the ratio value is &lt;= 0.4.</span>
+        <span class="c1"># ratios_count = ratio_count(data_dict, serial_id, **kwargs)</span>
+        <span class="c1"># print(&#39;Sensors Ratio count &lt;= 0.4: &#39;, ratios_count)</span>
+        
+        <span class="n">full_df</span> <span class="o">=</span> <span class="n">data_dict</span><span class="p">[</span><span class="s1">&#39;full&#39;</span><span class="p">][</span><span class="n">serial_id</span><span class="p">]</span>
+        <span class="n">hourly_df</span> <span class="o">=</span> <span class="n">data_dict</span><span class="p">[</span><span class="s1">&#39;1-hour&#39;</span><span class="p">][</span><span class="n">serial_id</span><span class="p">]</span>
+        <span class="n">daily_df</span> <span class="o">=</span> <span class="n">data_dict</span><span class="p">[</span><span class="s1">&#39;24-hour&#39;</span><span class="p">][</span><span class="n">serial_id</span><span class="p">]</span>
+
         <span class="k">if</span> <span class="n">write_to_file</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
             <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;....writing full, hourly, and daily datasets to .csv files&#39;</span><span class="p">)</span>
 
@@ -265,12 +287,12 @@
             <span class="n">full_cp</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">path</span> <span class="o">+</span> <span class="n">name</span> <span class="o">+</span> <span class="s1">&#39;_&#39;</span> <span class="o">+</span> <span class="n">serial_id</span> <span class="o">+</span> <span class="s1">&#39;_full.csv&#39;</span><span class="p">)</span>
             <span class="n">hourly_cp</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">path</span> <span class="o">+</span> <span class="n">name</span> <span class="o">+</span> <span class="s1">&#39;_&#39;</span> <span class="o">+</span> <span class="n">serial_id</span> <span class="o">+</span> <span class="s1">&#39;_hourly.csv&#39;</span><span class="p">)</span>
             <span class="n">daily_cp</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">path</span> <span class="o">+</span> <span class="n">name</span> <span class="o">+</span> <span class="s1">&#39;_&#39;</span> <span class="o">+</span> <span class="n">serial_id</span> <span class="o">+</span> <span class="s1">&#39;_daily.csv&#39;</span><span class="p">)</span>
-
+    
     <span class="k">return</span> <span class="n">data_dict</span></div>
 
 
 <div class="viewcode-block" id="interval_averaging"><a class="viewcode-back" href="../../../api/_autosummary/sensortoolkit.datetime_utils._time_averaging.interval_averaging.html#sensortoolkit.datetime_utils._time_averaging.interval_averaging">[docs]</a><span class="k">def</span> <span class="nf">interval_averaging</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="n">interval_count</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span> <span class="n">thres</span><span class="o">=</span><span class="mf">0.75</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Average DataFrame to the specified sampling frequency (&#39;freq&#39;).</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Average DataFrame to the specified sampling frequency (&#39;freq&#39;).</span>
 
 <span class="sd">    Numeric columns are averaged for for each interval and a completeness</span>
 <span class="sd">    threshold (default 75%) must be met, otherwise averages are null. Columns</span>
@@ -388,7 +410,7 @@
 
 
 <div class="viewcode-block" id="object_grouper"><a class="viewcode-back" href="../../../api/_autosummary/sensortoolkit.datetime_utils._time_averaging.object_grouper.html#sensortoolkit.datetime_utils._time_averaging.object_grouper">[docs]</a><span class="k">def</span> <span class="nf">object_grouper</span><span class="p">(</span><span class="n">series</span><span class="p">,</span> <span class="n">number_threshold</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Group columns of type `object` by the mode of values within each</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Group columns of type `object` by the mode of values within each</span>
 <span class="sd">    averaging interval.</span>
 
 <span class="sd">    Args:</span>
@@ -411,18 +433,27 @@
 
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">try</span><span class="p">:</span>
-        <span class="n">counts</span> <span class="o">=</span> <span class="n">series</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-        <span class="k">if</span> <span class="n">counts</span> <span class="o">&gt;=</span> <span class="n">number_threshold</span><span class="p">:</span>
-            <span class="n">val</span> <span class="o">=</span> <span class="n">series</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="c1"># If the column is a QAQC data flag column, return &#39;1&#39; if ANY non-null</span>
+        <span class="c1"># values recorded in passed dataframe, otherwise return &#39;0&#39;</span>
+        <span class="k">if</span> <span class="s1">&#39;QAQC_Code&#39;</span> <span class="ow">in</span> <span class="n">series</span><span class="o">.</span><span class="n">name</span><span class="p">:</span>
+            <span class="n">unique_flags</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">series</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span><span class="o">.</span><span class="n">unique</span><span class="p">())</span>
+            <span class="k">if</span> <span class="n">unique_flags</span> <span class="o">!=</span> <span class="p">[]:</span>
+                <span class="n">val</span> <span class="o">=</span> <span class="mi">1</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">val</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">val</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+            <span class="n">counts</span> <span class="o">=</span> <span class="n">series</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">counts</span> <span class="o">&gt;=</span> <span class="n">number_threshold</span><span class="p">:</span>
+                <span class="n">val</span> <span class="o">=</span> <span class="n">series</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">val</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
     <span class="k">except</span> <span class="ne">IndexError</span><span class="p">:</span>
         <span class="n">val</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
     <span class="k">return</span> <span class="n">val</span></div>
 
 
 <div class="viewcode-block" id="column_merger"><a class="viewcode-back" href="../../../api/_autosummary/sensortoolkit.datetime_utils._time_averaging.column_merger.html#sensortoolkit.datetime_utils._time_averaging.column_merger">[docs]</a><span class="k">def</span> <span class="nf">column_merger</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">by</span><span class="o">=</span><span class="s1">&#39;first&#39;</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Group duplicated column names if detected in passed dataset.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Group duplicated column names if detected in passed dataset.</span>
 
 
 <span class="sd">    Args:</span>

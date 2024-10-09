@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>sensortoolkit.reference._import_airnowtech &mdash; sensortoolkit 0.9.0b2 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            sensortoolkit
+          </a>
+              <div class="version">
+                0.9.0b2
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../quickstart.html">Quickstart Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../setup.html">Setting Up for sensortoolkit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../install.html">Installing and Updating sensortoolkit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../template.html">Analysis with sensortoolkit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../template.html#script-template">Script Template</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Objects and Data Structures</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../testingattrib_objects/index.html">Testing Attribute Objects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../data_structures/index.html">Data Structures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../sdfs/index.html">sensortoolkit Data Formatting Scheme (SDFS)</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Analysis and Reports</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../evaluation_objects/index.html">Evaluation Objects</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/index.html">sensortoolkit API</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">sensortoolkit</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">sensortoolkit.reference._import_airnowtech</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for sensortoolkit.reference._import_airnowtech</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Module for importing raw AirNowTech data (table, unpivoted format) queried at</span>
+<span class="sd">month-long intervals at 1-hr recording frequency for PM2.5, PM10, O3, NO2, CO,</span>
+<span class="sd">relative humidity, temperature, wind speed, wind direction.</span>
+
+<span class="sd">Data are sorted into PM, gas, and met dataframes and a table containing</span>
+<span class="sd">all AQS method codes is used to associate the recorded method code for data</span>
+<span class="sd">streams with the instrument used to make the measurement.</span>
+
+<span class="sd">Processed dataframes for PM, Gas, and met are then written to separate monthly</span>
+<span class="sd">csv files where the index is the date and time in UTC.</span>
+
+<span class="sd">================================================================================</span>
+
+<span class="sd">@Author:</span>
+<span class="sd">  | Samuel Frederick, NSSC Contractor (ORAU)</span>
+<span class="sd">  | U.S. EPA / ORD / CEMM / AMCD / SFSB</span>
+
+<span class="sd">Created:</span>
+<span class="sd">  Fri Jul 17 08:15:17 2020</span>
+<span class="sd">Last Updated:</span>
+<span class="sd">  Wed Jul 14 11:02:35 2021</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">pathlib</span>
+<span class="kn">import</span> <span class="nn">datetime</span>
+<span class="kn">from</span> <span class="nn">shutil</span> <span class="kn">import</span> <span class="n">copy</span>
+<span class="kn">from</span> <span class="nn">sensortoolkit.reference</span> <span class="kn">import</span> <span class="n">airnowtech_wide_to_long</span>
+<span class="kn">from</span> <span class="nn">sensortoolkit.lib_utils</span> <span class="kn">import</span> <span class="n">flatten_list</span>
+<span class="kn">from</span> <span class="nn">sensortoolkit.reference</span> <span class="kn">import</span> <span class="n">get_reference_method</span>
+
+<span class="n">airnowtech_codes</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="s1">&#39;Valid&#39;</span><span class="p">,</span>
+                    <span class="mi">1</span><span class="p">:</span> <span class="s1">&#39;Adjusted&#39;</span><span class="p">,</span>
+                    <span class="mi">2</span><span class="p">:</span> <span class="s1">&#39;Averaged&#39;</span><span class="p">,</span>
+                    <span class="mi">3</span><span class="p">:</span> <span class="s1">&#39;Interpolated&#39;</span><span class="p">,</span>
+                    <span class="mi">4</span><span class="p">:</span> <span class="s1">&#39;Estimated&#39;</span><span class="p">,</span>
+                    <span class="mi">5</span><span class="p">:</span> <span class="s1">&#39;Suspect&#39;</span><span class="p">,</span>
+                    <span class="mi">6</span><span class="p">:</span> <span class="s1">&#39;Suspect (audit failure)&#39;</span><span class="p">,</span>
+                    <span class="mi">7</span><span class="p">:</span> <span class="s1">&#39;Insufficient data&#39;</span><span class="p">,</span>
+                    <span class="mi">8</span><span class="p">:</span> <span class="s1">&#39;Missing&#39;</span><span class="p">,</span>
+                    <span class="mi">9</span><span class="p">:</span> <span class="s1">&#39;Invalid&#39;</span>
+                    <span class="p">}</span>
+
+<div class="viewcode-block" id="ingest_airnowtech"><a class="viewcode-back" href="../../../api/_autosummary/sensortoolkit.reference._import_airnowtech.ingest_airnowtech.html#sensortoolkit.reference._import_airnowtech.ingest_airnowtech">[docs]</a><span class="k">def</span> <span class="nf">ingest_airnowtech</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Ingest raw AirNowTech data (table, unpivoted format, 1-hr recording</span>
+<span class="sd">    freq) and set index column to Date &amp; Time (UTC).</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        path (str):</span>
+<span class="sd">            Full directory path to downloaded dataset.</span>
+<span class="sd">    Returns:</span>
+<span class="sd">        Clean_QC_Code (bool):</span>
+<span class="sd">            If true, only keep data where the QC code is zero (indicates no</span>
+<span class="sd">            issues reported).</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="c1"># Check if dataset is in wide format, convert to long format first.</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">airnowtech_wide_to_long</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+        <span class="c1"># Import csv dataframe, set hourly UTC date and time as index</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">parse_dates</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;DateTime&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;Date (UTC)&#39;</span><span class="p">,</span>
+                                                         <span class="s1">&#39;Time (UTC)&#39;</span><span class="p">]},</span>
+                         <span class="n">index_col</span><span class="o">=</span><span class="s1">&#39;DateTime&#39;</span><span class="p">)</span>
+
+        <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">tz_localize</span><span class="p">(</span><span class="s1">&#39;UTC&#39;</span><span class="p">)</span>
+
+    <span class="c1"># Regenerate hourly index to fill gaps in dataset</span>
+    <span class="n">hourly_index</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">date_range</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span> <span class="n">freq</span><span class="o">=</span><span class="s1">&#39;H&#39;</span><span class="p">)</span>
+
+    <span class="c1"># Fill gaps in hourly index</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="n">hourly_index</span><span class="p">)</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+
+    <span class="c1"># Change AQS ID column dtype to string and remove decimal place</span>
+    <span class="c1">#df[&#39;Site AQS&#39;] = df[&#39;Site AQS&#39;].astype(str).replace(r&#39;\.0&#39;, &#39;&#39;, regex=True)</span>
+    <span class="k">return</span> <span class="n">df</span></div>
+
+
+<div class="viewcode-block" id="sort_airnowtech"><a class="viewcode-back" href="../../../api/_autosummary/sensortoolkit.reference._import_airnowtech.sort_airnowtech.html#sensortoolkit.reference._import_airnowtech.sort_airnowtech">[docs]</a><span class="k">def</span> <span class="nf">sort_airnowtech</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Data are sorted into PM, gas, and met dataframes and a table containing</span>
+<span class="sd">    all AQS method codes is used to associate the recorded method code for data</span>
+<span class="sd">    streams with the instrument used to make the measurement.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        df (pandas dataframe):</span>
+<span class="sd">            Imported airnowtech dataset, may contain data for multiple</span>
+<span class="sd">            parameter classifications (PM, gases, met) if selected when the</span>
+<span class="sd">            data were downloaded.</span>
+<span class="sd">    Returns:</span>
+<span class="sd">        None, writes processed datasets to airnowtech processed data folder</span>
+<span class="sd">        path.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">crtieria_lookup_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="vm">__file__</span><span class="p">,</span> <span class="s1">&#39;..&#39;</span><span class="p">,</span>
+                                    <span class="s1">&#39;method_codes&#39;</span><span class="p">,</span> <span class="s1">&#39;methods_criteria.csv&#39;</span><span class="p">))</span>
+    <span class="n">met_lookup_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="vm">__file__</span><span class="p">,</span> <span class="s1">&#39;..&#39;</span><span class="p">,</span>
+                                    <span class="s1">&#39;method_codes&#39;</span><span class="p">,</span> <span class="s1">&#39;methods_met.csv&#39;</span><span class="p">))</span>
+
+    <span class="c1"># Method code lookup dataframe</span>
+    <span class="n">criteria_lookup_table</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">crtieria_lookup_path</span><span class="p">)</span>
+    <span class="n">met_lookup_table</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">met_lookup_path</span><span class="p">)</span>
+
+    <span class="c1"># Dataframes to be populated</span>
+    <span class="n">idx</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">()</span>
+    <span class="n">gas_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="n">idx</span><span class="p">)</span>
+    <span class="n">pm_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="n">idx</span><span class="p">)</span>
+    <span class="n">met_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="n">idx</span><span class="p">)</span>
+
+    <span class="c1"># Valid column names for parameters</span>
+    <span class="n">pm_list</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;PM10-81102&#39;</span><span class="p">,</span> <span class="s1">&#39;PM10-85101&#39;</span><span class="p">,</span> <span class="s1">&#39;PM2.5-88101&#39;</span><span class="p">,</span> <span class="s1">&#39;PM2.5-88502&#39;</span><span class="p">]</span>
+    <span class="n">gas_list</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;CO&#39;</span><span class="p">,</span> <span class="s1">&#39;O3&#39;</span><span class="p">,</span> <span class="s1">&#39;NO2&#39;</span><span class="p">,</span> <span class="s1">&#39;SO2&#39;</span><span class="p">]</span>
+    <span class="n">met_list</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;RHUM&#39;</span><span class="p">,</span> <span class="s1">&#39;TEMP&#39;</span><span class="p">,</span> <span class="s1">&#39;WS&#39;</span><span class="p">,</span> <span class="s1">&#39;WD&#39;</span><span class="p">]</span>
+
+    <span class="n">site_cols</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;index&#39;</span><span class="p">,</span> <span class="s1">&#39;Agency&#39;</span><span class="p">,</span> <span class="s1">&#39;Site&#39;</span><span class="p">,</span> <span class="s1">&#39;Site AQS&#39;</span><span class="p">]</span>
+    <span class="n">site_df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;index&#39;</span><span class="p">])[</span><span class="n">site_cols</span><span class="p">]</span>
+    <span class="n">site_df</span> <span class="o">=</span> <span class="n">site_df</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="n">site_df</span><span class="p">[</span><span class="s1">&#39;index&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;index&#39;</span><span class="p">])</span>
+    <span class="n">hourly_index</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">date_range</span><span class="p">(</span><span class="n">site_df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">site_df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span>
+                                 <span class="n">freq</span><span class="o">=</span><span class="s1">&#39;H&#39;</span><span class="p">)</span>
+    <span class="n">site_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="n">hourly_index</span><span class="p">)</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">site_df</span><span class="p">)</span>
+
+    <span class="n">site_df</span> <span class="o">=</span> <span class="n">site_df</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;Site&#39;</span><span class="p">:</span> <span class="s1">&#39;Site_Name&#39;</span><span class="p">,</span>
+                                      <span class="s1">&#39;Site AQS&#39;</span><span class="p">:</span> <span class="s1">&#39;Site_AQS&#39;</span><span class="p">})</span>
+
+    <span class="n">site_aqs_idx</span> <span class="o">=</span> <span class="n">site_df</span><span class="p">[</span><span class="s1">&#39;Site_AQS&#39;</span><span class="p">][</span><span class="n">site_df</span><span class="p">[</span><span class="s1">&#39;Site_AQS&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">notna</span><span class="p">()]</span><span class="o">.</span><span class="n">index</span>
+    <span class="n">site_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">site_df</span><span class="p">[</span><span class="s1">&#39;Site_AQS&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isna</span><span class="p">()]</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+
+    <span class="c1"># Change AQS ID column dtype to string and remove decimal place</span>
+    <span class="n">site_df</span><span class="p">[</span><span class="s1">&#39;Site_AQS&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">site_df</span><span class="p">[</span><span class="s1">&#39;Site_AQS&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;\.0&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">regex</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="n">state_id</span> <span class="o">=</span> <span class="n">site_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">site_aqs_idx</span><span class="p">,</span> <span class="s1">&#39;Site_AQS&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">slice</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="n">county_id</span> <span class="o">=</span> <span class="n">site_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">site_aqs_idx</span><span class="p">,</span> <span class="s1">&#39;Site_AQS&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">slice</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+    <span class="n">site_id</span> <span class="o">=</span> <span class="n">site_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">site_aqs_idx</span><span class="p">,</span> <span class="s1">&#39;Site_AQS&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">slice</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">9</span><span class="p">)</span>
+
+    <span class="n">site_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">site_aqs_idx</span><span class="p">,</span> <span class="s1">&#39;Site_AQS&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">state_id</span> <span class="o">+</span> <span class="s1">&#39;-&#39;</span> <span class="o">+</span> <span class="n">county_id</span> <span class="o">+</span> <span class="s1">&#39;-&#39;</span> <span class="o">+</span> <span class="n">site_id</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;agency&#39;</span><span class="p">):</span>
+        <span class="n">site_df</span><span class="p">[</span><span class="s1">&#39;Agency&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;agency&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;site_name&#39;</span><span class="p">):</span>
+        <span class="n">site_df</span><span class="p">[</span><span class="s1">&#39;Site_Name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;site_name&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;site_aqs&#39;</span><span class="p">):</span>
+        <span class="n">site_df</span><span class="p">[</span><span class="s1">&#39;Site_AQS&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;site_aqs&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;site_lat&#39;</span><span class="p">):</span>
+        <span class="n">site_df</span><span class="p">[</span><span class="s1">&#39;Site_Lat&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;site_lat&#39;</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="p">(</span><span class="s1">&#39;Site_Lat&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">site_df</span><span class="o">.</span><span class="n">columns</span><span class="p">):</span>
+         <span class="n">site_df</span><span class="p">[</span><span class="s1">&#39;Site_Lat&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+    <span class="k">if</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;site_lon&#39;</span><span class="p">):</span>
+        <span class="n">site_df</span><span class="p">[</span><span class="s1">&#39;Site_Lon&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;site_lon&#39;</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="p">(</span><span class="s1">&#39;Site_Lon&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">site_df</span><span class="o">.</span><span class="n">columns</span><span class="p">):</span>
+        <span class="n">site_df</span><span class="p">[</span><span class="s1">&#39;Site_Lon&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+
+    <span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">Param</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span><span class="o">.</span><span class="n">unique</span><span class="p">():</span>
+
+        <span class="n">param_df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="o">.</span><span class="n">Param</span> <span class="o">==</span> <span class="n">param</span><span class="p">]</span>
+
+        <span class="n">hourly_index</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">date_range</span><span class="p">(</span><span class="n">param_df</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">param_df</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span>
+                                     <span class="n">freq</span><span class="o">=</span><span class="s1">&#39;H&#39;</span><span class="p">)</span>
+        <span class="n">param_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="n">hourly_index</span><span class="p">)</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">param_df</span><span class="p">)</span>
+        <span class="n">param_df</span> <span class="o">=</span> <span class="n">param_df</span><span class="p">[[</span><span class="s1">&#39;Param AQS&#39;</span><span class="p">,</span> <span class="s1">&#39;POC&#39;</span><span class="p">,</span> <span class="s1">&#39;Method&#39;</span><span class="p">,</span>
+                             <span class="s1">&#39;Value&#39;</span><span class="p">,</span> <span class="s1">&#39;Unit&#39;</span><span class="p">,</span> <span class="s1">&#39;QC Code&#39;</span><span class="p">]]</span>
+
+        <span class="n">param_df</span> <span class="o">=</span> <span class="n">param_df</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;Param AQS&#39;</span><span class="p">:</span> <span class="n">param</span> <span class="o">+</span> <span class="s1">&#39;_Param_Code&#39;</span><span class="p">,</span>
+                                            <span class="s1">&#39;POC&#39;</span><span class="p">:</span> <span class="n">param</span> <span class="o">+</span> <span class="s1">&#39;_Method_POC&#39;</span><span class="p">,</span>
+                                            <span class="s1">&#39;Method&#39;</span><span class="p">:</span> <span class="n">param</span> <span class="o">+</span> <span class="s1">&#39;_Method_Code&#39;</span><span class="p">,</span>
+                                            <span class="s1">&#39;Value&#39;</span><span class="p">:</span> <span class="n">param</span> <span class="o">+</span> <span class="s1">&#39;_Value&#39;</span><span class="p">,</span>
+                                            <span class="s1">&#39;Unit&#39;</span><span class="p">:</span> <span class="n">param</span> <span class="o">+</span> <span class="s1">&#39;_Unit&#39;</span><span class="p">,</span>
+                                            <span class="s1">&#39;QC Code&#39;</span><span class="p">:</span> <span class="n">param</span> <span class="o">+</span> <span class="s1">&#39;_QAQC_Code&#39;</span><span class="p">})</span>
+
+        <span class="c1"># If multiple instruments present, choose first instrument datastream</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">param_df</span><span class="p">[</span><span class="n">param</span> <span class="o">+</span> <span class="s1">&#39;_Method_POC&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span><span class="o">.</span><span class="n">unique</span><span class="p">())</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">param_df</span> <span class="o">=</span> <span class="n">param_df</span><span class="p">[</span><span class="n">param_df</span><span class="p">[</span><span class="n">param</span> <span class="o">+</span> <span class="s1">&#39;_Method_POC&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">]</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;..Multiple POCs for </span><span class="si">{</span><span class="n">param</span><span class="si">}</span><span class="s1"> found. Retaining data for POC 1.&#39;</span><span class="p">)</span>
+
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">aqs_param_code</span> <span class="o">=</span> <span class="n">param_df</span><span class="p">[</span><span class="n">param</span> <span class="o">+</span> <span class="s1">&#39;_Param_Code&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span><span class="o">.</span><span class="n">unique</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">except</span> <span class="ne">IndexError</span><span class="p">:</span>
+            <span class="n">aqs_param_code</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">aqs_method_code</span> <span class="o">=</span> <span class="n">param_df</span><span class="p">[</span><span class="n">param</span> <span class="o">+</span> <span class="s1">&#39;_Method_Code&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span><span class="o">.</span><span class="n">unique</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">except</span> <span class="ne">IndexError</span><span class="p">:</span>
+            <span class="n">aqs_method_code</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+
+        <span class="k">if</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">met_list</span><span class="p">:</span>
+            <span class="n">lookup_table</span> <span class="o">=</span> <span class="n">met_lookup_table</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">param</span> <span class="ow">in</span> <span class="n">pm_list</span> <span class="ow">or</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">gas_list</span><span class="p">):</span>
+            <span class="n">lookup_table</span> <span class="o">=</span> <span class="n">criteria_lookup_table</span>
+
+        <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">aqs_param_code</span><span class="p">)</span> <span class="ow">or</span> <span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">aqs_method_code</span><span class="p">):</span>
+            <span class="n">param_df</span><span class="p">[</span><span class="n">param</span> <span class="o">+</span> <span class="s1">&#39;_Method&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;Unspecified Reference&#39;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">instrument_info</span> <span class="o">=</span> <span class="n">get_reference_method</span><span class="p">(</span><span class="n">lookup_table</span><span class="p">,</span> <span class="n">aqs_param_code</span><span class="p">,</span>
+                                                   <span class="n">aqs_method_code</span><span class="p">)</span>
+            <span class="n">param_df</span><span class="p">[</span><span class="n">param</span> <span class="o">+</span> <span class="s1">&#39;_Method&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">instrument_info</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+        <span class="k">for</span> <span class="n">code</span><span class="p">,</span> <span class="n">description</span> <span class="ow">in</span> <span class="n">airnowtech_codes</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+
+            <span class="c1">#print(param_df[param_df[f&#39;{param}_QAQC_Code&#39;]==float(code)])</span>
+            <span class="n">code_idx</span> <span class="o">=</span> <span class="n">param_df</span><span class="p">[</span><span class="n">param_df</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">param</span><span class="si">}</span><span class="s1">_QAQC_Code&#39;</span><span class="p">]</span><span class="o">==</span><span class="nb">float</span><span class="p">(</span><span class="n">code</span><span class="p">)]</span><span class="o">.</span><span class="n">index</span>
+
+            <span class="k">if</span> <span class="n">code</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">description</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+            <span class="k">elif</span> <span class="n">code</span> <span class="o">&gt;</span> <span class="mi">4</span><span class="p">:</span>
+                <span class="c1"># Invalidate data if one of following flags: &#39;Suspect&#39;,</span>
+                <span class="c1"># &#39;Suspect (audit failure)&#39;, &#39;Insufficient data&#39;,&#39;Missing&#39;,</span>
+                <span class="c1"># or &#39;Invalid&#39;</span>
+                <span class="n">param_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">code_idx</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">param</span><span class="si">}</span><span class="s1">_Value&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+
+            <span class="n">param_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">code_idx</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">param</span><span class="si">}</span><span class="s1">_QAQC_Code&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">description</span>
+
+        <span class="c1"># # Method code(s) listed for parameter data</span>
+        <span class="c1"># method_list = param_df[param + &#39;_Method_Code&#39;].dropna().unique()</span>
+        <span class="c1"># # Find instrument corresponding to method code in lookup table</span>
+        <span class="c1"># for method in method_list:</span>
+        <span class="c1">#     method_name = method_df.where(</span>
+        <span class="c1">#             method_df[&#39;Method Code&#39;</span>
+        <span class="c1">#                       ] == method).dropna()[&#39;Equivalent Method&#39;]</span>
+
+        <span class="c1">#     # Lots of instruments associated with Method Code 11, for eval.</span>
+        <span class="c1">#     # purposes likely only assoc with RH values.</span>
+        <span class="c1">#     if method == 11:</span>
+        <span class="c1">#         method_name = pd.Series([&#39;HYGROTHERMOGRAPH ELEC OR MACH AVG&#39;])</span>
+
+        <span class="c1"># # If one instrument type used for parameter data stream, record in col</span>
+        <span class="c1"># if (len(method_list) == 1 and len(method_name.values) &gt; 0):</span>
+        <span class="c1">#     # Set instrument name via lookup</span>
+        <span class="c1">#     data = param_df.where(</span>
+        <span class="c1">#             param_df.isnull().any(axis=1) == False).dropna(axis=0,</span>
+        <span class="c1">#                                                            how=&#39;all&#39;)</span>
+        <span class="c1">#     data[param + &#39;_Method&#39;] = method_name.values[0]</span>
+        <span class="c1">#     param_df = data</span>
+        <span class="c1"># else:</span>
+        <span class="c1">#     # No name found in method code lookup table</span>
+        <span class="c1">#     param_df[param + &#39;_Method&#39;] = np.nan</span>
+
+        <span class="k">if</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">pm_list</span><span class="p">:</span>
+            <span class="n">pm_df</span> <span class="o">=</span> <span class="n">pm_df</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">param_df</span><span class="p">)</span><span class="o">.</span><span class="n">combine_first</span><span class="p">(</span><span class="n">site_df</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">gas_list</span><span class="p">:</span>
+            <span class="n">gas_df</span> <span class="o">=</span> <span class="n">gas_df</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">param_df</span><span class="p">)</span><span class="o">.</span><span class="n">combine_first</span><span class="p">(</span><span class="n">site_df</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">met_list</span><span class="p">:</span>
+            <span class="n">met_df</span> <span class="o">=</span> <span class="n">met_df</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">param_df</span><span class="p">)</span><span class="o">.</span><span class="n">combine_first</span><span class="p">(</span><span class="n">site_df</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">pm_df</span><span class="p">,</span> <span class="n">gas_df</span><span class="p">,</span> <span class="n">met_df</span></div>
+
+
+<div class="viewcode-block" id="write_to_file"><a class="viewcode-back" href="../../../api/_autosummary/sensortoolkit.reference._import_airnowtech.write_to_file.html#sensortoolkit.reference._import_airnowtech.write_to_file">[docs]</a><span class="k">def</span> <span class="nf">write_to_file</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">outpath</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Processed dataframes for PM, Gas, and met written to separate monthly</span>
+<span class="sd">    csv files where the index is the date and time in UTC.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        df (pandas dataframe):</span>
+<span class="sd">            Processed airnowtech data for one of the following parameter</span>
+<span class="sd">            classifications (PM, Gases, or Met)</span>
+<span class="sd">        path (str):</span>
+<span class="sd">            The full directory path to the downloaded airnowtech dataset.</span>
+<span class="sd">            Used to determine the date and time that the data were downloaded</span>
+<span class="sd">            and added to the dataframe as the &#39;Data_Acquisition_Date_Time&#39;.</span>
+<span class="sd">        outpath (str):</span>
+<span class="sd">            The full directory path where the processed dataframe will be saved</span>
+<span class="sd">    Returns:</span>
+<span class="sd">        None</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">folder</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="c1"># Dictionary for renaming AirNowTech parameter names to common format</span>
+    <span class="n">renaming</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;PM10-81102&#39;</span><span class="p">:</span> <span class="s1">&#39;PM10&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;PM10-85101&#39;</span><span class="p">:</span> <span class="s1">&#39;PM10&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;PM2.5-88101&#39;</span><span class="p">:</span> <span class="s1">&#39;PM25&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;PM2.5-88502&#39;</span><span class="p">:</span> <span class="s1">&#39;PM25&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;O3&#39;</span><span class="p">:</span> <span class="s1">&#39;O3&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;CO&#39;</span><span class="p">:</span> <span class="s1">&#39;CO&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;NO2&#39;</span><span class="p">:</span> <span class="s1">&#39;NO2&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;SO2&#39;</span><span class="p">:</span> <span class="s1">&#39;SO2&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;RHUM&#39;</span><span class="p">:</span> <span class="s1">&#39;RH&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;TEMP&#39;</span><span class="p">:</span> <span class="s1">&#39;Temp&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;WS&#39;</span><span class="p">:</span> <span class="s1">&#39;WS&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;WD&#39;</span><span class="p">:</span> <span class="s1">&#39;WD&#39;</span><span class="p">}</span>
+
+    <span class="c1"># Column names associated with each parameter</span>
+    <span class="n">aqs_attribs</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;_Value&#39;</span><span class="p">,</span> <span class="s1">&#39;_Unit&#39;</span><span class="p">,</span> <span class="s1">&#39;_QAQC_Code&#39;</span><span class="p">,</span> <span class="s1">&#39;_Param_Code&#39;</span><span class="p">,</span>
+                   <span class="s1">&#39;_Method&#39;</span><span class="p">,</span> <span class="s1">&#39;_Method_Code&#39;</span><span class="p">,</span> <span class="s1">&#39;_Method_POC&#39;</span><span class="p">]</span>
+
+    <span class="n">orig_inpath</span> <span class="o">=</span> <span class="n">path</span>
+    <span class="n">orig_outpath</span> <span class="o">=</span> <span class="n">outpath</span>
+
+    <span class="c1"># Require non-empty dataframe</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">df</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Writing AirNow-Tech data sets to csv files&#39;</span><span class="p">)</span>
+
+        <span class="n">start_month</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m&#39;</span><span class="p">)</span>
+        <span class="n">end_month</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m&#39;</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">month_period</span> <span class="ow">in</span> <span class="n">pd</span><span class="o">.</span><span class="n">period_range</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="n">start_month</span><span class="p">,</span>
+                                            <span class="n">end</span><span class="o">=</span><span class="n">end_month</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="s1">&#39;M&#39;</span><span class="p">):</span>
+
+            <span class="c1"># Reassign path name scope since modified when saving files</span>
+            <span class="n">outpath</span> <span class="o">=</span> <span class="n">orig_outpath</span>
+            <span class="n">path</span> <span class="o">=</span> <span class="n">orig_inpath</span>
+
+            <span class="n">month</span> <span class="o">=</span> <span class="n">month_period</span><span class="o">.</span><span class="n">month</span>
+            <span class="n">year</span> <span class="o">=</span> <span class="n">month_period</span><span class="o">.</span><span class="n">year</span>
+
+            <span class="n">month_df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">month_period</span><span class="p">),</span> <span class="p">:]</span>
+
+            <span class="c1"># Valid column names for parameters</span>
+            <span class="n">pm_list</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;PM10-81102&#39;</span><span class="p">,</span> <span class="s1">&#39;PM10-85101&#39;</span><span class="p">,</span> <span class="s1">&#39;PM2.5-88101&#39;</span><span class="p">,</span> <span class="s1">&#39;PM2.5-88502&#39;</span><span class="p">]</span>
+            <span class="n">gas_list</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;CO&#39;</span><span class="p">,</span> <span class="s1">&#39;O3&#39;</span><span class="p">,</span> <span class="s1">&#39;NO2&#39;</span><span class="p">,</span> <span class="s1">&#39;SO2&#39;</span><span class="p">]</span>
+            <span class="n">met_list</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;RHUM&#39;</span><span class="p">,</span> <span class="s1">&#39;TEMP&#39;</span><span class="p">,</span> <span class="s1">&#39;WS&#39;</span><span class="p">,</span> <span class="s1">&#39;WD&#39;</span><span class="p">]</span>
+
+            <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="s1">&#39;_Value&#39;</span> <span class="ow">in</span> <span class="n">month_df</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">pm_list</span><span class="p">):</span>
+                <span class="n">param_type</span> <span class="o">=</span> <span class="s1">&#39;PM&#39;</span>
+
+            <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="s1">&#39;_Value&#39;</span> <span class="ow">in</span> <span class="n">month_df</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">gas_list</span><span class="p">):</span>
+                <span class="n">param_type</span> <span class="o">=</span> <span class="s1">&#39;Gases&#39;</span>
+
+            <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="s1">&#39;_Value&#39;</span> <span class="ow">in</span> <span class="n">month_df</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">met_list</span><span class="p">):</span>
+                <span class="n">param_type</span> <span class="o">=</span> <span class="s1">&#39;Met&#39;</span>
+
+            <span class="n">param_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">([</span><span class="n">param</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span>
+                                   <span class="n">i</span><span class="p">,</span> <span class="n">param</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">month_df</span><span class="o">.</span><span class="n">columns</span><span class="p">)]))</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;Site&#39;</span><span class="p">,</span> <span class="s1">&#39;Agency&#39;</span><span class="p">]:</span>
+                    <span class="n">param_list</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">ValueError</span> <span class="k">as</span> <span class="n">E</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="n">E</span><span class="p">)</span>
+
+            <span class="c1"># Rename column headers with standard naming scheme for parameters</span>
+            <span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">param_list</span><span class="p">:</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">month_df</span> <span class="o">=</span> <span class="n">month_df</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span>
+                                 <span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="n">param</span> <span class="o">+</span> <span class="n">attr</span><span class="p">:</span> <span class="n">renaming</span><span class="p">[</span><span class="n">param</span><span class="p">]</span> <span class="o">+</span> <span class="n">attr</span>
+                                          <span class="k">for</span> <span class="n">attr</span> <span class="ow">in</span> <span class="n">aqs_attribs</span><span class="p">})</span>
+
+                    <span class="c1"># replace naming scheme for units</span>
+                    <span class="n">month_df</span><span class="p">[</span><span class="n">renaming</span><span class="p">[</span><span class="n">param</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39;_Unit&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">month_df</span><span class="p">[</span>
+                                <span class="n">renaming</span><span class="p">[</span><span class="n">param</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39;_Unit&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;PPB&#39;</span><span class="p">,</span>
+                                                         <span class="s1">&#39;Parts per Billion&#39;</span><span class="p">)</span>
+                    <span class="n">month_df</span><span class="p">[</span><span class="n">renaming</span><span class="p">[</span><span class="n">param</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39;_Unit&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">month_df</span><span class="p">[</span>
+                                <span class="n">renaming</span><span class="p">[</span><span class="n">param</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39;_Unit&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;PPM&#39;</span><span class="p">,</span>
+                                                         <span class="s1">&#39;Parts per Million&#39;</span><span class="p">)</span>
+
+                    <span class="n">ref_method</span> <span class="o">=</span> <span class="n">month_df</span><span class="p">[</span><span class="n">renaming</span><span class="p">[</span><span class="n">param</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39;_Method&#39;</span><span class="p">]</span>
+                    <span class="k">if</span> <span class="n">ref_method</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
+                        <span class="n">ref_name</span> <span class="o">=</span> <span class="s1">&#39;Unspecified Reference&#39;</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">ref_name</span> <span class="o">=</span> <span class="n">ref_method</span><span class="o">.</span><span class="n">unique</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+                    <span class="n">month_df</span><span class="p">[</span><span class="n">renaming</span><span class="p">[</span><span class="n">param</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39;_Method&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ref_name</span>
+
+                    <span class="c1"># Phrases that shouldn&#39;t be lower cased (FRM, FEM, etc.)</span>
+                    <span class="c1"># for oldstr, newstr in zip(replace, replace.values()):</span>
+                    <span class="c1">#     month_df[renaming[param] + &#39;_Method&#39;] = month_df[</span>
+                    <span class="c1">#             renaming[param] + &#39;_Method&#39;].str.replace(</span>
+                    <span class="c1">#                                             oldstr, newstr)</span>
+                <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+                    <span class="k">continue</span>
+
+            <span class="c1"># month_df[&#39;Site_Lat&#39;] = np.nan</span>
+            <span class="c1"># month_df[&#39;Site_Lon&#39;] = np.nan</span>
+            <span class="n">month_df</span><span class="p">[</span><span class="s1">&#39;Data_Source&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;AirNow-Tech&#39;</span>
+
+            <span class="c1"># Get the date and time the file was downloaded</span>
+            <span class="n">file_createtime</span> <span class="o">=</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="n">path</span><span class="p">)</span><span class="o">.</span><span class="n">stat</span><span class="p">()</span><span class="o">.</span><span class="n">st_ctime</span>
+            <span class="n">file_createtimef</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">fromtimestamp</span><span class="p">(</span>
+                                <span class="n">file_createtime</span><span class="p">)</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1"> %H:%M:%S&#39;</span><span class="p">)</span>
+            <span class="n">month_df</span><span class="p">[</span><span class="s1">&#39;Data_Acquisition_Date_Time&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">file_createtimef</span>
+
+            <span class="n">param_cols</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">param_list</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">attr</span> <span class="ow">in</span> <span class="n">aqs_attribs</span><span class="p">:</span>
+                    <span class="n">param_cols</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">renaming</span><span class="p">[</span><span class="n">param</span><span class="p">]</span> <span class="o">+</span> <span class="n">attr</span><span class="p">)</span>
+
+            <span class="n">col_reorder</span> <span class="o">=</span> <span class="p">[</span><span class="n">param_cols</span><span class="p">,</span> <span class="s1">&#39;Agency&#39;</span><span class="p">,</span> <span class="s1">&#39;Site_Name&#39;</span><span class="p">,</span> <span class="s1">&#39;Site_AQS&#39;</span><span class="p">,</span>
+                           <span class="s1">&#39;Site_Lat&#39;</span><span class="p">,</span> <span class="s1">&#39;Site_Lon&#39;</span><span class="p">,</span> <span class="s1">&#39;Data_Source&#39;</span><span class="p">,</span>
+                           <span class="s1">&#39;Data_Acquisition_Date_Time&#39;</span><span class="p">]</span>
+
+            <span class="n">col_reorder_flat</span> <span class="o">=</span> <span class="n">flatten_list</span><span class="p">(</span><span class="n">col_reorder</span><span class="p">)</span>
+            <span class="n">month_df</span> <span class="o">=</span> <span class="n">month_df</span><span class="p">[</span><span class="n">col_reorder_flat</span><span class="p">]</span>
+
+            <span class="n">year</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">month_df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">year</span><span class="p">)</span>
+            <span class="n">month</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">month_df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">month</span><span class="p">)</span><span class="o">.</span><span class="n">zfill</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+            <span class="n">tdelta</span> <span class="o">=</span> <span class="n">month_df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">name</span> <span class="o">-</span> <span class="n">month_df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">name</span>
+            <span class="n">interval</span> <span class="o">=</span> <span class="n">tdelta</span><span class="o">.</span><span class="n">resolution_string</span>
+            <span class="n">filename</span> <span class="o">=</span> <span class="p">(</span><span class="n">interval</span> <span class="o">+</span> <span class="s1">&#39;_&#39;</span> <span class="o">+</span> <span class="n">year</span> <span class="o">+</span> <span class="n">month</span> <span class="o">+</span> <span class="s1">&#39;_&#39;</span>
+                        <span class="o">+</span> <span class="n">param_type</span> <span class="o">+</span> <span class="s1">&#39;.csv&#39;</span><span class="p">)</span>
+
+            <span class="c1"># Require at least 12 hours present within dataframe to write to</span>
+            <span class="c1"># file (fixes issue with UTC shifted datasets with ~5 hours shifted</span>
+            <span class="c1"># into the next month)</span>
+            <span class="k">if</span> <span class="n">month_df</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">11</span><span class="p">:</span>
+
+                <span class="c1"># Use the site name and AQS ID to name subfolder containing</span>
+                <span class="c1"># site data</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">site_name</span> <span class="o">=</span> <span class="n">month_df</span><span class="p">[</span><span class="s1">&#39;Site_Name&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mode</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+                    <span class="n">site_name</span> <span class="o">=</span> <span class="n">site_name</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="s1">&#39;_&#39;</span><span class="p">)</span>
+                <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+                    <span class="n">site_name</span> <span class="o">=</span> <span class="s1">&#39;Unspecified_Site_Name&#39;</span>
+
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">site_aqs</span> <span class="o">=</span> <span class="n">month_df</span><span class="p">[</span><span class="s1">&#39;Site_AQS&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mode</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+                    <span class="n">site_aqs</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">site_aqs</span><span class="p">)</span><span class="o">.</span><span class="n">zfill</span><span class="p">(</span><span class="mi">9</span><span class="p">)</span>
+                    <span class="n">site_aqs</span> <span class="o">=</span> <span class="n">site_aqs</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+                    <span class="n">site_aqs</span> <span class="o">=</span> <span class="n">site_aqs</span><span class="o">.</span><span class="n">zfill</span><span class="p">(</span><span class="mi">9</span><span class="p">)</span>
+                <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+                    <span class="n">site_aqs</span> <span class="o">=</span> <span class="s1">&#39;Unspecified_Site_AQS_ID&#39;</span>
+
+                <span class="n">folder</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{0}</span><span class="s1">_</span><span class="si">{1}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">site_name</span><span class="p">,</span> <span class="n">site_aqs</span><span class="p">)</span>
+
+                <span class="n">outpath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">outpath</span><span class="p">,</span> <span class="n">folder</span><span class="p">)</span>
+
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">outpath</span><span class="p">):</span>
+                    <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">outpath</span><span class="p">)</span>
+
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;../reference_data/airnowtech/processed/&#39;</span> <span class="o">+</span> <span class="n">folder</span>
+                      <span class="o">+</span> <span class="s1">&#39;/&#39;</span> <span class="o">+</span> <span class="n">filename</span><span class="p">)</span>
+                <span class="n">month_df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">outpath</span><span class="p">,</span> <span class="n">filename</span><span class="p">),</span>
+                                <span class="n">index_label</span><span class="o">=</span><span class="s1">&#39;DateTime&#39;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">folder</span></div>
+
+
+<div class="viewcode-block" id="preprocess_airnowtech"><a class="viewcode-back" href="../../../api/_autosummary/sensortoolkit.reference._import_airnowtech.preprocess_airnowtech.html#sensortoolkit.reference._import_airnowtech.preprocess_airnowtech">[docs]</a><span class="k">def</span> <span class="nf">preprocess_airnowtech</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="n">project_path</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Wrapper module for pre-processing datasets downloaded as .csv files</span>
+<span class="sd">    from airnowtech.org. When downloading data, the table box under &quot;Display</span>
+<span class="sd">    Settings&quot; should be checked and configured to &#39;unpivoted&#39; format.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        path (str):</span>
+<span class="sd">            Full path to downloaded AirNowTech dataset.</span>
+<span class="sd">    Returns:</span>
+<span class="sd">        None</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">ant_df</span> <span class="o">=</span> <span class="n">ingest_airnowtech</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span>
+
+    <span class="n">outpath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">project_path</span><span class="p">),</span> <span class="s1">&#39;data&#39;</span><span class="p">,</span>
+                           <span class="s1">&#39;reference_data&#39;</span><span class="p">,</span> <span class="s1">&#39;airnowtech&#39;</span><span class="p">,</span> <span class="s1">&#39;processed&#39;</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">df</span> <span class="ow">in</span> <span class="n">sort_airnowtech</span><span class="p">(</span><span class="n">ant_df</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="n">site_folder</span> <span class="o">=</span> <span class="n">write_to_file</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">file_path</span><span class="p">,</span> <span class="n">outpath</span><span class="p">)</span></div>
+
+    <span class="c1"># Copy the downloaded dataset to site specific subfolder</span>
+    <span class="c1"># if site_folder is not None:</span>
+    <span class="c1">#     dest_inpath = os.path.abspath(</span>
+    <span class="c1">#                         os.path.join(file_path, &#39;..&#39;, site_folder))</span>
+
+    <span class="c1">#     if not os.path.exists(dest_inpath):</span>
+    <span class="c1">#         os.makedirs(dest_inpath)</span>
+
+    <span class="c1">#     copy(file_path, dest_inpath)</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, United States Environmental Protection Agency.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -28,10 +28,10 @@ objects house sensor and reference data, respectively.
   that user specifies.
 
   The following guide assumes that the user intends to place all user-created scripts,
-  datasets, figures, and reports at a project folder location ``C:/Users/.../Documents/my_evaluation``. While we name this
-  folder ``my_evaluation``, users are free to assign their project directory whatever name suits best.
+  datasets, figures, and reports at a project folder location ``C:/Users/.../Documents/toucan_evaluation``. While we name this
+  folder ``toucan_evaluation``, users are free to assign their project directory whatever name suits best.
 
-In the note above, we've created a folder called ``my_evaluation`` which will contain data,
+In the note above, we've created a folder called ``toucan_evaluation`` which will contain data,
 figures, and reports, as well as any scripts that we create related to this project. The
 path to the directory will be referred to as the **project path**.
 
@@ -44,13 +44,13 @@ project directory.
 
 .. code-block:: python
 
-  # This python script is located at "../my_evaluation/evaluation.py"
+  # This python script is located at "../toucan_evaluation/analysis.py"
   import sensortoolkit
 
   # Point to the full directory path for this scripts' parent directory
   # This is the project folder path
 
-  sensortoolkit.presets.set_project_path('C:/Users/.../Documents/my_evaluation')
+  sensortoolkit.presets.set_project_path('C:/Users/.../Documents/toucan_evaluation')
 
 
 

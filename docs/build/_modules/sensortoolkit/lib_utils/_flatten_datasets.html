@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>sensortoolkit.lib_utils._flatten_datasets &mdash; sensortoolkit 0.9.0b2 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            sensortoolkit
+          </a>
+              <div class="version">
+                0.9.0b2
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../quickstart.html">Quickstart Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../setup.html">Setting Up for sensortoolkit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../install.html">Installing and Updating sensortoolkit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../template.html">Analysis with sensortoolkit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../template.html#script-template">Script Template</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Objects and Data Structures</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../testingattrib_objects/index.html">Testing Attribute Objects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../data_structures/index.html">Data Structures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../sdfs/index.html">sensortoolkit Data Formatting Scheme (SDFS)</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Analysis and Reports</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../evaluation_objects/index.html">Evaluation Objects</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/index.html">sensortoolkit API</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">sensortoolkit</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">sensortoolkit.lib_utils._flatten_datasets</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for sensortoolkit.lib_utils._flatten_datasets</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">This module contains a method for converting datasets for AirSensor and</span>
+<span class="sd">ReferenceMonitor objects corresponding to instruments that have been collocated</span>
+<span class="sd">at an ambient monitoring site into a single pandas DataFrame object and</span>
+<span class="sd">(optionally) saved as comma-separated value files for each sampling or</span>
+<span class="sd">averaging interval present in sensor and reference datasets.</span>
+
+<span class="sd">================================================================================</span>
+
+<span class="sd">@Author:</span>
+<span class="sd">  | Samuel Frederick, NSSC Contractor (ORAU)</span>
+<span class="sd">  | U.S. EPA / ORD / CEMM / AMCD / SFSB</span>
+
+
+<span class="sd">Created:</span>
+<span class="sd">  Mon Jan 31 11:06:57 2022</span>
+<span class="sd">Last Updated:</span>
+<span class="sd">  Mon Jan 31 11:06:57 2022</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">sensortoolkit.datetime_utils</span> <span class="kn">import</span> <span class="n">get_todays_date</span>
+<span class="kn">from</span> <span class="nn">sensortoolkit.lib_utils</span> <span class="kn">import</span> <span class="n">flatten_list</span>
+
+<div class="viewcode-block" id="flatten_datasets"><a class="viewcode-back" href="../../../api/_autosummary/sensortoolkit.lib_utils._flatten_datasets.flatten_datasets.html#sensortoolkit.lib_utils._flatten_datasets.flatten_datasets">[docs]</a><span class="k">def</span> <span class="nf">flatten_datasets</span><span class="p">(</span><span class="n">AirSensor</span><span class="p">,</span> <span class="n">ReferenceMonitor</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">include_units</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                     <span class="n">write_to_file</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+
+
+<span class="sd">    Args:</span>
+<span class="sd">        AirSensor (sensortoolkit.AirSensor): DESCRIPTION.</span>
+<span class="sd">        ReferenceMonitor (sensortoolkit.ReferenceMonitor): DESCRIPTION.</span>
+<span class="sd">        write_to_file (bool, optional): DESCRIPTION. Defaults to False.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        flat_dict (dict): DESCRIPTION.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">state_fips_codes</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="vm">__file__</span><span class="p">,</span> <span class="s1">&#39;..&#39;</span><span class="p">,</span> <span class="s1">&#39;us_fips_codes.csv&#39;</span><span class="p">))</span>
+
+    <span class="n">site_info_cols</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Agency&#39;</span><span class="p">,</span> <span class="s1">&#39;Site_Name&#39;</span><span class="p">,</span> <span class="s1">&#39;Site_AQS&#39;</span><span class="p">,</span><span class="s1">&#39;Site_Lat&#39;</span><span class="p">,</span> <span class="s1">&#39;Site_Lon&#39;</span><span class="p">,</span>
+                      <span class="s1">&#39;Data_Source&#39;</span><span class="p">,</span> <span class="s1">&#39;Data_Acquisition_Date_Time&#39;</span><span class="p">]</span>
+
+
+    <span class="n">ref_intervals</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">flatten_list</span><span class="p">([</span><span class="nb">list</span><span class="p">(</span><span class="n">ReferenceMonitor</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">key</span><span class="p">]</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+                                           <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">ReferenceMonitor</span><span class="o">.</span><span class="n">data</span><span class="p">])))</span>
+
+    <span class="n">flat_dict</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">meta_dfs</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">min_ref_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+
+    <span class="n">intervals</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">()</span><span class="o">.</span><span class="n">union</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">AirSensor</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">keys</span><span class="p">()),</span> <span class="n">ref_intervals</span><span class="p">))</span>
+
+    <span class="k">for</span> <span class="n">interval</span> <span class="ow">in</span> <span class="n">intervals</span><span class="p">:</span>
+        <span class="n">flat_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Flattening </span><span class="si">{</span><span class="n">interval</span><span class="si">}</span><span class="s1"> datasets&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">interval</span> <span class="ow">in</span> <span class="n">AirSensor</span><span class="o">.</span><span class="n">data</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">sensor_key</span> <span class="ow">in</span> <span class="n">AirSensor</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">interval</span><span class="p">]:</span>
+                <span class="n">sensor_df</span> <span class="o">=</span> <span class="n">AirSensor</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">interval</span><span class="p">][</span><span class="n">sensor_key</span><span class="p">]</span>
+                <span class="n">suffix</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;_</span><span class="si">{</span><span class="n">sensor_key</span><span class="si">}</span><span class="s1">&#39;</span>
+                <span class="n">sensor_df</span> <span class="o">=</span> <span class="n">sensor_df</span><span class="o">.</span><span class="n">add_suffix</span><span class="p">(</span><span class="n">suffix</span><span class="p">)</span>
+                <span class="n">flat_df</span> <span class="o">=</span> <span class="n">flat_df</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">sensor_df</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;outer&#39;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">flat_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+
+        <span class="k">for</span> <span class="n">classifier</span> <span class="ow">in</span> <span class="n">ReferenceMonitor</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+            <span class="k">for</span> <span class="n">ref_interval</span> <span class="ow">in</span> <span class="n">ReferenceMonitor</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">classifier</span><span class="p">]:</span>
+
+                <span class="k">if</span> <span class="n">ref_interval</span> <span class="o">==</span> <span class="n">interval</span><span class="p">:</span>
+                    <span class="n">ref_df</span> <span class="o">=</span> <span class="n">ReferenceMonitor</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">classifier</span><span class="p">][</span><span class="n">interval</span><span class="p">]</span>
+                    <span class="n">site_info</span> <span class="o">=</span> <span class="n">ref_df</span><span class="p">[</span><span class="n">site_info_cols</span><span class="p">]</span>
+
+                    <span class="n">ref_df</span> <span class="o">=</span> <span class="n">ref_df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="n">site_info_cols</span><span class="p">)</span>
+                    <span class="n">suffix</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;_Ref&#39;</span>
+                    <span class="n">ref_df</span> <span class="o">=</span> <span class="n">ref_df</span><span class="o">.</span><span class="n">add_suffix</span><span class="p">(</span><span class="n">suffix</span><span class="p">)</span>
+
+                    <span class="n">param_ref_cols</span> <span class="o">=</span> <span class="p">[</span><span class="n">param</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;_Value&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">param</span>
+                                      <span class="ow">in</span> <span class="n">ref_df</span><span class="o">.</span><span class="n">columns</span> <span class="k">if</span> <span class="s1">&#39;_Value&#39;</span> <span class="ow">in</span> <span class="n">param</span><span class="p">]</span>
+
+                    <span class="n">source</span> <span class="o">=</span> <span class="n">site_info</span><span class="o">.</span><span class="n">Data_Source</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span><span class="o">.</span><span class="n">unique</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+                    <span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">param_ref_cols</span><span class="p">:</span>
+                        <span class="n">ref_df</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">param</span><span class="si">}</span><span class="s1">_Data_Source&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">source</span>
+
+
+                    <span class="k">if</span> <span class="p">(</span><span class="n">interval</span> <span class="o">!=</span> <span class="s1">&#39;1-minute&#39;</span><span class="p">):</span>
+                        <span class="k">if</span> <span class="ow">not</span> <span class="n">flat_df</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
+                            <span class="n">flat_df</span> <span class="o">=</span> <span class="n">flat_df</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">ref_df</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;outer&#39;</span><span class="p">)</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">min_ref_df</span> <span class="o">=</span> <span class="n">min_ref_df</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">ref_df</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;outer&#39;</span><span class="p">)</span>
+
+        <span class="n">verbose_cols</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">ref_verbose_cols</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">min_ref_df</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
+            <span class="n">ref_verbose_cols</span><span class="p">,</span> <span class="n">min_ref_df</span> <span class="o">=</span> <span class="n">verbose_columns</span><span class="p">(</span><span class="n">min_ref_df</span><span class="p">,</span> <span class="n">ref_verbose_cols</span><span class="p">,</span>
+                                               <span class="n">include_units</span><span class="p">,</span> <span class="n">verbose</span><span class="p">,</span> <span class="n">interval</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">flat_df</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">interval</span> <span class="ow">in</span> <span class="n">ref_intervals</span><span class="p">)</span> <span class="ow">and</span> <span class="n">interval</span> <span class="o">!=</span> <span class="s1">&#39;1-minute&#39;</span><span class="p">:</span>
+                <span class="n">flat_df</span> <span class="o">=</span> <span class="n">flat_df</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">site_info</span><span class="p">)</span>
+                <span class="c1">#ref_sources = list(set(ref_sources))</span>
+                <span class="c1">#flat_df.Data_Source = &#39;, &#39;.join(ref_sources)</span>
+                <span class="n">verbose_cols</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">site_info</span><span class="p">)</span>
+
+            <span class="n">verbose_cols</span><span class="p">,</span> <span class="n">flat_df</span> <span class="o">=</span> <span class="n">verbose_columns</span><span class="p">(</span><span class="n">flat_df</span><span class="p">,</span> <span class="n">verbose_cols</span><span class="p">,</span>
+                                               <span class="n">include_units</span><span class="p">,</span> <span class="n">verbose</span><span class="p">,</span> <span class="n">interval</span><span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span><span class="ow">not</span> <span class="n">verbose</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="ow">not</span> <span class="n">flat_df</span><span class="o">.</span><span class="n">empty</span><span class="p">):</span>
+            <span class="c1">#print(flat_df.columns, verbose_cols)</span>
+            <span class="n">flat_df</span><span class="p">,</span> <span class="n">meta_df</span> <span class="o">=</span> <span class="n">remove_verbose</span><span class="p">(</span><span class="n">flat_df</span><span class="p">,</span> <span class="n">verbose_cols</span><span class="p">,</span> <span class="n">include_units</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">min_ref_df</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
+            <span class="n">min_ref_df</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">remove_verbose</span><span class="p">(</span><span class="n">min_ref_df</span><span class="p">,</span> <span class="n">ref_verbose_cols</span><span class="p">,</span> <span class="n">include_units</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">write_to_file</span><span class="p">:</span>
+
+
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;..writing flattened dataset to .csv&#39;</span><span class="p">)</span>
+            <span class="n">today</span> <span class="o">=</span> <span class="n">get_todays_date</span><span class="p">()</span>
+            <span class="n">interv</span> <span class="o">=</span> <span class="n">interval</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="s1">&#39;_&#39;</span><span class="p">)</span>
+            <span class="c1">#interv_str = interval.replace(&#39;hour&#39;, &#39;hr&#39;)</span>
+
+            <span class="n">bdate</span> <span class="o">=</span> <span class="n">AirSensor</span><span class="o">.</span><span class="n">bdate</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%y%m</span><span class="si">%d</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="n">edate</span> <span class="o">=</span> <span class="n">AirSensor</span><span class="o">.</span><span class="n">edate</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%y%m</span><span class="si">%d</span><span class="s1">&#39;</span><span class="p">)</span>
+
+            <span class="n">state_abbrev</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+            <span class="k">if</span> <span class="n">ReferenceMonitor</span><span class="o">.</span><span class="n">site_id</span> <span class="o">!=</span> <span class="s1">&#39;Unspecified Site ID&#39;</span><span class="p">:</span>
+                <span class="n">state_fips</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">ReferenceMonitor</span><span class="o">.</span><span class="n">site_id</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">])</span>
+                <span class="n">state_abbrev</span> <span class="o">=</span> <span class="n">state_fips_codes</span><span class="p">[</span><span class="n">state_fips_codes</span><span class="o">.</span><span class="n">FIPS_Code</span><span class="o">==</span><span class="n">state_fips</span><span class="p">][</span><span class="s1">&#39;Abbreviation&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="c1">#site_address = test_loc[&#39;site_address&#39;].split(&#39;, &#39;)</span>
+                <span class="n">state_abbrev</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;_</span><span class="si">{</span><span class="n">state_abbrev</span><span class="si">}</span><span class="s1">_&#39;</span>
+
+            <span class="k">if</span> <span class="p">(</span><span class="ow">not</span> <span class="n">verbose</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="ow">not</span> <span class="n">flat_df</span><span class="o">.</span><span class="n">empty</span><span class="p">):</span>
+                <span class="n">meta_dfs</span><span class="p">[</span><span class="n">interval</span><span class="p">]</span> <span class="o">=</span> <span class="n">meta_df</span>
+
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">min_ref_df</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
+                <span class="n">file_name</span><span class="o">=</span>  <span class="sa">f</span><span class="s1">&#39;Ref</span><span class="si">{</span><span class="n">state_abbrev</span><span class="si">}{</span><span class="n">interv</span><span class="si">}</span><span class="s1">_bdate</span><span class="si">{</span><span class="n">bdate</span><span class="si">}</span><span class="s1">_edate</span><span class="si">{</span><span class="n">edate</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="n">today</span><span class="si">}</span><span class="s1">.csv&#39;</span>
+                <span class="n">file_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">AirSensor</span><span class="o">.</span><span class="n">project_path</span><span class="p">,</span> <span class="s1">&#39;data&#39;</span><span class="p">,</span>
+                                         <span class="s1">&#39;eval_stats&#39;</span><span class="p">,</span> <span class="n">AirSensor</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">file_name</span><span class="p">)</span>
+
+                <span class="n">drop_cols</span> <span class="o">=</span> <span class="p">[</span><span class="n">col</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">verbose_cols</span> <span class="k">if</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">min_ref_df</span><span class="p">]</span>
+                <span class="n">min_ref_df</span> <span class="o">=</span> <span class="n">min_ref_df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="n">drop_cols</span><span class="p">)</span>
+
+                <span class="n">min_ref_df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="n">float_format</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">%.2f</span><span class="s1">&#39;</span><span class="p">)</span>
+                <span class="n">min_ref_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+
+            <span class="k">if</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_timedelta</span><span class="p">(</span><span class="n">interv</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">,</span> <span class="s1">&#39; &#39;</span><span class="p">))</span> <span class="o">&lt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_timedelta</span><span class="p">(</span><span class="s1">&#39;1 h&#39;</span><span class="p">):</span>
+                <span class="n">interv</span> <span class="o">=</span> <span class="s1">&#39;RecRes&#39;</span>
+
+            <span class="n">sensor_name</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">AirSensor</span><span class="o">.</span><span class="n">make</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;-&quot;</span><span class="p">)</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="n">AirSensor</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;-&quot;</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span>
+            <span class="n">file_name</span><span class="o">=</span>  <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">sensor_name</span><span class="si">}{</span><span class="n">state_abbrev</span><span class="si">}{</span><span class="n">interv</span><span class="si">}</span><span class="s1">_bdate</span><span class="si">{</span><span class="n">bdate</span><span class="si">}</span><span class="s1">_edate</span><span class="si">{</span><span class="n">edate</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="n">today</span><span class="si">}</span><span class="s1">.csv&#39;</span>
+            <span class="n">file_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">AirSensor</span><span class="o">.</span><span class="n">project_path</span><span class="p">,</span> <span class="s1">&#39;data&#39;</span><span class="p">,</span>
+                                     <span class="s1">&#39;eval_stats&#39;</span><span class="p">,</span> <span class="n">AirSensor</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">file_name</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">flat_df</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">sensor_key</span> <span class="ow">in</span> <span class="n">AirSensor</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">interval</span><span class="p">]:</span>
+                    <span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;PM25&#39;</span><span class="p">,</span> <span class="s1">&#39;O3&#39;</span><span class="p">,</span> <span class="s1">&#39;PM10&#39;</span><span class="p">,</span> <span class="s1">&#39;NO2&#39;</span><span class="p">,</span> <span class="s1">&#39;CO&#39;</span><span class="p">,</span> <span class="s1">&#39;SO2&#39;</span><span class="p">]:</span>
+                        <span class="k">if</span> <span class="p">((</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">param</span><span class="si">}</span><span class="s1">_Value_</span><span class="si">{</span><span class="n">sensor_key</span><span class="si">}</span><span class="s1">&#39;</span> <span class="ow">in</span> <span class="n">flat_df</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
+                        <span class="ow">and</span> <span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">param</span><span class="si">}</span><span class="s1">_Value_Ref&#39;</span> <span class="ow">in</span> <span class="n">flat_df</span><span class="o">.</span><span class="n">columns</span><span class="p">)):</span>
+                            <span class="n">flat_df</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">param</span><span class="si">}</span><span class="s1">_Ratio_</span><span class="si">{</span><span class="n">sensor_key</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">flat_df</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">param</span><span class="si">}</span><span class="s1">_Value_</span><span class="si">{</span><span class="n">sensor_key</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="n">flat_df</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">param</span><span class="si">}</span><span class="s1">_Value_Ref&#39;</span><span class="p">]</span>
+                            <span class="n">flat_df</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">param</span><span class="si">}</span><span class="s1">_Diff_</span><span class="si">{</span><span class="n">sensor_key</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">flat_df</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">param</span><span class="si">}</span><span class="s1">_Value_</span><span class="si">{</span><span class="n">sensor_key</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">flat_df</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">param</span><span class="si">}</span><span class="s1">_Value_Ref&#39;</span><span class="p">]</span>
+                            <span class="n">flat_df</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">param</span><span class="si">}</span><span class="s1">_AbsDiff_</span><span class="si">{</span><span class="n">sensor_key</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">flat_df</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">param</span><span class="si">}</span><span class="s1">_Diff_</span><span class="si">{</span><span class="n">sensor_key</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">])</span>
+
+                <span class="n">flat_df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="n">float_format</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">%.2f</span><span class="s1">&#39;</span><span class="p">)</span>
+
+
+        <span class="n">flat_dict</span><span class="p">[</span><span class="n">interval</span><span class="p">]</span> <span class="o">=</span> <span class="n">flat_df</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="ow">not</span> <span class="n">verbose</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">interval</span> <span class="o">==</span> <span class="s1">&#39;1-hour&#39;</span><span class="p">):</span>
+            <span class="n">meta_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+            <span class="k">for</span> <span class="n">meta_data</span> <span class="ow">in</span> <span class="n">meta_dfs</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+                <span class="n">meta_df</span> <span class="o">=</span> <span class="n">meta_df</span><span class="o">.</span><span class="n">combine_first</span><span class="p">(</span><span class="n">meta_data</span><span class="p">)</span>
+            <span class="n">meta_file_name</span> <span class="o">=</span>  <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">AirSensor</span><span class="o">.</span><span class="n">name</span><span class="si">}{</span><span class="n">state_abbrev</span><span class="si">}</span><span class="s1">metadata_</span><span class="si">{</span><span class="n">today</span><span class="si">}</span><span class="s1">.csv&#39;</span>
+            <span class="n">file_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">AirSensor</span><span class="o">.</span><span class="n">project_path</span><span class="p">,</span> <span class="s1">&#39;data&#39;</span><span class="p">,</span>
+                                     <span class="s1">&#39;eval_stats&#39;</span><span class="p">,</span> <span class="n">AirSensor</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">meta_file_name</span><span class="p">)</span>
+            <span class="n">meta_df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">flat_dict</span></div>
+
+
+<div class="viewcode-block" id="verbose_columns"><a class="viewcode-back" href="../../../api/_autosummary/sensortoolkit.lib_utils._flatten_datasets.verbose_columns.html#sensortoolkit.lib_utils._flatten_datasets.verbose_columns">[docs]</a><span class="k">def</span> <span class="nf">verbose_columns</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">verbose_cols</span><span class="p">,</span> <span class="n">include_units</span><span class="p">,</span> <span class="n">verbose</span><span class="p">,</span> <span class="n">interval</span><span class="p">):</span>
+    <span class="n">ref_info_cols</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Param_Code_Ref&#39;</span><span class="p">,</span> <span class="s1">&#39;Method_Ref&#39;</span><span class="p">,</span> <span class="s1">&#39;Method_Code_Ref&#39;</span><span class="p">,</span>
+                     <span class="s1">&#39;Method_POC_Ref&#39;</span><span class="p">]</span>
+
+    <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+        <span class="k">if</span> <span class="s1">&#39;_Unit_&#39;</span> <span class="ow">in</span> <span class="n">col</span><span class="p">:</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">include_units</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="ow">not</span> <span class="n">verbose</span><span class="p">):</span>
+                <span class="n">verbose_cols</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">col</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="p">(</span><span class="n">include_units</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">verbose</span><span class="p">):</span>
+                <span class="k">pass</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="n">col</span><span class="p">])</span>
+        <span class="k">if</span> <span class="s1">&#39;_Data_Source&#39;</span> <span class="ow">in</span> <span class="n">col</span><span class="p">:</span>
+            <span class="n">verbose_cols</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">col</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">ref_col_fragment</span> <span class="ow">in</span> <span class="n">ref_info_cols</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">ref_col_fragment</span> <span class="ow">in</span> <span class="n">col</span><span class="p">:</span>
+                <span class="n">verbose_cols</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">col</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">verbose_cols</span><span class="p">,</span> <span class="n">df</span></div>
+
+<div class="viewcode-block" id="remove_verbose"><a class="viewcode-back" href="../../../api/_autosummary/sensortoolkit.lib_utils._flatten_datasets.remove_verbose.html#sensortoolkit.lib_utils._flatten_datasets.remove_verbose">[docs]</a><span class="k">def</span> <span class="nf">remove_verbose</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">verbose_cols</span><span class="p">,</span> <span class="n">include_units</span><span class="p">):</span>
+
+
+    <span class="n">meta_dict</span> <span class="o">=</span> <span class="p">{</span><span class="n">col</span><span class="p">:</span> <span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span><span class="o">.</span><span class="n">unique</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span>
+                 <span class="n">verbose_cols</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">all</span><span class="p">()}</span>
+    <span class="c1">#print(meta_dict)</span>
+    <span class="n">meta_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">meta_dict</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+    <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="n">verbose_cols</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">df</span><span class="p">,</span> <span class="n">meta_df</span></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, United States Environmental Protection Agency.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

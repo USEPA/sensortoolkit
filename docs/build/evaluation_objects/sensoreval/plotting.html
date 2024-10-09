@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en">
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Plotting Methods &mdash; sensortoolkit 0.9.0b2 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Descriptive Summary Methods" href="printing.html" />
+    <link rel="prev" title="Conducting Analysis - The SensorEvaluation Class" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            sensortoolkit
+          </a>
+              <div class="version">
+                0.9.0b2
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../quickstart.html">Quickstart Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../setup.html">Setting Up for sensortoolkit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../install.html">Installing and Updating sensortoolkit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../template.html">Analysis with sensortoolkit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../template.html#script-template">Script Template</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Objects and Data Structures</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../testingattrib_objects/index.html">Testing Attribute Objects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../data_structures/index.html">Data Structures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../sdfs/index.html">sensortoolkit Data Formatting Scheme (SDFS)</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Analysis and Reports</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Evaluation Objects</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Conducting Analysis - The SensorEvaluation Class</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Plotting Methods</a></li>
+<li class="toctree-l3"><a class="reference internal" href="printing.html">Descriptive Summary Methods</a></li>
+<li class="toctree-l3"><a class="reference internal" href="statistic.html">Statistical Methods</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../performancereport.html">Creating Testing Reports - The PerformanceReport Class</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../api/index.html">sensortoolkit API</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">sensortoolkit</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Evaluation Objects</a></li>
+          <li class="breadcrumb-item"><a href="index.html">Conducting Analysis - The SensorEvaluation Class</a></li>
+      <li class="breadcrumb-item active">Plotting Methods</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/evaluation_objects/sensoreval/plotting.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="plotting-methods">
+<h1>Plotting Methods<a class="headerlink" href="#plotting-methods" title="Permalink to this heading"></a></h1>
+<p>Below is a description of the plotting methods included alongside <code class="docutils literal notranslate"><span class="pre">SensorEvaluation</span></code>.
+Example figures are shown for each plotting method.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This section provides a brief overview of the plotting methods accessed via
+instances of the <code class="docutils literal notranslate"><span class="pre">SensorEvaluation</span></code> class. For more detail on calling these
+methods, click on the link to the API documentation indicated below each
+plotting method header.</p>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Some figure elements may appear difficult to view as formatted on this webpage.
+A larger version of each figure can be displayed in a separate browser tab by
+right-clicking on figures and selecting “Open image in new tab” from the dialog box.</p>
+</div>
+<hr class="docutils" />
+<section id="sensorevaluation-plot-met-dist">
+<h2><code class="docutils literal notranslate"><span class="pre">SensorEvaluation.plot_met_dist()</span></code><a class="headerlink" href="#sensorevaluation-plot-met-dist" title="Permalink to this heading"></a></h2>
+<p><a class="reference external" href="../../api/_autosummary/sensortoolkit.evaluation_objs._sensor_eval.SensorEvaluation.html#sensortoolkit.evaluation_objs._sensor_eval.SensorEvaluation.plot_met_dist">API Documentation for plot_met_dist()</a></p>
+<section id="example">
+<h3>Example<a class="headerlink" href="#example" title="Permalink to this heading"></a></h3>
+<figure class="align-center">
+<img alt="Meteorological distribution plot for temperature and relative humidity measurements recorded during the testing period." src="../../_images/Example_Toco_Toucan_met_dist_230209.png" />
+</figure>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+</section>
+<section id="description">
+<h3>Description<a class="headerlink" href="#description" title="Permalink to this heading"></a></h3>
+<p>Displays the relative frequency of meteorological measurements recorded during the
+testing period. Temperature (left) and relative humidity (right) measurements are displayed on
+separate subplots. Measurements are grouped into 15 bins, and the frequency of measurements within bin
+is normalized by the total number of measurements (i.e., the relative frequency) is
+displayed as a histogram. Additionally, a polynomial estimating
+the kernel density of measurements is shown for each subplot and indicates the
+general distribution of measurements over the range of recorded values.</p>
+<p>This method will prioritize plotting meteorological measurements made by
+reference instruments, as sensor measurements are commonly biased warmer and drier than
+ambient conditions if measurements are made by an onboard sensing component within
+the housing of the air sensor. If no meteorological reference measurements are
+available, the method will use sensor measurements; however, a disclaimer will displayed
+above subplots indicating that sensor measurements are shown in the figure.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="sensorevaluation-plot-met-influence">
+<h2><code class="docutils literal notranslate"><span class="pre">SensorEvaluation.plot_met_influence()</span></code><a class="headerlink" href="#sensorevaluation-plot-met-influence" title="Permalink to this heading"></a></h2>
+<p><a class="reference external" href="../../api/_autosummary/sensortoolkit.evaluation_objs._sensor_eval.SensorEvaluation.html#sensortoolkit.evaluation_objs._sensor_eval.SensorEvaluation.plot_met_influence">API Documentation for plot_met_influence()</a></p>
+<section id="id1">
+<h3>Example<a class="headerlink" href="#id1" title="Permalink to this heading"></a></h3>
+<figure class="align-center">
+<img alt="Normalized scatter plots indicating the influence of temperature and relative humidity on sensor measurements by plotting normalized sensor-reference data pairs (i.e., sensor concentration divided by concurrently recorded reference concentration) vs. the meteorological parameter (either temperature or relative humidity)." src="../../_images/Example_Toco_Toucan_normalized_PM25_met_influence_230209.png" />
+</figure>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+</section>
+<section id="id2">
+<h3>Description<a class="headerlink" href="#id2" title="Permalink to this heading"></a></h3>
+<p>Displays the influence of meteorological parameters (temperature or relative
+humidity) on sensor measurements. Sensor measurements that have been normalized
+by reference measurement values for the corresponding timestamp and are plotted
+along the y-axis. Meteorological measurements as measured by temperature or
+relative humidity monitors (rather than onboard sensor measurements) are plotted
+along the x-axis. Scatter for each sensor are displayed as separate colors to
+indicate the unique response of each sensor unit.</p>
+<p>The gray 1:1 line indicates ideal agreement between sensor and reference measurements
+over the range of meteorological conditions (i.e., a ratio of 1 would indicate
+that the sensor and reference measure the same concentration value for a given timestamp).
+Scatter below the 1:1 line indicates underestimation bias, and scatter above the 1:1 line
+indicates overestimation bias.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="sensorevaluation-plot-metrics">
+<h2><code class="docutils literal notranslate"><span class="pre">SensorEvaluation.plot_metrics()</span></code><a class="headerlink" href="#sensorevaluation-plot-metrics" title="Permalink to this heading"></a></h2>
+<p><a class="reference external" href="../../api/_autosummary/sensortoolkit.evaluation_objs._sensor_eval.SensorEvaluation.html#sensortoolkit.evaluation_objs._sensor_eval.SensorEvaluation.plot_metrics">API Documentation for plot_metrics()</a></p>
+<section id="id3">
+<h3>Example<a class="headerlink" href="#id3" title="Permalink to this heading"></a></h3>
+<figure class="align-center">
+<img alt="Figure displaying multiple subplots for graphing how sensors perform against the statistical metrics recommended by EPA for evaluating air sensor performance." src="../../_images/Example_Toco_Toucan_PM25_plot_metrics_230209.png" />
+</figure>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+</section>
+<section id="id4">
+<h3>Description<a class="headerlink" href="#id4" title="Permalink to this heading"></a></h3>
+<p>Results for evaluating sensor performance against U.S. EPA’s recommended performance metrics
+and target values are displayed via a set of adjacent subplots corresponding to each metric.</p>
+<p>Results for the following metrics are shown:</p>
+<ul class="simple">
+<li><p>Linearity:</p>
+<ul>
+<li><p><span class="math notranslate nohighlight">\(R~2\)</span>: The coefficient of determination, which is a measure of linearity between sensor
+and reference measurement pairs.</p></li>
+</ul>
+</li>
+<li><p>Bias:</p>
+<ul>
+<li><p>Slope: The slope of the ordinary least-squares regression between sensor (y-axis) and
+reference (x-axis) measurements.</p></li>
+<li><p>Intercept: The intercept term of the ordinary least-squares regression between sensor (y-axis) and
+reference (x-axis) measurements.</p></li>
+</ul>
+</li>
+<li><p>Error:</p>
+<ul>
+<li><p><span class="math notranslate nohighlight">\(RMSE\)</span>: The root mean square error between sensor and reference measurements.</p></li>
+<li><p><span class="math notranslate nohighlight">\(NRMSE\)</span>: The normalized root mean square error between sensor and reference measurements, where
+RMSE has been normalized by the mean reference concentration during the testing period.</p></li>
+</ul>
+</li>
+<li><p>Precision:</p>
+<ul>
+<li><p><span class="math notranslate nohighlight">\(CV\)</span>: The coefficient of variation of concurrently recorded sensor measurements.</p></li>
+<li><p><span class="math notranslate nohighlight">\(SD\)</span>: The standard deviation of concurrently recorded sensor measurements.</p></li>
+</ul>
+</li>
+</ul>
+<p>Results are shown as either colored dots (if the number of sensors is less than four) or as
+boxplots (if the number of sensors exceeds three). Target ranges are indicated by gray shaded
+regions, and target goals are indicated by dark gray lines. Results are grouped by data
+averaging interval, including 1-hour and 24-hour intervals (note that some pollutants such as
+O3 are analyzed only at 1-hour intervals due to significant diurnal variability, so the
+formatting of the figure will depend on which averaging interval(s) are indicated for the parameter
+via the <code class="docutils literal notranslate"><span class="pre">sensortoolkit.Parameter.averaging</span></code> attribute).</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="sensorevaluation-plot-sensor-met-scatter">
+<h2><code class="docutils literal notranslate"><span class="pre">SensorEvaluation.plot_sensor_met_scatter()</span></code><a class="headerlink" href="#sensorevaluation-plot-sensor-met-scatter" title="Permalink to this heading"></a></h2>
+<p><a class="reference external" href="../../api/_autosummary/sensortoolkit.evaluation_objs._sensor_eval.SensorEvaluation.html#sensortoolkit.evaluation_objs._sensor_eval.SensorEvaluation.plot_sensor_met_scatter">API Documentation for plot_sensor_met_scatter()</a></p>
+<section id="id5">
+<h3>Example<a class="headerlink" href="#id5" title="Permalink to this heading"></a></h3>
+<figure class="align-center">
+<img alt="Scatter plot indicating the agreement between internal (i.e. onboard) meteorological sensor measurements for either temperature or relative humidity against concurrently recorded measurements by an independent monitor at the testing site." src="../../_images/Example_Make_Model_vs_Philips_Pw976202_1-hour_3_sensors_211103.png" />
+</figure>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+</section>
+<section id="id6">
+<h3>Description<a class="headerlink" href="#id6" title="Permalink to this heading"></a></h3>
+<p>If the air sensor being analyzed measures temperature and/or relative humidity and
+sensors are collocated alongside reference instrumentation measuring these meteorological
+parameters, sensor-reference measurement pairs can be displayed as scatter using the
+<code class="docutils literal notranslate"><span class="pre">plot_sensor_met_scatter()</span></code> method.</p>
+<p>Sensor measurements are plotted along the
+y-axis with reference measurements along the x-axis. Statistical quantities are displayed
+for each scatter plot including the ordinary least-squares (OLS) regression equation, <span class="raw-html">R<sup>2</sup></span>,
+RMSE, and N (the number of measurement pairs). The one-to-one line (indicating ideal agreement between
+sensor and reference measurements) is shown as a dashed gray line.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="sensorevaluation-plot-sensor-scatter">
+<h2><code class="docutils literal notranslate"><span class="pre">SensorEvaluation.plot_sensor_scatter()</span></code><a class="headerlink" href="#sensorevaluation-plot-sensor-scatter" title="Permalink to this heading"></a></h2>
+<p><a class="reference external" href="../../api/_autosummary/sensortoolkit.evaluation_objs._sensor_eval.SensorEvaluation.html#sensortoolkit.evaluation_objs._sensor_eval.SensorEvaluation.plot_sensor_scatter">API Documentation for plot_sensor_scatter()</a></p>
+<section id="id7">
+<h3>Example<a class="headerlink" href="#id7" title="Permalink to this heading"></a></h3>
+<figure class="align-center">
+<img alt="Scatter plot indicating the agreement between sensor parameter measurements (example shown is for fine particulate matter) against concurrently recorded measurements by an FRM/FEM instrument at the testing site." src="../../_images/Example_Toco_Toucan_vs_FEM_1-hour_3_sensors_sensor_scatter_230209.png" />
+</figure>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+</section>
+<section id="id8">
+<h3>Description<a class="headerlink" href="#id8" title="Permalink to this heading"></a></h3>
+<p>Sensor measurements are plotted along the
+y-axis with reference measurements along the x-axis. Statistical quantities are displayed
+for each scatter plot including the ordinary least-squares (OLS) regression equation, <span class="raw-html">R<sup>2</sup></span>,
+RMSE, and N (the number of measurement pairs). The one-to-one line (indicating ideal agreement between
+sensor and reference measurements) is shown as a dashed gray line.</p>
+<p>Measurement pairs (i.e., concentration values for sensor and reference datasets recorded
+at matching timestamp entries) are colored by the relative humidity
+recorded by an independent meteorological instrument at the monitoring
+site if RH data are located within the <code class="docutils literal notranslate"><span class="pre">reference_object.data['Met']</span></code> dataset.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="sensorevaluation-plot-timeseries">
+<h2><code class="docutils literal notranslate"><span class="pre">SensorEvaluation.plot_timeseries()</span></code><a class="headerlink" href="#sensorevaluation-plot-timeseries" title="Permalink to this heading"></a></h2>
+<p><a class="reference external" href="../../api/_autosummary/sensortoolkit.evaluation_objs._sensor_eval.SensorEvaluation.html#sensortoolkit.evaluation_objs._sensor_eval.SensorEvaluation.plot_timeseries">API Documentation for plot_timeseries()</a></p>
+<section id="id9">
+<h3>Example<a class="headerlink" href="#id9" title="Permalink to this heading"></a></h3>
+<figure class="align-center">
+<img alt="Time series plot indicating the variation in sensor and FRM/FEM measurements at 1-hour and 24-hour averaging intervals over the testing period." src="../../_images/Example_Toco_Toucan_PM25_timeseries_230209.png" />
+</figure>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+</section>
+<section id="id10">
+<h3>Description<a class="headerlink" href="#id10" title="Permalink to this heading"></a></h3>
+<p>Displays sensor and FRM/FEM reference measurements on a time series plot.
+Sensor measurements are indicated by distinct colors in a discrete color palette.
+FRM/FEM measurements are shown as black lines. The x-axis indicates the date in
+5-day increments (default, although customizable). Measurement values are plotted
+along the y-axis.</p>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="Conducting Analysis - The SensorEvaluation Class" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="printing.html" class="btn btn-neutral float-right" title="Descriptive Summary Methods" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, United States Environmental Protection Agency.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

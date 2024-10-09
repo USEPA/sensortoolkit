@@ -1,15 +1,17 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en">
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Installing and Updating sensortoolkit &mdash; sensortoolkit 0.8.3b2 documentation</title>
-      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-      <link rel="stylesheet" href="_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" type="text/css" />
-      <link rel="stylesheet" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" type="text/css" />
-      <link rel="stylesheet" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" type="text/css" />
+  <title>Installing and Updating sensortoolkit &mdash; sensortoolkit 0.9.0b2 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css" />
+      <link rel="stylesheet" type="text/css" href="_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" />
+      <link rel="stylesheet" type="text/css" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+      <link rel="stylesheet" type="text/css" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+
+  
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
@@ -17,12 +19,13 @@
         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Importing sensortoolkit" href="import_sensortoolkit.html" />
-    <link rel="prev" title="Quickstart Guide" href="quickstart.html" /> 
+    <link rel="next" title="Analysis with sensortoolkit" href="template.html" />
+    <link rel="prev" title="Setting Up for sensortoolkit" href="setup.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -30,14 +33,18 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="index.html" class="icon icon-home"> sensortoolkit
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            sensortoolkit
           </a>
               <div class="version">
-                0.8.3b2
+                0.9.0b2
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -46,9 +53,10 @@
               <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart Guide</a></li>
-<li class="toctree-l1"><a class="reference internal" href="quickstart.html#script-templates">Script Templates</a></li>
+<li class="toctree-l1"><a class="reference internal" href="setup.html">Setting Up for sensortoolkit</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Installing and Updating sensortoolkit</a></li>
-<li class="toctree-l1"><a class="reference internal" href="import_sensortoolkit.html">Importing sensortoolkit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="template.html">Analysis with sensortoolkit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="template.html#script-template">Script Template</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Objects and Data Structures</span></p>
 <ul>
@@ -56,7 +64,7 @@
 <li class="toctree-l1"><a class="reference internal" href="data_structures/index.html">Data Structures</a></li>
 <li class="toctree-l1"><a class="reference internal" href="sdfs/index.html">sensortoolkit Data Formatting Scheme (SDFS)</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Objects and Data Structures</span></p>
+<p class="caption" role="heading"><span class="caption-text">Analysis and Reports</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="evaluation_objects/index.html">Evaluation Objects</a></li>
 </ul>
@@ -78,8 +86,8 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>Installing and Updating sensortoolkit</li>
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Installing and Updating sensortoolkit</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/install.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -90,69 +98,226 @@
            <div itemprop="articleBody">
              
   <section id="installing-and-updating-sensortoolkit">
-<h1>Installing and Updating sensortoolkit<a class="headerlink" href="#installing-and-updating-sensortoolkit" title="Permalink to this headline"></a></h1>
+<h1>Installing and Updating sensortoolkit<a class="headerlink" href="#installing-and-updating-sensortoolkit" title="Permalink to this heading"></a></h1>
+<p>sensortoolkit can be installed using a provided YAML file to create a Conda virtual environment,
+using <code class="docutils literal notranslate"><span class="pre">pip</span></code>, or by cloning the GitHub repository. This section will explain the three
+installation methods in detail and how to update sensortoolkit.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Users will need an installation of Python (v3.6 or greater). It’s highly
-recommended that users download an <a class="reference external" href="https://www.anaconda.com/products/individual">Anaconda distribution of Python</a>. Anaconda is
-a package distribution of Python that includes many widely used libraries as
-well as the <a class="reference external" href="https://www.spyder-ide.org">Spyder IDE</a> for editing and compiling code. Anaconda is free for
-individuals.</p>
+<p>Users will need an installation of Python 3.8 or greater. It’s highly recommended that users
+download an <a class="reference external" href="https://www.anaconda.com/products/individual">Anaconda distribution of Python</a>. Anaconda is
+a package distribution of Python that includes many widely used libraries as well as
+the <a class="reference external" href="https://www.spyder-ide.org">Spyder IDE</a> for editing and compiling code. Anaconda is free for individuals.</p>
 </div>
-<section id="installation">
-<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline"></a></h2>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Have familiarity with your operating system’s command line interface (CLI) commands. Mainly
+in navigating through directories. For Anaconda users, the Anaconda Prompt is recommended.</p>
+</div>
+<section id="install-sensortoolkit">
+<h2>Install sensortoolkit<a class="headerlink" href="#install-sensortoolkit" title="Permalink to this heading"></a></h2>
+<section id="installing-with-conda-virtual-environment">
+<h3>Installing with Conda Virtual Environment<a class="headerlink" href="#installing-with-conda-virtual-environment" title="Permalink to this heading"></a></h3>
+<p>A virtual environment is a tool for dependency management to isolate your project by creating an
+environment on top of an existing Python installation. <strong>It is highly recommended to use a virtual environment
+for each new python project to ensure that the base installation of python isn’t tampered with.</strong>
+It’s much easier to start over by deleting the virtual environment than deleting your installation of Python!</p>
+<p>In this documentation, Conda is used as it’s a simple open source environment and package manager.
+To quickly create a suitable Conda virtual environment for sensortoolkit,
+with the required package versions, we can use the <code class="docutils literal notranslate"><span class="pre">sensortoolkit_env.yml</span></code> file included
+in the GitHub repository under the <code class="docutils literal notranslate"><span class="pre">/environments</span></code> folder to create the <code class="docutils literal notranslate"><span class="pre">stk-env</span></code> Conda virtual environment.</p>
+<section id="download-yaml-file">
+<h4>1 - Download YAML file<a class="headerlink" href="#download-yaml-file" title="Permalink to this heading"></a></h4>
+<p>Download the <code class="docutils literal notranslate"><span class="pre">sensortoolkit_env.yml</span></code> file included in the
+<a class="reference external" href="https://github.com/USEPA/sensortoolkit">GitHub repository</a> under the <code class="docutils literal notranslate"><span class="pre">/environments</span></code>
+folder to the root of your project directory.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>To download the <code class="docutils literal notranslate"><span class="pre">sensortoolkit_env.yml</span></code> file from Github, select the .yml file and right-click
+the <code class="docutils literal notranslate"><span class="pre">raw</span></code> button at the top. Then, select <code class="docutils literal notranslate"><span class="pre">Save</span> <span class="pre">link</span> <span class="pre">as...</span></code>, and save to the
+project directory, <code class="docutils literal notranslate"><span class="pre">toucan_evaluation</span></code>. <strong>Make sure the file extension stays as just .yml</strong>.</p>
+</div>
+</section>
+<section id="create-conda-virtual-environment">
+<h4>2 - Create Conda Virtual Environment<a class="headerlink" href="#create-conda-virtual-environment" title="Permalink to this heading"></a></h4>
+<p>Now, we will use the <code class="docutils literal notranslate"><span class="pre">sensortoolkit_env.yml</span></code> file to create a virtual environment.
+In your command line interface (CLI), (for Anaconda users, the Anaconda Prompt is recommended)
+navigate to your project directory where <code class="docutils literal notranslate"><span class="pre">sensortoolkit_env.yml</span></code> was downloaded. Something similar to
+below should be seen in your CLI.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">C:\Users\...\Documents\toucan_evaluation&gt;</span>
+</pre></div>
+</div>
+<p><strong>While in your project directory</strong>, type in the following command in your CLI:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">conda env create -f sensortoolkit_env.yml</span>
+</pre></div>
+</div>
+<p>The user will see something similar to the following printed after creating the virtual environment.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">Retrieving notices: ...working... done</span>
+<span class="go">Collecting package metadata (repodata.json): done</span>
+<span class="go">Solving environment: done</span>
+
+<span class="go">Downloading and Extracting Packages</span>
+
+<span class="go">Preparing transaction: done</span>
+<span class="go">Verifying transaction: done</span>
+<span class="go">Executing transaction: done</span>
+<span class="go">Installing pip dependencies: | Ran pip subprocess with arguments:</span>
+<span class="go">[&#39;C:\\Users\\...\\Miniconda3\\envs\\stk-env\\python.exe&#39;, &#39;-m&#39;, &#39;pip&#39;, &#39;install&#39;, &#39;-U&#39;, &#39;-r&#39;, &#39;C:\\Users\\...\\Documents\\toucan_evaluation\\condaenv.0ut78_b8.requirements.txt&#39;, &#39;--exists-action=b&#39;]</span>
+<span class="go">Pip subprocess output:</span>
+<span class="go">Requirement already satisfied: charset_normalizer==2.0.4 in c:\users\...\miniconda3\envs\stk-env\lib\site-packages (from -r C:\Users\...\Documents\toucan_evaluation\condaenv.0ut78_b8.requirements.txt (line 1)) (2.0.4)</span>
+<span class="go">Collecting timezonefinder==6.1.9</span>
+<span class="go">  Using cached timezonefinder-6.1.9-cp38-cp38-win_amd64.whl</span>
+<span class="go">Collecting python-pptx==0.6.21</span>
+<span class="go">  Using cached python_pptx-0.6.21-py3-none-any.whl</span>
+<span class="go">Collecting sensortoolkit</span>
+<span class="go">  Using cached sensortoolkit-1.0.0-py3-none-any.whl (367 kB)</span>
+<span class="go">Requirement already satisfied: cffi&lt;2,&gt;=1.15.1 in c:\users\...\miniconda3\envs\stk-env\lib\site-packages (from timezonefinder==6.1.9-&gt;-r C:\Users\...\Documents\toucan_evaluation\condaenv.0ut78_b8.requirements.txt (line 2)) (1.15.1)</span>
+<span class="go">Collecting h3&lt;4,&gt;=3.7.6</span>
+<span class="go">  Using cached h3-3.7.6-cp38-cp38-win_amd64.whl (855 kB)</span>
+<span class="go">Requirement already satisfied: setuptools&gt;=65.5 in c:\users\...\miniconda3\envs\stk-env\lib\site-packages (from timezonefinder==6.1.9-&gt;-r C:\Users\...\Documents\toucan_evaluation\condaenv.0ut78_b8.requirements.txt (line 2)) (65.6.3)</span>
+<span class="go">Requirement already satisfied: numpy&lt;2,&gt;=1.18 in c:\users\...\miniconda3\envs\stk-env\lib\site-packages (from timezonefinder==6.1.9-&gt;-r C:\Users\...\Documents\toucan_evaluation\condaenv.0ut78_b8.requirements.txt (line 2)) (1.23.5)</span>
+<span class="go">Requirement already satisfied: Pillow&gt;=3.3.2 in c:\users\...\miniconda3\envs\stk-env\lib\site-packages (from python-pptx==0.6.21-&gt;-r C:\Users\...\Documents\toucan_evaluation\condaenv.0ut78_b8.requirements.txt (line 3)) (9.3.0)</span>
+<span class="go">Requirement already satisfied: lxml&gt;=3.1.0 in c:\users\...\miniconda3\envs\stk-env\lib\site-packages (from python-pptx==0.6.21-&gt;-r C:\Users\...\Documents\toucan_evaluation\condaenv.0ut78_b8.requirements.txt (line 3)) (4.9.1)</span>
+<span class="go">Collecting XlsxWriter&gt;=0.5.7</span>
+<span class="go">  Using cached XlsxWriter-3.0.8-py3-none-any.whl (152 kB)</span>
+<span class="go">Requirement already satisfied: appdirs in c:\users\...\miniconda3\envs\stk-env\lib\site-packages (from sensortoolkit-&gt;-r C:\Users\...\Documents\toucan_evaluation\condaenv.0ut78_b8.requirements.txt (line 4)) (1.4.4)</span>
+<span class="go">Requirement already satisfied: matplotlib in c:\users\...\miniconda3\envs\stk-env\lib\site-packages (from sensortoolkit-&gt;-r C:\Users\...\Documents\toucan_evaluation\condaenv.0ut78_b8.requirements.txt (line 4)) (3.6.2)</span>
+<span class="go">Requirement already satisfied: statsmodels in c:\users\...\miniconda3\envs\stk-env\lib\site-packages (from sensortoolkit-&gt;-r C:\Users\...\Documents\toucan_evaluation\condaenv.0ut78_b8.requirements.txt (line 4)) (0.13.5)</span>
+<span class="go">Requirement already satisfied: seaborn in c:\users\...\miniconda3\envs\stk-env\lib\site-packages (from sensortoolkit-&gt;-r C:\Users\...\Documents\toucan_evaluation\condaenv.0ut78_b8.requirements.txt (line 4)) (0.11.2)</span>
+<span class="go">Requirement already satisfied: pip in c:\users\...\miniconda3\envs\stk-env\lib\site-packages (from sensortoolkit-&gt;-r C:\Users\...\Documents\toucan_evaluation\condaenv.0ut78_b8.requirements.txt (line 4)) (22.3.1)</span>
+<span class="go">Requirement already satisfied: requests in c:\users\...\miniconda3\envs\stk-env\lib\site-packages (from sensortoolkit-&gt;-r C:\Users\...\Documents\toucan_evaluation\condaenv.0ut78_b8.requirements.txt (line 4)) (2.28.1)</span>
+<span class="go">Requirement already satisfied: tabulate in c:\users\...\miniconda3\envs\stk-env\lib\site-packages (from sensortoolkit-&gt;-r C:\Users\...\Documents\toucan_evaluation\condaenv.0ut78_b8.requirements.txt (line 4)) (0.8.10)</span>
+<span class="go">Requirement already satisfied: chardet in c:\users\...\miniconda3\envs\stk-env\lib\site-packages (from sensortoolkit-&gt;-r C:\Users\...\Documents\toucan_evaluation\condaenv.0ut78_b8.requirements.txt (line 4)) (4.0.0)</span>
+<span class="go">Requirement already satisfied: urllib3 in c:\users\...\miniconda3\envs\stk-env\lib\site-packages (from sensortoolkit-&gt;-r C:\Users\...\Documents\toucan_evaluation\condaenv.0ut78_b8.requirements.txt (line 4)) (1.26.14)</span>
+<span class="go">Requirement already satisfied: pandas&gt;=1.3.0 in c:\users\...\miniconda3\envs\stk-env\lib\site-packages (from sensortoolkit-&gt;-r C:\...\Documents\toucan_evaluation\condaenv.0ut78_b8.requirements.txt (line 4)) (1.3.5)</span>
+<span class="go">Requirement already satisfied: pathlib2 in c:\users\...\miniconda3\envs\stk-env\lib\site-packages (from sensortoolkit-&gt;-r C:\Users\...\Documents\toucan_evaluation\condaenv.0ut78_b8.requirements.txt (line 4)) (2.3.6)</span>
+<span class="go">Requirement already satisfied: scipy in c:\users\...\miniconda3\envs\stk-env\lib\site-packages (from sensortoolkit-&gt;-r C:\Users\...\Documents\toucan_evaluation\condaenv.0ut78_b8.requirements.txt (line 4)) (1.10.0)</span>
+<span class="go">Requirement already satisfied: pycparser in c:\users\...\miniconda3\envs\stk-env\lib\site-packages (from cffi&lt;2,&gt;=1.15.1-&gt;timezonefinder==6.1.9-&gt;-r C:\Users\...\Documents\toucan_evaluation\condaenv.0ut78_b8.requirements.txt (line 2)) (2.21)</span>
+<span class="go">Requirement already satisfied: pytz&gt;=2017.3 in c:\users\...\miniconda3\envs\stk-env\lib\site-packages (from pandas&gt;=1.3.0-&gt;sensortoolkit-&gt;-r C:\Users\...\Documents\toucan_evaluation\condaenv.0ut78_b8.requirements.txt (line 4)) (2022.7)</span>
+<span class="go">Requirement already satisfied: python-dateutil&gt;=2.7.3 in c:\users\...\miniconda3\envs\stk-env\lib\site-packages (from pandas&gt;=1.3.0-&gt;sensortoolkit-&gt;-r C:\Users\...\Documents\toucan_evaluation\condaenv.0ut78_b8.requirements.txt (line 4)) (2.8.2)</span>
+<span class="go">Requirement already satisfied: kiwisolver&gt;=1.0.1 in c:\users\...\miniconda3\envs\stk-env\lib\site-packages (from matplotlib-&gt;sensortoolkit-&gt;-r C:\Users\...\Documents\toucan_evaluation\condaenv.0ut78_b8.requirements.txt (line 4)) (1.4.4)</span>
+<span class="go">Requirement already satisfied: contourpy&gt;=1.0.1 in c:\users\...\miniconda3\envs\stk-env\lib\site-packages (from matplotlib-&gt;sensortoolkit-&gt;-r C:\Users\...\Documents\toucan_evaluation\condaenv.0ut78_b8.requirements.txt (line 4)) (1.0.5)</span>
+<span class="go">Requirement already satisfied: fonttools&gt;=4.22.0 in c:\users\...\miniconda3\envs\stk-env\lib\site-packages (from matplotlib-&gt;sensortoolkit-&gt;-r C:\Users\...\Documents\toucan_evaluation\condaenv.0ut78_b8.requirements.txt (line 4)) (4.25.0)</span>
+</pre></div>
+</div>
+<p><strong>To use the virtual environment we must activate it.</strong> To activate the <code class="docutils literal notranslate"><span class="pre">stk-env</span></code>
+virtual environment, type in the following command:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">conda activate stk-env</span>
+</pre></div>
+</div>
+<p>When activated, the virtual environment name enclosed in parenthesis will appear in your CLI as shown below.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp gp-VirtualEnv">(stk-env)</span> <span class="go">C:\Users\...\Documents\toucan_evaluation&gt;</span>
+</pre></div>
+</div>
+<div class="admonition caution">
+<p class="admonition-title">Caution</p>
+<p>When the virtual environment is active, any additions, deletions, and changes to installed python packages will only
+exist within the virtual environment. <strong>Hence, if any changes to packages must be done for this project
+the virtual environment must be activated first.</strong></p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The above commands when creating a virtual environment assume the user has downloaded Miniconda or Anaconda.
+<a class="reference external" href="./setup.html#download-python-and-ide">Click here</a> for more info about installing Python with Miniconda or Anaconda.</p>
+</div>
+<p>Now, we have created a virtual environment called <code class="docutils literal notranslate"><span class="pre">stk-env</span></code> where Python 3.8, sensortoolkit,
+and other required package dependencies for sensortoolkit and Spyder IDE are downloaded!</p>
+<div class="admonition caution">
+<p class="admonition-title">Caution</p>
+<p>Before running an analysis with sensortoolkit, make sure you modify your IDE’s Python interpreter to point to the <code class="docutils literal notranslate"><span class="pre">/python.exe</span></code> file within the <code class="docutils literal notranslate"><span class="pre">stk-env</span></code> virtual environment. After, restart the IDE.</p>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>To find the path of <code class="docutils literal notranslate"><span class="pre">/python.exe</span></code> within the virtual environment, open up your CLI and make sure the Conda virtual environment is activated. For Windows, type in the following command:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">where python</span>
+</pre></div>
+</div>
+<p>Similar commands can be done for other operating systems.
+Copy the path of the <code class="docutils literal notranslate"><span class="pre">/python.exe</span></code> in the <code class="docutils literal notranslate"><span class="pre">stk-env</span></code> virtual environment. It should be located
+at a path that looks something like <code class="docutils literal notranslate"><span class="pre">C:\Users\...\Miniconda3\envs\stk-env\python.exe</span></code>
+(if you have Miniconda installed). If using Spyder IDE, paste this path into the Spyder python interpreter
+(Tools&gt;Preferences&gt;Python Interpreter&gt;Use the following Python interpreter: [Insert path]).
+Then, restart the IDE.</p>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>If you would like to return to the base environment after finishing your project work,
+the user should deactivate the virtual environment.
+To deactivate the Conda virtual environment, type in the following in your CLI:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">conda deactivate</span>
+</pre></div>
+</div>
+</div>
+</section>
+</section>
 <section id="installing-with-pip">
-<h3>Installing with pip<a class="headerlink" href="#installing-with-pip" title="Permalink to this headline"></a></h3>
-<p>The easiest way to install sensortoolkit is via <code class="docutils literal notranslate"><span class="pre">pip</span></code>. Open up a command line interface (for Anaconda users,
-the Anaconda Prompt is recommended) and type the following command:</p>
+<h3>Installing with pip<a class="headerlink" href="#installing-with-pip" title="Permalink to this heading"></a></h3>
+<p>The easiest way to install sensortoolkit is via <code class="docutils literal notranslate"><span class="pre">pip</span></code>. Open up a CLI and type the following command:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">pip install sensortoolkit</span>
 </pre></div>
 </div>
 </section>
 <section id="installing-from-source">
-<h3>Installing from source<a class="headerlink" href="#installing-from-source" title="Permalink to this headline"></a></h3>
+<h3>Installing from source<a class="headerlink" href="#installing-from-source" title="Permalink to this heading"></a></h3>
 <p>sensortoolkit is developed and maintained in a USEPA GitHub repository. The latest
 development build can be obtained by cloning the repository:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">USEPA</span><span class="o">/</span><span class="n">sensortoolkit</span><span class="o">.</span><span class="n">git</span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">git clone https://github.com/USEPA/sensortoolkit.git</span>
 </pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Git is a free and open source distributed version control system. In order to use Git commands you will need to download Git found <a class="reference external" href="https://git-scm.com/downloads">here</a>.</p>
 </div>
 <p>Next, navigate to the folder location for the cloned repository:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">cd path/to/sensortoolkit</span>
 </pre></div>
 </div>
 <p>Next, sensortoolkit needs to be installed to a target directory where python
-looks for packages whenever the user tells python to import a package name.
-By default, this is the <cite>/site-packages`</cite> directory, and should be located at a
+looks for packages when asked by the user to import a package.
+By default, this is the <code class="docutils literal notranslate"><span class="pre">/site-packages</span></code> directory, and should be located at a
 path that looks something like <code class="docutils literal notranslate"><span class="pre">C:\Users\...\Anaconda3\Lib\site-packages</span></code>
 (if you have Anaconda installed). The location of this package may be a little
 different depending on how your python installation was configured, although this
 shouldn’t matter too much.</p>
-<p>Type the following CLI prompt to install sensortoolkit (don’t forget the period!):</p>
+<p>Type the following into your CLI to install sensortoolkit. <strong>Don’t forget the period!</strong>:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">pip install .</span>
 </pre></div>
 </div>
+<hr class="docutils" />
 <p>The installation process checks for several packages sensortoolkit needs to run (dependencies).
 If you have Anaconda installed, you’ll notice that the installation process may indicate
 that a lot of the required libraries are already installed as those packages come with
 the base installation of Anaconda.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Users can verify that the sensortoolkit library is loaded properly by checking the library version:</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sensortoolkit</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">sensortoolkit</span><span class="o">.</span><span class="n">__version__</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Console output:</p>
+<p><code class="docutils literal notranslate"><span class="pre">0.9.0b2</span></code></p>
+</div>
 </section>
 </section>
-<section id="updating-sensortoolkit">
-<h2>Updating sensortoolkit<a class="headerlink" href="#updating-sensortoolkit" title="Permalink to this headline"></a></h2>
+<section id="update-sensortoolkit">
+<h2>Update sensortoolkit<a class="headerlink" href="#update-sensortoolkit" title="Permalink to this heading"></a></h2>
 <section id="updating-from-a-pypi-package-distribution">
-<h3>Updating from a PyPI package distribution<a class="headerlink" href="#updating-from-a-pypi-package-distribution" title="Permalink to this headline"></a></h3>
-<p>If you’ve installed sensortoolkit using the <a class="reference external" href="./install.html#installing-with-pip">installing with pip</a> instructions listed
-above, updating your installation is equally as easy!</p>
-<p>Open a command line interface and type the following:</p>
+<h3>Updating from a PyPI package distribution<a class="headerlink" href="#updating-from-a-pypi-package-distribution" title="Permalink to this heading"></a></h3>
+<p>If you’ve installed sensortoolkit using a
+<a class="reference external" href="./install.html#Installing-with-Conda-Virtual-Environment">Conda virtual environment</a> or with
+<a class="reference external" href="./install.html#installing-with-pip">pip</a>, updating your installation is equally as easy!</p>
+<div class="admonition caution">
+<p class="admonition-title">Caution</p>
+<p>If using a virtual environment, make sure your virtual environment is activated before using commands to modify packages!</p>
+</div>
+<p>Open your CLI and type the following:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">pip install --upgrade sensortoolkit</span>
 </pre></div>
 </div>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
-<blockquote>
-<div><p>If you wish to upgrade to a specific version of sensortoolkit, this can be done</p>
-</div></blockquote>
-<p>via the following command:</p>
+<p>If you wish to upgrade to a specific version of sensortoolkit, this can be done via the following command:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">pip install --upgrade sensortoolkit==X.X.X</span>
 </pre></div>
 </div>
@@ -160,8 +325,8 @@ above, updating your installation is equally as easy!</p>
 </div>
 </section>
 <section id="updating-from-source">
-<h3>Updating from source<a class="headerlink" href="#updating-from-source" title="Permalink to this headline"></a></h3>
-<p>If you cloned the GitHub repository, first, open a command line interface and
+<h3>Updating from source<a class="headerlink" href="#updating-from-source" title="Permalink to this heading"></a></h3>
+<p>If you cloned the GitHub repository, first, open your CLI and
 change directories to the folder containing your cloned version of the sensortoolkit repository:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">cd path/to/sensortoolkit</span>
 </pre></div>
@@ -191,8 +356,8 @@ change directories to the folder containing your cloned version of the sensortoo
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="quickstart.html" class="btn btn-neutral float-left" title="Quickstart Guide" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="import_sensortoolkit.html" class="btn btn-neutral float-right" title="Importing sensortoolkit" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="setup.html" class="btn btn-neutral float-left" title="Setting Up for sensortoolkit" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="template.html" class="btn btn-neutral float-right" title="Analysis with sensortoolkit" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

@@ -1,14 +1,16 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>sensortoolkit.lib_utils._setup &mdash; sensortoolkit 0.8.3b2 documentation</title>
-      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" type="text/css" />
+  <title>sensortoolkit.lib_utils._setup &mdash; sensortoolkit 0.9.0b2 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+
+  
   <!--[if lt IE 9]>
     <script src="../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
@@ -16,6 +18,7 @@
         <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
         <script src="../../../_static/jquery.js"></script>
         <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../../../_static/doctools.js"></script>
     <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
@@ -27,14 +30,18 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="../../../index.html" class="icon icon-home"> sensortoolkit
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            sensortoolkit
           </a>
               <div class="version">
-                0.8.3b2
+                0.9.0b2
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -43,9 +50,10 @@
               <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../quickstart.html">Quickstart Guide</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../quickstart.html#script-templates">Script Templates</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../setup.html">Setting Up for sensortoolkit</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../install.html">Installing and Updating sensortoolkit</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../import_sensortoolkit.html">Importing sensortoolkit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../template.html">Analysis with sensortoolkit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../template.html#script-template">Script Template</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Objects and Data Structures</span></p>
 <ul>
@@ -53,7 +61,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../data_structures/index.html">Data Structures</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../sdfs/index.html">sensortoolkit Data Formatting Scheme (SDFS)</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Objects and Data Structures</span></p>
+<p class="caption" role="heading"><span class="caption-text">Analysis and Reports</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../evaluation_objects/index.html">Evaluation Objects</a></li>
 </ul>
@@ -75,9 +83,9 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="../../index.html">Module code</a> &raquo;</li>
-      <li>sensortoolkit.lib_utils._setup</li>
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">sensortoolkit.lib_utils._setup</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -105,8 +113,12 @@
 <span class="sd">Created:</span>
 <span class="sd">  Mon Jul 19 08:25:55 2021</span>
 <span class="sd">Last Updated:</span>
-<span class="sd">  Mon Jul 19 08:25:55 2021</span>
+<span class="sd">  Thur Feb 09 02:06:41 2023</span>
 <span class="sd">&quot;&quot;&quot;</span>
+<span class="c1"># Thur Feb 09 02:06:41 2023, Menaka Kumar, NSSC Contractor (ORAU) U.S. EPA / ORD / CEMM / AMCD / SFSB </span>
+<span class="c1"># uncommented and modified current lines 882 &amp; 885 to print a note of SDFS parameters in AirSensor setup when specifying parameter columns.</span>
+<span class="c1"># modified current lines 1431 &amp; 1435-1436 to print better link for EPA AirData Air Quality Monitors Map and format better.</span>
+
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">sys</span>
 <span class="kn">from</span> <span class="nn">textwrap</span> <span class="kn">import</span> <span class="n">wrap</span>
@@ -129,7 +141,7 @@
 
 
 <span class="k">class</span> <span class="nc">_Setup</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Setup methods for Sensor and Reference data ingestion configuration.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Setup methods for Sensor and Reference data ingestion configuration.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        path (str, optional):</span>
@@ -167,7 +179,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">col_headers</span> <span class="o">=</span> <span class="p">{}</span>
 
     <span class="k">def</span> <span class="nf">config</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Wrapper method for standard configuration setup.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Wrapper method for standard configuration setup.</span>
 
 <span class="sd">        Utilized by both sensor and reference setup schemes.</span>
 
@@ -200,10 +212,10 @@
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">header_iloc</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="c1"># Manually specify column names if none provided</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">setColumnHeaders</span><span class="p">()</span>
-        <span class="c1"># otherwise, specify column headers in parsedatasets, infer header at</span>
+        <span class="c1"># otherwise, specify column headers in parse datasets, infer header at</span>
         <span class="c1"># iloc position</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">parseDataSets</span><span class="p">()</span>
-        <span class="c1"># Specify which headers are assocaited with timestamp info</span>
+        <span class="c1"># Specify which headers are associated with timestamp info</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">setTimeHeaders</span><span class="p">()</span>
         <span class="c1"># Specify how to convert recorded parameter headers to SDFS</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">setParamHeaders</span><span class="p">()</span>
@@ -212,13 +224,13 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">setTimeZone</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">printSelectionBanner</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">select_type</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="p">[],</span> <span class="n">notes</span><span class="o">=</span><span class="p">[]):</span>
-        <span class="sd">&quot;&quot;&quot;Display a banner indicating the current configuration step.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Display a banner indicating the current configuration step.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            select_type (str): The title of the configuration section.</span>
 <span class="sd">            options (list, optional):</span>
 <span class="sd">                List of interactive options indicating keyword characters</span>
-<span class="sd">                used to modify the state of thge console and</span>
+<span class="sd">                used to modify the state of the console and</span>
 <span class="sd">                a description of what entering that keyword does. Defaults</span>
 <span class="sd">                to [].</span>
 
@@ -270,7 +282,7 @@
         <span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">flier</span><span class="p">)</span><span class="o">*</span><span class="s1">&#39;=&#39;</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">add_param_attrib</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">param</span><span class="p">,</span> <span class="n">attrib_key</span><span class="p">,</span> <span class="n">attrib_val</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Assign parameter header attribute.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Assign parameter header attribute.</span>
 
 <span class="sd">        Search through the column index entries, if the parameter name within</span>
 <span class="sd">        the column index subdictionary, add the passed attribute key and value.</span>
@@ -293,7 +305,7 @@
 
 
     <span class="k">def</span> <span class="nf">setDataExtension</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Select the file data extension for to the datasets that will be</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Select the file data extension for to the datasets that will be</span>
 <span class="sd">        loaded.</span>
 
 <span class="sd">        Choose the corresponding data file type for recorded</span>
@@ -326,7 +338,7 @@
             <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">selectDataSets</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Choose the selection scheme for pointing to recorded data files.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Choose the selection scheme for pointing to recorded data files.</span>
 
 <span class="sd">        Selection options include the following:</span>
 
@@ -367,7 +379,7 @@
             <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">copyDataSets</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Copy recorded datasets from the selected file or folder</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Copy recorded datasets from the selected file or folder</span>
 <span class="sd">        location to the ``../data/sensor_data/[sensor_name]/raw_data``</span>
 <span class="sd">        directory path.</span>
 
@@ -387,7 +399,7 @@
         <span class="n">enter_continue</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">specifyCustomIngest</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Ask the user whether a custom, prewritten ingestion module will be</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Ask the user whether a custom, prewritten ingestion module will be</span>
 <span class="sd">        used to import sensor data instead of the standard_ingest() method.</span>
 
 
@@ -407,7 +419,7 @@
         <span class="n">enter_continue</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">loadPreviousSetup</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Ask the user if a previous setup config exists for the type of sensor</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Ask the user if a previous setup config exists for the type of sensor</span>
 <span class="sd">        or reference dataset that they are loading. If they choose to use a</span>
 <span class="sd">        previously configured setup.json file, use the file attributes to fill</span>
 <span class="sd">        in various setup components, such as the parameter renaming, datetime</span>
@@ -480,7 +492,7 @@
             <span class="k">for</span> <span class="n">col_idx</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">col_headers</span><span class="o">.</span><span class="n">copy</span><span class="p">():</span>
                 <span class="k">for</span> <span class="n">label</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">col_headers</span><span class="p">[</span><span class="n">col_idx</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">():</span>
 
-                    <span class="c1"># Check if the recorded dataset doesnt have a header,</span>
+                    <span class="c1"># Check if the recorded dataset does not have a header,</span>
                     <span class="c1"># if so, use previously manually configured names</span>
                     <span class="k">if</span> <span class="n">previous_setup_data</span><span class="p">[</span><span class="s1">&#39;header_iloc&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
                         <span class="c1"># label is an integer value, reassign to previously</span>
@@ -514,7 +526,7 @@
                         <span class="k">continue</span>
 
             <span class="c1"># Ask the user to specify attributes for columns that</span>
-            <span class="c1"># didnt appear in the previously configured setup.</span>
+            <span class="c1"># did not appear in the previously configured setup.</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_not_in_previous_setup</span> <span class="o">!=</span> <span class="p">{}:</span>
                 <span class="n">new_cols</span> <span class="o">=</span> <span class="p">[]</span>
 
@@ -534,7 +546,7 @@
 
 
     <span class="k">def</span> <span class="nf">loadDataFile</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Helper function for loading the first few rows of recorded datasets.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Helper function for loading the first few rows of recorded datasets.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            file (str):</span>
@@ -584,7 +596,7 @@
         <span class="k">return</span> <span class="n">df</span>
 
     <span class="k">def</span> <span class="nf">setDataRelPath</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Assign the relative path for the recorded dataset subdirectory.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Assign the relative path for the recorded dataset subdirectory.</span>
 
 <span class="sd">        The relative path stems from the project path.</span>
 
@@ -614,7 +626,7 @@
 
 
     <span class="k">def</span> <span class="nf">parseDataSets</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">print_banner</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Load the  first few rows of recorded sensor datasets located in the</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Load the  first few rows of recorded sensor datasets located in the</span>
 <span class="sd">        ``../data/sensor_data/[sensor_name]/raw_data`` directory path.</span>
 
 <span class="sd">        The names of column headers are located based on the</span>
@@ -701,7 +713,7 @@
         <span class="n">enter_continue</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">setHeaderIndex</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">print_banner</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Select the integer index position for the row containing headers.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Select the integer index position for the row containing headers.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            print_banner (bool, optional):</span>
@@ -800,7 +812,7 @@
         <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">setColumnHeaders</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">print_banner</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Manually set column headers if the user indicates ``&#39;None&#39;`` for the</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Manually set column headers if the user indicates ``&#39;None&#39;`` for the</span>
 <span class="sd">        row index for the column headers in ``setHeaderIndex()``.</span>
 
 <span class="sd">        Args:</span>
@@ -874,7 +886,7 @@
         <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">setTimeHeaders</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">print_banner</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">print_statement</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Specify the column(s) containing date/timestamp information.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Specify the column(s) containing date/timestamp information.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            print_banner (bool, optional):</span>
@@ -940,7 +952,7 @@
         <span class="n">enter_continue</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">setParamHeaders</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">print_banner</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">col_list</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Select the SDFS parameters corresponding to column names discovered</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Select the SDFS parameters corresponding to column names discovered</span>
 <span class="sd">        by ``ParseDataSets()``.</span>
 
 <span class="sd">        A parameter renaming dictionary is created for reassigning the names</span>
@@ -964,10 +976,10 @@
 
 
         <span class="k">if</span> <span class="n">print_banner</span><span class="p">:</span>
-            <span class="c1">#txt = &#39;Choose from the following list of SDFS parameter names&#39;</span>
+            <span class="n">txt</span> <span class="o">=</span> <span class="s1">&#39;The following is a list of SDFS parameter names:&#39;</span> <span class="c1"># uncommented and modified by KM 2/9/2023</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">printSelectionBanner</span><span class="p">(</span><span class="s1">&#39;Specify Parameter columns&#39;</span><span class="p">,</span>
                                       <span class="n">options</span><span class="o">=</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">skip_str</span><span class="p">],</span>
-                                      <span class="c1">#notes=[txt, self.params]</span>
+                                      <span class="n">notes</span><span class="o">=</span><span class="p">[</span><span class="n">txt</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">sdfs_params</span><span class="p">]</span> <span class="c1"># uncommented and modified by KM 2/9/2023</span>
                                       <span class="p">)</span>
         <span class="c1"># drop time-like columns and ask user for SDFS parameter associated</span>
         <span class="c1"># with remaining cols</span>
@@ -1075,7 +1087,7 @@
         <span class="n">enter_continue</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">checkParamUnits</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">param</span><span class="p">,</span> <span class="n">sdfs_param</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Prompt user to indicate whether units for passed parameter are the</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Prompt user to indicate whether units for passed parameter are the</span>
 <span class="sd">        same as the preset units specified for the corresponding SDFS parameter.</span>
 
 <span class="sd">        Args:</span>
@@ -1091,6 +1103,7 @@
 <span class="sd">            the unit basis for the SDFS parameter.</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
+
         <span class="n">val</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="n">sdfs_param_units</span> <span class="o">=</span> <span class="n">Parameter</span><span class="p">(</span><span class="n">sdfs_param</span><span class="p">)</span><span class="o">.</span><span class="n">units</span>
         <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
@@ -1099,24 +1112,37 @@
         <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">confirm</span> <span class="o">==</span> <span class="s1">&#39;n&#39;</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">param</span> <span class="o">==</span> <span class="s1">&#39;Temp&#39;</span> <span class="ow">or</span> <span class="s1">&#39;DP&#39;</span><span class="p">:</span>
-                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;  Are the units of measure for </span><span class="si">{</span><span class="n">param</span><span class="si">}</span><span class="s1"> Fahrenheit?&#39;</span><span class="p">)</span>
+
+                <span class="k">if</span> <span class="n">sdfs_param_units</span> <span class="o">==</span> <span class="s1">&#39;°F&#39;</span><span class="p">:</span>
+                    <span class="n">old_temp_basis</span> <span class="o">=</span> <span class="s1">&#39;°C&#39;</span>
+                    <span class="n">old_unit_name</span> <span class="o">=</span> <span class="s1">&#39;Celsius&#39;</span>
+                    <span class="n">new_unit_name</span> <span class="o">=</span> <span class="s1">&#39;Fahrenheit&#39;</span>
+                <span class="k">elif</span> <span class="n">sdfs_param_units</span> <span class="o">==</span> <span class="s1">&#39;°C&#39;</span><span class="p">:</span>
+                    <span class="n">old_temp_basis</span> <span class="o">=</span> <span class="s1">&#39;°F&#39;</span>
+                    <span class="n">old_unit_name</span> <span class="o">=</span> <span class="s1">&#39;Fahrenheit&#39;</span>
+                    <span class="n">new_unit_name</span> <span class="o">=</span> <span class="s1">&#39;Celsius&#39;</span>
+
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;  Are the units of measure [</span><span class="si">{</span><span class="n">old_temp_basis</span><span class="si">}</span><span class="s1">] for column header &quot;</span><span class="si">{</span><span class="n">param</span><span class="si">}</span><span class="s1">&quot;?&#39;</span><span class="p">)</span>
                 <span class="n">temp_confirm</span> <span class="o">=</span> <span class="n">validate_entry</span><span class="p">(</span><span class="n">indent_statement</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
                 <span class="k">if</span> <span class="n">temp_confirm</span> <span class="o">==</span> <span class="s1">&#39;y&#39;</span><span class="p">:</span>
                     <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
-                    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;  </span><span class="si">{</span><span class="n">param</span><span class="si">}</span><span class="s1"> will be converted from Fahrenheit to Celsius&#39;</span><span class="p">)</span>
-                    <span class="n">val</span> <span class="o">=</span> <span class="s1">&#39;f_c&#39;</span>
+                    <span class="n">old_temp_basis</span> <span class="o">=</span> <span class="n">old_temp_basis</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;°&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+                    <span class="n">new_temp_basis</span> <span class="o">=</span> <span class="n">sdfs_param_units</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;°&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;  &quot;</span><span class="si">{</span><span class="n">param</span><span class="si">}</span><span class="s1">&quot; will be converted from </span><span class="si">{</span><span class="n">old_unit_name</span><span class="si">}</span><span class="s1"> to </span><span class="si">{</span><span class="n">new_unit_name</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+                    <span class="n">val</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">old_temp_basis</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="n">new_temp_basis</span><span class="si">}</span><span class="s1">&#39;</span>
                 <span class="k">else</span><span class="p">:</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
                     <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;  Temperature must be in either degree Fahrenheit or Celsius&#39;</span><span class="p">)</span>
 
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">val</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s1">&#39;  Enter the scalar quanitity for converting the &#39;</span>
+                <span class="n">val</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s1">&#39;  Enter the scalar quantity for converting the &#39;</span>
                             <span class="s1">&#39;recorded measurements to the following unit basis: &#39;</span>
                             <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">sdfs_param_units</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="n">val</span>
 
     <span class="k">def</span> <span class="nf">setDateTimeFormat</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Configure the date/time formatting for date/time column(s) specified</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Configure the date/time formatting for date/time column(s) specified</span>
 <span class="sd">        in ``setTimeHeaders()``.</span>
 
 
@@ -1169,7 +1195,7 @@
 
 
     <span class="k">def</span> <span class="nf">setTimeZone</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Select the time zone associated with the date/time column(s).</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Select the time zone associated with the date/time column(s).</span>
 
 <span class="sd">        Timezones should be valid timezone names recognized by the ``pytz``</span>
 <span class="sd">        library.</span>
@@ -1182,7 +1208,8 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">printSelectionBanner</span><span class="p">(</span><span class="s1">&#39;Specify DateTime Index Time Zone&#39;</span><span class="p">,</span>
                                   <span class="n">options</span><span class="o">=</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">skip_str</span><span class="p">],</span>
                                   <span class="n">notes</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;For a list of all time zones, type&#39;</span>
-                                         <span class="s1">&#39; &quot;pytz.all_timezones&quot;&#39;</span><span class="p">])</span>
+                                         <span class="s1">&#39; &quot;import pytz&quot; and then &quot;pytz.all_timezones&quot;&#39;</span>
+                                         <span class="s1">&#39; or go to the following website: https://en.wikipedia.org/wiki/List_of_tz_database_time_zones&#39;</span><span class="p">])</span>
 
         <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">timestamp_col_headers</span><span class="p">:</span>
 
@@ -1227,7 +1254,7 @@
         <span class="n">enter_continue</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">exportSetup</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Save the setup configuration to a ``setup.json`` file.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Save the setup configuration to a ``setup.json`` file.</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            None.</span>
@@ -1269,7 +1296,7 @@
 
 
 <div class="viewcode-block" id="SensorSetup"><a class="viewcode-back" href="../../../api/_autosummary/sensortoolkit.lib_utils._setup.SensorSetup.html#sensortoolkit.lib_utils._setup.SensorSetup">[docs]</a><span class="k">class</span> <span class="nc">SensorSetup</span><span class="p">(</span><span class="n">_Setup</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Interactive class for handling the sensor data ingestion process.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Interactive class for handling the sensor data ingestion process.</span>
 
 <span class="sd">    Users specify various attributes about sensor datasets, including column</span>
 <span class="sd">    names for parameter data and timestamp entries. A renaming scheme is then</span>
@@ -1302,7 +1329,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">exportSetup</span><span class="p">()</span>
 
 <div class="viewcode-block" id="SensorSetup.setSerials"><a class="viewcode-back" href="../../../api/_autosummary/sensortoolkit.lib_utils._setup.SensorSetup.html#sensortoolkit.lib_utils._setup.SensorSetup.setSerials">[docs]</a>    <span class="k">def</span> <span class="nf">setSerials</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Indicate unique serial identifiers for each sensor unit tested.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Indicate unique serial identifiers for each sensor unit tested.</span>
 
 <span class="sd">        The identifying keyword for each sensor unit should be indicated within</span>
 <span class="sd">        the recorded sensor dataset file names.</span>
@@ -1373,7 +1400,7 @@
 
 
 <div class="viewcode-block" id="ReferenceSetup"><a class="viewcode-back" href="../../../api/_autosummary/sensortoolkit.lib_utils._setup.ReferenceSetup.html#sensortoolkit.lib_utils._setup.ReferenceSetup">[docs]</a><span class="k">class</span> <span class="nc">ReferenceSetup</span><span class="p">(</span><span class="n">_Setup</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Interactive class for handling the reference data ingestion process.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Interactive class for handling the reference data ingestion process.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        path (str, optional):</span>
@@ -1433,11 +1460,11 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">localRefDataIngest</span><span class="p">()</span>
 
 <div class="viewcode-block" id="ReferenceSetup.selectDataSource"><a class="viewcode-back" href="../../../api/_autosummary/sensortoolkit.lib_utils._setup.ReferenceSetup.html#sensortoolkit.lib_utils._setup.ReferenceSetup.selectDataSource">[docs]</a>    <span class="k">def</span> <span class="nf">selectDataSource</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Select the service/source from which reference data were acquired.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Select the service/source from which reference data were acquired.</span>
 
 <span class="sd">        Choose from the following options:</span>
 
-<span class="sd">        - ``&#39;local&#39;``: Data files aqcuired locally (e.g., local transfer</span>
+<span class="sd">        - ``&#39;local&#39;``: Data files acquired locally (e.g., local transfer</span>
 <span class="sd">          from agency overseeing reference instrumentation at air monitoring</span>
 <span class="sd">          site).</span>
 <span class="sd">        - ``&#39;airnowtech&#39;``: User has downloaded files from the AirNowTech</span>
@@ -1477,7 +1504,7 @@
 
 
 <div class="viewcode-block" id="ReferenceSetup.setSiteInfo"><a class="viewcode-back" href="../../../api/_autosummary/sensortoolkit.lib_utils._setup.ReferenceSetup.html#sensortoolkit.lib_utils._setup.ReferenceSetup.setSiteInfo">[docs]</a>    <span class="k">def</span> <span class="nf">setSiteInfo</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Prompt user to enter various site attributes.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Prompt user to enter various site attributes.</span>
 
 <span class="sd">        The user is prompted to provide the following site attributes:</span>
 <span class="sd">        - Site name</span>
@@ -1488,7 +1515,7 @@
 
 <span class="sd">        .. important</span>
 
-<span class="sd">            **The following attrbiutes are required for querying API services:**</span>
+<span class="sd">            **The following attributes are required for querying API services:**</span>
 
 <span class="sd">            - If the reference data source is ``&#39;aqs&#39;``, an AQS ID must be</span>
 <span class="sd">              specified.</span>
@@ -1499,12 +1526,12 @@
 <span class="sd">            None.</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">airdata_link</span> <span class="o">=</span> <span class="s1">&#39;https://epa.maps.arcgis.com/apps/webappviewer/index.html?id=5f239fd3e72f424f98ef3d5def547eb5&#39;</span>
+        <span class="n">airdata_link</span> <span class="o">=</span> <span class="s1">&#39;https://www.epa.gov/outdoor-air-quality-data/interactive-map-air-quality-monitors&#39;</span> <span class="c1"># modified by KM 2/9/2023</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">printSelectionBanner</span><span class="p">(</span><span class="s1">&#39;Enter Ambient Air Monitoring Site Information&#39;</span><span class="p">,</span>
                                   <span class="n">options</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;..press enter to skip entries&#39;</span><span class="p">],</span>
                                   <span class="n">notes</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Site AQS ID required for AQS queries&#39;</span><span class="p">,</span>
-                                         <span class="s1">&#39;Use the EPA AirData Air Quality Monitors Map to locate AQS Sites&#39;</span>
-                                         <span class="sa">f</span><span class="s1">&#39;  </span><span class="si">{</span><span class="n">airdata_link</span><span class="si">}</span><span class="s1">&#39;</span>
+                                         <span class="s1">&#39;Use the EPA AirData Air Quality Monitors Map to locate AQS Sites:&#39;</span> <span class="c1"># modified by KM 2/9/2023</span>
+                                         <span class="sa">f</span><span class="s1">&#39; </span><span class="si">{</span><span class="n">airdata_link</span><span class="si">}</span><span class="s1">&#39;</span> <span class="c1"># modified by KM 2/9/2023</span>
                                          <span class="s1">&#39;Site Latitude and Longitude required for AirNow queries&#39;</span><span class="p">,</span>
                                          <span class="s1">&#39;  Latitude must be between -90 and +90 degrees &#39;</span><span class="p">,</span>
                                          <span class="s1">&#39;  Longitude must be between -180 and +180 degrees&#39;</span><span class="p">])</span>
@@ -1597,13 +1624,13 @@
                                             <span class="bp">self</span><span class="o">.</span><span class="n">fmt_site_aqs</span><span class="p">])</span></div>
 
 <div class="viewcode-block" id="ReferenceSetup.setParamMetaCols"><a class="viewcode-back" href="../../../api/_autosummary/sensortoolkit.lib_utils._setup.ReferenceSetup.html#sensortoolkit.lib_utils._setup.ReferenceSetup.setParamMetaCols">[docs]</a>    <span class="k">def</span> <span class="nf">setParamMetaCols</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">param</span><span class="p">,</span> <span class="n">sdfs_param</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Prompt user to enter various parameter metadata attributes.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Prompt user to enter various parameter metadata attributes.</span>
 
 <span class="sd">        The user is prompted to enter the following attributes:</span>
 <span class="sd">        - Units</span>
 <span class="sd">        - Parameter AQS Code</span>
 <span class="sd">        - Reference Method Code</span>
-<span class="sd">        - Parameter Occurence Code</span>
+<span class="sd">        - Parameter Occurrence Code</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            param (str):</span>
@@ -1619,7 +1646,7 @@
             <span class="sa">f</span><span class="s1">&#39;Enter the units of measure for </span><span class="si">{</span><span class="n">param</span><span class="si">}</span><span class="s1">: &#39;</span><span class="p">:</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">sdfs_param</span><span class="si">}</span><span class="s1">&#39;</span> <span class="o">+</span> <span class="s1">&#39;_Unit&#39;</span><span class="p">,</span>
             <span class="sa">f</span><span class="s1">&#39;Enter the parameter code for </span><span class="si">{</span><span class="n">param</span><span class="si">}</span><span class="s1">: &#39;</span><span class="p">:</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">sdfs_param</span><span class="si">}</span><span class="s1">&#39;</span> <span class="o">+</span> <span class="s1">&#39;_Param_Code&#39;</span><span class="p">,</span>
             <span class="sa">f</span><span class="s1">&#39;Enter the method code corresponding to the reference method for </span><span class="si">{</span><span class="n">param</span><span class="si">}</span><span class="s1">: &#39;</span><span class="p">:</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">sdfs_param</span><span class="si">}</span><span class="s1">&#39;</span> <span class="o">+</span> <span class="s1">&#39;_Method_Code&#39;</span><span class="p">,</span>
-            <span class="sa">f</span><span class="s1">&#39;Enter the parameter occurence code for the above reference method: &#39;</span><span class="p">:</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">sdfs_param</span><span class="si">}</span><span class="s1">&#39;</span> <span class="o">+</span> <span class="s1">&#39;_Method_POC&#39;</span>
+            <span class="sa">f</span><span class="s1">&#39;Enter the parameter occurrence code for the above reference method: &#39;</span><span class="p">:</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">sdfs_param</span><span class="si">}</span><span class="s1">&#39;</span> <span class="o">+</span> <span class="s1">&#39;_Method_POC&#39;</span>
             <span class="p">}</span>
 
         <span class="n">indent</span> <span class="o">=</span> <span class="s1">&#39;  &#39;</span>
@@ -1681,7 +1708,7 @@
                         <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">indent</span><span class="si">}</span><span class="s1">..invalid entry, enter either an integer or &quot;None&quot;&#39;</span><span class="p">)</span>
                         <span class="c1"># valid is still false, will continue with current attribute</span>
                         <span class="k">continue</span>
-                    <span class="k">if</span> <span class="n">val</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">method_table</span><span class="p">[</span><span class="s1">&#39;Method Code&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">val</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">method_table</span><span class="p">[</span><span class="s1">&#39;Code&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">:</span>
                         <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">indent</span><span class="si">}</span><span class="s1">..method code not in table of methods, continue with entry?&#39;</span><span class="p">)</span>
                         <span class="n">custom_method</span> <span class="o">=</span> <span class="kc">True</span>
 
@@ -1704,14 +1731,14 @@
 
                         <span class="k">else</span><span class="p">:</span>
                             <span class="n">name</span> <span class="o">=</span> <span class="n">method_table</span><span class="p">[</span>
-                                <span class="n">method_table</span><span class="p">[</span><span class="s1">&#39;Method Code&#39;</span><span class="p">]</span><span class="o">==</span><span class="nb">int</span><span class="p">(</span><span class="n">val</span><span class="p">)</span>
-                                    <span class="p">][</span><span class="s1">&#39;Collection Description&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                                <span class="n">method_table</span><span class="p">[</span><span class="s1">&#39;Code&#39;</span><span class="p">]</span><span class="o">==</span><span class="nb">int</span><span class="p">(</span><span class="n">val</span><span class="p">)</span>
+                                    <span class="p">][</span><span class="s1">&#39;Instrument Make &amp; Model&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
                             <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">sdfs_param</span><span class="si">}</span><span class="s1">&#39;</span> <span class="o">+</span> <span class="s1">&#39;_Method&#39;</span><span class="p">:</span> <span class="n">name</span><span class="p">})</span></div>
 
 
 <div class="viewcode-block" id="ReferenceSetup.displayMethods"><a class="viewcode-back" href="../../../api/_autosummary/sensortoolkit.lib_utils._setup.ReferenceSetup.html#sensortoolkit.lib_utils._setup.ReferenceSetup.displayMethods">[docs]</a>    <span class="k">def</span> <span class="nf">displayMethods</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">param_code</span><span class="p">,</span> <span class="n">lookup_data</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Helper function for printing an abbreviated dataset of reference</span>
-<span class="sd">        methods correponding to the indicated parameter.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Helper function for printing an abbreviated dataset of reference</span>
+<span class="sd">        methods corresponding to the indicated parameter.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            param_code (int):</span>
@@ -1729,14 +1756,31 @@
         <span class="k">with</span> <span class="n">pd</span><span class="o">.</span><span class="n">option_context</span><span class="p">(</span><span class="s1">&#39;display.expand_frame_repr&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span>
                                            <span class="s1">&#39;display.max_rows&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">):</span>
             <span class="n">table</span> <span class="o">=</span> <span class="n">lookup_data</span><span class="p">[</span><span class="n">lookup_data</span><span class="p">[</span><span class="s1">&#39;Parameter Code&#39;</span><span class="p">]</span><span class="o">==</span><span class="n">param_code</span><span class="p">]</span>
+
+            <span class="n">make</span> <span class="o">=</span> <span class="n">table</span><span class="p">[</span><span class="s1">&#39;Make&#39;</span><span class="p">]</span>
+            <span class="n">model</span> <span class="o">=</span> <span class="n">table</span><span class="p">[</span><span class="s1">&#39;Model&#39;</span><span class="p">]</span>
+
+            <span class="n">table</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s1">&#39;Instrument Make &amp; Model&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">make</span> <span class="o">+</span> <span class="s1">&#39; &#39;</span> <span class="o">+</span> <span class="n">model</span>
+            <span class="n">table</span> <span class="o">=</span> <span class="n">table</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;Method Code&#39;</span><span class="p">:</span> <span class="s1">&#39;Code&#39;</span><span class="p">,</span>
+                                          <span class="s1">&#39;Method Type&#39;</span><span class="p">:</span> <span class="s1">&#39;Desig.&#39;</span><span class="p">})</span>
+
+            <span class="n">no_name_idx</span> <span class="o">=</span> <span class="n">table</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">table</span><span class="p">[</span><span class="s1">&#39;Instrument Make &amp; Model&#39;</span><span class="p">]</span><span class="o">==</span><span class="s1">&#39;- -&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span><span class="o">.</span><span class="n">index</span>
+
+            <span class="n">collec_descrip</span> <span class="o">=</span> <span class="n">table</span><span class="p">[</span><span class="s1">&#39;Collection Description&#39;</span><span class="p">]</span>
+            <span class="n">analy_descrip</span> <span class="o">=</span> <span class="n">table</span><span class="p">[</span><span class="s1">&#39;Analysis Description&#39;</span><span class="p">]</span>
+
+            <span class="n">table</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">no_name_idx</span><span class="p">,</span> <span class="s1">&#39;Instrument Make &amp; Model&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">collec_descrip</span> <span class="o">+</span> <span class="s1">&#39;-&#39;</span> <span class="o">+</span> <span class="n">analy_descrip</span>
+
+            <span class="n">table</span> <span class="o">=</span> <span class="n">table</span><span class="o">.</span><span class="n">sort_index</span><span class="p">()</span>
+
             <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
-            <span class="nb">print</span><span class="p">(</span><span class="n">table</span><span class="p">[[</span><span class="s1">&#39;Method Code&#39;</span><span class="p">,</span>
-                         <span class="s1">&#39;Collection Description&#39;</span><span class="p">,</span>
-                         <span class="s1">&#39;Method Type&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">to_markdown</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">table</span><span class="p">[[</span><span class="s1">&#39;Code&#39;</span><span class="p">,</span><span class="s1">&#39;Desig.&#39;</span><span class="p">,</span><span class="s1">&#39;Instrument Make &amp; Model&#39;</span><span class="p">,</span>
+                         <span class="p">]]</span><span class="o">.</span><span class="n">to_markdown</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">tablefmt</span><span class="o">=</span><span class="s1">&#39;pretty&#39;</span><span class="p">))</span>
+
         <span class="k">return</span> <span class="n">table</span></div>
 
 <div class="viewcode-block" id="ReferenceSetup.processAirNowTech"><a class="viewcode-back" href="../../../api/_autosummary/sensortoolkit.lib_utils._setup.ReferenceSetup.html#sensortoolkit.lib_utils._setup.ReferenceSetup.processAirNowTech">[docs]</a>    <span class="k">def</span> <span class="nf">processAirNowTech</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Wrapper method for calling the ``sensortoolkit.reference.preprocess_airnowtech()``</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Wrapper method for calling the ``sensortoolkit.reference.preprocess_airnowtech()``</span>
 <span class="sd">        method for converting downloaded AirNowTech datasets to SDFS format.</span>
 
 <span class="sd">        Returns:</span>
@@ -1752,11 +1796,14 @@
                                     <span class="n">options</span><span class="o">=</span><span class="p">[])</span>
         <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">file_list</span><span class="p">:</span>
-            <span class="n">preprocess_airnowtech</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="p">)</span>
+            <span class="n">preprocess_airnowtech</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="p">,</span> <span class="n">agency</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">agency</span><span class="p">,</span>
+                                  <span class="n">site_name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">site_name</span><span class="p">,</span> <span class="n">site_aqs</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">site_aqs</span><span class="p">,</span>
+                                  <span class="n">site_lat</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">site_lat</span><span class="p">,</span> <span class="n">site_lon</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">site_lon</span><span class="p">)</span>
+
         <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="ReferenceSetup.localRefDataIngest"><a class="viewcode-back" href="../../../api/_autosummary/sensortoolkit.lib_utils._setup.ReferenceSetup.html#sensortoolkit.lib_utils._setup.ReferenceSetup.localRefDataIngest">[docs]</a>    <span class="k">def</span> <span class="nf">localRefDataIngest</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Wrapper method for ingesting reference datasets acquired locally.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Wrapper method for ingesting reference datasets acquired locally.</span>
 
 <span class="sd">        Datasets are ingested into SDFS format via the</span>
 <span class="sd">        ``sensortoolkit.ingest.standard_ingest()`` method and processed datasets</span>
@@ -1804,7 +1851,7 @@
 
                 <span class="n">class_df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">class_param_cols</span><span class="p">]</span>
 
-                <span class="c1"># Save class dataframe in monthly segements</span>
+                <span class="c1"># Save class dataframe in monthly segments</span>
                 <span class="k">for</span> <span class="n">date</span> <span class="ow">in</span> <span class="n">pd</span><span class="o">.</span><span class="n">date_range</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="n">class_df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span>
                               <span class="n">end</span><span class="o">=</span><span class="n">class_df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">max</span><span class="p">())</span><span class="o">.</span><span class="n">to_period</span><span class="p">(</span><span class="s1">&#39;M&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">unique</span><span class="p">():</span>
                     <span class="n">month</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">date</span><span class="o">.</span><span class="n">month</span><span class="p">)</span><span class="o">.</span><span class="n">zfill</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
@@ -1820,6 +1867,12 @@
                         <span class="n">month_df</span> <span class="o">=</span> <span class="n">interval_averaging</span><span class="p">(</span><span class="n">month_df</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="s1">&#39;H&#39;</span><span class="p">,</span>
                                                       <span class="n">interval_count</span><span class="o">=</span><span class="n">N</span><span class="p">,</span>
                                                       <span class="n">thres</span><span class="o">=</span><span class="mf">0.75</span><span class="p">)</span>
+                    
+                    <span class="k">if</span> <span class="n">classifier</span> <span class="o">==</span> <span class="s2">&quot;PM&quot;</span><span class="p">:</span>
+                        <span class="kn">from</span> <span class="nn">sensortoolkit.calculate</span> <span class="kn">import</span> <span class="n">calculate_ref_ratio</span>
+                        <span class="n">month_df</span> <span class="o">=</span> <span class="n">calculate_ref_ratio</span><span class="p">(</span><span class="n">month_df</span><span class="p">)</span>
+                    <span class="c1">#     ratio_count_ref = ratio_ref_count(month_df)</span>
+                    <span class="c1">#     print(&quot;\n Ratio Reference count &lt;= 0.4: \n&quot;, ratio_count_ref)</span>
 
                     <span class="c1"># Write to processed folder as csv</span>
                     <span class="n">filename</span> <span class="o">=</span> <span class="s1">&#39;H_&#39;</span> <span class="o">+</span> <span class="n">year</span> <span class="o">+</span> <span class="n">month</span> <span class="o">+</span> <span class="s1">&#39;_&#39;</span> <span class="o">+</span> <span class="n">classifier</span> <span class="o">+</span> <span class="s1">&#39;.csv&#39;</span>
