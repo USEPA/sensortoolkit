@@ -1194,7 +1194,7 @@ def met_influence(df_list, ref_df, avg_df, met_ref_df=None,
         # Compute normalized dataframes
         depvar_df_list = normalize(df_list, ref_df, param_name, ref_name)
         #title = f'{fmt_sensor_name} {fmt_param} Normalized by {ref_name}'
-        title = f' ' ###
+        title = f'1-hour Averages' # for right now, everything is plotting at 1-hr. But may have to change PM eval to 24-hour averages
         # Plot 1:1 normalization line
         ax.axhline(y=1.0, linewidth=1.5, color='#8b8b8b', alpha=.8)
         legend_list = ['1:1']

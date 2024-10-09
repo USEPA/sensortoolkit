@@ -137,8 +137,8 @@ def met_distrib(met_ref_data, avg_hrly_df, figure_path, sensor_name=None,
 
     fill_color = [['#77529A'], ['#b06c8b'], ['#588ded']]
 
-    # fig_title = ('Temperature and Relative Humidity\n'
-    #              '1-hour Averaged Measurements')
+    fig_title = ('Temperature and Relative Humidity\n'
+                 '1-hour Averaged Measurements')
 
 
     fig.subplots_adjust(wspace=.6,
@@ -186,7 +186,7 @@ def met_distrib(met_ref_data, avg_hrly_df, figure_path, sensor_name=None,
                                  fontsize=detail_font_size, y=0.97)
             axs[i].set_xlabel(label, fontsize=detail_font_size)
             axs[i].xaxis.set_major_locator(plt.MultipleLocator(25))
-            axs[i].set_title('Relative Humidity Monitor', fontsize=10)
+            #axs[i].set_title('Relative Humidity Monitor', fontsize=10)
 
         if param.startswith('Temp'):
             label = 'Temperature ($\\degree$C)'
@@ -196,7 +196,7 @@ def met_distrib(met_ref_data, avg_hrly_df, figure_path, sensor_name=None,
                                  fontsize=detail_font_size, y=0.97)
             axs[i].set_xlabel(label, fontsize=detail_font_size)
             axs[i].xaxis.set_major_locator(plt.MultipleLocator(10))
-            axs[i].set_title('Temperature Monitor',fontsize=10)
+            #axs[i].set_title('Temperature Monitor',fontsize=10)
 
         if param.startswith('DP'):
             label = 'Reference Dew Point ($\\degree$C)'
@@ -211,7 +211,7 @@ def met_distrib(met_ref_data, avg_hrly_df, figure_path, sensor_name=None,
 
         axs[i].tick_params(axis='both', labelsize=detail_font_size)
 
-    #plt.suptitle(fig_title, fontsize=font_size)
+    plt.suptitle(fig_title, fontsize=font_size)
 
     if write_to_file is True:
         todays_date = get_todays_date()
