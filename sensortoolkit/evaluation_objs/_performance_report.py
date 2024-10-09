@@ -259,8 +259,12 @@ class PerformanceReport(SensorEvaluation):
                          }
 
         if self.n_avg_intervals == 2:
-            self.fig_locs['SingleScatter']['left'] = 11.11
-            self.fig_locs['SingleScatter']['top'] = 8.16
+            if self.param.name != 'PM10':
+                self.fig_locs['SingleScatter']['top'] = 8.16
+                self.fig_locs['SingleScatter']['left'] = 11.11
+            elif self.param.name == 'PM10':
+                self.fig_locs['SingleScatter']['top'] = 7.98
+                self.fig_locs['SingleScatter']['left'] = 11.42
             self.fig_locs['TripleScatter']['left'] = 2.35
             self.fig_locs['TripleScatter']['top'] = 3.82
             self.fig_locs['Timeseries']['left'] = 0.63
@@ -326,10 +330,18 @@ class PerformanceReport(SensorEvaluation):
         """
 
         fig_loc = self.fig_locs[fig_name]
-        figure = self.shapes.add_picture(fig_path,
-                                         left=ppt.util.Inches(fig_loc['left']),
-                                         top=ppt.util.Inches(fig_loc['top'])
-                                         )
+        if self.param.name == 'PM10' and fig_name=='SingleScatter':
+            figure = self.shapes.add_picture(fig_path,
+                                             left=ppt.util.Inches(fig_loc['left']),
+                                             top=ppt.util.Inches(fig_loc['top']),
+                                             width=ppt.util.Inches(4.69),
+                                             height=ppt.util.Inches(2.81)
+                                             )
+        else:
+            figure = self.shapes.add_picture(fig_path,
+                                             left=ppt.util.Inches(fig_loc['left']),
+                                             top=ppt.util.Inches(fig_loc['top'])
+                                             )
 
         # Move image to 0 z-order (background)
         self.cursor_sp.addprevious(figure._element)
@@ -1089,7 +1101,15 @@ class PerformanceReport(SensorEvaluation):
         Reference conc info 75
         =================== =======
 
-        Time series box (O3 only):
+        Scatter plots box (PM10 only):
+
+        =================== =======
+        Table name          TableID
+        =================== =======
+        Reference conc info 3
+        =================== =======
+
+        Time series box (Gases only):
 
         =================== =======
         Table name          TableID
@@ -1103,9 +1123,12 @@ class PerformanceReport(SensorEvaluation):
         """
 
         # Get pptx table shape for modifying cells
-        if self.n_avg_intervals == 2:
-            shape = self.GetShape(slide_idx=0, shape_id=75)
-        if self.n_avg_intervals == 1:
+        if self.n_avg_intervals == 2: # if PM
+            if self.param.name != 'PM10':
+                shape = self.GetShape(slide_idx=0, shape_id=75)
+            elif self.param.name == 'PM10':
+                shape = self.GetShape(slide_idx=0, shape_id=3)
+        if self.n_avg_intervals == 1: # if gas
             shape = self.GetShape(slide_idx=0, shape_id=56)
 
         grp_info = self.deploy_dict['Deployment Groups']
@@ -1195,6 +1218,25 @@ class PerformanceReport(SensorEvaluation):
             self.FormatText(text_obj, alignment='center',
                             font_name='Calibri', font_size=9)
 
+        # ------- Cell 3: N periods meeting PM2.5/PM10 ratio target-----------
+        if self.param.name == 'PM10':
+            from sensortoolkit.calculate import ratio_ref_count
+            count_ref_ratio = self.reference.data["PM"]["1-hour"]
+            count_ref_ratio = ratio_ref_count(count_ref_ratio)
+
+            cell = shape.table.cell(2, 1)
+            textobj = cell.text_frame.paragraphs[0]
+
+            if count_ref_ratio != [np.nan]:
+                textobj.text = str(count_ref_ratio)
+            else:
+                textobj.text = '-'
+                cell.fill.solid()
+                cell.fill.fore_color.rgb = ppt.dml.color.RGBColor(214, 216, 226)
+
+            self.FormatText(textobj, alignment='center',
+                            font_name='Calibri', font_size=9)
+                
     def EditMetCondTable(self):
         """Add meteorological conditions table (page 1).
 

@@ -1111,7 +1111,8 @@ class _Setup:
         self.printSelectionBanner('Specify DateTime Index Time Zone',
                                   options=[self.skip_str],
                                   notes=['For a list of all time zones, type'
-                                         ' "pytz.all_timezones"'])
+                                         ' "import pytz" and then "pytz.all_timezones"'
+                                         ' or go to the following website: https://en.wikipedia.org/wiki/List_of_tz_database_time_zones'])
 
         for col in self.timestamp_col_headers:
 
@@ -1769,6 +1770,10 @@ class ReferenceSetup(_Setup):
                         month_df = interval_averaging(month_df, freq='H',
                                                       interval_count=N,
                                                       thres=0.75)
+
+                    if classifier == "PM":
+                        from sensortoolkit.calculate import calculate_ref_ratio
+                        month_df = calculate_ref_ratio(month_df)
 
                     # Write to processed folder as csv
                     filename = 'H_' + year + month + '_' + classifier + '.csv'
