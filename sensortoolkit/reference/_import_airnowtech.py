@@ -390,6 +390,10 @@ def write_to_file(df, path, outpath):
             # into the next month)
             if month_df.shape[0] > 11:
 
+                if param_type == 'PM':
+                    from sensortoolkit.calculate import calculate_ref_ratio
+                    month_df = calculate_ref_ratio(month_df)
+
                 # Use the site name and AQS ID to name subfolder containing
                 # site data
                 try:
