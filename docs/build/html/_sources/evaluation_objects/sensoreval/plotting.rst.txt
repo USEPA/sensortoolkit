@@ -27,6 +27,15 @@ Example figures are shown for each plotting method.
 
 `API Documentation for plot_met_dist() <../../api/_autosummary/sensortoolkit.evaluation_objs._sensor_eval.SensorEvaluation.html#sensortoolkit.evaluation_objs._sensor_eval.SensorEvaluation.plot_met_dist>`_
 
+Example
+"""""""
+
+.. figure:: ../../data/Example_Toco_Toucan_met_dist_230209.png
+   :align: center
+   :alt: Meteorological distribution plot for temperature and relative humidity measurements recorded during the testing period.
+
+|
+
 Description
 """""""""""
 
@@ -45,19 +54,21 @@ the housing of the air sensor. If no meteorological reference measurements are
 available, the method will use sensor measurements; however, a disclaimer will displayed
 above subplots indicating that sensor measurements are shown in the figure.
 
-Example
-"""""""
-
-.. figure:: ../../data/Example_Make_Model_met_distplot_report_fmt_211008.png
-   :align: center
-   :alt: Meteorological distribution plot for temperature and relative humidity measurements recorded during the testing period.
-
 -----
 
 ``SensorEvaluation.plot_met_influence()``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 `API Documentation for plot_met_influence() <../../api/_autosummary/sensortoolkit.evaluation_objs._sensor_eval.SensorEvaluation.html#sensortoolkit.evaluation_objs._sensor_eval.SensorEvaluation.plot_met_influence>`_
+
+Example
+"""""""
+
+.. figure:: ../../data/Example_Toco_Toucan_normalized_PM25_met_influence_230209.png
+   :align: center
+   :alt: Normalized scatter plots indicating the influence of temperature and relative humidity on sensor measurements by plotting normalized sensor-reference data pairs (i.e., sensor concentration divided by concurrently recorded reference concentration) vs. the meteorological parameter (either temperature or relative humidity).
+
+|
 
 Description
 """""""""""
@@ -76,12 +87,39 @@ that the sensor and reference measure the same concentration value for a given t
 Scatter below the 1:1 line indicates underestimation bias, and scatter above the 1:1 line
 indicates overestimation bias.
 
+-----
+
+``SensorEvaluation.plot_wind_influence()``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+`API Documentation for plot_wind_influence() <../../api/_autosummary/sensortoolkit.evaluation_objs._sensor_eval.SensorEvaluation.html#sensortoolkit.evaluation_objs._sensor_eval.SensorEvaluation.plot_wind_influence>`_
+
 Example
 """""""
 
-.. figure:: ../../data/Example_Make_Model_normalized_PM25_met_report_fmt_211008.png
+.. figure:: ../../data/Example_Test_Testing_diff_absdiff_PM25_met_report_fmt_240822_v1.png
    :align: center
-   :alt: Normalized scatter plots indicating the influence of temperature and relative humidity on sensor measurements by plotting normalized sensor-reference data pairs (i.e., sensor concentration divided by concurrently recorded reference concentration) vs. the meteorological parameter (either temperature or relative humidity).
+   :alt: Scatter plots indicating the influence of wind speed and wind direction on sensor measurements by plotting the concentration difference (sensor-reference) vs. wind speed or the absolute concentration difference (sensor-reference) vs. wind direction.
+
+|
+
+Description
+"""""""""""
+
+Displays the influence of meteorological parameters (wind speed or wind
+direction) on sensor measurements. Sensor measurements are the concentration 
+difference or absolute concentration difference of the sensor and reference 
+measurement values for the corresponding timestamp and are plotted
+along the y-axis. Meteorological measurements as measured by wind speed and wind direction 
+monitors (rather than onboard sensor measurements) are plotted
+along the x-axis. Scatter for each sensor are displayed as separate colors to
+indicate the unique response of each sensor unit.
+
+The gray 1:1 line indicates ideal agreement between sensor and reference measurements
+over the range of meteorological conditions (i.e., a ratio of 1 would indicate
+that the sensor and reference measure the same concentration value for a given timestamp).
+Scatter below the 1:1 line indicates underestimation bias, and scatter above the 1:1 line
+indicates overestimation bias.
 
 -----
 
@@ -89,6 +127,15 @@ Example
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 `API Documentation for plot_metrics() <../../api/_autosummary/sensortoolkit.evaluation_objs._sensor_eval.SensorEvaluation.html#sensortoolkit.evaluation_objs._sensor_eval.SensorEvaluation.plot_metrics>`_
+
+Example
+"""""""
+
+.. figure:: ../../data/Example_Toco_Toucan_PM25_plot_metrics_230209.png
+   :align: center
+   :alt: Figure displaying multiple subplots for graphing how sensors perform against the statistical metrics recommended by EPA for evaluating air sensor performance.
+
+|
 
 Description
 """""""""""
@@ -129,19 +176,21 @@ O3 are analyzed only at 1-hour intervals due to significant diurnal variability,
 formatting of the figure will depend on which averaging interval(s) are indicated for the parameter
 via the ``sensortoolkit.Parameter.averaging`` attribute).
 
-Example
-"""""""
-
-.. figure:: ../../data/Example_Make_Model_regression_boxplot_PM25_211008.png
-   :align: center
-   :alt: Figure displaying multiple subplots for graphing how sensors perform against the statistical metrics recommended by EPA for evaluating air sensor performance.
-
 -----
 
 ``SensorEvaluation.plot_sensor_met_scatter()``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 `API Documentation for plot_sensor_met_scatter() <../../api/_autosummary/sensortoolkit.evaluation_objs._sensor_eval.SensorEvaluation.html#sensortoolkit.evaluation_objs._sensor_eval.SensorEvaluation.plot_sensor_met_scatter>`_
+
+Example
+"""""""
+
+.. figure:: ../../data/Example_Make_Model_vs_Philips_Pw976202_1-hour_3_sensors_211103.png
+   :align: center
+   :alt: Scatter plot indicating the agreement between internal (i.e. onboard) meteorological sensor measurements for either temperature or relative humidity against concurrently recorded measurements by an independent monitor at the testing site.
+
+|
 
 Description
 """""""""""
@@ -157,20 +206,21 @@ for each scatter plot including the ordinary least-squares (OLS) regression equa
 RMSE, and N (the number of measurement pairs). The one-to-one line (indicating ideal agreement between
 sensor and reference measurements) is shown as a dashed gray line.
 
-Example
-"""""""
-
-.. figure:: ../../data/Example_Make_Model_vs_Philips_Pw976202_1-hour_3_sensors_211103.png
-   :align: center
-   :alt: Scatter plot indicating the agreement between internal (i.e. onboard) meteorological sensor measurements for either temperature or relative humidity against concurrently recorded measurements by an independent monitor at the testing site.
-
-
 -----
 
 ``SensorEvaluation.plot_sensor_scatter()``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 `API Documentation for plot_sensor_scatter() <../../api/_autosummary/sensortoolkit.evaluation_objs._sensor_eval.SensorEvaluation.html#sensortoolkit.evaluation_objs._sensor_eval.SensorEvaluation.plot_sensor_scatter>`_
+
+Example
+"""""""
+
+.. figure:: ../../data/Example_Toco_Toucan_vs_FEM_1-hour_3_sensors_sensor_scatter_230209.png
+   :align: center
+   :alt: Scatter plot indicating the agreement between sensor parameter measurements (example shown is for fine particulate matter) against concurrently recorded measurements by an FRM/FEM instrument at the testing site.
+
+|
 
 Description
 """""""""""
@@ -186,21 +236,21 @@ at matching timestamp entries) are colored by the relative humidity
 recorded by an independent meteorological instrument at the monitoring
 site if RH data are located within the ``reference_object.data['Met']`` dataset.
 
-Example
-"""""""
-
-
-.. figure:: ../../data/Example_Make_Model_vs_T-API_T640X_at_16.67_LPM_1-hour_3_sensors_211008.png
-   :align: center
-   :alt: Scatter plot indicating the agreement between sensor parameter measurements (example shown is for fine particulate matter) against concurrently recorded measurements by an FRM/FEM instrument at the testing site.
-
-
 -----
 
 ``SensorEvaluation.plot_timeseries()``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 `API Documentation for plot_timeseries() <../../api/_autosummary/sensortoolkit.evaluation_objs._sensor_eval.SensorEvaluation.html#sensortoolkit.evaluation_objs._sensor_eval.SensorEvaluation.plot_timeseries>`_
+
+Example
+"""""""
+
+.. figure:: ../../data/Example_Toco_Toucan_PM25_timeseries_230209.png
+   :align: center
+   :alt: Time series plot indicating the variation in sensor and FRM/FEM measurements at 1-hour and 24-hour averaging intervals over the testing period.
+
+|
 
 Description
 """""""""""
@@ -210,10 +260,3 @@ Sensor measurements are indicated by distinct colors in a discrete color palette
 FRM/FEM measurements are shown as black lines. The x-axis indicates the date in
 5-day increments (default, although customizable). Measurement values are plotted
 along the y-axis.
-
-Example
-"""""""
-
-.. figure:: ../../data/Example_Make_Model_timeseries_PM25_report_fmt_211008.png
-   :align: center
-   :alt: Time series plot indicating the variation in sensor and FRM/FEM measurements at 1-hour and 24-hour averaging intervals over the testing period.

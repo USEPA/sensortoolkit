@@ -29,7 +29,7 @@ Overview
 --------
 
 Library Description
-~~~~~~~~~~~~~~~~~~~
+"""""""""""""""""""
 
 sensortoolkit is a Python library for evaluating air sensor data. The library is
 intended for use with sensors collocated at ambient air monitoring sites alongside
@@ -44,12 +44,12 @@ NO, NO<sub>2</sub> [criteria], NO<sub>x</sub>, O<sub>3</sub> [criteria], SO<sub>
 sensortoolkit is most suitable for individuals who have some prior coding
 experience in python. The library is equipped with an API (application
 programming interface) that allows for ease of navigation and customization,
-making sensortoolkit accessible to individuals with a wide range of skillsets
+making sensortoolkit accessible to individuals with a wide range of skill sets
 (e.g.,  individuals interested in monitoring their own sensor data, students
 and academic researchers, and industry professionals).
 
 Key Features
-~~~~~~~~~~~~
+""""""""""""
 
 **The primary goal of sensortoolkit is to provide a platform for analyzing air sensor
 data regardless of formatting differences across sensor data formatting schemes.**
@@ -72,7 +72,7 @@ into standardized formatting schemes for sensor and reference data.
       *	Save performance evaluation results, statistics, and supplemental information detailing the deployment conditions to a deployment JSON file.
 
 -	Create testing reports using U.S. EPA’s base-testing report template (PowerPoint file) with the `PerformanceReport` module.
--	Additional modules are included for calculating quantities (AQI, :raw-html:`PM<sub>2.5</sub>` NowCast, application of sensor correction equations, the U.S. Wide correction equation for PurpleAir sensors via Barkjohn et al. 2021 [#f1]_, etc.) and conducting additional analysis (quality control modules for identifying outliers, invalidation of datapoints, A&B channel cleaning for PurpleAir data via Barkjohn et al. 2021 [#f1]_, etc.)
+-	Additional modules are included for calculating quantities (AQI, :raw-html:`PM<sub>2.5</sub>` NowCast, application of sensor correction equations, the U.S. Wide correction equation for PurpleAir sensors via Barkjohn et al. 2021 [#f1]_, etc.) and conducting additional analysis (quality control modules for identifying outliers, invalidation of data points, A&B channel cleaning for PurpleAir data via Barkjohn et al. 2021 [#f1]_, etc.)
 -	Access to modules utilized by the `SensorEvaluation` and `PerformanceReport` for greater customization in conducting analysis.
 
 .. rubric:: Footnotes
@@ -80,20 +80,27 @@ into standardized formatting schemes for sensor and reference data.
 .. [#f1] Barkjohn, K. K., Gantt, B., and Clements, A. L.: Development and application of a United States-wide correction for PM2.5 data collected with the PurpleAir sensor, Atmos. Meas. Tech., 14, 4617–4637, https://doi.org/10.5194/amt-14-4617-2021, 2021.
 
 U.S. EPA's Performance Targets Reports
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+""""""""""""""""""""""""""""""""""""""
 
 In February 2021, U.S. EPA released two reports outlining recommended performance
 testing protocols, metrics, and target values for fine particulate matter (:raw-html:`PM<sub>2.5</sub>`)
 and ozone (:raw-html:`O<sub>3</sub>`) air sensors used in
-non-regulatory, supplemental, and informational monitoring (NSIM) applications.
+non-regulatory, supplemental, and informational monitoring (NSIM) applications. Then, in February of 2024,
+U.S. EPA released a (:raw-html:`PM<sub>10</sub>`) supplemental report and a nitrogen dioxide (:raw-html:`NO<sub>2</sub>`), 
+carbon monoxide (:raw-html:`CO`), and a sulfur dioxide (:raw-html:`SO<sub>2</sub>`) supplemental report outlining recommended performance 
+testing protocols, metrics, and target values for their respective sensors for NSIM applications.
 
 .. sidebar:: Links to U.S. EPA's Reports
 
   * `Fine Particulate Matter Report <https://cfpub.epa.gov/si/si_public_record_Report.cfm?dirEntryId=350785&Lab=CEMM>`_
+  * `Supplement to Fine Particulate Matter Report <https://cfpub.epa.gov/si/si_public_record_report.cfm?dirEntryId=360419&Lab=CEMM>`_
   * `Ozone Report <https://cfpub.epa.gov/si/si_public_record_Report.cfm?dirEntryId=350784&Lab=CEMM>`_
+  * `Supplement to Ozone Report <https://cfpub.epa.gov/si/si_public_record_Report.cfm?dirEntryId=360578&Lab=CEMM>`_
 
 The sensortoolkit library includes numerous modules for computing performance metrics recommended by
-U.S. EPA for evaluating  (:raw-html:`PM<sub>2.5</sub>`) and ozone (:raw-html:`O<sub>3</sub>`) sensors. Additionally,
+U.S. EPA for evaluating (:raw-html:`PM<sub>2.5</sub>`), (:raw-html:`PM<sub>10</sub>`), ozone (:raw-html:`O<sub>3</sub>`), 
+nitrogen dioxide (:raw-html:`NO<sub>2</sub>`), carbon monoxide (:raw-html:`CO`), 
+and sulfur dioxide (:raw-html:`SO<sub>2</sub>`) sensors. Additionally,
 plotting functions are included for visualizing performance evaluation results, including
 visualization of sensor performance metric values against U.S. EPA's performance targets,
 sensor time series, scatter plots comparing collocated sensor and reference measurements,
@@ -104,9 +111,10 @@ conducting at ambient air monitoring sites.
 
 .. note::
 
-    Presently, evaluation of sensor performance with sensortoolkit using
-    U.S. EPA’s recommended performance metrics and target values is limited to
-    :raw-html:`PM<sub>2.5</sub>` and :raw-html:`O<sub>3</sub>`.
+    Evaluation of sensor performance with sensortoolkit using
+    U.S. EPA’s recommended performance metrics and target 
+    values has been recently updated to include :raw-html:`PM<sub>10</sub>`, 
+    :raw-html:`NO<sub>2</sub>`, :raw-html:`CO`, :raw-html:`SO<sub>2</sub>`!
 
 FRM/FEM data may not be available at all testing sites for non-criteria
 pollutants (:raw-html:`PM<sub>1</sub>`, NO,
@@ -118,9 +126,10 @@ collocated alongside reference instrumentation capable of reporting 1-hour and/o
 Getting Started
 ---------------
 
-* :doc:`Quick Start Guide <quickstart>`
-* :doc:`Installation and Updates <install>`
-* :doc:`Importing sensortoolkit <import_sensortoolkit>`
+* :doc:`Quickstart Guide <quickstart>`
+* :doc:`Setting Up for sensortoolkit <setup>`
+* :doc:`Installing and Updating sensortoolkit <install>`
+* :doc:`Analysis with sensortoolkit <template>`
 
 .. toctree::
     :caption: Getting Started
@@ -128,8 +137,9 @@ Getting Started
     :hidden:
 
     quickstart
+    setup
     install
-    import_sensortoolkit
+    template
 
 Objects and Data Structures
 ---------------------------

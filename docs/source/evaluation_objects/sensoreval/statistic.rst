@@ -24,6 +24,20 @@ argument specified during instantiation of the ``SensorEvaluation`` object is se
 
 `API Documentation for add_deploy_dict_stats() <../../api/_autosummary/sensortoolkit.evaluation_objs._sensor_eval.SensorEvaluation.html#sensortoolkit.evaluation_objs._sensor_eval.SensorEvaluation.add_deploy_dict_stats>`_
 
+Example
+"""""""
+.. code-block:: console
+
+  >>> evaluation.add_deploy_dict_stats()
+  Computing CV for 1-Hour averaged PM25
+  ..N excluded: 20 out of 733 total
+  ..N concurrent: 713
+  ..Concurrent measurement timeframe: 2019-08-01 12:00:00+00:00 - 2019-09-01 00:00:00+00:00
+  Computing CV for 24-Hour averaged PM25
+  ..N excluded: 3 out of 32 total
+  ..N concurrent: 29
+  ..Concurrent measurement timeframe: 2019-08-02 00:00:00+00:00 - 2019-08-31 00:00:00+00:00
+
 Description
 """""""""""
 
@@ -46,25 +60,41 @@ Description
 
 - `Deployment dictionary <../../data_structures/eval_structs.html#deployment-dictionary-evaluation-deploy-dict>`_
 
-Example
-"""""""
-
->>> evaluation.add_deploy_dict_stats()
-Computing CV for 1-Hour averaged PM25
-..N excluded: 20 out of 756 total
-..N concurrent: 736
-..Concurrent measurement timeframe: 2019-08-01 13:00:00+00:00 - 2019-09-02 00:00:00+00:00
-Computing CV for 24-Hour averaged PM25
-..N excluded: 2 out of 32 total
-..N concurrent: 30
-..Concurrent measurement timeframe: 2019-08-02 00:00:00+00:00 - 2019-09-01 00:00:00+00:00
-
 ------
 
 ``SensorEvaluation.calculate_metrics()``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 `API Documentation for calculate_metrics() <../../api/_autosummary/sensortoolkit.evaluation_objs._sensor_eval.SensorEvaluation.html#sensortoolkit.evaluation_objs._sensor_eval.SensorEvaluation.calculate_metrics>`_
+
+Example
+"""""""
+
+Below is an example for the `Toco Toucan Quickstart Guide example <../../quickstart.html#example-scenario-toco-toucan>`_
+
+.. code-block:: console
+
+  >>> evaluation.calculate_metrics()
+  Computing 1-hour regression statistics for Toco_Toucan vs. Teledyne Advanced Pollution Instrumentation T640X
+  ..RT01
+  ..RT02
+  ..RT03
+  Computing 1-hour regression statistics for Toco_Toucan vs. Teledyne Advanced Pollution Instrumentation T640X
+  ..RT01
+  ..RT02
+  ..RT03
+  Computing 24-hour regression statistics for Toco_Toucan vs. Teledyne Advanced Pollution Instrumentation T640X
+  RT01
+  ..RT02
+  ..RT03
+  Computing 24-hour regression statistics for Toco_Toucan vs. Teledyne Advanced Pollution Instrumentation T640X
+  ..RT01
+  ..RT02
+  ..RT03
+  ..Saving dataset to the following path: C:/Users/.../Documents/toucan_evaluation\
+        data\eval_stats\Toco_Toucan\Toco_Toucan_PM25_vs_Teledyne_Advanced_Pollution_Instrumentation_T640X_stats_df_230210.csv
+  ..Saving dataset to the following path: C:/Users/.../Documents/toucan_evaluation\
+        \eval_stats\Toco_Toucan\Toco_Toucan_PM25_vs_Teledyne_Advanced_Pollution_Instrumentation_T640X_avg_stats_df_230210.csv
 
 Description
 """""""""""
@@ -91,26 +121,3 @@ Description
 
 - `Statistics DataFrame - Sensor vs. FRM/FEM <../../data_structures/eval_structs.html#sensor-vs-frm-fem-statistics-evaluation-stats-df>`_
 - `Statistics DataFrame - Sensor vs. Intersensor Average <../../data_structures/eval_structs.html#sensor-vs-intersensor-average-statistics-evaluation-avg-stats-df>`_
-
-Example
-"""""""
-
-Below is an example for the `Toco Toucan Quickstart Guide example <../../quickstart.html#example-scenario-toco-toucan>`_
-
->>> evaluation.calculate_metrics()
-Computing 1-hour regression statistics for Toco_Toucan vs. T-API T640X at 16.67 LPM
-..RT01
-..RT02
-..RT03
-Computing 24-hour regression statistics for Toco_Toucan vs. T-API T640X at 16.67 LPM
-..RT01
-..RT02
-..RT03
-Computing 1-hour regression statistics for Toco_Toucan vs. T-API T640X at 16.67 LPM
-..RT01
-..RT02
-..RT03
-Computing 24-hour regression statistics for Toco_Toucan vs. T-API T640X at 16.67 LPM
-..RT01
-..RT02
-..RT03

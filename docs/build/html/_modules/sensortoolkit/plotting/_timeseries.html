@@ -1,14 +1,16 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>sensortoolkit.plotting._timeseries &mdash; sensortoolkit 0.8.3b2 documentation</title>
-      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" type="text/css" />
+  <title>sensortoolkit.plotting._timeseries &mdash; sensortoolkit 0.9.0b2 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+
+  
   <!--[if lt IE 9]>
     <script src="../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
@@ -16,6 +18,7 @@
         <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
         <script src="../../../_static/jquery.js"></script>
         <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../../../_static/doctools.js"></script>
     <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
@@ -27,14 +30,18 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="../../../index.html" class="icon icon-home"> sensortoolkit
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            sensortoolkit
           </a>
               <div class="version">
-                0.8.3b2
+                0.9.0b2
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -43,9 +50,10 @@
               <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../quickstart.html">Quickstart Guide</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../quickstart.html#script-templates">Script Templates</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../setup.html">Setting Up for sensortoolkit</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../install.html">Installing and Updating sensortoolkit</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../import_sensortoolkit.html">Importing sensortoolkit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../template.html">Analysis with sensortoolkit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../template.html#script-template">Script Template</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Objects and Data Structures</span></p>
 <ul>
@@ -53,7 +61,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../data_structures/index.html">Data Structures</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../sdfs/index.html">sensortoolkit Data Formatting Scheme (SDFS)</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Objects and Data Structures</span></p>
+<p class="caption" role="heading"><span class="caption-text">Analysis and Reports</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../evaluation_objects/index.html">Evaluation Objects</a></li>
 </ul>
@@ -75,9 +83,9 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="../../index.html">Module code</a> &raquo;</li>
-      <li>sensortoolkit.plotting._timeseries</li>
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">sensortoolkit.plotting._timeseries</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -124,7 +132,7 @@
                     <span class="n">write_to_file</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">sensor_serials</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ref_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                     <span class="n">averaging_interval</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">return_mpl_obj</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                     <span class="n">report_fmt</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">fig</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Generate a timeplot for a specified pollutant alongside FRM/FEM</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Generate a timeplot for a specified pollutant alongside FRM/FEM</span>
 <span class="sd">    concentration values.</span>
 
 <span class="sd">    Args:</span>
@@ -301,7 +309,7 @@
     <span class="n">format_xaxis_weeks</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;format_xaxis_weeks&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
     <span class="n">fig_size</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;fig_size&#39;</span><span class="p">,</span> <span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mf">3.5</span><span class="p">))</span>
     <span class="n">fontsize</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;fontsize&#39;</span><span class="p">,</span> <span class="mi">15</span><span class="p">)</span>
-    <span class="n">legend_fontscale</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;legend_fontscale&#39;</span><span class="p">,</span> <span class="mf">0.72</span><span class="p">)</span>
+    <span class="n">legend_fontscale</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;legend_fontscale&#39;</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">)</span>
     <span class="n">cmap_name</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;cmap_name&#39;</span><span class="p">,</span> <span class="s1">&#39;Set1&#39;</span><span class="p">)</span>
     <span class="n">cmap_norm_range</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;cmap_normrange&#39;</span><span class="p">,</span> <span class="n">cmap_range</span><span class="p">)</span>
     <span class="n">show_title</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;show_title&#39;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
@@ -322,18 +330,29 @@
         <span class="c1"># timeseries [plots arranged as 2 rows, 1 column])</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">param_averaging</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
             <span class="n">fontsize</span> <span class="o">=</span> <span class="mf">10.5</span>
-            <span class="n">fig_size</span> <span class="o">=</span> <span class="p">(</span><span class="mf">10.15</span><span class="p">,</span> <span class="mf">4.1</span><span class="p">)</span>
+            <span class="n">fig_size</span> <span class="o">=</span> <span class="p">(</span><span class="mf">10.15</span><span class="p">,</span> <span class="mf">4.2</span><span class="p">)</span>
             <span class="n">show_title</span> <span class="o">=</span> <span class="kc">True</span>
 
             <span class="c1"># Scaling values for axes box</span>
-            <span class="n">box_xscale</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;box_xscale&#39;</span><span class="p">,</span> <span class="mf">0.45</span><span class="p">)</span>  <span class="c1"># Translate x-axis loc</span>
-            <span class="n">box_yscale</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;box_yscale&#39;</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>  <span class="c1"># Translate y-axis loc</span>
-            <span class="n">box_wscale</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;box_wscale&#39;</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>  <span class="c1"># Transform plot width</span>
-            <span class="n">box_hscale</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;box_hscale&#39;</span><span class="p">,</span> <span class="mf">1.12</span><span class="p">)</span> <span class="c1"># Transform plot height</span>
+            <span class="c1"># box_xscale = kwargs.get(&#39;box_xscale&#39;, 0.45)  # Translate x-axis loc</span>
+            <span class="c1"># box_yscale = kwargs.get(&#39;box_yscale&#39;, 1.0)  # Translate y-axis loc</span>
+            <span class="c1"># box_wscale = kwargs.get(&#39;box_wscale&#39;, 1.0)  # Transform plot width</span>
+            <span class="c1"># box_hscale = kwargs.get(&#39;box_hscale&#39;, 1.12) # Transform plot height</span>
+
+            <span class="n">subplot_top</span><span class="o">=</span><span class="mf">0.935</span>
+            <span class="n">subplot_bottom</span><span class="o">=</span><span class="mf">0.165</span>
+            <span class="n">subplot_left</span><span class="o">=</span><span class="mf">0.055</span>
+            <span class="n">subplot_right</span><span class="o">=</span><span class="mf">0.945</span>
+            <span class="n">subplot_hspace</span><span class="o">=</span><span class="mf">0.47</span>
+            <span class="n">subplot_wspace</span><span class="o">=</span><span class="mf">0.2</span>
+
+            <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;subplots_adjust&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">subplot_top</span><span class="p">,</span> <span class="n">subplot_bottom</span><span class="p">,</span>
+                                         <span class="n">subplot_left</span><span class="p">,</span> <span class="n">subplot_right</span><span class="p">,</span>
+                                         <span class="n">subplot_hspace</span><span class="p">,</span> <span class="n">subplot_wspace</span><span class="p">)</span>
 
             <span class="n">title_xpos</span> <span class="o">=</span> <span class="mf">0.5</span>
             <span class="c1"># x, y loc of legend (w.r.t axes obj)</span>
-            <span class="n">legend_pos</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;legend_loc&#39;</span><span class="p">,</span> <span class="p">(</span><span class="mf">1.11</span><span class="p">,</span> <span class="mf">1.29</span><span class="p">))</span>
+            <span class="n">legend_pos</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;legend_loc&#39;</span><span class="p">,</span> <span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.35</span><span class="p">))</span>
             <span class="n">columnspacing</span> <span class="o">=</span> <span class="mf">0.9</span>  <span class="c1"># Legend column spacing</span>
 
         <span class="c1"># Figure consists of one timeseries plot (1-hr)</span>
@@ -343,16 +362,28 @@
             <span class="n">fig_size</span> <span class="o">=</span> <span class="p">(</span><span class="mf">10.16</span><span class="p">,</span> <span class="mf">3.8</span><span class="p">)</span>
             <span class="n">show_title</span> <span class="o">=</span> <span class="kc">False</span>
 
-            <span class="n">box_xscale</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;box_xscale&#39;</span><span class="p">,</span> <span class="mf">1.1</span><span class="p">)</span>  <span class="c1"># Translate x-axis loc</span>
-            <span class="n">box_yscale</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;box_yscale&#39;</span><span class="p">,</span> <span class="mf">3.1</span><span class="p">)</span>  <span class="c1"># Translate y-axis loc</span>
-            <span class="n">box_wscale</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;box_wscale&#39;</span><span class="p">,</span> <span class="mf">1.02</span><span class="p">)</span>  <span class="c1"># Transform plot width</span>
-            <span class="n">box_hscale</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;box_hscale&#39;</span><span class="p">,</span> <span class="mf">0.67</span><span class="p">)</span> <span class="c1"># Transform plot height</span>
+            <span class="n">subplot_top</span><span class="o">=</span><span class="mf">0.98</span>
+            <span class="n">subplot_bottom</span><span class="o">=</span><span class="mf">0.49</span>
+            <span class="n">subplot_left</span><span class="o">=</span><span class="mf">0.055</span>
+            <span class="n">subplot_right</span><span class="o">=</span><span class="mf">0.945</span>
+            <span class="n">subplot_hspace</span><span class="o">=</span><span class="mf">0.47</span>
+            <span class="n">subplot_wspace</span><span class="o">=</span><span class="mf">0.2</span>
+
+            <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;subplots_adjust&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">subplot_top</span><span class="p">,</span> <span class="n">subplot_bottom</span><span class="p">,</span>
+                                         <span class="n">subplot_left</span><span class="p">,</span> <span class="n">subplot_right</span><span class="p">,</span>
+                                         <span class="n">subplot_hspace</span><span class="p">,</span> <span class="n">subplot_wspace</span><span class="p">)</span>
+
+            <span class="c1"># box_xscale = kwargs.get(&#39;box_xscale&#39;, 1.1)  # Translate x-axis loc</span>
+            <span class="c1"># box_yscale = kwargs.get(&#39;box_yscale&#39;, 3.1)  # Translate y-axis loc</span>
+            <span class="c1"># box_wscale = kwargs.get(&#39;box_wscale&#39;, 1.02)  # Transform plot width</span>
+            <span class="c1"># box_hscale = kwargs.get(&#39;box_hscale&#39;, 0.67) # Transform plot height</span>
 
             <span class="c1"># Modify the bounds of the subplot [x_l, x_r, y_u, y_l]</span>
-            <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;subplots_adjust&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.98</span><span class="p">,</span> <span class="mf">0.95</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">)</span>
+            <span class="c1">#kwargs[&#39;subplots_adjust&#39;] = (0.05, 0.98, 0.95, 0.5)</span>
 
             <span class="n">title_xpos</span> <span class="o">=</span> <span class="mf">0.5</span>
-            <span class="n">legend_pos</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;legend_loc&#39;</span><span class="p">,</span> <span class="p">(</span><span class="mf">0.85</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.55</span><span class="p">))</span>
+            <span class="c1">#legend_pos = kwargs.get(&#39;legend_loc&#39;, (0.5, -0.2))</span>
+            <span class="n">legend_pos</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;legend_loc&#39;</span><span class="p">,</span> <span class="p">(</span><span class="mf">0.8</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.5</span><span class="p">))</span> <span class="c1">###</span>
             <span class="n">columnspacing</span> <span class="o">=</span> <span class="mf">0.9</span>
 
         <span class="c1"># reassign report_fmt false so that generic formatting is selected.</span>
@@ -361,10 +392,10 @@
 
     <span class="c1"># Generic figure formatting</span>
     <span class="k">if</span> <span class="n">report_fmt</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
-        <span class="n">box_xscale</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;box_xscale&#39;</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>
-        <span class="n">box_yscale</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;box_yscale&#39;</span><span class="p">,</span> <span class="mf">1.2</span><span class="p">)</span>
-        <span class="n">box_wscale</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;box_wscale&#39;</span><span class="p">,</span> <span class="mf">0.94</span><span class="p">)</span>
-        <span class="n">box_hscale</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;box_hscale&#39;</span><span class="p">,</span> <span class="mf">0.94</span><span class="p">)</span>
+        <span class="c1"># box_xscale = kwargs.get(&#39;box_xscale&#39;, 1.0)</span>
+        <span class="c1"># box_yscale = kwargs.get(&#39;box_yscale&#39;, 1.2)</span>
+        <span class="c1"># box_wscale = kwargs.get(&#39;box_wscale&#39;, 0.94)</span>
+        <span class="c1"># box_hscale = kwargs.get(&#39;box_hscale&#39;, 0.94)</span>
 
         <span class="n">title_xpos</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;title_xloc&#39;</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">)</span>
         <span class="n">legend_pos</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;legend_loc&#39;</span><span class="p">,</span> <span class="p">(</span><span class="mf">1.06</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">))</span>
@@ -372,15 +403,37 @@
 
     <span class="c1"># Format the legend, determine how many columns to split legend into</span>
     <span class="n">n_legend_objs</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">sensor_serials</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
-    <span class="k">if</span> <span class="n">n_legend_objs</span> <span class="o">/</span> <span class="mi">4</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
-        <span class="n">leg_ncol</span> <span class="o">=</span> <span class="mi">2</span>
+
+    <span class="c1"># if report_fmt is True:</span>
+    <span class="c1">#     leg_ncol = n_legend_objs</span>
+    <span class="c1"># else:</span>
+
+    <span class="k">if</span> <span class="n">report_fmt</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">param_averaging</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span> <span class="c1"># for the gases</span>
+            <span class="k">if</span> <span class="n">n_legend_objs</span> <span class="o">/</span> <span class="mi">4</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">leg_ncol</span> <span class="o">=</span> <span class="mi">2</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">leg_ncol</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">param_averaging</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span> <span class="c1"># for PM</span>
+            <span class="n">leg_ncol</span> <span class="o">=</span> <span class="n">n_legend_objs</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="n">leg_ncol</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="n">leg_ncol</span> <span class="o">=</span> <span class="n">n_legend_objs</span>
+    
+        <span class="c1"># if n_legend_objs / 4 &gt; 1:</span>
+        <span class="c1">#     leg_ncol = 2</span>
+        <span class="c1"># else:</span>
+        <span class="c1">#     if len(param_averaging) == 1:</span>
+        <span class="c1">#         leg_ncol = 1</span>
+        <span class="c1">#     else:</span>
+        <span class="c1">#         leg_ncol = 1  </span>
 
-    <span class="c1"># Use only one legend column if serial IDs are long</span>
-    <span class="k">if</span> <span class="nb">max</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">sensor_serials</span><span class="o">.</span><span class="n">values</span><span class="p">())</span> <span class="o">&gt;</span> <span class="mi">6</span><span class="p">:</span>
-        <span class="n">leg_ncol</span> <span class="o">=</span> <span class="mi">1</span>
-
+    <span class="c1">#     # Use only one legend column if serial IDs are long</span>
+    <span class="c1"># if max(len(i) for i in sensor_serials.values()) &gt; 10:</span>
+    <span class="c1">#     leg_ncol = 1</span>
+    <span class="c1"># print(&quot;sensor_serials.values()&quot;, (len(sensor_serials.values())))</span>
+    <span class="c1"># print(max(len(i) for i in sensor_serials.values()))</span>
+    <span class="c1"># print(&quot;leg_ncol2: &quot;, leg_ncol)</span>
+        
     <span class="k">if</span> <span class="p">(</span><span class="n">ax</span> <span class="ow">and</span> <span class="n">fig</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="c1"># No axes object passed to function, create unique fig, axes objects</span>
         <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="n">fig_size</span><span class="p">)</span>
@@ -392,7 +445,9 @@
         <span class="n">unique_ax_obj</span> <span class="o">=</span> <span class="kc">False</span>
 
     <span class="k">if</span> <span class="n">show_title</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
-        <span class="n">title_str</span> <span class="o">=</span> <span class="p">(</span><span class="n">averaging_interval</span> <span class="o">+</span> <span class="s2">&quot; Averaged &quot;</span> <span class="o">+</span> <span class="n">fmt_sensor_name</span> <span class="o">+</span> <span class="s1">&#39; &#39;</span>
+        <span class="c1"># title_str = (averaging_interval + &quot; Averaged &quot; + fmt_sensor_name + &#39; &#39;</span>
+        <span class="c1">#              + fmt_param)</span>
+        <span class="n">title_str</span> <span class="o">=</span> <span class="p">(</span><span class="n">averaging_interval</span> <span class="o">+</span> <span class="s2">&quot; Averaged&quot;</span> <span class="o">+</span> <span class="s1">&#39; &#39;</span>
                      <span class="o">+</span> <span class="n">fmt_param</span><span class="p">)</span>
         <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">title_str</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="n">fontsize</span><span class="o">*</span><span class="mf">1.1</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="n">title_xpos</span><span class="p">)</span>
 
@@ -441,7 +496,7 @@
     <span class="c1"># Configure x- and y-axis attributes (scale, labeling, limits, ticks)</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">set_yscale</span><span class="p">(</span><span class="n">yscale</span><span class="p">)</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">fmt_param</span><span class="si">}</span><span class="s1"> (</span><span class="si">{</span><span class="n">fmt_param_units</span><span class="si">}</span><span class="s1">)&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="n">fontsize</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Date&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="n">fontsize</span><span class="p">)</span>
+    <span class="c1">#ax.set_xlabel(&#39;Date&#39;, fontsize=fontsize)</span>
 
     <span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">bdate</span><span class="p">),</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">edate</span><span class="p">))</span>
     <span class="k">if</span> <span class="n">ylims</span><span class="p">:</span>
@@ -452,20 +507,20 @@
     <span class="k">if</span> <span class="n">format_xaxis_weeks</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
         <span class="n">week_freq</span> <span class="o">=</span> <span class="mi">1</span>  <span class="c1"># Initially mark every week</span>
         <span class="n">ax</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">set_major_locator</span><span class="p">(</span><span class="n">mdates</span><span class="o">.</span><span class="n">WeekdayLocator</span><span class="p">(</span><span class="n">interval</span><span class="o">=</span><span class="n">week_freq</span><span class="p">))</span>
-        <span class="n">labels</span> <span class="o">=</span> <span class="p">[</span><span class="n">item</span><span class="o">.</span><span class="n">get_text</span><span class="p">()</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">ax</span><span class="o">.</span><span class="n">get_xticklabels</span><span class="p">()]</span>
+        <span class="n">wk_labels</span> <span class="o">=</span> <span class="p">[</span><span class="n">item</span><span class="o">.</span><span class="n">get_text</span><span class="p">()</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">ax</span><span class="o">.</span><span class="n">get_xticklabels</span><span class="p">()]</span>
 
         <span class="c1"># If the number of weekly labels exceeds 15, reduce weekly interval</span>
         <span class="c1"># until less than 15 left.</span>
-        <span class="k">while</span> <span class="nb">len</span><span class="p">(</span><span class="n">labels</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">15</span><span class="p">:</span>
+        <span class="k">while</span> <span class="nb">len</span><span class="p">(</span><span class="n">wk_labels</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">15</span><span class="p">:</span>
             <span class="n">week_freq</span> <span class="o">+=</span> <span class="mi">1</span>
             <span class="n">ax</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">set_major_locator</span><span class="p">(</span><span class="n">mdates</span><span class="o">.</span><span class="n">WeekdayLocator</span><span class="p">(</span>
                                                         <span class="n">interval</span><span class="o">=</span><span class="n">week_freq</span><span class="p">))</span>
-            <span class="n">labels</span> <span class="o">=</span> <span class="p">[</span><span class="n">item</span><span class="o">.</span><span class="n">get_text</span><span class="p">()</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">ax</span><span class="o">.</span><span class="n">get_xticklabels</span><span class="p">()]</span>
+            <span class="n">wk_labels</span> <span class="o">=</span> <span class="p">[</span><span class="n">item</span><span class="o">.</span><span class="n">get_text</span><span class="p">()</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">ax</span><span class="o">.</span><span class="n">get_xticklabels</span><span class="p">()]</span>
 
-        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">label</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">labels</span><span class="p">):</span>
-            <span class="n">labels</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;Week &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">week_freq</span><span class="o">*</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">wk_label</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">wk_labels</span><span class="p">):</span>
+            <span class="n">wk_labels</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;Week &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">week_freq</span><span class="o">*</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span>
 
-        <span class="n">ax</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">(</span><span class="n">labels</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">(</span><span class="n">wk_labels</span><span class="p">)</span>
         <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Duration&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="n">fontsize</span><span class="p">)</span>
     <span class="c1"># Format x-axis by date and time [MM-DD-YY] at specified date interval</span>
     <span class="k">else</span><span class="p">:</span>
@@ -475,25 +530,31 @@
 
     <span class="c1"># Set legend position, wrap legend text to fit</span>
     <span class="n">handles</span><span class="p">,</span> <span class="n">labels</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">get_legend_handles_labels</span><span class="p">()</span>
-    <span class="n">updated_labels</span> <span class="o">=</span> <span class="n">wrap_text</span><span class="p">(</span><span class="n">labels</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">handles</span><span class="p">,</span> <span class="n">updated_labels</span><span class="p">,</span> <span class="n">bbox_to_anchor</span><span class="o">=</span><span class="n">legend_pos</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span>
+
+    <span class="k">if</span> <span class="n">report_fmt</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
+        <span class="n">labels</span> <span class="o">=</span> <span class="n">wrap_text</span><span class="p">(</span><span class="n">labels</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">handles</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="n">bbox_to_anchor</span><span class="o">=</span><span class="n">legend_pos</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span>
               <span class="n">fontsize</span><span class="o">=</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;legend_fontsize&#39;</span><span class="p">,</span>
                                   <span class="n">fontsize</span><span class="o">*</span><span class="n">legend_fontscale</span><span class="p">),</span>
               <span class="n">ncol</span><span class="o">=</span><span class="n">leg_ncol</span><span class="p">,</span> <span class="n">columnspacing</span><span class="o">=</span><span class="n">columnspacing</span><span class="p">,</span>
               <span class="n">handlelength</span><span class="o">=</span><span class="mf">1.25</span><span class="p">)</span>
 
     <span class="c1"># Adjust axes dimensions to fit width and height of plot</span>
-    <span class="n">box</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">get_position</span><span class="p">()</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">set_position</span><span class="p">([</span><span class="n">box</span><span class="o">.</span><span class="n">x0</span><span class="o">*</span><span class="n">box_xscale</span><span class="p">,</span> <span class="n">box</span><span class="o">.</span><span class="n">y0</span><span class="o">*</span><span class="n">box_yscale</span><span class="p">,</span>
-                     <span class="n">box</span><span class="o">.</span><span class="n">width</span><span class="o">*</span><span class="n">box_wscale</span><span class="p">,</span> <span class="n">box</span><span class="o">.</span><span class="n">height</span><span class="o">*</span><span class="n">box_hscale</span><span class="p">])</span>
+    <span class="c1"># box = ax.get_position()</span>
+    <span class="c1"># ax.set_position([box.x0*box_xscale, box.y0*box_yscale,</span>
+    <span class="c1">#                  box.width*box_wscale, box.height*box_hscale])</span>
 
-    <span class="k">if</span> <span class="n">unique_ax_obj</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">unique_ax_obj</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">fig</span><span class="o">.</span><span class="n">axes</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">ax</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">fig</span><span class="o">.</span><span class="n">axes</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
         <span class="n">subplot_adjust</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;subplots_adjust&#39;</span><span class="p">,</span>
-                                    <span class="p">(</span><span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">,</span> <span class="mf">0.90</span><span class="p">,</span> <span class="mf">0.15</span><span class="p">))</span>
-        <span class="n">fig</span><span class="o">.</span><span class="n">subplots_adjust</span><span class="p">(</span><span class="n">left</span><span class="o">=</span><span class="n">subplot_adjust</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
-                            <span class="n">right</span><span class="o">=</span><span class="n">subplot_adjust</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
-                            <span class="n">top</span><span class="o">=</span><span class="n">subplot_adjust</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span>
-                            <span class="n">bottom</span><span class="o">=</span><span class="n">subplot_adjust</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>
+                                    <span class="p">(</span><span class="mf">0.865</span><span class="p">,</span> <span class="mf">0.135</span><span class="p">,</span> <span class="mf">0.045</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">,</span> <span class="mf">0.47</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">))</span>
+
+        <span class="n">fig</span><span class="o">.</span><span class="n">subplots_adjust</span><span class="p">(</span><span class="n">top</span><span class="o">=</span><span class="n">subplot_adjust</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+                            <span class="n">bottom</span><span class="o">=</span><span class="n">subplot_adjust</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+                            <span class="n">left</span><span class="o">=</span><span class="n">subplot_adjust</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span>
+                            <span class="n">right</span><span class="o">=</span><span class="n">subplot_adjust</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span>
+                            <span class="n">hspace</span><span class="o">=</span><span class="n">subplot_adjust</span><span class="p">[</span><span class="mi">4</span><span class="p">],</span>
+                            <span class="n">wspace</span><span class="o">=</span><span class="n">subplot_adjust</span><span class="p">[</span><span class="mi">5</span><span class="p">],</span>
+                            <span class="p">)</span>
 
     <span class="c1"># Save image to folder at figure_path</span>
     <span class="k">if</span> <span class="n">write_to_file</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
@@ -528,7 +589,7 @@
                         <span class="n">date_interval</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">fig_size</span><span class="o">=</span><span class="p">(</span><span class="mi">11</span><span class="p">,</span> <span class="mi">7</span><span class="p">),</span>
                         <span class="n">write_to_file</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">figure_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                         <span class="n">tight_layout</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;A horizontal bar chart indicating the timeline during which sensors</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;A horizontal bar chart indicating the timeline during which sensors</span>
 <span class="sd">    were deployed.</span>
 
 <span class="sd">    Sensors are depicted as stacked, colored horizontal bars spanning the</span>
@@ -587,12 +648,19 @@
 
     <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="n">fig_size</span><span class="p">)</span>
 
-    <span class="n">wspace</span> <span class="o">=</span> <span class="mf">0.0</span>
-    <span class="n">hspace</span> <span class="o">=</span> <span class="mf">0.1</span>
-    <span class="n">left</span> <span class="o">=</span> <span class="mf">0.1</span>
-    <span class="n">right</span> <span class="o">=</span> <span class="mf">0.99</span>
-    <span class="n">top</span> <span class="o">=</span> <span class="mf">0.89</span>
-    <span class="n">bottom</span> <span class="o">=</span> <span class="mf">0.1</span>
+    <span class="n">top</span><span class="o">=</span><span class="mf">0.995</span>
+    <span class="n">bottom</span><span class="o">=</span><span class="mf">0.06</span>
+    <span class="n">left</span><span class="o">=</span><span class="mf">0.075</span>
+    <span class="n">right</span><span class="o">=</span><span class="mf">0.995</span>
+    <span class="n">hspace</span><span class="o">=</span><span class="mf">0.1</span>
+    <span class="n">wspace</span><span class="o">=</span><span class="mf">0.0</span>
+
+    <span class="c1"># top=0.985</span>
+    <span class="c1"># bottom=0.06</span>
+    <span class="c1"># left=0.08</span>
+    <span class="c1"># right=0.86</span>
+    <span class="c1"># hspace=0.1</span>
+    <span class="c1"># wspace=0.0</span>
 
     <span class="n">fig</span><span class="o">.</span><span class="n">subplots_adjust</span><span class="p">(</span><span class="n">wspace</span><span class="o">=</span><span class="n">wspace</span><span class="p">,</span>
                         <span class="n">hspace</span><span class="o">=</span><span class="n">hspace</span><span class="p">,</span>
@@ -605,7 +673,7 @@
 
         <span class="n">sensor_type_data</span> <span class="o">=</span> <span class="n">deployment_df</span><span class="o">.</span><span class="n">where</span><span class="p">(</span>
                             <span class="n">deployment_df</span><span class="p">[</span><span class="s1">&#39;Sensor Name&#39;</span><span class="p">]</span> <span class="o">==</span>
-                            <span class="n">sensor_type</span><span class="p">)</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
+                            <span class="n">sensor_type</span><span class="p">)</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">how</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 
         <span class="n">bdate</span> <span class="o">=</span> <span class="n">mdates</span><span class="o">.</span><span class="n">date2num</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">sensor_type_data</span><span class="o">.</span><span class="n">Begin</span><span class="p">))</span>
         <span class="n">edate</span> <span class="o">=</span> <span class="n">mdates</span><span class="o">.</span><span class="n">date2num</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">sensor_type_data</span><span class="o">.</span><span class="n">End</span><span class="p">))</span>
@@ -617,8 +685,11 @@
                 <span class="n">left</span><span class="o">=</span><span class="n">bdate</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">c</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">.8</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">fmt_sensor_type</span><span class="p">)</span>
         <span class="n">ax</span><span class="o">.</span><span class="n">xaxis_date</span><span class="p">()</span>
 
-    <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mf">0.8</span><span class="o">*</span><span class="n">fontsize</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper center&#39;</span><span class="p">,</span>
-              <span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">1.1</span><span class="p">),</span> <span class="n">ncol</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">unique_types</span><span class="p">))</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mf">0.9</span><span class="o">*</span><span class="n">fontsize</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span>
+              <span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.98</span><span class="p">),</span> <span class="n">ncol</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">unique_types</span><span class="p">))</span>
+
+    <span class="c1"># ax.legend(fontsize=0.8*fontsize, loc=&#39;right&#39;,</span>
+    <span class="c1">#           bbox_to_anchor=(1.175, 0.5), ncol=1)</span>
 
     <span class="c1"># Pad the x-axis a little bit on either side of sensor deployment periods</span>
     <span class="n">x_start</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span>

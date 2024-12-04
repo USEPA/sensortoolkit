@@ -49,18 +49,32 @@ files to the ```.../processed_data`` directory.
 
   Importing Recorded Sensor Data:
   ..RT01
-  ....Toco_Toucan_RT01_raw.csv
+  ....toco_toucan_RT01_raw.csv
+  ..Non-zero padded formatting encountered in timeseries, attempting to conform
+  ....converting datetime index from EST (UTC -5.0 hours) to UTC.
+
   ..RT02
-  ....Toco_Toucan_RT02_raw.csv
+  ....toco_toucan_RT02_raw.csv
+  ..Non-zero padded formatting encountered in timeseries, attempting to conform
+  ....converting datetime index from EST (UTC -5.0 hours) to UTC.
+
   ..RT03
-  ....Toco_Toucan_RT03_raw.csv
+  ....toco_toucan_RT03_raw.csv
+  ..Non-zero padded formatting encountered in timeseries, attempting to conform
+  ....converting datetime index from EST (UTC -5.0 hours) to UTC.
+
+  Averaging datasets to 1-hour and 24-hour intervals:
+  ..no duplicate timestamps found
   ..RT01 recording interval mode: 0 days 00:01:00, 60.0 counts per hour
   ....writing full, hourly, and daily datasets to .csv files
+
+  ..no duplicate timestamps found
   ..RT02 recording interval mode: 0 days 00:01:00, 60.0 counts per hour
   ....writing full, hourly, and daily datasets to .csv files
+
+  ..no duplicate timestamps found
   ..RT03 recording interval mode: 0 days 00:01:00, 60.0 counts per hour
   ....writing full, hourly, and daily datasets to .csv files
-
 
 Loading from Processed Data Files
 ---------------------------------

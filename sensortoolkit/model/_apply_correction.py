@@ -28,7 +28,7 @@ def individual_corr(param=None, df_list=None, stats_df=None):
         df_list (list):
             List of sensor dataframes.
         stats_df (pandas dataframe):
-            Statistics dataframe containing OLS regression statisitcs including
+            Statistics dataframe containing OLS regression statistics including
             slope and intercept for either sensor vs. FRM/FEM regression or
             sensor vs. intersensor regression.
     Return:

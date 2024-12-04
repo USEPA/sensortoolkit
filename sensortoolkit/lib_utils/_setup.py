@@ -16,8 +16,12 @@ Formatting Scheme (SDFS).
 Created:
   Mon Jul 19 08:25:55 2021
 Last Updated:
-  Mon Jul 19 08:25:55 2021
+  Thur Feb 09 02:06:41 2023
 """
+# Thur Feb 09 02:06:41 2023, Menaka Kumar, NSSC Contractor (ORAU) U.S. EPA / ORD / CEMM / AMCD / SFSB 
+# uncommented and modified current lines 882 & 885 to print a note of SDFS parameters in AirSensor setup when specifying parameter columns.
+# modified current lines 1431 & 1435-1436 to print better link for EPA AirData Air Quality Monitors Map and format better.
+
 import os
 import sys
 from textwrap import wrap
@@ -111,10 +115,10 @@ class _Setup:
         if self.header_iloc is None:
             # Manually specify column names if none provided
             self.setColumnHeaders()
-        # otherwise, specify column headers in parsedatasets, infer header at
+        # otherwise, specify column headers in parse datasets, infer header at
         # iloc position
         self.parseDataSets()
-        # Specify which headers are assocaited with timestamp info
+        # Specify which headers are associated with timestamp info
         self.setTimeHeaders()
         # Specify how to convert recorded parameter headers to SDFS
         self.setParamHeaders()
@@ -129,7 +133,7 @@ class _Setup:
             select_type (str): The title of the configuration section.
             options (list, optional):
                 List of interactive options indicating keyword characters
-                used to modify the state of thge console and
+                used to modify the state of the console and
                 a description of what entering that keyword does. Defaults
                 to [].
 
@@ -391,7 +395,7 @@ class _Setup:
             for col_idx in self.col_headers.copy():
                 for label in self.col_headers[col_idx].copy():
 
-                    # Check if the recorded dataset doesnt have a header,
+                    # Check if the recorded dataset does not have a header,
                     # if so, use previously manually configured names
                     if previous_setup_data['header_iloc'] == None:
                         # label is an integer value, reassign to previously
@@ -425,7 +429,7 @@ class _Setup:
                         continue
 
             # Ask the user to specify attributes for columns that
-            # didnt appear in the previously configured setup.
+            # did not appear in the previously configured setup.
             if self._not_in_previous_setup != {}:
                 new_cols = []
 
@@ -875,10 +879,10 @@ class _Setup:
 
 
         if print_banner:
-            #txt = 'Choose from the following list of SDFS parameter names'
+            txt = 'The following is a list of SDFS parameter names:' # uncommented and modified by KM 2/9/2023
             self.printSelectionBanner('Specify Parameter columns',
                                       options=[self.skip_str],
-                                      #notes=[txt, self.params]
+                                      notes=[txt, self.sdfs_params] # uncommented and modified by KM 2/9/2023
                                       )
         # drop time-like columns and ask user for SDFS parameter associated
         # with remaining cols
@@ -1034,7 +1038,7 @@ class _Setup:
                     print('  Temperature must be in either degree Fahrenheit or Celsius')
 
             else:
-                val = input('  Enter the scalar quanitity for converting the '
+                val = input('  Enter the scalar quantity for converting the '
                             'recorded measurements to the following unit basis: '
                             f'{sdfs_param_units}')
 
@@ -1107,7 +1111,8 @@ class _Setup:
         self.printSelectionBanner('Specify DateTime Index Time Zone',
                                   options=[self.skip_str],
                                   notes=['For a list of all time zones, type'
-                                         ' "pytz.all_timezones"'])
+                                         ' "import pytz" and then "pytz.all_timezones"'
+                                         ' or go to the following website: https://en.wikipedia.org/wiki/List_of_tz_database_time_zones'])
 
         for col in self.timestamp_col_headers:
 
@@ -1362,7 +1367,7 @@ class ReferenceSetup(_Setup):
 
         Choose from the following options:
 
-        - ``'local'``: Data files aqcuired locally (e.g., local transfer
+        - ``'local'``: Data files acquired locally (e.g., local transfer
           from agency overseeing reference instrumentation at air monitoring
           site).
         - ``'airnowtech'``: User has downloaded files from the AirNowTech
@@ -1413,7 +1418,7 @@ class ReferenceSetup(_Setup):
 
         .. important
 
-            **The following attrbiutes are required for querying API services:**
+            **The following attributes are required for querying API services:**
 
             - If the reference data source is ``'aqs'``, an AQS ID must be
               specified.
@@ -1424,12 +1429,12 @@ class ReferenceSetup(_Setup):
             None.
 
         """
-        airdata_link = 'https://epa.maps.arcgis.com/apps/webappviewer/index.html?id=5f239fd3e72f424f98ef3d5def547eb5'
+        airdata_link = 'https://www.epa.gov/outdoor-air-quality-data/interactive-map-air-quality-monitors' # modified by KM 2/9/2023
         self.printSelectionBanner('Enter Ambient Air Monitoring Site Information',
                                   options=['..press enter to skip entries'],
                                   notes=['Site AQS ID required for AQS queries',
-                                         'Use the EPA AirData Air Quality Monitors Map to locate AQS Sites'
-                                         f'  {airdata_link}'
+                                         'Use the EPA AirData Air Quality Monitors Map to locate AQS Sites:' # modified by KM 2/9/2023
+                                         f' {airdata_link}' # modified by KM 2/9/2023
                                          'Site Latitude and Longitude required for AirNow queries',
                                          '  Latitude must be between -90 and +90 degrees ',
                                          '  Longitude must be between -180 and +180 degrees'])
@@ -1528,7 +1533,7 @@ class ReferenceSetup(_Setup):
         - Units
         - Parameter AQS Code
         - Reference Method Code
-        - Parameter Occurence Code
+        - Parameter Occurrence Code
 
         Args:
             param (str):
@@ -1544,7 +1549,7 @@ class ReferenceSetup(_Setup):
             f'Enter the units of measure for {param}: ': f'{sdfs_param}' + '_Unit',
             f'Enter the parameter code for {param}: ': f'{sdfs_param}' + '_Param_Code',
             f'Enter the method code corresponding to the reference method for {param}: ': f'{sdfs_param}' + '_Method_Code',
-            f'Enter the parameter occurence code for the above reference method: ': f'{sdfs_param}' + '_Method_POC'
+            f'Enter the parameter occurrence code for the above reference method: ': f'{sdfs_param}' + '_Method_POC'
             }
 
         indent = '  '
@@ -1636,7 +1641,7 @@ class ReferenceSetup(_Setup):
 
     def displayMethods(self, param_code, lookup_data):
         """Helper function for printing an abbreviated dataset of reference
-        methods correponding to the indicated parameter.
+        methods corresponding to the indicated parameter.
 
         Args:
             param_code (int):
@@ -1749,7 +1754,7 @@ class ReferenceSetup(_Setup):
 
                 class_df = df[class_param_cols]
 
-                # Save class dataframe in monthly segements
+                # Save class dataframe in monthly segments
                 for date in pd.date_range(start=class_df.index.min(),
                               end=class_df.index.max()).to_period('M').unique():
                     month = str(date.month).zfill(2)
@@ -1765,6 +1770,10 @@ class ReferenceSetup(_Setup):
                         month_df = interval_averaging(month_df, freq='H',
                                                       interval_count=N,
                                                       thres=0.75)
+
+                    if classifier == "PM":
+                        from sensortoolkit.calculate import calculate_ref_ratio
+                        month_df = calculate_ref_ratio(month_df)
 
                     # Write to processed folder as csv
                     filename = 'H_' + year + month + '_' + classifier + '.csv'

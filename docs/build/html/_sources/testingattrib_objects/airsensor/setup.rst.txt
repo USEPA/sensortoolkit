@@ -35,6 +35,11 @@ setup process:
   A console width of at least 80 characters is recommended to properly format
   printed statements, banners, and tables within this setup method.
 
+.. note::
+
+  Currently, if a mistake is made in a step of the ingestion process,
+  you may have to start the process over.
+
 1. Selecting File Data Type
 ---------------------------
 
@@ -75,7 +80,7 @@ copies over files that the user manually selects within a directory.
   ['directory', 'recursive directory', 'files']
   ==============================================================================
 
-  Enter how to select sensor datasets from the list of options above: files
+  Enter how to select sensor datasets from the list of options above:files
 
   Select data sets by files
 
@@ -102,10 +107,11 @@ where the copied datasets will be saved.
   ==============================================================================
 
   [File Browser: Select the files for recorded sensor datasets with file type ".csv"]
+  
   Source Files:
-  ['C:/Users/.../Documents/toco_toucan_RT01_raw.csv',
-  'C:/Users/.../Documents/toco_toucan_RT02_raw.csv',
-  'C:/Users/.../Documents/toco_toucan_RT03_raw.csv']
+  ['C:/Users/.../Documents/toucan_evaluation/toco_toucan_RT01_raw.csv',
+  'C:/Users/.../Documents/toucan_evaluation/toco_toucan_RT02_raw.csv',
+  'C:/Users/.../Documents/toucan_evaluation/toco_toucan_RT03_raw.csv']
 
   Destination Directory:
   ..C:\Users\...\Documents\toucan_evaluation\data\sensor_data\Toco_Toucan\raw_data
@@ -113,13 +119,45 @@ where the copied datasets will be saved.
   Press enter to continue.
 
   Copying the following files:
-  ..C:/Users/.../Documents/toco_toucan_RT01_raw.csv
-  ..C:/Users/.../Documents/toco_toucan_RT02_raw.csv
-  ..C:/Users/.../Documents/toco_toucan_RT03_raw.csv
+  ..C:/Users/.../Documents/toucan_evaluation/toco_toucan_RT01_raw.csv
+  ..C:/Users/.../Documents/toucan_evaluation/toco_toucan_RT02_raw.csv
+  ..C:/Users/.../Documents/toucan_evaluation/toco_toucan_RT03_raw.csv
 
   Press enter to continue.
 
-4. Selecting the Column Header Index
+4. Prewritten Ingestion Module
+------------------------------
+
+Next, the user is asked if a custom, prewritten ingestion module should be used to import data. Most sensor data
+files will not fit the standard data formatting. Therefore, it is often better to manually provide sensortoolkit with
+data formatting attributes and not use the prewitten ingestion module.
+
+.. code-block:: console
+
+  ============== Indicate whether to use a custom ingestion method =============
+  ==============================================================================
+  Will a custom, prewritten ingestion module be used to import data? [y/n]: n
+
+  Press enter to continue.
+
+5. Previous Setup Configuration
+-------------------------------
+
+Next, the user is asked if a setup.json file has been previously created for the project and if the user intends on
+using it to configure the current setup session. If this is the first time sensortoolkit is being used
+or a difference has been made to the ``sensor`` object, a setup.json file has not been previously created.
+If the user would like to use the same ``sensor`` object setup that has been successfully previously made,
+the user may use it to skip the interactive ingestion module for the ``sensor`` object.
+
+.. code-block:: console
+
+  =========== Indicate whether to use a previous setup configuration ===========
+  ==============================================================================
+  Have you previously created a setup.json config file that [1] matches the
+  device type associated with the selected data sets and [2] intend to use the
+  previous setup.json file to configure the current setup session? [y/n]: n
+
+6. Selecting the Column Header Index
 ------------------------------------
 Next, users are prompted to enter the row index corresponding to the column headers.
 Sensor datasets may place the header information at the top of the file, and in this
@@ -176,7 +214,7 @@ scheme regarding where the header row is located in recorded datasets.
     ..type "None" if no header columns in recorded sensor dataset
     ==============================================================================
 
-    The first ten unformatted rows of C:\Users\...\Documents\sensortoolkit_testing
+    The first ten unformatted rows of C:\Users\...\Documents\toucan_evaluation
     \data\sensor_data\Toco_Toucan\raw_data\toco_toucan_RT01_raw.csv
     are displayed below:
 
@@ -187,10 +225,10 @@ scheme regarding where the header row is located in recorded datasets.
     3             (UTC-05:00) Eastern Time (US & Canada)
     4                         Averaging period: 1 minute
     5  Time,NO2 (ppb),O3 (ppb),PM2.5 (µg/m³),TEMP (°C...
-    6  2019/08/01 07:11:00,,,5.4,24.80,95.3,24.0,Sample.
-    7  2019/08/01 07:12:00,5.5,0.0,5.5,24.88,95.1,24....
-    8  2019/08/01 07:13:00,2.0,4.4,5.3,25.00,95.1,24....
-    9  2019/08/01 07:14:00,-0.9,8.8,5.4,25.14,95.2,24...
+    6            8/1/2019 7:11,,,5.4,24.8,95.3,24,Sample
+    7       8/1/2019 7:12,5.5,0,5.5,24.88,95.1,24,Sample
+    8        8/1/2019 7:13,2,4.4,5.3,25,95.1,24.2,Sample
+    9  8/1/2019 7:14,-0.9,8.8,5.4,25.14,95.2,24.3,Sample
 
     Enter the row index number for column headers: 5
 
@@ -234,7 +272,7 @@ scheme regarding where the header row is located in recorded datasets.
 
     Confirm entry [y/n]: y
 
-5. Parsing Sensor Datasets
+7. Parsing Sensor Datasets
 --------------------------------------------------------
 
 If column headers are not included in the sensor datasets (i.e., the column
@@ -248,7 +286,7 @@ the user indicates to the console to end header entry model by pressing ``X``.
   Manual configuration of column headers is not required if an integer header row index
   value is set in the previous step.
 
-Next, the module will automatically search for datafiles corresponding to the
+Next, the module will automatically search for data files corresponding to the
 file type and header index (if previously specified). A list of unique headers for
 each column index are displayed.
 
@@ -258,15 +296,15 @@ each column index are displayed.
   ==============================================================================
 
   Parsing datasets at "../data/sensor_data/Toco_Toucan/raw_data"
-  ..header(s) at column index 0: ['Time']
-  ..header(s) at column index 1: ['NO2 (ppb)']
-  ..header(s) at column index 2: ['O3 (ppb)']
-  ..header(s) at column index 3: ['PM2.5 (µg/m³)']
-  ..header(s) at column index 4: ['TEMP (°C)']
-  ..header(s) at column index 5: ['RH (%)']
-  ..header(s) at column index 6: ['DP (°C)']
-  ..header(s) at column index 7: ['Inlet']
 
+  ..Header(s) at column index 0: ['Time']
+  ..Header(s) at column index 1: ['NO2 (ppb)']
+  ..Header(s) at column index 2: ['O3 (ppb)']
+  ..Header(s) at column index 3: ['PM2.5 (µg/m³)']
+  ..Header(s) at column index 4: ['TEMP (°C)']
+  ..Header(s) at column index 5: ['RH (%)']
+  ..Header(s) at column index 6: ['DP (°C)']
+  ..Header(s) at column index 7: ['Inlet']
   Press enter to continue.
 
 .. tip::
@@ -310,7 +348,7 @@ each column index are displayed.
     ..header(s) at column index 0: ['Time', 'time']
 
 
-6. Specifying Timestamp Columns
+8. Specifying Timestamp Columns
 -------------------------------
 Users must list all time-like columns that will be used for the 'DateTime'
 index. Typically, this either includes one column as is the case for the
@@ -363,7 +401,12 @@ mode.
 
     Press enter to continue.
 
-7. Specifying the Parameter Renaming Scheme
+.. note::
+
+   Sensortoolkit converts time to the UTC timezone. Graphs displayed in the final report
+   are in UTC.
+
+9. Specifying the Parameter Renaming Scheme
 -------------------------------------------
 
 Next, users are prompted to configure the parameter renaming scheme for converting
@@ -380,6 +423,10 @@ the header name with a custom parameter that you may have created previously. Ot
 not choose to include the header and associated column in the processed datasets, you can enter an
 empty character (by pressing the "Enter" key), which will skip over the header label and drop it
 from datasets that are processed to the SDFS format.
+.. tip::
+
+  Try to only add the SDFS parameters that you are using in your evaluation and report generation.
+  Extra unnecessary parameters may cause sensortoolkit to not function.
 
 .. code-block:: console
 
@@ -544,12 +591,12 @@ from datasets that are processed to the SDFS format.
 
   Press enter to continue.
 
-8. Configuring Timestamp Column Formatting
-------------------------------------------
+10. Configuring Timestamp Column Formatting
+-------------------------------------------
 
 Next, the timestamp column formatting should be specified. Users are encouraged
 to reference https://strftime.org/ for a table of formatting codes. Additional
-info is available in the Python documentation: https://docs.python.org/3/library/datetime.html#strftime-and-strptime-format-codes.
+info is available in the Python documentation `here <https://docs.python.org/3/library/datetime.html#strftime-and-strptime-format-codes>`__.
 
 A formatting scheme must be specified for each time-like column indicated in
 the previous section.
@@ -572,12 +619,12 @@ or revise the entered formatting scheme.
   and-strptime-format-codes
   ==============================================================================
 
-  Enter date/time formatting for "Time": %Y/%m/%d %H:%M:%S
+  Enter date/time formatting for "Time": %-m/%-d/%Y %-H:%M
 
   Confirm entry [y/n]: y
 
   Configured formatting scheme:
-  {'Time': '%Y/%m/%d %H:%M:%S'}
+  {'Time': '%-m/%-d/%Y %-H:%M'}
 
   Press enter to continue.
 
@@ -586,7 +633,6 @@ or revise the entered formatting scheme.
     Non-zero padded values (e.g., specifying January as ``1`` rather than
     zero-padded ``01``) should be indicated by either ``%-`` or ``%#`` (e.g.,
     non-zero padded month will be ``%-m`` or ``%#m``).
-
 
 .. tip::
 
@@ -619,8 +665,8 @@ or revise the entered formatting scheme.
     Press enter to continue.
 
 
-9. Specifying the DateTime Index Time Zone
-------------------------------------------
+11. Specifying the DateTime Index Time Zone
+-------------------------------------------
 
 Next, the time zone for the timestamp column should be indicated. `SDFS <../../sdfs/index.html>`_
 formatted datasets indicate timestamps in Coordinated Universal Time (UTC), and during
@@ -652,12 +698,12 @@ time zone name.
   Confirm entry [y/n]: y
 
   Configured time zone formatting:
-  {'Time': '%Y/%m/%d %H:%M:%S', 'Time_tz': 'EST'}
+  {'Time': '%-m/%-d/%Y %-H:%M', 'Time_tz': 'EST'}
 
   Press enter to continue.
 
 
-10. Configuring Sensor Serial identifiers
+12. Configuring Sensor Serial identifiers
 -----------------------------------------
 
 Next, users should indicate unique identifiers corresponding to each air sensor in
@@ -681,13 +727,14 @@ corresponds to which unit during analysis.
   ..press X to end adding entries
   ==============================================================================
 
-  ..C:\Users\...\Documents\toucan_evaluation\data\sensor_data\Toco_Toucan\raw_data\toco_toucan_RT01_raw.csv
-  ..C:\Users\...\Documents\toucan_evaluation\data\sensor_data\Toco_Toucan\raw_data\toco_toucan_RT02_raw.csv
-  ..C:\Users\...\Documents\toucan_evaluation\data\sensor_data\Toco_Toucan\raw_data\toco_toucan_RT03_raw.csv
+  ..toco_toucan_RT01_raw.csv
+  ..toco_toucan_RT02_raw.csv
+  ..toco_toucan_RT03_raw.csv
 
   Enter the number of unique sensors corresponding to the datasets above: 3
 
   Confirm entry [y/n]: y
+
   Enter unique serial identifiers for each sensor associated with the datasets listed above:
 
   Enter serial identifier #1: RT01
@@ -705,11 +752,10 @@ corresponds to which unit during analysis.
   Configured serial identifiers:
   {'1': 'RT01', '2': 'RT02', '3': 'RT03'}
 
-
   Press enter to continue.
 
-11. Saving the Setup Configuration to ``setup.json``
-----------------------------------------------------
+13.  Saving the Setup Configuration to ``setup.json``
+-----------------------------------------------------
 
 Lastly, the Setup module will automatically save the setup configuration
 to a ``setup.json`` file.
@@ -723,4 +769,11 @@ where ``[sensor_name]`` is replaced by the name given to the sensor.
   ==============================================================================
 
   ..writing setup configuration to the following path:
-    \data\sensor_data\Toco_Toucan\Toco_Toucan_setup.json
+    C:\Users\...\Documents\toucan_evaluation\data\sensor_data\Toco_Toucan\Toco_Toucan_setup.json
+  
+  ....\figures\Toco_Toucan\O3
+  ....\figures\Toco_Toucan\NO2
+  ....\figures\Toco_Toucan\PM25
+  ....\figures\Toco_Toucan\Met
+  ....\figures\Toco_Toucan\deployment
+

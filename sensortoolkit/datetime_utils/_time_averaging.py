@@ -148,6 +148,19 @@ def sensor_averaging(full_df_list, sensor_serials=None, name='',
         data_dict['1-hour'][serial_id] = hourly_df
         data_dict['24-hour'][serial_id] = daily_df
 
+        # If both PM10 and PM2.5 data available, calculate the ratio PM2.5/PM10 and
+        # store it in the data_dict as the last column titled ratio_value.
+        from sensortoolkit.calculate import calculate_ratio, ratio_count
+        data_dict = calculate_ratio(data_dict, serial_id, **kwargs)
+
+        # Also, count the number of times the ratio value is <= 0.4 for at least an hour.
+        # ratios_count for sensors is currently not be displayed anywhere.
+        ratios_count = ratio_count(data_dict, serial_id, **kwargs)
+        
+        full_df = data_dict['full'][serial_id]
+        hourly_df = data_dict['1-hour'][serial_id]
+        daily_df = data_dict['24-hour'][serial_id]
+
         if write_to_file is True:
             print('....writing full, hourly, and daily datasets to .csv files')
 

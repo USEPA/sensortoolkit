@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>sensortoolkit.plotting._plot_formatting &mdash; sensortoolkit 0.9.0b2 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            sensortoolkit
+          </a>
+              <div class="version">
+                0.9.0b2
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../quickstart.html">Quickstart Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../setup.html">Setting Up for sensortoolkit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../install.html">Installing and Updating sensortoolkit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../template.html">Analysis with sensortoolkit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../template.html#script-template">Script Template</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Objects and Data Structures</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../testingattrib_objects/index.html">Testing Attribute Objects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../data_structures/index.html">Data Structures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../sdfs/index.html">sensortoolkit Data Formatting Scheme (SDFS)</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Analysis and Reports</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../evaluation_objects/index.html">Evaluation Objects</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/index.html">sensortoolkit API</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">sensortoolkit</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">sensortoolkit.plotting._plot_formatting</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for sensortoolkit.plotting._plot_formatting</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">This module contains methods for configuring various plot formatting presets</span>
+<span class="sd">(e.g., configuring the fontsize, wrapping long figure titles over multiple</span>
+<span class="sd">lines, specifying figure dimensions for formatting figures with multiple</span>
+<span class="sd">subplots, each displaying sensor data, etc.).</span>
+
+<span class="sd">================================================================================</span>
+
+<span class="sd">@Author:</span>
+<span class="sd">  | Samuel Frederick, NSSC Contractor (ORAU)</span>
+<span class="sd">  | U.S. EPA / ORD / CEMM / AMCD / SFSB</span>
+
+<span class="sd">Created:</span>
+<span class="sd">  Mon Jan 27 08:49:12 2020</span>
+<span class="sd">Last Updated:</span>
+<span class="sd">  Wed Jul 28 14:13:57 2021</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">pandas.plotting</span> <span class="kn">import</span> <span class="n">register_matplotlib_converters</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">textwrap</span> <span class="kn">import</span> <span class="n">wrap</span>
+<span class="kn">import</span> <span class="nn">math</span>
+<span class="n">register_matplotlib_converters</span><span class="p">()</span>
+
+
+<div class="viewcode-block" id="set_fontsize"><a class="viewcode-back" href="../../../api/_autosummary/sensortoolkit.plotting._plot_formatting.set_fontsize.html#sensortoolkit.plotting._plot_formatting.set_fontsize">[docs]</a><span class="k">def</span> <span class="nf">set_fontsize</span><span class="p">(</span><span class="n">serials</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Selects fontsize for figures based on the number of sensors present in</span>
+<span class="sd">    the sensor serial ID dictionary.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        serials (dict):</span>
+<span class="sd">            A dictionary of serial identifiers unique to each sensor in the</span>
+<span class="sd">            deployment testing group.</span>
+<span class="sd">    Returns:</span>
+<span class="sd">        fontsize (float):</span>
+<span class="sd">            The fontsize for figures.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">n_sensors</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">serials</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">n_sensors</span> <span class="o">==</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="n">fontsize</span> <span class="o">=</span> <span class="mi">14</span>
+    <span class="k">elif</span> <span class="p">(</span><span class="n">n_sensors</span> <span class="o">&lt;</span> <span class="mi">7</span> <span class="ow">and</span> <span class="n">n_sensors</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="n">fontsize</span> <span class="o">=</span> <span class="mf">12.75</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">fontsize</span> <span class="o">=</span> <span class="mf">11.7</span>
+
+    <span class="k">return</span> <span class="n">fontsize</span></div>
+
+
+<div class="viewcode-block" id="wrap_text"><a class="viewcode-back" href="../../../api/_autosummary/sensortoolkit.plotting._plot_formatting.wrap_text.html#sensortoolkit.plotting._plot_formatting.wrap_text">[docs]</a><span class="k">def</span> <span class="nf">wrap_text</span><span class="p">(</span><span class="n">labels</span><span class="p">,</span> <span class="n">max_label_len</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Formats plotting text with line breaks based on specified text length.</span>
+
+<span class="sd">    Code modified via Stack Overflow user DavidG code</span>
+<span class="sd">    (https://stackoverflow.com/questions/47057789/matplotlib-wrap-text-in-legend)</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        labels (list):</span>
+<span class="sd">            list plotting labels (strings) such as header/title text</span>
+<span class="sd">        max_label_len (int):</span>
+<span class="sd">            The maximum number of characters on a single line. Labels longer</span>
+<span class="sd">            than this will have a newline character inserted at every</span>
+<span class="sd">            max_label_len number of characters.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        labels (list):</span>
+<span class="sd">            Modified list of labels with the newline character inserted for</span>
+<span class="sd">            labels exceeding the max_label_len.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">labels</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">wrap</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">max_label_len</span><span class="p">))</span> <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="n">labels</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">labels</span></div>
+
+
+<div class="viewcode-block" id="subplot_dims"><a class="viewcode-back" href="../../../api/_autosummary/sensortoolkit.plotting._plot_formatting.subplot_dims.html#sensortoolkit.plotting._plot_formatting.subplot_dims">[docs]</a><span class="k">def</span> <span class="nf">subplot_dims</span><span class="p">(</span><span class="n">n_sensors</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Recommends subplot dimensions based on the nearest perfect square for</span>
+<span class="sd">    number of sensors (except when n%10, n_cols in multiples of 5)</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        n_sensors (int):</span>
+<span class="sd">            The number of sensors in the deployment group.</span>
+<span class="sd">    Returns:</span>
+<span class="sd">        (tuple): Two-element tuple containing:</span>
+
+<span class="sd">            - **n_rows** (*int*): The number of subplot rows.</span>
+<span class="sd">            - **n_cols** (*int*): The number of subplot columns.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">sqr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">n_sensors</span><span class="p">)</span>
+    <span class="n">n_rows</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">sqr</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">n_sensors</span> <span class="o">%</span> <span class="mi">10</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">n_rows</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">n_sensors</span><span class="o">/</span><span class="mi">5</span><span class="p">)</span>
+    <span class="n">n_cols</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">n_sensors</span> <span class="o">/</span> <span class="n">n_rows</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="p">(</span><span class="n">n_rows</span><span class="p">,</span> <span class="n">n_cols</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="sensor_subplot_formatting"><a class="viewcode-back" href="../../../api/_autosummary/sensortoolkit.plotting._plot_formatting.sensor_subplot_formatting.html#sensortoolkit.plotting._plot_formatting.sensor_subplot_formatting">[docs]</a><span class="k">def</span> <span class="nf">sensor_subplot_formatting</span><span class="p">(</span><span class="n">number_of_sensors</span><span class="p">,</span> <span class="n">param_obj</span><span class="p">,</span> <span class="n">report_fmt</span><span class="p">,</span>
+                              <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Configure subplot parameters that control the spacing of subplots,</span>
+<span class="sd">    number of subplots and dimensions of the Matplotlib axes object array,</span>
+<span class="sd">    color bar formatting, etc.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        number_of_sensors (int):</span>
+<span class="sd">            The number of sensors to display in the figure.</span>
+<span class="sd">        param_obj (sensortoolkit.Parameter):</span>
+<span class="sd">            The parameter corresponding to measurement data that will be</span>
+<span class="sd">            displayed in the figure.</span>
+<span class="sd">        report_fmt (bool):</span>
+<span class="sd">            If true, select formatting presets for displaying figures on the</span>
+<span class="sd">            reporting template for sensor performance evaluations included</span>
+<span class="sd">            alongside US EPA&#39;s performance targets documents for air sensors.</span>
+
+<span class="sd">    **Keyword Arguments:**</span>
+
+<span class="sd">    :param bool show_colorbar:</span>
+<span class="sd">        If true, a colorbar will be displayed on figures indicating the relative</span>
+<span class="sd">        humidity recorded at the same time as the sensor-reference measurement</span>
+<span class="sd">        pairs. The RH is superimposed as a colormap on the sensor-reference</span>
+<span class="sd">        measurement pair scatter. Defaults to True.</span>
+<span class="sd">    :param dict sensor_serials:</span>
+<span class="sd">        A dictionary of unique serial identifiers corresponding to each sensor</span>
+<span class="sd">        in the evaluation group. Defaults to None.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        ValueError: Raise if the number of sensors does not correspond to</span>
+<span class="sd">        one of the preset configurations (presets for number_of_sensors &lt;= 9).</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        (tuple): 17-element tuple containing:</span>
+
+<span class="sd">            - **Nr** (*int*): The number of rows of subplots for the figure</span>
+<span class="sd">              instance.</span>
+<span class="sd">            - **Nc** (*int*): The number of columns of subplots for the figure</span>
+<span class="sd">              instance.</span>
+<span class="sd">            - **fig_size** (*tuple*): The size of the figure instance (x_width,</span>
+<span class="sd">              y_width).</span>
+<span class="sd">            - **suptitle_xpos** (*float*): The relative x-coordinate position of</span>
+<span class="sd">              the figure title.</span>
+<span class="sd">            - **suptitle_ypos** (*float*): The relative y-coordinate position of</span>
+<span class="sd">              the figure title.</span>
+<span class="sd">            - **title_text_wrap** (*int*): The number of characters to include</span>
+<span class="sd">              on a single line of the title before inserting a new line.</span>
+<span class="sd">            - **detail_fontsize** (*int* or *float*): Fontsize for axes tick</span>
+<span class="sd">              labels and smaller plotting text elements..</span>
+<span class="sd">            - **wspace** (*float*): The width (x-distance) between each subplot.</span>
+<span class="sd">            - **hspace** (*float*): The height (y-distance) between each</span>
+<span class="sd">              subplot.</span>
+<span class="sd">            - **left** (*float*): The left-most (x-min) limits at which the</span>
+<span class="sd">              subplots will be drawn.</span>
+<span class="sd">            - **right** (*float*): The right-most (x-max) limits at which the</span>
+<span class="sd">              subplots will be drawn.</span>
+<span class="sd">            - **top** (*float*): The top-most (y-max) limits at which the</span>
+<span class="sd">              subplots will be drawn.</span>
+<span class="sd">            - **bottom** (*float*): The bottom-most (y-min) limits at which the</span>
+<span class="sd">              subplots will be drawn.</span>
+<span class="sd">            - **filename_suffix** (*str*): A string indicating the number of</span>
+<span class="sd">              sensors for which subplots are drawn in the figure, added to</span>
+<span class="sd">              filename when saving figure to png.</span>
+<span class="sd">            - **cbar_padding** (*float*): Padding between the colorbar and the</span>
+<span class="sd">              figure subplots.</span>
+<span class="sd">            - **cbar_aspect** (*int* or *float*): The aspect ratio (width /</span>
+<span class="sd">              height) of the colorbar for relative humidity measurements.</span>
+<span class="sd">            - **font_size** (*int* or *float*): The font size for text displayed</span>
+<span class="sd">              in the figure.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">RH_colormap</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;show_colorbar&#39;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+    <span class="n">serials</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;sensor_serials&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+    <span class="n">param_averaging</span> <span class="o">=</span> <span class="n">param_obj</span><span class="o">.</span><span class="n">averaging</span>
+
+    <span class="n">Nr</span><span class="p">,</span> <span class="n">Nc</span> <span class="o">=</span> <span class="n">subplot_dims</span><span class="p">(</span><span class="n">number_of_sensors</span><span class="p">)</span>
+
+    <span class="n">sensor_plural</span><span class="p">,</span> <span class="n">row_plural</span><span class="p">,</span> <span class="n">column_plural</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span>
+
+    <span class="k">if</span> <span class="n">number_of_sensors</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">sensor_plural</span> <span class="o">=</span> <span class="s1">&#39;s&#39;</span>
+    <span class="k">if</span> <span class="n">Nr</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">row_plural</span> <span class="o">=</span> <span class="s1">&#39;s&#39;</span>
+    <span class="k">if</span> <span class="n">Nc</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">column_plural</span> <span class="o">=</span> <span class="s1">&#39;s&#39;</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;..creating subplot for&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">number_of_sensors</span><span class="p">),</span>
+          <span class="s1">&#39;sensor&#39;</span> <span class="o">+</span> <span class="n">sensor_plural</span><span class="p">,</span> <span class="s1">&#39;with&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">Nr</span><span class="p">),</span>
+          <span class="s1">&#39;row&#39;</span> <span class="o">+</span> <span class="n">row_plural</span><span class="p">,</span>  <span class="s1">&#39;and&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">Nc</span><span class="p">),</span> <span class="s1">&#39;column&#39;</span> <span class="o">+</span> <span class="n">column_plural</span><span class="p">)</span>
+
+    <span class="c1"># Get default fontsize to fall back on if none specified</span>
+    <span class="n">font_size</span> <span class="o">=</span> <span class="n">set_fontsize</span><span class="p">(</span><span class="n">serials</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">number_of_sensors</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>  <span class="c1"># 1x1 subplot</span>
+
+        <span class="k">if</span> <span class="n">RH_colormap</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">param_averaging</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">font_size</span> <span class="o">=</span> <span class="mi">12</span>
+                <span class="n">fig_size</span> <span class="o">=</span> <span class="p">(</span><span class="mf">4.3</span><span class="p">,</span> <span class="mf">3.91</span><span class="p">)</span>
+                <span class="n">wspace</span> <span class="o">=</span> <span class="mf">.1</span>
+                <span class="n">hspace</span> <span class="o">=</span> <span class="mf">.1</span>
+                <span class="n">left</span> <span class="o">=</span> <span class="mf">0.12</span>
+                <span class="n">right</span> <span class="o">=</span> <span class="mf">0.8</span>
+                <span class="n">top</span> <span class="o">=</span> <span class="mf">0.85</span>
+                <span class="n">bottom</span> <span class="o">=</span> <span class="mf">0.15</span>
+                <span class="n">suptitle_xpos</span> <span class="o">=</span> <span class="mf">0.46</span>
+                <span class="n">suptitle_ypos</span> <span class="o">=</span> <span class="mi">1</span>
+                <span class="n">title_text_wrap</span> <span class="o">=</span> <span class="mi">30</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">fig_size</span> <span class="o">=</span> <span class="p">(</span><span class="mf">4.9</span><span class="p">,</span> <span class="mf">5.5</span><span class="p">)</span>
+                <span class="n">wspace</span> <span class="o">=</span> <span class="mf">.01</span>
+                <span class="n">hspace</span> <span class="o">=</span> <span class="mf">.01</span>
+                <span class="n">left</span> <span class="o">=</span> <span class="mf">0.15</span>
+                <span class="n">right</span> <span class="o">=</span> <span class="mf">0.85</span>
+                <span class="n">top</span> <span class="o">=</span> <span class="mf">0.9</span>
+                <span class="n">bottom</span> <span class="o">=</span> <span class="mf">0.25</span>
+                <span class="n">suptitle_ypos</span> <span class="o">=</span> <span class="mf">0.98</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">fig_size</span> <span class="o">=</span> <span class="p">(</span><span class="mf">4.9</span><span class="p">,</span> <span class="mf">5.5</span><span class="p">)</span>
+            <span class="n">wspace</span> <span class="o">=</span> <span class="mf">.01</span>
+            <span class="n">hspace</span> <span class="o">=</span> <span class="mf">.01</span>
+            <span class="n">left</span> <span class="o">=</span> <span class="mf">0.15</span>
+            <span class="n">right</span> <span class="o">=</span> <span class="mf">0.85</span>
+            <span class="n">top</span> <span class="o">=</span> <span class="mf">0.95</span>
+            <span class="n">bottom</span> <span class="o">=</span> <span class="mf">0.1</span>
+            <span class="n">suptitle_ypos</span> <span class="o">=</span> <span class="mf">0.98</span>
+
+        <span class="n">suptitle_xpos</span> <span class="o">=</span> <span class="mf">0.50</span>
+
+        <span class="n">title_text_wrap</span> <span class="o">=</span> <span class="mi">35</span>
+        <span class="n">detail_fontsize</span> <span class="o">=</span> <span class="mf">.75</span><span class="o">*</span><span class="n">font_size</span>
+        <span class="n">filename_suffix</span> <span class="o">=</span> <span class="s1">&#39;1_sensor&#39;</span>
+        <span class="n">cbar_padding</span> <span class="o">=</span> <span class="mf">.13</span>
+        <span class="n">cbar_aspect</span> <span class="o">=</span> <span class="mi">20</span>
+
+    <span class="k">elif</span> <span class="n">number_of_sensors</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">):</span>  <span class="c1"># 3x1 subplot</span>
+
+        <span class="k">if</span> <span class="n">RH_colormap</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="n">fig_size</span> <span class="o">=</span> <span class="p">(</span><span class="mf">12.3</span><span class="p">,</span> <span class="mf">5.12</span><span class="p">)</span>
+            <span class="n">wspace</span> <span class="o">=</span> <span class="mf">0.3</span>
+            <span class="n">hspace</span> <span class="o">=</span> <span class="mf">.05</span>
+            <span class="n">left</span> <span class="o">=</span> <span class="mf">0.06</span>
+            <span class="n">right</span> <span class="o">=</span> <span class="mf">0.94</span>
+            <span class="n">top</span> <span class="o">=</span> <span class="mf">0.90</span>
+            <span class="n">bottom</span> <span class="o">=</span> <span class="mf">0.25</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">fig_size</span> <span class="o">=</span> <span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+            <span class="n">wspace</span> <span class="o">=</span> <span class="mf">.4</span>
+            <span class="n">hspace</span> <span class="o">=</span> <span class="mf">.01</span>
+            <span class="n">left</span> <span class="o">=</span> <span class="mf">0.07</span>
+            <span class="n">right</span> <span class="o">=</span> <span class="mf">0.93</span>
+            <span class="n">top</span> <span class="o">=</span> <span class="mf">0.90</span>
+            <span class="n">bottom</span> <span class="o">=</span> <span class="mf">0.1</span>
+
+        <span class="n">suptitle_xpos</span> <span class="o">=</span> <span class="mf">0.50</span>
+        <span class="n">suptitle_ypos</span> <span class="o">=</span> <span class="mf">0.99</span>
+        <span class="n">title_text_wrap</span> <span class="o">=</span> <span class="mi">70</span>
+        <span class="n">detail_fontsize</span> <span class="o">=</span> <span class="mf">.9</span><span class="o">*</span><span class="n">font_size</span>
+        <span class="n">filename_suffix</span> <span class="o">=</span> <span class="s1">&#39;3_sensors&#39;</span>
+        <span class="n">cbar_padding</span> <span class="o">=</span> <span class="mf">.16</span>
+        <span class="n">cbar_aspect</span> <span class="o">=</span> <span class="mi">20</span>
+
+    <span class="k">elif</span> <span class="n">number_of_sensors</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">):</span>  <span class="c1"># 2x3 subplot</span>
+        <span class="n">fig_size</span> <span class="o">=</span> <span class="p">(</span><span class="mi">13</span><span class="p">,</span> <span class="mi">9</span><span class="p">)</span>
+        <span class="n">suptitle_ypos</span> <span class="o">=</span> <span class="mf">0.97</span>
+        <span class="n">title_text_wrap</span> <span class="o">=</span> <span class="mi">70</span>
+
+        <span class="k">if</span> <span class="n">RH_colormap</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="n">wspace</span> <span class="o">=</span> <span class="mf">.1</span>
+            <span class="n">hspace</span> <span class="o">=</span> <span class="mf">.34</span>
+            <span class="n">left</span> <span class="o">=</span> <span class="mf">0.03</span>
+            <span class="n">right</span> <span class="o">=</span> <span class="mf">0.97</span>
+            <span class="n">top</span> <span class="o">=</span> <span class="mf">0.90</span>
+            <span class="n">bottom</span> <span class="o">=</span> <span class="mf">0.17</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">fig_size</span> <span class="o">=</span> <span class="p">(</span><span class="mi">13</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span>
+            <span class="n">wspace</span> <span class="o">=</span> <span class="mf">.4</span>
+            <span class="n">hspace</span> <span class="o">=</span> <span class="mf">.33</span>
+            <span class="n">left</span> <span class="o">=</span> <span class="mf">0.07</span>
+            <span class="n">right</span> <span class="o">=</span> <span class="mf">0.93</span>
+            <span class="n">top</span> <span class="o">=</span> <span class="mf">0.89</span>
+            <span class="n">bottom</span> <span class="o">=</span> <span class="mf">0.1</span>
+
+        <span class="n">suptitle_xpos</span> <span class="o">=</span> <span class="mf">0.50</span>
+        <span class="n">detail_fontsize</span> <span class="o">=</span> <span class="mf">.85</span><span class="o">*</span><span class="n">font_size</span>
+        <span class="n">filename_suffix</span> <span class="o">=</span> <span class="s1">&#39;6_sensors&#39;</span>
+        <span class="n">cbar_padding</span> <span class="o">=</span> <span class="mf">.08</span>
+        <span class="n">cbar_aspect</span> <span class="o">=</span> <span class="mi">20</span>
+
+    <span class="k">elif</span> <span class="n">number_of_sensors</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">):</span>  <span class="c1"># 2x4 subplot</span>
+        <span class="n">Nr</span> <span class="o">=</span> <span class="mi">2</span>
+        <span class="n">Nc</span> <span class="o">=</span> <span class="mi">4</span>
+        <span class="n">fig_size</span> <span class="o">=</span> <span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mi">9</span><span class="p">)</span>
+        <span class="n">suptitle_ypos</span> <span class="o">=</span> <span class="mf">0.97</span>
+        <span class="n">title_text_wrap</span> <span class="o">=</span> <span class="mi">70</span>
+
+        <span class="k">if</span> <span class="n">RH_colormap</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="n">wspace</span> <span class="o">=</span> <span class="mf">.1</span>
+            <span class="n">hspace</span> <span class="o">=</span> <span class="mf">.34</span>
+            <span class="n">left</span> <span class="o">=</span> <span class="mf">0.03</span>
+            <span class="n">right</span> <span class="o">=</span> <span class="mf">0.97</span>
+            <span class="n">top</span> <span class="o">=</span> <span class="mf">0.90</span>
+            <span class="n">bottom</span> <span class="o">=</span> <span class="mf">0.17</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">fig_size</span> <span class="o">=</span> <span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span>
+            <span class="n">wspace</span> <span class="o">=</span> <span class="mf">.44</span>
+            <span class="n">hspace</span> <span class="o">=</span> <span class="mf">.35</span>
+            <span class="n">left</span> <span class="o">=</span> <span class="mf">0.05</span>
+            <span class="n">right</span> <span class="o">=</span> <span class="mf">0.95</span>
+            <span class="n">top</span> <span class="o">=</span> <span class="mf">0.89</span>
+            <span class="n">bottom</span> <span class="o">=</span> <span class="mf">0.1</span>
+
+        <span class="n">suptitle_xpos</span> <span class="o">=</span> <span class="mf">0.50</span>
+        <span class="n">detail_fontsize</span> <span class="o">=</span> <span class="mf">.85</span><span class="o">*</span><span class="n">font_size</span>
+        <span class="n">filename_suffix</span> <span class="o">=</span> <span class="s1">&#39;8_sensors&#39;</span>
+        <span class="n">cbar_padding</span> <span class="o">=</span> <span class="mf">.08</span>
+        <span class="n">cbar_aspect</span> <span class="o">=</span> <span class="mi">20</span>
+
+    <span class="k">elif</span> <span class="n">number_of_sensors</span> <span class="o">==</span> <span class="mi">9</span><span class="p">:</span>  <span class="c1"># 3x3 subplot</span>
+        <span class="n">Nr</span> <span class="o">=</span> <span class="mi">3</span>
+        <span class="n">Nc</span> <span class="o">=</span> <span class="mi">3</span>
+        <span class="n">fig_size</span> <span class="o">=</span> <span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">11</span><span class="p">)</span>
+        <span class="n">suptitle_ypos</span> <span class="o">=</span> <span class="mf">0.97</span>
+        <span class="n">title_text_wrap</span> <span class="o">=</span> <span class="mi">70</span>
+
+        <span class="k">if</span> <span class="n">RH_colormap</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="n">wspace</span> <span class="o">=</span> <span class="mf">.04</span>
+            <span class="n">hspace</span> <span class="o">=</span> <span class="mf">.4</span>
+            <span class="n">left</span> <span class="o">=</span> <span class="mf">0.01</span>
+            <span class="n">right</span> <span class="o">=</span> <span class="mf">0.99</span>
+            <span class="n">top</span> <span class="o">=</span> <span class="mf">0.92</span>
+            <span class="n">bottom</span> <span class="o">=</span> <span class="mf">0.15</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">fig_size</span> <span class="o">=</span> <span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+            <span class="n">wspace</span> <span class="o">=</span> <span class="mf">.4</span>
+            <span class="n">hspace</span> <span class="o">=</span> <span class="mf">.35</span>
+            <span class="n">left</span> <span class="o">=</span> <span class="mf">0.07</span>
+            <span class="n">right</span> <span class="o">=</span> <span class="mf">0.93</span>
+            <span class="n">top</span> <span class="o">=</span> <span class="mf">0.89</span>
+            <span class="n">bottom</span> <span class="o">=</span> <span class="mf">0.1</span>
+
+        <span class="n">suptitle_xpos</span> <span class="o">=</span> <span class="mf">0.50</span>
+        <span class="n">detail_fontsize</span> <span class="o">=</span> <span class="mf">.85</span><span class="o">*</span><span class="n">font_size</span>
+        <span class="n">filename_suffix</span> <span class="o">=</span> <span class="s1">&#39;9_sensors&#39;</span>
+        <span class="n">cbar_padding</span> <span class="o">=</span> <span class="mf">.06</span>
+        <span class="n">cbar_aspect</span> <span class="o">=</span> <span class="mi">20</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;No formatting presets configured for&#39;</span><span class="p">,</span>
+                         <span class="nb">str</span><span class="p">(</span><span class="n">number_of_sensors</span><span class="p">))</span>
+
+    <span class="k">if</span> <span class="n">report_fmt</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="c1"># Plot 1-hour averaged dataset</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">param_averaging</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">font_size</span> <span class="o">=</span> <span class="mi">12</span>
+            <span class="n">fig_size</span> <span class="o">=</span> <span class="p">(</span><span class="mf">4.3</span><span class="p">,</span> <span class="mf">3.91</span><span class="p">)</span>
+            <span class="n">wspace</span> <span class="o">=</span> <span class="mf">.1</span>
+            <span class="n">hspace</span> <span class="o">=</span> <span class="mf">.1</span>
+            <span class="n">left</span> <span class="o">=</span> <span class="mf">0.12</span>
+            <span class="n">right</span> <span class="o">=</span> <span class="mf">0.8</span>
+            <span class="n">top</span> <span class="o">=</span> <span class="mf">0.85</span>
+            <span class="n">bottom</span> <span class="o">=</span> <span class="mf">0.15</span>
+            <span class="n">suptitle_xpos</span> <span class="o">=</span> <span class="mf">0.5</span>
+            <span class="n">suptitle_ypos</span> <span class="o">=</span> <span class="mf">1.01</span>
+            <span class="n">title_text_wrap</span> <span class="o">=</span> <span class="mi">30</span>
+            <span class="n">suptitle_ypos</span> <span class="o">=</span> <span class="mf">1.0</span>
+        <span class="c1"># Plot both 1-hour and 24-hour averaged datasets</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">wspace</span> <span class="o">=</span> <span class="mf">.4</span>
+            <span class="n">hspace</span> <span class="o">=</span> <span class="mf">.08</span>
+            <span class="n">left</span> <span class="o">=</span> <span class="mf">0.1</span>
+            <span class="n">right</span> <span class="o">=</span> <span class="mf">0.92</span>
+            <span class="n">top</span> <span class="o">=</span> <span class="mf">0.9</span>
+            <span class="n">bottom</span> <span class="o">=</span> <span class="mf">0.30</span>
+            <span class="n">cbar_padding</span> <span class="o">=</span> <span class="mf">.0</span>
+            <span class="n">cbar_aspect</span> <span class="o">=</span> <span class="mi">20</span>
+            <span class="n">font_size</span> <span class="o">=</span> <span class="mi">9</span>
+            <span class="n">detail_fontsize</span> <span class="o">=</span> <span class="mf">0.9</span><span class="o">*</span><span class="n">font_size</span>
+        <span class="n">filename_suffix</span> <span class="o">=</span> <span class="s1">&#39;report_fmt&#39;</span>
+
+    <span class="k">return</span> <span class="p">(</span><span class="n">Nr</span><span class="p">,</span> <span class="n">Nc</span><span class="p">,</span> <span class="n">fig_size</span><span class="p">,</span> <span class="n">suptitle_xpos</span><span class="p">,</span> <span class="n">suptitle_ypos</span><span class="p">,</span> <span class="n">title_text_wrap</span><span class="p">,</span>
+            <span class="n">detail_fontsize</span><span class="p">,</span> <span class="n">wspace</span><span class="p">,</span> <span class="n">hspace</span><span class="p">,</span> <span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">,</span> <span class="n">top</span><span class="p">,</span> <span class="n">bottom</span><span class="p">,</span>
+            <span class="n">filename_suffix</span><span class="p">,</span> <span class="n">cbar_padding</span><span class="p">,</span> <span class="n">cbar_aspect</span><span class="p">,</span> <span class="n">font_size</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="get_colormap_range"><a class="viewcode-back" href="../../../api/_autosummary/sensortoolkit.plotting._plot_formatting.get_colormap_range.html#sensortoolkit.plotting._plot_formatting.get_colormap_range">[docs]</a><span class="k">def</span> <span class="nf">get_colormap_range</span><span class="p">(</span><span class="n">df_list</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Set default range for colormap based on number of sensors</span>
+
+<span class="sd">    The range is normalized to between zero and one (0.0, 1.0)</span>
+
+
+<span class="sd">    Args:</span>
+<span class="sd">        df_list (list): Sensor datasets.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        cmap_range (tuple): Tuple of length 2 containing the lower and upper</span>
+<span class="sd">        bounds for the normalized colormap range.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">df_list</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">4</span><span class="p">:</span>
+        <span class="n">cmap_range</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">cmap_range</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">cmap_range</span></div>
+
+
+<div class="viewcode-block" id="met_scatter_lims"><a class="viewcode-back" href="../../../api/_autosummary/sensortoolkit.plotting._plot_formatting.met_scatter_lims.html#sensortoolkit.plotting._plot_formatting.met_scatter_lims">[docs]</a><span class="k">def</span> <span class="nf">met_scatter_lims</span><span class="p">(</span><span class="n">met_data</span><span class="p">,</span> <span class="n">param</span><span class="p">,</span> <span class="n">met_param</span><span class="p">,</span> <span class="n">xlims</span><span class="p">,</span> <span class="n">ylims</span><span class="p">,</span> <span class="n">serials</span><span class="p">,</span>
+                     <span class="n">depvar_df_list</span><span class="p">,</span> <span class="n">dep_var</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Set axes limits for plots generated by ``met_influence()``.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        met_data (pandas DataFrame):</span>
+<span class="sd">            Reference dataset containing meteorological data for either</span>
+<span class="sd">            temperature or relative humidity, logged at 1-hour averages.</span>
+<span class="sd">        param (str):</span>
+<span class="sd">            The name of the SDFS parameter for which normalized sensor-reference</span>
+<span class="sd">            concentration pairs will be displayed along the y-axis.</span>
+<span class="sd">        met_param (str):</span>
+<span class="sd">            The name of the meteorological parameter displayed along the x-axis.</span>
+<span class="sd">            The name is the SDFS parameter name associated with the</span>
+<span class="sd">            meteorological parameter; for temperature, pass ``&#39;Temp&#39;``, for</span>
+<span class="sd">            relative humidity, pass ``&#39;RH&#39;``.</span>
+<span class="sd">        xlims (Two-element tuple):</span>
+<span class="sd">            The x-limits for the normalized meteorological scatterplot. Data</span>
+<span class="sd">            along the x-axis are meteorological measurements (either temperature</span>
+<span class="sd">            or relative humidity).</span>
+<span class="sd">        ylims (Two-element tuple):</span>
+<span class="sd">            The y-limits for the normalized meteorological scatterplot. Data</span>
+<span class="sd">            along the y-axis are normalized sensor/reference concentration</span>
+<span class="sd">            pairs.</span>
+<span class="sd">        serials (dict):</span>
+<span class="sd">            A dictionary of serial identifiers unique to each sensor in the</span>
+<span class="sd">            deployment testing group.</span>
+<span class="sd">        depvar_df_list (list of pandas DataFrames):</span>
+
+<span class="sd">        dep_var (str):</span>
+<span class="sd">            The dependent variable (y-axis) that will be displayed on the</span>
+<span class="sd">            resulting figure. Either &#39;normalized&#39;, &#39;diff&#39;, or &#39;absdiff&#39;.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        (tuple): Four-element tuple containing:</span>
+<span class="sd">            - **xmin** (*float*)</span>
+<span class="sd">            - **xmax** (*float*)</span>
+<span class="sd">            - **ymin** (*float*)</span>
+<span class="sd">            - **ymax** (*float*)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">avg_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">df</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">depvar_df_list</span><span class="p">,</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="n">avg_df</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;Sensor_</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="n">dep_var</span><span class="o">.</span><span class="n">title</span><span class="p">()</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="n">param</span><span class="si">}</span><span class="s1">_Value&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">dep_var</span><span class="o">.</span><span class="n">title</span><span class="p">()</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="n">param</span><span class="si">}</span><span class="s1">_Value&#39;</span><span class="p">]</span>
+
+    <span class="n">avg_df</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;mean_</span><span class="si">{</span><span class="n">dep_var</span><span class="o">.</span><span class="n">title</span><span class="p">()</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="n">param</span><span class="si">}</span><span class="s1">_Value&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">avg_df</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="c1"># Automatically generate x-axis limits if none specified</span>
+    <span class="k">if</span> <span class="n">xlims</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">xmax</span> <span class="o">=</span> <span class="n">met_data</span><span class="p">[</span><span class="n">met_param</span> <span class="o">+</span> <span class="s1">&#39;_Value&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+        <span class="n">xmin</span> <span class="o">=</span> <span class="n">met_data</span><span class="p">[</span><span class="n">met_param</span> <span class="o">+</span> <span class="s1">&#39;_Value&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>
+
+        <span class="n">xmax</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">xmax</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">xmin</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">xmin</span><span class="p">)</span>
+
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">xmin</span><span class="p">,</span> <span class="n">xmax</span> <span class="o">=</span> <span class="n">xlims</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">xlims</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+
+    <span class="c1"># Automatically generate y-axis limits if none specified</span>
+    <span class="k">if</span> <span class="n">ylims</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">ymin</span> <span class="o">=</span> <span class="n">avg_df</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;mean_</span><span class="si">{</span><span class="n">dep_var</span><span class="o">.</span><span class="n">title</span><span class="p">()</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="n">param</span><span class="si">}</span><span class="s1">_Value&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="mf">0.01</span><span class="p">)</span>
+        <span class="n">ymax</span> <span class="o">=</span> <span class="n">avg_df</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;mean_</span><span class="si">{</span><span class="n">dep_var</span><span class="o">.</span><span class="n">title</span><span class="p">()</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="n">param</span><span class="si">}</span><span class="s1">_Value&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="mf">0.99</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">ymax</span> <span class="o">&lt;</span> <span class="mf">5.0</span><span class="p">:</span>
+            <span class="n">rounding_place</span> <span class="o">=</span> <span class="mi">1</span>  <span class="c1"># round to nearest tenths place</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">rounding_place</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>  <span class="c1"># round to nearest tens place</span>
+
+        <span class="n">ymin</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">ymin</span><span class="p">)</span> <span class="o">-</span> <span class="mf">0.1</span><span class="o">*</span><span class="n">ymin</span>
+        <span class="n">ymax</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">ymax</span><span class="p">,</span> <span class="n">rounding_place</span><span class="p">)</span> <span class="o">+</span> <span class="mf">0.1</span><span class="o">*</span><span class="n">ymax</span>
+        <span class="k">if</span> <span class="n">dep_var</span> <span class="o">==</span> <span class="s1">&#39;normalized&#39;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">ymin</span> <span class="o">==</span> <span class="n">ymax</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">ymin</span><span class="p">,</span> <span class="n">ymax</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">1.1</span>
+            <span class="k">if</span> <span class="n">ymin</span> <span class="o">&lt;</span> <span class="mf">0.1</span> <span class="ow">and</span> <span class="n">ymin</span> <span class="o">&gt;</span> <span class="o">-</span><span class="mf">.1</span><span class="p">:</span>
+                <span class="n">ymin</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.5</span>
+            <span class="k">if</span> <span class="n">ymax</span> <span class="o">&lt;</span> <span class="mf">1.0</span><span class="p">:</span>
+                <span class="n">ymin</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="o">*</span><span class="n">ymax</span>
+                <span class="n">ymax</span> <span class="o">=</span> <span class="mf">1.1</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">ymin</span> <span class="o">&gt;</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+                <span class="n">ymin</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+            <span class="k">if</span> <span class="n">ymax</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">ymax</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">ymin</span><span class="p">,</span> <span class="n">ymax</span> <span class="o">=</span> <span class="n">ylims</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">ylims</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="p">(</span><span class="n">xmin</span><span class="p">,</span> <span class="n">xmax</span><span class="p">),</span> <span class="p">(</span><span class="n">ymin</span><span class="p">,</span> <span class="n">ymax</span><span class="p">)</span></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, United States Environmental Protection Agency.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

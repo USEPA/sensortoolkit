@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>sensortoolkit.testing_attrib_objs._airsensor &mdash; sensortoolkit 0.9.0b2 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            sensortoolkit
+          </a>
+              <div class="version">
+                0.9.0b2
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../quickstart.html">Quickstart Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../setup.html">Setting Up for sensortoolkit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../install.html">Installing and Updating sensortoolkit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../template.html">Analysis with sensortoolkit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../template.html#script-template">Script Template</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Objects and Data Structures</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../testingattrib_objects/index.html">Testing Attribute Objects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../data_structures/index.html">Data Structures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../sdfs/index.html">sensortoolkit Data Formatting Scheme (SDFS)</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Analysis and Reports</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../evaluation_objects/index.html">Evaluation Objects</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/index.html">sensortoolkit API</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">sensortoolkit</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">sensortoolkit.testing_attrib_objs._airsensor</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for sensortoolkit.testing_attrib_objs._airsensor</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">This module contains the AirSensor testing attribute object class.</span>
+
+<span class="sd">================================================================================</span>
+
+<span class="sd">@Author:</span>
+<span class="sd">  | Samuel Frederick, NSSC Contractor (ORAU)</span>
+<span class="sd">  | U.S. EPA / ORD / CEMM / AMCD / SFSB</span>
+
+<span class="sd">Created:</span>
+<span class="sd">  Wed Sep 15 07:18:41 2021</span>
+<span class="sd">Last Updated:</span>
+<span class="sd">  Wed Sep 15 07:18:41 2021</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">sensortoolkit</span> <span class="kn">import</span> <span class="n">calculate</span>
+<span class="kn">from</span> <span class="nn">sensortoolkit</span> <span class="kn">import</span> <span class="n">lib_utils</span>
+<span class="kn">from</span> <span class="nn">sensortoolkit</span> <span class="kn">import</span> <span class="n">ingest</span>
+<span class="kn">from</span> <span class="nn">sensortoolkit</span> <span class="kn">import</span> <span class="n">datetime_utils</span>
+<span class="kn">from</span> <span class="nn">sensortoolkit</span> <span class="kn">import</span> <span class="n">presets</span> <span class="k">as</span> <span class="n">_presets</span>
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+
+
+<div class="viewcode-block" id="AirSensor"><a class="viewcode-back" href="../../../api/_autosummary/sensortoolkit.testing_attrib_objs._airsensor.AirSensor.html#sensortoolkit.testing_attrib_objs._airsensor.AirSensor">[docs]</a><span class="k">class</span> <span class="nc">AirSensor</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Object for storing and accessing air sensor data and device attributes.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        make (str):</span>
+<span class="sd">            The name of the air sensor manufacturer.</span>
+<span class="sd">        model (str):</span>
+<span class="sd">            The name of the air sensor model.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Default project path set to library path, should be something like</span>
+    <span class="c1"># &#39;C:/Users/.../Anaconda3/Lib/site-packages/sensortoolkit&#39;</span>
+    <span class="n">default_proj_path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="fm">__str__</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">make</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">make</span> <span class="o">=</span> <span class="n">make</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">model</span> <span class="o">=</span> <span class="n">model</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span> <span class="o">=</span> <span class="n">kwargs</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_setup_path</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">bdate</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">edate</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">operational_range</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;Temp&#39;</span><span class="p">:</span> <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
+                                  <span class="s1">&#39;RH&#39;</span><span class="p">:</span> <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">)}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">recording_interval</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">firmware_version</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;firmware_version&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">project_path</span> <span class="o">=</span> <span class="n">_presets</span><span class="o">.</span><span class="n">_project_path</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">make</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;_&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">make</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="s1">&#39;_&#39;</span><span class="p">),</span>
+                                  <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="s1">&#39;_&#39;</span><span class="p">)])</span>
+
+        <span class="k">if</span> <span class="n">Path</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">project_path</span><span class="p">)</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">default_proj_path</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;..Warning, project path has not been specified. Use the &#39;</span>
+                  <span class="s1">&#39;sensortoolkit.presets.set_project_path() method to assign &#39;</span>
+                  <span class="s1">&#39;a directory path.&#39;</span><span class="p">)</span>
+            <span class="k">return</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_setup_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">project_path</span><span class="p">,</span> <span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="s1">&#39;sensor_data&#39;</span><span class="p">,</span>
+                                        <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s1">_setup.json&#39;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_get_ingest_config</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">_get_ingest_config</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_setup_path</span><span class="p">):</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_setup_path</span><span class="p">)</span> <span class="k">as</span> <span class="n">p</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">setup_data</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
+                <span class="n">p</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">serials</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">setup_data</span><span class="p">[</span><span class="s1">&#39;serials&#39;</span><span class="p">]</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;keep_serials&#39;</span><span class="p">):</span>
+                <span class="n">keep_serials</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;keep_serials&#39;</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">serial</span> <span class="ow">in</span> <span class="n">keep_serials</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">serial</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">serials</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+                        <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">serial</span><span class="si">}</span><span class="s1"> not in list of sensor serials&#39;</span><span class="p">)</span>
+
+                    <span class="bp">self</span><span class="o">.</span><span class="n">serials</span> <span class="o">=</span> <span class="p">{</span><span class="n">key</span><span class="p">:</span> <span class="n">serial</span> <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">serial</span> <span class="ow">in</span>
+                                    <span class="bp">self</span><span class="o">.</span><span class="n">serials</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">serial</span> <span class="ow">in</span> <span class="n">keep_serials</span><span class="p">}</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">param_headers</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">setup_data</span><span class="p">[</span><span class="s1">&#39;sdfs_header_names&#39;</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">create_directories</span><span class="p">(</span><span class="n">param_headers</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">param_headers</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">setup_data</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_setup_data</span>
+
+    <span class="nd">@setup_data</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">setup_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config_data</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">config_data</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s1">&#39;Setup file at passed path indicates different &#39;</span>
+                               <span class="s1">&#39;sensor name: </span><span class="se">\n</span><span class="s1">..AirSensor name: </span><span class="si">{0}</span><span class="se">\n</span><span class="s1">..setup.&#39;</span>
+                               <span class="s1">&#39;json name: </span><span class="si">{1}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+                                                       <span class="n">config_data</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_setup_data</span> <span class="o">=</span> <span class="n">config_data</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">project_path</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">_presets</span><span class="o">.</span><span class="n">_project_path</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_project_path</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;[Note] Project path changed by user, setting AirSensor &#39;</span>
+                  <span class="s1">&#39;instance project path to new location&#39;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_project_path</span> <span class="o">=</span> <span class="n">_presets</span><span class="o">.</span><span class="n">_project_path</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_project_path</span>
+
+    <span class="nd">@project_path</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">project_path</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isabs</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_project_path</span> <span class="o">=</span> <span class="n">path</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Invalid project path, path not absolute: &#39;</span>
+                                 <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">path</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Invalid project path, directory not found: &#39;</span>
+                             <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">path</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="AirSensor.create_directories"><a class="viewcode-back" href="../../../api/_autosummary/sensortoolkit.testing_attrib_objs._airsensor.AirSensor.html#sensortoolkit.testing_attrib_objs._airsensor.AirSensor.create_directories">[docs]</a>    <span class="k">def</span> <span class="nf">create_directories</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">param_headers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Construct parameter-specific subdirectories in the project path.</span>
+
+<span class="sd">        Subdirectories are constructed within the ``/figures/[sensor_name]``</span>
+<span class="sd">        path for SDFS parameters measured by the air sensor. Calls the</span>
+<span class="sd">        ``sensortoolkit.lib_utils.create_sensor_subdirectories()`` method.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            param_headers (list, optional):</span>
+<span class="sd">                A list of SDFS parameters measured by the air sensor. Defaults</span>
+<span class="sd">                to None.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">project_path</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span> <span class="k">as</span> <span class="n">error_message</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">error_message</span><span class="p">)</span>
+            <span class="k">return</span>
+
+        <span class="n">lib_utils</span><span class="o">.</span><span class="n">create_sensor_directories</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+                                            <span class="n">param</span><span class="o">=</span><span class="n">param_headers</span><span class="p">,</span>
+                                            <span class="n">path</span><span class="o">=</span><span class="n">path</span>
+                                            <span class="p">)</span></div>
+
+<div class="viewcode-block" id="AirSensor.copy_datasets"><a class="viewcode-back" href="../../../api/_autosummary/sensortoolkit.testing_attrib_objs._airsensor.AirSensor.html#sensortoolkit.testing_attrib_objs._airsensor.AirSensor.copy_datasets">[docs]</a>    <span class="k">def</span> <span class="nf">copy_datasets</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">select</span><span class="o">=</span><span class="s1">&#39;directory&#39;</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Prompts the user to select files or folders where recorded sensor</span>
+<span class="sd">        datasets  are located and copies files to the</span>
+<span class="sd">        ``../data/sensor_data/[sensor_name]/raw_data`` data subdirectory.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            select (str, optional):</span>
+<span class="sd">                The selection scheme for indicating items</span>
+<span class="sd">                in the location for sensor datasets within the  file explorer</span>
+<span class="sd">                menu. Options include ``directory`` (the user selects a</span>
+<span class="sd">                directory and data files within the directory are copied),</span>
+<span class="sd">                ``recursive directory`` (the user specifies a parent directory</span>
+<span class="sd">                and all files within folders nested in the parent directory are</span>
+<span class="sd">                copied over), or ``files`` (the user selects the files that</span>
+<span class="sd">                they intend to copy over. Defaults to ``directory``.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">project_path</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span> <span class="k">as</span> <span class="n">error_message</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">error_message</span><span class="p">)</span>
+            <span class="k">return</span>
+
+        <span class="n">lib_utils</span><span class="o">.</span><span class="n">copy_datasets</span><span class="p">(</span><span class="n">data_type</span><span class="o">=</span><span class="s1">&#39;sensor&#39;</span><span class="p">,</span>
+                                <span class="n">name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+                                <span class="n">path</span><span class="o">=</span><span class="n">path</span><span class="p">,</span>
+                                <span class="n">select</span><span class="o">=</span><span class="n">select</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="AirSensor.sensor_setup"><a class="viewcode-back" href="../../../api/_autosummary/sensortoolkit.testing_attrib_objs._airsensor.AirSensor.html#sensortoolkit.testing_attrib_objs._airsensor.AirSensor.sensor_setup">[docs]</a>    <span class="k">def</span> <span class="nf">sensor_setup</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Interactive method for configuring sensor data ingestion.</span>
+
+<span class="sd">        1. **Selecting File Data Type**:</span>
+
+<span class="sd">           Choose the corresponding data file type for recorded sensor</span>
+<span class="sd">           datasets from ``&#39;.csv&#39;``, ``&#39;.txt&#39;``, ``&#39;.xlsx&#39;``.</span>
+
+<span class="sd">        2. **Selecting Data Files**:</span>
+
+<span class="sd">           Choose the selection scheme for pointing to recorded data files from</span>
+<span class="sd">           the following options:</span>
+
+<span class="sd">           - ``&#39;directory&#39;``, which will locate and copy all of the data files</span>
+<span class="sd">             in the specified directory for the indicated data type</span>
+<span class="sd">           - ``&#39;recursive directory&#39;``, which will locate and copy all data</span>
+<span class="sd">             files within the specified directory and any subdirectories</span>
+<span class="sd">             contained within the indicated folder path</span>
+<span class="sd">           - ``&#39;files&#39;`` which copies over files that the user manually selects</span>
+<span class="sd">             within a directory.</span>
+
+<span class="sd">        3. **Copying Data Files**:</span>
+
+<span class="sd">           Recorded sensor datasets are copied from the selected file or folder</span>
+<span class="sd">           location to the ``../data/sensor_data/[sensor_name]/raw_data``</span>
+<span class="sd">           directory path.</span>
+
+<span class="sd">        4. **Selecting the Column Header Index**:</span>
+
+<span class="sd">           Users indicate the integer index position for the row of header</span>
+<span class="sd">           data in sensor datasets.</span>
+
+<span class="sd">        5. **Parsing Sensor Datasets**:</span>
+
+<span class="sd">           The first few rows of recorded sensor datasets located in the</span>
+<span class="sd">           ``../data/sensor_data/[sensor_name]/raw_data`` directory path are</span>
+<span class="sd">           imported and the names of column headers are located based on the</span>
+<span class="sd">           indicated head index. A list of unique column headers is stored for</span>
+<span class="sd">           subsequent reassignment of column header names.</span>
+
+<span class="sd">        6. **Specifying Timestamp Columns**:</span>
+
+<span class="sd">           Users indicate the column(s) containing date/timestamp information.</span>
+
+<span class="sd">        7. **Specifying the Parameter Renaming Scheme**:</span>
+
+<span class="sd">           Users indicate the SDFS parameters corresponding to column names</span>
+<span class="sd">           discovered in step 5. This creates a parameter renaming dictionary</span>
+<span class="sd">           for reassigning the names of header labels.</span>
+
+<span class="sd">        8. **Configuring Timestamp Column Formatting**:</span>
+
+<span class="sd">           Users indicate the date/time formatting for date/time column(s)</span>
+<span class="sd">           indicated in step 6. Formatting should correspond to the</span>
+<span class="sd">           ``strftime`` formatting keywords located at https://strftime.org/</span>
+
+<span class="sd">        9. **Specifying the DateTime Index Time Zone**:</span>
+
+<span class="sd">           Users indicate the time zone associated with the date/time</span>
+<span class="sd">           column(s). Timezones should be valid timezone names recognized by</span>
+<span class="sd">           the ``pytz`` library.</span>
+
+<span class="sd">        10. **Configuring Sensor Serial Identifiers**:</span>
+
+<span class="sd">            Users should select unique serial identifiers corresponding to</span>
+<span class="sd">            each sensor unit in the testing group. Identifying keywords for</span>
+<span class="sd">            each sensor unit should be indicated within the recorded sensor</span>
+<span class="sd">            dataset file names.</span>
+
+<span class="sd">        11. **Saving the Setup Configuration to** ``setup.json``:</span>
+
+<span class="sd">            The setup configuration specified by the user is saved to a</span>
+<span class="sd">            ``setup.json`` file for subsequent use by the ingestion module for</span>
+<span class="sd">            importing recorded sensor datasets and conversion to SDFS datasets.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;setup_data&#39;</span><span class="p">):</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;A setup configuration has previously been created for </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Do you wish to continue and overwrite the previously created configuration?&#39;</span><span class="p">)</span>
+            <span class="n">val</span> <span class="o">=</span> <span class="n">lib_utils</span><span class="o">.</span><span class="n">validate_entry</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">val</span> <span class="o">==</span> <span class="s1">&#39;n&#39;</span><span class="p">:</span>
+                <span class="k">return</span>
+
+        <span class="n">setup_config</span> <span class="o">=</span> <span class="n">lib_utils</span><span class="o">.</span><span class="n">SensorSetup</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+                                             <span class="n">path</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">project_path</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_get_ingest_config</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="AirSensor.load_data"><a class="viewcode-back" href="../../../api/_autosummary/sensortoolkit.testing_attrib_objs._airsensor.AirSensor.html#sensortoolkit.testing_attrib_objs._airsensor.AirSensor.load_data">[docs]</a>    <span class="k">def</span> <span class="nf">load_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">load_raw_data</span><span class="p">,</span> <span class="n">write_to_file</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Import sensor datasets and load to the ``AirSensor.data`` attribute.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            load_raw_data (bool):</span>
+<span class="sd">                If true, processed (SDFS formatted) sensor datasets will be</span>
+<span class="sd">                saved as csv files to the ``/data/sensor_data/[sensor_name]/processed_data``</span>
+<span class="sd">                directory. If false, formatted datasets will not be saved to</span>
+<span class="sd">                the user’s hard drive.</span>
+<span class="sd">            write_to_file (bool):</span>
+<span class="sd">                If true, raw data (datasets as originally recorded) in the</span>
+<span class="sd">                appropriate subdirectory will be loaded and 1-hour and 24-hour</span>
+<span class="sd">                averages will be computed. If false, processed data will be</span>
+<span class="sd">                loaded.</span>
+<span class="sd">            **kwargs (dict):</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">setup_data</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;No setup configuration specified for </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s1">.&#39;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Run the &#39;AirSensor.sensor_setup()&#39; module before loading&quot;</span>
+                  <span class="s2">&quot; sensor data.&quot;</span><span class="p">)</span>
+            <span class="k">return</span>
+
+
+        <span class="c1"># path to raw sensor data</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_data_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">project_path</span><span class="p">,</span> <span class="s1">&#39;data&#39;</span><span class="p">,</span>
+                                    <span class="s1">&#39;sensor_data&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+                                    <span class="s1">&#39;raw_data&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="c1"># path to processed sensor data</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_processed_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">project_path</span><span class="p">,</span> <span class="s1">&#39;data&#39;</span><span class="p">,</span>
+                                         <span class="s1">&#39;sensor_data&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+                                         <span class="s1">&#39;processed_data&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">ingest</span><span class="o">.</span><span class="n">sensor_import</span><span class="p">(</span><span class="n">sensor_name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+                                        <span class="n">sensor_serials</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">serials</span><span class="p">,</span>
+                                        <span class="n">load_raw_data</span><span class="o">=</span><span class="n">load_raw_data</span><span class="p">,</span>
+                                        <span class="n">data_path</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_data_path</span><span class="p">,</span>
+                                        <span class="n">processed_path</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_processed_path</span><span class="p">,</span>
+                                        <span class="n">write_to_file</span><span class="o">=</span><span class="n">write_to_file</span><span class="p">,</span>
+                                        <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+        <span class="c1"># Compute dewpoint</span>
+        <span class="k">if</span> <span class="s1">&#39;Temp&#39;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">param_headers</span> <span class="ow">and</span> <span class="s1">&#39;RH&#39;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">param_headers</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">interval</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">:</span>
+
+                <span class="k">for</span> <span class="n">serial</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">interval</span><span class="p">]:</span>
+                    <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">interval</span><span class="p">][</span><span class="n">serial</span><span class="p">]</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">interval</span><span class="p">][</span><span class="n">serial</span><span class="p">]</span> <span class="o">=</span> <span class="n">calculate</span><span class="o">.</span><span class="n">dewpoint</span><span class="p">(</span>
+                                                        <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">interval</span><span class="p">][</span><span class="n">serial</span><span class="p">])</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_set_data</span><span class="p">()</span></div>
+
+    <span class="k">def</span> <span class="nf">_set_data</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="k">for</span> <span class="n">interval</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">copy</span><span class="p">():</span>
+            <span class="n">t_intervals</span> <span class="o">=</span> <span class="p">[</span><span class="n">datetime_utils</span><span class="o">.</span><span class="n">get_timestamp_interval</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+                           <span class="k">for</span> <span class="n">df</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">interval</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">()</span> <span class="k">if</span> <span class="n">df</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">]</span>
+            <span class="n">t_interval_series</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">t_intervals</span><span class="p">)</span>
+            <span class="n">t_interval_mode</span> <span class="o">=</span> <span class="n">t_interval_series</span><span class="o">.</span><span class="n">mode</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">t_interval_mode</span><span class="o">.</span><span class="n">shape</span> <span class="o">!=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,):</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Warning, timestamp intervals not consistent.&#39;</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="n">t_intervals</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">t_mode</span> <span class="o">=</span> <span class="n">t_interval_mode</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="n">t_interval</span> <span class="o">=</span> <span class="n">t_mode</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">t_interval</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">interval</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">recording_interval</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">keys</span><span class="p">())[</span><span class="mi">0</span><span class="p">]</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_check_empty_datasets</span><span class="p">()</span>
+
+        <span class="n">eval_bdate</span><span class="p">,</span> <span class="n">eval_edate</span> <span class="o">=</span> <span class="n">datetime_utils</span><span class="o">.</span><span class="n">timeframe_search</span><span class="p">(</span>
+                                            <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;1-hour&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">bdate</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">eval_bdate</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">edate</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">eval_edate</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_check_empty_datasets</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="n">empty_datasets</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">serial</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">serials</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">empty_datasets</span><span class="p">[</span><span class="n">serial</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="k">for</span> <span class="n">interval</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+                <span class="n">dataset</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">interval</span><span class="p">][</span><span class="n">serial</span><span class="p">]</span>
+                <span class="n">empty_datasets</span><span class="p">[</span><span class="n">serial</span><span class="p">][</span><span class="n">interval</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">empty</span>
+
+        <span class="k">for</span> <span class="n">sensor_to_drop</span> <span class="ow">in</span> <span class="n">empty_datasets</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+            <span class="k">if</span> <span class="nb">all</span><span class="p">(</span><span class="n">empty_datasets</span><span class="p">[</span><span class="n">sensor_to_drop</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">())</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;..empty datasets detected for </span><span class="si">{</span><span class="n">sensor_to_drop</span><span class="si">}</span><span class="s1">, may be &#39;</span>
+                      <span class="s1">&#39;due to user-specified evaluation period concatenation&#39;</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;..dropping </span><span class="si">{</span><span class="n">sensor_to_drop</span><span class="si">}</span><span class="s1"> from evaluation group&#39;</span><span class="p">)</span>
+                <span class="n">serial_loc</span> <span class="o">=</span> <span class="p">[</span><span class="n">key</span> <span class="k">for</span> <span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">val</span><span class="p">)</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">serials</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+                              <span class="k">if</span> <span class="n">val</span> <span class="o">==</span> <span class="n">sensor_to_drop</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+
+                <span class="c1"># Remove serial corresponding to sensor with empty datasets</span>
+                <span class="c1"># from serial dict</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">serials</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">serial_loc</span><span class="p">)</span>
+                <span class="c1"># Reorder serial IDs</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">serials</span> <span class="o">=</span> <span class="p">{</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">):</span> <span class="n">serial_id</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">serial_id</span><span class="p">)</span>
+                                <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">serials</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="mi">1</span><span class="p">)}</span>
+
+                <span class="c1"># Remove empty datasets from data object</span>
+                <span class="k">for</span> <span class="n">interval</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">copy</span><span class="p">():</span>
+                    <span class="k">for</span> <span class="n">serial_id</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">interval</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">():</span>
+                        <span class="k">if</span> <span class="n">serial_id</span> <span class="o">==</span> <span class="n">sensor_to_drop</span><span class="p">:</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">interval</span><span class="p">]</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">serial_id</span><span class="p">)</span></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, United States Environmental Protection Agency.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

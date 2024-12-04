@@ -158,7 +158,7 @@ def import_ref_dataframe(df, path, year, month, suffix=None):
 
         # Append loaded dataframe based on the first instance of a timestamp
         # index value (i.e., avoid duplicate index values by combining only
-        # new timestamp indecies with the primary dataframe 'df')
+        # new timestamp indicies with the primary dataframe 'df')
         df = df.combine_first(load_df)
 
         print('....' + filename)

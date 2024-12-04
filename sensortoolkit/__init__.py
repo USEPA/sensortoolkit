@@ -111,7 +111,7 @@ import sensortoolkit.datetime_utils as datetime_utils
 # Parameter and Targets objects
 import sensortoolkit.param as param
 
-# Modules for calculting statistical/environmental quantities
+# Modules for calculating statistical/environmental quantities
 import sensortoolkit.calculate as calculate
 
 # Modules for applying correction methods

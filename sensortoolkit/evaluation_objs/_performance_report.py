@@ -12,7 +12,7 @@ sensor performance evaluation reports.
 
     Future versions of sensortoolkit may allow the creation of reports for
     enhanced testing, however, currently programmatic creation of reports via
-    this module is intendedly strictly for base testing at an ambient, outdoor
+    this module is intended strictly for base testing at an ambient, outdoor
     monitoring site.
 
 ================================================================================
@@ -24,8 +24,12 @@ sensor performance evaluation reports.
 Created:
   Tue Dec 15 08:53:19 2020
 Last Updated:
-  Mon Jun 28 16:17:59 2021
+  Wed Feb 08 02:16:03 2023
 """
+# Wed Feb 08 02:16:03 2023, Menaka Kumar, NSSC Contractor (ORAU) U.S. EPA / ORD / CEMM / AMCD / SFSB 
+# modified current lines 802-803 to remove "org_type" from appearing on PerformanceReport
+# modified current lines 818-822 to add back "org_contact_email" and "org_contact_phone" on PerformanceReport
+
 import pptx as ppt
 import datetime as dt
 import pytz
@@ -61,7 +65,7 @@ class PerformanceReport(SensorEvaluation):
       ``SensorEvaluation``\, including its numerous variables and data
       structures. Programmatically, ``PerformanceReport`` is intended as a
       direct extension of ``SensorEvaluation``\; users can easily interact with
-      all the attributes and data stuctures for sensor evaluations. However,
+      all the attributes and data structures for sensor evaluations. However,
       whereas ``SensorEvaluation`` allows analysis of a wide number of
       pollutants and parameters, ``PerformanceReport`` is presently intended
       for constructing reports pertaining to sensors measuring either fine
@@ -97,8 +101,8 @@ class PerformanceReport(SensorEvaluation):
     """
 
     # Evaluation parameters for which the PerformanceReport class can
-    # constuct reports
-    report_params = ['PM25', 'O3']
+    # construct reports
+    report_params = ['PM25', 'PM10', 'O3', 'CO', 'NO2', 'SO2']
 
     def __init__(self, sensor, param, reference, write_to_file=False,
                  figure_search=False, **kwargs):
@@ -179,7 +183,7 @@ class PerformanceReport(SensorEvaluation):
         self.rpt = ppt.Presentation(self.template_path)
         self.shapes = self.rpt.slides[0].shapes
 
-        # Shape at backgroud around which to orient other figures
+        # Shape at background around which to orient other figures
         self.cursor_sp = self.shapes[0]._element
 
         # The number of unique averaging intervals at which data will be
@@ -255,8 +259,12 @@ class PerformanceReport(SensorEvaluation):
                          }
 
         if self.n_avg_intervals == 2:
-            self.fig_locs['SingleScatter']['left'] = 11.11
-            self.fig_locs['SingleScatter']['top'] = 8.16
+            if self.param.name != 'PM10':
+                self.fig_locs['SingleScatter']['top'] = 8.16
+                self.fig_locs['SingleScatter']['left'] = 11.11
+            elif self.param.name == 'PM10':
+                self.fig_locs['SingleScatter']['top'] = 7.98
+                self.fig_locs['SingleScatter']['left'] = 11.42
             self.fig_locs['TripleScatter']['left'] = 2.35
             self.fig_locs['TripleScatter']['top'] = 3.82
             self.fig_locs['Timeseries']['left'] = 0.63
@@ -322,10 +330,18 @@ class PerformanceReport(SensorEvaluation):
         """
 
         fig_loc = self.fig_locs[fig_name]
-        figure = self.shapes.add_picture(fig_path,
-                                         left=ppt.util.Inches(fig_loc['left']),
-                                         top=ppt.util.Inches(fig_loc['top'])
-                                         )
+        if self.param.name == 'PM10' and fig_name=='SingleScatter':
+            figure = self.shapes.add_picture(fig_path,
+                                             left=ppt.util.Inches(fig_loc['left']),
+                                             top=ppt.util.Inches(fig_loc['top']),
+                                             width=ppt.util.Inches(4.69),
+                                             height=ppt.util.Inches(2.81)
+                                             )
+        else:
+            figure = self.shapes.add_picture(fig_path,
+                                             left=ppt.util.Inches(fig_loc['left']),
+                                             top=ppt.util.Inches(fig_loc['top'])
+                                             )
 
         # Move image to 0 z-order (background)
         self.cursor_sp.addprevious(figure._element)
@@ -671,10 +687,11 @@ class PerformanceReport(SensorEvaluation):
             run1.text = 'Testing Report - '
             param_baseline = title_line_1.add_run()
             param_baseline.text = self.param.format_baseline
-            param_subscript = title_line_1.add_run()
-            param_subscript.text = self.param.format_subscript
-            font = param_subscript.font
-            self.SetSubscript(font)
+            if self.param.name != 'CO':
+                param_subscript = title_line_1.add_run()
+                param_subscript.text = self.param.format_subscript
+                font = param_subscript.font
+                self.SetSubscript(font)
             run4 = title_line_1.add_run()
             run4.text = ' Base Testing'
 
@@ -772,7 +789,7 @@ class PerformanceReport(SensorEvaluation):
                 pic.insert_picture(pic_path)
 
     def EditSiteTable(self):
-        """Add details to testing organzation and site info table (page 1).
+        """Add details to testing organization and site info table (page 1).
 
         ====================== =======
         Table name             TableID
@@ -795,8 +812,8 @@ class PerformanceReport(SensorEvaluation):
         # Add organization name
         text_obj = cell.text_frame.paragraphs[0]
         text_obj.text = (f'{self.testing_org["org_name"]} - '
-                         f'{self.testing_org["org_division"]}'
-                         f'\n{self.testing_org["org_type"]}')
+                         f'{self.testing_org["org_division"]}') # modified by KM 02/08/2023
+#                         f'\n{self.testing_org["org_type"]}') # commented out by KM 02/08/2023
         self.FormatText(text_obj, alignment='left', font_name='Calibri',
                         font_size=14)
 
@@ -811,11 +828,11 @@ class PerformanceReport(SensorEvaluation):
                         font_size=11)
 
         # Add contact email, phone number
-        # text_obj = cell.text_frame.add_paragraph()
-        # text_obj.text = (self.testing_org['org_contact_email'] + '\n' + '      ' +
-        #                  self.testing_org['org_contact_phone'])
-        # self.FormatText(text_obj, alignment='left', font_name='Calibri',
-        #                 font_size=11)
+        text_obj = cell.text_frame.add_paragraph() # uncommented by KM 02/08/2023
+        text_obj.text = (self.testing_org['org_contact_email'] + '\n' + '      ' + # uncommented by KM 02/08/2023
+                          self.testing_org['org_contact_phone']) # uncommented by KM 02/08/2023
+        self.FormatText(text_obj, alignment='left', font_name='Calibri', # uncommented by KM 02/08/2023
+                        font_size=11) # uncommented by KM 02/08/2023
 
         # ----------- Cell 2: Testing location information ----------------
         cell = shape.table.cell(2, 1)
@@ -927,7 +944,7 @@ class PerformanceReport(SensorEvaluation):
         self.FormatText(text_obj, alignment='center', font_name='Calibri',
                         font_size=14)
 
-        # --------------- Cell 2: Sensor firwmare version ---------------------
+        # --------------- Cell 2: Sensor firmware version ---------------------
         if self.sensor.firmware_version:
             cell = shape.table.cell(2, 1)
 
@@ -1003,7 +1020,7 @@ class PerformanceReport(SensorEvaluation):
                 cell_span_other = shape.table.cell(6, j)
                 cell_span_orig.merge(cell_span_other)
 
-        # If six sensors, merge 3x3 to 2x3 (merge second and thrid rows)
+        # If six sensors, merge 3x3 to 2x3 (merge second and third rows)
         if len(self.serials) == 6:
 
             for j in [1, 2, 3]:
@@ -1084,7 +1101,15 @@ class PerformanceReport(SensorEvaluation):
         Reference conc info 75
         =================== =======
 
-        Time series box (O3 only):
+        Scatter plots box (PM10 only):
+
+        =================== =======
+        Table name          TableID
+        =================== =======
+        Reference conc info 3
+        =================== =======
+
+        Time series box (Gases only):
 
         =================== =======
         Table name          TableID
@@ -1098,9 +1123,12 @@ class PerformanceReport(SensorEvaluation):
         """
 
         # Get pptx table shape for modifying cells
-        if self.n_avg_intervals == 2:
-            shape = self.GetShape(slide_idx=0, shape_id=75)
-        if self.n_avg_intervals == 1:
+        if self.n_avg_intervals == 2: # if PM
+            if self.param.name != 'PM10':
+                shape = self.GetShape(slide_idx=0, shape_id=75)
+            elif self.param.name == 'PM10':
+                shape = self.GetShape(slide_idx=0, shape_id=3)
+        if self.n_avg_intervals == 1: # if gas
             shape = self.GetShape(slide_idx=0, shape_id=56)
 
         grp_info = self.deploy_dict['Deployment Groups']
@@ -1111,7 +1139,7 @@ class PerformanceReport(SensorEvaluation):
             try:
 
                 averaging = self.param.averaging.copy()
-                if self.param.name == 'O3':
+                if self.param.name == 'O3' or self.param.name == 'NO2' or self.param.name == 'CO':
                     averaging.append('rolling_8-hour')
 
                 refconc_str = ''
@@ -1190,6 +1218,25 @@ class PerformanceReport(SensorEvaluation):
             self.FormatText(text_obj, alignment='center',
                             font_name='Calibri', font_size=9)
 
+        # ------- Cell 3: N periods meeting PM2.5/PM10 ratio target-----------
+        if self.param.name == 'PM10':
+            from sensortoolkit.calculate import ratio_ref_count
+            count_ref_ratio = self.reference.data["PM"]["1-hour"]
+            count_ref_ratio = ratio_ref_count(count_ref_ratio)
+
+            cell = shape.table.cell(2, 1)
+            textobj = cell.text_frame.paragraphs[0]
+
+            if count_ref_ratio != [np.nan]:
+                textobj.text = str(count_ref_ratio)
+            else:
+                textobj.text = '-'
+                cell.fill.solid()
+                cell.fill.fore_color.rgb = ppt.dml.color.RGBColor(214, 216, 226)
+
+            self.FormatText(textobj, alignment='center',
+                            font_name='Calibri', font_size=9)
+                
     def EditMetCondTable(self):
         """Add meteorological conditions table (page 1).
 
@@ -2290,7 +2337,7 @@ class PerformanceReport(SensorEvaluation):
                 pptx table object to modify.
             span_dict (dict):
                 Dictionary where each entry contains list of
-                consecutive cell indicies in the table that will be spanned.
+                consecutive cell indices in the table that will be spanned.
 
                 Example:
                     Say you have a table with three rows and two columns for
@@ -2833,7 +2880,7 @@ class PerformanceReport(SensorEvaluation):
 
         Args:
             font (pptx text run object):
-                Font object containing various character properies.
+                Font object containing various character properties.
 
         Returns:
             None.
@@ -2854,7 +2901,7 @@ class PerformanceReport(SensorEvaluation):
 
         Args:
             font (pptx text run object):
-                Font object containing various character properies.
+                Font object containing various character properties.
 
         Returns:
             None.
@@ -2894,8 +2941,8 @@ class PerformanceReport(SensorEvaluation):
         For some reason, the python pptx module can't assign the footer page
         number to slides that are created by the library. While slides that
         are imported via the template (the first and last page of the report)
-        have page number placeholders already assigned, the pptx library doesnt
-        do this without explicity copying and pasting the page number
+        have page number placeholders already assigned, the pptx library does not
+        do this without explicitly copying and pasting the page number
         placeholder from the layout to the slides that are created by the
         module.
 

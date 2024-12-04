@@ -82,6 +82,7 @@ sorted by the reference data source or API service.
     ..2019-08
     ....H_201908_PM.csv
     ....H_201908_Met.csv
+    ....H_201908_Gases.csv
     Computing 24-hour averaged reference datasets
 
 .. tabbed:: AirNowTech
@@ -159,6 +160,7 @@ sorted by the reference data source or API service.
     ..2019-08
     ....H_201908_PM.csv
     ....H_201908_Met.csv
+    ....H_201908_Gases.csv
     Computing 24-hour averaged reference datasets
 
 .. tabbed:: Querying the AQS API

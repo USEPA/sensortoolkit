@@ -1,14 +1,16 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>sensortoolkit.plotting._distribution &mdash; sensortoolkit 0.8.3b2 documentation</title>
-      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" type="text/css" />
+  <title>sensortoolkit.plotting._distribution &mdash; sensortoolkit 0.9.0b2 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+
+  
   <!--[if lt IE 9]>
     <script src="../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
@@ -16,6 +18,7 @@
         <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
         <script src="../../../_static/jquery.js"></script>
         <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../../../_static/doctools.js"></script>
     <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
@@ -27,14 +30,18 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="../../../index.html" class="icon icon-home"> sensortoolkit
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            sensortoolkit
           </a>
               <div class="version">
-                0.8.3b2
+                0.9.0b2
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -43,9 +50,10 @@
               <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../quickstart.html">Quickstart Guide</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../quickstart.html#script-templates">Script Templates</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../setup.html">Setting Up for sensortoolkit</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../install.html">Installing and Updating sensortoolkit</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../import_sensortoolkit.html">Importing sensortoolkit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../template.html">Analysis with sensortoolkit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../template.html#script-template">Script Template</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Objects and Data Structures</span></p>
 <ul>
@@ -53,7 +61,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../data_structures/index.html">Data Structures</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../sdfs/index.html">sensortoolkit Data Formatting Scheme (SDFS)</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Objects and Data Structures</span></p>
+<p class="caption" role="heading"><span class="caption-text">Analysis and Reports</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../evaluation_objects/index.html">Evaluation Objects</a></li>
 </ul>
@@ -75,9 +83,9 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="../../index.html">Module code</a> &raquo;</li>
-      <li>sensortoolkit.plotting._distribution</li>
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">sensortoolkit.plotting._distribution</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -120,7 +128,7 @@
 <div class="viewcode-block" id="ref_distrib"><a class="viewcode-back" href="../../../api/_autosummary/sensortoolkit.plotting._distribution.ref_distrib.html#sensortoolkit.plotting._distribution.ref_distrib">[docs]</a><span class="k">def</span> <span class="nf">ref_distrib</span><span class="p">(</span><span class="n">ref_df</span><span class="p">,</span> <span class="n">param</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">averaging_interval</span><span class="o">=</span><span class="s1">&#39;1-hour&#39;</span><span class="p">,</span>
                   <span class="n">font_size</span><span class="o">=</span><span class="mi">18</span><span class="p">,</span> <span class="n">write_to_file</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">figure_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                   <span class="n">filename_suffix</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Plot the distribution of reference values for the passed parameter.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Plot the distribution of reference values for the passed parameter.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        ref_df (pandas DataFrame):</span>
@@ -193,7 +201,7 @@
 
 <div class="viewcode-block" id="met_distrib"><a class="viewcode-back" href="../../../api/_autosummary/sensortoolkit.plotting._distribution.met_distrib.html#sensortoolkit.plotting._distribution.met_distrib">[docs]</a><span class="k">def</span> <span class="nf">met_distrib</span><span class="p">(</span><span class="n">met_ref_data</span><span class="p">,</span> <span class="n">avg_hrly_df</span><span class="p">,</span> <span class="n">figure_path</span><span class="p">,</span> <span class="n">sensor_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                 <span class="n">write_to_file</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Create distribution plots for meteorological parameters provided in the</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Create distribution plots for meteorological parameters provided in the</span>
 <span class="sd">    passed met_ref_data dataframe.</span>
 
 <span class="sd">    Distributions are displayed as relative frequencies (i.e., percentages of</span>
@@ -222,11 +230,13 @@
     <span class="n">font_size</span> <span class="o">=</span> <span class="mi">10</span>
     <span class="n">detail_font_size</span> <span class="o">=</span> <span class="mf">0.8</span><span class="o">*</span><span class="n">font_size</span>
     <span class="n">n_var</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">met_ref_data</span><span class="o">.</span><span class="n">count</span><span class="p">())</span>  <span class="c1"># Number of met variables to plot</span>
-    <span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n_var</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">5.15</span><span class="p">,</span> <span class="mf">2.54</span><span class="p">))</span>
+    <span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n_var</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">5.23</span><span class="p">,</span> <span class="mf">2.58</span><span class="p">))</span>
 
     <span class="n">fill_color</span> <span class="o">=</span> <span class="p">[[</span><span class="s1">&#39;#77529A&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;#b06c8b&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;#588ded&#39;</span><span class="p">]]</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s1">&#39;Evaluation Site Meteorological Conditions</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span>
-                 <span class="n">fontsize</span><span class="o">=</span><span class="n">font_size</span><span class="p">)</span>
+
+    <span class="n">fig_title</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;Temperature and Relative Humidity</span><span class="se">\n</span><span class="s1">&#39;</span>
+                  <span class="s1">&#39;1-hour Averaged Measurements&#39;</span><span class="p">)</span>
+
 
     <span class="n">fig</span><span class="o">.</span><span class="n">subplots_adjust</span><span class="p">(</span><span class="n">wspace</span><span class="o">=</span><span class="mf">.6</span><span class="p">,</span>
                         <span class="n">hspace</span><span class="o">=</span><span class="mf">.3</span><span class="p">,</span>
@@ -247,6 +257,7 @@
             <span class="k">try</span><span class="p">:</span>
                 <span class="n">data</span> <span class="o">=</span> <span class="n">avg_hrly_df</span><span class="p">[</span><span class="s1">&#39;mean_&#39;</span> <span class="o">+</span> <span class="n">param</span><span class="p">]</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
                 <span class="n">sensor_data</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="c1">#fig_title = fig_title.replace(&#39;Meteorological Site Monitor&#39;, &#39;Internal Sensor&#39;)</span>
             <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
                 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;..</span><span class="si">{param}</span><span class="s1"> not measured by sensor, unable to plot &#39;</span>
                       <span class="s1">&#39;distribution&#39;</span><span class="p">)</span>
@@ -259,7 +270,7 @@
         <span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">data</span><span class="p">,</span>
                      <span class="n">ax</span><span class="o">=</span><span class="n">axs</span><span class="p">[</span><span class="n">i</span><span class="p">],</span>
                      <span class="n">bins</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span>
-                     <span class="n">stat</span><span class="o">=</span><span class="s1">&#39;percent&#39;</span><span class="p">,</span>
+                     <span class="n">stat</span><span class="o">=</span><span class="s1">&#39;probability&#39;</span><span class="p">,</span>
                      <span class="n">kde</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                      <span class="n">color</span><span class="o">=</span><span class="n">fill_color</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span>
                      <span class="o">**</span><span class="p">{</span><span class="s1">&#39;alpha&#39;</span><span class="p">:</span> <span class="mf">0.6</span><span class="p">})</span>
@@ -267,30 +278,37 @@
         <span class="k">if</span> <span class="n">param</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;RH&#39;</span><span class="p">):</span>
             <span class="n">label</span> <span class="o">=</span> <span class="s1">&#39;Relative Humidity (%)&#39;</span>
             <span class="k">if</span> <span class="n">sensor_data</span><span class="p">:</span>
+                <span class="n">label</span> <span class="o">=</span> <span class="n">label</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;Reference&#39;</span><span class="p">,</span> <span class="s1">&#39;Sensor&#39;</span><span class="p">)</span>
                 <span class="n">axs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;*Sensor Measurements Shown*&#39;</span><span class="p">,</span>
                                  <span class="n">fontsize</span><span class="o">=</span><span class="n">detail_font_size</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mf">0.97</span><span class="p">)</span>
             <span class="n">axs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="n">detail_font_size</span><span class="p">)</span>
             <span class="n">axs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">set_major_locator</span><span class="p">(</span><span class="n">plt</span><span class="o">.</span><span class="n">MultipleLocator</span><span class="p">(</span><span class="mi">25</span><span class="p">))</span>
+            <span class="c1">#axs[i].set_title(&#39;Relative Humidity Monitor&#39;, fontsize=10)</span>
 
         <span class="k">if</span> <span class="n">param</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;Temp&#39;</span><span class="p">):</span>
             <span class="n">label</span> <span class="o">=</span> <span class="s1">&#39;Temperature ($</span><span class="se">\\</span><span class="s1">degree$C)&#39;</span>
             <span class="k">if</span> <span class="n">sensor_data</span><span class="p">:</span>
+                <span class="n">label</span> <span class="o">=</span> <span class="n">label</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;Reference&#39;</span><span class="p">,</span> <span class="s1">&#39;Sensor&#39;</span><span class="p">)</span>
                 <span class="n">axs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;*Sensor Measurements Shown*&#39;</span><span class="p">,</span>
                                  <span class="n">fontsize</span><span class="o">=</span><span class="n">detail_font_size</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mf">0.97</span><span class="p">)</span>
             <span class="n">axs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="n">detail_font_size</span><span class="p">)</span>
             <span class="n">axs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">set_major_locator</span><span class="p">(</span><span class="n">plt</span><span class="o">.</span><span class="n">MultipleLocator</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span>
+            <span class="c1">#axs[i].set_title(&#39;Temperature Monitor&#39;,fontsize=10)</span>
 
         <span class="k">if</span> <span class="n">param</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;DP&#39;</span><span class="p">):</span>
-            <span class="n">label</span> <span class="o">=</span> <span class="s1">&#39;Dew Point ($</span><span class="se">\\</span><span class="s1">degree$C)&#39;</span>
+            <span class="n">label</span> <span class="o">=</span> <span class="s1">&#39;Reference Dew Point ($</span><span class="se">\\</span><span class="s1">degree$C)&#39;</span>
             <span class="k">if</span> <span class="n">sensor_data</span><span class="p">:</span>
+                <span class="n">label</span> <span class="o">=</span> <span class="n">label</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;Reference&#39;</span><span class="p">,</span> <span class="s1">&#39;Sensor&#39;</span><span class="p">)</span>
                 <span class="n">axs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;*Sensor Measurements Shown*&#39;</span><span class="p">,</span>
                                  <span class="n">fontsize</span><span class="o">=</span><span class="n">detail_font_size</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mf">0.97</span><span class="p">)</span>
             <span class="n">axs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="n">detail_font_size</span><span class="p">)</span>
 
-        <span class="n">axs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Relative Probability (%)&#39;</span><span class="p">,</span>
+        <span class="n">axs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Relative Probability&#39;</span><span class="p">,</span>
                           <span class="n">fontsize</span><span class="o">=</span><span class="n">detail_font_size</span><span class="p">)</span>
 
         <span class="n">axs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">&#39;both&#39;</span><span class="p">,</span> <span class="n">labelsize</span><span class="o">=</span><span class="n">detail_font_size</span><span class="p">)</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="n">fig_title</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="n">font_size</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">write_to_file</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
         <span class="n">todays_date</span> <span class="o">=</span> <span class="n">get_todays_date</span><span class="p">()</span>
@@ -302,7 +320,7 @@
 
 <div class="viewcode-block" id="recording_interval_histogram"><a class="viewcode-back" href="../../../api/_autosummary/sensortoolkit.plotting._distribution.recording_interval_histogram.html#sensortoolkit.plotting._distribution.recording_interval_histogram">[docs]</a><span class="k">def</span> <span class="nf">recording_interval_histogram</span><span class="p">(</span><span class="n">full_df_list</span><span class="p">,</span> <span class="n">xlims</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">120</span><span class="p">),</span> <span class="n">bar_width</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
                                  <span class="n">bar_alpha</span><span class="o">=</span><span class="mf">.4</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Plot indicating the uneven time delta in sensor data.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Plot indicating the uneven time delta in sensor data.</span>
 
 <span class="sd">    Graphs bar plot of Log(counts) vs. time delta between consecutive timestamp</span>
 <span class="sd">    entries.</span>

@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>sensortoolkit.plotting._performance_metrics &mdash; sensortoolkit 0.9.0b2 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            sensortoolkit
+          </a>
+              <div class="version">
+                0.9.0b2
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../quickstart.html">Quickstart Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../setup.html">Setting Up for sensortoolkit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../install.html">Installing and Updating sensortoolkit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../template.html">Analysis with sensortoolkit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../template.html#script-template">Script Template</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Objects and Data Structures</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../testingattrib_objects/index.html">Testing Attribute Objects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../data_structures/index.html">Data Structures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../sdfs/index.html">sensortoolkit Data Formatting Scheme (SDFS)</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Analysis and Reports</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../evaluation_objects/index.html">Evaluation Objects</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/index.html">sensortoolkit API</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">sensortoolkit</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">sensortoolkit.plotting._performance_metrics</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for sensortoolkit.plotting._performance_metrics</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;This module contains a method for displaying air sensor performance using</span>
+<span class="sd">metrics and target values recommended by U.S. EPA for the evaluation of sensors</span>
+<span class="sd">measuring either PM2.5 or O3.</span>
+
+<span class="sd">================================================================================</span>
+
+<span class="sd">@Author:</span>
+<span class="sd">  | Samuel Frederick, NSSC Contractor (ORAU)</span>
+<span class="sd">  | U.S. EPA / ORD / CEMM / AMCD / SFSB</span>
+
+<span class="sd">Created:</span>
+<span class="sd">  Mon Jan 27 08:49:12 2020</span>
+<span class="sd">Last Updated:</span>
+<span class="sd">  Wed Jul 28 14:24:17 2021</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">pandas.plotting</span> <span class="kn">import</span> <span class="n">register_matplotlib_converters</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">matplotlib.collections</span> <span class="kn">import</span> <span class="n">PatchCollection</span>
+<span class="kn">from</span> <span class="nn">matplotlib.patches</span> <span class="kn">import</span> <span class="n">Rectangle</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="kn">from</span> <span class="nn">sensortoolkit.datetime_utils</span> <span class="kn">import</span> <span class="n">get_todays_date</span>
+<span class="kn">from</span> <span class="nn">sensortoolkit.param</span> <span class="kn">import</span> <span class="n">Parameter</span>
+<span class="n">register_matplotlib_converters</span><span class="p">()</span>
+
+
+<div class="viewcode-block" id="performance_metrics"><a class="viewcode-back" href="../../../api/_autosummary/sensortoolkit.plotting._performance_metrics.performance_metrics.html#sensortoolkit.plotting._performance_metrics.performance_metrics">[docs]</a><span class="k">def</span> <span class="nf">performance_metrics</span><span class="p">(</span><span class="n">stats_df</span><span class="p">,</span> <span class="n">deploy_dict</span><span class="p">,</span> <span class="n">param</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                        <span class="n">param_averaging</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">font_size</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                        <span class="n">sensor_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">write_to_file</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Display performance metric results via a set of adjacent subplots</span>
+<span class="sd">    corresponding to each metric. Results are displayed as either dots (if</span>
+<span class="sd">    the number of sensors is less than four) or via boxplots (number of sensors</span>
+<span class="sd">    exceeds 3). Target ranges are indicated by gray shaded regions, and target</span>
+<span class="sd">    goals are indicated by dark gray lines.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        stats_df (pandas dataframe):</span>
+<span class="sd">            A dataframe containing regression statistics (sensor vs. FRM/FEM</span>
+<span class="sd">            reference) at averaging intervals corresponding to the</span>
+<span class="sd">            ``param_averaging`` attribute.</span>
+<span class="sd">        deploy_dict (dict):</span>
+<span class="sd">            A dictionary containing descriptive statistics and textual</span>
+<span class="sd">            information about the deployment (testing agency, site, time</span>
+<span class="sd">            period, etc.), sensors tested, and site conditions during the</span>
+<span class="sd">            evaluation.</span>
+<span class="sd">        param (str, optional):</span>
+<span class="sd">            Parameter name to evaluate. Defaults to None.</span>
+<span class="sd">        param_averaging (str, optional):</span>
+<span class="sd">            The measurement averaging intervals commonly utilized for</span>
+<span class="sd">            analyzing data corresponding the selected parameter. Defaults</span>
+<span class="sd">            to None.</span>
+<span class="sd">        font_size (int, optional):</span>
+<span class="sd">            The font size for text displayed in the figure. Defaults to 12.</span>
+<span class="sd">        path (str, optional):</span>
+<span class="sd">            The full directory path to the ``/figures`` subfolder housed</span>
+<span class="sd">            within the user&#39;s project path. Defaults to None.</span>
+<span class="sd">        sensor_name (str, optional):</span>
+<span class="sd">            The make and model of the air sensor for which the performance</span>
+<span class="sd">            evaluation figure is being generated. Defaults to None.</span>
+<span class="sd">        write_to_file (bool, optional):</span>
+<span class="sd">            If true, the figure will be written to the /figures/[param] sensor</span>
+<span class="sd">            subdirectory (where &#39;param&#39; is the name of the parameter being</span>
+<span class="sd">            evaluated). Defaults to True.</span>
+
+<span class="sd">    **Keyword Arguments:**</span>
+
+<span class="sd">    :param fill_color:</span>
+<span class="sd">        Tuple with color hex code(s) for the fill color assigned to 1-hour and</span>
+<span class="sd">        24-hour metric value markers. Defaults to ``(&#39;#80c5c9&#39;, &#39;#4ea1c0&#39;)``,</span>
+<span class="sd">        which are light and dark teal hues.</span>
+<span class="sd">    :type fill_color: Two-element tuple</span>
+<span class="sd">    :param str marker:</span>
+<span class="sd">        The shape of the plotting marker for metric values. Matplotlib maintains</span>
+<span class="sd">        a `list of markers &lt;https://matplotlib.org/stable/api/markers_api.html?highlight=marker#module-matplotlib.markers&gt;`_.</span>
+<span class="sd">        Defaults to &#39;o&#39; (circle).</span>
+<span class="sd">    :param marker_size:</span>
+<span class="sd">        Assign the marker size in points. Defaults to 7.</span>
+<span class="sd">    :type marker_size: int or float</span>
+<span class="sd">    :param marker_border_width:</span>
+<span class="sd">        Set the width of the border surrounding each marker. Defaults to 1.</span>
+<span class="sd">    :type marker_border_width: int or float</span>
+<span class="sd">    :param str mean_marker:</span>
+<span class="sd">        (# sensors  &gt; 4 only) The marker indicating the mean value of metric</span>
+<span class="sd">        values. Defaults to ``&#39;d&#39;`` (diamond marker).</span>
+<span class="sd">    :param figure_width:</span>
+<span class="sd">        The width of the figure in inches. Defaults to .</span>
+<span class="sd">    :type figure_width: int or float</span>
+<span class="sd">    :param figure_height:</span>
+<span class="sd">        The height of the figure in inches. Defaults to 3.9.</span>
+<span class="sd">    :type figure_height: int or float</span>
+<span class="sd">    :param R^2_ylims:</span>
+<span class="sd">        The y-limits (ymin, ymax) for the metric subplot 15.7.</span>
+<span class="sd">    :type R^2_ylims: Two-element tuple of floats</span>
+<span class="sd">    :param Slope_ylims:</span>
+<span class="sd">        The y-limits (ymin, ymax) for the metric subplot.</span>
+<span class="sd">    :type Slope_ylims: Two-element tuple of floats</span>
+<span class="sd">    :param Intercept_ylims:</span>
+<span class="sd">        The y-limits (ymin, ymax) for the metric subplot.</span>
+<span class="sd">    :type Intercept_ylims: Two-element tuple of floats</span>
+<span class="sd">    :param CV_ylims:</span>
+<span class="sd">        The y-limits (ymin, ymax) for the metric subplot.</span>
+<span class="sd">    :type CV_ylims: Two-element tuple of floats</span>
+<span class="sd">    :param RMSE_ylims:</span>
+<span class="sd">        The y-limits (ymin, ymax) for the metric subplot.</span>
+<span class="sd">    :type RMSE_ylims: Two-element tuple of floats</span>
+<span class="sd">    :param NRMSE_ylims:</span>
+<span class="sd">        The y-limits (ymin, ymax) for the metric subplot.</span>
+<span class="sd">    :type NRMSE_ylims: Two-element tuple of floats</span>
+<span class="sd">    :param SD_ylims:</span>
+<span class="sd">        The y-limits (ymin, ymax) for the metric subplot.</span>
+<span class="sd">    :type SD_ylims: Two-element tuple of floats</span>
+<span class="sd">    :param R^2_hline_dims:</span>
+<span class="sd">        Dimensions for the target goal horizontal line. Tuple containing the</span>
+<span class="sd">        y-coordinate of the target value, x-min (leftmost) coordinate for</span>
+<span class="sd">        drawing horizontal line, and the x-max (rightmost) coordinate for</span>
+<span class="sd">        drawing horizontal line).</span>
+<span class="sd">    :type R^2_hline_dims: Three-element tuple</span>
+<span class="sd">    :param Slope_hline_dims:</span>
+<span class="sd">        Dimensions for the target goal horizontal line. Tuple containing the</span>
+<span class="sd">        y-coordinate of the target value, x-min (leftmost) coordinate for</span>
+<span class="sd">        drawing horizontal line, and the x-max (rightmost) coordinate for</span>
+<span class="sd">        drawing horizontal line).</span>
+<span class="sd">    :type Slope_hline_dims: Three-element tuple</span>
+<span class="sd">    :param Intercept_hline_dims:</span>
+<span class="sd">        Dimensions for the target goal horizontal line. Tuple containing the</span>
+<span class="sd">        y-coordinate of the target value, x-min (leftmost) coordinate for</span>
+<span class="sd">        drawing horizontal line, and the x-max (rightmost) coordinate for</span>
+<span class="sd">        drawing horizontal line).</span>
+<span class="sd">    :type Intercept_hline_dims: Three-element tuple</span>
+<span class="sd">    :param CV_hline_dims:</span>
+<span class="sd">        Dimensions for the target goal horizontal line. Tuple containing the</span>
+<span class="sd">        y-coordinate of the target value, x-min (leftmost) coordinate for</span>
+<span class="sd">        drawing horizontal line, and the x-max (rightmost) coordinate for</span>
+<span class="sd">        drawing horizontal line).</span>
+<span class="sd">    :type CV_hline_dims: Three-element tuple</span>
+<span class="sd">    :param RMSE_hline_dims:</span>
+<span class="sd">        Dimensions for the target goal horizontal line. Tuple containing the</span>
+<span class="sd">        y-coordinate of the target value, x-min (leftmost) coordinate for</span>
+<span class="sd">        drawing horizontal line, and the x-max (rightmost) coordinate for</span>
+<span class="sd">        drawing horizontal line).</span>
+<span class="sd">    :type RMSE_hline_dims: Three-element tuple</span>
+<span class="sd">    :param NRMSE_hline_dims:</span>
+<span class="sd">        Dimensions for the target goal horizontal line. Tuple containing the</span>
+<span class="sd">        y-coordinate of the target value, x-min (leftmost) coordinate for</span>
+<span class="sd">        drawing horizontal line, and the x-max (rightmost) coordinate for</span>
+<span class="sd">        drawing horizontal line).</span>
+<span class="sd">    :type NRMSE_hline_dims: Three-element tuple</span>
+<span class="sd">    :param SD_hline_dims:</span>
+<span class="sd">        Dimensions for the target goal horizontal line. Tuple containing the</span>
+<span class="sd">        y-coordinate of the target value, x-min (leftmost) coordinate for</span>
+<span class="sd">        drawing horizontal line, and the x-max (rightmost) coordinate for</span>
+<span class="sd">        drawing horizontal line).</span>
+<span class="sd">    :type SD_hline_dims: Three-element tuple</span>
+<span class="sd">    :param R^2_box_dims:</span>
+<span class="sd">        Dimensions for a box indicating the metric target range. Four element</span>
+<span class="sd">        tuple containing the x-min (left-most coordinate of the box), y-min</span>
+<span class="sd">        (bottom-most coordinate of the target range box), x-range (the height</span>
+<span class="sd">        of the box, or the difference between the x-min coordinate position</span>
+<span class="sd">        and the x-max coordinate position), and the y-range (the width of the</span>
+<span class="sd">        box, or the difference between the y-min coordinate position and the</span>
+<span class="sd">        y-max coordinate position).</span>
+<span class="sd">    :type R^2_box_dims: Four-element tuple</span>
+<span class="sd">    :param Slope_box_dims:</span>
+<span class="sd">        Dimensions for a box indicating the metric target range. Four element</span>
+<span class="sd">        tuple containing the x-min (left-most coordinate of the box), y-min</span>
+<span class="sd">        (bottom-most coordinate of the target range box), x-range (the height</span>
+<span class="sd">        of the box, or the difference between the x-min coordinate position</span>
+<span class="sd">        and the x-max coordinate position), and the y-range (the width of the</span>
+<span class="sd">        box, or the difference between the y-min coordinate position and the</span>
+<span class="sd">        y-max coordinate position).</span>
+<span class="sd">    :type Slope_box_dims: Four-element tuple</span>
+<span class="sd">    :param Intercept_box_dims:</span>
+<span class="sd">        Dimensions for a box indicating the metric target range. Four element</span>
+<span class="sd">        tuple containing the x-min (left-most coordinate of the box), y-min</span>
+<span class="sd">        (bottom-most coordinate of the target range box), x-range (the height</span>
+<span class="sd">        of the box, or the difference between the x-min coordinate position</span>
+<span class="sd">        and the x-max coordinate position), and the y-range (the width of the</span>
+<span class="sd">        box, or the difference between the y-min coordinate position and the</span>
+<span class="sd">        y-max coordinate position).</span>
+<span class="sd">    :type Intercept_box_dims: Four-element tuple</span>
+<span class="sd">    :param CV_box_dims:</span>
+<span class="sd">        Dimensions for a box indicating the metric target range. Four element</span>
+<span class="sd">        tuple containing the x-min (left-most coordinate of the box), y-min</span>
+<span class="sd">        (bottom-most coordinate of the target range box), x-range (the height</span>
+<span class="sd">        of the box, or the difference between the x-min coordinate position</span>
+<span class="sd">        and the x-max coordinate position), and the y-range (the width of the</span>
+<span class="sd">        box, or the difference between the y-min coordinate position and the</span>
+<span class="sd">        y-max coordinate position).</span>
+<span class="sd">    :type CV_box_dims: Four-element tuple</span>
+<span class="sd">    :param RMSE_box_dims:</span>
+<span class="sd">        Dimensions for a box indicating the metric target range. Four element</span>
+<span class="sd">        tuple containing the x-min (left-most coordinate of the box), y-min</span>
+<span class="sd">        (bottom-most coordinate of the target range box), x-range (the height</span>
+<span class="sd">        of the box, or the difference between the x-min coordinate position</span>
+<span class="sd">        and the x-max coordinate position), and the y-range (the width of the</span>
+<span class="sd">        box, or the difference between the y-min coordinate position and the</span>
+<span class="sd">        y-max coordinate position).</span>
+<span class="sd">    :type RMSE_box_dims: Four-element tuple</span>
+<span class="sd">    :param NRMSE_box_dims:</span>
+<span class="sd">        Dimensions for a box indicating the metric target range. Four element</span>
+<span class="sd">        tuple containing the x-min (left-most coordinate of the box), y-min</span>
+<span class="sd">        (bottom-most coordinate of the target range box), x-range (the height</span>
+<span class="sd">        of the box, or the difference between the x-min coordinate position</span>
+<span class="sd">        and the x-max coordinate position), and the y-range (the width of the</span>
+<span class="sd">        box, or the difference between the y-min coordinate position and the</span>
+<span class="sd">        y-max coordinate position).</span>
+<span class="sd">    :type NRMSE_box_dims: Four-element tuple</span>
+<span class="sd">    :param SD_box_dims:</span>
+<span class="sd">        Dimensions for a box indicating the metric target range. Four element</span>
+<span class="sd">        tuple containing the x-min (left-most coordinate of the box), y-min</span>
+<span class="sd">        (bottom-most coordinate of the target range box), x-range (the height</span>
+<span class="sd">        of the box, or the difference between the x-min coordinate position</span>
+<span class="sd">        and the x-max coordinate position), and the y-range (the width of the</span>
+<span class="sd">        box, or the difference between the y-min coordinate position and the</span>
+<span class="sd">        y-max coordinate position).</span>
+<span class="sd">    :type SD_box_dims: Four-element tuple</span>
+<span class="sd">    :param str hline_color:</span>
+<span class="sd">        Set the color of horizontal lines indicating the target value for metric</span>
+<span class="sd">        subplots. Defaults to #8b8b8b (light gray).</span>
+<span class="sd">    :param str box_facecolor:</span>
+<span class="sd">        Set the color of boxes indicating the target range for each metric</span>
+<span class="sd">        subplot. Defaults to #8b8b8b (light gray).</span>
+<span class="sd">    :param font_scale:</span>
+<span class="sd">        Set the size and scale of the font elements in the figure.</span>
+<span class="sd">    :type font_scale: int or str</span>
+<span class="sd">    :param float fig_wspace:</span>
+<span class="sd">        Modify the width of padding between subplots. Passed to</span>
+<span class="sd">        ``Matplotlib.subplots.subplots_adjust()`` ``&#39;wspace&#39;`` argument.</span>
+<span class="sd">    :param float fig_hspace:</span>
+<span class="sd">        Modify the height of padding between subplots. Passed to</span>
+<span class="sd">        ``Matplotlib.subplots.subplots_adjust()`` ``&#39;hspace&#39;`` argument.</span>
+<span class="sd">    :param float fig_left:</span>
+<span class="sd">        Modify the left-most bounds of the figure. Passed to</span>
+<span class="sd">        ``Matplotlib.subplots.subplots_adjust()`` ``&#39;left&#39;`` argument.</span>
+<span class="sd">    :param float fig_right:</span>
+<span class="sd">        Modify the right-most bounds of the figure. Passed to</span>
+<span class="sd">        ``Matplotlib.subplots.subplots_adjust()`` ``&#39;right&#39;`` argument.</span>
+<span class="sd">    :param float fig_top:</span>
+<span class="sd">        Modify the upper-most bounds of the figure. Passed to</span>
+<span class="sd">        ``Matplotlib.subplots.subplots_adjust()`` ``&#39;top&#39;`` argument.</span>
+<span class="sd">    :param float fig_bottom:</span>
+<span class="sd">        Modify the lower-most bounds of the figure. Passed to</span>
+<span class="sd">        ``Matplotlib.subplots.subplots_adjust()`` ``&#39;bottom&#39;`` argument.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        None.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s1">&#39;darkgrid&#39;</span><span class="p">)</span>
+
+    <span class="n">param_obj</span> <span class="o">=</span> <span class="n">Parameter</span><span class="p">(</span><span class="n">param</span><span class="p">)</span>
+
+    <span class="n">targets</span> <span class="o">=</span> <span class="n">param_obj</span><span class="o">.</span><span class="n">PerformanceTargets</span><span class="o">.</span><span class="n">get_all_metrics</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">metric_info</span> <span class="o">==</span> <span class="p">{}</span> <span class="k">for</span> <span class="n">metric_info</span> <span class="ow">in</span> <span class="n">targets</span><span class="o">.</span><span class="n">values</span><span class="p">()):</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="s1">&#39;Performance metrics and target values not set for &#39;</span> <span class="o">+</span> <span class="n">param</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">param_obj</span><span class="o">.</span><span class="n">averaging</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="n">PLOT_XMIN</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.50</span>
+        <span class="n">PLOT_XMAX</span> <span class="o">=</span> <span class="mf">1.5</span>
+        <span class="n">wspace</span><span class="o">=</span><span class="mf">0.35</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">param_obj</span><span class="o">.</span><span class="n">averaging</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">PLOT_XMIN</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+        <span class="n">PLOT_XMAX</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="n">wspace</span> <span class="o">=</span> <span class="mf">0.5</span>
+
+    <span class="n">PLOT_XRANGE</span> <span class="o">=</span> <span class="n">PLOT_XMAX</span> <span class="o">-</span> <span class="n">PLOT_XMIN</span>
+
+    <span class="n">plotting_dims</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="c1"># Plot y-limits</span>
+        <span class="c1"># y-min, y-max</span>
+        <span class="s1">&#39;ylims&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;R^2&#39;</span><span class="p">:</span> <span class="p">(</span><span class="o">-</span><span class="mf">0.02</span><span class="p">,</span> <span class="mf">1.02</span><span class="p">)},</span>
+
+        <span class="c1"># Target goal horizontal line</span>
+        <span class="c1"># (y-coord, x-min, x-max)</span>
+        <span class="s1">&#39;hline_dims&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;R^2&#39;</span><span class="p">:</span> <span class="p">(</span><span class="n">targets</span><span class="p">[</span><span class="s1">&#39;Linearity&#39;</span><span class="p">][</span><span class="s1">&#39;R^2&#39;</span><span class="p">][</span><span class="s1">&#39;goal&#39;</span><span class="p">],</span>
+                               <span class="n">PLOT_XMIN</span><span class="p">,</span>
+                               <span class="n">PLOT_XMAX</span><span class="p">),</span>
+                       <span class="s1">&#39;Slope&#39;</span><span class="p">:</span> <span class="p">(</span><span class="n">targets</span><span class="p">[</span><span class="s1">&#39;Bias&#39;</span><span class="p">][</span><span class="s1">&#39;Slope&#39;</span><span class="p">][</span><span class="s1">&#39;goal&#39;</span><span class="p">],</span>
+                                 <span class="n">PLOT_XMIN</span><span class="p">,</span>
+                                 <span class="n">PLOT_XMAX</span><span class="p">),</span>
+                       <span class="s1">&#39;Intercept&#39;</span><span class="p">:</span> <span class="p">(</span><span class="n">targets</span><span class="p">[</span><span class="s1">&#39;Bias&#39;</span><span class="p">][</span><span class="s1">&#39;Intercept&#39;</span><span class="p">][</span><span class="s1">&#39;goal&#39;</span><span class="p">],</span>
+                                     <span class="n">PLOT_XMIN</span><span class="p">,</span>
+                                     <span class="n">PLOT_XMAX</span><span class="p">),</span>
+                       <span class="s1">&#39;CV&#39;</span><span class="p">:</span> <span class="p">(</span><span class="n">targets</span><span class="p">[</span><span class="s1">&#39;Precision&#39;</span><span class="p">][</span><span class="s1">&#39;CV&#39;</span><span class="p">][</span><span class="s1">&#39;goal&#39;</span><span class="p">],</span>
+                              <span class="n">PLOT_XMIN</span><span class="p">,</span>
+                              <span class="n">PLOT_XMAX</span><span class="p">),</span>
+                       <span class="s1">&#39;RMSE&#39;</span><span class="p">:</span> <span class="p">(</span><span class="n">targets</span><span class="p">[</span><span class="s1">&#39;Error&#39;</span><span class="p">][</span><span class="s1">&#39;RMSE&#39;</span><span class="p">][</span><span class="s1">&#39;goal&#39;</span><span class="p">],</span>
+                                <span class="n">PLOT_XMIN</span><span class="p">,</span>
+                                <span class="n">PLOT_XMAX</span><span class="p">),</span>
+                       <span class="s1">&#39;NRMSE&#39;</span><span class="p">:</span> <span class="p">(</span><span class="n">targets</span><span class="p">[</span><span class="s1">&#39;Error&#39;</span><span class="p">][</span><span class="s1">&#39;NRMSE&#39;</span><span class="p">][</span><span class="s1">&#39;goal&#39;</span><span class="p">],</span>
+                                 <span class="n">PLOT_XMIN</span><span class="p">,</span>
+                                 <span class="n">PLOT_XMAX</span><span class="p">),</span>
+                       <span class="s1">&#39;SD&#39;</span><span class="p">:</span> <span class="p">(</span><span class="n">targets</span><span class="p">[</span><span class="s1">&#39;Precision&#39;</span><span class="p">][</span><span class="s1">&#39;SD&#39;</span><span class="p">][</span><span class="s1">&#39;goal&#39;</span><span class="p">],</span>
+                              <span class="n">PLOT_XMIN</span><span class="p">,</span>
+                              <span class="n">PLOT_XMAX</span><span class="p">)},</span>
+
+        <span class="c1"># x-min, y-min, x-range, y-range</span>
+        <span class="s1">&#39;box_dims&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;R^2&#39;</span><span class="p">:</span> <span class="p">(</span><span class="n">PLOT_XMIN</span><span class="p">,</span>
+                             <span class="n">targets</span><span class="p">[</span><span class="s1">&#39;Linearity&#39;</span><span class="p">][</span><span class="s1">&#39;R^2&#39;</span><span class="p">][</span><span class="s1">&#39;bounds&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span>
+                             <span class="n">PLOT_XRANGE</span><span class="p">,</span>
+                             <span class="n">targets</span><span class="p">[</span><span class="s1">&#39;Linearity&#39;</span><span class="p">][</span><span class="s1">&#39;R^2&#39;</span><span class="p">][</span><span class="s1">&#39;bounds&#39;</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span>
+                             <span class="n">targets</span><span class="p">[</span><span class="s1">&#39;Linearity&#39;</span><span class="p">][</span><span class="s1">&#39;R^2&#39;</span><span class="p">][</span><span class="s1">&#39;bounds&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]),</span>
+                     <span class="s1">&#39;Slope&#39;</span><span class="p">:</span> <span class="p">(</span><span class="n">PLOT_XMIN</span><span class="p">,</span>
+                               <span class="n">targets</span><span class="p">[</span><span class="s1">&#39;Bias&#39;</span><span class="p">][</span><span class="s1">&#39;Slope&#39;</span><span class="p">][</span><span class="s1">&#39;bounds&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span>
+                               <span class="n">PLOT_XRANGE</span><span class="p">,</span>
+                               <span class="n">targets</span><span class="p">[</span><span class="s1">&#39;Bias&#39;</span><span class="p">][</span><span class="s1">&#39;Slope&#39;</span><span class="p">][</span><span class="s1">&#39;bounds&#39;</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span>
+                               <span class="n">targets</span><span class="p">[</span><span class="s1">&#39;Bias&#39;</span><span class="p">][</span><span class="s1">&#39;Slope&#39;</span><span class="p">][</span><span class="s1">&#39;bounds&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]),</span>
+                     <span class="s1">&#39;Intercept&#39;</span><span class="p">:</span> <span class="p">(</span><span class="n">PLOT_XMIN</span><span class="p">,</span>
+                                   <span class="n">targets</span><span class="p">[</span><span class="s1">&#39;Bias&#39;</span><span class="p">][</span><span class="s1">&#39;Intercept&#39;</span><span class="p">][</span><span class="s1">&#39;bounds&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span>
+                                   <span class="n">PLOT_XRANGE</span><span class="p">,</span>
+                                   <span class="n">targets</span><span class="p">[</span><span class="s1">&#39;Bias&#39;</span><span class="p">][</span><span class="s1">&#39;Intercept&#39;</span><span class="p">][</span><span class="s1">&#39;bounds&#39;</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span>
+                                   <span class="n">targets</span><span class="p">[</span><span class="s1">&#39;Bias&#39;</span><span class="p">][</span><span class="s1">&#39;Intercept&#39;</span><span class="p">][</span><span class="s1">&#39;bounds&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]),</span>
+                     <span class="s1">&#39;CV&#39;</span><span class="p">:</span> <span class="p">(</span><span class="n">PLOT_XMIN</span><span class="p">,</span>
+                            <span class="n">targets</span><span class="p">[</span><span class="s1">&#39;Precision&#39;</span><span class="p">][</span><span class="s1">&#39;CV&#39;</span><span class="p">][</span><span class="s1">&#39;bounds&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span>
+                            <span class="n">PLOT_XRANGE</span><span class="p">,</span>
+                            <span class="n">targets</span><span class="p">[</span><span class="s1">&#39;Precision&#39;</span><span class="p">][</span><span class="s1">&#39;CV&#39;</span><span class="p">][</span><span class="s1">&#39;bounds&#39;</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span>
+                            <span class="n">targets</span><span class="p">[</span><span class="s1">&#39;Precision&#39;</span><span class="p">][</span><span class="s1">&#39;CV&#39;</span><span class="p">][</span><span class="s1">&#39;bounds&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]),</span>
+                     <span class="s1">&#39;RMSE&#39;</span><span class="p">:</span> <span class="p">(</span><span class="n">PLOT_XMIN</span><span class="p">,</span>
+                              <span class="n">targets</span><span class="p">[</span><span class="s1">&#39;Error&#39;</span><span class="p">][</span><span class="s1">&#39;RMSE&#39;</span><span class="p">][</span><span class="s1">&#39;bounds&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span>
+                              <span class="n">PLOT_XRANGE</span><span class="p">,</span>
+                              <span class="n">targets</span><span class="p">[</span><span class="s1">&#39;Error&#39;</span><span class="p">][</span><span class="s1">&#39;RMSE&#39;</span><span class="p">][</span><span class="s1">&#39;bounds&#39;</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span>
+                              <span class="n">targets</span><span class="p">[</span><span class="s1">&#39;Error&#39;</span><span class="p">][</span><span class="s1">&#39;RMSE&#39;</span><span class="p">][</span><span class="s1">&#39;bounds&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]),</span>
+                     <span class="s1">&#39;NRMSE&#39;</span><span class="p">:</span> <span class="p">(</span><span class="n">PLOT_XMIN</span><span class="p">,</span>
+                               <span class="n">targets</span><span class="p">[</span><span class="s1">&#39;Error&#39;</span><span class="p">][</span><span class="s1">&#39;NRMSE&#39;</span><span class="p">][</span><span class="s1">&#39;bounds&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span>
+                               <span class="n">PLOT_XRANGE</span><span class="p">,</span>
+                               <span class="n">targets</span><span class="p">[</span><span class="s1">&#39;Error&#39;</span><span class="p">][</span><span class="s1">&#39;NRMSE&#39;</span><span class="p">][</span><span class="s1">&#39;bounds&#39;</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span>
+                               <span class="n">targets</span><span class="p">[</span><span class="s1">&#39;Error&#39;</span><span class="p">][</span><span class="s1">&#39;NRMSE&#39;</span><span class="p">][</span><span class="s1">&#39;bounds&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]),</span>
+                     <span class="s1">&#39;SD&#39;</span><span class="p">:</span> <span class="p">(</span><span class="n">PLOT_XMIN</span><span class="p">,</span>
+                            <span class="n">targets</span><span class="p">[</span><span class="s1">&#39;Precision&#39;</span><span class="p">][</span><span class="s1">&#39;SD&#39;</span><span class="p">][</span><span class="s1">&#39;bounds&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span>
+                            <span class="n">PLOT_XRANGE</span><span class="p">,</span>
+                            <span class="n">targets</span><span class="p">[</span><span class="s1">&#39;Precision&#39;</span><span class="p">][</span><span class="s1">&#39;SD&#39;</span><span class="p">][</span><span class="s1">&#39;bounds&#39;</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span>
+                            <span class="n">targets</span><span class="p">[</span><span class="s1">&#39;Precision&#39;</span><span class="p">][</span><span class="s1">&#39;SD&#39;</span><span class="p">][</span><span class="s1">&#39;bounds&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">])}</span>
+        <span class="p">}</span>
+
+    <span class="n">remove_keys</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">category</span> <span class="ow">in</span> <span class="n">targets</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+        <span class="k">for</span> <span class="n">metric</span> <span class="ow">in</span> <span class="n">targets</span><span class="p">[</span><span class="n">category</span><span class="p">]</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+            <span class="n">goal</span> <span class="o">=</span> <span class="n">targets</span><span class="p">[</span><span class="n">category</span><span class="p">][</span><span class="n">metric</span><span class="p">][</span><span class="s1">&#39;goal&#39;</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">goal</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">remove_keys</span><span class="p">[</span><span class="n">category</span><span class="p">]</span> <span class="o">=</span> <span class="n">metric</span>
+
+    <span class="k">for</span> <span class="n">category</span> <span class="ow">in</span> <span class="n">remove_keys</span><span class="p">:</span>
+        <span class="n">metric</span> <span class="o">=</span> <span class="n">remove_keys</span><span class="p">[</span><span class="n">category</span><span class="p">]</span>
+        <span class="n">targets</span><span class="p">[</span><span class="n">category</span><span class="p">]</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">metric</span><span class="p">)</span>
+        <span class="n">plotting_dims</span><span class="p">[</span><span class="s1">&#39;hline_dims&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">metric</span><span class="p">)</span>
+        <span class="n">plotting_dims</span><span class="p">[</span><span class="s1">&#39;box_dims&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">metric</span><span class="p">)</span>
+
+    <span class="n">cv_vals</span> <span class="o">=</span> <span class="p">{</span><span class="n">interval</span><span class="p">:</span> <span class="p">[]</span> <span class="k">for</span> <span class="n">interval</span> <span class="ow">in</span> <span class="n">param_averaging</span><span class="p">}</span>
+    <span class="n">std_vals</span> <span class="o">=</span> <span class="p">{</span><span class="n">interval</span><span class="p">:</span> <span class="p">[]</span> <span class="k">for</span> <span class="n">interval</span> <span class="ow">in</span> <span class="n">param_averaging</span><span class="p">}</span>
+    <span class="n">rmse_vals</span> <span class="o">=</span> <span class="p">{</span><span class="n">interval</span><span class="p">:</span> <span class="p">[]</span> <span class="k">for</span> <span class="n">interval</span> <span class="ow">in</span> <span class="n">param_averaging</span><span class="p">}</span>
+    <span class="n">nrmse_vals</span> <span class="o">=</span> <span class="p">{</span><span class="n">interval</span><span class="p">:</span> <span class="p">[]</span> <span class="k">for</span> <span class="n">interval</span> <span class="ow">in</span> <span class="n">param_averaging</span><span class="p">}</span>
+
+    <span class="c1"># Extract metric values into metric dictionaries</span>
+    <span class="k">for</span> <span class="n">group</span> <span class="ow">in</span> <span class="n">deploy_dict</span><span class="p">[</span><span class="s1">&#39;Deployment Groups&#39;</span><span class="p">]:</span>
+        <span class="n">param_stats</span> <span class="o">=</span> <span class="n">deploy_dict</span><span class="p">[</span><span class="s1">&#39;Deployment Groups&#39;</span><span class="p">][</span><span class="n">group</span><span class="p">][</span><span class="n">param</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">interval</span> <span class="ow">in</span> <span class="n">param_averaging</span><span class="p">:</span>
+            <span class="n">cv_vals</span><span class="p">[</span><span class="n">interval</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                                <span class="n">param_stats</span><span class="p">[</span><span class="s1">&#39;Precision&#39;</span><span class="p">][</span><span class="s1">&#39;cv_&#39;</span> <span class="o">+</span> <span class="n">interval</span><span class="p">])</span>
+            <span class="n">std_vals</span><span class="p">[</span><span class="n">interval</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                                <span class="n">param_stats</span><span class="p">[</span><span class="s1">&#39;Precision&#39;</span><span class="p">][</span><span class="s1">&#39;std_&#39;</span> <span class="o">+</span> <span class="n">interval</span><span class="p">])</span>
+            <span class="n">rmse_vals</span><span class="p">[</span><span class="n">interval</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                                <span class="n">param_stats</span><span class="p">[</span><span class="s1">&#39;Error&#39;</span><span class="p">][</span><span class="s1">&#39;rmse_&#39;</span> <span class="o">+</span> <span class="n">interval</span><span class="p">])</span>
+            <span class="n">nrmse_vals</span><span class="p">[</span><span class="n">interval</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                                <span class="n">param_stats</span><span class="p">[</span><span class="s1">&#39;Error&#39;</span><span class="p">][</span><span class="s1">&#39;nrmse_&#39;</span> <span class="o">+</span> <span class="n">interval</span><span class="p">])</span>
+
+    <span class="c1"># Boxplot fill colors</span>
+    <span class="n">default_fill</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;#80c5c9&#39;</span><span class="p">,</span> <span class="s1">&#39;#4ea1c0&#39;</span><span class="p">]</span>
+    <span class="n">fill_color</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;fill_colors&#39;</span><span class="p">,</span> <span class="n">default_fill</span><span class="p">)</span>
+
+    <span class="c1"># Marker properties</span>
+    <span class="n">marker</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;marker&#39;</span><span class="p">,</span> <span class="s1">&#39;o&#39;</span><span class="p">)</span>
+    <span class="n">marker_size</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;marker_size&#39;</span><span class="p">,</span> <span class="mi">7</span><span class="p">)</span>
+    <span class="n">marker_border_width</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;marker_border_width&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">mean_marker</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;mean_marker&#39;</span><span class="p">,</span> <span class="s1">&#39;d&#39;</span><span class="p">)</span>
+
+    <span class="c1"># List of metrics to plot</span>
+    <span class="n">metrics</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">category</span> <span class="ow">in</span> <span class="n">targets</span><span class="p">:</span>
+        <span class="n">metrics</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">targets</span><span class="p">[</span><span class="n">category</span><span class="p">]</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+
+    <span class="n">metric_names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;R$^2$&#39;</span><span class="p">,</span> <span class="s1">&#39;Slope&#39;</span><span class="p">,</span> <span class="s1">&#39;Intercept&#39;</span><span class="p">,</span> <span class="s1">&#39;RMSE&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;NRMSE&#39;</span><span class="p">,</span> <span class="s1">&#39;CV&#39;</span><span class="p">,</span> <span class="s1">&#39;SD&#39;</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="s1">&#39;NRMSE&#39;</span> <span class="ow">in</span> <span class="n">remove_keys</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+        <span class="n">metric_names</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="s1">&#39;NRMSE&#39;</span><span class="p">)</span>
+
+    <span class="n">fig_width</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;figure_width&#39;</span><span class="p">,</span> <span class="mf">15.7</span><span class="p">)</span>
+    <span class="n">fig_height</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;figure_height&#39;</span><span class="p">,</span> <span class="mf">3.9</span><span class="p">)</span>
+    <span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">metrics</span><span class="p">),</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="n">fig_width</span><span class="p">,</span> <span class="n">fig_height</span><span class="p">))</span>
+
+    <span class="n">n_sensors</span> <span class="o">=</span> <span class="n">stats_df</span><span class="o">.</span><span class="n">where</span><span class="p">((</span><span class="n">stats_df</span><span class="p">[</span><span class="s1">&#39;Sensor Name&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">notna</span><span class="p">())</span> <span class="o">&amp;</span>
+                               <span class="p">(</span><span class="n">stats_df</span><span class="p">[</span><span class="s1">&#39;R$^2$&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">notna</span><span class="p">())</span>
+                               <span class="p">)</span><span class="o">.</span><span class="n">Sensor_Number</span><span class="o">.</span><span class="n">nunique</span><span class="p">()</span>
+
+    <span class="n">stats_df</span> <span class="o">=</span> <span class="n">stats_df</span><span class="p">[[</span><span class="s1">&#39;R$^2$&#39;</span><span class="p">,</span> <span class="s1">&#39;Slope&#39;</span><span class="p">,</span> <span class="s1">&#39;Intercept&#39;</span><span class="p">,</span> <span class="s1">&#39;Averaging Interval&#39;</span><span class="p">]]</span>
+    <span class="n">stats_df</span> <span class="o">=</span> <span class="n">stats_df</span><span class="o">.</span><span class="n">where</span><span class="p">(</span>
+                    <span class="n">stats_df</span><span class="p">[</span><span class="s1">&#39;Averaging Interval&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">param_averaging</span><span class="p">))</span>
+
+    <span class="k">for</span> <span class="n">ax_idx</span><span class="p">,</span> <span class="n">metric_name</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">metric_names</span><span class="p">):</span>
+        <span class="k">with</span> <span class="n">sns</span><span class="o">.</span><span class="n">plotting_context</span><span class="p">(</span><span class="n">context</span><span class="o">=</span><span class="s2">&quot;notebook&quot;</span><span class="p">,</span> <span class="n">font_scale</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">metric_name</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;R$^2$&#39;</span><span class="p">,</span> <span class="s1">&#39;Slope&#39;</span><span class="p">,</span> <span class="s1">&#39;Intercept&#39;</span><span class="p">]:</span>
+                <span class="n">axs</span><span class="p">[</span><span class="n">ax_idx</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">stats_df</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="n">ax_idx</span><span class="p">],</span>
+                                      <span class="n">fontsize</span><span class="o">=</span><span class="n">font_size</span><span class="p">)</span>
+
+                <span class="k">if</span> <span class="n">n_sensors</span> <span class="o">&gt;</span> <span class="mi">3</span><span class="p">:</span>
+                    <span class="n">sns</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;Averaging Interval&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">metric_name</span><span class="p">,</span>
+                                <span class="n">data</span><span class="o">=</span><span class="n">stats_df</span><span class="p">,</span>
+                                <span class="n">order</span><span class="o">=</span><span class="n">param_averaging</span><span class="p">,</span>
+                                <span class="n">ax</span><span class="o">=</span><span class="n">axs</span><span class="p">[</span><span class="n">ax_idx</span><span class="p">],</span>
+                                <span class="n">palette</span><span class="o">=</span><span class="n">fill_color</span><span class="p">,</span>
+                                <span class="n">showmeans</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                                <span class="n">meanprops</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;marker&quot;</span><span class="p">:</span> <span class="n">mean_marker</span><span class="p">,</span>
+                                           <span class="s2">&quot;markerfacecolor&quot;</span><span class="p">:</span> <span class="s2">&quot;#8b8b8b&quot;</span><span class="p">,</span>
+                                           <span class="s1">&#39;markeredgecolor&#39;</span><span class="p">:</span> <span class="s1">&#39;#6f6f6f&#39;</span><span class="p">})</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">sns</span><span class="o">.</span><span class="n">swarmplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;Averaging Interval&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">metric_name</span><span class="p">,</span>
+                                  <span class="n">data</span><span class="o">=</span><span class="n">stats_df</span><span class="p">,</span>
+                                  <span class="n">order</span><span class="o">=</span><span class="n">param_averaging</span><span class="p">,</span>
+                                  <span class="n">ax</span><span class="o">=</span><span class="n">axs</span><span class="p">[</span><span class="n">ax_idx</span><span class="p">],</span>
+                                  <span class="n">palette</span><span class="o">=</span><span class="n">fill_color</span><span class="p">,</span>
+                                  <span class="n">marker</span><span class="o">=</span><span class="n">marker</span><span class="p">,</span>
+                                  <span class="n">linewidth</span><span class="o">=</span><span class="n">marker_border_width</span><span class="p">,</span>
+                                  <span class="n">size</span><span class="o">=</span><span class="n">marker_size</span><span class="p">)</span>
+
+            <span class="k">else</span><span class="p">:</span>
+
+                <span class="k">if</span> <span class="n">metric_name</span> <span class="o">==</span> <span class="s1">&#39;CV&#39;</span><span class="p">:</span>
+                    <span class="n">metric_data</span> <span class="o">=</span> <span class="n">cv_vals</span>
+                <span class="k">if</span> <span class="n">metric_name</span> <span class="o">==</span> <span class="s1">&#39;SD&#39;</span><span class="p">:</span>
+                    <span class="n">metric_data</span> <span class="o">=</span> <span class="n">std_vals</span>
+                <span class="k">if</span> <span class="n">metric_name</span> <span class="o">==</span> <span class="s1">&#39;RMSE&#39;</span><span class="p">:</span>
+                    <span class="n">metric_data</span> <span class="o">=</span> <span class="n">rmse_vals</span>
+                <span class="k">if</span> <span class="n">metric_name</span> <span class="o">==</span> <span class="s1">&#39;NRMSE&#39;</span><span class="p">:</span>
+                    <span class="n">metric_data</span> <span class="o">=</span> <span class="n">nrmse_vals</span>
+
+                <span class="n">data_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">metric_data</span><span class="p">)</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+                <span class="n">data_df</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Averaging Interval&#39;</span><span class="p">,</span> <span class="n">metric_name</span><span class="p">]</span>
+
+                <span class="n">sns</span><span class="o">.</span><span class="n">stripplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;Averaging Interval&#39;</span><span class="p">,</span>
+                              <span class="n">y</span><span class="o">=</span><span class="n">metric_name</span><span class="p">,</span>
+                              <span class="n">data</span><span class="o">=</span><span class="n">data_df</span><span class="p">,</span>
+                              <span class="n">order</span><span class="o">=</span><span class="n">param_averaging</span><span class="p">,</span>
+                              <span class="n">ax</span><span class="o">=</span><span class="n">axs</span><span class="p">[</span><span class="n">ax_idx</span><span class="p">],</span>
+                              <span class="n">palette</span><span class="o">=</span><span class="n">fill_color</span><span class="p">,</span>
+                              <span class="n">s</span><span class="o">=</span><span class="n">marker_size</span><span class="p">,</span>
+                              <span class="n">marker</span><span class="o">=</span><span class="n">marker</span><span class="p">,</span>
+                              <span class="n">linewidth</span><span class="o">=</span><span class="n">marker_border_width</span><span class="p">,</span>
+                              <span class="n">jitter</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+                <span class="k">if</span> <span class="n">n_sensors</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">metric_name</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;CV&#39;</span><span class="p">,</span> <span class="s1">&#39;SD&#39;</span><span class="p">]:</span>
+                    <span class="n">props</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">boxstyle</span><span class="o">=</span><span class="s1">&#39;round&#39;</span><span class="p">,</span>
+                                 <span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;lightblue&#39;</span><span class="p">,</span>
+                                 <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+
+                    <span class="n">axs</span><span class="p">[</span><span class="n">ax_idx</span><span class="p">]</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.62</span><span class="p">,</span>
+                                     <span class="s1">&#39;N/A, less than</span><span class="se">\n</span><span class="s1">three sensors in</span><span class="se">\n</span><span class="s1">testing group&#39;</span><span class="p">,</span>
+                                     <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;#1A315C&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">13</span><span class="p">,</span>
+                                     <span class="n">horizontalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span>
+                                     <span class="n">verticalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span>
+                                     <span class="n">transform</span><span class="o">=</span><span class="n">axs</span><span class="p">[</span><span class="n">ax_idx</span><span class="p">]</span><span class="o">.</span><span class="n">transAxes</span><span class="p">,</span>
+                                     <span class="n">bbox</span><span class="o">=</span><span class="n">props</span><span class="p">)</span>
+
+            <span class="n">boxes</span> <span class="o">=</span> <span class="p">[]</span>
+
+            <span class="k">if</span> <span class="n">metric_name</span> <span class="o">==</span> <span class="s1">&#39;R$^2$&#39;</span><span class="p">:</span>
+                <span class="n">dim_key</span> <span class="o">=</span> <span class="s1">&#39;R^2&#39;</span>
+                <span class="n">lower_lim</span> <span class="o">=</span> <span class="kc">None</span>
+                <span class="n">upper_lim</span> <span class="o">=</span> <span class="kc">None</span>
+
+            <span class="k">if</span> <span class="n">metric_name</span> <span class="o">==</span> <span class="s1">&#39;Slope&#39;</span><span class="p">:</span>
+                <span class="n">dim_key</span> <span class="o">=</span> <span class="s1">&#39;Slope&#39;</span>
+                <span class="n">upper_lim</span><span class="p">,</span> <span class="n">lower_lim</span> <span class="o">=</span> <span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="mf">1.5</span><span class="o">*</span><span class="n">stats_df</span><span class="p">[</span><span class="n">metric_name</span><span class="p">])</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span>
+                                        <span class="mf">1.5</span><span class="o">*</span><span class="n">stats_df</span><span class="p">[</span><span class="n">metric_name</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">())</span>
+
+                <span class="k">if</span> <span class="n">upper_lim</span> <span class="o">&lt;</span> <span class="mf">2.0</span> <span class="ow">and</span> <span class="n">upper_lim</span> <span class="o">&gt;</span> <span class="mf">0.25</span><span class="p">:</span>
+                    <span class="n">upper_lim</span> <span class="o">=</span> <span class="mf">2.0</span>
+                <span class="k">elif</span> <span class="n">upper_lim</span> <span class="o">&lt;</span> <span class="mf">0.25</span><span class="p">:</span>
+                    <span class="n">upper_lim</span> <span class="o">=</span> <span class="mf">2.5</span>
+
+                <span class="k">if</span> <span class="n">lower_lim</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="n">lower_lim</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="o">*</span><span class="n">upper_lim</span> <span class="o">+</span> <span class="mi">2</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">lower_lim</span> <span class="o">=</span> <span class="mf">1.5</span><span class="o">*</span><span class="n">lower_lim</span>
+
+                <span class="k">if</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;slope_lims&#39;</span><span class="p">):</span>
+                    <span class="n">lower_lim</span><span class="p">,</span> <span class="n">upper_lim</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;slope_lims&#39;</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">metric_name</span> <span class="o">==</span> <span class="s1">&#39;Intercept&#39;</span><span class="p">:</span>
+                <span class="n">dim_key</span> <span class="o">=</span> <span class="s1">&#39;Intercept&#39;</span>
+                <span class="n">upper_lim</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="mf">1.5</span><span class="o">*</span><span class="n">stats_df</span><span class="p">[</span><span class="n">metric_name</span><span class="p">])</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+                <span class="k">if</span> <span class="n">upper_lim</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">:</span>
+                    <span class="n">upper_lim</span> <span class="o">=</span> <span class="mi">10</span>
+                <span class="n">lower_lim</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="o">*</span><span class="n">upper_lim</span>
+
+                <span class="k">if</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;intercept_lims&#39;</span><span class="p">):</span>
+                    <span class="n">lower_lim</span><span class="p">,</span> <span class="n">upper_lim</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;intercept_lims&#39;</span><span class="p">)</span>
+
+                <span class="n">metric_name</span> <span class="o">=</span> <span class="sa">rf</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">metric_name</span><span class="si">}</span><span class="s1"> (</span><span class="si">{</span><span class="n">param_obj</span><span class="o">.</span><span class="n">units</span><span class="si">}</span><span class="s1">)&#39;</span>
+
+            <span class="k">if</span> <span class="n">metric_name</span> <span class="o">==</span> <span class="s1">&#39;CV&#39;</span><span class="p">:</span>
+                <span class="n">dim_key</span> <span class="o">=</span> <span class="s1">&#39;CV&#39;</span>
+                <span class="n">lower_lim</span> <span class="o">=</span> <span class="mi">0</span>
+                <span class="n">upper_lim</span> <span class="o">=</span> <span class="mf">1.5</span><span class="o">*</span><span class="n">data_df</span><span class="p">[</span><span class="n">metric_name</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+                <span class="k">if</span> <span class="n">upper_lim</span> <span class="o">&lt;</span> <span class="mi">50</span><span class="p">:</span>
+                    <span class="n">upper_lim</span> <span class="o">=</span> <span class="mi">50</span>
+                <span class="k">if</span> <span class="n">n_sensors</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                    <span class="n">upper_lim</span> <span class="o">=</span> <span class="mi">60</span>
+
+                <span class="k">if</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;cv_lims&#39;</span><span class="p">):</span>
+                    <span class="n">lower_lim</span><span class="p">,</span> <span class="n">upper_lim</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;cv_lims&#39;</span><span class="p">)</span>
+
+                <span class="n">metric_name</span> <span class="o">=</span> <span class="sa">rf</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">metric_name</span><span class="si">}</span><span class="s1"> (%)&#39;</span>
+
+            <span class="k">if</span> <span class="n">metric_name</span> <span class="o">==</span> <span class="s1">&#39;RMSE&#39;</span><span class="p">:</span>
+                <span class="n">dim_key</span> <span class="o">=</span> <span class="s1">&#39;RMSE&#39;</span>
+                <span class="n">upper_lim</span> <span class="o">=</span> <span class="mf">1.5</span><span class="o">*</span><span class="n">data_df</span><span class="p">[</span><span class="n">metric_name</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+                <span class="n">lower_lim</span> <span class="o">=</span> <span class="mi">0</span>
+                <span class="k">if</span> <span class="n">upper_lim</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">:</span>
+                    <span class="n">upper_lim</span> <span class="o">=</span> <span class="mi">10</span>
+
+                <span class="k">if</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;rmse_lims&#39;</span><span class="p">):</span>
+                    <span class="n">lower_lim</span><span class="p">,</span> <span class="n">upper_lim</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;rmse_lims&#39;</span><span class="p">)</span>
+
+                <span class="n">metric_name</span> <span class="o">=</span> <span class="sa">rf</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">metric_name</span><span class="si">}</span><span class="s1"> (</span><span class="si">{</span><span class="n">param_obj</span><span class="o">.</span><span class="n">units</span><span class="si">}</span><span class="s1">)&#39;</span>
+
+            <span class="k">if</span> <span class="n">metric_name</span> <span class="o">==</span> <span class="s1">&#39;NRMSE&#39;</span><span class="p">:</span>
+                <span class="n">dim_key</span> <span class="o">=</span> <span class="s1">&#39;NRMSE&#39;</span>
+                <span class="n">lower_lim</span> <span class="o">=</span> <span class="mi">0</span>
+                <span class="n">upper_lim</span> <span class="o">=</span> <span class="mf">1.5</span><span class="o">*</span><span class="n">data_df</span><span class="p">[</span><span class="n">metric_name</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+                <span class="k">if</span> <span class="n">upper_lim</span> <span class="o">&lt;</span> <span class="mi">50</span><span class="p">:</span>
+                    <span class="n">upper_lim</span> <span class="o">=</span> <span class="mi">50</span>
+
+                <span class="k">if</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;nrmse_lims&#39;</span><span class="p">):</span>
+                    <span class="n">lower_lim</span><span class="p">,</span> <span class="n">upper_lim</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;nrmse_lims&#39;</span><span class="p">)</span>
+
+                <span class="n">metric_name</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;NRMSE ($\%$)&#39;</span>
+
+            <span class="k">if</span> <span class="n">metric_name</span> <span class="o">==</span> <span class="s1">&#39;SD&#39;</span><span class="p">:</span>
+                <span class="n">dim_key</span> <span class="o">=</span> <span class="s1">&#39;SD&#39;</span>
+                <span class="n">lower_lim</span> <span class="o">=</span> <span class="mi">0</span>
+                <span class="n">upper_lim</span> <span class="o">=</span> <span class="mf">1.5</span><span class="o">*</span><span class="n">data_df</span><span class="p">[</span><span class="n">metric_name</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+                <span class="k">if</span> <span class="n">upper_lim</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">:</span>
+                    <span class="n">upper_lim</span> <span class="o">=</span> <span class="mi">10</span>
+                <span class="k">if</span> <span class="n">n_sensors</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                    <span class="n">upper_lim</span> <span class="o">=</span> <span class="mi">10</span>
+
+                <span class="k">if</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;sd_lims&#39;</span><span class="p">):</span>
+                    <span class="n">lower_lim</span><span class="p">,</span> <span class="n">upper_lim</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;sd_lims&#39;</span><span class="p">)</span>
+
+                <span class="n">metric_name</span> <span class="o">=</span> <span class="sa">rf</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">metric_name</span><span class="si">}</span><span class="s1"> (</span><span class="si">{</span><span class="n">param_obj</span><span class="o">.</span><span class="n">units</span><span class="si">}</span><span class="s1">)&#39;</span>
+
+            <span class="c1"># Get formatting values</span>
+            <span class="n">ylims</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">dim_key</span> <span class="o">+</span> <span class="s1">&#39;_ylims&#39;</span><span class="p">,</span>
+                <span class="n">plotting_dims</span><span class="p">[</span><span class="s1">&#39;ylims&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">dim_key</span><span class="p">,</span> <span class="p">(</span><span class="n">lower_lim</span><span class="p">,</span> <span class="n">upper_lim</span><span class="p">)))</span>
+            <span class="n">hline_dims</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">dim_key</span> <span class="o">+</span> <span class="s1">&#39;_hline_dims&#39;</span><span class="p">,</span>
+                                <span class="n">plotting_dims</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;hline_dims&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">dim_key</span><span class="p">))</span>
+            <span class="n">box_dims</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">dim_key</span> <span class="o">+</span> <span class="s1">&#39;_box_dims&#39;</span><span class="p">,</span>
+                                  <span class="n">plotting_dims</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;box_dims&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">dim_key</span><span class="p">))</span>
+
+            <span class="c1"># Assign to local variables</span>
+            <span class="n">ymin</span><span class="p">,</span> <span class="n">ymax</span> <span class="o">=</span> <span class="n">ylims</span>
+            <span class="n">hline_y</span><span class="p">,</span> <span class="n">hline_xmin</span><span class="p">,</span> <span class="n">hline_xmax</span> <span class="o">=</span> <span class="n">hline_dims</span>
+            <span class="n">rec_x0</span><span class="p">,</span> <span class="n">rec_y0</span><span class="p">,</span> <span class="n">rec_xspan</span><span class="p">,</span> <span class="n">rec_yspan</span> <span class="o">=</span> <span class="n">box_dims</span>
+
+            <span class="n">axs</span><span class="p">[</span><span class="n">ax_idx</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="n">PLOT_XMIN</span><span class="p">,</span> <span class="n">PLOT_XMAX</span><span class="p">)</span>
+
+            <span class="n">axs</span><span class="p">[</span><span class="n">ax_idx</span><span class="p">]</span><span class="o">.</span><span class="n">hlines</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="n">hline_y</span><span class="p">,</span> <span class="n">xmin</span><span class="o">=</span><span class="n">hline_xmin</span><span class="p">,</span>
+                               <span class="n">xmax</span><span class="o">=</span><span class="n">hline_xmax</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span>
+                               <span class="n">color</span><span class="o">=</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;hline_color&#39;</span><span class="p">,</span> <span class="s1">&#39;#8b8b8b&#39;</span><span class="p">))</span>
+
+            <span class="n">target_rec</span> <span class="o">=</span> <span class="n">Rectangle</span><span class="p">((</span><span class="n">rec_x0</span><span class="p">,</span> <span class="n">rec_y0</span><span class="p">),</span>
+                                   <span class="n">rec_xspan</span><span class="p">,</span> <span class="n">rec_yspan</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">)</span>
+            <span class="n">boxes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">target_rec</span><span class="p">)</span>
+            <span class="n">pc</span> <span class="o">=</span> <span class="n">PatchCollection</span><span class="p">(</span><span class="n">boxes</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">.3</span><span class="p">,</span>
+                                 <span class="n">facecolor</span><span class="o">=</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;box_facecolor&#39;</span><span class="p">,</span>
+                                                      <span class="s1">&#39;#8b8b8b&#39;</span><span class="p">))</span>
+            <span class="n">axs</span><span class="p">[</span><span class="n">ax_idx</span><span class="p">]</span><span class="o">.</span><span class="n">add_collection</span><span class="p">(</span><span class="n">pc</span><span class="p">)</span>
+            <span class="n">axs</span><span class="p">[</span><span class="n">ax_idx</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">metric_name</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="n">font_size</span><span class="p">)</span>
+            <span class="n">axs</span><span class="p">[</span><span class="n">ax_idx</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="n">ymin</span><span class="p">,</span> <span class="n">ymax</span><span class="p">)</span>
+            <span class="n">axs</span><span class="p">[</span><span class="n">ax_idx</span><span class="p">]</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">set_label_text</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+
+        <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+        <span class="n">sns</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">font_scale</span><span class="o">=</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;font_scale&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+
+    <span class="n">show_legend</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;show_legend&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">show_legend</span><span class="p">:</span>
+        <span class="n">fig</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">labels</span><span class="o">=</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">param</span><span class="si">}</span><span class="s1"> Averaging&#39;</span> <span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">param_averaging</span><span class="p">],</span> <span class="n">ncol</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+                   <span class="n">loc</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">))</span>
+
+        <span class="k">for</span> <span class="n">ax</span> <span class="ow">in</span> <span class="n">axs</span><span class="p">:</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">axes</span><span class="o">.</span><span class="n">get_xaxis</span><span class="p">()</span><span class="o">.</span><span class="n">set_visible</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+
+        <span class="n">fig_bottom</span> <span class="o">=</span> <span class="mf">0.15</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">fig_bottom</span> <span class="o">=</span> <span class="mf">0.13</span>
+
+    <span class="n">fig</span><span class="o">.</span><span class="n">subplots_adjust</span><span class="p">(</span><span class="n">wspace</span><span class="o">=</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;fig_wspace&#39;</span><span class="p">,</span> <span class="n">wspace</span><span class="p">),</span>
+                        <span class="n">hspace</span><span class="o">=</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;fig_hspace&#39;</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">),</span>
+                        <span class="n">left</span><span class="o">=</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;fig_left&#39;</span><span class="p">,</span> <span class="mf">0.03</span><span class="p">),</span>
+                        <span class="n">right</span><span class="o">=</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;fig_right&#39;</span><span class="p">,</span> <span class="mf">0.97</span><span class="p">),</span>
+                        <span class="n">top</span><span class="o">=</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;fig_top&#39;</span><span class="p">,</span> <span class="mf">0.93</span><span class="p">),</span>
+                        <span class="n">bottom</span><span class="o">=</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;fig_bottom&#39;</span><span class="p">,</span> <span class="n">fig_bottom</span><span class="p">))</span>
+
+    <span class="k">if</span> <span class="n">write_to_file</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="n">todays_date</span> <span class="o">=</span> <span class="n">get_todays_date</span><span class="p">()</span>
+
+        <span class="n">fig_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">param</span><span class="p">,</span>
+                    <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">sensor_name</span><span class="si">}</span><span class="s1">_regression_boxplot_</span><span class="si">{</span><span class="n">param</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="n">todays_date</span><span class="si">}</span><span class="s1">.png&#39;</span><span class="p">)</span>
+
+        <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">fig_path</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, United States Environmental Protection Agency.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

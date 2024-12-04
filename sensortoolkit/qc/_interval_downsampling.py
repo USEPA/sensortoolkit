@@ -4,7 +4,7 @@ This module contains methods for applying downsampling methods to convert
 timeseries datasets at unevenly spaced sampling intervals to a uniform, evenly
 spaced interval (the downsampling interval).
 
-The downsampling interval is determined based on the variation in the orginally
+The downsampling interval is determined based on the variation in the originally
 recorded dataset. If, for instance, a sensor was set to record at 60 second
 intervals but the interval between consecutively recorded timestamps
 varied from 60 +/- 20 seconds, data may be downsampled to 120 second averages.
@@ -138,8 +138,8 @@ def downsampling_interval(quant_df, thres_quant=0.99, plot_quantiles=True):
     On the first iteration of the downsampling_interval() method, the function
     will check whether 1*60 seconds is greater than the threshold recording
     interval. Since 60 < 132 seconds, this is not true, so the method will step
-    the multipliying factor up by 1. The second iteration will check whether
-    2*60 seconds is greater than the theshold recording interval. Since this
+    the multiplying factor up by 1. The second iteration will check whether
+    2*60 seconds is greater than the threshold recording interval. Since this
     is true (120 > 115 seconds), the loop will exit and indicate that the
     dataset should be downsampled to 120 second intervals.
 

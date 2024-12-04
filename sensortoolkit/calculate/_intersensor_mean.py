@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-This module computes the average of parameter values across all conurrently
+This module computes the average of parameter values across all concurrently
 recorded sensor measurements for each timestamp in the passed list of
 dataframes.
 
@@ -22,7 +22,7 @@ where
     :math:`x_{ij}` = Concentration for sensor `j` and time interval `i`. For
     each resulting average :math:`\\bar{x_i}`, all sensor concentration values
     must be non-null within the time interval `i`. If one or more sensors
-    recored a null value for the interval `i`, :math:`\\bar{x_i}` will be null.
+    recorded a null value for the interval `i`, :math:`\\bar{x_i}` will be null.
 
 Example
 -------

@@ -86,7 +86,7 @@ def sort_airnowtech(df, **kwargs):
 
     Args:
         df (pandas dataframe):
-            Imported airnowtech dataset, may contain data for multilple
+            Imported airnowtech dataset, may contain data for multiple
             parameter classifications (PM, gases, met) if selected when the
             data were downloaded.
     Returns:
@@ -254,7 +254,7 @@ def write_to_file(df, path, outpath):
             Processed airnowtech data for one of the following parameter
             classifications (PM, Gases, or Met)
         path (str):
-            The full directory path to the downloded airnowtech dataset.
+            The full directory path to the downloaded airnowtech dataset.
             Used to determine the date and time that the data were downloaded
             and added to the dataframe as the 'Data_Acquisition_Date_Time'.
         outpath (str):
@@ -389,6 +389,10 @@ def write_to_file(df, path, outpath):
             # file (fixes issue with UTC shifted datasets with ~5 hours shifted
             # into the next month)
             if month_df.shape[0] > 11:
+
+                if param_type == 'PM':
+                    from sensortoolkit.calculate import calculate_ref_ratio
+                    month_df = calculate_ref_ratio(month_df)
 
                 # Use the site name and AQS ID to name subfolder containing
                 # site data

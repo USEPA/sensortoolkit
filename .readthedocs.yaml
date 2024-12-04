@@ -1,6 +1,9 @@
 # .readthedocs.yaml
 # Read the Docs configuration file
-# See https://docs.readthedocs.io/en/stable/config-file/v2.html for details
+# See https://docs.readthedocs.io/en/stable/config-file/v2.html for 
+
+# to build documentation locally, use "python setup.py build_sphinx --build-dir build/source" command from root of directory
+# command will create a folder called build/source and place .html and .doctree files in their respective folders.
 
 # Required
 version: 2
@@ -10,7 +13,7 @@ formats: []
 
 # Create a conda environment, using the file below, to build documentation on ReadtheDocs
 #conda:
-#    environment: environment.yml
+#    environment: docs/environment.yml # if using a conda virtual environment must specify "miniconda3-4.7" in build.tools.python
 
 # Build documentation in the docs/ directory with Sphinx
 sphinx:
@@ -23,7 +26,7 @@ build:
   os: ubuntu-22.04
   tools:
     python: "3.8"
-#    python: "miniconda3-4.7" #this is specfically required if using a conda environment (to build documentation) and you want to specify build.jobs.
+#    python: "miniconda3-4.7" #this is specifically required if using a conda environment (to build documentation) and you want to specify build.jobs.
 
 # Optionally declare the Python requirements required to build your docs
 python:

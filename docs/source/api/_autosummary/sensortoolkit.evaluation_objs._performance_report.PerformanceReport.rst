@@ -58,6 +58,7 @@
       ~PerformanceReport.plot_sensor_met_scatter
       ~PerformanceReport.plot_sensor_scatter
       ~PerformanceReport.plot_timeseries
+      ~PerformanceReport.plot_wind_influence
       ~PerformanceReport.print_eval_conditions
       ~PerformanceReport.print_eval_metrics
    

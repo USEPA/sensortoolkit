@@ -112,7 +112,9 @@ Each parameter object comes with a subclass ``PerformanceTargets`` that contains
 metric descriptions, target ranges, and target values for conducting performance
 evaluations for sensor data corresponding to the parameter of interest.
 
-For :raw-html:`PM<sub>2.5</sub>` and :raw-html:`O<sub>3</sub>`, U.S. EPA's recommended performance metrics and target
+For :raw-html:`PM<sub>2.5</sub>`, :raw-html:`PM<sub>10</sub>`, :raw-html:`O<sub>3</sub>`,
+:raw-html:`CO`, :raw-html:`NO<sub>2</sub>`, and :raw-html:`SO<sub>2</sub>`,
+U.S. EPA's recommended performance metrics and target
 values are included in the pre-configured scheme for these parameters. A full description
 of all metric names and target values/ranges can be accessed for a parameter
 instance via:

@@ -2,7 +2,7 @@
 """
 This module estimates dewpoint via ambient temperature and relative humidity
 measurements made by independent temperature and relative humidity instruments
-running alonside sensors and FRM/FEM instrumentation at the evaluation site.
+running alongside sensors and FRM/FEM instrumentation at the evaluation site.
 
 .. caution::
 

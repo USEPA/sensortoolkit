@@ -24,5 +24,5 @@ from ._plot_formatting import (get_colormap_range, met_scatter_lims,
 from ._distribution import met_distrib, ref_distrib
 from ._errorbars import error_bars
 from ._performance_metrics import performance_metrics
-from ._scatter import scatter_plotter, met_influence
+from ._scatter import scatter_plotter, met_influence, wind_influence
 from ._timeseries import sensor_timeplot, deployment_timeline

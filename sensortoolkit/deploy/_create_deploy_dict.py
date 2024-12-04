@@ -200,7 +200,7 @@ def deploy_ref_stats(deploy_dict, ref_df, cal_check_dict=None, param=None,
             for devices within each deployment group.
     	ref_df (pandas dataframe):
             Dataframe for reference concentrations at either 1-hour or 24-hour
-            averaging depending on the performance targets recommeneded
+            averaging depending on the performance targets recommended
             averaging interval.
     	cal_check_dict (dict):
             [Future feature] Dictionary for housing dates and descriptions of QC
@@ -227,8 +227,19 @@ def deploy_ref_stats(deploy_dict, ref_df, cal_check_dict=None, param=None,
 
     if param_name == 'PM25':
         conc_goal = 25  # Concentration goal: 25 ug/m^3 for at least one day
+    elif param_name == 'PM10':
+        conc_goal = 40  # Concentration goal: 40 ug/m^3 for at least one day
     elif param_name == 'O3':
         conc_goal = 60  # Concentration goal: 60 ppbv for at least one day
+        ref_df[f'{param_name}_rolling_8-hour_Value'] = ref_df[f'{param_name}_Value'].rolling(window=8).mean()
+    elif param_name == 'NO2':
+        conc_goal = 30  # Concentration goal: 30 ppbv for at least one day
+        ref_df[f'{param_name}_rolling_8-hour_Value'] = ref_df[f'{param_name}_Value'].rolling(window=8).mean()
+    #elif param_name == 'SO2':
+    #    conc_goal = 30  # Concentration goal: 30 ppbv for at least one day
+    #    ref_df[f'{param_name}_rolling_8-hour_Value'] = ref_df[f'{param_name}_Value'].rolling(window=8).mean()
+    elif param_name == 'CO':
+        conc_goal = 0.5  # Concentration goal: 0.5 ppmv for at least one day
         ref_df[f'{param_name}_rolling_8-hour_Value'] = ref_df[f'{param_name}_Value'].rolling(window=8).mean()
 
     else:
@@ -266,7 +277,7 @@ def deploy_ref_stats(deploy_dict, ref_df, cal_check_dict=None, param=None,
             stats_loc['n_exceed_conc_goal' + avg_suffix] = None
 
         # add 8-hr rolling statistics
-        if param_name =='O3':
+        if param_name =='O3' or param_name =='CO' or param_name =='NO2':
             avg_suffix = '_rolling_8-hour'
             ref_data = ref_df.loc[start:end, f'{param_name}{avg_suffix}_Value']
 

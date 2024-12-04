@@ -4,10 +4,10 @@ After creating an ``AirSensor`` object, users follow a similar procedure for
 configuring the `ReferenceMonitor` object for importing and accessing FRM/FEM
 data.
 
-Continuing with the `evaluation.py` example script, an instance of the
+Continuing with the ``analysis.py`` example script, an instance of the
 ``ReferenceMonitor`` object is created via the following code:
 
-Continuing with the 'Toco Toucan' example mentioned in the `Quickstart Guide <../../quickstart.html#example-scenario-toco-toucan>`_,
+Continuing with the '*Toco Toucan*' example mentioned in the `Quickstart Guide <../../quickstart.html#example-scenario-toco-toucan>`_,
 below, we create an instance of ``ReferenceMonitor`` called ``reference``:
 
 .. code-block:: python

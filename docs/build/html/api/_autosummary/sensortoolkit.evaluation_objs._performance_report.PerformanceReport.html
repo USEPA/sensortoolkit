@@ -1,15 +1,17 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en">
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>sensortoolkit.evaluation_objs._performance_report.PerformanceReport &mdash; sensortoolkit 0.8.3b2 documentation</title>
-      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" type="text/css" />
+  <title>sensortoolkit.evaluation_objs._performance_report.PerformanceReport &mdash; sensortoolkit 0.9.0b2 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+
+  
   <!--[if lt IE 9]>
     <script src="../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
@@ -17,6 +19,7 @@
         <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
         <script src="../../_static/jquery.js"></script>
         <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../../_static/doctools.js"></script>
         <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="../../_static/js/theme.js"></script>
@@ -31,14 +34,18 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="../../index.html" class="icon icon-home"> sensortoolkit
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            sensortoolkit
           </a>
               <div class="version">
-                0.8.3b2
+                0.9.0b2
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -47,9 +54,10 @@
               <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../quickstart.html">Quickstart Guide</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../quickstart.html#script-templates">Script Templates</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../setup.html">Setting Up for sensortoolkit</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../install.html">Installing and Updating sensortoolkit</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../import_sensortoolkit.html">Importing sensortoolkit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../template.html">Analysis with sensortoolkit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../template.html#script-template">Script Template</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Objects and Data Structures</span></p>
 <ul>
@@ -57,7 +65,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../data_structures/index.html">Data Structures</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../sdfs/index.html">sensortoolkit Data Formatting Scheme (SDFS)</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Objects and Data Structures</span></p>
+<p class="caption" role="heading"><span class="caption-text">Analysis and Reports</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../evaluation_objects/index.html">Evaluation Objects</a></li>
 </ul>
@@ -100,11 +108,11 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="../index.html">sensortoolkit API</a> &raquo;</li>
-          <li><a href="../evaluation_objs.html"><code class="docutils literal notranslate"><span class="pre">sensortoolkit.evaluation_objs</span></code></a> &raquo;</li>
-          <li><a href="sensortoolkit.evaluation_objs._performance_report.html">sensortoolkit.evaluation_objs._performance_report</a> &raquo;</li>
-      <li>sensortoolkit.evaluation_objs._performance_report.PerformanceReport</li>
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">sensortoolkit API</a></li>
+          <li class="breadcrumb-item"><a href="../evaluation_objs.html"><code class="docutils literal notranslate"><span class="pre">sensortoolkit.evaluation_objs</span></code></a></li>
+          <li class="breadcrumb-item"><a href="sensortoolkit.evaluation_objs._performance_report.html">sensortoolkit.evaluation_objs._performance_report</a></li>
+      <li class="breadcrumb-item active">sensortoolkit.evaluation_objs._performance_report.PerformanceReport</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../../_sources/api/_autosummary/sensortoolkit.evaluation_objs._performance_report.PerformanceReport.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -115,11 +123,11 @@
            <div itemprop="articleBody">
              
   <section id="sensortoolkit-evaluation-objs-performance-report-performancereport">
-<h1>sensortoolkit.evaluation_objs._performance_report.PerformanceReport<a class="headerlink" href="#sensortoolkit-evaluation-objs-performance-report-performancereport" title="Permalink to this headline"></a></h1>
+<h1>sensortoolkit.evaluation_objs._performance_report.PerformanceReport<a class="headerlink" href="#sensortoolkit-evaluation-objs-performance-report-performancereport" title="Permalink to this heading"></a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="sensortoolkit.evaluation_objs._performance_report.PerformanceReport">
-<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">PerformanceReport</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">param</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reference</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">write_to_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">figure_search</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/sensortoolkit/evaluation_objs/_performance_report.html#PerformanceReport"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sensortoolkit.evaluation_objs._performance_report.PerformanceReport" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="sensortoolkit.evaluation_objs._sensor_eval.SensorEvaluation.html#sensortoolkit.evaluation_objs._sensor_eval.SensorEvaluation" title="sensortoolkit.evaluation_objs._sensor_eval.SensorEvaluation"><code class="xref py py-class docutils literal notranslate"><span class="pre">sensortoolkit.evaluation_objs._sensor_eval.SensorEvaluation</span></code></a></p>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">PerformanceReport</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">param</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reference</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">write_to_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">figure_search</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/sensortoolkit/evaluation_objs/_performance_report.html#PerformanceReport"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sensortoolkit.evaluation_objs._performance_report.PerformanceReport" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="sensortoolkit.evaluation_objs._sensor_eval.SensorEvaluation.html#sensortoolkit.evaluation_objs._sensor_eval.SensorEvaluation" title="sensortoolkit.evaluation_objs._sensor_eval.SensorEvaluation"><code class="xref py py-class docutils literal notranslate"><span class="pre">SensorEvaluation</span></code></a></p>
 <p>Generate air sensor performance evaluation reports.</p>
 <p>Reports are intended for evaluations following U.S. EPA’s
 recommendations for base testing of air sensors at outdoor ambient air
@@ -138,7 +146,7 @@ result, it inherits all the class and instance attributes of
 <code class="docutils literal notranslate"><span class="pre">SensorEvaluation</span></code>, including its numerous variables and data
 structures. Programmatically, <code class="docutils literal notranslate"><span class="pre">PerformanceReport</span></code> is intended as a
 direct extension of <code class="docutils literal notranslate"><span class="pre">SensorEvaluation</span></code>; users can easily interact with
-all the attributes and data stuctures for sensor evaluations. However,
+all the attributes and data structures for sensor evaluations. However,
 whereas <code class="docutils literal notranslate"><span class="pre">SensorEvaluation</span></code> allows analysis of a wide number of
 pollutants and parameters, <code class="docutils literal notranslate"><span class="pre">PerformanceReport</span></code> is presently intended
 for constructing reports pertaining to sensors measuring either fine
@@ -173,7 +181,7 @@ overwriting existing figures). Defaults to False.</p></li>
 </dd>
 </dl>
 <p class="rubric">Methods</p>
-<table class="longtable docutils align-default">
+<table class="autosummary longtable docutils align-default">
 <colgroup>
 <col style="width: 10%" />
 <col style="width: 90%" />
@@ -245,7 +253,7 @@ overwriting existing figures). Defaults to False.</p></li>
 <td><p>Add information to sensor information table (page 1).</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#sensortoolkit.evaluation_objs._performance_report.PerformanceReport.EditSiteTable" title="sensortoolkit.evaluation_objs._performance_report.PerformanceReport.EditSiteTable"><code class="xref py py-obj docutils literal notranslate"><span class="pre">EditSiteTable</span></code></a></p></td>
-<td><p>Add details to testing organzation and site info table (page 1).</p></td>
+<td><p>Add details to testing organization and site info table (page 1).</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#sensortoolkit.evaluation_objs._performance_report.PerformanceReport.EditTabularStats" title="sensortoolkit.evaluation_objs._performance_report.PerformanceReport.EditTabularStats"><code class="xref py py-obj docutils literal notranslate"><span class="pre">EditTabularStats</span></code></a></p></td>
 <td><p>Wrapper for constructing tables and adding entries (page 2).</p></td>
@@ -310,16 +318,19 @@ overwriting existing figures). Defaults to False.</p></li>
 <tr class="row-even"><td><p><a class="reference internal" href="#sensortoolkit.evaluation_objs._performance_report.PerformanceReport.plot_timeseries" title="sensortoolkit.evaluation_objs._performance_report.PerformanceReport.plot_timeseries"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot_timeseries</span></code></a></p></td>
 <td><p>Plot sensor and FRM/FEM reference measurements over time.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#sensortoolkit.evaluation_objs._performance_report.PerformanceReport.print_eval_conditions" title="sensortoolkit.evaluation_objs._performance_report.PerformanceReport.print_eval_conditions"><code class="xref py py-obj docutils literal notranslate"><span class="pre">print_eval_conditions</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sensortoolkit.evaluation_objs._performance_report.PerformanceReport.plot_wind_influence" title="sensortoolkit.evaluation_objs._performance_report.PerformanceReport.plot_wind_influence"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot_wind_influence</span></code></a></p></td>
+<td><p>Plot the influence meteorological parameters (temperature or relative humidity) on sensor measurements.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sensortoolkit.evaluation_objs._performance_report.PerformanceReport.print_eval_conditions" title="sensortoolkit.evaluation_objs._performance_report.PerformanceReport.print_eval_conditions"><code class="xref py py-obj docutils literal notranslate"><span class="pre">print_eval_conditions</span></code></a></p></td>
 <td><p>Display conditions for the evaluation parameter and meteorological conditions during the testing period.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#sensortoolkit.evaluation_objs._performance_report.PerformanceReport.print_eval_metrics" title="sensortoolkit.evaluation_objs._performance_report.PerformanceReport.print_eval_metrics"><code class="xref py py-obj docutils literal notranslate"><span class="pre">print_eval_metrics</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sensortoolkit.evaluation_objs._performance_report.PerformanceReport.print_eval_metrics" title="sensortoolkit.evaluation_objs._performance_report.PerformanceReport.print_eval_metrics"><code class="xref py py-obj docutils literal notranslate"><span class="pre">print_eval_metrics</span></code></a></p></td>
 <td><p>Display a summary of performance evaluation results using EPA’s recommended performance metrics (‘PM25’ and ‘O3’).</p></td>
 </tr>
 </tbody>
 </table>
 <p class="rubric">Attributes</p>
-<table class="longtable docutils align-default">
+<table class="autosummary longtable docutils align-default">
 <colgroup>
 <col style="width: 10%" />
 <col style="width: 90%" />
@@ -428,8 +439,8 @@ subroutine for drawing scatter plots.</p>
 <p>For some reason, the python pptx module can’t assign the footer page
 number to slides that are created by the library. While slides that
 are imported via the template (the first and last page of the report)
-have page number placeholders already assigned, the pptx library doesnt
-do this without explicity copying and pasting the page number
+have page number placeholders already assigned, the pptx library does not
+do this without explicitly copying and pasting the page number
 placeholder from the layout to the slides that are created by the
 module.</p>
 <p><strong>Reference:</strong></p>
@@ -673,7 +684,7 @@ are loaded via the SensorEvaluation class and the figure is generated.</p>
 </thead>
 <tbody>
 <tr class="row-even"><td><p>N paired met conc vals</p></td>
-<td><p>48 (O3), 76 (PM25)</p></td>
+<td><p>48 (O3), 32 (PM25)</p></td>
 </tr>
 </tbody>
 </table>
@@ -703,6 +714,23 @@ are loaded via the SensorEvaluation class and the figure is generated.</p>
 <tbody>
 <tr class="row-even"><td><p>Reference conc info</p></td>
 <td><p>75</p></td>
+</tr>
+</tbody>
+</table>
+<p>Scatter plots box (PM10 only):</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 73%" />
+<col style="width: 27%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Table name</p></th>
+<th class="head"><p>TableID</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Reference conc info</p></td>
+<td><p>3</p></td>
 </tr>
 </tbody>
 </table>
@@ -773,7 +801,7 @@ are loaded via the SensorEvaluation class and the figure is generated.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="sensortoolkit.evaluation_objs._performance_report.PerformanceReport.EditSensorSensorTable">
-<span class="sig-name descname"><span class="pre">EditSensorSensorTable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">table</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/sensortoolkit/evaluation_objs/_performance_report.html#PerformanceReport.EditSensorSensorTable"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sensortoolkit.evaluation_objs._performance_report.PerformanceReport.EditSensorSensorTable" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">EditSensorSensorTable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">table</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">slide</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/sensortoolkit/evaluation_objs/_performance_report.html#PerformanceReport.EditSensorSensorTable"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sensortoolkit.evaluation_objs._performance_report.PerformanceReport.EditSensorSensorTable" title="Permalink to this definition"></a></dt>
 <dd><p>Add intersensor (sensor-sensor) precision tabular stats (page 2).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -801,7 +829,7 @@ are loaded via the SensorEvaluation class and the figure is generated.</p>
 </thead>
 <tbody>
 <tr class="row-even"><td><p>Sensor info</p></td>
-<td><p>49 (PM2.5), 30 (O3)</p></td>
+<td><p>49 (PM2.5), 35 (O3)</p></td>
 </tr>
 </tbody>
 </table>
@@ -815,7 +843,7 @@ are loaded via the SensorEvaluation class and the figure is generated.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="sensortoolkit.evaluation_objs._performance_report.PerformanceReport.EditSiteTable">
 <span class="sig-name descname"><span class="pre">EditSiteTable</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/sensortoolkit/evaluation_objs/_performance_report.html#PerformanceReport.EditSiteTable"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sensortoolkit.evaluation_objs._performance_report.PerformanceReport.EditSiteTable" title="Permalink to this definition"></a></dt>
-<dd><p>Add details to testing organzation and site info table (page 1).</p>
+<dd><p>Add details to testing organization and site info table (page 1).</p>
 <table class="docutils align-default">
 <colgroup>
 <col style="width: 76%" />
@@ -915,7 +943,7 @@ to ‘center’.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="sensortoolkit.evaluation_objs._performance_report.PerformanceReport.GetShape">
-<span class="sig-name descname"><span class="pre">GetShape</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">slide_idx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shape_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shape_loc</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/sensortoolkit/evaluation_objs/_performance_report.html#PerformanceReport.GetShape"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sensortoolkit.evaluation_objs._performance_report.PerformanceReport.GetShape" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">GetShape</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">slide_idx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">slide_obj</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shape_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shape_loc</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/sensortoolkit/evaluation_objs/_performance_report.html#PerformanceReport.GetShape"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sensortoolkit.evaluation_objs._performance_report.PerformanceReport.GetShape" title="Permalink to this definition"></a></dt>
 <dd><p>Retrieve shape object for tables based on known shape ID.</p>
 <p>Allows for editing, modifying the table and its cells.</p>
 <p>Return either based on left and top location passed in inches to
@@ -939,7 +967,7 @@ topmost part of the slide. Defaults to None.</p></li>
 <dd class="field-even"><p>The slide shape object located at the location or ID specified.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>shape (python-pptx.Presentation.slides[slide_idx]shapes.item)</p>
+<dd class="field-odd"><p>shape (python-pptx.Presentation.slides[slide_idx].shapes.item)</p>
 </dd>
 </dl>
 </dd></dl>
@@ -1039,7 +1067,7 @@ Defaults to ‘20000’.</p></li>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>table</strong> (<em>pptx.table.Table</em>) – pptx table object to modify.</p></li>
 <li><p><strong>span_dict</strong> (<em>dict</em>) – <p>Dictionary where each entry contains list of
-consecutive cell indicies in the table that will be spanned.</p>
+consecutive cell indices in the table that will be spanned.</p>
 <p class="rubric">Example</p>
 <p>Say you have a table with three rows and two columns for
 a total of 4 cells. Let’s say we want to make the first
@@ -1111,7 +1139,7 @@ python-pptx as of v0.6.19)</p>
 </div></blockquote>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>font</strong> (<em>pptx text run object</em>) – Font object containing various character properies.</p>
+<dd class="field-odd"><p><strong>font</strong> (<em>pptx text run object</em>) – Font object containing various character properties.</p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>None.</p>
@@ -1131,7 +1159,7 @@ python-pptx as of v0.6.19)</p>
 </div></blockquote>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>font</strong> (<em>pptx text run object</em>) – Font object containing various character properies.</p>
+<dd class="field-odd"><p><strong>font</strong> (<em>pptx text run object</em>) – Font object containing various character properties.</p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>None.</p>
@@ -1397,7 +1425,7 @@ Defaults to ‘1-hour’.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="sensortoolkit.evaluation_objs._performance_report.PerformanceReport.plot_sensor_scatter">
-<span class="sig-name descname"><span class="pre">plot_sensor_scatter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">averaging_interval</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'24-hour'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot_subset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sensortoolkit.evaluation_objs._performance_report.PerformanceReport.plot_sensor_scatter" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">plot_sensor_scatter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">averaging_interval</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot_subset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sensortoolkit.evaluation_objs._performance_report.PerformanceReport.plot_sensor_scatter" title="Permalink to this definition"></a></dt>
 <dd><p>Plot sensor vs FRM/FEM reference measurement pairs as scatter.</p>
 <p>FRM/FEM reference concentrations are plotted along the x-axis, and
 sensor concentrations are plotted along the y-axis. Measurement pairs
@@ -1411,7 +1439,8 @@ DataFrame.</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>averaging_interval</strong> (<em>str</em><em>, </em><em>optional</em>) – The measurement averaging intervals commonly utilized for
 analyzing data corresponding the the selected parameter.
-Defaults to ‘24-hour’.</p></li>
+Defaults to the shortest averaging interval in the list of
+preset parameter averaging intervals (param.averaging).</p></li>
 <li><p><strong>plot_subset</strong> (<em>list</em><em>, </em><em>optional</em>) – A list of either sensor serial IDs or the keys associated with
 the serial IDs in the serial dictionary. Defaults to None.</p></li>
 </ul>
@@ -1425,9 +1454,8 @@ the serial IDs in the serial dictionary. Defaults to None.</p></li>
 first page of the performance report included alongside U.S. EPA’s
 documents outlining recommended testing protocols, performance
 metrics, and target values. Defaults to False.</p></li>
-<li><p><strong>**kwargs</strong> – <p>Additional keyword arguments passed to the underlying
-<code class="docutils literal notranslate"><span class="pre">sensortoolkit.plotting.scatter_plotter()</span></code> method.</p>
-</p></li>
+<li><p><strong>**kwargs</strong> – Additional keyword arguments passed to the underlying
+<code class="docutils literal notranslate"><span class="pre">sensortoolkit.plotting.scatter_plotter()</span></code> method.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -1459,8 +1487,42 @@ Defaults to True.</p></li>
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="sensortoolkit.evaluation_objs._performance_report.PerformanceReport.plot_wind_influence">
+<span class="sig-name descname"><span class="pre">plot_wind_influence</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">met_param</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'WS'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">report_fmt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sensortoolkit.evaluation_objs._performance_report.PerformanceReport.plot_wind_influence" title="Permalink to this definition"></a></dt>
+<dd><p>Plot the influence meteorological parameters (temperature or
+relative humidity) on sensor measurements.</p>
+<p>Sensor measurements that have been normalized by reference measurement
+values for the corresponding timestamp and are plotted along the
+y-axis. Meteorological measurements as measured by temperature or
+relative humidity monitors (rather than onboard sensor measurements)
+are plotted along the x-axis. Scatter for each sensor are displayed as
+separate colors to indicate the unique response of each sensor unit.</p>
+<p>A gray 1:1 line indicates ideal agreement between sensor and reference
+measurements over the range of meteorological conditions (i.e., a ratio
+of 1 would indicate that the sensor and reference measure the same
+concentration value for a given timestamp). Scatter below the 1:1
+line indicates underestimation bias, and scatter above the 1:1 line
+indicates overestimation bias.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>met_param</strong> (<em>str</em><em>, </em><em>optional</em>) – Either <code class="docutils literal notranslate"><span class="pre">'Temp'</span></code> for displaying the influence of temperature
+or <code class="docutils literal notranslate"><span class="pre">'RH'</span></code> for displaying the influence of relative humidity.
+Defaults to None.</p></li>
+<li><p><strong>report_fmt</strong> (<em>bool</em><em>, </em><em>optional</em>) – If true, format figure for inclusion in a performance report.
+Defaults to True.</p></li>
+<li><p><strong>**kwargs</strong> (<em>dict</em>) – Plotting keyword arguments.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="sensortoolkit.evaluation_objs._performance_report.PerformanceReport.print_eval_conditions">
-<span class="sig-name descname"><span class="pre">print_eval_conditions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">averaging_interval</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'24-hour'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sensortoolkit.evaluation_objs._performance_report.PerformanceReport.print_eval_conditions" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">print_eval_conditions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">averaging_interval</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sensortoolkit.evaluation_objs._performance_report.PerformanceReport.print_eval_conditions" title="Permalink to this definition"></a></dt>
 <dd><p>Display conditions for the evaluation parameter and meteorological
 conditions during the testing period.</p>
 <p>Values for the evaluation parameter recorded by the sensor, FRM/FEM
@@ -1472,7 +1534,8 @@ below the mean in parentheses.</p>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>averaging_interval</strong> (<em>str</em><em>, </em><em>optional</em>) – The measurement averaging intervals commonly utilized for
 analyzing data corresponding the the selected parameter.
-Defaults to ‘24-hour’.</p>
+Defaults to the shortest averaging interval in the list of
+preset parameter averaging intervals (param.averaging).</p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>None.</p>
@@ -1482,7 +1545,7 @@ Defaults to ‘24-hour’.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="sensortoolkit.evaluation_objs._performance_report.PerformanceReport.print_eval_metrics">
-<span class="sig-name descname"><span class="pre">print_eval_metrics</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">averaging_interval</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'24-hour'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sensortoolkit.evaluation_objs._performance_report.PerformanceReport.print_eval_metrics" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">print_eval_metrics</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">averaging_interval</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sensortoolkit.evaluation_objs._performance_report.PerformanceReport.print_eval_metrics" title="Permalink to this definition"></a></dt>
 <dd><p>Display a summary of performance evaluation results using
 EPA’s recommended performance metrics (‘PM25’ and ‘O3’).</p>
 <p>The coefficient of variation, sensor vs FRM/FEM OLS regression slope,
@@ -1493,7 +1556,8 @@ presented alongside the range (min to max).</p>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>averaging_interval</strong> (<em>dict</em><em>, </em><em>optional</em>) – The measurement averaging intervals commonly utilized for
 analyzing data corresponding the the selected parameter.
-Defaults to ‘24-hour’.</p>
+Defaults to the shortest averaging interval in the list of
+preset parameter averaging intervals (param.averaging).</p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>None.</p>

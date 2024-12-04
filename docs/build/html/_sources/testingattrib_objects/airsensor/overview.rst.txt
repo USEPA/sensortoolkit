@@ -4,7 +4,7 @@ The first object the user encounters is the AirSensor object. This structure is
 used to keep track of sensor attributes and can be used to import and access
 sensor datasets. First, users create an instance of the AirSensor object type,
 specifying the make and model of the sensor. Below is an example of instantiating the
-AirSensor object for the 'Toco Toucan' example mentioned in the `Quickstart Guide <../../quickstart.html#example-scenario-toco-toucan>`_:
+AirSensor object for the '*Toco Toucan*' example mentioned in the `Quickstart Guide <../../quickstart.html#example-scenario-toco-toucan>`_:
 
 .. code-block:: python
 
@@ -48,7 +48,7 @@ following line of code to construct this folder structure at the user’s
 Users should see the following printed to the console indicating the constructed directory structure (note that
 the parent folder location where the folders are placed will depend on where you define the project path - the code
 block below follows the 'Toco Toucan' Quickstart example, where the project directory has been set to
-`C:\Users\...\Documents\toucan_evaluation`):
+``C:\Users\...\Documents\toucan_evaluation``):
 
 .. code-block:: console
 

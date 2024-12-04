@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en">
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Loading Reference Data &mdash; sensortoolkit 0.9.0b2 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="The Parameter Object" href="../parameter.html" />
+    <link rel="prev" title="ReferenceMonitor Setup" href="setup.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            sensortoolkit
+          </a>
+              <div class="version">
+                0.9.0b2
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../quickstart.html">Quickstart Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../setup.html">Setting Up for sensortoolkit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../install.html">Installing and Updating sensortoolkit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../template.html">Analysis with sensortoolkit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../template.html#script-template">Script Template</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Objects and Data Structures</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Testing Attribute Objects</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../airsensor/index.html">The AirSensor Object</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">The ReferenceMonitor Object</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="overview.html">ReferenceMonitor Instantiation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="setup.html">ReferenceMonitor Setup</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Loading Reference Data</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../parameter.html">The Parameter Object</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../setup_overview.html">Overview of Instantiating Testing Attributes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../data_structures/index.html">Data Structures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../sdfs/index.html">sensortoolkit Data Formatting Scheme (SDFS)</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Analysis and Reports</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../evaluation_objects/index.html">Evaluation Objects</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../api/index.html">sensortoolkit API</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">sensortoolkit</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Testing Attribute Objects</a></li>
+          <li class="breadcrumb-item"><a href="index.html">The ReferenceMonitor Object</a></li>
+      <li class="breadcrumb-item active">Loading Reference Data</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/testingattrib_objects/referencemonitor/load_data.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="loading-reference-data">
+<h1>Loading Reference Data<a class="headerlink" href="#loading-reference-data" title="Permalink to this heading"></a></h1>
+<p>Reference data are loaded either via the <code class="docutils literal notranslate"><span class="pre">ReferenceMonitor.load_data()</span></code> method,
+or, if users wish to query the AirNow or AQS API, either the <code class="docutils literal notranslate"><span class="pre">ReferenceMonitor.query_aqs()</span></code>
+or the <code class="docutils literal notranslate"><span class="pre">ReferenceMonitor.query_aqs()</span></code> method should be used.</p>
+<p>A description and example of each method is detailed below, where information has been
+sorted by the reference data source or API service.</p>
+<div class="tabbed-set docutils">
+<input checked="checked" id="c8e9114b-dbcc-40ba-937b-1ac1c685e842" name="baed3678-3286-4d54-861c-623965d93280" type="radio">
+</input><label class="tabbed-label" for="c8e9114b-dbcc-40ba-937b-1ac1c685e842">
+Local</label><div class="tabbed-content docutils">
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This section provides a brief overview of loading reference data with the <code class="docutils literal notranslate"><span class="pre">ReferenceMonitor.load_data()</span></code> method.
+For more detailed documentation, please see
+<a class="reference external" href="../../api/_autosummary/sensortoolkit.testing_attrib_objs._referencemonitor.ReferenceMonitor.html#sensortoolkit.testing_attrib_objs._referencemonitor.ReferenceMonitor.load_data">API documentation for sensortoolkit.ReferenceMonitor.load_data()</a>.</p>
+</div>
+<p>To load reference data from locally acquired files, users should call the
+<code class="docutils literal notranslate"><span class="pre">ReferenceMonitor.load_data()</span></code> method.</p>
+<p><code class="docutils literal notranslate"><span class="pre">ReferenceMonitor.load_data()</span></code> accepts the following arguments:</p>
+<table class="colwidths-given docutils align-default" id="id2">
+<caption><span class="caption-text"><code class="docutils literal notranslate"><span class="pre">ReferenceMonitor.load_data()</span></code> Arguments</span><a class="headerlink" href="#id2" title="Permalink to this table"></a></caption>
+<colgroup>
+<col style="width: 40%" />
+<col style="width: 60%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Argument</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">bdate</span></code></p></td>
+<td><p>The beginning date (“YYYY-MM-DD” format) for the sensor testing period.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">edate</span></code></p></td>
+<td><p>The ending date (“YYYY-MM-DD” format) for the sensor testing period.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">param_list</span></code></p></td>
+<td><p>A list of SDFS parameters measured by reference monitors at the <br />
+monitoring site for which data will be loaded.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">met_data</span></code></p></td>
+<td><p>Optional, if true, meteorological data will be loaded in addition to <br />
+datasets corresponding to parameters passed to <code class="docutils literal notranslate"><span class="pre">param_list</span></code>. Defaults <br />
+to true (U.S. EPA’s documents for recommended performance testing <br />
+protocols, metrics, and target values encourage users to report <br />
+meteorological conditions for sensor performance evaluations and <br />
+reports).</p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">ReferenceMonitor.reference_setup()</span></code> method saves SDFS formatted reference
+datasets in month-long segments (e.g.,
+<code class="docutils literal notranslate"><span class="pre">/data/reference_data/local/processed/Burdens_Creek_370630099/H_201909_PM.csv</span></code>
+corresponds to 1-hour averaged reference data for instruments at the Burdens
+Creek monitoring site that measured particulate matter during the month of
+September 2019).</p>
+<p><code class="docutils literal notranslate"><span class="pre">ReferenceMonitor.load_data()</span></code> will load monthly datasets corresponding to
+the set of months spanning the <code class="docutils literal notranslate"><span class="pre">bdate</span></code> and <code class="docutils literal notranslate"><span class="pre">edate</span></code> arguments.</p>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Example - Loading local reference data for the Burdens Creek Monitoring site</span>
+<span class="sd">----------------------------------------------------------------------------</span>
+
+<span class="sd">Prior to loading local datasets, a new ``ReferenceMonitor`` instance was</span>
+<span class="sd">created and a setup configuration was specified with &#39;local&#39; as the</span>
+<span class="sd">reference data source. Site information was provided for the Burdens Creek</span>
+<span class="sd">Monitoring site:</span>
+
+<span class="sd">&gt;&gt;&gt; reference = sensortoolkit.ReferenceMonitor(project_path=WORK_PATH)</span>
+<span class="sd">&gt;&gt;&gt; reference.reference_setup()</span>
+
+<span class="sd">See ReferenceMonitor Setup for more information on running the ``reference_setup()``</span>
+<span class="sd">method.</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="n">reference</span><span class="o">.</span><span class="n">load_data</span><span class="p">(</span><span class="n">bdate</span><span class="o">=</span><span class="n">sensor</span><span class="o">.</span><span class="n">bdate</span><span class="p">,</span>
+                    <span class="n">edate</span><span class="o">=</span><span class="n">sensor</span><span class="o">.</span><span class="n">edate</span><span class="p">,</span>
+                    <span class="n">param_list</span><span class="o">=</span><span class="n">sensor</span><span class="o">.</span><span class="n">param_headers</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">Loading reference dataframes</span>
+<span class="go">..2019-08</span>
+<span class="go">....H_201908_PM.csv</span>
+<span class="go">....H_201908_Met.csv</span>
+<span class="go">....H_201908_Gases.csv</span>
+<span class="go">Computing 24-hour averaged reference datasets</span>
+</pre></div>
+</div>
+</div>
+<input id="94aeeba2-2973-437b-b051-ce497f7dbd3a" name="baed3678-3286-4d54-861c-623965d93280" type="radio">
+</input><label class="tabbed-label" for="94aeeba2-2973-437b-b051-ce497f7dbd3a">
+AirNowTech</label><div class="tabbed-content docutils">
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This section provides a brief overview of loading reference data with the <code class="docutils literal notranslate"><span class="pre">ReferenceMonitor.load_data()</span></code> method.
+For more detailed documentation, please see
+<a class="reference external" href="../../api/_autosummary/sensortoolkit.testing_attrib_objs._referencemonitor.ReferenceMonitor.html#sensortoolkit.testing_attrib_objs._referencemonitor.ReferenceMonitor.load_data">API documentation for sensortoolkit.ReferenceMonitor.load_data()</a>.</p>
+</div>
+<p>To load processed (SDFS formatted) airnowtech datasets, users should call the
+<code class="docutils literal notranslate"><span class="pre">ReferenceMonitor.load_data()</span></code> method.</p>
+<p><code class="docutils literal notranslate"><span class="pre">ReferenceMonitor.load_data()</span></code> accepts the following arguments:</p>
+<table class="colwidths-given docutils align-default" id="id3">
+<caption><span class="caption-text"><code class="docutils literal notranslate"><span class="pre">ReferenceMonitor.load_data()</span></code> Arguments</span><a class="headerlink" href="#id3" title="Permalink to this table"></a></caption>
+<colgroup>
+<col style="width: 40%" />
+<col style="width: 60%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Argument</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">bdate</span></code></p></td>
+<td><p>The beginning date (“YYYY-MM-DD” format) for the sensor testing period.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">edate</span></code></p></td>
+<td><p>The ending date (“YYYY-MM-DD” format) for the sensor testing period.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">param_list</span></code></p></td>
+<td><p>A list of SDFS parameters measured by reference monitors at the <br />
+monitoring site for which data will be loaded.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">met_data</span></code></p></td>
+<td><p>Optional, if true, meteorological data will be loaded in addition to <br />
+datasets corresponding to parameters passed to <code class="docutils literal notranslate"><span class="pre">param_list</span></code>. Defaults <br />
+to true (U.S. EPA’s documents for recommended performance testing <br />
+protocols, metrics, and target values encourage users to report <br />
+meteorological conditions for sensor performance evaluations and <br />
+reports).</p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">ReferenceMonitor.reference_setup()</span></code> method saves SDFS formatted reference
+datasets in month-long segments (e.g.,
+<code class="docutils literal notranslate"><span class="pre">/data/reference_data/airnowtech/processed/Burdens_Creek_370630099/H_201909_PM.csv</span></code>
+corresponds to 1-hour averaged reference data for instruments at the Burdens
+Creek monitoring site that measured particulate matter during the month of
+September 2019).</p>
+<p><code class="docutils literal notranslate"><span class="pre">ReferenceMonitor.load_data()</span></code> will load monthly datasets corresponding to
+the set of months spanning the <code class="docutils literal notranslate"><span class="pre">bdate</span></code> and <code class="docutils literal notranslate"><span class="pre">edate</span></code> arguments.</p>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Example - Loading AirNowTech reference data for the Burdens Creek Monitoring site</span>
+<span class="sd">---------------------------------------------------------------------------------</span>
+
+<span class="sd">Prior to loading AirNowTech datasets, a new ``ReferenceMonitor`` instance was</span>
+<span class="sd">created and a setup configuration was specified with &#39;airnowtech&#39; as the</span>
+<span class="sd">reference data source. Site information was provided for the Burdens Creek</span>
+<span class="sd">Monitoring site:</span>
+
+<span class="sd">&gt;&gt;&gt; reference = sensortoolkit.ReferenceMonitor(project_path=WORK_PATH)</span>
+<span class="sd">&gt;&gt;&gt; reference.reference_setup()</span>
+
+<span class="sd">See the &#39;ReferenceMonitor Setup&#39; section for more information on running</span>
+<span class="sd">the ``reference_setup()`` method.</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="n">reference</span><span class="o">.</span><span class="n">load_data</span><span class="p">(</span><span class="n">bdate</span><span class="o">=</span><span class="n">sensor</span><span class="o">.</span><span class="n">bdate</span><span class="p">,</span>
+                    <span class="n">edate</span><span class="o">=</span><span class="n">sensor</span><span class="o">.</span><span class="n">edate</span><span class="p">,</span>
+                    <span class="n">param_list</span><span class="o">=</span><span class="n">sensor</span><span class="o">.</span><span class="n">param_headers</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">Loading reference dataframes</span>
+<span class="go">..2019-08</span>
+<span class="go">....H_201908_PM.csv</span>
+<span class="go">....H_201908_Met.csv</span>
+<span class="go">....H_201908_Gases.csv</span>
+<span class="go">Computing 24-hour averaged reference datasets</span>
+</pre></div>
+</div>
+</div>
+<input id="b76a1fe9-2582-4d9c-8088-f34c35374dfb" name="baed3678-3286-4d54-861c-623965d93280" type="radio">
+</input><label class="tabbed-label" for="b76a1fe9-2582-4d9c-8088-f34c35374dfb">
+Querying the AQS API</label><div class="tabbed-content docutils">
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This section provides a brief overview of querying EPA’s Air Quality System (AQS)
+API for reference data. For more detailed documentation, please see
+<a class="reference external" href="../../api/_autosummary/sensortoolkit.testing_attrib_objs._referencemonitor.ReferenceMonitor.html#sensortoolkit.testing_attrib_objs._referencemonitor.ReferenceMonitor.query_aqs">API documentation for sensortoolkit.ReferenceMonitor.query_aqs()</a>.</p>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">ReferenceMonitor.query_aqs()</span></code> method accepts the following arguments:</p>
+<table class="colwidths-given docutils align-default" id="id4">
+<caption><span class="caption-text"><code class="docutils literal notranslate"><span class="pre">ReferenceMonitor.query_aqs()</span></code> Arguments</span><a class="headerlink" href="#id4" title="Permalink to this table"></a></caption>
+<colgroup>
+<col style="width: 40%" />
+<col style="width: 60%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Argument</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">username</span></code></p></td>
+<td><p>The email account registered with the API service.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">key</span></code></p></td>
+<td><p>The API authentication key code.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">param_list</span></code></p></td>
+<td><p>A list of SDFS parameters measured by reference monitors at the monitoring <br />
+site for which data will be loaded.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">bdate</span></code></p></td>
+<td><p>The beginning date (“YYYY-MM-DD” format) for the sensor testing period.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">edate</span></code></p></td>
+<td><p>The ending date (“YYYY-MM-DD” format) for the sensor testing period.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">site_id</span></code></p></td>
+<td><p>The AQS site ID for the air monitoring site from which reference <br />
+measurements will be returned by the API.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">met_data</span></code></p></td>
+<td><p>Optional, if true, meteorological data for temperature and relative <br />
+humidity measurements will be queried in addition to parameters passed <br />
+to <code class="docutils literal notranslate"><span class="pre">param_list</span></code>. Defaults to true (U.S. EPA’s documents for <br />
+recommended performance testing protocols, metrics, and target values <br />
+encourage users to report meteorological conditions for sensor <br />
+performance evaluations and reports).</p></td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Example - Querying the AQS API for data collected at the Millbrook School Monitoring site</span>
+<span class="sd">-----------------------------------------------------------------------------------------</span>
+
+<span class="sd">Prior to querying the AQS API, a new ``ReferenceMonitor`` instance was</span>
+<span class="sd">created and a setup configuration was specified with &#39;aqs&#39; as the</span>
+<span class="sd">reference data source. Site information was provided for the Millbrook School</span>
+<span class="sd">Monitoring site:</span>
+
+<span class="sd">&gt;&gt;&gt; reference = sensortoolkit.ReferenceMonitor(project_path=WORK_PATH)</span>
+<span class="sd">&gt;&gt;&gt; reference.reference_setup()</span>
+
+<span class="sd">See the &#39;ReferenceMonitor Setup&#39; section for more information on running</span>
+<span class="sd">the ``reference_setup()`` method.</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="n">aqs_username</span> <span class="o">=</span> <span class="s1">&#39;username@email.com&#39;</span>
+<span class="n">aqs_key</span> <span class="o">=</span> <span class="s1">&#39;NOT-A-REAL-KEY&#39;</span>
+
+<span class="n">reference</span><span class="o">.</span><span class="n">query_aqs</span><span class="p">(</span><span class="n">username</span><span class="o">=</span><span class="n">aqs_username</span><span class="p">,</span>
+                    <span class="n">key</span><span class="o">=</span><span class="n">aqs_key</span><span class="p">,</span>
+                    <span class="n">bdate</span><span class="o">=</span><span class="n">sensor</span><span class="o">.</span><span class="n">bdate</span><span class="p">,</span>
+                    <span class="n">edate</span><span class="o">=</span><span class="n">sensor</span><span class="o">.</span><span class="n">edate</span><span class="p">,</span>
+                    <span class="n">param_list</span><span class="o">=</span><span class="n">sensor</span><span class="o">.</span><span class="n">param_headers</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>When the above code block is run, a dialog indicating the status of the API
+query will be printed to the console. Below is the console output for an example
+query to the Millbrook Elementary School Monitoring Site in Raleigh, NC (<strong>note that prior
+to running the code block above, the</strong> <code class="docutils literal notranslate"><span class="pre">ReferenceMonitor.reference_setup()</span></code> <strong>method
+was configured for an AQS query to the Millbrook School monitoring site</strong>).</p>
+<p>During the example API query below, <code class="docutils literal notranslate"><span class="pre">PM25</span></code> data for multiple reference
+instruments were returned. A ‘parameter occurrence code’ (POC) is assigned to each
+reference instrument measuring the same parameter quantity at a monitoring site,
+and if multiple POCs are detected, the console will prompt the user to enter the POC
+corresponding to the instrument measurements they intend to use (highlighted rows
+in the console output below).</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>EPA’s <a class="reference external" href="https://epa.maps.arcgis.com/apps/webappviewer/index.html?id=5f239fd3e72f424f98ef3d5def547eb5&amp;extent=-146.2334,13.1913,-46.3896,56.5319">AirData Air Quality Monitors Map</a>
+can be used to locate monitoring sites, reference instrumentation for
+various parameters, and instrument POCs.</p>
+</div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">Querying AQS API</span>
+<span class="go">..Parameter(s): PM25</span>
+<span class="go">..Query start: 2019-08-01</span>
+<span class="go">..Query end: 2019-08-31</span>
+<span class="go">..Response status: Success</span>
+<span class="go">..Query start: 2019-08-01</span>
+<span class="go">..Query end: 2019-08-31</span>
+<span class="go">..Response status: Success</span>
+<span class="go">..Query site(s):</span>
+<span class="go">....Site name: Millbrook School</span>
+<span class="go">......AQS ID: 37-183-0014</span>
+<span class="go">......Latitude: 35.8561</span>
+<span class="go">......Longitude: -78.5742</span>
+
+<span class="go">The following parameter occurrence codes (POCs) for PM25 were found:</span>
+<span class="go">..POC: 3, number of entries: 744</span>
+<span class="hll"><span class="go">..POC: 5, number of entries: 744</span>
+</span>
+<span class="go">Enter the POC for data entries you wish to keep: 5</span>
+
+<span class="go">Querying AQS API</span>
+<span class="go">..Parameter(s): Temp, RH</span>
+<span class="go">..Query start: 2019-08-01</span>
+<span class="go">..Query end: 2019-08-31</span>
+<span class="go">..Response status: Success</span>
+<span class="go">..Query start: 2019-08-01</span>
+<span class="go">..Query end: 2019-08-31</span>
+<span class="go">..Response status: Success</span>
+<span class="go">..Query site(s):</span>
+<span class="go">....Site name: Millbrook School</span>
+<span class="go">......AQS ID: 37-183-0014</span>
+<span class="go">......Latitude: 35.8561</span>
+<span class="go">......Longitude: -78.5742</span>
+</pre></div>
+</div>
+</div>
+<input id="c3456549-6507-4c6f-9f1a-358c02237179" name="baed3678-3286-4d54-861c-623965d93280" type="radio">
+</input><label class="tabbed-label" for="c3456549-6507-4c6f-9f1a-358c02237179">
+Querying the AirNow API</label><div class="tabbed-content docutils">
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This section provides a brief overview of querying EPA’s AirNow API
+for reference data. For more detailed documentation, please see
+<a class="reference external" href="../../api/_autosummary/sensortoolkit.testing_attrib_objs._referencemonitor.ReferenceMonitor.html#sensortoolkit.testing_attrib_objs._referencemonitor.ReferenceMonitor.query_airnow">API documentation for sensortoolkit.ReferenceMonitor.query_airnow()</a>.</p>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">ReferenceMonitor.query_airnow()</span></code> method accepts the following arguments:</p>
+<table class="colwidths-given docutils align-default" id="id5">
+<caption><span class="caption-text"><code class="docutils literal notranslate"><span class="pre">ReferenceMonitor.query_airnow()</span></code> Arguments</span><a class="headerlink" href="#id5" title="Permalink to this table"></a></caption>
+<colgroup>
+<col style="width: 40%" />
+<col style="width: 60%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Argument</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">key</span></code></p></td>
+<td><p>The API authentication key code.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">param_list</span></code></p></td>
+<td><p>A list of SDFS parameters measured by reference monitors at the <br />
+monitoring site for which data will be loaded.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">bdate</span></code></p></td>
+<td><p>The beginning date (“YYYY-MM-DD” format) for the sensor testing period.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">edate</span></code></p></td>
+<td><p>The ending date (“YYYY-MM-DD” format) for the sensor testing period.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">bbox</span></code></p></td>
+<td><p>A bounding box of coordinates within which data will be queried. <br />
+Defaults to None.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">bbox_size</span></code></p></td>
+<td><p>Optional. Defaults to 0.01.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Example - Querying the AirNow API for data collected at the Millbrook School Monitoring site</span>
+<span class="sd">--------------------------------------------------------------------------------------------</span>
+
+<span class="sd">Prior to querying the AirNow API, a new ``ReferenceMonitor`` instance was</span>
+<span class="sd">created and a setup configuration was specified with &#39;airnow&#39; as the</span>
+<span class="sd">reference data source. Site information was provided for the Burdens Creek</span>
+<span class="sd">Monitoring site:</span>
+
+<span class="sd">&gt;&gt;&gt; reference = sensortoolkit.ReferenceMonitor(project_path=WORK_PATH)</span>
+<span class="sd">&gt;&gt;&gt; reference.reference_setup()</span>
+
+<span class="sd">See the &#39;ReferenceMonitor Setup&#39; section for more information on running</span>
+<span class="sd">the ``reference_setup()`` method.</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="n">airnow_key</span> <span class="o">=</span> <span class="s1">&#39;NOT-A-REAL-KEY&#39;</span>
+<span class="n">reference</span><span class="o">.</span><span class="n">query_airnow</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="n">airnow_key</span><span class="p">,</span>
+                       <span class="n">bdate</span><span class="o">=</span><span class="n">sensor</span><span class="o">.</span><span class="n">bdate</span><span class="p">,</span>
+                       <span class="n">edate</span><span class="o">=</span><span class="n">sensor</span><span class="o">.</span><span class="n">edate</span><span class="p">,</span>
+                       <span class="n">param_list</span><span class="o">=</span><span class="n">sensor</span><span class="o">.</span><span class="n">param_headers</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>When the above code block is run, a dialog indicating the status of the API
+query will be printed to the console. Below is the console output for an example
+query to the Burdens Creek Monitoring Site in RTP, NC (<strong>note that prior
+to running the code block above, the</strong> <code class="docutils literal notranslate"><span class="pre">ReferenceMonitor.reference_setup()</span></code> <strong>method
+was configured for an AirNow query to the Burdens Creek monitoring site</strong>).</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">Querying AirNow API</span>
+<span class="go">..Parameter(s): PM25</span>
+<span class="go">..Query start: 2019-08-01</span>
+<span class="go">..Query end: 2019-08-31</span>
+<span class="go">..Query site(s):</span>
+<span class="go">....Site name: Burdens Creek</span>
+<span class="go">......AQS ID: 37-063-0099</span>
+<span class="go">......Latitude: 35.8894</span>
+<span class="go">......Longitude: -78.8747</span>
+<span class="go">..Query Status: Success</span>
+</pre></div>
+</div>
+</div>
+</div>
+<hr class="docutils" />
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For details on accessing reference datasets via the <code class="docutils literal notranslate"><span class="pre">reference_object.data</span></code> attribute,
+please see <a class="reference external" href="../../data_structures/reference_data.html#accessing-reference-data">Accessing reference data</a>.</p>
+</div>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="setup.html" class="btn btn-neutral float-left" title="ReferenceMonitor Setup" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../parameter.html" class="btn btn-neutral float-right" title="The Parameter Object" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, United States Environmental Protection Agency.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

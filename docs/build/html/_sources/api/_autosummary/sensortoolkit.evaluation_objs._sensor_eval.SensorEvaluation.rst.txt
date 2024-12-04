@@ -1,4 +1,4 @@
-sensortoolkit.evaluation\_objs.\_sensor\_eval.SensorEvaluation
+﻿sensortoolkit.evaluation\_objs.\_sensor\_eval.SensorEvaluation
 ==============================================================
 
 .. currentmodule:: sensortoolkit.evaluation_objs._sensor_eval
@@ -24,6 +24,7 @@ sensortoolkit.evaluation\_objs.\_sensor\_eval.SensorEvaluation
       ~SensorEvaluation.plot_sensor_met_scatter
       ~SensorEvaluation.plot_sensor_scatter
       ~SensorEvaluation.plot_timeseries
+      ~SensorEvaluation.plot_wind_influence
       ~SensorEvaluation.print_eval_conditions
       ~SensorEvaluation.print_eval_metrics
    

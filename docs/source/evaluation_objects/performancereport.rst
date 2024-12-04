@@ -21,7 +21,7 @@ populated in reports via the respective ``sensortoolkit.presets`` attributes:
       'testing_descrip': '[Insert name of deployment]',
       'org_name': '[Insert organization name]',
       'org_division': '[Insert organization division]',
-      'org_type': '[Insert organization sector type]',
+      'org_type': '', #not needed
       'org_website': {'title': '[Insert title of website]',
                       'link': '[Insert website link]'},
       'org_contact_email': '[Insert email]',
@@ -29,11 +29,11 @@ populated in reports via the respective ``sensortoolkit.presets`` attributes:
 
   # Add information about the testing location where sensors were sited
   sensortoolkit.presets.test_loc = {
-      'site_name': '[Insert name of site] ',
+      'site_name': '[Insert name of site] ', #strongly recommended
       'site_address': '[Insert site address]',
       'site_lat': '[Insert site latitude]',
       'site_lon': '[Insert site longitude]',
-      'site_aqs_id': '[If applicable, insert site AQS ID]'}
+      'site_aqs_id': '[If applicable, insert site AQS ID]'} #strongly recommended, if applicable
 
 These dictionaries house information about the testing organization, contact information,
 and site details including the address, coordinates, and site AQS ID if applicable.
@@ -55,6 +55,8 @@ A dictionary containing the information about the testing organization.
     - The name of the testing organization.
   * - ``org_division``
     - The organization testing division.
+  * - ``org_type``
+    - The organization sector type.
   * - ``org_website``
     - Website title and address for the testing organization.
   * - ``org_contact_email``
@@ -134,48 +136,50 @@ the following will be printed to the console.
 
 .. code-block:: console
 
-  Computing normalized PM25 values (by T-API T640X at 16.67 LPM)
-  Computing normalized PM25 values (by T-API T640X at 16.67 LPM)
+  Computing normalized PM25 values (by Teledyne Advanced Pollution Instrumentation T640X)
+  Computing normalized PM25 values (by Teledyne Advanced Pollution Instrumentation T640X)
   Computing mean parameter values across concurrent sensor datasets
   Computing mean parameter values across concurrent sensor datasets
   Populating deployment dataframe with evaluation statistics
   Computing CV for 1-Hour averaged PM25
-  ..N excluded: 20 out of 756 total
-  ..N concurrent: 736
-  ..Concurrent measurement timeframe: 2019-08-01 13:00:00+00:00 - 2019-09-02 00:00:00+00:00
+  ..N excluded: 20 out of 733 total
+  ..N concurrent: 713
+  ..Concurrent measurement timeframe: 2019-08-01 12:00:00+00:00 - 2019-09-01 00:00:00+00:00
   Computing CV for 24-Hour averaged PM25
-  ..N excluded: 2 out of 32 total
-  ..N concurrent: 30
-  ..Concurrent measurement timeframe: 2019-08-02 00:00:00+00:00 - 2019-09-01 00:00:00+00:00
-  Computing 1-hour regression statistics for Toco_Toucan vs. T-API T640X at 16.67 LPM
+  ..N excluded: 3 out of 32 total
+  ..N concurrent: 29
+  ..Concurrent measurement timeframe: 2019-08-02 00:00:00+00:00 - 2019-08-31 00:00:00+00:00
+  Computing 1-hour regression statistics for Toco_Toucan vs. Teledyne Advanced Pollution Instrumentation T640X
   ..RT01
   ..RT02
   ..RT03
-  Computing 24-hour regression statistics for Toco_Toucan vs. T-API T640X at 16.67 LPM
+  Computing 1-hour regression statistics for Toco_Toucan vs. Teledyne Advanced Pollution Instrumentation T640X
   ..RT01
   ..RT02
   ..RT03
-  ..Saving dataset to the following path: C:\Users\...\Documents\sensortoolkit_testing\data\eval_stats\Toco_Toucan\Toco_Toucan_PM25_vs_T-API_T640X_at_16.67_LPM_stats_df_211102.csv
-  Computing 1-hour regression statistics for Toco_Toucan vs. T-API T640X at 16.67 LPM
+  Computing 24-hour regression statistics for Toco_Toucan vs. Teledyne Advanced Pollution Instrumentation T640X
   ..RT01
   ..RT02
   ..RT03
-  Computing 24-hour regression statistics for Toco_Toucan vs. T-API T640X at 16.67 LPM
+  Computing 24-hour regression statistics for Toco_Toucan vs. Teledyne Advanced Pollution Instrumentation T640X
   ..RT01
   ..RT02
   ..RT03
-  ..Saving dataset to the following path: C:\Users\...\Documents\sensortoolkit_testing\data\eval_stats\Toco_Toucan\Toco_Toucan_PM25_vs_T-API_T640X_at_16.67_LPM_stats_df_211102.csv
+  ..Saving dataset to the following path: C:/Users/.../Documents/toucan_evaluation\data\eval_stats\Toco_Toucan\Toco_Toucan_PM25_vs_Teledyne_Advanced_Pollution_Instrumentation_T640X_stats_df_230209.csv
+  ..Saving dataset to the following path: C:/Users/.../Documents/toucan_evaluation\data\eval_stats\Toco_Toucan\Toco_Toucan_PM25_vs_Teledyne_Advanced_Pollution_Instrumentation_T640X_avg_stats_df_230209.csv
   Creating Testing Report for Toco_Toucan
   ..Adding figures to report
   ..creating subplot for 1 sensor with 1 row and 1 column
   ..creating subplot for 1 sensor with 1 row and 1 column
   ..Adding tabular data
-  Computing normalized PM25 values (by T-API T640X at 16.67 LPM)
-  Computing normalized PM25 values (by T-API T640X at 16.67 LPM)
+  [Note]: PM25 values below the Federal MDL (0.1 Micrograms per Cubic Meter) are not shown
+    Computing normalized PM25 values (by FEM)
+  [Note]: PM25 values below the Federal MDL (0.1 Micrograms per Cubic Meter) are not shown
+    Computing normalized PM25 values (by FEM)
   ..creating subplot for 3 sensors with 1 row and 3 columns
   ..creating subplot for 3 sensors with 1 row and 3 columns
   ..Saving report
-  ....\reports\Toco_Toucan\PM25\Base_Testing_Report_PM25_Toco_Toucan_211102.pptx
+  ....\reports\Toco_Toucan\PM25\Base_Testing_Report_PM25_Toco_Toucan_230209.pptx
 
 .. note::
 
@@ -186,6 +190,11 @@ Example Report
 --------------
 
 Below is an example report for the ``Toco_Toucan`` sensor.
+
+.. note::
+
+   Sensortoolkit converts time to the UTC timezone. Graphs displayed in the report
+   are in UTC.
 
 Please note that at present, ``PerformanceReport`` does not populate the FRM/FEM
 Instrumentation table with calibration dates, flowrate verification checks, and
@@ -205,7 +214,7 @@ the supplemental information page that addition documentation has been attached.
   performance during the testing period, site conditions including temperature and
   relative humidity, and meteorological influences that may be present in sensor data.
 
-  .. figure:: ../data/performance_report_example_pg1.png
+  .. figure:: ../data/performance_report_example_pg1_v2.png
      :align: center
      :alt: The first page of the performance report. This page features tables for listing details about the testing organization, site information, sensor information, and FRM/FEM information. Below these tables are a number of figures, including timeseries and scatter plots at 1-hour and 24-hour averages indicating the agreement between the sensor and FRM/FEM. Below these plots is a figure displaying the results of the sensor against EPA's recommended performance metrics and target values for evaluating air sensor performance. Below this figure is a final row displaying the meteorological conditions during the deployment (temperature and relative humidity) and the influence of these meteorological parameters on sensor measurements.
 
@@ -217,7 +226,7 @@ the supplemental information page that addition documentation has been attached.
   metric values characterizing sensor vs. FRM/FEM accuracy (bias and linearity),
   error, and sensor-sensor (intersensor) precision.
 
-  .. figure:: ../data/performance_report_example_pg2.png
+  .. figure:: ../data/performance_report_example_pg2_v2.png
     :align: center
     :alt: The second page of the performance report. Tabular statistics are listed for the sensor vs. FRM/FEM correlation, indicating individual sensor unit regression statistics (coefficient of determination, slope, intercept) and data quality (the uptime percentage and number of paired sensor and FRM/FEM concentration pairs). Also in the sensor vs. FRM/FEM correlation section is a table containing error metric values (RMSE and NRMSE). Below is a section for inter-sensor precision (sensor vs. sensor). A table in this section indicates the precision metric values including CV and SD, and data quality (uptime and the number of paired hourly measurement periods that all sensors were concurrently recording alongside the reference monitor).
 
@@ -228,7 +237,7 @@ the supplemental information page that addition documentation has been attached.
   Scatter plots for each sensor unit vs. FRM/FEM measurement pairs are displayed
   on a third page of the report.
 
-  .. figure:: ../data/performance_report_example_pg3.png
+  .. figure:: ../data/performance_report_example_pg3_v2.png
      :align: center
      :alt: The third page of the performance report. This page includes sensor vs. FRM/FEM scatter plots for each sensor in the testing group at both 1-hour and 24-hour averages. Data pairs are colored by the relative humidity recorded by an independent monitor at the testing site to indicate whether humidity biases sensor measurements.
 
@@ -236,7 +245,7 @@ the supplemental information page that addition documentation has been attached.
 
 .. tabbed:: Page 4 - Supplemental Information
 
-  .. figure:: ../data/performance_report_example_pg4.png
+  .. figure:: ../data/performance_report_example_pg4_v2.png
      :align: center
      :alt: The fourth page of the performance report. This page includes a table listing various documents, reports, and observations that testers may wish to attached to the report. Entries are provided to indicate whether a particular type of documentation has been attached and a description of the URL or file path to the documentation.
 

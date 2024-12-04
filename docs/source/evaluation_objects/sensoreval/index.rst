@@ -19,10 +19,12 @@ a user-friendly and efficient platform for evaluating sensor performance.
 .. important::
 
   While ``SensorEvaluation`` has been designed to calculate and utilize EPA's
-  recommended performance metrics and target values for sensors measuring either :raw-html:`PM<sub>2.5</sub>`
-  or :raw-html:`O<sub>3</sub>`, ``SensorEvaluation`` can be used to analyze data
-  for any  `SDFS parameter <../../sdfs/index.html#id1>`_. For pollutants other than
-  :raw-html:`PM<sub>2.5</sub>` or :raw-html:`O<sub>3</sub>`, users are encouraged
+  recommended performance metrics and target values for sensors measuring :raw-html:`PM<sub>2.5</sub>`, 
+  :raw-html:`PM<sub>10</sub>`, :raw-html:`O<sub>3</sub>`, :raw-html:`CO`, :raw-html:`NO<sub>2</sub>`,
+  and :raw-html:`SO<sub>2</sub>`, ``SensorEvaluation`` can be used to analyze data
+  for any  `SDFS parameter <../../sdfs/index.html#id1>`_. For pollutants 
+  other :raw-html:`PM<sub>2.5</sub>`, :raw-html:`PM<sub>10</sub>`, :raw-html:`O<sub>3</sub>`,
+  :raw-html:`CO`, :raw-html:`NO<sub>2</sub>`, and :raw-html:`SO<sub>2</sub>`, users are encouraged
   to make use of the ``sensortoolkit.Parameter()``
   `methods for setting custom performance targets and metrics <../../testingattrib_objects/parameter.html#setting-performance-targets-and-metrics>`_.
 

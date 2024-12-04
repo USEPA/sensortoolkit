@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>sensortoolkit.qc._outlier_detection &mdash; sensortoolkit 0.9.0b2 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            sensortoolkit
+          </a>
+              <div class="version">
+                0.9.0b2
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../quickstart.html">Quickstart Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../setup.html">Setting Up for sensortoolkit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../install.html">Installing and Updating sensortoolkit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../template.html">Analysis with sensortoolkit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../template.html#script-template">Script Template</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Objects and Data Structures</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../testingattrib_objects/index.html">Testing Attribute Objects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../data_structures/index.html">Data Structures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../sdfs/index.html">sensortoolkit Data Formatting Scheme (SDFS)</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Analysis and Reports</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../evaluation_objects/index.html">Evaluation Objects</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/index.html">sensortoolkit API</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">sensortoolkit</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">sensortoolkit.qc._outlier_detection</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for sensortoolkit.qc._outlier_detection</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">This module contains a method for detecting potential outliers in sensor</span>
+<span class="sd">datasets by computing the Cook&#39;s distance for measurements in 1-hour averaged</span>
+<span class="sd">sensor measurements relative to reference measurements.</span>
+
+<span class="sd">================================================================================</span>
+
+<span class="sd">@Author:</span>
+<span class="sd">  | Samuel Frederick, NSSC Contractor (ORAU)</span>
+<span class="sd">  | U.S. EPA / ORD / CEMM / AMCD / SFSB</span>
+
+<span class="sd">Created:</span>
+<span class="sd">  Tue Aug 17 15:29:14 2021</span>
+<span class="sd">Last Updated:</span>
+<span class="sd">  Tue Aug 17 15:29:14 2021</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">statsmodels.api</span> <span class="k">as</span> <span class="nn">sm</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+
+<div class="viewcode-block" id="cooks_outlier_detection"><a class="viewcode-back" href="../../../api/_autosummary/sensortoolkit.qc._outlier_detection.cooks_outlier_detection.html#sensortoolkit.qc._outlier_detection.cooks_outlier_detection">[docs]</a><span class="k">def</span> <span class="nf">cooks_outlier_detection</span><span class="p">(</span><span class="n">hourly_df_list</span><span class="p">,</span> <span class="n">hourly_ref_df</span><span class="p">,</span> <span class="n">param</span><span class="p">,</span> <span class="n">serials</span><span class="p">,</span>
+                            <span class="n">invalidate</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Estimate outliers via Cook’s distance for 1-hr sensor vs. ref. regress.</span>
+
+<span class="sd">    Values for timestamps exceeding a threshold of 4/L (L is the total</span>
+<span class="sd">    number of sensor-FRM/FEM  data pairs) are indicated by Cooks distance</span>
+<span class="sd">    to be potential outliers. To ensure that data points identified by</span>
+<span class="sd">    Cooks distance are likely outliers, the absolute difference (AD) and</span>
+<span class="sd">    percent difference (PD) (and their respective standard deviations (SD))</span>
+<span class="sd">    are computed between sensor and reference data. The median plus twice</span>
+<span class="sd">    the SD of both the AD and PD are computed, and each data point</span>
+<span class="sd">    identified by Cook’s distance is compared against these thresholds.</span>
+<span class="sd">    If the AD and PD for the potential outlier data point exceed these</span>
+<span class="sd">    thresholds, a QA/QC code is assigned to the corresponding time stamp.</span>
+
+<span class="sd">    If ``‘invalidate’`` is true, sensor evaluation parameter data points that</span>
+<span class="sd">    are identified by Cook’s distance as potential outliers and exceed the</span>
+<span class="sd">    AD and PD thresholds are set to null.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        hourly_df_list (list):</span>
+<span class="sd">            List of sensor datasets at 1-hour averaged intervals.</span>
+<span class="sd">        hourly_ref_df (pandas DataFrame):</span>
+<span class="sd">            Reference dataframe at 1-hour averaged intervals for the passed</span>
+<span class="sd">            parameter.</span>
+<span class="sd">        param (str):</span>
+<span class="sd">            Column header name for the parameter values.</span>
+<span class="sd">        serials (dict):</span>
+<span class="sd">            A dictionary of unique serial identifiers for each sensor in the</span>
+<span class="sd">            testing group.</span>
+<span class="sd">        invalidate (bool, optional):</span>
+<span class="sd">            If True, outlier entries will be set null (np.nan). Defaults to</span>
+<span class="sd">            False.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        hourly_df_list (list):</span>
+<span class="sd">            A list of modified sensor datasets.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">serial</span><span class="p">,</span> <span class="n">sensor_df</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">serials</span><span class="o">.</span><span class="n">values</span><span class="p">(),</span>
+                                                <span class="n">hourly_df_list</span><span class="p">)):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Flagged timestamps for&#39;</span><span class="p">,</span> <span class="n">serial</span><span class="p">)</span>
+        <span class="n">xdata</span> <span class="o">=</span> <span class="n">hourly_ref_df</span><span class="p">[</span><span class="n">param</span> <span class="o">+</span> <span class="s1">&#39;_Value&#39;</span><span class="p">]</span>
+        <span class="n">ydata</span> <span class="o">=</span> <span class="n">sensor_df</span><span class="p">[</span><span class="n">param</span> <span class="o">+</span> <span class="s1">&#39;_Value&#39;</span><span class="p">]</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;x&#39;</span><span class="p">:</span> <span class="n">xdata</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">:</span> <span class="n">ydata</span><span class="p">})</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
+
+        <span class="n">n_obs</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">thres</span> <span class="o">=</span> <span class="p">(</span><span class="mi">4</span> <span class="o">/</span> <span class="n">n_obs</span><span class="p">)</span>
+
+        <span class="c1"># Compute OLS regression for sensor vs. reference</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">]</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">]</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">add_constant</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">OLS</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+
+        <span class="c1"># Compute cooks distance for ref vs. average sensor conc.</span>
+        <span class="n">infl</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">get_influence</span><span class="p">()</span>
+        <span class="n">cooks</span> <span class="o">=</span> <span class="n">infl</span><span class="o">.</span><span class="n">cooks_distance</span>
+        <span class="n">cooks_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;distance&#39;</span><span class="p">:</span> <span class="n">cooks</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+                                 <span class="s1">&#39;p_val&#39;</span><span class="p">:</span> <span class="n">cooks</span><span class="p">[</span><span class="mi">1</span><span class="p">]})</span>
+        <span class="n">outliers</span> <span class="o">=</span> <span class="n">cooks_df</span><span class="p">[</span><span class="n">cooks_df</span><span class="o">.</span><span class="n">distance</span> <span class="o">&gt;</span> <span class="n">thres</span><span class="p">]</span>
+
+        <span class="c1"># Outlier timestamps</span>
+        <span class="n">outlier_times</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="n">outliers</span><span class="o">.</span><span class="n">index</span><span class="p">]</span>
+
+        <span class="c1"># Thresholds for flagging data points</span>
+        <span class="n">abs_diff</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">sensor_df</span><span class="p">[</span><span class="n">param</span> <span class="o">+</span> <span class="s1">&#39;_Value&#39;</span><span class="p">]</span> <span class="o">-</span>
+                       <span class="n">hourly_ref_df</span><span class="p">[</span><span class="n">param</span> <span class="o">+</span> <span class="s1">&#39;_Value&#39;</span><span class="p">])</span>
+        <span class="n">abs_diff_thres</span> <span class="o">=</span> <span class="n">abs_diff</span><span class="o">.</span><span class="n">median</span><span class="p">()</span> <span class="o">+</span> <span class="mi">2</span><span class="o">*</span><span class="n">abs_diff</span><span class="o">.</span><span class="n">std</span><span class="p">()</span>
+
+        <span class="n">p_diff</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="n">abs_diff</span> <span class="o">/</span> <span class="p">(</span><span class="n">sensor_df</span><span class="p">[</span><span class="n">param</span> <span class="o">+</span> <span class="s1">&#39;_Value&#39;</span><span class="p">]</span> <span class="o">+</span>
+                               <span class="n">hourly_ref_df</span><span class="p">[</span><span class="n">param</span> <span class="o">+</span> <span class="s1">&#39;_Value&#39;</span><span class="p">])</span>
+        <span class="n">p_diff_thres</span> <span class="o">=</span> <span class="n">p_diff</span><span class="o">.</span><span class="n">median</span><span class="p">()</span> <span class="o">+</span> <span class="mi">2</span><span class="o">*</span><span class="n">p_diff</span><span class="o">.</span><span class="n">std</span><span class="p">()</span>
+
+        <span class="c1"># Create a column for flagging data points</span>
+        <span class="k">if</span> <span class="n">param</span> <span class="o">+</span> <span class="s1">&#39;_QAQC_Code&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">sensor_df</span><span class="p">:</span>
+            <span class="n">sensor_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="n">param</span> <span class="o">+</span> <span class="s1">&#39;_QAQC_Code&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+        <span class="c1"># Ensure that outlier times exceeding cooks thres. justify flagging</span>
+        <span class="c1"># by exceeding thresholds for abs diff and percent diff</span>
+        <span class="n">flag_count</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">time</span> <span class="ow">in</span> <span class="n">outlier_times</span><span class="p">:</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">abs_diff</span><span class="p">[</span><span class="n">time</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">abs_diff_thres</span> <span class="ow">and</span>
+               <span class="n">p_diff</span><span class="p">[</span><span class="n">time</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">p_diff_thres</span><span class="p">):</span>
+                <span class="c1"># TODO: Temporary flag assignment. Need to consult QC flag</span>
+                <span class="c1"># template</span>
+                <span class="n">sensor_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">time</span><span class="p">,</span> <span class="n">param</span> <span class="o">+</span> <span class="s1">&#39;_QAQC_Code&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">3</span>
+                <span class="k">if</span> <span class="n">invalidate</span><span class="p">:</span>
+                    <span class="n">sensor_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">time</span><span class="p">,</span> <span class="n">param</span> <span class="o">+</span> <span class="s1">&#39;_Value&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;..&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">time</span><span class="p">))</span>
+                <span class="n">flag_count</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">if</span> <span class="n">flag_count</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;..No data points flagged&#39;</span><span class="p">)</span>
+
+        <span class="n">hourly_df_list</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">sensor_df</span>
+
+    <span class="k">return</span> <span class="n">hourly_df_list</span></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, United States Environmental Protection Agency.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

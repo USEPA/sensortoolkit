@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en">
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>sensortoolkit.plotting._scatter.met_influence &mdash; sensortoolkit 0.9.0b2 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="sensortoolkit.plotting._scatter.scatter_plotter" href="sensortoolkit.plotting._scatter.scatter_plotter.html" />
+    <link rel="prev" title="sensortoolkit.plotting._scatter.draw_scatter" href="sensortoolkit.plotting._scatter.draw_scatter.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            sensortoolkit
+          </a>
+              <div class="version">
+                0.9.0b2
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../quickstart.html">Quickstart Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../setup.html">Setting Up for sensortoolkit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../install.html">Installing and Updating sensortoolkit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../template.html">Analysis with sensortoolkit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../template.html#script-template">Script Template</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Objects and Data Structures</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../testingattrib_objects/index.html">Testing Attribute Objects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../data_structures/index.html">Data Structures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../sdfs/index.html">sensortoolkit Data Formatting Scheme (SDFS)</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Analysis and Reports</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../evaluation_objects/index.html">Evaluation Objects</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Documentation</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">sensortoolkit API</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../calculate.html"><code class="docutils literal notranslate"><span class="pre">sensortoolkit.calculate</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../datetime_utils.html"><code class="docutils literal notranslate"><span class="pre">sensortoolkit.datetime_utils</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../deploy.html"><code class="docutils literal notranslate"><span class="pre">sensortoolkit.deploy</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../evaluation_objs.html"><code class="docutils literal notranslate"><span class="pre">sensortoolkit.evaluation_objs</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ingest.html"><code class="docutils literal notranslate"><span class="pre">sensortoolkit.ingest</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../lib_utils.html"><code class="docutils literal notranslate"><span class="pre">sensortoolkit.lib_utils</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../model.html"><code class="docutils literal notranslate"><span class="pre">sensortoolkit.model</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../param.html"><code class="docutils literal notranslate"><span class="pre">sensortoolkit.param</span></code></a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../plotting.html"><code class="docutils literal notranslate"><span class="pre">sensortoolkit.plotting</span></code></a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="sensortoolkit.plotting._distribution.html">sensortoolkit.plotting._distribution</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sensortoolkit.plotting._errorbars.html">sensortoolkit.plotting._errorbars</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sensortoolkit.plotting._performance_metrics.html">sensortoolkit.plotting._performance_metrics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sensortoolkit.plotting._plot_formatting.html">sensortoolkit.plotting._plot_formatting</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="sensortoolkit.plotting._scatter.html">sensortoolkit.plotting._scatter</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="sensortoolkit.plotting._scatter.draw_scatter.html">sensortoolkit.plotting._scatter.draw_scatter</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">sensortoolkit.plotting._scatter.met_influence</a></li>
+<li class="toctree-l4"><a class="reference internal" href="sensortoolkit.plotting._scatter.scatter_plotter.html">sensortoolkit.plotting._scatter.scatter_plotter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="sensortoolkit.plotting._scatter.wind_influence.html">sensortoolkit.plotting._scatter.wind_influence</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="sensortoolkit.plotting._timeseries.html">sensortoolkit.plotting._timeseries</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../qc.html"><code class="docutils literal notranslate"><span class="pre">sensortoolkit.qc</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference.html"><code class="docutils literal notranslate"><span class="pre">sensortoolkit.reference</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../testing_attrib_objs.html"><code class="docutils literal notranslate"><span class="pre">sensortoolkit.testing_attrib_objs</span></code></a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">sensortoolkit</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">sensortoolkit API</a></li>
+          <li class="breadcrumb-item"><a href="../plotting.html"><code class="docutils literal notranslate"><span class="pre">sensortoolkit.plotting</span></code></a></li>
+          <li class="breadcrumb-item"><a href="sensortoolkit.plotting._scatter.html">sensortoolkit.plotting._scatter</a></li>
+      <li class="breadcrumb-item active">sensortoolkit.plotting._scatter.met_influence</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/api/_autosummary/sensortoolkit.plotting._scatter.met_influence.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="sensortoolkit-plotting-scatter-met-influence">
+<h1>sensortoolkit.plotting._scatter.met_influence<a class="headerlink" href="#sensortoolkit-plotting-scatter-met-influence" title="Permalink to this heading"></a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="sensortoolkit.plotting._scatter.met_influence">
+<span class="sig-name descname"><span class="pre">met_influence</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ref_df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">avg_df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">met_ref_df</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">figure_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">param</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">met_param</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sensor_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">write_to_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sensor_serials</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ref_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ref_mdl</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">report_fmt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fig</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_mpl_obj</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/sensortoolkit/plotting/_scatter.html#met_influence"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sensortoolkit.plotting._scatter.met_influence" title="Permalink to this definition"></a></dt>
+<dd><p>Plot parameter values against meteorological parameter (Temp, RH, or DP)
+to display the influence of the chosen meteorological parameter on
+concentration values. Display either normalized concentrations (sensor
+divided by paired reference concentration), difference (sensor-reference),
+or the absolute difference (|sensor - reference|).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df_list</strong> (<em>list</em>) – A list containing sensor datasets (1-hour averges) with parameter
+measurements.</p></li>
+<li><p><strong>ref_df</strong> (<em>pandas DataFrame</em>) – Reference dataset with collocated monitor measurements for the
+specified parameter.</p></li>
+<li><p><strong>avg_df</strong> (<em>pandas DataFrame</em>) – A dataset containing the intersensor average for concurrently
+recorded sensor measurements for each parameter measured by the
+air sensor.</p></li>
+<li><p><strong>met_ref_df</strong> (<em>pandas DataFrame</em><em>, </em><em>optional</em>) – Meteorological reference data (1-hour averages) for temperature,
+relative humidity, and dew point measurements. Defaults to None.</p></li>
+<li><p><strong>figure_path</strong> (<em>str</em><em>, </em><em>optional</em>) – Path to directory where the figure will be saved. Defaults to None.</p></li>
+<li><p><strong>param</strong> (<em>str</em><em>, </em><em>optional</em>) – Column header name for the parameter values to be plotted. Defaults
+to None.</p></li>
+<li><p><strong>met_param</strong> (<em>str</em><em>, </em><em>optional</em>) – The meteorological parameter plotted along the x-axis of the
+scatter plot. Defaults to None.</p></li>
+<li><p><strong>sensor_name</strong> (<em>str</em><em>, </em><em>optional</em>) – The name of the air sensor (make, manufacturer). Defaults to None.</p></li>
+<li><p><strong>write_to_file</strong> (<em>bool</em><em>, </em><em>optional</em>) – If true, the figure will be saved as a png image to the
+<code class="docutils literal notranslate"><span class="pre">[project_path]/figures</span></code> subdirectory. Defaults to True.</p></li>
+<li><p><strong>sensor_serials</strong> (<em>dict</em><em>, </em><em>optional</em>) – A dictionary of sensor serial identifiers for each unit in the
+testing deployment. Defaults to None.</p></li>
+<li><p><strong>ref_name</strong> (<em>str</em><em>, </em><em>optional</em>) – The name of the reference monitor collocated alongside the air
+sensors that recorded concurrent measurement pairs for the specified
+parameter. Defaults to None.</p></li>
+<li><p><strong>report_fmt</strong> (<em>bool</em><em>, </em><em>optional</em>) – If true, select formatting presets for displaying figures on the
+reporting template for sensor performance evaluations included
+alongside US EPA’s performance targets documents for air sensors.
+Defaults to False.</p></li>
+<li><p><strong>fig</strong> (<em>Matplotlib.figure.Figure</em><em>, </em><em>optional</em>) – Optional, the Matplotlib figure on which axes object elements are
+drawn. Useful is the user is iterating over the Axes elements of a
+Matplotlib figure in a for-loop outside this plotting function.
+Within the loop, calls to this function can be made to add elements
+for each axes object. Defaults to None.</p></li>
+<li><p><strong>ax</strong> (<em>matplotlib.axes._subplots.AxesSubplot</em><em>, </em><em>optional</em>) – Optional, the Matplotlib Axes object on which plotting elements
+will be drawn. Useful is the user is iterating over the Axes
+elements of a Matplotlib figure in a for-loop outside this plotting
+function. Within the loop, calls to this function can be made to add
+elements for each axes object. Defaults to None.</p></li>
+<li><p><strong>return_mpl_obj</strong> (<em>bool</em><em>, </em><em>optional</em>) – If true, will return a Matplotlib axes instance (useful for
+iteration over subplot axes if this plotting function is called
+within a for-loop that is iterating over the axes elements in
+a Matplotlib subplot object). Defaults to False.</p></li>
+</ul>
+</dd>
+</dl>
+<p><strong>Keyword Arguments:</strong></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>point_size</strong> (<em>float</em><em> or </em><em>int</em><em>, </em><em>passed to Draw_Scatter</em><em>(</em><em>)</em>) – The size of the scatter points. Defaults to 12</p></li>
+<li><p><strong>point_alpha</strong> (<em>float</em><em>, </em><em>passed to Draw_Scatter</em><em>(</em><em>)</em>) – The transparency of the scatter plots. Defaults to 0.5.</p></li>
+<li><p><strong>point_colors</strong> (<em>list</em>) – A list of strings indicating colors for each sensor scatter - either
+color hex codes or <a class="reference external" href="https://matplotlib.org/stable/gallery/color/named_colors.html">valid color names recognized by Matplotlib</a>.
+Defaults to None.</p></li>
+<li><p><strong>xlims</strong> (<em>Two-element tuple</em>) – Set the x-limits of the plot. Defaults to None.</p></li>
+<li><p><strong>ylims</strong> (<em>Two-element tuple</em>) – Set the y-limits of the plot. Defaults to None.</p></li>
+<li><p><strong>cmap_norm_range</strong> (<em>Two-element tuple</em>) – A two-element tuple containing the normalized range of the colormap
+values that will be displayed in the figure. The full range of the
+selected colormap can be selected by passing (0, 1). Hues will
+be selected at equally spaced intervals within the normalized
+colormap range specified.  Defaults to (0, 0.4).</p></li>
+<li><p><strong>cmap_name</strong> (<em>str</em><em>, </em><em>passed to Draw_Scatter</em><em>(</em><em>)</em>) – The name of the colormap which the scatter plot will be assigned.
+Defaults to ‘Set1’.</p></li>
+<li><p><strong>fontsize</strong> (<em>int</em><em> or </em><em>float</em><em>, </em><em>passed to Draw_Scatter</em><em>(</em><em>)</em>) – The fontsize of plot titles and labels. Defaults to 12.</p></li>
+<li><p><strong>detail_fontsize</strong> (<em>int</em><em> or </em><em>float</em><em>, </em><em>passed to Draw_Scatter</em><em>(</em><em>)</em>) – Fontsize for axes tick labels and smaller plotting text elements.
+Defaults to 10.</p></li>
+<li><p><strong>subplot_adjust</strong> (<em>Seven-element tuple</em>) – <p>Adjust the dimensions for drawing subplots on the Matplotlib Figure
+object. Passed to <code class="docutils literal notranslate"><span class="pre">Matplotlib.subplots.subplots_adjust()</span></code>. Contains
+the following entries:</p>
+<ul>
+<li><p>top: Modify the upper-most bounds of the figure.</p></li>
+<li><p>bottom: Modify the lower-most bounds of the figure.</p></li>
+<li><p>left: Modify the left-most bounds of the figure.</p></li>
+<li><p>right: Modify the right-most bounds of the figure.</p></li>
+<li><p>hspace: Modify the height of padding between subplots</p></li>
+<li><p>wspace: Modify the width of padding between subplots</p></li>
+<li><p>legend_pos: Two-element tuple containing floats indicating the
+x-axis and y-axis position of the center of the plot legend.</p></li>
+</ul>
+<p>Defaults to None.</p>
+</p></li>
+<li><p><strong>fig_wspace</strong> (<em>float</em>) – Modify the width of padding between subplots. Passed to
+<code class="docutils literal notranslate"><span class="pre">Matplotlib.subplots.subplots_adjust()</span></code> <code class="docutils literal notranslate"><span class="pre">'wspace'</span></code> argument.</p></li>
+<li><p><strong>fig_hspace</strong> (<em>float</em>) – Modify the height of padding between subplots. <code class="docutils literal notranslate"><span class="pre">'hspace'</span></code> argument.</p></li>
+<li><p><strong>fig_left</strong> (<em>float</em>) – Modify the left-most bounds of the figure. Passed to
+<code class="docutils literal notranslate"><span class="pre">Matplotlib.subplots.subplots_adjust()</span></code> <code class="docutils literal notranslate"><span class="pre">'left'</span></code> argument.</p></li>
+<li><p><strong>fig_right</strong> (<em>float</em>) – Modify the right-most bounds of the figure. Passed to
+<code class="docutils literal notranslate"><span class="pre">Matplotlib.subplots.subplots_adjust()</span></code> <code class="docutils literal notranslate"><span class="pre">'right'</span></code> argument.</p></li>
+<li><p><strong>fig_top</strong> (<em>float</em>) – Modify the upper-most bounds of the figure. Passed to
+<code class="docutils literal notranslate"><span class="pre">Matplotlib.subplots.subplots_adjust()</span></code> <code class="docutils literal notranslate"><span class="pre">'top'</span></code> argument.</p></li>
+<li><p><strong>fig_bottom</strong> (<em>float</em>) – Modify the lower-most bounds of the figure. Passed to
+<code class="docutils literal notranslate"><span class="pre">Matplotlib.subplots.subplots_adjust()</span></code> <code class="docutils literal notranslate"><span class="pre">'bottom'</span></code> argument.</p></li>
+<li><p><strong>show_errorbars</strong> (<em>bool</em>) – If True, display errorbars (standard error) for normalized
+sensor-reference measurement pairs. Defaults to False.</p></li>
+<li><p><strong>show_legend</strong> (<em>bool</em>) – If True, display the figure legend. Defaults to True.</p></li>
+<li><p><strong>fig_size</strong> (<em>Two-element tuple</em>) – The dimensions (width, height) in inches of the Matplotlib figure to
+be drawn. Defaults to (8, 4).</p></li>
+<li><p><strong>errorbar_nbins</strong> (<em>int</em>) – The number of bins along the x-axis that data for the dependent variable
+are grouped into and displayed error bars. Defaults to 10 (i.e., 10 error
+bars equally spaced along the x-axis will be shown indicating the
+standard error in the dependent variable).</p></li>
+<li><p><strong>errorbar_color</strong> (<em>str</em>) – The color of the error bars drawn on the plot. Defaults to #151515.</p></li>
+<li><p><strong>legend_loc</strong> (<em>Two-element tuple</em>) – The x and y coordinate of center of the legend (relative to the axes
+object coordinates).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The Matplotlib Axes object on which plotting elements
+will be drawn. Useful is the user is iterating over the Axes
+elements of a Matplotlib figure in a for-loop outside this plotting
+function. Within the loop, calls to this function can be made to add
+elements for each axes object. Returned if <code class="docutils literal notranslate"><span class="pre">return_mpl_obj</span></code> is
+True.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>ax (Matplotlib Axes object)</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="sensortoolkit.plotting._scatter.draw_scatter.html" class="btn btn-neutral float-left" title="sensortoolkit.plotting._scatter.draw_scatter" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="sensortoolkit.plotting._scatter.scatter_plotter.html" class="btn btn-neutral float-right" title="sensortoolkit.plotting._scatter.scatter_plotter" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, United States Environmental Protection Agency.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

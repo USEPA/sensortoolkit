@@ -1,15 +1,17 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en">
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Creating Testing Reports - The PerformanceReport Class &mdash; sensortoolkit 0.8.3b2 documentation</title>
-      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" type="text/css" />
+  <title>Creating Testing Reports - The PerformanceReport Class &mdash; sensortoolkit 0.9.0b2 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+
+  
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
@@ -17,6 +19,7 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -30,14 +33,18 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="../index.html" class="icon icon-home"> sensortoolkit
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            sensortoolkit
           </a>
               <div class="version">
-                0.8.3b2
+                0.9.0b2
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -46,9 +53,10 @@
               <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quickstart Guide</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../quickstart.html#script-templates">Script Templates</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../setup.html">Setting Up for sensortoolkit</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../install.html">Installing and Updating sensortoolkit</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../import_sensortoolkit.html">Importing sensortoolkit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../template.html">Analysis with sensortoolkit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../template.html#script-template">Script Template</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Objects and Data Structures</span></p>
 <ul>
@@ -56,7 +64,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../data_structures/index.html">Data Structures</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../sdfs/index.html">sensortoolkit Data Formatting Scheme (SDFS)</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Objects and Data Structures</span></p>
+<p class="caption" role="heading"><span class="caption-text">Analysis and Reports</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Evaluation Objects</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="sensoreval/index.html">Conducting Analysis - The SensorEvaluation Class</a></li>
@@ -82,9 +90,9 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="index.html">Evaluation Objects</a> &raquo;</li>
-      <li>Creating Testing Reports - The PerformanceReport Class</li>
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Evaluation Objects</a></li>
+      <li class="breadcrumb-item active">Creating Testing Reports - The PerformanceReport Class</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../_sources/evaluation_objects/performancereport.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -95,7 +103,7 @@
            <div itemprop="articleBody">
              
   <section id="creating-testing-reports-the-performancereport-class">
-<h1>Creating Testing Reports - The PerformanceReport Class<a class="headerlink" href="#creating-testing-reports-the-performancereport-class" title="Permalink to this headline"></a></h1>
+<h1>Creating Testing Reports - The PerformanceReport Class<a class="headerlink" href="#creating-testing-reports-the-performancereport-class" title="Permalink to this heading"></a></h1>
 <p>Creating testing reports with <code class="docutils literal notranslate"><span class="pre">sensortoolkit.PerformanceReport</span></code> is very similar to using
 the <code class="docutils literal notranslate"><span class="pre">sensortoolkit.SensorEvaluation</span></code> class. Users pass the same attributes to the
 <code class="docutils literal notranslate"><span class="pre">PerformanceReport</span></code> class as they do to conduct analysis with <code class="docutils literal notranslate"><span class="pre">SensorEvaluation</span></code>
@@ -106,27 +114,28 @@ populated in reports via the respective <code class="docutils literal notranslat
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Fill in bracketed placeholder text with your information</span>
 <span class="c1"># Add information about the testing organization that conducted the evaluation</span>
 <span class="n">sensortoolkit</span><span class="o">.</span><span class="n">presets</span><span class="o">.</span><span class="n">test_org</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s1">&#39;Deployment name&#39;</span><span class="p">:</span> <span class="s1">&#39;[Insert name of deployment]&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;Org name&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;[Insert organization name line 1]&#39;</span><span class="p">,</span>
-                 <span class="s1">&#39;[Insert organization name line 2]&#39;</span><span class="p">],</span>
-    <span class="s1">&#39;Website&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;website name&#39;</span><span class="p">:</span> <span class="s1">&#39;[Insert name of website]&#39;</span><span class="p">,</span>
-                <span class="s1">&#39;website link&#39;</span><span class="p">:</span> <span class="s1">&#39;[Insert website here]&#39;</span><span class="p">},</span>
-    <span class="s1">&#39;Contact email&#39;</span><span class="p">:</span> <span class="s1">&#39;[Insert email here]&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;Contact phone&#39;</span><span class="p">:</span> <span class="s1">&#39;[Insert phone number here]&#39;</span><span class="p">}</span>
+    <span class="s1">&#39;testing_descrip&#39;</span><span class="p">:</span> <span class="s1">&#39;[Insert name of deployment]&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;org_name&#39;</span><span class="p">:</span> <span class="s1">&#39;[Insert organization name]&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;org_division&#39;</span><span class="p">:</span> <span class="s1">&#39;[Insert organization division]&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;org_type&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="c1">#not needed</span>
+    <span class="s1">&#39;org_website&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;title&#39;</span><span class="p">:</span> <span class="s1">&#39;[Insert title of website]&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;link&#39;</span><span class="p">:</span> <span class="s1">&#39;[Insert website link]&#39;</span><span class="p">},</span>
+    <span class="s1">&#39;org_contact_email&#39;</span><span class="p">:</span> <span class="s1">&#39;[Insert email]&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;org_contact_phone&#39;</span><span class="p">:</span> <span class="s1">&#39;[Insert phone number]&#39;</span><span class="p">}</span>
 
 <span class="c1"># Add information about the testing location where sensors were sited</span>
 <span class="n">sensortoolkit</span><span class="o">.</span><span class="n">presets</span><span class="o">.</span><span class="n">test_loc</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s1">&#39;Site name&#39;</span><span class="p">:</span> <span class="s1">&#39;[Insert name of site] &#39;</span><span class="p">,</span>
-    <span class="s1">&#39;Site address&#39;</span><span class="p">:</span> <span class="s1">&#39;[Insert site address]&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;Site lat&#39;</span><span class="p">:</span> <span class="s1">&#39;[Insert site latitude]&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;Site long&#39;</span><span class="p">:</span> <span class="s1">&#39;[Insert site longitude]&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;Site AQS ID&#39;</span><span class="p">:</span> <span class="s1">&#39;[If applicable, insert site AQS ID]&#39;</span><span class="p">}</span>
+    <span class="s1">&#39;site_name&#39;</span><span class="p">:</span> <span class="s1">&#39;[Insert name of site] &#39;</span><span class="p">,</span> <span class="c1">#strongly recommended</span>
+    <span class="s1">&#39;site_address&#39;</span><span class="p">:</span> <span class="s1">&#39;[Insert site address]&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;site_lat&#39;</span><span class="p">:</span> <span class="s1">&#39;[Insert site latitude]&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;site_lon&#39;</span><span class="p">:</span> <span class="s1">&#39;[Insert site longitude]&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;site_aqs_id&#39;</span><span class="p">:</span> <span class="s1">&#39;[If applicable, insert site AQS ID]&#39;</span><span class="p">}</span> <span class="c1">#strongly recommended, if applicable</span>
 </pre></div>
 </div>
 <p>These dictionaries house information about the testing organization, contact information,
 and site details including the address, coordinates, and site AQS ID if applicable.</p>
 <section id="testing-org">
-<h2><code class="docutils literal notranslate"><span class="pre">testing_org</span></code><a class="headerlink" href="#testing-org" title="Permalink to this headline"></a></h2>
+<h2><code class="docutils literal notranslate"><span class="pre">testing_org</span></code><a class="headerlink" href="#testing-org" title="Permalink to this heading"></a></h2>
 <p>A dictionary containing the information about the testing organization.</p>
 <table class="colwidths-given docutils align-default" id="id1">
 <caption><span class="caption-text"><code class="docutils literal notranslate"><span class="pre">testing_org</span></code> Attributes</span><a class="headerlink" href="#id1" title="Permalink to this table"></a></caption>
@@ -140,26 +149,32 @@ and site details including the address, coordinates, and site AQS ID if applicab
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Deployment</span> <span class="pre">name</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">testing_descrip</span></code></p></td>
 <td><p>The descriptive name assigned to the sensor deployment.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Org</span> <span class="pre">name</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">org_name</span></code></p></td>
 <td><p>The name of the testing organization.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Website</span></code></p></td>
-<td><p>Website address for the testing organization.</p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">org_division</span></code></p></td>
+<td><p>The organization testing division.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Contact</span> <span class="pre">email</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">org_type</span></code></p></td>
+<td><p>The organization sector type.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">org_website</span></code></p></td>
+<td><p>Website title and address for the testing organization.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">org_contact_email</span></code></p></td>
 <td><p>Contact email address responsible parties conducting testing.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Contact</span> <span class="pre">phone</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">org_contact_phone</span></code></p></td>
 <td><p>Phone number for responsible parties conducting testing.</p></td>
 </tr>
 </tbody>
 </table>
 </section>
 <section id="testing-loc">
-<h2><code class="docutils literal notranslate"><span class="pre">testing_loc</span></code><a class="headerlink" href="#testing-loc" title="Permalink to this headline"></a></h2>
+<h2><code class="docutils literal notranslate"><span class="pre">testing_loc</span></code><a class="headerlink" href="#testing-loc" title="Permalink to this heading"></a></h2>
 <p>A dictionary containing information about the testing site. If the site is part
 of U.S. EPA’s Air Quality System (AQS), the AQS Site ID should be specified.</p>
 <table class="colwidths-given docutils align-default" id="id2">
@@ -174,17 +189,20 @@ of U.S. EPA’s Air Quality System (AQS), the AQS Site ID should be specified.</
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Site</span> <span class="pre">name</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">site_name</span></code></p></td>
 <td><p>The name of the ambient monitoring site.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Site</span> <span class="pre">address</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">site_address</span></code></p></td>
 <td><p>The street address of the monitoring site.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Site</span> <span class="pre">lat</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">site_lat</span></code></p></td>
 <td><p>The latitude coordinate of the site.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Site</span> <span class="pre">lon</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">site_lon</span></code></p></td>
 <td><p>The longitude coordinate of the site.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">site_aqs_id</span></code></p></td>
+<td><p>[AQS Sites Only] The AQS site code assigned to the ambient monitoring site.</p></td>
 </tr>
 </tbody>
 </table>
@@ -202,7 +220,7 @@ report for the <code class="docutils literal notranslate"><span class="pre">Toco
 </pre></div>
 </div>
 <section id="arguments-passed-to-performancereport">
-<h3>Arguments passed to <code class="docutils literal notranslate"><span class="pre">PerformanceReport</span></code><a class="headerlink" href="#arguments-passed-to-performancereport" title="Permalink to this headline"></a></h3>
+<h3>Arguments passed to <code class="docutils literal notranslate"><span class="pre">PerformanceReport</span></code><a class="headerlink" href="#arguments-passed-to-performancereport" title="Permalink to this heading"></a></h3>
 <table class="colwidths-given docutils align-default" id="id3">
 <caption><span class="caption-text"><code class="docutils literal notranslate"><span class="pre">sensortoolkit.PerformanceReport()</span></code> attributes</span><a class="headerlink" href="#id3" title="Permalink to this table"></a></caption>
 <colgroup>
@@ -239,52 +257,54 @@ existing figures). Defaults to False.</p></td>
 </section>
 </section>
 <section id="console-output">
-<h2>Console Output<a class="headerlink" href="#console-output" title="Permalink to this headline"></a></h2>
+<h2>Console Output<a class="headerlink" href="#console-output" title="Permalink to this heading"></a></h2>
 <p>When the above code block is run (including both instantiation of the <code class="docutils literal notranslate"><span class="pre">PerformanceReport</span></code>
 object <code class="docutils literal notranslate"><span class="pre">report</span></code> and running the <code class="docutils literal notranslate"><span class="pre">PerformanceReport.create_report()</span></code> method),
 the following will be printed to the console.</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">Computing normalized PM25 values (by T-API T640X at 16.67 LPM)</span>
-<span class="go">Computing normalized PM25 values (by T-API T640X at 16.67 LPM)</span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">Computing normalized PM25 values (by Teledyne Advanced Pollution Instrumentation T640X)</span>
+<span class="go">Computing normalized PM25 values (by Teledyne Advanced Pollution Instrumentation T640X)</span>
 <span class="go">Computing mean parameter values across concurrent sensor datasets</span>
 <span class="go">Computing mean parameter values across concurrent sensor datasets</span>
 <span class="go">Populating deployment dataframe with evaluation statistics</span>
 <span class="go">Computing CV for 1-Hour averaged PM25</span>
-<span class="go">..N excluded: 20 out of 756 total</span>
-<span class="go">..N concurrent: 736</span>
-<span class="go">..Concurrent measurement timeframe: 2019-08-01 13:00:00+00:00 - 2019-09-02 00:00:00+00:00</span>
+<span class="go">..N excluded: 20 out of 733 total</span>
+<span class="go">..N concurrent: 713</span>
+<span class="go">..Concurrent measurement timeframe: 2019-08-01 12:00:00+00:00 - 2019-09-01 00:00:00+00:00</span>
 <span class="go">Computing CV for 24-Hour averaged PM25</span>
-<span class="go">..N excluded: 2 out of 32 total</span>
-<span class="go">..N concurrent: 30</span>
-<span class="go">..Concurrent measurement timeframe: 2019-08-02 00:00:00+00:00 - 2019-09-01 00:00:00+00:00</span>
-<span class="go">Computing 1-hour regression statistics for Toco_Toucan vs. T-API T640X at 16.67 LPM</span>
+<span class="go">..N excluded: 3 out of 32 total</span>
+<span class="go">..N concurrent: 29</span>
+<span class="go">..Concurrent measurement timeframe: 2019-08-02 00:00:00+00:00 - 2019-08-31 00:00:00+00:00</span>
+<span class="go">Computing 1-hour regression statistics for Toco_Toucan vs. Teledyne Advanced Pollution Instrumentation T640X</span>
 <span class="go">..RT01</span>
 <span class="go">..RT02</span>
 <span class="go">..RT03</span>
-<span class="go">Computing 24-hour regression statistics for Toco_Toucan vs. T-API T640X at 16.67 LPM</span>
+<span class="go">Computing 1-hour regression statistics for Toco_Toucan vs. Teledyne Advanced Pollution Instrumentation T640X</span>
 <span class="go">..RT01</span>
 <span class="go">..RT02</span>
 <span class="go">..RT03</span>
-<span class="go">..Saving dataset to the following path: C:\Users\...\Documents\sensortoolkit_testing\data\eval_stats\Toco_Toucan\Toco_Toucan_PM25_vs_T-API_T640X_at_16.67_LPM_stats_df_211102.csv</span>
-<span class="go">Computing 1-hour regression statistics for Toco_Toucan vs. T-API T640X at 16.67 LPM</span>
+<span class="go">Computing 24-hour regression statistics for Toco_Toucan vs. Teledyne Advanced Pollution Instrumentation T640X</span>
 <span class="go">..RT01</span>
 <span class="go">..RT02</span>
 <span class="go">..RT03</span>
-<span class="go">Computing 24-hour regression statistics for Toco_Toucan vs. T-API T640X at 16.67 LPM</span>
+<span class="go">Computing 24-hour regression statistics for Toco_Toucan vs. Teledyne Advanced Pollution Instrumentation T640X</span>
 <span class="go">..RT01</span>
 <span class="go">..RT02</span>
 <span class="go">..RT03</span>
-<span class="go">..Saving dataset to the following path: C:\Users\...\Documents\sensortoolkit_testing\data\eval_stats\Toco_Toucan\Toco_Toucan_PM25_vs_T-API_T640X_at_16.67_LPM_stats_df_211102.csv</span>
+<span class="go">..Saving dataset to the following path: C:/Users/.../Documents/toucan_evaluation\data\eval_stats\Toco_Toucan\Toco_Toucan_PM25_vs_Teledyne_Advanced_Pollution_Instrumentation_T640X_stats_df_230209.csv</span>
+<span class="go">..Saving dataset to the following path: C:/Users/.../Documents/toucan_evaluation\data\eval_stats\Toco_Toucan\Toco_Toucan_PM25_vs_Teledyne_Advanced_Pollution_Instrumentation_T640X_avg_stats_df_230209.csv</span>
 <span class="go">Creating Testing Report for Toco_Toucan</span>
 <span class="go">..Adding figures to report</span>
 <span class="go">..creating subplot for 1 sensor with 1 row and 1 column</span>
 <span class="go">..creating subplot for 1 sensor with 1 row and 1 column</span>
 <span class="go">..Adding tabular data</span>
-<span class="go">Computing normalized PM25 values (by T-API T640X at 16.67 LPM)</span>
-<span class="go">Computing normalized PM25 values (by T-API T640X at 16.67 LPM)</span>
+<span class="go">[Note]: PM25 values below the Federal MDL (0.1 Micrograms per Cubic Meter) are not shown</span>
+<span class="go">  Computing normalized PM25 values (by FEM)</span>
+<span class="go">[Note]: PM25 values below the Federal MDL (0.1 Micrograms per Cubic Meter) are not shown</span>
+<span class="go">  Computing normalized PM25 values (by FEM)</span>
 <span class="go">..creating subplot for 3 sensors with 1 row and 3 columns</span>
 <span class="go">..creating subplot for 3 sensors with 1 row and 3 columns</span>
 <span class="go">..Saving report</span>
-<span class="go">....\reports\Toco_Toucan\PM25\Base_Testing_Report_PM25_Toco_Toucan_211102.pptx</span>
+<span class="go">....\reports\Toco_Toucan\PM25\Base_Testing_Report_PM25_Toco_Toucan_230209.pptx</span>
 </pre></div>
 </div>
 <div class="admonition note">
@@ -293,8 +313,13 @@ the following will be printed to the console.</p>
 directory pointed to by the project path.</p>
 </div>
 <section id="example-report">
-<h3>Example Report<a class="headerlink" href="#example-report" title="Permalink to this headline"></a></h3>
+<h3>Example Report<a class="headerlink" href="#example-report" title="Permalink to this heading"></a></h3>
 <p>Below is an example report for the <code class="docutils literal notranslate"><span class="pre">Toco_Toucan</span></code> sensor.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Sensortoolkit converts time to the UTC timezone. Graphs displayed in the report
+are in UTC.</p>
+</div>
 <p>Please note that at present, <code class="docutils literal notranslate"><span class="pre">PerformanceReport</span></code> does not populate the FRM/FEM
 Instrumentation table with calibration dates, flowrate verification checks, and
 any description of maintenance activities conducted on the reference instrumentation.
@@ -302,8 +327,8 @@ Users must either insert these details manually by placing information in the
 provided table, or by appending documentation to the end of the report and noting on
 the supplemental information page that addition documentation has been attached.</p>
 <div class="tabbed-set docutils">
-<input checked="checked" id="5b059382-44f1-4804-8ff5-efeec1404de6" name="dcd98afd-a868-431e-9e42-bda437e9104a" type="radio">
-</input><label class="tabbed-label" for="5b059382-44f1-4804-8ff5-efeec1404de6">
+<input checked="checked" id="2ea38c4c-e495-40aa-ab27-c99430c1a8e2" name="c9afd4f4-1f58-4f8f-aa1f-148ed370e1a3" type="radio">
+</input><label class="tabbed-label" for="2ea38c4c-e495-40aa-ab27-c99430c1a8e2">
 Page 1 - Testing Summary</label><div class="tabbed-content docutils">
 <p>The first page of the testing report allows testers to insert information about their
 organization including contact information, and testers are also encouraged to
@@ -313,42 +338,42 @@ information about the deployment. These figures provide indication of the sensor
 performance during the testing period, site conditions including temperature and
 relative humidity, and meteorological influences that may be present in sensor data.</p>
 <figure class="align-center" id="id4">
-<img alt="The first page of the performance report. This page features tables for listing details about the testing organization, site information, sensor information, and FRM/FEM information. Below these tables are a number of figures, including timeseries and scatter plots at 1-hour and 24-hour averages indicating the agreement between the sensor and FRM/FEM. Below these plots is a figure displaying the results of the sensor against EPA's recommended performance metrics and target values for evaluating air sensor performance. Below this figure is a final row displaying the meteorological conditions during the deployment (temperature and relative humidity) and the influence of these meteorological parameters on sensor measurements." src="../_images/performance_report_example_pg1.png" />
+<img alt="The first page of the performance report. This page features tables for listing details about the testing organization, site information, sensor information, and FRM/FEM information. Below these tables are a number of figures, including timeseries and scatter plots at 1-hour and 24-hour averages indicating the agreement between the sensor and FRM/FEM. Below these plots is a figure displaying the results of the sensor against EPA's recommended performance metrics and target values for evaluating air sensor performance. Below this figure is a final row displaying the meteorological conditions during the deployment (temperature and relative humidity) and the influence of these meteorological parameters on sensor measurements." src="../_images/performance_report_example_pg1_v2.png" />
 <figcaption>
 <p><span class="caption-text">Toco Toucan Base Testing Report (Page 1)</span><a class="headerlink" href="#id4" title="Permalink to this image"></a></p>
 </figcaption>
 </figure>
 </div>
-<input id="fdbc4efc-a789-4fd0-9ea2-8f0943a2eec1" name="dcd98afd-a868-431e-9e42-bda437e9104a" type="radio">
-</input><label class="tabbed-label" for="fdbc4efc-a789-4fd0-9ea2-8f0943a2eec1">
+<input id="ae98b1ff-0828-420e-b48a-4ce1eab20cff" name="c9afd4f4-1f58-4f8f-aa1f-148ed370e1a3" type="radio">
+</input><label class="tabbed-label" for="ae98b1ff-0828-420e-b48a-4ce1eab20cff">
 Page 2 - Tabular Statistics</label><div class="tabbed-content docutils">
 <p>The second page of the report includes tabular statistics, such as the performance
 metric values characterizing sensor vs. FRM/FEM accuracy (bias and linearity),
 error, and sensor-sensor (intersensor) precision.</p>
 <figure class="align-center" id="id5">
-<img alt="The second page of the performance report. Tabular statistics are listed for the sensor vs. FRM/FEM correlation, indicating individual sensor unit regression statistics (coefficient of determination, slope, intercept) and data quality (the uptime percentage and number of paired sensor and FRM/FEM concentration pairs). Also in the sensor vs. FRM/FEM correlation section is a table containing error metric values (RMSE and NRMSE). Below is a section for inter-sensor precision (sensor vs. sensor). A table in this section indicates the precision metric values including CV and SD, and data quality (uptime and the number of paired hourly measurement periods that all sensors were concurrently recording alongside the reference monitor)." src="../_images/performance_report_example_pg2.png" />
+<img alt="The second page of the performance report. Tabular statistics are listed for the sensor vs. FRM/FEM correlation, indicating individual sensor unit regression statistics (coefficient of determination, slope, intercept) and data quality (the uptime percentage and number of paired sensor and FRM/FEM concentration pairs). Also in the sensor vs. FRM/FEM correlation section is a table containing error metric values (RMSE and NRMSE). Below is a section for inter-sensor precision (sensor vs. sensor). A table in this section indicates the precision metric values including CV and SD, and data quality (uptime and the number of paired hourly measurement periods that all sensors were concurrently recording alongside the reference monitor)." src="../_images/performance_report_example_pg2_v2.png" />
 <figcaption>
 <p><span class="caption-text">Toco Toucan Base Testing Report (Page 2)</span><a class="headerlink" href="#id5" title="Permalink to this image"></a></p>
 </figcaption>
 </figure>
 </div>
-<input id="8c2a9325-6e46-489a-b4f1-0867dfe403b5" name="dcd98afd-a868-431e-9e42-bda437e9104a" type="radio">
-</input><label class="tabbed-label" for="8c2a9325-6e46-489a-b4f1-0867dfe403b5">
+<input id="073ffeb6-3d81-46f8-b505-368fde38834a" name="c9afd4f4-1f58-4f8f-aa1f-148ed370e1a3" type="radio">
+</input><label class="tabbed-label" for="073ffeb6-3d81-46f8-b505-368fde38834a">
 Page 3 - Sensor vs. FRM/FEM Scatter</label><div class="tabbed-content docutils">
 <p>Scatter plots for each sensor unit vs. FRM/FEM measurement pairs are displayed
 on a third page of the report.</p>
 <figure class="align-center" id="id6">
-<img alt="The third page of the performance report. This page includes sensor vs. FRM/FEM scatter plots for each sensor in the testing group at both 1-hour and 24-hour averages. Data pairs are colored by the relative humidity recorded by an independent monitor at the testing site to indicate whether humidity biases sensor measurements." src="../_images/performance_report_example_pg3.png" />
+<img alt="The third page of the performance report. This page includes sensor vs. FRM/FEM scatter plots for each sensor in the testing group at both 1-hour and 24-hour averages. Data pairs are colored by the relative humidity recorded by an independent monitor at the testing site to indicate whether humidity biases sensor measurements." src="../_images/performance_report_example_pg3_v2.png" />
 <figcaption>
 <p><span class="caption-text">Toco Toucan Base Testing Report (Page 3)</span><a class="headerlink" href="#id6" title="Permalink to this image"></a></p>
 </figcaption>
 </figure>
 </div>
-<input id="9f418f57-2bfe-420f-bf60-94d6f59aa97a" name="dcd98afd-a868-431e-9e42-bda437e9104a" type="radio">
-</input><label class="tabbed-label" for="9f418f57-2bfe-420f-bf60-94d6f59aa97a">
+<input id="be2fd886-503f-4535-aea3-b37f7e7de65f" name="c9afd4f4-1f58-4f8f-aa1f-148ed370e1a3" type="radio">
+</input><label class="tabbed-label" for="be2fd886-503f-4535-aea3-b37f7e7de65f">
 Page 4 - Supplemental Information</label><div class="tabbed-content docutils">
 <figure class="align-center" id="id7">
-<img alt="The fourth page of the performance report. This page includes a table listing various documents, reports, and observations that testers may wish to attached to the report. Entries are provided to indicate whether a particular type of documentation has been attached and a description of the URL or file path to the documentation." src="../_images/performance_report_example_pg4.png" />
+<img alt="The fourth page of the performance report. This page includes a table listing various documents, reports, and observations that testers may wish to attached to the report. Entries are provided to indicate whether a particular type of documentation has been attached and a description of the URL or file path to the documentation." src="../_images/performance_report_example_pg4_v2.png" />
 <figcaption>
 <p><span class="caption-text">Toco Toucan Base Testing Report (Page 4)</span><a class="headerlink" href="#id7" title="Permalink to this image"></a></p>
 </figcaption>

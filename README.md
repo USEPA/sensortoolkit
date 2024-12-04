@@ -35,7 +35,7 @@ sensortoolkit is most suitable for individuals who have some prior
 coding experience in python. The library is equipped with an API
 (application programming interface) that allows for ease of navigation
 and customization, making sensortoolkit accessible to individuals with a
-wide range of skillsets (e.g., individuals interested in monitoring
+wide range of skill sets (e.g., individuals interested in monitoring
 their own sensor data, students and academic researchers, and industry
 professionals).
 
@@ -86,7 +86,7 @@ formatting schemes for sensor and reference data.
 ## Dependencies <a name="dependencies"></a>
 
 [Click here](https://github.com/USEPA/sensortoolkit/network/dependencies) to be taken to a list of dependencies required by sensortoolkit.
-The library requires a **minimum of Python 3.6**.
+The library requires a **minimum of Python 3.8**.
 
 ## Contact <a name="contact"></a>
 
@@ -107,8 +107,9 @@ using the sensortoolkit library. [Click here](https://sensortoolkit.readthedocs.
 to be taken to the documentation landing page. Below are a few of the topics discussed in the documentation:
 
 - Getting started
-  - Quick start guide
-  - Script templates for outlining package use
+  - Quickstart Guide
+  - Setting up for sensortoolkit
+  - Analysis walk through and script template for outlining package use
   - Directions on installation and updates to sensortoolkit
 - Objects and Data Structures
   - Testing Attribute Objects
@@ -138,7 +139,7 @@ any commercial product or activity by the USEPA or the United States Government.
 ****
 ## Installation <a name="install"></a>
 
-> Note: Users will need an installation of Python (v3.6 or greater). It’s
+> Note: Users will need an installation of Python (v3.8 or greater). It’s
   highly recommended that users download an Anaconda distribution of
   Python. Anaconda is a package distribution of Python that includes many
   widely used libraries as well as the Spyder IDE for editing and

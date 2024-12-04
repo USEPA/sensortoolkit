@@ -16,7 +16,7 @@ formatted) sensor datasets by calling methods in the
   which the setup method and underlying generalized ingestion methodology is not
   able to handle certain sensor datasets.
 
-  For example, devices that record multiple datasets simulaneously will require
+  For example, devices that record multiple datasets simultaneously will require
   custom ingestion methods. Datasets for the PurpleAir PA-II that are obtained
   from the ThingSpeak API may fall into this category, as the API service may
   provide separate datasets for each internal PM sensor (channels A and B).

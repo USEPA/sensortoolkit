@@ -690,8 +690,8 @@ def scatter_plotter(df_list, ref_df, stats_df=None, plot_subset=None,
 
     if plot_title is True:
         if title_text is None:
-            title_text = f'{fmt_sensor_name} vs. {ref_name} {averaging_interval} {fmt_param}'
-
+            #title_text = f'{fmt_sensor_name} vs. {ref_name} {averaging_interval} {fmt_param}'
+            title_text = f'{averaging_interval} Averaged {fmt_param}'
         if report_fmt:
             title_text = title_text.replace(f'{ref_name} ', f'{ref_name}\n')
 
@@ -1193,7 +1193,8 @@ def met_influence(df_list, ref_df, avg_df, met_ref_df=None,
     if dep_var == 'normalized':
         # Compute normalized dataframes
         depvar_df_list = normalize(df_list, ref_df, param_name, ref_name)
-        title = f'{fmt_sensor_name} {fmt_param} Normalized by {ref_name}'
+        #title = f'{fmt_sensor_name} {fmt_param} Normalized by {ref_name}'
+        title = f'1-hour Averages' # for right now, everything is plotting at 1-hr. But may have to change PM eval to 24-hour averages
         # Plot 1:1 normalization line
         ax.axhline(y=1.0, linewidth=1.5, color='#8b8b8b', alpha=.8)
         legend_list = ['1:1']
@@ -1210,14 +1211,15 @@ def met_influence(df_list, ref_df, avg_df, met_ref_df=None,
         ax.axhline(y=0.0, linewidth=1.5, color='#8b8b8b', alpha=.8, linestyle='--')
         legend_list = [f'Target Value: 0 {fmt_param_units}']
 
-    x_label = f'Reference {fmt_met_param} ({fmt_met_units})'
+    x_label = f'Monitor {fmt_met_param} ({fmt_met_units})'
+    y_label = f'Normalized {fmt_param}'
     # labels = [title]
     # labels = wrap_text(labels, max_label_len=45)
     # title = labels[0]
 
 
     param_dict = {'xlabel': x_label,
-                  'ylabel': ''}
+                  'ylabel': y_label}
 
 
     # Set xlim and ylim if not specified
@@ -1384,6 +1386,486 @@ def met_influence(df_list, ref_df, avg_df, met_ref_df=None,
         todays_date = get_todays_date()
         figure_path = os.path.join(figure_path, param_name,
                             f'{sensor_name}_normalized_{param_name}_vs_{met_param_name}')
+
+        # Indicate performance targets template formatted
+        if report_fmt is True:
+            if unique_ax_obj is False:
+                figure_path = figure_path.replace('_vs_' + met_param_name, '_met')
+            figure_path = figure_path + '_' + 'report_fmt'
+
+        # Filename suffix for harmonized sensor datasets
+        if param_name.startswith('corrected'):
+            figure_path = figure_path + '_' + 'corrected'
+
+        figure_path += '_' + todays_date + '.png'
+        plt.savefig(figure_path, dpi=300)
+        plt.close()
+
+    if return_mpl_obj is True or report_fmt is True:
+        return ax
+
+def wind_influence(df_list, ref_df, avg_df, met_ref_df=None,
+                figure_path=None, param=None, met_param=None,
+                sensor_name=None, write_to_file=True,
+                sensor_serials=None, ref_name=None, ref_mdl=None,
+                report_fmt=False, fig=None, ax=None,
+                return_mpl_obj=False, **kwargs):
+    """Plot parameter values against meteorological parameter (WS or WD)
+    to display the influence of the chosen meteorological parameter on
+    concentration values. Display either normalized concentrations (sensor
+    divided by paired reference concentration), difference (sensor-reference),
+    or the absolute difference (\|sensor - reference|).
+
+    Args:
+        df_list (list):
+            A list containing sensor datasets (1-hour averges) with parameter
+            measurements.
+        ref_df (pandas DataFrame):
+            Reference dataset with collocated monitor measurements for the
+            specified parameter.
+        avg_df (pandas DataFrame):
+            A dataset containing the intersensor average for concurrently
+            recorded sensor measurements for each parameter measured by the
+            air sensor.
+        met_ref_df (pandas DataFrame, optional):
+            Meteorological reference data (1-hour averages) for wind speed
+            and direction measurements. Defaults to None.
+        figure_path (str, optional):
+            Path to directory where the figure will be saved. Defaults to None.
+        param (str, optional):
+            Column header name for the parameter values to be plotted. Defaults
+            to None.
+        met_param (str, optional):
+            The meteorological parameter plotted along the x-axis of the
+            scatter plot. Defaults to None.
+        sensor_name (str, optional):
+            The name of the air sensor (make, manufacturer). Defaults to None.
+        write_to_file (bool, optional):
+            If true, the figure will be saved as a png image to the
+            ``[project_path]/figures`` subdirectory. Defaults to True.
+        sensor_serials (dict, optional):
+            A dictionary of sensor serial identifiers for each unit in the
+            testing deployment. Defaults to None.
+        ref_name (str, optional):
+            The name of the reference monitor collocated alongside the air
+            sensors that recorded concurrent measurement pairs for the specified
+            parameter. Defaults to None.
+        report_fmt (bool, optional):
+            If true, select formatting presets for displaying figures on the
+            reporting template for sensor performance evaluations included
+            alongside US EPA's performance targets documents for air sensors.
+            Defaults to False.
+        fig (Matplotlib.figure.Figure, optional):
+            Optional, the Matplotlib figure on which axes object elements are
+            drawn. Useful is the user is iterating over the Axes elements of a
+            Matplotlib figure in a for-loop outside this plotting function.
+            Within the loop, calls to this function can be made to add elements
+            for each axes object. Defaults to None.
+        ax (matplotlib.axes._subplots.AxesSubplot, optional):
+            Optional, the Matplotlib Axes object on which plotting elements
+            will be drawn. Useful is the user is iterating over the Axes
+            elements of a Matplotlib figure in a for-loop outside this plotting
+            function. Within the loop, calls to this function can be made to add
+            elements for each axes object. Defaults to None.
+        return_mpl_obj (bool, optional):
+            If true, will return a Matplotlib axes instance (useful for
+            iteration over subplot axes if this plotting function is called
+            within a for-loop that is iterating over the axes elements in
+            a Matplotlib subplot object). Defaults to False.
+
+    **Keyword Arguments:**
+
+    :param point_size:
+        The size of the scatter points. Defaults to 12
+    :type point_size: float or int, passed to Draw_Scatter()
+    :param point_alpha:
+        The transparency of the scatter plots. Defaults to 0.5.
+    :type point_alpha: float, passed to Draw_Scatter()
+    :param list point_colors:
+        A list of strings indicating colors for each sensor scatter - either
+        color hex codes or `valid color names recognized by Matplotlib <https://matplotlib.org/stable/gallery/color/named_colors.html>`_.
+        Defaults to None.
+    :param xlims:
+        Set the x-limits of the plot. Defaults to None.
+    :type xlims: Two-element tuple
+    :param ylims:
+        Set the y-limits of the plot. Defaults to None.
+    :type ylims: Two-element tuple
+    :param cmap_norm_range:
+        A two-element tuple containing the normalized range of the colormap
+        values that will be displayed in the figure. The full range of the
+        selected colormap can be selected by passing (0, 1). Hues will
+        be selected at equally spaced intervals within the normalized
+        colormap range specified.  Defaults to (0, 0.4).
+    :type cmap_norm_range: Two-element tuple
+    :param cmap_name:
+        The name of the colormap which the scatter plot will be assigned.
+        Defaults to 'Set1'.
+    :type cmap_name: str, passed to Draw_Scatter()
+    :param fontsize:
+        The fontsize of plot titles and labels. Defaults to 12.
+    :type fontsize: int or float, passed to Draw_Scatter()
+    :param detail_fontsize:
+        Fontsize for axes tick labels and smaller plotting text elements.
+        Defaults to 10.
+    :type detail_fontsize: int or float, passed to Draw_Scatter()
+    :param subplot_adjust:
+        Adjust the dimensions for drawing subplots on the Matplotlib Figure
+        object. Passed to ``Matplotlib.subplots.subplots_adjust()``. Contains
+        the following entries:
+
+        - top: Modify the upper-most bounds of the figure.
+        - bottom: Modify the lower-most bounds of the figure.
+        - left: Modify the left-most bounds of the figure.
+        - right: Modify the right-most bounds of the figure.
+        - hspace: Modify the height of padding between subplots
+        - wspace: Modify the width of padding between subplots
+        - legend_pos: Two-element tuple containing floats indicating the
+          x-axis and y-axis position of the center of the plot legend.
+
+        Defaults to None.
+
+    :param float fig_wspace:
+        Modify the width of padding between subplots. Passed to
+        ``Matplotlib.subplots.subplots_adjust()`` ``'wspace'`` argument.
+    :param float fig_hspace:
+        Modify the height of padding between subplots. ``'hspace'`` argument.
+    :param float fig_left:
+        Modify the left-most bounds of the figure. Passed to
+        ``Matplotlib.subplots.subplots_adjust()`` ``'left'`` argument.
+    :param float fig_right:
+        Modify the right-most bounds of the figure. Passed to
+        ``Matplotlib.subplots.subplots_adjust()`` ``'right'`` argument.
+    :param float fig_top:
+        Modify the upper-most bounds of the figure. Passed to
+        ``Matplotlib.subplots.subplots_adjust()`` ``'top'`` argument.
+    :param float fig_bottom:
+        Modify the lower-most bounds of the figure. Passed to
+        ``Matplotlib.subplots.subplots_adjust()`` ``'bottom'`` argument.
+    :type subplot_adjust: Seven-element tuple
+    :param bool show_errorbars:
+        If True, display errorbars (standard error) for normalized
+        sensor-reference measurement pairs. Defaults to False.
+    :param bool show_legend:
+        If True, display the figure legend. Defaults to True.
+    :param fig_size:
+        The dimensions (width, height) in inches of the Matplotlib figure to
+        be drawn. Defaults to (8, 4).
+    :type fig_size: Two-element tuple
+    :param int errorbar_nbins:
+        The number of bins along the x-axis that data for the dependent variable
+        are grouped into and displayed error bars. Defaults to 10 (i.e., 10 error
+        bars equally spaced along the x-axis will be shown indicating the
+        standard error in the dependent variable).
+    :param str errorbar_color:
+        The color of the error bars drawn on the plot. Defaults to #151515.
+    :param legend_loc:
+        The x and y coordinate of center of the legend (relative to the axes
+        object coordinates).
+    :type legend_loc: Two-element tuple
+
+    Returns:
+        ax (Matplotlib Axes object):
+            The Matplotlib Axes object on which plotting elements
+            will be drawn. Useful is the user is iterating over the Axes
+            elements of a Matplotlib figure in a for-loop outside this plotting
+            function. Within the loop, calls to this function can be made to add
+            elements for each axes object. Returned if ``return_mpl_obj`` is
+            True.
+
+    """
+    param_obj = Parameter(param)
+    param_name = param_obj.name
+    fmt_param = param_obj.format_name
+    fmt_param_units = param_obj.units
+
+    met_param_obj = Parameter(met_param)
+    met_param_name = met_param_obj.name
+    fmt_met_param = met_param_obj.format_name
+    fmt_met_units = met_param_obj.units
+
+    sns.set_style(kwargs.get('seaborn_style', 'darkgrid'))
+    
+    # dep_var = kwargs.get('dep_var', 'diff')
+
+    dep_var_options = ['absdiff', 'diff']
+    # if dep_var not in dep_var_options:
+    #     raise ValueError(f'Invalid dependent variable name {dep_var}, choose from {dep_var_options}')
+
+    kwargs['show_N'] = False
+    kwargs['show_RMSE'] = False
+    kwargs['show_spearman'] = False
+    kwargs['show_one_to_one'] = False
+    kwargs['show_trendline'] = False
+    kwargs['point_size'] = kwargs.get('point_size', 12)
+    kwargs['point_alpha'] = kwargs.get('point_alpha', 0.7)
+
+    point_colors = kwargs.get('point_colors', None)
+    xlims = kwargs.get('xlims', None)
+    ylims = kwargs.get('ylims', None)
+
+    if len(sensor_serials) < 4:
+        cmap_norm_range = kwargs.get('cmap_norm_range', (0, 0.4))
+        cmap_name = kwargs.get('cmap_name', 'Set1')
+    else:
+        cmap_norm_range = kwargs.get('cmap_norm_range', (0.1, .9))
+        cmap_name = kwargs.get('cmap_name', 'seismic_r')
+
+    fontsize = kwargs.get('fontsize', 12)
+    detail_fontsize = kwargs.get('detail_fontsize', 10)
+    subplot_adjust = kwargs.get('subplot_adjust', None)
+
+    show_errorbars = kwargs.get('show_errorbars', False)
+    show_legend = kwargs.get('show_legend', True)
+
+    # Remove attributes from kwargs if specified
+    kwargs.pop('fontsize', None)
+    kwargs.pop('ylims', None)
+    kwargs.pop('xlims', None)
+
+    data = met_ref_df
+    if data[met_param_name + '_Value'].dropna().empty:
+        print(f'..Met data empty for {met_param_name}, trying sensor measurements')
+
+        try:
+            data = avg_df['mean_' + met_param_name + '_Value'].dropna()
+            data = data.to_frame().rename(columns={'mean_' + met_param_name + '_Value':
+                                                   met_param_name + '_Value'})
+            sensor_data = True
+        except KeyError:
+            print('..{met_param_name} not measured by sensor, unable to plot '
+                  'distribution')
+            return
+        if data.empty:
+            print('..no intersensor averaged {met_param_name} data, unable to plot '
+                  'distribution')
+            return
+
+
+    if param_name == 'WS':
+        met_param_name = 'WS'
+    if param_name == 'WD':
+        met_param_name = 'WD'
+    elif met_param_name is None:
+        print('Enter valid parameter for met_param_name: Either WS or WD')
+
+    if (ax and fig) is None:
+        # No axes object passed to function, create unique fig, axes objects
+        fig, ax = plt.subplots(1, 1, figsize=kwargs.get('fig_size', (8, 4)))
+        unique_ax_obj = True
+    else:
+        # Axes object passed to function, set axes within scope of function to
+        # passed axes object.
+        ax = ax
+        unique_ax_obj = False
+
+    # Retreive formatted version of sensor and parameter name
+    fmt_sensor_name = sensor_name.replace('_', ' ')
+
+    ref_df = ref_df[ref_df[f'{param}_Value'] > ref_mdl]
+    print(f'[Note]: {param} values below the Federal MDL ({ref_mdl} {param_obj.units_description})'
+          ' are not shown')
+
+    # if dep_var == 'normalized':
+    #     # Compute normalized dataframes
+    #     depvar_df_list = normalize(df_list, ref_df, param_name, ref_name)
+    #     #title = f'{fmt_sensor_name} {fmt_param} Normalized by {ref_name}'
+    #     title = f' ' ###
+    #     # Plot 1:1 normalization line
+    #     ax.axhline(y=1.0, linewidth=1.5, color='#8b8b8b', alpha=.8)
+    #     legend_list = ['1:1']
+    # if dep_var == 'diff':
+    if met_param == 'WS':
+        dep_var = 'diff'
+        depvar_df_list = diff(df_list, ref_df, param_name, ref_name)
+        title = f'{fmt_param} Concentration Difference\n({fmt_sensor_name} - {ref_name})'
+        # Plot target bias line
+        ax.axhline(y=0.0, linewidth=1.5, color='#8b8b8b', alpha=.8)
+        legend_list = [f'Target Value: 0 {fmt_param_units}']
+    # if dep_var == 'absdiff':
+    if met_param == 'WD':
+        dep_var = 'absdiff'
+        depvar_df_list = absdiff(df_list, ref_df, param_name, ref_name)
+        title = f'{fmt_param} Absolute Concentration Difference\n|{fmt_sensor_name} - {ref_name}|'
+        # Plot target bias line
+        ax.axhline(y=0.0, linewidth=1.5, color='#8b8b8b', alpha=.8, linestyle='--')
+        legend_list = [f'Target Value: 0 {fmt_param_units}']
+
+    x_label = f'Monitor {fmt_met_param} ({fmt_met_units})'
+    y_label = f'Concentration Difference {fmt_param}'
+    # labels = [title]
+    # labels = wrap_text(labels, max_label_len=45)
+    # title = labels[0]
+
+
+    param_dict = {'xlabel': x_label,
+                  'ylabel': y_label}
+
+
+    # # Set xlim and ylim if not specified
+    # if xlims is None or ylims is None:
+    #     # Determine which limits need to be set based on whether values have
+    #     # been passed to kwargs for xlims or ylims
+    #     set_xlims = True
+    #     set_ylims = True
+    #     if xlims is not None:
+    #         set_xlims = False
+    #     if ylims is not None:
+    #         set_ylims = False
+
+    #     lim_tup = met_scatter_lims(met_data=data,
+    #                                param=param_name,
+    #                                met_param=met_param_name,
+    #                                xlims=xlims,
+    #                                ylims=ylims,
+    #                                serials=sensor_serials,
+    #                                depvar_df_list=depvar_df_list,
+    #                                dep_var=dep_var)
+
+    #     if set_xlims:
+    #         xlims = lim_tup[0]
+    #     if set_ylims:
+    #         ylims = lim_tup[1]
+
+
+
+
+    # Set colormap and assign number of discrete colors from colormap
+    if point_colors is None:
+
+        # Set the colormap and configure the range of hues that will be sampled
+        if len(df_list) == 1:
+            monocolor = kwargs.get('monocolor', '#0048AD')
+            colors = [monocolor]
+        else:
+            colormap = plt.cm.get_cmap(cmap_name)
+            cmap_lbound = cmap_norm_range[0]
+            cmap_ubound = cmap_norm_range[1]
+            colors = [colormap(i) for i in np.linspace(cmap_lbound, cmap_ubound,
+                      len(df_list))]
+
+    else:
+        colors = point_colors
+
+    # If the normalized param is WS or WD, the ref_df will be the met_ref_df
+    if any(col.startswith('WS') or col.startswith('WD') for col in ref_df):
+        data = ref_df
+
+    # Generate scatter plots for each normalized sensor dataset
+
+    for i, (df, sensor_n, color) in enumerate(zip(depvar_df_list, sensor_serials, colors)):
+        compare_df = pd.DataFrame()
+        compare_df[met_param_name + '_Value'] = data[met_param_name + '_Value']
+        compare_df[f'{dep_var.title()}_{param_name}_Value'] = df[f'{dep_var.title()}_{param_name}_Value']
+        xdata = compare_df[met_param_name + '_Value']
+        ydata = compare_df[f'{dep_var.title()}_{param_name}_Value']
+
+        if ydata.dropna().empty is True:
+            continue
+
+        draw_scatter(ax, xdata, ydata, param_dict,
+                     xlims=xlims, ylims=ylims, fontsize=fontsize,
+                     detail_fontsize=detail_fontsize,
+                     plot_regression=False, monocolor=color, **kwargs)
+
+        ax.set_title(title, fontsize=fontsize, pad=6)
+
+        # Choose between serial ID and sensor number labels for plot legend
+        if sensor_serials is not None:
+            lbl = list(sensor_serials.values())[i]
+        else:
+            lbl = 'Sensor ' + str(i + 1)
+        legend_list.append(lbl)
+
+    # Axes object position, dimensions ----------------------------------------
+    box = ax.get_position()
+
+    if (len(sensor_serials) + 1)/4 > 1:
+        leg_cols = 2
+        col_spacing = 0.8
+        if unique_ax_obj is True and report_fmt is True:
+            ax.set_position([box.x0*0.75, box.y0, box.width*0.85, box.height])
+    else:
+        leg_cols = 1
+        col_spacing = 0.8
+        if unique_ax_obj is True and report_fmt is True:
+            ax.set_position([box.x0, box.y0, box.width * 0.90, box.height])
+
+    # Set the ratio of plot dimensions to 2:1
+    ratio = 0.5
+    xleft, xright = ax.get_xlim()
+    ybottom, ytop = ax.get_ylim()
+    ax.set_aspect(abs((xright-xleft)/(ybottom-ytop))*ratio)
+
+    # if dep_var == 'normalized':
+    #     ax.set_yticks(np.arange(round(ybottom), round(ytop + 1), 1))
+
+    # Adjust axes dimensions to fit width and height of plot
+    if unique_ax_obj is True and report_fmt is True:
+        # Adjustments for single plot
+        top = 0.9
+        bottom = 0.13
+        left = 0.04
+        right = 0.86
+        hspace = 0.20
+        wspace = 0.20
+        legend_pos = (1.02, 0.5)
+        legend_fontsize = detail_fontsize
+        legend_loc = 'center left'  # position legend based on its center left
+
+    elif subplot_adjust is None:
+        # axes adjustments for PT report formatted multi-axes plot
+        top = 0.95
+        bottom = 0.4
+        left = 0.05
+        right = 0.95
+        hspace = 0.20
+        wspace = 0.20
+        legend_pos = (.5, -0.65)
+        legend_fontsize = detail_fontsize
+        legend_loc = 'center'  # position the legend based on its center
+    else:
+        subplot_adjust = list(subplot_adjust.values())
+        top = subplot_adjust[0]
+        bottom = subplot_adjust[1]
+        left = subplot_adjust[2]
+        right = subplot_adjust[3]
+        hspace = subplot_adjust[4]
+        wspace = subplot_adjust[5]
+        legend_pos = subplot_adjust[6]
+        legend_fontsize = detail_fontsize
+        legend_loc = 'center'  # position the legend based on its center
+
+    fig.subplots_adjust(wspace=wspace,
+                        hspace=hspace,
+                        left=left,
+                        right=right,
+                        top=top,
+                        bottom=bottom)
+
+    # Error bars --------------------------------------------------------------
+    all_sensor_data = pd.DataFrame()
+    for i, df in enumerate(depvar_df_list, 1):
+        sensor_data = df[f'{dep_var.title()}_{param_name}_Value']
+        all_sensor_data[param_name  + '_Value' + '_sensor_' + str(i)] = sensor_data
+    ydata = all_sensor_data
+
+    if show_errorbars is True:
+        error_bars(xdata, ydata, ax, plot_yerror=True,
+                   n_xbins=kwargs.get('errorbar_nbins', 10),
+                   errorbar_color=kwargs.get('errorbar_color', '#151515'))
+
+    # Legend position ---------------------------------------------------------
+    if show_legend is True:
+        ax.legend(legend_list, fontsize=legend_fontsize, loc=legend_loc,
+                  bbox_to_anchor=kwargs.get('legend_loc', legend_pos),
+                  ncol=leg_cols, columnspacing=col_spacing)
+
+    # Write plot to file ------------------------------------------------------
+    if write_to_file is True:
+        todays_date = get_todays_date()
+        figure_path = os.path.join(figure_path, param_name,
+                            f'{sensor_name}_diff_absdiff_{param_name}_vs_{met_param_name}')
 
         # Indicate performance targets template formatted
         if report_fmt is True:

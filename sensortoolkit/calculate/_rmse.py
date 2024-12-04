@@ -67,7 +67,7 @@ def rmse(df_list, ref_df, deploy_dict, param=None, return_deploy_dict=True):
             Parameter name to evaluate
         return_deploy_dict (bool):
             If true, return modified deployment dictionary with precision
-            statisitcs (CV, standard deviation, N concurrent datapoints across
+            statistics (CV, standard deviation, N concurrent datapoints across
             all sensors).
 
     Returns:

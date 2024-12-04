@@ -1,14 +1,16 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>sensortoolkit.plotting._plot_formatting &mdash; sensortoolkit 0.8.3b2 documentation</title>
-      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" type="text/css" />
+  <title>sensortoolkit.plotting._plot_formatting &mdash; sensortoolkit 0.9.0b2 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+
+  
   <!--[if lt IE 9]>
     <script src="../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
@@ -16,6 +18,7 @@
         <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
         <script src="../../../_static/jquery.js"></script>
         <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../../../_static/doctools.js"></script>
     <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
@@ -27,14 +30,18 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="../../../index.html" class="icon icon-home"> sensortoolkit
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            sensortoolkit
           </a>
               <div class="version">
-                0.8.3b2
+                0.9.0b2
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -43,9 +50,10 @@
               <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../quickstart.html">Quickstart Guide</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../quickstart.html#script-templates">Script Templates</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../setup.html">Setting Up for sensortoolkit</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../install.html">Installing and Updating sensortoolkit</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../import_sensortoolkit.html">Importing sensortoolkit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../template.html">Analysis with sensortoolkit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../template.html#script-template">Script Template</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Objects and Data Structures</span></p>
 <ul>
@@ -53,7 +61,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../data_structures/index.html">Data Structures</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../sdfs/index.html">sensortoolkit Data Formatting Scheme (SDFS)</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Objects and Data Structures</span></p>
+<p class="caption" role="heading"><span class="caption-text">Analysis and Reports</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../evaluation_objects/index.html">Evaluation Objects</a></li>
 </ul>
@@ -75,9 +83,9 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="../../index.html">Module code</a> &raquo;</li>
-      <li>sensortoolkit.plotting._plot_formatting</li>
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">sensortoolkit.plotting._plot_formatting</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -106,6 +114,7 @@
 <span class="sd">  Wed Jul 28 14:13:57 2021</span>
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="kn">from</span> <span class="nn">pandas.plotting</span> <span class="kn">import</span> <span class="n">register_matplotlib_converters</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">textwrap</span> <span class="kn">import</span> <span class="n">wrap</span>
 <span class="kn">import</span> <span class="nn">math</span>
@@ -113,7 +122,7 @@
 
 
 <div class="viewcode-block" id="set_fontsize"><a class="viewcode-back" href="../../../api/_autosummary/sensortoolkit.plotting._plot_formatting.set_fontsize.html#sensortoolkit.plotting._plot_formatting.set_fontsize">[docs]</a><span class="k">def</span> <span class="nf">set_fontsize</span><span class="p">(</span><span class="n">serials</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Selects fontsize for figures based on the number of sensors present in</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Selects fontsize for figures based on the number of sensors present in</span>
 <span class="sd">    the sensor serial ID dictionary.</span>
 
 <span class="sd">    Args:</span>
@@ -137,7 +146,7 @@
 
 
 <div class="viewcode-block" id="wrap_text"><a class="viewcode-back" href="../../../api/_autosummary/sensortoolkit.plotting._plot_formatting.wrap_text.html#sensortoolkit.plotting._plot_formatting.wrap_text">[docs]</a><span class="k">def</span> <span class="nf">wrap_text</span><span class="p">(</span><span class="n">labels</span><span class="p">,</span> <span class="n">max_label_len</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Formats plotting text with line breaks based on specified text length.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Formats plotting text with line breaks based on specified text length.</span>
 
 <span class="sd">    Code modified via Stack Overflow user DavidG code</span>
 <span class="sd">    (https://stackoverflow.com/questions/47057789/matplotlib-wrap-text-in-legend)</span>
@@ -162,7 +171,7 @@
 
 
 <div class="viewcode-block" id="subplot_dims"><a class="viewcode-back" href="../../../api/_autosummary/sensortoolkit.plotting._plot_formatting.subplot_dims.html#sensortoolkit.plotting._plot_formatting.subplot_dims">[docs]</a><span class="k">def</span> <span class="nf">subplot_dims</span><span class="p">(</span><span class="n">n_sensors</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Recommends subplot dimensions based on the nearest perfect square for</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Recommends subplot dimensions based on the nearest perfect square for</span>
 <span class="sd">    number of sensors (except when n%10, n_cols in multiples of 5)</span>
 
 <span class="sd">    Args:</span>
@@ -186,15 +195,15 @@
 
 <div class="viewcode-block" id="sensor_subplot_formatting"><a class="viewcode-back" href="../../../api/_autosummary/sensortoolkit.plotting._plot_formatting.sensor_subplot_formatting.html#sensortoolkit.plotting._plot_formatting.sensor_subplot_formatting">[docs]</a><span class="k">def</span> <span class="nf">sensor_subplot_formatting</span><span class="p">(</span><span class="n">number_of_sensors</span><span class="p">,</span> <span class="n">param_obj</span><span class="p">,</span> <span class="n">report_fmt</span><span class="p">,</span>
                               <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Configure subplot parameters that control the spacing of subplots,</span>
-<span class="sd">    number of subplots and dimensions of the Matplotliub axes object array,</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Configure subplot parameters that control the spacing of subplots,</span>
+<span class="sd">    number of subplots and dimensions of the Matplotlib axes object array,</span>
 <span class="sd">    color bar formatting, etc.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        number_of_sensors (int):</span>
 <span class="sd">            The number of sensors to display in the figure.</span>
 <span class="sd">        param_obj (sensortoolkit.Parameter):</span>
-<span class="sd">            The parameter correpsonding to measurement data that will be</span>
+<span class="sd">            The parameter corresponding to measurement data that will be</span>
 <span class="sd">            displayed in the figure.</span>
 <span class="sd">        report_fmt (bool):</span>
 <span class="sd">            If true, select formatting presets for displaying figures on the</span>
@@ -290,7 +299,7 @@
                 <span class="n">top</span> <span class="o">=</span> <span class="mf">0.85</span>
                 <span class="n">bottom</span> <span class="o">=</span> <span class="mf">0.15</span>
                 <span class="n">suptitle_xpos</span> <span class="o">=</span> <span class="mf">0.46</span>
-                <span class="n">suptitle_ypos</span> <span class="o">=</span> <span class="mf">0.95</span>
+                <span class="n">suptitle_ypos</span> <span class="o">=</span> <span class="mi">1</span>
                 <span class="n">title_text_wrap</span> <span class="o">=</span> <span class="mi">30</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">fig_size</span> <span class="o">=</span> <span class="p">(</span><span class="mf">4.9</span><span class="p">,</span> <span class="mf">5.5</span><span class="p">)</span>
@@ -300,6 +309,7 @@
                 <span class="n">right</span> <span class="o">=</span> <span class="mf">0.85</span>
                 <span class="n">top</span> <span class="o">=</span> <span class="mf">0.9</span>
                 <span class="n">bottom</span> <span class="o">=</span> <span class="mf">0.25</span>
+                <span class="n">suptitle_ypos</span> <span class="o">=</span> <span class="mf">0.98</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">fig_size</span> <span class="o">=</span> <span class="p">(</span><span class="mf">4.9</span><span class="p">,</span> <span class="mf">5.5</span><span class="p">)</span>
             <span class="n">wspace</span> <span class="o">=</span> <span class="mf">.01</span>
@@ -308,9 +318,10 @@
             <span class="n">right</span> <span class="o">=</span> <span class="mf">0.85</span>
             <span class="n">top</span> <span class="o">=</span> <span class="mf">0.95</span>
             <span class="n">bottom</span> <span class="o">=</span> <span class="mf">0.1</span>
+            <span class="n">suptitle_ypos</span> <span class="o">=</span> <span class="mf">0.98</span>
 
         <span class="n">suptitle_xpos</span> <span class="o">=</span> <span class="mf">0.50</span>
-        <span class="n">suptitle_ypos</span> <span class="o">=</span> <span class="mf">0.98</span>
+
         <span class="n">title_text_wrap</span> <span class="o">=</span> <span class="mi">35</span>
         <span class="n">detail_fontsize</span> <span class="o">=</span> <span class="mf">.75</span><span class="o">*</span><span class="n">font_size</span>
         <span class="n">filename_suffix</span> <span class="o">=</span> <span class="s1">&#39;1_sensor&#39;</span>
@@ -321,12 +332,12 @@
 
         <span class="k">if</span> <span class="n">RH_colormap</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
             <span class="n">fig_size</span> <span class="o">=</span> <span class="p">(</span><span class="mf">12.3</span><span class="p">,</span> <span class="mf">5.12</span><span class="p">)</span>
-            <span class="n">wspace</span> <span class="o">=</span> <span class="mf">.38</span>
+            <span class="n">wspace</span> <span class="o">=</span> <span class="mf">0.3</span>
             <span class="n">hspace</span> <span class="o">=</span> <span class="mf">.05</span>
             <span class="n">left</span> <span class="o">=</span> <span class="mf">0.06</span>
             <span class="n">right</span> <span class="o">=</span> <span class="mf">0.94</span>
-            <span class="n">top</span> <span class="o">=</span> <span class="mf">0.97</span>
-            <span class="n">bottom</span> <span class="o">=</span> <span class="mf">0.22</span>
+            <span class="n">top</span> <span class="o">=</span> <span class="mf">0.90</span>
+            <span class="n">bottom</span> <span class="o">=</span> <span class="mf">0.25</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">fig_size</span> <span class="o">=</span> <span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
             <span class="n">wspace</span> <span class="o">=</span> <span class="mf">.4</span>
@@ -446,7 +457,7 @@
             <span class="n">suptitle_xpos</span> <span class="o">=</span> <span class="mf">0.5</span>
             <span class="n">suptitle_ypos</span> <span class="o">=</span> <span class="mf">1.01</span>
             <span class="n">title_text_wrap</span> <span class="o">=</span> <span class="mi">30</span>
-            <span class="n">suptitle_ypos</span> <span class="o">=</span> <span class="mf">0.95</span>
+            <span class="n">suptitle_ypos</span> <span class="o">=</span> <span class="mf">1.0</span>
         <span class="c1"># Plot both 1-hour and 24-hour averaged datasets</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">wspace</span> <span class="o">=</span> <span class="mf">.4</span>
@@ -455,19 +466,28 @@
             <span class="n">right</span> <span class="o">=</span> <span class="mf">0.92</span>
             <span class="n">top</span> <span class="o">=</span> <span class="mf">0.9</span>
             <span class="n">bottom</span> <span class="o">=</span> <span class="mf">0.30</span>
+            <span class="n">fig_size</span> <span class="o">=</span> <span class="p">(</span><span class="mf">4.9</span><span class="p">,</span> <span class="mf">4.9</span><span class="p">)</span>
             <span class="n">cbar_padding</span> <span class="o">=</span> <span class="mf">.0</span>
             <span class="n">cbar_aspect</span> <span class="o">=</span> <span class="mi">20</span>
             <span class="n">font_size</span> <span class="o">=</span> <span class="mi">9</span>
             <span class="n">detail_fontsize</span> <span class="o">=</span> <span class="mf">0.9</span><span class="o">*</span><span class="n">font_size</span>
         <span class="n">filename_suffix</span> <span class="o">=</span> <span class="s1">&#39;report_fmt&#39;</span>
-
+        
+    <span class="c1"># #if param_obj.name == &quot;PM10&quot; and report_fmt == &quot;True&quot;:</span>
+    <span class="c1"># if param_obj.name == &quot;PM10&quot;:</span>
+    <span class="c1"># #if report_fmt == &quot;True&quot;:</span>
+    <span class="c1">#     fig_size = (4.1, 4.7)</span>
+    <span class="c1">#     print(&quot;yes&quot;)</span>
+        
+    <span class="c1">#print(fig_size, top, bottom, param_obj.name, RH_colormap, report_fmt, filename_suffix)</span>
+    <span class="c1">#print(&#39;&#39;)</span>
     <span class="k">return</span> <span class="p">(</span><span class="n">Nr</span><span class="p">,</span> <span class="n">Nc</span><span class="p">,</span> <span class="n">fig_size</span><span class="p">,</span> <span class="n">suptitle_xpos</span><span class="p">,</span> <span class="n">suptitle_ypos</span><span class="p">,</span> <span class="n">title_text_wrap</span><span class="p">,</span>
             <span class="n">detail_fontsize</span><span class="p">,</span> <span class="n">wspace</span><span class="p">,</span> <span class="n">hspace</span><span class="p">,</span> <span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">,</span> <span class="n">top</span><span class="p">,</span> <span class="n">bottom</span><span class="p">,</span>
             <span class="n">filename_suffix</span><span class="p">,</span> <span class="n">cbar_padding</span><span class="p">,</span> <span class="n">cbar_aspect</span><span class="p">,</span> <span class="n">font_size</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="get_colormap_range"><a class="viewcode-back" href="../../../api/_autosummary/sensortoolkit.plotting._plot_formatting.get_colormap_range.html#sensortoolkit.plotting._plot_formatting.get_colormap_range">[docs]</a><span class="k">def</span> <span class="nf">get_colormap_range</span><span class="p">(</span><span class="n">df_list</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Set default range for colormap based on number of sensors</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Set default range for colormap based on number of sensors</span>
 
 <span class="sd">    The range is normalized to between zero and one (0.0, 1.0)</span>
 
@@ -489,8 +509,8 @@
 
 
 <div class="viewcode-block" id="met_scatter_lims"><a class="viewcode-back" href="../../../api/_autosummary/sensortoolkit.plotting._plot_formatting.met_scatter_lims.html#sensortoolkit.plotting._plot_formatting.met_scatter_lims">[docs]</a><span class="k">def</span> <span class="nf">met_scatter_lims</span><span class="p">(</span><span class="n">met_data</span><span class="p">,</span> <span class="n">param</span><span class="p">,</span> <span class="n">met_param</span><span class="p">,</span> <span class="n">xlims</span><span class="p">,</span> <span class="n">ylims</span><span class="p">,</span> <span class="n">serials</span><span class="p">,</span>
-                     <span class="n">avg_df</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Set axes limits for plots generated by ``normalized_met_scatter()``.</span>
+                     <span class="n">depvar_df_list</span><span class="p">,</span> <span class="n">dep_var</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Set axes limits for plots generated by ``met_influence()``.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        met_data (pandas DataFrame):</span>
@@ -501,7 +521,7 @@
 <span class="sd">            concentration pairs will be displayed along the y-axis.</span>
 <span class="sd">        met_param (str):</span>
 <span class="sd">            The name of the meteorological parameter displayed along the x-axis.</span>
-<span class="sd">            The name is the SDFS parameter name assocaited with the</span>
+<span class="sd">            The name is the SDFS parameter name associated with the</span>
 <span class="sd">            meteorological parameter; for temperature, pass ``&#39;Temp&#39;``, for</span>
 <span class="sd">            relative humidity, pass ``&#39;RH&#39;``.</span>
 <span class="sd">        xlims (Two-element tuple):</span>
@@ -515,12 +535,11 @@
 <span class="sd">        serials (dict):</span>
 <span class="sd">            A dictionary of serial identifiers unique to each sensor in the</span>
 <span class="sd">            deployment testing group.</span>
-<span class="sd">        avg_df (pandas DataFrame):</span>
-<span class="sd">            A dataset containing the intersensor average for concurrently</span>
-<span class="sd">            recorded sensor measurements for each parameter measured by the</span>
-<span class="sd">            air sensor. The 1st and 99th percentile of the normalized</span>
-<span class="sd">            (sensor/reference) intersensor average values are used to set</span>
-<span class="sd">            the y-limits for plots.</span>
+<span class="sd">        depvar_df_list (list of pandas DataFrames):</span>
+
+<span class="sd">        dep_var (str):</span>
+<span class="sd">            The dependent variable (y-axis) that will be displayed on the</span>
+<span class="sd">            resulting figure. Either &#39;normalized&#39;, &#39;diff&#39;, or &#39;absdiff&#39;.</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        (tuple): Four-element tuple containing:</span>
@@ -530,6 +549,12 @@
 <span class="sd">            - **ymax** (*float*)</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">avg_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">df</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">depvar_df_list</span><span class="p">,</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="n">avg_df</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;Sensor_</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="n">dep_var</span><span class="o">.</span><span class="n">title</span><span class="p">()</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="n">param</span><span class="si">}</span><span class="s1">_Value&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">dep_var</span><span class="o">.</span><span class="n">title</span><span class="p">()</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="n">param</span><span class="si">}</span><span class="s1">_Value&#39;</span><span class="p">]</span>
+
+    <span class="n">avg_df</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;mean_</span><span class="si">{</span><span class="n">dep_var</span><span class="o">.</span><span class="n">title</span><span class="p">()</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="n">param</span><span class="si">}</span><span class="s1">_Value&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">avg_df</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
     <span class="c1"># Automatically generate x-axis limits if none specified</span>
     <span class="k">if</span> <span class="n">xlims</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">xmax</span> <span class="o">=</span> <span class="n">met_data</span><span class="p">[</span><span class="n">met_param</span> <span class="o">+</span> <span class="s1">&#39;_Value&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
@@ -537,13 +562,14 @@
 
         <span class="n">xmax</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">xmax</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
         <span class="n">xmin</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">xmin</span><span class="p">)</span>
+
     <span class="k">else</span><span class="p">:</span>
         <span class="n">xmin</span><span class="p">,</span> <span class="n">xmax</span> <span class="o">=</span> <span class="n">xlims</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">xlims</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
 
     <span class="c1"># Automatically generate y-axis limits if none specified</span>
     <span class="k">if</span> <span class="n">ylims</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">ymin</span> <span class="o">=</span> <span class="n">avg_df</span><span class="p">[</span><span class="s1">&#39;mean_Normalized_&#39;</span> <span class="o">+</span> <span class="n">param</span> <span class="o">+</span> <span class="s1">&#39;_Value&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="mf">0.01</span><span class="p">)</span>
-        <span class="n">ymax</span> <span class="o">=</span> <span class="n">avg_df</span><span class="p">[</span><span class="s1">&#39;mean_Normalized_&#39;</span> <span class="o">+</span> <span class="n">param</span> <span class="o">+</span> <span class="s1">&#39;_Value&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="mf">0.99</span><span class="p">)</span>
+        <span class="n">ymin</span> <span class="o">=</span> <span class="n">avg_df</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;mean_</span><span class="si">{</span><span class="n">dep_var</span><span class="o">.</span><span class="n">title</span><span class="p">()</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="n">param</span><span class="si">}</span><span class="s1">_Value&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="mf">0.01</span><span class="p">)</span>
+        <span class="n">ymax</span> <span class="o">=</span> <span class="n">avg_df</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;mean_</span><span class="si">{</span><span class="n">dep_var</span><span class="o">.</span><span class="n">title</span><span class="p">()</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="n">param</span><span class="si">}</span><span class="s1">_Value&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="mf">0.99</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">ymax</span> <span class="o">&lt;</span> <span class="mf">5.0</span><span class="p">:</span>
             <span class="n">rounding_place</span> <span class="o">=</span> <span class="mi">1</span>  <span class="c1"># round to nearest tenths place</span>
@@ -552,14 +578,19 @@
 
         <span class="n">ymin</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">ymin</span><span class="p">)</span> <span class="o">-</span> <span class="mf">0.1</span><span class="o">*</span><span class="n">ymin</span>
         <span class="n">ymax</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">ymax</span><span class="p">,</span> <span class="n">rounding_place</span><span class="p">)</span> <span class="o">+</span> <span class="mf">0.1</span><span class="o">*</span><span class="n">ymax</span>
-
-        <span class="k">if</span> <span class="n">ymin</span> <span class="o">==</span> <span class="n">ymax</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="n">ymin</span><span class="p">,</span> <span class="n">ymax</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">1.1</span>
-        <span class="k">if</span> <span class="n">ymin</span> <span class="o">&lt;</span> <span class="mf">0.1</span> <span class="ow">and</span> <span class="n">ymin</span> <span class="o">&gt;</span> <span class="o">-</span><span class="mf">.1</span><span class="p">:</span>
-            <span class="n">ymin</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.5</span>
-        <span class="k">if</span> <span class="n">ymax</span> <span class="o">&lt;</span> <span class="mf">1.0</span><span class="p">:</span>
-            <span class="n">ymin</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="o">*</span><span class="n">ymax</span>
-            <span class="n">ymax</span> <span class="o">=</span> <span class="mf">1.1</span>
+        <span class="k">if</span> <span class="n">dep_var</span> <span class="o">==</span> <span class="s1">&#39;normalized&#39;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">ymin</span> <span class="o">==</span> <span class="n">ymax</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">ymin</span><span class="p">,</span> <span class="n">ymax</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">1.1</span>
+            <span class="k">if</span> <span class="n">ymin</span> <span class="o">&lt;</span> <span class="mf">0.1</span> <span class="ow">and</span> <span class="n">ymin</span> <span class="o">&gt;</span> <span class="o">-</span><span class="mf">.1</span><span class="p">:</span>
+                <span class="n">ymin</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.5</span>
+            <span class="k">if</span> <span class="n">ymax</span> <span class="o">&lt;</span> <span class="mf">1.0</span><span class="p">:</span>
+                <span class="n">ymin</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="o">*</span><span class="n">ymax</span>
+                <span class="n">ymax</span> <span class="o">=</span> <span class="mf">1.1</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">ymin</span> <span class="o">&gt;</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+                <span class="n">ymin</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+            <span class="k">if</span> <span class="n">ymax</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">ymax</span> <span class="o">=</span> <span class="mi">1</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">ymin</span><span class="p">,</span> <span class="n">ymax</span> <span class="o">=</span> <span class="n">ylims</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">ylims</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
 

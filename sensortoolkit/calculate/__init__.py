@@ -23,6 +23,7 @@ from ._rmse import rmse
 from ._dewpoint import dewpoint
 from ._concentration_trends import normalize, diff, absdiff
 from ._nowcast_pm25 import nowcast_pm25
+from ._ratio import calculate_ratio, calculate_ref_ratio, ratio_count, ratio_ref_count
 from ._uptime import uptime
 from ._regression_stats import regression_stats, join_stats
 from ._intersensor_mean import intersensor_mean

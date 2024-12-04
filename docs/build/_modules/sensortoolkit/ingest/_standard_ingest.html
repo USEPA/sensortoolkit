@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>sensortoolkit.ingest._standard_ingest &mdash; sensortoolkit 0.9.0b2 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            sensortoolkit
+          </a>
+              <div class="version">
+                0.9.0b2
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../quickstart.html">Quickstart Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../setup.html">Setting Up for sensortoolkit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../install.html">Installing and Updating sensortoolkit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../template.html">Analysis with sensortoolkit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../template.html#script-template">Script Template</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Objects and Data Structures</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../testingattrib_objects/index.html">Testing Attribute Objects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../data_structures/index.html">Data Structures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../sdfs/index.html">sensortoolkit Data Formatting Scheme (SDFS)</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Analysis and Reports</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../evaluation_objects/index.html">Evaluation Objects</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/index.html">sensortoolkit API</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">sensortoolkit</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">sensortoolkit.ingest._standard_ingest</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for sensortoolkit.ingest._standard_ingest</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">This module contains methods for parsing setup.json configuration files and</span>
+<span class="sd">their use in ingesting comma-separated datasets for both sensor and reference</span>
+<span class="sd">data into sensortoolkit&#39;s SDFS format.</span>
+
+<span class="sd">================================================================================</span>
+
+<span class="sd">@Author:</span>
+<span class="sd">  | Samuel Frederick, NSSC Contractor (ORAU)</span>
+<span class="sd">  | U.S. EPA / ORD / CEMM / AMCD / SFSB</span>
+
+<span class="sd">Created:</span>
+<span class="sd">  Mon Jul 19 14:03:36 2021</span>
+<span class="sd">Last Updated:</span>
+<span class="sd">  Mon Jul 19 14:03:36 2021</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+<span class="kn">import</span> <span class="nn">pytz</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">pandas.errors</span> <span class="kn">import</span> <span class="n">EmptyDataError</span>
+<span class="kn">from</span> <span class="nn">sensortoolkit.param</span> <span class="kn">import</span> <span class="n">Parameter</span>
+<span class="kn">from</span> <span class="nn">sensortoolkit.calculate</span> <span class="kn">import</span> <span class="n">convert_temp</span>
+<span class="kn">import</span> <span class="nn">charset_normalizer</span>
+
+<div class="viewcode-block" id="standard_ingest"><a class="viewcode-back" href="../../../api/_autosummary/sensortoolkit.ingest._standard_ingest.standard_ingest.html#sensortoolkit.ingest._standard_ingest.standard_ingest">[docs]</a><span class="k">def</span> <span class="nf">standard_ingest</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">setup_file_path</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Ingestion module for sensor data using setup.json configuration file</span>
+<span class="sd">    via the Setup class.</span>
+
+<span class="sd">    Sensor data file data type must be .csv, .txt, or .xlsx.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        path (str):</span>
+<span class="sd">            The full path to the recorded sensor data file</span>
+<span class="sd">        name (str):</span>
+<span class="sd">            The make and model of the sensor</span>
+<span class="sd">        setup_file_path (str):</span>
+<span class="sd">            The full path to the setup.json file</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        df (pandas DataFrame):</span>
+<span class="sd">            Dataframe containing sensor data in standardized formatting for</span>
+<span class="sd">            datetime index and header naming scheme.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">setup</span> <span class="o">=</span> <span class="n">parse_setup</span><span class="p">(</span><span class="n">setup_file_path</span><span class="p">,</span> <span class="n">data_path</span><span class="o">=</span><span class="n">path</span><span class="p">)</span>
+
+    <span class="n">time_fmt</span> <span class="o">=</span> <span class="n">setup</span><span class="p">[</span><span class="s1">&#39;time_format_dict&#39;</span><span class="p">]</span>
+    <span class="n">idx_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">setup</span><span class="p">[</span><span class="s1">&#39;time_format_dict&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+    <span class="n">idx_format_dict</span> <span class="o">=</span> <span class="p">{</span><span class="n">col</span><span class="p">:</span> <span class="n">time_fmt</span><span class="p">[</span><span class="n">col</span><span class="p">][</span><span class="s1">&#39;dt_format&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">idx_list</span><span class="p">}</span>
+    <span class="n">idx_tzone</span> <span class="o">=</span> <span class="p">[</span><span class="n">time_fmt</span><span class="p">[</span><span class="n">col</span><span class="p">][</span><span class="s1">&#39;dt_timezone&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">time_fmt</span> <span class="k">if</span>
+                 <span class="n">time_fmt</span><span class="p">[</span><span class="n">col</span><span class="p">][</span><span class="s1">&#39;dt_timezone&#39;</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">]</span>
+    <span class="n">encoding_pred</span> <span class="o">=</span> <span class="n">setup</span><span class="p">[</span><span class="s1">&#39;encoding_prediction&#39;</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="n">setup</span><span class="p">[</span><span class="s1">&#39;file_extension&#39;</span><span class="p">]</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">&#39;.csv&#39;</span><span class="p">,</span> <span class="s1">&#39;.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;.xlsx&#39;</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">names</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="n">row_idx</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="k">if</span> <span class="n">setup</span><span class="p">[</span><span class="s1">&#39;header_iloc&#39;</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">names</span> <span class="o">=</span> <span class="n">setup</span><span class="p">[</span><span class="s1">&#39;all_col_headers&#39;</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">setup</span><span class="p">[</span><span class="s1">&#39;data_row_idx&#39;</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">row_idx</span> <span class="o">=</span> <span class="n">setup</span><span class="p">[</span><span class="s1">&#39;data_row_idx&#39;</span><span class="p">]</span>
+
+            <span class="k">if</span> <span class="n">setup</span><span class="p">[</span><span class="s1">&#39;file_extension&#39;</span><span class="p">]</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">&#39;.csv&#39;</span><span class="p">,</span> <span class="s1">&#39;.txt&#39;</span><span class="p">):</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="n">setup</span><span class="p">[</span><span class="s1">&#39;header_iloc&#39;</span><span class="p">],</span>
+                                     <span class="n">names</span><span class="o">=</span><span class="n">names</span><span class="p">,</span> <span class="n">skiprows</span><span class="o">=</span><span class="n">row_idx</span><span class="p">,</span>
+                                     <span class="n">encoding</span><span class="o">=</span><span class="n">encoding_pred</span><span class="p">,</span>
+                                     <span class="n">on_bad_lines</span><span class="o">=</span><span class="s1">&#39;warn&#39;</span><span class="p">)</span>
+                <span class="k">except</span> <span class="ne">UnicodeDecodeError</span><span class="p">:</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">[WARNING]: Reading the following dataset with uft-8 &#39;</span>
+                          <span class="s1">&#39;encoding unsuccessful&#39;</span><span class="p">)</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;..Attempting to guess encoding&#39;</span><span class="p">)</span>
+
+                    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                        <span class="n">data</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">10000</span><span class="p">)</span>
+                    <span class="n">prediction</span> <span class="o">=</span> <span class="n">charset_normalizer</span><span class="o">.</span><span class="n">detect</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;..encoding prediction:&#39;</span><span class="p">)</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;....</span><span class="si">{</span><span class="n">prediction</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+
+                    <span class="k">try</span><span class="p">:</span>
+                        <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="n">setup</span><span class="p">[</span><span class="s1">&#39;header_iloc&#39;</span><span class="p">],</span>
+                                         <span class="n">names</span><span class="o">=</span><span class="n">names</span><span class="p">,</span> <span class="n">skiprows</span><span class="o">=</span><span class="n">row_idx</span><span class="p">,</span>
+                                         <span class="n">encoding</span><span class="o">=</span><span class="n">prediction</span><span class="p">[</span><span class="s2">&quot;encoding&quot;</span><span class="p">],</span>
+                                         <span class="n">on_bad_lines</span><span class="o">=</span><span class="s1">&#39;warn&#39;</span><span class="p">)</span>
+                    <span class="k">except</span> <span class="ne">UnicodeError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Error encountered in file:&#39;</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>
+                        <span class="nb">print</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+                        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Encoding prediction </span><span class="si">{</span><span class="n">prediction</span><span class="p">[</span><span class="s2">&quot;encoding&quot;</span><span class="p">]</span><span class="si">}</span><span class="s1"> &#39;</span>
+                              <span class="sa">f</span><span class="s1">&#39;unsuccessful for </span><span class="si">{</span><span class="n">path</span><span class="si">}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+                        <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+                    <span class="k">except</span> <span class="ne">UnicodeDecodeError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Error encountered in file:&#39;</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>
+                        <span class="nb">print</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+                        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Encoding prediction </span><span class="si">{</span><span class="n">prediction</span><span class="p">[</span><span class="s2">&quot;encoding&quot;</span><span class="p">]</span><span class="si">}</span><span class="s1"> &#39;</span>
+                              <span class="sa">f</span><span class="s1">&#39;unsuccessful for </span><span class="si">{</span><span class="n">path</span><span class="si">}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+                        <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+
+            <span class="k">if</span> <span class="n">setup</span><span class="p">[</span><span class="s1">&#39;file_extension&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;.xlsx&#39;</span><span class="p">:</span>
+                <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="n">setup</span><span class="p">[</span><span class="s1">&#39;header_iloc&#39;</span><span class="p">],</span>
+                                   <span class="n">names</span><span class="o">=</span><span class="n">names</span><span class="p">,</span> <span class="n">skiprows</span><span class="o">=</span><span class="n">row_idx</span><span class="p">,</span>
+                                   <span class="n">encoding</span><span class="o">=</span><span class="n">encoding_pred</span><span class="p">,</span> <span class="n">on_bad_lines</span><span class="o">=</span><span class="s1">&#39;warn&#39;</span><span class="p">)</span>
+
+        <span class="k">except</span> <span class="ne">FileNotFoundError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+        <span class="k">except</span> <span class="n">EmptyDataError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s1"> (likely empty file)&#39;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># Put other pandas read functions here</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="s1">&#39;Invalid data type. Must be either .csv, .txt, or .xlsx&#39;</span><span class="p">)</span>
+
+    <span class="c1"># If the header row loads on a row of data (may be intentional if</span>
+    <span class="c1"># formatting for first row is unusual and does not follow delimited format).</span>
+    <span class="k">if</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">all</span><span class="p">()</span> <span class="o">!=</span> <span class="n">setup</span><span class="p">[</span><span class="s1">&#39;all_col_headers&#39;</span><span class="p">]:</span>
+        <span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="n">setup</span><span class="p">[</span><span class="s1">&#39;all_col_headers&#39;</span><span class="p">]</span>
+
+    <span class="c1"># Drop rows where nans in time stamp entries</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="n">idx_list</span><span class="p">]</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="p">:]</span>
+
+    <span class="c1"># Set Datetime Index</span>
+    <span class="n">df</span><span class="p">[</span><span class="s1">&#39;DateTime&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">idx_list</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">time_format</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">val</span> <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">idx_format_dict</span><span class="o">.</span><span class="n">items</span><span class="p">()])</span>
+    <span class="n">time_zone_list</span> <span class="o">=</span> <span class="n">idx_tzone</span>
+
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">idx_list</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">time_zone_list</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="c1"># Multiple time-like columns but the specified time zone for each does</span>
+        <span class="c1"># not match</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">time_zone_list</span><span class="p">))</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Too many time zones specified for datetime index:&#39;</span>
+                             <span class="sa">f</span><span class="s1">&#39; </span><span class="si">{</span><span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">time_zone_list</span><span class="p">)</span><span class="si">}</span><span class="s1">. Only one time zone &#39;</span>
+                             <span class="s1">&#39;should be specified.&#39;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">time_zone</span> <span class="o">=</span> <span class="n">time_zone_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">time_zone_list</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;No time zone specified for datetime index. &#39;</span>
+              <span class="s1">&#39;Continuing with tz-naive datetime index.&#39;</span><span class="p">)</span>
+        <span class="n">time_zone</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">time_zone</span> <span class="o">=</span> <span class="n">time_zone_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="c1"># Since non-zero padded timestamp formatting depends on the platform, use</span>
+    <span class="c1"># the strptime module to parse timestamps into standard formatting</span>
+    <span class="k">if</span> <span class="s1">&#39;%-&#39;</span> <span class="ow">in</span> <span class="n">time_format</span> <span class="ow">or</span> <span class="s1">&#39;%#&#39;</span> <span class="ow">in</span> <span class="n">time_format</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;..Non-zero padded formatting encountered in timeseries, &#39;</span>
+              <span class="s1">&#39;attempting to conform&#39;</span><span class="p">)</span>
+        <span class="n">time_format</span> <span class="o">=</span> <span class="n">time_format</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;%-&#39;</span><span class="p">,</span> <span class="s1">&#39;%&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;%#&#39;</span><span class="p">,</span> <span class="s1">&#39;%&#39;</span><span class="p">)</span>
+        <span class="n">df</span><span class="p">[</span><span class="s1">&#39;DateTime&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;DateTime&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span>
+                                    <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">apply_strptime</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">time_format</span><span class="p">))</span>
+
+        <span class="n">time_format</span> <span class="o">=</span> <span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1"> %H:%M:%S&#39;</span>
+
+    <span class="c1"># Check whether the timestamp data are in Unix epoch</span>
+    <span class="k">if</span> <span class="n">time_format</span> <span class="o">==</span> <span class="s1">&#39;epoch&#39;</span><span class="p">:</span>
+        <span class="n">unit</span> <span class="o">=</span> <span class="s1">&#39;s&#39;</span>
+        <span class="n">time_format</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">unit</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="c1"># Convert the DateTime column to time-like data format and set as index</span>
+    <span class="c1"># If errors encountered (timestamps cant be parsed), &#39;raise&#39; will invoke</span>
+    <span class="c1"># ValueError and prompt parsing with pandas inferring timestamp format</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">df</span><span class="p">[</span><span class="s1">&#39;DateTime&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;DateTime&#39;</span><span class="p">],</span>
+                                        <span class="nb">format</span><span class="o">=</span><span class="n">time_format</span><span class="p">,</span>
+                                        <span class="n">unit</span><span class="o">=</span><span class="n">unit</span><span class="p">,</span>
+                                        <span class="n">errors</span><span class="o">=</span><span class="s1">&#39;raise&#39;</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">..timestamp formatting inconsistent with specified format, </span><span class="se">\n</span><span class="s1">&#39;</span>
+              <span class="s1">&#39;proceeding by inferring timestamp format</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">df</span><span class="p">[</span><span class="s1">&#39;DateTime&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;DateTime&#39;</span><span class="p">],</span>
+                                        <span class="n">infer_datetime_format</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                                        <span class="n">errors</span><span class="o">=</span><span class="s1">&#39;coerce&#39;</span><span class="p">)</span>
+
+
+    <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;DateTime&#39;</span><span class="p">])</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">sort_index</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">time_zone</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">dt</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">utcnow</span><span class="p">()</span>
+        <span class="n">tz</span> <span class="o">=</span> <span class="n">pytz</span><span class="o">.</span><span class="n">timezone</span><span class="p">(</span><span class="n">time_zone</span><span class="p">)</span>
+        <span class="n">offset</span> <span class="o">=</span> <span class="n">tz</span><span class="o">.</span><span class="n">utcoffset</span><span class="p">(</span><span class="n">dt</span><span class="p">)</span> <span class="o">/</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_timedelta</span><span class="p">(</span><span class="s1">&#39;1 hour&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;....converting datetime index from </span><span class="si">{</span><span class="n">time_zone</span><span class="si">}</span><span class="s1"> (UTC </span><span class="si">{</span><span class="n">offset</span><span class="si">}</span><span class="s1"> &#39;</span>
+              <span class="s1">&#39;hours) to UTC.&#39;</span><span class="p">)</span>
+        <span class="c1"># Check if the datetime index is already in UTC (can happen if format</span>
+        <span class="c1"># was inferred and tzone set UTC)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">tz_localize</span><span class="p">(</span><span class="n">time_zone</span><span class="p">)</span><span class="o">.</span><span class="n">tz_convert</span><span class="p">(</span><span class="s1">&#39;UTC&#39;</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>
+            <span class="k">pass</span>
+        <span class="c1"># Experimental inclusion of metadata attributes dictionary</span>
+        <span class="n">df</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s1">&#39;local_tzone&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">time_zone</span>
+
+    <span class="c1"># Remove rows where coerced errors resulted in NaT values for index</span>
+    <span class="n">null_idx</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">isna</span><span class="p">(),</span> <span class="p">:]</span>
+    <span class="k">if</span> <span class="n">null_idx</span><span class="o">.</span><span class="n">empty</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">The following rows contain invalid timestamp data, dropping&#39;</span>
+              <span class="s1">&#39; from dataset:</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">null_idx</span><span class="p">)</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">dropna</span><span class="p">(),</span> <span class="p">:]</span>
+
+    <span class="n">idx_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;DateTime&#39;</span><span class="p">)</span>
+    <span class="n">timestamp_cols</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">idx_list</span><span class="p">)</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="n">timestamp_cols</span><span class="p">)</span>
+
+    <span class="c1"># Rename parameter header columns</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="n">setup</span><span class="p">[</span><span class="s1">&#39;col_rename_dict&#39;</span><span class="p">])</span>
+
+    <span class="c1"># Set numeric column types for parameter value columns</span>
+    <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">setup</span><span class="p">[</span><span class="s1">&#39;col_rename_dict&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+        <span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_numeric</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">],</span> <span class="n">errors</span><span class="o">=</span><span class="s1">&#39;coerce&#39;</span><span class="p">)</span>
+
+    <span class="c1"># Unit scaling</span>
+    <span class="k">for</span> <span class="n">header</span><span class="p">,</span> <span class="n">conversion</span> <span class="ow">in</span> <span class="n">setup</span><span class="p">[</span><span class="s1">&#39;file_unit_scaling&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="c1"># Use a specific equation indicated by the conversion string</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">conversion</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+
+            <span class="c1"># Temperature conversions</span>
+            <span class="k">if</span> <span class="n">conversion</span> <span class="o">==</span> <span class="s1">&#39;f_c&#39;</span><span class="p">:</span>
+                <span class="n">sdfs_header</span> <span class="o">=</span> <span class="n">setup</span><span class="p">[</span><span class="s1">&#39;col_rename_dict&#39;</span><span class="p">][</span><span class="n">header</span><span class="p">]</span>
+                <span class="n">converted_data</span> <span class="o">=</span> <span class="n">convert_temp</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">sdfs_header</span><span class="p">],</span>
+                                              <span class="n">from_unit</span><span class="o">=</span><span class="s1">&#39;F&#39;</span><span class="p">,</span>
+                                              <span class="n">to_unit</span><span class="o">=</span><span class="s1">&#39;C&#39;</span><span class="p">)</span>
+                <span class="n">df</span><span class="p">[</span><span class="n">sdfs_header</span><span class="p">]</span> <span class="o">=</span> <span class="n">converted_data</span>
+
+            <span class="k">if</span> <span class="n">conversion</span> <span class="o">==</span> <span class="s1">&#39;c_f&#39;</span><span class="p">:</span>
+                <span class="n">sdfs_header</span> <span class="o">=</span> <span class="n">setup</span><span class="p">[</span><span class="s1">&#39;col_rename_dict&#39;</span><span class="p">][</span><span class="n">header</span><span class="p">]</span>
+                <span class="n">converted_data</span> <span class="o">=</span> <span class="n">convert_temp</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">sdfs_header</span><span class="p">],</span>
+                                              <span class="n">from_unit</span><span class="o">=</span><span class="s1">&#39;C&#39;</span><span class="p">,</span>
+                                              <span class="n">to_unit</span><span class="o">=</span><span class="s1">&#39;F&#39;</span><span class="p">)</span>
+                <span class="n">df</span><span class="p">[</span><span class="n">sdfs_header</span><span class="p">]</span> <span class="o">=</span> <span class="n">converted_data</span>
+
+            <span class="c1"># Other non-scalar conversions could go here</span>
+
+        <span class="c1"># Use a scalar conversion factor</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">conversion</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">)):</span>
+
+            <span class="n">scale_factor</span> <span class="o">=</span> <span class="n">conversion</span>
+            <span class="n">sdfs_header</span> <span class="o">=</span> <span class="n">setup</span><span class="p">[</span><span class="s1">&#39;col_rename_dict&#39;</span><span class="p">][</span><span class="n">header</span><span class="p">]</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;....scaling </span><span class="si">{</span><span class="n">header</span><span class="si">}</span><span class="s1"> values by </span><span class="si">{</span><span class="n">scale_factor</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="n">df</span><span class="p">[</span><span class="n">sdfs_header</span><span class="p">]</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">scale_factor</span><span class="p">)</span> <span class="o">*</span> <span class="n">df</span><span class="p">[</span><span class="n">sdfs_header</span><span class="p">]</span>
+
+    <span class="c1"># Drop unused columns</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">setup</span><span class="p">[</span><span class="s1">&#39;drop_cols&#39;</span><span class="p">])</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="c1"># ignore errors if column not in df</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="n">setup</span><span class="p">[</span><span class="s1">&#39;drop_cols&#39;</span><span class="p">],</span> <span class="n">errors</span><span class="o">=</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span>
+
+    <span class="c1"># Reference data columns</span>
+    <span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">setup</span><span class="p">[</span><span class="s1">&#39;sdfs_header_names&#39;</span><span class="p">]:</span>
+        <span class="n">param_cols</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;_Unit&#39;</span><span class="p">:</span> <span class="s1">&#39;object&#39;</span><span class="p">,</span>
+                      <span class="s1">&#39;_Param_Code&#39;</span><span class="p">:</span> <span class="s1">&#39;int64&#39;</span><span class="p">,</span>
+                      <span class="s1">&#39;_Method_Code&#39;</span><span class="p">:</span> <span class="s1">&#39;int64&#39;</span><span class="p">,</span>
+                      <span class="s1">&#39;_Method&#39;</span><span class="p">:</span> <span class="s1">&#39;object&#39;</span><span class="p">,</span>
+                      <span class="s1">&#39;_Method_POC&#39;</span><span class="p">:</span> <span class="s1">&#39;int64&#39;</span><span class="p">}</span>
+        <span class="k">for</span> <span class="n">col</span><span class="p">,</span> <span class="n">col_dtype</span> <span class="ow">in</span> <span class="n">param_cols</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">header</span> <span class="o">=</span> <span class="n">param</span> <span class="o">+</span> <span class="n">col</span>
+            <span class="k">if</span> <span class="n">header</span> <span class="ow">in</span> <span class="n">setup</span><span class="p">:</span>
+                <span class="n">df</span><span class="p">[</span><span class="n">header</span><span class="p">]</span> <span class="o">=</span> <span class="n">setup</span><span class="p">[</span><span class="n">header</span><span class="p">]</span>
+                <span class="n">df</span><span class="p">[</span><span class="n">header</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">header</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">col_dtype</span><span class="p">,</span> <span class="n">errors</span><span class="o">=</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span>
+            <span class="c1"># Add unit info based on sensortoolkit.Parameter if not specified</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">param_obj</span> <span class="o">=</span> <span class="n">Parameter</span><span class="p">(</span><span class="n">param</span><span class="p">,</span> <span class="n">set_units</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">col</span> <span class="o">==</span> <span class="s1">&#39;_Unit&#39;</span> <span class="ow">and</span> <span class="n">param_obj</span><span class="o">.</span><span class="n">is_sdfs</span><span class="p">():</span>
+                    <span class="n">param_obj</span> <span class="o">=</span> <span class="n">Parameter</span><span class="p">(</span><span class="n">param</span><span class="p">,</span> <span class="n">set_units</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+                    <span class="n">df</span><span class="p">[</span><span class="n">header</span><span class="p">]</span> <span class="o">=</span> <span class="n">param_obj</span><span class="o">.</span><span class="n">units_description</span>
+
+    <span class="c1"># Reorder parameter columns</span>
+    <span class="n">col_order</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">setup</span><span class="p">[</span><span class="s1">&#39;sdfs_header_names&#39;</span><span class="p">]:</span>
+        <span class="n">col_order</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="n">col</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span>
+                          <span class="k">if</span> <span class="n">col</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">param</span><span class="p">])</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">col_order</span><span class="p">]</span>
+
+    <span class="n">site_cols</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;site_name&#39;</span><span class="p">:</span> <span class="s1">&#39;object&#39;</span><span class="p">,</span>
+                 <span class="s1">&#39;agency&#39;</span><span class="p">:</span> <span class="s1">&#39;object&#39;</span><span class="p">,</span>
+                 <span class="s1">&#39;site_aqs&#39;</span><span class="p">:</span> <span class="s1">&#39;object&#39;</span><span class="p">,</span>
+                 <span class="s1">&#39;site_lat&#39;</span><span class="p">:</span> <span class="s1">&#39;float64&#39;</span><span class="p">,</span>
+                 <span class="s1">&#39;site_lon&#39;</span><span class="p">:</span> <span class="s1">&#39;float64&#39;</span><span class="p">,</span>
+                 <span class="s1">&#39;data_source&#39;</span><span class="p">:</span> <span class="s1">&#39;object&#39;</span><span class="p">}</span>
+    <span class="c1"># Site metadata columns</span>
+    <span class="k">for</span> <span class="n">col</span><span class="p">,</span> <span class="n">col_dtype</span> <span class="ow">in</span> <span class="n">site_cols</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">setup</span><span class="p">:</span>
+            <span class="n">col_name</span> <span class="o">=</span> <span class="n">col</span><span class="o">.</span><span class="n">title</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">col_name</span> <span class="o">==</span> <span class="s1">&#39;Site_Aqs&#39;</span><span class="p">:</span>
+                <span class="n">col_name</span> <span class="o">=</span> <span class="s1">&#39;Site_AQS&#39;</span>
+            <span class="n">df</span><span class="p">[</span><span class="n">col_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">setup</span><span class="p">[</span><span class="n">col</span><span class="p">]</span>
+            <span class="n">df</span><span class="p">[</span><span class="n">col_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">col_name</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">col_dtype</span><span class="p">,</span> <span class="n">errors</span><span class="o">=</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">df</span></div>
+
+<div class="viewcode-block" id="apply_strptime"><a class="viewcode-back" href="../../../api/_autosummary/sensortoolkit.ingest._standard_ingest.apply_strptime.html#sensortoolkit.ingest._standard_ingest.apply_strptime">[docs]</a><span class="k">def</span> <span class="nf">apply_strptime</span><span class="p">(</span><span class="n">dt</span><span class="p">,</span> <span class="n">time_format</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Wrapper for adding exception catching to ``datetime.strptime``</span>
+
+<span class="sd">    If ``datetime.strptime`` encounters a value it cannot encode into time-like</span>
+<span class="sd">    form, the value is ignored.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        dt (pandas Series): An array of timestamp entries.</span>
+<span class="sd">        time_format (str): The expected format for timestamps.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        dt (pandas Series): A time-casted timestamp value.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">dt</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">dt</span><span class="p">,</span> <span class="n">time_format</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+        <span class="k">pass</span>
+    <span class="k">return</span> <span class="n">dt</span></div>
+
+<div class="viewcode-block" id="parse_setup"><a class="viewcode-back" href="../../../api/_autosummary/sensortoolkit.ingest._standard_ingest.parse_setup.html#sensortoolkit.ingest._standard_ingest.parse_setup">[docs]</a><span class="k">def</span> <span class="nf">parse_setup</span><span class="p">(</span><span class="n">setup_path</span><span class="p">,</span> <span class="n">data_path</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Construct file-specific setup file from the setup.json.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        setup_path (str):</span>
+<span class="sd">            Path to the setup.json file for ingesting datasets into SDFS format.</span>
+<span class="sd">        data_path (str):</span>
+<span class="sd">            Full path to the directory where recorded datasets are stored.</span>
+
+<span class="sd">            - For sensor data, this path should look like:</span>
+<span class="sd">              ``[project_path]/data/sensor_data/[sensor_name]/raw_data``</span>
+<span class="sd">            - For reference data, this path should look like:</span>
+<span class="sd">              ``[project_path]/data/reference_data/[ref_source]/raw/[sitename_siteid]``</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        file_setup (dict):</span>
+<span class="sd">            Data structure containing file-specific formatting configuration.</span>
+<span class="sd">            Passed to ``standard_ingest()`` for ingestion of the dataset</span>
+<span class="sd">            corresponding to the file into SDFS format.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Ensure norm path</span>
+    <span class="n">data_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">normpath</span><span class="p">(</span><span class="n">data_path</span><span class="p">)</span>
+
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">setup_path</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+        <span class="n">setup</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+        <span class="n">file</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+    <span class="n">file_col_list</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">file_drop_cols</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">file_col_headers</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">file_dt_headers</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">file_col_renaming</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">file_sdfs_headers</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">file_unit_scaling</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="n">file_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">normpath</span><span class="p">(</span><span class="n">file</span><span class="p">)</span> <span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="n">setup</span><span class="p">[</span><span class="s1">&#39;file_list&#39;</span><span class="p">]]</span>
+    <span class="n">file_idx</span> <span class="o">=</span> <span class="n">file_list</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">normpath</span><span class="p">(</span><span class="n">data_path</span><span class="p">))</span>
+    <span class="c1"># Either reference or sensor</span>
+    <span class="c1"># data_type = setup[&#39;data_type&#39;]</span>
+
+    <span class="c1"># Parse setup.json for data file specific header names</span>
+    <span class="k">for</span> <span class="n">col_idx</span> <span class="ow">in</span> <span class="n">setup</span><span class="p">[</span><span class="s1">&#39;col_headers&#39;</span><span class="p">]:</span>
+        <span class="c1"># config within the ith column index (i ranging from 0 to N-1 where</span>
+        <span class="c1"># N is the number of columns in the dataset)</span>
+        <span class="n">col_idx_config</span> <span class="o">=</span> <span class="n">setup</span><span class="p">[</span><span class="s1">&#39;col_headers&#39;</span><span class="p">][</span><span class="n">col_idx</span><span class="p">]</span>
+        <span class="n">col_idx_headers</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">col_idx_config</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+
+        <span class="c1"># Loop over header configs within the ith column index</span>
+        <span class="k">for</span> <span class="n">header</span> <span class="ow">in</span> <span class="n">col_idx_headers</span><span class="p">:</span>
+            <span class="c1"># Create list of data files containing the current header</span>
+            <span class="n">header_file_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">file_list</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span>
+                                <span class="n">col_idx_config</span><span class="p">[</span><span class="n">header</span><span class="p">][</span><span class="s1">&#39;in_file_list_idx&#39;</span><span class="p">]]</span>
+            <span class="n">header_file_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">normpath</span><span class="p">(</span><span class="n">path</span><span class="p">)</span> <span class="k">for</span> <span class="n">path</span> <span class="ow">in</span>
+                                <span class="n">header_file_list</span><span class="p">]</span>
+
+            <span class="c1"># Add file dataset info if passed filename contains the current</span>
+            <span class="c1"># header</span>
+            <span class="k">if</span> <span class="n">data_path</span> <span class="ow">in</span> <span class="n">header_file_list</span><span class="p">:</span>
+                <span class="n">file_col_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">header</span><span class="p">)</span>
+
+                <span class="n">header_config</span> <span class="o">=</span> <span class="n">col_idx_config</span><span class="p">[</span><span class="n">header</span><span class="p">]</span>
+                <span class="n">file_col_headers</span><span class="p">[</span><span class="n">header</span><span class="p">]</span> <span class="o">=</span> <span class="n">header_config</span>
+
+                <span class="k">if</span> <span class="n">header_config</span><span class="p">[</span><span class="s1">&#39;drop&#39;</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+                    <span class="n">file_drop_cols</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">header</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="c1"># Add datetime index column info</span>
+                    <span class="k">if</span> <span class="n">header_config</span><span class="p">[</span><span class="s1">&#39;header_class&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;datetime&#39;</span><span class="p">:</span>
+                        <span class="n">file_dt_headers</span><span class="p">[</span><span class="n">header</span><span class="p">]</span> <span class="o">=</span> <span class="n">header_config</span>
+                    <span class="c1"># Add parameter column info</span>
+                    <span class="k">if</span> <span class="n">header_config</span><span class="p">[</span><span class="s1">&#39;header_class&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;parameter&#39;</span><span class="p">:</span>
+                        <span class="n">sdfs_param</span> <span class="o">=</span> <span class="n">header_config</span><span class="p">[</span><span class="s1">&#39;sdfs_param&#39;</span><span class="p">]</span>
+
+                        <span class="n">file_col_renaming</span><span class="p">[</span><span class="n">header</span><span class="p">]</span> <span class="o">=</span> <span class="n">header_config</span><span class="p">[</span><span class="s1">&#39;sdfs_param&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39;_Value&#39;</span>
+
+                        <span class="n">file_sdfs_headers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sdfs_param</span><span class="p">)</span>
+
+                        <span class="k">if</span> <span class="p">(</span><span class="s1">&#39;unit_transform&#39;</span> <span class="ow">in</span> <span class="n">header_config</span> <span class="ow">and</span>
+                        <span class="n">header_config</span><span class="p">[</span><span class="s1">&#39;unit_transform&#39;</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">):</span>
+                            <span class="n">file_unit_scaling</span><span class="p">[</span><span class="n">header</span><span class="p">]</span> <span class="o">=</span> <span class="n">header_config</span><span class="p">[</span><span class="s1">&#39;unit_transform&#39;</span><span class="p">]</span>
+
+    <span class="n">col_list</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="s1">&#39;path&#39;</span><span class="p">,</span> <span class="s1">&#39;file_extension&#39;</span><span class="p">,</span> <span class="s1">&#39;header_iloc&#39;</span><span class="p">]</span>
+    <span class="n">file_setup</span> <span class="o">=</span> <span class="p">{</span><span class="n">col</span><span class="p">:</span> <span class="n">setup</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">col_list</span> <span class="k">if</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">setup</span><span class="p">}</span>
+    <span class="n">file_setup</span><span class="p">[</span><span class="s1">&#39;all_col_headers&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">file_col_list</span>
+    <span class="n">file_setup</span><span class="p">[</span><span class="s1">&#39;col_rename_dict&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">file_col_renaming</span>
+    <span class="n">file_setup</span><span class="p">[</span><span class="s1">&#39;drop_cols&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">file_drop_cols</span>
+    <span class="n">file_setup</span><span class="p">[</span><span class="s1">&#39;time_format_dict&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">file_dt_headers</span>
+    <span class="n">file_setup</span><span class="p">[</span><span class="s1">&#39;sdfs_header_names&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">file_sdfs_headers</span>
+    <span class="n">file_setup</span><span class="p">[</span><span class="s1">&#39;file_unit_scaling&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">file_unit_scaling</span>
+
+    <span class="c1"># Reference only: add parameter metadata columns</span>
+    <span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">file_sdfs_headers</span><span class="p">:</span>
+        <span class="n">param_cols</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;_Unit&#39;</span><span class="p">,</span> <span class="s1">&#39;_Param_Code&#39;</span><span class="p">,</span> <span class="s1">&#39;_Method_Code&#39;</span><span class="p">,</span> <span class="s1">&#39;_Method&#39;</span><span class="p">,</span>
+                      <span class="s1">&#39;_Method_POC&#39;</span><span class="p">]</span>
+
+        <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">param_cols</span><span class="p">:</span>
+            <span class="n">header</span> <span class="o">=</span> <span class="n">param</span> <span class="o">+</span> <span class="n">col</span>
+            <span class="k">if</span> <span class="n">header</span> <span class="ow">in</span> <span class="n">setup</span><span class="p">:</span>
+                <span class="n">file_setup</span><span class="p">[</span><span class="n">header</span><span class="p">]</span> <span class="o">=</span> <span class="n">setup</span><span class="p">[</span><span class="n">header</span><span class="p">]</span>
+
+    <span class="c1"># Reference only: add site metadata columns</span>
+    <span class="n">site_cols</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;site_name&#39;</span><span class="p">,</span> <span class="s1">&#39;agency&#39;</span><span class="p">,</span> <span class="s1">&#39;site_aqs&#39;</span><span class="p">,</span> <span class="s1">&#39;site_lat&#39;</span><span class="p">,</span> <span class="s1">&#39;site_lon&#39;</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">site_cols</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">setup</span><span class="p">:</span>
+            <span class="n">file_setup</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="n">setup</span><span class="p">[</span><span class="n">col</span><span class="p">]</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">file_setup</span><span class="p">[</span><span class="s1">&#39;data_row_idx&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">setup</span><span class="p">[</span><span class="s1">&#39;data_row_idx&#39;</span><span class="p">]</span>
+    <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+        <span class="n">file_setup</span><span class="p">[</span><span class="s1">&#39;data_row_idx&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">file_setup</span><span class="p">[</span><span class="s1">&#39;data_source&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">setup</span><span class="p">[</span><span class="s1">&#39;dataset_kwargs&#39;</span><span class="p">][</span><span class="s1">&#39;ref_data_source&#39;</span><span class="p">]</span>
+    <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+        <span class="k">pass</span>
+
+    <span class="c1"># default encoding prediction</span>
+    <span class="n">file_setup</span><span class="p">[</span><span class="s1">&#39;encoding_prediction&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;utf-8&#39;</span>
+    <span class="c1"># pass on any predictions indicated by chardet in setup</span>
+    <span class="k">if</span> <span class="s1">&#39;encoding_predictions&#39;</span> <span class="ow">in</span> <span class="n">setup</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">file_idx</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">key</span><span class="p">)</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">setup</span><span class="p">[</span><span class="s1">&#39;encoding_predictions&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">keys</span><span class="p">()):</span>
+            <span class="n">file_setup</span><span class="p">[</span><span class="s1">&#39;encoding_prediction&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">setup</span><span class="p">[</span><span class="s1">&#39;encoding_predictions&#39;</span><span class="p">][</span><span class="nb">str</span><span class="p">(</span><span class="n">file_idx</span><span class="p">)]</span>
+
+    <span class="k">return</span> <span class="n">file_setup</span></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, United States Environmental Protection Agency.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

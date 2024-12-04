@@ -15,7 +15,8 @@ Conducting performance evaluations of air sensors with ``sensortoolkit`` is
 accomplished via the library's evaluation objects, ``sensortoolkit.SensorEvaluation``
 and ``sensortoolkit.PerformanceReport``. ``sensortoolkit.SensorEvaluation`` can be used
 to conduct performance evaluations for air sensors with EPA's recommended performance
-metrics and targets for either fine particulate matter or ozone sensors, and figures
+metrics and targets for :raw-html:`PM<sub>2.5</sub>`, :raw-html:`PM<sub>10</sub>`, :raw-html:`O<sub>3</sub>`,
+:raw-html:`CO`, :raw-html:`NO<sub>2</sub>`, and :raw-html:`SO<sub>2</sub>`, sensors, and figures
 and summary statistics can be generating for reviewing sensor performance. Testing
 reports utilizing EPA's reporting templates for base testing of air sensors
 under NSIM applications are created via the ``sensortoolkit.PerformanceReport`` class.

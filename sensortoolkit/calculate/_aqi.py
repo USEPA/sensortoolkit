@@ -71,7 +71,7 @@ def aqi(data, column=None):
     µg/m³ precision.
 
     Here, the breakpoints are set so that the concentration values adhere to
-    the AQI catagory at the breakpoints by following rounding conventions
+    the AQI category at the breakpoints by following rounding conventions
     (values within the range of category high breakpoint + 0.05 (e.g.,
     'Good' C_h = 12.05) are assigned to the lower category, if
     high breakpoint + 0.05 < concentration value < high breakpoint + 0.10 then
