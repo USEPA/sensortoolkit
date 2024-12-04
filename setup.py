@@ -76,6 +76,6 @@ setup(name='sensortoolkit',
                         'chardet',
                         'timezonefinder',
                         'appdirs',
-                        'charset_normalizer<=2.0.4'
+                        'charset_normalizer<=2.0.3'
                         ]
       )
