@@ -8,7 +8,7 @@
 
 *Sensors at an ambient air monitoring site. Photo Credit - South Coast AQMD AQ-SPEC Program*
 
-*Samuel Frederick, NSSC Contractor (ORAU)*
+*Samuel Frederick, former NSSC Contractor (ORAU)*
 
 ****
 ## Readme Guide
@@ -39,7 +39,8 @@ wide range of skill sets (e.g., individuals interested in monitoring
 their own sensor data, students and academic researchers, and industry
 professionals).
 
-In February 2021, EPA released [two reports](https://www.epa.gov/air-sensor-toolbox/air-sensor-performance-targets-and-testing-protocols#reports) detailing recommended performance testing protocols, metrics, and target values for the evaluation of sensors measuring either fine particulate matter (PM<sub>2.5</sub>) or ozone (O<sub>3</sub>). The sensortoolkit library includes numerous modules for computing performance metrics recommended by U.S. EPA for evaluating PM<sub>2.5</sub> and O<sub>3</sub> sensors. Additionally, plotting functions are included for visualizing performance evaluation results, including visualization of sensor performance metric values against U.S. EPA’s performance targets, sensor time series, scatter plots comparing collocated sensor and reference measurements, distribution plots for displaying the range of meteorological conditions during the deployment, etc. Tabular statistics and figures can be automatically compiled into testing reports recommended by U.S. EPA’s performance targets documents for testing conducting at ambient air monitoring sites.
+In February 2021, EPA released [two reports](https://www.epa.gov/air-sensor-toolbox/air-sensor-performance-targets-and-testing-protocols#reports) detailing recommended performance testing protocols, metrics, and target values for the evaluation of sensors measuring either fine particulate matter (PM<sub>2.5</sub>) or ozone (O<sub>3</sub>). In February 2024, EPA released [two supplemental reports](https://www.epa.gov/air-sensor-toolbox/air-sensor-performance-targets-and-testing-protocols#reports); one for PM<sub>10</sub> air sensors to accompany the PM<sub>2.5</sub> report and the other for 
+NO<sub>2</sub>, CO, SO<sub>2</sub> air sensors to accompany the O<sub>3</sub> report. The sensortoolkit library includes numerous modules for computing performance metrics recommended by U.S. EPA for evaluating PM<sub>2.5</sub> and O<sub>3</sub> sensors. Additionally, plotting functions are included for visualizing performance evaluation results, including visualization of sensor performance metric values against U.S. EPA’s performance targets, sensor time series, scatter plots comparing collocated sensor and reference measurements, distribution plots for displaying the range of meteorological conditions during the deployment, etc. Tabular statistics and figures can be automatically compiled into testing reports recommended by U.S. EPA’s performance targets documents for testing conducting at ambient air monitoring sites.
 
 ## Key features <a name="key-features"></a>
 
@@ -61,7 +62,7 @@ formatting schemes for sensor and reference data.
     processed datasets to a data directory.
 - Conduct analysis with the `SensorEvaluation` module  
 -   Compute U.S. EPA’s recommended performance metrics for evaluating
-    PM<sub>2.5</sub> and O<sub>3</sub> sensors.
+    PM<sub>2.5</sub>, O<sub>3</sub>, NO<sub>2</sub>, CO, and SO<sub>2</sub> sensors.
 
 -   Visualize sensor performance with various figures and save to file location.  
     -   Sensor vs. FRM/FEM scatter plots
