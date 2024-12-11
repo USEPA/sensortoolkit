@@ -179,7 +179,7 @@ def met_distrib(met_ref_data, avg_hrly_df, figure_path, sensor_name=None,
                      **{'alpha': 0.6})
 
         if param.startswith('RH'):
-            label = 'Relative Humidity (%)'
+            label = 'Monitor Relative Humidity (%)'
             if sensor_data:
                 label = label.replace('Reference', 'Sensor')
                 axs[i].set_title('*Sensor Measurements Shown*',
@@ -189,7 +189,7 @@ def met_distrib(met_ref_data, avg_hrly_df, figure_path, sensor_name=None,
             #axs[i].set_title('Relative Humidity Monitor', fontsize=10)
 
         if param.startswith('Temp'):
-            label = 'Temperature ($\\degree$C)'
+            label = 'Monitor Temperature ($\\degree$C)'
             if sensor_data:
                 label = label.replace('Reference', 'Sensor')
                 axs[i].set_title('*Sensor Measurements Shown*',
